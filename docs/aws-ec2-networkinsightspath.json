@@ -1,0 +1,102 @@
+{
+  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-resource-providers-ec2-ni.git",
+  "handlers" : {
+    "read" : {
+      "permissions" : [ "ec2:DescribeNetworkInsightsPaths" ]
+    },
+    "create" : {
+      "permissions" : [ "ec2:CreateNetworkInsightsPath" ]
+    },
+    "update" : {
+      "permissions" : [ "ec2:DescribeNetworkInsightsPaths", "ec2:CreateTags", "ec2:DeleteTags" ]
+    },
+    "list" : {
+      "permissions" : [ "ec2:DescribeNetworkInsightsPaths" ]
+    },
+    "delete" : {
+      "permissions" : [ "ec2:DeleteNetworkInsightsPath" ]
+    }
+  },
+  "typeName" : "AWS::EC2::NetworkInsightsPath",
+  "readOnlyProperties" : [ "/properties/NetworkInsightsPathId", "/properties/NetworkInsightsPathArn", "/properties/CreatedDate", "/properties/SourceArn", "/properties/DestinationArn" ],
+  "description" : "Resource schema for AWS::EC2::NetworkInsightsPath",
+  "additionalIdentifiers" : [ [ "/properties/NetworkInsightsPathArn" ] ],
+  "createOnlyProperties" : [ "/properties/SourceIp", "/properties/DestinationIp", "/properties/Source", "/properties/Destination", "/properties/Protocol", "/properties/DestinationPort" ],
+  "additionalProperties" : false,
+  "primaryIdentifier" : [ "/properties/NetworkInsightsPathId" ],
+  "definitions" : {
+    "Port" : {
+      "type" : "integer"
+    },
+    "IpAddress" : {
+      "type" : "string"
+    },
+    "Tag" : {
+      "additionalProperties" : false,
+      "type" : "object",
+      "properties" : {
+        "Value" : {
+          "type" : "string"
+        },
+        "Key" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "Key" ]
+    },
+    "Protocol" : {
+      "type" : "string",
+      "enum" : [ "tcp", "udp" ]
+    },
+    "Tags" : {
+      "uniqueItems" : true,
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Tag"
+      }
+    }
+  },
+  "required" : [ "Protocol", "Source" ],
+  "properties" : {
+    "Destination" : {
+      "type" : "string"
+    },
+    "NetworkInsightsPathId" : {
+      "type" : "string"
+    },
+    "NetworkInsightsPathArn" : {
+      "type" : "string"
+    },
+    "DestinationPort" : {
+      "$ref" : "#/definitions/Port"
+    },
+    "Source" : {
+      "type" : "string"
+    },
+    "DestinationIp" : {
+      "$ref" : "#/definitions/IpAddress"
+    },
+    "SourceIp" : {
+      "$ref" : "#/definitions/IpAddress"
+    },
+    "SourceArn" : {
+      "type" : "string"
+    },
+    "CreatedDate" : {
+      "type" : "string"
+    },
+    "Protocol" : {
+      "$ref" : "#/definitions/Protocol"
+    },
+    "DestinationArn" : {
+      "type" : "string"
+    },
+    "Tags" : {
+      "insertionOrder" : false,
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Tag"
+      }
+    }
+  }
+}
