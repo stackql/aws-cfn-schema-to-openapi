@@ -156,10 +156,9 @@ function generateStackqlViews(openApiSpec) {
 
   const topLevelSchemas = Object.entries(openApiSpec.components.schemas)
     .filter(([_, value]) => value['x-stackql-resource-name']);
-  console.log('topLevelSchemas', topLevelSchemas)
   const views = topLevelSchemas.map(([schemaName, schema]) => {
     const resource = schema['x-stackql-resource-name'] || schemaName;
-    const selectQuery = generateSelectQuery(schemaName, schema, region, componentName);
+    const selectQuery = generateSelectQuery(schemaName, schema, region, componentName, openApiSpec);
 
     return {
       [resource]: {
@@ -180,12 +179,15 @@ function generateStackqlViews(openApiSpec) {
   return views;
 }
 
-function generateSelectQuery(schemaName, schema, region, componentName) {
+function generateSelectQuery(schemaName, schema, region, componentName, openApiSpec) {
   let selectQuery = "SELECT \n";
   for (const propertyName in schema.properties) {
     const propertySchema = schema.properties[propertyName];
-    if (propertySchema.properties) {
-      for (const nestedPropertyName in propertySchema.properties) {
+    //if property schema has ref, need to get the ref component in the schema of the openapi spec
+    if (propertySchema.$ref) {
+      const refSchemaName = propertySchema.$ref.split('/').pop();
+      const refSchema = openApiSpec.components.schemas[refSchemaName];
+      for (const nestedPropertyName in refSchema.properties) {
         const columnAlias = toSnakeCase(`${propertyName}_${nestedPropertyName}`);
         selectQuery += `JSON_EXTRACT(Properties, '$.${propertyName}.${nestedPropertyName}') as ${columnAlias},\n`;
       }
