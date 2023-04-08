@@ -100,7 +100,7 @@ components:
             - Enforce
       required:
         - UntrustedArtifactOnDeployment
-    Codesigningconfig:
+    CodeSigningConfig:
       type: object
       properties:
         Description:
@@ -133,7 +133,7 @@ components:
           x-is-top-level-property: true
       required:
         - AllowedPublishers
-      x-stackql-resource-name: Codesigningconfig
+      x-stackql-resource-name: CodeSigningConfig
     DestinationConfig:
       type: object
       additionalProperties: false
@@ -164,7 +164,7 @@ components:
             arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-])+:([a-z]{2}(-gov)?-[a-z]+-\d{1})?:(\d{12})?:(.*)
           minLength: 12
           maxLength: 1024
-    Eventinvokeconfig:
+    EventInvokeConfig:
       type: object
       properties:
         FunctionName:
@@ -188,7 +188,7 @@ components:
       required:
         - FunctionName
         - Qualifier
-      x-stackql-resource-name: Eventinvokeconfig
+      x-stackql-resource-name: EventInvokeConfig
     FilterCriteria:
       type: object
       description: The filter criteria to control event filtering.
@@ -331,7 +331,7 @@ components:
           enum:
             - UpdateLookup
             - Default
-    Eventsourcemapping:
+    EventSourceMapping:
       type: object
       properties:
         Id:
@@ -507,7 +507,7 @@ components:
           x-is-top-level-property: true
       required:
         - FunctionName
-      x-stackql-resource-name: Eventsourcemapping
+      x-stackql-resource-name: EventSourceMapping
     ImageConfig:
       additionalProperties: false
       type: object
@@ -919,7 +919,7 @@ components:
       required:
         - S3Bucket
         - S3Key
-    Layerversion:
+    LayerVersion:
       type: object
       properties:
         CompatibleRuntimes:
@@ -951,8 +951,8 @@ components:
           x-is-top-level-property: true
       required:
         - Content
-      x-stackql-resource-name: Layerversion
-    Layerversionpermission:
+      x-stackql-resource-name: LayerVersion
+    LayerVersionPermission:
       type: object
       properties:
         Id:
@@ -974,7 +974,7 @@ components:
         - LayerVersionArn
         - Action
         - Principal
-      x-stackql-resource-name: Layerversionpermission
+      x-stackql-resource-name: LayerVersionPermission
     Permission:
       type: object
       properties:
@@ -1175,7 +1175,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties,
               '$.ProvisionedConcurrencyConfig.ProvisionedConcurrentExecutions')
               as
-              provisioned_concurrency_config__provisioned_concurrent_executions,
+              provisioned_concurrency_config_provisioned_concurrent_executions,
 
               JSON_EXTRACT(Properties, '$.Description') as description,
 
@@ -1185,15 +1185,15 @@ x-stackql-views:
 
               JSON_EXTRACT(Properties,
               '$.RoutingConfig.AdditionalVersionWeights') as
-              routing_config__additional_version_weights,
+              routing_config_additional_version_weights,
 
               JSON_EXTRACT(Properties, '$.Name') as name
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
               and data__TypeName = 'AWS::Lambda::Alias' ;
-  - Codesigningconfig:
-      name: Codesigningconfig
-      id: aws.lambda.Codesigningconfig
+  - CodeSigningConfig:
+      name: CodeSigningConfig
+      id: aws.lambda.CodeSigningConfig
       config:
         views:
           select:
@@ -1205,11 +1205,11 @@ x-stackql-views:
 
               JSON_EXTRACT(Properties,
               '$.AllowedPublishers.SigningProfileVersionArns') as
-              allowed_publishers__signing_profile_version_arns,
+              allowed_publishers_signing_profile_version_arns,
 
               JSON_EXTRACT(Properties,
               '$.CodeSigningPolicies.UntrustedArtifactOnDeployment') as
-              code_signing_policies__untrusted_artifact_on_deployment,
+              code_signing_policies_untrusted_artifact_on_deployment,
 
               JSON_EXTRACT(Properties, '$.CodeSigningConfigId') as
               code_signing_config_id,
@@ -1218,10 +1218,10 @@ x-stackql-views:
               code_signing_config_arn
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Lambda::Codesigningconfig' ;
-  - Eventinvokeconfig:
-      name: Eventinvokeconfig
-      id: aws.lambda.Eventinvokeconfig
+              and data__TypeName = 'AWS::Lambda::CodeSigningConfig' ;
+  - EventInvokeConfig:
+      name: EventInvokeConfig
+      id: aws.lambda.EventInvokeConfig
       config:
         views:
           select:
@@ -1237,7 +1237,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Qualifier') as qualifier,
 
               JSON_EXTRACT(Properties, '$.DestinationConfig.OnFailure') as
-              destination_config__on_failure,
+              destination_config_on_failure,
 
               JSON_EXTRACT(Properties, '$.Id') as id,
 
@@ -1245,10 +1245,10 @@ x-stackql-views:
               maximum_event_age_in_seconds
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Lambda::Eventinvokeconfig' ;
-  - Eventsourcemapping:
-      name: Eventsourcemapping
-      id: aws.lambda.Eventsourcemapping
+              and data__TypeName = 'AWS::Lambda::EventInvokeConfig' ;
+  - EventSourceMapping:
+      name: EventSourceMapping
+      id: aws.lambda.EventSourceMapping
       config:
         views:
           select:
@@ -1264,14 +1264,14 @@ x-stackql-views:
               bisect_batch_on_function_error,
 
               JSON_EXTRACT(Properties, '$.DestinationConfig.OnFailure') as
-              destination_config__on_failure,
+              destination_config_on_failure,
 
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
 
               JSON_EXTRACT(Properties, '$.EventSourceArn') as event_source_arn,
 
               JSON_EXTRACT(Properties, '$.FilterCriteria.Filters') as
-              filter_criteria__filters,
+              filter_criteria_filters,
 
               JSON_EXTRACT(Properties, '$.FunctionName') as function_name,
 
@@ -1307,33 +1307,33 @@ x-stackql-views:
               function_response_types,
 
               JSON_EXTRACT(Properties, '$.SelfManagedEventSource.Endpoints') as
-              self_managed_event_source__endpoints,
+              self_managed_event_source_endpoints,
 
               JSON_EXTRACT(Properties,
               '$.AmazonManagedKafkaEventSourceConfig.ConsumerGroupId') as
-              amazon_managed_kafka_event_source_config__consumer_group_id,
+              amazon_managed_kafka_event_source_config_consumer_group_id,
 
               JSON_EXTRACT(Properties,
               '$.SelfManagedKafkaEventSourceConfig.ConsumerGroupId') as
-              self_managed_kafka_event_source_config__consumer_group_id,
+              self_managed_kafka_event_source_config_consumer_group_id,
 
               JSON_EXTRACT(Properties, '$.ScalingConfig.MaximumConcurrency') as
-              scaling_config__maximum_concurrency,
+              scaling_config_maximum_concurrency,
 
               JSON_EXTRACT(Properties,
               '$.DocumentDBEventSourceConfig.DatabaseName') as
-              document_db_event_source_config__database_name,
+              document_db_event_source_config_database_name,
 
               JSON_EXTRACT(Properties,
               '$.DocumentDBEventSourceConfig.CollectionName') as
-              document_db_event_source_config__collection_name,
+              document_db_event_source_config_collection_name,
 
               JSON_EXTRACT(Properties,
               '$.DocumentDBEventSourceConfig.FullDocument') as
-              document_db_event_source_config__full_document
+              document_db_event_source_config_full_document
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Lambda::Eventsourcemapping' ;
+              and data__TypeName = 'AWS::Lambda::EventSourceMapping' ;
   - Function:
       name: Function
       id: aws.lambda.Function
@@ -1347,27 +1347,27 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Description') as description,
 
               JSON_EXTRACT(Properties, '$.TracingConfig.Mode') as
-              tracing_config__mode,
+              tracing_config_mode,
 
               JSON_EXTRACT(Properties, '$.VpcConfig.SecurityGroupIds') as
-              vpc_config__security_group_ids,
+              vpc_config_security_group_ids,
 
               JSON_EXTRACT(Properties, '$.VpcConfig.SubnetIds') as
-              vpc_config__subnet_ids,
+              vpc_config_subnet_ids,
 
               JSON_EXTRACT(Properties,
               '$.RuntimeManagementConfig.UpdateRuntimeOn') as
-              runtime_management_config__update_runtime_on,
+              runtime_management_config_update_runtime_on,
 
               JSON_EXTRACT(Properties,
               '$.RuntimeManagementConfig.RuntimeVersionArn') as
-              runtime_management_config__runtime_version_arn,
+              runtime_management_config_runtime_version_arn,
 
               JSON_EXTRACT(Properties, '$.ReservedConcurrentExecutions') as
               reserved_concurrent_executions,
 
               JSON_EXTRACT(Properties, '$.SnapStart.ApplyOn') as
-              snap_start__apply_on,
+              snap_start_apply_on,
 
               JSON_EXTRACT(Properties, '$.FileSystemConfigs') as
               file_system_configs,
@@ -1388,57 +1388,57 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
 
               JSON_EXTRACT(Properties, '$.ImageConfig.WorkingDirectory') as
-              image_config__working_directory,
+              image_config_working_directory,
 
               JSON_EXTRACT(Properties, '$.ImageConfig.Command') as
-              image_config__command,
+              image_config_command,
 
               JSON_EXTRACT(Properties, '$.ImageConfig.EntryPoint') as
-              image_config__entry_point,
+              image_config_entry_point,
 
               JSON_EXTRACT(Properties, '$.MemorySize') as memory_size,
 
               JSON_EXTRACT(Properties, '$.DeadLetterConfig.TargetArn') as
-              dead_letter_config__target_arn,
+              dead_letter_config_target_arn,
 
               JSON_EXTRACT(Properties, '$.Timeout') as timeout,
 
               JSON_EXTRACT(Properties, '$.Handler') as handler,
 
               JSON_EXTRACT(Properties, '$.SnapStartResponse.OptimizationStatus')
-              as snap_start_response__optimization_status,
+              as snap_start_response_optimization_status,
 
               JSON_EXTRACT(Properties, '$.SnapStartResponse.ApplyOn') as
-              snap_start_response__apply_on,
+              snap_start_response_apply_on,
 
               JSON_EXTRACT(Properties, '$.Code.S3ObjectVersion') as
-              code__s3_object_version,
+              code_s3_object_version,
 
-              JSON_EXTRACT(Properties, '$.Code.S3Bucket') as code__s3_bucket,
+              JSON_EXTRACT(Properties, '$.Code.S3Bucket') as code_s3_bucket,
 
-              JSON_EXTRACT(Properties, '$.Code.ZipFile') as code__zip_file,
+              JSON_EXTRACT(Properties, '$.Code.ZipFile') as code_zip_file,
 
-              JSON_EXTRACT(Properties, '$.Code.S3Key') as code__s3_key,
+              JSON_EXTRACT(Properties, '$.Code.S3Key') as code_s3_key,
 
-              JSON_EXTRACT(Properties, '$.Code.ImageUri') as code__image_uri,
+              JSON_EXTRACT(Properties, '$.Code.ImageUri') as code_image_uri,
 
               JSON_EXTRACT(Properties, '$.Role') as role,
 
               JSON_EXTRACT(Properties, '$.Environment.Variables') as
-              environment__variables,
+              environment_variables,
 
               JSON_EXTRACT(Properties, '$.Arn') as arn,
 
               JSON_EXTRACT(Properties, '$.EphemeralStorage.Size') as
-              ephemeral_storage__size,
+              ephemeral_storage_size,
 
               JSON_EXTRACT(Properties, '$.Architectures') as architectures
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
               and data__TypeName = 'AWS::Lambda::Function' ;
-  - Layerversion:
-      name: Layerversion
-      id: aws.lambda.Layerversion
+  - LayerVersion:
+      name: LayerVersion
+      id: aws.lambda.LayerVersion
       config:
         views:
           select:
@@ -1456,12 +1456,12 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.LayerName') as layer_name,
 
               JSON_EXTRACT(Properties, '$.Content.S3ObjectVersion') as
-              content__s3_object_version,
+              content_s3_object_version,
 
               JSON_EXTRACT(Properties, '$.Content.S3Bucket') as
-              content__s3_bucket,
+              content_s3_bucket,
 
-              JSON_EXTRACT(Properties, '$.Content.S3Key') as content__s3_key,
+              JSON_EXTRACT(Properties, '$.Content.S3Key') as content_s3_key,
 
               JSON_EXTRACT(Properties, '$.Id') as id,
 
@@ -1469,10 +1469,10 @@ x-stackql-views:
               compatible_architectures
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Lambda::Layerversion' ;
-  - Layerversionpermission:
-      name: Layerversionpermission
-      id: aws.lambda.Layerversionpermission
+              and data__TypeName = 'AWS::Lambda::LayerVersion' ;
+  - LayerVersionPermission:
+      name: LayerVersionPermission
+      id: aws.lambda.LayerVersionPermission
       config:
         views:
           select:
@@ -1492,7 +1492,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Principal') as principal
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Lambda::Layerversionpermission' ;
+              and data__TypeName = 'AWS::Lambda::LayerVersionPermission' ;
   - Permission:
       name: Permission
       id: aws.lambda.Permission
@@ -1549,21 +1549,21 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.FunctionUrl') as function_url,
 
               JSON_EXTRACT(Properties, '$.Cors.AllowCredentials') as
-              cors__allow_credentials,
+              cors_allow_credentials,
 
               JSON_EXTRACT(Properties, '$.Cors.AllowHeaders') as
-              cors__allow_headers,
+              cors_allow_headers,
 
               JSON_EXTRACT(Properties, '$.Cors.AllowMethods') as
-              cors__allow_methods,
+              cors_allow_methods,
 
               JSON_EXTRACT(Properties, '$.Cors.AllowOrigins') as
-              cors__allow_origins,
+              cors_allow_origins,
 
               JSON_EXTRACT(Properties, '$.Cors.ExposeHeaders') as
-              cors__expose_headers,
+              cors_expose_headers,
 
-              JSON_EXTRACT(Properties, '$.Cors.MaxAge') as cors__max_age
+              JSON_EXTRACT(Properties, '$.Cors.MaxAge') as cors_max_age
 
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
               and data__TypeName = 'AWS::Lambda::Url' ;
@@ -1582,7 +1582,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties,
               '$.ProvisionedConcurrencyConfig.ProvisionedConcurrentExecutions')
               as
-              provisioned_concurrency_config__provisioned_concurrent_executions,
+              provisioned_concurrency_config_provisioned_concurrent_executions,
 
               JSON_EXTRACT(Properties, '$.Description') as description,
 

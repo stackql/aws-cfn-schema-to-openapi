@@ -188,7 +188,7 @@ function generateSelectQuery(schemaName, schema, region, componentName, openApiS
       const refSchemaName = propertySchema.$ref.split('/').pop();
       const refSchema = openApiSpec.components.schemas[refSchemaName];
       for (const nestedPropertyName in refSchema.properties) {
-        const columnAlias = toSnakeCase(`${propertyName}_${nestedPropertyName}`);
+        const columnAlias = toSnakeCase(`${propertyName}${nestedPropertyName}`);
         selectQuery += `JSON_EXTRACT(Properties, '$.${propertyName}.${nestedPropertyName}') as ${columnAlias},\n`;
       }
     } else {
