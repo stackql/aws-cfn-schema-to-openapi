@@ -226,8 +226,8 @@ async function main(fileFilter, outputFilename, serviceTitle) {
   for (const file of files) {
     const content = await fs.promises.readFile(file);
     const jsonContent = JSON.parse(content);
-
-    const componentName = path.basename(file, ".json");
+    //  "typeName" : "AWS::Lambda::Function", to "Function"
+    const componentName = jsonContent.typeName.split("::").pop();
     const openAPIComponent = convertToOpenAPI(
       jsonContent,
       componentName,
