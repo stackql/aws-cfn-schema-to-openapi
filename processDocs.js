@@ -8,6 +8,8 @@ import { generateSelectQuery, convertToOpenAPI, cleanOpenAPISpec } from './lib/u
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const docsDir = path.join(__dirname, "docs");
+const outputDir = path.join(__dirname, "output");
 
 function findFiles(startPath, filter) {
   let results = [];
@@ -32,7 +34,8 @@ function findFiles(startPath, filter) {
 function writeObjectToYamlFile(fileContent, filename) {
   try {
     const yaml = dump(fileContent);
-    fs.writeFileSync(filename, yaml, "utf8");
+    const outputFilePath = path.join(outputDir, filename);
+    fs.writeFileSync(outputFilePath, yaml, "utf8");
     console.log(`File ${filename} written successfully.`);
   } catch (err) {
     console.error("Error writing file:", err);
@@ -68,11 +71,10 @@ function generateStackqlViews(openApiSpec) {
   return views;
 }
 
-async function processDoc(fileFilter, outputFilename, serviceTitle) {
+async function processDoc(fileFilter, outputFilename) {
   const openAPI = {
     openapi: "3.0.0",
     info: {
-      title: serviceTitle,
       version: "1.0.0",
     },
     paths: {},
@@ -81,12 +83,15 @@ async function processDoc(fileFilter, outputFilename, serviceTitle) {
     },
   };
 
-  const files = findFiles(__dirname, fileFilter);
-
+  const files = findFiles(docsDir, fileFilter);
+  let serviceTitle;
   for (const file of files) {
     const content = await fs.promises.readFile(file);
     const jsonContent = JSON.parse(content);
     const componentName = jsonContent.typeName.split("::").pop();
+    if (!serviceTitle) {
+      serviceTitle = jsonContent.typeName?.split("::")[1];
+    }
     const openAPIComponent = convertToOpenAPI(
       jsonContent,
       componentName,
@@ -94,12 +99,47 @@ async function processDoc(fileFilter, outputFilename, serviceTitle) {
     );
     Object.assign(openAPI.components.schemas, openAPIComponent);
   }
+  openAPI.info = {title: serviceTitle, ...openAPI.info};
   const stackqlViews = generateStackqlViews(openAPI);
   Object.assign(openAPI, {'x-stackql-views': stackqlViews});
+
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
   writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
 }
 
-processDoc("aws-lambda", "openapi-lambda.yaml", "Lambda");
+// processDoc("aws-lambda", "openapi-lambda.yaml",);
+
+
+function findFilesInDocs(filter) {
+
+  const filePath = filter? path.join(docsDir, filter) : docsDir;
+  const files = fs.readdirSync(filePath);
+
+  return files;
+}
+
+function main(){
+  const docFiles = findFilesInDocs();
+  const fileFilters = docFiles
+  .filter(filename => filename.startsWith("aws-"))
+  .map(filename => filename.split("-")[1]);
+
+  const uniqueServices = [...new Set(fileFilters)];
+
+  for (const service of uniqueServices) {
+    try {
+      const filePrefix = `aws-${service}`;
+      const outputFilename = `openapi-${service}.yaml`;
+      processDoc(filePrefix, outputFilename);
+      console.log('Service processed', service)
+    } catch (error) {
+      console.log('Error processing file', service, error)
+    }
+
+  }
+
+}
+
+main()
