@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { dump } from "js-yaml";
-import { generateSelectQuery, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils.js';
+import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -42,36 +42,7 @@ function writeObjectToYamlFile(fileContent, filename) {
   }
 }
 
-function generateStackqlViews(openApiSpec) {
-  const region = 'ap-southeast-1';
-  const componentName = openApiSpec.info.title;
-
-  const topLevelSchemas = Object.entries(openApiSpec.components.schemas)
-    .filter(([_, value]) => value['x-stackql-resource-name']);
-  const views = topLevelSchemas.map(([schemaName, schema]) => {
-    const resource = schema['x-stackql-resource-name'] || schemaName;
-    const selectQuery = generateSelectQuery({schemaName, schema, region, componentName, openApiSpec});
-
-    return {
-      [resource]: {
-        name: resource,
-        id: `aws.${componentName.toLowerCase()}.${resource}`,
-        config: {
-          views: {
-            select: {
-              predicate: 'sqlDialect == "sqlite3"',
-              ddl: selectQuery,
-            },
-          },
-        },
-      },
-    };
-  });
-
-  return views;
-}
-
-async function processDoc(fileFilter, outputFilename) {
+async function processService(servicePrefix, outputFilename) {
   const openAPI = {
     openapi: "3.0.0",
     info: {
@@ -83,7 +54,7 @@ async function processDoc(fileFilter, outputFilename) {
     },
   };
 
-  const files = findFiles(docsDir, fileFilter);
+  const files = findFiles(docsDir, servicePrefix);
   let serviceTitle;
   for (const file of files) {
     const content = await fs.promises.readFile(file);
@@ -132,7 +103,7 @@ function main(){
     try {
       const filePrefix = `aws-${service}`;
       const outputFilename = `openapi-${service}.yaml`;
-      processDoc(filePrefix, outputFilename);
+      processService(filePrefix, outputFilename);
       console.log('Service processed', service)
     } catch (error) {
       console.log('Error processing file', service, error)
