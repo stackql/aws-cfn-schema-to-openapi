@@ -1,0 +1,374 @@
+openapi: 3.0.0
+info:
+  title: Panorama
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Name:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    Description:
+      type: string
+      minLength: 0
+      maxLength: 255
+      pattern: ^.*$
+    ManifestPayloadData:
+      type: string
+      minLength: 1
+      maxLength: 51200
+      pattern: ^.+$
+    ManifestPayload:
+      type: object
+      properties:
+        PayloadData:
+          $ref: '#/components/schemas/ManifestPayloadData'
+      additionalProperties: false
+    ManifestOverridesPayloadData:
+      type: string
+      minLength: 0
+      maxLength: 51200
+      pattern: ^.+$
+    ManifestOverridesPayload:
+      type: object
+      properties:
+        PayloadData:
+          $ref: '#/components/schemas/ManifestOverridesPayloadData'
+      additionalProperties: false
+    RuntimeRoleArn:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^arn:[a-z0-9][-.a-z0-9]{0,62}:iam::[0-9]{12}:role/.+$
+    DefaultRuntimeContextDevice:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    DeviceName:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    ApplicationInstanceId:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    ApplicationInstanceArn:
+      type: string
+      minLength: 1
+      maxLength: 255
+    ApplicationInstanceStatusDescription:
+      type: string
+      minLength: 1
+      maxLength: 255
+    Timestamp:
+      type: integer
+    DeviceId:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    ApplicationInstanceStatus:
+      type: string
+      enum:
+        - DEPLOYMENT_PENDING
+        - DEPLOYMENT_REQUESTED
+        - DEPLOYMENT_IN_PROGRESS
+        - DEPLOYMENT_ERROR
+        - DEPLOYMENT_SUCCEEDED
+        - REMOVAL_PENDING
+        - REMOVAL_REQUESTED
+        - REMOVAL_IN_PROGRESS
+        - REMOVAL_FAILED
+        - REMOVAL_SUCCEEDED
+    ApplicationInstanceHealthStatus:
+      type: string
+      enum:
+        - RUNNING
+        - ERROR
+        - NOT_AVAILABLE
+    StatusFilter:
+      type: string
+      enum:
+        - DEPLOYMENT_SUCCEEDED
+        - DEPLOYMENT_ERROR
+        - REMOVAL_SUCCEEDED
+        - REMOVAL_FAILED
+        - PROCESSING_DEPLOYMENT
+        - PROCESSING_REMOVAL
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^.+$
+        Value:
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: ^.+$
+      required:
+        - Key
+        - Value
+      additionalProperties: false
+    TagList:
+      type: array
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/Tag'
+    ApplicationInstance:
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/Name'
+          x-is-top-level-property: true
+        Description:
+          $ref: '#/components/schemas/Description'
+          x-is-top-level-property: true
+        ManifestPayload:
+          $ref: '#/components/schemas/ManifestPayload'
+          x-is-top-level-property: true
+        ManifestOverridesPayload:
+          $ref: '#/components/schemas/ManifestOverridesPayload'
+          x-is-top-level-property: true
+        RuntimeRoleArn:
+          $ref: '#/components/schemas/RuntimeRoleArn'
+          x-is-top-level-property: true
+        DefaultRuntimeContextDevice:
+          $ref: '#/components/schemas/DefaultRuntimeContextDevice'
+          x-is-top-level-property: true
+        DefaultRuntimeContextDeviceName:
+          $ref: '#/components/schemas/DeviceName'
+          x-is-top-level-property: true
+        ApplicationInstanceId:
+          $ref: '#/components/schemas/ApplicationInstanceId'
+          x-is-top-level-property: true
+        ApplicationInstanceIdToReplace:
+          $ref: '#/components/schemas/ApplicationInstanceId'
+          x-is-top-level-property: true
+        DeviceId:
+          $ref: '#/components/schemas/DeviceId'
+          x-is-top-level-property: true
+        StatusFilter:
+          $ref: '#/components/schemas/StatusFilter'
+          x-is-top-level-property: true
+        Status:
+          $ref: '#/components/schemas/ApplicationInstanceStatus'
+          x-is-top-level-property: true
+        HealthStatus:
+          $ref: '#/components/schemas/ApplicationInstanceHealthStatus'
+          x-is-top-level-property: true
+        StatusDescription:
+          $ref: '#/components/schemas/ApplicationInstanceStatusDescription'
+          x-is-top-level-property: true
+        CreatedTime:
+          $ref: '#/components/schemas/Timestamp'
+          x-is-top-level-property: true
+        LastUpdatedTime:
+          $ref: '#/components/schemas/Timestamp'
+          x-is-top-level-property: true
+        Arn:
+          $ref: '#/components/schemas/ApplicationInstanceArn'
+          x-is-top-level-property: true
+        Tags:
+          $ref: '#/components/schemas/TagList'
+          x-is-top-level-property: true
+      required:
+        - ManifestPayload
+        - DefaultRuntimeContextDevice
+      x-stackql-resource-name: ApplicationInstance
+    NodePackageName:
+      type: string
+      minLength: 1
+      maxLength: 128
+      pattern: ^[a-zA-Z0-9\-\_]+$
+    NodePackageId:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-zA-Z0-9\-\_\/]+$
+    NodePackageArn:
+      type: string
+      minLength: 1
+      maxLength: 255
+    StorageLocation:
+      type: object
+      properties:
+        Bucket:
+          type: string
+        RepoPrefixLocation:
+          type: string
+        GeneratedPrefixLocation:
+          type: string
+        BinaryPrefixLocation:
+          type: string
+        ManifestPrefixLocation:
+          type: string
+      additionalProperties: false
+    Package:
+      type: object
+      properties:
+        PackageName:
+          $ref: '#/components/schemas/NodePackageName'
+          x-is-top-level-property: true
+        PackageId:
+          $ref: '#/components/schemas/NodePackageId'
+          x-is-top-level-property: true
+        Arn:
+          $ref: '#/components/schemas/NodePackageArn'
+          x-is-top-level-property: true
+        StorageLocation:
+          $ref: '#/components/schemas/StorageLocation'
+          x-is-top-level-property: true
+        CreatedTime:
+          $ref: '#/components/schemas/Timestamp'
+          x-is-top-level-property: true
+        Tags:
+          $ref: '#/components/schemas/TagList'
+          x-is-top-level-property: true
+      required:
+        - PackageName
+      x-stackql-resource-name: Package
+    PackageOwnerAccount:
+      type: string
+      minLength: 1
+      maxLength: 12
+      pattern: ^[0-9a-z\_]+$
+    NodePackageVersion:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^([0-9]+)\.([0-9]+)$
+    NodePackagePatchVersion:
+      type: string
+      minLength: 1
+      maxLength: 255
+      pattern: ^[a-z0-9]+$
+    PackageVersionStatus:
+      type: string
+      enum:
+        - REGISTER_PENDING
+        - REGISTER_COMPLETED
+        - FAILED
+        - DELETING
+    PackageVersionStatusDescription:
+      type: string
+      minLength: 1
+      maxLength: 255
+    TimeStamp:
+      type: integer
+    PackageVersion:
+      type: object
+      properties:
+        OwnerAccount:
+          $ref: '#/components/schemas/PackageOwnerAccount'
+          x-is-top-level-property: true
+        PackageId:
+          $ref: '#/components/schemas/NodePackageId'
+          x-is-top-level-property: true
+        PackageArn:
+          $ref: '#/components/schemas/NodePackageArn'
+          x-is-top-level-property: true
+        PackageVersion:
+          $ref: '#/components/schemas/NodePackageVersion'
+          x-is-top-level-property: true
+        PatchVersion:
+          $ref: '#/components/schemas/NodePackagePatchVersion'
+          x-is-top-level-property: true
+        MarkLatest:
+          type: boolean
+          x-is-top-level-property: true
+        IsLatestPatch:
+          type: boolean
+          x-is-top-level-property: true
+        PackageName:
+          $ref: '#/components/schemas/NodePackageName'
+          x-is-top-level-property: true
+        Status:
+          $ref: '#/components/schemas/PackageVersionStatus'
+          x-is-top-level-property: true
+        StatusDescription:
+          $ref: '#/components/schemas/PackageVersionStatusDescription'
+          x-is-top-level-property: true
+        RegisteredTime:
+          $ref: '#/components/schemas/TimeStamp'
+          x-is-top-level-property: true
+        UpdatedLatestPatchVersion:
+          $ref: '#/components/schemas/NodePackagePatchVersion'
+          x-is-top-level-property: true
+      required:
+        - PackageId
+        - PackageVersion
+        - PatchVersion
+      x-stackql-resource-name: PackageVersion
+x-stackql-views:
+  - ApplicationInstance:
+      name: ApplicationInstance
+      id: aws.panorama.ApplicationInstance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ManifestPayload.PayloadData') as
+              manifest_payload_payload_data,
+
+              JSON_EXTRACT(Properties, '$.ManifestOverridesPayload.PayloadData')
+              as manifest_overrides_payload_payload_data
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Panorama::ApplicationInstance' ;
+  - Package:
+      name: Package
+      id: aws.panorama.Package
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.StorageLocation.Bucket') as
+              storage_location_bucket,
+
+              JSON_EXTRACT(Properties, '$.StorageLocation.RepoPrefixLocation')
+              as storage_location_repo_prefix_location,
+
+              JSON_EXTRACT(Properties,
+              '$.StorageLocation.GeneratedPrefixLocation') as
+              storage_location_generated_prefix_location,
+
+              JSON_EXTRACT(Properties, '$.StorageLocation.BinaryPrefixLocation')
+              as storage_location_binary_prefix_location,
+
+              JSON_EXTRACT(Properties,
+              '$.StorageLocation.ManifestPrefixLocation') as
+              storage_location_manifest_prefix_location
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Panorama::Package' ;
+  - PackageVersion:
+      name: PackageVersion
+      id: aws.panorama.PackageVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.MarkLatest') as mark_latest,
+
+              JSON_EXTRACT(Properties, '$.IsLatestPatch') as is_latest_patch
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Panorama::PackageVersion' ;

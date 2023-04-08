@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  title: DocDBElastic
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+          pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
+          maxLength: 128
+          minLength: 1
+        Value:
+          type: string
+          maxLength: 256
+          minLength: 0
+      required:
+        - Key
+        - Value
+      additionalProperties: false
+    Cluster:
+      type: object
+      properties:
+        ClusterName:
+          type: string
+          pattern: '[a-zA-z][a-zA-Z0-9]*(-[a-zA-Z0-9]+)*'
+          maxLength: 50
+          minLength: 1
+          x-is-top-level-property: true
+        ClusterArn:
+          type: string
+          x-is-top-level-property: true
+        ClusterEndpoint:
+          type: string
+          x-is-top-level-property: true
+        AdminUserName:
+          type: string
+          x-is-top-level-property: true
+        AdminUserPassword:
+          type: string
+          x-is-top-level-property: true
+        ShardCapacity:
+          type: integer
+          x-is-top-level-property: true
+        ShardCount:
+          type: integer
+          x-is-top-level-property: true
+        VpcSecurityGroupIds:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        SubnetIds:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        PreferredMaintenanceWindow:
+          type: string
+          x-is-top-level-property: true
+        KmsKeyId:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+          x-is-top-level-property: true
+        AuthType:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - ClusterName
+        - AdminUserName
+        - ShardCapacity
+        - ShardCount
+        - AuthType
+      x-stackql-resource-name: Cluster
+x-stackql-views:
+  - Cluster:
+      name: Cluster
+      id: aws.docdbelastic.Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
+
+              JSON_EXTRACT(Properties, '$.ClusterEndpoint') as cluster_endpoint,
+
+              JSON_EXTRACT(Properties, '$.AdminUserName') as admin_user_name,
+
+              JSON_EXTRACT(Properties, '$.AdminUserPassword') as
+              admin_user_password,
+
+              JSON_EXTRACT(Properties, '$.ShardCapacity') as shard_capacity,
+
+              JSON_EXTRACT(Properties, '$.ShardCount') as shard_count,
+
+              JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as
+              vpc_security_group_ids,
+
+              JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
+
+              JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as
+              preferred_maintenance_window,
+
+              JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.AuthType') as auth_type
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::DocDBElastic::Cluster' ;

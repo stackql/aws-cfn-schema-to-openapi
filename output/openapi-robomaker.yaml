@@ -1,0 +1,355 @@
+openapi: 3.0.0
+info:
+  title: RoboMaker
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Fleet:
+      type: object
+      properties:
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: object
+          x-is-top-level-property: true
+        Name:
+          type: string
+          x-is-top-level-property: true
+      required: []
+      x-stackql-resource-name: Fleet
+    Robot:
+      type: object
+      properties:
+        GreengrassGroupId:
+          type: string
+          x-is-top-level-property: true
+        Fleet:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Architecture:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: object
+          x-is-top-level-property: true
+        Name:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - Architecture
+        - GreengrassGroupId
+      x-stackql-resource-name: Robot
+    SourceConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        S3Bucket:
+          type: string
+        Architecture:
+          type: string
+        S3Key:
+          type: string
+      required:
+        - S3Bucket
+        - Architecture
+        - S3Key
+    RobotSoftwareSuite:
+      type: object
+      additionalProperties: false
+      properties:
+        Version:
+          type: string
+        Name:
+          type: string
+      required:
+        - Version
+        - Name
+    RobotApplication:
+      type: object
+      properties:
+        CurrentRevisionId:
+          type: string
+          x-is-top-level-property: true
+        RobotSoftwareSuite:
+          $ref: '#/components/schemas/RobotSoftwareSuite'
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        Sources:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/SourceConfig'
+          x-is-top-level-property: true
+        Tags:
+          type: object
+          x-is-top-level-property: true
+        Name:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - RobotSoftwareSuite
+        - Sources
+      x-stackql-resource-name: RobotApplication
+    RobotApplicationVersion:
+      type: object
+      properties:
+        Application:
+          type: string
+          x-is-top-level-property: true
+        CurrentRevisionId:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - Application
+      x-stackql-resource-name: RobotApplicationVersion
+    RenderingEngine:
+      type: object
+      additionalProperties: false
+      properties:
+        Version:
+          type: string
+        Name:
+          type: string
+      required:
+        - Version
+        - Name
+    SimulationSoftwareSuite:
+      type: object
+      additionalProperties: false
+      properties:
+        Version:
+          type: string
+        Name:
+          type: string
+      required:
+        - Version
+        - Name
+    SimulationApplication:
+      type: object
+      properties:
+        RenderingEngine:
+          $ref: '#/components/schemas/RenderingEngine'
+          x-is-top-level-property: true
+        SimulationSoftwareSuite:
+          $ref: '#/components/schemas/SimulationSoftwareSuite'
+          x-is-top-level-property: true
+        CurrentRevisionId:
+          type: string
+          x-is-top-level-property: true
+        RobotSoftwareSuite:
+          $ref: '#/components/schemas/RobotSoftwareSuite'
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        Sources:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/SourceConfig'
+          x-is-top-level-property: true
+        Tags:
+          type: object
+          x-is-top-level-property: true
+        Name:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - RenderingEngine
+        - SimulationSoftwareSuite
+        - RobotSoftwareSuite
+        - Sources
+      x-stackql-resource-name: SimulationApplication
+    SimulationApplicationVersion:
+      type: object
+      properties:
+        Application:
+          type: string
+          x-is-top-level-property: true
+        CurrentRevisionId:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - Application
+      x-stackql-resource-name: SimulationApplicationVersion
+x-stackql-views:
+  - Fleet:
+      name: Fleet
+      id: aws.robomaker.Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Name') as name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::RoboMaker::Fleet' ;
+  - Robot:
+      name: Robot
+      id: aws.robomaker.Robot
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.GreengrassGroupId') as
+              greengrass_group_id,
+
+              JSON_EXTRACT(Properties, '$.Fleet') as fleet,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Architecture') as architecture,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Name') as name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::RoboMaker::Robot' ;
+  - RobotApplication:
+      name: RobotApplication
+      id: aws.robomaker.RobotApplication
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as
+              current_revision_id,
+
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Version') as
+              robot_software_suite_version,
+
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Name') as
+              robot_software_suite_name,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Sources') as sources,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Name') as name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::RoboMaker::RobotApplication' ;
+  - RobotApplicationVersion:
+      name: RobotApplicationVersion
+      id: aws.robomaker.RobotApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Application') as application,
+
+              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as
+              current_revision_id,
+
+              JSON_EXTRACT(Properties, '$.Id') as id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion' ;
+  - SimulationApplication:
+      name: SimulationApplication
+      id: aws.robomaker.SimulationApplication
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.RenderingEngine.Version') as
+              rendering_engine_version,
+
+              JSON_EXTRACT(Properties, '$.RenderingEngine.Name') as
+              rendering_engine_name,
+
+              JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite.Version') as
+              simulation_software_suite_version,
+
+              JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite.Name') as
+              simulation_software_suite_name,
+
+              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as
+              current_revision_id,
+
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Version') as
+              robot_software_suite_version,
+
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Name') as
+              robot_software_suite_name,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Sources') as sources,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Name') as name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::RoboMaker::SimulationApplication' ;
+  - SimulationApplicationVersion:
+      name: SimulationApplicationVersion
+      id: aws.robomaker.SimulationApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Application') as application,
+
+              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as
+              current_revision_id,
+
+              JSON_EXTRACT(Properties, '$.Id') as id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::RoboMaker::SimulationApplicationVersion' ;

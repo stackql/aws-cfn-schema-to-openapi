@@ -1,0 +1,215 @@
+openapi: 3.0.0
+info:
+  title: CE
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ZonedDateTime:
+      description: ISO 8601 date time with offset format
+      type: string
+      pattern: ^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(([+-]\d\d:\d\d)|Z)$
+      minLength: 20
+      maxLength: 25
+    CostCategory:
+      type: object
+      properties:
+        Arn:
+          description: Cost category ARN
+          type: string
+          pattern: ^arn:aws[-a-z0-9]*:[a-z0-9]+:[-a-z0-9]*:[0-9]{12}:[-a-zA-Z0-9/:_]+$
+          x-is-top-level-property: true
+        EffectiveStart:
+          $ref: '#/components/schemas/ZonedDateTime'
+          x-is-top-level-property: true
+        Name:
+          type: string
+          minLength: 1
+          maxLength: 50
+          x-is-top-level-property: true
+        RuleVersion:
+          type: string
+          enum:
+            - CostCategoryExpression.v1
+          x-is-top-level-property: true
+        Rules:
+          type: string
+          description: JSON array format of Expression in Billing and Cost Management API
+          x-is-top-level-property: true
+        SplitChargeRules:
+          type: string
+          description: >-
+            Json array format of CostCategorySplitChargeRule in Billing and Cost
+            Management API
+          x-is-top-level-property: true
+        DefaultValue:
+          type: string
+          description: The default value for the cost category
+          minLength: 1
+          maxLength: 50
+          x-is-top-level-property: true
+      required:
+        - Name
+        - RuleVersion
+        - Rules
+      x-stackql-resource-name: CostCategory
+    ExpiryEventsConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        DaysBeforeExpiry:
+          type: integer
+          minimum: 1
+          maximum: 45
+    AccountId:
+      type: string
+    Account:
+      type: object
+      properties:
+        ExpiryEventsConfiguration:
+          $ref: '#/components/schemas/ExpiryEventsConfiguration'
+          x-is-top-level-property: true
+        AccountId:
+          $ref: '#/components/schemas/AccountId'
+          x-is-top-level-property: true
+      required:
+        - ExpiryEventsConfiguration
+      x-stackql-resource-name: Account
+    DomainValidationOption:
+      type: object
+      additionalProperties: false
+      properties:
+        DomainName:
+          type: string
+        ValidationDomain:
+          type: string
+        HostedZoneId:
+          type: string
+      required:
+        - DomainName
+    Tag:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Key:
+          type: string
+      required:
+        - Value
+        - Key
+    Certificate:
+      type: object
+      properties:
+        CertificateAuthorityArn:
+          type: string
+          x-is-top-level-property: true
+        DomainValidationOptions:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/DomainValidationOption'
+          x-is-top-level-property: true
+        CertificateTransparencyLoggingPreference:
+          type: string
+          x-is-top-level-property: true
+        DomainName:
+          type: string
+          x-is-top-level-property: true
+        ValidationMethod:
+          type: string
+          x-is-top-level-property: true
+        SubjectAlternativeNames:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - DomainName
+      x-stackql-resource-name: Certificate
+x-stackql-views:
+  - CostCategory:
+      name: CostCategory
+      id: aws.ce.CostCategory
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.RuleVersion') as rule_version,
+
+              JSON_EXTRACT(Properties, '$.Rules') as rules,
+
+              JSON_EXTRACT(Properties, '$.SplitChargeRules') as
+              split_charge_rules,
+
+              JSON_EXTRACT(Properties, '$.DefaultValue') as default_value
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CE::CostCategory' ;
+  - Account:
+      name: Account
+      id: aws.ce.Account
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties,
+              '$.ExpiryEventsConfiguration.DaysBeforeExpiry') as
+              expiry_events_configuration_days_before_expiry
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CE::Account' ;
+  - Certificate:
+      name: Certificate
+      id: aws.ce.Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as
+              certificate_authority_arn,
+
+              JSON_EXTRACT(Properties, '$.DomainValidationOptions') as
+              domain_validation_options,
+
+              JSON_EXTRACT(Properties,
+              '$.CertificateTransparencyLoggingPreference') as
+              certificate_transparency_logging_preference,
+
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+
+              JSON_EXTRACT(Properties, '$.ValidationMethod') as
+              validation_method,
+
+              JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as
+              subject_alternative_names,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CE::Certificate' ;

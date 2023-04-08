@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: SecurityHub
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Hub:
+      type: object
+      properties:
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: object
+          x-is-top-level-property: true
+      required: []
+      x-stackql-resource-name: Hub
+x-stackql-views:
+  - Hub:
+      name: Hub
+      id: aws.securityhub.Hub
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::SecurityHub::Hub' ;

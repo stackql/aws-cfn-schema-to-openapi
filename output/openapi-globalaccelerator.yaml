@@ -1,0 +1,365 @@
+openapi: 3.0.0
+info:
+  title: GlobalAccelerator
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Tag:
+      description: Tag is a key-value pair associated with accelerator.
+      type: object
+      properties:
+        Key:
+          description: Key of the tag. Value can be 1 to 127 characters.
+          type: string
+          minLength: 1
+          maxLength: 127
+        Value:
+          description: Value for the tag. Value can be 1 to 255 characters.
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+        - Value
+        - Key
+      additionalProperties: false
+    IpAddress:
+      pattern: ^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$
+      description: An IPV4 address
+      type: string
+    Accelerator:
+      type: object
+      properties:
+        Name:
+          description: Name of accelerator.
+          type: string
+          pattern: ^[a-zA-Z0-9_-]{0,64}$
+          minLength: 1
+          maxLength: 64
+          x-is-top-level-property: true
+        IpAddressType:
+          description: IP Address type.
+          type: string
+          default: IPV4
+          enum:
+            - IPV4
+            - DUAL_STACK
+          x-is-top-level-property: true
+        IpAddresses:
+          description: The IP addresses from BYOIP Prefix pool.
+          default: null
+          type: array
+          items:
+            $ref: '#/components/schemas/IpAddress'
+          x-is-top-level-property: true
+        Enabled:
+          description: >-
+            Indicates whether an accelerator is enabled. The value is true or
+            false.
+          default: true
+          type: boolean
+          x-is-top-level-property: true
+        DnsName:
+          description: >-
+            The Domain Name System (DNS) name that Global Accelerator creates
+            that points to your accelerator's static IPv4 addresses.
+          type: string
+          x-is-top-level-property: true
+        Ipv4Addresses:
+          description: The IPv4 addresses assigned to the accelerator.
+          type: array
+          items:
+            type: string
+          x-is-top-level-property: true
+        Ipv6Addresses:
+          description: The IPv6 addresses assigned if the accelerator is dualstack
+          default: null
+          type: array
+          items:
+            type: string
+          x-is-top-level-property: true
+        DualStackDnsName:
+          description: >-
+            The Domain Name System (DNS) name that Global Accelerator creates
+            that points to your accelerator's static IPv4 and IPv6 addresses.
+          type: string
+          x-is-top-level-property: true
+        AcceleratorArn:
+          description: The Amazon Resource Name (ARN) of the accelerator.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - Name
+      x-stackql-resource-name: Accelerator
+    EndpointConfiguration:
+      description: The configuration for a given endpoint
+      type: object
+      properties:
+        EndpointId:
+          description: >-
+            Id of the endpoint. For Network/Application Load Balancer this value
+            is the ARN.  For EIP, this value is the allocation ID.  For EC2
+            instances, this is the EC2 instance ID
+          type: string
+        Weight:
+          description: The weight for the endpoint.
+          type: integer
+          minimum: 0
+          maximum: 255
+          default: 100
+        ClientIPPreservationEnabled:
+          description: true if client ip should be preserved
+          type: boolean
+          default: true
+      required:
+        - EndpointId
+      additionalProperties: false
+    Port:
+      description: A network port number
+      type: integer
+      minimum: 0
+      maximum: 65535
+    PortOverride:
+      description: listener to endpoint port mapping.
+      type: object
+      properties:
+        ListenerPort:
+          $ref: '#/components/schemas/Port'
+        EndpointPort:
+          $ref: '#/components/schemas/Port'
+      required:
+        - ListenerPort
+        - EndpointPort
+      additionalProperties: false
+    EndpointGroup:
+      type: object
+      properties:
+        ListenerArn:
+          description: The Amazon Resource Name (ARN) of the listener
+          type: string
+          x-is-top-level-property: true
+        EndpointGroupRegion:
+          description: The name of the AWS Region where the endpoint group is located
+          type: string
+          x-is-top-level-property: true
+        EndpointConfigurations:
+          description: The list of endpoint objects.
+          type: array
+          items:
+            $ref: '#/components/schemas/EndpointConfiguration'
+          x-is-top-level-property: true
+        TrafficDialPercentage:
+          description: The percentage of traffic to sent to an AWS Region
+          type: number
+          minimum: 0
+          maximum: 100
+          default: 100
+          x-is-top-level-property: true
+        HealthCheckPort:
+          description: >-
+            The port that AWS Global Accelerator uses to check the health of
+            endpoints in this endpoint group.
+          type: integer
+          minimum: -1
+          maximum: 65535
+          default: -1
+          x-is-top-level-property: true
+        HealthCheckProtocol:
+          description: >-
+            The protocol that AWS Global Accelerator uses to check the health of
+            endpoints in this endpoint group.
+          type: string
+          default: TCP
+          enum:
+            - TCP
+            - HTTP
+            - HTTPS
+          x-is-top-level-property: true
+        HealthCheckPath:
+          description: ''
+          type: string
+          default: /
+          x-is-top-level-property: true
+        HealthCheckIntervalSeconds:
+          description: >-
+            The time in seconds between each health check for an endpoint. Must
+            be a value of 10 or 30
+          type: integer
+          default: 30
+          x-is-top-level-property: true
+        ThresholdCount:
+          description: >-
+            The number of consecutive health checks required to set the state of
+            the endpoint to unhealthy.
+          type: integer
+          default: 3
+          x-is-top-level-property: true
+        EndpointGroupArn:
+          description: The Amazon Resource Name (ARN) of the endpoint group
+          type: string
+          x-is-top-level-property: true
+        PortOverrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortOverride'
+          x-is-top-level-property: true
+      required:
+        - ListenerArn
+        - EndpointGroupRegion
+      x-stackql-resource-name: EndpointGroup
+    PortRange:
+      description: >-
+        A port range to support for connections from  clients to your
+        accelerator.
+      type: object
+      properties:
+        FromPort:
+          $ref: '#/components/schemas/Port'
+        ToPort:
+          $ref: '#/components/schemas/Port'
+      required:
+        - FromPort
+        - ToPort
+      additionalProperties: false
+    Listener:
+      type: object
+      properties:
+        ListenerArn:
+          description: The Amazon Resource Name (ARN) of the listener.
+          type: string
+          x-is-top-level-property: true
+        AcceleratorArn:
+          description: The Amazon Resource Name (ARN) of the accelerator.
+          type: string
+          x-is-top-level-property: true
+        PortRanges:
+          type: array
+          items:
+            $ref: '#/components/schemas/PortRange'
+          x-is-top-level-property: true
+        Protocol:
+          description: The protocol for the listener.
+          type: string
+          default: TCP
+          enum:
+            - TCP
+            - UDP
+          x-is-top-level-property: true
+        ClientAffinity:
+          description: >-
+            Client affinity lets you direct all requests from a user to the same
+            endpoint.
+          type: string
+          default: NONE
+          enum:
+            - NONE
+            - SOURCE_IP
+          x-is-top-level-property: true
+      required:
+        - AcceleratorArn
+        - PortRanges
+        - Protocol
+      x-stackql-resource-name: Listener
+x-stackql-views:
+  - Accelerator:
+      name: Accelerator
+      id: aws.globalaccelerator.Accelerator
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
+
+              JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
+
+              JSON_EXTRACT(Properties, '$.Enabled') as enabled,
+
+              JSON_EXTRACT(Properties, '$.DnsName') as dns_name,
+
+              JSON_EXTRACT(Properties, '$.Ipv4Addresses') as ipv4_addresses,
+
+              JSON_EXTRACT(Properties, '$.Ipv6Addresses') as ipv6_addresses,
+
+              JSON_EXTRACT(Properties, '$.DualStackDnsName') as
+              dual_stack_dns_name,
+
+              JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
+  - EndpointGroup:
+      name: EndpointGroup
+      id: aws.globalaccelerator.EndpointGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
+
+              JSON_EXTRACT(Properties, '$.EndpointGroupRegion') as
+              endpoint_group_region,
+
+              JSON_EXTRACT(Properties, '$.EndpointConfigurations') as
+              endpoint_configurations,
+
+              JSON_EXTRACT(Properties, '$.TrafficDialPercentage') as
+              traffic_dial_percentage,
+
+              JSON_EXTRACT(Properties, '$.HealthCheckPort') as
+              health_check_port,
+
+              JSON_EXTRACT(Properties, '$.HealthCheckProtocol') as
+              health_check_protocol,
+
+              JSON_EXTRACT(Properties, '$.HealthCheckPath') as
+              health_check_path,
+
+              JSON_EXTRACT(Properties, '$.HealthCheckIntervalSeconds') as
+              health_check_interval_seconds,
+
+              JSON_EXTRACT(Properties, '$.ThresholdCount') as threshold_count,
+
+              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as
+              endpoint_group_arn,
+
+              JSON_EXTRACT(Properties, '$.PortOverrides') as port_overrides
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
+  - Listener:
+      name: Listener
+      id: aws.globalaccelerator.Listener
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
+
+              JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
+
+              JSON_EXTRACT(Properties, '$.PortRanges') as port_ranges,
+
+              JSON_EXTRACT(Properties, '$.Protocol') as protocol,
+
+              JSON_EXTRACT(Properties, '$.ClientAffinity') as client_affinity
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GlobalAccelerator::Listener' ;

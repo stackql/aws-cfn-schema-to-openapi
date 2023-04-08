@@ -1,0 +1,809 @@
+openapi: 3.0.0
+info:
+  title: CloudWatch
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    MetricStat:
+      type: object
+      additionalProperties: false
+      properties:
+        Period:
+          type: integer
+        Metric:
+          $ref: '#/components/schemas/Metric'
+        Stat:
+          type: string
+        Unit:
+          type: string
+      required:
+        - Stat
+        - Period
+        - Metric
+    Metric:
+      type: object
+      additionalProperties: false
+      properties:
+        MetricName:
+          type: string
+        Dimensions:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Dimension'
+        Namespace:
+          type: string
+      required:
+        - MetricName
+        - Namespace
+    Dimension:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Name:
+          type: string
+      required:
+        - Value
+        - Name
+    MetricDataQuery:
+      type: object
+      additionalProperties: false
+      properties:
+        AccountId:
+          type: string
+        ReturnData:
+          type: boolean
+        Expression:
+          type: string
+        MetricStat:
+          $ref: '#/components/schemas/MetricStat'
+        Label:
+          type: string
+        Period:
+          type: integer
+        Id:
+          type: string
+      required:
+        - Id
+    Alarm:
+      type: object
+      properties:
+        ThresholdMetricId:
+          type: string
+          x-is-top-level-property: true
+        EvaluateLowSampleCountPercentile:
+          type: string
+          x-is-top-level-property: true
+        ExtendedStatistic:
+          type: string
+          x-is-top-level-property: true
+        ComparisonOperator:
+          type: string
+          x-is-top-level-property: true
+        TreatMissingData:
+          type: string
+          x-is-top-level-property: true
+        Dimensions:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Dimension'
+          x-is-top-level-property: true
+        Period:
+          type: integer
+          x-is-top-level-property: true
+        EvaluationPeriods:
+          type: integer
+          x-is-top-level-property: true
+        Unit:
+          type: string
+          x-is-top-level-property: true
+        Namespace:
+          type: string
+          x-is-top-level-property: true
+        OKActions:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        AlarmActions:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        MetricName:
+          type: string
+          x-is-top-level-property: true
+        ActionsEnabled:
+          type: boolean
+          x-is-top-level-property: true
+        Metrics:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/MetricDataQuery'
+          x-is-top-level-property: true
+        AlarmDescription:
+          type: string
+          x-is-top-level-property: true
+        AlarmName:
+          type: string
+          x-is-top-level-property: true
+        Statistic:
+          type: string
+          x-is-top-level-property: true
+        InsufficientDataActions:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        DatapointsToAlarm:
+          type: integer
+          x-is-top-level-property: true
+        Threshold:
+          type: number
+          x-is-top-level-property: true
+      required:
+        - ComparisonOperator
+        - EvaluationPeriods
+      x-stackql-resource-name: Alarm
+    MetricMathAnomalyDetector:
+      type: object
+      additionalProperties: false
+      properties:
+        MetricDataQueries:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/MetricDataQuery'
+    Configuration:
+      type: object
+      additionalProperties: false
+      properties:
+        MetricTimeZone:
+          type: string
+        ExcludedTimeRanges:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Range'
+    Range:
+      type: object
+      additionalProperties: false
+      properties:
+        EndTime:
+          type: string
+        StartTime:
+          type: string
+      required:
+        - EndTime
+        - StartTime
+    SingleMetricAnomalyDetector:
+      type: object
+      additionalProperties: false
+      properties:
+        MetricName:
+          type: string
+        Dimensions:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Dimension'
+        Stat:
+          type: string
+        Namespace:
+          type: string
+    AnomalyDetector:
+      type: object
+      properties:
+        MetricName:
+          type: string
+          x-is-top-level-property: true
+        Stat:
+          type: string
+          x-is-top-level-property: true
+        Configuration:
+          $ref: '#/components/schemas/Configuration'
+          x-is-top-level-property: true
+        MetricMathAnomalyDetector:
+          $ref: '#/components/schemas/MetricMathAnomalyDetector'
+          x-is-top-level-property: true
+        Dimensions:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Dimension'
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Namespace:
+          type: string
+          x-is-top-level-property: true
+        SingleMetricAnomalyDetector:
+          $ref: '#/components/schemas/SingleMetricAnomalyDetector'
+          x-is-top-level-property: true
+      required: []
+      x-stackql-resource-name: AnomalyDetector
+    CompositeAlarm:
+      type: object
+      properties:
+        Arn:
+          type: string
+          description: Amazon Resource Name (ARN) of the alarm
+          minLength: 1
+          maxLength: 1600
+          x-is-top-level-property: true
+        AlarmName:
+          description: The name of the Composite Alarm
+          type: string
+          minLength: 1
+          maxLength: 255
+          x-is-top-level-property: true
+        AlarmRule:
+          type: string
+          description: >-
+            Expression which aggregates the state of other Alarms (Metric or
+            Composite Alarms)
+          minLength: 1
+          maxLength: 10240
+          x-is-top-level-property: true
+        AlarmDescription:
+          type: string
+          description: The description of the alarm
+          minLength: 0
+          maxLength: 1024
+          x-is-top-level-property: true
+        ActionsEnabled:
+          description: >-
+            Indicates whether actions should be executed during any changes to
+            the alarm state. The default is TRUE.
+          type: boolean
+          x-is-top-level-property: true
+        OKActions:
+          type: array
+          items:
+            type: string
+            description: Amazon Resource Name (ARN) of the action
+            minLength: 1
+            maxLength: 1024
+          description: >-
+            The actions to execute when this alarm transitions to the OK state
+            from any other state. Each action is specified as an Amazon Resource
+            Name (ARN).
+          maxItems: 5
+          x-is-top-level-property: true
+        AlarmActions:
+          type: array
+          items:
+            type: string
+            description: Amazon Resource Name (ARN) of the action
+            minLength: 1
+            maxLength: 1024
+          description: >-
+            The list of actions to execute when this alarm transitions into an
+            ALARM state from any other state. Specify each action as an Amazon
+            Resource Name (ARN).
+          maxItems: 5
+          x-is-top-level-property: true
+        InsufficientDataActions:
+          type: array
+          items:
+            type: string
+            description: Amazon Resource Name (ARN) of the action
+            minLength: 1
+            maxLength: 1024
+          description: >-
+            The actions to execute when this alarm transitions to the
+            INSUFFICIENT_DATA state from any other state. Each action is
+            specified as an Amazon Resource Name (ARN).
+          maxItems: 5
+          x-is-top-level-property: true
+        ActionsSuppressor:
+          description: >-
+            Actions will be suppressed if the suppressor alarm is in the ALARM
+            state. ActionsSuppressor can be an AlarmName or an Amazon Resource
+            Name (ARN) from an existing alarm. 
+          type: string
+          minLength: 1
+          maxLength: 1600
+          x-is-top-level-property: true
+        ActionsSuppressorWaitPeriod:
+          description: >-
+            Actions will be suppressed if ExtensionPeriod is active. The length
+            of time that actions are suppressed is in seconds.
+          type: integer
+          minimum: 0
+          x-is-top-level-property: true
+        ActionsSuppressorExtensionPeriod:
+          description: >-
+            Actions will be suppressed if WaitPeriod is active. The length of
+            time that actions are suppressed is in seconds.
+          type: integer
+          minimum: 0
+          x-is-top-level-property: true
+      required:
+        - AlarmRule
+      x-stackql-resource-name: CompositeAlarm
+    Dashboard:
+      type: object
+      properties:
+        DashboardName:
+          type: string
+          x-is-top-level-property: true
+        DashboardBody:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - DashboardBody
+      x-stackql-resource-name: Dashboard
+    Tags:
+      type: object
+      additionalProperties: false
+    InsightRule:
+      type: object
+      properties:
+        RuleState:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        RuleBody:
+          type: string
+          x-is-top-level-property: true
+        RuleName:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          $ref: '#/components/schemas/Tags'
+          x-is-top-level-property: true
+      required:
+        - RuleState
+        - RuleBody
+        - RuleName
+      x-stackql-resource-name: InsightRule
+    MetricStreamFilter:
+      description: This structure defines the metrics that will be streamed.
+      type: object
+      additionalProperties: false
+      properties:
+        Namespace:
+          description: Only metrics with Namespace matching this value will be streamed.
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+        - Namespace
+    MetricStreamStatisticsConfiguration:
+      description: >-
+        This structure specifies a list of additional statistics to stream, and
+        the metrics to stream those additional statistics for. All metrics that
+        match the combination of metric name and namespace will be streamed with
+        the extended statistics, no matter their dimensions.
+      type: object
+      additionalProperties: false
+      properties:
+        AdditionalStatistics:
+          description: >-
+            The additional statistics to stream for the metrics listed in
+            IncludeMetrics.
+          type: array
+          maxItems: 20
+          uniqueItems: true
+          items:
+            type: string
+        IncludeMetrics:
+          description: >-
+            An array that defines the metrics that are to have additional
+            statistics streamed.
+          type: array
+          maxItems: 100
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/MetricStreamStatisticsMetric'
+      required:
+        - AdditionalStatistics
+        - IncludeMetrics
+    MetricStreamStatisticsMetric:
+      description: >-
+        A structure that specifies the metric name and namespace for one metric
+        that is going to have additional statistics included in the stream.
+      type: object
+      additionalProperties: false
+      properties:
+        MetricName:
+          description: The name of the metric.
+          type: string
+          minLength: 1
+          maxLength: 255
+        Namespace:
+          description: The namespace of the metric.
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+        - MetricName
+        - Namespace
+    Tag:
+      description: >-
+        Metadata that you can assign to a Metric Stream, consisting of a
+        key-value pair.
+      type: object
+      additionalProperties: false
+      properties:
+        Key:
+          description: A unique identifier for the tag.
+          type: string
+          minLength: 1
+          maxLength: 128
+        Value:
+          description: An optional string, which you can use to describe or define the tag.
+          type: string
+          minLength: 1
+          maxLength: 256
+      required:
+        - Key
+    MetricStream:
+      type: object
+      properties:
+        Arn:
+          description: Amazon Resource Name of the metric stream.
+          type: string
+          minLength: 20
+          maxLength: 2048
+          x-is-top-level-property: true
+        CreationDate:
+          description: The date of creation of the metric stream.
+          type: string
+          anyOf:
+            - format: date-time
+            - format: timestamp
+          x-is-top-level-property: true
+        ExcludeFilters:
+          description: >-
+            Define which metrics will be not streamed. Metrics matched by
+            multiple instances of MetricStreamFilter are joined with an OR
+            operation by default. If both IncludeFilters and ExcludeFilters are
+            omitted, all metrics in the account will be streamed. IncludeFilters
+            and ExcludeFilters are mutually exclusive. Default to null.
+          type: array
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/MetricStreamFilter'
+          x-is-top-level-property: true
+        FirehoseArn:
+          description: The ARN of the Kinesis Firehose where to stream the data.
+          type: string
+          minLength: 20
+          maxLength: 2048
+          x-is-top-level-property: true
+        IncludeFilters:
+          description: >-
+            Define which metrics will be streamed. Metrics matched by multiple
+            instances of MetricStreamFilter are joined with an OR operation by
+            default. If both IncludeFilters and ExcludeFilters are omitted, all
+            metrics in the account will be streamed. IncludeFilters and
+            ExcludeFilters are mutually exclusive. Default to null.
+          type: array
+          maxItems: 1000
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/MetricStreamFilter'
+          x-is-top-level-property: true
+        LastUpdateDate:
+          description: The date of the last update of the metric stream.
+          type: string
+          anyOf:
+            - format: date-time
+            - format: timestamp
+          x-is-top-level-property: true
+        Name:
+          description: Name of the metric stream.
+          type: string
+          minLength: 1
+          maxLength: 255
+          x-is-top-level-property: true
+        RoleArn:
+          description: The ARN of the role that provides access to the Kinesis Firehose.
+          type: string
+          minLength: 20
+          maxLength: 2048
+          x-is-top-level-property: true
+        State:
+          description: Displays the state of the Metric Stream.
+          type: string
+          minLength: 1
+          maxLength: 255
+          x-is-top-level-property: true
+        OutputFormat:
+          description: The output format of the data streamed to the Kinesis Firehose.
+          type: string
+          minLength: 1
+          maxLength: 255
+          x-is-top-level-property: true
+        StatisticsConfigurations:
+          description: >-
+            By default, a metric stream always sends the MAX, MIN, SUM, and
+            SAMPLECOUNT statistics for each metric that is streamed. You can use
+            this parameter to have the metric stream also send additional
+            statistics in the stream. This array can have up to 100 members.
+          type: array
+          maxItems: 100
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/MetricStreamStatisticsConfiguration'
+          x-is-top-level-property: true
+        Tags:
+          description: A set of tags to assign to the delivery stream.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        IncludeLinkedAccountsMetrics:
+          description: >-
+            If you are creating a metric stream in a monitoring account, specify
+            true to include metrics from source accounts that are linked to this
+            monitoring account, in the metric stream. The default is false.
+          type: boolean
+          x-is-top-level-property: true
+      required:
+        - FirehoseArn
+        - RoleArn
+        - OutputFormat
+      x-stackql-resource-name: MetricStream
+x-stackql-views:
+  - Alarm:
+      name: Alarm
+      id: aws.cloudwatch.Alarm
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ThresholdMetricId') as
+              threshold_metric_id,
+
+              JSON_EXTRACT(Properties, '$.EvaluateLowSampleCountPercentile') as
+              evaluate_low_sample_count_percentile,
+
+              JSON_EXTRACT(Properties, '$.ExtendedStatistic') as
+              extended_statistic,
+
+              JSON_EXTRACT(Properties, '$.ComparisonOperator') as
+              comparison_operator,
+
+              JSON_EXTRACT(Properties, '$.TreatMissingData') as
+              treat_missing_data,
+
+              JSON_EXTRACT(Properties, '$.Dimensions') as dimensions,
+
+              JSON_EXTRACT(Properties, '$.Period') as period,
+
+              JSON_EXTRACT(Properties, '$.EvaluationPeriods') as
+              evaluation_periods,
+
+              JSON_EXTRACT(Properties, '$.Unit') as unit,
+
+              JSON_EXTRACT(Properties, '$.Namespace') as namespace,
+
+              JSON_EXTRACT(Properties, '$.OKActions') as o_kactions,
+
+              JSON_EXTRACT(Properties, '$.AlarmActions') as alarm_actions,
+
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
+
+              JSON_EXTRACT(Properties, '$.ActionsEnabled') as actions_enabled,
+
+              JSON_EXTRACT(Properties, '$.Metrics') as metrics,
+
+              JSON_EXTRACT(Properties, '$.AlarmDescription') as
+              alarm_description,
+
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name,
+
+              JSON_EXTRACT(Properties, '$.Statistic') as statistic,
+
+              JSON_EXTRACT(Properties, '$.InsufficientDataActions') as
+              insufficient_data_actions,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.DatapointsToAlarm') as
+              datapoints_to_alarm,
+
+              JSON_EXTRACT(Properties, '$.Threshold') as threshold
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::Alarm' ;
+  - AnomalyDetector:
+      name: AnomalyDetector
+      id: aws.cloudwatch.AnomalyDetector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
+
+              JSON_EXTRACT(Properties, '$.Stat') as stat,
+
+              JSON_EXTRACT(Properties, '$.Configuration.MetricTimeZone') as
+              configuration_metric_time_zone,
+
+              JSON_EXTRACT(Properties, '$.Configuration.ExcludedTimeRanges') as
+              configuration_excluded_time_ranges,
+
+              JSON_EXTRACT(Properties,
+              '$.MetricMathAnomalyDetector.MetricDataQueries') as
+              metric_math_anomaly_detector_metric_data_queries,
+
+              JSON_EXTRACT(Properties, '$.Dimensions') as dimensions,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Namespace') as namespace,
+
+              JSON_EXTRACT(Properties,
+              '$.SingleMetricAnomalyDetector.MetricName') as
+              single_metric_anomaly_detector_metric_name,
+
+              JSON_EXTRACT(Properties,
+              '$.SingleMetricAnomalyDetector.Dimensions') as
+              single_metric_anomaly_detector_dimensions,
+
+              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Stat') as
+              single_metric_anomaly_detector_stat,
+
+              JSON_EXTRACT(Properties,
+              '$.SingleMetricAnomalyDetector.Namespace') as
+              single_metric_anomaly_detector_namespace
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::AnomalyDetector' ;
+  - CompositeAlarm:
+      name: CompositeAlarm
+      id: aws.cloudwatch.CompositeAlarm
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name,
+
+              JSON_EXTRACT(Properties, '$.AlarmRule') as alarm_rule,
+
+              JSON_EXTRACT(Properties, '$.AlarmDescription') as
+              alarm_description,
+
+              JSON_EXTRACT(Properties, '$.ActionsEnabled') as actions_enabled,
+
+              JSON_EXTRACT(Properties, '$.OKActions') as o_kactions,
+
+              JSON_EXTRACT(Properties, '$.AlarmActions') as alarm_actions,
+
+              JSON_EXTRACT(Properties, '$.InsufficientDataActions') as
+              insufficient_data_actions,
+
+              JSON_EXTRACT(Properties, '$.ActionsSuppressor') as
+              actions_suppressor,
+
+              JSON_EXTRACT(Properties, '$.ActionsSuppressorWaitPeriod') as
+              actions_suppressor_wait_period,
+
+              JSON_EXTRACT(Properties, '$.ActionsSuppressorExtensionPeriod') as
+              actions_suppressor_extension_period
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::CompositeAlarm' ;
+  - Dashboard:
+      name: Dashboard
+      id: aws.cloudwatch.Dashboard
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.DashboardName') as dashboard_name,
+
+              JSON_EXTRACT(Properties, '$.DashboardBody') as dashboard_body,
+
+              JSON_EXTRACT(Properties, '$.Id') as id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::Dashboard' ;
+  - InsightRule:
+      name: InsightRule
+      id: aws.cloudwatch.InsightRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.RuleState') as rule_state,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.RuleBody') as rule_body,
+
+              JSON_EXTRACT(Properties, '$.RuleName') as rule_name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::InsightRule' ;
+  - MetricStream:
+      name: MetricStream
+      id: aws.cloudwatch.MetricStream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
+
+              JSON_EXTRACT(Properties, '$.ExcludeFilters') as exclude_filters,
+
+              JSON_EXTRACT(Properties, '$.FirehoseArn') as firehose_arn,
+
+              JSON_EXTRACT(Properties, '$.IncludeFilters') as include_filters,
+
+              JSON_EXTRACT(Properties, '$.LastUpdateDate') as last_update_date,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.OutputFormat') as output_format,
+
+              JSON_EXTRACT(Properties, '$.StatisticsConfigurations') as
+              statistics_configurations,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.IncludeLinkedAccountsMetrics') as
+              include_linked_accounts_metrics
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::CloudWatch::MetricStream' ;

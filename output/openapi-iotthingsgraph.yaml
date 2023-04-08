@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: IoTThingsGraph
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    DefinitionDocument:
+      type: object
+      additionalProperties: false
+      properties:
+        Language:
+          type: string
+        Text:
+          type: string
+      required:
+        - Language
+        - Text
+    FlowTemplate:
+      type: object
+      properties:
+        Id:
+          type: string
+          x-is-top-level-property: true
+        CompatibleNamespaceVersion:
+          type: number
+          x-is-top-level-property: true
+        Definition:
+          $ref: '#/components/schemas/DefinitionDocument'
+          x-is-top-level-property: true
+      required:
+        - Definition
+      x-stackql-resource-name: FlowTemplate
+x-stackql-views:
+  - FlowTemplate:
+      name: FlowTemplate
+      id: aws.iotthingsgraph.FlowTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.CompatibleNamespaceVersion') as
+              compatible_namespace_version,
+
+              JSON_EXTRACT(Properties, '$.Definition.Language') as
+              definition_language,
+
+              JSON_EXTRACT(Properties, '$.Definition.Text') as definition_text
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::IoTThingsGraph::FlowTemplate' ;

@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: CodeGuruReviewer
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      additionalProperties: false
+      properties:
+        Key:
+          description: >-
+            The key name of the tag. You can specify a value that is 1 to 128
+            Unicode characters in length and cannot be prefixed with aws:. The
+            allowed characters across services are: letters, numbers, and spaces
+            representable in UTF-8, and the following characters: + - = . _ : /
+            @.
+          type: string
+          minLength: 1
+          maxLength: 128
+        Value:
+          description: >-
+            The value for the tag. You can specify a value that is 0 to 256
+            Unicode characters in length. The allowed characters across services
+            are: letters, numbers, and spaces representable in UTF-8, and the
+            following characters: + - = . _ : / @.
+          type: string
+          minLength: 0
+          maxLength: 256
+      required:
+        - Value
+        - Key
+    RepositoryAssociation:
+      type: object
+      properties:
+        Name:
+          description: Name of the repository to be associated.
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^\S[\w.-]*$
+          x-is-top-level-property: true
+        Type:
+          description: The type of repository to be associated.
+          type: string
+          enum:
+            - CodeCommit
+            - Bitbucket
+            - GitHubEnterpriseServer
+            - S3Bucket
+          x-is-top-level-property: true
+        Owner:
+          description: >-
+            The owner of the repository. For a Bitbucket repository, this is the
+            username for the account that owns the repository.
+          type: string
+          minLength: 1
+          maxLength: 100
+          pattern: ^\S(.*\S)?$
+          x-is-top-level-property: true
+        BucketName:
+          description: >-
+            The name of the S3 bucket associated with an associated S3
+            repository. It must start with `codeguru-reviewer-`.
+          type: string
+          minLength: 3
+          maxLength: 63
+          pattern: ^\S(.*\S)?$
+          x-is-top-level-property: true
+        ConnectionArn:
+          description: >-
+            The Amazon Resource Name (ARN) of an AWS CodeStar Connections
+            connection.
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: arn:aws(-[\w]+)*:.+:.+:[0-9]{12}:.+
+          x-is-top-level-property: true
+        AssociationArn:
+          description: The Amazon Resource Name (ARN) of the repository association.
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: arn:aws(-[\w]+)*:.+:.+:[0-9]{12}:.+
+          x-is-top-level-property: true
+        Tags:
+          description: The tags associated with a repository association.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          maxItems: 50
+          uniqueItems: false
+          x-is-top-level-property: true
+      required:
+        - Name
+        - Type
+      x-stackql-resource-name: RepositoryAssociation
+x-stackql-views:
+  - RepositoryAssociation:
+      name: RepositoryAssociation
+      id: aws.codegurureviewer.RepositoryAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.Type') as type,
+
+              JSON_EXTRACT(Properties, '$.Owner') as owner,
+
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
+
+              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
+
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::CodeGuruReviewer::RepositoryAssociation' ;

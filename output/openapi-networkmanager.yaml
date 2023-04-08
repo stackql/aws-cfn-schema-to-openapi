@@ -1,0 +1,1423 @@
+openapi: 3.0.0
+info:
+  title: NetworkManager
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ProposedSegmentChange:
+      description: The attachment to move from one segment to another.
+      type: object
+      properties:
+        Tags:
+          description: The key-value tags that changed for the segment.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        AttachmentPolicyRuleNumber:
+          description: The rule number in the policy document that applies to this change.
+          type: integer
+        SegmentName:
+          description: The name of the segment to change.
+          type: string
+      additionalProperties: false
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      x-insertionOrder: false
+      properties:
+        Key:
+          type: string
+          description: >-
+            The key name of the tag. You can specify a value that is 1 to 128
+            Unicode characters in length and cannot be prefixed with aws:. You
+            can use any of the following characters: the set of Unicode letters,
+            digits, whitespace, _, ., /, =, +, and -.
+        Value:
+          type: string
+          description: >-
+            The value for the tag. You can specify a value that is 0 to 256
+            Unicode characters in length and cannot be prefixed with aws:. You
+            can use any of the following characters: the set of Unicode letters,
+            digits, whitespace, _, ., /, =, +, and -.
+      required:
+        - Key
+        - Value
+      additionalProperties: false
+    ConnectAttachmentOptions:
+      description: Connect attachment options for protocol
+      type: object
+      properties:
+        Protocol:
+          type: string
+          description: Tunnel protocol for connect attachment
+      additionalProperties: false
+    ConnectAttachment:
+      type: object
+      properties:
+        CoreNetworkId:
+          description: ID of the CoreNetwork that the attachment will be attached to.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: The ARN of a core network for the VPC attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentId:
+          description: The ID of the attachment.
+          type: string
+          x-is-top-level-property: true
+        OwnerAccountId:
+          description: The ID of the attachment account owner.
+          type: string
+          x-is-top-level-property: true
+        AttachmentType:
+          description: The type of attachment.
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: State of the attachment.
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: Edge location of the attachment.
+          type: string
+          x-is-top-level-property: true
+        ResourceArn:
+          description: The attachment resource ARN.
+          type: string
+          x-is-top-level-property: true
+        AttachmentPolicyRuleNumber:
+          description: The policy rule number associated with the attachment.
+          type: integer
+          x-is-top-level-property: true
+        SegmentName:
+          description: The name of the segment attachment.
+          type: string
+          x-is-top-level-property: true
+        ProposedSegmentChange:
+          description: The attachment to move from one segment to another.
+          $ref: '#/components/schemas/ProposedSegmentChange'
+          x-is-top-level-property: true
+        Tags:
+          description: Tags for the attachment.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        CreatedAt:
+          description: Creation time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        UpdatedAt:
+          description: Last update time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        TransportAttachmentId:
+          description: Id of transport attachment
+          type: string
+          x-is-top-level-property: true
+        Options:
+          description: Protocol options for connect attachment
+          $ref: '#/components/schemas/ConnectAttachmentOptions'
+          x-is-top-level-property: true
+      required:
+        - CoreNetworkId
+        - EdgeLocation
+        - TransportAttachmentId
+        - Options
+      x-stackql-resource-name: ConnectAttachment
+    ConnectPeerConfiguration:
+      type: object
+      properties:
+        CoreNetworkAddress:
+          type: string
+        PeerAddress:
+          type: string
+        InsideCidrBlocks:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        Protocol:
+          $ref: '#/components/schemas/TunnelProtocol'
+        BgpConfigurations:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/ConnectPeerBgpConfiguration'
+      additionalProperties: false
+    TunnelProtocol:
+      description: Tunnel protocol type (Only support GRE for now)
+      type: string
+    BgpOptions:
+      description: Bgp options
+      type: object
+      properties:
+        PeerAsn:
+          type: number
+      additionalProperties: false
+    ConnectPeerBgpConfiguration:
+      description: Bgp configuration for connect peer
+      type: object
+      properties:
+        CoreNetworkAsn:
+          type: number
+        PeerAsn:
+          type: number
+        CoreNetworkAddress:
+          type: string
+        PeerAddress:
+          type: string
+      additionalProperties: false
+    ConnectPeer:
+      type: object
+      properties:
+        PeerAddress:
+          description: The IP address of the Connect peer.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkAddress:
+          description: The IP address of a core network.
+          type: string
+          x-is-top-level-property: true
+        BgpOptions:
+          description: Bgp options for connect peer.
+          $ref: '#/components/schemas/BgpOptions'
+          x-is-top-level-property: true
+        InsideCidrBlocks:
+          description: The inside IP addresses used for a Connect peer configuration.
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        CoreNetworkId:
+          description: The ID of the core network.
+          type: string
+          x-is-top-level-property: true
+        ConnectAttachmentId:
+          description: The ID of the attachment to connect.
+          type: string
+          x-is-top-level-property: true
+        ConnectPeerId:
+          description: The ID of the Connect peer.
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: The Connect peer Regions where edges are located.
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: State of the connect peer.
+          type: string
+          x-is-top-level-property: true
+        CreatedAt:
+          description: Connect peer creation time.
+          type: string
+          x-is-top-level-property: true
+        Configuration:
+          description: Configuration of the connect peer.
+          $ref: '#/components/schemas/ConnectPeerConfiguration'
+          x-is-top-level-property: true
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - ConnectAttachmentId
+        - PeerAddress
+        - InsideCidrBlocks
+      x-stackql-resource-name: ConnectPeer
+    CoreNetworkSegment:
+      type: object
+      properties:
+        Name:
+          type: string
+          description: Name of segment
+        EdgeLocations:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+            description: The Regions where the edges are located.
+        SharedSegments:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+            description: The shared segments of a core network.
+      additionalProperties: false
+    CoreNetworkEdge:
+      type: object
+      properties:
+        EdgeLocation:
+          type: string
+          description: The Region where a core network edge is located.
+        Asn:
+          type: number
+          description: The ASN of a core network edge.
+        InsideCidrBlocks:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+            description: The inside IP addresses used for core network edges.
+      additionalProperties: false
+    CoreNetwork:
+      type: object
+      properties:
+        GlobalNetworkId:
+          description: The ID of the global network that your core network is a part of.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkId:
+          description: The Id of core network
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: The ARN (Amazon resource name) of core network
+          type: string
+          x-is-top-level-property: true
+        PolicyDocument:
+          description: >-
+            Live policy document for the core network, you must provide
+            PolicyDocument in Json Format
+          type: object
+          x-is-top-level-property: true
+        Description:
+          description: The description of core network
+          type: string
+          x-is-top-level-property: true
+        CreatedAt:
+          description: The creation time of core network
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: The state of core network
+          type: string
+          x-is-top-level-property: true
+        Segments:
+          description: The segments within a core network.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/CoreNetworkSegment'
+          x-is-top-level-property: true
+        Edges:
+          description: The edges within a core network.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/CoreNetworkEdge'
+          x-is-top-level-property: true
+        OwnerAccount:
+          description: Owner of the core network
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: The tags for the global network.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+      x-stackql-resource-name: CoreNetwork
+    CustomerGatewayAssociation:
+      type: object
+      properties:
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        CustomerGatewayArn:
+          description: The Amazon Resource Name (ARN) of the customer gateway.
+          type: string
+          x-is-top-level-property: true
+        DeviceId:
+          description: The ID of the device
+          type: string
+          x-is-top-level-property: true
+        LinkId:
+          description: The ID of the link
+          type: string
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+        - CustomerGatewayArn
+        - DeviceId
+      x-stackql-resource-name: CustomerGatewayAssociation
+    Location:
+      description: The location of the site
+      type: object
+      properties:
+        Address:
+          description: The physical address.
+          type: string
+        Latitude:
+          description: The latitude.
+          type: string
+        Longitude:
+          description: The longitude.
+          type: string
+      additionalProperties: false
+    Device:
+      type: object
+      properties:
+        DeviceArn:
+          description: The Amazon Resource Name (ARN) of the device.
+          type: string
+          x-is-top-level-property: true
+        DeviceId:
+          description: The ID of the device.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: The description of the device.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: The tags for the device.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        Location:
+          description: The site location.
+          $ref: '#/components/schemas/Location'
+          x-is-top-level-property: true
+        Model:
+          description: The device model
+          type: string
+          x-is-top-level-property: true
+        SerialNumber:
+          description: The device serial number.
+          type: string
+          x-is-top-level-property: true
+        SiteId:
+          description: The site ID.
+          type: string
+          x-is-top-level-property: true
+        Type:
+          description: The device type.
+          type: string
+          x-is-top-level-property: true
+        Vendor:
+          description: The device vendor.
+          type: string
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+      x-stackql-resource-name: Device
+    GlobalNetwork:
+      type: object
+      properties:
+        Arn:
+          description: The Amazon Resource Name (ARN) of the global network.
+          type: string
+          x-is-top-level-property: true
+        Id:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: The description of the global network.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: The tags for the global network.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required: []
+      x-stackql-resource-name: GlobalNetwork
+    Bandwidth:
+      description: The bandwidth for the link.
+      type: object
+      properties:
+        DownloadSpeed:
+          description: Download speed in Mbps.
+          type: integer
+        UploadSpeed:
+          description: Upload speed in Mbps.
+          type: integer
+      additionalProperties: false
+    Link:
+      type: object
+      properties:
+        LinkArn:
+          description: The Amazon Resource Name (ARN) of the link.
+          type: string
+          x-is-top-level-property: true
+        LinkId:
+          description: The ID of the link.
+          type: string
+          x-is-top-level-property: true
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        SiteId:
+          description: The ID of the site
+          type: string
+          x-is-top-level-property: true
+        Bandwidth:
+          description: The Bandwidth for the link.
+          $ref: '#/components/schemas/Bandwidth'
+          x-is-top-level-property: true
+        Provider:
+          description: The provider of the link.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: The description of the link.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: The tags for the link.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        Type:
+          description: The type of the link.
+          type: string
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+        - SiteId
+        - Bandwidth
+      x-stackql-resource-name: Link
+    LinkAssociation:
+      type: object
+      properties:
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        DeviceId:
+          description: The ID of the device
+          type: string
+          x-is-top-level-property: true
+        LinkId:
+          description: The ID of the link
+          type: string
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+        - DeviceId
+        - LinkId
+      x-stackql-resource-name: LinkAssociation
+    Site:
+      type: object
+      properties:
+        SiteArn:
+          description: The Amazon Resource Name (ARN) of the site.
+          type: string
+          x-is-top-level-property: true
+        SiteId:
+          description: The ID of the site.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: The description of the site.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: The tags for the site.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        Location:
+          description: The location of the site.
+          $ref: '#/components/schemas/Location'
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+      x-stackql-resource-name: Site
+    SiteToSiteVpnAttachment:
+      type: object
+      properties:
+        CoreNetworkId:
+          description: >-
+            The ID of a core network where you're creating a site-to-site VPN
+            attachment.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: The ARN of a core network for the VPC attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentId:
+          description: The ID of the attachment.
+          type: string
+          x-is-top-level-property: true
+        OwnerAccountId:
+          description: Owner account of the attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentType:
+          description: The type of attachment.
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: The state of the attachment.
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: The Region where the edge is located.
+          type: string
+          x-is-top-level-property: true
+        ResourceArn:
+          description: The ARN of the Resource.
+          type: string
+          x-is-top-level-property: true
+        AttachmentPolicyRuleNumber:
+          description: The policy rule number associated with the attachment.
+          type: integer
+          x-is-top-level-property: true
+        SegmentName:
+          description: The name of the segment that attachment is in.
+          type: string
+          x-is-top-level-property: true
+        ProposedSegmentChange:
+          description: The attachment to move from one segment to another.
+          $ref: '#/components/schemas/ProposedSegmentChange'
+          x-is-top-level-property: true
+        Tags:
+          description: Tags for the attachment.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        CreatedAt:
+          description: Creation time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        UpdatedAt:
+          description: Last update time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        VpnConnectionArn:
+          description: The ARN of the site-to-site VPN attachment.
+          type: string
+          x-is-top-level-property: true
+      required:
+        - CoreNetworkId
+        - VpnConnectionArn
+      x-stackql-resource-name: SiteToSiteVpnAttachment
+    TransitGatewayPeering:
+      type: object
+      properties:
+        CoreNetworkId:
+          description: >-
+            The Id of the core network that you want to peer a transit gateway
+            to.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: >-
+            The ARN (Amazon Resource Name) of the core network that you want to
+            peer a transit gateway to.
+          type: string
+          x-is-top-level-property: true
+        TransitGatewayArn:
+          description: >-
+            The ARN (Amazon Resource Name) of the transit gateway that you will
+            peer to a core network
+          type: string
+          x-is-top-level-property: true
+        TransitGatewayPeeringAttachmentId:
+          description: The ID of the TransitGatewayPeeringAttachment
+          type: string
+          x-is-top-level-property: true
+        PeeringId:
+          description: The Id of the transit gateway peering
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: The state of the transit gateway peering
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: The location of the transit gateway peering
+          type: string
+          x-is-top-level-property: true
+        ResourceArn:
+          description: >-
+            The ARN (Amazon Resource Name) of the resource that you will peer to
+            a core network
+          type: string
+          x-is-top-level-property: true
+        OwnerAccountId:
+          description: Peering owner account Id
+          type: string
+          x-is-top-level-property: true
+        PeeringType:
+          description: Peering type (TransitGatewayPeering)
+          type: string
+          x-is-top-level-property: true
+        CreatedAt:
+          description: The creation time of the transit gateway peering
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - CoreNetworkId
+        - TransitGatewayArn
+      x-stackql-resource-name: TransitGatewayPeering
+    TransitGatewayRegistration:
+      type: object
+      properties:
+        GlobalNetworkId:
+          description: The ID of the global network.
+          type: string
+          x-is-top-level-property: true
+        TransitGatewayArn:
+          description: The Amazon Resource Name (ARN) of the transit gateway.
+          type: string
+          x-is-top-level-property: true
+      required:
+        - GlobalNetworkId
+        - TransitGatewayArn
+      x-stackql-resource-name: TransitGatewayRegistration
+    TransitGatewayRouteTableAttachment:
+      type: object
+      properties:
+        PeeringId:
+          description: The Id of peering between transit gateway and core network.
+          type: string
+          x-is-top-level-property: true
+        TransitGatewayRouteTableArn:
+          description: The Arn of transit gateway route table.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkId:
+          description: >-
+            The ID of a core network where you're creating a site-to-site VPN
+            attachment.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: The ARN of a core network for the VPC attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentId:
+          description: The ID of the attachment.
+          type: string
+          x-is-top-level-property: true
+        OwnerAccountId:
+          description: Owner account of the attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentType:
+          description: The type of attachment.
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: The state of the attachment.
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: The Region where the edge is located.
+          type: string
+          x-is-top-level-property: true
+        ResourceArn:
+          description: The ARN of the Resource.
+          type: string
+          x-is-top-level-property: true
+        AttachmentPolicyRuleNumber:
+          description: The policy rule number associated with the attachment.
+          type: integer
+          x-is-top-level-property: true
+        SegmentName:
+          description: The name of the segment that attachment is in.
+          type: string
+          x-is-top-level-property: true
+        ProposedSegmentChange:
+          description: The attachment to move from one segment to another.
+          $ref: '#/components/schemas/ProposedSegmentChange'
+          x-is-top-level-property: true
+        CreatedAt:
+          description: Creation time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        UpdatedAt:
+          description: Last update time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - PeeringId
+        - TransitGatewayRouteTableArn
+      x-stackql-resource-name: TransitGatewayRouteTableAttachment
+    VpcOptions:
+      description: Vpc options of the attachment.
+      type: object
+      properties:
+        Ipv6Support:
+          description: >-
+            Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid
+            Values: enable | disable
+          type: boolean
+          default: false
+        ApplianceModeSupport:
+          description: >-
+            Indicates whether to enable ApplianceModeSupport Support for Vpc
+            Attachment. Valid Values: true | false
+          type: boolean
+          default: false
+      additionalProperties: false
+    VpcAttachment:
+      type: object
+      properties:
+        CoreNetworkId:
+          description: The ID of a core network for the VPC attachment.
+          type: string
+          x-is-top-level-property: true
+        CoreNetworkArn:
+          description: The ARN of a core network for the VPC attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentId:
+          description: Id of the attachment.
+          type: string
+          x-is-top-level-property: true
+        OwnerAccountId:
+          description: Owner account of the attachment.
+          type: string
+          x-is-top-level-property: true
+        AttachmentType:
+          description: Attachment type.
+          type: string
+          x-is-top-level-property: true
+        State:
+          description: State of the attachment.
+          type: string
+          x-is-top-level-property: true
+        EdgeLocation:
+          description: The Region where the edge is located.
+          type: string
+          x-is-top-level-property: true
+        VpcArn:
+          description: The ARN of the VPC.
+          type: string
+          x-is-top-level-property: true
+        ResourceArn:
+          description: The ARN of the Resource.
+          type: string
+          x-is-top-level-property: true
+        AttachmentPolicyRuleNumber:
+          description: The policy rule number associated with the attachment.
+          type: integer
+          x-is-top-level-property: true
+        SegmentName:
+          description: The name of the segment attachment..
+          type: string
+          x-is-top-level-property: true
+        ProposedSegmentChange:
+          description: The attachment to move from one segment to another.
+          $ref: '#/components/schemas/ProposedSegmentChange'
+          x-is-top-level-property: true
+        Tags:
+          description: Tags for the attachment.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        CreatedAt:
+          description: Creation time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        UpdatedAt:
+          description: Last update time of the attachment.
+          type: string
+          x-is-top-level-property: true
+        SubnetArns:
+          description: Subnet Arn list
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+          x-is-top-level-property: true
+        Options:
+          description: Vpc options of the attachment.
+          $ref: '#/components/schemas/VpcOptions'
+          x-is-top-level-property: true
+      required:
+        - CoreNetworkId
+        - VpcArn
+        - SubnetArns
+      x-stackql-resource-name: VpcAttachment
+x-stackql-views:
+  - ConnectAttachment:
+      name: ConnectAttachment
+      id: aws.networkmanager.ConnectAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+
+              JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
+              attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
+              proposed_segment_change_tags,
+
+              JSON_EXTRACT(Properties,
+              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
+              proposed_segment_change_attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
+              proposed_segment_change_segment_name,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
+
+              JSON_EXTRACT(Properties, '$.TransportAttachmentId') as
+              transport_attachment_id,
+
+              JSON_EXTRACT(Properties, '$.Options.Protocol') as options_protocol
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
+  - ConnectPeer:
+      name: ConnectPeer
+      id: aws.networkmanager.ConnectPeer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.PeerAddress') as peer_address,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkAddress') as
+              core_network_address,
+
+              JSON_EXTRACT(Properties, '$.BgpOptions.PeerAsn') as
+              bgp_options_peer_asn,
+
+              JSON_EXTRACT(Properties, '$.InsideCidrBlocks') as
+              inside_cidr_blocks,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.ConnectAttachmentId') as
+              connect_attachment_id,
+
+              JSON_EXTRACT(Properties, '$.ConnectPeerId') as connect_peer_id,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.Configuration.CoreNetworkAddress') as
+              configuration_core_network_address,
+
+              JSON_EXTRACT(Properties, '$.Configuration.PeerAddress') as
+              configuration_peer_address,
+
+              JSON_EXTRACT(Properties, '$.Configuration.InsideCidrBlocks') as
+              configuration_inside_cidr_blocks,
+
+              JSON_EXTRACT(Properties, '$.Configuration.Protocol') as
+              configuration_protocol,
+
+              JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as
+              configuration_bgp_configurations,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
+  - CoreNetwork:
+      name: CoreNetwork
+      id: aws.networkmanager.CoreNetwork
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.Segments') as segments,
+
+              JSON_EXTRACT(Properties, '$.Edges') as edges,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
+  - CustomerGatewayAssociation:
+      name: CustomerGatewayAssociation
+      id: aws.networkmanager.CustomerGatewayAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as
+              customer_gateway_arn,
+
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+
+              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::NetworkManager::CustomerGatewayAssociation' ;
+  - Device:
+      name: Device
+      id: aws.networkmanager.Device
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.DeviceArn') as device_arn,
+
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.Location.Address') as
+              location_address,
+
+              JSON_EXTRACT(Properties, '$.Location.Latitude') as
+              location_latitude,
+
+              JSON_EXTRACT(Properties, '$.Location.Longitude') as
+              location_longitude,
+
+              JSON_EXTRACT(Properties, '$.Model') as model,
+
+              JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
+
+              JSON_EXTRACT(Properties, '$.SiteId') as site_id,
+
+              JSON_EXTRACT(Properties, '$.Type') as type,
+
+              JSON_EXTRACT(Properties, '$.Vendor') as vendor
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::Device' ;
+  - GlobalNetwork:
+      name: GlobalNetwork
+      id: aws.networkmanager.GlobalNetwork
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
+  - Link:
+      name: Link
+      id: aws.networkmanager.Link
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.LinkArn') as link_arn,
+
+              JSON_EXTRACT(Properties, '$.LinkId') as link_id,
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.SiteId') as site_id,
+
+              JSON_EXTRACT(Properties, '$.Bandwidth.DownloadSpeed') as
+              bandwidth_download_speed,
+
+              JSON_EXTRACT(Properties, '$.Bandwidth.UploadSpeed') as
+              bandwidth_upload_speed,
+
+              JSON_EXTRACT(Properties, '$.Provider') as provider,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Type') as type
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::Link' ;
+  - LinkAssociation:
+      name: LinkAssociation
+      id: aws.networkmanager.LinkAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+
+              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
+  - Site:
+      name: Site
+      id: aws.networkmanager.Site
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.SiteArn') as site_arn,
+
+              JSON_EXTRACT(Properties, '$.SiteId') as site_id,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.Location.Address') as
+              location_address,
+
+              JSON_EXTRACT(Properties, '$.Location.Latitude') as
+              location_latitude,
+
+              JSON_EXTRACT(Properties, '$.Location.Longitude') as
+              location_longitude
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::Site' ;
+  - SiteToSiteVpnAttachment:
+      name: SiteToSiteVpnAttachment
+      id: aws.networkmanager.SiteToSiteVpnAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+
+              JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
+              attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
+              proposed_segment_change_tags,
+
+              JSON_EXTRACT(Properties,
+              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
+              proposed_segment_change_attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
+              proposed_segment_change_segment_name,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
+
+              JSON_EXTRACT(Properties, '$.VpnConnectionArn') as
+              vpn_connection_arn
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
+  - TransitGatewayPeering:
+      name: TransitGatewayPeering
+      id: aws.networkmanager.TransitGatewayPeering
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as
+              transit_gateway_arn,
+
+              JSON_EXTRACT(Properties, '$.TransitGatewayPeeringAttachmentId') as
+              transit_gateway_peering_attachment_id,
+
+              JSON_EXTRACT(Properties, '$.PeeringId') as peering_id,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+
+              JSON_EXTRACT(Properties, '$.PeeringType') as peering_type,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
+              ;
+  - TransitGatewayRegistration:
+      name: TransitGatewayRegistration
+      id: aws.networkmanager.TransitGatewayRegistration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
+              global_network_id,
+
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as
+              transit_gateway_arn
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::NetworkManager::TransitGatewayRegistration' ;
+  - TransitGatewayRouteTableAttachment:
+      name: TransitGatewayRouteTableAttachment
+      id: aws.networkmanager.TransitGatewayRouteTableAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.PeeringId') as peering_id,
+
+              JSON_EXTRACT(Properties, '$.TransitGatewayRouteTableArn') as
+              transit_gateway_route_table_arn,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+
+              JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
+              attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
+              proposed_segment_change_tags,
+
+              JSON_EXTRACT(Properties,
+              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
+              proposed_segment_change_attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
+              proposed_segment_change_segment_name,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
+  - VpcAttachment:
+      name: VpcAttachment
+      id: aws.networkmanager.VpcAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
+
+              JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
+
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+
+              JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
+
+              JSON_EXTRACT(Properties, '$.State') as state,
+
+              JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
+
+              JSON_EXTRACT(Properties, '$.VpcArn') as vpc_arn,
+
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
+              attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
+              proposed_segment_change_tags,
+
+              JSON_EXTRACT(Properties,
+              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
+              proposed_segment_change_attachment_policy_rule_number,
+
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
+              proposed_segment_change_segment_name,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+
+              JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
+
+              JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
+
+              JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as
+              options_ipv6_support,
+
+              JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as
+              options_appliance_mode_support
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;

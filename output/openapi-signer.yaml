@@ -1,0 +1,154 @@
+openapi: 3.0.0
+info:
+  title: Signer
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ProfilePermission:
+      type: object
+      properties:
+        ProfileName:
+          type: string
+          x-is-top-level-property: true
+        ProfileVersion:
+          type: string
+          pattern: ^[0-9a-zA-Z]{10}$
+          x-is-top-level-property: true
+        Action:
+          type: string
+          x-is-top-level-property: true
+        Principal:
+          type: string
+          x-is-top-level-property: true
+        StatementId:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - ProfileName
+        - Action
+        - Principal
+        - StatementId
+      x-stackql-resource-name: ProfilePermission
+    PlatformId:
+      type: string
+      enum:
+        - AWSLambda-SHA384-ECDSA
+    Arn:
+      type: string
+      pattern: ^arn:aws(-(cn|gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+    ProfileVersion:
+      type: string
+      pattern: ^[0-9a-zA-Z]{10}$
+    SignatureValidityPeriod:
+      type: object
+      properties:
+        Value:
+          type: integer
+        Type:
+          type: string
+          enum:
+            - DAYS
+            - MONTHS
+            - YEARS
+      additionalProperties: false
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 127
+          pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 255
+      additionalProperties: false
+    SigningProfile:
+      type: object
+      properties:
+        ProfileName:
+          description: >-
+            A name for the signing profile. AWS CloudFormation generates a
+            unique physical ID and uses that ID for the signing profile name. 
+          type: string
+          x-is-top-level-property: true
+        ProfileVersion:
+          description: >-
+            A version for the signing profile. AWS Signer generates a unique
+            version for each profile of the same profile name.
+          $ref: '#/components/schemas/ProfileVersion'
+          x-is-top-level-property: true
+        Arn:
+          description: The Amazon Resource Name (ARN) of the specified signing profile.
+          $ref: '#/components/schemas/Arn'
+          x-is-top-level-property: true
+        ProfileVersionArn:
+          description: >-
+            The Amazon Resource Name (ARN) of the specified signing profile
+            version.
+          $ref: '#/components/schemas/Arn'
+          x-is-top-level-property: true
+        SignatureValidityPeriod:
+          description: Signature validity period of the profile.
+          $ref: '#/components/schemas/SignatureValidityPeriod'
+          x-is-top-level-property: true
+        PlatformId:
+          description: The ID of the target signing platform.
+          $ref: '#/components/schemas/PlatformId'
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          description: A list of tags associated with the signing profile.
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - PlatformId
+      x-stackql-resource-name: SigningProfile
+x-stackql-views:
+  - ProfilePermission:
+      name: ProfilePermission
+      id: aws.signer.ProfilePermission
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ProfileName') as profile_name,
+
+              JSON_EXTRACT(Properties, '$.ProfileVersion') as profile_version,
+
+              JSON_EXTRACT(Properties, '$.Action') as action,
+
+              JSON_EXTRACT(Properties, '$.Principal') as principal,
+
+              JSON_EXTRACT(Properties, '$.StatementId') as statement_id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Signer::ProfilePermission' ;
+  - SigningProfile:
+      name: SigningProfile
+      id: aws.signer.SigningProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ProfileName') as profile_name,
+
+              JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Value') as
+              signature_validity_period_value,
+
+              JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Type') as
+              signature_validity_period_type,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Signer::SigningProfile' ;

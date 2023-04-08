@@ -1,0 +1,517 @@
+openapi: 3.0.0
+info:
+  title: ElasticBeanstalk
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    ApplicationResourceLifecycleConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        ServiceRole:
+          description: >-
+            The ARN of an IAM service role that Elastic Beanstalk has permission
+            to assume. The ServiceRole property is required the first time that
+            you provide a ResourceLifecycleConfig for the application. After you
+            provide it once, Elastic Beanstalk persists the Service Role with
+            the application, and you don't need to specify it again. You can,
+            however, specify it in subsequent updates to change the Service Role
+            to another value.
+          type: string
+        VersionLifecycleConfig:
+          description: Defines lifecycle settings for application versions.
+          $ref: '#/components/schemas/ApplicationVersionLifecycleConfig'
+    ApplicationVersionLifecycleConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        MaxAgeRule:
+          description: >-
+            Specify a max age rule to restrict the length of time that
+            application versions are retained for an application.
+          $ref: '#/components/schemas/MaxAgeRule'
+        MaxCountRule:
+          description: >-
+            Specify a max count rule to restrict the number of application
+            versions that are retained for an application.
+          $ref: '#/components/schemas/MaxCountRule'
+    MaxAgeRule:
+      type: object
+      additionalProperties: false
+      properties:
+        DeleteSourceFromS3:
+          description: >-
+            Set to true to delete a version's source bundle from Amazon S3 when
+            Elastic Beanstalk deletes the application version.
+          type: boolean
+        Enabled:
+          description: Specify true to apply the rule, or false to disable it.
+          type: boolean
+        MaxAgeInDays:
+          description: Specify the number of days to retain an application versions.
+          type: integer
+    MaxCountRule:
+      type: object
+      additionalProperties: false
+      properties:
+        DeleteSourceFromS3:
+          description: >-
+            Set to true to delete a version's source bundle from Amazon S3 when
+            Elastic Beanstalk deletes the application version.
+          type: boolean
+        Enabled:
+          description: Specify true to apply the rule, or false to disable it.
+          type: boolean
+        MaxCount:
+          description: Specify the maximum number of application versions to retain.
+          type: integer
+    Application:
+      type: object
+      properties:
+        ApplicationName:
+          description: >-
+            A name for the Elastic Beanstalk application. If you don't specify a
+            name, AWS CloudFormation generates a unique physical ID and uses
+            that ID for the application name.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: Your description of the application.
+          type: string
+          x-is-top-level-property: true
+        ResourceLifecycleConfig:
+          description: >-
+            Specifies an application resource lifecycle configuration to prevent
+            your application from accumulating too many versions.
+          $ref: '#/components/schemas/ApplicationResourceLifecycleConfig'
+          x-is-top-level-property: true
+      required: []
+      x-stackql-resource-name: Application
+    SourceBundle:
+      type: object
+      additionalProperties: false
+      properties:
+        S3Bucket:
+          description: The Amazon S3 bucket where the data is located.
+          type: string
+        S3Key:
+          description: The Amazon S3 key where the data is located.
+          type: string
+      required:
+        - S3Bucket
+        - S3Key
+    ApplicationVersion:
+      type: object
+      properties:
+        Id:
+          type: string
+          x-is-top-level-property: true
+        ApplicationName:
+          description: >-
+            The name of the Elastic Beanstalk application that is associated
+            with this application version. 
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: A description of this application version.
+          type: string
+          x-is-top-level-property: true
+        SourceBundle:
+          description: >-
+            The Amazon S3 bucket and key that identify the location of the
+            source bundle for this version. 
+          $ref: '#/components/schemas/SourceBundle'
+          x-is-top-level-property: true
+      required:
+        - ApplicationName
+        - SourceBundle
+      x-stackql-resource-name: ApplicationVersion
+    SourceConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        ApplicationName:
+          description: The name of the application associated with the configuration.
+          type: string
+        TemplateName:
+          description: The name of the configuration template.
+          type: string
+      required:
+        - TemplateName
+        - ApplicationName
+    ConfigurationOptionSetting:
+      type: object
+      additionalProperties: false
+      properties:
+        Namespace:
+          description: >-
+            A unique namespace that identifies the option's associated AWS
+            resource.
+          type: string
+        OptionName:
+          description: The name of the configuration option.
+          type: string
+        ResourceName:
+          description: >-
+            A unique resource name for the option setting. Use it for a
+            time–based scaling configuration option. 
+          type: string
+        Value:
+          description: The current value for the configuration option.
+          type: string
+      required:
+        - Namespace
+        - OptionName
+    ConfigurationTemplate:
+      type: object
+      properties:
+        ApplicationName:
+          description: >-
+            The name of the Elastic Beanstalk application to associate with this
+            configuration template. 
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: An optional description for this configuration.
+          type: string
+          x-is-top-level-property: true
+        EnvironmentId:
+          description: >-
+            The ID of an environment whose settings you want to use to create
+            the configuration template. You must specify EnvironmentId if you
+            don't specify PlatformArn, SolutionStackName, or
+            SourceConfiguration. 
+          type: string
+          x-is-top-level-property: true
+        OptionSettings:
+          description: >-
+            Option values for the Elastic Beanstalk configuration, such as the
+            instance type. If specified, these values override the values
+            obtained from the solution stack or the source configuration
+            template. For a complete list of Elastic Beanstalk configuration
+            options, see [Option
+            Values](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/command-options.html)
+            in the AWS Elastic Beanstalk Developer Guide. 
+          type: array
+          x-arrayType: AttributeList
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/ConfigurationOptionSetting'
+          x-is-top-level-property: true
+        PlatformArn:
+          description: >-
+            The Amazon Resource Name (ARN) of the custom platform. For more
+            information, see [Custom
+            Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/custom-platforms.html)
+            in the AWS Elastic Beanstalk Developer Guide. 
+          type: string
+          x-is-top-level-property: true
+        SolutionStackName:
+          description: >-
+            The name of an Elastic Beanstalk solution stack (platform version)
+            that this configuration uses. For example, 64bit Amazon Linux
+            2013.09 running Tomcat 7 Java 7. A solution stack specifies the
+            operating system, runtime, and application server for a
+            configuration template. It also determines the set of configuration
+            options as well as the possible and default values. For more
+            information, see [Supported
+            Platforms](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/concepts.platforms.html)
+            in the AWS Elastic Beanstalk Developer Guide.
+
+             You must specify SolutionStackName if you don't specify PlatformArn, EnvironmentId, or SourceConfiguration.
+
+             Use the ListAvailableSolutionStacks API to obtain a list of available solution stacks. 
+          type: string
+          x-is-top-level-property: true
+        SourceConfiguration:
+          description: >-
+            An Elastic Beanstalk configuration template to base this one on. If
+            specified, Elastic Beanstalk uses the configuration values from the
+            specified configuration template to create a new configuration.
+
+
+            Values specified in OptionSettings override any values obtained from
+            the SourceConfiguration.
+
+
+            You must specify SourceConfiguration if you don't specify
+            PlatformArn, EnvironmentId, or SolutionStackName.
+
+
+            Constraint: If both solution stack name and source configuration are
+            specified, the solution stack of the source configuration template
+            must match the specified solution stack name. 
+          $ref: '#/components/schemas/SourceConfiguration'
+          x-is-top-level-property: true
+        TemplateName:
+          description: The name of the configuration template
+          type: string
+          x-is-top-level-property: true
+      required:
+        - ApplicationName
+      x-stackql-resource-name: ConfigurationTemplate
+    Tier:
+      additionalProperties: false
+      type: object
+      properties:
+        Type:
+          description: The type of this environment tier.
+          type: string
+        Version:
+          description: >-
+            The version of this environment tier. When you don't set a value to
+            it, Elastic Beanstalk uses the latest compatible worker tier
+            version.
+          type: string
+        Name:
+          description: The name of this environment tier.
+          type: string
+    OptionSetting:
+      additionalProperties: false
+      type: object
+      properties:
+        ResourceName:
+          description: >-
+            A unique resource name for the option setting. Use it for a
+            time–based scaling configuration option.
+          type: string
+        Value:
+          description: The current value for the configuration option.
+          type: string
+        Namespace:
+          description: >-
+            A unique namespace that identifies the option's associated AWS
+            resource.
+          type: string
+        OptionName:
+          description: The name of the configuration option.
+          type: string
+      required:
+        - Namespace
+        - OptionName
+    Tag:
+      additionalProperties: false
+      type: object
+      properties:
+        Value:
+          description: The value for the tag.
+          type: string
+        Key:
+          description: The key name of the tag.
+          type: string
+      required:
+        - Value
+        - Key
+    Environment:
+      type: object
+      properties:
+        PlatformArn:
+          description: >-
+            The Amazon Resource Name (ARN) of the custom platform to use with
+            the environment.
+          type: string
+          x-is-top-level-property: true
+        ApplicationName:
+          description: >-
+            The name of the application that is associated with this
+            environment.
+          type: string
+          x-is-top-level-property: true
+        Description:
+          description: Your description for this environment.
+          type: string
+          x-is-top-level-property: true
+        EnvironmentName:
+          description: A unique name for the environment.
+          type: string
+          x-is-top-level-property: true
+        OperationsRole:
+          description: >-
+            The Amazon Resource Name (ARN) of an existing IAM role to be used as
+            the environment's operations role.
+          type: string
+          x-is-top-level-property: true
+        Tier:
+          description: >-
+            Specifies the tier to use in creating this environment. The
+            environment tier that you choose determines whether Elastic
+            Beanstalk provisions resources to support a web application that
+            handles HTTP(S) requests or a web application that handles
+            background-processing tasks.
+          $ref: '#/components/schemas/Tier'
+          x-is-top-level-property: true
+        VersionLabel:
+          description: The name of the application version to deploy.
+          type: string
+          x-is-top-level-property: true
+        EndpointURL:
+          type: string
+          x-is-top-level-property: true
+        OptionSettings:
+          uniqueItems: false
+          description: >-
+            Key-value pairs defining configuration options for this environment,
+            such as the instance type.
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/OptionSetting'
+          x-is-top-level-property: true
+        TemplateName:
+          description: >-
+            The name of the Elastic Beanstalk configuration template to use with
+            the environment.
+          type: string
+          x-is-top-level-property: true
+        SolutionStackName:
+          description: >-
+            The name of an Elastic Beanstalk solution stack (platform version)
+            to use with the environment.
+          type: string
+          x-is-top-level-property: true
+        CNAMEPrefix:
+          description: >-
+            If specified, the environment attempts to use this value as the
+            prefix for the CNAME in your Elastic Beanstalk environment URL. If
+            not specified, the CNAME is generated automatically by appending a
+            random alphanumeric string to the environment name.
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          uniqueItems: false
+          description: Specifies the tags applied to resources in the environment.
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - ApplicationName
+      x-stackql-resource-name: Environment
+x-stackql-views:
+  - Application:
+      name: Application
+      id: aws.elasticbeanstalk.Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.ResourceLifecycleConfig.ServiceRole')
+              as resource_lifecycle_config_service_role,
+
+              JSON_EXTRACT(Properties,
+              '$.ResourceLifecycleConfig.VersionLifecycleConfig') as
+              resource_lifecycle_config_version_lifecycle_config
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::ElasticBeanstalk::Application' ;
+  - ApplicationVersion:
+      name: ApplicationVersion
+      id: aws.elasticbeanstalk.ApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.SourceBundle.S3Bucket') as
+              source_bundle_s3_bucket,
+
+              JSON_EXTRACT(Properties, '$.SourceBundle.S3Key') as
+              source_bundle_s3_key
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::ElasticBeanstalk::ApplicationVersion' ;
+  - ConfigurationTemplate:
+      name: ConfigurationTemplate
+      id: aws.elasticbeanstalk.ConfigurationTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id,
+
+              JSON_EXTRACT(Properties, '$.OptionSettings') as option_settings,
+
+              JSON_EXTRACT(Properties, '$.PlatformArn') as platform_arn,
+
+              JSON_EXTRACT(Properties, '$.SolutionStackName') as
+              solution_stack_name,
+
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.ApplicationName')
+              as source_configuration_application_name,
+
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.TemplateName') as
+              source_configuration_template_name,
+
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName =
+              'AWS::ElasticBeanstalk::ConfigurationTemplate' ;
+  - Environment:
+      name: Environment
+      id: aws.elasticbeanstalk.Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.PlatformArn') as platform_arn,
+
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+
+              JSON_EXTRACT(Properties, '$.OperationsRole') as operations_role,
+
+              JSON_EXTRACT(Properties, '$.Tier.Type') as tier_type,
+
+              JSON_EXTRACT(Properties, '$.Tier.Version') as tier_version,
+
+              JSON_EXTRACT(Properties, '$.Tier.Name') as tier_name,
+
+              JSON_EXTRACT(Properties, '$.VersionLabel') as version_label,
+
+              JSON_EXTRACT(Properties, '$.EndpointURL') as endpoint_ur_l,
+
+              JSON_EXTRACT(Properties, '$.OptionSettings') as option_settings,
+
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_name,
+
+              JSON_EXTRACT(Properties, '$.SolutionStackName') as
+              solution_stack_name,
+
+              JSON_EXTRACT(Properties, '$.CNAMEPrefix') as c_na_me_prefix,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::ElasticBeanstalk::Environment' ;

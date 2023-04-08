@@ -1,0 +1,455 @@
+openapi: 3.0.0
+info:
+  title: GroundStation
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    JsonString:
+      type: string
+      pattern: ^[{}\[\]:.,"0-9A-z\-_\s]{1,8192}$
+    ConfigData:
+      type: object
+      minProperties: 1
+      maxProperties: 1
+      properties:
+        AntennaDownlinkConfig:
+          $ref: '#/components/schemas/AntennaDownlinkConfig'
+        TrackingConfig:
+          $ref: '#/components/schemas/TrackingConfig'
+        DataflowEndpointConfig:
+          $ref: '#/components/schemas/DataflowEndpointConfig'
+        AntennaDownlinkDemodDecodeConfig:
+          $ref: '#/components/schemas/AntennaDownlinkDemodDecodeConfig'
+        AntennaUplinkConfig:
+          $ref: '#/components/schemas/AntennaUplinkConfig'
+        UplinkEchoConfig:
+          $ref: '#/components/schemas/UplinkEchoConfig'
+        S3RecordingConfig:
+          $ref: '#/components/schemas/S3RecordingConfig'
+      additionalProperties: false
+    EirpUnits:
+      type: string
+      enum:
+        - dBW
+    Eirp:
+      type: object
+      properties:
+        Value:
+          type: number
+        Units:
+          $ref: '#/components/schemas/EirpUnits'
+      additionalProperties: false
+    FrequencyUnits:
+      type: string
+      enum:
+        - GHz
+        - MHz
+        - kHz
+    BandwidthUnits:
+      type: string
+      enum:
+        - GHz
+        - MHz
+        - kHz
+    FrequencyBandwidth:
+      type: object
+      properties:
+        Value:
+          type: number
+        Units:
+          $ref: '#/components/schemas/BandwidthUnits'
+      additionalProperties: false
+    Frequency:
+      type: object
+      properties:
+        Value:
+          type: number
+        Units:
+          $ref: '#/components/schemas/FrequencyUnits'
+      additionalProperties: false
+    Polarization:
+      type: string
+      enum:
+        - LEFT_HAND
+        - RIGHT_HAND
+        - NONE
+    S3KeyPrefix:
+      type: string
+      pattern: >-
+        ^([a-zA-Z0-9_\-=/]|\{satellite_id\}|\{config\-name}|\{s3\-config-id}|\{year\}|\{month\}|\{day\}){1,900}$
+    BucketArn:
+      type: string
+    RoleArn:
+      type: string
+    UplinkSpectrumConfig:
+      type: object
+      properties:
+        CenterFrequency:
+          $ref: '#/components/schemas/Frequency'
+        Polarization:
+          $ref: '#/components/schemas/Polarization'
+      additionalProperties: false
+    SpectrumConfig:
+      type: object
+      properties:
+        CenterFrequency:
+          $ref: '#/components/schemas/Frequency'
+        Bandwidth:
+          $ref: '#/components/schemas/FrequencyBandwidth'
+        Polarization:
+          $ref: '#/components/schemas/Polarization'
+      additionalProperties: false
+    AntennaDownlinkConfig:
+      type: object
+      properties:
+        SpectrumConfig:
+          $ref: '#/components/schemas/SpectrumConfig'
+      additionalProperties: false
+    TrackingConfig:
+      type: object
+      properties:
+        Autotrack:
+          type: string
+          enum:
+            - REQUIRED
+            - PREFERRED
+            - REMOVED
+      additionalProperties: false
+    DataflowEndpointConfig:
+      type: object
+      properties:
+        DataflowEndpointName:
+          type: string
+        DataflowEndpointRegion:
+          type: string
+      additionalProperties: false
+    DemodulationConfig:
+      type: object
+      properties:
+        UnvalidatedJSON:
+          $ref: '#/components/schemas/JsonString'
+      additionalProperties: false
+    DecodeConfig:
+      type: object
+      properties:
+        UnvalidatedJSON:
+          $ref: '#/components/schemas/JsonString'
+      additionalProperties: false
+    AntennaDownlinkDemodDecodeConfig:
+      type: object
+      properties:
+        SpectrumConfig:
+          $ref: '#/components/schemas/SpectrumConfig'
+        DemodulationConfig:
+          $ref: '#/components/schemas/DemodulationConfig'
+        DecodeConfig:
+          $ref: '#/components/schemas/DecodeConfig'
+      additionalProperties: false
+    AntennaUplinkConfig:
+      type: object
+      properties:
+        SpectrumConfig:
+          $ref: '#/components/schemas/UplinkSpectrumConfig'
+        TargetEirp:
+          $ref: '#/components/schemas/Eirp'
+        TransmitDisabled:
+          type: boolean
+      additionalProperties: false
+    UplinkEchoConfig:
+      type: object
+      properties:
+        Enabled:
+          type: boolean
+        AntennaUplinkConfigArn:
+          type: string
+      additionalProperties: false
+    S3RecordingConfig:
+      type: object
+      properties:
+        BucketArn:
+          $ref: '#/components/schemas/BucketArn'
+        RoleArn:
+          $ref: '#/components/schemas/RoleArn'
+        Prefix:
+          $ref: '#/components/schemas/S3KeyPrefix'
+      additionalProperties: false
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+          pattern: ^[ a-zA-Z0-9\+\-=._:/@]{1,128}$
+        Value:
+          type: string
+          pattern: ^[ a-zA-Z0-9\+\-=._:/@]{1,256}$
+      additionalProperties: false
+      required:
+        - Key
+        - Value
+    Config:
+      type: object
+      properties:
+        Name:
+          type: string
+          pattern: ^[ a-zA-Z0-9_:-]{1,256}$
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        Type:
+          type: string
+          x-is-top-level-property: true
+        ConfigData:
+          $ref: '#/components/schemas/ConfigData'
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - Name
+        - ConfigData
+      x-stackql-resource-name: Config
+    SocketAddress:
+      type: object
+      properties:
+        Name:
+          type: string
+        Port:
+          type: integer
+      additionalProperties: false
+    DataflowEndpoint:
+      type: object
+      properties:
+        Name:
+          type: string
+          pattern: ^[ a-zA-Z0-9_:-]{1,256}$
+        Address:
+          $ref: '#/components/schemas/SocketAddress'
+        Mtu:
+          type: integer
+      additionalProperties: false
+    SecurityDetails:
+      type: object
+      properties:
+        SubnetIds:
+          type: array
+          items:
+            type: string
+        SecurityGroupIds:
+          type: array
+          items:
+            type: string
+        RoleArn:
+          type: string
+      additionalProperties: false
+    EndpointDetails:
+      type: object
+      properties:
+        SecurityDetails:
+          $ref: '#/components/schemas/SecurityDetails'
+        Endpoint:
+          $ref: '#/components/schemas/DataflowEndpoint'
+      additionalProperties: false
+    DataflowEndpointGroup:
+      type: object
+      properties:
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        EndpointDetails:
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/EndpointDetails'
+          x-is-top-level-property: true
+        ContactPrePassDurationSeconds:
+          type: integer
+          x-is-top-level-property: true
+        ContactPostPassDurationSeconds:
+          type: integer
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+      required:
+        - EndpointDetails
+      x-stackql-resource-name: DataflowEndpointGroup
+    DataflowEdge:
+      type: object
+      properties:
+        Source:
+          type: string
+        Destination:
+          type: string
+      additionalProperties: false
+    MissionProfile:
+      type: object
+      properties:
+        Name:
+          description: A name used to identify a mission profile.
+          type: string
+          pattern: ^[ a-zA-Z0-9_:-]{1,256}$
+          x-is-top-level-property: true
+        ContactPrePassDurationSeconds:
+          description: Pre-pass time needed before the contact.
+          type: integer
+          x-is-top-level-property: true
+        ContactPostPassDurationSeconds:
+          description: Post-pass time needed after the contact.
+          type: integer
+          x-is-top-level-property: true
+        MinimumViableContactDurationSeconds:
+          description: >-
+            Visibilities with shorter duration than the specified minimum viable
+            contact duration will be ignored when searching for available
+            contacts.
+          type: integer
+          x-is-top-level-property: true
+        DataflowEdges:
+          description: ''
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/DataflowEdge'
+          x-is-top-level-property: true
+        TrackingConfigArn:
+          type: string
+          x-is-top-level-property: true
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-is-top-level-property: true
+        Id:
+          type: string
+          x-is-top-level-property: true
+        Arn:
+          type: string
+          x-is-top-level-property: true
+        Region:
+          type: string
+          x-is-top-level-property: true
+      required:
+        - Name
+        - MinimumViableContactDurationSeconds
+        - DataflowEdges
+        - TrackingConfigArn
+      x-stackql-resource-name: MissionProfile
+x-stackql-views:
+  - Config:
+      name: Config
+      id: aws.groundstation.Config
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Type') as type,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.AntennaDownlinkConfig') as
+              config_data_antenna_downlink_config,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.TrackingConfig') as
+              config_data_tracking_config,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.DataflowEndpointConfig') as
+              config_data_dataflow_endpoint_config,
+
+              JSON_EXTRACT(Properties,
+              '$.ConfigData.AntennaDownlinkDemodDecodeConfig') as
+              config_data_antenna_downlink_demod_decode_config,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.AntennaUplinkConfig') as
+              config_data_antenna_uplink_config,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.UplinkEchoConfig') as
+              config_data_uplink_echo_config,
+
+              JSON_EXTRACT(Properties, '$.ConfigData.S3RecordingConfig') as
+              config_data_s3_recording_config,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Id') as id
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GroundStation::Config' ;
+  - DataflowEndpointGroup:
+      name: DataflowEndpointGroup
+      id: aws.groundstation.DataflowEndpointGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.EndpointDetails') as endpoint_details,
+
+              JSON_EXTRACT(Properties, '$.ContactPrePassDurationSeconds') as
+              contact_pre_pass_duration_seconds,
+
+              JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as
+              contact_post_pass_duration_seconds,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup' ;
+  - MissionProfile:
+      name: MissionProfile
+      id: aws.groundstation.MissionProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.ContactPrePassDurationSeconds') as
+              contact_pre_pass_duration_seconds,
+
+              JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as
+              contact_post_pass_duration_seconds,
+
+              JSON_EXTRACT(Properties, '$.MinimumViableContactDurationSeconds')
+              as minimum_viable_contact_duration_seconds,
+
+              JSON_EXTRACT(Properties, '$.DataflowEdges') as dataflow_edges,
+
+              JSON_EXTRACT(Properties, '$.TrackingConfigArn') as
+              tracking_config_arn,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.Region') as region
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::GroundStation::MissionProfile' ;

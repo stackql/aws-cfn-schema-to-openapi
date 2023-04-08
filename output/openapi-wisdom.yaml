@@ -1,0 +1,301 @@
+openapi: 3.0.0
+info:
+  title: Wisdom
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    AssistantType:
+      type: string
+      enum:
+        - AGENT
+    ServerSideEncryptionConfiguration:
+      type: object
+      properties:
+        KmsKeyId:
+          type: string
+          maxLength: 4096
+          minLength: 1
+      additionalProperties: false
+    Tag:
+      additionalProperties: false
+      properties:
+        Key:
+          maxLength: 128
+          minLength: 1
+          pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
+          type: string
+        Value:
+          maxLength: 256
+          minLength: 1
+          type: string
+      required:
+        - Key
+        - Value
+      type: object
+    Assistant:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/AssistantType'
+          x-is-top-level-property: true
+        Description:
+          type: string
+          maxLength: 255
+          minLength: 1
+          x-is-top-level-property: true
+        AssistantArn:
+          type: string
+          pattern: >-
+            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          x-is-top-level-property: true
+        AssistantId:
+          type: string
+          pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+          x-is-top-level-property: true
+        ServerSideEncryptionConfiguration:
+          $ref: '#/components/schemas/ServerSideEncryptionConfiguration'
+          x-is-top-level-property: true
+        Tags:
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-is-top-level-property: true
+        Name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          x-is-top-level-property: true
+      required:
+        - Name
+        - Type
+      x-stackql-resource-name: Assistant
+    AssociationData:
+      type: object
+      properties:
+        KnowledgeBaseId:
+          type: string
+          pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+      required:
+        - KnowledgeBaseId
+      additionalProperties: false
+    AssociationType:
+      type: string
+      enum:
+        - KNOWLEDGE_BASE
+    AssistantAssociation:
+      type: object
+      properties:
+        AssistantAssociationArn:
+          type: string
+          pattern: >-
+            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          x-is-top-level-property: true
+        AssistantArn:
+          type: string
+          pattern: >-
+            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          x-is-top-level-property: true
+        AssistantAssociationId:
+          type: string
+          pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+          x-is-top-level-property: true
+        AssistantId:
+          type: string
+          pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+          x-is-top-level-property: true
+        Association:
+          $ref: '#/components/schemas/AssociationData'
+          x-is-top-level-property: true
+        AssociationType:
+          $ref: '#/components/schemas/AssociationType'
+          x-is-top-level-property: true
+        Tags:
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-is-top-level-property: true
+      required:
+        - Association
+        - AssociationType
+        - AssistantId
+      x-stackql-resource-name: AssistantAssociation
+    AppIntegrationsConfiguration:
+      type: object
+      properties:
+        ObjectFields:
+          type: array
+          items:
+            type: string
+            maxLength: 4096
+            minLength: 1
+          x-insertionOrder: false
+          maxItems: 100
+          minItems: 1
+        AppIntegrationArn:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^arn:[a-z-]+?:[a-z-]+?:[a-z0-9-]*?:([0-9]{12})?:[a-zA-Z0-9-:/]+$
+      required:
+        - AppIntegrationArn
+      additionalProperties: false
+    KnowledgeBaseType:
+      type: string
+      enum:
+        - EXTERNAL
+        - CUSTOM
+    RenderingConfiguration:
+      type: object
+      properties:
+        TemplateUri:
+          type: string
+          maxLength: 4096
+          minLength: 1
+      additionalProperties: false
+    SourceConfiguration:
+      type: object
+      properties:
+        AppIntegrations:
+          $ref: '#/components/schemas/AppIntegrationsConfiguration'
+      oneOf:
+        - required:
+            - AppIntegrations
+      additionalProperties: false
+    KnowledgeBase:
+      type: object
+      properties:
+        Description:
+          type: string
+          maxLength: 255
+          minLength: 1
+          x-is-top-level-property: true
+        KnowledgeBaseArn:
+          type: string
+          pattern: >-
+            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          x-is-top-level-property: true
+        KnowledgeBaseId:
+          type: string
+          pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+          x-is-top-level-property: true
+        KnowledgeBaseType:
+          $ref: '#/components/schemas/KnowledgeBaseType'
+          x-is-top-level-property: true
+        Name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          x-is-top-level-property: true
+        RenderingConfiguration:
+          $ref: '#/components/schemas/RenderingConfiguration'
+          x-is-top-level-property: true
+        ServerSideEncryptionConfiguration:
+          $ref: '#/components/schemas/ServerSideEncryptionConfiguration'
+          x-is-top-level-property: true
+        SourceConfiguration:
+          $ref: '#/components/schemas/SourceConfiguration'
+          x-is-top-level-property: true
+        Tags:
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-is-top-level-property: true
+      required:
+        - KnowledgeBaseType
+        - Name
+      x-stackql-resource-name: KnowledgeBase
+x-stackql-views:
+  - Assistant:
+      name: Assistant
+      id: aws.wisdom.Assistant
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.AssistantArn') as assistant_arn,
+
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id,
+
+              JSON_EXTRACT(Properties,
+              '$.ServerSideEncryptionConfiguration.KmsKeyId') as
+              server_side_encryption_configuration_kms_key_id,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+
+              JSON_EXTRACT(Properties, '$.Name') as name
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Wisdom::Assistant' ;
+  - AssistantAssociation:
+      name: AssistantAssociation
+      id: aws.wisdom.AssistantAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AssistantAssociationArn') as
+              assistant_association_arn,
+
+              JSON_EXTRACT(Properties, '$.AssistantArn') as assistant_arn,
+
+              JSON_EXTRACT(Properties, '$.AssistantAssociationId') as
+              assistant_association_id,
+
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id,
+
+              JSON_EXTRACT(Properties, '$.Association.KnowledgeBaseId') as
+              association_knowledge_base_id,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Wisdom::AssistantAssociation' ;
+  - KnowledgeBase:
+      name: KnowledgeBase
+      id: aws.wisdom.KnowledgeBase
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseArn') as
+              knowledge_base_arn,
+
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as
+              knowledge_base_id,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.RenderingConfiguration.TemplateUri')
+              as rendering_configuration_template_uri,
+
+              JSON_EXTRACT(Properties,
+              '$.ServerSideEncryptionConfiguration.KmsKeyId') as
+              server_side_encryption_configuration_kms_key_id,
+
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.AppIntegrations')
+              as source_configuration_app_integrations,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Wisdom::KnowledgeBase' ;
