@@ -61,17 +61,14 @@ components:
           x-examples:
             - 88df7b09-95e8-48c4-a3cb-08c2c20d5110
             - 203dd0ec-0055-4bf0-a872-707f72ef06aa
-          x-is-top-level-property: true
         AssociationName:
           description: The name of the association.
           type: string
           pattern: ^[a-zA-Z0-9_\-.]{3,128}$
-          x-is-top-level-property: true
         DocumentVersion:
           description: The version of the SSM document to associate with the target.
           type: string
           pattern: ([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)
-          x-is-top-level-property: true
         InstanceId:
           description: The ID of the instance that the SSM document is associated with.
           type: string
@@ -79,7 +76,6 @@ components:
           x-examples:
             - i-0e60836d21cf313c4
             - mi-0532c22e49636ee13
-          x-is-top-level-property: true
         Name:
           description: The name of the SSM document.
           type: string
@@ -87,7 +83,6 @@ components:
           x-examples:
             - AWS-GatherSoftwareInventory
             - MyCustomSSMDocument
-          x-is-top-level-property: true
         Parameters:
           description: Parameter values that the SSM document uses at runtime.
           type: object
@@ -95,7 +90,6 @@ components:
             .*{1,255}:
               $ref: '#/components/schemas/ParameterValues'
           additionalProperties: false
-          x-is-top-level-property: true
         ScheduleExpression:
           description: >-
             A Cron or Rate expression that specifies when the association is
@@ -108,7 +102,6 @@ components:
             - cron(0 16 ? * TUE *)
             - rate(30 minutes)
             - rate(7 days)
-          x-is-top-level-property: true
         Targets:
           description: The targets that the SSM document sends commands to.
           type: array
@@ -116,15 +109,12 @@ components:
             $ref: '#/components/schemas/Target'
           minItems: 0
           maxItems: 5
-          x-is-top-level-property: true
         OutputLocation:
           $ref: '#/components/schemas/InstanceAssociationOutputLocation'
-          x-is-top-level-property: true
         AutomationTargetParameterName:
           type: string
           minLength: 1
           maxLength: 50
-          x-is-top-level-property: true
         MaxErrors:
           type: string
           pattern: ^([1-9][0-9]{0,6}|[0]|[1-9][0-9]%|[0-9]%|100%)$
@@ -133,7 +123,6 @@ components:
             - 10%
             - 50%
             - '1'
-          x-is-top-level-property: true
         MaxConcurrency:
           type: string
           pattern: ^([1-9][0-9]{0,6}|[1-9][0-9]%|[1-9]%|100%)$
@@ -142,7 +131,6 @@ components:
             - 10%
             - 50%
             - '1'
-          x-is-top-level-property: true
         ComplianceSeverity:
           type: string
           enum:
@@ -151,21 +139,17 @@ components:
             - MEDIUM
             - LOW
             - UNSPECIFIED
-          x-is-top-level-property: true
         SyncCompliance:
           type: string
           enum:
             - AUTO
             - MANUAL
-          x-is-top-level-property: true
         WaitForSuccessTimeoutSeconds:
           type: integer
           minimum: 15
           maximum: 172800
-          x-is-top-level-property: true
         ApplyOnlyAtCronInterval:
           type: boolean
-          x-is-top-level-property: true
         CalendarNames:
           type: array
           items:
@@ -174,12 +158,10 @@ components:
             - - calendar1
               - calendar2
             - - calendar3
-          x-is-top-level-property: true
         ScheduleOffset:
           type: integer
           minimum: 1
           maximum: 6
-          x-is-top-level-property: true
       required:
         - Name
       x-stackql-resource-name: Association
@@ -252,13 +234,7 @@ components:
       type: object
       properties:
         Content:
-          description: >-
-            The content for the Systems Manager document in JSON, YAML or String
-            format.
-          type:
-            - object
-            - string
-          x-is-top-level-property: true
+          type: string
         Attachments:
           description: >-
             A list of key and value pairs that describe attachments to a version
@@ -269,12 +245,10 @@ components:
           minItems: 0
           maxItems: 20
           x-insertionOrder: false
-          x-is-top-level-property: true
         Name:
           description: A name for the Systems Manager document.
           type: string
           pattern: ^[a-zA-Z0-9_\-.]{3,128}$
-          x-is-top-level-property: true
         VersionName:
           description: >-
             An optional field specifying the version of the artifact you are
@@ -282,7 +256,6 @@ components:
             of a document, and cannot be changed.
           type: string
           pattern: ^[a-zA-Z0-9_\-.]{1,128}$
-          x-is-top-level-property: true
         DocumentType:
           description: The type of document to create.
           type: string
@@ -300,7 +273,6 @@ components:
             - ProblemAnalysis
             - ProblemAnalysisTemplate
             - Session
-          x-is-top-level-property: true
         DocumentFormat:
           description: >-
             Specify the document format for the request. The document format can
@@ -311,14 +283,12 @@ components:
             - JSON
             - TEXT
           default: JSON
-          x-is-top-level-property: true
         TargetType:
           description: >-
             Specify a target type to define the kinds of resources the document
             can run on.
           type: string
           pattern: ^\/[\w\.\-\:\/]*$
-          x-is-top-level-property: true
         Tags:
           description: >-
             Optional metadata that you assign to a resource. Tags enable you to
@@ -329,7 +299,6 @@ components:
             $ref: '#/components/schemas/Tag'
           maxItems: 1000
           x-insertionOrder: false
-          x-is-top-level-property: true
         Requires:
           description: >-
             A list of SSM documents required by a document. For example, an
@@ -340,7 +309,6 @@ components:
             $ref: '#/components/schemas/DocumentRequires'
           minItems: 1
           x-insertionOrder: false
-          x-is-top-level-property: true
         UpdateMethod:
           description: >-
             Update method - when set to 'Replace', the update will replace the
@@ -351,7 +319,6 @@ components:
             - Replace
             - NewVersion
           default: Replace
-          x-is-top-level-property: true
       required:
         - Content
       x-stackql-resource-name: Document
@@ -360,43 +327,31 @@ components:
       properties:
         StartDate:
           type: string
-          x-is-top-level-property: true
         Description:
           type: string
-          x-is-top-level-property: true
         AllowUnassociatedTargets:
           type: boolean
-          x-is-top-level-property: true
         Cutoff:
           type: integer
-          x-is-top-level-property: true
         Schedule:
           type: string
-          x-is-top-level-property: true
         Duration:
           type: integer
-          x-is-top-level-property: true
         ScheduleOffset:
           type: integer
-          x-is-top-level-property: true
         Id:
           type: string
-          x-is-top-level-property: true
         EndDate:
           type: string
-          x-is-top-level-property: true
         Tags:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         Name:
           type: string
-          x-is-top-level-property: true
         ScheduleTimezone:
           type: string
-          x-is-top-level-property: true
       required:
         - AllowUnassociatedTargets
         - Cutoff
@@ -425,28 +380,21 @@ components:
       properties:
         OwnerInformation:
           type: string
-          x-is-top-level-property: true
         Description:
           type: string
-          x-is-top-level-property: true
         WindowId:
           type: string
-          x-is-top-level-property: true
         ResourceType:
           type: string
-          x-is-top-level-property: true
         Targets:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Targets'
-          x-is-top-level-property: true
         Id:
           type: string
-          x-is-top-level-property: true
         Name:
           type: string
-          x-is-top-level-property: true
       required:
         - WindowId
         - ResourceType
@@ -557,52 +505,37 @@ components:
       properties:
         MaxErrors:
           type: string
-          x-is-top-level-property: true
         Description:
           type: string
-          x-is-top-level-property: true
         ServiceRoleArn:
           type: string
-          x-is-top-level-property: true
         Priority:
           type: integer
-          x-is-top-level-property: true
         MaxConcurrency:
           type: string
-          x-is-top-level-property: true
         Targets:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Target'
-          x-is-top-level-property: true
         Name:
           type: string
-          x-is-top-level-property: true
         TaskArn:
           type: string
-          x-is-top-level-property: true
         TaskInvocationParameters:
           $ref: '#/components/schemas/TaskInvocationParameters'
-          x-is-top-level-property: true
         WindowId:
           type: string
-          x-is-top-level-property: true
         TaskParameters:
           type: object
-          x-is-top-level-property: true
         TaskType:
           type: string
-          x-is-top-level-property: true
         CutoffBehavior:
           type: string
-          x-is-top-level-property: true
         Id:
           type: string
-          x-is-top-level-property: true
         LoggingInfo:
           $ref: '#/components/schemas/LoggingInfo'
-          x-is-top-level-property: true
       required:
         - WindowId
         - Priority
@@ -614,34 +547,24 @@ components:
       properties:
         Type:
           type: string
-          x-is-top-level-property: true
         Description:
           type: string
-          x-is-top-level-property: true
         Policies:
           type: string
-          x-is-top-level-property: true
         AllowedPattern:
           type: string
-          x-is-top-level-property: true
         Tier:
           type: string
-          x-is-top-level-property: true
         Value:
           type: string
-          x-is-top-level-property: true
         DataType:
           type: string
-          x-is-top-level-property: true
         Id:
           type: string
-          x-is-top-level-property: true
         Tags:
           type: object
-          x-is-top-level-property: true
         Name:
           type: string
-          x-is-top-level-property: true
       required:
         - Type
         - Value
@@ -710,61 +633,47 @@ components:
       properties:
         OperatingSystem:
           type: string
-          x-is-top-level-property: true
         Description:
           type: string
-          x-is-top-level-property: true
         ApprovalRules:
           $ref: '#/components/schemas/RuleGroup'
-          x-is-top-level-property: true
         Sources:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/PatchSource'
-          x-is-top-level-property: true
         Name:
           type: string
-          x-is-top-level-property: true
         RejectedPatches:
           type: array
           uniqueItems: false
           items:
             type: string
-          x-is-top-level-property: true
         ApprovedPatches:
           type: array
           uniqueItems: false
           items:
             type: string
-          x-is-top-level-property: true
         RejectedPatchesAction:
           type: string
-          x-is-top-level-property: true
         PatchGroups:
           type: array
           uniqueItems: false
           items:
             type: string
-          x-is-top-level-property: true
         ApprovedPatchesComplianceLevel:
           type: string
-          x-is-top-level-property: true
         ApprovedPatchesEnableNonSecurity:
           type: boolean
-          x-is-top-level-property: true
         Id:
           type: string
-          x-is-top-level-property: true
         GlobalFilters:
           $ref: '#/components/schemas/PatchFilterGroup'
-          x-is-top-level-property: true
         Tags:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required:
         - Name
       x-stackql-resource-name: PatchBaseline
@@ -836,45 +745,36 @@ components:
       properties:
         S3Destination:
           $ref: '#/components/schemas/S3Destination'
-          x-is-top-level-property: true
         KMSKeyArn:
           type: string
           minLength: 0
           maxLength: 512
-          x-is-top-level-property: true
         SyncSource:
           $ref: '#/components/schemas/SyncSource'
-          x-is-top-level-property: true
         BucketName:
           type: string
           minLength: 1
           maxLength: 2048
-          x-is-top-level-property: true
         BucketRegion:
           type: string
           minLength: 1
           maxLength: 64
-          x-is-top-level-property: true
         SyncFormat:
           type: string
           minLength: 0
           maxLength: 1024
-          x-is-top-level-property: true
         SyncName:
           type: string
           minLength: 1
           maxLength: 64
-          x-is-top-level-property: true
         SyncType:
           type: string
           minLength: 1
           maxLength: 64
-          x-is-top-level-property: true
         BucketPrefix:
           type: string
           minLength: 0
           maxLength: 64
-          x-is-top-level-property: true
       required:
         - SyncName
       x-stackql-resource-name: ResourceDataSync
@@ -884,21 +784,14 @@ components:
         ResourceArn:
           type: string
           description: Arn of OpsItemGroup etc.
-          x-is-top-level-property: true
         Policy:
-          type:
-            - object
-            - string
-          description: Actual policy statement.
-          x-is-top-level-property: true
+          type: string
         PolicyId:
           type: string
           description: 'An unique identifier within the policies of a resource. '
-          x-is-top-level-property: true
         PolicyHash:
           type: string
           description: A snapshot identifier for the policy over time.
-          x-is-top-level-property: true
       required:
         - ResourceArn
         - Policy
@@ -967,7 +860,6 @@ components:
           minLength: 1
           maxLength: 255
           pattern: ^[a-z0-9_\-\.]*$
-          x-is-top-level-property: true
         DisplayName:
           description: >-
             Name of the contact. String value with 3 to 256 characters. Only
@@ -977,7 +869,6 @@ components:
           minLength: 1
           maxLength: 255
           pattern: ^[a-zA-Z0-9_\-\s]*$
-          x-is-top-level-property: true
         Type:
           description: >-
             Contact type, which specify type of contact. Currently supported
@@ -988,7 +879,6 @@ components:
             - CUSTOM
             - SERVICE
             - ESCALATION
-          x-is-top-level-property: true
         Plan:
           description: >-
             The stages that an escalation plan or engagement plan engages
@@ -996,11 +886,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Stage'
-          x-is-top-level-property: true
         Arn:
           type: string
           description: The Amazon Resource Name (ARN) of the contact.
-          x-is-top-level-property: true
       required:
         - Alias
         - DisplayName
@@ -1016,7 +904,6 @@ components:
           maxLength: 2048
           pattern: >-
             arn:[-\w+=\/,.@]+:[-\w+=\/,.@]+:[-\w+=\/,.@]*:[0-9]+:([\w+=\/,.@:-]+)*
-          x-is-top-level-property: true
         ChannelName:
           description: >-
             The device name. String of 6 to 50 alphabetical, numeric, dash, and
@@ -1025,7 +912,6 @@ components:
           minLength: 1
           maxLength: 255
           pattern: '[a-zA-Z 0-9_\-+''&amp;\uD83C-\uDBFF\uDC00-\uDFFF\u2000-\u3300]+'
-          x-is-top-level-property: true
         ChannelType:
           description: >-
             Device type, which specify notification channel. Currently supported
@@ -1035,27 +921,22 @@ components:
             - SMS
             - VOICE
             - EMAIL
-          x-is-top-level-property: true
         DeferActivation:
           type: boolean
           description: >-
             If you want to activate the channel at a later time, you can choose
             to defer activation. SSM Incident Manager can't engage your contact
             channel until it has been activated.
-          x-is-top-level-property: true
         ChannelAddress:
           description: >-
             The details that SSM Incident Manager uses when trying to engage the
             contact channel.
           type: string
-          x-is-top-level-property: true
         Arn:
           type: string
           description: >-
             The Amazon Resource Name (ARN) of the engagement to a contact
             channel.
-          x-is-top-level-property: true
-      required: []
       x-stackql-resource-name: ContactChannel
     Arn:
       description: The ARN of the ReplicationSet.
@@ -1103,15 +984,12 @@ components:
           description: The ARN of the ReplicationSet.
           $ref: '#/components/schemas/Arn'
           additionalProperties: false
-          x-is-top-level-property: true
         Regions:
           description: The ReplicationSet configuration.
           $ref: '#/components/schemas/RegionList'
-          x-is-top-level-property: true
         DeletionProtected:
           $ref: '#/components/schemas/DeletionProtected'
           default: false
-          x-is-top-level-property: true
         Tags:
           description: The tags to apply to the replication set.
           type: array
@@ -1121,7 +999,6 @@ components:
           maxItems: 50
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required:
         - Regions
       x-stackql-resource-name: ReplicationSet
@@ -1370,23 +1247,19 @@ components:
           pattern: >-
             ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
           maxLength: 1000
-          x-is-top-level-property: true
         Name:
           description: The name of the response plan.
           type: string
           pattern: ^[a-zA-Z0-9_-]*$
           maxLength: 200
           minLength: 1
-          x-is-top-level-property: true
         DisplayName:
           description: The display name of the response plan.
           type: string
           maxLength: 200
           minLength: 1
-          x-is-top-level-property: true
         ChatChannel:
           $ref: '#/components/schemas/ChatChannel'
-          x-is-top-level-property: true
         Engagements:
           description: The list of engagements to use.
           type: array
@@ -1396,7 +1269,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/SSMContact'
-          x-is-top-level-property: true
         Actions:
           description: The list of actions.
           type: array
@@ -1406,7 +1278,6 @@ components:
           maxItems: 1
           items:
             $ref: '#/components/schemas/Action'
-          x-is-top-level-property: true
         Integrations:
           description: The list of integrations.
           type: array
@@ -1416,7 +1287,6 @@ components:
           maxItems: 1
           items:
             $ref: '#/components/schemas/Integration'
-          x-is-top-level-property: true
         Tags:
           description: The tags to apply to the response plan.
           type: array
@@ -1426,10 +1296,8 @@ components:
           maxItems: 50
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         IncidentTemplate:
           $ref: '#/components/schemas/IncidentTemplate'
-          x-is-top-level-property: true
       required:
         - Name
         - IncidentTemplate

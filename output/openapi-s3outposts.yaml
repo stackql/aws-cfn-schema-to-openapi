@@ -26,7 +26,6 @@ components:
           pattern: >-
             ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/accesspoint\/[^:]+$
           type: string
-          x-is-top-level-property: true
         Bucket:
           description: >-
             The Amazon Resource Name (ARN) of the bucket you want to associate
@@ -36,24 +35,20 @@ components:
           pattern: >-
             ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/bucket\/[^:]+$
           type: string
-          x-is-top-level-property: true
         Name:
           description: A name for the AccessPoint.
           maxLength: 50
           minLength: 3
           pattern: ^[a-z0-9]([a-z0-9\\-]*[a-z0-9])?$
           type: string
-          x-is-top-level-property: true
         VpcConfiguration:
           description: >-
             Virtual Private Cloud (VPC) from which requests can be made to the
             AccessPoint.
           $ref: '#/components/schemas/VpcConfiguration'
-          x-is-top-level-property: true
         Policy:
           description: The access point policy associated with this access point.
           type: object
-          x-is-top-level-property: true
       required:
         - Bucket
         - Name
@@ -240,7 +235,6 @@ components:
           pattern: >-
             ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/bucket\/[^:]+$
           type: string
-          x-is-top-level-property: true
         BucketName:
           description: A name for the bucket.
           maxLength: 63
@@ -248,12 +242,10 @@ components:
           pattern: >-
             (?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$)
           type: string
-          x-is-top-level-property: true
         OutpostId:
           description: The id of the customer outpost on which the bucket resides.
           pattern: ^(op-[a-f0-9]{17}|\d{12}|ec2)$
           type: string
-          x-is-top-level-property: true
         Tags:
           description: >-
             An arbitrary set of tags (key-value pairs) for this S3Outposts
@@ -263,13 +255,11 @@ components:
           type: array
           x-insertionOrder: false
           uniqueItems: true
-          x-is-top-level-property: true
         LifecycleConfiguration:
           description: >-
             Rules that define how Amazon S3Outposts manages objects during their
             lifetime.
           $ref: '#/components/schemas/LifecycleConfiguration'
-          x-is-top-level-property: true
       required:
         - BucketName
         - OutpostId
@@ -284,13 +274,11 @@ components:
           pattern: >-
             ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/bucket\/[^:]+$
           type: string
-          x-is-top-level-property: true
         PolicyDocument:
           description: >-
             A policy document containing permissions to add to the specified
             bucket.
           type: object
-          x-is-top-level-property: true
       required:
         - Bucket
         - PolicyDocument
@@ -316,24 +304,20 @@ components:
           type: string
           pattern: >-
             ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/endpoint/[a-zA-Z0-9]{19}$
-          x-is-top-level-property: true
         CidrBlock:
           description: The VPC CIDR committed by this endpoint.
           minLength: 1
           maxLength: 20
           type: string
-          x-is-top-level-property: true
         CreationTime:
           description: The time the endpoint was created.
           $ref: '#/components/schemas/iso8601UTC'
-          x-is-top-level-property: true
         Id:
           description: The ID of the endpoint.
           minLength: 5
           maxLength: 500
           type: string
           pattern: ^[a-zA-Z0-9]{19}$
-          x-is-top-level-property: true
         NetworkInterfaces:
           description: The network interfaces of the endpoint.
           type: array
@@ -341,26 +325,22 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/NetworkInterface'
-          x-is-top-level-property: true
         OutpostId:
           description: The id of the customer outpost on which the bucket resides.
           pattern: ^(op-[a-f0-9]{17}|\d{12}|ec2)$
           type: string
-          x-is-top-level-property: true
         SecurityGroupId:
           description: The ID of the security group to use with the endpoint.
           minLength: 1
           maxLength: 100
           type: string
           pattern: ^sg-([0-9a-f]{8}|[0-9a-f]{17})$
-          x-is-top-level-property: true
         Status:
           type: string
           enum:
             - Available
             - Pending
             - Deleting
-          x-is-top-level-property: true
         SubnetId:
           description: >-
             The ID of the subnet in the selected VPC. The subnet must belong to
@@ -369,7 +349,6 @@ components:
           maxLength: 100
           type: string
           pattern: ^subnet-([0-9a-f]{8}|[0-9a-f]{17})$
-          x-is-top-level-property: true
         AccessType:
           description: >-
             The type of access for the on-premise network connectivity for the
@@ -381,14 +360,12 @@ components:
             - CustomerOwnedIp
             - Private
           default: Private
-          x-is-top-level-property: true
         CustomerOwnedIpv4Pool:
           description: >-
             The ID of the customer-owned IPv4 pool for the Endpoint. IP
             addresses will be allocated from this pool for the endpoint.
           type: string
           pattern: ^ipv4pool-coip-([0-9a-f]{17})$
-          x-is-top-level-property: true
       required:
         - OutpostId
         - SecurityGroupId

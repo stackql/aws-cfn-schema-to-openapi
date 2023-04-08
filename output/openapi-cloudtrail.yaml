@@ -70,7 +70,6 @@ components:
       properties:
         Name:
           $ref: '#/components/schemas/ChannelName'
-          x-is-top-level-property: true
         Source:
           description: >-
             The ARN of an on-premises storage solution or application, or a
@@ -79,7 +78,6 @@ components:
           minLength: 1
           maxLength: 256
           pattern: (.*)
-          x-is-top-level-property: true
         Destinations:
           description: >-
             One or more resources to which events arriving through a channel are
@@ -90,10 +88,8 @@ components:
           maxItems: 10
           uniqueItems: true
           x-insertionOrder: false
-          x-is-top-level-property: true
         ChannelArn:
           $ref: '#/components/schemas/ChannelArn'
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -101,7 +97,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required: []
       x-stackql-resource-name: Channel
     AdvancedFieldSelector:
@@ -237,54 +232,44 @@ components:
             $ref: '#/components/schemas/AdvancedEventSelector'
           uniqueItems: true
           x-insertionOrder: false
-          x-is-top-level-property: true
         CreatedTimestamp:
           description: The timestamp of the event data store's creation.
           $ref: '#/components/schemas/Timestamp'
-          x-is-top-level-property: true
         EventDataStoreArn:
           description: The ARN of the event data store.
           type: string
-          x-is-top-level-property: true
         MultiRegionEnabled:
           description: >-
             Indicates whether the event data store includes events from all
             regions, or only from the region in which it was created.
           type: boolean
-          x-is-top-level-property: true
         Name:
           description: The name of the event data store.
           type: string
-          x-is-top-level-property: true
         OrganizationEnabled:
           description: >-
             Indicates that an event data store is collecting logged events for
             an organization.
           type: boolean
-          x-is-top-level-property: true
         RetentionPeriod:
           description: The retention period, in days.
           type: integer
-          x-is-top-level-property: true
         Status:
           description: >-
             The status of an event data store. Values are ENABLED and
             PENDING_DELETION.
           type: string
-          x-is-top-level-property: true
         TerminationProtectionEnabled:
           description: >-
             Indicates whether the event data store is protected from
             termination.
           type: boolean
-          x-is-top-level-property: true
         UpdatedTimestamp:
           description: >-
             The timestamp showing when an event data store was updated, if
             applicable. UpdatedTimestamp is always either the same or newer than
             the time shown in CreatedTimestamp.
           $ref: '#/components/schemas/Timestamp'
-          x-is-top-level-property: true
         KmsKeyId:
           description: >-
             Specifies the KMS key ID to use to encrypt the events delivered by
@@ -292,14 +277,12 @@ components:
             fully specified ARN to an alias, a fully specified ARN to a key, or
             a globally unique identifier.
           type: string
-          x-is-top-level-property: true
         Tags:
           type: array
           uniqueItems: false
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required: []
       x-stackql-resource-name: EventDataStore
     ResourcePolicy:
@@ -308,18 +291,8 @@ components:
         ResourceArn:
           description: The ARN of the AWS CloudTrail resource to which the policy applies.
           type: string
-          x-is-top-level-property: true
         ResourcePolicy:
-          description: >-
-            A policy document containing permissions to add to the specified
-            resource. In IAM, you must provide policy documents in JSON format.
-            However, in CloudFormation you can provide the policy in JSON or
-            YAML format because CloudFormation converts YAML to JSON before
-            submitting it to IAM.
-          type:
-            - object
-            - string
-          x-is-top-level-property: true
+          type: string
       required:
         - ResourceArn
         - ResourcePolicy
@@ -407,19 +380,16 @@ components:
             logs will be delivered. Not required unless you specify
             CloudWatchLogsRoleArn.
           type: string
-          x-is-top-level-property: true
         CloudWatchLogsRoleArn:
           description: >-
             Specifies the role for the CloudWatch Logs endpoint to assume to
             write to a user's log group.
           type: string
-          x-is-top-level-property: true
         EnableLogFileValidation:
           description: >-
             Specifies whether log file validation is enabled. The default is
             false.
           type: boolean
-          x-is-top-level-property: true
         EventSelectors:
           description: >-
             Use event selectors to further specify the management and data event
@@ -437,17 +407,14 @@ components:
           maxItems: 5
           uniqueItems: true
           x-insertionOrder: false
-          x-is-top-level-property: true
         IncludeGlobalServiceEvents:
           description: >-
             Specifies whether the trail is publishing events from global
             services such as IAM to the log files.
           type: boolean
-          x-is-top-level-property: true
         IsLogging:
           description: Whether the CloudTrail is currently logging AWS API calls.
           type: boolean
-          x-is-top-level-property: true
         IsMultiRegionTrail:
           description: >-
             Specifies whether the trail applies only to the current region or to
@@ -459,7 +426,6 @@ components:
             trails in other regions will be deleted. As a best practice,
             consider using trails that log events in all regions.
           type: boolean
-          x-is-top-level-property: true
         IsOrganizationTrail:
           description: >-
             Specifies whether the trail is created for all accounts in an
@@ -468,7 +434,6 @@ components:
             made on behalf of an AWS account that is the master account for an
             organization in AWS Organizations.
           type: boolean
-          x-is-top-level-property: true
         KMSKeyId:
           description: >-
             Specifies the KMS key ID to use to encrypt the logs delivered by
@@ -476,13 +441,11 @@ components:
             fully specified ARN to an alias, a fully specified ARN to a key, or
             a globally unique identifier.
           type: string
-          x-is-top-level-property: true
         S3BucketName:
           description: >-
             Specifies the name of the Amazon S3 bucket designated for publishing
             log files. See Amazon S3 Bucket Naming Requirements.
           type: string
-          x-is-top-level-property: true
         S3KeyPrefix:
           description: >-
             Specifies the Amazon S3 key prefix that comes after the name of the
@@ -491,33 +454,27 @@ components:
             length is 200 characters.
           type: string
           maxLength: 200
-          x-is-top-level-property: true
         SnsTopicName:
           description: >-
             Specifies the name of the Amazon SNS topic defined for notification
             of log file delivery. The maximum length is 256 characters.
           type: string
           maxLength: 256
-          x-is-top-level-property: true
         Tags:
           type: array
           uniqueItems: false
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         TrailName:
           type: string
           pattern: (^[a-zA-Z0-9]$)|(^[a-zA-Z0-9]([a-zA-Z0-9\._-])*[a-zA-Z0-9]$)
           minLength: 3
           maxLength: 128
-          x-is-top-level-property: true
         Arn:
           type: string
-          x-is-top-level-property: true
         SnsTopicArn:
           type: string
-          x-is-top-level-property: true
         InsightSelectors:
           description: >-
             Lets you enable Insights event logging by specifying the Insights
@@ -527,7 +484,6 @@ components:
             $ref: '#/components/schemas/InsightSelector'
           uniqueItems: true
           x-insertionOrder: false
-          x-is-top-level-property: true
       required:
         - S3BucketName
         - IsLogging

@@ -37,14 +37,12 @@ components:
           pattern: '[\u0020-\u007E]+'
           minLength: 1
           maxLength: 50
-          x-is-top-level-property: true
         Email:
           description: The email address of the owner to assign to the new member account.
           type: string
           pattern: '[^\s@]+@[^\s@]+\.[^\s@]+'
           minLength: 6
           maxLength: 64
-          x-is-top-level-property: true
         RoleName:
           description: >-
             The name of an IAM role that AWS Organizations automatically
@@ -55,7 +53,6 @@ components:
           pattern: '[\w+=,.@-]{1,64}'
           minLength: 1
           maxLength: 64
-          x-is-top-level-property: true
         ParentIds:
           description: >-
             List of parent nodes for the member account. Currently only one
@@ -66,7 +63,6 @@ components:
           items:
             type: string
             pattern: ^(r-[0-9a-z]{4,32})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
-          x-is-top-level-property: true
         Tags:
           description: >-
             A list of tags that you want to attach to the newly created account.
@@ -77,7 +73,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         AccountId:
           description: >-
             If the account was created successfully, the unique identifier (ID)
@@ -85,23 +80,19 @@ components:
           type: string
           pattern: ^\d{12}$
           maxLength: 12
-          x-is-top-level-property: true
         Arn:
           description: The Amazon Resource Name (ARN) of the account.
           type: string
           pattern: ^arn:aws.*:organizations::\d{12}:account\/o-[a-z0-9]{10,32}\/\d{12}
-          x-is-top-level-property: true
         JoinedMethod:
           description: The method by which the account joined the organization.
           type: string
           enum:
             - INVITED
             - CREATED
-          x-is-top-level-property: true
         JoinedTimestamp:
           description: The date the account became a part of the organization.
           type: string
-          x-is-top-level-property: true
         Status:
           description: The status of the account in the organization.
           type: string
@@ -109,7 +100,6 @@ components:
             - ACTIVE
             - SUSPENDED
             - PENDING_CLOSURE
-          x-is-top-level-property: true
       required:
         - AccountName
         - Email
@@ -122,20 +112,17 @@ components:
           type: string
           pattern: >-
             ^arn:aws.*:organizations::\d{12}:ou/o-[a-z0-9]{10,32}/ou-[0-9a-z]{4,32}-[0-9a-z]{8,32}
-          x-is-top-level-property: true
         Id:
           description: The unique identifier (ID) associated with this OU.
           type: string
           pattern: ^ou-[0-9a-z]{4,32}-[a-z0-9]{8,32}$
           maxLength: 68
-          x-is-top-level-property: true
         Name:
           description: The friendly name of this OU.
           type: string
           pattern: '[\s\S]*'
           minLength: 1
           maxLength: 128
-          x-is-top-level-property: true
         ParentId:
           description: >-
             The unique identifier (ID) of the parent root or OU that you want to
@@ -143,7 +130,6 @@ components:
           type: string
           pattern: ^(r-[0-9a-z]{4,32})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
           maxLength: 100
-          x-is-top-level-property: true
         Tags:
           description: A list of tags that you want to attach to the newly created OU.
           type: array
@@ -151,7 +137,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required:
         - Name
         - ParentId
@@ -165,7 +150,6 @@ components:
           pattern: '[\s\S]*'
           minLength: 1
           maxLength: 128
-          x-is-top-level-property: true
         Type:
           description: >-
             The type of policy to create. You can specify one of the following
@@ -177,26 +161,13 @@ components:
             - AISERVICES_OPT_OUT_POLICY
             - BACKUP_POLICY
             - TAG_POLICY
-          x-is-top-level-property: true
         Content:
-          description: >-
-            The Policy text content. For AWS CloudFormation templates formatted
-            in YAML, you can provide the policy in JSON or YAML format. AWS
-            CloudFormation always converts a YAML policy to JSON format before
-            submitting it.
-          type:
-            - object
-            - string
-          pattern: '[\s\S]*'
-          minLength: 1
-          maxLength: 1000000
-          x-is-top-level-property: true
+          type: string
         Description:
           description: Human readable description of the policy
           pattern: '[\s\S]*'
           type: string
           maxLength: 512
-          x-is-top-level-property: true
         TargetIds:
           description: >-
             List of unique identifiers (IDs) of the root, OU, or account that
@@ -207,7 +178,6 @@ components:
           items:
             type: string
             pattern: ^(r-[0-9a-z]{4,32})|(\d{12})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
-          x-is-top-level-property: true
         Tags:
           description: >-
             A list of tags that you want to attach to the newly created policy.
@@ -219,26 +189,22 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         Id:
           description: Id of the Policy
           type: string
           pattern: ^p-[0-9a-zA-Z_]{8,128}$
           maxLength: 130
-          x-is-top-level-property: true
         Arn:
           description: ARN of the Policy
           type: string
           pattern: >-
             ^arn:aws.*:organizations::[0-9]{12}:policy/o-[a-z0-9]{10}/(service_control|tag|backup|aiservices_opt_out)_policy/p-[a-z0-9]{8}
-          x-is-top-level-property: true
         AwsManaged:
           description: >-
             A boolean value that indicates whether the specified policy is an
             AWS managed policy. If true, then you can attach the policy to
             roots, OUs, or accounts, but you cannot edit it.
           type: boolean
-          x-is-top-level-property: true
       required:
         - Name
         - Type
@@ -252,26 +218,13 @@ components:
           type: string
           pattern: ^rp-[0-9a-zA-Z_]{4,128}$
           maxLength: 131
-          x-is-top-level-property: true
         Arn:
           description: The Amazon Resource Name (ARN) of the resource policy.
           type: string
           pattern: >-
             ^arn:aws.*:organizations::\d{12}:resourcepolicy\/o-[a-z0-9]{10,32}\/rp-[0-9a-zA-Z_]{4,128}
-          x-is-top-level-property: true
         Content:
-          description: >-
-            The policy document. For AWS CloudFormation templates formatted in
-            YAML, you can provide the policy in JSON or YAML format. AWS
-            CloudFormation always converts a YAML policy to JSON format before
-            submitting it.
-          type:
-            - object
-            - string
-          pattern: '[\s\S]*'
-          minLength: 1
-          maxLength: 40000
-          x-is-top-level-property: true
+          type: string
         Tags:
           description: A list of tags that you want to attach to the resource policy
           type: array
@@ -279,7 +232,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
       required:
         - Content
       x-stackql-resource-name: ResourcePolicy

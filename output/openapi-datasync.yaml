@@ -36,13 +36,11 @@ components:
           pattern: ^[a-zA-Z0-9\s+=._:@/-]+$
           maxLength: 256
           minLength: 1
-          x-is-top-level-property: true
         ActivationKey:
           description: Activation key of the Agent.
           type: string
           pattern: '[A-Z0-9]{5}(-[A-Z0-9]{5}){4}'
           maxLength: 29
-          x-is-top-level-property: true
         SecurityGroupArns:
           description: >-
             The ARNs of the security group used to protect your data transfer
@@ -54,7 +52,6 @@ components:
             pattern: >-
               ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:security-group/.*$
             maxLength: 128
-          x-is-top-level-property: true
         SubnetArns:
           description: >-
             The ARNs of the subnets in which DataSync will create elastic
@@ -66,12 +63,10 @@ components:
             pattern: >-
               ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:subnet/.*$
             maxLength: 128
-          x-is-top-level-property: true
         VpcEndpointId:
           description: The ID of the VPC endpoint that the agent has access to.
           type: string
           pattern: ^vpce-[0-9a-f]{17}$
-          x-is-top-level-property: true
         EndpointType:
           description: The service endpoints that the agent will connect to.
           type: string
@@ -79,7 +74,6 @@ components:
             - FIPS
             - PUBLIC
             - PRIVATE_LINK
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -88,14 +82,12 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         AgentArn:
           description: The DataSync Agent ARN.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:agent/agent-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
       required: []
       x-stackql-resource-name: Agent
     Ec2Config:
@@ -134,14 +126,12 @@ components:
       properties:
         Ec2Config:
           $ref: '#/components/schemas/Ec2Config'
-          x-is-top-level-property: true
         EfsFilesystemArn:
           description: The Amazon Resource Name (ARN) for the Amazon EFS file system.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$
           maxLength: 128
-          x-is-top-level-property: true
         AccessPointArn:
           description: >-
             The Amazon Resource Name (ARN) for the Amazon EFS Access point that
@@ -150,7 +140,6 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):elasticfilesystem:[a-z\-0-9]+:[0-9]{12}:access-point/fsap-[0-9a-f]{8,40}$
           maxLength: 128
-          x-is-top-level-property: true
         FileSystemAccessRoleArn:
           description: >-
             The Amazon Resource Name (ARN) of the AWS IAM role that the DataSync
@@ -159,7 +148,6 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):iam::[0-9]{12}:role/.*$
           maxLength: 128
-          x-is-top-level-property: true
         InTransitEncryption:
           description: >-
             Protocol that is used for encrypting the traffic exchanged between
@@ -168,7 +156,6 @@ components:
           enum:
             - NONE
             - TLS1_2
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             A subdirectory in the location's path. This subdirectory in the EFS
@@ -177,7 +164,6 @@ components:
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -186,7 +172,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: >-
             The Amazon Resource Name (ARN) of the Amazon EFS file system
@@ -195,13 +180,11 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the EFS location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw)://[a-zA-Z0-9.\-/]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - Ec2Config
       x-stackql-resource-name: LocationEFS
@@ -214,7 +197,6 @@ components:
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:file-system/fs-[0-9a-f]+$
-          x-is-top-level-property: true
         SecurityGroupArns:
           description: >-
             The ARNs of the security groups that are to use to configure the FSx
@@ -228,13 +210,11 @@ components:
           maxItems: 5
           minItems: 1
           x-insertionOrder: false
-          x-is-top-level-property: true
         Subdirectory:
           description: A subdirectory in the location's path.
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -244,7 +224,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: >-
             The Amazon Resource Name (ARN) of the Amazon FSx for Lustre file
@@ -253,13 +232,11 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the FSx for Lustre location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw|hdfs|fsxl)://[a-zA-Z0-9.:/\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - SecurityGroupArns
       x-stackql-resource-name: LocationFSxLustre
@@ -349,14 +326,12 @@ components:
           maxLength: 162
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:storage-virtual-machine/fs-[0-9a-f]+/svm-[0-9a-f]{17,}$
-          x-is-top-level-property: true
         FsxFilesystemArn:
           description: The Amazon Resource Name (ARN) for the FSx ONAP file system.
           type: string
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:file-system/fs-[0-9a-f]+$
-          x-is-top-level-property: true
         SecurityGroupArns:
           description: >-
             The ARNs of the security groups that are to use to configure the FSx
@@ -370,16 +345,13 @@ components:
           maxItems: 5
           minItems: 1
           x-insertionOrder: false
-          x-is-top-level-property: true
         Protocol:
           $ref: '#/components/schemas/Protocol'
-          x-is-top-level-property: true
         Subdirectory:
           description: A subdirectory in the location's path.
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -389,7 +361,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: >-
             The Amazon Resource Name (ARN) of the Amazon FSx ONTAP file system
@@ -398,13 +369,11 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the FSx ONTAP file system that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|hdfs|fsx[a-z0-9-]+)://[a-zA-Z0-9.:/\-]+$
           maxLength: 4360
-          x-is-top-level-property: true
       required:
         - SecurityGroupArns
         - StorageVirtualMachineArn
@@ -419,14 +388,12 @@ components:
           type: string
           maxLength: 253
           pattern: ^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$
-          x-is-top-level-property: true
         FsxFilesystemArn:
           description: The Amazon Resource Name (ARN) for the FSx for Windows file system.
           type: string
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]*:[0-9]{12}:file-system/fs-.*$
-          x-is-top-level-property: true
         Password:
           description: >-
             The password of the user who has the permissions to access files and
@@ -434,7 +401,6 @@ components:
           type: string
           maxLength: 104
           pattern: ^.{0,104}$
-          x-is-top-level-property: true
         SecurityGroupArns:
           description: >-
             The ARNs of the security groups that are to use to configure the FSx
@@ -446,13 +412,11 @@ components:
             pattern: >-
               ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:security-group/.*$
           x-insertionOrder: false
-          x-is-top-level-property: true
         Subdirectory:
           description: A subdirectory in the location's path.
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         User:
           description: >-
             The user who has the permissions to access files and folders in the
@@ -460,7 +424,6 @@ components:
           type: string
           maxLength: 104
           pattern: ^[^\x5B\x5D\\/:;|=,+*?]{1,104}$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -469,7 +432,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: >-
             The Amazon Resource Name (ARN) of the Amazon FSx for Windows file
@@ -478,13 +440,11 @@ components:
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the FSx for Windows location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw)://[a-zA-Z0-9./\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - User
         - SecurityGroupArns
@@ -545,7 +505,6 @@ components:
             $ref: '#/components/schemas/NameNode'
           minItems: 1
           x-insertionOrder: false
-          x-is-top-level-property: true
         BlockSize:
           description: >-
             Size of chunks (blocks) in bytes that the data is divided into when
@@ -554,7 +513,6 @@ components:
           format: int64
           minimum: 1048576
           maximum: 1073741824
-          x-is-top-level-property: true
         ReplicationFactor:
           description: Number of copies of each block that exists inside the HDFS cluster.
           type: integer
@@ -562,7 +520,6 @@ components:
           default: 3
           minimum: 1
           maximum: 512
-          x-is-top-level-property: true
         KmsKeyProviderUri:
           description: >-
             The identifier for the Key Management Server where the encryption
@@ -572,17 +529,14 @@ components:
           maxLength: 255
           pattern: >-
             ^kms:\/\/http[s]?@(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])(;(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9]))*:[0-9]{1,5}\/kms$
-          x-is-top-level-property: true
         QopConfiguration:
           $ref: '#/components/schemas/QopConfiguration'
-          x-is-top-level-property: true
         AuthenticationType:
           description: The authentication mode used to determine identity of user.
           type: string
           enum:
             - SIMPLE
             - KERBEROS
-          x-is-top-level-property: true
         SimpleUser:
           description: >-
             The user name that has read and write permissions on the specified
@@ -591,7 +545,6 @@ components:
           pattern: ^[_.A-Za-z0-9][-_.A-Za-z0-9]*$
           minLength: 1
           maxLength: 256
-          x-is-top-level-property: true
         KerberosPrincipal:
           description: >-
             The unique identity, or principal, to which Kerberos can assign
@@ -600,19 +553,16 @@ components:
           pattern: ^.+$
           minLength: 1
           maxLength: 256
-          x-is-top-level-property: true
         KerberosKeytab:
           description: The Base64 string representation of the Keytab file.
           type: string
           maxLength: 87384
-          x-is-top-level-property: true
         KerberosKrb5Conf:
           description: >-
             The string representation of the Krb5Conf file, or the presigned URL
             to access the Krb5.conf file within an S3 bucket.
           type: string
           maxLength: 174764
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -621,7 +571,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         AgentArns:
           description: ARN(s) of the agent(s) to use for an HDFS location.
           type: array
@@ -633,7 +582,6 @@ components:
           minItems: 1
           maxItems: 4
           x-insertionOrder: false
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             The subdirectory in HDFS that is used to read data from the HDFS
@@ -641,20 +589,17 @@ components:
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         LocationArn:
           description: The Amazon Resource Name (ARN) of the HDFS location.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the HDFS location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw|hdfs)://[a-zA-Z0-9.:/\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - NameNodes
         - AuthenticationType
@@ -703,10 +648,8 @@ components:
           $ref: '#/components/schemas/MountOptions'
           default:
             Version: AUTOMATIC
-          x-is-top-level-property: true
         OnPremConfig:
           $ref: '#/components/schemas/OnPremConfig'
-          x-is-top-level-property: true
         ServerHostname:
           description: >-
             The name of the NFS server. This value is the IP address or DNS name
@@ -714,7 +657,6 @@ components:
           type: string
           pattern: ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$
           maxLength: 255
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             The subdirectory in the NFS file system that is used to read data
@@ -722,7 +664,6 @@ components:
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -731,20 +672,17 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: The Amazon Resource Name (ARN) of the NFS location.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the NFS location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw)://[a-zA-Z0-9./\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - OnPremConfig
       x-stackql-resource-name: LocationNFS
@@ -759,7 +697,6 @@ components:
           minLength: 1
           maxLength: 200
           pattern: ^.+$
-          x-is-top-level-property: true
         AgentArns:
           description: >-
             The Amazon Resource Name (ARN) of the agents associated with the
@@ -773,14 +710,12 @@ components:
           minItems: 1
           maxItems: 4
           x-insertionOrder: false
-          x-is-top-level-property: true
         BucketName:
           description: The name of the bucket on the self-managed object storage server.
           type: string
           maxLength: 63
           minLength: 3
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         SecretKey:
           description: >-
             Optional. The secret key is used if credentials are required to
@@ -789,14 +724,12 @@ components:
           minLength: 8
           maxLength: 200
           pattern: ^.+$
-          x-is-top-level-property: true
         ServerCertificate:
           description: >-
             X.509 PEM content containing a certificate authority or chain to
             trust.
           type: string
           maxLength: 32768
-          x-is-top-level-property: true
         ServerHostname:
           description: >-
             The name of the self-managed object storage server. This value is
@@ -805,7 +738,6 @@ components:
           type: string
           maxLength: 255
           pattern: ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$
-          x-is-top-level-property: true
         ServerPort:
           description: >-
             The port that your self-managed server accepts inbound network
@@ -813,14 +745,12 @@ components:
           type: integer
           minimum: 1
           maximum: 65536
-          x-is-top-level-property: true
         ServerProtocol:
           description: The protocol that the object storage server uses to communicate.
           type: string
           enum:
             - HTTPS
             - HTTP
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             The subdirectory in the self-managed object storage server that is
@@ -828,7 +758,6 @@ components:
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -837,20 +766,17 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: The Amazon Resource Name (ARN) of the location that is created.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the object storage location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw|object-storage)://[a-zA-Z0-9./\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - AgentArns
       x-stackql-resource-name: LocationObjectStorage
@@ -874,14 +800,12 @@ components:
       properties:
         S3Config:
           $ref: '#/components/schemas/S3Config'
-          x-is-top-level-property: true
         S3BucketArn:
           description: The Amazon Resource Name (ARN) of the Amazon S3 bucket.
           type: string
           maxLength: 156
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):s3:[a-z\-0-9]*:[0-9]*:.*$
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             A subdirectory in the Amazon S3 bucket. This subdirectory in Amazon
@@ -890,7 +814,6 @@ components:
           type: string
           maxLength: 1024
           pattern: ^[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}\p{C}]*$
-          x-is-top-level-property: true
         S3StorageClass:
           description: >-
             The Amazon S3 storage class you want to store your files in when
@@ -905,7 +828,6 @@ components:
             - GLACIER_INSTANT_RETRIEVAL
             - DEEP_ARCHIVE
           default: STANDARD
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -914,20 +836,17 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: The Amazon Resource Name (ARN) of the Amazon S3 bucket location.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the S3 location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw)://[a-zA-Z0-9.\-/]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - S3Config
       x-stackql-resource-name: LocationS3
@@ -947,18 +866,15 @@ components:
           minItems: 1
           maxItems: 4
           x-insertionOrder: false
-          x-is-top-level-property: true
         Domain:
           description: The name of the Windows domain that the SMB server belongs to.
           type: string
           maxLength: 253
           pattern: ^([A-Za-z0-9]+[A-Za-z0-9-.]*)*[A-Za-z0-9-]*[A-Za-z0-9]$
-          x-is-top-level-property: true
         MountOptions:
           $ref: '#/components/schemas/MountOptions'
           default:
             Version: AUTOMATIC
-          x-is-top-level-property: true
         Password:
           description: >-
             The password of the user who can mount the share and has the
@@ -966,7 +882,6 @@ components:
           type: string
           maxLength: 104
           pattern: ^.{0,104}$
-          x-is-top-level-property: true
         ServerHostname:
           description: >-
             The name of the SMB server. This value is the IP address or Domain
@@ -974,7 +889,6 @@ components:
           type: string
           maxLength: 255
           pattern: ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$
-          x-is-top-level-property: true
         Subdirectory:
           description: >-
             The subdirectory in the SMB file system that is used to read data
@@ -982,7 +896,6 @@ components:
           type: string
           maxLength: 4096
           pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
-          x-is-top-level-property: true
         User:
           description: >-
             The user who can mount the share, has the permissions to access
@@ -990,7 +903,6 @@ components:
           type: string
           maxLength: 104
           pattern: ^[^\x5B\x5D\\/:;|=,+*?]{1,104}$
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -999,20 +911,17 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         LocationArn:
           description: The Amazon Resource Name (ARN) of the SMB location that is created.
           type: string
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
           maxLength: 128
-          x-is-top-level-property: true
         LocationUri:
           description: The URL of the SMB location that was described.
           type: string
           pattern: ^(efs|nfs|s3|smb|fsxw)://[a-zA-Z0-9./\-]+$
           maxLength: 4356
-          x-is-top-level-property: true
       required:
         - User
         - AgentArns
@@ -1221,7 +1130,6 @@ components:
           items:
             $ref: '#/components/schemas/FilterRule'
           x-insertionOrder: false
-          x-is-top-level-property: true
         Includes:
           type: array
           minItems: 0
@@ -1229,7 +1137,6 @@ components:
           items:
             $ref: '#/components/schemas/FilterRule'
           x-insertionOrder: false
-          x-is-top-level-property: true
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -1238,7 +1145,6 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
-          x-is-top-level-property: true
         CloudWatchLogGroupArn:
           description: >-
             The ARN of the Amazon CloudWatch log group that is used to monitor
@@ -1247,14 +1153,12 @@ components:
           maxLength: 562
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]*:[0-9]{12}:log-group:([^:\*]*)(:\*)?$
-          x-is-top-level-property: true
         DestinationLocationArn:
           description: The ARN of an AWS storage resource's location.
           type: string
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
-          x-is-top-level-property: true
         Name:
           description: >-
             The name of a task. This value is a text reference that is used to
@@ -1263,27 +1167,22 @@ components:
           maxLength: 256
           minLength: 1
           pattern: ^[a-zA-Z0-9\s+=._:@/-]+$
-          x-is-top-level-property: true
         Options:
           $ref: '#/components/schemas/Options'
-          x-is-top-level-property: true
         Schedule:
           $ref: '#/components/schemas/TaskSchedule'
-          x-is-top-level-property: true
         SourceLocationArn:
           description: The ARN of the source location for the task.
           type: string
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
-          x-is-top-level-property: true
         TaskArn:
           description: The ARN of the task.
           type: string
           maxLength: 128
           pattern: >-
             ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]*:[0-9]{12}:task/task-[0-9a-f]{17}$
-          x-is-top-level-property: true
         Status:
           description: The status of the task that was described.
           type: string
@@ -1293,13 +1192,10 @@ components:
             - QUEUED
             - RUNNING
             - UNAVAILABLE
-          x-is-top-level-property: true
         SourceNetworkInterfaceArns:
           $ref: '#/components/schemas/SourceNetworkInterfaceArns'
-          x-is-top-level-property: true
         DestinationNetworkInterfaceArns:
           $ref: '#/components/schemas/DestinationNetworkInterfaceArns'
-          x-is-top-level-property: true
       required:
         - DestinationLocationArn
         - SourceLocationArn
