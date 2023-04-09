@@ -3,7 +3,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { dump } from "js-yaml";
-import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec,removeEmptyLinesInYaml } from './lib/utils.js';
+import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
