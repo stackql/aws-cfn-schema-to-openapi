@@ -100,7 +100,7 @@ function main(){
   for (const service of uniqueServices) {
     try {
       const filePrefix = `aws-${service}`;
-      const outputFilename = `openapi-${service}.yaml`;
+      const outputFilename = `${service}.yaml`;
       processService(filePrefix, outputFilename);
       console.log('Service processed', service)
     } catch (error) {
