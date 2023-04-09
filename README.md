@@ -6,3 +6,4 @@ Convert AWS CloudFormation Resource Specification to OpenAPI 3.0.0
 2. move the files to the `docs` directory
 3. run `npm install`
 4. run processDocs
+The current example uses the 'ap-southeast-2' region.

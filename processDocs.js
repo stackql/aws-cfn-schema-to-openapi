@@ -80,8 +80,6 @@ async function processService(servicePrefix, outputFilename) {
   writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
 }
 
-// processDoc("aws-lambda", "openapi-lambda.yaml",);
-
 
 function findFilesInDocs(filter) {
 
