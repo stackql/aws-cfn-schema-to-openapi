@@ -1,0 +1,1286 @@
+openapi: 3.0.0
+info:
+  title: Amplify
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    AutoBranchCreationConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        AutoBranchCreationPatterns:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+        BasicAuthConfig:
+          $ref: '#/components/schemas/BasicAuthConfig'
+        BuildSpec:
+          type: string
+          minLength: 1
+          maxLength: 25000
+        EnableAutoBranchCreation:
+          type: boolean
+        EnableAutoBuild:
+          type: boolean
+        EnablePerformanceMode:
+          type: boolean
+        EnablePullRequestPreview:
+          type: boolean
+        EnvironmentVariables:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+        Framework:
+          type: string
+          maxLength: 255
+          pattern: (?s).*
+        PullRequestEnvironmentName:
+          type: string
+          maxLength: 20
+          pattern: (?s).*
+        Stage:
+          type: string
+          enum:
+            - EXPERIMENTAL
+            - BETA
+            - PULL_REQUEST
+            - PRODUCTION
+            - DEVELOPMENT
+    BasicAuthConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        EnableBasicAuth:
+          type: boolean
+        Username:
+          type: string
+          minLength: 1
+          maxLength: 255
+        Password:
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+        - Username
+        - Password
+    CustomRule:
+      type: object
+      additionalProperties: false
+      properties:
+        Condition:
+          type: string
+          minLength: 0
+          maxLength: 2048
+          pattern: (?s).*
+        Status:
+          type: string
+          minLength: 3
+          maxLength: 7
+          pattern: .{3,7}
+        Target:
+          type: string
+          minLength: 1
+          maxLength: 2048
+          pattern: (?s).+
+        Source:
+          type: string
+          minLength: 1
+          maxLength: 2048
+          pattern: (?s).+
+      required:
+        - Target
+        - Source
+    EnvironmentVariable:
+      type: object
+      additionalProperties: false
+      properties:
+        Name:
+          type: string
+          maxLength: 255
+          pattern: (?s).*
+        Value:
+          type: string
+          maxLength: 5500
+          pattern: (?s).*
+      required:
+        - Name
+        - Value
+    Tag:
+      type: object
+      additionalProperties: false
+      x-insertionOrder: false
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
+        Value:
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: ^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$
+      required:
+        - Key
+        - Value
+    App:
+      type: object
+      properties:
+        AccessToken:
+          type: string
+          minLength: 1
+          maxLength: 255
+        AppId:
+          type: string
+          minLength: 1
+          maxLength: 20
+          pattern: d[a-z0-9]+
+        AppName:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: (?s).+
+        Arn:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        AutoBranchCreationConfig:
+          $ref: '#/components/schemas/AutoBranchCreationConfig'
+        BasicAuthConfig:
+          $ref: '#/components/schemas/BasicAuthConfig'
+        BuildSpec:
+          type: string
+          minLength: 1
+          maxLength: 25000
+          pattern: (?s).+
+        CustomHeaders:
+          type: string
+          minLength: 0
+          maxLength: 25000
+          pattern: (?s).*
+        CustomRules:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/CustomRule'
+        DefaultDomain:
+          type: string
+          minLength: 0
+          maxLength: 1000
+        Description:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        EnableBranchAutoDeletion:
+          type: boolean
+        EnvironmentVariables:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+        IAMServiceRole:
+          type: string
+          minLength: 1
+          maxLength: 1000
+          pattern: (?s).*
+        Name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: (?s).+
+        OauthToken:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        Platform:
+          type: string
+          enum:
+            - WEB
+            - WEB_DYNAMIC
+            - WEB_COMPUTE
+        Repository:
+          type: string
+          pattern: (?s).*
+        Tags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - Name
+      x-stackql-resource-name: App
+    Branch:
+      type: object
+      properties:
+        AppId:
+          type: string
+          minLength: 1
+          maxLength: 20
+          pattern: d[a-z0-9]+
+        Arn:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        BasicAuthConfig:
+          $ref: '#/components/schemas/BasicAuthConfig'
+        BranchName:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: (?s).+
+        BuildSpec:
+          type: string
+          minLength: 1
+          maxLength: 25000
+          pattern: (?s).+
+        Description:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        EnableAutoBuild:
+          type: boolean
+        EnablePerformanceMode:
+          type: boolean
+        EnablePullRequestPreview:
+          type: boolean
+        EnvironmentVariables:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/EnvironmentVariable'
+        Framework:
+          type: string
+          maxLength: 255
+          pattern: (?s).*
+        PullRequestEnvironmentName:
+          type: string
+          maxLength: 20
+          pattern: (?s).*
+        Stage:
+          type: string
+          enum:
+            - EXPERIMENTAL
+            - BETA
+            - PULL_REQUEST
+            - PRODUCTION
+            - DEVELOPMENT
+        Tags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - AppId
+        - BranchName
+      x-stackql-resource-name: Branch
+    SubDomainSetting:
+      type: object
+      additionalProperties: false
+      properties:
+        Prefix:
+          type: string
+          maxLength: 255
+          pattern: (?s).*
+        BranchName:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: (?s).+
+      required:
+        - Prefix
+        - BranchName
+    Domain:
+      type: object
+      properties:
+        AppId:
+          type: string
+          minLength: 1
+          maxLength: 20
+          pattern: d[a-z0-9]+
+        Arn:
+          type: string
+          maxLength: 1000
+          pattern: (?s).*
+        AutoSubDomainCreationPatterns:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            minLength: 1
+            maxLength: 2048
+            pattern: (?s).+
+        AutoSubDomainIAMRole:
+          type: string
+          pattern: ^$|^arn:.+:iam::\d{12}:role.+
+          maxLength: 1000
+        CertificateRecord:
+          type: string
+          maxLength: 1000
+        DomainName:
+          type: string
+          pattern: >-
+            ^(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])(\.)?$
+          maxLength: 255
+        DomainStatus:
+          type: string
+        EnableAutoSubDomain:
+          type: boolean
+        StatusReason:
+          type: string
+          maxLength: 1000
+        SubDomainSettings:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/SubDomainSetting'
+          maxItems: 255
+      required:
+        - AppId
+        - DomainName
+        - SubDomainSettings
+      x-stackql-resource-name: Domain
+    ActionParameters:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/ComponentProperty'
+        Url:
+          $ref: '#/components/schemas/ComponentProperty'
+        Anchor:
+          $ref: '#/components/schemas/ComponentProperty'
+        Target:
+          $ref: '#/components/schemas/ComponentProperty'
+        Global:
+          $ref: '#/components/schemas/ComponentProperty'
+        Model:
+          type: string
+        Id:
+          $ref: '#/components/schemas/ComponentProperty'
+        Fields:
+          $ref: '#/components/schemas/ComponentProperties'
+        State:
+          $ref: '#/components/schemas/MutationActionSetStateParameter'
+      additionalProperties: false
+    ComponentBindingProperties:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/ComponentBindingPropertiesValue'
+      additionalProperties: false
+    ComponentBindingPropertiesValue:
+      type: object
+      properties:
+        Type:
+          type: string
+        BindingProperties:
+          $ref: '#/components/schemas/ComponentBindingPropertiesValueProperties'
+        DefaultValue:
+          type: string
+      additionalProperties: false
+    ComponentBindingPropertiesValueProperties:
+      type: object
+      properties:
+        Model:
+          type: string
+        Field:
+          type: string
+        Predicates:
+          type: array
+          items:
+            $ref: '#/components/schemas/Predicate'
+        UserAttribute:
+          type: string
+        Bucket:
+          type: string
+        Key:
+          type: string
+        DefaultValue:
+          type: string
+      additionalProperties: false
+    ComponentChild:
+      type: object
+      properties:
+        ComponentType:
+          type: string
+        Name:
+          type: string
+        Properties:
+          $ref: '#/components/schemas/ComponentProperties'
+        Children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentChild'
+        Events:
+          $ref: '#/components/schemas/ComponentEvents'
+      required:
+        - ComponentType
+        - Name
+        - Properties
+      additionalProperties: false
+    ComponentCollectionProperties:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/ComponentDataConfiguration'
+      additionalProperties: false
+    ComponentConditionProperty:
+      type: object
+      properties:
+        Property:
+          type: string
+        Field:
+          type: string
+        Operator:
+          type: string
+        Operand:
+          type: string
+        Then:
+          $ref: '#/components/schemas/ComponentProperty'
+        Else:
+          $ref: '#/components/schemas/ComponentProperty'
+        OperandType:
+          type: string
+      additionalProperties: false
+    ComponentDataConfiguration:
+      type: object
+      properties:
+        Model:
+          type: string
+        Sort:
+          type: array
+          items:
+            $ref: '#/components/schemas/SortProperty'
+        Predicate:
+          $ref: '#/components/schemas/Predicate'
+        Identifiers:
+          type: array
+          items:
+            type: string
+      required:
+        - Model
+      additionalProperties: false
+    ComponentEvent:
+      type: object
+      properties:
+        Action:
+          type: string
+        Parameters:
+          $ref: '#/components/schemas/ActionParameters'
+      additionalProperties: false
+    ComponentEvents:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/ComponentEvent'
+      additionalProperties: false
+    ComponentOverrides:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/ComponentOverridesValue'
+      additionalProperties: false
+    ComponentOverridesValue:
+      type: object
+      x-patternProperties:
+        .+:
+          type: string
+      additionalProperties: false
+    ComponentProperties:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/ComponentProperty'
+      additionalProperties: false
+    ComponentProperty:
+      type: object
+      properties:
+        Value:
+          type: string
+        BindingProperties:
+          $ref: '#/components/schemas/ComponentPropertyBindingProperties'
+        CollectionBindingProperties:
+          $ref: '#/components/schemas/ComponentPropertyBindingProperties'
+        DefaultValue:
+          type: string
+        Model:
+          type: string
+        Bindings:
+          $ref: '#/components/schemas/FormBindings'
+        Event:
+          type: string
+        UserAttribute:
+          type: string
+        Concat:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentProperty'
+        Condition:
+          $ref: '#/components/schemas/ComponentConditionProperty'
+        Configured:
+          type: boolean
+        Type:
+          type: string
+        ImportedValue:
+          type: string
+        ComponentName:
+          type: string
+        Property:
+          type: string
+      additionalProperties: false
+    ComponentPropertyBindingProperties:
+      type: object
+      properties:
+        Property:
+          type: string
+        Field:
+          type: string
+      required:
+        - Property
+      additionalProperties: false
+    ComponentVariant:
+      type: object
+      properties:
+        VariantValues:
+          $ref: '#/components/schemas/ComponentVariantValues'
+        Overrides:
+          $ref: '#/components/schemas/ComponentOverrides'
+      additionalProperties: false
+    ComponentVariantValues:
+      type: object
+      x-patternProperties:
+        .+:
+          type: string
+      additionalProperties: false
+    FormBindingElement:
+      type: object
+      properties:
+        Element:
+          type: string
+        Property:
+          type: string
+      required:
+        - Element
+        - Property
+      additionalProperties: false
+    FormBindings:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/FormBindingElement'
+      additionalProperties: false
+    MutationActionSetStateParameter:
+      type: object
+      properties:
+        ComponentName:
+          type: string
+        Property:
+          type: string
+        Set:
+          $ref: '#/components/schemas/ComponentProperty'
+      required:
+        - ComponentName
+        - Property
+        - Set
+      additionalProperties: false
+    Predicate:
+      type: object
+      properties:
+        Or:
+          type: array
+          items:
+            $ref: '#/components/schemas/Predicate'
+        And:
+          type: array
+          items:
+            $ref: '#/components/schemas/Predicate'
+        Field:
+          type: string
+        Operator:
+          type: string
+        Operand:
+          type: string
+      additionalProperties: false
+    SortDirection:
+      type: string
+      enum:
+        - ASC
+        - DESC
+    SortProperty:
+      type: object
+      properties:
+        Field:
+          type: string
+        Direction:
+          $ref: '#/components/schemas/SortDirection'
+      required:
+        - Direction
+        - Field
+      additionalProperties: false
+    Tags:
+      type: object
+      x-patternProperties:
+        ^(?!aws:)[a-zA-Z+-=._:/]+$:
+          type: string
+          maxLength: 256
+          minLength: 1
+      additionalProperties: false
+    Component:
+      type: object
+      properties:
+        AppId:
+          type: string
+        BindingProperties:
+          $ref: '#/components/schemas/ComponentBindingProperties'
+        Children:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentChild'
+        CollectionProperties:
+          $ref: '#/components/schemas/ComponentCollectionProperties'
+        ComponentType:
+          type: string
+          maxLength: 255
+          minLength: 1
+        EnvironmentName:
+          type: string
+        Events:
+          $ref: '#/components/schemas/ComponentEvents'
+        Id:
+          type: string
+        Name:
+          type: string
+          maxLength: 255
+          minLength: 1
+        Overrides:
+          $ref: '#/components/schemas/ComponentOverrides'
+        Properties:
+          $ref: '#/components/schemas/ComponentProperties'
+        SchemaVersion:
+          type: string
+        SourceId:
+          type: string
+        Tags:
+          $ref: '#/components/schemas/Tags'
+        Variants:
+          type: array
+          items:
+            $ref: '#/components/schemas/ComponentVariant'
+      required:
+        - BindingProperties
+        - ComponentType
+        - Name
+        - Overrides
+        - Properties
+        - Variants
+      x-stackql-resource-name: Component
+    FieldConfig:
+      type: object
+      properties:
+        Label:
+          type: string
+        Position:
+          $ref: '#/components/schemas/FieldPosition'
+        Excluded:
+          type: boolean
+        InputType:
+          $ref: '#/components/schemas/FieldInputConfig'
+        Validations:
+          type: array
+          items:
+            $ref: '#/components/schemas/FieldValidationConfiguration'
+      additionalProperties: false
+    FieldInputConfig:
+      type: object
+      properties:
+        Type:
+          type: string
+        Required:
+          type: boolean
+        ReadOnly:
+          type: boolean
+        Placeholder:
+          type: string
+        DefaultValue:
+          type: string
+        DescriptiveText:
+          type: string
+        DefaultChecked:
+          type: boolean
+        DefaultCountryCode:
+          type: string
+        ValueMappings:
+          $ref: '#/components/schemas/ValueMappings'
+        Name:
+          type: string
+        MinValue:
+          type: number
+        MaxValue:
+          type: number
+        Step:
+          type: number
+        Value:
+          type: string
+        IsArray:
+          type: boolean
+      required:
+        - Type
+      additionalProperties: false
+    FieldPosition:
+      oneOf:
+        - type: object
+          title: Fixed
+          properties:
+            Fixed:
+              $ref: '#/components/schemas/FixedPosition'
+          required:
+            - Fixed
+          additionalProperties: false
+        - type: object
+          title: RightOf
+          properties:
+            RightOf:
+              type: string
+          required:
+            - RightOf
+          additionalProperties: false
+        - type: object
+          title: Below
+          properties:
+            Below:
+              type: string
+          required:
+            - Below
+          additionalProperties: false
+    FieldValidationConfiguration:
+      type: object
+      properties:
+        Type:
+          type: string
+        StrValues:
+          type: array
+          items:
+            type: string
+        NumValues:
+          type: array
+          items:
+            type: number
+        ValidationMessage:
+          type: string
+      required:
+        - Type
+      additionalProperties: false
+    FieldsMap:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/FieldConfig'
+      additionalProperties: false
+    FixedPosition:
+      type: string
+      enum:
+        - first
+    FormActionType:
+      type: string
+      enum:
+        - create
+        - update
+    FormButton:
+      type: object
+      properties:
+        Excluded:
+          type: boolean
+        Children:
+          type: string
+        Position:
+          $ref: '#/components/schemas/FieldPosition'
+      additionalProperties: false
+    FormButtonsPosition:
+      type: string
+      enum:
+        - top
+        - bottom
+        - top_and_bottom
+    FormCTA:
+      type: object
+      properties:
+        Position:
+          $ref: '#/components/schemas/FormButtonsPosition'
+        Clear:
+          $ref: '#/components/schemas/FormButton'
+        Cancel:
+          $ref: '#/components/schemas/FormButton'
+        Submit:
+          $ref: '#/components/schemas/FormButton'
+      additionalProperties: false
+    FormDataSourceType:
+      type: string
+      enum:
+        - DataStore
+        - Custom
+    FormDataTypeConfig:
+      type: object
+      properties:
+        DataSourceType:
+          $ref: '#/components/schemas/FormDataSourceType'
+        DataTypeName:
+          type: string
+      required:
+        - DataSourceType
+        - DataTypeName
+      additionalProperties: false
+    FormInputValueProperty:
+      type: object
+      properties:
+        Value:
+          type: string
+      additionalProperties: false
+    FormStyle:
+      type: object
+      properties:
+        HorizontalGap:
+          $ref: '#/components/schemas/FormStyleConfig'
+        VerticalGap:
+          $ref: '#/components/schemas/FormStyleConfig'
+        OuterPadding:
+          $ref: '#/components/schemas/FormStyleConfig'
+      additionalProperties: false
+    FormStyleConfig:
+      oneOf:
+        - type: object
+          title: TokenReference
+          properties:
+            TokenReference:
+              type: string
+          required:
+            - TokenReference
+          additionalProperties: false
+        - type: object
+          title: Value
+          properties:
+            Value:
+              type: string
+          required:
+            - Value
+          additionalProperties: false
+    SectionalElement:
+      type: object
+      properties:
+        Type:
+          type: string
+        Position:
+          $ref: '#/components/schemas/FieldPosition'
+        Text:
+          type: string
+        Level:
+          type: number
+        Orientation:
+          type: string
+        Excluded:
+          type: boolean
+      required:
+        - Type
+      additionalProperties: false
+    SectionalElementMap:
+      type: object
+      x-patternProperties:
+        .+:
+          $ref: '#/components/schemas/SectionalElement'
+      additionalProperties: false
+    ValueMapping:
+      type: object
+      properties:
+        DisplayValue:
+          $ref: '#/components/schemas/FormInputValueProperty'
+        Value:
+          $ref: '#/components/schemas/FormInputValueProperty'
+      required:
+        - Value
+      additionalProperties: false
+    ValueMappings:
+      type: object
+      properties:
+        Values:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValueMapping'
+      required:
+        - Values
+      additionalProperties: false
+    Form:
+      type: object
+      properties:
+        AppId:
+          type: string
+        Cta:
+          $ref: '#/components/schemas/FormCTA'
+        DataType:
+          $ref: '#/components/schemas/FormDataTypeConfig'
+        EnvironmentName:
+          type: string
+        Fields:
+          $ref: '#/components/schemas/FieldsMap'
+        FormActionType:
+          $ref: '#/components/schemas/FormActionType'
+        Id:
+          type: string
+        Name:
+          type: string
+          maxLength: 255
+          minLength: 1
+        SchemaVersion:
+          type: string
+        SectionalElements:
+          $ref: '#/components/schemas/SectionalElementMap'
+        Style:
+          $ref: '#/components/schemas/FormStyle'
+        Tags:
+          $ref: '#/components/schemas/Tags'
+      required:
+        - DataType
+        - Fields
+        - FormActionType
+        - Name
+        - SchemaVersion
+        - SectionalElements
+        - Style
+      x-stackql-resource-name: Form
+    ThemeValue:
+      type: object
+      properties:
+        Value:
+          type: string
+        Children:
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/ThemeValues'
+      additionalProperties: false
+    ThemeValues:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          $ref: '#/components/schemas/ThemeValue'
+      additionalProperties: false
+    Theme:
+      type: object
+      properties:
+        AppId:
+          type: string
+        EnvironmentName:
+          type: string
+        Id:
+          type: string
+        Name:
+          type: string
+          maxLength: 255
+          minLength: 1
+        Overrides:
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/ThemeValues'
+        Tags:
+          $ref: '#/components/schemas/Tags'
+        Values:
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/ThemeValues'
+      required:
+        - Name
+        - Values
+      x-stackql-resource-name: Theme
+x-stackql-views:
+  - App:
+      name: App
+      id: aws.amplify.App
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AccessToken') as access_token,
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.AppName') as app_name,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.AutoBranchCreationPatterns') as
+              auto_branch_creation_config_auto_branch_creation_patterns,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.BasicAuthConfig') as
+              auto_branch_creation_config_basic_auth_config,
+
+              JSON_EXTRACT(Properties, '$.AutoBranchCreationConfig.BuildSpec')
+              as auto_branch_creation_config_build_spec,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.EnableAutoBranchCreation') as
+              auto_branch_creation_config_enable_auto_branch_creation,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.EnableAutoBuild') as
+              auto_branch_creation_config_enable_auto_build,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.EnablePerformanceMode') as
+              auto_branch_creation_config_enable_performance_mode,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.EnablePullRequestPreview') as
+              auto_branch_creation_config_enable_pull_request_preview,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.EnvironmentVariables') as
+              auto_branch_creation_config_environment_variables,
+
+              JSON_EXTRACT(Properties, '$.AutoBranchCreationConfig.Framework')
+              as auto_branch_creation_config_framework,
+
+              JSON_EXTRACT(Properties,
+              '$.AutoBranchCreationConfig.PullRequestEnvironmentName') as
+              auto_branch_creation_config_pull_request_environment_name,
+
+              JSON_EXTRACT(Properties, '$.AutoBranchCreationConfig.Stage') as
+              auto_branch_creation_config_stage,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.EnableBasicAuth') as
+              basic_auth_config_enable_basic_auth,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.Username') as
+              basic_auth_config_username,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.Password') as
+              basic_auth_config_password,
+
+              JSON_EXTRACT(Properties, '$.BuildSpec') as build_spec,
+
+              JSON_EXTRACT(Properties, '$.CustomHeaders') as custom_headers,
+
+              JSON_EXTRACT(Properties, '$.CustomRules') as custom_rules,
+
+              JSON_EXTRACT(Properties, '$.DefaultDomain') as default_domain,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.EnableBranchAutoDeletion') as
+              enable_branch_auto_deletion,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentVariables') as
+              environment_variables,
+
+              JSON_EXTRACT(Properties, '$.IAMServiceRole') as i_am_service_role,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.OauthToken') as oauth_token,
+
+              JSON_EXTRACT(Properties, '$.Platform') as platform,
+
+              JSON_EXTRACT(Properties, '$.Repository') as repository,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::App' ;
+  - Branch:
+      name: Branch
+      id: aws.amplify.Branch
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.EnableBasicAuth') as
+              basic_auth_config_enable_basic_auth,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.Username') as
+              basic_auth_config_username,
+
+              JSON_EXTRACT(Properties, '$.BasicAuthConfig.Password') as
+              basic_auth_config_password,
+
+              JSON_EXTRACT(Properties, '$.BranchName') as branch_name,
+
+              JSON_EXTRACT(Properties, '$.BuildSpec') as build_spec,
+
+              JSON_EXTRACT(Properties, '$.Description') as description,
+
+              JSON_EXTRACT(Properties, '$.EnableAutoBuild') as
+              enable_auto_build,
+
+              JSON_EXTRACT(Properties, '$.EnablePerformanceMode') as
+              enable_performance_mode,
+
+              JSON_EXTRACT(Properties, '$.EnablePullRequestPreview') as
+              enable_pull_request_preview,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentVariables') as
+              environment_variables,
+
+              JSON_EXTRACT(Properties, '$.Framework') as framework,
+
+              JSON_EXTRACT(Properties, '$.PullRequestEnvironmentName') as
+              pull_request_environment_name,
+
+              JSON_EXTRACT(Properties, '$.Stage') as stage,
+
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::Branch' ;
+  - Domain:
+      name: Domain
+      id: aws.amplify.Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+
+              JSON_EXTRACT(Properties, '$.AutoSubDomainCreationPatterns') as
+              auto_sub_domain_creation_patterns,
+
+              JSON_EXTRACT(Properties, '$.AutoSubDomainIAMRole') as
+              auto_sub_domain_ia_mrole,
+
+              JSON_EXTRACT(Properties, '$.CertificateRecord') as
+              certificate_record,
+
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+
+              JSON_EXTRACT(Properties, '$.DomainStatus') as domain_status,
+
+              JSON_EXTRACT(Properties, '$.EnableAutoSubDomain') as
+              enable_auto_sub_domain,
+
+              JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
+
+              JSON_EXTRACT(Properties, '$.SubDomainSettings') as
+              sub_domain_settings
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::Domain' ;
+  - Component:
+      name: Component
+      id: aws.amplify.Component
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.Children') as children,
+
+              JSON_EXTRACT(Properties, '$.ComponentType') as component_type,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
+
+              JSON_EXTRACT(Properties, '$.SourceId') as source_id,
+
+              JSON_EXTRACT(Properties, '$.Variants') as variants
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::Component' ;
+  - Form:
+      name: Form
+      id: aws.amplify.Form
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.Cta.Position') as cta_position,
+
+              JSON_EXTRACT(Properties, '$.Cta.Clear') as cta_clear,
+
+              JSON_EXTRACT(Properties, '$.Cta.Cancel') as cta_cancel,
+
+              JSON_EXTRACT(Properties, '$.Cta.Submit') as cta_submit,
+
+              JSON_EXTRACT(Properties, '$.DataType.DataSourceType') as
+              data_type_data_source_type,
+
+              JSON_EXTRACT(Properties, '$.DataType.DataTypeName') as
+              data_type_data_type_name,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
+
+              JSON_EXTRACT(Properties, '$.Style.HorizontalGap') as
+              style_horizontal_gap,
+
+              JSON_EXTRACT(Properties, '$.Style.VerticalGap') as
+              style_vertical_gap,
+
+              JSON_EXTRACT(Properties, '$.Style.OuterPadding') as
+              style_outer_padding
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::Form' ;
+  - Theme:
+      name: Theme
+      id: aws.amplify.Theme
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: >-
+              SELECT 
+
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+
+              JSON_EXTRACT(Properties, '$.Id') as id,
+
+              JSON_EXTRACT(Properties, '$.Name') as name,
+
+              JSON_EXTRACT(Properties, '$.Overrides') as overrides,
+
+              JSON_EXTRACT(Properties, '$.Values') as values
+
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
+              and data__TypeName = 'AWS::Amplify::Theme' ;
