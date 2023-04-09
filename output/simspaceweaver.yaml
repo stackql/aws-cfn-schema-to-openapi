@@ -15,9 +15,7 @@ components:
           maxLength: 255
           pattern: '[a-zA-Z0-9_\-]{3,255}$'
         ObjectKey:
-          description: >-
-            This is the schema S3 object key, which includes the full path of
-            "folders" from the bucket root to the schema.
+          description: This is the schema S3 object key, which includes the full path of "folders" from the bucket root to the schema.
           type: string
           minLength: 3
           maxLength: 255
@@ -52,20 +50,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties, '$.SchemaS3Location.BucketName') as
-              schema_s3_location_bucket_name,
-
-              JSON_EXTRACT(Properties, '$.SchemaS3Location.ObjectKey') as
-              schema_s3_location_object_key,
-
+              JSON_EXTRACT(Properties, '$.SchemaS3Location.BucketName') as schema_s3_location_bucket_name,
+              JSON_EXTRACT(Properties, '$.SchemaS3Location.ObjectKey') as schema_s3_location_object_key,
               JSON_EXTRACT(Properties, '$.DescribePayload') as describe_payload
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SimSpaceWeaver::Simulation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SimSpaceWeaver::Simulation' ;

@@ -124,9 +124,7 @@ components:
         Status:
           $ref: '#/components/schemas/DelegationStatus'
     Role:
-      description: >-
-        The wrapper that contains AWS Audit Manager role information, such as
-        the role type and IAM ARN.
+      description: The wrapper that contains AWS Audit Manager role information, such as the role type and IAM ARN.
       type: object
       additionalProperties: false
       properties:
@@ -145,9 +143,7 @@ components:
         ServiceName:
           $ref: '#/components/schemas/AWSServiceName'
     Scope:
-      description: >-
-        The wrapper that contains the AWS accounts and AWS services in scope for
-        the assessment.
+      description: The wrapper that contains the AWS accounts and AWS services in scope for the assessment.
       type: object
       additionalProperties: false
       properties:
@@ -170,9 +166,7 @@ components:
       enum:
         - S3
     AssessmentReportsDestination:
-      description: >-
-        The destination in which evidence reports are stored for the specified
-        assessment.
+      description: The destination in which evidence reports are stored for the specified assessment.
       type: object
       additionalProperties: false
       properties:
@@ -196,20 +190,12 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 127
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -. 
+          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 1 to 255
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -. 
+          description: 'The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
           minLength: 0
           maxLength: 256
       required:
@@ -263,35 +249,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AwsAccount.Id') as aws_account_id,
-
-              JSON_EXTRACT(Properties, '$.AwsAccount.EmailAddress') as
-              aws_account_email_address,
-
+              JSON_EXTRACT(Properties, '$.AwsAccount.EmailAddress') as aws_account_email_address,
               JSON_EXTRACT(Properties, '$.AwsAccount.Name') as aws_account_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Delegations') as delegations,
-
               JSON_EXTRACT(Properties, '$.Roles') as roles,
-
-              JSON_EXTRACT(Properties, '$.Scope.AwsAccounts') as
-              scope_aws_accounts,
-
-              JSON_EXTRACT(Properties, '$.Scope.AwsServices') as
-              scope_aws_services,
-
-              JSON_EXTRACT(Properties,
-              '$.AssessmentReportsDestination.Destination') as
-              assessment_reports_destination_destination,
-
-              JSON_EXTRACT(Properties,
-              '$.AssessmentReportsDestination.DestinationType') as
-              assessment_reports_destination_destination_type
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AuditManager::Assessment' ;
+              JSON_EXTRACT(Properties, '$.Scope.AwsAccounts') as scope_aws_accounts,
+              JSON_EXTRACT(Properties, '$.Scope.AwsServices') as scope_aws_services,
+              JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.Destination') as assessment_reports_destination_destination,
+              JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.DestinationType') as assessment_reports_destination_destination_type
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AuditManager::Assessment' ;

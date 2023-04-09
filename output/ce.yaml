@@ -33,9 +33,7 @@ components:
           description: JSON array format of Expression in Billing and Cost Management API
         SplitChargeRules:
           type: string
-          description: >-
-            Json array format of CostCategorySplitChargeRule in Billing and Cost
-            Management API
+          description: Json array format of CostCategorySplitChargeRule in Billing and Cost Management API
         DefaultValue:
           type: string
           description: The default value for the cost category
@@ -128,24 +126,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.RuleVersion') as rule_version,
-
               JSON_EXTRACT(Properties, '$.Rules') as rules,
-
-              JSON_EXTRACT(Properties, '$.SplitChargeRules') as
-              split_charge_rules,
-
+              JSON_EXTRACT(Properties, '$.SplitChargeRules') as split_charge_rules,
               JSON_EXTRACT(Properties, '$.DefaultValue') as default_value
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CE::CostCategory' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::CostCategory' ;
   - Account:
       name: Account
       id: aws.ce.Account
@@ -153,15 +142,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.ExpiryEventsConfiguration.DaysBeforeExpiry') as
-              expiry_events_configuration_days_before_expiry
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CE::Account' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ExpiryEventsConfiguration.DaysBeforeExpiry') as expiry_events_configuration_days_before_expiry
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::Account' ;
   - Certificate:
       name: Certificate
       id: aws.ce.Certificate
@@ -169,30 +153,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as
-              certificate_authority_arn,
-
-              JSON_EXTRACT(Properties, '$.DomainValidationOptions') as
-              domain_validation_options,
-
-              JSON_EXTRACT(Properties,
-              '$.CertificateTransparencyLoggingPreference') as
-              certificate_transparency_logging_preference,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
+              JSON_EXTRACT(Properties, '$.DomainValidationOptions') as domain_validation_options,
+              JSON_EXTRACT(Properties, '$.CertificateTransparencyLoggingPreference') as certificate_transparency_logging_preference,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-
-              JSON_EXTRACT(Properties, '$.ValidationMethod') as
-              validation_method,
-
-              JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as
-              subject_alternative_names,
-
+              JSON_EXTRACT(Properties, '$.ValidationMethod') as validation_method,
+              JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as subject_alternative_names,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CE::Certificate' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::Certificate' ;

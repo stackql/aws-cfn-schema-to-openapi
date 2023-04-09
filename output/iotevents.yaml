@@ -15,17 +15,13 @@ components:
     SimpleRule:
       type: object
       additionalProperties: false
-      description: >-
-        A rule that compares an input property value to a threshold value with a
-        comparison operator.
+      description: A rule that compares an input property value to a threshold value with a comparison operator.
       properties:
         InputProperty:
           type: string
           minLength: 1
           maxLength: 512
-          description: >-
-            The value on the left side of the comparison operator. You can
-            specify an AWS IoT Events input attribute as an input property.
+          description: The value on the left side of the comparison operator. You can specify an AWS IoT Events input attribute as an input property.
         ComparisonOperator:
           type: string
           enum:
@@ -40,9 +36,7 @@ components:
           type: string
           minLength: 1
           maxLength: 512
-          description: >-
-            The value on the right side of the comparison operator. You can
-            enter a number or specify an AWS IoT Events input attribute.
+          description: The value on the right side of the comparison operator. You can enter a number or specify an AWS IoT Events input attribute.
       required:
         - InputProperty
         - ComparisonOperator
@@ -65,9 +59,7 @@ components:
           $ref: '#/components/schemas/AcknowledgeFlow'
     AlarmActions:
       type: array
-      description: >-
-        Specifies one or more supported actions to receive notifications when
-        the alarm state changes.
+      description: Specifies one or more supported actions to receive notifications when the alarm state changes.
       uniqueItems: false
       x-insertionOrder: false
       items:
@@ -99,31 +91,20 @@ components:
       type: object
       additionalProperties: false
       description: >-
-        Writes to the DynamoDB table that you created. The default action
-        payload contains all attribute-value pairs that have the information
-        about the detector model instance and the event that triggered the
-        action. You can also customize the
-        [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html).
-        One column of the DynamoDB table receives all attribute-value pairs in
-        the payload that you specify. For more information, see
-        [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html)
-        in *AWS IoT Events Developer Guide*.
+        Writes to the DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can also customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). One column of the DynamoDB table receives all attribute-value pairs in the payload that you specify. For more information, see
+        [Actions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-event-actions.html) in *AWS IoT Events Developer Guide*.
       properties:
         HashKeyField:
           type: string
           description: The name of the hash key (also called the partition key).
         HashKeyType:
           type: string
-          description: >-
-            The data type for the hash key (also called the partition key). You
-            can specify the following values:
-
+          description: |-
+            The data type for the hash key (also called the partition key). You can specify the following values:
 
             * `STRING` - The hash key is a string.
 
-
             * `NUMBER` - The hash key is a number.
-
 
             If you don't specify `hashKeyType`, the default value is `STRING`.
         HashKeyValue:
@@ -131,54 +112,35 @@ components:
           description: The value of the hash key (also called the partition key).
         Operation:
           type: string
-          description: >-
-            The type of operation to perform. You can specify the following
-            values:
+          description: |-
+            The type of operation to perform. You can specify the following values:
 
+            * `INSERT` - Insert data as a new item into the DynamoDB table. This item uses the specified hash key as a partition key. If you specified a range key, the item uses the range key as a sort key.
 
-            * `INSERT` - Insert data as a new item into the DynamoDB table. This
-            item uses the specified hash key as a partition key. If you
-            specified a range key, the item uses the range key as a sort key.
+            * `UPDATE` - Update an existing item of the DynamoDB table with new data. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.
 
+            * `DELETE` - Delete an existing item of the DynamoDB table. This item's partition key must match the specified hash key. If you specified a range key, the range key must match the item's sort key.
 
-            * `UPDATE` - Update an existing item of the DynamoDB table with new
-            data. This item's partition key must match the specified hash key.
-            If you specified a range key, the range key must match the item's
-            sort key.
-
-
-            * `DELETE` - Delete an existing item of the DynamoDB table. This
-            item's partition key must match the specified hash key. If you
-            specified a range key, the range key must match the item's sort key.
-
-
-            If you don't specify this parameter, AWS IoT Events triggers the
-            `INSERT` operation.
+            If you don't specify this parameter, AWS IoT Events triggers the `INSERT` operation.
         Payload:
           $ref: '#/components/schemas/Payload'
         PayloadField:
           type: string
-          description: >-
+          description: |-
             The name of the DynamoDB column that receives the action payload.
 
-
-            If you don't specify this parameter, the name of the DynamoDB column
-            is `payload`.
+            If you don't specify this parameter, the name of the DynamoDB column is `payload`.
         RangeKeyField:
           type: string
           description: The name of the range key (also called the sort key).
         RangeKeyType:
           type: string
-          description: >-
-            The data type for the range key (also called the sort key), You can
-            specify the following values:
-
+          description: |-
+            The data type for the range key (also called the sort key), You can specify the following values:
 
             * `STRING` - The range key is a string.
 
-
             * `NUMBER` - The range key is number.
-
 
             If you don't specify `rangeKeyField`, the default value is `STRING`.
         RangeKeyValue:
@@ -194,20 +156,10 @@ components:
     DynamoDBv2:
       type: object
       additionalProperties: false
-      description: >-
-        Defines an action to write to the Amazon DynamoDB table that you
-        created. The default action payload contains all attribute-value pairs
-        that have the information about the detector model instance and the
-        event that triggered the action. You can also customize the
-        [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html).
-        A separate column of the DynamoDB table receives one attribute-value
-        pair in the payload that you specify.
+      description: |-
+        Defines an action to write to the Amazon DynamoDB table that you created. The default action payload contains all attribute-value pairs that have the information about the detector model instance and the event that triggered the action. You can also customize the [payload](https://docs.aws.amazon.com/iotevents/latest/apireference/API_Payload.html). A separate column of the DynamoDB table receives one attribute-value pair in the payload that you specify.
 
-
-        You can use expressions for parameters that are strings. For more
-        information, see
-        [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html)
-        in the *AWS IoT Events Developer Guide*.
+        You can use expressions for parameters that are strings. For more information, see [Expressions](https://docs.aws.amazon.com/iotevents/latest/developerguide/iotevents-expressions.html) in the *AWS IoT Events Developer Guide*.
       properties:
         Payload:
           $ref: '#/components/schemas/Payload'
@@ -219,32 +171,23 @@ components:
     Firehose:
       type: object
       additionalProperties: false
-      description: >-
-        Sends information about the detector model instance and the event that
-        triggered the action to an Amazon Kinesis Data Firehose delivery stream.
+      description: Sends information about the detector model instance and the event that triggered the action to an Amazon Kinesis Data Firehose delivery stream.
       properties:
         DeliveryStreamName:
           type: string
-          description: >-
-            The name of the Kinesis Data Firehose delivery stream where the data
-            is written.
+          description: The name of the Kinesis Data Firehose delivery stream where the data is written.
         Payload:
           $ref: '#/components/schemas/Payload'
         Separator:
           type: string
-          description: >-
-            A character separator that is used to separate records written to
-            the Kinesis Data Firehose delivery stream. Valid values are: '\n'
-            (newline), '\t' (tab), '\r\n' (Windows newline), ',' (comma).
+          description: 'A character separator that is used to separate records written to the Kinesis Data Firehose delivery stream. Valid values are: ''\n'' (newline), ''\t'' (tab), ''\r\n'' (Windows newline), '','' (comma).'
           pattern: ([\n\t])|(\r\n)|(,)
       required:
         - DeliveryStreamName
     IotEvents:
       type: object
       additionalProperties: false
-      description: >-
-        Sends an AWS IoT Events input, passing in information about the detector
-        model instance and the event that triggered the action.
+      description: Sends an AWS IoT Events input, passing in information about the detector model instance and the event that triggered the action.
       properties:
         InputName:
           type: string
@@ -259,22 +202,14 @@ components:
     IotSiteWise:
       type: object
       additionalProperties: false
-      description: >-
-        Sends information about the detector model instance and the event that
-        triggered the action to a specified asset property in AWS IoT SiteWise.
+      description: Sends information about the detector model instance and the event that triggered the action to a specified asset property in AWS IoT SiteWise.
       properties:
         AssetId:
           type: string
-          description: >-
-            The ID of the asset that has the specified property. You can specify
-            an expression.
+          description: The ID of the asset that has the specified property. You can specify an expression.
         EntryId:
           type: string
-          description: >-
-            A unique identifier for this entry. You can use the entry ID to
-            track which data entry causes an error in case of failure. The
-            default is a new unique identifier. You can also specify an
-            expression.
+          description: A unique identifier for this entry. You can use the entry ID to track which data entry causes an error in case of failure. The default is a new unique identifier. You can also specify an expression.
         PropertyAlias:
           type: string
           description: The alias of the asset property. You can also specify an expression.
@@ -288,16 +223,11 @@ components:
     IotTopicPublish:
       type: object
       additionalProperties: false
-      description: >-
-        Information required to publish the MQTT message through the AWS IoT
-        message broker.
+      description: Information required to publish the MQTT message through the AWS IoT message broker.
       properties:
         MqttTopic:
           type: string
-          description: >-
-            The MQTT topic of the message. You can use a string expression that
-            includes variables (`$variable.<variable-name>`) and input values
-            (`$input.<input-name>.<path-to-datum>`) as the topic string.
+          description: The MQTT topic of the message. You can use a string expression that includes variables (`$variable.<variable-name>`) and input values (`$input.<input-name>.<path-to-datum>`) as the topic string.
           minLength: 1
           maxLength: 128
         Payload:
@@ -342,33 +272,20 @@ components:
           description: The URL of the SQS queue where the data is written.
         UseBase64:
           type: boolean
-          description: >-
-            Set this to `TRUE` if you want the data to be base-64 encoded before
-            it is written to the queue. Otherwise, set this to `FALSE`.
+          description: Set this to `TRUE` if you want the data to be base-64 encoded before it is written to the queue. Otherwise, set this to `FALSE`.
       required:
         - QueueUrl
     Payload:
       type: object
       additionalProperties: false
-      description: >-
+      description: |-
         Information needed to configure the payload.
 
-
-        By default, AWS IoT Events generates a standard payload in JSON for any
-        action. This action payload contains all attribute-value pairs that have
-        the information about the detector model instance and the event
-        triggered the action. To configure the action payload, you can use
-        `contentExpression`.
+        By default, AWS IoT Events generates a standard payload in JSON for any action. This action payload contains all attribute-value pairs that have the information about the detector model instance and the event triggered the action. To configure the action payload, you can use `contentExpression`.
       properties:
         ContentExpression:
           type: string
-          description: >-
-            The content of the payload. You can use a string expression that
-            includes quoted strings (`'<string>'`), variables
-            (`$variable.<variable-name>`), input values
-            (`$input.<input-name>.<path-to-datum>`), string concatenations, and
-            quoted strings that contain `${}` as the content. The recommended
-            maximum size of a content expression is 1 KB.
+          description: The content of the payload. You can use a string expression that includes quoted strings (`'<string>'`), variables (`$variable.<variable-name>`), input values (`$input.<input-name>.<path-to-datum>`), string concatenations, and quoted strings that contain `${}` as the content. The recommended maximum size of a content expression is 1 KB.
           minLength: 1
         Type:
           type: string
@@ -378,17 +295,12 @@ components:
         - Type
     InitializationConfiguration:
       type: object
-      description: >-
-        Specifies the default alarm state. The configuration applies to all
-        alarms that were created based on this alarm model.
+      description: Specifies the default alarm state. The configuration applies to all alarms that were created based on this alarm model.
       additionalProperties: false
       properties:
         DisabledOnInitialization:
           type: boolean
-          description: >-
-            The value must be TRUE or FALSE. If FALSE, all alarm instances
-            created based on the alarm model are activated. The default value is
-            TRUE.
+          description: The value must be TRUE or FALSE. If FALSE, all alarm instances created based on the alarm model are activated. The default value is TRUE.
           default: 'true'
       required:
         - DisabledOnInitialization
@@ -399,27 +311,16 @@ components:
       properties:
         Enabled:
           type: boolean
-          description: >-
-            The value must be TRUE or FALSE. If TRUE, you receive a notification
-            when the alarm state changes. You must choose to acknowledge the
-            notification before the alarm state can return to NORMAL. If FALSE,
-            you won't receive notifications. The alarm automatically changes to
-            the NORMAL state when the input property value returns to the
-            specified range.
+          description: The value must be TRUE or FALSE. If TRUE, you receive a notification when the alarm state changes. You must choose to acknowledge the notification before the alarm state can return to NORMAL. If FALSE, you won't receive notifications. The alarm automatically changes to the NORMAL state when the input property value returns to the specified range.
           default: 'true'
     AssetPropertyValue:
       type: object
       additionalProperties: false
-      description: >-
-        A structure that contains value information. For more information, see
-        [AssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_AssetPropertyValue.html)
-        in the *AWS IoT SiteWise API Reference*.
+      description: A structure that contains value information. For more information, see [AssetPropertyValue](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_AssetPropertyValue.html) in the *AWS IoT SiteWise API Reference*.
       properties:
         Quality:
           type: string
-          description: >-
-            The quality of the asset property value. The value must be `GOOD`,
-            `BAD`, or `UNCERTAIN`. You can also specify an expression.
+          description: The quality of the asset property value. The value must be `GOOD`, `BAD`, or `UNCERTAIN`. You can also specify an expression.
         Timestamp:
           $ref: '#/components/schemas/AssetPropertyTimestamp'
         Value:
@@ -429,58 +330,33 @@ components:
     AssetPropertyTimestamp:
       type: object
       additionalProperties: false
-      description: >-
-        A structure that contains timestamp information. For more information,
-        see
-        [TimeInNanos](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_TimeInNanos.html)
-        in the *AWS IoT SiteWise API Reference*.
+      description: A structure that contains timestamp information. For more information, see [TimeInNanos](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_TimeInNanos.html) in the *AWS IoT SiteWise API Reference*.
       properties:
         OffsetInNanos:
           type: string
-          description: >-
-            The timestamp, in seconds, in the Unix epoch format. The valid range
-            is between `1-31556889864403199`. You can also specify an
-            expression.
+          description: The timestamp, in seconds, in the Unix epoch format. The valid range is between `1-31556889864403199`. You can also specify an expression.
         TimeInSeconds:
           type: string
-          description: >-
-            The nanosecond offset converted from `timeInSeconds`. The valid
-            range is between `0-999999999`. You can also specify an expression.
+          description: The nanosecond offset converted from `timeInSeconds`. The valid range is between `0-999999999`. You can also specify an expression.
       required:
         - TimeInSeconds
     AssetPropertyVariant:
       type: object
       additionalProperties: false
-      description: >-
-        A structure that contains an asset property value. For more information,
-        see
-        [Variant](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_Variant.html)
-        in the *AWS IoT SiteWise API Reference*.
+      description: A structure that contains an asset property value. For more information, see [Variant](https://docs.aws.amazon.com/iot-sitewise/latest/APIReference/API_Variant.html) in the *AWS IoT SiteWise API Reference*.
       properties:
         BooleanValue:
           type: string
-          description: >-
-            The asset property value is a Boolean value that must be `TRUE` or
-            `FALSE`. You can also specify an expression. If you use an
-            expression, the evaluated result should be a Boolean value.
+          description: The asset property value is a Boolean value that must be `TRUE` or `FALSE`. You can also specify an expression. If you use an expression, the evaluated result should be a Boolean value.
         DoubleValue:
           type: string
-          description: >-
-            The asset property value is a double. You can also specify an
-            expression. If you use an expression, the evaluated result should be
-            a double.
+          description: The asset property value is a double. You can also specify an expression. If you use an expression, the evaluated result should be a double.
         IntegerValue:
           type: string
-          description: >-
-            The asset property value is an integer. You can also specify an
-            expression. If you use an expression, the evaluated result should be
-            an integer.
+          description: The asset property value is an integer. You can also specify an expression. If you use an expression, the evaluated result should be an integer.
         StringValue:
           type: string
-          description: >-
-            The asset property value is a string. You can also specify an
-            expression. If you use an expression, the evaluated result should be
-            a string.
+          description: The asset property value is a string. You can also specify an expression. If you use an expression, the evaluated result should be a string.
     Tag:
       type: object
       additionalProperties: false
@@ -510,33 +386,22 @@ components:
           maxLength: 128
         RoleArn:
           type: string
-          description: >-
-            The ARN of the role that grants permission to AWS IoT Events to
-            perform its operations.
+          description: The ARN of the role that grants permission to AWS IoT Events to perform its operations.
           minLength: 1
           maxLength: 2048
         Key:
           type: string
-          description: >-
-            The value used to identify a alarm instance. When a device or system
-            sends input, a new alarm instance with a unique key value is
-            created. AWS IoT Events can continue to route input to its
-            corresponding alarm instance based on this identifying information.
+          description: |-
+            The value used to identify a alarm instance. When a device or system sends input, a new alarm instance with a unique key value is created. AWS IoT Events can continue to route input to its corresponding alarm instance based on this identifying information.
 
-
-            This parameter uses a JSON-path expression to select the
-            attribute-value pair in the message payload that is used for
-            identification. To route the message to the correct alarm instance,
-            the device must send a message payload that contains the same
-            attribute-value.
+            This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct alarm instance, the device must send a message payload that contains the same attribute-value.
           minLength: 1
           maxLength: 128
           pattern: ^((`[\w\- ]+`)|([\w\-]+))(\.((`[\w\- ]+`)|([\w\-]+)))*$
         Severity:
           type: integer
-          description: >+
-            A non-negative integer that reflects the severity level of the
-            alarm.
+          description: |+
+            A non-negative integer that reflects the severity level of the alarm.
 
           minimum: 0
           maximum: 2147483647
@@ -550,12 +415,10 @@ components:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
+          description: |-
             An array of key-value pairs to apply to this resource.
 
-
-            For more information, see
-            [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
+            For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
           items:
             $ref: '#/components/schemas/Tag'
       required:
@@ -569,9 +432,7 @@ components:
       properties:
         InitialStateName:
           type: string
-          description: >-
-            The state that is entered at the creation of each detector
-            (instance).
+          description: The state that is entered at the creation of each detector (instance).
           minLength: 1
           maxLength: 128
         States:
@@ -606,66 +467,50 @@ components:
     OnEnter:
       type: object
       additionalProperties: false
-      description: >-
-        When entering this state, perform these `actions` if the `condition` is
-        `TRUE`.
+      description: When entering this state, perform these `actions` if the `condition` is `TRUE`.
       properties:
         Events:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
-            Specifies the `actions` that are performed when the state is entered
-            and the `condition` is `TRUE`.
+          description: Specifies the `actions` that are performed when the state is entered and the `condition` is `TRUE`.
           items:
             $ref: '#/components/schemas/Event'
     OnExit:
       type: object
       additionalProperties: false
-      description: >-
-        When exiting this state, perform these `actions` if the specified
-        `condition` is `TRUE`.
+      description: When exiting this state, perform these `actions` if the specified `condition` is `TRUE`.
       properties:
         Events:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
-            Specifies the `actions` that are performed when the state is exited
-            and the `condition` is `TRUE`.
+          description: Specifies the `actions` that are performed when the state is exited and the `condition` is `TRUE`.
           items:
             $ref: '#/components/schemas/Event'
     OnInput:
       type: object
       additionalProperties: false
-      description: >-
-        When an input is received and the `condition` is `TRUE`, perform the
-        specified `actions`.
+      description: When an input is received and the `condition` is `TRUE`, perform the specified `actions`.
       properties:
         Events:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
-            Specifies the `actions` performed when the `condition` evaluates to
-            `TRUE`.
+          description: Specifies the `actions` performed when the `condition` evaluates to `TRUE`.
           items:
             $ref: '#/components/schemas/Event'
         TransitionEvents:
           type: array
           uniqueItems: false
           x-insertionOrder: true
-          description: >-
-            Specifies the `actions` performed, and the next `state` entered,
-            when a `condition` evaluates to `TRUE`.
+          description: Specifies the `actions` performed, and the next `state` entered, when a `condition` evaluates to `TRUE`.
           items:
             $ref: '#/components/schemas/TransitionEvent'
     Event:
       type: object
       additionalProperties: false
-      description: >-
-        Specifies the `actions` to be performed when the `condition` evaluates
-        to `TRUE`.
+      description: Specifies the `actions` to be performed when the `condition` evaluates to `TRUE`.
       properties:
         Actions:
           type: array
@@ -676,11 +521,7 @@ components:
             $ref: '#/components/schemas/Action'
         Condition:
           type: string
-          description: >-
-            The Boolean expression that, when `TRUE`, causes the `actions` to be
-            performed. If not present, the `actions` are performed (=`TRUE`). If
-            the expression result is not a `Boolean` value, the `actions` are
-            not performed (=`FALSE`).
+          description: The Boolean expression that, when `TRUE`, causes the `actions` to be performed. If not present, the `actions` are performed (=`TRUE`). If the expression result is not a `Boolean` value, the `actions` are not performed (=`FALSE`).
           maxLength: 512
         EventName:
           type: string
@@ -691,9 +532,7 @@ components:
     TransitionEvent:
       type: object
       additionalProperties: false
-      description: >-
-        Specifies the `actions `performed and the next `state` entered when a
-        `condition` evaluates to `TRUE`.
+      description: Specifies the `actions `performed and the next `state` entered when a `condition` evaluates to `TRUE`.
       properties:
         Actions:
           type: array
@@ -704,9 +543,7 @@ components:
             $ref: '#/components/schemas/Action'
         Condition:
           type: string
-          description: >-
-            A Boolean expression that when `TRUE` causes the `actions` to be
-            performed and the `nextState` to be entered.
+          description: A Boolean expression that when `TRUE` causes the `actions` to be performed and the `nextState` to be entered.
           maxLength: 512
         EventName:
           type: string
@@ -767,10 +604,7 @@ components:
     ResetTimer:
       type: object
       additionalProperties: false
-      description: >-
-        Information required to reset the timer. The timer is reset to the
-        previously evaluated result of the duration. The duration expression
-        isn't reevaluated when you reset the timer.
+      description: Information required to reset the timer. The timer is reset to the previously evaluated result of the duration. The duration expression isn't reevaluated when you reset the timer.
       properties:
         TimerName:
           type: string
@@ -786,22 +620,12 @@ components:
       properties:
         DurationExpression:
           type: string
-          description: >-
-            The duration of the timer, in seconds. You can use a string
-            expression that includes numbers, variables
-            (`$variable.<variable-name>`), and input values
-            (`$input.<input-name>.<path-to-datum>`) as the duration. The range
-            of the duration is `1-31622400` seconds. To ensure accuracy, the
-            minimum duration is `60` seconds. The evaluated result of the
-            duration is rounded down to the nearest whole number.
+          description: The duration of the timer, in seconds. You can use a string expression that includes numbers, variables (`$variable.<variable-name>`), and input values (`$input.<input-name>.<path-to-datum>`) as the duration. The range of the duration is `1-31622400` seconds. To ensure accuracy, the minimum duration is `60` seconds. The evaluated result of the duration is rounded down to the nearest whole number.
           minLength: 1
           maxLength: 1024
         Seconds:
           type: integer
-          description: >-
-            The number of seconds until the timer expires. The minimum value is
-            `60` seconds to ensure accuracy. The maximum value is `31622400`
-            seconds.
+          description: The number of seconds until the timer expires. The minimum value is `60` seconds to ensure accuracy. The maximum value is `31622400` seconds.
           minimum: 60
           maximum: 31622400
         TimerName:
@@ -847,47 +671,32 @@ components:
           pattern: ^[a-zA-Z0-9_-]+$
         EvaluationMethod:
           type: string
-          description: >-
-            Information about the order in which events are evaluated and how
-            actions are executed.
+          description: Information about the order in which events are evaluated and how actions are executed.
           enum:
             - BATCH
             - SERIAL
         Key:
           type: string
-          description: >-
-            The value used to identify a detector instance. When a device or
-            system sends input, a new detector instance with a unique key value
-            is created. AWS IoT Events can continue to route input to its
-            corresponding detector instance based on this identifying
-            information.
+          description: |-
+            The value used to identify a detector instance. When a device or system sends input, a new detector instance with a unique key value is created. AWS IoT Events can continue to route input to its corresponding detector instance based on this identifying information.
 
-
-            This parameter uses a JSON-path expression to select the
-            attribute-value pair in the message payload that is used for
-            identification. To route the message to the correct detector
-            instance, the device must send a message payload that contains the
-            same attribute-value.
+            This parameter uses a JSON-path expression to select the attribute-value pair in the message payload that is used for identification. To route the message to the correct detector instance, the device must send a message payload that contains the same attribute-value.
           minLength: 1
           maxLength: 128
           pattern: ^((`[\w\- ]+`)|([\w\-]+))(\.((`[\w\- ]+`)|([\w\-]+)))*$
         RoleArn:
           type: string
-          description: >-
-            The ARN of the role that grants permission to AWS IoT Events to
-            perform its operations.
+          description: The ARN of the role that grants permission to AWS IoT Events to perform its operations.
           minLength: 1
           maxLength: 2048
         Tags:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
+          description: |-
             An array of key-value pairs to apply to this resource.
 
-
-            For more information, see
-            [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
+            For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
           items:
             $ref: '#/components/schemas/Tag'
       required:
@@ -903,13 +712,7 @@ components:
           type: array
           uniqueItems: true
           x-insertionOrder: false
-          description: >-
-            The attributes from the JSON payload that are made available by the
-            input. Inputs are derived from messages sent to the AWS IoT Events
-            system using `BatchPutMessage`. Each such message contains a JSON
-            payload, and those attributes (and their paired values) specified
-            here are available for use in the `condition` expressions used by
-            detectors that monitor this input.
+          description: The attributes from the JSON payload that are made available by the input. Inputs are derived from messages sent to the AWS IoT Events system using `BatchPutMessage`. Each such message contains a JSON payload, and those attributes (and their paired values) specified here are available for use in the `condition` expressions used by detectors that monitor this input.
           minItems: 1
           maxItems: 200
           items:
@@ -919,31 +722,16 @@ components:
     Attribute:
       type: object
       additionalProperties: false
-      description: >-
-        The attributes from the JSON payload that are made available by the
-        input. Inputs are derived from messages sent to the AWS IoT Events
-        system using `BatchPutMessage`. Each such message contains a JSON
-        payload, and those attributes (and their paired values) specified here
-        are available for use in the `condition` expressions used by detectors
-        that monitor this input.
+      description: The attributes from the JSON payload that are made available by the input. Inputs are derived from messages sent to the AWS IoT Events system using `BatchPutMessage`. Each such message contains a JSON payload, and those attributes (and their paired values) specified here are available for use in the `condition` expressions used by detectors that monitor this input.
       properties:
         JsonPath:
-          description: >-
-            An expression that specifies an attribute-value pair in a JSON
-            structure. Use this to specify an attribute from the JSON payload
-            that is made available by the input. Inputs are derived from
-            messages sent to AWS IoT Events (`BatchPutMessage`). Each such
-            message contains a JSON payload. The attribute (and its paired
-            value) specified here are available for use in the `condition`
-            expressions used by detectors.
-
+          description: |-
+            An expression that specifies an attribute-value pair in a JSON structure. Use this to specify an attribute from the JSON payload that is made available by the input. Inputs are derived from messages sent to AWS IoT Events (`BatchPutMessage`). Each such message contains a JSON payload. The attribute (and its paired value) specified here are available for use in the `condition` expressions used by detectors.
 
             _Syntax_: `<field-name>.<field-name>...`
           minLength: 1
           maxLength: 128
-          pattern: >-
-            ^((`[a-zA-Z0-9_\- ]+`)|([a-zA-Z0-9_\-]+))(\.((`[a-zA-Z0-9_\-
-            ]+`)|([a-zA-Z0-9_\-]+)))*$
+          pattern: ^((`[a-zA-Z0-9_\- ]+`)|([a-zA-Z0-9_\-]+))(\.((`[a-zA-Z0-9_\- ]+`)|([a-zA-Z0-9_\-]+)))*$
           type: string
       required:
         - JsonPath
@@ -967,12 +755,10 @@ components:
           type: array
           uniqueItems: false
           x-insertionOrder: false
-          description: >-
+          description: |-
             An array of key-value pairs to apply to this resource.
 
-
-            For more information, see
-            [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
+            For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).
           items:
             $ref: '#/components/schemas/Tag'
       required:
@@ -986,37 +772,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AlarmModelName') as alarm_model_name,
-
-              JSON_EXTRACT(Properties, '$.AlarmModelDescription') as
-              alarm_model_description,
-
+              JSON_EXTRACT(Properties, '$.AlarmModelDescription') as alarm_model_description,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Key') as key,
-
               JSON_EXTRACT(Properties, '$.Severity') as severity,
-
-              JSON_EXTRACT(Properties, '$.AlarmRule.SimpleRule') as
-              alarm_rule_simple_rule,
-
-              JSON_EXTRACT(Properties, '$.AlarmEventActions.AlarmActions') as
-              alarm_event_actions_alarm_actions,
-
-              JSON_EXTRACT(Properties,
-              '$.AlarmCapabilities.InitializationConfiguration') as
-              alarm_capabilities_initialization_configuration,
-
-              JSON_EXTRACT(Properties, '$.AlarmCapabilities.AcknowledgeFlow') as
-              alarm_capabilities_acknowledge_flow,
-
+              JSON_EXTRACT(Properties, '$.AlarmRule.SimpleRule') as alarm_rule_simple_rule,
+              JSON_EXTRACT(Properties, '$.AlarmEventActions.AlarmActions') as alarm_event_actions_alarm_actions,
+              JSON_EXTRACT(Properties, '$.AlarmCapabilities.InitializationConfiguration') as alarm_capabilities_initialization_configuration,
+              JSON_EXTRACT(Properties, '$.AlarmCapabilities.AcknowledgeFlow') as alarm_capabilities_acknowledge_flow,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IoTEvents::AlarmModel' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::AlarmModel' ;
   - DetectorModel:
       name: DetectorModel
       id: aws.iotevents.DetectorModel
@@ -1024,33 +792,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.DetectorModelDefinition.InitialStateName') as
-              detector_model_definition_initial_state_name,
-
-              JSON_EXTRACT(Properties, '$.DetectorModelDefinition.States') as
-              detector_model_definition_states,
-
-              JSON_EXTRACT(Properties, '$.DetectorModelDescription') as
-              detector_model_description,
-
-              JSON_EXTRACT(Properties, '$.DetectorModelName') as
-              detector_model_name,
-
-              JSON_EXTRACT(Properties, '$.EvaluationMethod') as
-              evaluation_method,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DetectorModelDefinition.InitialStateName') as detector_model_definition_initial_state_name,
+              JSON_EXTRACT(Properties, '$.DetectorModelDefinition.States') as detector_model_definition_states,
+              JSON_EXTRACT(Properties, '$.DetectorModelDescription') as detector_model_description,
+              JSON_EXTRACT(Properties, '$.DetectorModelName') as detector_model_name,
+              JSON_EXTRACT(Properties, '$.EvaluationMethod') as evaluation_method,
               JSON_EXTRACT(Properties, '$.Key') as key,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IoTEvents::DetectorModel' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::DetectorModel' ;
   - Input:
       name: Input
       id: aws.iotevents.Input
@@ -1058,18 +810,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.InputDefinition.Attributes') as
-              input_definition_attributes,
-
-              JSON_EXTRACT(Properties, '$.InputDescription') as
-              input_description,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.InputDefinition.Attributes') as input_definition_attributes,
+              JSON_EXTRACT(Properties, '$.InputDescription') as input_description,
               JSON_EXTRACT(Properties, '$.InputName') as input_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IoTEvents::Input' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::Input' ;

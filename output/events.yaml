@@ -181,9 +181,7 @@ components:
           description: The arn of the connection resource.
           type: string
         SecretArn:
-          description: >-
-            The arn of the secrets manager secret created in the customer
-            account.
+          description: The arn of the secrets manager secret created in the customer account.
           type: string
         Description:
           description: Description of the connection.
@@ -291,8 +289,7 @@ components:
           type: string
           minLength: 1
           maxLength: 1600
-          pattern: >-
-            ^arn:aws([a-z]|\-)*:events:([a-z]|\d|\-)*:([0-9]{12})?:endpoint\/[/\.\-_A-Za-z0-9]+$
+          pattern: ^arn:aws([a-z]|\-)*:events:([a-z]|\d|\-)*:([0-9]{12})?:endpoint\/[/\.\-_A-Za-z0-9]+$
         RoleArn:
           type: string
           minLength: 1
@@ -824,27 +821,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.InvocationRateLimitPerSecond') as
-              invocation_rate_limit_per_second,
-
-              JSON_EXTRACT(Properties, '$.InvocationEndpoint') as
-              invocation_endpoint,
-
+              JSON_EXTRACT(Properties, '$.InvocationRateLimitPerSecond') as invocation_rate_limit_per_second,
+              JSON_EXTRACT(Properties, '$.InvocationEndpoint') as invocation_endpoint,
               JSON_EXTRACT(Properties, '$.HttpMethod') as http_method
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::ApiDestination' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::ApiDestination' ;
   - Archive:
       name: Archive
       id: aws.events.Archive
@@ -852,23 +838,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ArchiveName') as archive_name,
-
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.EventPattern') as event_pattern,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.RetentionDays') as retention_days
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Archive' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Archive' ;
   - Connection:
       name: Connection
       id: aws.events.Connection
@@ -876,35 +854,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.SecretArn') as secret_arn,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.AuthorizationType') as
-              authorization_type,
-
-              JSON_EXTRACT(Properties, '$.AuthParameters.ApiKeyAuthParameters')
-              as auth_parameters_api_key_auth_parameters,
-
-              JSON_EXTRACT(Properties, '$.AuthParameters.BasicAuthParameters')
-              as auth_parameters_basic_auth_parameters,
-
-              JSON_EXTRACT(Properties, '$.AuthParameters.OAuthParameters') as
-              auth_parameters_oauth_parameters,
-
-              JSON_EXTRACT(Properties,
-              '$.AuthParameters.InvocationHttpParameters') as
-              auth_parameters_invocation_http_parameters
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Connection' ;
+              JSON_EXTRACT(Properties, '$.AuthorizationType') as authorization_type,
+              JSON_EXTRACT(Properties, '$.AuthParameters.ApiKeyAuthParameters') as auth_parameters_api_key_auth_parameters,
+              JSON_EXTRACT(Properties, '$.AuthParameters.BasicAuthParameters') as auth_parameters_basic_auth_parameters,
+              JSON_EXTRACT(Properties, '$.AuthParameters.OAuthParameters') as auth_parameters_oauth_parameters,
+              JSON_EXTRACT(Properties, '$.AuthParameters.InvocationHttpParameters') as auth_parameters_invocation_http_parameters
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Connection' ;
   - Endpoint:
       name: Endpoint
       id: aws.events.Endpoint
@@ -912,33 +873,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.RoutingConfig.FailoverConfig') as
-              routing_config_failover_config,
-
-              JSON_EXTRACT(Properties, '$.ReplicationConfig.State') as
-              replication_config_state,
-
+              JSON_EXTRACT(Properties, '$.RoutingConfig.FailoverConfig') as routing_config_failover_config,
+              JSON_EXTRACT(Properties, '$.ReplicationConfig.State') as replication_config_state,
               JSON_EXTRACT(Properties, '$.EndpointId') as endpoint_id,
-
               JSON_EXTRACT(Properties, '$.EndpointUrl') as endpoint_url,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.StateReason') as state_reason
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Endpoint' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Endpoint' ;
   - EventBus:
       name: EventBus
       id: aws.events.EventBus
@@ -946,24 +893,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Policy') as policy,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.EventSourceName') as
-              event_source_name,
-
+              JSON_EXTRACT(Properties, '$.EventSourceName') as event_source_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Name') as name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::EventBus' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::EventBus' ;
   - EventBusPolicy:
       name: EventBusPolicy
       id: aws.events.EventBusPolicy
@@ -971,29 +909,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.EventBusName') as event_bus_name,
-
               JSON_EXTRACT(Properties, '$.Condition.Value') as condition_value,
-
               JSON_EXTRACT(Properties, '$.Condition.Type') as condition_type,
-
               JSON_EXTRACT(Properties, '$.Condition.Key') as condition_key,
-
               JSON_EXTRACT(Properties, '$.Action') as action,
-
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id,
-
               JSON_EXTRACT(Properties, '$.Statement') as statement,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Principal') as principal
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::EventBusPolicy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::EventBusPolicy' ;
   - Rule:
       name: Rule
       id: aws.events.Rule
@@ -1001,32 +928,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.EventBusName') as event_bus_name,
-
               JSON_EXTRACT(Properties, '$.EventPattern') as event_pattern,
-
-              JSON_EXTRACT(Properties, '$.ScheduleExpression') as
-              schedule_expression,
-
+              JSON_EXTRACT(Properties, '$.ScheduleExpression') as schedule_expression,
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.Targets') as targets,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Rule' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Rule' ;
   - Discoverer:
       name: Discoverer
       id: aws.events.Discoverer
@@ -1034,23 +948,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.DiscovererArn') as discoverer_arn,
-
               JSON_EXTRACT(Properties, '$.DiscovererId') as discoverer_id,
-
               JSON_EXTRACT(Properties, '$.CrossAccount') as cross_account,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Discoverer' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Discoverer' ;
   - Registry:
       name: Registry
       id: aws.events.Registry
@@ -1058,21 +964,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.RegistryName') as registry_name,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.RegistryArn') as registry_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Registry' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Registry' ;
   - RegistryPolicy:
       name: RegistryPolicy
       id: aws.events.RegistryPolicy
@@ -1080,19 +979,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Policy') as policy,
-
               JSON_EXTRACT(Properties, '$.RegistryName') as registry_name,
-
               JSON_EXTRACT(Properties, '$.RevisionId') as revision_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::RegistryPolicy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::RegistryPolicy' ;
   - Schema:
       name: Schema
       id: aws.events.Schema
@@ -1100,26 +993,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Type') as type,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
-
               JSON_EXTRACT(Properties, '$.Content') as content,
-
               JSON_EXTRACT(Properties, '$.RegistryName') as registry_name,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn,
-
               JSON_EXTRACT(Properties, '$.SchemaName') as schema_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Events::Schema' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Events::Schema' ;

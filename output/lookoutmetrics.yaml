@@ -23,9 +23,7 @@ components:
       additionalProperties: false
       properties:
         RoleArn:
-          description: >-
-            ARN of an IAM role that LookoutMetrics should assume to access the
-            SNS topic.
+          description: ARN of an IAM role that LookoutMetrics should assume to access the SNS topic.
           $ref: '#/components/schemas/Arn'
         SnsTopicArn:
           description: ARN of an SNS topic to send alert notifications to.
@@ -39,9 +37,7 @@ components:
       additionalProperties: false
       properties:
         RoleArn:
-          description: >-
-            ARN of an IAM role that LookoutMetrics should assume to access the
-            Lambda function.
+          description: ARN of an IAM role that LookoutMetrics should assume to access the Lambda function.
           $ref: '#/components/schemas/Arn'
         LambdaArn:
           description: ARN of a Lambda to send alert notifications to.
@@ -53,9 +49,7 @@ components:
       type: object
       properties:
         AlertName:
-          description: >-
-            The name of the alert. If not provided, a name is generated
-            automatically.
+          description: The name of the alert. If not provided, a name is generated automatically.
           type: string
           minLength: 1
           maxLength: 63
@@ -74,9 +68,7 @@ components:
           maxLength: 256
           pattern: arn:([a-z\d-]+):.*:.*:.*:.+
         AlertSensitivityThreshold:
-          description: >-
-            A number between 0 and 100 (inclusive) that tunes the sensitivity of
-            the alert.
+          description: A number between 0 and 100 (inclusive) that tunes the sensitivity of the alert.
           type: integer
           minimum: 0
           maximum: 100
@@ -371,9 +363,7 @@ components:
           items:
             $ref: '#/components/schemas/Metric'
         Offset:
-          description: >-
-            Offset, in seconds, between the frequency interval and the time at
-            which the metrics are available.
+          description: Offset, in seconds, between the frequency interval and the time at which the metrics are available.
           type: integer
           minimum: 0
           maximum: 432000
@@ -464,28 +454,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AlertName') as alert_name,
-
-              JSON_EXTRACT(Properties, '$.AlertDescription') as
-              alert_description,
-
-              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as
-              anomaly_detector_arn,
-
-              JSON_EXTRACT(Properties, '$.AlertSensitivityThreshold') as
-              alert_sensitivity_threshold,
-
-              JSON_EXTRACT(Properties, '$.Action.SNSConfiguration') as
-              action_sn_sconfiguration,
-
-              JSON_EXTRACT(Properties, '$.Action.LambdaConfiguration') as
-              action_lambda_configuration
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LookoutMetrics::Alert' ;
+              JSON_EXTRACT(Properties, '$.AlertDescription') as alert_description,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn,
+              JSON_EXTRACT(Properties, '$.AlertSensitivityThreshold') as alert_sensitivity_threshold,
+              JSON_EXTRACT(Properties, '$.Action.SNSConfiguration') as action_sn_sconfiguration,
+              JSON_EXTRACT(Properties, '$.Action.LambdaConfiguration') as action_lambda_configuration
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LookoutMetrics::Alert' ;
   - AnomalyDetector:
       name: AnomalyDetector
       id: aws.lookoutmetrics.AnomalyDetector
@@ -493,22 +470,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.AnomalyDetectorName') as
-              anomaly_detector_name,
-
-              JSON_EXTRACT(Properties, '$.AnomalyDetectorDescription') as
-              anomaly_detector_description,
-
-              JSON_EXTRACT(Properties,
-              '$.AnomalyDetectorConfig.AnomalyDetectorFrequency') as
-              anomaly_detector_config_anomaly_detector_frequency,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorName') as anomaly_detector_name,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorDescription') as anomaly_detector_description,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorConfig.AnomalyDetectorFrequency') as anomaly_detector_config_anomaly_detector_frequency,
               JSON_EXTRACT(Properties, '$.MetricSetList') as metric_set_list,
-
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector' ;

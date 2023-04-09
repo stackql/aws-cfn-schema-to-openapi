@@ -14,9 +14,7 @@ components:
       minLength: 1
       maxLength: 255
     RowFilter:
-      description: >-
-        An object representing the Data Cells Filter's Row Filter. Either a
-        Filter Expression or a Wildcard is required.
+      description: An object representing the Data Cells Filter's Row Filter. Either a Filter Expression or a Wildcard is required.
       type: object
       properties:
         FilterExpression:
@@ -54,17 +52,13 @@ components:
           description: The desired name of the Data Cells Filter.
           $ref: '#/components/schemas/NameString'
         RowFilter:
-          description: >-
-            An object representing the Data Cells Filter's Row Filter. Either a
-            Filter Expression or a Wildcard is required
+          description: An object representing the Data Cells Filter's Row Filter. Either a Filter Expression or a Wildcard is required
           $ref: '#/components/schemas/RowFilter'
         ColumnNames:
           description: A list of columns to be included in this Data Cells Filter.
           $ref: '#/components/schemas/ColumnNames'
         ColumnWildcard:
-          description: >-
-            An object representing the Data Cells Filter's Columns. Either
-            Column Names or a Wildcard is required
+          description: An object representing the Data Cells Filter's Columns. Either Column Names or a Wildcard is required
           $ref: '#/components/schemas/ColumnWildcard'
       required:
         - TableCatalogId
@@ -371,11 +365,7 @@ components:
       type: object
       properties:
         CatalogId:
-          description: >-
-            The identifier for the Data Catalog. By default, the account ID. The
-            Data Catalog is the persistent metadata store. It contains database
-            definitions, table definitions, and other control information to
-            manage your Lake Formation environment.
+          description: The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment.
           $ref: '#/components/schemas/CatalogIdString'
         TagKey:
           description: The key-name for the LF-tag.
@@ -394,19 +384,13 @@ components:
           description: Resource to tag with the Lake Formation Tags
           $ref: '#/components/schemas/Resource'
         LFTags:
-          description: >-
-            List of Lake Formation Tags to associate with the Lake Formation
-            Resource
+          description: List of Lake Formation Tags to associate with the Lake Formation Resource
           $ref: '#/components/schemas/LFTagsList'
         ResourceIdentifier:
-          description: >-
-            Unique string identifying the resource. Used as primary identifier,
-            which ideally should be a string
+          description: Unique string identifying the resource. Used as primary identifier, which ideally should be a string
           type: string
         TagsIdentifier:
-          description: >-
-            Unique string identifying the resource's tags. Used as primary
-            identifier, which ideally should be a string
+          description: Unique string identifying the resource's tags. Used as primary identifier, which ideally should be a string
           type: string
       required:
         - Resource
@@ -420,20 +404,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.RowFilter.FilterExpression') as
-              row_filter_filter_expression,
-
-              JSON_EXTRACT(Properties, '$.RowFilter.AllRowsWildcard') as
-              row_filter_all_rows_wildcard,
-
-              JSON_EXTRACT(Properties, '$.ColumnWildcard.ExcludedColumnNames')
-              as column_wildcard_excluded_column_names
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::DataCellsFilter' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.RowFilter.FilterExpression') as row_filter_filter_expression,
+              JSON_EXTRACT(Properties, '$.RowFilter.AllRowsWildcard') as row_filter_all_rows_wildcard,
+              JSON_EXTRACT(Properties, '$.ColumnWildcard.ExcludedColumnNames') as column_wildcard_excluded_column_names
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::DataCellsFilter' ;
   - DataLakeSettings:
       name: DataLakeSettings
       id: aws.lakeformation.DataLakeSettings
@@ -441,16 +417,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as
-              trusted_resource_owners,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as trusted_resource_owners,
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::DataLakeSettings' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::DataLakeSettings' ;
   - Permissions:
       name: Permissions
       id: aws.lakeformation.Permissions
@@ -458,33 +429,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as
-              resource_catalog,
-
-              JSON_EXTRACT(Properties, '$.Resource.Database') as
-              resource_database,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
+              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
               JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as
-              resource_table_with_columns,
-
+              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
               JSON_EXTRACT(Properties, '$.Permissions') as permissions,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties,
-              '$.DataLakePrincipal.DataLakePrincipalIdentifier') as
-              data_lake_principal_data_lake_principal_identifier,
-
-              JSON_EXTRACT(Properties, '$.PermissionsWithGrantOption') as
-              permissions_with_grant_option
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::Permissions' ;
+              JSON_EXTRACT(Properties, '$.DataLakePrincipal.DataLakePrincipalIdentifier') as data_lake_principal_data_lake_principal_identifier,
+              JSON_EXTRACT(Properties, '$.PermissionsWithGrantOption') as permissions_with_grant_option
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::Permissions' ;
   - PrincipalPermissions:
       name: PrincipalPermissions
       id: aws.lakeformation.PrincipalPermissions
@@ -492,32 +447,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.Principal.DataLakePrincipalIdentifier') as
-              principal_data_lake_principal_identifier,
-
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as
-              resource_catalog,
-
-              JSON_EXTRACT(Properties, '$.Resource.Database') as
-              resource_database,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Principal.DataLakePrincipalIdentifier') as principal_data_lake_principal_identifier,
+              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
+              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
               JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as
-              resource_table_with_columns,
-
-              JSON_EXTRACT(Properties, '$.PrincipalIdentifier') as
-              principal_identifier,
-
-              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as
-              resource_identifier
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::PrincipalPermissions' ;
+              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
+              JSON_EXTRACT(Properties, '$.PrincipalIdentifier') as principal_identifier,
+              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::PrincipalPermissions' ;
   - Tag:
       name: Tag
       id: aws.lakeformation.Tag
@@ -525,11 +464,9 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::Tag' ;
+            ddl: |-
+              SELEC
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::Tag' ;
   - TagAssociation:
       name: TagAssociation
       id: aws.lakeformation.TagAssociation
@@ -537,24 +474,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as
-              resource_catalog,
-
-              JSON_EXTRACT(Properties, '$.Resource.Database') as
-              resource_database,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
+              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
               JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as
-              resource_table_with_columns,
-
-              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as
-              resource_identifier,
-
+              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
+              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
               JSON_EXTRACT(Properties, '$.TagsIdentifier') as tags_identifier
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::LakeFormation::TagAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::TagAssociation' ;

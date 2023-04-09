@@ -44,21 +44,13 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 127
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -. 
+          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
           minLength: 1
           maxLength: 128
           pattern: ^(?!aws:)([a-zA-Z\d\s_.:/=+\-@]+)$
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 1 to 255
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -. 
+          description: 'The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
           minLength: 0
           maxLength: 256
           pattern: ^([a-zA-Z\d\s_.:/=+\-@]*)$
@@ -121,14 +113,10 @@ components:
       properties:
         ScreenshotName:
           type: string
-          description: >-
-            Name of the screenshot to be used as base reference for visual
-            testing
+          description: Name of the screenshot to be used as base reference for visual testing
         IgnoreCoordinates:
           type: array
-          description: >-
-            List of coordinates of rectangles to be ignored during visual
-            testing
+          description: List of coordinates of rectangles to be ignored during visual testing
           items:
             type: string
             description: Coordinates of a rectangle to be ignored during visual testing
@@ -147,14 +135,10 @@ components:
       properties:
         EncryptionMode:
           type: string
-          description: >-
-            Encryption mode for encrypting artifacts when uploading to S3. Valid
-            values: SSE_S3 and SSE_KMS.
+          description: 'Encryption mode for encrypting artifacts when uploading to S3. Valid values: SSE_S3 and SSE_KMS.'
         KmsKeyArn:
           type: string
-          description: >-
-            KMS key Arn for encrypting artifacts when uploading to S3. You must
-            specify KMS key Arn for SSE_KMS encryption mode only.
+          description: KMS key Arn for encrypting artifacts when uploading to S3. You must specify KMS key Arn for SSE_KMS encryption mode only.
     Canary:
       type: object
       properties:
@@ -188,9 +172,7 @@ components:
           description: Runtime version of Synthetics Library
           type: string
         SuccessRetentionPeriod:
-          description: >-
-            Retention period of successful canary runs represented in number of
-            days
+          description: Retention period of successful canary runs represented in number of days
           type: integer
         FailureRetentionPeriod:
           description: Retention period of failed canary runs represented in number of days
@@ -213,9 +195,7 @@ components:
           description: Visual reference configuration for visual testing
           $ref: '#/components/schemas/VisualReference'
         DeleteLambdaResourcesOnCanaryDeletion:
-          description: >-
-            Deletes associated lambda resources created by Synthetics if set to
-            True. Default is False
+          description: Deletes associated lambda resources created by Synthetics if set to True. Default is False
           type: boolean
       required:
         - Name
@@ -229,8 +209,7 @@ components:
     ResourceArn:
       type: string
       description: Provide Canary Arn associated with the group.
-      pattern: >-
-        arn:(aws[a-zA-Z-]*)?:synthetics:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:canary:[0-9a-z_\-]
+      pattern: arn:(aws[a-zA-Z-]*)?:synthetics:[a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}:\d{12}:canary:[0-9a-z_\-]
     Group:
       type: object
       properties:
@@ -264,87 +243,37 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.Code.S3Bucket') as code_s3_bucket,
-
               JSON_EXTRACT(Properties, '$.Code.S3Key') as code_s3_key,
-
-              JSON_EXTRACT(Properties, '$.Code.S3ObjectVersion') as
-              code_s3_object_version,
-
+              JSON_EXTRACT(Properties, '$.Code.S3ObjectVersion') as code_s3_object_version,
               JSON_EXTRACT(Properties, '$.Code.Script') as code_script,
-
               JSON_EXTRACT(Properties, '$.Code.Handler') as code_handler,
-
-              JSON_EXTRACT(Properties, '$.ArtifactS3Location') as
-              artifact_s3_location,
-
-              JSON_EXTRACT(Properties, '$.ArtifactConfig.S3Encryption') as
-              artifact_config_s3_encryption,
-
-              JSON_EXTRACT(Properties, '$.Schedule.Expression') as
-              schedule_expression,
-
-              JSON_EXTRACT(Properties, '$.Schedule.DurationInSeconds') as
-              schedule_duration_in_seconds,
-
-              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as
-              execution_role_arn,
-
+              JSON_EXTRACT(Properties, '$.ArtifactS3Location') as artifact_s3_location,
+              JSON_EXTRACT(Properties, '$.ArtifactConfig.S3Encryption') as artifact_config_s3_encryption,
+              JSON_EXTRACT(Properties, '$.Schedule.Expression') as schedule_expression,
+              JSON_EXTRACT(Properties, '$.Schedule.DurationInSeconds') as schedule_duration_in_seconds,
+              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
               JSON_EXTRACT(Properties, '$.RuntimeVersion') as runtime_version,
-
-              JSON_EXTRACT(Properties, '$.SuccessRetentionPeriod') as
-              success_retention_period,
-
-              JSON_EXTRACT(Properties, '$.FailureRetentionPeriod') as
-              failure_retention_period,
-
+              JSON_EXTRACT(Properties, '$.SuccessRetentionPeriod') as success_retention_period,
+              JSON_EXTRACT(Properties, '$.FailureRetentionPeriod') as failure_retention_period,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.VPCConfig.VpcId') as
-              v_pc_config_vpc_id,
-
-              JSON_EXTRACT(Properties, '$.VPCConfig.SubnetIds') as
-              v_pc_config_subnet_ids,
-
-              JSON_EXTRACT(Properties, '$.VPCConfig.SecurityGroupIds') as
-              v_pc_config_security_group_ids,
-
-              JSON_EXTRACT(Properties, '$.RunConfig.TimeoutInSeconds') as
-              run_config_timeout_in_seconds,
-
-              JSON_EXTRACT(Properties, '$.RunConfig.MemoryInMB') as
-              run_config_memory_in_mb,
-
-              JSON_EXTRACT(Properties, '$.RunConfig.ActiveTracing') as
-              run_config_active_tracing,
-
-              JSON_EXTRACT(Properties, '$.RunConfig.EnvironmentVariables') as
-              run_config_environment_variables,
-
-              JSON_EXTRACT(Properties, '$.StartCanaryAfterCreation') as
-              start_canary_after_creation,
-
-              JSON_EXTRACT(Properties, '$.VisualReference.BaseCanaryRunId') as
-              visual_reference_base_canary_run_id,
-
-              JSON_EXTRACT(Properties, '$.VisualReference.BaseScreenshots') as
-              visual_reference_base_screenshots,
-
-              JSON_EXTRACT(Properties,
-              '$.DeleteLambdaResourcesOnCanaryDeletion') as
-              delete_lambda_resources_on_canary_deletion
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Synthetics::Canary' ;
+              JSON_EXTRACT(Properties, '$.VPCConfig.VpcId') as v_pc_config_vpc_id,
+              JSON_EXTRACT(Properties, '$.VPCConfig.SubnetIds') as v_pc_config_subnet_ids,
+              JSON_EXTRACT(Properties, '$.VPCConfig.SecurityGroupIds') as v_pc_config_security_group_ids,
+              JSON_EXTRACT(Properties, '$.RunConfig.TimeoutInSeconds') as run_config_timeout_in_seconds,
+              JSON_EXTRACT(Properties, '$.RunConfig.MemoryInMB') as run_config_memory_in_mb,
+              JSON_EXTRACT(Properties, '$.RunConfig.ActiveTracing') as run_config_active_tracing,
+              JSON_EXTRACT(Properties, '$.RunConfig.EnvironmentVariables') as run_config_environment_variables,
+              JSON_EXTRACT(Properties, '$.StartCanaryAfterCreation') as start_canary_after_creation,
+              JSON_EXTRACT(Properties, '$.VisualReference.BaseCanaryRunId') as visual_reference_base_canary_run_id,
+              JSON_EXTRACT(Properties, '$.VisualReference.BaseScreenshots') as visual_reference_base_screenshots,
+              JSON_EXTRACT(Properties, '$.DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Synthetics::Canary' ;
   - Group:
       name: Group
       id: aws.synthetics.Group
@@ -352,16 +281,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Synthetics::Group' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Synthetics::Group' ;

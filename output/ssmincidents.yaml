@@ -8,8 +8,7 @@ components:
     Arn:
       description: The ARN of the ReplicationSet.
       type: string
-      pattern: >-
-        ^arn:aws(-(cn|us-gov|iso(-b)?))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+      pattern: ^arn:aws(-(cn|us-gov|iso(-b)?))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
       maxLength: 1000
     RegionName:
       description: The AWS region name.
@@ -89,8 +88,7 @@ components:
     SSMContact:
       description: The ARN of the contact.
       type: string
-      pattern: >-
-        ^arn:aws(-(cn|us-gov))?:ssm-contacts:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+      pattern: ^arn:aws(-(cn|us-gov))?:ssm-contacts:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
       maxLength: 1000
     SnsArn:
       description: The ARN of the Chatbot SNS topic.
@@ -122,17 +120,14 @@ components:
         RoleArn:
           description: The role ARN to use when starting the SSM automation document.
           type: string
-          pattern: >-
-            ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+          pattern: ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
           maxLength: 1000
         DocumentName:
           description: The document name to use when starting the SSM automation document.
           type: string
           maxLength: 128
         DocumentVersion:
-          description: >-
-            The version of the document to use when starting the SSM automation
-            document.
+          description: The version of the document to use when starting the SSM automation document.
           type: string
           maxLength: 128
         TargetAccount:
@@ -152,9 +147,7 @@ components:
           maxItems: 200
           default: []
         DynamicParameters:
-          description: >-
-            The parameters with dynamic values to set when starting the SSM
-            automation document.
+          description: The parameters with dynamic values to set when starting the SSM automation document.
           type: array
           uniqueItems: true
           x-insertionOrder: false
@@ -182,15 +175,11 @@ components:
         - Key
       additionalProperties: false
     SsmParameterValue:
-      description: >-
-        A value of the parameter to set when starting the SSM automation
-        document.
+      description: A value of the parameter to set when starting the SSM automation document.
       type: string
       maxLength: 10000
     DynamicSsmParameter:
-      description: >-
-        A parameter with a dynamic value to set when starting the SSM automation
-        document.
+      description: A parameter with a dynamic value to set when starting the SSM automation document.
       type: object
       properties:
         Key:
@@ -204,18 +193,14 @@ components:
         - Key
       additionalProperties: false
     DynamicSsmParameterValue:
-      description: >-
-        Value of the dynamic parameter to set when starting the SSM automation
-        document.
+      description: Value of the dynamic parameter to set when starting the SSM automation document.
       additionalProperties: false
       type: object
       properties:
         Variable:
           $ref: '#/components/schemas/VariableType'
     VariableType:
-      description: >-
-        The variable types used as dynamic parameter value when starting the SSM
-        automation document.
+      description: The variable types used as dynamic parameter value when starting the SSM automation document.
       type: string
       enum:
         - INCIDENT_RECORD_ARN
@@ -298,9 +283,7 @@ components:
           type: string
           maxLength: 200
         IncidentTags:
-          description: >-
-            Tags that get applied to incidents created by the StartIncident API
-            action.
+          description: Tags that get applied to incidents created by the StartIncident API action.
           type: array
           uniqueItems: true
           x-insertionOrder: false
@@ -328,8 +311,7 @@ components:
         Arn:
           description: The ARN of the response plan.
           type: string
-          pattern: >-
-            ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+          pattern: ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
           maxLength: 1000
         Name:
           description: The name of the response plan.
@@ -394,13 +376,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SSMIncidents::ReplicationSet' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SSMIncidents::ReplicationSet' ;
   - ResponsePlan:
       name: ResponsePlan
       id: aws.ssmincidents.ResponsePlan
@@ -408,43 +387,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
-
-              JSON_EXTRACT(Properties, '$.ChatChannel.ChatbotSns') as
-              chat_channel_chatbot_sns,
-
+              JSON_EXTRACT(Properties, '$.ChatChannel.ChatbotSns') as chat_channel_chatbot_sns,
               JSON_EXTRACT(Properties, '$.Engagements') as engagements,
-
               JSON_EXTRACT(Properties, '$.Actions') as actions,
-
               JSON_EXTRACT(Properties, '$.Integrations') as integrations,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.DedupeString') as
-              incident_template_dedupe_string,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Impact') as
-              incident_template_impact,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.NotificationTargets')
-              as incident_template_notification_targets,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Summary') as
-              incident_template_summary,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Title') as
-              incident_template_title,
-
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.IncidentTags') as
-              incident_template_incident_tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SSMIncidents::ResponsePlan' ;
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.DedupeString') as incident_template_dedupe_string,
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.Impact') as incident_template_impact,
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.NotificationTargets') as incident_template_notification_targets,
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.Summary') as incident_template_summary,
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.Title') as incident_template_title,
+              JSON_EXTRACT(Properties, '$.IncidentTemplate.IncidentTags') as incident_template_incident_tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SSMIncidents::ResponsePlan' ;

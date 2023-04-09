@@ -44,8 +44,7 @@ components:
           minLength: 1
         AssistantArn:
           type: string
-          pattern: >-
-            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          pattern: ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
         AssistantId:
           type: string
           pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
@@ -83,12 +82,10 @@ components:
       properties:
         AssistantAssociationArn:
           type: string
-          pattern: >-
-            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          pattern: ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
         AssistantArn:
           type: string
-          pattern: >-
-            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          pattern: ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
         AssistantAssociationId:
           type: string
           pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
@@ -161,8 +158,7 @@ components:
           minLength: 1
         KnowledgeBaseArn:
           type: string
-          pattern: >-
-            ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
+          pattern: ^arn:[a-z-]*?:wisdom:[a-z0-9-]*?:[0-9]{12}:[a-z-]*?/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$
         KnowledgeBaseId:
           type: string
           pattern: ^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
@@ -196,25 +192,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.AssistantArn') as assistant_arn,
-
               JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id,
-
-              JSON_EXTRACT(Properties,
-              '$.ServerSideEncryptionConfiguration.KmsKeyId') as
-              server_side_encryption_configuration_kms_key_id,
-
+              JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Name') as name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Wisdom::Assistant' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Wisdom::Assistant' ;
   - AssistantAssociation:
       name: AssistantAssociation
       id: aws.wisdom.AssistantAssociation
@@ -222,26 +208,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.AssistantAssociationArn') as
-              assistant_association_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.AssistantAssociationArn') as assistant_association_arn,
               JSON_EXTRACT(Properties, '$.AssistantArn') as assistant_arn,
-
-              JSON_EXTRACT(Properties, '$.AssistantAssociationId') as
-              assistant_association_id,
-
+              JSON_EXTRACT(Properties, '$.AssistantAssociationId') as assistant_association_id,
               JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id,
-
-              JSON_EXTRACT(Properties, '$.Association.KnowledgeBaseId') as
-              association_knowledge_base_id,
-
+              JSON_EXTRACT(Properties, '$.Association.KnowledgeBaseId') as association_knowledge_base_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Wisdom::AssistantAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Wisdom::AssistantAssociation' ;
   - KnowledgeBase:
       name: KnowledgeBase
       id: aws.wisdom.KnowledgeBase
@@ -249,30 +224,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.KnowledgeBaseArn') as
-              knowledge_base_arn,
-
-              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as
-              knowledge_base_id,
-
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseArn') as knowledge_base_arn,
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as knowledge_base_id,
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.RenderingConfiguration.TemplateUri')
-              as rendering_configuration_template_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ServerSideEncryptionConfiguration.KmsKeyId') as
-              server_side_encryption_configuration_kms_key_id,
-
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.AppIntegrations')
-              as source_configuration_app_integrations,
-
+              JSON_EXTRACT(Properties, '$.RenderingConfiguration.TemplateUri') as rendering_configuration_template_uri,
+              JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.AppIntegrations') as source_configuration_app_integrations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Wisdom::KnowledgeBase' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Wisdom::KnowledgeBase' ;

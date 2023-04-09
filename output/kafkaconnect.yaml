@@ -34,9 +34,7 @@ components:
         ScaleOutPolicy:
           $ref: '#/components/schemas/ScaleOutPolicy'
         McuCount:
-          description: >-
-            Specifies how many MSK Connect Units (MCU) as the minimum scaling
-            unit.
+          description: Specifies how many MSK Connect Units (MCU) as the minimum scaling unit.
           type: integer
           enum:
             - 1
@@ -69,9 +67,7 @@ components:
       additionalProperties: false
       properties:
         Enabled:
-          description: >-
-            Specifies whether the logs get sent to the specified CloudWatch Logs
-            destination.
+          description: Specifies whether the logs get sent to the specified CloudWatch Logs destination.
           type: boolean
         LogGroup:
           description: The CloudWatch log group that is the destination for log delivery.
@@ -101,14 +97,10 @@ components:
       additionalProperties: false
       properties:
         DeliveryStream:
-          description: >-
-            The Kinesis Data Firehose delivery stream that is the destination
-            for log delivery.
+          description: The Kinesis Data Firehose delivery stream that is the destination for log delivery.
           type: string
         Enabled:
-          description: >-
-            Specifies whether the logs get sent to the specified Kinesis Data
-            Firehose delivery stream.
+          description: Specifies whether the logs get sent to the specified Kinesis Data Firehose delivery stream.
           type: boolean
       required:
         - Enabled
@@ -131,9 +123,7 @@ components:
       required:
         - AuthenticationType
     KafkaClusterClientAuthenticationType:
-      description: >-
-        The type of client authentication used to connect to the Kafka cluster.
-        Value NONE means that no client authentication is used.
+      description: The type of client authentication used to connect to the Kafka cluster. Value NONE means that no client authentication is used.
       type: string
       enum:
         - NONE
@@ -163,9 +153,7 @@ components:
       required:
         - WorkerLogDelivery
     Plugin:
-      description: >-
-        Details about a Kafka Connect plugin which will be used with the
-        connector.
+      description: Details about a Kafka Connect plugin which will be used with the connector.
       type: object
       additionalProperties: false
       properties:
@@ -179,9 +167,7 @@ components:
       additionalProperties: false
       properties:
         McuCount:
-          description: >-
-            Specifies how many MSK Connect Units (MCU) are allocated to the
-            connector.
+          description: Specifies how many MSK Connect Units (MCU) are allocated to the connector.
           type: integer
           enum:
             - 1
@@ -202,9 +188,7 @@ components:
           description: The name of the S3 bucket that is the destination for log delivery.
           type: string
         Enabled:
-          description: >-
-            Specifies whether the logs get sent to the specified Amazon S3
-            destination.
+          description: Specifies whether the logs get sent to the specified Amazon S3 destination.
           type: boolean
         Prefix:
           description: The S3 prefix that is the destination for log delivery.
@@ -217,9 +201,7 @@ components:
       additionalProperties: false
       properties:
         CpuUtilizationPercentage:
-          description: >-
-            Specifies the CPU utilization percentage threshold at which
-            connector scale in should trigger.
+          description: Specifies the CPU utilization percentage threshold at which connector scale in should trigger.
           type: integer
           minimum: 1
           maximum: 100
@@ -231,9 +213,7 @@ components:
       additionalProperties: false
       properties:
         CpuUtilizationPercentage:
-          description: >-
-            Specifies the CPU utilization percentage threshold at which
-            connector scale out should trigger.
+          description: Specifies the CPU utilization percentage threshold at which connector scale out should trigger.
           type: integer
           minimum: 1
           maximum: 100
@@ -245,18 +225,14 @@ components:
       additionalProperties: false
       properties:
         SecurityGroups:
-          description: >-
-            The AWS security groups to associate with the elastic network
-            interfaces in order to specify what the connector has access to.
+          description: The AWS security groups to associate with the elastic network interfaces in order to specify what the connector has access to.
           type: array
           uniqueItems: true
           items:
             type: string
           x-insertionOrder: false
         Subnets:
-          description: >-
-            The list of subnets to connect to in the virtual private cloud
-            (VPC). AWS creates elastic network interfaces inside these subnets.
+          description: The list of subnets to connect to in the virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets.
           type: array
           uniqueItems: true
           minItems: 1
@@ -326,9 +302,7 @@ components:
         KafkaClusterEncryptionInTransit:
           $ref: '#/components/schemas/KafkaClusterEncryptionInTransit'
         KafkaConnectVersion:
-          description: >-
-            The version of Kafka Connect. It has to be compatible with both the
-            Kafka cluster's version and the plugins.
+          description: The version of Kafka Connect. It has to be compatible with both the Kafka cluster's version and the plugins.
           type: string
         LogDelivery:
           $ref: '#/components/schemas/LogDelivery'
@@ -341,9 +315,7 @@ components:
             $ref: '#/components/schemas/Plugin'
           x-insertionOrder: false
         ServiceExecutionRoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of the IAM role used by the connector
-            to access Amazon S3 objects and other external resources.
+          description: The Amazon Resource Name (ARN) of the IAM role used by the connector to access Amazon S3 objects and other external resources.
           type: string
           pattern: arn:(aws|aws-us-gov|aws-cn):iam:.*
         WorkerConfiguration:
@@ -367,53 +339,21 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.Capacity.AutoScaling') as
-              capacity_auto_scaling,
-
-              JSON_EXTRACT(Properties, '$.Capacity.ProvisionedCapacity') as
-              capacity_provisioned_capacity,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Capacity.AutoScaling') as capacity_auto_scaling,
+              JSON_EXTRACT(Properties, '$.Capacity.ProvisionedCapacity') as capacity_provisioned_capacity,
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
-
-              JSON_EXTRACT(Properties, '$.ConnectorConfiguration') as
-              connector_configuration,
-
-              JSON_EXTRACT(Properties, '$.ConnectorDescription') as
-              connector_description,
-
+              JSON_EXTRACT(Properties, '$.ConnectorConfiguration') as connector_configuration,
+              JSON_EXTRACT(Properties, '$.ConnectorDescription') as connector_description,
               JSON_EXTRACT(Properties, '$.ConnectorName') as connector_name,
-
-              JSON_EXTRACT(Properties, '$.KafkaCluster.ApacheKafkaCluster') as
-              kafka_cluster_apache_kafka_cluster,
-
-              JSON_EXTRACT(Properties,
-              '$.KafkaClusterClientAuthentication.AuthenticationType') as
-              kafka_cluster_client_authentication_authentication_type,
-
-              JSON_EXTRACT(Properties,
-              '$.KafkaClusterEncryptionInTransit.EncryptionType') as
-              kafka_cluster_encryption_in_transit_encryption_type,
-
-              JSON_EXTRACT(Properties, '$.KafkaConnectVersion') as
-              kafka_connect_version,
-
-              JSON_EXTRACT(Properties, '$.LogDelivery.WorkerLogDelivery') as
-              log_delivery_worker_log_delivery,
-
+              JSON_EXTRACT(Properties, '$.KafkaCluster.ApacheKafkaCluster') as kafka_cluster_apache_kafka_cluster,
+              JSON_EXTRACT(Properties, '$.KafkaClusterClientAuthentication.AuthenticationType') as kafka_cluster_client_authentication_authentication_type,
+              JSON_EXTRACT(Properties, '$.KafkaClusterEncryptionInTransit.EncryptionType') as kafka_cluster_encryption_in_transit_encryption_type,
+              JSON_EXTRACT(Properties, '$.KafkaConnectVersion') as kafka_connect_version,
+              JSON_EXTRACT(Properties, '$.LogDelivery.WorkerLogDelivery') as log_delivery_worker_log_delivery,
               JSON_EXTRACT(Properties, '$.Plugins') as plugins,
-
-              JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as
-              service_execution_role_arn,
-
-              JSON_EXTRACT(Properties, '$.WorkerConfiguration.Revision') as
-              worker_configuration_revision,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkerConfiguration.WorkerConfigurationArn') as
-              worker_configuration_worker_configuration_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::KafkaConnect::Connector' ;
+              JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
+              JSON_EXTRACT(Properties, '$.WorkerConfiguration.Revision') as worker_configuration_revision,
+              JSON_EXTRACT(Properties, '$.WorkerConfiguration.WorkerConfigurationArn') as worker_configuration_worker_configuration_arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KafkaConnect::Connector' ;

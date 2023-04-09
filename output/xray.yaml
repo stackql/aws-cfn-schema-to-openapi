@@ -10,15 +10,10 @@ components:
       additionalProperties: false
       properties:
         InsightsEnabled:
-          description: >-
-            Set the InsightsEnabled value to true to enable insights or false to
-            disable insights.
+          description: Set the InsightsEnabled value to true to enable insights or false to disable insights.
           type: boolean
         NotificationsEnabled:
-          description: >-
-            Set the NotificationsEnabled value to true to enable insights
-            notifications. Notifications can only be enabled on a group with
-            InsightsEnabled set to true.
+          description: Set the NotificationsEnabled value to true to enable insights notifications. Notifications can only be enabled on a group with InsightsEnabled set to true.
           type: boolean
     Tags:
       type: array
@@ -59,9 +54,7 @@ components:
       type: object
       properties:
         PolicyName:
-          description: >-
-            The name of the resource policy. Must be unique within a specific
-            AWS account.
+          description: The name of the resource policy. Must be unique within a specific AWS account.
           type: string
           pattern: '[\w+=,.@-]+'
           minLength: 1
@@ -72,9 +65,7 @@ components:
           minLength: 1
           maxLength: 5120
         BypassPolicyLockoutCheck:
-          description: >-
-            A flag to indicate whether to bypass the resource policy lockout
-            safety check
+          description: A flag to indicate whether to bypass the resource policy lockout safety check
           type: boolean
       required:
         - PolicyName
@@ -121,9 +112,7 @@ components:
               type: string
           additionalProperties: false
         FixedRate:
-          description: >-
-            The percentage of matching requests to instrument, after the
-            reservoir is exhausted.
+          description: The percentage of matching requests to instrument, after the reservoir is exhausted.
           type: number
           minimum: 0
           maximum: 1
@@ -141,10 +130,7 @@ components:
           minimum: 1
           maximum: 9999
         ReservoirSize:
-          description: >-
-            A fixed number of matching requests to instrument per second, prior
-            to applying the fixed rate. The reservoir is not used directly by
-            services, but applies to all services using the rule collectively.
+          description: A fixed number of matching requests to instrument per second, prior to applying the fixed rate. The reservoir is not used directly by services, but applies to all services using the rule collectively.
           type: integer
           minimum: 0
         ResourceARN:
@@ -156,15 +142,11 @@ components:
         RuleName:
           $ref: '#/components/schemas/RuleName'
         ServiceName:
-          description: >-
-            Matches the name that the service uses to identify itself in
-            segments.
+          description: Matches the name that the service uses to identify itself in segments.
           type: string
           maxLength: 64
         ServiceType:
-          description: >-
-            Matches the origin that the service uses to identify its type in
-            segments.
+          description: Matches the origin that the service uses to identify its type in segments.
           type: string
           maxLength: 64
         URLPath:
@@ -172,16 +154,12 @@ components:
           type: string
           maxLength: 128
     RuleName:
-      description: >-
-        The ARN of the sampling rule. Specify a rule by either name or ARN, but
-        not both.
+      description: The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.
       type: string
       minLength: 1
       maxLength: 32
     RuleARN:
-      description: >-
-        The ARN of the sampling rule. Specify a rule by either name or ARN, but
-        not both.
+      description: The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.
       type: string
 x-stackql-views:
   - Group:
@@ -191,26 +169,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.FilterExpression') as
-              filter_expression,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.FilterExpression') as filter_expression,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
-
               JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.InsightsConfiguration.InsightsEnabled') as
-              insights_configuration_insights_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.InsightsConfiguration.NotificationsEnabled') as
-              insights_configuration_notifications_enabled
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::XRay::Group' ;
+              JSON_EXTRACT(Properties, '$.InsightsConfiguration.InsightsEnabled') as insights_configuration_insights_enabled,
+              JSON_EXTRACT(Properties, '$.InsightsConfiguration.NotificationsEnabled') as insights_configuration_notifications_enabled
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::Group' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.xray.ResourcePolicy
@@ -218,18 +184,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
-
-              JSON_EXTRACT(Properties, '$.BypassPolicyLockoutCheck') as
-              bypass_policy_lockout_check
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::XRay::ResourcePolicy' ;
+              JSON_EXTRACT(Properties, '$.BypassPolicyLockoutCheck') as bypass_policy_lockout_check
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::ResourcePolicy' ;
   - SamplingRule:
       name: SamplingRule
       id: aws.xray.SamplingRule
@@ -237,71 +197,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRule') as
-              sampling_rule_sampling_rule,
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleRecord') as
-              sampling_rule_sampling_rule_record,
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleUpdate') as
-              sampling_rule_sampling_rule_update,
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.RuleARN') as
-              sampling_rule_rule_ar_n,
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.RuleName') as
-              sampling_rule_rule_name,
-
-              JSON_EXTRACT(Properties, '$.SamplingRule.Tags') as
-              sampling_rule_tags,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.CreatedAt') as
-              sampling_rule_record_created_at,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.ModifiedAt') as
-              sampling_rule_record_modified_at,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.SamplingRule') as
-              sampling_rule_record_sampling_rule,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Attributes') as
-              sampling_rule_update_attributes,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.FixedRate') as
-              sampling_rule_update_fixed_rate,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Host') as
-              sampling_rule_update_host,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.HTTPMethod') as
-              sampling_rule_update_ht_tp_method,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Priority') as
-              sampling_rule_update_priority,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ReservoirSize') as
-              sampling_rule_update_reservoir_size,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ResourceARN') as
-              sampling_rule_update_resource_ar_n,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleARN') as
-              sampling_rule_update_rule_ar_n,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleName') as
-              sampling_rule_update_rule_name,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceName') as
-              sampling_rule_update_service_name,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceType') as
-              sampling_rule_update_service_type,
-
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.URLPath') as
-              sampling_rule_update_ur_lpath
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::XRay::SamplingRule' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRule') as sampling_rule_sampling_rule,
+              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleRecord') as sampling_rule_sampling_rule_record,
+              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleUpdate') as sampling_rule_sampling_rule_update,
+              JSON_EXTRACT(Properties, '$.SamplingRule.RuleARN') as sampling_rule_rule_ar_n,
+              JSON_EXTRACT(Properties, '$.SamplingRule.RuleName') as sampling_rule_rule_name,
+              JSON_EXTRACT(Properties, '$.SamplingRule.Tags') as sampling_rule_tags,
+              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.CreatedAt') as sampling_rule_record_created_at,
+              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.ModifiedAt') as sampling_rule_record_modified_at,
+              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.SamplingRule') as sampling_rule_record_sampling_rule,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Attributes') as sampling_rule_update_attributes,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.FixedRate') as sampling_rule_update_fixed_rate,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Host') as sampling_rule_update_host,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.HTTPMethod') as sampling_rule_update_ht_tp_method,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Priority') as sampling_rule_update_priority,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ReservoirSize') as sampling_rule_update_reservoir_size,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ResourceARN') as sampling_rule_update_resource_ar_n,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleARN') as sampling_rule_update_rule_ar_n,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleName') as sampling_rule_update_rule_name,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceName') as sampling_rule_update_service_name,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceType') as sampling_rule_update_service_type,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.URLPath') as sampling_rule_update_ur_lpath
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::SamplingRule' ;

@@ -6,9 +6,7 @@ paths: {}
 components:
   schemas:
     StreamModeDetails:
-      description: >-
-        When specified, enables or updates the mode of stream. Default is
-        PROVISIONED.
+      description: When specified, enables or updates the mode of stream. Default is PROVISIONED.
       additionalProperties: false
       type: object
       properties:
@@ -21,10 +19,7 @@ components:
       required:
         - StreamMode
     StreamEncryption:
-      description: >-
-        When specified, enables or updates server-side encryption using an AWS
-        KMS key for a specified stream. Removing this property from your stack
-        template and updating your stack disables encryption.
+      description: When specified, enables or updates server-side encryption using an AWS KMS key for a specified stream. Removing this property from your stack template and updating your stack disables encryption.
       additionalProperties: false
       type: object
       properties:
@@ -35,12 +30,7 @@ components:
             - KMS
         KeyId:
           minLength: 1
-          description: >-
-            The GUID for the customer-managed AWS KMS key to use for encryption.
-            This value can be a globally unique identifier, a fully specified
-            Amazon Resource Name (ARN) to either an alias or a key, or an alias
-            name prefixed by "alias/".You can also use a master key owned by
-            Kinesis Data Streams by specifying the alias aws/kinesis.
+          description: The GUID for the customer-managed AWS KMS key to use for encryption. This value can be a globally unique identifier, a fully specified Amazon Resource Name (ARN) to either an alias or a key, or an alias name prefixed by "alias/".You can also use a master key owned by Kinesis Data Streams by specifying the alias aws/kinesis.
           type: string
           maxLength: 2048
       required:
@@ -52,20 +42,12 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. Specify a value that is 1 to 128 Unicode
-            characters in length and cannot be prefixed with aws:. The following
-            characters can be used: the set of Unicode letters, digits,
-            whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. Specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. Specify a value that is 0 to 256 Unicode
-            characters in length and cannot be prefixed with aws:. The following
-            characters can be used: the set of Unicode letters, digits,
-            whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 0
           maxLength: 256
       required:
@@ -85,9 +67,7 @@ components:
           maxLength: 256
           pattern: '[a-zA-Z0-9_.-]+'
         DataRetentionInHours:
-          description: >-
-            The number of hours till which Kinesis Video will retain the data in
-            the stream
+          description: The number of hours till which Kinesis Video will retain the data in the stream
           type: integer
           minimum: 0
           maximum: 87600
@@ -98,25 +78,19 @@ components:
           maxLength: 128
           pattern: '[a-zA-Z0-9_.-]+'
         KmsKeyId:
-          description: >-
-            AWS KMS key ID that Kinesis Video Streams uses to encrypt stream
-            data.
+          description: AWS KMS key ID that Kinesis Video Streams uses to encrypt stream data.
           type: string
           minLength: 1
           maxLength: 2048
           pattern: .+
         MediaType:
-          description: >-
-            The media type of the stream. Consumers of the stream can use this
-            information when processing the stream.
+          description: The media type of the stream. Consumers of the stream can use this information when processing the stream.
           type: string
           minLength: 1
           maxLength: 128
           pattern: '[\w\-\.\+]+/[\w\-\.\+]+(,[\w\-\.\+]+/[\w\-\.\+]+)*'
         Tags:
-          description: >-
-            An array of key-value pairs associated with the Kinesis Video
-            Stream.
+          description: An array of key-value pairs associated with the Kinesis Video Stream.
           type: array
           uniqueItems: false
           x-insertionOrder: false
@@ -146,48 +120,27 @@ components:
         - StreamARN
       x-stackql-resource-name: StreamConsumer
     Input:
-      description: >-
-        When you configure the application input for a SQL-based Kinesis Data
-        Analytics application, you specify the streaming source, the
-        in-application stream name that is created, and the mapping between the
-        two.
+      description: When you configure the application input for a SQL-based Kinesis Data Analytics application, you specify the streaming source, the in-application stream name that is created, and the mapping between the two.
       type: object
       additionalProperties: false
       properties:
         NamePrefix:
-          description: >-
-            The name prefix to use when creating an in-application stream.
-            Suppose that you specify a prefix `"MyInApplicationStream"`. Kinesis
-            Data Analytics then creates one or more (as per the InputParallelism
-            count you specified) in-application streams with the names
-            `"MyInApplicationStream_001"`, `"MyInApplicationStream_002"`, and so
-            on.
+          description: The name prefix to use when creating an in-application stream. Suppose that you specify a prefix `"MyInApplicationStream"`. Kinesis Data Analytics then creates one or more (as per the InputParallelism count you specified) in-application streams with the names `"MyInApplicationStream_001"`, `"MyInApplicationStream_002"`, and so on.
           type: string
           minLength: 1
           maxLength: 32
           pattern: ^[^-\s<>&]*$
         InputSchema:
-          description: >-
-            Describes the format of the data in the streaming source, and how
-            each data element maps to corresponding columns in the
-            in-application stream that is being created.
+          description: Describes the format of the data in the streaming source, and how each data element maps to corresponding columns in the in-application stream that is being created.
           $ref: '#/components/schemas/InputSchema'
         KinesisStreamsInput:
-          description: >-
-            If the streaming source is an Amazon Kinesis data stream, identifies
-            the stream's Amazon Resource Name (ARN).
+          description: If the streaming source is an Amazon Kinesis data stream, identifies the stream's Amazon Resource Name (ARN).
           $ref: '#/components/schemas/KinesisStreamsInput'
         KinesisFirehoseInput:
-          description: >-
-            If the streaming source is an Amazon Kinesis Data Firehose delivery
-            stream, identifies the delivery stream's ARN.
+          description: If the streaming source is an Amazon Kinesis Data Firehose delivery stream, identifies the delivery stream's ARN.
           $ref: '#/components/schemas/KinesisFirehoseInput'
         InputProcessingConfiguration:
-          description: >-
-            The InputProcessingConfiguration for the input. An input processor
-            transforms records as they are received from the stream, before the
-            application's SQL code executes. Currently, the only input
-            processing configuration available is InputLambdaProcessor.
+          description: The InputProcessingConfiguration for the input. An input processor transforms records as they are received from the stream, before the application's SQL code executes. Currently, the only input processing configuration available is InputLambdaProcessor.
           $ref: '#/components/schemas/InputProcessingConfiguration'
         InputParallelism:
           description: Describes the number of in-application streams to create.
@@ -196,24 +149,15 @@ components:
         - NamePrefix
         - InputSchema
     InputProcessingConfiguration:
-      description: >-
-        For an SQL-based Amazon Kinesis Data Analytics application, describes a
-        processor that is used to preprocess the records in the stream before
-        being processed by your application code. Currently, the only input
-        processor available is Amazon Lambda.
+      description: For an SQL-based Amazon Kinesis Data Analytics application, describes a processor that is used to preprocess the records in the stream before being processed by your application code. Currently, the only input processor available is Amazon Lambda.
       type: object
       additionalProperties: false
       properties:
         InputLambdaProcessor:
-          description: >-
-            The InputLambdaProcessor that is used to preprocess the records in
-            the stream before being processed by your application code.
+          description: The InputLambdaProcessor that is used to preprocess the records in the stream before being processed by your application code.
           $ref: '#/components/schemas/InputLambdaProcessor'
     KinesisFirehoseInput:
-      description: >-
-        For a SQL-based Kinesis Data Analytics application, identifies a Kinesis
-        Data Firehose delivery stream as the streaming source. You provide the
-        delivery stream's Amazon Resource Name (ARN).
+      description: For a SQL-based Kinesis Data Analytics application, identifies a Kinesis Data Firehose delivery stream as the streaming source. You provide the delivery stream's Amazon Resource Name (ARN).
       type: object
       additionalProperties: false
       properties:
@@ -223,9 +167,7 @@ components:
       required:
         - ResourceARN
     KinesisStreamsInput:
-      description: >-
-        Identifies a Kinesis data stream as the streaming source. You provide
-        the stream's Amazon Resource Name (ARN).
+      description: Identifies a Kinesis data stream as the streaming source. You provide the stream's Amazon Resource Name (ARN).
       type: object
       additionalProperties: false
       properties:
@@ -235,17 +177,12 @@ components:
       required:
         - ResourceARN
     InputSchema:
-      description: >-
-        For a SQL-based Kinesis Data Analytics application, describes the format
-        of the data in the streaming source, and how each data element maps to
-        corresponding columns created in the in-application stream.
+      description: For a SQL-based Kinesis Data Analytics application, describes the format of the data in the streaming source, and how each data element maps to corresponding columns created in the in-application stream.
       type: object
       additionalProperties: false
       properties:
         RecordEncoding:
-          description: >-
-            Specifies the encoding of the records in the streaming source. For
-            example, UTF-8.
+          description: Specifies the encoding of the records in the streaming source. For example, UTF-8.
           type: string
           enum:
             - UTF-8
@@ -264,9 +201,7 @@ components:
         - RecordColumns
         - RecordFormat
     InputParallelism:
-      description: >-
-        For a SQL-based Kinesis Data Analytics application, describes the number
-        of in-application streams to create for a given streaming source.
+      description: For a SQL-based Kinesis Data Analytics application, describes the number of in-application streams to create for a given streaming source.
       type: object
       additionalProperties: false
       properties:
@@ -299,17 +234,12 @@ components:
       required:
         - RecordFormatType
     InputLambdaProcessor:
-      description: >-
-        An object that contains the Amazon Resource Name (ARN) of the Amazon
-        Lambda function that is used to preprocess records in the stream in a
-        SQL-based Kinesis Data Analytics application.
+      description: An object that contains the Amazon Resource Name (ARN) of the Amazon Lambda function that is used to preprocess records in the stream in a SQL-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         ResourceARN:
-          description: >-
-            The ARN of the Amazon Lambda function that operates on records in
-            the stream.
+          description: The ARN of the Amazon Lambda function that operates on records in the stream.
           $ref: '#/components/schemas/Arn'
       required:
         - ResourceARN
@@ -353,10 +283,7 @@ components:
           minLength: 0
           maxLength: 1024
         ApplicationMode:
-          description: >-
-            To create a Kinesis Data Analytics Studio notebook, you must set the
-            mode to `INTERACTIVE`. However, for a Kinesis Data Analytics for
-            Apache Flink application, the mode is optional.
+          description: To create a Kinesis Data Analytics Studio notebook, you must set the mode to `INTERACTIVE`. However, for a Kinesis Data Analytics for Apache Flink application, the mode is optional.
           type: string
           enum:
             - INTERACTIVE
@@ -371,25 +298,16 @@ components:
           description: The runtime environment for the application.
           type: string
         ServiceExecutionRole:
-          description: >-
-            Specifies the IAM role that the application uses to access external
-            resources.
+          description: Specifies the IAM role that the application uses to access external resources.
           $ref: '#/components/schemas/Arn'
         RunConfiguration:
-          description: >-
-            Specifies run configuration (start parameters) of a Kinesis Data
-            Analytics application. Evaluated on update for RUNNING applications
-            an only.
+          description: Specifies run configuration (start parameters) of a Kinesis Data Analytics application. Evaluated on update for RUNNING applications an only.
           $ref: '#/components/schemas/RunConfiguration'
         ApplicationMaintenanceConfiguration:
           description: Used to configure start of maintenance window.
           $ref: '#/components/schemas/ApplicationMaintenanceConfiguration'
         Tags:
-          description: >-
-            A list of one or more tags to assign to the application. A tag is a
-            key-value pair that identifies an application. Note that the maximum
-            number of application tags includes system tags. The maximum number
-            of user-defined application tags is 50.
+          description: A list of one or more tags to assign to the application. A tag is a key-value pair that identifies an application. Note that the maximum number of application tags includes system tags. The maximum number of user-defined application tags is 50.
           type: array
           uniqueItems: false
           x-insertionOrder: false
@@ -519,53 +437,33 @@ components:
       maxLength: 2048
       pattern: ^arn:.*$
     ApplicationConfiguration:
-      description: >-
-        Specifies the creation parameters for a Kinesis Data Analytics
-        application.
+      description: Specifies the creation parameters for a Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         ApplicationCodeConfiguration:
-          description: >-
-            The code location and type parameters for a Flink-based Kinesis Data
-            Analytics application.
+          description: The code location and type parameters for a Flink-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/ApplicationCodeConfiguration'
         ApplicationSnapshotConfiguration:
-          description: >-
-            Describes whether snapshots are enabled for a Flink-based Kinesis
-            Data Analytics application.
+          description: Describes whether snapshots are enabled for a Flink-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/ApplicationSnapshotConfiguration'
         EnvironmentProperties:
-          description: >-
-            Describes execution properties for a Flink-based Kinesis Data
-            Analytics application.
+          description: Describes execution properties for a Flink-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/EnvironmentProperties'
         FlinkApplicationConfiguration:
-          description: >-
-            The creation and update parameters for a Flink-based Kinesis Data
-            Analytics application.
+          description: The creation and update parameters for a Flink-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/FlinkApplicationConfiguration'
         SqlApplicationConfiguration:
-          description: >-
-            The creation and update parameters for a SQL-based Kinesis Data
-            Analytics application.
+          description: The creation and update parameters for a SQL-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/SqlApplicationConfiguration'
         ZeppelinApplicationConfiguration:
-          description: >-
-            The configuration parameters for a Kinesis Data Analytics Studio
-            notebook.
+          description: The configuration parameters for a Kinesis Data Analytics Studio notebook.
           $ref: '#/components/schemas/ZeppelinApplicationConfiguration'
         VpcConfigurations:
-          description: >-
-            The array of descriptions of VPC configurations available to the
-            application.
+          description: The array of descriptions of VPC configurations available to the application.
           $ref: '#/components/schemas/VpcConfigurations'
     RunConfiguration:
-      description: >-
-        Identifies the run configuration (start parameters) of a Kinesis Data
-        Analytics application. This section is evaluated only on stack updates
-        for applications in running RUNNING state and has no effect during
-        manual application start.
+      description: Identifies the run configuration (start parameters) of a Kinesis Data Analytics application. This section is evaluated only on stack updates for applications in running RUNNING state and has no effect during manual application start.
       type: object
       additionalProperties: false
       properties:
@@ -573,9 +471,7 @@ components:
           description: Describes the restore behavior of a restarting application.
           $ref: '#/components/schemas/ApplicationRestoreConfiguration'
         FlinkRunConfiguration:
-          description: >-
-            Describes the starting parameters for a Flink-based Kinesis Data
-            Analytics application.
+          description: Describes the starting parameters for a Flink-based Kinesis Data Analytics application.
           $ref: '#/components/schemas/FlinkRunConfiguration'
     ApplicationRestoreConfiguration:
       description: Describes the restore behavior of a restarting application.
@@ -590,11 +486,7 @@ components:
             - RESTORE_FROM_LATEST_SNAPSHOT
             - RESTORE_FROM_CUSTOM_SNAPSHOT
         SnapshotName:
-          description: >-
-            The identifier of an existing snapshot of application state to use
-            to restart an application. The application uses this value if
-            RESTORE_FROM_CUSTOM_SNAPSHOT is specified for the
-            ApplicationRestoreType.
+          description: The identifier of an existing snapshot of application state to use to restart an application. The application uses this value if RESTORE_FROM_CUSTOM_SNAPSHOT is specified for the ApplicationRestoreType.
           type: string
           minLength: 1
           maxLength: 256
@@ -602,19 +494,12 @@ components:
       required:
         - ApplicationRestoreType
     FlinkRunConfiguration:
-      description: >-
-        Describes the starting parameters for a Flink-based Kinesis Data
-        Analytics application.
+      description: Describes the starting parameters for a Flink-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         AllowNonRestoredState:
-          description: >-
-            When restoring from a snapshot, specifies whether the runtime is
-            allowed to skip a state that cannot be mapped to the new program.
-            Defaults to false. If you update your application without specifying
-            this parameter, AllowNonRestoredState will be set to false, even if
-            it was previously set to true.
+          description: When restoring from a snapshot, specifies whether the runtime is allowed to skip a state that cannot be mapped to the new program. Defaults to false. If you update your application without specifying this parameter, AllowNonRestoredState will be set to false, even if it was previously set to true.
           type: boolean
     ApplicationCodeConfiguration:
       description: Describes code configuration for an application.
@@ -634,26 +519,18 @@ components:
         - CodeContentType
         - CodeContent
     CodeContent:
-      description: >-
-        Specifies either the application code, or the location of the
-        application code, for a Flink-based Kinesis Data Analytics application.
+      description: Specifies either the application code, or the location of the application code, for a Flink-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         ZipFileContent:
-          description: >-
-            The zip-format code for a Flink-based Kinesis Data Analytics
-            application.
+          description: The zip-format code for a Flink-based Kinesis Data Analytics application.
           type: string
         S3ContentLocation:
-          description: >-
-            Information about the Amazon S3 bucket that contains the application
-            code.
+          description: Information about the Amazon S3 bucket that contains the application code.
           $ref: '#/components/schemas/S3ContentLocation'
         TextContent:
-          description: >-
-            The text-format code for a Flink-based Kinesis Data Analytics
-            application.
+          description: The text-format code for a Flink-based Kinesis Data Analytics application.
           type: string
           minLength: 1
           maxLength: 102400
@@ -663,9 +540,7 @@ components:
       additionalProperties: false
       properties:
         BucketARN:
-          description: >-
-            The Amazon Resource Name (ARN) for the S3 bucket containing the
-            application code.
+          description: The Amazon Resource Name (ARN) for the S3 bucket containing the application code.
           $ref: '#/components/schemas/Arn'
         FileKey:
           description: The file key for the object containing the application code.
@@ -681,23 +556,17 @@ components:
         - BucketARN
         - FileKey
     ApplicationSnapshotConfiguration:
-      description: >-
-        Describes whether snapshots are enabled for a Flink-based Kinesis Data
-        Analytics application.
+      description: Describes whether snapshots are enabled for a Flink-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         SnapshotsEnabled:
-          description: >-
-            Describes whether snapshots are enabled for a Flink-based Kinesis
-            Data Analytics application.
+          description: Describes whether snapshots are enabled for a Flink-based Kinesis Data Analytics application.
           type: boolean
       required:
         - SnapshotsEnabled
     EnvironmentProperties:
-      description: >-
-        Describes execution properties for a Flink-based Kinesis Data Analytics
-        application.
+      description: Describes execution properties for a Flink-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
@@ -715,17 +584,13 @@ components:
       additionalProperties: false
       properties:
         PropertyGroupId:
-          description: >-
-            Describes the key of an application execution property key-value
-            pair.
+          description: Describes the key of an application execution property key-value pair.
           type: string
           minLength: 1
           maxLength: 50
           pattern: ^[a-zA-Z0-9_.-]+$
         PropertyMap:
-          description: >-
-            Describes the value of an application execution property key-value
-            pair.
+          description: Describes the value of an application execution property key-value pair.
           type: object
           additionalProperties: false
           maxProperties: 50
@@ -735,69 +600,41 @@ components:
               minLength: 1
               maxLength: 2048
     FlinkApplicationConfiguration:
-      description: >-
-        Describes configuration parameters for a Flink-based Kinesis Data
-        Analytics application or a Studio notebook.
+      description: Describes configuration parameters for a Flink-based Kinesis Data Analytics application or a Studio notebook.
       type: object
       additionalProperties: false
       properties:
         CheckpointConfiguration:
-          description: >-
-            Describes an application's checkpointing configuration.
-            Checkpointing is the process of persisting application state for
-            fault tolerance. For more information, see Checkpoints for Fault
-            Tolerance in the Apache Flink Documentation.
+          description: Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state for fault tolerance. For more information, see Checkpoints for Fault Tolerance in the Apache Flink Documentation.
           $ref: '#/components/schemas/CheckpointConfiguration'
         MonitoringConfiguration:
-          description: >-
-            Describes configuration parameters for Amazon CloudWatch logging for
-            an application.
+          description: Describes configuration parameters for Amazon CloudWatch logging for an application.
           $ref: '#/components/schemas/MonitoringConfiguration'
         ParallelismConfiguration:
-          description: >-
-            Describes parameters for how an application executes multiple tasks
-            simultaneously.
+          description: Describes parameters for how an application executes multiple tasks simultaneously.
           $ref: '#/components/schemas/ParallelismConfiguration'
     CheckpointConfiguration:
-      description: >-
-        Describes an application's checkpointing configuration. Checkpointing is
-        the process of persisting application state for fault tolerance. For
-        more information, see Checkpoints for Fault Tolerance in the Apache
-        Flink Documentation.
+      description: Describes an application's checkpointing configuration. Checkpointing is the process of persisting application state for fault tolerance. For more information, see Checkpoints for Fault Tolerance in the Apache Flink Documentation.
       type: object
       additionalProperties: false
       properties:
         ConfigurationType:
-          description: >-
-            Describes whether the application uses Kinesis Data Analytics'
-            default checkpointing behavior. You must set this property to
-            `CUSTOM` in order to set the `CheckpointingEnabled`,
-            `CheckpointInterval`, or `MinPauseBetweenCheckpoints` parameters.
+          description: Describes whether the application uses Kinesis Data Analytics' default checkpointing behavior. You must set this property to `CUSTOM` in order to set the `CheckpointingEnabled`, `CheckpointInterval`, or `MinPauseBetweenCheckpoints` parameters.
           type: string
           enum:
             - DEFAULT
             - CUSTOM
         CheckpointingEnabled:
-          description: >-
-            Describes whether checkpointing is enabled for a Flink-based Kinesis
-            Data Analytics application.
+          description: Describes whether checkpointing is enabled for a Flink-based Kinesis Data Analytics application.
           type: boolean
         CheckpointInterval:
-          description: >-
-            Describes the interval in milliseconds between checkpoint
-            operations.
+          description: Describes the interval in milliseconds between checkpoint operations.
           type: integer
           format: int64
           minimum: 1
           maximum: 9223372036854776000
         MinPauseBetweenCheckpoints:
-          description: >-
-            Describes the minimum time in milliseconds after a checkpoint
-            operation completes that a new checkpoint operation can start. If a
-            checkpoint operation takes longer than the CheckpointInterval, the
-            application otherwise performs continual checkpoint operations. For
-            more information, see Tuning Checkpointing in the Apache Flink
-            Documentation.
+          description: Describes the minimum time in milliseconds after a checkpoint operation completes that a new checkpoint operation can start. If a checkpoint operation takes longer than the CheckpointInterval, the application otherwise performs continual checkpoint operations. For more information, see Tuning Checkpointing in the Apache Flink Documentation.
           type: integer
           format: int64
           minimum: 0
@@ -805,27 +642,18 @@ components:
       required:
         - ConfigurationType
     MonitoringConfiguration:
-      description: >-
-        Describes configuration parameters for Amazon CloudWatch logging for a
-        Java-based Kinesis Data Analytics application. For more information
-        about CloudWatch logging, see Monitoring.
+      description: Describes configuration parameters for Amazon CloudWatch logging for a Java-based Kinesis Data Analytics application. For more information about CloudWatch logging, see Monitoring.
       type: object
       additionalProperties: false
       properties:
         ConfigurationType:
-          description: >-
-            Describes whether to use the default CloudWatch logging
-            configuration for an application. You must set this property to
-            CUSTOM in order to set the LogLevel or MetricsLevel parameters.
+          description: Describes whether to use the default CloudWatch logging configuration for an application. You must set this property to CUSTOM in order to set the LogLevel or MetricsLevel parameters.
           type: string
           enum:
             - DEFAULT
             - CUSTOM
         MetricsLevel:
-          description: >-
-            Describes the granularity of the CloudWatch Logs for an application.
-            The Parallelism level is not recommended for applications with a
-            Parallelism over 64 due to excessive costs.
+          description: Describes the granularity of the CloudWatch Logs for an application. The Parallelism level is not recommended for applications with a Parallelism over 64 due to excessive costs.
           type: string
           enum:
             - APPLICATION
@@ -843,59 +671,36 @@ components:
       required:
         - ConfigurationType
     ParallelismConfiguration:
-      description: >-
-        Describes parameters for how a Flink-based Kinesis Data Analytics
-        application executes multiple tasks simultaneously. For more information
-        about parallelism, see Parallel Execution in the Apache Flink
-        Documentation
+      description: Describes parameters for how a Flink-based Kinesis Data Analytics application executes multiple tasks simultaneously. For more information about parallelism, see Parallel Execution in the Apache Flink Documentation
       type: object
       additionalProperties: false
       properties:
         ConfigurationType:
-          description: >-
-            Describes whether the application uses the default parallelism for
-            the Kinesis Data Analytics service. You must set this property to
-            `CUSTOM` in order to change your application's `AutoScalingEnabled`,
-            `Parallelism`, or `ParallelismPerKPU` properties.
+          description: Describes whether the application uses the default parallelism for the Kinesis Data Analytics service. You must set this property to `CUSTOM` in order to change your application's `AutoScalingEnabled`, `Parallelism`, or `ParallelismPerKPU` properties.
           type: string
           enum:
             - CUSTOM
             - DEFAULT
         ParallelismPerKPU:
-          description: >-
-            Describes the number of parallel tasks that a Java-based Kinesis
-            Data Analytics application can perform per Kinesis Processing Unit
-            (KPU) used by the application. For more information about KPUs, see
-            Amazon Kinesis Data Analytics Pricing.
+          description: Describes the number of parallel tasks that a Java-based Kinesis Data Analytics application can perform per Kinesis Processing Unit (KPU) used by the application. For more information about KPUs, see Amazon Kinesis Data Analytics Pricing.
           type: integer
           minimum: 1
         Parallelism:
-          description: >-
-            Describes the initial number of parallel tasks that a Java-based
-            Kinesis Data Analytics application can perform. The Kinesis Data
-            Analytics service can increase this number automatically if
-            ParallelismConfiguration:AutoScalingEnabled is set to true.
+          description: Describes the initial number of parallel tasks that a Java-based Kinesis Data Analytics application can perform. The Kinesis Data Analytics service can increase this number automatically if ParallelismConfiguration:AutoScalingEnabled is set to true.
           type: integer
           minimum: 1
         AutoScalingEnabled:
-          description: >-
-            Describes whether the Kinesis Data Analytics service can increase
-            the parallelism of the application in response to increased
-            throughput.
+          description: Describes whether the Kinesis Data Analytics service can increase the parallelism of the application in response to increased throughput.
           type: boolean
       required:
         - ConfigurationType
     SqlApplicationConfiguration:
-      description: >-
-        Describes the inputs, outputs, and reference data sources for a
-        SQL-based Kinesis Data Analytics application.
+      description: Describes the inputs, outputs, and reference data sources for a SQL-based Kinesis Data Analytics application.
       type: object
       additionalProperties: false
       properties:
         Inputs:
-          description: >-
-            The array of Input objects describing the input streams used by the
-            application.
+          description: The array of Input objects describing the input streams used by the application.
           type: array
           maxItems: 1
           uniqueItems: false
@@ -908,42 +713,27 @@ components:
       additionalProperties: false
       properties:
         CatalogConfiguration:
-          description: >-
-            The Amazon Glue Data Catalog that you use in queries in a Kinesis
-            Data Analytics Studio notebook.
+          description: The Amazon Glue Data Catalog that you use in queries in a Kinesis Data Analytics Studio notebook.
           $ref: '#/components/schemas/CatalogConfiguration'
         MonitoringConfiguration:
-          description: >-
-            The monitoring configuration of a Kinesis Data Analytics Studio
-            notebook.
+          description: The monitoring configuration of a Kinesis Data Analytics Studio notebook.
           $ref: '#/components/schemas/ZeppelinMonitoringConfiguration'
         DeployAsApplicationConfiguration:
-          description: >-
-            The information required to deploy a Kinesis Data Analytics Studio
-            notebook as an application with durable state.
+          description: The information required to deploy a Kinesis Data Analytics Studio notebook as an application with durable state.
           $ref: '#/components/schemas/DeployAsApplicationConfiguration'
         CustomArtifactsConfiguration:
           description: A list of CustomArtifactConfiguration objects.
           $ref: '#/components/schemas/CustomArtifactsConfiguration'
     CatalogConfiguration:
-      description: >-
-        The configuration parameters for the default Amazon Glue database. You
-        use this database for SQL queries that you write in a Kinesis Data
-        Analytics Studio notebook.
+      description: The configuration parameters for the default Amazon Glue database. You use this database for SQL queries that you write in a Kinesis Data Analytics Studio notebook.
       type: object
       additionalProperties: false
       properties:
         GlueDataCatalogConfiguration:
-          description: >-
-            The configuration parameters for the default Amazon Glue database.
-            You use this database for Apache Flink SQL queries and table API
-            transforms that you write in a Kinesis Data Analytics Studio
-            notebook.
+          description: The configuration parameters for the default Amazon Glue database. You use this database for Apache Flink SQL queries and table API transforms that you write in a Kinesis Data Analytics Studio notebook.
           $ref: '#/components/schemas/GlueDataCatalogConfiguration'
     GlueDataCatalogConfiguration:
-      description: >-
-        The configuration of the Glue Data Catalog that you use for Apache Flink
-        SQL queries and table API transforms that you write in an application.
+      description: The configuration of the Glue Data Catalog that you use for Apache Flink SQL queries and table API transforms that you write in an application.
       type: object
       additionalProperties: false
       properties:
@@ -951,17 +741,12 @@ components:
           description: The Amazon Resource Name (ARN) of the database.
           $ref: '#/components/schemas/Arn'
     ZeppelinMonitoringConfiguration:
-      description: >-
-        Describes configuration parameters for Amazon CloudWatch logging for a
-        Kinesis Data Analytics Studio notebook. For more information about
-        CloudWatch logging, see Monitoring.
+      description: Describes configuration parameters for Amazon CloudWatch logging for a Kinesis Data Analytics Studio notebook. For more information about CloudWatch logging, see Monitoring.
       type: object
       additionalProperties: false
       properties:
         LogLevel:
-          description: >-
-            The verbosity of the CloudWatch Logs for an application. You can set
-            it to `INFO`, `WARN`, `ERROR`, or `DEBUG`.
+          description: The verbosity of the CloudWatch Logs for an application. You can set it to `INFO`, `WARN`, `ERROR`, or `DEBUG`.
           type: string
           enum:
             - DEBUG
@@ -969,19 +754,12 @@ components:
             - WARN
             - ERROR
     DeployAsApplicationConfiguration:
-      description: >-
-        The information required to deploy a Kinesis Data Analytics Studio
-        notebook as an application with durable state.
+      description: The information required to deploy a Kinesis Data Analytics Studio notebook as an application with durable state.
       type: object
       additionalProperties: false
       properties:
         S3ContentLocation:
-          description: >-
-            The description of an Amazon S3 object that contains the Amazon Data
-            Analytics application, including the Amazon Resource Name (ARN) of
-            the S3 bucket, the name of the Amazon S3 object that contains the
-            data, and the version number of the Amazon S3 object that contains
-            the data.
+          description: The description of an Amazon S3 object that contains the Amazon Data Analytics application, including the Amazon Resource Name (ARN) of the S3 bucket, the name of the Amazon S3 object that contains the data, and the version number of the Amazon S3 object that contains the data.
           $ref: '#/components/schemas/S3ContentBaseLocation'
       required:
         - S3ContentLocation
@@ -1016,10 +794,7 @@ components:
       additionalProperties: false
       properties:
         ArtifactType:
-          description: >-
-            Set this to either `UDF` or `DEPENDENCY_JAR`. `UDF` stands for
-            user-defined functions. This type of artifact must be in an S3
-            bucket. A `DEPENDENCY_JAR` can be in either Maven or an S3 bucket.
+          description: Set this to either `UDF` or `DEPENDENCY_JAR`. `UDF` stands for user-defined functions. This type of artifact must be in an S3 bucket. A `DEPENDENCY_JAR` can be in either Maven or an S3 bucket.
           type: string
           enum:
             - DEPENDENCY_JAR
@@ -1033,9 +808,7 @@ components:
       required:
         - ArtifactType
     MavenReference:
-      description: >-
-        The information required to specify a Maven reference. You can use Maven
-        references to specify dependency JAR files.
+      description: The information required to specify a Maven reference. You can use Maven references to specify dependency JAR files.
       type: object
       additionalProperties: false
       properties:
@@ -1062,9 +835,7 @@ components:
         - GroupId
         - Version
     VpcConfigurations:
-      description: >-
-        The array of descriptions of VPC configurations available to the
-        application.
+      description: The array of descriptions of VPC configurations available to the application.
       type: array
       uniqueItems: false
       x-insertionOrder: false
@@ -1876,8 +1647,7 @@ components:
         AmazonopensearchserviceDestinationConfiguration:
           $ref: '#/components/schemas/AmazonopensearchserviceDestinationConfiguration'
         AmazonOpenSearchServerlessDestinationConfiguration:
-          $ref: >-
-            #/components/schemas/AmazonOpenSearchServerlessDestinationConfiguration
+          $ref: '#/components/schemas/AmazonOpenSearchServerlessDestinationConfiguration'
         ExtendedS3DestinationConfiguration:
           $ref: '#/components/schemas/ExtendedS3DestinationConfiguration'
         KinesisStreamSourceConfiguration:
@@ -1901,9 +1671,7 @@ components:
       type: object
       properties:
         Arn:
-          description: >-
-            The Amazon Resource Name (ARN) of the Kinesis Video Signaling
-            Channel.
+          description: The Amazon Resource Name (ARN) of the Kinesis Video Signaling Channel.
           type: string
         Name:
           description: The name of the Kinesis Video Signaling Channel.
@@ -1912,16 +1680,12 @@ components:
           maxLength: 256
           pattern: '[a-zA-Z0-9_.-]+'
         Type:
-          description: >-
-            The type of the Kinesis Video Signaling Channel to create.
-            Currently, SINGLE_MASTER is the only supported channel type.
+          description: The type of the Kinesis Video Signaling Channel to create. Currently, SINGLE_MASTER is the only supported channel type.
           type: string
           enum:
             - SINGLE_MASTER
         MessageTtlSeconds:
-          description: >-
-            The period of time a signaling channel retains undelivered messages
-            before they are discarded.
+          description: The period of time a signaling channel retains undelivered messages before they are discarded.
           type: integer
           minimum: 5
           maximum: 120
@@ -1944,26 +1708,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.DataRetentionInHours') as
-              data_retention_in_hours,
-
+              JSON_EXTRACT(Properties, '$.DataRetentionInHours') as data_retention_in_hours,
               JSON_EXTRACT(Properties, '$.DeviceName') as device_name,
-
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::Stream' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::Stream' ;
   - StreamConsumer:
       name: StreamConsumer
       id: aws.kinesis.StreamConsumer
@@ -1971,24 +1725,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.ConsumerCreationTimestamp') as
-              consumer_creation_timestamp,
-
+              JSON_EXTRACT(Properties, '$.ConsumerCreationTimestamp') as consumer_creation_timestamp,
               JSON_EXTRACT(Properties, '$.ConsumerName') as consumer_name,
-
               JSON_EXTRACT(Properties, '$.ConsumerARN') as consumer_ar_n,
-
               JSON_EXTRACT(Properties, '$.ConsumerStatus') as consumer_status,
-
               JSON_EXTRACT(Properties, '$.StreamARN') as stream_ar_n
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::StreamConsumer' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::StreamConsumer' ;
   - Application:
       name: Application
       id: aws.kinesis.Application
@@ -1996,64 +1741,24 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.ApplicationCodeConfiguration') as
-              application_configuration_application_code_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.ApplicationSnapshotConfiguration') as
-              application_configuration_application_snapshot_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.EnvironmentProperties') as
-              application_configuration_environment_properties,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.FlinkApplicationConfiguration') as
-              application_configuration_flink_application_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.SqlApplicationConfiguration') as
-              application_configuration_sql_application_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.ZeppelinApplicationConfiguration') as
-              application_configuration_zeppelin_application_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationConfiguration.VpcConfigurations') as
-              application_configuration_vpc_configurations,
-
-              JSON_EXTRACT(Properties, '$.ApplicationDescription') as
-              application_description,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationCodeConfiguration') as application_configuration_application_code_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationSnapshotConfiguration') as application_configuration_application_snapshot_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.EnvironmentProperties') as application_configuration_environment_properties,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.FlinkApplicationConfiguration') as application_configuration_flink_application_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.SqlApplicationConfiguration') as application_configuration_sql_application_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ZeppelinApplicationConfiguration') as application_configuration_zeppelin_application_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.VpcConfigurations') as application_configuration_vpc_configurations,
+              JSON_EXTRACT(Properties, '$.ApplicationDescription') as application_description,
               JSON_EXTRACT(Properties, '$.ApplicationMode') as application_mode,
-
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.RuntimeEnvironment') as
-              runtime_environment,
-
-              JSON_EXTRACT(Properties,
-              '$.RunConfiguration.ApplicationRestoreConfiguration') as
-              run_configuration_application_restore_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.RunConfiguration.FlinkRunConfiguration') as
-              run_configuration_flink_run_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ApplicationMaintenanceConfiguration.ApplicationMaintenanceWindowStartTime')
-              as
-              application_maintenance_configuration_application_maintenance_window_start_time,
-
+              JSON_EXTRACT(Properties, '$.RuntimeEnvironment') as runtime_environment,
+              JSON_EXTRACT(Properties, '$.RunConfiguration.ApplicationRestoreConfiguration') as run_configuration_application_restore_configuration,
+              JSON_EXTRACT(Properties, '$.RunConfiguration.FlinkRunConfiguration') as run_configuration_flink_run_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationMaintenanceConfiguration.ApplicationMaintenanceWindowStartTime') as application_maintenance_configuration_application_maintenance_window_start_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::Application' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::Application' ;
   - ApplicationOutput:
       name: ApplicationOutput
       id: aws.kinesis.ApplicationOutput
@@ -2061,29 +1766,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.Output.DestinationSchema') as
-              output_destination_schema,
-
-              JSON_EXTRACT(Properties, '$.Output.LambdaOutput') as
-              output_lambda_output,
-
-              JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as
-              output_kinesis_firehose_output,
-
-              JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as
-              output_kinesis_streams_output,
-
+              JSON_EXTRACT(Properties, '$.Output.DestinationSchema') as output_destination_schema,
+              JSON_EXTRACT(Properties, '$.Output.LambdaOutput') as output_lambda_output,
+              JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
+              JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
               JSON_EXTRACT(Properties, '$.Output.Name') as output_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::ApplicationOutput' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationOutput' ;
   - ApplicationReferenceDataSource:
       name: ApplicationReferenceDataSource
       id: aws.kinesis.ApplicationReferenceDataSource
@@ -2091,26 +1783,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema')
-              as reference_data_source_reference_schema,
-
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as
-              reference_data_source_table_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ReferenceDataSource.S3ReferenceDataSource') as
-              reference_data_source_s3_reference_data_source
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::Kinesis::ApplicationReferenceDataSource' ;
+              JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
+              JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
+              JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationReferenceDataSource' ;
   - ApplicationCloudWatchLoggingOption:
       name: ApplicationCloudWatchLoggingOption
       id: aws.kinesis.ApplicationCloudWatchLoggingOption
@@ -2118,19 +1798,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption.LogStreamARN')
-              as cloud_watch_logging_option_log_stream_ar_n
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::Kinesis::ApplicationCloudWatchLoggingOption' ;
+              JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption.LogStreamARN') as cloud_watch_logging_option_log_stream_ar_n
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationCloudWatchLoggingOption' ;
   - DeliveryStream:
       name: DeliveryStream
       id: aws.kinesis.DeliveryStream
@@ -2138,404 +1811,103 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties,
-              '$.DeliveryStreamEncryptionConfigurationInput.KeyARN') as
-              delivery_stream_encryption_configuration_input_key_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.DeliveryStreamEncryptionConfigurationInput.KeyType') as
-              delivery_stream_encryption_configuration_input_key_type,
-
-              JSON_EXTRACT(Properties, '$.DeliveryStreamName') as
-              delivery_stream_name,
-
-              JSON_EXTRACT(Properties, '$.DeliveryStreamType') as
-              delivery_stream_type,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.BufferingHints') as
-              elasticsearch_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.CloudWatchLoggingOptions')
-              as
-              elasticsearch_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.DomainARN') as
-              elasticsearch_destination_configuration_domain_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.IndexName') as
-              elasticsearch_destination_configuration_index_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.IndexRotationPeriod') as
-              elasticsearch_destination_configuration_index_rotation_period,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.ProcessingConfiguration')
-              as
-              elasticsearch_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.RetryOptions') as
-              elasticsearch_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.RoleARN') as
-              elasticsearch_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.S3BackupMode') as
-              elasticsearch_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.S3Configuration') as
-              elasticsearch_destination_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.ClusterEndpoint') as
-              elasticsearch_destination_configuration_cluster_endpoint,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.TypeName') as
-              elasticsearch_destination_configuration_type_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ElasticsearchDestinationConfiguration.VpcConfiguration') as
-              elasticsearch_destination_configuration_vpc_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.BufferingHints')
-              as
-              amazonopensearchservice_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.CloudWatchLoggingOptions')
-              as
-              amazonopensearchservice_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.DomainARN') as
-              amazonopensearchservice_destination_configuration_domain_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.IndexName') as
-              amazonopensearchservice_destination_configuration_index_name,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.IndexRotationPeriod')
-              as
-              amazonopensearchservice_destination_configuration_index_rotation_period,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.ProcessingConfiguration')
-              as
-              amazonopensearchservice_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.RetryOptions')
-              as
-              amazonopensearchservice_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.RoleARN') as
-              amazonopensearchservice_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.S3BackupMode')
-              as
-              amazonopensearchservice_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.S3Configuration')
-              as
-              amazonopensearchservice_destination_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.ClusterEndpoint')
-              as
-              amazonopensearchservice_destination_configuration_cluster_endpoint,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.TypeName') as
-              amazonopensearchservice_destination_configuration_type_name,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonopensearchserviceDestinationConfiguration.VpcConfiguration')
-              as
-              amazonopensearchservice_destination_configuration_vpc_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.BufferingHints')
-              as
-              amazon_open_search_serverless_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.CloudWatchLoggingOptions')
-              as
-              amazon_open_search_serverless_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.IndexName')
-              as
-              amazon_open_search_serverless_destination_configuration_index_name,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.ProcessingConfiguration')
-              as
-              amazon_open_search_serverless_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.RetryOptions')
-              as
-              amazon_open_search_serverless_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.RoleARN') as
-              amazon_open_search_serverless_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.S3BackupMode')
-              as
-              amazon_open_search_serverless_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.S3Configuration')
-              as
-              amazon_open_search_serverless_destination_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.CollectionEndpoint')
-              as
-              amazon_open_search_serverless_destination_configuration_collection_endpoint,
-
-              JSON_EXTRACT(Properties,
-              '$.AmazonOpenSearchServerlessDestinationConfiguration.VpcConfiguration')
-              as
-              amazon_open_search_serverless_destination_configuration_vpc_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.BucketARN') as
-              extended_s3_destination_configuration_bucket_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.BufferingHints') as
-              extended_s3_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.CloudWatchLoggingOptions')
-              as
-              extended_s3_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.CompressionFormat') as
-              extended_s3_destination_configuration_compression_format,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.DataFormatConversionConfiguration')
-              as
-              extended_s3_destination_configuration_data_format_conversion_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.DynamicPartitioningConfiguration')
-              as
-              extended_s3_destination_configuration_dynamic_partitioning_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.EncryptionConfiguration') as
-              extended_s3_destination_configuration_encryption_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.ErrorOutputPrefix') as
-              extended_s3_destination_configuration_error_output_prefix,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.Prefix') as
-              extended_s3_destination_configuration_prefix,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.ProcessingConfiguration') as
-              extended_s3_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.RoleARN') as
-              extended_s3_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.S3BackupConfiguration') as
-              extended_s3_destination_configuration_s3_backup_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.ExtendedS3DestinationConfiguration.S3BackupMode') as
-              extended_s3_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.KinesisStreamSourceConfiguration.KinesisStreamARN') as
-              kinesis_stream_source_configuration_kinesis_stream_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.KinesisStreamSourceConfiguration.RoleARN') as
-              kinesis_stream_source_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.CloudWatchLoggingOptions') as
-              redshift_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.ClusterJDBCURL') as
-              redshift_destination_configuration_cluster_jd_bc_ur_l,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.CopyCommand') as
-              redshift_destination_configuration_copy_command,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.Password') as
-              redshift_destination_configuration_password,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.ProcessingConfiguration') as
-              redshift_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.RetryOptions') as
-              redshift_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.RoleARN') as
-              redshift_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.S3BackupConfiguration') as
-              redshift_destination_configuration_s3_backup_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.S3BackupMode') as
-              redshift_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.S3Configuration') as
-              redshift_destination_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.RedshiftDestinationConfiguration.Username') as
-              redshift_destination_configuration_username,
-
-              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.BucketARN')
-              as s3_destination_configuration_bucket_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.S3DestinationConfiguration.BufferingHints') as
-              s3_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.S3DestinationConfiguration.CloudWatchLoggingOptions') as
-              s3_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.S3DestinationConfiguration.CompressionFormat') as
-              s3_destination_configuration_compression_format,
-
-              JSON_EXTRACT(Properties,
-              '$.S3DestinationConfiguration.EncryptionConfiguration') as
-              s3_destination_configuration_encryption_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.S3DestinationConfiguration.ErrorOutputPrefix') as
-              s3_destination_configuration_error_output_prefix,
-
-              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.Prefix') as
-              s3_destination_configuration_prefix,
-
-              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.RoleARN')
-              as s3_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.CloudWatchLoggingOptions') as
-              splunk_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.HECAcknowledgmentTimeoutInSeconds')
-              as
-              splunk_destination_configuration_he_cacknowledgment_timeout_in_seconds,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.HECEndpoint') as
-              splunk_destination_configuration_he_cendpoint,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.HECEndpointType') as
-              splunk_destination_configuration_he_cendpoint_type,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.HECToken') as
-              splunk_destination_configuration_he_ctoken,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.ProcessingConfiguration') as
-              splunk_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.RetryOptions') as
-              splunk_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.S3BackupMode') as
-              splunk_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.SplunkDestinationConfiguration.S3Configuration') as
-              splunk_destination_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.RoleARN') as
-              http_endpoint_destination_configuration_role_ar_n,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.EndpointConfiguration') as
-              http_endpoint_destination_configuration_endpoint_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.RequestConfiguration') as
-              http_endpoint_destination_configuration_request_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.BufferingHints') as
-              http_endpoint_destination_configuration_buffering_hints,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.CloudWatchLoggingOptions')
-              as
-              http_endpoint_destination_configuration_cloud_watch_logging_options,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.ProcessingConfiguration')
-              as
-              http_endpoint_destination_configuration_processing_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.RetryOptions') as
-              http_endpoint_destination_configuration_retry_options,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.S3BackupMode') as
-              http_endpoint_destination_configuration_s3_backup_mode,
-
-              JSON_EXTRACT(Properties,
-              '$.HttpEndpointDestinationConfiguration.S3Configuration') as
-              http_endpoint_destination_configuration_s3_configuration,
-
+              JSON_EXTRACT(Properties, '$.DeliveryStreamEncryptionConfigurationInput.KeyARN') as delivery_stream_encryption_configuration_input_key_ar_n,
+              JSON_EXTRACT(Properties, '$.DeliveryStreamEncryptionConfigurationInput.KeyType') as delivery_stream_encryption_configuration_input_key_type,
+              JSON_EXTRACT(Properties, '$.DeliveryStreamName') as delivery_stream_name,
+              JSON_EXTRACT(Properties, '$.DeliveryStreamType') as delivery_stream_type,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.BufferingHints') as elasticsearch_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.CloudWatchLoggingOptions') as elasticsearch_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.DomainARN') as elasticsearch_destination_configuration_domain_ar_n,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.IndexName') as elasticsearch_destination_configuration_index_name,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.IndexRotationPeriod') as elasticsearch_destination_configuration_index_rotation_period,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.ProcessingConfiguration') as elasticsearch_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.RetryOptions') as elasticsearch_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.RoleARN') as elasticsearch_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.S3BackupMode') as elasticsearch_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.S3Configuration') as elasticsearch_destination_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.ClusterEndpoint') as elasticsearch_destination_configuration_cluster_endpoint,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.TypeName') as elasticsearch_destination_configuration_type_name,
+              JSON_EXTRACT(Properties, '$.ElasticsearchDestinationConfiguration.VpcConfiguration') as elasticsearch_destination_configuration_vpc_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.BufferingHints') as amazonopensearchservice_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.CloudWatchLoggingOptions') as amazonopensearchservice_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.DomainARN') as amazonopensearchservice_destination_configuration_domain_ar_n,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.IndexName') as amazonopensearchservice_destination_configuration_index_name,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.IndexRotationPeriod') as amazonopensearchservice_destination_configuration_index_rotation_period,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.ProcessingConfiguration') as amazonopensearchservice_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.RetryOptions') as amazonopensearchservice_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.RoleARN') as amazonopensearchservice_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.S3BackupMode') as amazonopensearchservice_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.S3Configuration') as amazonopensearchservice_destination_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.ClusterEndpoint') as amazonopensearchservice_destination_configuration_cluster_endpoint,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.TypeName') as amazonopensearchservice_destination_configuration_type_name,
+              JSON_EXTRACT(Properties, '$.AmazonopensearchserviceDestinationConfiguration.VpcConfiguration') as amazonopensearchservice_destination_configuration_vpc_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.BufferingHints') as amazon_open_search_serverless_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.CloudWatchLoggingOptions') as amazon_open_search_serverless_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.IndexName') as amazon_open_search_serverless_destination_configuration_index_name,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.ProcessingConfiguration') as amazon_open_search_serverless_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.RetryOptions') as amazon_open_search_serverless_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.RoleARN') as amazon_open_search_serverless_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.S3BackupMode') as amazon_open_search_serverless_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.S3Configuration') as amazon_open_search_serverless_destination_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.CollectionEndpoint') as amazon_open_search_serverless_destination_configuration_collection_endpoint,
+              JSON_EXTRACT(Properties, '$.AmazonOpenSearchServerlessDestinationConfiguration.VpcConfiguration') as amazon_open_search_serverless_destination_configuration_vpc_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.BucketARN') as extended_s3_destination_configuration_bucket_ar_n,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.BufferingHints') as extended_s3_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.CloudWatchLoggingOptions') as extended_s3_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.CompressionFormat') as extended_s3_destination_configuration_compression_format,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.DataFormatConversionConfiguration') as extended_s3_destination_configuration_data_format_conversion_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.DynamicPartitioningConfiguration') as extended_s3_destination_configuration_dynamic_partitioning_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.EncryptionConfiguration') as extended_s3_destination_configuration_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.ErrorOutputPrefix') as extended_s3_destination_configuration_error_output_prefix,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.Prefix') as extended_s3_destination_configuration_prefix,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.ProcessingConfiguration') as extended_s3_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.RoleARN') as extended_s3_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.S3BackupConfiguration') as extended_s3_destination_configuration_s3_backup_configuration,
+              JSON_EXTRACT(Properties, '$.ExtendedS3DestinationConfiguration.S3BackupMode') as extended_s3_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.KinesisStreamSourceConfiguration.KinesisStreamARN') as kinesis_stream_source_configuration_kinesis_stream_ar_n,
+              JSON_EXTRACT(Properties, '$.KinesisStreamSourceConfiguration.RoleARN') as kinesis_stream_source_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.CloudWatchLoggingOptions') as redshift_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.ClusterJDBCURL') as redshift_destination_configuration_cluster_jd_bc_ur_l,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.CopyCommand') as redshift_destination_configuration_copy_command,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.Password') as redshift_destination_configuration_password,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.ProcessingConfiguration') as redshift_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.RetryOptions') as redshift_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.RoleARN') as redshift_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.S3BackupConfiguration') as redshift_destination_configuration_s3_backup_configuration,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.S3BackupMode') as redshift_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.S3Configuration') as redshift_destination_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.RedshiftDestinationConfiguration.Username') as redshift_destination_configuration_username,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.BucketARN') as s3_destination_configuration_bucket_ar_n,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.BufferingHints') as s3_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.CloudWatchLoggingOptions') as s3_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.CompressionFormat') as s3_destination_configuration_compression_format,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.EncryptionConfiguration') as s3_destination_configuration_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.ErrorOutputPrefix') as s3_destination_configuration_error_output_prefix,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.Prefix') as s3_destination_configuration_prefix,
+              JSON_EXTRACT(Properties, '$.S3DestinationConfiguration.RoleARN') as s3_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.CloudWatchLoggingOptions') as splunk_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.HECAcknowledgmentTimeoutInSeconds') as splunk_destination_configuration_he_cacknowledgment_timeout_in_seconds,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.HECEndpoint') as splunk_destination_configuration_he_cendpoint,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.HECEndpointType') as splunk_destination_configuration_he_cendpoint_type,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.HECToken') as splunk_destination_configuration_he_ctoken,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.ProcessingConfiguration') as splunk_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.RetryOptions') as splunk_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.S3BackupMode') as splunk_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.SplunkDestinationConfiguration.S3Configuration') as splunk_destination_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.RoleARN') as http_endpoint_destination_configuration_role_ar_n,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.EndpointConfiguration') as http_endpoint_destination_configuration_endpoint_configuration,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.RequestConfiguration') as http_endpoint_destination_configuration_request_configuration,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.BufferingHints') as http_endpoint_destination_configuration_buffering_hints,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.CloudWatchLoggingOptions') as http_endpoint_destination_configuration_cloud_watch_logging_options,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.ProcessingConfiguration') as http_endpoint_destination_configuration_processing_configuration,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.RetryOptions') as http_endpoint_destination_configuration_retry_options,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3BackupMode') as http_endpoint_destination_configuration_s3_backup_mode,
+              JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3Configuration') as http_endpoint_destination_configuration_s3_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::DeliveryStream' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::DeliveryStream' ;
   - SignalingChannel:
       name: SignalingChannel
       id: aws.kinesis.SignalingChannel
@@ -2543,19 +1915,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Type') as type,
-
-              JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as
-              message_ttl_seconds,
-
+              JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kinesis::SignalingChannel' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::SignalingChannel' ;

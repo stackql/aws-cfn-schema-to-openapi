@@ -22,10 +22,7 @@ components:
         - FAULT_SERVICE
         - FAULT_ACCESS_CLOUDWATCH
     Tag:
-      description: >-
-        The metadata that you apply to the cluster to help you categorize and
-        organize them. Each tag consists of a key and an optional value, both of
-        which you define.
+      description: The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.
       type: object
       properties:
         Key:
@@ -34,12 +31,9 @@ components:
           type: string
       additionalProperties: false
     iso8601UTC:
-      description: >-
-        The date value in ISO 8601 format. The timezone is always UTC.
-        (YYYY-MM-DDThh:mm:ssZ)
+      description: The date value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ssZ)
       type: string
-      pattern: >-
-        ^([0-2]\d{3})-(0[0-9]|1[0-2])-([0-2]\d|3[01])T([01]\d|2[0-4]):([0-5]\d):([0-6]\d)((\.\d{3})?)Z$
+      pattern: ^([0-2]\d{3})-(0[0-9]|1[0-2])-([0-2]\d|3[01])T([01]\d|2[0-4]):([0-5]\d):([0-6]\d)((\.\d{3})?)Z$
     Monitor:
       type: object
       properties:
@@ -105,27 +99,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_arn,
-
               JSON_EXTRACT(Properties, '$.MonitorName') as monitor_name,
-
-              JSON_EXTRACT(Properties, '$.ProcessingStatusInfo') as
-              processing_status_info,
-
+              JSON_EXTRACT(Properties, '$.ProcessingStatusInfo') as processing_status_info,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
-
               JSON_EXTRACT(Properties, '$.ResourcesToAdd') as resources_to_add,
-
-              JSON_EXTRACT(Properties, '$.ResourcesToRemove') as
-              resources_to_remove,
-
+              JSON_EXTRACT(Properties, '$.ResourcesToRemove') as resources_to_remove,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.MaxCityNetworksToMonitor') as
-              max_city_networks_to_monitor
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::InternetMonitor::Monitor' ;
+              JSON_EXTRACT(Properties, '$.MaxCityNetworksToMonitor') as max_city_networks_to_monitor
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::InternetMonitor::Monitor' ;

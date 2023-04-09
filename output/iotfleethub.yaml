@@ -6,27 +6,17 @@ paths: {}
 components:
   schemas:
     Tag:
-      description: >-
-        To add or update tag, provide both key and value. To delete tag, provide
-        only tag key to be deleted.
+      description: To add or update tag, provide both key and value. To delete tag, provide only tag key to be deleted.
       type: object
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 1 to 256
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. You can specify a value that is 1 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 256
       required:
@@ -73,19 +63,13 @@ components:
           description: When the Application was last updated
           type: integer
         RoleArn:
-          description: >-
-            The ARN of the role that the web application assumes when it
-            interacts with AWS IoT Core. For more info on configuring this
-            attribute, see
-            https://docs.aws.amazon.com/iot/latest/apireference/API_iotfleethub_CreateApplication.html#API_iotfleethub_CreateApplication_RequestSyntax
+          description: The ARN of the role that the web application assumes when it interacts with AWS IoT Core. For more info on configuring this attribute, see https://docs.aws.amazon.com/iot/latest/apireference/API_iotfleethub_CreateApplication.html#API_iotfleethub_CreateApplication_RequestSyntax
           type: string
           pattern: ^arn:[!-~]+$
           minLength: 1
           maxLength: 1600
         SsoClientId:
-          description: >-
-            The AWS SSO application generated client ID (used with AWS SSO
-            APIs).
+          description: The AWS SSO application generated client ID (used with AWS SSO APIs).
           type: string
         ErrorMessage:
           description: A message indicating why Create or Delete Application failed.
@@ -111,36 +95,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
-
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.ApplicationDescription') as
-              application_description,
-
+              JSON_EXTRACT(Properties, '$.ApplicationDescription') as application_description,
               JSON_EXTRACT(Properties, '$.ApplicationUrl') as application_url,
-
-              JSON_EXTRACT(Properties, '$.ApplicationState') as
-              application_state,
-
-              JSON_EXTRACT(Properties, '$.ApplicationCreationDate') as
-              application_creation_date,
-
-              JSON_EXTRACT(Properties, '$.ApplicationLastUpdateDate') as
-              application_last_update_date,
-
+              JSON_EXTRACT(Properties, '$.ApplicationState') as application_state,
+              JSON_EXTRACT(Properties, '$.ApplicationCreationDate') as application_creation_date,
+              JSON_EXTRACT(Properties, '$.ApplicationLastUpdateDate') as application_last_update_date,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.SsoClientId') as sso_client_id,
-
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IoTFleetHub::Application' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTFleetHub::Application' ;

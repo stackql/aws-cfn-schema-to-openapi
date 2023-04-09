@@ -89,17 +89,14 @@ components:
             maxLength: 10000
         CustomDomain:
           type: string
-          pattern: >-
-            ^(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$
+          pattern: ^(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$
           maxLength: 253
         Endpoint:
           type: string
           maxLength: 10000
         CustomPrivateKey:
           type: string
-          pattern: >-
-            (?ms)\s*^-----BEGIN (?-s:.*)PRIVATE KEY-----$.*?^-----END
-            (?-s:.*)PRIVATE KEY-----$\s*
+          pattern: (?ms)\s*^-----BEGIN (?-s:.*)PRIVATE KEY-----$.*?^-----END (?-s:.*)PRIVATE KEY-----$\s*
           maxLength: 4096
         ServerName:
           type: string
@@ -141,64 +138,29 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.KeyPair') as key_pair,
-
               JSON_EXTRACT(Properties, '$.EngineVersion') as engine_version,
-
               JSON_EXTRACT(Properties, '$.ServiceRoleArn') as service_role_arn,
-
-              JSON_EXTRACT(Properties, '$.DisableAutomatedBackup') as
-              disable_automated_backup,
-
+              JSON_EXTRACT(Properties, '$.DisableAutomatedBackup') as disable_automated_backup,
               JSON_EXTRACT(Properties, '$.BackupId') as backup_id,
-
               JSON_EXTRACT(Properties, '$.EngineModel') as engine_model,
-
-              JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as
-              preferred_maintenance_window,
-
-              JSON_EXTRACT(Properties, '$.AssociatePublicIpAddress') as
-              associate_public_ip_address,
-
-              JSON_EXTRACT(Properties, '$.InstanceProfileArn') as
-              instance_profile_arn,
-
-              JSON_EXTRACT(Properties, '$.CustomCertificate') as
-              custom_certificate,
-
-              JSON_EXTRACT(Properties, '$.PreferredBackupWindow') as
-              preferred_backup_window,
-
-              JSON_EXTRACT(Properties, '$.SecurityGroupIds') as
-              security_group_ids,
-
+              JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as preferred_maintenance_window,
+              JSON_EXTRACT(Properties, '$.AssociatePublicIpAddress') as associate_public_ip_address,
+              JSON_EXTRACT(Properties, '$.InstanceProfileArn') as instance_profile_arn,
+              JSON_EXTRACT(Properties, '$.CustomCertificate') as custom_certificate,
+              JSON_EXTRACT(Properties, '$.PreferredBackupWindow') as preferred_backup_window,
+              JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
-
               JSON_EXTRACT(Properties, '$.CustomDomain') as custom_domain,
-
               JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
-
-              JSON_EXTRACT(Properties, '$.CustomPrivateKey') as
-              custom_private_key,
-
+              JSON_EXTRACT(Properties, '$.CustomPrivateKey') as custom_private_key,
               JSON_EXTRACT(Properties, '$.ServerName') as server_name,
-
-              JSON_EXTRACT(Properties, '$.EngineAttributes') as
-              engine_attributes,
-
-              JSON_EXTRACT(Properties, '$.BackupRetentionCount') as
-              backup_retention_count,
-
+              JSON_EXTRACT(Properties, '$.EngineAttributes') as engine_attributes,
+              JSON_EXTRACT(Properties, '$.BackupRetentionCount') as backup_retention_count,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Engine') as engine
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::OpsWorksCM::Server' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::OpsWorksCM::Server' ;

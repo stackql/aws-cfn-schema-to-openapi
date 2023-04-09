@@ -15,9 +15,7 @@ components:
           minLength: 1
           pattern: ^[\p{L}\p{M}\p{S}\p{N}\p{P}\t\n\r  　]+$
         DisplayName:
-          description: >-
-            A string containing the name of the group. This value is commonly
-            displayed when the group is referenced.
+          description: A string containing the name of the group. This value is commonly displayed when the group is referenced.
           type: string
           maxLength: 1024
           minLength: 1
@@ -27,15 +25,13 @@ components:
           type: string
           maxLength: 47
           minLength: 1
-          pattern: >-
-            ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
+          pattern: ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
         IdentityStoreId:
           description: The globally unique identifier for the identity store.
           type: string
           maxLength: 36
           minLength: 1
-          pattern: >-
-            ^d-[0-9a-f]{10}$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: ^d-[0-9a-f]{10}$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
       required:
         - IdentityStoreId
         - DisplayName
@@ -50,8 +46,7 @@ components:
           type: string
           maxLength: 47
           minLength: 1
-          pattern: >-
-            ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
+          pattern: ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
       required:
         - UserId
       additionalProperties: false
@@ -63,15 +58,13 @@ components:
           type: string
           maxLength: 47
           minLength: 1
-          pattern: >-
-            ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
+          pattern: ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
         IdentityStoreId:
           description: The globally unique identifier for the identity store.
           type: string
           maxLength: 36
           minLength: 1
-          pattern: >-
-            ^d-[0-9a-f]{10}$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: ^d-[0-9a-f]{10}$|^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
         MemberId:
           description: An object containing the identifier of a group member.
           $ref: '#/components/schemas/MemberId'
@@ -80,8 +73,7 @@ components:
           type: string
           maxLength: 47
           minLength: 1
-          pattern: >-
-            ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
+          pattern: ^([0-9a-f]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$
       required:
         - IdentityStoreId
         - GroupId
@@ -95,19 +87,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
-
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
-
               JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IdentityStore::Group' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IdentityStore::Group' ;
   - GroupMembership:
       name: GroupMembership
       id: aws.identitystore.GroupMembership
@@ -115,18 +101,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
-
-              JSON_EXTRACT(Properties, '$.IdentityStoreId') as
-              identity_store_id,
-
-              JSON_EXTRACT(Properties, '$.MemberId.UserId') as
-              member_id_user_id,
-
+              JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id,
+              JSON_EXTRACT(Properties, '$.MemberId.UserId') as member_id_user_id,
               JSON_EXTRACT(Properties, '$.MembershipId') as membership_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IdentityStore::GroupMembership' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IdentityStore::GroupMembership' ;

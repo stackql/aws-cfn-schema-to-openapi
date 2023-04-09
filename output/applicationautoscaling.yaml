@@ -196,43 +196,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ScheduledActions') as
-              scheduled_actions,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ScheduledActions') as scheduled_actions,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
-
-              JSON_EXTRACT(Properties, '$.ServiceNamespace') as
-              service_namespace,
-
-              JSON_EXTRACT(Properties, '$.ScalableDimension') as
-              scalable_dimension,
-
-              JSON_EXTRACT(Properties,
-              '$.SuspendedState.ScheduledScalingSuspended') as
-              suspended_state_scheduled_scaling_suspended,
-
-              JSON_EXTRACT(Properties,
-              '$.SuspendedState.DynamicScalingOutSuspended') as
-              suspended_state_dynamic_scaling_out_suspended,
-
-              JSON_EXTRACT(Properties,
-              '$.SuspendedState.DynamicScalingInSuspended') as
-              suspended_state_dynamic_scaling_in_suspended,
-
+              JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespace,
+              JSON_EXTRACT(Properties, '$.ScalableDimension') as scalable_dimension,
+              JSON_EXTRACT(Properties, '$.SuspendedState.ScheduledScalingSuspended') as suspended_state_scheduled_scaling_suspended,
+              JSON_EXTRACT(Properties, '$.SuspendedState.DynamicScalingOutSuspended') as suspended_state_dynamic_scaling_out_suspended,
+              JSON_EXTRACT(Properties, '$.SuspendedState.DynamicScalingInSuspended') as suspended_state_dynamic_scaling_in_suspended,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.MinCapacity') as min_capacity,
-
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
-
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget' ;
   - ScalingPolicy:
       name: ScalingPolicy
       id: aws.applicationautoscaling.ScalingPolicy
@@ -240,72 +217,24 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
-
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
-
-              JSON_EXTRACT(Properties, '$.ScalableDimension') as
-              scalable_dimension,
-
-              JSON_EXTRACT(Properties, '$.ScalingTargetId') as
-              scaling_target_id,
-
-              JSON_EXTRACT(Properties, '$.ServiceNamespace') as
-              service_namespace,
-
-              JSON_EXTRACT(Properties,
-              '$.StepScalingPolicyConfiguration.AdjustmentType') as
-              step_scaling_policy_configuration_adjustment_type,
-
-              JSON_EXTRACT(Properties,
-              '$.StepScalingPolicyConfiguration.Cooldown') as
-              step_scaling_policy_configuration_cooldown,
-
-              JSON_EXTRACT(Properties,
-              '$.StepScalingPolicyConfiguration.MetricAggregationType') as
-              step_scaling_policy_configuration_metric_aggregation_type,
-
-              JSON_EXTRACT(Properties,
-              '$.StepScalingPolicyConfiguration.MinAdjustmentMagnitude') as
-              step_scaling_policy_configuration_min_adjustment_magnitude,
-
-              JSON_EXTRACT(Properties,
-              '$.StepScalingPolicyConfiguration.StepAdjustments') as
-              step_scaling_policy_configuration_step_adjustments,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.CustomizedMetricSpecification')
-              as
-              target_tracking_scaling_policy_configuration_customized_metric_specification,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.DisableScaleIn') as
-              target_tracking_scaling_policy_configuration_disable_scale_in,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.PredefinedMetricSpecification')
-              as
-              target_tracking_scaling_policy_configuration_predefined_metric_specification,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.ScaleInCooldown') as
-              target_tracking_scaling_policy_configuration_scale_in_cooldown,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.ScaleOutCooldown') as
-              target_tracking_scaling_policy_configuration_scale_out_cooldown,
-
-              JSON_EXTRACT(Properties,
-              '$.TargetTrackingScalingPolicyConfiguration.TargetValue') as
-              target_tracking_scaling_policy_configuration_target_value
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'
-              ;
+              JSON_EXTRACT(Properties, '$.ScalableDimension') as scalable_dimension,
+              JSON_EXTRACT(Properties, '$.ScalingTargetId') as scaling_target_id,
+              JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespace,
+              JSON_EXTRACT(Properties, '$.StepScalingPolicyConfiguration.AdjustmentType') as step_scaling_policy_configuration_adjustment_type,
+              JSON_EXTRACT(Properties, '$.StepScalingPolicyConfiguration.Cooldown') as step_scaling_policy_configuration_cooldown,
+              JSON_EXTRACT(Properties, '$.StepScalingPolicyConfiguration.MetricAggregationType') as step_scaling_policy_configuration_metric_aggregation_type,
+              JSON_EXTRACT(Properties, '$.StepScalingPolicyConfiguration.MinAdjustmentMagnitude') as step_scaling_policy_configuration_min_adjustment_magnitude,
+              JSON_EXTRACT(Properties, '$.StepScalingPolicyConfiguration.StepAdjustments') as step_scaling_policy_configuration_step_adjustments,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.CustomizedMetricSpecification') as target_tracking_scaling_policy_configuration_customized_metric_specification,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.DisableScaleIn') as target_tracking_scaling_policy_configuration_disable_scale_in,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.PredefinedMetricSpecification') as target_tracking_scaling_policy_configuration_predefined_metric_specification,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleInCooldown') as target_tracking_scaling_policy_configuration_scale_in_cooldown,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleOutCooldown') as target_tracking_scaling_policy_configuration_scale_out_cooldown,
+              JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.TargetValue') as target_tracking_scaling_policy_configuration_target_value
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy' ;

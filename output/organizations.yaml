@@ -6,9 +6,7 @@ paths: {}
 components:
   schemas:
     Tag:
-      description: >-
-        A custom key-value pair associated with a resource within your
-        organization.
+      description: A custom key-value pair associated with a resource within your organization.
       type: object
       properties:
         Key:
@@ -18,10 +16,7 @@ components:
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The string value that's associated with the key of the tag. You can
-            set the value of a tag to an empty string, but you can't set the
-            value of a tag to null.
+          description: The string value that's associated with the key of the tag. You can set the value of a tag to an empty string, but you can't set the value of a tag to null.
           minLength: 0
           maxLength: 256
       required:
@@ -44,19 +39,14 @@ components:
           minLength: 6
           maxLength: 64
         RoleName:
-          description: >-
-            The name of an IAM role that AWS Organizations automatically
-            preconfigures in the new member account. Default name is
-            OrganizationAccountAccessRole if not specified.
+          description: The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. Default name is OrganizationAccountAccessRole if not specified.
           type: string
           default: OrganizationAccountAccessRole
           pattern: '[\w+=,.@-]{1,64}'
           minLength: 1
           maxLength: 64
         ParentIds:
-          description: >-
-            List of parent nodes for the member account. Currently only one
-            parent at a time is supported. Default is root.
+          description: List of parent nodes for the member account. Currently only one parent at a time is supported. Default is root.
           type: array
           x-insertionOrder: false
           uniqueItems: true
@@ -64,19 +54,14 @@ components:
             type: string
             pattern: ^(r-[0-9a-z]{4,32})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
         Tags:
-          description: >-
-            A list of tags that you want to attach to the newly created account.
-            For each tag in the list, you must specify both a tag key and a
-            value.
+          description: A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify both a tag key and a value.
           type: array
           uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
         AccountId:
-          description: >-
-            If the account was created successfully, the unique identifier (ID)
-            of the new account.
+          description: If the account was created successfully, the unique identifier (ID) of the new account.
           type: string
           pattern: ^\d{12}$
           maxLength: 12
@@ -110,8 +95,7 @@ components:
         Arn:
           description: The Amazon Resource Name (ARN) of this OU.
           type: string
-          pattern: >-
-            ^arn:aws.*:organizations::\d{12}:ou/o-[a-z0-9]{10,32}/ou-[0-9a-z]{4,32}-[0-9a-z]{8,32}
+          pattern: ^arn:aws.*:organizations::\d{12}:ou/o-[a-z0-9]{10,32}/ou-[0-9a-z]{4,32}-[0-9a-z]{8,32}
         Id:
           description: The unique identifier (ID) associated with this OU.
           type: string
@@ -124,9 +108,7 @@ components:
           minLength: 1
           maxLength: 128
         ParentId:
-          description: >-
-            The unique identifier (ID) of the parent root or OU that you want to
-            create the new OU in.
+          description: The unique identifier (ID) of the parent root or OU that you want to create the new OU in.
           type: string
           pattern: ^(r-[0-9a-z]{4,32})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
           maxLength: 100
@@ -151,10 +133,7 @@ components:
           minLength: 1
           maxLength: 128
         Type:
-          description: >-
-            The type of policy to create. You can specify one of the following
-            values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY,
-            SERVICE_CONTROL_POLICY, TAG_POLICY
+          description: 'The type of policy to create. You can specify one of the following values: AISERVICES_OPT_OUT_POLICY, BACKUP_POLICY, SERVICE_CONTROL_POLICY, TAG_POLICY'
           type: string
           enum:
             - SERVICE_CONTROL_POLICY
@@ -169,9 +148,7 @@ components:
           type: string
           maxLength: 512
         TargetIds:
-          description: >-
-            List of unique identifiers (IDs) of the root, OU, or account that
-            you want to attach the policy to
+          description: List of unique identifiers (IDs) of the root, OU, or account that you want to attach the policy to
           type: array
           x-insertionOrder: false
           uniqueItems: true
@@ -179,11 +156,7 @@ components:
             type: string
             pattern: ^(r-[0-9a-z]{4,32})|(\d{12})|(ou-[0-9a-z]{4,32}-[a-z0-9]{8,32})$
         Tags:
-          description: >-
-            A list of tags that you want to attach to the newly created policy.
-            For each tag in the list, you must specify both a tag key and a
-            value. You can set the value to an empty string, but you can't set
-            it to null.
+          description: A list of tags that you want to attach to the newly created policy. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to null.
           type: array
           uniqueItems: true
           x-insertionOrder: false
@@ -197,13 +170,9 @@ components:
         Arn:
           description: ARN of the Policy
           type: string
-          pattern: >-
-            ^arn:aws.*:organizations::[0-9]{12}:policy/o-[a-z0-9]{10}/(service_control|tag|backup|aiservices_opt_out)_policy/p-[a-z0-9]{8}
+          pattern: ^arn:aws.*:organizations::[0-9]{12}:policy/o-[a-z0-9]{10}/(service_control|tag|backup|aiservices_opt_out)_policy/p-[a-z0-9]{8}
         AwsManaged:
-          description: >-
-            A boolean value that indicates whether the specified policy is an
-            AWS managed policy. If true, then you can attach the policy to
-            roots, OUs, or accounts, but you cannot edit it.
+          description: A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.
           type: boolean
       required:
         - Name
@@ -221,8 +190,7 @@ components:
         Arn:
           description: The Amazon Resource Name (ARN) of the resource policy.
           type: string
-          pattern: >-
-            ^arn:aws.*:organizations::\d{12}:resourcepolicy\/o-[a-z0-9]{10,32}\/rp-[0-9a-zA-Z_]{4,128}
+          pattern: ^arn:aws.*:organizations::\d{12}:resourcepolicy\/o-[a-z0-9]{10,32}\/rp-[0-9a-zA-Z_]{4,128}
         Content:
           type: string
         Tags:
@@ -243,31 +211,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AccountName') as account_name,
-
               JSON_EXTRACT(Properties, '$.Email') as email,
-
               JSON_EXTRACT(Properties, '$.RoleName') as role_name,
-
               JSON_EXTRACT(Properties, '$.ParentIds') as parent_ids,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.JoinedMethod') as joined_method,
-
               JSON_EXTRACT(Properties, '$.JoinedTimestamp') as joined_timestamp,
-
               JSON_EXTRACT(Properties, '$.Status') as status
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Organizations::Account' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::Account' ;
   - OrganizationalUnit:
       name: OrganizationalUnit
       id: aws.organizations.OrganizationalUnit
@@ -275,21 +231,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.ParentId') as parent_id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Organizations::OrganizationalUnit' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::OrganizationalUnit' ;
   - Policy:
       name: Policy
       id: aws.organizations.Policy
@@ -297,29 +246,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Type') as type,
-
               JSON_EXTRACT(Properties, '$.Content') as content,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.TargetIds') as target_ids,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.AwsManaged') as aws_managed
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Organizations::Policy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::Policy' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.organizations.ResourcePolicy
@@ -327,16 +265,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Content') as content,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Organizations::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::ResourcePolicy' ;

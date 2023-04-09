@@ -21,8 +21,7 @@ components:
           pattern: '[a-z0-9]{26}'
         Arn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
+          pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
         Name:
           type: string
           description: 'The name of the application. '
@@ -46,8 +45,7 @@ components:
           pattern: '[a-z0-9]{12}'
         Arn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/attribute-groups/[a-z0-9]+
+          pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/attribute-groups/[a-z0-9]+
         Name:
           type: string
           description: 'The name of the attribute group. '
@@ -83,12 +81,10 @@ components:
           pattern: \w+|[a-z0-9]{12}
         ApplicationArn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
+          pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
         AttributeGroupArn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/attribute-groups/[a-z0-9]+
+          pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/attribute-groups/[a-z0-9]+
         Id:
           type: string
       required:
@@ -107,8 +103,7 @@ components:
         Resource:
           type: string
           description: The name or the Id of the Resource.
-          pattern: >-
-            \w+|arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}
+          pattern: \w+|arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}
         ResourceType:
           type: string
           description: The type of the CFN Resource for now it's enum CFN_STACK.
@@ -116,12 +111,10 @@ components:
             - CFN_STACK
         ApplicationArn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
+          pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/applications/[a-z0-9]+
         ResourceArn:
           type: string
-          pattern: >-
-            arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}
+          pattern: arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}
         Id:
           type: string
       required:
@@ -137,20 +130,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Description') as description
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application' ;
   - AttributeGroup:
       name: AttributeGroup
       id: aws.servicecatalogappregistry.AttributeGroup
@@ -158,22 +144,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Attributes') as attributes
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::ServiceCatalogAppRegistry::AttributeGroup' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroup' ;
   - AttributeGroupAssociation:
       name: AttributeGroupAssociation
       id: aws.servicecatalogappregistry.AttributeGroupAssociation
@@ -181,23 +159,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Application') as application,
-
               JSON_EXTRACT(Properties, '$.AttributeGroup') as attribute_group,
-
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
-
-              JSON_EXTRACT(Properties, '$.AttributeGroupArn') as
-              attribute_group_arn,
-
+              JSON_EXTRACT(Properties, '$.AttributeGroupArn') as attribute_group_arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation' ;
   - ResourceAssociation:
       name: ResourceAssociation
       id: aws.servicecatalogappregistry.ResourceAssociation
@@ -205,21 +174,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Application') as application,
-
               JSON_EXTRACT(Properties, '$.Resource') as resource,
-
               JSON_EXTRACT(Properties, '$.ResourceType') as resource_type,
-
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::ServiceCatalogAppRegistry::ResourceAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation' ;

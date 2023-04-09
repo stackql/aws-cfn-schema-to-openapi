@@ -6,9 +6,7 @@ paths: {}
 components:
   schemas:
     EgressEndpoint:
-      description: >-
-        The endpoint URL used to access an Asset using one
-        PackagingConfiguration.
+      description: The endpoint URL used to access an Asset using one PackagingConfiguration.
       type: object
       additionalProperties: false
       properties:
@@ -110,10 +108,7 @@ components:
       additionalProperties: false
       properties:
         LogGroupName:
-          description: >-
-            Sets a custom AWS CloudWatch log group name for egress logs. If a
-            log group name isn't specified, the default name is used:
-            /aws/MediaPackage/VodEgressAccessLogs.
+          description: 'Sets a custom AWS CloudWatch log group name for egress logs. If a log group name isn''t specified, the default name is used: /aws/MediaPackage/VodEgressAccessLogs.'
           type: string
           pattern: \A\/aws\/MediaPackage\/[0-9a-zA-Z-_\/\.#]+\Z
           minLength: 1
@@ -189,13 +184,7 @@ components:
         Encryption:
           $ref: '#/components/schemas/DashEncryption'
         PeriodTriggers:
-          description: >-
-            A list of triggers that controls when the outgoing Dynamic Adaptive
-            Streaming over HTTP (DASH) Media Presentation Description (MPD) will
-            be partitioned into multiple periods. If empty, the content will not
-            be partitioned into more than one period. If the list contains
-            "ADS", new periods will be created where the Asset contains SCTE-35
-            ad markers.
+          description: A list of triggers that controls when the outgoing Dynamic Adaptive Streaming over HTTP (DASH) Media Presentation Description (MPD) will be partitioned into multiple periods. If empty, the content will not be partitioned into more than one period. If the list contains "ADS", new periods will be created where the Asset contains SCTE-35 ad markers.
           type: array
           items:
             type: string
@@ -204,27 +193,14 @@ components:
         SegmentDurationSeconds:
           $ref: '#/components/schemas/SegmentDurationSeconds'
         SegmentTemplateFormat:
-          description: >-
-            Determines the type of SegmentTemplate included in the Media
-            Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a
-            full timeline is presented in each SegmentTemplate, with $Number$
-            media URLs. When set to TIME_WITH_TIMELINE, a full timeline is
-            presented in each SegmentTemplate, with $Time$ media URLs. When set
-            to NUMBER_WITH_DURATION, only a duration is included in each
-            SegmentTemplate, with $Number$ media URLs.
+          description: Determines the type of SegmentTemplate included in the Media Presentation Description (MPD). When set to NUMBER_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Number$ media URLs. When set to TIME_WITH_TIMELINE, a full timeline is presented in each SegmentTemplate, with $Time$ media URLs. When set to NUMBER_WITH_DURATION, only a duration is included in each SegmentTemplate, with $Number$ media URLs.
           type: string
           enum:
             - NUMBER_WITH_TIMELINE
             - TIME_WITH_TIMELINE
             - NUMBER_WITH_DURATION
         IncludeEncoderConfigurationInSegments:
-          description: >-
-            When includeEncoderConfigurationInSegments is set to true,
-            MediaPackage places your encoder's Sequence Parameter Set (SPS),
-            Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata
-            in every video segment instead of in the init fragment. This lets
-            you use different SPS/PPS/VPS settings for your assets during
-            content playback.
+          description: When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback.
           type: boolean
         IncludeIframeOnlyStream:
           description: When enabled, an I-Frame only stream will be included in the output.
@@ -245,14 +221,10 @@ components:
       additionalProperties: false
       properties:
         CdnIdentifierSecret:
-          description: >-
-            The Amazon Resource Name (ARN) for the secret in AWS Secrets Manager
-            that is used for CDN authorization.
+          description: The Amazon Resource Name (ARN) for the secret in AWS Secrets Manager that is used for CDN authorization.
           type: string
         SecretsRoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) for the IAM role that allows
-            MediaPackage to communicate with AWS Secrets Manager.
+          description: The Amazon Resource Name (ARN) for the IAM role that allows MediaPackage to communicate with AWS Secrets Manager.
           type: string
       required:
         - CdnIdentifierSecret
@@ -270,16 +242,12 @@ components:
           items:
             $ref: '#/components/schemas/HlsManifest'
         IncludeDvbSubtitles:
-          description: >-
-            When enabled, MediaPackage passes through digital video broadcasting
-            (DVB) subtitles into the output.
+          description: When enabled, MediaPackage passes through digital video broadcasting (DVB) subtitles into the output.
           type: boolean
         SegmentDurationSeconds:
           $ref: '#/components/schemas/SegmentDurationSeconds'
         UseAudioRenditionGroup:
-          description: >-
-            When enabled, audio streams will be placed in rendition groups in
-            the output.
+          description: When enabled, audio streams will be placed in rendition groups in the output.
           type: boolean
       required:
         - HlsManifests
@@ -316,13 +284,7 @@ components:
         SegmentDurationSeconds:
           $ref: '#/components/schemas/SegmentDurationSeconds'
         IncludeEncoderConfigurationInSegments:
-          description: >-
-            When includeEncoderConfigurationInSegments is set to true,
-            MediaPackage places your encoder's Sequence Parameter Set (SPS),
-            Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata
-            in every video segment instead of in the init fragment. This lets
-            you use different SPS/PPS/VPS settings for your assets during
-            content playback.
+          description: When includeEncoderConfigurationInSegments is set to true, MediaPackage places your encoder's Sequence Parameter Set (SPS), Picture Parameter Set (PPS), and Video Parameter Set (VPS) metadata in every video segment instead of in the init fragment. This lets you use different SPS/PPS/VPS settings for your assets during content playback.
           type: boolean
       required:
         - HlsManifests
@@ -341,14 +303,7 @@ components:
       additionalProperties: false
       properties:
         AdMarkers:
-          description: >-
-            This setting controls how ad markers are included in the packaged
-            OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the
-            output. "PASSTHROUGH" causes the manifest to contain a copy of the
-            SCTE-35 ad markers (comments) taken directly from the input HTTP
-            Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad
-            markers and blackout tags based on SCTE-35 messages in the input
-            source.
+          description: This setting controls how ad markers are included in the packaged OriginEndpoint. "NONE" will omit all SCTE-35 ad markers from the output. "PASSTHROUGH" causes the manifest to contain a copy of the SCTE-35 ad markers (comments) taken directly from the input HTTP Live Streaming (HLS) manifest. "SCTE35_ENHANCED" generates ad markers and blackout tags based on SCTE-35 messages in the input source.
           type: string
           enum:
             - NONE
@@ -361,20 +316,11 @@ components:
           $ref: '#/components/schemas/ManifestName'
         ProgramDateTimeIntervalSeconds:
           description: >-
-            The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag
-            inserted into manifests. Additionally, when an interval is specified
-            ID3Timed Metadata messages will be generated every 5 seconds using
-            the ingest time of the content. If the interval is not specified, or
-            set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into
-            manifests and no ID3Timed Metadata messages will be generated. Note
-            that irrespective of this parameter, if any ID3 Timed Metadata is
-            found in HTTP Live Streaming (HLS) input, it will be passed through
-            to HLS output.
+            The interval (in seconds) between each EXT-X-PROGRAM-DATE-TIME tag inserted into manifests. Additionally, when an interval is specified ID3Timed Metadata messages will be generated every 5 seconds using the ingest time of the content. If the interval is not specified, or set to 0, then no EXT-X-PROGRAM-DATE-TIME tags will be inserted into manifests and no ID3Timed Metadata messages will be generated. Note that irrespective of this parameter, if any ID3 Timed Metadata is found in HTTP
+            Live Streaming (HLS) input, it will be passed through to HLS output.
           type: integer
         RepeatExtXKey:
-          description: >-
-            When enabled, the EXT-X-KEY tag will be repeated in output
-            manifests.
+          description: When enabled, the EXT-X-KEY tag will be repeated in output manifests.
           type: boolean
         StreamSelection:
           $ref: '#/components/schemas/StreamSelection'
@@ -397,9 +343,7 @@ components:
             - VIDEO_BITRATE_ASCENDING
             - VIDEO_BITRATE_DESCENDING
     SpekeKeyProvider:
-      description: >-
-        A configuration for accessing an external Secure Packager and Encoder
-        Key Exchange (SPEKE) service that will provide encryption keys.
+      description: A configuration for accessing an external Secure Packager and Encoder Key Exchange (SPEKE) service that will provide encryption keys.
       type: object
       additionalProperties: false
       properties:
@@ -420,9 +364,7 @@ components:
         - SystemIds
         - Url
     EncryptionContractConfiguration:
-      description: >-
-        The configuration to use for encrypting one or more content tracks
-        separately for endpoints that use SPEKE 2.0.
+      description: The configuration to use for encrypting one or more content tracks separately for endpoints that use SPEKE 2.0.
       type: object
       additionalProperties: false
       required:
@@ -454,17 +396,8 @@ components:
             - UNENCRYPTED
     AdsOnDeliveryRestrictions:
       description: >-
-        This setting allows the delivery restriction flags on SCTE-35
-        segmentation descriptors to determine whether a message signals an ad. 
-        Choosing "NONE" means no SCTE-35 messages become ads.  Choosing
-        "RESTRICTED" means SCTE-35 messages of the types specified in AdTriggers
-        that contain delivery restrictions will be treated as ads.  Choosing
-        "UNRESTRICTED" means SCTE-35 messages of the types specified in
-        AdTriggers that do not contain delivery restrictions will be treated as
-        ads.  Choosing "BOTH" means all SCTE-35 messages of the types specified
-        in AdTriggers will be treated as ads.  Note that Splice Insert messages
-        do not have these flags and are always treated as ads if specified in
-        AdTriggers.
+        This setting allows the delivery restriction flags on SCTE-35 segmentation descriptors to determine whether a message signals an ad.  Choosing "NONE" means no SCTE-35 messages become ads.  Choosing "RESTRICTED" means SCTE-35 messages of the types specified in AdTriggers that contain delivery restrictions will be treated as ads.  Choosing "UNRESTRICTED" means SCTE-35 messages of the types specified in AdTriggers that do not contain delivery restrictions will be treated as ads.  Choosing
+        "BOTH" means all SCTE-35 messages of the types specified in AdTriggers will be treated as ads.  Note that Splice Insert messages do not have these flags and are always treated as ads if specified in AdTriggers.
       type: string
       enum:
         - NONE
@@ -493,34 +426,21 @@ components:
           description: A short text description of the OriginEndpoint.
           type: string
         Whitelist:
-          description: >-
-            A list of source IP CIDR blocks that will be allowed to access the
-            OriginEndpoint.
+          description: A list of source IP CIDR blocks that will be allowed to access the OriginEndpoint.
           type: array
           items:
             type: string
         StartoverWindowSeconds:
-          description: >-
-            Maximum duration (seconds) of content to retain for startover
-            playback. If not specified, startover playback will be disabled for
-            the OriginEndpoint.
+          description: Maximum duration (seconds) of content to retain for startover playback. If not specified, startover playback will be disabled for the OriginEndpoint.
           type: integer
         TimeDelaySeconds:
-          description: >-
-            Amount of delay (seconds) to enforce on the playback of live
-            content. If not specified, there will be no time delay in effect for
-            the OriginEndpoint.
+          description: Amount of delay (seconds) to enforce on the playback of live content. If not specified, there will be no time delay in effect for the OriginEndpoint.
           type: integer
         ManifestName:
           description: A short string appended to the end of the OriginEndpoint URL.
           type: string
         Origination:
-          description: >-
-            Control whether origination of video is allowed for this
-            OriginEndpoint. If set to ALLOW, the OriginEndpoint may by
-            requested, pursuant to any other form of access control. If set to
-            DENY, the OriginEndpoint may not be requested. This can be helpful
-            for Live to VOD harvesting, or for temporarily disabling origination
+          description: Control whether origination of video is allowed for this OriginEndpoint. If set to ALLOW, the OriginEndpoint may by requested, pursuant to any other form of access control. If set to DENY, the OriginEndpoint may not be requested. This can be helpful for Live to VOD harvesting, or for temporarily disabling origination
           type: string
           enum:
             - ALLOW
@@ -546,14 +466,10 @@ components:
         - ChannelId
       x-stackql-resource-name: OriginEndpoint
     RoleArn:
-      description: >-
-        An Amazon Resource Name (ARN) of an IAM role that AWS Elemental
-        MediaPackage will assume when accessing the key provider service.
+      description: An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service.
       type: string
     SegmentDurationSeconds:
-      description: >-
-        Duration (in seconds) of each fragment. Actual fragments will be rounded
-        to the nearest multiple of the source fragment duration.
+      description: Duration (in seconds) of each fragment. Actual fragments will be rounded to the nearest multiple of the source fragment duration.
       type: integer
     ManifestName:
       description: An optional string to include in the name of the manifest.
@@ -564,12 +480,7 @@ components:
       additionalProperties: false
       properties:
         ManifestLayout:
-          description: >-
-            Determines the position of some tags in the Media Presentation
-            Description (MPD). When set to FULL, elements like SegmentTemplate
-            and ContentProtection are included in each Representation. When set
-            to COMPACT, duplicate elements are combined and presented at the
-            AdaptationSet level.
+          description: Determines the position of some tags in the Media Presentation Description (MPD). When set to FULL, elements like SegmentTemplate and ContentProtection are included in each Representation. When set to COMPACT, duplicate elements are combined and presented at the AdaptationSet level.
           type: string
           enum:
             - FULL
@@ -577,24 +488,16 @@ components:
         ManifestName:
           $ref: '#/components/schemas/ManifestName'
         MinBufferTimeSeconds:
-          description: >-
-            Minimum duration (in seconds) that a player will buffer media before
-            starting the presentation.
+          description: Minimum duration (in seconds) that a player will buffer media before starting the presentation.
           type: integer
         Profile:
-          description: >-
-            The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When
-            set to "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
+          description: The Dynamic Adaptive Streaming over HTTP (DASH) profile type. When set to "HBBTV_1_5", HbbTV 1.5 compliant output is enabled.
           type: string
           enum:
             - NONE
             - HBBTV_1_5
         ScteMarkersSource:
-          description: >-
-            The source of scte markers used. When set to SEGMENTS, the scte
-            markers are sourced from the segments of the ingested content. When
-            set to MANIFEST, the scte markers are sourced from the manifest of
-            the ingested content.
+          description: The source of scte markers used. When set to SEGMENTS, the scte markers are sourced from the segments of the ingested content. When set to MANIFEST, the scte markers are sourced from the manifest of the ingested content.
           type: string
           enum:
             - SEGMENTS
@@ -626,9 +529,7 @@ components:
           description: A CMAF packaging configuration.
           $ref: '#/components/schemas/CmafPackage'
         DashPackage:
-          description: >-
-            A Dynamic Adaptive Streaming over HTTP (DASH) packaging
-            configuration.
+          description: A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.
           $ref: '#/components/schemas/DashPackage'
         HlsPackage:
           description: An HTTP Live Streaming (HLS) packaging configuration.
@@ -684,30 +585,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.EgressEndpoints') as egress_endpoints,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.PackagingGroupId') as
-              packaging_group_id,
-
+              JSON_EXTRACT(Properties, '$.PackagingGroupId') as packaging_group_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
-
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
-
               JSON_EXTRACT(Properties, '$.SourceRoleArn') as source_role_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::MediaPackage::Asset' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaPackage::Asset' ;
   - Channel:
       name: Channel
       id: aws.mediapackage.Channel
@@ -715,28 +604,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.HlsIngest.ingestEndpoints') as
-              hls_ingestingest_endpoints,
-
+              JSON_EXTRACT(Properties, '$.HlsIngest.ingestEndpoints') as hls_ingestingest_endpoints,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as
-              egress_access_logs_log_group_name,
-
-              JSON_EXTRACT(Properties, '$.IngressAccessLogs.LogGroupName') as
-              ingress_access_logs_log_group_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::MediaPackage::Channel' ;
+              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name,
+              JSON_EXTRACT(Properties, '$.IngressAccessLogs.LogGroupName') as ingress_access_logs_log_group_name
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaPackage::Channel' ;
   - OriginEndpoint:
       name: OriginEndpoint
       id: aws.mediapackage.OriginEndpoint
@@ -744,100 +621,41 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Url') as url,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.ChannelId') as channel_id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Whitelist') as whitelist,
-
-              JSON_EXTRACT(Properties, '$.StartoverWindowSeconds') as
-              startover_window_seconds,
-
-              JSON_EXTRACT(Properties, '$.TimeDelaySeconds') as
-              time_delay_seconds,
-
+              JSON_EXTRACT(Properties, '$.StartoverWindowSeconds') as startover_window_seconds,
+              JSON_EXTRACT(Properties, '$.TimeDelaySeconds') as time_delay_seconds,
               JSON_EXTRACT(Properties, '$.ManifestName') as manifest_name,
-
               JSON_EXTRACT(Properties, '$.Origination') as origination,
-
-              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as
-              authorization_cdn_identifier_secret,
-
-              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as
-              authorization_secrets_role_arn,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as
-              hls_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as
-              hls_package_hls_manifests,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as
-              hls_package_include_dvb_subtitles,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as
-              hls_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as
-              hls_package_use_audio_rendition_group,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as
-              dash_package_dash_manifests,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as
-              dash_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as
-              dash_package_period_triggers,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds')
-              as dash_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as
-              dash_package_segment_template_format,
-
-              JSON_EXTRACT(Properties,
-              '$.DashPackage.IncludeEncoderConfigurationInSegments') as
-              dash_package_include_encoder_configuration_in_segments,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream')
-              as dash_package_include_iframe_only_stream,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as
-              mss_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as
-              mss_package_mss_manifests,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as
-              mss_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as
-              cmaf_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as
-              cmaf_package_hls_manifests,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds')
-              as cmaf_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties,
-              '$.CmafPackage.IncludeEncoderConfigurationInSegments') as
-              cmaf_package_include_encoder_configuration_in_segments,
-
+              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as authorization_cdn_identifier_secret,
+              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as authorization_secrets_role_arn,
+              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as hls_package_encryption,
+              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as hls_package_hls_manifests,
+              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as hls_package_include_dvb_subtitles,
+              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as hls_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as hls_package_use_audio_rendition_group,
+              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as dash_package_dash_manifests,
+              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as dash_package_encryption,
+              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as dash_package_period_triggers,
+              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds') as dash_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as dash_package_segment_template_format,
+              JSON_EXTRACT(Properties, '$.DashPackage.IncludeEncoderConfigurationInSegments') as dash_package_include_encoder_configuration_in_segments,
+              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream') as dash_package_include_iframe_only_stream,
+              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as mss_package_encryption,
+              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as mss_package_mss_manifests,
+              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as mss_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as cmaf_package_encryption,
+              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as cmaf_package_hls_manifests,
+              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds') as cmaf_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.CmafPackage.IncludeEncoderConfigurationInSegments') as cmaf_package_include_encoder_configuration_in_segments,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::MediaPackage::OriginEndpoint' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaPackage::OriginEndpoint' ;
   - PackagingConfiguration:
       name: PackagingConfiguration
       id: aws.mediapackage.PackagingConfiguration
@@ -845,79 +663,32 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.PackagingGroupId') as
-              packaging_group_id,
-
+              JSON_EXTRACT(Properties, '$.PackagingGroupId') as packaging_group_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as
-              cmaf_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as
-              cmaf_package_hls_manifests,
-
-              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds')
-              as cmaf_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties,
-              '$.CmafPackage.IncludeEncoderConfigurationInSegments') as
-              cmaf_package_include_encoder_configuration_in_segments,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as
-              dash_package_dash_manifests,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as
-              dash_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as
-              dash_package_period_triggers,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds')
-              as dash_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as
-              dash_package_segment_template_format,
-
-              JSON_EXTRACT(Properties,
-              '$.DashPackage.IncludeEncoderConfigurationInSegments') as
-              dash_package_include_encoder_configuration_in_segments,
-
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream')
-              as dash_package_include_iframe_only_stream,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as
-              hls_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as
-              hls_package_hls_manifests,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as
-              hls_package_include_dvb_subtitles,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as
-              hls_package_segment_duration_seconds,
-
-              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as
-              hls_package_use_audio_rendition_group,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as
-              mss_package_encryption,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as
-              mss_package_mss_manifests,
-
-              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as
-              mss_package_segment_duration_seconds,
-
+              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as cmaf_package_encryption,
+              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as cmaf_package_hls_manifests,
+              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds') as cmaf_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.CmafPackage.IncludeEncoderConfigurationInSegments') as cmaf_package_include_encoder_configuration_in_segments,
+              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as dash_package_dash_manifests,
+              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as dash_package_encryption,
+              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as dash_package_period_triggers,
+              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds') as dash_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as dash_package_segment_template_format,
+              JSON_EXTRACT(Properties, '$.DashPackage.IncludeEncoderConfigurationInSegments') as dash_package_include_encoder_configuration_in_segments,
+              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream') as dash_package_include_iframe_only_stream,
+              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as hls_package_encryption,
+              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as hls_package_hls_manifests,
+              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as hls_package_include_dvb_subtitles,
+              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as hls_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as hls_package_use_audio_rendition_group,
+              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as mss_package_encryption,
+              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as mss_package_mss_manifests,
+              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as mss_package_segment_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::MediaPackage::PackagingConfiguration' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaPackage::PackagingConfiguration' ;
   - PackagingGroup:
       name: PackagingGroup
       id: aws.mediapackage.PackagingGroup
@@ -925,25 +696,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-
-              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as
-              authorization_cdn_identifier_secret,
-
-              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as
-              authorization_secrets_role_arn,
-
+              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as authorization_cdn_identifier_secret,
+              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as authorization_secrets_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as
-              egress_access_logs_log_group_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::MediaPackage::PackagingGroup' ;
+              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaPackage::PackagingGroup' ;

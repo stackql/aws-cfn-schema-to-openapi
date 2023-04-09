@@ -101,8 +101,7 @@ components:
       type: string
       minLength: 1
       maxLength: 1284
-      pattern: >-
-        arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^/].{0,1023}
+      pattern: arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^/].{0,1023}
     DataSourceVpcConfiguration:
       type: object
       properties:
@@ -270,11 +269,9 @@ components:
         IncludedStates:
           $ref: '#/components/schemas/SalesforceKnowledgeArticleStateList'
         StandardKnowledgeArticleTypeConfiguration:
-          $ref: >-
-            #/components/schemas/SalesforceStandardKnowledgeArticleTypeConfiguration
+          $ref: '#/components/schemas/SalesforceStandardKnowledgeArticleTypeConfiguration'
         CustomKnowledgeArticleTypeConfigurations:
-          $ref: >-
-            #/components/schemas/SalesforceCustomKnowledgeArticleTypeConfigurationList
+          $ref: '#/components/schemas/SalesforceCustomKnowledgeArticleTypeConfigurationList'
       additionalProperties: false
       required:
         - IncludedStates
@@ -1074,8 +1071,7 @@ components:
       type: string
       minLength: 1
       maxLength: 1284
-      pattern: >-
-        arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^/].{0,1023}
+      pattern: arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^/].{0,1023}
     Schedule:
       description: Schedule
       type: string
@@ -1540,69 +1536,23 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.S3Configuration') as
-              data_source_configuration_s3_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.SharePointConfiguration') as
-              data_source_configuration_share_point_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.SalesforceConfiguration') as
-              data_source_configuration_salesforce_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.OneDriveConfiguration') as
-              data_source_configuration_one_drive_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.ServiceNowConfiguration') as
-              data_source_configuration_service_now_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.DatabaseConfiguration') as
-              data_source_configuration_database_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.ConfluenceConfiguration') as
-              data_source_configuration_confluence_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.GoogleDriveConfiguration') as
-              data_source_configuration_google_drive_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.WebCrawlerConfiguration') as
-              data_source_configuration_web_crawler_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DataSourceConfiguration.WorkDocsConfiguration') as
-              data_source_configuration_work_docs_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.CustomDocumentEnrichmentConfiguration.InlineConfigurations') as
-              custom_document_enrichment_configuration_inline_configurations,
-
-              JSON_EXTRACT(Properties,
-              '$.CustomDocumentEnrichmentConfiguration.PreExtractionHookConfiguration')
-              as
-              custom_document_enrichment_configuration_pre_extraction_hook_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.CustomDocumentEnrichmentConfiguration.PostExtractionHookConfiguration')
-              as
-              custom_document_enrichment_configuration_post_extraction_hook_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.CustomDocumentEnrichmentConfiguration.RoleArn') as
-              custom_document_enrichment_configuration_role_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kendra::DataSource' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.S3Configuration') as data_source_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SharePointConfiguration') as data_source_configuration_share_point_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SalesforceConfiguration') as data_source_configuration_salesforce_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.OneDriveConfiguration') as data_source_configuration_one_drive_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.ServiceNowConfiguration') as data_source_configuration_service_now_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.DatabaseConfiguration') as data_source_configuration_database_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.ConfluenceConfiguration') as data_source_configuration_confluence_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.GoogleDriveConfiguration') as data_source_configuration_google_drive_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.WebCrawlerConfiguration') as data_source_configuration_web_crawler_configuration,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.WorkDocsConfiguration') as data_source_configuration_work_docs_configuration,
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.InlineConfigurations') as custom_document_enrichment_configuration_inline_configurations,
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PreExtractionHookConfiguration') as custom_document_enrichment_configuration_pre_extraction_hook_configuration,
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PostExtractionHookConfiguration') as custom_document_enrichment_configuration_post_extraction_hook_configuration,
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.RoleArn') as custom_document_enrichment_configuration_role_arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::DataSource' ;
   - Faq:
       name: Faq
       id: aws.kendra.Faq
@@ -1610,17 +1560,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.S3Path.Bucket') as s3_path_bucket,
-
               JSON_EXTRACT(Properties, '$.S3Path.Key') as s3_path_key,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kendra::Faq' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::Faq' ;
   - Index:
       name: Index
       id: aws.kendra.Index
@@ -1628,18 +1573,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.ServerSideEncryptionConfiguration.KmsKeyId') as
-              server_side_encryption_configuration_kms_key_id,
-
-              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits')
-              as capacity_units_rescore_capacity_units
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kendra::Index' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
+              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::Index' ;
   - ExecutionPlan:
       name: ExecutionPlan
       id: aws.kendra.ExecutionPlan
@@ -1647,11 +1585,7 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits')
-              as capacity_units_rescore_capacity_units
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Kendra::ExecutionPlan' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::ExecutionPlan' ;

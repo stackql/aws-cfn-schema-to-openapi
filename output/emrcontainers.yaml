@@ -49,18 +49,10 @@ components:
       additionalProperties: false
       properties:
         Key:
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 127
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           type: string
         Value:
-          description: >-
-            The value for the tag. You can specify a value that is 1 to 255
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           type: string
       required:
         - Value
@@ -103,25 +95,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Type') as
-              container_provider_type,
-
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Id') as
-              container_provider_id,
-
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Info') as
-              container_provider_info,
-
+              JSON_EXTRACT(Properties, '$.ContainerProvider.Type') as container_provider_type,
+              JSON_EXTRACT(Properties, '$.ContainerProvider.Id') as container_provider_id,
+              JSON_EXTRACT(Properties, '$.ContainerProvider.Info') as container_provider_info,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::EMRContainers::VirtualCluster' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EMRContainers::VirtualCluster' ;

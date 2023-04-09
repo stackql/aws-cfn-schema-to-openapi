@@ -29,10 +29,7 @@ components:
       type: object
       properties:
         Name:
-          description: >-
-            The name of the data catalog to create. The catalog name must be
-            unique for the AWS account and can use a maximum of 128
-            alphanumeric, underscore, at sign, or hyphen characters. 
+          description: 'The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters. '
           type: string
           minLength: 1
           maxLength: 256
@@ -42,10 +39,7 @@ components:
           minLength: 1
           maxLength: 1024
         Parameters:
-          description: >-
-            Specifies the Lambda function or functions to use for creating the
-            data catalog. This is a mapping whose values depend on the catalog
-            type. 
+          description: 'Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type. '
           type: object
           x-patternProperties:
             .*:
@@ -53,14 +47,10 @@ components:
               maxLength: 51200
           additionalProperties: false
         Tags:
-          description: >-
-            A list of comma separated tags to add to the data catalog that is
-            created. 
+          description: 'A list of comma separated tags to add to the data catalog that is created. '
           $ref: '#/components/schemas/Tags'
         Type:
-          description: >-
-            The type of data catalog to create: LAMBDA for a federated catalog,
-            GLUE for AWS Glue Catalog, or HIVE for an external hive metastore. 
+          description: 'The type of data catalog to create: LAMBDA for a federated catalog, GLUE for AWS Glue Catalog, or HIVE for an external hive metastore. '
           type: string
           enum:
             - LAMBDA
@@ -134,20 +124,10 @@ components:
         - QueryStatement
       x-stackql-resource-name: PreparedStatement
     SelectedEngineVersion:
-      description: >-
-        The engine version requested by the user. Possible values are determined
-        by the output of ListEngineVersions, including Auto. The default is
-        Auto.
+      description: The engine version requested by the user. Possible values are determined by the output of ListEngineVersions, including Auto. The default is Auto.
       type: string
     EffectiveEngineVersion:
-      description: >-
-        Read only. The engine version on which the query runs. If the user
-        requests a valid engine version other than Auto, the effective engine
-        version is the same as the engine version that the user requested. If
-        the user requests Auto, the effective engine version is chosen by
-        Athena. When a request to update the engine version is made by a
-        CreateWorkGroup or UpdateWorkGroup operation, the EffectiveEngineVersion
-        field is ignored.
+      description: Read only. The engine version on which the query runs. If the user requests a valid engine version other than Auto, the effective engine version is the same as the engine version that the user requested. If the user requests Auto, the effective engine version is chosen by Athena. When a request to update the engine version is made by a CreateWorkGroup or UpdateWorkGroup operation, the EffectiveEngineVersion field is ignored.
       type: string
     EngineVersion:
       description: The Athena engine version for running queries.
@@ -159,46 +139,27 @@ components:
           $ref: '#/components/schemas/EffectiveEngineVersion'
       additionalProperties: false
     BytesScannedCutoffPerQuery:
-      description: >-
-        The upper data usage limit (cutoff) for the amount of bytes a single
-        query in a workgroup is allowed to scan.
+      description: The upper data usage limit (cutoff) for the amount of bytes a single query in a workgroup is allowed to scan.
       type: integer
       format: int64
       minimum: 10000000
     EnforceWorkGroupConfiguration:
-      description: >-
-        If set to "true", the settings for the workgroup override client-side
-        settings. If set to "false", client-side settings are used
+      description: If set to "true", the settings for the workgroup override client-side settings. If set to "false", client-side settings are used
       type: boolean
     PublishCloudWatchMetricsEnabled:
-      description: >-
-        Indicates that the Amazon CloudWatch metrics are enabled for the
-        workgroup.
+      description: Indicates that the Amazon CloudWatch metrics are enabled for the workgroup.
       type: boolean
     RequesterPaysEnabled:
-      description: >-
-        If set to true, allows members assigned to a workgroup to reference
-        Amazon S3 Requester Pays buckets in queries. If set to false, workgroup
-        members cannot query data from Requester Pays buckets, and queries that
-        retrieve data from Requester Pays buckets cause an error. 
+      description: 'If set to true, allows members assigned to a workgroup to reference Amazon S3 Requester Pays buckets in queries. If set to false, workgroup members cannot query data from Requester Pays buckets, and queries that retrieve data from Requester Pays buckets cause an error. '
       type: boolean
     OutputLocation:
-      description: >-
-        The location in Amazon S3 where your query results are stored, such as
-        s3://path/to/query/bucket/. To run the query, you must specify the query
-        results location using one of the ways: either for individual queries
-        using either this setting (client-side), or in the workgroup, using
-        WorkGroupConfiguration
+      description: 'The location in Amazon S3 where your query results are stored, such as s3://path/to/query/bucket/. To run the query, you must specify the query results location using one of the ways: either for individual queries using either this setting (client-side), or in the workgroup, using WorkGroupConfiguration'
       type: string
     KmsKey:
       description: 'For SSE-KMS and CSE-KMS, this is the KMS key ARN or ID. '
       type: string
     EncryptionOption:
-      description: >-
-        Indicates whether Amazon S3 server-side encryption with Amazon
-        S3-managed keys (SSE-S3), server-side encryption with KMS-managed keys
-        (SSE-KMS), or client-side encryption with KMS-managed keys (CSE-KMS) is
-        used.
+      description: Indicates whether Amazon S3 server-side encryption with Amazon S3-managed keys (SSE-S3), server-side encryption with KMS-managed keys (SSE-KMS), or client-side encryption with KMS-managed keys (CSE-KMS) is used.
       type: string
       enum:
         - SSE_S3
@@ -208,9 +169,7 @@ components:
       description: Indicates that the data usage control limit per query is removed.
       type: boolean
     EncryptionConfiguration:
-      description: >-
-        If query results are encrypted in Amazon S3, indicates the encryption
-        option used (for example, SSE-KMS or CSE-KMS) and key information.
+      description: If query results are encrypted in Amazon S3, indicates the encryption option used (for example, SSE-KMS or CSE-KMS) and key information.
       type: object
       properties:
         EncryptionOption:
@@ -223,9 +182,7 @@ components:
     RemoveEncryptionConfiguration:
       type: boolean
     AdditionalConfiguration:
-      description: >-
-        Additional Configuration that are passed to Athena Spark Calculations
-        running in this workgroup
+      description: Additional Configuration that are passed to Athena Spark Calculations running in this workgroup
       type: string
     ExecutionRole:
       description: Execution Role ARN required to run Athena Spark Calculations
@@ -233,24 +190,17 @@ components:
     RemoveOutputLocation:
       type: boolean
     ExpectedBucketOwner:
-      description: >-
-        The AWS account ID of the owner of S3 bucket where query results are
-        stored
+      description: The AWS account ID of the owner of S3 bucket where query results are stored
       type: string
     RemoveExpectedBucketOwner:
       type: boolean
     S3AclOption:
-      description: >-
-        The Amazon S3 canned ACL that Athena should specify when storing query
-        results. Currently the only supported canned ACL is
-        BUCKET_OWNER_FULL_CONTROL
+      description: The Amazon S3 canned ACL that Athena should specify when storing query results. Currently the only supported canned ACL is BUCKET_OWNER_FULL_CONTROL
       type: string
       enum:
         - BUCKET_OWNER_FULL_CONTROL
     AclConfiguration:
-      description: >-
-        Indicates that an Amazon S3 canned ACL should be set to control
-        ownership of stored query results
+      description: Indicates that an Amazon S3 canned ACL should be set to control ownership of stored query results
       type: object
       properties:
         S3AclOption:
@@ -272,11 +222,8 @@ components:
     RemoveCustomerContentEncryptionConfiguration:
       type: boolean
     ResultConfiguration:
-      description: >
-        The location in Amazon S3 where query results are stored and the
-        encryption option, if any, used for query results. These are known as
-        "client-side settings". If workgroup settings override client-side
-        settings, then the query uses the workgroup settings.
+      description: |
+        The location in Amazon S3 where query results are stored and the encryption option, if any, used for query results. These are known as "client-side settings". If workgroup settings override client-side settings, then the query uses the workgroup settings.
       type: object
       properties:
         EncryptionConfiguration:
@@ -289,10 +236,7 @@ components:
           $ref: '#/components/schemas/AclConfiguration'
       additionalProperties: false
     ResultConfigurationUpdates:
-      description: >-
-        The result configuration information about the queries in this workgroup
-        that will be updated. Includes the updated results location and an
-        updated option for encrypting query results. 
+      description: 'The result configuration information about the queries in this workgroup that will be updated. Includes the updated results location and an updated option for encrypting query results. '
       type: object
       properties:
         EncryptionConfiguration:
@@ -336,13 +280,7 @@ components:
       additionalProperties: false
     WorkGroupConfigurationUpdates:
       type: object
-      description: >-
-        The configuration information that will be updated for this workgroup,
-        which includes the location in Amazon S3 where query results are stored,
-        the encryption option, if any, used for query results, whether the
-        Amazon CloudWatch Metrics are enabled for the workgroup, whether the
-        workgroup settings override the client-side settings, and the data usage
-        limit for the amount of bytes scanned per query, if it is specified. 
+      description: 'The configuration information that will be updated for this workgroup, which includes the location in Amazon S3 where query results are stored, the encryption option, if any, used for query results, whether the Amazon CloudWatch Metrics are enabled for the workgroup, whether the workgroup settings override the client-side settings, and the data usage limit for the amount of bytes scanned per query, if it is specified. '
       properties:
         BytesScannedCutoffPerQuery:
           $ref: '#/components/schemas/BytesScannedCutoffPerQuery'
@@ -380,9 +318,7 @@ components:
           minLength: 0
           maxLength: 1024
         Tags:
-          description: >-
-            One or more tags, separated by commas, that you want to attach to
-            the workgroup as you create it
+          description: One or more tags, separated by commas, that you want to attach to the workgroup as you create it
           $ref: '#/components/schemas/Tags'
         WorkGroupConfiguration:
           description: The workgroup configuration
@@ -400,9 +336,7 @@ components:
             - ENABLED
             - DISABLED
         RecursiveDeleteOption:
-          description: >-
-            The option to delete the workgroup and its contents even if the
-            workgroup contains any named queries.
+          description: The option to delete the workgroup and its contents even if the workgroup contains any named queries.
           type: boolean
       required:
         - Name
@@ -415,19 +349,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
-
               JSON_EXTRACT(Properties, '$.Type') as type
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Athena::DataCatalog' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::DataCatalog' ;
   - NamedQuery:
       name: NamedQuery
       id: aws.athena.NamedQuery
@@ -435,23 +363,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Database') as database,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
-
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
-
               JSON_EXTRACT(Properties, '$.NamedQueryId') as named_query_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Athena::NamedQuery' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::NamedQuery' ;
   - PreparedStatement:
       name: PreparedStatement
       id: aws.athena.PreparedStatement
@@ -459,19 +379,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.StatementName') as statement_name,
-
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.QueryStatement') as query_statement
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Athena::PreparedStatement' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::PreparedStatement' ;
   - WorkGroup:
       name: WorkGroup
       id: aws.athena.WorkGroup
@@ -479,103 +393,31 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.BytesScannedCutoffPerQuery') as
-              work_group_configuration_bytes_scanned_cutoff_per_query,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.EnforceWorkGroupConfiguration') as
-              work_group_configuration_enforce_work_group_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.PublishCloudWatchMetricsEnabled') as
-              work_group_configuration_publish_cloud_watch_metrics_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.RequesterPaysEnabled') as
-              work_group_configuration_requester_pays_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.ResultConfiguration') as
-              work_group_configuration_result_configuration,
-
-              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.EngineVersion')
-              as work_group_configuration_engine_version,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.AdditionalConfiguration') as
-              work_group_configuration_additional_configuration,
-
-              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.ExecutionRole')
-              as work_group_configuration_execution_role,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfiguration.CustomerContentEncryptionConfiguration')
-              as
-              work_group_configuration_customer_content_encryption_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.BytesScannedCutoffPerQuery') as
-              work_group_configuration_updates_bytes_scanned_cutoff_per_query,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.EnforceWorkGroupConfiguration')
-              as
-              work_group_configuration_updates_enforce_work_group_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.PublishCloudWatchMetricsEnabled')
-              as
-              work_group_configuration_updates_publish_cloud_watch_metrics_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.RequesterPaysEnabled') as
-              work_group_configuration_updates_requester_pays_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.ResultConfigurationUpdates') as
-              work_group_configuration_updates_result_configuration_updates,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.RemoveBytesScannedCutoffPerQuery')
-              as
-              work_group_configuration_updates_remove_bytes_scanned_cutoff_per_query,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.EngineVersion') as
-              work_group_configuration_updates_engine_version,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.AdditionalConfiguration') as
-              work_group_configuration_updates_additional_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.ExecutionRole') as
-              work_group_configuration_updates_execution_role,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.CustomerContentEncryptionConfiguration')
-              as
-              work_group_configuration_updates_customer_content_encryption_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.WorkGroupConfigurationUpdates.RemoveCustomerContentEncryptionConfiguration')
-              as
-              work_group_configuration_updates_remove_customer_content_encryption_configuration,
-
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.BytesScannedCutoffPerQuery') as work_group_configuration_bytes_scanned_cutoff_per_query,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.EnforceWorkGroupConfiguration') as work_group_configuration_enforce_work_group_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.PublishCloudWatchMetricsEnabled') as work_group_configuration_publish_cloud_watch_metrics_enabled,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.RequesterPaysEnabled') as work_group_configuration_requester_pays_enabled,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.ResultConfiguration') as work_group_configuration_result_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.EngineVersion') as work_group_configuration_engine_version,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.AdditionalConfiguration') as work_group_configuration_additional_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.ExecutionRole') as work_group_configuration_execution_role,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.CustomerContentEncryptionConfiguration') as work_group_configuration_customer_content_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.BytesScannedCutoffPerQuery') as work_group_configuration_updates_bytes_scanned_cutoff_per_query,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.EnforceWorkGroupConfiguration') as work_group_configuration_updates_enforce_work_group_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.PublishCloudWatchMetricsEnabled') as work_group_configuration_updates_publish_cloud_watch_metrics_enabled,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.RequesterPaysEnabled') as work_group_configuration_updates_requester_pays_enabled,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.ResultConfigurationUpdates') as work_group_configuration_updates_result_configuration_updates,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.RemoveBytesScannedCutoffPerQuery') as work_group_configuration_updates_remove_bytes_scanned_cutoff_per_query,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.EngineVersion') as work_group_configuration_updates_engine_version,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.AdditionalConfiguration') as work_group_configuration_updates_additional_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.ExecutionRole') as work_group_configuration_updates_execution_role,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.CustomerContentEncryptionConfiguration') as work_group_configuration_updates_customer_content_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.WorkGroupConfigurationUpdates.RemoveCustomerContentEncryptionConfiguration') as work_group_configuration_updates_remove_customer_content_encryption_configuration,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
-              JSON_EXTRACT(Properties, '$.RecursiveDeleteOption') as
-              recursive_delete_option
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Athena::WorkGroup' ;
+              JSON_EXTRACT(Properties, '$.RecursiveDeleteOption') as recursive_delete_option
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::WorkGroup' ;

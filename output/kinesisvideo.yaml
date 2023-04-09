@@ -11,20 +11,12 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. Specify a value that is 1 to 128 Unicode
-            characters in length and cannot be prefixed with aws:. The following
-            characters can be used: the set of Unicode letters, digits,
-            whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. Specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. Specify a value that is 0 to 256 Unicode
-            characters in length and cannot be prefixed with aws:. The following
-            characters can be used: the set of Unicode letters, digits,
-            whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. Specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. The following characters can be used: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 0
           maxLength: 256
       required:
@@ -35,9 +27,7 @@ components:
       type: object
       properties:
         Arn:
-          description: >-
-            The Amazon Resource Name (ARN) of the Kinesis Video Signaling
-            Channel.
+          description: The Amazon Resource Name (ARN) of the Kinesis Video Signaling Channel.
           type: string
         Name:
           description: The name of the Kinesis Video Signaling Channel.
@@ -46,16 +36,12 @@ components:
           maxLength: 256
           pattern: '[a-zA-Z0-9_.-]+'
         Type:
-          description: >-
-            The type of the Kinesis Video Signaling Channel to create.
-            Currently, SINGLE_MASTER is the only supported channel type.
+          description: The type of the Kinesis Video Signaling Channel to create. Currently, SINGLE_MASTER is the only supported channel type.
           type: string
           enum:
             - SINGLE_MASTER
         MessageTtlSeconds:
-          description: >-
-            The period of time a signaling channel retains undelivered messages
-            before they are discarded.
+          description: The period of time a signaling channel retains undelivered messages before they are discarded.
           type: integer
           minimum: 5
           maximum: 120
@@ -83,9 +69,7 @@ components:
           maxLength: 256
           pattern: '[a-zA-Z0-9_.-]+'
         DataRetentionInHours:
-          description: >-
-            The number of hours till which Kinesis Video will retain the data in
-            the stream
+          description: The number of hours till which Kinesis Video will retain the data in the stream
           type: integer
           minimum: 0
           maximum: 87600
@@ -96,25 +80,19 @@ components:
           maxLength: 128
           pattern: '[a-zA-Z0-9_.-]+'
         KmsKeyId:
-          description: >-
-            AWS KMS key ID that Kinesis Video Streams uses to encrypt stream
-            data.
+          description: AWS KMS key ID that Kinesis Video Streams uses to encrypt stream data.
           type: string
           minLength: 1
           maxLength: 2048
           pattern: .+
         MediaType:
-          description: >-
-            The media type of the stream. Consumers of the stream can use this
-            information when processing the stream.
+          description: The media type of the stream. Consumers of the stream can use this information when processing the stream.
           type: string
           minLength: 1
           maxLength: 128
           pattern: '[\w\-\.\+]+/[\w\-\.\+]+(,[\w\-\.\+]+/[\w\-\.\+]+)*'
         Tags:
-          description: >-
-            An array of key-value pairs associated with the Kinesis Video
-            Stream.
+          description: An array of key-value pairs associated with the Kinesis Video Stream.
           type: array
           uniqueItems: false
           x-insertionOrder: false
@@ -132,22 +110,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Type') as type,
-
-              JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as
-              message_ttl_seconds,
-
+              JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::KinesisVideo::SignalingChannel' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KinesisVideo::SignalingChannel' ;
   - Stream:
       name: Stream
       id: aws.kinesisvideo.Stream
@@ -155,23 +125,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.DataRetentionInHours') as
-              data_retention_in_hours,
-
+              JSON_EXTRACT(Properties, '$.DataRetentionInHours') as data_retention_in_hours,
               JSON_EXTRACT(Properties, '$.DeviceName') as device_name,
-
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::KinesisVideo::Stream' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KinesisVideo::Stream' ;

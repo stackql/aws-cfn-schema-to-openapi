@@ -17,21 +17,15 @@ components:
           maxLength: 512
           pattern: ^[^:*]{1,512}$
         DestinationPolicy:
-          description: >-
-            An IAM policy document that governs which AWS accounts can create
-            subscription filters against this destination.
+          description: An IAM policy document that governs which AWS accounts can create subscription filters against this destination.
           type: string
           minLength: 1
         RoleArn:
-          description: >-
-            The ARN of an IAM role that permits CloudWatch Logs to send data to
-            the specified AWS resource
+          description: The ARN of an IAM role that permits CloudWatch Logs to send data to the specified AWS resource
           type: string
           minLength: 1
         TargetArn:
-          description: >-
-            The ARN of the physical target where the log events are delivered
-            (for example, a Kinesis stream)
+          description: The ARN of the physical target where the log events are delivered (for example, a Kinesis stream)
           type: string
           minLength: 1
       required:
@@ -46,20 +40,12 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., :, /, =, +, - and @.
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 0 to 256
-            Unicode characters in length. You can use any of the following
-            characters: the set of Unicode letters, digits, whitespace, _, ., :,
-            /, =, +, - and @.
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
           minLength: 0
           maxLength: 256
       required:
@@ -78,9 +64,7 @@ components:
           description: The name of the log group where the log stream is created.
         LogStreamName:
           type: string
-          description: >-
-            The name of the log stream. The name must be unique wihtin the log
-            group.
+          description: The name of the log stream. The name must be unique wihtin the log group.
       required:
         - LogGroupName
       x-stackql-resource-name: LogStream
@@ -106,39 +90,29 @@ components:
       type: object
       properties:
         DefaultValue:
-          description: >-
-            The value to emit when a filter pattern does not match a log event.
-            This value can be null.
+          description: The value to emit when a filter pattern does not match a log event. This value can be null.
           type: number
         MetricName:
-          description: >-
-            The name of the CloudWatch metric. Metric name must be in ASCII
-            format.
+          description: The name of the CloudWatch metric. Metric name must be in ASCII format.
           type: string
           minLength: 1
           maxLength: 255
           pattern: ^((?![:*$])[\x00-\x7F]){1,255}
         MetricNamespace:
-          x-$comment: >-
-            Namespaces can be up to 256 characters long; valid characters
-            include 0-9A-Za-z.-_/#
+          x-$comment: Namespaces can be up to 256 characters long; valid characters include 0-9A-Za-z.-_/#
           description: The namespace of the CloudWatch metric.
           type: string
           minLength: 1
           maxLength: 256
           pattern: ^[0-9a-zA-Z\.\-_\/#]{1,256}
         MetricValue:
-          description: >-
-            The value to publish to the CloudWatch metric when a filter pattern
-            matches a log event.
+          description: The value to publish to the CloudWatch metric when a filter pattern matches a log event.
           type: string
           pattern: .{1,100}
           minLength: 1
           maxLength: 100
         Unit:
-          description: >-
-            The unit to assign to the metric. If you omit this, the unit is set
-            as None.
+          description: The unit to assign to the metric. If you omit this, the unit is set as None.
           type: string
           enum:
             - Seconds
@@ -202,9 +176,7 @@ components:
           maxLength: 512
           pattern: ^[.\-_/#A-Za-z0-9]{1,512}
         MetricTransformations:
-          description: >-
-            A collection of information that defines how metric data gets
-            emitted.
+          description: A collection of information that defines how metric data gets emitted.
           type: array
           minItems: 1
           maxItems: 1
@@ -230,9 +202,7 @@ components:
           minLength: 1
           maxLength: 10000
         LogGroupNames:
-          description: >-
-            Optionally define specific log groups as part of your query
-            definition
+          description: Optionally define specific log groups as part of your query definition
           type: array
           x-insertionOrder: false
           items:
@@ -276,26 +246,16 @@ components:
           description: The Amazon Resource Name (ARN) of the destination.
           type: string
         FilterPattern:
-          description: >-
-            The filtering expressions that restrict what gets delivered to the
-            destination AWS resource.
+          description: The filtering expressions that restrict what gets delivered to the destination AWS resource.
           type: string
         LogGroupName:
           description: Existing log group that you want to associate with this filter.
           type: string
         RoleArn:
-          description: >-
-            The ARN of an IAM role that grants CloudWatch Logs permissions to
-            deliver ingested log events to the destination stream. You don't
-            need to provide the ARN when you are working with a logical
-            destination for cross-account delivery.
+          description: The ARN of an IAM role that grants CloudWatch Logs permissions to deliver ingested log events to the destination stream. You don't need to provide the ARN when you are working with a logical destination for cross-account delivery.
           type: string
         Distribution:
-          description: >-
-            The method used to distribute log data to the destination. By
-            default, log data is grouped by log stream, but the grouping can be
-            set to random for a more even distribution. This property is only
-            applicable when the destination is an Amazon Kinesis stream.
+          description: The method used to distribute log data to the destination. By default, log data is grouped by log stream, but the grouping can be set to random for a more even distribution. This property is only applicable when the destination is an Amazon Kinesis stream.
           type: string
           enum:
             - Random
@@ -313,22 +273,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.DestinationName') as destination_name,
-
-              JSON_EXTRACT(Properties, '$.DestinationPolicy') as
-              destination_policy,
-
+              JSON_EXTRACT(Properties, '$.DestinationPolicy') as destination_policy,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::Destination' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::Destination' ;
   - LogStream:
       name: LogStream
       id: aws.logs.LogStream
@@ -336,15 +288,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
-
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::LogStream' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::LogStream' ;
   - MetricFilter:
       name: MetricFilter
       id: aws.logs.MetricFilter
@@ -352,20 +300,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
-
               JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
-
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
-
-              JSON_EXTRACT(Properties, '$.MetricTransformations') as
-              metric_transformations
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::MetricFilter' ;
+              JSON_EXTRACT(Properties, '$.MetricTransformations') as metric_transformations
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::MetricFilter' ;
   - QueryDefinition:
       name: QueryDefinition
       id: aws.logs.QueryDefinition
@@ -373,20 +314,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
-
               JSON_EXTRACT(Properties, '$.LogGroupNames') as log_group_names,
-
-              JSON_EXTRACT(Properties, '$.QueryDefinitionId') as
-              query_definition_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::QueryDefinition' ;
+              JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::QueryDefinition' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.logs.ResourcePolicy
@@ -394,15 +328,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::ResourcePolicy' ;
   - SubscriptionFilter:
       name: SubscriptionFilter
       id: aws.logs.SubscriptionFilter
@@ -410,20 +340,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
-
               JSON_EXTRACT(Properties, '$.DestinationArn') as destination_arn,
-
               JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
-
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Distribution') as distribution
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Logs::SubscriptionFilter' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::SubscriptionFilter' ;

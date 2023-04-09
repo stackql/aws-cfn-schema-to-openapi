@@ -20,19 +20,13 @@ components:
       type: object
       properties:
         ApplicationName:
-          description: >-
-            A name for the application. If you don't specify a name, AWS
-            CloudFormation generates a unique physical ID and uses that ID for
-            the application name.
+          description: A name for the application. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the application name.
           type: string
         ComputePlatform:
           description: The compute platform that CodeDeploy deploys the application to.
           type: string
         Tags:
-          description: >-
-            The metadata that you apply to CodeDeploy applications to help you
-            organize and categorize them. Each tag consists of a key and an
-            optional value, both of which you define. 
+          description: 'The metadata that you apply to CodeDeploy applications to help you organize and categorize them. Each tag consists of a key and an optional value, both of which you define. '
           type: array
           items:
             $ref: '#/components/schemas/Tag'
@@ -88,27 +82,16 @@ components:
       type: object
       properties:
         ComputePlatform:
-          description: >-
-            The destination platform type for the deployment (Lambda, Server, or
-            ECS).
+          description: The destination platform type for the deployment (Lambda, Server, or ECS).
           type: string
         DeploymentConfigName:
-          description: >-
-            A name for the deployment configuration. If you don't specify a
-            name, AWS CloudFormation generates a unique physical ID and uses
-            that ID for the deployment configuration name. For more information,
-            see Name Type.
+          description: A name for the deployment configuration. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the deployment configuration name. For more information, see Name Type.
           type: string
         MinimumHealthyHosts:
-          description: >-
-            The minimum number of healthy instances that should be available at
-            any time during the deployment. There are two parameters expected in
-            the input: type and value.
+          description: 'The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.'
           $ref: '#/components/schemas/MinimumHealthyHosts'
         TrafficRoutingConfig:
-          description: >-
-            The configuration that specifies how the deployment traffic is
-            routed.
+          description: The configuration that specifies how the deployment traffic is routed.
           $ref: '#/components/schemas/TrafficRoutingConfig'
       x-stackql-resource-name: DeploymentConfig
     OnPremisesTagSet:
@@ -437,17 +420,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodeDeploy::Application' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::Application' ;
   - DeploymentConfig:
       name: DeploymentConfig
       id: aws.codedeploy.DeploymentConfig
@@ -455,31 +433,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
-
-              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as
-              deployment_config_name,
-
-              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Value') as
-              minimum_healthy_hosts_value,
-
-              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Type') as
-              minimum_healthy_hosts_type,
-
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.Type') as
-              traffic_routing_config_type,
-
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedLinear')
-              as traffic_routing_config_time_based_linear,
-
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedCanary')
-              as traffic_routing_config_time_based_canary
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodeDeploy::DeploymentConfig' ;
+              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
+              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Value') as minimum_healthy_hosts_value,
+              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Type') as minimum_healthy_hosts_type,
+              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.Type') as traffic_routing_config_type,
+              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedLinear') as traffic_routing_config_time_based_linear,
+              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedCanary') as traffic_routing_config_time_based_canary
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::DeploymentConfig' ;
   - DeploymentGroup:
       name: DeploymentGroup
       id: aws.codedeploy.DeploymentGroup
@@ -487,101 +450,36 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.OnPremisesTagSet.OnPremisesTagSetList') as
-              on_premises_tag_set_on_premises_tag_set_list,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.OnPremisesTagSet.OnPremisesTagSetList') as on_premises_tag_set_on_premises_tag_set_list,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-
-              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentOption') as
-              deployment_style_deployment_option,
-
-              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentType') as
-              deployment_style_deployment_type,
-
+              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentOption') as deployment_style_deployment_option,
+              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentType') as deployment_style_deployment_type,
               JSON_EXTRACT(Properties, '$.ServiceRoleArn') as service_role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.BlueGreenDeploymentConfiguration.GreenFleetProvisioningOption')
-              as
-              blue_green_deployment_configuration_green_fleet_provisioning_option,
-
-              JSON_EXTRACT(Properties,
-              '$.BlueGreenDeploymentConfiguration.DeploymentReadyOption') as
-              blue_green_deployment_configuration_deployment_ready_option,
-
-              JSON_EXTRACT(Properties,
-              '$.BlueGreenDeploymentConfiguration.TerminateBlueInstancesOnDeploymentSuccess')
-              as
-              blue_green_deployment_configuration_terminate_blue_instances_on_deployment_success,
-
-              JSON_EXTRACT(Properties, '$.AutoScalingGroups') as
-              auto_scaling_groups,
-
-              JSON_EXTRACT(Properties, '$.Ec2TagSet.Ec2TagSetList') as
-              ec2_tag_set_ec2_tag_set_list,
-
-              JSON_EXTRACT(Properties, '$.OutdatedInstancesStrategy') as
-              outdated_instances_strategy,
-
-              JSON_EXTRACT(Properties, '$.TriggerConfigurations') as
-              trigger_configurations,
-
-              JSON_EXTRACT(Properties, '$.Deployment.Description') as
-              deployment_description,
-
-              JSON_EXTRACT(Properties, '$.Deployment.Revision') as
-              deployment_revision,
-
-              JSON_EXTRACT(Properties,
-              '$.Deployment.IgnoreApplicationStopFailures') as
-              deployment_ignore_application_stop_failures,
-
-              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as
-              deployment_config_name,
-
-              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Alarms') as
-              alarm_configuration_alarms,
-
-              JSON_EXTRACT(Properties,
-              '$.AlarmConfiguration.IgnorePollAlarmFailure') as
-              alarm_configuration_ignore_poll_alarm_failure,
-
-              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Enabled') as
-              alarm_configuration_enabled,
-
+              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.GreenFleetProvisioningOption') as blue_green_deployment_configuration_green_fleet_provisioning_option,
+              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.DeploymentReadyOption') as blue_green_deployment_configuration_deployment_ready_option,
+              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.TerminateBlueInstancesOnDeploymentSuccess') as blue_green_deployment_configuration_terminate_blue_instances_on_deployment_success,
+              JSON_EXTRACT(Properties, '$.AutoScalingGroups') as auto_scaling_groups,
+              JSON_EXTRACT(Properties, '$.Ec2TagSet.Ec2TagSetList') as ec2_tag_set_ec2_tag_set_list,
+              JSON_EXTRACT(Properties, '$.OutdatedInstancesStrategy') as outdated_instances_strategy,
+              JSON_EXTRACT(Properties, '$.TriggerConfigurations') as trigger_configurations,
+              JSON_EXTRACT(Properties, '$.Deployment.Description') as deployment_description,
+              JSON_EXTRACT(Properties, '$.Deployment.Revision') as deployment_revision,
+              JSON_EXTRACT(Properties, '$.Deployment.IgnoreApplicationStopFailures') as deployment_ignore_application_stop_failures,
+              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
+              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Alarms') as alarm_configuration_alarms,
+              JSON_EXTRACT(Properties, '$.AlarmConfiguration.IgnorePollAlarmFailure') as alarm_configuration_ignore_poll_alarm_failure,
+              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Enabled') as alarm_configuration_enabled,
               JSON_EXTRACT(Properties, '$.Ec2TagFilters') as ec2_tag_filters,
-
               JSON_EXTRACT(Properties, '$.ECSServices') as e_cs_services,
-
-              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Events') as
-              auto_rollback_configuration_events,
-
-              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Enabled') as
-              auto_rollback_configuration_enabled,
-
-              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.TargetGroupInfoList')
-              as load_balancer_info_target_group_info_list,
-
-              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.ElbInfoList') as
-              load_balancer_info_elb_info_list,
-
-              JSON_EXTRACT(Properties,
-              '$.LoadBalancerInfo.TargetGroupPairInfoList') as
-              load_balancer_info_target_group_pair_info_list,
-
+              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Events') as auto_rollback_configuration_events,
+              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Enabled') as auto_rollback_configuration_enabled,
+              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.TargetGroupInfoList') as load_balancer_info_target_group_info_list,
+              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.ElbInfoList') as load_balancer_info_elb_info_list,
+              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.TargetGroupPairInfoList') as load_balancer_info_target_group_pair_info_list,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.DeploymentGroupName') as
-              deployment_group_name,
-
+              JSON_EXTRACT(Properties, '$.DeploymentGroupName') as deployment_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.OnPremisesInstanceTagFilters') as
-              on_premises_instance_tag_filters
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodeDeploy::DeploymentGroup' ;
+              JSON_EXTRACT(Properties, '$.OnPremisesInstanceTagFilters') as on_premises_instance_tag_filters
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::DeploymentGroup' ;

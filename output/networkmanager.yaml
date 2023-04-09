@@ -29,18 +29,10 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 0 to 256
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
       required:
         - Key
         - Value
@@ -254,9 +246,7 @@ components:
           description: The ARN (Amazon resource name) of core network
           type: string
         PolicyDocument:
-          description: >-
-            Live policy document for the core network, you must provide
-            PolicyDocument in Json Format
+          description: Live policy document for the core network, you must provide PolicyDocument in Json Format
           type: object
         Description:
           description: The description of core network
@@ -479,9 +469,7 @@ components:
       type: object
       properties:
         CoreNetworkId:
-          description: >-
-            The ID of a core network where you're creating a site-to-site VPN
-            attachment.
+          description: The ID of a core network where you're creating a site-to-site VPN attachment.
           type: string
         CoreNetworkArn:
           description: The ARN of a core network for the VPC attachment.
@@ -536,19 +524,13 @@ components:
       type: object
       properties:
         CoreNetworkId:
-          description: >-
-            The Id of the core network that you want to peer a transit gateway
-            to.
+          description: The Id of the core network that you want to peer a transit gateway to.
           type: string
         CoreNetworkArn:
-          description: >-
-            The ARN (Amazon Resource Name) of the core network that you want to
-            peer a transit gateway to.
+          description: The ARN (Amazon Resource Name) of the core network that you want to peer a transit gateway to.
           type: string
         TransitGatewayArn:
-          description: >-
-            The ARN (Amazon Resource Name) of the transit gateway that you will
-            peer to a core network
+          description: The ARN (Amazon Resource Name) of the transit gateway that you will peer to a core network
           type: string
         TransitGatewayPeeringAttachmentId:
           description: The ID of the TransitGatewayPeeringAttachment
@@ -563,9 +545,7 @@ components:
           description: The location of the transit gateway peering
           type: string
         ResourceArn:
-          description: >-
-            The ARN (Amazon Resource Name) of the resource that you will peer to
-            a core network
+          description: The ARN (Amazon Resource Name) of the resource that you will peer to a core network
           type: string
         OwnerAccountId:
           description: Peering owner account Id
@@ -610,9 +590,7 @@ components:
           description: The Arn of transit gateway route table.
           type: string
         CoreNetworkId:
-          description: >-
-            The ID of a core network where you're creating a site-to-site VPN
-            attachment.
+          description: The ID of a core network where you're creating a site-to-site VPN attachment.
           type: string
         CoreNetworkArn:
           description: The ARN of a core network for the VPC attachment.
@@ -666,15 +644,11 @@ components:
       type: object
       properties:
         Ipv6Support:
-          description: >-
-            Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid
-            Values: enable | disable
+          description: 'Indicates whether to enable Ipv6 Support for Vpc Attachment. Valid Values: enable | disable'
           type: boolean
           default: false
         ApplianceModeSupport:
-          description: >-
-            Indicates whether to enable ApplianceModeSupport Support for Vpc
-            Attachment. Valid Values: true | false
+          description: 'Indicates whether to enable ApplianceModeSupport Support for Vpc Attachment. Valid Values: true | false'
           type: boolean
           default: false
       additionalProperties: false
@@ -751,53 +725,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
-
               JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
-
               JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
-              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
-              attachment_policy_rule_number,
-
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
-              proposed_segment_change_tags,
-
-              JSON_EXTRACT(Properties,
-              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
-              proposed_segment_change_attachment_policy_rule_number,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
-              proposed_segment_change_segment_name,
-
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
-
-              JSON_EXTRACT(Properties, '$.TransportAttachmentId') as
-              transport_attachment_id,
-
+              JSON_EXTRACT(Properties, '$.TransportAttachmentId') as transport_attachment_id,
               JSON_EXTRACT(Properties, '$.Options.Protocol') as options_protocol
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
   - ConnectPeer:
       name: ConnectPeer
       id: aws.networkmanager.ConnectPeer
@@ -805,52 +753,25 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.PeerAddress') as peer_address,
-
-              JSON_EXTRACT(Properties, '$.CoreNetworkAddress') as
-              core_network_address,
-
-              JSON_EXTRACT(Properties, '$.BgpOptions.PeerAsn') as
-              bgp_options_peer_asn,
-
-              JSON_EXTRACT(Properties, '$.InsideCidrBlocks') as
-              inside_cidr_blocks,
-
+              JSON_EXTRACT(Properties, '$.CoreNetworkAddress') as core_network_address,
+              JSON_EXTRACT(Properties, '$.BgpOptions.PeerAsn') as bgp_options_peer_asn,
+              JSON_EXTRACT(Properties, '$.InsideCidrBlocks') as inside_cidr_blocks,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
-              JSON_EXTRACT(Properties, '$.ConnectAttachmentId') as
-              connect_attachment_id,
-
+              JSON_EXTRACT(Properties, '$.ConnectAttachmentId') as connect_attachment_id,
               JSON_EXTRACT(Properties, '$.ConnectPeerId') as connect_peer_id,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
-              JSON_EXTRACT(Properties, '$.Configuration.CoreNetworkAddress') as
-              configuration_core_network_address,
-
-              JSON_EXTRACT(Properties, '$.Configuration.PeerAddress') as
-              configuration_peer_address,
-
-              JSON_EXTRACT(Properties, '$.Configuration.InsideCidrBlocks') as
-              configuration_inside_cidr_blocks,
-
-              JSON_EXTRACT(Properties, '$.Configuration.Protocol') as
-              configuration_protocol,
-
-              JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as
-              configuration_bgp_configurations,
-
+              JSON_EXTRACT(Properties, '$.Configuration.CoreNetworkAddress') as configuration_core_network_address,
+              JSON_EXTRACT(Properties, '$.Configuration.PeerAddress') as configuration_peer_address,
+              JSON_EXTRACT(Properties, '$.Configuration.InsideCidrBlocks') as configuration_inside_cidr_blocks,
+              JSON_EXTRACT(Properties, '$.Configuration.Protocol') as configuration_protocol,
+              JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as configuration_bgp_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
   - CoreNetwork:
       name: CoreNetwork
       id: aws.networkmanager.CoreNetwork
@@ -858,34 +779,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.Segments') as segments,
-
               JSON_EXTRACT(Properties, '$.Edges') as edges,
-
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
   - CustomerGatewayAssociation:
       name: CustomerGatewayAssociation
       id: aws.networkmanager.CustomerGatewayAssociation
@@ -893,22 +800,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
-              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as
-              customer_gateway_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_arn,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
-
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::NetworkManager::CustomerGatewayAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation' ;
   - Device:
       name: Device
       id: aws.networkmanager.Device
@@ -916,41 +814,22 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.DeviceArn') as device_arn,
-
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
-              JSON_EXTRACT(Properties, '$.Location.Address') as
-              location_address,
-
-              JSON_EXTRACT(Properties, '$.Location.Latitude') as
-              location_latitude,
-
-              JSON_EXTRACT(Properties, '$.Location.Longitude') as
-              location_longitude,
-
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
+              JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
+              JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude,
               JSON_EXTRACT(Properties, '$.Model') as model,
-
               JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
-
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
-
               JSON_EXTRACT(Properties, '$.Type') as type,
-
               JSON_EXTRACT(Properties, '$.Vendor') as vendor
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::Device' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Device' ;
   - GlobalNetwork:
       name: GlobalNetwork
       id: aws.networkmanager.GlobalNetwork
@@ -958,19 +837,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
   - Link:
       name: Link
       id: aws.networkmanager.Link
@@ -978,34 +851,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.LinkArn') as link_arn,
-
               JSON_EXTRACT(Properties, '$.LinkId') as link_id,
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
-
-              JSON_EXTRACT(Properties, '$.Bandwidth.DownloadSpeed') as
-              bandwidth_download_speed,
-
-              JSON_EXTRACT(Properties, '$.Bandwidth.UploadSpeed') as
-              bandwidth_upload_speed,
-
+              JSON_EXTRACT(Properties, '$.Bandwidth.DownloadSpeed') as bandwidth_download_speed,
+              JSON_EXTRACT(Properties, '$.Bandwidth.UploadSpeed') as bandwidth_upload_speed,
               JSON_EXTRACT(Properties, '$.Provider') as provider,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Type') as type
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::Link' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Link' ;
   - LinkAssociation:
       name: LinkAssociation
       id: aws.networkmanager.LinkAssociation
@@ -1013,18 +871,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
-
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
   - Site:
       name: Site
       id: aws.networkmanager.Site
@@ -1032,31 +884,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.SiteArn') as site_arn,
-
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
-              JSON_EXTRACT(Properties, '$.Location.Address') as
-              location_address,
-
-              JSON_EXTRACT(Properties, '$.Location.Latitude') as
-              location_latitude,
-
-              JSON_EXTRACT(Properties, '$.Location.Longitude') as
-              location_longitude
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::Site' ;
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
+              JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
+              JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Site' ;
   - SiteToSiteVpnAttachment:
       name: SiteToSiteVpnAttachment
       id: aws.networkmanager.SiteToSiteVpnAttachment
@@ -1064,52 +902,26 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
-
               JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
-
               JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
-              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
-              attachment_policy_rule_number,
-
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
-              proposed_segment_change_tags,
-
-              JSON_EXTRACT(Properties,
-              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
-              proposed_segment_change_attachment_policy_rule_number,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
-              proposed_segment_change_segment_name,
-
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
-
-              JSON_EXTRACT(Properties, '$.VpnConnectionArn') as
-              vpn_connection_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
+              JSON_EXTRACT(Properties, '$.VpnConnectionArn') as vpn_connection_arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
   - TransitGatewayPeering:
       name: TransitGatewayPeering
       id: aws.networkmanager.TransitGatewayPeering
@@ -1117,38 +929,21 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
-              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as
-              transit_gateway_arn,
-
-              JSON_EXTRACT(Properties, '$.TransitGatewayPeeringAttachmentId') as
-              transit_gateway_peering_attachment_id,
-
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn,
+              JSON_EXTRACT(Properties, '$.TransitGatewayPeeringAttachmentId') as transit_gateway_peering_attachment_id,
               JSON_EXTRACT(Properties, '$.PeeringId') as peering_id,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
               JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
-
               JSON_EXTRACT(Properties, '$.PeeringType') as peering_type,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering' ;
   - TransitGatewayRegistration:
       name: TransitGatewayRegistration
       id: aws.networkmanager.TransitGatewayRegistration
@@ -1156,18 +951,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as
-              global_network_id,
-
-              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as
-              transit_gateway_arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::NetworkManager::TransitGatewayRegistration' ;
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration' ;
   - TransitGatewayRouteTableAttachment:
       name: TransitGatewayRouteTableAttachment
       id: aws.networkmanager.TransitGatewayRouteTableAttachment
@@ -1175,54 +963,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.PeeringId') as peering_id,
-
-              JSON_EXTRACT(Properties, '$.TransitGatewayRouteTableArn') as
-              transit_gateway_route_table_arn,
-
+              JSON_EXTRACT(Properties, '$.TransitGatewayRouteTableArn') as transit_gateway_route_table_arn,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
-
               JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
-
               JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
-              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
-              attachment_policy_rule_number,
-
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
-              proposed_segment_change_tags,
-
-              JSON_EXTRACT(Properties,
-              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
-              proposed_segment_change_attachment_policy_rule_number,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
-              proposed_segment_change_segment_name,
-
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
   - VpcAttachment:
       name: VpcAttachment
       id: aws.networkmanager.VpcAttachment
@@ -1230,55 +991,26 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
-
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
-
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
-
               JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
-
               JSON_EXTRACT(Properties, '$.AttachmentType') as attachment_type,
-
               JSON_EXTRACT(Properties, '$.State') as state,
-
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
-
               JSON_EXTRACT(Properties, '$.VpcArn') as vpc_arn,
-
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-
-              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as
-              attachment_policy_rule_number,
-
+              JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as
-              proposed_segment_change_tags,
-
-              JSON_EXTRACT(Properties,
-              '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as
-              proposed_segment_change_attachment_policy_rule_number,
-
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as
-              proposed_segment_change_segment_name,
-
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
-
               JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
-
-              JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as
-              options_ipv6_support,
-
-              JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as
-              options_appliance_mode_support
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;
+              JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as options_ipv6_support,
+              JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as options_appliance_mode_support
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;

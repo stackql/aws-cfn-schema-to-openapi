@@ -50,15 +50,11 @@ components:
           items:
             $ref: '#/components/schemas/IpAddress'
         Enabled:
-          description: >-
-            Indicates whether an accelerator is enabled. The value is true or
-            false.
+          description: Indicates whether an accelerator is enabled. The value is true or false.
           default: true
           type: boolean
         DnsName:
-          description: >-
-            The Domain Name System (DNS) name that Global Accelerator creates
-            that points to your accelerator's static IPv4 addresses.
+          description: The Domain Name System (DNS) name that Global Accelerator creates that points to your accelerator's static IPv4 addresses.
           type: string
         Ipv4Addresses:
           description: The IPv4 addresses assigned to the accelerator.
@@ -72,9 +68,7 @@ components:
           items:
             type: string
         DualStackDnsName:
-          description: >-
-            The Domain Name System (DNS) name that Global Accelerator creates
-            that points to your accelerator's static IPv4 and IPv6 addresses.
+          description: The Domain Name System (DNS) name that Global Accelerator creates that points to your accelerator's static IPv4 and IPv6 addresses.
           type: string
         AcceleratorArn:
           description: The Amazon Resource Name (ARN) of the accelerator.
@@ -91,10 +85,7 @@ components:
       type: object
       properties:
         EndpointId:
-          description: >-
-            Id of the endpoint. For Network/Application Load Balancer this value
-            is the ARN.  For EIP, this value is the allocation ID.  For EC2
-            instances, this is the EC2 instance ID
+          description: Id of the endpoint. For Network/Application Load Balancer this value is the ARN.  For EIP, this value is the allocation ID.  For EC2 instances, this is the EC2 instance ID
           type: string
         Weight:
           description: The weight for the endpoint.
@@ -147,17 +138,13 @@ components:
           maximum: 100
           default: 100
         HealthCheckPort:
-          description: >-
-            The port that AWS Global Accelerator uses to check the health of
-            endpoints in this endpoint group.
+          description: The port that AWS Global Accelerator uses to check the health of endpoints in this endpoint group.
           type: integer
           minimum: -1
           maximum: 65535
           default: -1
         HealthCheckProtocol:
-          description: >-
-            The protocol that AWS Global Accelerator uses to check the health of
-            endpoints in this endpoint group.
+          description: The protocol that AWS Global Accelerator uses to check the health of endpoints in this endpoint group.
           type: string
           default: TCP
           enum:
@@ -169,15 +156,11 @@ components:
           type: string
           default: /
         HealthCheckIntervalSeconds:
-          description: >-
-            The time in seconds between each health check for an endpoint. Must
-            be a value of 10 or 30
+          description: The time in seconds between each health check for an endpoint. Must be a value of 10 or 30
           type: integer
           default: 30
         ThresholdCount:
-          description: >-
-            The number of consecutive health checks required to set the state of
-            the endpoint to unhealthy.
+          description: The number of consecutive health checks required to set the state of the endpoint to unhealthy.
           type: integer
           default: 3
         EndpointGroupArn:
@@ -192,9 +175,7 @@ components:
         - EndpointGroupRegion
       x-stackql-resource-name: EndpointGroup
     PortRange:
-      description: >-
-        A port range to support for connections from  clients to your
-        accelerator.
+      description: A port range to support for connections from  clients to your accelerator.
       type: object
       properties:
         FromPort:
@@ -226,9 +207,7 @@ components:
             - TCP
             - UDP
         ClientAffinity:
-          description: >-
-            Client affinity lets you direct all requests from a user to the same
-            endpoint.
+          description: Client affinity lets you direct all requests from a user to the same endpoint.
           type: string
           default: NONE
           enum:
@@ -247,32 +226,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
-
               JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
-
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
-
               JSON_EXTRACT(Properties, '$.DnsName') as dns_name,
-
               JSON_EXTRACT(Properties, '$.Ipv4Addresses') as ipv4_addresses,
-
               JSON_EXTRACT(Properties, '$.Ipv6Addresses') as ipv6_addresses,
-
-              JSON_EXTRACT(Properties, '$.DualStackDnsName') as
-              dual_stack_dns_name,
-
+              JSON_EXTRACT(Properties, '$.DualStackDnsName') as dual_stack_dns_name,
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
   - EndpointGroup:
       name: EndpointGroup
       id: aws.globalaccelerator.EndpointGroup
@@ -280,41 +246,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
-
-              JSON_EXTRACT(Properties, '$.EndpointGroupRegion') as
-              endpoint_group_region,
-
-              JSON_EXTRACT(Properties, '$.EndpointConfigurations') as
-              endpoint_configurations,
-
-              JSON_EXTRACT(Properties, '$.TrafficDialPercentage') as
-              traffic_dial_percentage,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckPort') as
-              health_check_port,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckProtocol') as
-              health_check_protocol,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckPath') as
-              health_check_path,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckIntervalSeconds') as
-              health_check_interval_seconds,
-
+              JSON_EXTRACT(Properties, '$.EndpointGroupRegion') as endpoint_group_region,
+              JSON_EXTRACT(Properties, '$.EndpointConfigurations') as endpoint_configurations,
+              JSON_EXTRACT(Properties, '$.TrafficDialPercentage') as traffic_dial_percentage,
+              JSON_EXTRACT(Properties, '$.HealthCheckPort') as health_check_port,
+              JSON_EXTRACT(Properties, '$.HealthCheckProtocol') as health_check_protocol,
+              JSON_EXTRACT(Properties, '$.HealthCheckPath') as health_check_path,
+              JSON_EXTRACT(Properties, '$.HealthCheckIntervalSeconds') as health_check_interval_seconds,
               JSON_EXTRACT(Properties, '$.ThresholdCount') as threshold_count,
-
-              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as
-              endpoint_group_arn,
-
+              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn,
               JSON_EXTRACT(Properties, '$.PortOverrides') as port_overrides
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
   - Listener:
       name: Listener
       id: aws.globalaccelerator.Listener
@@ -322,18 +267,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
-
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
-
               JSON_EXTRACT(Properties, '$.PortRanges') as port_ranges,
-
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
-
               JSON_EXTRACT(Properties, '$.ClientAffinity') as client_affinity
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::GlobalAccelerator::Listener' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::Listener' ;

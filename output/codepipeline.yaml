@@ -11,9 +11,7 @@ components:
       type: object
       properties:
         Description:
-          description: >-
-            The description of the action configuration property that is
-            displayed to users. 
+          description: 'The description of the action configuration property that is displayed to users. '
           type: string
         Key:
           description: Whether the configuration property is a key.
@@ -23,23 +21,14 @@ components:
           type: string
         Queryable:
           description: >-
-            Indicates that the property is used with PollForJobs. When creating
-            a custom action, an action can have up to one queryable property. If
-            it has one, that property must be both required and not secret.If
-            you create a pipeline with a custom action type, and that custom
-            action contains a queryable property, the value for that
-            configuration property is subject to other restrictions. The value
-            must be less than or equal to twenty (20) characters. The value can
-            contain only alphanumeric characters, underscores, and hyphens. 
+            Indicates that the property is used with PollForJobs. When creating a custom action, an action can have up to one queryable property. If it has one, that property must be both required and not secret.If you create a pipeline with a custom action type, and that custom action contains a queryable property, the value for that configuration property is subject to other restrictions. The value must be less than or equal to twenty (20) characters. The value can contain only alphanumeric
+            characters, underscores, and hyphens. 
           type: boolean
         Required:
           description: Whether the configuration property is a required value.
           type: boolean
         Secret:
-          description: >-
-            Whether the configuration property is secret. Secrets are hidden
-            from all calls except for GetJobDetails, GetThirdPartyJobDetails,
-            PollForJobs, and PollForThirdPartyJobs.
+          description: Whether the configuration property is secret. Secrets are hidden from all calls except for GetJobDetails, GetThirdPartyJobDetails, PollForJobs, and PollForThirdPartyJobs.
           type: boolean
         Type:
           description: The type of the configuration property.
@@ -65,38 +54,20 @@ components:
         - MinimumCount
     Settings:
       additionalProperties: false
-      description: >-
-        Settings is a property of the AWS::CodePipeline::CustomActionType
-        resource that provides URLs that users can access to view information
-        about the CodePipeline custom action. 
+      description: 'Settings is a property of the AWS::CodePipeline::CustomActionType resource that provides URLs that users can access to view information about the CodePipeline custom action. '
       type: object
       properties:
         EntityUrlTemplate:
-          description: >-
-            The URL returned to the AWS CodePipeline console that provides a
-            deep link to the resources of the external system, such as the
-            configuration page for an AWS CodeDeploy deployment group. This link
-            is provided as part of the action display in the pipeline. 
+          description: 'The URL returned to the AWS CodePipeline console that provides a deep link to the resources of the external system, such as the configuration page for an AWS CodeDeploy deployment group. This link is provided as part of the action display in the pipeline. '
           type: string
         ExecutionUrlTemplate:
-          description: >-
-            The URL returned to the AWS CodePipeline console that contains a
-            link to the top-level landing page for the external system, such as
-            the console page for AWS CodeDeploy. This link is shown on the
-            pipeline view page in the AWS CodePipeline console and provides a
-            link to the execution entity of the external action. 
+          description: 'The URL returned to the AWS CodePipeline console that contains a link to the top-level landing page for the external system, such as the console page for AWS CodeDeploy. This link is shown on the pipeline view page in the AWS CodePipeline console and provides a link to the execution entity of the external action. '
           type: string
         RevisionUrlTemplate:
-          description: >-
-            The URL returned to the AWS CodePipeline console that contains a
-            link to the page where customers can update or change the
-            configuration of the external action. 
+          description: 'The URL returned to the AWS CodePipeline console that contains a link to the page where customers can update or change the configuration of the external action. '
           type: string
         ThirdPartyConfigurationUrl:
-          description: >-
-            The URL of a sign-up page where users can sign up for an external
-            service and perform initial configuration of the action provided by
-            that service.
+          description: The URL of a sign-up page where users can sign up for an external service and perform initial configuration of the action provided by that service.
           type: string
     Tag:
       type: object
@@ -113,9 +84,7 @@ components:
       type: object
       properties:
         Category:
-          description: >-
-            The category of the custom action, such as a build action or a test
-            action.
+          description: The category of the custom action, such as a build action or a test action.
           type: string
         ConfigurationProperties:
           description: The configuration properties for the custom action.
@@ -125,19 +94,13 @@ components:
           items:
             $ref: '#/components/schemas/ConfigurationProperties'
         InputArtifactDetails:
-          description: >-
-            The details of the input artifact for the action, such as its commit
-            ID.
+          description: The details of the input artifact for the action, such as its commit ID.
           $ref: '#/components/schemas/ArtifactDetails'
         OutputArtifactDetails:
-          description: >-
-            The details of the output artifact of the action, such as its commit
-            ID.
+          description: The details of the output artifact of the action, such as its commit ID.
           $ref: '#/components/schemas/ArtifactDetails'
         Provider:
-          description: >-
-            The provider of the service used in the custom action, such as AWS
-            CodeDeploy.
+          description: The provider of the service used in the custom action, such as AWS CodeDeploy.
           type: string
         Settings:
           description: URLs that provide users information about this custom action.
@@ -400,48 +363,23 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Category') as category,
-
-              JSON_EXTRACT(Properties, '$.ConfigurationProperties') as
-              configuration_properties,
-
-              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MaximumCount') as
-              input_artifact_details_maximum_count,
-
-              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MinimumCount') as
-              input_artifact_details_minimum_count,
-
-              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MaximumCount')
-              as output_artifact_details_maximum_count,
-
-              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MinimumCount')
-              as output_artifact_details_minimum_count,
-
+              JSON_EXTRACT(Properties, '$.ConfigurationProperties') as configuration_properties,
+              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MaximumCount') as input_artifact_details_maximum_count,
+              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MinimumCount') as input_artifact_details_minimum_count,
+              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MaximumCount') as output_artifact_details_maximum_count,
+              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MinimumCount') as output_artifact_details_minimum_count,
               JSON_EXTRACT(Properties, '$.Provider') as provider,
-
-              JSON_EXTRACT(Properties, '$.Settings.EntityUrlTemplate') as
-              settings_entity_url_template,
-
-              JSON_EXTRACT(Properties, '$.Settings.ExecutionUrlTemplate') as
-              settings_execution_url_template,
-
-              JSON_EXTRACT(Properties, '$.Settings.RevisionUrlTemplate') as
-              settings_revision_url_template,
-
-              JSON_EXTRACT(Properties, '$.Settings.ThirdPartyConfigurationUrl')
-              as settings_third_party_configuration_url,
-
+              JSON_EXTRACT(Properties, '$.Settings.EntityUrlTemplate') as settings_entity_url_template,
+              JSON_EXTRACT(Properties, '$.Settings.ExecutionUrlTemplate') as settings_execution_url_template,
+              JSON_EXTRACT(Properties, '$.Settings.RevisionUrlTemplate') as settings_revision_url_template,
+              JSON_EXTRACT(Properties, '$.Settings.ThirdPartyConfigurationUrl') as settings_third_party_configuration_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Version') as version,
-
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodePipeline::CustomActionType' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::CustomActionType' ;
   - Pipeline:
       name: Pipeline
       id: aws.codepipeline.Pipeline
@@ -449,40 +387,21 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ArtifactStores') as artifact_stores,
-
               JSON_EXTRACT(Properties, '$.Version') as version,
-
-              JSON_EXTRACT(Properties, '$.ArtifactStore.Type') as
-              artifact_store_type,
-
-              JSON_EXTRACT(Properties, '$.ArtifactStore.EncryptionKey') as
-              artifact_store_encryption_key,
-
-              JSON_EXTRACT(Properties, '$.ArtifactStore.Location') as
-              artifact_store_location,
-
-              JSON_EXTRACT(Properties, '$.DisableInboundStageTransitions') as
-              disable_inbound_stage_transitions,
-
+              JSON_EXTRACT(Properties, '$.ArtifactStore.Type') as artifact_store_type,
+              JSON_EXTRACT(Properties, '$.ArtifactStore.EncryptionKey') as artifact_store_encryption_key,
+              JSON_EXTRACT(Properties, '$.ArtifactStore.Location') as artifact_store_location,
+              JSON_EXTRACT(Properties, '$.DisableInboundStageTransitions') as disable_inbound_stage_transitions,
               JSON_EXTRACT(Properties, '$.Stages') as stages,
-
-              JSON_EXTRACT(Properties, '$.RestartExecutionOnUpdate') as
-              restart_execution_on_update,
-
+              JSON_EXTRACT(Properties, '$.RestartExecutionOnUpdate') as restart_execution_on_update,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Name') as name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodePipeline::Pipeline' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::Pipeline' ;
   - Webhook:
       name: Webhook
       id: aws.codepipeline.Webhook
@@ -490,36 +409,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.AuthenticationConfiguration.AllowedIPRange') as
-              authentication_configuration_allowed_ip_range,
-
-              JSON_EXTRACT(Properties,
-              '$.AuthenticationConfiguration.SecretToken') as
-              authentication_configuration_secret_token,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.AllowedIPRange') as authentication_configuration_allowed_ip_range,
+              JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.SecretToken') as authentication_configuration_secret_token,
               JSON_EXTRACT(Properties, '$.Filters') as filters,
-
               JSON_EXTRACT(Properties, '$.Authentication') as authentication,
-
               JSON_EXTRACT(Properties, '$.TargetPipeline') as target_pipeline,
-
               JSON_EXTRACT(Properties, '$.TargetAction') as target_action,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Url') as url,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.TargetPipelineVersion') as
-              target_pipeline_version,
-
-              JSON_EXTRACT(Properties, '$.RegisterWithThirdParty') as
-              register_with_third_party
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CodePipeline::Webhook' ;
+              JSON_EXTRACT(Properties, '$.TargetPipelineVersion') as target_pipeline_version,
+              JSON_EXTRACT(Properties, '$.RegisterWithThirdParty') as register_with_third_party
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::Webhook' ;

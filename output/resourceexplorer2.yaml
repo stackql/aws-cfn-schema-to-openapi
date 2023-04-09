@@ -11,9 +11,7 @@ components:
         ViewArn:
           type: string
         AssociatedAwsPrincipal:
-          description: >-
-            The AWS principal that the default view is associated with, used as
-            the unique identifier for this resource.
+          description: The AWS principal that the default view is associated with, used as the unique identifier for this resource.
           type: string
           pattern: ^[0-9]{12}$
       required:
@@ -96,17 +94,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
-
-              JSON_EXTRACT(Properties, '$.AssociatedAwsPrincipal') as
-              associated_aws_principal
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::ResourceExplorer2::DefaultViewAssociation' ;
+              JSON_EXTRACT(Properties, '$.AssociatedAwsPrincipal') as associated_aws_principal
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ResourceExplorer2::DefaultViewAssociation' ;
   - Index:
       name: Index
       id: aws.resourceexplorer2.Index
@@ -114,13 +106,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ResourceExplorer2::Index' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ResourceExplorer2::Index' ;
   - View:
       name: View
       id: aws.resourceexplorer2.View
@@ -128,18 +117,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.IncludedProperties') as
-              included_properties,
-
-              JSON_EXTRACT(Properties, '$.Filters.FilterString') as
-              filters_filter_string,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.IncludedProperties') as included_properties,
+              JSON_EXTRACT(Properties, '$.Filters.FilterString') as filters_filter_string,
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
-
               JSON_EXTRACT(Properties, '$.ViewName') as view_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ResourceExplorer2::View' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ResourceExplorer2::View' ;

@@ -6,9 +6,7 @@ paths: {}
 components:
   schemas:
     TraceConfiguration:
-      description: >-
-        Describes the configuration of the tracing feature within an AWS App
-        Runner observability configuration.
+      description: Describes the configuration of the tracing feature within an AWS App Runner observability configuration.
       type: object
       properties:
         Vendor:
@@ -35,40 +33,24 @@ components:
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
         ObservabilityConfigurationName:
-          description: >-
-            A name for the observability configuration. When you use it for the
-            first time in an AWS Region, App Runner creates revision number 1 of
-            this name. When you use the same name in subsequent calls, App
-            Runner creates incremental revisions of the configuration.
+          description: A name for the observability configuration. When you use it for the first time in an AWS Region, App Runner creates revision number 1 of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration.
           type: string
           minLength: 4
           maxLength: 32
           pattern: '[A-Za-z0-9][A-Za-z0-9\-_]{3,31}'
         ObservabilityConfigurationRevision:
-          description: >-
-            The revision of this observability configuration. It's unique among
-            all the active configurations ('Status': 'ACTIVE') that share the
-            same ObservabilityConfigurationName.
+          description: 'The revision of this observability configuration. It''s unique among all the active configurations (''Status'': ''ACTIVE'') that share the same ObservabilityConfigurationName.'
           type: integer
         Latest:
-          description: >-
-            It's set to true for the configuration with the highest Revision
-            among all configurations that share the same Name. It's set to false
-            otherwise.
+          description: It's set to true for the configuration with the highest Revision among all configurations that share the same Name. It's set to false otherwise.
           type: boolean
         TraceConfiguration:
-          description: >-
-            The configuration of the tracing feature within this observability
-            configuration. If you don't specify it, App Runner doesn't enable
-            tracing.
+          description: The configuration of the tracing feature within this observability configuration. If you don't specify it, App Runner doesn't enable tracing.
           $ref: '#/components/schemas/TraceConfiguration'
         Tags:
-          description: >-
-            A list of metadata items that you can associate with your
-            observability configuration resource. A tag is a key-value pair.
+          description: A list of metadata items that you can associate with your observability configuration resource. A tag is a key-value pair.
           type: array
           items:
             $ref: '#/components/schemas/Tag'
@@ -169,9 +151,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValuePair'
-          description: >-
-            The secrets and parameters that get referenced by your service as
-            environment variables
+          description: The secrets and parameters that get referenced by your service as environment variables
       required:
         - Runtime
       additionalProperties: false
@@ -184,8 +164,7 @@ components:
           description: Image Identifier
           minLength: 1
           maxLength: 1024
-          pattern: >-
-            ([0-9]{12}.dkr.ecr.[a-z\-]+-[0-9]{1}.amazonaws.com\/.*)|(^public\.ecr\.aws\/.+\/.+)
+          pattern: ([0-9]{12}.dkr.ecr.[a-z\-]+-[0-9]{1}.amazonaws.com\/.*)|(^public\.ecr\.aws\/.+\/.+)
         ImageConfiguration:
           $ref: '#/components/schemas/ImageConfiguration'
         ImageRepositoryType:
@@ -216,9 +195,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/KeyValuePair'
-          description: >-
-            The secrets and parameters that get referenced by your service as
-            environment variables
+          description: The secrets and parameters that get referenced by your service as environment variables
       additionalProperties: false
     AuthenticationConfiguration:
       description: Authentication Configuration
@@ -229,8 +206,7 @@ components:
           description: Connection Arn
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
         AccessRoleArn:
           description: Access Role Arn
           $ref: '#/components/schemas/RoleArn'
@@ -259,8 +235,7 @@ components:
       type: string
       minLength: 29
       maxLength: 1024
-      pattern: >-
-        arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::[0-9]{12}:role/[\w+=,.@-]{1,64}
+      pattern: arn:(aws|aws-us-gov|aws-cn|aws-iso|aws-iso-b):iam::[0-9]{12}:role/[\w+=,.@-]{1,64}
     EncryptionConfiguration:
       description: Encryption configuration (KMS key)
       type: object
@@ -270,8 +245,7 @@ components:
           description: The KMS Key
           minLength: 0
           maxLength: 256
-          pattern: >-
-            arn:aws(-[\w]+)*:kms:[a-z\-]+-[0-9]{1}:[0-9]{12}:key\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+          pattern: arn:aws(-[\w]+)*:kms:[a-z\-]+-[0-9]{1}:[0-9]{12}:key\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
       required:
         - KmsKey
       additionalProperties: false
@@ -322,8 +296,7 @@ components:
           type: string
           minLength: 44
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
       required:
         - EgressType
       additionalProperties: false
@@ -332,9 +305,7 @@ components:
       type: object
       properties:
         IsPubliclyAccessible:
-          description: >-
-            It's set to true if the Apprunner service is publicly accessible.
-            It's set to false otherwise.
+          description: It's set to true if the Apprunner service is publicly accessible. It's set to false otherwise.
           type: boolean
       required:
         - IsPubliclyAccessible
@@ -356,14 +327,11 @@ components:
           description: Observability enabled
           type: boolean
         ObservabilityConfigurationArn:
-          description: >-
-            The Amazon Resource Name (ARN) of the App Runner
-            ObservabilityConfiguration.
+          description: The Amazon Resource Name (ARN) of the App Runner ObservabilityConfiguration.
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
       required:
         - ObservabilityEnabled
       additionalProperties: false
@@ -394,8 +362,7 @@ components:
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
         ServiceUrl:
           description: The Service Url of the AppRunner Service.
           type: string
@@ -421,8 +388,7 @@ components:
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
         NetworkConfiguration:
           $ref: '#/components/schemas/NetworkConfiguration'
       required:
@@ -432,9 +398,7 @@ components:
       type: object
       properties:
         VpcConnectorName:
-          description: >-
-            A name for the VPC connector. If you don't specify a name, AWS
-            CloudFormation generates a name for your VPC connector.
+          description: A name for the VPC connector. If you don't specify a name, AWS CloudFormation generates a name for your VPC connector.
           type: string
           minLength: 4
           maxLength: 40
@@ -444,19 +408,12 @@ components:
           type: string
           minLength: 44
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\\.]{0,63}:[a-z0-9-\\.]{0,63}:[0-9]{12}:(\w|\/|-){1,1011}
         VpcConnectorRevision:
-          description: >-
-            The revision of this VPC connector. It's unique among all the active
-            connectors ("Status": "ACTIVE") that share the same Name.
+          description: 'The revision of this VPC connector. It''s unique among all the active connectors ("Status": "ACTIVE") that share the same Name.'
           type: integer
         Subnets:
-          description: >-
-            A list of IDs of subnets that App Runner should use when it
-            associates your service with a custom Amazon VPC. Specify IDs of
-            subnets of a single Amazon VPC. App Runner determines the Amazon VPC
-            from the subnets you specify.
+          description: A list of IDs of subnets that App Runner should use when it associates your service with a custom Amazon VPC. Specify IDs of subnets of a single Amazon VPC. App Runner determines the Amazon VPC from the subnets you specify.
           type: array
           uniqueItems: true
           x-insertionOrder: false
@@ -464,20 +421,14 @@ components:
           items:
             type: string
         SecurityGroups:
-          description: >-
-            A list of IDs of security groups that App Runner should use for
-            access to AWS resources under the specified subnets. If not
-            specified, App Runner uses the default security group of the Amazon
-            VPC. The default security group allows all outbound traffic.
+          description: A list of IDs of security groups that App Runner should use for access to AWS resources under the specified subnets. If not specified, App Runner uses the default security group of the Amazon VPC. The default security group allows all outbound traffic.
           type: array
           uniqueItems: true
           x-insertionOrder: false
           items:
             type: string
         Tags:
-          description: >-
-            A list of metadata items that you can associate with your VPC
-            connector resource. A tag is a key-value pair.
+          description: A list of metadata items that you can associate with your VPC connector resource. A tag is a key-value pair.
           type: array
           items:
             $ref: '#/components/schemas/Tag'
@@ -506,8 +457,7 @@ components:
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
         VpcIngressConnectionName:
           description: The customer-provided Vpc Ingress Connection name.
           type: string
@@ -519,8 +469,7 @@ components:
           type: string
           minLength: 1
           maxLength: 1011
-          pattern: >-
-            arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
         Status:
           description: The current status of the VpcIngressConnection.
           type: string
@@ -557,28 +506,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as
-              observability_configuration_arn,
-
-              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationName') as
-              observability_configuration_name,
-
-              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationRevision')
-              as observability_configuration_revision,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as observability_configuration_arn,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationName') as observability_configuration_name,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationRevision') as observability_configuration_revision,
               JSON_EXTRACT(Properties, '$.Latest') as latest,
-
-              JSON_EXTRACT(Properties, '$.TraceConfiguration.Vendor') as
-              trace_configuration_vendor,
-
+              JSON_EXTRACT(Properties, '$.TraceConfiguration.Vendor') as trace_configuration_vendor,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration' ;
   - Service:
       name: Service
       id: aws.apprunner.Service
@@ -586,89 +522,34 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ServiceName') as service_name,
-
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id,
-
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
-
               JSON_EXTRACT(Properties, '$.ServiceUrl') as service_url,
-
               JSON_EXTRACT(Properties, '$.Status') as status,
-
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.CodeRepository')
-              as source_configuration_code_repository,
-
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.ImageRepository')
-              as source_configuration_image_repository,
-
-              JSON_EXTRACT(Properties,
-              '$.SourceConfiguration.AutoDeploymentsEnabled') as
-              source_configuration_auto_deployments_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.SourceConfiguration.AuthenticationConfiguration') as
-              source_configuration_authentication_configuration,
-
-              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Cpu') as
-              instance_configuration_cpu,
-
-              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Memory') as
-              instance_configuration_memory,
-
-              JSON_EXTRACT(Properties,
-              '$.InstanceConfiguration.InstanceRoleArn') as
-              instance_configuration_instance_role_arn,
-
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.CodeRepository') as source_configuration_code_repository,
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.ImageRepository') as source_configuration_image_repository,
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.AutoDeploymentsEnabled') as source_configuration_auto_deployments_enabled,
+              JSON_EXTRACT(Properties, '$.SourceConfiguration.AuthenticationConfiguration') as source_configuration_authentication_configuration,
+              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Cpu') as instance_configuration_cpu,
+              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Memory') as instance_configuration_memory,
+              JSON_EXTRACT(Properties, '$.InstanceConfiguration.InstanceRoleArn') as instance_configuration_instance_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as
-              encryption_configuration_kms_key,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Protocol') as
-              health_check_configuration_protocol,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Path') as
-              health_check_configuration_path,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Interval') as
-              health_check_configuration_interval,
-
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Timeout') as
-              health_check_configuration_timeout,
-
-              JSON_EXTRACT(Properties,
-              '$.HealthCheckConfiguration.HealthyThreshold') as
-              health_check_configuration_healthy_threshold,
-
-              JSON_EXTRACT(Properties,
-              '$.HealthCheckConfiguration.UnhealthyThreshold') as
-              health_check_configuration_unhealthy_threshold,
-
-              JSON_EXTRACT(Properties,
-              '$.ObservabilityConfiguration.ObservabilityEnabled') as
-              observability_configuration_observability_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.ObservabilityConfiguration.ObservabilityConfigurationArn') as
-              observability_configuration_observability_configuration_arn,
-
-              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as
-              auto_scaling_configuration_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfiguration.EgressConfiguration') as
-              network_configuration_egress_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfiguration.IngressConfiguration') as
-              network_configuration_ingress_configuration
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppRunner::Service' ;
+              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as encryption_configuration_kms_key,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Protocol') as health_check_configuration_protocol,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Path') as health_check_configuration_path,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Interval') as health_check_configuration_interval,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Timeout') as health_check_configuration_timeout,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.HealthyThreshold') as health_check_configuration_healthy_threshold,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.UnhealthyThreshold') as health_check_configuration_unhealthy_threshold,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfiguration.ObservabilityEnabled') as observability_configuration_observability_enabled,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfiguration.ObservabilityConfigurationArn') as observability_configuration_observability_configuration_arn,
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration.EgressConfiguration') as network_configuration_egress_configuration,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration.IngressConfiguration') as network_configuration_ingress_configuration
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::Service' ;
   - VpcConnector:
       name: VpcConnector
       id: aws.apprunner.VpcConnector
@@ -676,26 +557,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.VpcConnectorName') as
-              vpc_connector_name,
-
-              JSON_EXTRACT(Properties, '$.VpcConnectorArn') as
-              vpc_connector_arn,
-
-              JSON_EXTRACT(Properties, '$.VpcConnectorRevision') as
-              vpc_connector_revision,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.VpcConnectorName') as vpc_connector_name,
+              JSON_EXTRACT(Properties, '$.VpcConnectorArn') as vpc_connector_arn,
+              JSON_EXTRACT(Properties, '$.VpcConnectorRevision') as vpc_connector_revision,
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
-
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppRunner::VpcConnector' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::VpcConnector' ;
   - VpcIngressConnection:
       name: VpcIngressConnection
       id: aws.apprunner.VpcIngressConnection
@@ -703,29 +573,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as
-              vpc_ingress_connection_arn,
-
-              JSON_EXTRACT(Properties, '$.VpcIngressConnectionName') as
-              vpc_ingress_connection_name,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as vpc_ingress_connection_arn,
+              JSON_EXTRACT(Properties, '$.VpcIngressConnectionName') as vpc_ingress_connection_name,
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
-
               JSON_EXTRACT(Properties, '$.Status') as status,
-
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-
-              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcId') as
-              ingress_vpc_configuration_vpc_id,
-
-              JSON_EXTRACT(Properties,
-              '$.IngressVpcConfiguration.VpcEndpointId') as
-              ingress_vpc_configuration_vpc_endpoint_id,
-
+              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcId') as ingress_vpc_configuration_vpc_id,
+              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcEndpointId') as ingress_vpc_configuration_vpc_endpoint_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppRunner::VpcIngressConnection' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::VpcIngressConnection' ;

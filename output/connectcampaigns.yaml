@@ -27,26 +27,16 @@ components:
           type: string
           maxLength: 500
           description: The identifier of the contact flow for the outbound call.
-          pattern: >-
-            ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/contact-flow/[-a-zA-Z0-9]*$
+          pattern: ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/contact-flow/[-a-zA-Z0-9]*$
         ConnectSourcePhoneNumber:
           type: string
           maxLength: 100
-          description: >-
-            The phone number associated with the Amazon Connect instance, in
-            E.164 format. If you do not specify a source phone number, you must
-            specify a queue.
+          description: The phone number associated with the Amazon Connect instance, in E.164 format. If you do not specify a source phone number, you must specify a queue.
         ConnectQueueArn:
           type: string
           maxLength: 500
-          description: >-
-            The queue for the call. If you specify a queue, the phone displayed
-            for caller ID is the phone number specified in the queue. If you do
-            not specify a queue, the queue defined in the contact flow is used.
-            If you do not specify a queue, you must specify a source phone
-            number.
-          pattern: >-
-            ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/queue/[-a-zA-Z0-9]*$
+          description: The queue for the call. If you specify a queue, the phone displayed for caller ID is the phone number specified in the queue. If you do not specify a queue, the queue defined in the contact flow is used. If you do not specify a queue, you must specify a source phone number.
+          pattern: ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*/queue/[-a-zA-Z0-9]*$
         AnswerMachineDetectionConfig:
           $ref: '#/components/schemas/AnswerMachineDetectionConfig'
       required:
@@ -79,15 +69,11 @@ components:
       additionalProperties: false
     AnswerMachineDetectionConfig:
       type: object
-      description: >-
-        The configuration used for answering machine detection during outbound
-        calls
+      description: The configuration used for answering machine detection during outbound calls
       properties:
         EnableAnswerMachineDetection:
           type: boolean
-          description: >-
-            Flag to decided whether outbound calls should have answering machine
-            detection enabled or not
+          description: Flag to decided whether outbound calls should have answering machine detection enabled or not
       required:
         - EnableAnswerMachineDetection
       additionalProperties: false
@@ -98,19 +84,13 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -. 
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
           minLength: 1
           maxLength: 128
           pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that's 1 to 256
-            characters in length.
+          description: The value for the tag. You can specify a value that's 1 to 256 characters in length.
           minLength: 1
           maxLength: 256
       required:
@@ -124,8 +104,7 @@ components:
           maxLength: 256
           minLength: 0
           description: Amazon Connect Instance Arn
-          pattern: >-
-            ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*$
+          pattern: ^arn:aws[-a-z0-9]*:connect:[-a-z0-9]*:[0-9]{12}:instance/[-a-zA-Z0-9]*$
         DialerConfig:
           $ref: '#/components/schemas/DialerConfig'
         Arn:
@@ -133,8 +112,7 @@ components:
           maxLength: 256
           minLength: 0
           description: Amazon Connect Campaign Arn
-          pattern: >-
-            ^arn:aws[-a-z0-9]*:connect-campaigns:[-a-z0-9]*:[0-9]{12}:campaign/[-a-zA-Z0-9]*$
+          pattern: ^arn:aws[-a-z0-9]*:connect-campaigns:[-a-z0-9]*:[0-9]{12}:campaign/[-a-zA-Z0-9]*$
         Name:
           type: string
           maxLength: 127
@@ -164,38 +142,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ConnectInstanceArn') as
-              connect_instance_arn,
-
-              JSON_EXTRACT(Properties, '$.DialerConfig.ProgressiveDialerConfig')
-              as dialer_config_progressive_dialer_config,
-
-              JSON_EXTRACT(Properties, '$.DialerConfig.PredictiveDialerConfig')
-              as dialer_config_predictive_dialer_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ConnectInstanceArn') as connect_instance_arn,
+              JSON_EXTRACT(Properties, '$.DialerConfig.ProgressiveDialerConfig') as dialer_config_progressive_dialer_config,
+              JSON_EXTRACT(Properties, '$.DialerConfig.PredictiveDialerConfig') as dialer_config_predictive_dialer_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties,
-              '$.OutboundCallConfig.ConnectContactFlowArn') as
-              outbound_call_config_connect_contact_flow_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.OutboundCallConfig.ConnectSourcePhoneNumber') as
-              outbound_call_config_connect_source_phone_number,
-
-              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectQueueArn')
-              as outbound_call_config_connect_queue_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.OutboundCallConfig.AnswerMachineDetectionConfig') as
-              outbound_call_config_answer_machine_detection_config,
-
+              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectContactFlowArn') as outbound_call_config_connect_contact_flow_arn,
+              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectSourcePhoneNumber') as outbound_call_config_connect_source_phone_number,
+              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectQueueArn') as outbound_call_config_connect_queue_arn,
+              JSON_EXTRACT(Properties, '$.OutboundCallConfig.AnswerMachineDetectionConfig') as outbound_call_config_answer_machine_detection_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::ConnectCampaigns::Campaign' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ConnectCampaigns::Campaign' ;

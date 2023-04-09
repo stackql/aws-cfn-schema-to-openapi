@@ -64,9 +64,7 @@ components:
       required:
         - Column
     ProvisionedThroughput:
-      description: >-
-        Throughput for the specified table, which consists of values for
-        ReadCapacityUnits and WriteCapacityUnits
+      description: Throughput for the specified table, which consists of values for ReadCapacityUnits and WriteCapacityUnits
       type: object
       properties:
         ReadCapacityUnits:
@@ -115,10 +113,7 @@ components:
         - CUSTOMER_MANAGED_KMS_KEY
       default: AWS_OWNED_KMS_KEY
     KmsKeyIdentifier:
-      description: >-
-        The AWS KMS customer master key (CMK) that should be used for the AWS
-        KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name
-        (ARN), alias name, or alias ARN. 
+      description: 'The AWS KMS customer master key (CMK) that should be used for the AWS KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. '
       type: string
     Table:
       type: object
@@ -156,15 +151,10 @@ components:
         BillingMode:
           $ref: '#/components/schemas/BillingMode'
         PointInTimeRecoveryEnabled:
-          description: >-
-            Indicates whether point in time recovery is enabled (true) or
-            disabled (false) on the table
+          description: Indicates whether point in time recovery is enabled (true) or disabled (false) on the table
           type: boolean
         ClientSideTimestampsEnabled:
-          description: >-
-            Indicates whether client side timestamps are enabled (true) or
-            disabled (false) on the table. False by default, once it is enabled
-            it cannot be disabled again.
+          description: Indicates whether client side timestamps are enabled (true) or disabled (false) on the table. False by default, once it is enabled it cannot be disabled again.
           type: boolean
         Tags:
           description: An array of key-value pairs to apply to this resource
@@ -175,10 +165,7 @@ components:
           minItems: 0
           maxItems: 50
         DefaultTimeToLive:
-          description: >-
-            Default TTL (Time To Live) in seconds, where zero is disabled. If
-            the value is greater than zero, TTL is enabled for the entire table
-            and an expiration timestamp is added to each column.
+          description: Default TTL (Time To Live) in seconds, where zero is disabled. If the value is greater than zero, TTL is enabled for the entire table and an expiration timestamp is added to each column.
           type: integer
           minimum: 0
         EncryptionSpecification:
@@ -195,15 +182,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Cassandra::Keyspace' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cassandra::Keyspace' ;
   - Table:
       name: Table
       id: aws.cassandra.Table
@@ -211,45 +194,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
-
               JSON_EXTRACT(Properties, '$.TableName') as table_name,
-
               JSON_EXTRACT(Properties, '$.RegularColumns') as regular_columns,
-
-              JSON_EXTRACT(Properties, '$.PartitionKeyColumns') as
-              partition_key_columns,
-
-              JSON_EXTRACT(Properties, '$.ClusteringKeyColumns') as
-              clustering_key_columns,
-
-              JSON_EXTRACT(Properties, '$.BillingMode.Mode') as
-              billing_mode_mode,
-
-              JSON_EXTRACT(Properties, '$.BillingMode.ProvisionedThroughput') as
-              billing_mode_provisioned_throughput,
-
-              JSON_EXTRACT(Properties, '$.PointInTimeRecoveryEnabled') as
-              point_in_time_recovery_enabled,
-
-              JSON_EXTRACT(Properties, '$.ClientSideTimestampsEnabled') as
-              client_side_timestamps_enabled,
-
+              JSON_EXTRACT(Properties, '$.PartitionKeyColumns') as partition_key_columns,
+              JSON_EXTRACT(Properties, '$.ClusteringKeyColumns') as clustering_key_columns,
+              JSON_EXTRACT(Properties, '$.BillingMode.Mode') as billing_mode_mode,
+              JSON_EXTRACT(Properties, '$.BillingMode.ProvisionedThroughput') as billing_mode_provisioned_throughput,
+              JSON_EXTRACT(Properties, '$.PointInTimeRecoveryEnabled') as point_in_time_recovery_enabled,
+              JSON_EXTRACT(Properties, '$.ClientSideTimestampsEnabled') as client_side_timestamps_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as
-              default_time_to_live,
-
-              JSON_EXTRACT(Properties,
-              '$.EncryptionSpecification.EncryptionType') as
-              encryption_specification_encryption_type,
-
-              JSON_EXTRACT(Properties,
-              '$.EncryptionSpecification.KmsKeyIdentifier') as
-              encryption_specification_kms_key_identifier
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Cassandra::Table' ;
+              JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as default_time_to_live,
+              JSON_EXTRACT(Properties, '$.EncryptionSpecification.EncryptionType') as encryption_specification_encryption_type,
+              JSON_EXTRACT(Properties, '$.EncryptionSpecification.KmsKeyIdentifier') as encryption_specification_kms_key_identifier
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cassandra::Table' ;

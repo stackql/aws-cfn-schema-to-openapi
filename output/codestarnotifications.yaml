@@ -70,8 +70,7 @@ components:
           maxLength: 64
         Arn:
           type: string
-          pattern: >-
-            ^arn:aws[^:\s]*:codestar-notifications:[^:\s]+:\d{12}:notificationrule\/(.*\S)?$
+          pattern: ^arn:aws[^:\s]*:codestar-notifications:[^:\s]+:\d{12}:notificationrule\/(.*\S)?$
       required:
         - EventTypeIds
         - Resource
@@ -87,31 +86,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.EventTypeId') as event_type_id,
-
               JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
-
               JSON_EXTRACT(Properties, '$.TargetAddress') as target_address,
-
               JSON_EXTRACT(Properties, '$.EventTypeIds') as event_type_ids,
-
               JSON_EXTRACT(Properties, '$.Status') as status,
-
               JSON_EXTRACT(Properties, '$.DetailType') as detail_type,
-
               JSON_EXTRACT(Properties, '$.Resource') as resource,
-
               JSON_EXTRACT(Properties, '$.Targets') as targets,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::CodeStarNotifications::NotificationRule' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeStarNotifications::NotificationRule' ;

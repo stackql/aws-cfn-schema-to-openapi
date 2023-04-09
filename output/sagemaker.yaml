@@ -74,14 +74,12 @@ components:
           type: string
           description: The ARN of the SageMaker image that the image version belongs to.
           maxLength: 256
-          pattern: >-
-            ^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$
+          pattern: ^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image/[a-z0-9]([-.]?[a-z0-9])*$
         SageMakerImageVersionArn:
           type: string
           description: The ARN of the image version created on the instance.
           maxLength: 256
-          pattern: >-
-            ^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$
+          pattern: ^arn:aws(-[\w]+)*:sagemaker:.+:[0-9]{12}:image-version/[a-z0-9]([-.]?[a-z0-9])*/[0-9]+$
     Tag:
       type: object
       additionalProperties: false
@@ -124,9 +122,7 @@ components:
           maxLength: 63
         ResourceSpec:
           $ref: '#/components/schemas/ResourceSpec'
-          description: >-
-            The instance type and the Amazon Resource Name (ARN) of the
-            SageMaker image created on the instance.
+          description: The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.
         Tags:
           type: array
           description: A list of tags to apply to the app.
@@ -149,16 +145,12 @@ components:
       x-stackql-resource-name: App
     KernelGatewayImageConfig:
       type: object
-      description: >-
-        The configuration for the file system and kernels in a SageMaker image
-        running as a KernelGateway app.
+      description: The configuration for the file system and kernels in a SageMaker image running as a KernelGateway app.
       additionalProperties: false
       properties:
         FileSystemConfig:
           $ref: '#/components/schemas/FileSystemConfig'
-          description: >-
-            The Amazon Elastic File System (EFS) storage configuration for a
-            SageMaker image.
+          description: The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
         KernelSpecs:
           type: array
           description: The specification of the Jupyter kernels in the image.
@@ -170,9 +162,7 @@ components:
         - KernelSpecs
     FileSystemConfig:
       type: object
-      description: >-
-        The Amazon Elastic File System (EFS) storage configuration for a
-        SageMaker image.
+      description: The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
       additionalProperties: false
       properties:
         DefaultGid:
@@ -187,10 +177,7 @@ components:
           maximum: 65535
         MountPath:
           type: string
-          description: >-
-            The path within the image to mount the user's EFS home directory.
-            The directory should be empty. If not specified, defaults to
-            /home/sagemaker-user.
+          description: The path within the image to mount the user's EFS home directory. The directory should be empty. If not specified, defaults to /home/sagemaker-user.
           minLength: 1
           maxLength: 1024
           pattern: ^/.*
@@ -271,9 +258,7 @@ components:
     DataQualityBaselineConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Baseline configuration used to validate that the data conforms to the
-        specified constraints and statistics.
+      description: Baseline configuration used to validate that the data conforms to the specified constraints and statistics.
       properties:
         BaseliningJobName:
           $ref: '#/components/schemas/ProcessingJobName'
@@ -287,9 +272,7 @@ components:
       description: The baseline constraints resource for a monitoring job.
       properties:
         S3Uri:
-          description: >-
-            The Amazon S3 URI for baseline constraint file in Amazon S3 that the
-            current monitoring job should validated against.
+          description: The Amazon S3 URI for baseline constraint file in Amazon S3 that the current monitoring job should validated against.
           $ref: '#/components/schemas/S3Uri'
     StatisticsResource:
       type: object
@@ -297,9 +280,7 @@ components:
       description: The baseline statistics resource for a monitoring job.
       properties:
         S3Uri:
-          description: >-
-            The Amazon S3 URI for the baseline statistics file in Amazon S3 that
-            the current monitoring job should be validated against.
+          description: The Amazon S3 URI for the baseline statistics file in Amazon S3 that the current monitoring job should be validated against.
           $ref: '#/components/schemas/S3Uri'
     S3Uri:
       type: string
@@ -313,9 +294,7 @@ components:
       properties:
         ContainerArguments:
           type: array
-          description: >-
-            An array of arguments for the container used to run the monitoring
-            job.
+          description: An array of arguments for the container used to run the monitoring job.
           maxItems: 50
           items:
             type: string
@@ -323,9 +302,7 @@ components:
             maxLength: 256
         ContainerEntrypoint:
           type: array
-          description: >-
-            Specifies the entrypoint for a container used to run the monitoring
-            job.
+          description: Specifies the entrypoint for a container used to run the monitoring job.
           maxItems: 100
           items:
             type: string
@@ -337,17 +314,10 @@ components:
           pattern: .*
           maxLength: 255
         PostAnalyticsProcessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called after analysis has been
-            performed. Applicable only for the built-in (first party)
-            containers.
+          description: An Amazon S3 URI to a script that is called after analysis has been performed. Applicable only for the built-in (first party) containers.
           $ref: '#/components/schemas/S3Uri'
         RecordPreprocessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called per row prior to running
-            analysis. It can base64 decode the payload and convert it into a
-            flatted json so that the built-in container can use the converted
-            data. Applicable only for the built-in (first party) containers
+          description: An Amazon S3 URI to a script that is called per row prior to running analysis. It can base64 decode the payload and convert it into a flatted json so that the built-in container can use the converted data. Applicable only for the built-in (first party) containers
           $ref: '#/components/schemas/S3Uri'
         Environment:
           type: object
@@ -381,26 +351,18 @@ components:
           $ref: '#/components/schemas/EndpointName'
         LocalPath:
           type: string
-          description: >-
-            Path to the filesystem where the endpoint data is available to the
-            container.
+          description: Path to the filesystem where the endpoint data is available to the container.
           pattern: .*
           maxLength: 256
         S3DataDistributionType:
           type: string
-          description: >-
-            Whether input data distributed in Amazon S3 is fully replicated or
-            sharded by an S3 key. Defauts to FullyReplicated
+          description: Whether input data distributed in Amazon S3 is fully replicated or sharded by an S3 key. Defauts to FullyReplicated
           enum:
             - FullyReplicated
             - ShardedByS3Key
         S3InputMode:
           type: string
-          description: >-
-            Whether the Pipe or File is used as the input mode for transfering
-            data for the monitoring job. Pipe mode is recommended for large
-            datasets. File mode is useful for small files that fit in memory.
-            Defaults to File.
+          description: Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File.
           enum:
             - Pipe
             - File
@@ -414,35 +376,25 @@ components:
       properties:
         DataCapturedDestinationS3Uri:
           type: string
-          description: >-
-            A URI that identifies the Amazon S3 storage location where Batch
-            Transform Job captures data.
+          description: A URI that identifies the Amazon S3 storage location where Batch Transform Job captures data.
           pattern: ^(https|s3)://([^/]+)/?(.*)$
           maxLength: 512
         DatasetFormat:
           $ref: '#/components/schemas/DatasetFormat'
         LocalPath:
           type: string
-          description: >-
-            Path to the filesystem where the endpoint data is available to the
-            container.
+          description: Path to the filesystem where the endpoint data is available to the container.
           pattern: .*
           maxLength: 256
         S3DataDistributionType:
           type: string
-          description: >-
-            Whether input data distributed in Amazon S3 is fully replicated or
-            sharded by an S3 key. Defauts to FullyReplicated
+          description: Whether input data distributed in Amazon S3 is fully replicated or sharded by an S3 key. Defauts to FullyReplicated
           enum:
             - FullyReplicated
             - ShardedByS3Key
         S3InputMode:
           type: string
-          description: >-
-            Whether the Pipe or File is used as the input mode for transfering
-            data for the monitoring job. Pipe mode is recommended for large
-            datasets. File mode is useful for small files that fit in memory.
-            Defaults to File.
+          description: Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File.
           enum:
             - Pipe
             - File
@@ -457,17 +409,12 @@ components:
       properties:
         KmsKeyId:
           type: string
-          description: >-
-            The AWS Key Management Service (AWS KMS) key that Amazon SageMaker
-            uses to encrypt the model artifacts at rest using Amazon S3
-            server-side encryption.
+          description: The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt the model artifacts at rest using Amazon S3 server-side encryption.
           pattern: .*
           maxLength: 2048
         MonitoringOutputs:
           type: array
-          description: >-
-            Monitoring outputs for monitoring jobs. This is where the output of
-            the periodic monitoring jobs is uploaded.
+          description: Monitoring outputs for monitoring jobs. This is where the output of the periodic monitoring jobs is uploaded.
           minLength: 1
           maxLength: 1
           items:
@@ -486,31 +433,22 @@ components:
     S3Output:
       type: object
       additionalProperties: false
-      description: >-
-        Information about where and how to store the results of a monitoring
-        job.
+      description: Information about where and how to store the results of a monitoring job.
       properties:
         LocalPath:
           type: string
-          description: >-
-            The local path to the Amazon S3 storage location where Amazon
-            SageMaker saves the results of a monitoring job. LocalPath is an
-            absolute path for the output data.
+          description: The local path to the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job. LocalPath is an absolute path for the output data.
           pattern: .*
           maxLength: 256
         S3UploadMode:
           type: string
-          description: >-
-            Whether to upload the results of the monitoring job continuously or
-            after the job completes.
+          description: Whether to upload the results of the monitoring job continuously or after the job completes.
           enum:
             - Continuous
             - EndOfJob
         S3Uri:
           type: string
-          description: >-
-            A URI that identifies the Amazon S3 storage location where Amazon
-            SageMaker saves the results of a monitoring job.
+          description: A URI that identifies the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job.
           pattern: ^(https|s3)://([^/]+)/?(.*)$
           maxLength: 512
       required:
@@ -531,10 +469,7 @@ components:
       description: Configuration for the cluster used to run model monitoring jobs.
       properties:
         InstanceCount:
-          description: >-
-            The number of ML compute instances to use in the model monitoring
-            job. For distributed processing jobs, specify a value greater than
-            1. The default value is 1.
+          description: The number of ML compute instances to use in the model monitoring job. For distributed processing jobs, specify a value greater than 1. The default value is 1.
           type: integer
           minimum: 1
           maximum: 100
@@ -542,17 +477,12 @@ components:
           description: The ML compute instance type for the processing job.
           type: string
         VolumeKmsKeyId:
-          description: >-
-            The AWS Key Management Service (AWS KMS) key that Amazon SageMaker
-            uses to encrypt data on the storage volume attached to the ML
-            compute instance(s) that run the model monitoring job.
+          description: The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance(s) that run the model monitoring job.
           type: string
           minimum: 1
           maximum: 2048
         VolumeSizeInGB:
-          description: >-
-            The size of the ML storage volume, in gigabytes, that you want to
-            provision. You must specify sufficient ML storage for your scenario.
+          description: The size of the ML storage volume, in gigabytes, that you want to provision. You must specify sufficient ML storage for your scenario.
           type: integer
           minimum: 1
           maximum: 16384
@@ -563,38 +493,23 @@ components:
     NetworkConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Networking options for a job, such as network traffic encryption between
-        containers, whether to allow inbound and outbound network calls to and
-        from containers, and the VPC subnets and security groups to use for
-        VPC-enabled jobs.
+      description: Networking options for a job, such as network traffic encryption between containers, whether to allow inbound and outbound network calls to and from containers, and the VPC subnets and security groups to use for VPC-enabled jobs.
       properties:
         EnableInterContainerTrafficEncryption:
-          description: >-
-            Whether to encrypt all communications between distributed processing
-            jobs. Choose True to encrypt communications. Encryption provides
-            greater security for distributed processing jobs, but the processing
-            might take longer.
+          description: Whether to encrypt all communications between distributed processing jobs. Choose True to encrypt communications. Encryption provides greater security for distributed processing jobs, but the processing might take longer.
           type: boolean
         EnableNetworkIsolation:
-          description: >-
-            Whether to allow inbound and outbound network calls to and from the
-            containers used for the processing job.
+          description: Whether to allow inbound and outbound network calls to and from the containers used for the processing job.
           type: boolean
         VpcConfig:
           $ref: '#/components/schemas/VpcConfig'
     VpcConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Specifies a VPC that your training jobs and hosted models have access
-        to. Control access to and from your training and model containers by
-        configuring the VPC.
+      description: Specifies a VPC that your training jobs and hosted models have access to. Control access to and from your training and model containers by configuring the VPC.
       properties:
         SecurityGroupIds:
-          description: >-
-            The VPC security group IDs, in the form sg-xxxxxxxx. Specify the
-            security groups for the VPC that is specified in the Subnets field.
+          description: The VPC security group IDs, in the form sg-xxxxxxxx. Specify the security groups for the VPC that is specified in the Subnets field.
           type: array
           minItems: 1
           maxItems: 5
@@ -603,9 +518,7 @@ components:
             maxLength: 32
             pattern: '[-0-9a-zA-Z]+'
         Subnets:
-          description: >-
-            The ID of the subnets in the VPC to which you want to connect to
-            your monitoring jobs.
+          description: The ID of the subnets in the VPC to which you want to connect to your monitoring jobs.
           type: array
           minItems: 1
           maxItems: 16
@@ -619,9 +532,7 @@ components:
     StoppingCondition:
       type: object
       additionalProperties: false
-      description: >-
-        Specifies a time limit for how long the monitoring job is allowed to
-        run.
+      description: Specifies a time limit for how long the monitoring job is allowed to run.
       properties:
         MaxRuntimeInSeconds:
           description: The maximum runtime allowed in seconds.
@@ -698,9 +609,7 @@ components:
         EndpointName:
           $ref: '#/components/schemas/EndpointName'
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to perform tasks on your behalf.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -725,10 +634,7 @@ components:
       x-stackql-resource-name: DataQualityJobDefinition
     UserSettings:
       type: object
-      description: >-
-        A collection of settings that apply to users of Amazon SageMaker Studio.
-        These settings are specified when the CreateUserProfile API is called,
-        and as DefaultUserSettings when the CreateDomain API is called.
+      description: A collection of settings that apply to users of Amazon SageMaker Studio. These settings are specified when the CreateUserProfile API is called, and as DefaultUserSettings when the CreateDomain API is called.
       additionalProperties: false
       properties:
         ExecutionRole:
@@ -747,9 +653,7 @@ components:
           $ref: '#/components/schemas/RStudioServerProAppSettings'
         SecurityGroups:
           type: array
-          description: >-
-            The security groups for the Amazon Virtual Private Cloud (VPC) that
-            Studio uses for communication.
+          description: The security groups for the Amazon Virtual Private Cloud (VPC) that Studio uses for communication.
           uniqueItems: false
           minItems: 0
           maxItems: 5
@@ -762,10 +666,7 @@ components:
           description: The sharing settings.
     DefaultSpaceSettings:
       type: object
-      description: >-
-        A collection of settings that apply to spaces of Amazon SageMaker
-        Studio. These settings are specified when the Create/Update Domain API
-        is called.
+      description: A collection of settings that apply to spaces of Amazon SageMaker Studio. These settings are specified when the Create/Update Domain API is called.
       additionalProperties: false
       properties:
         ExecutionRole:
@@ -782,9 +683,7 @@ components:
           description: The kernel gateway app settings.
         SecurityGroups:
           type: array
-          description: >-
-            The security groups for the Amazon Virtual Private Cloud (VPC) that
-            Studio uses for communication.
+          description: The security groups for the Amazon Virtual Private Cloud (VPC) that Studio uses for communication.
           uniqueItems: false
           x-insertionOrder: false
           minItems: 0
@@ -807,9 +706,7 @@ components:
       properties:
         CustomImages:
           type: array
-          description: >-
-            A list of custom SageMaker images that are configured to run as a
-            KernelGateway app.
+          description: A list of custom SageMaker images that are configured to run as a KernelGateway app.
           uniqueItems: false
           minItems: 0
           maxItems: 30
@@ -817,9 +714,7 @@ components:
             $ref: '#/components/schemas/CustomImage'
         DefaultResourceSpec:
           $ref: '#/components/schemas/ResourceSpec'
-          description: >-
-            The default instance type and the Amazon Resource Name (ARN) of the
-            default SageMaker image used by the KernelGateway app.
+          description: The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.
     CustomImage:
       type: object
       description: A custom SageMaker image.
@@ -844,34 +739,23 @@ components:
         - ImageName
     SharingSettings:
       type: object
-      description: >-
-        Specifies options when sharing an Amazon SageMaker Studio notebook.
-        These settings are specified as part of DefaultUserSettings when the
-        CreateDomain API is called, and as part of UserSettings when the
-        CreateUserProfile API is called.
+      description: Specifies options when sharing an Amazon SageMaker Studio notebook. These settings are specified as part of DefaultUserSettings when the CreateDomain API is called, and as part of UserSettings when the CreateUserProfile API is called.
       additionalProperties: false
       properties:
         NotebookOutputOption:
           type: string
-          description: >-
-            Whether to include the notebook cell output when sharing the
-            notebook. The default is Disabled.
+          description: Whether to include the notebook cell output when sharing the notebook. The default is Disabled.
           enum:
             - Allowed
             - Disabled
         S3KmsKeyId:
           type: string
-          description: >-
-            When NotebookOutputOption is Allowed, the AWS Key Management Service
-            (KMS) encryption key ID used to encrypt the notebook cell output in
-            the Amazon S3 bucket.
+          description: When NotebookOutputOption is Allowed, the AWS Key Management Service (KMS) encryption key ID used to encrypt the notebook cell output in the Amazon S3 bucket.
           maxLength: 2048
           pattern: .*
         S3OutputPath:
           type: string
-          description: >-
-            When NotebookOutputOption is Allowed, the Amazon S3 bucket used to
-            store the shared notebook snapshots.
+          description: When NotebookOutputOption is Allowed, the Amazon S3 bucket used to store the shared notebook snapshots.
           maxLength: 1024
           pattern: ^(https|s3)://([^/]+)/?(.*)$
     DomainSettings:
@@ -881,10 +765,7 @@ components:
       properties:
         SecurityGroupIds:
           type: array
-          description: >-
-            The security groups for the Amazon Virtual Private Cloud that the
-            Domain uses for communication between Domain-level apps and user
-            apps.
+          description: The security groups for the Amazon Virtual Private Cloud that the Domain uses for communication between Domain-level apps and user apps.
           uniqueItems: false
           x-insertionOrder: false
           minItems: 1
@@ -897,16 +778,12 @@ components:
           $ref: '#/components/schemas/RStudioServerProDomainSettings'
     RStudioServerProDomainSettings:
       type: object
-      description: >-
-        A collection of settings that update the current configuration for the
-        RStudioServerPro Domain-level app.
+      description: A collection of settings that update the current configuration for the RStudioServerPro Domain-level app.
       additionalProperties: false
       properties:
         DomainExecutionRoleArn:
           type: string
-          description: >-
-            The ARN of the execution role for the RStudioServerPro Domain-level
-            app.
+          description: The ARN of the execution role for the RStudioServerPro Domain-level app.
           minLength: 20
           maxLength: 2048
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
@@ -929,9 +806,7 @@ components:
       properties:
         CustomImages:
           type: array
-          description: >-
-            A list of custom SageMaker images that are configured to run as a
-            KernelGateway app.
+          description: A list of custom SageMaker images that are configured to run as a KernelGateway app.
           x-insertionOrder: false
           uniqueItems: false
           minItems: 0
@@ -942,25 +817,18 @@ components:
           $ref: '#/components/schemas/ResourceSpec'
     RStudioServerProAppSettings:
       type: object
-      description: >-
-        A collection of settings that configure user interaction with the
-        RStudioServerPro app.
+      description: A collection of settings that configure user interaction with the RStudioServerPro app.
       additionalProperties: false
       properties:
         AccessStatus:
           type: string
-          description: >-
-            Indicates whether the current user has access to the
-            RStudioServerPro app.
+          description: Indicates whether the current user has access to the RStudioServerPro app.
           enum:
             - ENABLED
             - DISABLED
         UserGroup:
           type: string
-          description: >-
-            The level of permissions that the user has within the
-            RStudioServerPro app. This value defaults to User. The Admin value
-            allows the user access to the RStudio Administrative Dashboard.
+          description: The level of permissions that the user has within the RStudioServerPro app. This value defaults to User. The Admin value allows the user access to the RStudio Administrative Dashboard.
           enum:
             - R_STUDIO_ADMIN
             - R_STUDIO_USER
@@ -1151,17 +1019,12 @@ components:
       type: object
       additionalProperties: false
     CaptureContentTypeHeader:
-      description: >-
-        Configuration specifying how to treat different headers. If no headers
-        are specified SageMaker will by default base64 encode when capturing the
-        data.
+      description: Configuration specifying how to treat different headers. If no headers are specified SageMaker will by default base64 encode when capturing the data.
       type: object
       additionalProperties: false
       properties:
         CsvContentTypes:
-          description: >-
-            The list of all content type headers that SageMaker will treat as
-            CSV and capture accordingly.
+          description: The list of all content type headers that SageMaker will treat as CSV and capture accordingly.
           type: array
           minItems: 1
           maxItems: 10
@@ -1171,9 +1034,7 @@ components:
             minLength: 1
             maxLength: 256
         JsonContentTypes:
-          description: >-
-            The list of all content type headers that SageMaker will treat as
-            JSON and capture accordingly.
+          description: The list of all content type headers that SageMaker will treat as JSON and capture accordingly.
           type: array
           minItems: 1
           maxItems: 10
@@ -1398,9 +1259,7 @@ components:
         - Database
     TableFormat:
       type: string
-      description: >-
-        Format for the offline store feature group. Iceberg is the optimal
-        format for feature groups shared between offline and online stores.
+      description: Format for the offline store feature group. Iceberg is the optimal format for feature groups shared between offline and online stores.
       enum:
         - Iceberg
         - Glue
@@ -1489,12 +1348,9 @@ components:
       description: The Amazon Resource Name (ARN) of the parent image.
       minLength: 1
       maxLength: 256
-      pattern: >-
-        ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image\/[a-z0-9]([-.]?[a-z0-9])*$
+      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image\/[a-z0-9]([-.]?[a-z0-9])*$
     ImageRoleArn:
-      description: >-
-        The Amazon Resource Name (ARN) of an IAM role that enables Amazon
-        SageMaker to perform tasks on behalf of the customer.
+      description: The Amazon Resource Name (ARN) of an IAM role that enables Amazon SageMaker to perform tasks on behalf of the customer.
       type: string
       minLength: 1
       maxLength: 256
@@ -1540,21 +1396,16 @@ components:
       description: The Amazon Resource Name (ARN) of the image version.
       minLength: 1
       maxLength: 256
-      pattern: >-
-        ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image-version\/[a-z0-9]([-.]?[a-z0-9])*\/[0-9]+$
+      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image-version\/[a-z0-9]([-.]?[a-z0-9])*\/[0-9]+$
     BaseImage:
       type: string
-      description: >-
-        The registry path of the container image on which this image version is
-        based.
+      description: The registry path of the container image on which this image version is based.
       minLength: 1
       maxLength: 255
       pattern: .+
     ContainerImage:
       type: string
-      description: >-
-        The registry path of the container image that contains this image
-        version.
+      description: The registry path of the container image that contains this image version.
       minLength: 1
       maxLength: 255
       pattern: .+
@@ -1594,9 +1445,7 @@ components:
           pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*
           maxLength: 63
         EndpointStatus:
-          description: >-
-            The status of the endpoint. For possible values of the status of an
-            endpoint.
+          description: The status of the endpoint. For possible values of the status of an endpoint.
           type: string
           pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*
           enum:
@@ -1611,24 +1460,17 @@ components:
       required:
         - EndpointName
     DataStorageConfig:
-      description: >-
-        The Amazon S3 location and configuration for storing inference request
-        and response data.
+      description: The Amazon S3 location and configuration for storing inference request and response data.
       type: object
       additionalProperties: false
       properties:
         Destination:
-          description: >-
-            The Amazon S3 bucket where the inference request and response data
-            is stored.
+          description: The Amazon S3 bucket where the inference request and response data is stored.
           type: string
           pattern: ^(https|s3)://([^/])/?(.*)$
           maxLength: 512
         KmsKey:
-          description: >-
-            The AWS Key Management Service key that Amazon SageMaker uses to
-            encrypt captured data at rest using Amazon S3 server-side
-            encryption.
+          description: The AWS Key Management Service key that Amazon SageMaker uses to encrypt captured data at rest using Amazon S3 server-side encryption.
           type: string
           pattern: .*
           maxLength: 2048
@@ -1642,17 +1484,13 @@ components:
       additionalProperties: false
       properties:
         StartTime:
-          description: >-
-            The timestamp at which the inference experiment started or will
-            start.
+          description: The timestamp at which the inference experiment started or will start.
           type: string
         EndTime:
           description: The timestamp at which the inference experiment ended or will end.
           type: string
     RealTimeInferenceConfig:
-      description: >-
-        The infrastructure configuration for deploying the model to a real-time
-        inference endpoint.
+      description: The infrastructure configuration for deploying the model to a real-time inference endpoint.
       type: object
       additionalProperties: false
       properties:
@@ -1666,9 +1504,7 @@ components:
         - InstanceType
         - InstanceCount
     ModelInfrastructureConfig:
-      description: >-
-        The configuration for the infrastructure that the model will be deployed
-        to.
+      description: The configuration for the infrastructure that the model will be deployed to.
       type: object
       additionalProperties: false
       properties:
@@ -1714,28 +1550,19 @@ components:
           pattern: ^[a-zA-Z0-9]([\-a-zA-Z0-9]*[a-zA-Z0-9])?
           maxLength: 63
         SamplingPercentage:
-          description: >-
-            The percentage of inference requests that Amazon SageMaker
-            replicates from the production variant to the shadow variant.
+          description: The percentage of inference requests that Amazon SageMaker replicates from the production variant to the shadow variant.
           type: integer
           maximum: 100
       required:
         - ShadowModelVariantName
         - SamplingPercentage
     ShadowModeConfig:
-      description: >-
-        The configuration of ShadowMode inference experiment type. Use this
-        field to specify a production variant which takes all the inference
-        requests, and a shadow variant to which Amazon SageMaker replicates a
-        percentage of the inference requests. For the shadow variant also
-        specify the percentage of requests that Amazon SageMaker replicates.
+      description: The configuration of ShadowMode inference experiment type. Use this field to specify a production variant which takes all the inference requests, and a shadow variant to which Amazon SageMaker replicates a percentage of the inference requests. For the shadow variant also specify the percentage of requests that Amazon SageMaker replicates.
       type: object
       additionalProperties: false
       properties:
         SourceModelVariantName:
-          description: >-
-            The name of the production variant, which takes all the inference
-            requests.
+          description: The name of the production variant, which takes all the inference requests.
           type: string
           pattern: ^[a-zA-Z0-9]([\-a-zA-Z0-9]*[a-zA-Z0-9])?
           maxLength: 63
@@ -1755,8 +1582,7 @@ components:
         Arn:
           description: The Amazon Resource Name (ARN) of the inference experiment.
           type: string
-          pattern: >-
-            ^arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:inference-experiment/[a-zA-Z_0-9+=,.@\-_/]+$
+          pattern: ^arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:inference-experiment/[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
           maxLength: 256
         Name:
@@ -1776,10 +1602,7 @@ components:
           minLength: 1
           maxLength: 1024
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to access model artifacts and container images, and
-            manage Amazon SageMaker Inference endpoints for model deployment.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to access model artifacts and container images, and manage Amazon SageMaker Inference endpoints for model deployment.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -1792,20 +1615,14 @@ components:
           $ref: '#/components/schemas/InferenceExperimentSchedule'
         KmsKey:
           type: string
-          description: >-
-            The AWS Key Management Service (AWS KMS) key that Amazon SageMaker
-            uses to encrypt data on the storage volume attached to the ML
-            compute instance that hosts the endpoint.
+          description: The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt data on the storage volume attached to the ML compute instance that hosts the endpoint.
           pattern: .*
           maxLength: 2048
         DataStorageConfig:
           $ref: '#/components/schemas/DataStorageConfig'
         ModelVariants:
           type: array
-          description: >-
-            An array of ModelVariantConfig objects. Each ModelVariantConfig
-            object in the array describes the infrastructure configuration for
-            the corresponding variant.
+          description: An array of ModelVariantConfig objects. Each ModelVariantConfig object in the array describes the infrastructure configuration for the corresponding variant.
           maxItems: 2
           items:
             $ref: '#/components/schemas/ModelVariantConfig'
@@ -1836,18 +1653,13 @@ components:
             - Completed
             - Cancelled
         StatusReason:
-          description: >-
-            The error message or client-specified reason from the
-            StopInferenceExperiment API, that explains the status of the
-            inference experiment.
+          description: The error message or client-specified reason from the StopInferenceExperiment API, that explains the status of the inference experiment.
           type: string
           pattern: .*
           minLength: 1
           maxLength: 1024
         DesiredState:
-          description: >-
-            The desired state of the experiment after starting or stopping
-            operation.
+          description: The desired state of the experiment after starting or stopping operation.
           type: string
           enum:
             - Running
@@ -1947,9 +1759,7 @@ components:
     ModelBiasBaselineConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Baseline configuration used to validate that the data conforms to the
-        specified constraints and statistics.
+      description: Baseline configuration used to validate that the data conforms to the specified constraints and statistics.
       properties:
         BaseliningJobName:
           $ref: '#/components/schemas/ProcessingJobName'
@@ -2009,9 +1819,7 @@ components:
       properties:
         S3Uri:
           type: string
-          description: >-
-            A URI that identifies the Amazon S3 storage location where Amazon
-            SageMaker saves the results of a monitoring job.
+          description: A URI that identifies the Amazon S3 storage location where Amazon SageMaker saves the results of a monitoring job.
           pattern: ^(https|s3)://([^/]+)/?(.*)$
           maxLength: 512
       required:
@@ -2041,9 +1849,7 @@ components:
         EndpointName:
           $ref: '#/components/schemas/EndpointName'
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to perform tasks on your behalf.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -2068,10 +1874,8 @@ components:
       x-stackql-resource-name: ModelBiasJobDefinition
     SecurityConfig:
       type: object
-      description: >+
-        An optional Key Management Service key to encrypt, decrypt, and
-        re-encrypt model card content for regulated workloads with highly
-        sensitive data.
+      description: |+
+        An optional Key Management Service key to encrypt, decrypt, and re-encrypt model card content for regulated workloads with highly sensitive data.
 
       additionalProperties: false
       properties:
@@ -2083,9 +1887,7 @@ components:
     UserContext:
       type: object
       additionalProperties: false
-      description: >-
-        Information about the user who created or modified an experiment, trial,
-        trial component, lineage group, or project.
+      description: Information about the user who created or modified an experiment, trial, trial component, lineage group, or project.
       properties:
         DomainId:
           type: string
@@ -2343,9 +2145,7 @@ components:
           type: string
           maxLength: 2048
         CaveatsAndRecommendations:
-          description: >-
-            Caveats and recommendations for people who might use this model in
-            their applications.
+          description: Caveats and recommendations for people who might use this model in their applications.
           type: string
           maxLength: 2048
         CustomDetails:
@@ -2563,14 +2363,11 @@ components:
       type: object
       properties:
         ModelCardArn:
-          description: >-
-            The Amazon Resource Name (ARN) of the successfully created model
-            card.
+          description: The Amazon Resource Name (ARN) of the successfully created model card.
           type: string
           minLength: 1
           maxLength: 256
-          pattern: >-
-            ^arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]{9,16}:[0-9]{12}:model-card/[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$
+          pattern: ^arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]{9,16}:[0-9]{12}:model-card/[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}$
         ModelCardVersion:
           description: A version of the model card.
           type: integer
@@ -2583,10 +2380,7 @@ components:
         SecurityConfig:
           $ref: '#/components/schemas/SecurityConfig'
         ModelCardStatus:
-          description: >-
-            The approval status of the model card within your organization.
-            Different organizations might have different criteria for model card
-            review and approval.
+          description: The approval status of the model card within your organization. Different organizations might have different criteria for model card review and approval.
           type: string
           enum:
             - Draft
@@ -2599,23 +2393,16 @@ components:
           description: The date and time the model card was created.
           type: string
         CreatedBy:
-          description: >-
-            Information about the user who created or modified an experiment,
-            trial, trial component, lineage group, project, or model card.
+          description: Information about the user who created or modified an experiment, trial, trial component, lineage group, project, or model card.
           $ref: '#/components/schemas/UserContext'
         LastModifiedTime:
           description: The date and time the model card was last modified.
           type: string
         LastModifiedBy:
-          description: >-
-            Information about the user who created or modified an experiment,
-            trial, trial component, lineage group, project, or model card.
+          description: Information about the user who created or modified an experiment, trial, trial component, lineage group, project, or model card.
           $ref: '#/components/schemas/UserContext'
         ModelCardProcessingStatus:
-          description: >-
-            The processing status of model card deletion. The
-            ModelCardProcessingStatus updates throughout the different deletion
-            steps.
+          description: The processing status of model card deletion. The ModelCardProcessingStatus updates throughout the different deletion steps.
           type: string
           default: UnsetValue
           enum:
@@ -2642,9 +2429,7 @@ components:
     ModelExplainabilityBaselineConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Baseline configuration used to validate that the data conforms to the
-        specified constraints and statistics.
+      description: Baseline configuration used to validate that the data conforms to the specified constraints and statistics.
       properties:
         BaseliningJobName:
           $ref: '#/components/schemas/ProcessingJobName'
@@ -2712,9 +2497,7 @@ components:
         EndpointName:
           $ref: '#/components/schemas/EndpointName'
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to perform tasks on your behalf.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -2746,18 +2529,12 @@ components:
         $ref: '#/components/schemas/AdditionalInferenceSpecificationDefinition'
       x-insertionOrder: true
     AdditionalInferenceSpecificationDefinition:
-      description: >-
-        Additional Inference Specification specifies details about inference
-        jobs that can be run with models based on this model
-        package.AdditionalInferenceSpecifications can be added to existing model
-        packages using AdditionalInferenceSpecificationsToAdd.
+      description: Additional Inference Specification specifies details about inference jobs that can be run with models based on this model package.AdditionalInferenceSpecifications can be added to existing model packages using AdditionalInferenceSpecificationsToAdd.
       type: object
       additionalProperties: false
       properties:
         Containers:
-          description: >-
-            The Amazon ECR registry path of the Docker image that contains the
-            inference code.
+          description: The Amazon ECR registry path of the Docker image that contains the inference code.
           type: array
           items:
             $ref: '#/components/schemas/ModelPackageContainerDefinition'
@@ -2770,10 +2547,7 @@ components:
           maxLength: 1024
           pattern: .*
         Name:
-          description: >-
-            A unique name to identify the additional inference specification.
-            The name must be unique within the list of your additional inference
-            specifications for a particular model package.
+          description: A unique name to identify the additional inference specification. The name must be unique within the list of your additional inference specifications for a particular model package.
           type: string
           minLength: 1
           maxLength: 63
@@ -2785,9 +2559,7 @@ components:
             $ref: '#/components/schemas/ContentType'
           x-insertionOrder: true
         SupportedRealtimeInferenceInstanceTypes:
-          description: >-
-            A list of the instance types that are used to generate inferences in
-            real-time
+          description: A list of the instance types that are used to generate inferences in real-time
           type: array
           items:
             $ref: '#/components/schemas/InferenceInstanceType'
@@ -2799,9 +2571,7 @@ components:
             $ref: '#/components/schemas/ResponseMIMEType'
           x-insertionOrder: true
         SupportedTransformInstanceTypes:
-          description: >-
-            A list of the instance types on which a transformation job can be
-            run or on which an endpoint can be deployed.
+          description: A list of the instance types on which a transformation job can be run or on which an endpoint can be deployed.
           type: array
           minItems: 1
           items:
@@ -2811,9 +2581,7 @@ components:
         - Containers
         - Name
     TransformInstanceType:
-      description: >-
-        Instance types on which a transformation job can be run or on which an
-        endpoint can be deployed.
+      description: Instance types on which a transformation job can be run or on which an endpoint can be deployed.
       type: string
     InferenceInstanceType:
       description: Instance type that is used to generate inferences in real-time
@@ -2853,9 +2621,7 @@ components:
           maxLength: 256
       additionalProperties: false
     DriftCheckBaselines:
-      description: >-
-        Represents the drift check baselines that can be used when the model
-        monitor is set using the model package.
+      description: Represents the drift check baselines that can be used when the model monitor is set using the model package.
       type: object
       additionalProperties: false
       properties:
@@ -2868,9 +2634,7 @@ components:
         ModelQuality:
           $ref: '#/components/schemas/DriftCheckModelQuality'
     DriftCheckBias:
-      description: >-
-        Represents the drift check bias baselines that can be used when the
-        model monitor is set using the model package.
+      description: Represents the drift check bias baselines that can be used when the model monitor is set using the model package.
       type: object
       additionalProperties: false
       properties:
@@ -2890,9 +2654,7 @@ components:
         ConfigFile:
           $ref: '#/components/schemas/FileSource'
     DriftCheckModelDataQuality:
-      description: >-
-        Represents the drift check data quality baselines that can be used when
-        the model monitor is set using the model package.
+      description: Represents the drift check data quality baselines that can be used when the model monitor is set using the model package.
       type: object
       additionalProperties: false
       properties:
@@ -2901,9 +2663,7 @@ components:
         Statistics:
           $ref: '#/components/schemas/MetricsSource'
     DriftCheckModelQuality:
-      description: >-
-        Represents the drift check model quality baselines that can be used when
-        the model monitor is set using the model package.
+      description: Represents the drift check model quality baselines that can be used when the model monitor is set using the model package.
       type: object
       additionalProperties: false
       properties:
@@ -2957,16 +2717,12 @@ components:
       required:
         - S3Uri
     InferenceSpecification:
-      description: >-
-        Details about inference jobs that can be run with models based on this
-        model package.
+      description: Details about inference jobs that can be run with models based on this model package.
       type: object
       additionalProperties: false
       properties:
         Containers:
-          description: >-
-            The Amazon ECR registry path of the Docker image that contains the
-            inference code.
+          description: The Amazon ECR registry path of the Docker image that contains the inference code.
           type: array
           uniqueItems: true
           items:
@@ -2981,9 +2737,7 @@ components:
             $ref: '#/components/schemas/ContentType'
           x-insertionOrder: true
         SupportedRealtimeInferenceInstanceTypes:
-          description: >-
-            A list of the instance types that are used to generate inferences in
-            real-time
+          description: A list of the instance types that are used to generate inferences in real-time
           type: array
           items:
             $ref: '#/components/schemas/InferenceInstanceType'
@@ -2995,9 +2749,7 @@ components:
             $ref: '#/components/schemas/ResponseMIMEType'
           x-insertionOrder: true
         SupportedTransformInstanceTypes:
-          description: >-
-            A list of the instance types on which a transformation job can be
-            run or on which an endpoint can be deployed.
+          description: A list of the instance types on which a transformation job can be run or on which an endpoint can be deployed.
           type: array
           minItems: 1
           items:
@@ -3045,17 +2797,13 @@ components:
             - DataInputConfig
         Image:
           type: string
-          description: >-
-            The Amazon EC2 Container Registry (Amazon ECR) path where inference
-            code is stored.
+          description: The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
           pattern: '[\S]{1,255}'
           minLength: 1
           maxLength: 255
         ImageDigest:
           type: string
-          description: >-
-            An MD5 hash of the training algorithm that identifies the Docker
-            image used for training.
+          description: An MD5 hash of the training algorithm that identifies the Docker image used for training.
           pattern: ^[Ss][Hh][Aa]256:[0-9a-fA-F]{64}$
           maxLength: 72
         ModelDataUrl:
@@ -3079,9 +2827,7 @@ components:
           maxLength: 10
         NearestModelName:
           type: string
-          description: >-
-            The name of a pre-trained machine learning benchmarked by Amazon
-            SageMaker Inference Recommender model that matches your model.
+          description: The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that matches your model.
       required:
         - Image
     MetadataProperties:
@@ -3179,9 +2925,7 @@ components:
       type: string
       description: The name or arn of the model package.
     SamplePayloadUrl:
-      description: >-
-        The Amazon Simple Storage Service (Amazon S3) path where the sample
-        payload are stored pointing to single gzip compressed tar archive.
+      description: The Amazon Simple Storage Service (Amazon S3) path where the sample payload are stored pointing to single gzip compressed tar archive.
       type: string
       maxLength: 1024
       pattern: ^(https|s3)://([^/]+)/?(.*)$
@@ -3202,38 +2946,25 @@ components:
         - SourceAlgorithms
       x-insertionOrder: true
     SourceAlgorithm:
-      description: >-
-        Specifies an algorithm that was used to create the model package. The
-        algorithm must be either an algorithm resource in your Amazon SageMaker
-        account or an algorithm in AWS Marketplace that you are subscribed to.
+      description: Specifies an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
       type: object
       additionalProperties: false
       properties:
         AlgorithmName:
-          description: >-
-            The name of an algorithm that was used to create the model package.
-            The algorithm must be either an algorithm resource in your Amazon
-            SageMaker account or an algorithm in AWS Marketplace that you are
-            subscribed to.
+          description: The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
           type: string
           minLength: 1
           maxLength: 170
-          pattern: >-
-            (arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:[a-z\-]*\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$
+          pattern: (arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:[a-z\-]*\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$
         ModelDataUrl:
-          description: >-
-            The Amazon S3 path where the model artifacts, which result from
-            model training, are stored. This path must point to a single gzip
-            compressed tar archive (.tar.gz suffix).
+          description: The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix).
           type: string
           maxLength: 1024
           pattern: ^(https|s3)://([^/]+)/?(.*)$
       required:
         - AlgorithmName
     ValidationSpecification:
-      description: >-
-        Specifies configurations for one or more transform jobs that Amazon
-        SageMaker runs to test the model package.
+      description: Specifies configurations for one or more transform jobs that Amazon SageMaker runs to test the model package.
       type: object
       additionalProperties: false
       properties:
@@ -3255,9 +2986,7 @@ components:
         - ValidationRole
       x-insertionOrder: true
     ValidationProfile:
-      description: >-
-        Contains data, such as the inputs and targeted instance types that are
-        used in the process of validating the model package.
+      description: Contains data, such as the inputs and targeted instance types that are used in the process of validating the model package.
       type: object
       additionalProperties: false
       properties:
@@ -3273,32 +3002,24 @@ components:
         - TransformJobDefinition
         - ProfileName
     TransformJobDefinition:
-      description: >-
-        Defines the input needed to run a transform job using the inference
-        specification specified in the algorithm.
+      description: Defines the input needed to run a transform job using the inference specification specified in the algorithm.
       type: object
       additionalProperties: false
       properties:
         Environment:
           $ref: '#/components/schemas/Environment'
         BatchStrategy:
-          description: >-
-            A string that determines the number of records included in a single
-            mini-batch.
+          description: A string that determines the number of records included in a single mini-batch.
           type: string
           enum:
             - MultiRecord
             - SingleRecord
         MaxConcurrentTransforms:
-          description: >-
-            The maximum number of parallel requests that can be sent to each
-            instance in a transform job. The default value is 1.
+          description: The maximum number of parallel requests that can be sent to each instance in a transform job. The default value is 1.
           type: integer
           minimum: 0
         MaxPayloadInMB:
-          description: >-
-            The maximum payload size allowed, in MB. A payload is the data
-            portion of a record (without metadata).
+          description: The maximum payload size allowed, in MB. A payload is the data portion of a record (without metadata).
           type: integer
           minimum: 0
         TransformInput:
@@ -3312,35 +3033,25 @@ components:
         - TransformOutput
         - TransformInput
     TransformInput:
-      description: >-
-        Describes the input source of a transform job and the way the transform
-        job consumes it.
+      description: Describes the input source of a transform job and the way the transform job consumes it.
       type: object
       additionalProperties: false
       properties:
         CompressionType:
-          description: >-
-            If your transform data is compressed, specify the compression type.
-            Amazon SageMaker automatically decompresses the data for the
-            transform job accordingly. The default value is None.
+          description: If your transform data is compressed, specify the compression type. Amazon SageMaker automatically decompresses the data for the transform job accordingly. The default value is None.
           type: string
           enum:
             - None
             - Gzip
         ContentType:
-          description: >-
-            The multipurpose internet mail extension (MIME) type of the data.
-            Amazon SageMaker uses the MIME type with each http call to transfer
-            data to the transform job.
+          description: The multipurpose internet mail extension (MIME) type of the data. Amazon SageMaker uses the MIME type with each http call to transfer data to the transform job.
           type: string
           maxLength: 256
           pattern: .*
         DataSource:
           $ref: '#/components/schemas/DataSource'
         SplitType:
-          description: >-
-            The method to use to split the transform job's data files into
-            smaller batches. 
+          description: 'The method to use to split the transform job''s data files into smaller batches. '
           type: string
           enum:
             - None
@@ -3350,9 +3061,7 @@ components:
       required:
         - DataSource
     DataSource:
-      description: >-
-        Describes the input source of a transform job and the way the transform
-        job consumes it.
+      description: Describes the input source of a transform job and the way the transform job consumes it.
       type: object
       additionalProperties: false
       properties:
@@ -3373,9 +3082,7 @@ components:
             - S3Prefix
             - AugmentedManifestFile
         S3Uri:
-          description: >-
-            Depending on the value specified for the S3DataType, identifies
-            either a key name prefix or a manifest.
+          description: Depending on the value specified for the S3DataType, identifies either a key name prefix or a manifest.
           type: string
           maxLength: 1024
           pattern: ^(https|s3)://([^/]+)/?(.*)$
@@ -3388,32 +3095,22 @@ components:
       additionalProperties: false
       properties:
         Accept:
-          description: >-
-            The MIME type used to specify the output data. Amazon SageMaker uses
-            the MIME type with each http call to transfer data from the
-            transform job.
+          description: The MIME type used to specify the output data. Amazon SageMaker uses the MIME type with each http call to transfer data from the transform job.
           type: string
           maxLength: 256
           pattern: .*
         KmsKeyId:
-          description: >-
-            The AWS Key Management Service (AWS KMS) key that Amazon SageMaker
-            uses to encrypt the model artifacts at rest using Amazon S3
-            server-side encryption.
+          description: The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt the model artifacts at rest using Amazon S3 server-side encryption.
           type: string
           maxLength: 2048
           pattern: .*
         S3OutputPath:
-          description: >-
-            The Amazon S3 path where you want Amazon SageMaker to store the
-            results of the transform job.
+          description: The Amazon S3 path where you want Amazon SageMaker to store the results of the transform job.
           type: string
           maxLength: 1024
           pattern: ^(https|s3)://([^/]+)/?(.*)$
         AssembleWith:
-          description: >-
-            Defines how to assemble the results of the transform job as a single
-            S3 object.
+          description: Defines how to assemble the results of the transform job as a single S3 object.
           type: string
           enum:
             - None
@@ -3421,27 +3118,19 @@ components:
       required:
         - S3OutputPath
     TransformResources:
-      description: >-
-        Describes the resources, including ML instance types and ML instance
-        count, to use for transform job.
+      description: Describes the resources, including ML instance types and ML instance count, to use for transform job.
       type: object
       additionalProperties: false
       properties:
         InstanceCount:
-          description: >-
-            The number of ML compute instances to use in the transform job. For
-            distributed transform jobs, specify a value greater than 1. The
-            default value is 1.
+          description: The number of ML compute instances to use in the transform job. For distributed transform jobs, specify a value greater than 1. The default value is 1.
           type: integer
           minimum: 1
         InstanceType:
           description: The ML compute instance type for the transform job.
           type: string
         VolumeKmsKeyId:
-          description: >-
-            The AWS Key Management Service (AWS KMS) key that Amazon SageMaker
-            uses to encrypt model data on the storage volume attached to the ML
-            compute instance(s) that run the batch transform job.
+          description: The AWS Key Management Service (AWS KMS) key that Amazon SageMaker uses to encrypt model data on the storage volume attached to the ML compute instance(s) that run the batch transform job.
           type: string
           maxLength: 2048
           pattern: .*
@@ -3451,8 +3140,7 @@ components:
     ModelPackageArn:
       type: string
       description: The Amazon Resource Name (ARN) of the model package group.
-      pattern: >-
-        ^arn:aws(-cn|-us-gov)?:sagemaker:[a-z0-9\-]{9,16}:[0-9]{12}:model-package/[\S]{1,2048}$
+      pattern: ^arn:aws(-cn|-us-gov)?:sagemaker:[a-z0-9\-]{9,16}:[0-9]{12}:model-package/[\S]{1,2048}$
       minLength: 1
       maxLength: 2048
     ApprovalDescription:
@@ -3504,9 +3192,7 @@ components:
           description: If the overall status is Failed, the reason for the failure.
           type: string
         Name:
-          description: >-
-            The name of the model package for which the overall status is being
-            reported.
+          description: The name of the model package for which the overall status is being reported.
           type: string
           minLength: 1
           maxLength: 63
@@ -3647,9 +3333,7 @@ components:
     ModelQualityBaselineConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Baseline configuration used to validate that the data conforms to the
-        specified constraints and statistics.
+      description: Baseline configuration used to validate that the data conforms to the specified constraints and statistics.
       properties:
         BaseliningJobName:
           $ref: '#/components/schemas/ProcessingJobName'
@@ -3662,9 +3346,7 @@ components:
       properties:
         ContainerArguments:
           type: array
-          description: >-
-            An array of arguments for the container used to run the monitoring
-            job.
+          description: An array of arguments for the container used to run the monitoring job.
           maxItems: 50
           items:
             type: string
@@ -3672,9 +3354,7 @@ components:
             maxLength: 256
         ContainerEntrypoint:
           type: array
-          description: >-
-            Specifies the entrypoint for a container used to run the monitoring
-            job.
+          description: Specifies the entrypoint for a container used to run the monitoring job.
           maxItems: 100
           items:
             type: string
@@ -3686,17 +3366,10 @@ components:
           pattern: .*
           maxLength: 255
         PostAnalyticsProcessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called after analysis has been
-            performed. Applicable only for the built-in (first party)
-            containers.
+          description: An Amazon S3 URI to a script that is called after analysis has been performed. Applicable only for the built-in (first party) containers.
           $ref: '#/components/schemas/S3Uri'
         RecordPreprocessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called per row prior to running
-            analysis. It can base64 decode the payload and convert it into a
-            flatted json so that the built-in container can use the converted
-            data. Applicable only for the built-in (first party) containers
+          description: An Amazon S3 URI to a script that is called per row prior to running analysis. It can base64 decode the payload and convert it into a flatted json so that the built-in container can use the converted data. Applicable only for the built-in (first party) containers
           $ref: '#/components/schemas/S3Uri'
         Environment:
           type: object
@@ -3760,9 +3433,7 @@ components:
         EndpointName:
           $ref: '#/components/schemas/EndpointName'
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to perform tasks on your behalf.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -3788,9 +3459,7 @@ components:
     MonitoringScheduleConfig:
       type: object
       additionalProperties: false
-      description: >-
-        The configuration object that specifies the monitoring schedule and
-        defines the monitoring job.
+      description: The configuration object that specifies the monitoring schedule and defines the monitoring job.
       properties:
         MonitoringJobDefinition:
           $ref: '#/components/schemas/MonitoringJobDefinition'
@@ -3841,9 +3510,7 @@ components:
         NetworkConfig:
           $ref: '#/components/schemas/NetworkConfig'
         RoleArn:
-          description: >-
-            The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker
-            can assume to perform tasks on your behalf.
+          description: The Amazon Resource Name (ARN) of an IAM role that Amazon SageMaker can assume to perform tasks on your behalf.
           type: string
           pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
           minLength: 20
@@ -3859,9 +3526,7 @@ components:
     BaselineConfig:
       type: object
       additionalProperties: false
-      description: >-
-        Baseline configuration used to validate that the data conforms to the
-        specified constraints and statistics.
+      description: Baseline configuration used to validate that the data conforms to the specified constraints and statistics.
       properties:
         ConstraintsResource:
           $ref: '#/components/schemas/ConstraintsResource'
@@ -3874,17 +3539,13 @@ components:
       properties:
         ContainerArguments:
           type: array
-          description: >-
-            An array of arguments for the container used to run the monitoring
-            job.
+          description: An array of arguments for the container used to run the monitoring job.
           maxItems: 50
           items:
             $ref: '#/components/schemas/ContainerArgument'
         ContainerEntrypoint:
           type: array
-          description: >-
-            Specifies the entrypoint for a container used to run the monitoring
-            job.
+          description: Specifies the entrypoint for a container used to run the monitoring job.
           maxItems: 100
           items:
             type: string
@@ -3896,17 +3557,10 @@ components:
           pattern: .*
           maxLength: 255
         PostAnalyticsProcessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called after analysis has been
-            performed. Applicable only for the built-in (first party)
-            containers.
+          description: An Amazon S3 URI to a script that is called after analysis has been performed. Applicable only for the built-in (first party) containers.
           $ref: '#/components/schemas/S3Uri'
         RecordPreprocessorSourceUri:
-          description: >-
-            An Amazon S3 URI to a script that is called per row prior to running
-            analysis. It can base64 decode the payload and convert it into a
-            flatted json so that the built-in container can use the converted
-            data. Applicable only for the built-in (first party) containers
+          description: An Amazon S3 URI to a script that is called per row prior to running analysis. It can base64 decode the payload and convert it into a flatted json so that the built-in container can use the converted data. Applicable only for the built-in (first party) containers
           $ref: '#/components/schemas/S3Uri'
       required:
         - ImageUri
@@ -3939,9 +3593,7 @@ components:
       description: Configuration details about the monitoring schedule.
       properties:
         ScheduleExpression:
-          description: >-
-            A cron expression that describes details about the monitoring
-            schedule.
+          description: A cron expression that describes details about the monitoring schedule.
           type: string
           minLength: 1
           maxLength: 256
@@ -3961,9 +3613,7 @@ components:
           description: Contains the reason a monitoring job failed, if it failed.
           maxLength: 1024
         LastModifiedTime:
-          description: >-
-            A timestamp that indicates the last time the monitoring job was
-            modified.
+          description: A timestamp that indicates the last time the monitoring job was modified.
           type: string
         MonitoringExecutionStatus:
           description: The status of the monitoring job.
@@ -4026,9 +3676,7 @@ components:
           minLength: 1
           maxLength: 1024
         LastModifiedTime:
-          description: >-
-            A timestamp that indicates the last time the monitoring job was
-            modified.
+          description: A timestamp that indicates the last time the monitoring job was modified.
           type: string
         LastMonitoringExecutionSummary:
           description: Describes metadata on the last execution to run, if there was one.
@@ -4135,25 +3783,16 @@ components:
       additionalProperties: false
       properties:
         Bucket:
-          description: >-
-            The name of the S3 bucket where the PipelineDefinition file is
-            stored.
+          description: The name of the S3 bucket where the PipelineDefinition file is stored.
           type: string
         Key:
-          description: >-
-            The file name of the PipelineDefinition file (Amazon S3 object
-            name).
+          description: The file name of the PipelineDefinition file (Amazon S3 object name).
           type: string
         Version:
-          description: >-
-            For versioning-enabled buckets, a specific version of the
-            PipelineDefinition file.
+          description: For versioning-enabled buckets, a specific version of the PipelineDefinition file.
           type: string
         ETag:
-          description: >-
-            The Amazon S3 ETag (a file checksum) of the PipelineDefinition file.
-            If you don't specify a value, SageMaker skips ETag validation of
-            your PipelineDefinition file.
+          description: The Amazon S3 ETag (a file checksum) of the PipelineDefinition file. If you don't specify a value, SageMaker skips ETag validation of your PipelineDefinition file.
           type: string
       required:
         - Bucket
@@ -4311,9 +3950,7 @@ components:
               $ref: '#/components/schemas/PathId'
             ProvisioningParameters:
               type: array
-              description: >-
-                Parameters specified by the administrator that are required for
-                provisioning the product.
+              description: Parameters specified by the administrator that are required for provisioning the product.
               items:
                 $ref: '#/components/schemas/ProvisioningParameter'
           required:
@@ -4345,9 +3982,7 @@ components:
       x-stackql-resource-name: Project
     SpaceSettings:
       type: object
-      description: >-
-        A collection of settings that apply to spaces of Amazon SageMaker
-        Studio. These settings are specified when the CreateSpace API is called.
+      description: A collection of settings that apply to spaces of Amazon SageMaker Studio. These settings are specified when the CreateSpace API is called.
       additionalProperties: false
       properties:
         JupyterServerAppSettings:
@@ -4407,20 +4042,11 @@ components:
           maxLength: 63
         SingleSignOnUserIdentifier:
           type: string
-          description: >-
-            A specifier for the type of value specified in
-            SingleSignOnUserValue. Currently, the only supported value is
-            "UserName". If the Domain's AuthMode is SSO, this field is required.
-            If the Domain's AuthMode is not SSO, this field cannot be specified.
+          description: A specifier for the type of value specified in SingleSignOnUserValue. Currently, the only supported value is "UserName". If the Domain's AuthMode is SSO, this field is required. If the Domain's AuthMode is not SSO, this field cannot be specified.
           pattern: UserName
         SingleSignOnUserValue:
           type: string
-          description: >-
-            The username of the associated AWS Single Sign-On User for this
-            UserProfile. If the Domain's AuthMode is SSO, this field is
-            required, and must match a valid username of a user in your
-            directory. If the Domain's AuthMode is not SSO, this field cannot be
-            specified.
+          description: The username of the associated AWS Single Sign-On User for this UserProfile. If the Domain's AuthMode is SSO, this field is required, and must match a valid username of a user in your directory. If the Domain's AuthMode is not SSO, this field cannot be specified.
           minLength: 1
           maxLength: 256
         UserProfileName:
@@ -4519,33 +4145,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AppArn') as app_arn,
-
               JSON_EXTRACT(Properties, '$.AppName') as app_name,
-
               JSON_EXTRACT(Properties, '$.AppType') as app_type,
-
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-
-              JSON_EXTRACT(Properties, '$.ResourceSpec.InstanceType') as
-              resource_spec_instance_type,
-
-              JSON_EXTRACT(Properties, '$.ResourceSpec.SageMakerImageArn') as
-              resource_spec_sage_maker_image_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.ResourceSpec.SageMakerImageVersionArn') as
-              resource_spec_sage_maker_image_version_arn,
-
+              JSON_EXTRACT(Properties, '$.ResourceSpec.InstanceType') as resource_spec_instance_type,
+              JSON_EXTRACT(Properties, '$.ResourceSpec.SageMakerImageArn') as resource_spec_sage_maker_image_arn,
+              JSON_EXTRACT(Properties, '$.ResourceSpec.SageMakerImageVersionArn') as resource_spec_sage_maker_image_version_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::App' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::App' ;
   - AppImageConfig:
       name: AppImageConfig
       id: aws.sagemaker.AppImageConfig
@@ -4553,26 +4164,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.AppImageConfigArn') as
-              app_image_config_arn,
-
-              JSON_EXTRACT(Properties, '$.AppImageConfigName') as
-              app_image_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.KernelGatewayImageConfig.FileSystemConfig') as
-              kernel_gateway_image_config_file_system_config,
-
-              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig.KernelSpecs')
-              as kernel_gateway_image_config_kernel_specs,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.AppImageConfigArn') as app_image_config_arn,
+              JSON_EXTRACT(Properties, '$.AppImageConfigName') as app_image_config_name,
+              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig.FileSystemConfig') as kernel_gateway_image_config_file_system_config,
+              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig.KernelSpecs') as kernel_gateway_image_config_kernel_specs,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::AppImageConfig' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::AppImageConfig' ;
   - CodeRepository:
       name: CodeRepository
       id: aws.sagemaker.CodeRepository
@@ -4580,27 +4179,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.GitConfig.SecretArn') as
-              git_config_secret_arn,
-
-              JSON_EXTRACT(Properties, '$.GitConfig.RepositoryUrl') as
-              git_config_repository_url,
-
-              JSON_EXTRACT(Properties, '$.GitConfig.Branch') as
-              git_config_branch,
-
-              JSON_EXTRACT(Properties, '$.CodeRepositoryName') as
-              code_repository_name,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.GitConfig.SecretArn') as git_config_secret_arn,
+              JSON_EXTRACT(Properties, '$.GitConfig.RepositoryUrl') as git_config_repository_url,
+              JSON_EXTRACT(Properties, '$.GitConfig.Branch') as git_config_branch,
+              JSON_EXTRACT(Properties, '$.CodeRepositoryName') as code_repository_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::CodeRepository' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::CodeRepository' ;
   - DataQualityJobDefinition:
       name: DataQualityJobDefinition
       id: aws.sagemaker.DataQualityJobDefinition
@@ -4608,87 +4195,31 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as
-              job_definition_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityBaselineConfig.BaseliningJobName') as
-              data_quality_baseline_config_baselining_job_name,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityBaselineConfig.ConstraintsResource') as
-              data_quality_baseline_config_constraints_resource,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityBaselineConfig.StatisticsResource') as
-              data_quality_baseline_config_statistics_resource,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityAppSpecification.ContainerArguments') as
-              data_quality_app_specification_container_arguments,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityAppSpecification.ContainerEntrypoint') as
-              data_quality_app_specification_container_entrypoint,
-
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ImageUri')
-              as data_quality_app_specification_image_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityAppSpecification.PostAnalyticsProcessorSourceUri')
-              as
-              data_quality_app_specification_post_analytics_processor_source_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityAppSpecification.RecordPreprocessorSourceUri') as
-              data_quality_app_specification_record_preprocessor_source_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityAppSpecification.Environment') as
-              data_quality_app_specification_environment,
-
-              JSON_EXTRACT(Properties, '$.DataQualityJobInput.EndpointInput') as
-              data_quality_job_input_endpoint_input,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityJobInput.BatchTransformInput') as
-              data_quality_job_input_batch_transform_input,
-
-              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig.KmsKeyId')
-              as data_quality_job_output_config_kms_key_id,
-
-              JSON_EXTRACT(Properties,
-              '$.DataQualityJobOutputConfig.MonitoringOutputs') as
-              data_quality_job_output_config_monitoring_outputs,
-
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as
-              job_resources_cluster_config,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfig.EnableInterContainerTrafficEncryption') as
-              network_config_enable_inter_container_traffic_encryption,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation')
-              as network_config_enable_network_isolation,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as
-              network_config_vpc_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
+              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.BaseliningJobName') as data_quality_baseline_config_baselining_job_name,
+              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.ConstraintsResource') as data_quality_baseline_config_constraints_resource,
+              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.StatisticsResource') as data_quality_baseline_config_statistics_resource,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ContainerArguments') as data_quality_app_specification_container_arguments,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ContainerEntrypoint') as data_quality_app_specification_container_entrypoint,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ImageUri') as data_quality_app_specification_image_uri,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.PostAnalyticsProcessorSourceUri') as data_quality_app_specification_post_analytics_processor_source_uri,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.RecordPreprocessorSourceUri') as data_quality_app_specification_record_preprocessor_source_uri,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.Environment') as data_quality_app_specification_environment,
+              JSON_EXTRACT(Properties, '$.DataQualityJobInput.EndpointInput') as data_quality_job_input_endpoint_input,
+              JSON_EXTRACT(Properties, '$.DataQualityJobInput.BatchTransformInput') as data_quality_job_input_batch_transform_input,
+              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig.KmsKeyId') as data_quality_job_output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig.MonitoringOutputs') as data_quality_job_output_config_monitoring_outputs,
+              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.StoppingCondition.MaxRuntimeInSeconds') as
-              stopping_condition_max_runtime_in_seconds,
-
+              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition' ;
   - Endpoint:
       name: Endpoint
       id: aws.sagemaker.Endpoint
@@ -4696,37 +4227,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.RetainAllVariantProperties') as
-              retain_all_variant_properties,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.RetainAllVariantProperties') as retain_all_variant_properties,
               JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
-
-              JSON_EXTRACT(Properties, '$.ExcludeRetainedVariantProperties') as
-              exclude_retained_variant_properties,
-
-              JSON_EXTRACT(Properties, '$.EndpointConfigName') as
-              endpoint_config_name,
-
+              JSON_EXTRACT(Properties, '$.ExcludeRetainedVariantProperties') as exclude_retained_variant_properties,
+              JSON_EXTRACT(Properties, '$.EndpointConfigName') as endpoint_config_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties,
-              '$.DeploymentConfig.AutoRollbackConfiguration') as
-              deployment_config_auto_rollback_configuration,
-
-              JSON_EXTRACT(Properties,
-              '$.DeploymentConfig.BlueGreenUpdatePolicy') as
-              deployment_config_blue_green_update_policy,
-
-              JSON_EXTRACT(Properties, '$.RetainDeploymentConfig') as
-              retain_deployment_config,
-
+              JSON_EXTRACT(Properties, '$.DeploymentConfig.AutoRollbackConfiguration') as deployment_config_auto_rollback_configuration,
+              JSON_EXTRACT(Properties, '$.DeploymentConfig.BlueGreenUpdatePolicy') as deployment_config_blue_green_update_policy,
+              JSON_EXTRACT(Properties, '$.RetainDeploymentConfig') as retain_deployment_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Endpoint' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Endpoint' ;
   - EndpointConfig:
       name: EndpointConfig
       id: aws.sagemaker.EndpointConfig
@@ -4734,56 +4246,24 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ShadowProductionVariants') as
-              shadow_production_variants,
-
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.CaptureOptions') as
-              data_capture_config_capture_options,
-
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.KmsKeyId') as
-              data_capture_config_kms_key_id,
-
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.DestinationS3Uri')
-              as data_capture_config_destination_s3_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.DataCaptureConfig.InitialSamplingPercentage') as
-              data_capture_config_initial_sampling_percentage,
-
-              JSON_EXTRACT(Properties,
-              '$.DataCaptureConfig.CaptureContentTypeHeader') as
-              data_capture_config_capture_content_type_header,
-
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.EnableCapture') as
-              data_capture_config_enable_capture,
-
-              JSON_EXTRACT(Properties, '$.ProductionVariants') as
-              production_variants,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ShadowProductionVariants') as shadow_production_variants,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.CaptureOptions') as data_capture_config_capture_options,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.KmsKeyId') as data_capture_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.DestinationS3Uri') as data_capture_config_destination_s3_uri,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.InitialSamplingPercentage') as data_capture_config_initial_sampling_percentage,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.CaptureContentTypeHeader') as data_capture_config_capture_content_type_header,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig.EnableCapture') as data_capture_config_enable_capture,
+              JSON_EXTRACT(Properties, '$.ProductionVariants') as production_variants,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-
-              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.ClientConfig') as
-              async_inference_config_client_config,
-
-              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.OutputConfig') as
-              async_inference_config_output_config,
-
-              JSON_EXTRACT(Properties, '$.EndpointConfigName') as
-              endpoint_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ExplainerConfig.ClarifyExplainerConfig') as
-              explainer_config_clarify_explainer_config,
-
+              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.ClientConfig') as async_inference_config_client_config,
+              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.OutputConfig') as async_inference_config_output_config,
+              JSON_EXTRACT(Properties, '$.EndpointConfigName') as endpoint_config_name,
+              JSON_EXTRACT(Properties, '$.ExplainerConfig.ClarifyExplainerConfig') as explainer_config_clarify_explainer_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::EndpointConfig' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::EndpointConfig' ;
   - FeatureGroup:
       name: FeatureGroup
       id: aws.sagemaker.FeatureGroup
@@ -4791,35 +4271,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.FeatureGroupName') as
-              feature_group_name,
-
-              JSON_EXTRACT(Properties, '$.RecordIdentifierFeatureName') as
-              record_identifier_feature_name,
-
-              JSON_EXTRACT(Properties, '$.EventTimeFeatureName') as
-              event_time_feature_name,
-
-              JSON_EXTRACT(Properties, '$.FeatureDefinitions') as
-              feature_definitions,
-
-              JSON_EXTRACT(Properties, '$.OnlineStoreConfig') as
-              online_store_config,
-
-              JSON_EXTRACT(Properties, '$.OfflineStoreConfig') as
-              offline_store_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.FeatureGroupName') as feature_group_name,
+              JSON_EXTRACT(Properties, '$.RecordIdentifierFeatureName') as record_identifier_feature_name,
+              JSON_EXTRACT(Properties, '$.EventTimeFeatureName') as event_time_feature_name,
+              JSON_EXTRACT(Properties, '$.FeatureDefinitions') as feature_definitions,
+              JSON_EXTRACT(Properties, '$.OnlineStoreConfig') as online_store_config,
+              JSON_EXTRACT(Properties, '$.OfflineStoreConfig') as offline_store_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::FeatureGroup' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::FeatureGroup' ;
   - Image:
       name: Image
       id: aws.sagemaker.Image
@@ -4827,13 +4290,10 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Image' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Image' ;
   - ImageVersion:
       name: ImageVersion
       id: aws.sagemaker.ImageVersion
@@ -4841,11 +4301,9 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ImageVersion' ;
+            ddl: |-
+              SELEC
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ImageVersion' ;
   - InferenceExperiment:
       name: InferenceExperiment
       id: aws.sagemaker.InferenceExperiment
@@ -4853,69 +4311,32 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Type') as type,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointName') as
-              endpoint_metadata_endpoint_name,
-
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointConfigName')
-              as endpoint_metadata_endpoint_config_name,
-
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointStatus') as
-              endpoint_metadata_endpoint_status,
-
-              JSON_EXTRACT(Properties, '$.Schedule.StartTime') as
-              schedule_start_time,
-
-              JSON_EXTRACT(Properties, '$.Schedule.EndTime') as
-              schedule_end_time,
-
+              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointName') as endpoint_metadata_endpoint_name,
+              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointConfigName') as endpoint_metadata_endpoint_config_name,
+              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointStatus') as endpoint_metadata_endpoint_status,
+              JSON_EXTRACT(Properties, '$.Schedule.StartTime') as schedule_start_time,
+              JSON_EXTRACT(Properties, '$.Schedule.EndTime') as schedule_end_time,
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
-
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.Destination') as
-              data_storage_config_destination,
-
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.KmsKey') as
-              data_storage_config_kms_key,
-
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.ContentType') as
-              data_storage_config_content_type,
-
+              JSON_EXTRACT(Properties, '$.DataStorageConfig.Destination') as data_storage_config_destination,
+              JSON_EXTRACT(Properties, '$.DataStorageConfig.KmsKey') as data_storage_config_kms_key,
+              JSON_EXTRACT(Properties, '$.DataStorageConfig.ContentType') as data_storage_config_content_type,
               JSON_EXTRACT(Properties, '$.ModelVariants') as model_variants,
-
-              JSON_EXTRACT(Properties,
-              '$.ShadowModeConfig.SourceModelVariantName') as
-              shadow_mode_config_source_model_variant_name,
-
-              JSON_EXTRACT(Properties, '$.ShadowModeConfig.ShadowModelVariants')
-              as shadow_mode_config_shadow_model_variants,
-
+              JSON_EXTRACT(Properties, '$.ShadowModeConfig.SourceModelVariantName') as shadow_mode_config_source_model_variant_name,
+              JSON_EXTRACT(Properties, '$.ShadowModeConfig.ShadowModelVariants') as shadow_mode_config_shadow_model_variants,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Status') as status,
-
               JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
-
               JSON_EXTRACT(Properties, '$.DesiredState') as desired_state
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::InferenceExperiment' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::InferenceExperiment' ;
   - Model:
       name: Model
       id: aws.sagemaker.Model
@@ -4923,62 +4344,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as
-              execution_role_arn,
-
-              JSON_EXTRACT(Properties, '$.EnableNetworkIsolation') as
-              enable_network_isolation,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ImageConfig') as
-              primary_container_image_config,
-
-              JSON_EXTRACT(Properties,
-              '$.PrimaryContainer.InferenceSpecificationName') as
-              primary_container_inference_specification_name,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ContainerHostname')
-              as primary_container_container_hostname,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelPackageName') as
-              primary_container_model_package_name,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Mode') as
-              primary_container_mode,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Environment') as
-              primary_container_environment,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelDataUrl') as
-              primary_container_model_data_url,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Image') as
-              primary_container_image,
-
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.MultiModelConfig') as
-              primary_container_multi_model_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
+              JSON_EXTRACT(Properties, '$.EnableNetworkIsolation') as enable_network_isolation,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.ImageConfig') as primary_container_image_config,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.InferenceSpecificationName') as primary_container_inference_specification_name,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.ContainerHostname') as primary_container_container_hostname,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelPackageName') as primary_container_model_package_name,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.Mode') as primary_container_mode,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.Environment') as primary_container_environment,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelDataUrl') as primary_container_model_data_url,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.Image') as primary_container_image,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer.MultiModelConfig') as primary_container_multi_model_config,
               JSON_EXTRACT(Properties, '$.ModelName') as model_name,
-
-              JSON_EXTRACT(Properties, '$.VpcConfig.SecurityGroupIds') as
-              vpc_config_security_group_ids,
-
-              JSON_EXTRACT(Properties, '$.VpcConfig.Subnets') as
-              vpc_config_subnets,
-
+              JSON_EXTRACT(Properties, '$.VpcConfig.SecurityGroupIds') as vpc_config_security_group_ids,
+              JSON_EXTRACT(Properties, '$.VpcConfig.Subnets') as vpc_config_subnets,
               JSON_EXTRACT(Properties, '$.Containers') as containers,
-
-              JSON_EXTRACT(Properties, '$.InferenceExecutionConfig.Mode') as
-              inference_execution_config_mode,
-
+              JSON_EXTRACT(Properties, '$.InferenceExecutionConfig.Mode') as inference_execution_config_mode,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Model' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Model' ;
   - ModelBiasJobDefinition:
       name: ModelBiasJobDefinition
       id: aws.sagemaker.ModelBiasJobDefinition
@@ -4986,72 +4372,28 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as
-              job_definition_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelBiasBaselineConfig.BaseliningJobName') as
-              model_bias_baseline_config_baselining_job_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelBiasBaselineConfig.ConstraintsResource') as
-              model_bias_baseline_config_constraints_resource,
-
-              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ImageUri')
-              as model_bias_app_specification_image_uri,
-
-              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ConfigUri')
-              as model_bias_app_specification_config_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelBiasAppSpecification.Environment') as
-              model_bias_app_specification_environment,
-
-              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.EndpointInput') as
-              model_bias_job_input_endpoint_input,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelBiasJobInput.BatchTransformInput') as
-              model_bias_job_input_batch_transform_input,
-
-              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.GroundTruthS3Input')
-              as model_bias_job_input_ground_truth_s3_input,
-
-              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig.KmsKeyId') as
-              model_bias_job_output_config_kms_key_id,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelBiasJobOutputConfig.MonitoringOutputs') as
-              model_bias_job_output_config_monitoring_outputs,
-
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as
-              job_resources_cluster_config,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfig.EnableInterContainerTrafficEncryption') as
-              network_config_enable_inter_container_traffic_encryption,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation')
-              as network_config_enable_network_isolation,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as
-              network_config_vpc_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
+              JSON_EXTRACT(Properties, '$.ModelBiasBaselineConfig.BaseliningJobName') as model_bias_baseline_config_baselining_job_name,
+              JSON_EXTRACT(Properties, '$.ModelBiasBaselineConfig.ConstraintsResource') as model_bias_baseline_config_constraints_resource,
+              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ImageUri') as model_bias_app_specification_image_uri,
+              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ConfigUri') as model_bias_app_specification_config_uri,
+              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.Environment') as model_bias_app_specification_environment,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.EndpointInput') as model_bias_job_input_endpoint_input,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.BatchTransformInput') as model_bias_job_input_batch_transform_input,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.GroundTruthS3Input') as model_bias_job_input_ground_truth_s3_input,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig.KmsKeyId') as model_bias_job_output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig.MonitoringOutputs') as model_bias_job_output_config_monitoring_outputs,
+              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.StoppingCondition.MaxRuntimeInSeconds') as
-              stopping_condition_max_runtime_in_seconds,
-
+              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition' ;
   - ModelCard:
       name: ModelCard
       id: aws.sagemaker.ModelCard
@@ -5059,70 +4401,30 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ModelCardArn') as model_card_arn,
-
-              JSON_EXTRACT(Properties, '$.ModelCardVersion') as
-              model_card_version,
-
+              JSON_EXTRACT(Properties, '$.ModelCardVersion') as model_card_version,
               JSON_EXTRACT(Properties, '$.ModelCardName') as model_card_name,
-
-              JSON_EXTRACT(Properties, '$.SecurityConfig.KmsKeyId') as
-              security_config_kms_key_id,
-
-              JSON_EXTRACT(Properties, '$.ModelCardStatus') as
-              model_card_status,
-
-              JSON_EXTRACT(Properties, '$.Content.ModelOverview') as
-              content_model_overview,
-
-              JSON_EXTRACT(Properties, '$.Content.IntendedUses') as
-              content_intended_uses,
-
-              JSON_EXTRACT(Properties, '$.Content.BusinessDetails') as
-              content_business_details,
-
-              JSON_EXTRACT(Properties, '$.Content.TrainingDetails') as
-              content_training_details,
-
-              JSON_EXTRACT(Properties, '$.Content.EvaluationDetails') as
-              content_evaluation_details,
-
-              JSON_EXTRACT(Properties, '$.Content.AdditionalInformation') as
-              content_additional_information,
-
+              JSON_EXTRACT(Properties, '$.SecurityConfig.KmsKeyId') as security_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.ModelCardStatus') as model_card_status,
+              JSON_EXTRACT(Properties, '$.Content.ModelOverview') as content_model_overview,
+              JSON_EXTRACT(Properties, '$.Content.IntendedUses') as content_intended_uses,
+              JSON_EXTRACT(Properties, '$.Content.BusinessDetails') as content_business_details,
+              JSON_EXTRACT(Properties, '$.Content.TrainingDetails') as content_training_details,
+              JSON_EXTRACT(Properties, '$.Content.EvaluationDetails') as content_evaluation_details,
+              JSON_EXTRACT(Properties, '$.Content.AdditionalInformation') as content_additional_information,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
-              JSON_EXTRACT(Properties, '$.CreatedBy.DomainId') as
-              created_by_domain_id,
-
-              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileArn') as
-              created_by_user_profile_arn,
-
-              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileName') as
-              created_by_user_profile_name,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.DomainId') as
-              last_modified_by_domain_id,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileArn') as
-              last_modified_by_user_profile_arn,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileName') as
-              last_modified_by_user_profile_name,
-
-              JSON_EXTRACT(Properties, '$.ModelCardProcessingStatus') as
-              model_card_processing_status,
-
+              JSON_EXTRACT(Properties, '$.CreatedBy.DomainId') as created_by_domain_id,
+              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileArn') as created_by_user_profile_arn,
+              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileName') as created_by_user_profile_name,
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.LastModifiedBy.DomainId') as last_modified_by_domain_id,
+              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileArn') as last_modified_by_user_profile_arn,
+              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileName') as last_modified_by_user_profile_name,
+              JSON_EXTRACT(Properties, '$.ModelCardProcessingStatus') as model_card_processing_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ModelCard' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelCard' ;
   - ModelExplainabilityJobDefinition:
       name: ModelExplainabilityJobDefinition
       id: aws.sagemaker.ModelExplainabilityJobDefinition
@@ -5130,74 +4432,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as
-              job_definition_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityBaselineConfig.BaseliningJobName') as
-              model_explainability_baseline_config_baselining_job_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityBaselineConfig.ConstraintsResource') as
-              model_explainability_baseline_config_constraints_resource,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityAppSpecification.ImageUri') as
-              model_explainability_app_specification_image_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityAppSpecification.ConfigUri') as
-              model_explainability_app_specification_config_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityAppSpecification.Environment') as
-              model_explainability_app_specification_environment,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityJobInput.EndpointInput') as
-              model_explainability_job_input_endpoint_input,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityJobInput.BatchTransformInput') as
-              model_explainability_job_input_batch_transform_input,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityJobOutputConfig.KmsKeyId') as
-              model_explainability_job_output_config_kms_key_id,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelExplainabilityJobOutputConfig.MonitoringOutputs') as
-              model_explainability_job_output_config_monitoring_outputs,
-
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as
-              job_resources_cluster_config,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfig.EnableInterContainerTrafficEncryption') as
-              network_config_enable_inter_container_traffic_encryption,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation')
-              as network_config_enable_network_isolation,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as
-              network_config_vpc_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityBaselineConfig.BaseliningJobName') as model_explainability_baseline_config_baselining_job_name,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityBaselineConfig.ConstraintsResource') as model_explainability_baseline_config_constraints_resource,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.ImageUri') as model_explainability_app_specification_image_uri,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.ConfigUri') as model_explainability_app_specification_config_uri,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.Environment') as model_explainability_app_specification_environment,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobInput.EndpointInput') as model_explainability_job_input_endpoint_input,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobInput.BatchTransformInput') as model_explainability_job_input_batch_transform_input,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobOutputConfig.KmsKeyId') as model_explainability_job_output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobOutputConfig.MonitoringOutputs') as model_explainability_job_output_config_monitoring_outputs,
+              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.StoppingCondition.MaxRuntimeInSeconds') as
-              stopping_condition_max_runtime_in_seconds,
-
+              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::SageMaker::ModelExplainabilityJobDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition' ;
   - ModelPackage:
       name: ModelPackage
       id: aws.sagemaker.ModelPackage
@@ -5205,130 +4460,42 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.Containers') as
-              additional_inference_specification_definition_containers,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.Description') as
-              additional_inference_specification_definition_description,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.Name') as
-              additional_inference_specification_definition_name,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.SupportedContentTypes')
-              as
-              additional_inference_specification_definition_supported_content_types,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.SupportedRealtimeInferenceInstanceTypes')
-              as
-              additional_inference_specification_definition_supported_realtime_inference_instance_types,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.SupportedResponseMIMETypes')
-              as
-              additional_inference_specification_definition_supported_response_mi_me_types,
-
-              JSON_EXTRACT(Properties,
-              '$.AdditionalInferenceSpecificationDefinition.SupportedTransformInstanceTypes')
-              as
-              additional_inference_specification_definition_supported_transform_instance_types,
-
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Bias') as
-              drift_check_baselines_bias,
-
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Explainability')
-              as drift_check_baselines_explainability,
-
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelDataQuality')
-              as drift_check_baselines_model_data_quality,
-
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelQuality') as
-              drift_check_baselines_model_quality,
-
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.Containers') as
-              inference_specification_containers,
-
-              JSON_EXTRACT(Properties,
-              '$.InferenceSpecification.SupportedContentTypes') as
-              inference_specification_supported_content_types,
-
-              JSON_EXTRACT(Properties,
-              '$.InferenceSpecification.SupportedRealtimeInferenceInstanceTypes')
-              as
-              inference_specification_supported_realtime_inference_instance_types,
-
-              JSON_EXTRACT(Properties,
-              '$.InferenceSpecification.SupportedResponseMIMETypes') as
-              inference_specification_supported_response_mi_me_types,
-
-              JSON_EXTRACT(Properties,
-              '$.InferenceSpecification.SupportedTransformInstanceTypes') as
-              inference_specification_supported_transform_instance_types,
-
-              JSON_EXTRACT(Properties, '$.MetadataProperties.CommitId') as
-              metadata_properties_commit_id,
-
-              JSON_EXTRACT(Properties, '$.MetadataProperties.GeneratedBy') as
-              metadata_properties_generated_by,
-
-              JSON_EXTRACT(Properties, '$.MetadataProperties.ProjectId') as
-              metadata_properties_project_id,
-
-              JSON_EXTRACT(Properties, '$.MetadataProperties.Repository') as
-              metadata_properties_repository,
-
-              JSON_EXTRACT(Properties, '$.ModelMetrics.Bias') as
-              model_metrics_bias,
-
-              JSON_EXTRACT(Properties, '$.ModelMetrics.Explainability') as
-              model_metrics_explainability,
-
-              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelDataQuality') as
-              model_metrics_model_data_quality,
-
-              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelQuality') as
-              model_metrics_model_quality,
-
-              JSON_EXTRACT(Properties,
-              '$.SourceAlgorithmSpecification.SourceAlgorithms') as
-              source_algorithm_specification_source_algorithms,
-
-              JSON_EXTRACT(Properties,
-              '$.ValidationSpecification.ValidationProfiles') as
-              validation_specification_validation_profiles,
-
-              JSON_EXTRACT(Properties,
-              '$.ValidationSpecification.ValidationRole') as
-              validation_specification_validation_role,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelPackageStatusDetails.ImageScanStatuses') as
-              model_package_status_details_image_scan_statuses,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelPackageStatusDetails.ValidationStatuses') as
-              model_package_status_details_validation_statuses,
-
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.FailureReason')
-              as model_package_status_item_failure_reason,
-
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Name') as
-              model_package_status_item_name,
-
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Status') as
-              model_package_status_item_status
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ModelPackage' ;
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Containers') as additional_inference_specification_definition_containers,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Description') as additional_inference_specification_definition_description,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Name') as additional_inference_specification_definition_name,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedContentTypes') as additional_inference_specification_definition_supported_content_types,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedRealtimeInferenceInstanceTypes') as additional_inference_specification_definition_supported_realtime_inference_instance_types,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedResponseMIMETypes') as additional_inference_specification_definition_supported_response_mi_me_types,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedTransformInstanceTypes') as additional_inference_specification_definition_supported_transform_instance_types,
+              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Bias') as drift_check_baselines_bias,
+              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Explainability') as drift_check_baselines_explainability,
+              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelDataQuality') as drift_check_baselines_model_data_quality,
+              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelQuality') as drift_check_baselines_model_quality,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification.Containers') as inference_specification_containers,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedContentTypes') as inference_specification_supported_content_types,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedRealtimeInferenceInstanceTypes') as inference_specification_supported_realtime_inference_instance_types,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedResponseMIMETypes') as inference_specification_supported_response_mi_me_types,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedTransformInstanceTypes') as inference_specification_supported_transform_instance_types,
+              JSON_EXTRACT(Properties, '$.MetadataProperties.CommitId') as metadata_properties_commit_id,
+              JSON_EXTRACT(Properties, '$.MetadataProperties.GeneratedBy') as metadata_properties_generated_by,
+              JSON_EXTRACT(Properties, '$.MetadataProperties.ProjectId') as metadata_properties_project_id,
+              JSON_EXTRACT(Properties, '$.MetadataProperties.Repository') as metadata_properties_repository,
+              JSON_EXTRACT(Properties, '$.ModelMetrics.Bias') as model_metrics_bias,
+              JSON_EXTRACT(Properties, '$.ModelMetrics.Explainability') as model_metrics_explainability,
+              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelDataQuality') as model_metrics_model_data_quality,
+              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelQuality') as model_metrics_model_quality,
+              JSON_EXTRACT(Properties, '$.SourceAlgorithmSpecification.SourceAlgorithms') as source_algorithm_specification_source_algorithms,
+              JSON_EXTRACT(Properties, '$.ValidationSpecification.ValidationProfiles') as validation_specification_validation_profiles,
+              JSON_EXTRACT(Properties, '$.ValidationSpecification.ValidationRole') as validation_specification_validation_role,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails.ImageScanStatuses') as model_package_status_details_image_scan_statuses,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails.ValidationStatuses') as model_package_status_details_validation_statuses,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.FailureReason') as model_package_status_item_failure_reason,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Name') as model_package_status_item_name,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Status') as model_package_status_item_status
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelPackage' ;
   - ModelPackageGroup:
       name: ModelPackageGroup
       id: aws.sagemaker.ModelPackageGroup
@@ -5336,21 +4503,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.ModelPackageGroupPolicy') as
-              model_package_group_policy,
-
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupPolicy') as model_package_group_policy,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
-              JSON_EXTRACT(Properties, '$.ModelPackageGroupStatus') as
-              model_package_group_status
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ModelPackageGroup' ;
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupStatus') as model_package_group_status
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelPackageGroup' ;
   - ModelQualityJobDefinition:
       name: ModelQualityJobDefinition
       id: aws.sagemaker.ModelQualityJobDefinition
@@ -5358,92 +4517,32 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as
-              job_definition_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityBaselineConfig.BaseliningJobName') as
-              model_quality_baseline_config_baselining_job_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityBaselineConfig.ConstraintsResource') as
-              model_quality_baseline_config_constraints_resource,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.ContainerArguments') as
-              model_quality_app_specification_container_arguments,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.ContainerEntrypoint') as
-              model_quality_app_specification_container_entrypoint,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.ImageUri') as
-              model_quality_app_specification_image_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.PostAnalyticsProcessorSourceUri')
-              as
-              model_quality_app_specification_post_analytics_processor_source_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.RecordPreprocessorSourceUri') as
-              model_quality_app_specification_record_preprocessor_source_uri,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.Environment') as
-              model_quality_app_specification_environment,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityAppSpecification.ProblemType') as
-              model_quality_app_specification_problem_type,
-
-              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.EndpointInput')
-              as model_quality_job_input_endpoint_input,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityJobInput.BatchTransformInput') as
-              model_quality_job_input_batch_transform_input,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityJobInput.GroundTruthS3Input') as
-              model_quality_job_input_ground_truth_s3_input,
-
-              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig.KmsKeyId')
-              as model_quality_job_output_config_kms_key_id,
-
-              JSON_EXTRACT(Properties,
-              '$.ModelQualityJobOutputConfig.MonitoringOutputs') as
-              model_quality_job_output_config_monitoring_outputs,
-
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as
-              job_resources_cluster_config,
-
-              JSON_EXTRACT(Properties,
-              '$.NetworkConfig.EnableInterContainerTrafficEncryption') as
-              network_config_enable_inter_container_traffic_encryption,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation')
-              as network_config_enable_network_isolation,
-
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as
-              network_config_vpc_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
+              JSON_EXTRACT(Properties, '$.ModelQualityBaselineConfig.BaseliningJobName') as model_quality_baseline_config_baselining_job_name,
+              JSON_EXTRACT(Properties, '$.ModelQualityBaselineConfig.ConstraintsResource') as model_quality_baseline_config_constraints_resource,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ContainerArguments') as model_quality_app_specification_container_arguments,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ContainerEntrypoint') as model_quality_app_specification_container_entrypoint,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ImageUri') as model_quality_app_specification_image_uri,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.PostAnalyticsProcessorSourceUri') as model_quality_app_specification_post_analytics_processor_source_uri,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.RecordPreprocessorSourceUri') as model_quality_app_specification_record_preprocessor_source_uri,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.Environment') as model_quality_app_specification_environment,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ProblemType') as model_quality_app_specification_problem_type,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.EndpointInput') as model_quality_job_input_endpoint_input,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.BatchTransformInput') as model_quality_job_input_batch_transform_input,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.GroundTruthS3Input') as model_quality_job_input_ground_truth_s3_input,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig.KmsKeyId') as model_quality_job_output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig.MonitoringOutputs') as model_quality_job_output_config_monitoring_outputs,
+              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
+              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.StoppingCondition.MaxRuntimeInSeconds') as
-              stopping_condition_max_runtime_in_seconds,
-
+              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition' ;
   - MonitoringSchedule:
       name: MonitoringSchedule
       id: aws.sagemaker.MonitoringSchedule
@@ -5451,74 +4550,27 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleArn') as
-              monitoring_schedule_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringScheduleConfig.MonitoringJobDefinition') as
-              monitoring_schedule_config_monitoring_job_definition,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringScheduleConfig.MonitoringJobDefinitionName') as
-              monitoring_schedule_config_monitoring_job_definition_name,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringScheduleConfig.MonitoringType') as
-              monitoring_schedule_config_monitoring_type,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringScheduleConfig.ScheduleConfig') as
-              monitoring_schedule_config_schedule_config,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleArn') as monitoring_schedule_arn,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringJobDefinition') as monitoring_schedule_config_monitoring_job_definition,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringJobDefinitionName') as monitoring_schedule_config_monitoring_job_definition_name,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringType') as monitoring_schedule_config_monitoring_type,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.ScheduleConfig') as monitoring_schedule_config_schedule_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
               JSON_EXTRACT(Properties, '$.FailureReason') as failure_reason,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.CreationTime') as
-              last_monitoring_execution_summary_creation_time,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.EndpointName') as
-              last_monitoring_execution_summary_endpoint_name,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.FailureReason') as
-              last_monitoring_execution_summary_failure_reason,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.LastModifiedTime') as
-              last_monitoring_execution_summary_last_modified_time,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.MonitoringExecutionStatus') as
-              last_monitoring_execution_summary_monitoring_execution_status,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.MonitoringScheduleName') as
-              last_monitoring_execution_summary_monitoring_schedule_name,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.ProcessingJobArn') as
-              last_monitoring_execution_summary_processing_job_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.LastMonitoringExecutionSummary.ScheduledTime') as
-              last_monitoring_execution_summary_scheduled_time,
-
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleStatus') as
-              monitoring_schedule_status
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::MonitoringSchedule' ;
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.CreationTime') as last_monitoring_execution_summary_creation_time,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.EndpointName') as last_monitoring_execution_summary_endpoint_name,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.FailureReason') as last_monitoring_execution_summary_failure_reason,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.LastModifiedTime') as last_monitoring_execution_summary_last_modified_time,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.MonitoringExecutionStatus') as last_monitoring_execution_summary_monitoring_execution_status,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.MonitoringScheduleName') as last_monitoring_execution_summary_monitoring_schedule_name,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.ProcessingJobArn') as last_monitoring_execution_summary_processing_job_arn,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.ScheduledTime') as last_monitoring_execution_summary_scheduled_time,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleStatus') as monitoring_schedule_status
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::MonitoringSchedule' ;
   - NotebookInstance:
       name: NotebookInstance
       id: aws.sagemaker.NotebookInstance
@@ -5526,56 +4578,26 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-
               JSON_EXTRACT(Properties, '$.VolumeSizeInGB') as volume_size_in_gb,
-
-              JSON_EXTRACT(Properties, '$.AdditionalCodeRepositories') as
-              additional_code_repositories,
-
-              JSON_EXTRACT(Properties, '$.DefaultCodeRepository') as
-              default_code_repository,
-
-              JSON_EXTRACT(Properties, '$.DirectInternetAccess') as
-              direct_internet_access,
-
-              JSON_EXTRACT(Properties, '$.PlatformIdentifier') as
-              platform_identifier,
-
-              JSON_EXTRACT(Properties, '$.AcceleratorTypes') as
-              accelerator_types,
-
+              JSON_EXTRACT(Properties, '$.AdditionalCodeRepositories') as additional_code_repositories,
+              JSON_EXTRACT(Properties, '$.DefaultCodeRepository') as default_code_repository,
+              JSON_EXTRACT(Properties, '$.DirectInternetAccess') as direct_internet_access,
+              JSON_EXTRACT(Properties, '$.PlatformIdentifier') as platform_identifier,
+              JSON_EXTRACT(Properties, '$.AcceleratorTypes') as accelerator_types,
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
-
-              JSON_EXTRACT(Properties, '$.SecurityGroupIds') as
-              security_group_ids,
-
+              JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InstanceMetadataServiceConfiguration.MinimumInstanceMetadataServiceVersion')
-              as
-              instance_metadata_service_configuration_minimum_instance_metadata_service_version,
-
+              JSON_EXTRACT(Properties, '$.InstanceMetadataServiceConfiguration.MinimumInstanceMetadataServiceVersion') as instance_metadata_service_configuration_minimum_instance_metadata_service_version,
               JSON_EXTRACT(Properties, '$.RootAccess') as root_access,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.NotebookInstanceName') as
-              notebook_instance_name,
-
+              JSON_EXTRACT(Properties, '$.NotebookInstanceName') as notebook_instance_name,
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
-
-              JSON_EXTRACT(Properties, '$.LifecycleConfigName') as
-              lifecycle_config_name,
-
+              JSON_EXTRACT(Properties, '$.LifecycleConfigName') as lifecycle_config_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::NotebookInstance' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::NotebookInstance' ;
   - NotebookInstanceLifecycleConfig:
       name: NotebookInstanceLifecycleConfig
       id: aws.sagemaker.NotebookInstanceLifecycleConfig
@@ -5583,21 +4605,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.OnStart') as on_start,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.NotebookInstanceLifecycleConfigName')
-              as notebook_instance_lifecycle_config_name,
-
+              JSON_EXTRACT(Properties, '$.NotebookInstanceLifecycleConfigName') as notebook_instance_lifecycle_config_name,
               JSON_EXTRACT(Properties, '$.OnCreate') as on_create
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::SageMaker::NotebookInstanceLifecycleConfig' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig' ;
   - Pipeline:
       name: Pipeline
       id: aws.sagemaker.Pipeline
@@ -5605,29 +4619,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_name,
-
-              JSON_EXTRACT(Properties, '$.PipelineDisplayName') as
-              pipeline_display_name,
-
-              JSON_EXTRACT(Properties, '$.PipelineDescription') as
-              pipeline_description,
-
-              JSON_EXTRACT(Properties, '$.PipelineDefinition') as
-              pipeline_definition,
-
+              JSON_EXTRACT(Properties, '$.PipelineDisplayName') as pipeline_display_name,
+              JSON_EXTRACT(Properties, '$.PipelineDescription') as pipeline_description,
+              JSON_EXTRACT(Properties, '$.PipelineDefinition') as pipeline_definition,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.ParallelismConfiguration') as
-              parallelism_configuration
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Pipeline' ;
+              JSON_EXTRACT(Properties, '$.ParallelismConfiguration') as parallelism_configuration
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Pipeline' ;
   - Project:
       name: Project
       id: aws.sagemaker.Project
@@ -5635,24 +4636,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-
-              JSON_EXTRACT(Properties, '$.ServiceCatalogProvisioningDetails') as
-              service_catalog_provisioning_details,
-
-              JSON_EXTRACT(Properties,
-              '$.ServiceCatalogProvisionedProductDetails') as
-              service_catalog_provisioned_product_details,
-
+              JSON_EXTRACT(Properties, '$.ServiceCatalogProvisioningDetails') as service_catalog_provisioning_details,
+              JSON_EXTRACT(Properties, '$.ServiceCatalogProvisionedProductDetails') as service_catalog_provisioned_product_details,
               JSON_EXTRACT(Properties, '$.ProjectStatus') as project_status
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Project' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Project' ;
   - Space:
       name: Space
       id: aws.sagemaker.Space
@@ -5660,27 +4651,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.SpaceArn') as space_arn,
-
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-
               JSON_EXTRACT(Properties, '$.SpaceName') as space_name,
-
-              JSON_EXTRACT(Properties,
-              '$.SpaceSettings.JupyterServerAppSettings') as
-              space_settings_jupyter_server_app_settings,
-
-              JSON_EXTRACT(Properties,
-              '$.SpaceSettings.KernelGatewayAppSettings') as
-              space_settings_kernel_gateway_app_settings,
-
+              JSON_EXTRACT(Properties, '$.SpaceSettings.JupyterServerAppSettings') as space_settings_jupyter_server_app_settings,
+              JSON_EXTRACT(Properties, '$.SpaceSettings.KernelGatewayAppSettings') as space_settings_kernel_gateway_app_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Space' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Space' ;
   - UserProfile:
       name: UserProfile
       id: aws.sagemaker.UserProfile
@@ -5688,47 +4667,21 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.UserProfileArn') as user_profile_arn,
-
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-
-              JSON_EXTRACT(Properties, '$.SingleSignOnUserIdentifier') as
-              single_sign_on_user_identifier,
-
-              JSON_EXTRACT(Properties, '$.SingleSignOnUserValue') as
-              single_sign_on_user_value,
-
-              JSON_EXTRACT(Properties, '$.UserProfileName') as
-              user_profile_name,
-
-              JSON_EXTRACT(Properties, '$.UserSettings.ExecutionRole') as
-              user_settings_execution_role,
-
-              JSON_EXTRACT(Properties,
-              '$.UserSettings.JupyterServerAppSettings') as
-              user_settings_jupyter_server_app_settings,
-
-              JSON_EXTRACT(Properties,
-              '$.UserSettings.KernelGatewayAppSettings') as
-              user_settings_kernel_gateway_app_settings,
-
-              JSON_EXTRACT(Properties,
-              '$.UserSettings.RStudioServerProAppSettings') as
-              user_settings_rstudio_server_pro_app_settings,
-
-              JSON_EXTRACT(Properties, '$.UserSettings.SecurityGroups') as
-              user_settings_security_groups,
-
-              JSON_EXTRACT(Properties, '$.UserSettings.SharingSettings') as
-              user_settings_sharing_settings,
-
+              JSON_EXTRACT(Properties, '$.SingleSignOnUserIdentifier') as single_sign_on_user_identifier,
+              JSON_EXTRACT(Properties, '$.SingleSignOnUserValue') as single_sign_on_user_value,
+              JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name,
+              JSON_EXTRACT(Properties, '$.UserSettings.ExecutionRole') as user_settings_execution_role,
+              JSON_EXTRACT(Properties, '$.UserSettings.JupyterServerAppSettings') as user_settings_jupyter_server_app_settings,
+              JSON_EXTRACT(Properties, '$.UserSettings.KernelGatewayAppSettings') as user_settings_kernel_gateway_app_settings,
+              JSON_EXTRACT(Properties, '$.UserSettings.RStudioServerProAppSettings') as user_settings_rstudio_server_pro_app_settings,
+              JSON_EXTRACT(Properties, '$.UserSettings.SecurityGroups') as user_settings_security_groups,
+              JSON_EXTRACT(Properties, '$.UserSettings.SharingSettings') as user_settings_sharing_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::UserProfile' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::UserProfile' ;
   - Workteam:
       name: Workteam
       id: aws.sagemaker.Workteam
@@ -5736,25 +4689,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties,
-              '$.NotificationConfiguration.NotificationTopicArn') as
-              notification_configuration_notification_topic_arn,
-
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.NotificationTopicArn') as notification_configuration_notification_topic_arn,
               JSON_EXTRACT(Properties, '$.WorkteamName') as workteam_name,
-
-              JSON_EXTRACT(Properties, '$.MemberDefinitions') as
-              member_definitions,
-
+              JSON_EXTRACT(Properties, '$.MemberDefinitions') as member_definitions,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.WorkforceName') as workforce_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::SageMaker::Workteam' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Workteam' ;

@@ -62,10 +62,7 @@ components:
           description: The path to the instance profile.
         Roles:
           type: array
-          description: >-
-            The name of the role to associate with the instance profile. Only
-            one role can be assigned to an EC2 instance at a time, and all
-            applications on the instance share the same role and permissions.
+          description: The name of the role to associate with the instance profile. Only one role can be assigned to an EC2 instance at a time, and all applications on the instance share the same role and permissions.
           uniqueItems: true
           x-insertionOrder: false
           items:
@@ -116,20 +113,12 @@ components:
       additionalProperties: false
       properties:
         Value:
-          description: >-
-            The value for the tag. You can specify a value that is 0 to 256
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           type: string
           minLength: 1
           maxLength: 256
         Key:
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           type: string
           minLength: 1
           maxLength: 128
@@ -185,33 +174,23 @@ components:
           description: A description of the role that you provide.
           type: string
         ManagedPolicyArns:
-          description: >-
-            A list of Amazon Resource Names (ARNs) of the IAM managed policies
-            that you want to attach to the role. 
+          description: 'A list of Amazon Resource Names (ARNs) of the IAM managed policies that you want to attach to the role. '
           type: array
           uniqueItems: true
           x-insertionOrder: false
           items:
             type: string
         MaxSessionDuration:
-          description: >-
-            The maximum session duration (in seconds) that you want to set for
-            the specified role. If you do not specify a value for this setting,
-            the default maximum of one hour is applied. This setting can have a
-            value from 1 hour to 12 hours. 
+          description: 'The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours. '
           type: integer
         Path:
           description: The path to the role.
           type: string
         PermissionsBoundary:
-          description: >-
-            The ARN of the policy used to set the permissions boundary for the
-            role.
+          description: The ARN of the policy used to set the permissions boundary for the role.
           type: string
         Policies:
-          description: >-
-            Adds or updates an inline policy document that is embedded in the
-            specified IAM role. 
+          description: 'Adds or updates an inline policy document that is embedded in the specified IAM role. '
           type: array
           x-insertionOrder: false
           uniqueItems: false
@@ -414,22 +393,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.SecretAccessKey') as
-              secret_access_key,
-
+              JSON_EXTRACT(Properties, '$.SecretAccessKey') as secret_access_key,
               JSON_EXTRACT(Properties, '$.Serial') as serial,
-
               JSON_EXTRACT(Properties, '$.Status') as status,
-
               JSON_EXTRACT(Properties, '$.UserName') as user_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::AccessKey' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::AccessKey' ;
   - Group:
       name: Group
       id: aws.iam.Group
@@ -437,24 +408,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
-
-              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as
-              managed_policy_arns,
-
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
               JSON_EXTRACT(Properties, '$.Path') as path,
-
               JSON_EXTRACT(Properties, '$.Policies') as policies
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::Group' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::Group' ;
   - InstanceProfile:
       name: InstanceProfile
       id: aws.iam.InstanceProfile
@@ -462,20 +424,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Path') as path,
-
               JSON_EXTRACT(Properties, '$.Roles') as roles,
-
-              JSON_EXTRACT(Properties, '$.InstanceProfileName') as
-              instance_profile_name,
-
+              JSON_EXTRACT(Properties, '$.InstanceProfileName') as instance_profile_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::InstanceProfile' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::InstanceProfile' ;
   - ManagedPolicy:
       name: ManagedPolicy
       id: aws.iam.ManagedPolicy
@@ -483,28 +438,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Groups') as groups,
-
-              JSON_EXTRACT(Properties, '$.ManagedPolicyName') as
-              managed_policy_name,
-
+              JSON_EXTRACT(Properties, '$.ManagedPolicyName') as managed_policy_name,
               JSON_EXTRACT(Properties, '$.Path') as path,
-
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
-
               JSON_EXTRACT(Properties, '$.Roles') as roles,
-
               JSON_EXTRACT(Properties, '$.Users') as users
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::ManagedPolicy' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::ManagedPolicy' ;
   - OIDCProvider:
       name: OIDCProvider
       id: aws.iam.OIDCProvider
@@ -512,21 +456,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.ClientIdList') as client_id_list,
-
               JSON_EXTRACT(Properties, '$.Url') as url,
-
               JSON_EXTRACT(Properties, '$.ThumbprintList') as thumbprint_list,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::OIDCProvider' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::OIDCProvider' ;
   - Role:
       name: Role
       id: aws.iam.Role
@@ -534,37 +471,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.AssumeRolePolicyDocument') as
-              assume_role_policy_document,
-
+              JSON_EXTRACT(Properties, '$.AssumeRolePolicyDocument') as assume_role_policy_document,
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as
-              managed_policy_arns,
-
-              JSON_EXTRACT(Properties, '$.MaxSessionDuration') as
-              max_session_duration,
-
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
+              JSON_EXTRACT(Properties, '$.MaxSessionDuration') as max_session_duration,
               JSON_EXTRACT(Properties, '$.Path') as path,
-
-              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as
-              permissions_boundary,
-
+              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary,
               JSON_EXTRACT(Properties, '$.Policies') as policies,
-
               JSON_EXTRACT(Properties, '$.RoleId') as role_id,
-
               JSON_EXTRACT(Properties, '$.RoleName') as role_name,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::Role' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::Role' ;
   - SAMLProvider:
       name: SAMLProvider
       id: aws.iam.SAMLProvider
@@ -572,20 +492,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.SamlMetadataDocument') as
-              saml_metadata_document,
-
+              JSON_EXTRACT(Properties, '$.SamlMetadataDocument') as saml_metadata_document,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::SAMLProvider' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::SAMLProvider' ;
   - ServerCertificate:
       name: ServerCertificate
       id: aws.iam.ServerCertificate
@@ -593,27 +506,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CertificateBody') as certificate_body,
-
-              JSON_EXTRACT(Properties, '$.CertificateChain') as
-              certificate_chain,
-
-              JSON_EXTRACT(Properties, '$.ServerCertificateName') as
-              server_certificate_name,
-
+              JSON_EXTRACT(Properties, '$.CertificateChain') as certificate_chain,
+              JSON_EXTRACT(Properties, '$.ServerCertificateName') as server_certificate_name,
               JSON_EXTRACT(Properties, '$.Path') as path,
-
               JSON_EXTRACT(Properties, '$.PrivateKey') as private_key,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::ServerCertificate' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::ServerCertificate' ;
   - ServiceLinkedRole:
       name: ServiceLinkedRole
       id: aws.iam.ServiceLinkedRole
@@ -621,19 +523,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.CustomSuffix') as custom_suffix,
-
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.AWSServiceName') as a_ws_service_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::ServiceLinkedRole' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::ServiceLinkedRole' ;
   - User:
       name: User
       id: aws.iam.User
@@ -641,37 +537,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Path') as path,
-
-              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as
-              managed_policy_arns,
-
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
               JSON_EXTRACT(Properties, '$.Policies') as policies,
-
               JSON_EXTRACT(Properties, '$.UserName') as user_name,
-
               JSON_EXTRACT(Properties, '$.Groups') as groups,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.LoginProfile.PasswordResetRequired')
-              as login_profile_password_reset_required,
-
-              JSON_EXTRACT(Properties, '$.LoginProfile.Password') as
-              login_profile_password,
-
+              JSON_EXTRACT(Properties, '$.LoginProfile.PasswordResetRequired') as login_profile_password_reset_required,
+              JSON_EXTRACT(Properties, '$.LoginProfile.Password') as login_profile_password,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
-              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as
-              permissions_boundary
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::User' ;
+              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::User' ;
   - UserToGroupAddition:
       name: UserToGroupAddition
       id: aws.iam.UserToGroupAddition
@@ -679,17 +558,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
-
               JSON_EXTRACT(Properties, '$.Users') as users
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::UserToGroupAddition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::UserToGroupAddition' ;
   - VirtualMFADevice:
       name: VirtualMFADevice
       id: aws.iam.VirtualMFADevice
@@ -697,19 +571,11 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.VirtualMfaDeviceName') as
-              virtual_mfa_device_name,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.VirtualMfaDeviceName') as virtual_mfa_device_name,
               JSON_EXTRACT(Properties, '$.Path') as path,
-
               JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
-
               JSON_EXTRACT(Properties, '$.Users') as users,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::IAM::VirtualMFADevice' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IAM::VirtualMFADevice' ;

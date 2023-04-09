@@ -51,8 +51,7 @@ components:
       additionalProperties: false
       properties:
         HeaderBehavior:
-          pattern: >-
-            ^(none|whitelist|allViewer|allViewerAndWhitelistCloudFront|allExcept)$
+          pattern: ^(none|whitelist|allViewer|allViewerAndWhitelistCloudFront|allExcept)$
           type: string
         Headers:
           items:
@@ -1146,8 +1145,7 @@ components:
         Override:
           type: boolean
         ReferrerPolicy:
-          pattern: >-
-            ^(no-referrer|no-referrer-when-downgrade|origin|origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url)$
+          pattern: ^(no-referrer|no-referrer-when-downgrade|origin|origin-when-cross-origin|same-origin|strict-origin|strict-origin-when-cross-origin|unsafe-url)$
           type: string
       required:
         - Override
@@ -1341,35 +1339,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Comment') as
-              cache_policy_config_comment,
-
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.DefaultTTL') as
-              cache_policy_config_default_tt_l,
-
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MaxTTL') as
-              cache_policy_config_max_tt_l,
-
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MinTTL') as
-              cache_policy_config_min_tt_l,
-
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Name') as
-              cache_policy_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.CachePolicyConfig.ParametersInCacheKeyAndForwardedToOrigin') as
-              cache_policy_config_parameters_in_cache_key_and_forwarded_to_origin,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Comment') as cache_policy_config_comment,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.DefaultTTL') as cache_policy_config_default_tt_l,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MaxTTL') as cache_policy_config_max_tt_l,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MinTTL') as cache_policy_config_min_tt_l,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Name') as cache_policy_config_name,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig.ParametersInCacheKeyAndForwardedToOrigin') as cache_policy_config_parameters_in_cache_key_and_forwarded_to_origin,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::CachePolicy' ;
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::CachePolicy' ;
   - CloudFrontOriginAccessIdentity:
       name: CloudFrontOriginAccessIdentity
       id: aws.cloudfront.CloudFrontOriginAccessIdentity
@@ -1377,21 +1357,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.CloudFrontOriginAccessIdentityConfig.Comment') as
-              cloud_front_origin_access_identity_config_comment,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CloudFrontOriginAccessIdentityConfig.Comment') as cloud_front_origin_access_identity_config_comment,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.S3CanonicalUserId') as
-              s3_canonical_user_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::CloudFront::CloudFrontOriginAccessIdentity' ;
+              JSON_EXTRACT(Properties, '$.S3CanonicalUserId') as s3_canonical_user_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity' ;
   - ContinuousDeploymentPolicy:
       name: ContinuousDeploymentPolicy
       id: aws.cloudfront.ContinuousDeploymentPolicy
@@ -1399,30 +1370,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties,
-              '$.ContinuousDeploymentPolicyConfig.Enabled') as
-              continuous_deployment_policy_config_enabled,
-
-              JSON_EXTRACT(Properties,
-              '$.ContinuousDeploymentPolicyConfig.StagingDistributionDnsNames')
-              as
-              continuous_deployment_policy_config_staging_distribution_dns_names,
-
-              JSON_EXTRACT(Properties,
-              '$.ContinuousDeploymentPolicyConfig.TrafficConfig') as
-              continuous_deployment_policy_config_traffic_config,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.Enabled') as continuous_deployment_policy_config_enabled,
+              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.StagingDistributionDnsNames') as continuous_deployment_policy_config_staging_distribution_dns_names,
+              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.TrafficConfig') as continuous_deployment_policy_config_traffic_config,
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy' ;
   - Distribution:
       name: Distribution
       id: aws.cloudfront.Distribution
@@ -1430,83 +1385,33 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Aliases') as
-              distribution_config_aliases,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CNAMEs') as
-              distribution_config_cn_am_es,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CacheBehaviors') as
-              distribution_config_cache_behaviors,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Comment') as
-              distribution_config_comment,
-
-              JSON_EXTRACT(Properties,
-              '$.DistributionConfig.ContinuousDeploymentPolicyId') as
-              distribution_config_continuous_deployment_policy_id,
-
-              JSON_EXTRACT(Properties,
-              '$.DistributionConfig.CustomErrorResponses') as
-              distribution_config_custom_error_responses,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CustomOrigin') as
-              distribution_config_custom_origin,
-
-              JSON_EXTRACT(Properties,
-              '$.DistributionConfig.DefaultCacheBehavior') as
-              distribution_config_default_cache_behavior,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.DefaultRootObject')
-              as distribution_config_default_root_object,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Enabled') as
-              distribution_config_enabled,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.HttpVersion') as
-              distribution_config_http_version,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.IPV6Enabled') as
-              distribution_config_ip_v6_enabled,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Logging') as
-              distribution_config_logging,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.OriginGroups') as
-              distribution_config_origin_groups,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Origins') as
-              distribution_config_origins,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.PriceClass') as
-              distribution_config_price_class,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Restrictions') as
-              distribution_config_restrictions,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.S3Origin') as
-              distribution_config_s3_origin,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Staging') as
-              distribution_config_staging,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.ViewerCertificate')
-              as distribution_config_viewer_certificate,
-
-              JSON_EXTRACT(Properties, '$.DistributionConfig.WebACLId') as
-              distribution_config_web_ac_lid,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Aliases') as distribution_config_aliases,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.CNAMEs') as distribution_config_cn_am_es,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.CacheBehaviors') as distribution_config_cache_behaviors,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Comment') as distribution_config_comment,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.ContinuousDeploymentPolicyId') as distribution_config_continuous_deployment_policy_id,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.CustomErrorResponses') as distribution_config_custom_error_responses,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.CustomOrigin') as distribution_config_custom_origin,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.DefaultCacheBehavior') as distribution_config_default_cache_behavior,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.DefaultRootObject') as distribution_config_default_root_object,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Enabled') as distribution_config_enabled,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.HttpVersion') as distribution_config_http_version,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.IPV6Enabled') as distribution_config_ip_v6_enabled,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Logging') as distribution_config_logging,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.OriginGroups') as distribution_config_origin_groups,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Origins') as distribution_config_origins,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.PriceClass') as distribution_config_price_class,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Restrictions') as distribution_config_restrictions,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.S3Origin') as distribution_config_s3_origin,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.Staging') as distribution_config_staging,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.ViewerCertificate') as distribution_config_viewer_certificate,
+              JSON_EXTRACT(Properties, '$.DistributionConfig.WebACLId') as distribution_config_web_ac_lid,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::Distribution' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::Distribution' ;
   - Function:
       name: Function
       id: aws.cloudfront.Function
@@ -1514,30 +1419,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.AutoPublish') as auto_publish,
-
               JSON_EXTRACT(Properties, '$.FunctionARN') as function_ar_n,
-
               JSON_EXTRACT(Properties, '$.FunctionCode') as function_code,
-
-              JSON_EXTRACT(Properties, '$.FunctionConfig.Comment') as
-              function_config_comment,
-
-              JSON_EXTRACT(Properties, '$.FunctionConfig.Runtime') as
-              function_config_runtime,
-
-              JSON_EXTRACT(Properties, '$.FunctionMetadata.FunctionARN') as
-              function_metadata_function_ar_n,
-
+              JSON_EXTRACT(Properties, '$.FunctionConfig.Comment') as function_config_comment,
+              JSON_EXTRACT(Properties, '$.FunctionConfig.Runtime') as function_config_runtime,
+              JSON_EXTRACT(Properties, '$.FunctionMetadata.FunctionARN') as function_metadata_function_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Stage') as stage
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::Function' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::Function' ;
   - KeyGroup:
       name: KeyGroup
       id: aws.cloudfront.KeyGroup
@@ -1545,25 +1437,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Comment') as
-              key_group_config_comment,
-
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Items') as
-              key_group_config_items,
-
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Name') as
-              key_group_config_name,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::KeyGroup' ;
+              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Comment') as key_group_config_comment,
+              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Items') as key_group_config_items,
+              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Name') as key_group_config_name,
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::KeyGroup' ;
   - MonitoringSubscription:
       name: MonitoringSubscription
       id: aws.cloudfront.MonitoringSubscription
@@ -1571,21 +1452,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringSubscription.DistributionId') as
-              monitoring_subscription_distribution_id,
-
-              JSON_EXTRACT(Properties,
-              '$.MonitoringSubscription.MonitoringSubscription') as
-              monitoring_subscription_monitoring_subscription
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::MonitoringSubscription' ;
+              JSON_EXTRACT(Properties, '$.MonitoringSubscription.DistributionId') as monitoring_subscription_distribution_id,
+              JSON_EXTRACT(Properties, '$.MonitoringSubscription.MonitoringSubscription') as monitoring_subscription_monitoring_subscription
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::MonitoringSubscription' ;
   - OriginAccessControl:
       name: OriginAccessControl
       id: aws.cloudfront.OriginAccessControl
@@ -1593,32 +1465,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.Name') as
-              origin_access_control_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginAccessControlConfig.Description') as
-              origin_access_control_config_description,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginAccessControlConfig.SigningProtocol') as
-              origin_access_control_config_signing_protocol,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginAccessControlConfig.SigningBehavior') as
-              origin_access_control_config_signing_behavior,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginAccessControlConfig.OriginAccessControlOriginType') as
-              origin_access_control_config_origin_access_control_origin_type,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.Name') as origin_access_control_config_name,
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.Description') as origin_access_control_config_description,
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.SigningProtocol') as origin_access_control_config_signing_protocol,
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.SigningBehavior') as origin_access_control_config_signing_behavior,
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.OriginAccessControlOriginType') as origin_access_control_config_origin_access_control_origin_type,
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::OriginAccessControl' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::OriginAccessControl' ;
   - OriginRequestPolicy:
       name: OriginRequestPolicy
       id: aws.cloudfront.OriginRequestPolicy
@@ -1626,34 +1481,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Comment') as
-              origin_request_policy_config_comment,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginRequestPolicyConfig.CookiesConfig') as
-              origin_request_policy_config_cookies_config,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginRequestPolicyConfig.HeadersConfig') as
-              origin_request_policy_config_headers_config,
-
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Name') as
-              origin_request_policy_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.OriginRequestPolicyConfig.QueryStringsConfig') as
-              origin_request_policy_config_query_strings_config
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::OriginRequestPolicy' ;
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Comment') as origin_request_policy_config_comment,
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.CookiesConfig') as origin_request_policy_config_cookies_config,
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.HeadersConfig') as origin_request_policy_config_headers_config,
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Name') as origin_request_policy_config_name,
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.QueryStringsConfig') as origin_request_policy_config_query_strings_config
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::OriginRequestPolicy' ;
   - PublicKey:
       name: PublicKey
       id: aws.cloudfront.PublicKey
@@ -1661,27 +1498,15 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.CallerReference') as
-              public_key_config_caller_reference,
-
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Comment') as
-              public_key_config_comment,
-
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.EncodedKey') as
-              public_key_config_encoded_key,
-
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Name') as
-              public_key_config_name
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::PublicKey' ;
+              JSON_EXTRACT(Properties, '$.PublicKeyConfig.CallerReference') as public_key_config_caller_reference,
+              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Comment') as public_key_config_comment,
+              JSON_EXTRACT(Properties, '$.PublicKeyConfig.EncodedKey') as public_key_config_encoded_key,
+              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Name') as public_key_config_name
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::PublicKey' ;
   - RealtimeLogConfig:
       name: RealtimeLogConfig
       id: aws.cloudfront.RealtimeLogConfig
@@ -1689,21 +1514,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.EndPoints') as end_points,
-
               JSON_EXTRACT(Properties, '$.Fields') as fields,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.SamplingRate') as sampling_rate
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::RealtimeLogConfig' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::RealtimeLogConfig' ;
   - ResponseHeadersPolicy:
       name: ResponseHeadersPolicy
       id: aws.cloudfront.ResponseHeadersPolicy
@@ -1711,42 +1529,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.LastModifiedTime') as
-              last_modified_time,
-
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Comment')
-              as response_headers_policy_config_comment,
-
-              JSON_EXTRACT(Properties,
-              '$.ResponseHeadersPolicyConfig.CorsConfig') as
-              response_headers_policy_config_cors_config,
-
-              JSON_EXTRACT(Properties,
-              '$.ResponseHeadersPolicyConfig.CustomHeadersConfig') as
-              response_headers_policy_config_custom_headers_config,
-
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Name') as
-              response_headers_policy_config_name,
-
-              JSON_EXTRACT(Properties,
-              '$.ResponseHeadersPolicyConfig.RemoveHeadersConfig') as
-              response_headers_policy_config_remove_headers_config,
-
-              JSON_EXTRACT(Properties,
-              '$.ResponseHeadersPolicyConfig.SecurityHeadersConfig') as
-              response_headers_policy_config_security_headers_config,
-
-              JSON_EXTRACT(Properties,
-              '$.ResponseHeadersPolicyConfig.ServerTimingHeadersConfig') as
-              response_headers_policy_config_server_timing_headers_config
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy' ;
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Comment') as response_headers_policy_config_comment,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.CorsConfig') as response_headers_policy_config_cors_config,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.CustomHeadersConfig') as response_headers_policy_config_custom_headers_config,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Name') as response_headers_policy_config_name,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.RemoveHeadersConfig') as response_headers_policy_config_remove_headers_config,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.SecurityHeadersConfig') as response_headers_policy_config_security_headers_config,
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.ServerTimingHeadersConfig') as response_headers_policy_config_server_timing_headers_config
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy' ;
   - StreamingDistribution:
       name: StreamingDistribution
       id: aws.cloudfront.StreamingDistribution
@@ -1754,37 +1548,16 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Logging')
-              as streaming_distribution_config_logging,
-
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Comment')
-              as streaming_distribution_config_comment,
-
-              JSON_EXTRACT(Properties,
-              '$.StreamingDistributionConfig.PriceClass') as
-              streaming_distribution_config_price_class,
-
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.S3Origin')
-              as streaming_distribution_config_s3_origin,
-
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Enabled')
-              as streaming_distribution_config_enabled,
-
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Aliases')
-              as streaming_distribution_config_aliases,
-
-              JSON_EXTRACT(Properties,
-              '$.StreamingDistributionConfig.TrustedSigners') as
-              streaming_distribution_config_trusted_signers,
-
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Logging') as streaming_distribution_config_logging,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Comment') as streaming_distribution_config_comment,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.PriceClass') as streaming_distribution_config_price_class,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.S3Origin') as streaming_distribution_config_s3_origin,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Enabled') as streaming_distribution_config_enabled,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Aliases') as streaming_distribution_config_aliases,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.TrustedSigners') as streaming_distribution_config_trusted_signers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::CloudFront::StreamingDistribution' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudFront::StreamingDistribution' ;

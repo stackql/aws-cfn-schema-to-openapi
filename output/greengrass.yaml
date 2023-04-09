@@ -569,8 +569,7 @@ components:
       properties:
         LambdaArn:
           type: string
-          pattern: >-
-            ^arn:aws(-(cn|us-gov))?:lambda:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+          pattern: ^arn:aws(-(cn|us-gov))?:lambda:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
         ComponentName:
           type: string
         ComponentVersion:
@@ -977,19 +976,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Connectors') as connectors,
-
-              JSON_EXTRACT(Properties, '$.ConnectorDefinitionId') as
-              connector_definition_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
-              ;
+              JSON_EXTRACT(Properties, '$.ConnectorDefinitionId') as connector_definition_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion' ;
   - ConnectorDefinition:
       name: ConnectorDefinition
       id: aws.greengrass.ConnectorDefinition
@@ -997,31 +989,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Connectors') as
-              initial_version_connectors,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionId')
-              as initial_version_connector_definition_id,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Connectors') as initial_version_connectors,
+              JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionId') as initial_version_connector_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::ConnectorDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::ConnectorDefinition' ;
   - CoreDefinitionVersion:
       name: CoreDefinitionVersion
       id: aws.greengrass.CoreDefinitionVersion
@@ -1029,18 +1007,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Cores') as cores,
-
-              JSON_EXTRACT(Properties, '$.CoreDefinitionId') as
-              core_definition_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion' ;
+              JSON_EXTRACT(Properties, '$.CoreDefinitionId') as core_definition_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion' ;
   - CoreDefinition:
       name: CoreDefinition
       id: aws.greengrass.CoreDefinition
@@ -1048,31 +1020,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Cores') as
-              initial_version_cores,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionId') as
-              initial_version_core_definition_id,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Cores') as initial_version_cores,
+              JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionId') as initial_version_core_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::CoreDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::CoreDefinition' ;
   - DeviceDefinitionVersion:
       name: DeviceDefinitionVersion
       id: aws.greengrass.DeviceDefinitionVersion
@@ -1080,18 +1038,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.DeviceDefinitionId') as
-              device_definition_id,
-
+              JSON_EXTRACT(Properties, '$.DeviceDefinitionId') as device_definition_id,
               JSON_EXTRACT(Properties, '$.Devices') as devices
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion' ;
   - DeviceDefinition:
       name: DeviceDefinition
       id: aws.greengrass.DeviceDefinition
@@ -1099,31 +1051,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionId') as
-              initial_version_device_definition_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Devices') as
-              initial_version_devices,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionId') as initial_version_device_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Devices') as initial_version_devices,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::DeviceDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::DeviceDefinition' ;
   - FunctionDefinitionVersion:
       name: FunctionDefinitionVersion
       id: aws.greengrass.FunctionDefinitionVersion
@@ -1131,22 +1069,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.DefaultConfig.Execution') as
-              default_config_execution,
-
+              JSON_EXTRACT(Properties, '$.DefaultConfig.Execution') as default_config_execution,
               JSON_EXTRACT(Properties, '$.Functions') as functions,
-
-              JSON_EXTRACT(Properties, '$.FunctionDefinitionId') as
-              function_definition_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
-              ;
+              JSON_EXTRACT(Properties, '$.FunctionDefinitionId') as function_definition_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion' ;
   - FunctionDefinition:
       name: FunctionDefinition
       id: aws.greengrass.FunctionDefinition
@@ -1154,34 +1083,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.DefaultConfig') as
-              initial_version_default_config,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Functions') as
-              initial_version_functions,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionId')
-              as initial_version_function_definition_id,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.DefaultConfig') as initial_version_default_config,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Functions') as initial_version_functions,
+              JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionId') as initial_version_function_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::FunctionDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::FunctionDefinition' ;
   - GroupVersion:
       name: GroupVersion
       id: aws.greengrass.GroupVersion
@@ -1189,36 +1102,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.LoggerDefinitionVersionArn') as
-              logger_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.DeviceDefinitionVersionArn') as
-              device_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.FunctionDefinitionVersionArn') as
-              function_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.CoreDefinitionVersionArn') as
-              core_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.ResourceDefinitionVersionArn') as
-              resource_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.ConnectorDefinitionVersionArn') as
-              connector_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.SubscriptionDefinitionVersionArn') as
-              subscription_definition_version_arn,
-
+              JSON_EXTRACT(Properties, '$.LoggerDefinitionVersionArn') as logger_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.DeviceDefinitionVersionArn') as device_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.FunctionDefinitionVersionArn') as function_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.CoreDefinitionVersionArn') as core_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.ResourceDefinitionVersionArn') as resource_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.ConnectorDefinitionVersionArn') as connector_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.SubscriptionDefinitionVersionArn') as subscription_definition_version_arn,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::GroupVersion' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::GroupVersion' ;
   - Group:
       name: Group
       id: aws.greengrass.Group
@@ -1226,60 +1121,25 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.RoleAttachedAt') as role_attached_at,
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.LoggerDefinitionVersionArn') as
-              initial_version_logger_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.DeviceDefinitionVersionArn') as
-              initial_version_device_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.FunctionDefinitionVersionArn') as
-              initial_version_function_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.CoreDefinitionVersionArn') as
-              initial_version_core_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.ResourceDefinitionVersionArn') as
-              initial_version_resource_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.ConnectorDefinitionVersionArn') as
-              initial_version_connector_definition_version_arn,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.SubscriptionDefinitionVersionArn') as
-              initial_version_subscription_definition_version_arn,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.GroupId') as
-              initial_version_group_id,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionVersionArn') as initial_version_logger_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionVersionArn') as initial_version_device_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionVersionArn') as initial_version_function_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionVersionArn') as initial_version_core_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionVersionArn') as initial_version_resource_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionVersionArn') as initial_version_connector_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionVersionArn') as initial_version_subscription_definition_version_arn,
+              JSON_EXTRACT(Properties, '$.InitialVersion.GroupId') as initial_version_group_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::Group' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::Group' ;
   - LoggerDefinitionVersion:
       name: LoggerDefinitionVersion
       id: aws.greengrass.LoggerDefinitionVersion
@@ -1287,18 +1147,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.LoggerDefinitionId') as
-              logger_definition_id,
-
+              JSON_EXTRACT(Properties, '$.LoggerDefinitionId') as logger_definition_id,
               JSON_EXTRACT(Properties, '$.Loggers') as loggers
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion' ;
   - LoggerDefinition:
       name: LoggerDefinition
       id: aws.greengrass.LoggerDefinition
@@ -1306,31 +1160,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionId') as
-              initial_version_logger_definition_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Loggers') as
-              initial_version_loggers,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionId') as initial_version_logger_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Loggers') as initial_version_loggers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::LoggerDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::LoggerDefinition' ;
   - ResourceDefinitionVersion:
       name: ResourceDefinitionVersion
       id: aws.greengrass.ResourceDefinitionVersion
@@ -1338,19 +1178,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.ResourceDefinitionId') as
-              resource_definition_id,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ResourceDefinitionId') as resource_definition_id,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
-
               JSON_EXTRACT(Properties, '$.Id') as id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
-              ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion' ;
   - ResourceDefinition:
       name: ResourceDefinition
       id: aws.greengrass.ResourceDefinition
@@ -1358,31 +1191,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionId')
-              as initial_version_resource_definition_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Resources') as
-              initial_version_resources,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::ResourceDefinition' ;
+              JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionId') as initial_version_resource_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Resources') as initial_version_resources,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::ResourceDefinition' ;
   - SubscriptionDefinitionVersion:
       name: SubscriptionDefinitionVersion
       id: aws.greengrass.SubscriptionDefinitionVersion
@@ -1390,19 +1209,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.SubscriptionDefinitionId') as
-              subscription_definition_id,
-
+              JSON_EXTRACT(Properties, '$.SubscriptionDefinitionId') as subscription_definition_id,
               JSON_EXTRACT(Properties, '$.Subscriptions') as subscriptions
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName =
-              'AWS::Greengrass::SubscriptionDefinitionVersion' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion' ;
   - SubscriptionDefinition:
       name: SubscriptionDefinition
       id: aws.greengrass.SubscriptionDefinition
@@ -1410,32 +1222,17 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
-              JSON_EXTRACT(Properties, '$.LatestVersionArn') as
-              latest_version_arn,
-
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as
-              initial_version_id,
-
-              JSON_EXTRACT(Properties,
-              '$.InitialVersion.SubscriptionDefinitionId') as
-              initial_version_subscription_definition_id,
-
-              JSON_EXTRACT(Properties, '$.InitialVersion.Subscriptions') as
-              initial_version_subscriptions,
-
+              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionId') as initial_version_subscription_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion.Subscriptions') as initial_version_subscriptions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::SubscriptionDefinition' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::SubscriptionDefinition' ;
   - ComponentVersion:
       name: ComponentVersion
       id: aws.greengrass.ComponentVersion
@@ -1443,41 +1240,20 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.ComponentName') as component_name,
-
-              JSON_EXTRACT(Properties, '$.ComponentVersion') as
-              component_version,
-
+              JSON_EXTRACT(Properties, '$.ComponentVersion') as component_version,
               JSON_EXTRACT(Properties, '$.InlineRecipe') as inline_recipe,
-
-              JSON_EXTRACT(Properties, '$.LambdaFunction.LambdaArn') as
-              lambda_function_lambda_arn,
-
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentName') as
-              lambda_function_component_name,
-
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentVersion') as
-              lambda_function_component_version,
-
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentPlatforms') as
-              lambda_function_component_platforms,
-
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentDependencies')
-              as lambda_function_component_dependencies,
-
-              JSON_EXTRACT(Properties,
-              '$.LambdaFunction.ComponentLambdaParameters') as
-              lambda_function_component_lambda_parameters,
-
+              JSON_EXTRACT(Properties, '$.LambdaFunction.LambdaArn') as lambda_function_lambda_arn,
+              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentName') as lambda_function_component_name,
+              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentVersion') as lambda_function_component_version,
+              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentPlatforms') as lambda_function_component_platforms,
+              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentDependencies') as lambda_function_component_dependencies,
+              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentLambdaParameters') as lambda_function_component_lambda_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::ComponentVersion' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::ComponentVersion' ;
   - Deployment:
       name: Deployment
       id: aws.greengrass.Deployment
@@ -1485,43 +1261,18 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn,
-
-              JSON_EXTRACT(Properties, '$.ParentTargetArn') as
-              parent_target_arn,
-
+              JSON_EXTRACT(Properties, '$.ParentTargetArn') as parent_target_arn,
               JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id,
-
               JSON_EXTRACT(Properties, '$.DeploymentName') as deployment_name,
-
               JSON_EXTRACT(Properties, '$.Components') as components,
-
-              JSON_EXTRACT(Properties,
-              '$.IotJobConfiguration.JobExecutionsRolloutConfig') as
-              iot_job_configuration_job_executions_rollout_config,
-
-              JSON_EXTRACT(Properties, '$.IotJobConfiguration.AbortConfig') as
-              iot_job_configuration_abort_config,
-
-              JSON_EXTRACT(Properties, '$.IotJobConfiguration.TimeoutConfig') as
-              iot_job_configuration_timeout_config,
-
-              JSON_EXTRACT(Properties,
-              '$.DeploymentPolicies.FailureHandlingPolicy') as
-              deployment_policies_failure_handling_policy,
-
-              JSON_EXTRACT(Properties,
-              '$.DeploymentPolicies.ComponentUpdatePolicy') as
-              deployment_policies_component_update_policy,
-
-              JSON_EXTRACT(Properties,
-              '$.DeploymentPolicies.ConfigurationValidationPolicy') as
-              deployment_policies_configuration_validation_policy,
-
+              JSON_EXTRACT(Properties, '$.IotJobConfiguration.JobExecutionsRolloutConfig') as iot_job_configuration_job_executions_rollout_config,
+              JSON_EXTRACT(Properties, '$.IotJobConfiguration.AbortConfig') as iot_job_configuration_abort_config,
+              JSON_EXTRACT(Properties, '$.IotJobConfiguration.TimeoutConfig') as iot_job_configuration_timeout_config,
+              JSON_EXTRACT(Properties, '$.DeploymentPolicies.FailureHandlingPolicy') as deployment_policies_failure_handling_policy,
+              JSON_EXTRACT(Properties, '$.DeploymentPolicies.ComponentUpdatePolicy') as deployment_policies_component_update_policy,
+              JSON_EXTRACT(Properties, '$.DeploymentPolicies.ConfigurationValidationPolicy') as deployment_policies_configuration_validation_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::Greengrass::Deployment' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Greengrass::Deployment' ;

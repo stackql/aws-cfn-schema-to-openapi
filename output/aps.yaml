@@ -11,20 +11,12 @@ components:
       properties:
         Key:
           type: string
-          description: >-
-            The key name of the tag. You can specify a value that is 1 to 128
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 128
         Value:
           type: string
-          description: >-
-            The value for the tag. You can specify a value that is 0 to 256
-            Unicode characters in length and cannot be prefixed with aws:. You
-            can use any of the following characters: the set of Unicode letters,
-            digits, whitespace, _, ., /, =, +, and -.
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 0
           maxLength: 256
       required:
@@ -35,12 +27,9 @@ components:
       type: object
       properties:
         Workspace:
-          description: >-
-            Required to identify a specific APS Workspace associated with this
-            RuleGroupsNamespace.
+          description: Required to identify a specific APS Workspace associated with this RuleGroupsNamespace.
           type: string
-          pattern: >-
-            ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:workspace/[a-zA-Z0-9-]+$
+          pattern: ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:workspace/[a-zA-Z0-9-]+$
         Name:
           description: The RuleGroupsNamespace name.
           type: string
@@ -52,8 +41,7 @@ components:
         Arn:
           description: The RuleGroupsNamespace ARN.
           type: string
-          pattern: >-
-            ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:rulegroupsnamespace/[a-zA-Z0-9-]+/[0-9A-Za-z][-.0-9A-Z_a-z]*$
+          pattern: ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:rulegroupsnamespace/[a-zA-Z0-9-]+/[0-9A-Za-z][-.0-9A-Z_a-z]*$
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -93,8 +81,7 @@ components:
         Arn:
           description: Workspace arn.
           type: string
-          pattern: >-
-            ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:workspace/[a-zA-Z0-9-]+$
+          pattern: ^arn:(aws|aws-us-gov|aws-cn):aps:[a-z0-9-]+:[0-9]+:workspace/[a-zA-Z0-9-]+$
           minLength: 1
           maxLength: 128
         AlertManagerDefinition:
@@ -122,21 +109,14 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Workspace') as workspace,
-
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.Data') as data,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::APS::RuleGroupsNamespace' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::APS::RuleGroupsNamespace' ;
   - Workspace:
       name: Workspace
       id: aws.aps.Workspace
@@ -144,25 +124,13 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-
               JSON_EXTRACT(Properties, '$.Alias') as alias,
-
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-
-              JSON_EXTRACT(Properties, '$.AlertManagerDefinition') as
-              alert_manager_definition,
-
-              JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as
-              prometheus_endpoint,
-
-              JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogGroupArn') as
-              logging_configuration_log_group_arn,
-
+              JSON_EXTRACT(Properties, '$.AlertManagerDefinition') as alert_manager_definition,
+              JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as prometheus_endpoint,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogGroupArn') as logging_configuration_log_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::APS::Workspace' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::APS::Workspace' ;

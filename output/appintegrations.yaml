@@ -9,9 +9,7 @@ components:
       type: object
       properties:
         FirstExecutionFrom:
-          description: >-
-            The start date for objects to import in the first flow run. Epoch or
-            ISO timestamp format is supported.
+          description: The start date for objects to import in the first flow run. Epoch or ISO timestamp format is supported.
           type: string
           pattern: .*\S.*
           minLength: 1
@@ -68,8 +66,7 @@ components:
         DataIntegrationArn:
           description: The Amazon Resource Name (ARN) of the data integration.
           type: string
-          pattern: >-
-            ^arn:aws[-a-z]*:[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$
+          pattern: ^arn:aws[-a-z]*:[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$
           minLength: 1
           maxLength: 2048
         Name:
@@ -85,9 +82,7 @@ components:
           minLength: 1
           maxLength: 255
         ScheduleConfig:
-          description: >-
-            The name of the data and how often it should be pulled from the
-            source.
+          description: The name of the data and how often it should be pulled from the source.
           $ref: '#/components/schemas/ScheduleConfig'
         SourceURI:
           description: The URI of the data source.
@@ -150,8 +145,7 @@ components:
         EventIntegrationArn:
           description: The Amazon Resource Name (ARN) of the event integration.
           type: string
-          pattern: >-
-            ^arn:aws[-a-z]*:[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$
+          pattern: ^arn:aws[-a-z]*:[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$
           minLength: 1
           maxLength: 2048
         Name:
@@ -189,35 +183,19 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
               JSON_EXTRACT(Properties, '$.Id') as id,
-
-              JSON_EXTRACT(Properties, '$.DataIntegrationArn') as
-              data_integration_arn,
-
+              JSON_EXTRACT(Properties, '$.DataIntegrationArn') as data_integration_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
-
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.FirstExecutionFrom') as
-              schedule_config_first_execution_from,
-
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.Object') as
-              schedule_config_object,
-
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.ScheduleExpression') as
-              schedule_config_schedule_expression,
-
+              JSON_EXTRACT(Properties, '$.ScheduleConfig.FirstExecutionFrom') as schedule_config_first_execution_from,
+              JSON_EXTRACT(Properties, '$.ScheduleConfig.Object') as schedule_config_object,
+              JSON_EXTRACT(Properties, '$.ScheduleConfig.ScheduleExpression') as schedule_config_schedule_expression,
               JSON_EXTRACT(Properties, '$.SourceURI') as source_ur_i,
-
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppIntegrations::DataIntegration' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppIntegrations::DataIntegration' ;
   - EventIntegration:
       name: EventIntegration
       id: aws.appintegrations.EventIntegration
@@ -225,22 +203,12 @@ x-stackql-views:
         views:
           select:
             predicate: sqlDialect == "sqlite3"
-            ddl: >-
-              SELECT 
-
+            ddl: |-
+              SELECT
               JSON_EXTRACT(Properties, '$.Description') as description,
-
-              JSON_EXTRACT(Properties, '$.EventIntegrationArn') as
-              event_integration_arn,
-
+              JSON_EXTRACT(Properties, '$.EventIntegrationArn') as event_integration_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-
               JSON_EXTRACT(Properties, '$.EventBridgeBus') as event_bridge_bus,
-
-              JSON_EXTRACT(Properties, '$.EventFilter.Source') as
-              event_filter_source,
-
+              JSON_EXTRACT(Properties, '$.EventFilter.Source') as event_filter_source,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1'
-              and data__TypeName = 'AWS::AppIntegrations::EventIntegration' ;
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppIntegrations::EventIntegration' ;
