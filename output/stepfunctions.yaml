@@ -97,7 +97,7 @@ components:
       additionalProperties: false
       x-patternProperties:
         .*:
-          anyOf:
+          oneOf:
             - type: string
             - type: integer
             - type: boolean
@@ -133,10 +133,6 @@ components:
           enum:
             - STANDARD
             - EXPRESS
-        StateMachineRevisionId:
-          type: string
-          minLength: 1
-          maxLength: 256
         LoggingConfiguration:
           $ref: '#/components/schemas/LoggingConfiguration'
         TracingConfiguration:
@@ -185,7 +181,6 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.StateMachineName') as state_machine_name,
               JSON_EXTRACT(Properties, '$.StateMachineType') as state_machine_type,
-              JSON_EXTRACT(Properties, '$.StateMachineRevisionId') as state_machine_revision_id,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.Level') as logging_configuration_level,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.IncludeExecutionData') as logging_configuration_include_execution_data,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.Destinations') as logging_configuration_destinations,

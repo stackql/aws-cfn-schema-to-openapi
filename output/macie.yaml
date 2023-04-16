@@ -151,17 +151,20 @@ components:
           type: array
           items:
             type: string
+      additionalProperties: false
     Criterion:
       description: Map of filter criteria.
       type: object
       x-patternProperties:
         \w:
           $ref: '#/components/schemas/CriterionAdditionalProperties'
+      additionalProperties: false
     FindingCriteria:
       type: object
       properties:
         Criterion:
           $ref: '#/components/schemas/Criterion'
+      additionalProperties: false
     FindingFilterAction:
       type: string
       enum:
@@ -199,11 +202,6 @@ components:
         Arn:
           description: Findings filter ARN.
           type: string
-        FindingsFilterListItems:
-          description: Findings filters list.
-          type: array
-          items:
-            $ref: '#/components/schemas/FindingsFilterListItem'
       required:
         - Name
         - FindingCriteria
@@ -281,8 +279,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.FindingCriteria.Criterion') as finding_criteria_criterion,
               JSON_EXTRACT(Properties, '$.Position') as position,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.FindingsFilterListItems') as findings_filter_list_items
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Macie::FindingsFilter' ;
   - Session:
       name: Session

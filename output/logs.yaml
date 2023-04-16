@@ -59,12 +59,12 @@ components:
     LogStream:
       type: object
       properties:
+        Id:
+          type: string
         LogGroupName:
           type: string
-          description: The name of the log group where the log stream is created.
         LogStreamName:
           type: string
-          description: The name of the log stream. The name must be unique wihtin the log group.
       required:
         - LogGroupName
       x-stackql-resource-name: LogStream
@@ -290,6 +290,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::LogStream' ;

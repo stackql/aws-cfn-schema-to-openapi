@@ -172,6 +172,21 @@ components:
           type: string
         Path:
           type: string
+    DeltaTarget:
+      type: object
+      additionalProperties: false
+      properties:
+        ConnectionName:
+          type: string
+        CreateNativeDeltaTable:
+          type: boolean
+        WriteManifest:
+          type: boolean
+        DeltaTables:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
     JdbcTarget:
       type: object
       additionalProperties: false
@@ -189,11 +204,21 @@ components:
       type: object
       additionalProperties: false
       properties:
+        S3Targets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/S3Target'
         CatalogTargets:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/CatalogTarget'
+        DeltaTargets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/DeltaTarget'
         MongoDBTargets:
           type: array
           uniqueItems: false
@@ -204,11 +229,6 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/JdbcTarget'
-        S3Targets:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/S3Target'
         DynamoDBTargets:
           type: array
           uniqueItems: false
@@ -294,6 +314,14 @@ components:
       properties:
         DataLakePrincipalIdentifier:
           type: string
+    FederatedDatabase:
+      type: object
+      additionalProperties: false
+      properties:
+        ConnectionName:
+          type: string
+        Identifier:
+          type: string
     DatabaseInput:
       type: object
       additionalProperties: false
@@ -311,6 +339,8 @@ components:
           type: object
         TargetDatabase:
           $ref: '#/components/schemas/DatabaseIdentifier'
+        FederatedDatabase:
+          $ref: '#/components/schemas/FederatedDatabase'
         Name:
           type: string
     Database:
@@ -1071,10 +1101,11 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.RecrawlPolicy.RecrawlBehavior') as recrawl_policy_recrawl_behavior,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
+              JSON_EXTRACT(Properties, '$.Targets.S3Targets') as targets_s3_targets,
               JSON_EXTRACT(Properties, '$.Targets.CatalogTargets') as targets_catalog_targets,
+              JSON_EXTRACT(Properties, '$.Targets.DeltaTargets') as targets_delta_targets,
               JSON_EXTRACT(Properties, '$.Targets.MongoDBTargets') as targets_mongo_db_targets,
               JSON_EXTRACT(Properties, '$.Targets.JdbcTargets') as targets_jdbc_targets,
-              JSON_EXTRACT(Properties, '$.Targets.S3Targets') as targets_s3_targets,
               JSON_EXTRACT(Properties, '$.Targets.DynamoDBTargets') as targets_dynamo_db_targets,
               JSON_EXTRACT(Properties, '$.CrawlerSecurityConfiguration') as crawler_security_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1099,6 +1130,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DatabaseInput.Description') as database_input_description,
               JSON_EXTRACT(Properties, '$.DatabaseInput.Parameters') as database_input_parameters,
               JSON_EXTRACT(Properties, '$.DatabaseInput.TargetDatabase') as database_input_target_database,
+              JSON_EXTRACT(Properties, '$.DatabaseInput.FederatedDatabase') as database_input_federated_database,
               JSON_EXTRACT(Properties, '$.DatabaseInput.Name') as database_input_name,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Glue::Database' ;

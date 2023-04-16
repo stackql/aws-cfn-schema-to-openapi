@@ -1118,16 +1118,18 @@ components:
       properties:
         ServerNameToVerify:
           type: string
+    ParameterConstraints:
+      type: object
+      additionalProperties: false
+      properties:
+        Required:
+          type: boolean
     Route:
       type: object
       properties:
-        Id:
-          type: string
-        Target:
+        RouteId:
           type: string
         RouteResponseSelectionExpression:
-          type: string
-        AuthorizerId:
           type: string
         RequestModels:
           type: object
@@ -1150,6 +1152,12 @@ components:
           type: string
         RequestParameters:
           type: object
+          items:
+            $ref: '#/components/schemas/ParameterConstraints'
+        Target:
+          type: string
+        AuthorizerId:
+          type: string
       required:
         - RouteKey
         - ApiId
@@ -1157,13 +1165,13 @@ components:
     RouteResponse:
       type: object
       properties:
-        Id:
-          type: string
         RouteResponseKey:
           type: string
         ResponseParameters:
           type: object
         RouteId:
+          type: string
+        Id:
           type: string
         ModelSelectionExpression:
           type: string
@@ -1666,10 +1674,8 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Target') as target,
+              JSON_EXTRACT(Properties, '$.RouteId') as route_id,
               JSON_EXTRACT(Properties, '$.RouteResponseSelectionExpression') as route_response_selection_expression,
-              JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
               JSON_EXTRACT(Properties, '$.RequestModels') as request_models,
               JSON_EXTRACT(Properties, '$.OperationName') as operation_name,
               JSON_EXTRACT(Properties, '$.AuthorizationScopes') as authorization_scopes,
@@ -1678,7 +1684,9 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.AuthorizationType') as authorization_type,
               JSON_EXTRACT(Properties, '$.ModelSelectionExpression') as model_selection_expression,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
-              JSON_EXTRACT(Properties, '$.RequestParameters') as request_parameters
+              JSON_EXTRACT(Properties, '$.RequestParameters') as request_parameters,
+              JSON_EXTRACT(Properties, '$.Target') as target,
+              JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ApiGateway::Route' ;
   - RouteResponse:
       name: RouteResponse
@@ -1689,10 +1697,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RouteResponseKey') as route_response_key,
               JSON_EXTRACT(Properties, '$.ResponseParameters') as response_parameters,
               JSON_EXTRACT(Properties, '$.RouteId') as route_id,
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ModelSelectionExpression') as model_selection_expression,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.ResponseModels') as response_models

@@ -5,6 +5,105 @@ info:
 paths: {}
 components:
   schemas:
+    RegistryId:
+      type: string
+      description: 'The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed. '
+      minLength: 12
+      maxLength: 12
+      pattern: ^[0-9]{12}$
+    RepositoryDescription:
+      type: string
+      description: The description of the public repository.
+      maxLength: 1024
+    OperatingSystemList:
+      type: array
+      maxItems: 50
+      uniqueItems: true
+      x-insertionOrder: false
+      description: Select the operating systems that the images in your repository are compatible with.
+      items:
+        $ref: '#/components/schemas/OperatingSystem'
+    OperatingSystem:
+      type: string
+      description: The name of the operating system.
+      maxLength: 50
+      minLength: 1
+    ArchitectureList:
+      type: array
+      maxItems: 50
+      uniqueItems: true
+      x-insertionOrder: false
+      description: Select the system architectures that the images in your repository are compatible with.
+      items:
+        $ref: '#/components/schemas/Architecture'
+    Architecture:
+      type: string
+      description: The name of the architecture.
+      maxLength: 50
+      minLength: 1
+    UsageText:
+      type: string
+      description: Provide detailed information about how to use the images in the repository. This provides context, support information, and additional usage details for users of the repository.
+      maxLength: 10240
+    AboutText:
+      type: string
+      description: Provide a detailed description of the repository. Identify what is included in the repository, any licensing details, or other relevant information.
+      maxLength: 10240
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      properties:
+        Key:
+          type: string
+          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          minLength: 1
+          maxLength: 127
+        Value:
+          type: string
+          description: 'The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          minLength: 1
+          maxLength: 255
+      required:
+        - Value
+        - Key
+      additionalProperties: false
+    PublicRepository:
+      type: object
+      properties:
+        RepositoryName:
+          type: string
+          description: The name to use for the repository. The repository name may be specified on its own (such as nginx-web-app) or it can be prepended with a namespace to group the repository into a category (such as project-a/nginx-web-app). If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the repository name. For more information, see https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html.
+          minLength: 2
+          maxLength: 256
+          pattern: ^(?=.{2,256}$)((?:[a-z0-9]+(?:[._-][a-z0-9]+)*/)*[a-z0-9]+(?:[._-][a-z0-9]+)*)$
+        RepositoryPolicyText:
+          type: string
+        Arn:
+          type: string
+        RepositoryCatalogData:
+          type: object
+          description: The CatalogData property type specifies Catalog data for ECR Public Repository. For information about Catalog Data, see <link>
+          properties:
+            RepositoryDescription:
+              $ref: '#/components/schemas/RepositoryDescription'
+            Architectures:
+              $ref: '#/components/schemas/ArchitectureList'
+            OperatingSystems:
+              $ref: '#/components/schemas/OperatingSystemList'
+            AboutText:
+              $ref: '#/components/schemas/AboutText'
+            UsageText:
+              $ref: '#/components/schemas/UsageText'
+          additionalProperties: false
+        Tags:
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          description: An array of key-value pairs to apply to this resource.
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: PublicRepository
     PullThroughCacheRule:
       type: object
       properties:
@@ -18,12 +117,6 @@ components:
           type: string
           description: The upstreamRegistryUrl is the endpoint of upstream registry url of the public repository to be cached
       x-stackql-resource-name: PullThroughCacheRule
-    RegistryId:
-      type: string
-      description: 'The AWS account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed. '
-      minLength: 12
-      maxLength: 12
-      pattern: ^[0-9]{12}$
     EcrRepositoryPrefix:
       type: string
       minLength: 2
@@ -127,24 +220,6 @@ components:
       description: The JSON repository policy text to apply to the repository.
       minLength: 100
       maxLength: 30720
-    Tag:
-      description: A key-value pair to associate with a resource.
-      type: object
-      properties:
-        Key:
-          type: string
-          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
-          minLength: 1
-          maxLength: 127
-        Value:
-          type: string
-          description: 'The value for the tag. You can specify a value that is 1 to 255 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
-          minLength: 1
-          maxLength: 255
-      required:
-        - Value
-        - Key
-      additionalProperties: false
     ImageScanningConfiguration:
       type: object
       description: The image scanning configuration for the repository. This setting determines whether images are scanned for known vulnerabilities after being pushed to the repository.
@@ -219,6 +294,21 @@ components:
           $ref: '#/components/schemas/EncryptionConfiguration'
       x-stackql-resource-name: Repository
 x-stackql-views:
+  - PublicRepository:
+      name: PublicRepository
+      id: aws.ecr.PublicRepository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
+              JSON_EXTRACT(Properties, '$.RepositoryPolicyText') as repository_policy_text,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.RepositoryCatalogData') as repository_catalog_data,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::PublicRepository' ;
   - PullThroughCacheRule:
       name: PullThroughCacheRule
       id: aws.ecr.PullThroughCacheRule

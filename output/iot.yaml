@@ -963,19 +963,20 @@ components:
       type: object
       properties:
         TargetType:
-          description: The target type. Value must be THING_GROUP, CLIENT_ID, SOURCE_IP, PRINCIPAL_ID.
+          description: The target type. Value must be THING_GROUP, CLIENT_ID, SOURCE_IP, PRINCIPAL_ID, or EVENT_TYPE.
           type: string
           enum:
             - THING_GROUP
             - CLIENT_ID
             - SOURCE_IP
             - PRINCIPAL_ID
+            - EVENT_TYPE
         TargetName:
           description: The target name.
           type: string
           minLength: 1
           maxLength: 128
-          pattern: '[a-zA-Z0-9.:_-]+'
+          pattern: '[a-zA-Z0-9.:\s_\-]+'
         LogLevel:
           description: 'The log level for a specific target. Valid values are: ERROR, WARN, INFO, DEBUG, or DISABLED.'
           type: string
@@ -990,7 +991,7 @@ components:
           type: string
           minLength: 13
           maxLength: 140
-          pattern: '[a-zA-Z0-9.:_-]+'
+          pattern: '[a-zA-Z0-9.:\s_\-]+'
       required:
         - TargetName
         - TargetType
@@ -2007,6 +2008,78 @@ components:
           description: VPC destination properties.
           $ref: '#/components/schemas/VpcDestinationProperties'
       x-stackql-resource-name: TopicRuleDestination
+    Device:
+      type: object
+      properties:
+        DeviceId:
+          type: string
+        Enabled:
+          type: boolean
+        Arn:
+          type: string
+      required:
+        - Enabled
+        - DeviceId
+      x-stackql-resource-name: Device
+    Placement:
+      type: object
+      properties:
+        Id:
+          type: string
+        PlacementName:
+          type: string
+        ProjectName:
+          type: string
+        AssociatedDevices:
+          type: object
+        Attributes:
+          type: object
+      required:
+        - ProjectName
+      x-stackql-resource-name: Placement
+    PlacementTemplate:
+      type: object
+      additionalProperties: false
+      properties:
+        DeviceTemplates:
+          type: object
+        DefaultAttributes:
+          type: object
+    Project:
+      type: object
+      properties:
+        PortalId:
+          description: The ID of the portal in which to create the project.
+          type: string
+        ProjectId:
+          description: The ID of the project.
+          type: string
+        ProjectName:
+          description: A friendly name for the project.
+          type: string
+        ProjectDescription:
+          description: A description for the project.
+          type: string
+        ProjectArn:
+          description: The ARN of the project.
+          type: string
+        AssetIds:
+          description: The IDs of the assets to be associated to the project.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/AssetId'
+        Tags:
+          description: A list of key-value pairs that contain metadata for the project.
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - PortalId
+        - ProjectName
+      x-stackql-resource-name: Project
     CustomerManagedS3:
       type: object
       additionalProperties: false
@@ -2744,6 +2817,88 @@ components:
       required:
         - PipelineActivities
       x-stackql-resource-name: Pipeline
+    DeviceUnderTest:
+      type: object
+      properties:
+        CertificateArn:
+          type: string
+          minLength: 20
+          maxLength: 2048
+        ThingArn:
+          type: string
+          minLength: 20
+          maxLength: 2048
+      additionalProperties: false
+    SuiteDefinitionName:
+      type: string
+      description: The Name of the suite definition.
+      minLength: 1
+      maxLength: 256
+    RootGroup:
+      type: string
+      description: The root group of the test suite.
+      minLength: 1
+      maxLength: 2048
+    Devices:
+      type: array
+      description: The devices being tested in the test suite
+      minItems: 0
+      maxItems: 2
+      items:
+        $ref: '#/components/schemas/DeviceUnderTest'
+    DevicePermissionRoleArn:
+      type: string
+      description: The device permission role arn of the test suite.
+      minLength: 20
+      maxLength: 2048
+    IntendedForQualification:
+      description: Whether the tests are intended for qualification in a suite.
+      type: boolean
+    SuiteDefinition:
+      type: object
+      properties:
+        SuiteDefinitionConfiguration:
+          type: object
+          properties:
+            DevicePermissionRoleArn:
+              $ref: '#/components/schemas/DevicePermissionRoleArn'
+            Devices:
+              $ref: '#/components/schemas/Devices'
+            IntendedForQualification:
+              $ref: '#/components/schemas/IntendedForQualification'
+            RootGroup:
+              $ref: '#/components/schemas/RootGroup'
+            SuiteDefinitionName:
+              $ref: '#/components/schemas/SuiteDefinitionName'
+          required:
+            - DevicePermissionRoleArn
+            - RootGroup
+          additionalProperties: false
+        SuiteDefinitionId:
+          type: string
+          maxLength: 36
+          minLength: 12
+          description: The unique identifier for the suite definition.
+        SuiteDefinitionArn:
+          type: string
+          maxLength: 2048
+          minLength: 20
+          description: The Amazon Resource name for the suite definition.
+        SuiteDefinitionVersion:
+          type: string
+          maxLength: 255
+          minLength: 2
+          description: The suite definition version of a test suite.
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - SuiteDefinitionConfiguration
+      x-stackql-resource-name: SuiteDefinition
     AlarmRule:
       type: object
       description: Defines when your alarm is invoked.
@@ -3455,6 +3610,790 @@ components:
         - ApplicationName
         - RoleArn
       x-stackql-resource-name: Application
+    Compression:
+      type: string
+      enum:
+        - 'OFF'
+        - SNAPPY
+      default: 'OFF'
+    UpdateCampaignAction:
+      type: string
+      enum:
+        - APPROVE
+        - SUSPEND
+        - RESUME
+        - UPDATE
+    CampaignStatus:
+      type: string
+      enum:
+        - CREATING
+        - WAITING_FOR_APPROVAL
+        - RUNNING
+        - SUSPENDED
+    DiagnosticsMode:
+      type: string
+      enum:
+        - 'OFF'
+        - SEND_ACTIVE_DTCS
+      default: 'OFF'
+    SignalInformation:
+      additionalProperties: false
+      type: object
+      properties:
+        MaxSampleCount:
+          maximum: 4294967295
+          type: number
+          minimum: 1
+        Name:
+          minLength: 1
+          pattern: ^[\w|*|-]+(\.[\w|*|-]+)*$
+          type: string
+          maxLength: 150
+        MinimumSamplingIntervalMs:
+          maximum: 4294967295
+          type: number
+          minimum: 0
+      required:
+        - Name
+    TimeBasedCollectionScheme:
+      additionalProperties: false
+      type: object
+      properties:
+        PeriodMs:
+          maximum: 60000
+          type: number
+          minimum: 10000
+      required:
+        - PeriodMs
+    SpoolingMode:
+      type: string
+      enum:
+        - 'OFF'
+        - TO_DISK
+      default: 'OFF'
+    TriggerMode:
+      type: string
+      enum:
+        - ALWAYS
+        - RISING_EDGE
+    CollectionScheme:
+      oneOf:
+        - additionalProperties: false
+          type: object
+          title: TimeBasedCollectionScheme
+          properties:
+            TimeBasedCollectionScheme:
+              $ref: '#/components/schemas/TimeBasedCollectionScheme'
+          required:
+            - TimeBasedCollectionScheme
+        - additionalProperties: false
+          type: object
+          title: ConditionBasedCollectionScheme
+          properties:
+            ConditionBasedCollectionScheme:
+              $ref: '#/components/schemas/ConditionBasedCollectionScheme'
+          required:
+            - ConditionBasedCollectionScheme
+    ConditionBasedCollectionScheme:
+      additionalProperties: false
+      type: object
+      properties:
+        MinimumTriggerIntervalMs:
+          maximum: 4294967295
+          type: number
+          minimum: 0
+        Expression:
+          minLength: 1
+          type: string
+          maxLength: 2048
+        TriggerMode:
+          $ref: '#/components/schemas/TriggerMode'
+        ConditionLanguageVersion:
+          type: integer
+          minimum: 1
+      required:
+        - Expression
+    Campaign:
+      type: object
+      properties:
+        Status:
+          $ref: '#/components/schemas/CampaignStatus'
+        Action:
+          $ref: '#/components/schemas/UpdateCampaignAction'
+        CreationTime:
+          type: string
+          format: date-time
+        Compression:
+          $ref: '#/components/schemas/Compression'
+        Description:
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+          type: string
+          maxLength: 2048
+        Priority:
+          type: integer
+          minimum: 0
+          default: 0
+        SignalsToCollect:
+          minItems: 0
+          maxItems: 1000
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/SignalInformation'
+        StartTime:
+          format: date-time
+          type: string
+          default: '0'
+        Name:
+          minLength: 1
+          pattern: ^[a-zA-Z\d\-_:]+$
+          type: string
+          maxLength: 100
+        ExpiryTime:
+          format: date-time
+          type: string
+          default: '253402214400'
+        LastModificationTime:
+          type: string
+          format: date-time
+        SpoolingMode:
+          $ref: '#/components/schemas/SpoolingMode'
+        SignalCatalogArn:
+          type: string
+        PostTriggerCollectionDuration:
+          maximum: 4294967295
+          type: number
+          minimum: 0
+          default: 0
+        DataExtraDimensions:
+          minItems: 0
+          maxItems: 5
+          x-insertionOrder: false
+          type: array
+          items:
+            minLength: 1
+            pattern: ^[a-zA-Z0-9_.]+$
+            type: string
+            maxLength: 150
+        DiagnosticsMode:
+          $ref: '#/components/schemas/DiagnosticsMode'
+        TargetArn:
+          type: string
+        Arn:
+          type: string
+        CollectionScheme:
+          $ref: '#/components/schemas/CollectionScheme'
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+      required:
+        - Name
+        - Action
+        - CollectionScheme
+        - SignalCatalogArn
+        - TargetArn
+      x-stackql-resource-name: Campaign
+    CanInterface:
+      type: object
+      properties:
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+        ProtocolName:
+          type: string
+          maxLength: 50
+          minLength: 1
+        ProtocolVersion:
+          type: string
+          maxLength: 50
+          minLength: 1
+      required:
+        - Name
+      additionalProperties: false
+    CanSignal:
+      type: object
+      properties:
+        MessageId:
+          type:
+            - integer
+            - string
+        IsBigEndian:
+          type:
+            - boolean
+            - string
+        IsSigned:
+          type:
+            - boolean
+            - string
+        StartBit:
+          type:
+            - integer
+            - string
+        Offset:
+          type:
+            - number
+            - string
+        Factor:
+          type:
+            - number
+            - string
+        Length:
+          type:
+            - integer
+            - string
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+      required:
+        - Factor
+        - IsBigEndian
+        - IsSigned
+        - Length
+        - MessageId
+        - Offset
+        - StartBit
+      additionalProperties: false
+    ManifestStatus:
+      type: string
+      enum:
+        - ACTIVE
+        - DRAFT
+      default: DRAFT
+    CanNetworkInterface:
+      type: object
+      properties:
+        InterfaceId:
+          type: string
+          maxLength: 50
+          minLength: 1
+        Type:
+          type: string
+          enum:
+            - CAN_INTERFACE
+        CanInterface:
+          $ref: '#/components/schemas/CanInterface'
+      required:
+        - InterfaceId
+        - Type
+        - CanInterface
+      additionalProperties: false
+    ObdNetworkInterface:
+      type: object
+      properties:
+        InterfaceId:
+          type: string
+          maxLength: 50
+          minLength: 1
+        Type:
+          type: string
+          enum:
+            - OBD_INTERFACE
+        ObdInterface:
+          $ref: '#/components/schemas/ObdInterface'
+      required:
+        - InterfaceId
+        - Type
+        - ObdInterface
+      additionalProperties: false
+    ObdInterface:
+      type: object
+      properties:
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+        RequestMessageId:
+          type:
+            - integer
+            - string
+        ObdStandard:
+          type: string
+          maxLength: 50
+          minLength: 1
+        PidRequestIntervalSeconds:
+          type:
+            - integer
+            - string
+        DtcRequestIntervalSeconds:
+          type:
+            - integer
+            - string
+        UseExtendedIds:
+          type:
+            - boolean
+            - string
+        HasTransmissionEcu:
+          type:
+            - boolean
+            - string
+      required:
+        - Name
+        - RequestMessageId
+      additionalProperties: false
+    ObdSignal:
+      type: object
+      properties:
+        PidResponseLength:
+          type:
+            - integer
+            - string
+        ServiceMode:
+          type:
+            - integer
+            - string
+        Pid:
+          type:
+            - integer
+            - string
+        Scaling:
+          type:
+            - number
+            - string
+        Offset:
+          type:
+            - number
+            - string
+        StartByte:
+          type:
+            - integer
+            - string
+        ByteLength:
+          type:
+            - integer
+            - string
+        BitRightShift:
+          type:
+            - integer
+            - string
+        BitMaskLength:
+          type:
+            - integer
+            - string
+      required:
+        - ByteLength
+        - Offset
+        - Pid
+        - PidResponseLength
+        - Scaling
+        - ServiceMode
+        - StartByte
+      additionalProperties: false
+    CanSignalDecoder:
+      type: object
+      properties:
+        FullyQualifiedName:
+          type: string
+          maxLength: 150
+          minLength: 1
+        Type:
+          type: string
+          enum:
+            - CAN_SIGNAL
+        InterfaceId:
+          type: string
+          maxLength: 50
+          minLength: 1
+        CanSignal:
+          $ref: '#/components/schemas/CanSignal'
+      required:
+        - FullyQualifiedName
+        - InterfaceId
+        - Type
+        - CanSignal
+      additionalProperties: false
+    ObdSignalDecoder:
+      type: object
+      properties:
+        FullyQualifiedName:
+          type: string
+          maxLength: 150
+          minLength: 1
+        Type:
+          type: string
+          enum:
+            - OBD_SIGNAL
+        InterfaceId:
+          type: string
+          maxLength: 50
+          minLength: 1
+        ObdSignal:
+          $ref: '#/components/schemas/ObdSignal'
+      required:
+        - FullyQualifiedName
+        - InterfaceId
+        - Type
+        - ObdSignal
+      additionalProperties: false
+    DecoderManifest:
+      type: object
+      properties:
+        Arn:
+          type: string
+        CreationTime:
+          type: string
+          format: date-time
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        LastModificationTime:
+          type: string
+          format: date-time
+        ModelManifestArn:
+          type: string
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z\d\-_:]+$
+        NetworkInterfaces:
+          x-insertionOrder: false
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/CanNetworkInterface'
+              - $ref: '#/components/schemas/ObdNetworkInterface'
+          maxItems: 500
+          minItems: 1
+        SignalDecoders:
+          x-insertionOrder: false
+          type: array
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/CanSignalDecoder'
+              - $ref: '#/components/schemas/ObdSignalDecoder'
+          maxItems: 500
+          minItems: 1
+        Status:
+          $ref: '#/components/schemas/ManifestStatus'
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          maxItems: 50
+          minItems: 0
+          x-insertionOrder: false
+          uniqueItems: true
+      required:
+        - Name
+        - ModelManifestArn
+      x-stackql-resource-name: DecoderManifest
+    Fleet:
+      type: object
+      properties:
+        Arn:
+          type: string
+        CreationTime:
+          type: string
+          format: date-time
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        Id:
+          type: string
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z0-9:_-]+$
+        LastModificationTime:
+          type: string
+          format: date-time
+        SignalCatalogArn:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+      required:
+        - Id
+        - SignalCatalogArn
+      x-stackql-resource-name: Fleet
+    ModelManifest:
+      type: object
+      properties:
+        Arn:
+          type: string
+        CreationTime:
+          type: string
+          format: date-time
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        LastModificationTime:
+          type: string
+          format: date-time
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z\d\-_:]+$
+        Nodes:
+          x-insertionOrder: false
+          uniqueItems: true
+          minItems: 1
+          type: array
+          items:
+            type: string
+        SignalCatalogArn:
+          type: string
+        Status:
+          $ref: '#/components/schemas/ManifestStatus'
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+      required:
+        - SignalCatalogArn
+        - Name
+      x-stackql-resource-name: ModelManifest
+    Actuator:
+      type: object
+      properties:
+        FullyQualifiedName:
+          type: string
+        DataType:
+          $ref: '#/components/schemas/NodeDataType'
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        Unit:
+          type: string
+        AllowedValues:
+          $ref: '#/components/schemas/AllowedValues'
+        Min:
+          type: number
+        Max:
+          type: number
+        AssignedValue:
+          type: string
+      required:
+        - DataType
+        - FullyQualifiedName
+      additionalProperties: false
+    AllowedValues:
+      type: array
+      x-insertionOrder: false
+      items:
+        type: string
+      minItems: 1
+    Branch:
+      type: object
+      properties:
+        FullyQualifiedName:
+          type: string
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+      required:
+        - FullyQualifiedName
+      additionalProperties: false
+    Node:
+      oneOf:
+        - type: object
+          title: Branch
+          properties:
+            Branch:
+              $ref: '#/components/schemas/Branch'
+          additionalProperties: false
+        - type: object
+          title: Sensor
+          properties:
+            Sensor:
+              $ref: '#/components/schemas/Sensor'
+          additionalProperties: false
+        - type: object
+          title: Actuator
+          properties:
+            Actuator:
+              $ref: '#/components/schemas/Actuator'
+          additionalProperties: false
+        - type: object
+          title: Attribute
+          properties:
+            Attribute:
+              $ref: '#/components/schemas/Attribute'
+          additionalProperties: false
+    NodeCounts:
+      type: object
+      properties:
+        TotalNodes:
+          type: number
+        TotalBranches:
+          type: number
+        TotalSensors:
+          type: number
+        TotalAttributes:
+          type: number
+        TotalActuators:
+          type: number
+      additionalProperties: false
+    NodeDataType:
+      type: string
+      enum:
+        - INT8
+        - UINT8
+        - INT16
+        - UINT16
+        - INT32
+        - UINT32
+        - INT64
+        - UINT64
+        - BOOLEAN
+        - FLOAT
+        - DOUBLE
+        - STRING
+        - UNIX_TIMESTAMP
+        - INT8_ARRAY
+        - UINT8_ARRAY
+        - INT16_ARRAY
+        - UINT16_ARRAY
+        - INT32_ARRAY
+        - UINT32_ARRAY
+        - INT64_ARRAY
+        - UINT64_ARRAY
+        - BOOLEAN_ARRAY
+        - FLOAT_ARRAY
+        - DOUBLE_ARRAY
+        - STRING_ARRAY
+        - UNIX_TIMESTAMP_ARRAY
+        - UNKNOWN
+    Sensor:
+      type: object
+      properties:
+        FullyQualifiedName:
+          type: string
+        DataType:
+          $ref: '#/components/schemas/NodeDataType'
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        Unit:
+          type: string
+        AllowedValues:
+          $ref: '#/components/schemas/AllowedValues'
+        Min:
+          type: number
+        Max:
+          type: number
+      required:
+        - DataType
+        - FullyQualifiedName
+      additionalProperties: false
+    SignalCatalog:
+      type: object
+      properties:
+        Arn:
+          type: string
+        CreationTime:
+          format: date-time
+          type: string
+        Description:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          pattern: ^[^\u0000-\u001F\u007F]+$
+        LastModificationTime:
+          format: date-time
+          type: string
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z\d\-_:]+$
+        NodeCounts:
+          $ref: '#/components/schemas/NodeCounts'
+        Nodes:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Node'
+          maxItems: 500
+          minItems: 1
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+      x-stackql-resource-name: SignalCatalog
+    VehicleAssociationBehavior:
+      type: string
+      enum:
+        - CreateIotThing
+        - ValidateIotThingExists
+    attributesMap:
+      type: object
+      x-patternProperties:
+        ^[a-zA-Z0-9_.-]+$:
+          type: string
+      minProperties: 1
+      additionalProperties: false
+    Vehicle:
+      type: object
+      properties:
+        Arn:
+          type: string
+        AssociationBehavior:
+          $ref: '#/components/schemas/VehicleAssociationBehavior'
+        Attributes:
+          $ref: '#/components/schemas/attributesMap'
+        CreationTime:
+          type: string
+          format: date-time
+        DecoderManifestArn:
+          type: string
+        Name:
+          type: string
+          maxLength: 100
+          minLength: 1
+          pattern: ^[a-zA-Z\d\-_:]+$
+        LastModificationTime:
+          type: string
+          format: date-time
+        ModelManifestArn:
+          type: string
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+          uniqueItems: true
+          maxItems: 50
+          minItems: 0
+      required:
+        - Name
+        - DecoderManifestArn
+        - ModelManifestArn
+      x-stackql-resource-name: Vehicle
     User:
       description: Contains information for a user identity in an access policy.
       type: object
@@ -3535,41 +4474,6 @@ components:
         - PortalName
         - RoleArn
       x-stackql-resource-name: Portal
-    Project:
-      type: object
-      properties:
-        PortalId:
-          description: The ID of the portal in which to create the project.
-          type: string
-        ProjectId:
-          description: The ID of the project.
-          type: string
-        ProjectName:
-          description: A friendly name for the project.
-          type: string
-        ProjectDescription:
-          description: A description for the project.
-          type: string
-        ProjectArn:
-          description: The ARN of the project.
-          type: string
-        AssetIds:
-          description: The IDs of the assets to be associated to the project.
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/AssetId'
-        Tags:
-          description: A list of key-value pairs that contain metadata for the project.
-          type: array
-          uniqueItems: false
-          x-insertionOrder: false
-          items:
-            $ref: '#/components/schemas/Tag'
-      required:
-        - PortalId
-        - ProjectName
-      x-stackql-resource-name: Project
     AccessPolicyIdentity:
       description: The identity for this access policy. Choose either an SSO user or group or an IAM user or role.
       type: object
@@ -5077,6 +5981,79 @@ components:
       required:
         - Name
       x-stackql-resource-name: NetworkAnalyzerConfiguration
+    SidewalkAccountInfo:
+      type: object
+      additionalProperties: false
+      properties:
+        AppServerPrivateKey:
+          type: string
+          pattern: '[a-fA-F0-9]{64}'
+          minLength: 1
+          maxLength: 4096
+      required:
+        - AppServerPrivateKey
+    SidewalkAccountInfoWithFingerprint:
+      type: object
+      additionalProperties: false
+      properties:
+        AmazonId:
+          type: string
+          maxLength: 2048
+        Fingerprint:
+          type: string
+          pattern: '[a-fA-F0-9]{64}'
+          minLength: 64
+          maxLength: 64
+        Arn:
+          type: string
+    SidewalkUpdateAccount:
+      type: object
+      additionalProperties: false
+      properties:
+        AppServerPrivateKey:
+          type: string
+          pattern: '[a-fA-F0-9]{64}'
+          minLength: 1
+          maxLength: 4096
+    PartnerAccount:
+      type: object
+      properties:
+        Sidewalk:
+          description: The Sidewalk account credentials.
+          $ref: '#/components/schemas/SidewalkAccountInfo'
+        PartnerAccountId:
+          description: The partner account ID to disassociate from the AWS account
+          type: string
+          maxLength: 256
+        PartnerType:
+          description: The partner type
+          type: string
+          enum:
+            - Sidewalk
+        SidewalkResponse:
+          description: The Sidewalk account credentials.
+          $ref: '#/components/schemas/SidewalkAccountInfoWithFingerprint'
+        AccountLinked:
+          description: Whether the partner account is linked to the AWS account.
+          type: boolean
+        SidewalkUpdate:
+          description: The Sidewalk account credentials.
+          $ref: '#/components/schemas/SidewalkUpdateAccount'
+        Fingerprint:
+          description: The fingerprint of the Sidewalk application server private key.
+          type: string
+        Arn:
+          description: PartnerAccount arn. Returned after successful create.
+          type: string
+        Tags:
+          description: A list of key-value pairs that contain metadata for the destination.
+          type: array
+          uniqueItems: true
+          maxItems: 200
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: PartnerAccount
     LoRaWANServiceProfile:
       type: object
       additionalProperties: false
@@ -5409,6 +6386,94 @@ components:
         - Type
         - DestinationName
       x-stackql-resource-name: WirelessDevice
+    DeviceCreationFileList:
+      description: sidewalk create device's file path
+      type: array
+      items:
+        type: string
+        maxLength: 1024
+    Role:
+      description: sidewalk role
+      type: string
+      maxLength: 2048
+    WirelessDeviceImportTask:
+      type: object
+      properties:
+        Id:
+          description: Id for Wireless Device Import Task, Returned upon successful start.
+          type: string
+          maxLength: 256
+        Arn:
+          description: Arn for Wireless Device Import Task, Returned upon successful start.
+          type: string
+          maxLength: 128
+        DestinationName:
+          description: Destination Name for import task
+          type: string
+          pattern: '[a-zA-Z0-9-_]+'
+          maxLength: 128
+        CreationDate:
+          description: CreationDate for import task
+          type: string
+        Sidewalk:
+          description: sidewalk contain file for created device and role
+          type: object
+          additionalProperties: false
+          properties:
+            SidewalkManufacturingSn:
+              type: string
+              maxLength: 64
+            DeviceCreationFile:
+              type: string
+              maxLength: 1024
+            DeviceCreationFileList:
+              $ref: '#/components/schemas/DeviceCreationFileList'
+            Role:
+              $ref: '#/components/schemas/Role'
+          oneOf:
+            - allOf:
+                - required:
+                    - DeviceCreationFile
+                - required:
+                    - Role
+            - required:
+                - SidewalkManufacturingSn
+        Status:
+          description: Status for import task
+          type: string
+          enum:
+            - INITIALIZING
+            - INITIALIZED
+            - PENDING
+            - COMPLETE
+            - FAILED
+            - DELETING
+        StatusReason:
+          description: StatusReason for import task
+          type: string
+        InitializedImportedDevicesCount:
+          description: Initialized Imported Devices Count
+          type: integer
+        PendingImportedDevicesCount:
+          description: Pending Imported Devices Count
+          type: integer
+        OnboardedImportedDevicesCount:
+          description: Onboarded Imported Devices Count
+          type: integer
+        FailedImportedDevicesCount:
+          description: Failed Imported Devices Count
+          type: integer
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - DestinationName
+        - Sidewalk
+      x-stackql-resource-name: WirelessDeviceImportTask
     LoRaWANGateway:
       type: object
       additionalProperties: false
@@ -5859,6 +6924,51 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.VpcProperties.VpcId') as vpc_properties_vpc_id,
               JSON_EXTRACT(Properties, '$.VpcProperties.RoleArn') as vpc_properties_role_arn
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::TopicRuleDestination' ;
+  - Device:
+      name: Device
+      id: aws.iot.Device
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+              JSON_EXTRACT(Properties, '$.Enabled') as enabled,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Device' ;
+  - Placement:
+      name: Placement
+      id: aws.iot.Placement
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.PlacementName') as placement_name,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name,
+              JSON_EXTRACT(Properties, '$.AssociatedDevices') as associated_devices,
+              JSON_EXTRACT(Properties, '$.Attributes') as attributes
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Placement' ;
+  - Project:
+      name: Project
+      id: aws.iot.Project
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.PortalId') as portal_id,
+              JSON_EXTRACT(Properties, '$.ProjectId') as project_id,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name,
+              JSON_EXTRACT(Properties, '$.ProjectDescription') as project_description,
+              JSON_EXTRACT(Properties, '$.ProjectArn') as project_arn,
+              JSON_EXTRACT(Properties, '$.AssetIds') as asset_ids,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Project' ;
   - Dataset:
       name: Dataset
       id: aws.iot.Dataset
@@ -5894,6 +7004,21 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.PipelineActivities') as pipeline_activities
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Pipeline' ;
+  - SuiteDefinition:
+      name: SuiteDefinition
+      id: aws.iot.SuiteDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionConfiguration') as suite_definition_configuration,
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionId') as suite_definition_id,
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionArn') as suite_definition_arn,
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionVersion') as suite_definition_version,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::SuiteDefinition' ;
   - AlarmModel:
       name: AlarmModel
       id: aws.iot.AlarmModel
@@ -5968,6 +7093,123 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Application' ;
+  - Campaign:
+      name: Campaign
+      id: aws.iot.Campaign
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Priority') as priority,
+              JSON_EXTRACT(Properties, '$.SignalsToCollect') as signals_to_collect,
+              JSON_EXTRACT(Properties, '$.StartTime') as start_time,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.ExpiryTime') as expiry_time,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.SignalCatalogArn') as signal_catalog_arn,
+              JSON_EXTRACT(Properties, '$.PostTriggerCollectionDuration') as post_trigger_collection_duration,
+              JSON_EXTRACT(Properties, '$.DataExtraDimensions') as data_extra_dimensions,
+              JSON_EXTRACT(Properties, '$.TargetArn') as target_arn,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Campaign' ;
+  - DecoderManifest:
+      name: DecoderManifest
+      id: aws.iot.DecoderManifest
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.ModelManifestArn') as model_manifest_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.NetworkInterfaces') as network_interfaces,
+              JSON_EXTRACT(Properties, '$.SignalDecoders') as signal_decoders,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::DecoderManifest' ;
+  - Fleet:
+      name: Fleet
+      id: aws.iot.Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.SignalCatalogArn') as signal_catalog_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Fleet' ;
+  - ModelManifest:
+      name: ModelManifest
+      id: aws.iot.ModelManifest
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Nodes') as nodes,
+              JSON_EXTRACT(Properties, '$.SignalCatalogArn') as signal_catalog_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::ModelManifest' ;
+  - SignalCatalog:
+      name: SignalCatalog
+      id: aws.iot.SignalCatalog
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.NodeCounts.TotalNodes') as node_counts_total_nodes,
+              JSON_EXTRACT(Properties, '$.NodeCounts.TotalBranches') as node_counts_total_branches,
+              JSON_EXTRACT(Properties, '$.NodeCounts.TotalSensors') as node_counts_total_sensors,
+              JSON_EXTRACT(Properties, '$.NodeCounts.TotalAttributes') as node_counts_total_attributes,
+              JSON_EXTRACT(Properties, '$.NodeCounts.TotalActuators') as node_counts_total_actuators,
+              JSON_EXTRACT(Properties, '$.Nodes') as nodes,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::SignalCatalog' ;
+  - Vehicle:
+      name: Vehicle
+      id: aws.iot.Vehicle
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.DecoderManifestArn') as decoder_manifest_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
+              JSON_EXTRACT(Properties, '$.ModelManifestArn') as model_manifest_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Vehicle' ;
   - Portal:
       name: Portal
       id: aws.iot.Portal
@@ -5990,23 +7232,6 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Alarms') as alarms,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Portal' ;
-  - Project:
-      name: Project
-      id: aws.iot.Project
-      config:
-        views:
-          select:
-            predicate: sqlDialect == "sqlite3"
-            ddl: |-
-              SELECT
-              JSON_EXTRACT(Properties, '$.PortalId') as portal_id,
-              JSON_EXTRACT(Properties, '$.ProjectId') as project_id,
-              JSON_EXTRACT(Properties, '$.ProjectName') as project_name,
-              JSON_EXTRACT(Properties, '$.ProjectDescription') as project_description,
-              JSON_EXTRACT(Properties, '$.ProjectArn') as project_arn,
-              JSON_EXTRACT(Properties, '$.AssetIds') as asset_ids,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::Project' ;
   - AccessPolicy:
       name: AccessPolicy
       id: aws.iot.AccessPolicy
@@ -6317,6 +7542,27 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::NetworkAnalyzerConfiguration' ;
+  - PartnerAccount:
+      name: PartnerAccount
+      id: aws.iot.PartnerAccount
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Sidewalk.AppServerPrivateKey') as sidewalk_app_server_private_key,
+              JSON_EXTRACT(Properties, '$.PartnerAccountId') as partner_account_id,
+              JSON_EXTRACT(Properties, '$.PartnerType') as partner_type,
+              JSON_EXTRACT(Properties, '$.SidewalkResponse.AmazonId') as sidewalk_response_amazon_id,
+              JSON_EXTRACT(Properties, '$.SidewalkResponse.Fingerprint') as sidewalk_response_fingerprint,
+              JSON_EXTRACT(Properties, '$.SidewalkResponse.Arn') as sidewalk_response_arn,
+              JSON_EXTRACT(Properties, '$.AccountLinked') as account_linked,
+              JSON_EXTRACT(Properties, '$.SidewalkUpdate.AppServerPrivateKey') as sidewalk_update_app_server_private_key,
+              JSON_EXTRACT(Properties, '$.Fingerprint') as fingerprint,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::PartnerAccount' ;
   - ServiceProfile:
       name: ServiceProfile
       id: aws.iot.ServiceProfile
@@ -6398,6 +7644,28 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name,
               JSON_EXTRACT(Properties, '$.LastUplinkReceivedAt') as last_uplink_received_at
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::WirelessDevice' ;
+  - WirelessDeviceImportTask:
+      name: WirelessDeviceImportTask
+      id: aws.iot.WirelessDeviceImportTask
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.DestinationName') as destination_name,
+              JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
+              JSON_EXTRACT(Properties, '$.Sidewalk') as sidewalk,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
+              JSON_EXTRACT(Properties, '$.InitializedImportedDevicesCount') as initialized_imported_devices_count,
+              JSON_EXTRACT(Properties, '$.PendingImportedDevicesCount') as pending_imported_devices_count,
+              JSON_EXTRACT(Properties, '$.OnboardedImportedDevicesCount') as onboarded_imported_devices_count,
+              JSON_EXTRACT(Properties, '$.FailedImportedDevicesCount') as failed_imported_devices_count,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoT::WirelessDeviceImportTask' ;
   - WirelessGateway:
       name: WirelessGateway
       id: aws.iot.WirelessGateway

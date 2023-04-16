@@ -131,6 +131,32 @@ components:
         NoRemoveEndDate:
           type: boolean
       x-stackql-resource-name: CapacityReservationFleet
+    Tags:
+      uniqueItems: true
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
+    CarrierGateway:
+      type: object
+      properties:
+        CarrierGatewayId:
+          description: The ID of the carrier gateway.
+          type: string
+        State:
+          description: The state of the carrier gateway.
+          type: string
+        VpcId:
+          description: The ID of the VPC.
+          type: string
+        OwnerId:
+          description: The ID of the owner.
+          type: string
+        Tags:
+          description: The tags for the carrier gateway.
+          $ref: '#/components/schemas/Tags'
+      required:
+        - VpcId
+      x-stackql-resource-name: CarrierGateway
     ClientVpnAuthorizationRule:
       type: object
       properties:
@@ -983,6 +1009,9 @@ components:
           type: string
         OutpostArn:
           description: The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which to allocate the Dedicated Host.
+          type: string
+        HostMaintenance:
+          description: Automatically allocates a new dedicated host and moves your instances on to it if a degradation is detected on your current host.
           type: string
       required:
         - AvailabilityZone
@@ -2163,11 +2192,6 @@ components:
           description: The route type.
           type: string
       x-stackql-resource-name: LocalGatewayRoute
-    Tags:
-      uniqueItems: true
-      type: array
-      items:
-        $ref: '#/components/schemas/Tag'
     LocalGatewayRouteTable:
       type: object
       properties:
@@ -3796,15 +3820,15 @@ components:
     TrafficMirrorFilter:
       type: object
       properties:
+        Id:
+          type: string
+        Description:
+          type: string
         NetworkServices:
           type: array
           uniqueItems: false
           items:
             type: string
-        Description:
-          type: string
-        Id:
-          type: string
         Tags:
           type: array
           uniqueItems: false
@@ -3815,16 +3839,18 @@ components:
       type: object
       additionalProperties: false
       properties:
-        ToPort:
-          type: integer
         FromPort:
           type: integer
+        ToPort:
+          type: integer
       required:
-        - FromPort
         - ToPort
+        - FromPort
     TrafficMirrorFilterRule:
       type: object
       properties:
+        Id:
+          type: string
         DestinationPortRange:
           $ref: '#/components/schemas/TrafficMirrorPortRange'
         Description:
@@ -3838,8 +3864,6 @@ components:
         RuleNumber:
           type: integer
         DestinationCidrBlock:
-          type: string
-        Id:
           type: string
         TrafficMirrorFilterId:
           type: string
@@ -3858,6 +3882,8 @@ components:
     TrafficMirrorSession:
       type: object
       properties:
+        Id:
+          type: string
         TrafficMirrorTargetId:
           type: string
         Description:
@@ -3868,8 +3894,6 @@ components:
           type: integer
         PacketLength:
           type: integer
-        Id:
-          type: string
         NetworkInterfaceId:
           type: string
         TrafficMirrorFilterId:
@@ -3881,9 +3905,9 @@ components:
             $ref: '#/components/schemas/Tag'
       required:
         - TrafficMirrorTargetId
-        - SessionNumber
         - NetworkInterfaceId
         - TrafficMirrorFilterId
+        - SessionNumber
       x-stackql-resource-name: TrafficMirrorSession
     TrafficMirrorTarget:
       type: object
@@ -4504,14 +4528,14 @@ components:
     VPCEndpointConnectionNotification:
       type: object
       properties:
+        Id:
+          type: string
         ConnectionEvents:
           type: array
           uniqueItems: false
           items:
             type: string
         VPCEndpointId:
-          type: string
-        Id:
           type: string
         ServiceId:
           type: string
@@ -4751,6 +4775,20 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RemoveEndDate') as remove_end_date,
               JSON_EXTRACT(Properties, '$.NoRemoveEndDate') as no_remove_end_date
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EC2::CapacityReservationFleet' ;
+  - CarrierGateway:
+      name: CarrierGateway
+      id: aws.ec2.CarrierGateway
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CarrierGatewayId') as carrier_gateway_id,
+              JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
+              JSON_EXTRACT(Properties, '$.OwnerId') as owner_id
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EC2::CarrierGateway' ;
   - ClientVpnAuthorizationRule:
       name: ClientVpnAuthorizationRule
       id: aws.ec2.ClientVpnAuthorizationRule
@@ -5009,7 +5047,8 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.HostRecovery') as host_recovery,
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
               JSON_EXTRACT(Properties, '$.InstanceFamily') as instance_family,
-              JSON_EXTRACT(Properties, '$.OutpostArn') as outpost_arn
+              JSON_EXTRACT(Properties, '$.OutpostArn') as outpost_arn,
+              JSON_EXTRACT(Properties, '$.HostMaintenance') as host_maintenance
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EC2::Host' ;
   - NetworkInterface:
       name: NetworkInterface
@@ -5817,9 +5856,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.NetworkServices') as network_services,
-              JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.NetworkServices') as network_services,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EC2::TrafficMirrorFilter' ;
   - TrafficMirrorFilterRule:
@@ -5831,16 +5870,16 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.DestinationPortRange.ToPort') as destination_port_range_to_port,
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DestinationPortRange.FromPort') as destination_port_range_from_port,
+              JSON_EXTRACT(Properties, '$.DestinationPortRange.ToPort') as destination_port_range_to_port,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.SourcePortRange.ToPort') as source_port_range_to_port,
               JSON_EXTRACT(Properties, '$.SourcePortRange.FromPort') as source_port_range_from_port,
+              JSON_EXTRACT(Properties, '$.SourcePortRange.ToPort') as source_port_range_to_port,
               JSON_EXTRACT(Properties, '$.RuleAction') as rule_action,
               JSON_EXTRACT(Properties, '$.SourceCidrBlock') as source_cidr_block,
               JSON_EXTRACT(Properties, '$.RuleNumber') as rule_number,
               JSON_EXTRACT(Properties, '$.DestinationCidrBlock') as destination_cidr_block,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TrafficMirrorFilterId') as traffic_mirror_filter_id,
               JSON_EXTRACT(Properties, '$.TrafficDirection') as traffic_direction,
               JSON_EXTRACT(Properties, '$.Protocol') as protocol
@@ -5854,12 +5893,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TrafficMirrorTargetId') as traffic_mirror_target_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.SessionNumber') as session_number,
               JSON_EXTRACT(Properties, '$.VirtualNetworkId') as virtual_network_id,
               JSON_EXTRACT(Properties, '$.PacketLength') as packet_length,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NetworkInterfaceId') as network_interface_id,
               JSON_EXTRACT(Properties, '$.TrafficMirrorFilterId') as traffic_mirror_filter_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -6202,9 +6241,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ConnectionEvents') as connection_events,
               JSON_EXTRACT(Properties, '$.VPCEndpointId') as v_pc_endpoint_id,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id,
               JSON_EXTRACT(Properties, '$.ConnectionNotificationArn') as connection_notification_arn
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EC2::VPCEndpointConnectionNotification' ;

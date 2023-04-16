@@ -394,15 +394,18 @@ components:
         HostedZoneId:
           type: string
       x-stackql-resource-name: RecordSetGroup
-    Domains:
-      description: An inline list of domains to use for this domain list.
-      type: array
-      uniqueItems: true
-      items:
-        description: FirewallDomainName
-        type: string
-        minLength: 1
-        maxLength: 255
+    ClusterEndpoint:
+      type: object
+      properties:
+        Endpoint:
+          type: string
+          minLength: 1
+          maxLength: 128
+        Region:
+          type: string
+          minLength: 1
+          maxLength: 32
+      additionalProperties: false
     Tag:
       type: object
       additionalProperties: false
@@ -420,6 +423,417 @@ components:
       required:
         - Value
         - Key
+    Cluster:
+      type: object
+      properties:
+        Name:
+          description: Name of a Cluster. You can use any non-white space character in the name
+          type: string
+          minLength: 1
+          maxLength: 64
+        ClusterArn:
+          description: The Amazon Resource Name (ARN) of the cluster.
+          type: string
+          minLength: 1
+          maxLength: 2048
+        Status:
+          description: 'Deployment status of a resource. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.'
+          type: string
+          enum:
+            - PENDING
+            - DEPLOYED
+            - PENDING_DELETION
+        ClusterEndpoints:
+          description: Endpoints for the cluster.
+          type: array
+          items:
+            $ref: '#/components/schemas/ClusterEndpoint'
+          x-insertionOrder: false
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      required:
+        - Name
+      x-stackql-resource-name: Cluster
+    ControlPanel:
+      type: object
+      properties:
+        ClusterArn:
+          description: Cluster to associate with the Control Panel
+          type: string
+        ControlPanelArn:
+          description: The Amazon Resource Name (ARN) of the cluster.
+          type: string
+        Name:
+          description: The name of the control panel. You can use any non-white space character in the name.
+          type: string
+          minLength: 1
+          maxLength: 64
+        Status:
+          description: 'The deployment status of control panel. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.'
+          type: string
+          enum:
+            - PENDING
+            - DEPLOYED
+            - PENDING_DELETION
+        DefaultControlPanel:
+          description: A flag that Amazon Route 53 Application Recovery Controller sets to true to designate the default control panel for a cluster. When you create a cluster, Amazon Route 53 Application Recovery Controller creates a control panel, and sets this flag for that control panel. If you create a control panel yourself, this flag is set to false.
+          type: boolean
+        RoutingControlCount:
+          description: Count of associated routing controls
+          type: integer
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      required:
+        - Name
+      x-stackql-resource-name: ControlPanel
+    RoutingControl:
+      type: object
+      properties:
+        RoutingControlArn:
+          description: The Amazon Resource Name (ARN) of the routing control.
+          type: string
+        ControlPanelArn:
+          description: The Amazon Resource Name (ARN) of the control panel.
+          type: string
+        Name:
+          description: The name of the routing control. You can use any non-white space character in the name.
+          type: string
+          minLength: 1
+          maxLength: 64
+        Status:
+          description: 'The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.'
+          type: string
+          enum:
+            - PENDING
+            - DEPLOYED
+            - PENDING_DELETION
+        ClusterArn:
+          description: Arn associated with Control Panel
+          type: string
+      required:
+        - Name
+      x-stackql-resource-name: RoutingControl
+    SafetyRuleName:
+      description: The name for the safety rule.
+      type: string
+    RuleType:
+      description: 'A rule can be one of the following: ATLEAST, AND, or OR.'
+      type: string
+      enum:
+        - AND
+        - OR
+        - ATLEAST
+    RuleConfig:
+      description: The rule configuration for an assertion rule or gating rule. This is the criteria that you set for specific assertion controls (routing controls) or gating controls. This configuration specifies how many controls must be enabled after a transaction completes.
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/RuleType'
+        Threshold:
+          description: The value of N, when you specify an ATLEAST rule type. That is, Threshold is the number of controls that must be set when you specify an ATLEAST type.
+          type: integer
+        Inverted:
+          description: Logical negation of the rule. If the rule would usually evaluate true, it's evaluated as false, and vice versa.
+          type: boolean
+      required:
+        - Type
+        - Threshold
+        - Inverted
+      additionalProperties: false
+    GatingRule:
+      description: A gating rule verifies that a set of gating controls evaluates as true, based on a rule configuration that you specify. If the gating rule evaluates to true, Amazon Route 53 Application Recovery Controller allows a set of routing control state changes to run and complete against the set of target controls.
+      type: object
+      properties:
+        GatingControls:
+          description: The gating controls for the gating rule. That is, routing controls that are evaluated by the rule configuration that you specify.
+          type: array
+          items:
+            type: string
+          x-insertionOrder: false
+        TargetControls:
+          description: |-
+            Routing controls that can only be set or unset if the specified RuleConfig evaluates to true for the specified GatingControls. For example, say you have three gating controls, one for each of three AWS Regions. Now you specify AtLeast 2 as your RuleConfig. With these settings, you can only change (set or unset) the routing controls that you have specified as TargetControls if that rule evaluates to true. 
+            In other words, your ability to change the routing controls that you have specified as TargetControls is gated by the rule that you set for the routing controls in GatingControls.
+          type: array
+          items:
+            type: string
+          x-insertionOrder: false
+        WaitPeriodMs:
+          description: An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent "flapping" of state. The wait period is 5000 ms by default, but you can choose a custom value.
+          type: integer
+      required:
+        - WaitPeriodMs
+        - TargetControls
+        - GatingControls
+      additionalProperties: false
+    AssertionRule:
+      description: An assertion rule enforces that, when a routing control state is changed, that the criteria set by the rule configuration is met. Otherwise, the change to the routing control is not accepted.
+      type: object
+      properties:
+        WaitPeriodMs:
+          description: An evaluation period, in milliseconds (ms), during which any request against the target routing controls will fail. This helps prevent "flapping" of state. The wait period is 5000 ms by default, but you can choose a custom value.
+          type: integer
+        AssertedControls:
+          description: The routing controls that are part of transactions that are evaluated to determine if a request to change a routing control state is allowed. For example, you might include three routing controls, one for each of three AWS Regions.
+          type: array
+          items:
+            type: string
+          x-insertionOrder: false
+      required:
+        - AssertedControls
+        - WaitPeriodMs
+      additionalProperties: false
+    SafetyRule:
+      type: object
+      properties:
+        AssertionRule:
+          $ref: '#/components/schemas/AssertionRule'
+        GatingRule:
+          $ref: '#/components/schemas/GatingRule'
+        Name:
+          $ref: '#/components/schemas/SafetyRuleName'
+        SafetyRuleArn:
+          description: The Amazon Resource Name (ARN) of the safety rule.
+          type: string
+        ControlPanelArn:
+          description: The Amazon Resource Name (ARN) of the control panel.
+          type: string
+        Status:
+          description: 'The deployment status of the routing control. Status can be one of the following: PENDING, DEPLOYED, PENDING_DELETION.'
+          type: string
+          enum:
+            - PENDING
+            - DEPLOYED
+            - PENDING_DELETION
+        RuleConfig:
+          $ref: '#/components/schemas/RuleConfig'
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      required: []
+      x-stackql-resource-name: SafetyRule
+    Cell:
+      type: object
+      properties:
+        CellName:
+          description: The name of the cell to create.
+          type: string
+          pattern: '[a-zA-Z0-9_]+'
+          maxLength: 64
+        CellArn:
+          description: The Amazon Resource Name (ARN) of the cell.
+          type: string
+          maxLength: 256
+        Cells:
+          description: A list of cell Amazon Resource Names (ARNs) contained within this cell, for use in nested cells. For example, Availability Zones within specific Regions.
+          type: array
+          items:
+            type: string
+          maxItems: 5
+          x-insertionOrder: false
+        ParentReadinessScopes:
+          description: The readiness scope for the cell, which can be a cell Amazon Resource Name (ARN) or a recovery group ARN. This is a list but currently can have only one element.
+          type: array
+          items:
+            type: string
+          maxItems: 5
+          x-insertionOrder: false
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      x-stackql-resource-name: Cell
+    ReadinessCheck:
+      type: object
+      properties:
+        ResourceSetName:
+          description: The name of the resource set to check.
+          type: string
+          pattern: '[a-zA-Z0-9_]+'
+          minLength: 1
+          maxLength: 64
+        ReadinessCheckName:
+          description: Name of the ReadinessCheck to create.
+          type: string
+          pattern: '[a-zA-Z0-9_]+'
+          minLength: 1
+          maxLength: 64
+        ReadinessCheckArn:
+          description: The Amazon Resource Name (ARN) of the readiness check.
+          type: string
+          maxLength: 256
+        Tags:
+          description: A collection of tags associated with a resource.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      x-stackql-resource-name: ReadinessCheck
+    RecoveryGroup:
+      type: object
+      properties:
+        RecoveryGroupName:
+          description: The name of the recovery group to create.
+          type: string
+          pattern: '[a-zA-Z0-9_]+'
+          minLength: 1
+          maxLength: 64
+        Cells:
+          description: A list of the cell Amazon Resource Names (ARNs) in the recovery group.
+          type: array
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+          maxItems: 5
+          x-insertionOrder: false
+        RecoveryGroupArn:
+          description: A collection of tags associated with a resource.
+          type: string
+          maxLength: 256
+        Tags:
+          description: A collection of tags associated with a resource.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      x-stackql-resource-name: RecoveryGroup
+    NLBResource:
+      description: The Network Load Balancer resource that a DNS target resource points to.
+      type: object
+      properties:
+        Arn:
+          description: A Network Load Balancer resource Amazon Resource Name (ARN).
+          type: string
+      additionalProperties: false
+    R53ResourceRecord:
+      description: The Route 53 resource that a DNS target resource record points to.
+      type: object
+      properties:
+        DomainName:
+          description: The DNS target domain name.
+          type: string
+        RecordSetId:
+          description: The Resource Record set id.
+          type: string
+      additionalProperties: false
+    TargetResource:
+      description: The target resource that the Route 53 record points to.
+      type: object
+      properties:
+        NLBResource:
+          $ref: '#/components/schemas/NLBResource'
+        R53Resource:
+          $ref: '#/components/schemas/R53ResourceRecord'
+      oneOf:
+        - required:
+            - NLBResource
+        - required:
+            - R53Resource
+      additionalProperties: false
+    DNSTargetResource:
+      description: A component for DNS/routing control readiness checks.
+      type: object
+      properties:
+        DomainName:
+          description: The domain name that acts as an ingress point to a portion of the customer application.
+          type: string
+        RecordSetId:
+          description: The Route 53 record set ID that will uniquely identify a DNS record, given a name and a type.
+          type: string
+        HostedZoneArn:
+          description: The hosted zone Amazon Resource Name (ARN) that contains the DNS record with the provided name of the target resource.
+          type: string
+        RecordType:
+          description: The type of DNS record of the target resource.
+          type: string
+        TargetResource:
+          $ref: '#/components/schemas/TargetResource'
+      additionalProperties: false
+    Resource:
+      description: The resource element of a ResourceSet
+      type: object
+      properties:
+        ResourceArn:
+          description: The Amazon Resource Name (ARN) of the AWS resource.
+          type: string
+        ComponentId:
+          description: The component identifier of the resource, generated when DNS target resource is used.
+          type: string
+        DnsTargetResource:
+          $ref: '#/components/schemas/DNSTargetResource'
+        ReadinessScopes:
+          description: A list of recovery group Amazon Resource Names (ARNs) and cell ARNs that this resource is contained within.
+          type: array
+          items:
+            type: string
+            maxItems: 5
+          x-insertionOrder: false
+      additionalProperties: false
+    ResourceSet:
+      type: object
+      properties:
+        ResourceSetName:
+          description: The name of the resource set to create.
+          type: string
+        Resources:
+          description: A list of resource objects in the resource set.
+          type: array
+          items:
+            $ref: '#/components/schemas/Resource'
+          minItems: 1
+          maxItems: 6
+          x-insertionOrder: false
+        ResourceSetArn:
+          description: The Amazon Resource Name (ARN) of the resource set.
+          type: string
+          minLength: 1
+          maxLength: 256
+        ResourceSetType:
+          description: |-
+            The resource type of the resources in the resource set. Enter one of the following values for resource type: 
+
+            AWS: :AutoScaling: :AutoScalingGroup, AWS: :CloudWatch: :Alarm, AWS: :EC2: :CustomerGateway, AWS: :DynamoDB: :Table, AWS: :EC2: :Volume, AWS: :ElasticLoadBalancing: :LoadBalancer, AWS: :ElasticLoadBalancingV2: :LoadBalancer, AWS: :MSK: :Cluster, AWS: :RDS: :DBCluster, AWS: :Route53: :HealthCheck, AWS: :SQS: :Queue, AWS: :SNS: :Topic, AWS: :SNS: :Subscription, AWS: :EC2: :VPC, AWS: :EC2: :VPNConnection, AWS: :EC2: :VPNGateway, AWS::Route53RecoveryReadiness::DNSTargetResource
+          type: string
+        Tags:
+          description: A tag to associate with the parameters for a resource set.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+            maxItems: 20
+          x-insertionOrder: false
+      required:
+        - ResourceSetType
+        - Resources
+      x-stackql-resource-name: ResourceSet
+    Domains:
+      description: An inline list of domains to use for this domain list.
+      type: array
+      uniqueItems: true
+      items:
+        description: FirewallDomainName
+        type: string
+        minLength: 1
+        maxLength: 255
     FirewallDomainList:
       type: object
       properties:
@@ -1078,6 +1492,133 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RecordSets') as record_sets,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RecordSetGroup' ;
+  - Cluster:
+      name: Cluster
+      id: aws.route53.Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.ClusterEndpoints') as cluster_endpoints,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::Cluster' ;
+  - ControlPanel:
+      name: ControlPanel
+      id: aws.route53.ControlPanel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
+              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.DefaultControlPanel') as default_control_panel,
+              JSON_EXTRACT(Properties, '$.RoutingControlCount') as routing_control_count,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ControlPanel' ;
+  - RoutingControl:
+      name: RoutingControl
+      id: aws.route53.RoutingControl
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_arn,
+              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RoutingControl' ;
+  - SafetyRule:
+      name: SafetyRule
+      id: aws.route53.SafetyRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.AssertionRule.WaitPeriodMs') as assertion_rule_wait_period_ms,
+              JSON_EXTRACT(Properties, '$.AssertionRule.AssertedControls') as assertion_rule_asserted_controls,
+              JSON_EXTRACT(Properties, '$.GatingRule.GatingControls') as gating_rule_gating_controls,
+              JSON_EXTRACT(Properties, '$.GatingRule.TargetControls') as gating_rule_target_controls,
+              JSON_EXTRACT(Properties, '$.GatingRule.WaitPeriodMs') as gating_rule_wait_period_ms,
+              JSON_EXTRACT(Properties, '$.SafetyRuleArn') as safety_rule_arn,
+              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.RuleConfig.Type') as rule_config_type,
+              JSON_EXTRACT(Properties, '$.RuleConfig.Threshold') as rule_config_threshold,
+              JSON_EXTRACT(Properties, '$.RuleConfig.Inverted') as rule_config_inverted,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::SafetyRule' ;
+  - Cell:
+      name: Cell
+      id: aws.route53.Cell
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.CellName') as cell_name,
+              JSON_EXTRACT(Properties, '$.CellArn') as cell_arn,
+              JSON_EXTRACT(Properties, '$.Cells') as cells,
+              JSON_EXTRACT(Properties, '$.ParentReadinessScopes') as parent_readiness_scopes,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::Cell' ;
+  - ReadinessCheck:
+      name: ReadinessCheck
+      id: aws.route53.ReadinessCheck
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
+              JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name,
+              JSON_EXTRACT(Properties, '$.ReadinessCheckArn') as readiness_check_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ReadinessCheck' ;
+  - RecoveryGroup:
+      name: RecoveryGroup
+      id: aws.route53.RecoveryGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_name,
+              JSON_EXTRACT(Properties, '$.Cells') as cells,
+              JSON_EXTRACT(Properties, '$.RecoveryGroupArn') as recovery_group_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RecoveryGroup' ;
+  - ResourceSet:
+      name: ResourceSet
+      id: aws.route53.ResourceSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
+              JSON_EXTRACT(Properties, '$.Resources') as resources,
+              JSON_EXTRACT(Properties, '$.ResourceSetArn') as resource_set_arn,
+              JSON_EXTRACT(Properties, '$.ResourceSetType') as resource_set_type,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResourceSet' ;
   - FirewallDomainList:
       name: FirewallDomainList
       id: aws.route53.FirewallDomainList

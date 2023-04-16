@@ -488,6 +488,172 @@ components:
         - DiskName
         - Path
       additionalProperties: false
+    CacheBehaviorPerPath:
+      description: Describes the per-path cache behavior of an Amazon Lightsail content delivery network (CDN) distribution.
+      type: object
+      properties:
+        Behavior:
+          type: string
+          description: The cache behavior for the specified path.
+        Path:
+          type: string
+          description: The path to a directory or file to cached, or not cache. Use an asterisk symbol to specify wildcard directories (path/to/assets/*), and file types (*.html, *jpg, *js). Directories and file paths are case-sensitive.
+      additionalProperties: false
+    CookieObject:
+      description: Describes whether an Amazon Lightsail content delivery network (CDN) distribution forwards cookies to the origin and, if so, which ones.
+      type: object
+      properties:
+        CookiesAllowList:
+          description: The specific cookies to forward to your distribution's origin.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        Option:
+          type: string
+          description: 'Specifies which cookies to forward to the distribution''s origin for a cache behavior: all, none, or allow-list to forward only the cookies specified in the cookiesAllowList parameter.'
+      additionalProperties: false
+    HeaderObject:
+      description: Describes the request headers that a Lightsail distribution bases caching on.
+      type: object
+      properties:
+        HeadersAllowList:
+          description: The specific headers to forward to your distribution's origin.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        Option:
+          type: string
+          description: The headers that you want your distribution to forward to your origin and base caching on.
+      additionalProperties: false
+    QueryStringObject:
+      description: Describes the query string parameters that an Amazon Lightsail content delivery network (CDN) distribution to bases caching on.
+      type: object
+      properties:
+        QueryStringsAllowList:
+          description: The specific query strings that the distribution forwards to the origin.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        Option:
+          type: boolean
+          description: Indicates whether the distribution forwards and caches based on query strings.
+      additionalProperties: false
+    CacheSettings:
+      description: Describes the cache settings of an Amazon Lightsail content delivery network (CDN) distribution.
+      type: object
+      properties:
+        AllowedHTTPMethods:
+          type: string
+          description: The HTTP methods that are processed and forwarded to the distribution's origin.
+        CachedHTTPMethods:
+          type: string
+          description: The HTTP method responses that are cached by your distribution.
+        DefaultTTL:
+          type: integer
+          format: int64
+          description: The default amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the content has been updated.
+        MaximumTTL:
+          type: integer
+          format: int64
+          description: The maximum amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the object has been updated.
+        MinimumTTL:
+          type: integer
+          format: int64
+          description: The minimum amount of time that objects stay in the distribution's cache before the distribution forwards another request to the origin to determine whether the object has been updated.
+        ForwardedCookies:
+          $ref: '#/components/schemas/CookieObject'
+          description: An object that describes the cookies that are forwarded to the origin. Your content is cached based on the cookies that are forwarded.
+        ForwardedHeaders:
+          $ref: '#/components/schemas/HeaderObject'
+          description: An object that describes the headers that are forwarded to the origin. Your content is cached based on the headers that are forwarded.
+        ForwardedQueryStrings:
+          $ref: '#/components/schemas/QueryStringObject'
+          description: An object that describes the query strings that are forwarded to the origin. Your content is cached based on the query strings that are forwarded.
+      additionalProperties: false
+    CacheBehavior:
+      description: Describes the default cache behavior of an Amazon Lightsail content delivery network (CDN) distribution.
+      type: object
+      properties:
+        Behavior:
+          type: string
+          description: The cache behavior of the distribution.
+      additionalProperties: false
+    InputOrigin:
+      description: Describes the origin resource of an Amazon Lightsail content delivery network (CDN) distribution.
+      type: object
+      properties:
+        Name:
+          type: string
+          description: The name of the origin resource.
+        ProtocolPolicy:
+          type: string
+          description: The protocol that your Amazon Lightsail distribution uses when establishing a connection with your origin to pull content.
+        RegionName:
+          type: string
+          description: The AWS Region name of the origin resource.
+      additionalProperties: false
+    Distribution:
+      type: object
+      properties:
+        DistributionName:
+          description: The name for the distribution.
+          type: string
+          pattern: \w[\w\-]*\w
+        DistributionArn:
+          type: string
+        BundleId:
+          description: The bundle ID to use for the distribution.
+          type: string
+        IpAddressType:
+          description: The IP address type for the distribution.
+          type: string
+        CacheBehaviors:
+          description: An array of objects that describe the per-path cache behavior for the distribution.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/CacheBehaviorPerPath'
+        CacheBehaviorSettings:
+          description: An object that describes the cache behavior settings for the distribution.
+          $ref: '#/components/schemas/CacheSettings'
+        DefaultCacheBehavior:
+          description: An object that describes the default cache behavior for the distribution.
+          $ref: '#/components/schemas/CacheBehavior'
+        Origin:
+          description: An object that describes the origin resource for the distribution, such as a Lightsail instance or load balancer.
+          $ref: '#/components/schemas/InputOrigin'
+        Status:
+          description: The status of the distribution.
+          type: string
+        AbleToUpdateBundle:
+          description: Indicates whether the bundle that is currently applied to your distribution, specified using the distributionName parameter, can be changed to another bundle.
+          type: boolean
+        IsEnabled:
+          description: Indicates whether the distribution is enabled.
+          type: boolean
+        CertificateName:
+          description: The certificate attached to the Distribution.
+          type: string
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - DistributionName
+        - BundleId
+        - DefaultCacheBehavior
+        - Origin
+      x-stackql-resource-name: Distribution
     ipv6Cidrs:
       description: IPv6 Cidrs
       type: array
@@ -878,6 +1044,38 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RelationalDatabaseParameters') as relational_database_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Lightsail::Database' ;
+  - Distribution:
+      name: Distribution
+      id: aws.lightsail.Distribution
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DistributionName') as distribution_name,
+              JSON_EXTRACT(Properties, '$.DistributionArn') as distribution_arn,
+              JSON_EXTRACT(Properties, '$.BundleId') as bundle_id,
+              JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
+              JSON_EXTRACT(Properties, '$.CacheBehaviors') as cache_behaviors,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.AllowedHTTPMethods') as cache_behavior_settings_allowed_ht_tp_methods,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.CachedHTTPMethods') as cache_behavior_settings_cached_ht_tp_methods,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.DefaultTTL') as cache_behavior_settings_default_tt_l,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.MaximumTTL') as cache_behavior_settings_maximum_tt_l,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.MinimumTTL') as cache_behavior_settings_minimum_tt_l,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.ForwardedCookies') as cache_behavior_settings_forwarded_cookies,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.ForwardedHeaders') as cache_behavior_settings_forwarded_headers,
+              JSON_EXTRACT(Properties, '$.CacheBehaviorSettings.ForwardedQueryStrings') as cache_behavior_settings_forwarded_query_strings,
+              JSON_EXTRACT(Properties, '$.DefaultCacheBehavior.Behavior') as default_cache_behavior_behavior,
+              JSON_EXTRACT(Properties, '$.Origin.Name') as origin_name,
+              JSON_EXTRACT(Properties, '$.Origin.ProtocolPolicy') as origin_protocol_policy,
+              JSON_EXTRACT(Properties, '$.Origin.RegionName') as origin_region_name,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.AbleToUpdateBundle') as able_to_update_bundle,
+              JSON_EXTRACT(Properties, '$.IsEnabled') as is_enabled,
+              JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Lightsail::Distribution' ;
   - Instance:
       name: Instance
       id: aws.lightsail.Instance

@@ -203,20 +203,18 @@ components:
       x-stackql-resource-name: LocationFSxLustre
     Protocol:
       additionalProperties: false
-      description: Configuration settings for NFS or SMB protocol.
+      description: Configuration settings for an NFS or SMB protocol, currently only support NFS
       type: object
       properties:
         NFS:
           $ref: '#/components/schemas/NFS'
-        SMB:
-          $ref: '#/components/schemas/SMB'
     NFS:
       additionalProperties: false
-      description: NFS protocol configuration for FSx ONTAP file system.
+      description: FSx OpenZFS file system NFS protocol information
       type: object
       properties:
         MountOptions:
-          $ref: '#/components/schemas/NfsMountOptions'
+          $ref: '#/components/schemas/MountOptions'
       required:
         - MountOptions
     SMB:
@@ -323,6 +321,68 @@ components:
         - SecurityGroupArns
         - StorageVirtualMachineArn
       x-stackql-resource-name: LocationFSxONTAP
+    MountOptions:
+      additionalProperties: false
+      description: The mount options used by DataSync to access the SMB server.
+      type: object
+      properties:
+        Version:
+          description: The specific SMB version that you want DataSync to use to mount your SMB share.
+          type: string
+          enum:
+            - AUTOMATIC
+            - SMB1
+            - SMB2_0
+            - SMB2
+            - SMB3
+    LocationFSxOpenZFS:
+      type: object
+      properties:
+        FsxFilesystemArn:
+          description: The Amazon Resource Name (ARN) for the FSx OpenZFS file system.
+          type: string
+          maxLength: 128
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):fsx:[a-z\-0-9]+:[0-9]{12}:file-system/fs-[0-9a-f]+$
+        SecurityGroupArns:
+          description: The ARNs of the security groups that are to use to configure the FSx OpenZFS file system.
+          type: array
+          items:
+            type: string
+            maxLength: 128
+            pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):ec2:[a-z\-0-9]*:[0-9]{12}:security-group/sg-[a-f0-9]+$
+          maxItems: 5
+          minItems: 1
+          x-insertionOrder: false
+        Protocol:
+          $ref: '#/components/schemas/Protocol'
+        Subdirectory:
+          description: A subdirectory in the location's path.
+          type: string
+          maxLength: 4096
+          pattern: ^[a-zA-Z0-9_\-\+\./\(\)\$\p{Zs}]+$
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          minItems: 0
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        LocationArn:
+          description: The Amazon Resource Name (ARN) of the Amazon FSx OpenZFS file system location that is created.
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
+          maxLength: 128
+        LocationUri:
+          description: The URL of the FSx OpenZFS that was described.
+          type: string
+          pattern: ^(efs|nfs|s3|smb|fsxw|hdfs|fsxl|fsxz)://[a-zA-Z0-9.:/\-]+$
+          maxLength: 4356
+      required:
+        - SecurityGroupArns
+        - Protocol
+      x-stackql-resource-name: LocationFSxOpenZFS
     LocationFSxWindows:
       type: object
       properties:
@@ -517,20 +577,6 @@ components:
         - AuthenticationType
         - AgentArns
       x-stackql-resource-name: LocationHDFS
-    MountOptions:
-      additionalProperties: false
-      description: The mount options used by DataSync to access the SMB server.
-      type: object
-      properties:
-        Version:
-          description: The specific SMB version that you want DataSync to use to mount your SMB share.
-          type: string
-          enum:
-            - AUTOMATIC
-            - SMB1
-            - SMB2_0
-            - SMB2
-            - SMB3
     OnPremConfig:
       additionalProperties: false
       description: Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.
@@ -1075,12 +1121,28 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.FsxFilesystemArn') as fsx_filesystem_arn,
               JSON_EXTRACT(Properties, '$.SecurityGroupArns') as security_group_arns,
               JSON_EXTRACT(Properties, '$.Protocol.NFS') as protocol_nf_s,
-              JSON_EXTRACT(Properties, '$.Protocol.SMB') as protocol_sm_b,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataSync::LocationFSxONTAP' ;
+  - LocationFSxOpenZFS:
+      name: LocationFSxOpenZFS
+      id: aws.datasync.LocationFSxOpenZFS
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.FsxFilesystemArn') as fsx_filesystem_arn,
+              JSON_EXTRACT(Properties, '$.SecurityGroupArns') as security_group_arns,
+              JSON_EXTRACT(Properties, '$.Protocol.NFS') as protocol_nf_s,
+              JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
+              JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataSync::LocationFSxOpenZFS' ;
   - LocationFSxWindows:
       name: LocationFSxWindows
       id: aws.datasync.LocationFSxWindows

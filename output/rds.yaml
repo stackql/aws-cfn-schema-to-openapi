@@ -280,6 +280,9 @@ components:
         ReplicationSourceIdentifier:
           description: The Amazon Resource Name (ARN) of the source DB instance or DB cluster if this DB cluster is created as a Read Replica.
           type: string
+        RestoreToTime:
+          description: 'The date and time to restore the DB cluster to. Value must be a time in Universal Coordinated Time (UTC) format. An example: 2015-03-07T23:45:00Z'
+          type: string
         RestoreType:
           description: |-
             The type of restore to be performed. You can specify one of the following values:
@@ -619,6 +622,9 @@ components:
           description: The date and time to restore from.
           type: string
           format: date-time
+        SourceDBClusterIdentifier:
+          description: The identifier of the Multi-AZ DB cluster that will act as the source for the read replica. Each DB cluster can have up to 15 read replicas.
+          type: string
         SourceDbiResourceId:
           type: string
           description: The resource ID of the source DB instance from which to restore.
@@ -1215,6 +1221,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as preferred_maintenance_window,
               JSON_EXTRACT(Properties, '$.PubliclyAccessible') as publicly_accessible,
               JSON_EXTRACT(Properties, '$.ReplicationSourceIdentifier') as replication_source_identifier,
+              JSON_EXTRACT(Properties, '$.RestoreToTime') as restore_to_time,
               JSON_EXTRACT(Properties, '$.RestoreType') as restore_type,
               JSON_EXTRACT(Properties, '$.ServerlessV2ScalingConfiguration.MinCapacity') as serverless_v2_scaling_configuration_min_capacity,
               JSON_EXTRACT(Properties, '$.ServerlessV2ScalingConfiguration.MaxCapacity') as serverless_v2_scaling_configuration_max_capacity,
@@ -1319,6 +1326,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PubliclyAccessible') as publicly_accessible,
               JSON_EXTRACT(Properties, '$.ReplicaMode') as replica_mode,
               JSON_EXTRACT(Properties, '$.RestoreTime') as restore_time,
+              JSON_EXTRACT(Properties, '$.SourceDBClusterIdentifier') as source_db_cluster_identifier,
               JSON_EXTRACT(Properties, '$.SourceDbiResourceId') as source_dbi_resource_id,
               JSON_EXTRACT(Properties, '$.SourceDBInstanceAutomatedBackupsArn') as source_db_instance_automated_backups_arn,
               JSON_EXTRACT(Properties, '$.SourceDBInstanceIdentifier') as source_db_instance_identifier,

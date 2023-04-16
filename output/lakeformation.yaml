@@ -66,21 +66,45 @@ components:
         - TableName
         - Name
       x-stackql-resource-name: DataCellsFilter
+    ExternalDataFilteringAllowList:
+      type: object
+      additionalProperties: false
+    CreateTableDefaultPermissions:
+      type: object
+      additionalProperties: false
     Admins:
+      type: object
+      additionalProperties: false
+    CreateDatabaseDefaultPermissions:
       type: object
       additionalProperties: false
     DataLakeSettings:
       type: object
       properties:
+        AllowExternalDataFiltering:
+          type: boolean
+        ExternalDataFilteringAllowList:
+          $ref: '#/components/schemas/ExternalDataFilteringAllowList'
+        CreateTableDefaultPermissions:
+          $ref: '#/components/schemas/CreateTableDefaultPermissions'
+        Parameters:
+          type: object
         Admins:
           $ref: '#/components/schemas/Admins'
+        CreateDatabaseDefaultPermissions:
+          $ref: '#/components/schemas/CreateDatabaseDefaultPermissions'
+        Id:
+          type: string
+        AuthorizedSessionTagValueList:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
         TrustedResourceOwners:
           type: array
           uniqueItems: false
           items:
             type: string
-        Id:
-          type: string
       x-stackql-resource-name: DataLakeSettings
     DataLakePrincipal:
       type: object
@@ -419,8 +443,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as trusted_resource_owners,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.AllowExternalDataFiltering') as allow_external_data_filtering,
+              JSON_EXTRACT(Properties, '$.Parameters') as parameters,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.AuthorizedSessionTagValueList') as authorized_session_tag_value_list,
+              JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as trusted_resource_owners
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::LakeFormation::DataLakeSettings' ;
   - Permissions:
       name: Permissions

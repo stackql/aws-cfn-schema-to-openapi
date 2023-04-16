@@ -160,6 +160,12 @@ components:
           type: string
       required:
         - TargetNodes
+    Metadata:
+      type: object
+      additionalProperties: false
+      properties:
+        Labels:
+          type: object
     EksContainerEnvironmentVariable:
       type: object
       additionalProperties: false
@@ -186,6 +192,14 @@ components:
           $ref: '#/components/schemas/AuthorizationConfig'
       required:
         - FileSystemId
+    EksEmptyDir:
+      type: object
+      additionalProperties: false
+      properties:
+        Medium:
+          type: string
+        SizeLimit:
+          type: string
     LogConfiguration:
       type: object
       additionalProperties: false
@@ -206,14 +220,6 @@ components:
       additionalProperties: false
       properties:
         SourcePath:
-          type: string
-    EmptyDir:
-      type: object
-      additionalProperties: false
-      properties:
-        Medium:
-          type: string
-        SizeLimit:
           type: string
     Volumes:
       type: object
@@ -246,22 +252,24 @@ components:
       type: object
       additionalProperties: false
       properties:
-        Containers:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/EksContainer'
-        ServiceAccountName:
-          type: string
         Volumes:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/EksVolume'
-        HostNetwork:
-          type: boolean
         DnsPolicy:
           type: string
+        Containers:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/EksContainer'
+        Metadata:
+          $ref: '#/components/schemas/Metadata'
+        ServiceAccountName:
+          type: string
+        HostNetwork:
+          type: boolean
     Tmpfs:
       type: object
       additionalProperties: false
@@ -343,6 +351,8 @@ components:
           $ref: '#/components/schemas/NetworkConfiguration'
         InstanceType:
           type: string
+        EphemeralStorage:
+          $ref: '#/components/schemas/EphemeralStorage'
       required:
         - Image
     AuthorizationConfig:
@@ -353,18 +363,44 @@ components:
           type: string
         AccessPointId:
           type: string
+    EksContainerResourceRequirements:
+      type: object
+      additionalProperties: false
+      properties:
+        Requests:
+          type: object
+        Limits:
+          type: object
     NetworkConfiguration:
       type: object
       additionalProperties: false
       properties:
         AssignPublicIp:
           type: string
-    HostPath:
+    EksContainerSecurityContext:
       type: object
       additionalProperties: false
       properties:
-        Path:
+        RunAsUser:
+          type: integer
+        RunAsGroup:
+          type: integer
+        RunAsNonRoot:
+          type: boolean
+        Privileged:
+          type: boolean
+        ReadOnlyRootFilesystem:
+          type: boolean
+    EksSecret:
+      type: object
+      additionalProperties: false
+      properties:
+        SecretName:
           type: string
+        Optional:
+          type: boolean
+      required:
+        - SecretName
     EvaluateOnExit:
       type: object
       additionalProperties: false
@@ -445,11 +481,11 @@ components:
       additionalProperties: false
       properties:
         Secret:
-          $ref: '#/components/schemas/Secret'
+          $ref: '#/components/schemas/EksSecret'
         EmptyDir:
-          $ref: '#/components/schemas/EmptyDir'
+          $ref: '#/components/schemas/EksEmptyDir'
         HostPath:
-          $ref: '#/components/schemas/HostPath'
+          $ref: '#/components/schemas/EksHostPath'
         Name:
           type: string
       required:
@@ -491,20 +527,12 @@ components:
           type: string
         ContainerPath:
           type: string
-    SecurityContext:
+    EksHostPath:
       type: object
       additionalProperties: false
       properties:
-        RunAsUser:
-          type: integer
-        RunAsGroup:
-          type: integer
-        RunAsNonRoot:
-          type: boolean
-        Privileged:
-          type: boolean
-        ReadOnlyRootFilesystem:
-          type: boolean
+        Path:
+          type: string
     Environment:
       type: object
       additionalProperties: false
@@ -521,14 +549,14 @@ components:
           type: string
         Type:
           type: string
-    Resources:
+    EphemeralStorage:
       type: object
       additionalProperties: false
       properties:
-        Requests:
-          type: object
-        Limits:
-          type: object
+        SizeInGiB:
+          type: integer
+      required:
+        - SizeInGiB
     RetryStrategy:
       type: object
       additionalProperties: false
@@ -562,9 +590,9 @@ components:
           items:
             type: string
         SecurityContext:
-          $ref: '#/components/schemas/SecurityContext'
+          $ref: '#/components/schemas/EksContainerSecurityContext'
         Resources:
-          $ref: '#/components/schemas/Resources'
+          $ref: '#/components/schemas/EksContainerResourceRequirements'
         Image:
           type: string
         Env:
@@ -793,6 +821,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ContainerProperties.Ulimits') as container_properties_ulimits,
               JSON_EXTRACT(Properties, '$.ContainerProperties.NetworkConfiguration') as container_properties_network_configuration,
               JSON_EXTRACT(Properties, '$.ContainerProperties.InstanceType') as container_properties_instance_type,
+              JSON_EXTRACT(Properties, '$.ContainerProperties.EphemeralStorage') as container_properties_ephemeral_storage,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RetryStrategy.EvaluateOnExit') as retry_strategy_evaluate_on_exit,
               JSON_EXTRACT(Properties, '$.RetryStrategy.Attempts') as retry_strategy_attempts,

@@ -5,6 +5,16 @@ info:
 paths: {}
 components:
   schemas:
+    AccountId:
+      description: User account id, used as the primary identifier for the resource
+      type: string
+      pattern: ^\d{12}$
+    LogAnomalyDetectionIntegration:
+      type: object
+      properties:
+        AccountId:
+          $ref: '#/components/schemas/AccountId'
+      x-stackql-resource-name: LogAnomalyDetectionIntegration
     NotificationChannelConfig:
       description: Information about notification channels you have configured with DevOps Guru.
       type: object
@@ -145,6 +155,16 @@ components:
         - ResourceCollectionFilter
       x-stackql-resource-name: ResourceCollection
 x-stackql-views:
+  - LogAnomalyDetectionIntegration:
+      name: LogAnomalyDetectionIntegration
+      id: aws.devopsguru.LogAnomalyDetectionIntegration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELEC
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration' ;
   - NotificationChannel:
       name: NotificationChannel
       id: aws.devopsguru.NotificationChannel

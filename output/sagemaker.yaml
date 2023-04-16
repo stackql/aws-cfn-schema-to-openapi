@@ -632,6 +632,77 @@ components:
         - JobResources
         - RoleArn
       x-stackql-resource-name: DataQualityJobDefinition
+    Device:
+      type: object
+      properties:
+        DeviceFleetName:
+          description: The name of the edge device fleet
+          type: string
+          pattern: ^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$
+          minLength: 1
+          maxLength: 63
+        Device:
+          description: The Edge Device you want to register against a device fleet
+          $ref: '#/components/schemas/Device'
+        Tags:
+          description: Associate tags with the resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - DeviceFleetName
+      x-stackql-resource-name: Device
+    EdgeOutputConfig:
+      type: object
+      properties:
+        S3OutputLocation:
+          description: The Amazon Simple Storage (S3) bucket URI
+          type: string
+          pattern: ^s3://([^/]+)/?(.*)$
+          maxLength: 1024
+        KmsKeyId:
+          description: The KMS key id used for encryption on the S3 bucket
+          type: string
+          pattern: '[a-zA-Z0-9:_-]+'
+          minLength: 1
+          maxLength: 2048
+      required:
+        - S3OutputLocation
+      additionalProperties: false
+    DeviceFleet:
+      type: object
+      properties:
+        Description:
+          description: Description for the edge device fleet
+          type: string
+          pattern: '[\S\s]+'
+          minLength: 0
+          maxLength: 800
+        DeviceFleetName:
+          description: The name of the edge device fleet
+          type: string
+          pattern: ^[a-zA-Z0-9](-*_*[a-zA-Z0-9])*$
+          minLength: 1
+          maxLength: 63
+        OutputConfig:
+          description: S3 bucket and an ecryption key id (if available) to store outputs for the fleet
+          $ref: '#/components/schemas/EdgeOutputConfig'
+        RoleArn:
+          description: Role associated with the device fleet
+          type: string
+          pattern: ^arn:aws[a-z\-]*:iam::\d{12}:role/?[a-zA-Z_0-9+=,.@\-_/]+$
+          minLength: 20
+          maxLength: 2048
+        Tags:
+          description: Associate tags with the resource
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - DeviceFleetName
+        - OutputConfig
+        - RoleArn
+      x-stackql-resource-name: DeviceFleet
     UserSettings:
       type: object
       description: A collection of settings that apply to users of Amazon SageMaker Studio. These settings are specified when the CreateUserProfile API is called, and as DefaultUserSettings when the CreateDomain API is called.
@@ -956,6 +1027,8 @@ components:
           type: string
         VolumeSizeInGB:
           type: integer
+        EnableSSMAccess:
+          type: boolean
         VariantName:
           type: string
         ContainerStartupHealthCheckTimeoutInSeconds:
@@ -3763,15 +3836,15 @@ components:
     NotebookInstanceLifecycleConfig:
       type: object
       properties:
+        Id:
+          type: string
+        NotebookInstanceLifecycleConfigName:
+          type: string
         OnStart:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/NotebookInstanceLifecycleHook'
-        Id:
-          type: string
-        NotebookInstanceLifecycleConfigName:
-          type: string
         OnCreate:
           type: array
           uniqueItems: false
@@ -4220,6 +4293,37 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition' ;
+  - Device:
+      name: Device
+      id: aws.sagemaker.Device
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_name,
+              JSON_EXTRACT(Properties, '$.Device.DeviceFleetName') as device_device_fleet_name,
+              JSON_EXTRACT(Properties, '$.Device.Device') as device_device,
+              JSON_EXTRACT(Properties, '$.Device.Tags') as device_tags,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::Device' ;
+  - DeviceFleet:
+      name: DeviceFleet
+      id: aws.sagemaker.DeviceFleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_name,
+              JSON_EXTRACT(Properties, '$.OutputConfig.S3OutputLocation') as output_config_s3_output_location,
+              JSON_EXTRACT(Properties, '$.OutputConfig.KmsKeyId') as output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::DeviceFleet' ;
   - Endpoint:
       name: Endpoint
       id: aws.sagemaker.Endpoint
@@ -4607,9 +4711,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              JSON_EXTRACT(Properties, '$.OnStart') as on_start,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NotebookInstanceLifecycleConfigName') as notebook_instance_lifecycle_config_name,
+              JSON_EXTRACT(Properties, '$.OnStart') as on_start,
               JSON_EXTRACT(Properties, '$.OnCreate') as on_create
               FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig' ;
   - Pipeline:
