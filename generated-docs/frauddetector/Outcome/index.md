@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The Outcome resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>frauddetector.Outcome</b></span><br />
-<span>resource id:&nbsp;<b>frauddetector:Outcome</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>frauddetector.Outcome</code></td></tr>
+<tr><td><b>Name</b></td><td><code>Outcome</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>frauddetector:Outcome</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.frauddetector.Outcome</code></td></tr>
 </tbody></table>
 
 ## Fields

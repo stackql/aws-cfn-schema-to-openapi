@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The Ruleset resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>databrew.Ruleset</b></span><br />
-<span>resource id:&nbsp;<b>databrew:Ruleset</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>databrew.Ruleset</code></td></tr>
+<tr><td><b>Name</b></td><td><code>Ruleset</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>databrew:Ruleset</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.databrew.Ruleset</code></td></tr>
 </tbody></table>
 
 ## Fields

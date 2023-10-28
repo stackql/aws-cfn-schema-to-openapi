@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The VpcAttachment resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>networkmanager.VpcAttachment</b></span><br />
-<span>resource id:&nbsp;<b>networkmanager:VpcAttachment</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>networkmanager.VpcAttachment</code></td></tr>
+<tr><td><b>Name</b></td><td><code>VpcAttachment</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>networkmanager:VpcAttachment</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.networkmanager.VpcAttachment</code></td></tr>
 </tbody></table>
 
 ## Fields

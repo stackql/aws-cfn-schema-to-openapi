@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The Index resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>kendra.Index</b></span><br />
-<span>resource id:&nbsp;<b>kendra:Index</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>kendra.Index</code></td></tr>
+<tr><td><b>Name</b></td><td><code>Index</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>kendra:Index</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.kendra.Index</code></td></tr>
 </tbody></table>
 
 ## Fields

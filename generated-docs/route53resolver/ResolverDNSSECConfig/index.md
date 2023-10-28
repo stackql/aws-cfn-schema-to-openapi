@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The ResolverDNSSECConfig resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>route53resolver.ResolverDNSSECConfig</b></span><br />
-<span>resource id:&nbsp;<b>route53resolver:ResolverDNSSECConfig</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>route53resolver.ResolverDNSSECConfig</code></td></tr>
+<tr><td><b>Name</b></td><td><code>ResolverDNSSECConfig</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>route53resolver:ResolverDNSSECConfig</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.route53resolver.ResolverDNSSECConfig</code></td></tr>
 </tbody></table>
 
 ## Fields

@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The CoreNetwork resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>networkmanager.CoreNetwork</b></span><br />
-<span>resource id:&nbsp;<b>networkmanager:CoreNetwork</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>networkmanager.CoreNetwork</code></td></tr>
+<tr><td><b>Name</b></td><td><code>CoreNetwork</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>networkmanager:CoreNetwork</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.networkmanager.CoreNetwork</code></td></tr>
 </tbody></table>
 
 ## Fields

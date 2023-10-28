@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The NotificationRule resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>codestarnotifications.NotificationRule</b></span><br />
-<span>resource id:&nbsp;<b>codestarnotifications:NotificationRule</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>codestarnotifications.NotificationRule</code></td></tr>
+<tr><td><b>Name</b></td><td><code>NotificationRule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>codestarnotifications:NotificationRule</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.codestarnotifications.NotificationRule</code></td></tr>
 </tbody></table>
 
 ## Fields

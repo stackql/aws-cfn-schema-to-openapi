@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The Job resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>databrew.Job</b></span><br />
-<span>resource id:&nbsp;<b>databrew:Job</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>databrew.Job</code></td></tr>
+<tr><td><b>Name</b></td><td><code>Job</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>databrew:Job</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.databrew.Job</code></td></tr>
 </tbody></table>
 
 ## Fields

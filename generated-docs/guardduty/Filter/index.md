@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The Filter resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>guardduty.Filter</b></span><br />
-<span>resource id:&nbsp;<b>guardduty:Filter</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>guardduty.Filter</code></td></tr>
+<tr><td><b>Name</b></td><td><code>Filter</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>guardduty:Filter</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.guardduty.Filter</code></td></tr>
 </tbody></table>
 
 ## Fields

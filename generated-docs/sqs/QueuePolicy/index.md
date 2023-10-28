@@ -16,23 +16,12 @@ image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 The QueuePolicy resource documentation.
 
-:::info Resource Summary
-
-<div class="row">
-<div class="providerDocColumn">
-<span>resource type:&nbsp;<b>sqs.QueuePolicy</b></span><br />
-<span>resource id:&nbsp;<b>sqs:QueuePolicy</b></span><br />
-</div>
-</div>
-
-:::
-
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>sqs.QueuePolicy</code></td></tr>
+<tr><td><b>Name</b></td><td><code>QueuePolicy</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td></td></tr>
-<tr><td><b>Id</b></td><td><code>sqs:QueuePolicy</code></td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.sqs.QueuePolicy</code></td></tr>
 </tbody></table>
 
 ## Fields
