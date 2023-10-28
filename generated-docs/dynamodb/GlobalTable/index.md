@@ -1,0 +1,42 @@
+---
+title: GlobalTable
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - GlobalTable
+  - dynamodb
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+The GlobalTable resource documentation.
+
+:::info Resource Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>resource type:&nbsp;<b>dynamodb.GlobalTable</b></span><br />
+<span>resource id:&nbsp;<b>dynamodb:GlobalTable</b></span><br />
+</div>
+</div>
+
+:::
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>dynamodb.GlobalTable</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td></td></tr>
+<tr><td><b>Id</b></td><td><code>dynamodb:GlobalTable</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>StreamArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AttributeDefinitions</code></td><td><code>array</code></td><td></td></tr><tr><td><code>BillingMode</code></td><td><code>string</code></td><td></td></tr><tr><td><code>GlobalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr><tr><td><code>KeySchema</code></td><td><code>array</code></td><td></td></tr><tr><td><code>LocalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr><tr><td><code>WriteProvisionedThroughputSettings</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Replicas</code></td><td><code>array</code></td><td></td></tr><tr><td><code>SSESpecification</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>StreamSpecification</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>TableName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TableId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TimeToLiveSpecification</code></td><td><code>undefined</code></td><td></td></tr>
+</tbody></table>

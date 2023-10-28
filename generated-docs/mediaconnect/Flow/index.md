@@ -1,0 +1,42 @@
+---
+title: Flow
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - Flow
+  - mediaconnect
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+The Flow resource documentation.
+
+:::info Resource Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>resource type:&nbsp;<b>mediaconnect.Flow</b></span><br />
+<span>resource id:&nbsp;<b>mediaconnect:Flow</b></span><br />
+</div>
+</div>
+
+:::
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>mediaconnect.Flow</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td></td></tr>
+<tr><td><b>Id</b></td><td><code>mediaconnect:Flow</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>FlowArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the flow.</td></tr><tr><td><code>AvailabilityZone</code></td><td><code>string</code></td><td>The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones within the current AWS.</td></tr><tr><td><code>FlowAvailabilityZone</code></td><td><code>string</code></td><td>The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones within the current AWS.(ReadOnly)</td></tr><tr><td><code>Source</code></td><td><code>undefined</code></td><td>The source of the flow.</td></tr><tr><td><code>SourceFailoverConfig</code></td><td><code>undefined</code></td><td>The source failover config of the flow.</td></tr>
+</tbody></table>

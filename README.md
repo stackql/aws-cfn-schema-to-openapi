@@ -7,3 +7,10 @@ Convert AWS CloudFormation Resource Specification to OpenAPI 3.0.0
 3. run `npm install`
 4. run processDocs
 The current example uses the 'ap-southeast-2' region.
+
+## Generate User Docs
+Use the following script to generate user docs with Docusaurus front matter for AWS view resources:
+
+```
+node lib/utils/generate-docs2.cjs
+```

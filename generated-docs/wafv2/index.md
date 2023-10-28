@@ -1,0 +1,49 @@
+---
+title: wafv2
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - wafv2
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+
+The wafv2 service documentation.
+
+:::info Service Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
+</div>
+</div>
+
+:::
+
+## Resources
+<div class="row">
+<div class="providerDocColumn">
+<a href="/providers/azure/wafv2/IPSet/">IPSet</a><br />
+<a href="/providers/azure/wafv2/LoggingConfiguration/">LoggingConfiguration</a><br />
+<a href="/providers/azure/wafv2/RegexPatternSet/">RegexPatternSet</a><br />
+<a href="/providers/azure/wafv2/RuleGroup/">RuleGroup</a><br />
+<a href="/providers/azure/wafv2/WebACL/">WebACL</a><br />
+<a href="/providers/azure/wafv2/WebACLAssociation/">WebACLAssociation</a>
+</div>
+<div class="providerDocColumn">
+<a href="/providers/azure/wafv2/IPSet/">IPSet</a><br />
+<a href="/providers/azure/wafv2/LoggingConfiguration/">LoggingConfiguration</a><br />
+<a href="/providers/azure/wafv2/RegexPatternSet/">RegexPatternSet</a><br />
+<a href="/providers/azure/wafv2/RuleGroup/">RuleGroup</a><br />
+<a href="/providers/azure/wafv2/WebACL/">WebACL</a><br />
+<a href="/providers/azure/wafv2/WebACLAssociation/">WebACLAssociation</a>
+</div>
+</div>

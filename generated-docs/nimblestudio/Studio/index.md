@@ -1,0 +1,42 @@
+---
+title: Studio
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - Studio
+  - nimblestudio
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+The Studio resource documentation.
+
+:::info Resource Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>resource type:&nbsp;<b>nimblestudio.Studio</b></span><br />
+<span>resource id:&nbsp;<b>nimblestudio:Studio</b></span><br />
+</div>
+</div>
+
+:::
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>nimblestudio.Studio</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td></td></tr>
+<tr><td><b>Id</b></td><td><code>nimblestudio:Studio</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>AdminRoleArn</code></td><td><code>string</code></td><td><p>The IAM role that Studio Admins will assume when logging in to the Nimble Studio portal.</p></td></tr><tr><td><code>DisplayName</code></td><td><code>string</code></td><td><p>A friendly name for the studio.</p></td></tr><tr><td><code>HomeRegion</code></td><td><code>string</code></td><td><p>The Amazon Web Services Region where the studio resource is located.</p></td></tr><tr><td><code>SsoClientId</code></td><td><code>string</code></td><td><p>The Amazon Web Services SSO application client ID used to integrate with Amazon Web Services SSO to enable Amazon Web Services SSO users to log in to Nimble Studio portal.</p></td></tr><tr><td><code>StudioEncryptionConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>StudioId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>StudioName</code></td><td><code>string</code></td><td><p>The studio name that is used in the URL of the Nimble Studio portal when accessed by Nimble Studio users.</p></td></tr><tr><td><code>StudioUrl</code></td><td><code>string</code></td><td><p>The address of the web page for the studio.</p></td></tr><tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>UserRoleArn</code></td><td><code>string</code></td><td><p>The IAM role that Studio Users will assume when logging in to the Nimble Studio portal.</p></td></tr>
+</tbody></table>

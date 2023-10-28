@@ -1,0 +1,42 @@
+---
+title: Ruleset
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - Ruleset
+  - databrew
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+The Ruleset resource documentation.
+
+:::info Resource Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>resource type:&nbsp;<b>databrew.Ruleset</b></span><br />
+<span>resource id:&nbsp;<b>databrew:Ruleset</b></span><br />
+</div>
+</div>
+
+:::
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>databrew.Ruleset</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td></td></tr>
+<tr><td><b>Id</b></td><td><code>databrew:Ruleset</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>Name</code></td><td><code>string</code></td><td>Name of the Ruleset</td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>Description of the Ruleset</td></tr><tr><td><code>TargetArn</code></td><td><code>string</code></td><td>Arn of the target resource (dataset) to apply the ruleset to</td></tr><tr><td><code>Rules</code></td><td><code>array</code></td><td>List of the data quality rules in the ruleset</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+</tbody></table>

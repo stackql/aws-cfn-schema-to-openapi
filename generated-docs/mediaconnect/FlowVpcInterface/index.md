@@ -1,0 +1,42 @@
+---
+title: FlowVpcInterface
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - FlowVpcInterface
+  - mediaconnect
+  - azure
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage Azure resources using SQL
+custom_edit_url: null
+image: /img/providers/azure/stackql-azure-provider-featured-image.png
+---
+The FlowVpcInterface resource documentation.
+
+:::info Resource Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>resource type:&nbsp;<b>mediaconnect.FlowVpcInterface</b></span><br />
+<span>resource id:&nbsp;<b>mediaconnect:FlowVpcInterface</b></span><br />
+</div>
+</div>
+
+:::
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>mediaconnect.FlowVpcInterface</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+<tr><td><b>Description</b></td><td></td></tr>
+<tr><td><b>Id</b></td><td><code>mediaconnect:FlowVpcInterface</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>FlowArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN), a unique identifier for any AWS resource, of the flow.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>Immutable and has to be a unique against other VpcInterfaces in this Flow.</td></tr><tr><td><code>RoleArn</code></td><td><code>string</code></td><td>Role Arn MediaConnect can assumes to create ENIs in customer's account.</td></tr><tr><td><code>SecurityGroupIds</code></td><td><code>array</code></td><td>Security Group IDs to be used on ENI.</td></tr><tr><td><code>SubnetId</code></td><td><code>string</code></td><td>Subnet must be in the AZ of the Flow</td></tr><tr><td><code>NetworkInterfaceIds</code></td><td><code>array</code></td><td>IDs of the network interfaces created in customer's account by MediaConnect.</td></tr>
+</tbody></table>
