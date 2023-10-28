@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - organizations
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The organizations service documentation.
@@ -31,15 +31,11 @@ The organizations service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/organizations/Account/">Account</a><br />
-<a href="/providers/azure/organizations/OrganizationalUnit/">OrganizationalUnit</a><br />
-<a href="/providers/azure/organizations/Policy/">Policy</a><br />
-<a href="/providers/azure/organizations/ResourcePolicy/">ResourcePolicy</a>
+<a href="/providers/aws/organizations/Account/">Account</a><br />
+<a href="/providers/aws/organizations/OrganizationalUnit/">OrganizationalUnit</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/organizations/Account/">Account</a><br />
-<a href="/providers/azure/organizations/OrganizationalUnit/">OrganizationalUnit</a><br />
-<a href="/providers/azure/organizations/Policy/">Policy</a><br />
-<a href="/providers/azure/organizations/ResourcePolicy/">ResourcePolicy</a>
+<a href="/providers/aws/organizations/Policy/">Policy</a><br />
+<a href="/providers/aws/organizations/ResourcePolicy/">ResourcePolicy</a>
 </div>
 </div>

@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - evidently
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The evidently service documentation.
@@ -31,17 +31,12 @@ The evidently service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/evidently/Experiment/">Experiment</a><br />
-<a href="/providers/azure/evidently/Feature/">Feature</a><br />
-<a href="/providers/azure/evidently/Launch/">Launch</a><br />
-<a href="/providers/azure/evidently/Project/">Project</a><br />
-<a href="/providers/azure/evidently/Segment/">Segment</a>
+<a href="/providers/aws/evidently/Experiment/">Experiment</a><br />
+<a href="/providers/aws/evidently/Feature/">Feature</a><br />
+<a href="/providers/aws/evidently/Launch/">Launch</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/evidently/Experiment/">Experiment</a><br />
-<a href="/providers/azure/evidently/Feature/">Feature</a><br />
-<a href="/providers/azure/evidently/Launch/">Launch</a><br />
-<a href="/providers/azure/evidently/Project/">Project</a><br />
-<a href="/providers/azure/evidently/Segment/">Segment</a>
+<a href="/providers/aws/evidently/Project/">Project</a><br />
+<a href="/providers/aws/evidently/Segment/">Segment</a>
 </div>
 </div>

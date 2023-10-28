@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - customerprofiles
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The customerprofiles service documentation.
@@ -31,13 +31,10 @@ The customerprofiles service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/customerprofiles/Domain/">Domain</a><br />
-<a href="/providers/azure/customerprofiles/Integration/">Integration</a><br />
-<a href="/providers/azure/customerprofiles/ObjectType/">ObjectType</a>
+<a href="/providers/aws/customerprofiles/Domain/">Domain</a><br />
+<a href="/providers/aws/customerprofiles/Integration/">Integration</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/customerprofiles/Domain/">Domain</a><br />
-<a href="/providers/azure/customerprofiles/Integration/">Integration</a><br />
-<a href="/providers/azure/customerprofiles/ObjectType/">ObjectType</a>
+<a href="/providers/aws/customerprofiles/ObjectType/">ObjectType</a>
 </div>
 </div>

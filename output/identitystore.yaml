@@ -89,11 +89,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
               JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IdentityStore::Group' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::Group' ;
   - GroupMembership:
       name: GroupMembership
       id: aws.identitystore.GroupMembership
@@ -103,8 +104,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
               JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id,
               JSON_EXTRACT(Properties, '$.MemberId.UserId') as member_id_user_id,
               JSON_EXTRACT(Properties, '$.MembershipId') as membership_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IdentityStore::GroupMembership' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership' ;

@@ -171,12 +171,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FilterExpression') as filter_expression,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
               JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n,
               JSON_EXTRACT(Properties, '$.InsightsConfiguration.InsightsEnabled') as insights_configuration_insights_enabled,
               JSON_EXTRACT(Properties, '$.InsightsConfiguration.NotificationsEnabled') as insights_configuration_notifications_enabled
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::Group' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::Group' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.xray.ResourcePolicy
@@ -186,10 +187,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.BypassPolicyLockoutCheck') as bypass_policy_lockout_check
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::ResourcePolicy' ;
   - SamplingRule:
       name: SamplingRule
       id: aws.xray.SamplingRule
@@ -199,6 +201,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRule') as sampling_rule_sampling_rule,
               JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleRecord') as sampling_rule_sampling_rule_record,
               JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleUpdate') as sampling_rule_sampling_rule_update,
@@ -220,4 +223,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceName') as sampling_rule_update_service_name,
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceType') as sampling_rule_update_service_type,
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.URLPath') as sampling_rule_update_ur_lpath
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::XRay::SamplingRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::SamplingRule' ;

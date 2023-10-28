@@ -2120,12 +2120,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_label,
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
               JSON_EXTRACT(Properties, '$.ConnectorProvisioningType') as connector_provisioning_type,
               JSON_EXTRACT(Properties, '$.ConnectorProvisioningConfig.Lambda') as connector_provisioning_config_lambda,
               JSON_EXTRACT(Properties, '$.Description') as description
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppFlow::Connector' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Connector' ;
   - ConnectorProfile:
       name: ConnectorProfile
       id: aws.appflow.ConnectorProfile
@@ -2135,6 +2136,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ConnectorProfileArn') as connector_profile_arn,
               JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_label,
               JSON_EXTRACT(Properties, '$.ConnectorProfileName') as connector_profile_name,
@@ -2143,7 +2145,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ConnectorProfileConfig.ConnectorProfileProperties') as connector_profile_config_connector_profile_properties,
               JSON_EXTRACT(Properties, '$.ConnectorProfileConfig.ConnectorProfileCredentials') as connector_profile_config_connector_profile_credentials,
               JSON_EXTRACT(Properties, '$.CredentialsArn') as credentials_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppFlow::ConnectorProfile' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile' ;
   - Flow:
       name: Flow
       id: aws.appflow.Flow
@@ -2153,6 +2155,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn,
               JSON_EXTRACT(Properties, '$.FlowName') as flow_name,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -2169,4 +2172,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tasks') as tasks,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MetadataCatalogConfig.GlueDataCatalog') as metadata_catalog_config_glue_data_catalog
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppFlow::Flow' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Flow' ;

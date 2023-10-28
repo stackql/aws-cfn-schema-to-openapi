@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - imagebuilder
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The imagebuilder service documentation.
@@ -31,21 +31,14 @@ The imagebuilder service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/imagebuilder/Component/">Component</a><br />
-<a href="/providers/azure/imagebuilder/ContainerRecipe/">ContainerRecipe</a><br />
-<a href="/providers/azure/imagebuilder/DistributionConfiguration/">DistributionConfiguration</a><br />
-<a href="/providers/azure/imagebuilder/Image/">Image</a><br />
-<a href="/providers/azure/imagebuilder/ImagePipeline/">ImagePipeline</a><br />
-<a href="/providers/azure/imagebuilder/ImageRecipe/">ImageRecipe</a><br />
-<a href="/providers/azure/imagebuilder/InfrastructureConfiguration/">InfrastructureConfiguration</a>
+<a href="/providers/aws/imagebuilder/Component/">Component</a><br />
+<a href="/providers/aws/imagebuilder/ContainerRecipe/">ContainerRecipe</a><br />
+<a href="/providers/aws/imagebuilder/DistributionConfiguration/">DistributionConfiguration</a><br />
+<a href="/providers/aws/imagebuilder/Image/">Image</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/imagebuilder/Component/">Component</a><br />
-<a href="/providers/azure/imagebuilder/ContainerRecipe/">ContainerRecipe</a><br />
-<a href="/providers/azure/imagebuilder/DistributionConfiguration/">DistributionConfiguration</a><br />
-<a href="/providers/azure/imagebuilder/Image/">Image</a><br />
-<a href="/providers/azure/imagebuilder/ImagePipeline/">ImagePipeline</a><br />
-<a href="/providers/azure/imagebuilder/ImageRecipe/">ImageRecipe</a><br />
-<a href="/providers/azure/imagebuilder/InfrastructureConfiguration/">InfrastructureConfiguration</a>
+<a href="/providers/aws/imagebuilder/ImagePipeline/">ImagePipeline</a><br />
+<a href="/providers/aws/imagebuilder/ImageRecipe/">ImageRecipe</a><br />
+<a href="/providers/aws/imagebuilder/InfrastructureConfiguration/">InfrastructureConfiguration</a>
 </div>
 </div>

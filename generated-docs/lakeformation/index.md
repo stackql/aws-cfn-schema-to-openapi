@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - lakeformation
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The lakeformation service documentation.
@@ -31,19 +31,13 @@ The lakeformation service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/lakeformation/DataCellsFilter/">DataCellsFilter</a><br />
-<a href="/providers/azure/lakeformation/DataLakeSettings/">DataLakeSettings</a><br />
-<a href="/providers/azure/lakeformation/Permissions/">Permissions</a><br />
-<a href="/providers/azure/lakeformation/PrincipalPermissions/">PrincipalPermissions</a><br />
-<a href="/providers/azure/lakeformation/Tag/">Tag</a><br />
-<a href="/providers/azure/lakeformation/TagAssociation/">TagAssociation</a>
+<a href="/providers/aws/lakeformation/DataCellsFilter/">DataCellsFilter</a><br />
+<a href="/providers/aws/lakeformation/DataLakeSettings/">DataLakeSettings</a><br />
+<a href="/providers/aws/lakeformation/Permissions/">Permissions</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/lakeformation/DataCellsFilter/">DataCellsFilter</a><br />
-<a href="/providers/azure/lakeformation/DataLakeSettings/">DataLakeSettings</a><br />
-<a href="/providers/azure/lakeformation/Permissions/">Permissions</a><br />
-<a href="/providers/azure/lakeformation/PrincipalPermissions/">PrincipalPermissions</a><br />
-<a href="/providers/azure/lakeformation/Tag/">Tag</a><br />
-<a href="/providers/azure/lakeformation/TagAssociation/">TagAssociation</a>
+<a href="/providers/aws/lakeformation/PrincipalPermissions/">PrincipalPermissions</a><br />
+<a href="/providers/aws/lakeformation/Tag/">Tag</a><br />
+<a href="/providers/aws/lakeformation/TagAssociation/">TagAssociation</a>
 </div>
 </div>

@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - autoscaling
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The autoscaling service documentation.
@@ -31,21 +31,14 @@ The autoscaling service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/autoscaling/AutoScalingGroup/">AutoScalingGroup</a><br />
-<a href="/providers/azure/autoscaling/LaunchConfiguration/">LaunchConfiguration</a><br />
-<a href="/providers/azure/autoscaling/LifecycleHook/">LifecycleHook</a><br />
-<a href="/providers/azure/autoscaling/ScalingPolicy/">ScalingPolicy</a><br />
-<a href="/providers/azure/autoscaling/ScheduledAction/">ScheduledAction</a><br />
-<a href="/providers/azure/autoscaling/WarmPool/">WarmPool</a><br />
-<a href="/providers/azure/autoscaling/ScalingPlan/">ScalingPlan</a>
+<a href="/providers/aws/autoscaling/AutoScalingGroup/">AutoScalingGroup</a><br />
+<a href="/providers/aws/autoscaling/LaunchConfiguration/">LaunchConfiguration</a><br />
+<a href="/providers/aws/autoscaling/LifecycleHook/">LifecycleHook</a><br />
+<a href="/providers/aws/autoscaling/ScalingPlan/">ScalingPlan</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/autoscaling/AutoScalingGroup/">AutoScalingGroup</a><br />
-<a href="/providers/azure/autoscaling/LaunchConfiguration/">LaunchConfiguration</a><br />
-<a href="/providers/azure/autoscaling/LifecycleHook/">LifecycleHook</a><br />
-<a href="/providers/azure/autoscaling/ScalingPolicy/">ScalingPolicy</a><br />
-<a href="/providers/azure/autoscaling/ScheduledAction/">ScheduledAction</a><br />
-<a href="/providers/azure/autoscaling/WarmPool/">WarmPool</a><br />
-<a href="/providers/azure/autoscaling/ScalingPlan/">ScalingPlan</a>
+<a href="/providers/aws/autoscaling/ScalingPolicy/">ScalingPolicy</a><br />
+<a href="/providers/aws/autoscaling/ScheduledAction/">ScheduledAction</a><br />
+<a href="/providers/aws/autoscaling/WarmPool/">WarmPool</a>
 </div>
 </div>

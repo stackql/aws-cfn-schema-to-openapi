@@ -1029,6 +1029,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.LifecycleHookSpecificationList') as lifecycle_hook_specification_list,
               JSON_EXTRACT(Properties, '$.LoadBalancerNames') as load_balancer_names,
               JSON_EXTRACT(Properties, '$.LaunchConfigurationName') as launch_configuration_name,
@@ -1062,7 +1063,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PlacementGroup') as placement_group,
               JSON_EXTRACT(Properties, '$.HealthCheckType') as health_check_type,
               JSON_EXTRACT(Properties, '$.MaxInstanceLifetime') as max_instance_lifetime
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::AutoScalingGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::AutoScalingGroup' ;
   - LaunchConfiguration:
       name: LaunchConfiguration
       id: aws.autoscaling.LaunchConfiguration
@@ -1072,6 +1073,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AssociatePublicIpAddress') as associate_public_ip_address,
               JSON_EXTRACT(Properties, '$.BlockDeviceMappings') as block_device_mappings,
               JSON_EXTRACT(Properties, '$.ClassicLinkVPCId') as classic_link_vp_cid,
@@ -1093,7 +1095,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.SpotPrice') as spot_price,
               JSON_EXTRACT(Properties, '$.UserData') as user_data
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::LaunchConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::LaunchConfiguration' ;
   - LifecycleHook:
       name: LifecycleHook
       id: aws.autoscaling.LifecycleHook
@@ -1103,6 +1105,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name,
               JSON_EXTRACT(Properties, '$.DefaultResult') as default_result,
               JSON_EXTRACT(Properties, '$.HeartbeatTimeout') as heartbeat_timeout,
@@ -1111,7 +1114,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.NotificationMetadata') as notification_metadata,
               JSON_EXTRACT(Properties, '$.NotificationTargetARN') as notification_target_ar_n,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::LifecycleHook' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::LifecycleHook' ;
   - ScalingPolicy:
       name: ScalingPolicy
       id: aws.autoscaling.ScalingPolicy
@@ -1121,6 +1124,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MetricAggregationType') as metric_aggregation_type,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
@@ -1144,7 +1148,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.EstimatedInstanceWarmup') as estimated_instance_warmup,
               JSON_EXTRACT(Properties, '$.AdjustmentType') as adjustment_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::ScalingPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::ScalingPolicy' ;
   - ScheduledAction:
       name: ScheduledAction
       id: aws.autoscaling.ScheduledAction
@@ -1154,6 +1158,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ScheduledActionName') as scheduled_action_name,
               JSON_EXTRACT(Properties, '$.MinSize') as min_size,
               JSON_EXTRACT(Properties, '$.Recurrence') as recurrence,
@@ -1163,7 +1168,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.StartTime') as start_time,
               JSON_EXTRACT(Properties, '$.DesiredCapacity') as desired_capacity,
               JSON_EXTRACT(Properties, '$.MaxSize') as max_size
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::ScheduledAction' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::ScheduledAction' ;
   - WarmPool:
       name: WarmPool
       id: aws.autoscaling.WarmPool
@@ -1173,12 +1178,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name,
               JSON_EXTRACT(Properties, '$.MaxGroupPreparedCapacity') as max_group_prepared_capacity,
               JSON_EXTRACT(Properties, '$.MinSize') as min_size,
               JSON_EXTRACT(Properties, '$.PoolState') as pool_state,
               JSON_EXTRACT(Properties, '$.InstanceReusePolicy.ReuseOnScaleIn') as instance_reuse_policy_reuse_on_scale_in
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::WarmPool' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::WarmPool' ;
   - ScalingPlan:
       name: ScalingPlan
       id: aws.autoscaling.ScalingPlan
@@ -1188,10 +1194,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ScalingPlanName') as scaling_plan_name,
               JSON_EXTRACT(Properties, '$.ScalingPlanVersion') as scaling_plan_version,
               JSON_EXTRACT(Properties, '$.ApplicationSource.CloudFormationStackARN') as application_source_cloud_formation_stack_ar_n,
               JSON_EXTRACT(Properties, '$.ApplicationSource.TagFilters') as application_source_tag_filters,
               JSON_EXTRACT(Properties, '$.ScalingInstructions') as scaling_instructions
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AutoScaling::ScalingPlan' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::ScalingPlan' ;

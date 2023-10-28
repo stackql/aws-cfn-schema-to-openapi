@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - elasticloadbalancing
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The elasticloadbalancing service documentation.
@@ -31,17 +31,12 @@ The elasticloadbalancing service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/elasticloadbalancing/LoadBalancer/">LoadBalancer</a><br />
-<a href="/providers/azure/elasticloadbalancing/Listener/">Listener</a><br />
-<a href="/providers/azure/elasticloadbalancing/ListenerCertificate/">ListenerCertificate</a><br />
-<a href="/providers/azure/elasticloadbalancing/ListenerRule/">ListenerRule</a><br />
-<a href="/providers/azure/elasticloadbalancing/TargetGroup/">TargetGroup</a>
+<a href="/providers/aws/elasticloadbalancing/Listener/">Listener</a><br />
+<a href="/providers/aws/elasticloadbalancing/ListenerCertificate/">ListenerCertificate</a><br />
+<a href="/providers/aws/elasticloadbalancing/ListenerRule/">ListenerRule</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/elasticloadbalancing/LoadBalancer/">LoadBalancer</a><br />
-<a href="/providers/azure/elasticloadbalancing/Listener/">Listener</a><br />
-<a href="/providers/azure/elasticloadbalancing/ListenerCertificate/">ListenerCertificate</a><br />
-<a href="/providers/azure/elasticloadbalancing/ListenerRule/">ListenerRule</a><br />
-<a href="/providers/azure/elasticloadbalancing/TargetGroup/">TargetGroup</a>
+<a href="/providers/aws/elasticloadbalancing/LoadBalancer/">LoadBalancer</a><br />
+<a href="/providers/aws/elasticloadbalancing/TargetGroup/">TargetGroup</a>
 </div>
 </div>

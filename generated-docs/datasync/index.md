@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - datasync
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The datasync service documentation.
@@ -31,31 +31,19 @@ The datasync service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/datasync/Agent/">Agent</a><br />
-<a href="/providers/azure/datasync/LocationEFS/">LocationEFS</a><br />
-<a href="/providers/azure/datasync/LocationFSxLustre/">LocationFSxLustre</a><br />
-<a href="/providers/azure/datasync/LocationFSxONTAP/">LocationFSxONTAP</a><br />
-<a href="/providers/azure/datasync/LocationFSxOpenZFS/">LocationFSxOpenZFS</a><br />
-<a href="/providers/azure/datasync/LocationFSxWindows/">LocationFSxWindows</a><br />
-<a href="/providers/azure/datasync/LocationHDFS/">LocationHDFS</a><br />
-<a href="/providers/azure/datasync/LocationNFS/">LocationNFS</a><br />
-<a href="/providers/azure/datasync/LocationObjectStorage/">LocationObjectStorage</a><br />
-<a href="/providers/azure/datasync/LocationS3/">LocationS3</a><br />
-<a href="/providers/azure/datasync/LocationSMB/">LocationSMB</a><br />
-<a href="/providers/azure/datasync/Task/">Task</a>
+<a href="/providers/aws/datasync/Agent/">Agent</a><br />
+<a href="/providers/aws/datasync/LocationEFS/">LocationEFS</a><br />
+<a href="/providers/aws/datasync/LocationFSxLustre/">LocationFSxLustre</a><br />
+<a href="/providers/aws/datasync/LocationFSxONTAP/">LocationFSxONTAP</a><br />
+<a href="/providers/aws/datasync/LocationFSxOpenZFS/">LocationFSxOpenZFS</a><br />
+<a href="/providers/aws/datasync/LocationFSxWindows/">LocationFSxWindows</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/datasync/Agent/">Agent</a><br />
-<a href="/providers/azure/datasync/LocationEFS/">LocationEFS</a><br />
-<a href="/providers/azure/datasync/LocationFSxLustre/">LocationFSxLustre</a><br />
-<a href="/providers/azure/datasync/LocationFSxONTAP/">LocationFSxONTAP</a><br />
-<a href="/providers/azure/datasync/LocationFSxOpenZFS/">LocationFSxOpenZFS</a><br />
-<a href="/providers/azure/datasync/LocationFSxWindows/">LocationFSxWindows</a><br />
-<a href="/providers/azure/datasync/LocationHDFS/">LocationHDFS</a><br />
-<a href="/providers/azure/datasync/LocationNFS/">LocationNFS</a><br />
-<a href="/providers/azure/datasync/LocationObjectStorage/">LocationObjectStorage</a><br />
-<a href="/providers/azure/datasync/LocationS3/">LocationS3</a><br />
-<a href="/providers/azure/datasync/LocationSMB/">LocationSMB</a><br />
-<a href="/providers/azure/datasync/Task/">Task</a>
+<a href="/providers/aws/datasync/LocationHDFS/">LocationHDFS</a><br />
+<a href="/providers/aws/datasync/LocationNFS/">LocationNFS</a><br />
+<a href="/providers/aws/datasync/LocationObjectStorage/">LocationObjectStorage</a><br />
+<a href="/providers/aws/datasync/LocationS3/">LocationS3</a><br />
+<a href="/providers/aws/datasync/LocationSMB/">LocationSMB</a><br />
+<a href="/providers/aws/datasync/Task/">Task</a>
 </div>
 </div>

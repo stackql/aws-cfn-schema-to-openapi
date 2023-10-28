@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - acmpca
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The acmpca service documentation.
@@ -31,15 +31,11 @@ The acmpca service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/acmpca/Certificate/">Certificate</a><br />
-<a href="/providers/azure/acmpca/CertificateAuthority/">CertificateAuthority</a><br />
-<a href="/providers/azure/acmpca/CertificateAuthorityActivation/">CertificateAuthorityActivation</a><br />
-<a href="/providers/azure/acmpca/Permission/">Permission</a>
+<a href="/providers/aws/acmpca/Certificate/">Certificate</a><br />
+<a href="/providers/aws/acmpca/CertificateAuthority/">CertificateAuthority</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/acmpca/Certificate/">Certificate</a><br />
-<a href="/providers/azure/acmpca/CertificateAuthority/">CertificateAuthority</a><br />
-<a href="/providers/azure/acmpca/CertificateAuthorityActivation/">CertificateAuthorityActivation</a><br />
-<a href="/providers/azure/acmpca/Permission/">Permission</a>
+<a href="/providers/aws/acmpca/CertificateAuthorityActivation/">CertificateAuthorityActivation</a><br />
+<a href="/providers/aws/acmpca/Permission/">Permission</a>
 </div>
 </div>

@@ -117,6 +117,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
               JSON_EXTRACT(Properties, '$.KmsMasterKeyId') as kms_master_key_id,
               JSON_EXTRACT(Properties, '$.DataProtectionPolicy') as data_protection_policy,
@@ -128,7 +129,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn,
               JSON_EXTRACT(Properties, '$.SignatureVersion') as signature_version,
               JSON_EXTRACT(Properties, '$.TracingConfig') as tracing_config
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SNS::Topic' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::Topic' ;
   - TopicPolicy:
       name: TopicPolicy
       id: aws.sns.TopicPolicy
@@ -138,7 +139,8 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Topics') as topics
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SNS::TopicPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicPolicy' ;

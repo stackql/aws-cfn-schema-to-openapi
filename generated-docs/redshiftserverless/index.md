@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - redshiftserverless
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The redshiftserverless service documentation.
@@ -31,11 +31,9 @@ The redshiftserverless service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/redshiftserverless/Namespace/">Namespace</a><br />
-<a href="/providers/azure/redshiftserverless/Workgroup/">Workgroup</a>
+<a href="/providers/aws/redshiftserverless/Namespace/">Namespace</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/redshiftserverless/Namespace/">Namespace</a><br />
-<a href="/providers/azure/redshiftserverless/Workgroup/">Workgroup</a>
+<a href="/providers/aws/redshiftserverless/Workgroup/">Workgroup</a>
 </div>
 </div>

@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - wisdom
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The wisdom service documentation.
@@ -31,13 +31,10 @@ The wisdom service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/wisdom/Assistant/">Assistant</a><br />
-<a href="/providers/azure/wisdom/AssistantAssociation/">AssistantAssociation</a><br />
-<a href="/providers/azure/wisdom/KnowledgeBase/">KnowledgeBase</a>
+<a href="/providers/aws/wisdom/Assistant/">Assistant</a><br />
+<a href="/providers/aws/wisdom/AssistantAssociation/">AssistantAssociation</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/wisdom/Assistant/">Assistant</a><br />
-<a href="/providers/azure/wisdom/AssistantAssociation/">AssistantAssociation</a><br />
-<a href="/providers/azure/wisdom/KnowledgeBase/">KnowledgeBase</a>
+<a href="/providers/aws/wisdom/KnowledgeBase/">KnowledgeBase</a>
 </div>
 </div>

@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - iot1click
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The iot1click service documentation.
@@ -31,13 +31,10 @@ The iot1click service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/iot1click/Device/">Device</a><br />
-<a href="/providers/azure/iot1click/Placement/">Placement</a><br />
-<a href="/providers/azure/iot1click/Project/">Project</a>
+<a href="/providers/aws/iot1click/Device/">Device</a><br />
+<a href="/providers/aws/iot1click/Placement/">Placement</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/iot1click/Device/">Device</a><br />
-<a href="/providers/azure/iot1click/Placement/">Placement</a><br />
-<a href="/providers/azure/iot1click/Project/">Project</a>
+<a href="/providers/aws/iot1click/Project/">Project</a>
 </div>
 </div>

@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - quicksight
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The quicksight service documentation.
@@ -31,21 +31,14 @@ The quicksight service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/quicksight/Analysis/">Analysis</a><br />
-<a href="/providers/azure/quicksight/Dashboard/">Dashboard</a><br />
-<a href="/providers/azure/quicksight/DataSet/">DataSet</a><br />
-<a href="/providers/azure/quicksight/DataSource/">DataSource</a><br />
-<a href="/providers/azure/quicksight/RefreshSchedule/">RefreshSchedule</a><br />
-<a href="/providers/azure/quicksight/Template/">Template</a><br />
-<a href="/providers/azure/quicksight/Theme/">Theme</a>
+<a href="/providers/aws/quicksight/Analysis/">Analysis</a><br />
+<a href="/providers/aws/quicksight/Dashboard/">Dashboard</a><br />
+<a href="/providers/aws/quicksight/DataSet/">DataSet</a><br />
+<a href="/providers/aws/quicksight/DataSource/">DataSource</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/quicksight/Analysis/">Analysis</a><br />
-<a href="/providers/azure/quicksight/Dashboard/">Dashboard</a><br />
-<a href="/providers/azure/quicksight/DataSet/">DataSet</a><br />
-<a href="/providers/azure/quicksight/DataSource/">DataSource</a><br />
-<a href="/providers/azure/quicksight/RefreshSchedule/">RefreshSchedule</a><br />
-<a href="/providers/azure/quicksight/Template/">Template</a><br />
-<a href="/providers/azure/quicksight/Theme/">Theme</a>
+<a href="/providers/aws/quicksight/RefreshSchedule/">RefreshSchedule</a><br />
+<a href="/providers/aws/quicksight/Template/">Template</a><br />
+<a href="/providers/aws/quicksight/Theme/">Theme</a>
 </div>
 </div>

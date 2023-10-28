@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - transfer
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The transfer service documentation.
@@ -31,21 +31,14 @@ The transfer service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/transfer/Agreement/">Agreement</a><br />
-<a href="/providers/azure/transfer/Certificate/">Certificate</a><br />
-<a href="/providers/azure/transfer/Connector/">Connector</a><br />
-<a href="/providers/azure/transfer/Profile/">Profile</a><br />
-<a href="/providers/azure/transfer/Server/">Server</a><br />
-<a href="/providers/azure/transfer/User/">User</a><br />
-<a href="/providers/azure/transfer/Workflow/">Workflow</a>
+<a href="/providers/aws/transfer/Agreement/">Agreement</a><br />
+<a href="/providers/aws/transfer/Certificate/">Certificate</a><br />
+<a href="/providers/aws/transfer/Connector/">Connector</a><br />
+<a href="/providers/aws/transfer/Profile/">Profile</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/transfer/Agreement/">Agreement</a><br />
-<a href="/providers/azure/transfer/Certificate/">Certificate</a><br />
-<a href="/providers/azure/transfer/Connector/">Connector</a><br />
-<a href="/providers/azure/transfer/Profile/">Profile</a><br />
-<a href="/providers/azure/transfer/Server/">Server</a><br />
-<a href="/providers/azure/transfer/User/">User</a><br />
-<a href="/providers/azure/transfer/Workflow/">Workflow</a>
+<a href="/providers/aws/transfer/Server/">Server</a><br />
+<a href="/providers/aws/transfer/User/">User</a><br />
+<a href="/providers/aws/transfer/Workflow/">Workflow</a>
 </div>
 </div>

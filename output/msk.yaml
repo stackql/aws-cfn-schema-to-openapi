@@ -447,8 +447,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MSK::BatchScramSecret' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::BatchScramSecret' ;
   - Cluster:
       name: Cluster
       id: aws.msk.Cluster
@@ -458,6 +459,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.BrokerNodeGroupInfo.StorageInfo') as broker_node_group_info_storage_info,
               JSON_EXTRACT(Properties, '$.BrokerNodeGroupInfo.ConnectivityInfo') as broker_node_group_info_connectivity_info,
               JSON_EXTRACT(Properties, '$.BrokerNodeGroupInfo.SecurityGroups') as broker_node_group_info_security_groups,
@@ -479,7 +481,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ConfigurationInfo.Revision') as configuration_info_revision,
               JSON_EXTRACT(Properties, '$.ConfigurationInfo.Arn') as configuration_info_arn,
               JSON_EXTRACT(Properties, '$.StorageMode') as storage_mode
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MSK::Cluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Cluster' ;
   - Configuration:
       name: Configuration
       id: aws.msk.Configuration
@@ -489,11 +491,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ServerProperties') as server_properties,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MSK::Configuration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Configuration' ;
   - ServerlessCluster:
       name: ServerlessCluster
       id: aws.msk.ServerlessCluster
@@ -503,9 +506,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.VpcConfigs') as vpc_configs,
               JSON_EXTRACT(Properties, '$.ClientAuthentication.Sasl') as client_authentication_sasl,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MSK::ServerlessCluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ServerlessCluster' ;

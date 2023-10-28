@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - codepipeline
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The codepipeline service documentation.
@@ -31,13 +31,10 @@ The codepipeline service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/codepipeline/CustomActionType/">CustomActionType</a><br />
-<a href="/providers/azure/codepipeline/Pipeline/">Pipeline</a><br />
-<a href="/providers/azure/codepipeline/Webhook/">Webhook</a>
+<a href="/providers/aws/codepipeline/CustomActionType/">CustomActionType</a><br />
+<a href="/providers/aws/codepipeline/Pipeline/">Pipeline</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/codepipeline/CustomActionType/">CustomActionType</a><br />
-<a href="/providers/azure/codepipeline/Pipeline/">Pipeline</a><br />
-<a href="/providers/azure/codepipeline/Webhook/">Webhook</a>
+<a href="/providers/aws/codepipeline/Webhook/">Webhook</a>
 </div>
 </div>

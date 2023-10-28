@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - cloudtrail
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The cloudtrail service documentation.
@@ -31,15 +31,11 @@ The cloudtrail service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/cloudtrail/Channel/">Channel</a><br />
-<a href="/providers/azure/cloudtrail/EventDataStore/">EventDataStore</a><br />
-<a href="/providers/azure/cloudtrail/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/cloudtrail/Trail/">Trail</a>
+<a href="/providers/aws/cloudtrail/Channel/">Channel</a><br />
+<a href="/providers/aws/cloudtrail/EventDataStore/">EventDataStore</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/cloudtrail/Channel/">Channel</a><br />
-<a href="/providers/azure/cloudtrail/EventDataStore/">EventDataStore</a><br />
-<a href="/providers/azure/cloudtrail/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/cloudtrail/Trail/">Trail</a>
+<a href="/providers/aws/cloudtrail/ResourcePolicy/">ResourcePolicy</a><br />
+<a href="/providers/aws/cloudtrail/Trail/">Trail</a>
 </div>
 </div>

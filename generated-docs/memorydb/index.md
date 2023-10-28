@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - memorydb
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The memorydb service documentation.
@@ -31,17 +31,12 @@ The memorydb service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/memorydb/ACL/">ACL</a><br />
-<a href="/providers/azure/memorydb/Cluster/">Cluster</a><br />
-<a href="/providers/azure/memorydb/ParameterGroup/">ParameterGroup</a><br />
-<a href="/providers/azure/memorydb/SubnetGroup/">SubnetGroup</a><br />
-<a href="/providers/azure/memorydb/User/">User</a>
+<a href="/providers/aws/memorydb/ACL/">ACL</a><br />
+<a href="/providers/aws/memorydb/Cluster/">Cluster</a><br />
+<a href="/providers/aws/memorydb/ParameterGroup/">ParameterGroup</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/memorydb/ACL/">ACL</a><br />
-<a href="/providers/azure/memorydb/Cluster/">Cluster</a><br />
-<a href="/providers/azure/memorydb/ParameterGroup/">ParameterGroup</a><br />
-<a href="/providers/azure/memorydb/SubnetGroup/">SubnetGroup</a><br />
-<a href="/providers/azure/memorydb/User/">User</a>
+<a href="/providers/aws/memorydb/SubnetGroup/">SubnetGroup</a><br />
+<a href="/providers/aws/memorydb/User/">User</a>
 </div>
 </div>

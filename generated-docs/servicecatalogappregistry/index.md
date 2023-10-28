@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - servicecatalogappregistry
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The servicecatalogappregistry service documentation.
@@ -31,15 +31,11 @@ The servicecatalogappregistry service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/servicecatalogappregistry/Application/">Application</a><br />
-<a href="/providers/azure/servicecatalogappregistry/AttributeGroup/">AttributeGroup</a><br />
-<a href="/providers/azure/servicecatalogappregistry/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
-<a href="/providers/azure/servicecatalogappregistry/ResourceAssociation/">ResourceAssociation</a>
+<a href="/providers/aws/servicecatalogappregistry/Application/">Application</a><br />
+<a href="/providers/aws/servicecatalogappregistry/AttributeGroup/">AttributeGroup</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/servicecatalogappregistry/Application/">Application</a><br />
-<a href="/providers/azure/servicecatalogappregistry/AttributeGroup/">AttributeGroup</a><br />
-<a href="/providers/azure/servicecatalogappregistry/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
-<a href="/providers/azure/servicecatalogappregistry/ResourceAssociation/">ResourceAssociation</a>
+<a href="/providers/aws/servicecatalogappregistry/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
+<a href="/providers/aws/servicecatalogappregistry/ResourceAssociation/">ResourceAssociation</a>
 </div>
 </div>

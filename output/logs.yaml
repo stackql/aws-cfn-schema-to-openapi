@@ -275,12 +275,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DestinationName') as destination_name,
               JSON_EXTRACT(Properties, '$.DestinationPolicy') as destination_policy,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::Destination' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Destination' ;
   - LogStream:
       name: LogStream
       id: aws.logs.LogStream
@@ -290,10 +291,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::LogStream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream' ;
   - MetricFilter:
       name: MetricFilter
       id: aws.logs.MetricFilter
@@ -303,11 +305,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
               JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.MetricTransformations') as metric_transformations
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::MetricFilter' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::MetricFilter' ;
   - QueryDefinition:
       name: QueryDefinition
       id: aws.logs.QueryDefinition
@@ -317,11 +320,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
               JSON_EXTRACT(Properties, '$.LogGroupNames') as log_group_names,
               JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::QueryDefinition' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::QueryDefinition' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.logs.ResourcePolicy
@@ -331,9 +335,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::ResourcePolicy' ;
   - SubscriptionFilter:
       name: SubscriptionFilter
       id: aws.logs.SubscriptionFilter
@@ -343,10 +348,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
               JSON_EXTRACT(Properties, '$.DestinationArn') as destination_arn,
               JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Distribution') as distribution
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Logs::SubscriptionFilter' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter' ;

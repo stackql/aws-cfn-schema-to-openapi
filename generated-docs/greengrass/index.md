@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - greengrass
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The greengrass service documentation.
@@ -31,43 +31,25 @@ The greengrass service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/greengrass/ConnectorDefinitionVersion/">ConnectorDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/ConnectorDefinition/">ConnectorDefinition</a><br />
-<a href="/providers/azure/greengrass/CoreDefinitionVersion/">CoreDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/CoreDefinition/">CoreDefinition</a><br />
-<a href="/providers/azure/greengrass/DeviceDefinitionVersion/">DeviceDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/DeviceDefinition/">DeviceDefinition</a><br />
-<a href="/providers/azure/greengrass/FunctionDefinitionVersion/">FunctionDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/FunctionDefinition/">FunctionDefinition</a><br />
-<a href="/providers/azure/greengrass/GroupVersion/">GroupVersion</a><br />
-<a href="/providers/azure/greengrass/Group/">Group</a><br />
-<a href="/providers/azure/greengrass/LoggerDefinitionVersion/">LoggerDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/LoggerDefinition/">LoggerDefinition</a><br />
-<a href="/providers/azure/greengrass/ResourceDefinitionVersion/">ResourceDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/ResourceDefinition/">ResourceDefinition</a><br />
-<a href="/providers/azure/greengrass/SubscriptionDefinitionVersion/">SubscriptionDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/SubscriptionDefinition/">SubscriptionDefinition</a><br />
-<a href="/providers/azure/greengrass/ComponentVersion/">ComponentVersion</a><br />
-<a href="/providers/azure/greengrass/Deployment/">Deployment</a>
+<a href="/providers/aws/greengrass/ComponentVersion/">ComponentVersion</a><br />
+<a href="/providers/aws/greengrass/ConnectorDefinition/">ConnectorDefinition</a><br />
+<a href="/providers/aws/greengrass/ConnectorDefinitionVersion/">ConnectorDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/CoreDefinition/">CoreDefinition</a><br />
+<a href="/providers/aws/greengrass/CoreDefinitionVersion/">CoreDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/Deployment/">Deployment</a><br />
+<a href="/providers/aws/greengrass/DeviceDefinition/">DeviceDefinition</a><br />
+<a href="/providers/aws/greengrass/DeviceDefinitionVersion/">DeviceDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/FunctionDefinition/">FunctionDefinition</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/greengrass/ConnectorDefinitionVersion/">ConnectorDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/ConnectorDefinition/">ConnectorDefinition</a><br />
-<a href="/providers/azure/greengrass/CoreDefinitionVersion/">CoreDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/CoreDefinition/">CoreDefinition</a><br />
-<a href="/providers/azure/greengrass/DeviceDefinitionVersion/">DeviceDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/DeviceDefinition/">DeviceDefinition</a><br />
-<a href="/providers/azure/greengrass/FunctionDefinitionVersion/">FunctionDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/FunctionDefinition/">FunctionDefinition</a><br />
-<a href="/providers/azure/greengrass/GroupVersion/">GroupVersion</a><br />
-<a href="/providers/azure/greengrass/Group/">Group</a><br />
-<a href="/providers/azure/greengrass/LoggerDefinitionVersion/">LoggerDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/LoggerDefinition/">LoggerDefinition</a><br />
-<a href="/providers/azure/greengrass/ResourceDefinitionVersion/">ResourceDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/ResourceDefinition/">ResourceDefinition</a><br />
-<a href="/providers/azure/greengrass/SubscriptionDefinitionVersion/">SubscriptionDefinitionVersion</a><br />
-<a href="/providers/azure/greengrass/SubscriptionDefinition/">SubscriptionDefinition</a><br />
-<a href="/providers/azure/greengrass/ComponentVersion/">ComponentVersion</a><br />
-<a href="/providers/azure/greengrass/Deployment/">Deployment</a>
+<a href="/providers/aws/greengrass/FunctionDefinitionVersion/">FunctionDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/Group/">Group</a><br />
+<a href="/providers/aws/greengrass/GroupVersion/">GroupVersion</a><br />
+<a href="/providers/aws/greengrass/LoggerDefinition/">LoggerDefinition</a><br />
+<a href="/providers/aws/greengrass/LoggerDefinitionVersion/">LoggerDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/ResourceDefinition/">ResourceDefinition</a><br />
+<a href="/providers/aws/greengrass/ResourceDefinitionVersion/">ResourceDefinitionVersion</a><br />
+<a href="/providers/aws/greengrass/SubscriptionDefinition/">SubscriptionDefinition</a><br />
+<a href="/providers/aws/greengrass/SubscriptionDefinitionVersion/">SubscriptionDefinitionVersion</a>
 </div>
 </div>

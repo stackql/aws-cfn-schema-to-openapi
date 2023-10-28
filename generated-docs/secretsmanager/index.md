@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - secretsmanager
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The secretsmanager service documentation.
@@ -31,15 +31,11 @@ The secretsmanager service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/secretsmanager/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/secretsmanager/RotationSchedule/">RotationSchedule</a><br />
-<a href="/providers/azure/secretsmanager/Secret/">Secret</a><br />
-<a href="/providers/azure/secretsmanager/SecretTargetAttachment/">SecretTargetAttachment</a>
+<a href="/providers/aws/secretsmanager/ResourcePolicy/">ResourcePolicy</a><br />
+<a href="/providers/aws/secretsmanager/RotationSchedule/">RotationSchedule</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/secretsmanager/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/secretsmanager/RotationSchedule/">RotationSchedule</a><br />
-<a href="/providers/azure/secretsmanager/Secret/">Secret</a><br />
-<a href="/providers/azure/secretsmanager/SecretTargetAttachment/">SecretTargetAttachment</a>
+<a href="/providers/aws/secretsmanager/Secret/">Secret</a><br />
+<a href="/providers/aws/secretsmanager/SecretTargetAttachment/">SecretTargetAttachment</a>
 </div>
 </div>

@@ -104,6 +104,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.QueueUrl') as queue_url,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ContentBasedDeduplication') as content_based_deduplication,
@@ -122,7 +123,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RedrivePolicy') as redrive_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VisibilityTimeout') as visibility_timeout
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SQS::Queue' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::Queue' ;
   - QueuePolicy:
       name: QueuePolicy
       id: aws.sqs.QueuePolicy
@@ -132,7 +133,8 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Queues') as queues
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SQS::QueuePolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueuePolicy' ;

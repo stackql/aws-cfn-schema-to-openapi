@@ -477,6 +477,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ApiPassthrough.Extensions') as api_passthrough_extensions,
               JSON_EXTRACT(Properties, '$.ApiPassthrough.Subject') as api_passthrough_subject,
               JSON_EXTRACT(Properties, '$.CertificateSigningRequest') as certificate_signing_request,
@@ -486,7 +487,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ValidityNotBefore.Value') as validity_not_before_value,
               JSON_EXTRACT(Properties, '$.ValidityNotBefore.Type') as validity_not_before_type,
               JSON_EXTRACT(Properties, '$.Certificate') as certificate
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ACMPCA::Certificate' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Certificate' ;
   - CertificateAuthority:
       name: CertificateAuthority
       id: aws.acmpca.CertificateAuthority
@@ -496,6 +497,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.KeyAlgorithm') as key_algorithm,
               JSON_EXTRACT(Properties, '$.SigningAlgorithm') as signing_algorithm,
@@ -522,7 +524,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CsrExtensions.SubjectInformationAccess') as csr_extensions_subject_information_access,
               JSON_EXTRACT(Properties, '$.KeyStorageSecurityStandard') as key_storage_security_standard,
               JSON_EXTRACT(Properties, '$.UsageMode') as usage_mode
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ACMPCA::CertificateAuthority' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthority' ;
   - CertificateAuthorityActivation:
       name: CertificateAuthorityActivation
       id: aws.acmpca.CertificateAuthorityActivation
@@ -532,12 +534,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.Certificate') as certificate,
               JSON_EXTRACT(Properties, '$.CertificateChain') as certificate_chain,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.CompleteCertificateChain') as complete_certificate_chain
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ACMPCA::CertificateAuthorityActivation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthorityActivation' ;
   - Permission:
       name: Permission
       id: aws.acmpca.Permission
@@ -547,8 +550,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Actions') as actions,
               JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.SourceAccount') as source_account
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ACMPCA::Permission' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Permission' ;

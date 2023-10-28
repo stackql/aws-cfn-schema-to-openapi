@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - lightsail
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The lightsail service documentation.
@@ -31,27 +31,17 @@ The lightsail service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/lightsail/Alarm/">Alarm</a><br />
-<a href="/providers/azure/lightsail/Bucket/">Bucket</a><br />
-<a href="/providers/azure/lightsail/Certificate/">Certificate</a><br />
-<a href="/providers/azure/lightsail/Container/">Container</a><br />
-<a href="/providers/azure/lightsail/Database/">Database</a><br />
-<a href="/providers/azure/lightsail/Distribution/">Distribution</a><br />
-<a href="/providers/azure/lightsail/Instance/">Instance</a><br />
-<a href="/providers/azure/lightsail/LoadBalancer/">LoadBalancer</a><br />
-<a href="/providers/azure/lightsail/LoadBalancerTlsCertificate/">LoadBalancerTlsCertificate</a><br />
-<a href="/providers/azure/lightsail/StaticIp/">StaticIp</a>
+<a href="/providers/aws/lightsail/Alarm/">Alarm</a><br />
+<a href="/providers/aws/lightsail/Bucket/">Bucket</a><br />
+<a href="/providers/aws/lightsail/Certificate/">Certificate</a><br />
+<a href="/providers/aws/lightsail/Container/">Container</a><br />
+<a href="/providers/aws/lightsail/Database/">Database</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/lightsail/Alarm/">Alarm</a><br />
-<a href="/providers/azure/lightsail/Bucket/">Bucket</a><br />
-<a href="/providers/azure/lightsail/Certificate/">Certificate</a><br />
-<a href="/providers/azure/lightsail/Container/">Container</a><br />
-<a href="/providers/azure/lightsail/Database/">Database</a><br />
-<a href="/providers/azure/lightsail/Distribution/">Distribution</a><br />
-<a href="/providers/azure/lightsail/Instance/">Instance</a><br />
-<a href="/providers/azure/lightsail/LoadBalancer/">LoadBalancer</a><br />
-<a href="/providers/azure/lightsail/LoadBalancerTlsCertificate/">LoadBalancerTlsCertificate</a><br />
-<a href="/providers/azure/lightsail/StaticIp/">StaticIp</a>
+<a href="/providers/aws/lightsail/Distribution/">Distribution</a><br />
+<a href="/providers/aws/lightsail/Instance/">Instance</a><br />
+<a href="/providers/aws/lightsail/LoadBalancer/">LoadBalancer</a><br />
+<a href="/providers/aws/lightsail/LoadBalancerTlsCertificate/">LoadBalancerTlsCertificate</a><br />
+<a href="/providers/aws/lightsail/StaticIp/">StaticIp</a>
 </div>
 </div>

@@ -853,13 +853,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RoutingStrategy.Message') as routing_strategy_message,
               JSON_EXTRACT(Properties, '$.RoutingStrategy.FleetId') as routing_strategy_fleet_id,
               JSON_EXTRACT(Properties, '$.RoutingStrategy.Type') as routing_strategy_type,
               JSON_EXTRACT(Properties, '$.AliasId') as alias_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::Alias' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Alias' ;
   - Build:
       name: Build
       id: aws.gamelift.Build
@@ -869,6 +870,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.BuildId') as build_id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.OperatingSystem') as operating_system,
@@ -877,7 +879,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.StorageLocation.ObjectVersion') as storage_location_object_version,
               JSON_EXTRACT(Properties, '$.StorageLocation.RoleArn') as storage_location_role_arn,
               JSON_EXTRACT(Properties, '$.Version') as version
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::Build' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Build' ;
   - Location:
       name: Location
       id: aws.gamelift.Location
@@ -887,10 +889,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.LocationName') as location_name,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::Location' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Location' ;
   - Fleet:
       name: Fleet
       id: aws.gamelift.Fleet
@@ -900,6 +903,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AnywhereConfiguration.Cost') as anywhere_configuration_cost,
               JSON_EXTRACT(Properties, '$.CertificateConfiguration.CertificateType') as certificate_configuration_certificate_type,
               JSON_EXTRACT(Properties, '$.ComputeType') as compute_type,
@@ -928,7 +932,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RuntimeConfiguration.ServerProcesses') as runtime_configuration_server_processes,
               JSON_EXTRACT(Properties, '$.ServerLaunchParameters') as server_launch_parameters,
               JSON_EXTRACT(Properties, '$.ServerLaunchPath') as server_launch_path
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::Fleet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Fleet' ;
   - GameServerGroup:
       name: GameServerGroup
       id: aws.gamelift.GameServerGroup
@@ -938,12 +942,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AutoScalingPolicy.EstimatedInstanceWarmup') as auto_scaling_policy_estimated_instance_warmup,
               JSON_EXTRACT(Properties, '$.AutoScalingPolicy.TargetTrackingConfiguration') as auto_scaling_policy_target_tracking_configuration,
               JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateId') as launch_template_launch_template_id,
               JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateName') as launch_template_launch_template_name,
               JSON_EXTRACT(Properties, '$.LaunchTemplate.Version') as launch_template_version
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::GameServerGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameServerGroup' ;
   - GameSessionQueue:
       name: GameSessionQueue
       id: aws.gamelift.GameSessionQueue
@@ -953,6 +958,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.TimeoutInSeconds') as timeout_in_seconds,
               JSON_EXTRACT(Properties, '$.PlayerLatencyPolicies') as player_latency_policies,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
@@ -965,7 +971,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.PriorityConfiguration.PriorityOrder') as priority_configuration_priority_order,
               JSON_EXTRACT(Properties, '$.PriorityConfiguration.LocationOrder') as priority_configuration_location_order
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::GameSessionQueue' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue' ;
   - MatchmakingConfiguration:
       name: MatchmakingConfiguration
       id: aws.gamelift.MatchmakingConfiguration
@@ -975,6 +981,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GameProperties') as game_properties,
               JSON_EXTRACT(Properties, '$.GameSessionData') as game_session_data,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -992,7 +999,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name,
               JSON_EXTRACT(Properties, '$.GameSessionQueueArns') as game_session_queue_arns,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::MatchmakingConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration' ;
   - MatchmakingRuleSet:
       name: MatchmakingRuleSet
       id: aws.gamelift.MatchmakingRuleSet
@@ -1002,12 +1009,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RuleSetBody') as rule_set_body,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::MatchmakingRuleSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet' ;
   - Script:
       name: Script
       id: aws.gamelift.Script
@@ -1017,6 +1025,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.StorageLocation.ObjectVersion') as storage_location_object_version,
@@ -1026,4 +1035,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GameLift::Script' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Script' ;

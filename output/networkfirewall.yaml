@@ -685,6 +685,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FirewallName') as firewall_name,
               JSON_EXTRACT(Properties, '$.FirewallId') as firewall_id,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
@@ -695,7 +696,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EndpointIds') as endpoint_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkFirewall::Firewall' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall' ;
   - FirewallPolicy:
       name: FirewallPolicy
       id: aws.networkfirewall.FirewallPolicy
@@ -705,6 +706,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FirewallPolicyName') as firewall_policy_name,
               JSON_EXTRACT(Properties, '$.FirewallPolicy.FirewallPolicyName') as firewall_policy_firewall_policy_name,
               JSON_EXTRACT(Properties, '$.FirewallPolicy.FirewallPolicyArn') as firewall_policy_firewall_policy_arn,
@@ -715,7 +717,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.FirewallPolicyId') as firewall_policy_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy' ;
   - LoggingConfiguration:
       name: LoggingConfiguration
       id: aws.networkfirewall.LoggingConfiguration
@@ -725,11 +727,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.FirewallName') as firewall_name,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.FirewallName') as logging_configuration_firewall_name,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.FirewallArn') as logging_configuration_firewall_arn,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.LoggingConfiguration') as logging_configuration_logging_configuration
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration' ;
   - RuleGroup:
       name: RuleGroup
       id: aws.networkfirewall.RuleGroup
@@ -739,6 +742,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RuleGroupName') as rule_group_name,
               JSON_EXTRACT(Properties, '$.RuleGroupId') as rule_group_id,
               JSON_EXTRACT(Properties, '$.RuleGroup.RuleGroupName') as rule_group_rule_group_name,
@@ -753,4 +757,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Capacity') as capacity,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkFirewall::RuleGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup' ;

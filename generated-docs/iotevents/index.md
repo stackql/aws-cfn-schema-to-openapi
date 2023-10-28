@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - iotevents
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The iotevents service documentation.
@@ -31,13 +31,10 @@ The iotevents service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/iotevents/AlarmModel/">AlarmModel</a><br />
-<a href="/providers/azure/iotevents/DetectorModel/">DetectorModel</a><br />
-<a href="/providers/azure/iotevents/Input/">Input</a>
+<a href="/providers/aws/iotevents/AlarmModel/">AlarmModel</a><br />
+<a href="/providers/aws/iotevents/DetectorModel/">DetectorModel</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/iotevents/AlarmModel/">AlarmModel</a><br />
-<a href="/providers/azure/iotevents/DetectorModel/">DetectorModel</a><br />
-<a href="/providers/azure/iotevents/Input/">Input</a>
+<a href="/providers/aws/iotevents/Input/">Input</a>
 </div>
 </div>

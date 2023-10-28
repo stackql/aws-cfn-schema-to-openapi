@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - apigateway
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The apigateway service documentation.
@@ -31,59 +31,33 @@ The apigateway service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/apigateway/Account/">Account</a><br />
-<a href="/providers/azure/apigateway/ApiKey/">ApiKey</a><br />
-<a href="/providers/azure/apigateway/Authorizer/">Authorizer</a><br />
-<a href="/providers/azure/apigateway/BasePathMapping/">BasePathMapping</a><br />
-<a href="/providers/azure/apigateway/ClientCertificate/">ClientCertificate</a><br />
-<a href="/providers/azure/apigateway/Deployment/">Deployment</a><br />
-<a href="/providers/azure/apigateway/DocumentationPart/">DocumentationPart</a><br />
-<a href="/providers/azure/apigateway/DocumentationVersion/">DocumentationVersion</a><br />
-<a href="/providers/azure/apigateway/DomainName/">DomainName</a><br />
-<a href="/providers/azure/apigateway/GatewayResponse/">GatewayResponse</a><br />
-<a href="/providers/azure/apigateway/Integration/">Integration</a><br />
-<a href="/providers/azure/apigateway/IntegrationResponse/">IntegrationResponse</a><br />
-<a href="/providers/azure/apigateway/Method/">Method</a><br />
-<a href="/providers/azure/apigateway/Model/">Model</a><br />
-<a href="/providers/azure/apigateway/RequestValidator/">RequestValidator</a><br />
-<a href="/providers/azure/apigateway/Resource/">Resource</a><br />
-<a href="/providers/azure/apigateway/RestApi/">RestApi</a><br />
-<a href="/providers/azure/apigateway/Stage/">Stage</a><br />
-<a href="/providers/azure/apigateway/UsagePlan/">UsagePlan</a><br />
-<a href="/providers/azure/apigateway/UsagePlanKey/">UsagePlanKey</a><br />
-<a href="/providers/azure/apigateway/VpcLink/">VpcLink</a><br />
-<a href="/providers/azure/apigateway/Api/">Api</a><br />
-<a href="/providers/azure/apigateway/ApiGatewayManagedOverrides/">ApiGatewayManagedOverrides</a><br />
-<a href="/providers/azure/apigateway/ApiMapping/">ApiMapping</a><br />
-<a href="/providers/azure/apigateway/Route/">Route</a><br />
-<a href="/providers/azure/apigateway/RouteResponse/">RouteResponse</a>
+<a href="/providers/aws/apigateway/Account/">Account</a><br />
+<a href="/providers/aws/apigateway/Api/">Api</a><br />
+<a href="/providers/aws/apigateway/ApiGatewayManagedOverrides/">ApiGatewayManagedOverrides</a><br />
+<a href="/providers/aws/apigateway/ApiKey/">ApiKey</a><br />
+<a href="/providers/aws/apigateway/ApiMapping/">ApiMapping</a><br />
+<a href="/providers/aws/apigateway/Authorizer/">Authorizer</a><br />
+<a href="/providers/aws/apigateway/BasePathMapping/">BasePathMapping</a><br />
+<a href="/providers/aws/apigateway/ClientCertificate/">ClientCertificate</a><br />
+<a href="/providers/aws/apigateway/Deployment/">Deployment</a><br />
+<a href="/providers/aws/apigateway/DocumentationPart/">DocumentationPart</a><br />
+<a href="/providers/aws/apigateway/DocumentationVersion/">DocumentationVersion</a><br />
+<a href="/providers/aws/apigateway/DomainName/">DomainName</a><br />
+<a href="/providers/aws/apigateway/GatewayResponse/">GatewayResponse</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/apigateway/Account/">Account</a><br />
-<a href="/providers/azure/apigateway/ApiKey/">ApiKey</a><br />
-<a href="/providers/azure/apigateway/Authorizer/">Authorizer</a><br />
-<a href="/providers/azure/apigateway/BasePathMapping/">BasePathMapping</a><br />
-<a href="/providers/azure/apigateway/ClientCertificate/">ClientCertificate</a><br />
-<a href="/providers/azure/apigateway/Deployment/">Deployment</a><br />
-<a href="/providers/azure/apigateway/DocumentationPart/">DocumentationPart</a><br />
-<a href="/providers/azure/apigateway/DocumentationVersion/">DocumentationVersion</a><br />
-<a href="/providers/azure/apigateway/DomainName/">DomainName</a><br />
-<a href="/providers/azure/apigateway/GatewayResponse/">GatewayResponse</a><br />
-<a href="/providers/azure/apigateway/Integration/">Integration</a><br />
-<a href="/providers/azure/apigateway/IntegrationResponse/">IntegrationResponse</a><br />
-<a href="/providers/azure/apigateway/Method/">Method</a><br />
-<a href="/providers/azure/apigateway/Model/">Model</a><br />
-<a href="/providers/azure/apigateway/RequestValidator/">RequestValidator</a><br />
-<a href="/providers/azure/apigateway/Resource/">Resource</a><br />
-<a href="/providers/azure/apigateway/RestApi/">RestApi</a><br />
-<a href="/providers/azure/apigateway/Stage/">Stage</a><br />
-<a href="/providers/azure/apigateway/UsagePlan/">UsagePlan</a><br />
-<a href="/providers/azure/apigateway/UsagePlanKey/">UsagePlanKey</a><br />
-<a href="/providers/azure/apigateway/VpcLink/">VpcLink</a><br />
-<a href="/providers/azure/apigateway/Api/">Api</a><br />
-<a href="/providers/azure/apigateway/ApiGatewayManagedOverrides/">ApiGatewayManagedOverrides</a><br />
-<a href="/providers/azure/apigateway/ApiMapping/">ApiMapping</a><br />
-<a href="/providers/azure/apigateway/Route/">Route</a><br />
-<a href="/providers/azure/apigateway/RouteResponse/">RouteResponse</a>
+<a href="/providers/aws/apigateway/Integration/">Integration</a><br />
+<a href="/providers/aws/apigateway/IntegrationResponse/">IntegrationResponse</a><br />
+<a href="/providers/aws/apigateway/Method/">Method</a><br />
+<a href="/providers/aws/apigateway/Model/">Model</a><br />
+<a href="/providers/aws/apigateway/RequestValidator/">RequestValidator</a><br />
+<a href="/providers/aws/apigateway/Resource/">Resource</a><br />
+<a href="/providers/aws/apigateway/RestApi/">RestApi</a><br />
+<a href="/providers/aws/apigateway/Route/">Route</a><br />
+<a href="/providers/aws/apigateway/RouteResponse/">RouteResponse</a><br />
+<a href="/providers/aws/apigateway/Stage/">Stage</a><br />
+<a href="/providers/aws/apigateway/UsagePlan/">UsagePlan</a><br />
+<a href="/providers/aws/apigateway/UsagePlanKey/">UsagePlanKey</a><br />
+<a href="/providers/aws/apigateway/VpcLink/">VpcLink</a>
 </div>
 </div>

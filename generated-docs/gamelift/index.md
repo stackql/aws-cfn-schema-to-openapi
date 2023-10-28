@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - gamelift
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The gamelift service documentation.
@@ -31,25 +31,16 @@ The gamelift service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/gamelift/Alias/">Alias</a><br />
-<a href="/providers/azure/gamelift/Build/">Build</a><br />
-<a href="/providers/azure/gamelift/Location/">Location</a><br />
-<a href="/providers/azure/gamelift/Fleet/">Fleet</a><br />
-<a href="/providers/azure/gamelift/GameServerGroup/">GameServerGroup</a><br />
-<a href="/providers/azure/gamelift/GameSessionQueue/">GameSessionQueue</a><br />
-<a href="/providers/azure/gamelift/MatchmakingConfiguration/">MatchmakingConfiguration</a><br />
-<a href="/providers/azure/gamelift/MatchmakingRuleSet/">MatchmakingRuleSet</a><br />
-<a href="/providers/azure/gamelift/Script/">Script</a>
+<a href="/providers/aws/gamelift/Alias/">Alias</a><br />
+<a href="/providers/aws/gamelift/Build/">Build</a><br />
+<a href="/providers/aws/gamelift/Fleet/">Fleet</a><br />
+<a href="/providers/aws/gamelift/GameServerGroup/">GameServerGroup</a><br />
+<a href="/providers/aws/gamelift/GameSessionQueue/">GameSessionQueue</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/gamelift/Alias/">Alias</a><br />
-<a href="/providers/azure/gamelift/Build/">Build</a><br />
-<a href="/providers/azure/gamelift/Location/">Location</a><br />
-<a href="/providers/azure/gamelift/Fleet/">Fleet</a><br />
-<a href="/providers/azure/gamelift/GameServerGroup/">GameServerGroup</a><br />
-<a href="/providers/azure/gamelift/GameSessionQueue/">GameSessionQueue</a><br />
-<a href="/providers/azure/gamelift/MatchmakingConfiguration/">MatchmakingConfiguration</a><br />
-<a href="/providers/azure/gamelift/MatchmakingRuleSet/">MatchmakingRuleSet</a><br />
-<a href="/providers/azure/gamelift/Script/">Script</a>
+<a href="/providers/aws/gamelift/Location/">Location</a><br />
+<a href="/providers/aws/gamelift/MatchmakingConfiguration/">MatchmakingConfiguration</a><br />
+<a href="/providers/aws/gamelift/MatchmakingRuleSet/">MatchmakingRuleSet</a><br />
+<a href="/providers/aws/gamelift/Script/">Script</a>
 </div>
 </div>

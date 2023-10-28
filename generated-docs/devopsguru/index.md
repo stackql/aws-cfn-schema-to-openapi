@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - devopsguru
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The devopsguru service documentation.
@@ -31,13 +31,10 @@ The devopsguru service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/devopsguru/LogAnomalyDetectionIntegration/">LogAnomalyDetectionIntegration</a><br />
-<a href="/providers/azure/devopsguru/NotificationChannel/">NotificationChannel</a><br />
-<a href="/providers/azure/devopsguru/ResourceCollection/">ResourceCollection</a>
+<a href="/providers/aws/devopsguru/LogAnomalyDetectionIntegration/">LogAnomalyDetectionIntegration</a><br />
+<a href="/providers/aws/devopsguru/NotificationChannel/">NotificationChannel</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/devopsguru/LogAnomalyDetectionIntegration/">LogAnomalyDetectionIntegration</a><br />
-<a href="/providers/azure/devopsguru/NotificationChannel/">NotificationChannel</a><br />
-<a href="/providers/azure/devopsguru/ResourceCollection/">ResourceCollection</a>
+<a href="/providers/aws/devopsguru/ResourceCollection/">ResourceCollection</a>
 </div>
 </div>

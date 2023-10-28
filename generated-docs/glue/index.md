@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - glue
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The glue service documentation.
@@ -31,37 +31,22 @@ The glue service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/glue/Classifier/">Classifier</a><br />
-<a href="/providers/azure/glue/Connection/">Connection</a><br />
-<a href="/providers/azure/glue/Crawler/">Crawler</a><br />
-<a href="/providers/azure/glue/Database/">Database</a><br />
-<a href="/providers/azure/glue/DataCatalogEncryptionSettings/">DataCatalogEncryptionSettings</a><br />
-<a href="/providers/azure/glue/DevEndpoint/">DevEndpoint</a><br />
-<a href="/providers/azure/glue/Job/">Job</a><br />
-<a href="/providers/azure/glue/MLTransform/">MLTransform</a><br />
-<a href="/providers/azure/glue/Partition/">Partition</a><br />
-<a href="/providers/azure/glue/SchemaVersion/">SchemaVersion</a><br />
-<a href="/providers/azure/glue/SchemaVersionMetadata/">SchemaVersionMetadata</a><br />
-<a href="/providers/azure/glue/SecurityConfiguration/">SecurityConfiguration</a><br />
-<a href="/providers/azure/glue/Table/">Table</a><br />
-<a href="/providers/azure/glue/Trigger/">Trigger</a><br />
-<a href="/providers/azure/glue/Workflow/">Workflow</a>
+<a href="/providers/aws/glue/Classifier/">Classifier</a><br />
+<a href="/providers/aws/glue/Connection/">Connection</a><br />
+<a href="/providers/aws/glue/Crawler/">Crawler</a><br />
+<a href="/providers/aws/glue/Database/">Database</a><br />
+<a href="/providers/aws/glue/DataCatalogEncryptionSettings/">DataCatalogEncryptionSettings</a><br />
+<a href="/providers/aws/glue/DevEndpoint/">DevEndpoint</a><br />
+<a href="/providers/aws/glue/Job/">Job</a><br />
+<a href="/providers/aws/glue/MLTransform/">MLTransform</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/glue/Classifier/">Classifier</a><br />
-<a href="/providers/azure/glue/Connection/">Connection</a><br />
-<a href="/providers/azure/glue/Crawler/">Crawler</a><br />
-<a href="/providers/azure/glue/Database/">Database</a><br />
-<a href="/providers/azure/glue/DataCatalogEncryptionSettings/">DataCatalogEncryptionSettings</a><br />
-<a href="/providers/azure/glue/DevEndpoint/">DevEndpoint</a><br />
-<a href="/providers/azure/glue/Job/">Job</a><br />
-<a href="/providers/azure/glue/MLTransform/">MLTransform</a><br />
-<a href="/providers/azure/glue/Partition/">Partition</a><br />
-<a href="/providers/azure/glue/SchemaVersion/">SchemaVersion</a><br />
-<a href="/providers/azure/glue/SchemaVersionMetadata/">SchemaVersionMetadata</a><br />
-<a href="/providers/azure/glue/SecurityConfiguration/">SecurityConfiguration</a><br />
-<a href="/providers/azure/glue/Table/">Table</a><br />
-<a href="/providers/azure/glue/Trigger/">Trigger</a><br />
-<a href="/providers/azure/glue/Workflow/">Workflow</a>
+<a href="/providers/aws/glue/Partition/">Partition</a><br />
+<a href="/providers/aws/glue/SchemaVersion/">SchemaVersion</a><br />
+<a href="/providers/aws/glue/SchemaVersionMetadata/">SchemaVersionMetadata</a><br />
+<a href="/providers/aws/glue/SecurityConfiguration/">SecurityConfiguration</a><br />
+<a href="/providers/aws/glue/Table/">Table</a><br />
+<a href="/providers/aws/glue/Trigger/">Trigger</a><br />
+<a href="/providers/aws/glue/Workflow/">Workflow</a>
 </div>
 </div>

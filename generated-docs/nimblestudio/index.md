@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - nimblestudio
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The nimblestudio service documentation.
@@ -31,15 +31,11 @@ The nimblestudio service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/nimblestudio/LaunchProfile/">LaunchProfile</a><br />
-<a href="/providers/azure/nimblestudio/StreamingImage/">StreamingImage</a><br />
-<a href="/providers/azure/nimblestudio/Studio/">Studio</a><br />
-<a href="/providers/azure/nimblestudio/StudioComponent/">StudioComponent</a>
+<a href="/providers/aws/nimblestudio/LaunchProfile/">LaunchProfile</a><br />
+<a href="/providers/aws/nimblestudio/StreamingImage/">StreamingImage</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/nimblestudio/LaunchProfile/">LaunchProfile</a><br />
-<a href="/providers/azure/nimblestudio/StreamingImage/">StreamingImage</a><br />
-<a href="/providers/azure/nimblestudio/Studio/">Studio</a><br />
-<a href="/providers/azure/nimblestudio/StudioComponent/">StudioComponent</a>
+<a href="/providers/aws/nimblestudio/Studio/">Studio</a><br />
+<a href="/providers/aws/nimblestudio/StudioComponent/">StudioComponent</a>
 </div>
 </div>

@@ -131,6 +131,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Owner') as owner,
@@ -138,7 +139,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PermissionsPolicyDocument') as permissions_policy_document,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeArtifact::Domain' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Domain' ;
   - Repository:
       name: Repository
       id: aws.codeartifact.Repository
@@ -148,6 +149,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
@@ -158,4 +160,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Upstreams') as upstreams,
               JSON_EXTRACT(Properties, '$.PermissionsPolicyDocument') as permissions_policy_document,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeArtifact::Repository' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Repository' ;

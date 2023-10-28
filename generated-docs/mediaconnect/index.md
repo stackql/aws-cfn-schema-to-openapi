@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - mediaconnect
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The mediaconnect service documentation.
@@ -31,17 +31,12 @@ The mediaconnect service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/mediaconnect/Flow/">Flow</a><br />
-<a href="/providers/azure/mediaconnect/FlowEntitlement/">FlowEntitlement</a><br />
-<a href="/providers/azure/mediaconnect/FlowOutput/">FlowOutput</a><br />
-<a href="/providers/azure/mediaconnect/FlowSource/">FlowSource</a><br />
-<a href="/providers/azure/mediaconnect/FlowVpcInterface/">FlowVpcInterface</a>
+<a href="/providers/aws/mediaconnect/Flow/">Flow</a><br />
+<a href="/providers/aws/mediaconnect/FlowEntitlement/">FlowEntitlement</a><br />
+<a href="/providers/aws/mediaconnect/FlowOutput/">FlowOutput</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/mediaconnect/Flow/">Flow</a><br />
-<a href="/providers/azure/mediaconnect/FlowEntitlement/">FlowEntitlement</a><br />
-<a href="/providers/azure/mediaconnect/FlowOutput/">FlowOutput</a><br />
-<a href="/providers/azure/mediaconnect/FlowSource/">FlowSource</a><br />
-<a href="/providers/azure/mediaconnect/FlowVpcInterface/">FlowVpcInterface</a>
+<a href="/providers/aws/mediaconnect/FlowSource/">FlowSource</a><br />
+<a href="/providers/aws/mediaconnect/FlowVpcInterface/">FlowVpcInterface</a>
 </div>
 </div>

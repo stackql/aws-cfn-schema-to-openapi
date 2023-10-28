@@ -508,13 +508,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as observability_configuration_arn,
               JSON_EXTRACT(Properties, '$.ObservabilityConfigurationName') as observability_configuration_name,
               JSON_EXTRACT(Properties, '$.ObservabilityConfigurationRevision') as observability_configuration_revision,
               JSON_EXTRACT(Properties, '$.Latest') as latest,
               JSON_EXTRACT(Properties, '$.TraceConfiguration.Vendor') as trace_configuration_vendor,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration' ;
   - Service:
       name: Service
       id: aws.apprunner.Service
@@ -524,6 +525,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ServiceName') as service_name,
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id,
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
@@ -549,7 +551,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.EgressConfiguration') as network_configuration_egress_configuration,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.IngressConfiguration') as network_configuration_ingress_configuration
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::Service' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::Service' ;
   - VpcConnector:
       name: VpcConnector
       id: aws.apprunner.VpcConnector
@@ -559,13 +561,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.VpcConnectorName') as vpc_connector_name,
               JSON_EXTRACT(Properties, '$.VpcConnectorArn') as vpc_connector_arn,
               JSON_EXTRACT(Properties, '$.VpcConnectorRevision') as vpc_connector_revision,
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::VpcConnector' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcConnector' ;
   - VpcIngressConnection:
       name: VpcIngressConnection
       id: aws.apprunner.VpcIngressConnection
@@ -575,6 +578,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as vpc_ingress_connection_arn,
               JSON_EXTRACT(Properties, '$.VpcIngressConnectionName') as vpc_ingress_connection_name,
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
@@ -583,4 +587,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcId') as ingress_vpc_configuration_vpc_id,
               JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcEndpointId') as ingress_vpc_configuration_vpc_endpoint_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppRunner::VpcIngressConnection' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection' ;

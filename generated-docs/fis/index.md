@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - fis
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The fis service documentation.
@@ -31,9 +31,9 @@ The fis service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/fis/ExperimentTemplate/">ExperimentTemplate</a>
+<a href="/providers/aws/fis/ExperimentTemplate/">ExperimentTemplate</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/fis/ExperimentTemplate/">ExperimentTemplate</a>
+
 </div>
 </div>

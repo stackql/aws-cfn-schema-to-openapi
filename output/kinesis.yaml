@@ -1710,6 +1710,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DataRetentionInHours') as data_retention_in_hours,
@@ -1717,7 +1718,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::Stream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::Stream' ;
   - StreamConsumer:
       name: StreamConsumer
       id: aws.kinesis.StreamConsumer
@@ -1727,13 +1728,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ConsumerCreationTimestamp') as consumer_creation_timestamp,
               JSON_EXTRACT(Properties, '$.ConsumerName') as consumer_name,
               JSON_EXTRACT(Properties, '$.ConsumerARN') as consumer_ar_n,
               JSON_EXTRACT(Properties, '$.ConsumerStatus') as consumer_status,
               JSON_EXTRACT(Properties, '$.StreamARN') as stream_ar_n
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::StreamConsumer' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::StreamConsumer' ;
   - Application:
       name: Application
       id: aws.kinesis.Application
@@ -1743,6 +1745,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationCodeConfiguration') as application_configuration_application_code_configuration,
               JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationSnapshotConfiguration') as application_configuration_application_snapshot_configuration,
               JSON_EXTRACT(Properties, '$.ApplicationConfiguration.EnvironmentProperties') as application_configuration_environment_properties,
@@ -1758,7 +1761,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RunConfiguration.FlinkRunConfiguration') as run_configuration_flink_run_configuration,
               JSON_EXTRACT(Properties, '$.ApplicationMaintenanceConfiguration.ApplicationMaintenanceWindowStartTime') as application_maintenance_configuration_application_maintenance_window_start_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::Application' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::Application' ;
   - ApplicationOutput:
       name: ApplicationOutput
       id: aws.kinesis.ApplicationOutput
@@ -1768,6 +1771,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.Output.DestinationSchema') as output_destination_schema,
@@ -1775,7 +1779,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
               JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
               JSON_EXTRACT(Properties, '$.Output.Name') as output_name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationOutput' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::ApplicationOutput' ;
   - ApplicationReferenceDataSource:
       name: ApplicationReferenceDataSource
       id: aws.kinesis.ApplicationReferenceDataSource
@@ -1785,12 +1789,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationReferenceDataSource' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::ApplicationReferenceDataSource' ;
   - ApplicationCloudWatchLoggingOption:
       name: ApplicationCloudWatchLoggingOption
       id: aws.kinesis.ApplicationCloudWatchLoggingOption
@@ -1800,10 +1805,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption.LogStreamARN') as cloud_watch_logging_option_log_stream_ar_n
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::ApplicationCloudWatchLoggingOption' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::ApplicationCloudWatchLoggingOption' ;
   - DeliveryStream:
       name: DeliveryStream
       id: aws.kinesis.DeliveryStream
@@ -1813,6 +1819,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DeliveryStreamEncryptionConfigurationInput.KeyARN') as delivery_stream_encryption_configuration_input_key_ar_n,
               JSON_EXTRACT(Properties, '$.DeliveryStreamEncryptionConfigurationInput.KeyType') as delivery_stream_encryption_configuration_input_key_type,
@@ -1907,7 +1914,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3BackupMode') as http_endpoint_destination_configuration_s3_backup_mode,
               JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3Configuration') as http_endpoint_destination_configuration_s3_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::DeliveryStream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::DeliveryStream' ;
   - SignalingChannel:
       name: SignalingChannel
       id: aws.kinesis.SignalingChannel
@@ -1917,9 +1924,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kinesis::SignalingChannel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kinesis::SignalingChannel' ;

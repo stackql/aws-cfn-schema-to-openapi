@@ -1538,6 +1538,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DataSourceConfiguration.S3Configuration') as data_source_configuration_s3_configuration,
               JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SharePointConfiguration') as data_source_configuration_share_point_configuration,
               JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SalesforceConfiguration') as data_source_configuration_salesforce_configuration,
@@ -1552,7 +1553,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PreExtractionHookConfiguration') as custom_document_enrichment_configuration_pre_extraction_hook_configuration,
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PostExtractionHookConfiguration') as custom_document_enrichment_configuration_post_extraction_hook_configuration,
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.RoleArn') as custom_document_enrichment_configuration_role_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::DataSource' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::DataSource' ;
   - Faq:
       name: Faq
       id: aws.kendra.Faq
@@ -1562,10 +1563,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.S3Path.Bucket') as s3_path_bucket,
               JSON_EXTRACT(Properties, '$.S3Path.Key') as s3_path_key,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::Faq' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Faq' ;
   - Index:
       name: Index
       id: aws.kendra.Index
@@ -1575,9 +1577,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::Index' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index' ;
   - ExecutionPlan:
       name: ExecutionPlan
       id: aws.kendra.ExecutionPlan
@@ -1587,5 +1590,6 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Kendra::ExecutionPlan' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::ExecutionPlan' ;

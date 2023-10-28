@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - kinesis
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The kinesis service documentation.
@@ -31,23 +31,15 @@ The kinesis service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/kinesis/Stream/">Stream</a><br />
-<a href="/providers/azure/kinesis/StreamConsumer/">StreamConsumer</a><br />
-<a href="/providers/azure/kinesis/Application/">Application</a><br />
-<a href="/providers/azure/kinesis/ApplicationOutput/">ApplicationOutput</a><br />
-<a href="/providers/azure/kinesis/ApplicationReferenceDataSource/">ApplicationReferenceDataSource</a><br />
-<a href="/providers/azure/kinesis/ApplicationCloudWatchLoggingOption/">ApplicationCloudWatchLoggingOption</a><br />
-<a href="/providers/azure/kinesis/DeliveryStream/">DeliveryStream</a><br />
-<a href="/providers/azure/kinesis/SignalingChannel/">SignalingChannel</a>
+<a href="/providers/aws/kinesis/Application/">Application</a><br />
+<a href="/providers/aws/kinesis/ApplicationCloudWatchLoggingOption/">ApplicationCloudWatchLoggingOption</a><br />
+<a href="/providers/aws/kinesis/ApplicationOutput/">ApplicationOutput</a><br />
+<a href="/providers/aws/kinesis/ApplicationReferenceDataSource/">ApplicationReferenceDataSource</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/kinesis/Stream/">Stream</a><br />
-<a href="/providers/azure/kinesis/StreamConsumer/">StreamConsumer</a><br />
-<a href="/providers/azure/kinesis/Application/">Application</a><br />
-<a href="/providers/azure/kinesis/ApplicationOutput/">ApplicationOutput</a><br />
-<a href="/providers/azure/kinesis/ApplicationReferenceDataSource/">ApplicationReferenceDataSource</a><br />
-<a href="/providers/azure/kinesis/ApplicationCloudWatchLoggingOption/">ApplicationCloudWatchLoggingOption</a><br />
-<a href="/providers/azure/kinesis/DeliveryStream/">DeliveryStream</a><br />
-<a href="/providers/azure/kinesis/SignalingChannel/">SignalingChannel</a>
+<a href="/providers/aws/kinesis/DeliveryStream/">DeliveryStream</a><br />
+<a href="/providers/aws/kinesis/SignalingChannel/">SignalingChannel</a><br />
+<a href="/providers/aws/kinesis/Stream/">Stream</a><br />
+<a href="/providers/aws/kinesis/StreamConsumer/">StreamConsumer</a>
 </div>
 </div>

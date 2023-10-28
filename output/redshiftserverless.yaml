@@ -228,6 +228,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AdminUserPassword') as admin_user_password,
               JSON_EXTRACT(Properties, '$.AdminUsername') as admin_username,
               JSON_EXTRACT(Properties, '$.DbName') as db_name,
@@ -251,7 +252,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.FinalSnapshotName') as final_snapshot_name,
               JSON_EXTRACT(Properties, '$.FinalSnapshotRetentionPeriod') as final_snapshot_retention_period
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::RedshiftServerless::Namespace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace' ;
   - Workgroup:
       name: Workgroup
       id: aws.redshiftserverless.Workgroup
@@ -261,6 +262,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.WorkgroupName') as workgroup_name,
               JSON_EXTRACT(Properties, '$.NamespaceName') as namespace_name,
               JSON_EXTRACT(Properties, '$.BaseCapacity') as base_capacity,
@@ -282,4 +284,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Workgroup.Port') as workgroup_port,
               JSON_EXTRACT(Properties, '$.Workgroup.Tags') as workgroup_tags,
               JSON_EXTRACT(Properties, '$.Workgroup.Workgroup') as workgroup_workgroup
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::RedshiftServerless::Workgroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup' ;

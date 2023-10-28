@@ -533,6 +533,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.SslPolicy') as ssl_policy,
               JSON_EXTRACT(Properties, '$.LoadBalancerArn') as load_balancer_arn,
               JSON_EXTRACT(Properties, '$.DefaultActions') as default_actions,
@@ -541,7 +542,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.AlpnPolicy') as alpn_policy
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener' ;
   - ListenerCertificate:
       name: ListenerCertificate
       id: aws.elasticloadbalancingv2.ListenerCertificate
@@ -551,10 +552,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.Certificates') as certificates,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate' ;
   - ListenerRule:
       name: ListenerRule
       id: aws.elasticloadbalancingv2.ListenerRule
@@ -564,13 +566,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn,
               JSON_EXTRACT(Properties, '$.Actions') as actions,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.Conditions') as conditions,
               JSON_EXTRACT(Properties, '$.IsDefault') as is_default
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule' ;
   - LoadBalancer:
       name: LoadBalancer
       id: aws.elasticloadbalancingv2.LoadBalancer
@@ -580,6 +583,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.LoadBalancerAttributes') as load_balancer_attributes,
@@ -594,7 +598,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LoadBalancerFullName') as load_balancer_full_name,
               JSON_EXTRACT(Properties, '$.SubnetMappings') as subnet_mappings
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer' ;
   - TargetGroup:
       name: TargetGroup
       id: aws.elasticloadbalancingv2.TargetGroup
@@ -604,6 +608,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
               JSON_EXTRACT(Properties, '$.HealthCheckIntervalSeconds') as health_check_interval_seconds,
               JSON_EXTRACT(Properties, '$.LoadBalancerArns') as load_balancer_arns,
@@ -628,4 +633,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.TargetGroupName') as target_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup' ;

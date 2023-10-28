@@ -309,10 +309,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AssessmentTargetName') as assessment_target_name,
               JSON_EXTRACT(Properties, '$.ResourceGroupArn') as resource_group_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Inspector::AssessmentTarget' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget' ;
   - AssessmentTemplate:
       name: AssessmentTemplate
       id: aws.inspector.AssessmentTemplate
@@ -322,13 +323,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AssessmentTargetArn') as assessment_target_arn,
               JSON_EXTRACT(Properties, '$.DurationInSeconds') as duration_in_seconds,
               JSON_EXTRACT(Properties, '$.AssessmentTemplateName') as assessment_template_name,
               JSON_EXTRACT(Properties, '$.RulesPackageArns') as rules_package_arns,
               JSON_EXTRACT(Properties, '$.UserAttributesForFindings') as user_attributes_for_findings
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Inspector::AssessmentTemplate' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate' ;
   - ResourceGroup:
       name: ResourceGroup
       id: aws.inspector.ResourceGroup
@@ -338,9 +340,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResourceGroupTags') as resource_group_tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Inspector::ResourceGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::ResourceGroup' ;
   - Filter:
       name: Filter
       id: aws.inspector.Filter
@@ -350,6 +353,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.FilterCriteria.AwsAccountId') as filter_criteria_aws_account_id,
@@ -384,4 +388,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.FilterCriteria.VulnerabilitySource') as filter_criteria_vulnerability_source,
               JSON_EXTRACT(Properties, '$.FilterCriteria.VulnerablePackages') as filter_criteria_vulnerable_packages,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Inspector::Filter' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::Filter' ;

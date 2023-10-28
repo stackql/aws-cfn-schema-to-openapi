@@ -154,9 +154,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AliasName') as alias_name,
               JSON_EXTRACT(Properties, '$.TargetKeyId') as target_key_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KMS::Alias' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Alias' ;
   - Key:
       name: Key
       id: aws.kms.Key
@@ -166,6 +167,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
               JSON_EXTRACT(Properties, '$.EnableKeyRotation') as enable_key_rotation,
@@ -177,7 +179,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.KeyId') as key_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KMS::Key' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Key' ;
   - ReplicaKey:
       name: ReplicaKey
       id: aws.kms.ReplicaKey
@@ -187,6 +189,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PrimaryKeyArn') as primary_key_arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
@@ -195,4 +198,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.KeyId') as key_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KMS::ReplicaKey' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::ReplicaKey' ;

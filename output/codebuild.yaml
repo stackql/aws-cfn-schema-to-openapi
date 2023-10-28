@@ -432,6 +432,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ResourceAccessRole') as resource_access_role,
               JSON_EXTRACT(Properties, '$.VpcConfig.Subnets') as vpc_config_subnets,
@@ -493,7 +494,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Cache.Modes') as cache_modes,
               JSON_EXTRACT(Properties, '$.Cache.Type') as cache_type,
               JSON_EXTRACT(Properties, '$.Cache.Location') as cache_location
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeBuild::Project' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Project' ;
   - ReportGroup:
       name: ReportGroup
       id: aws.codebuild.ReportGroup
@@ -503,6 +504,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.ExportConfig.S3Destination') as export_config_s3_destination,
               JSON_EXTRACT(Properties, '$.ExportConfig.ExportConfigType') as export_config_export_config_type,
@@ -511,7 +513,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DeleteReports') as delete_reports,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeBuild::ReportGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::ReportGroup' ;
   - SourceCredential:
       name: SourceCredential
       id: aws.codebuild.SourceCredential
@@ -521,9 +523,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ServerType') as server_type,
               JSON_EXTRACT(Properties, '$.Token') as token,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Username') as username
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeBuild::SourceCredential' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::SourceCredential' ;

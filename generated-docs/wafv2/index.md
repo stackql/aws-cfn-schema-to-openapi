@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - wafv2
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The wafv2 service documentation.
@@ -31,19 +31,13 @@ The wafv2 service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/wafv2/IPSet/">IPSet</a><br />
-<a href="/providers/azure/wafv2/LoggingConfiguration/">LoggingConfiguration</a><br />
-<a href="/providers/azure/wafv2/RegexPatternSet/">RegexPatternSet</a><br />
-<a href="/providers/azure/wafv2/RuleGroup/">RuleGroup</a><br />
-<a href="/providers/azure/wafv2/WebACL/">WebACL</a><br />
-<a href="/providers/azure/wafv2/WebACLAssociation/">WebACLAssociation</a>
+<a href="/providers/aws/wafv2/IPSet/">IPSet</a><br />
+<a href="/providers/aws/wafv2/LoggingConfiguration/">LoggingConfiguration</a><br />
+<a href="/providers/aws/wafv2/RegexPatternSet/">RegexPatternSet</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/wafv2/IPSet/">IPSet</a><br />
-<a href="/providers/azure/wafv2/LoggingConfiguration/">LoggingConfiguration</a><br />
-<a href="/providers/azure/wafv2/RegexPatternSet/">RegexPatternSet</a><br />
-<a href="/providers/azure/wafv2/RuleGroup/">RuleGroup</a><br />
-<a href="/providers/azure/wafv2/WebACL/">WebACL</a><br />
-<a href="/providers/azure/wafv2/WebACLAssociation/">WebACLAssociation</a>
+<a href="/providers/aws/wafv2/RuleGroup/">RuleGroup</a><br />
+<a href="/providers/aws/wafv2/WebACL/">WebACL</a><br />
+<a href="/providers/aws/wafv2/WebACLAssociation/">WebACLAssociation</a>
 </div>
 </div>

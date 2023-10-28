@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - cognito
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The cognito service documentation.
@@ -31,31 +31,19 @@ The cognito service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/cognito/IdentityPool/">IdentityPool</a><br />
-<a href="/providers/azure/cognito/IdentityPoolRoleAttachment/">IdentityPoolRoleAttachment</a><br />
-<a href="/providers/azure/cognito/UserPool/">UserPool</a><br />
-<a href="/providers/azure/cognito/UserPoolClient/">UserPoolClient</a><br />
-<a href="/providers/azure/cognito/UserPoolDomain/">UserPoolDomain</a><br />
-<a href="/providers/azure/cognito/UserPoolGroup/">UserPoolGroup</a><br />
-<a href="/providers/azure/cognito/UserPoolIdentityProvider/">UserPoolIdentityProvider</a><br />
-<a href="/providers/azure/cognito/UserPoolResourceServer/">UserPoolResourceServer</a><br />
-<a href="/providers/azure/cognito/UserPoolRiskConfigurationAttachment/">UserPoolRiskConfigurationAttachment</a><br />
-<a href="/providers/azure/cognito/UserPoolUICustomizationAttachment/">UserPoolUICustomizationAttachment</a><br />
-<a href="/providers/azure/cognito/UserPoolUser/">UserPoolUser</a><br />
-<a href="/providers/azure/cognito/UserPoolUserToGroupAttachment/">UserPoolUserToGroupAttachment</a>
+<a href="/providers/aws/cognito/IdentityPool/">IdentityPool</a><br />
+<a href="/providers/aws/cognito/IdentityPoolRoleAttachment/">IdentityPoolRoleAttachment</a><br />
+<a href="/providers/aws/cognito/UserPool/">UserPool</a><br />
+<a href="/providers/aws/cognito/UserPoolClient/">UserPoolClient</a><br />
+<a href="/providers/aws/cognito/UserPoolDomain/">UserPoolDomain</a><br />
+<a href="/providers/aws/cognito/UserPoolGroup/">UserPoolGroup</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/cognito/IdentityPool/">IdentityPool</a><br />
-<a href="/providers/azure/cognito/IdentityPoolRoleAttachment/">IdentityPoolRoleAttachment</a><br />
-<a href="/providers/azure/cognito/UserPool/">UserPool</a><br />
-<a href="/providers/azure/cognito/UserPoolClient/">UserPoolClient</a><br />
-<a href="/providers/azure/cognito/UserPoolDomain/">UserPoolDomain</a><br />
-<a href="/providers/azure/cognito/UserPoolGroup/">UserPoolGroup</a><br />
-<a href="/providers/azure/cognito/UserPoolIdentityProvider/">UserPoolIdentityProvider</a><br />
-<a href="/providers/azure/cognito/UserPoolResourceServer/">UserPoolResourceServer</a><br />
-<a href="/providers/azure/cognito/UserPoolRiskConfigurationAttachment/">UserPoolRiskConfigurationAttachment</a><br />
-<a href="/providers/azure/cognito/UserPoolUICustomizationAttachment/">UserPoolUICustomizationAttachment</a><br />
-<a href="/providers/azure/cognito/UserPoolUser/">UserPoolUser</a><br />
-<a href="/providers/azure/cognito/UserPoolUserToGroupAttachment/">UserPoolUserToGroupAttachment</a>
+<a href="/providers/aws/cognito/UserPoolIdentityProvider/">UserPoolIdentityProvider</a><br />
+<a href="/providers/aws/cognito/UserPoolResourceServer/">UserPoolResourceServer</a><br />
+<a href="/providers/aws/cognito/UserPoolRiskConfigurationAttachment/">UserPoolRiskConfigurationAttachment</a><br />
+<a href="/providers/aws/cognito/UserPoolUICustomizationAttachment/">UserPoolUICustomizationAttachment</a><br />
+<a href="/providers/aws/cognito/UserPoolUser/">UserPoolUser</a><br />
+<a href="/providers/aws/cognito/UserPoolUserToGroupAttachment/">UserPoolUserToGroupAttachment</a>
 </div>
 </div>

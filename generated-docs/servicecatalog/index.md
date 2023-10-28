@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - servicecatalog
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The servicecatalog service documentation.
@@ -31,47 +31,27 @@ The servicecatalog service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/servicecatalog/AcceptedPortfolioShare/">AcceptedPortfolioShare</a><br />
-<a href="/providers/azure/servicecatalog/CloudFormationProduct/">CloudFormationProduct</a><br />
-<a href="/providers/azure/servicecatalog/CloudFormationProvisionedProduct/">CloudFormationProvisionedProduct</a><br />
-<a href="/providers/azure/servicecatalog/LaunchNotificationConstraint/">LaunchNotificationConstraint</a><br />
-<a href="/providers/azure/servicecatalog/LaunchRoleConstraint/">LaunchRoleConstraint</a><br />
-<a href="/providers/azure/servicecatalog/LaunchTemplateConstraint/">LaunchTemplateConstraint</a><br />
-<a href="/providers/azure/servicecatalog/Portfolio/">Portfolio</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioPrincipalAssociation/">PortfolioPrincipalAssociation</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioProductAssociation/">PortfolioProductAssociation</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioShare/">PortfolioShare</a><br />
-<a href="/providers/azure/servicecatalog/ResourceUpdateConstraint/">ResourceUpdateConstraint</a><br />
-<a href="/providers/azure/servicecatalog/ServiceAction/">ServiceAction</a><br />
-<a href="/providers/azure/servicecatalog/ServiceActionAssociation/">ServiceActionAssociation</a><br />
-<a href="/providers/azure/servicecatalog/StackSetConstraint/">StackSetConstraint</a><br />
-<a href="/providers/azure/servicecatalog/TagOption/">TagOption</a><br />
-<a href="/providers/azure/servicecatalog/TagOptionAssociation/">TagOptionAssociation</a><br />
-<a href="/providers/azure/servicecatalog/Application/">Application</a><br />
-<a href="/providers/azure/servicecatalog/AttributeGroup/">AttributeGroup</a><br />
-<a href="/providers/azure/servicecatalog/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
-<a href="/providers/azure/servicecatalog/ResourceAssociation/">ResourceAssociation</a>
+<a href="/providers/aws/servicecatalog/AcceptedPortfolioShare/">AcceptedPortfolioShare</a><br />
+<a href="/providers/aws/servicecatalog/Application/">Application</a><br />
+<a href="/providers/aws/servicecatalog/AttributeGroup/">AttributeGroup</a><br />
+<a href="/providers/aws/servicecatalog/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
+<a href="/providers/aws/servicecatalog/CloudFormationProduct/">CloudFormationProduct</a><br />
+<a href="/providers/aws/servicecatalog/CloudFormationProvisionedProduct/">CloudFormationProvisionedProduct</a><br />
+<a href="/providers/aws/servicecatalog/LaunchNotificationConstraint/">LaunchNotificationConstraint</a><br />
+<a href="/providers/aws/servicecatalog/LaunchRoleConstraint/">LaunchRoleConstraint</a><br />
+<a href="/providers/aws/servicecatalog/LaunchTemplateConstraint/">LaunchTemplateConstraint</a><br />
+<a href="/providers/aws/servicecatalog/Portfolio/">Portfolio</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/servicecatalog/AcceptedPortfolioShare/">AcceptedPortfolioShare</a><br />
-<a href="/providers/azure/servicecatalog/CloudFormationProduct/">CloudFormationProduct</a><br />
-<a href="/providers/azure/servicecatalog/CloudFormationProvisionedProduct/">CloudFormationProvisionedProduct</a><br />
-<a href="/providers/azure/servicecatalog/LaunchNotificationConstraint/">LaunchNotificationConstraint</a><br />
-<a href="/providers/azure/servicecatalog/LaunchRoleConstraint/">LaunchRoleConstraint</a><br />
-<a href="/providers/azure/servicecatalog/LaunchTemplateConstraint/">LaunchTemplateConstraint</a><br />
-<a href="/providers/azure/servicecatalog/Portfolio/">Portfolio</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioPrincipalAssociation/">PortfolioPrincipalAssociation</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioProductAssociation/">PortfolioProductAssociation</a><br />
-<a href="/providers/azure/servicecatalog/PortfolioShare/">PortfolioShare</a><br />
-<a href="/providers/azure/servicecatalog/ResourceUpdateConstraint/">ResourceUpdateConstraint</a><br />
-<a href="/providers/azure/servicecatalog/ServiceAction/">ServiceAction</a><br />
-<a href="/providers/azure/servicecatalog/ServiceActionAssociation/">ServiceActionAssociation</a><br />
-<a href="/providers/azure/servicecatalog/StackSetConstraint/">StackSetConstraint</a><br />
-<a href="/providers/azure/servicecatalog/TagOption/">TagOption</a><br />
-<a href="/providers/azure/servicecatalog/TagOptionAssociation/">TagOptionAssociation</a><br />
-<a href="/providers/azure/servicecatalog/Application/">Application</a><br />
-<a href="/providers/azure/servicecatalog/AttributeGroup/">AttributeGroup</a><br />
-<a href="/providers/azure/servicecatalog/AttributeGroupAssociation/">AttributeGroupAssociation</a><br />
-<a href="/providers/azure/servicecatalog/ResourceAssociation/">ResourceAssociation</a>
+<a href="/providers/aws/servicecatalog/PortfolioPrincipalAssociation/">PortfolioPrincipalAssociation</a><br />
+<a href="/providers/aws/servicecatalog/PortfolioProductAssociation/">PortfolioProductAssociation</a><br />
+<a href="/providers/aws/servicecatalog/PortfolioShare/">PortfolioShare</a><br />
+<a href="/providers/aws/servicecatalog/ResourceAssociation/">ResourceAssociation</a><br />
+<a href="/providers/aws/servicecatalog/ResourceUpdateConstraint/">ResourceUpdateConstraint</a><br />
+<a href="/providers/aws/servicecatalog/ServiceAction/">ServiceAction</a><br />
+<a href="/providers/aws/servicecatalog/ServiceActionAssociation/">ServiceActionAssociation</a><br />
+<a href="/providers/aws/servicecatalog/StackSetConstraint/">StackSetConstraint</a><br />
+<a href="/providers/aws/servicecatalog/TagOption/">TagOption</a><br />
+<a href="/providers/aws/servicecatalog/TagOptionAssociation/">TagOptionAssociation</a>
 </div>
 </div>

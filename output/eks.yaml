@@ -588,6 +588,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.AddonName') as addon_name,
               JSON_EXTRACT(Properties, '$.AddonVersion') as addon_version,
@@ -597,7 +598,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ConfigurationValues') as configuration_values,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EKS::Addon' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Addon' ;
   - Cluster:
       name: Cluster
       id: aws.eks.Cluster
@@ -607,6 +608,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.EncryptionConfig') as encryption_config,
               JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig.ServiceIpv4Cidr') as kubernetes_network_config_service_ipv4_cidr,
               JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig.ServiceIpv6Cidr') as kubernetes_network_config_service_ipv6_cidr,
@@ -631,7 +633,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ClusterSecurityGroupId') as cluster_security_group_id,
               JSON_EXTRACT(Properties, '$.EncryptionConfigKeyArn') as encryption_config_key_arn,
               JSON_EXTRACT(Properties, '$.OpenIdConnectIssuerUrl') as open_id_connect_issuer_url
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EKS::Cluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Cluster' ;
   - FargateProfile:
       name: FargateProfile
       id: aws.eks.FargateProfile
@@ -641,6 +643,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.FargateProfileName') as fargate_profile_name,
               JSON_EXTRACT(Properties, '$.PodExecutionRoleArn') as pod_execution_role_arn,
@@ -648,7 +651,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
               JSON_EXTRACT(Properties, '$.Selectors') as selectors,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EKS::FargateProfile' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::FargateProfile' ;
   - IdentityProviderConfig:
       name: IdentityProviderConfig
       id: aws.eks.IdentityProviderConfig
@@ -658,6 +661,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigName') as identity_provider_config_name,
@@ -670,7 +674,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Oidc.UsernamePrefix') as oidc_username_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigArn') as identity_provider_config_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EKS::IdentityProviderConfig' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig' ;
   - Nodegroup:
       name: Nodegroup
       id: aws.eks.Nodegroup
@@ -680,6 +684,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AmiType') as ami_type,
               JSON_EXTRACT(Properties, '$.CapacityType') as capacity_type,
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
@@ -706,4 +711,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::EKS::Nodegroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Nodegroup' ;

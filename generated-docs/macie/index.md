@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - macie
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The macie service documentation.
@@ -31,15 +31,11 @@ The macie service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/macie/AllowList/">AllowList</a><br />
-<a href="/providers/azure/macie/CustomDataIdentifier/">CustomDataIdentifier</a><br />
-<a href="/providers/azure/macie/FindingsFilter/">FindingsFilter</a><br />
-<a href="/providers/azure/macie/Session/">Session</a>
+<a href="/providers/aws/macie/AllowList/">AllowList</a><br />
+<a href="/providers/aws/macie/CustomDataIdentifier/">CustomDataIdentifier</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/macie/AllowList/">AllowList</a><br />
-<a href="/providers/azure/macie/CustomDataIdentifier/">CustomDataIdentifier</a><br />
-<a href="/providers/azure/macie/FindingsFilter/">FindingsFilter</a><br />
-<a href="/providers/azure/macie/Session/">Session</a>
+<a href="/providers/aws/macie/FindingsFilter/">FindingsFilter</a><br />
+<a href="/providers/aws/macie/Session/">Session</a>
 </div>
 </div>

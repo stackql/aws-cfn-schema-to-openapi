@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - appflow
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The appflow service documentation.
@@ -31,13 +31,10 @@ The appflow service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/appflow/Connector/">Connector</a><br />
-<a href="/providers/azure/appflow/ConnectorProfile/">ConnectorProfile</a><br />
-<a href="/providers/azure/appflow/Flow/">Flow</a>
+<a href="/providers/aws/appflow/Connector/">Connector</a><br />
+<a href="/providers/aws/appflow/ConnectorProfile/">ConnectorProfile</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/appflow/Connector/">Connector</a><br />
-<a href="/providers/azure/appflow/ConnectorProfile/">ConnectorProfile</a><br />
-<a href="/providers/azure/appflow/Flow/">Flow</a>
+<a href="/providers/aws/appflow/Flow/">Flow</a>
 </div>
 </div>

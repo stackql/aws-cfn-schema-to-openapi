@@ -1598,12 +1598,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.VpcConfiguration.VpcId') as vpc_configuration_vpc_id,
               JSON_EXTRACT(Properties, '$.Policy') as policy
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::AccessPoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint' ;
   - Bucket:
       name: Bucket
       id: aws.s3.Bucket
@@ -1613,12 +1614,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
               JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::Bucket' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket' ;
   - BucketPolicy:
       name: BucketPolicy
       id: aws.s3.BucketPolicy
@@ -1628,9 +1630,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::BucketPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy' ;
   - MultiRegionAccessPoint:
       name: MultiRegionAccessPoint
       id: aws.s3.MultiRegionAccessPoint
@@ -1640,6 +1643,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
@@ -1648,7 +1652,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
               JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
               JSON_EXTRACT(Properties, '$.Regions') as regions
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::MultiRegionAccessPoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint' ;
   - MultiRegionAccessPointPolicy:
       name: MultiRegionAccessPointPolicy
       id: aws.s3.MultiRegionAccessPointPolicy
@@ -1658,10 +1662,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MrapName') as mrap_name,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy' ;
   - StorageLens:
       name: StorageLens
       id: aws.s3.StorageLens
@@ -1671,6 +1676,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Id') as storage_lens_configuration_id,
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Include') as storage_lens_configuration_include,
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Exclude') as storage_lens_configuration_exclude,
@@ -1680,7 +1686,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.IsEnabled') as storage_lens_configuration_is_enabled,
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.StorageLensArn') as storage_lens_configuration_storage_lens_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::StorageLens' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::StorageLens' ;
   - AccessPointPolicy:
       name: AccessPointPolicy
       id: aws.s3.AccessPointPolicy
@@ -1690,9 +1696,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::AccessPointPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPointPolicy' ;
   - Endpoint:
       name: Endpoint
       id: aws.s3.Endpoint
@@ -1702,6 +1709,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CidrBlock') as cidr_block,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -1712,4 +1720,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.AccessType') as access_type,
               JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3::Endpoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Endpoint' ;

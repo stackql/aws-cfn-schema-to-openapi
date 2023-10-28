@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - appsync
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The appsync service documentation.
@@ -31,25 +31,16 @@ The appsync service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/appsync/ApiCache/">ApiCache</a><br />
-<a href="/providers/azure/appsync/ApiKey/">ApiKey</a><br />
-<a href="/providers/azure/appsync/DataSource/">DataSource</a><br />
-<a href="/providers/azure/appsync/DomainName/">DomainName</a><br />
-<a href="/providers/azure/appsync/DomainNameApiAssociation/">DomainNameApiAssociation</a><br />
-<a href="/providers/azure/appsync/FunctionConfiguration/">FunctionConfiguration</a><br />
-<a href="/providers/azure/appsync/GraphQLApi/">GraphQLApi</a><br />
-<a href="/providers/azure/appsync/GraphQLSchema/">GraphQLSchema</a><br />
-<a href="/providers/azure/appsync/Resolver/">Resolver</a>
+<a href="/providers/aws/appsync/ApiCache/">ApiCache</a><br />
+<a href="/providers/aws/appsync/ApiKey/">ApiKey</a><br />
+<a href="/providers/aws/appsync/DataSource/">DataSource</a><br />
+<a href="/providers/aws/appsync/DomainName/">DomainName</a><br />
+<a href="/providers/aws/appsync/DomainNameApiAssociation/">DomainNameApiAssociation</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/appsync/ApiCache/">ApiCache</a><br />
-<a href="/providers/azure/appsync/ApiKey/">ApiKey</a><br />
-<a href="/providers/azure/appsync/DataSource/">DataSource</a><br />
-<a href="/providers/azure/appsync/DomainName/">DomainName</a><br />
-<a href="/providers/azure/appsync/DomainNameApiAssociation/">DomainNameApiAssociation</a><br />
-<a href="/providers/azure/appsync/FunctionConfiguration/">FunctionConfiguration</a><br />
-<a href="/providers/azure/appsync/GraphQLApi/">GraphQLApi</a><br />
-<a href="/providers/azure/appsync/GraphQLSchema/">GraphQLSchema</a><br />
-<a href="/providers/azure/appsync/Resolver/">Resolver</a>
+<a href="/providers/aws/appsync/FunctionConfiguration/">FunctionConfiguration</a><br />
+<a href="/providers/aws/appsync/GraphQLApi/">GraphQLApi</a><br />
+<a href="/providers/aws/appsync/GraphQLSchema/">GraphQLSchema</a><br />
+<a href="/providers/aws/appsync/Resolver/">Resolver</a>
 </div>
 </div>

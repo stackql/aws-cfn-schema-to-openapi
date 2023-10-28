@@ -378,6 +378,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Authorized') as authorized,
@@ -387,7 +388,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PlaybackUrl') as playback_url,
               JSON_EXTRACT(Properties, '$.IngestEndpoint') as ingest_endpoint,
               JSON_EXTRACT(Properties, '$.RecordingConfigurationArn') as recording_configuration_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::Channel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Channel' ;
   - PlaybackKeyPair:
       name: PlaybackKeyPair
       id: aws.ivs.PlaybackKeyPair
@@ -397,12 +398,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.PublicKeyMaterial') as public_key_material,
               JSON_EXTRACT(Properties, '$.Fingerprint') as fingerprint,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::PlaybackKeyPair' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair' ;
   - RecordingConfiguration:
       name: RecordingConfiguration
       id: aws.ivs.RecordingConfiguration
@@ -412,6 +414,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.State') as state,
@@ -422,7 +425,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.RecordingMode') as thumbnail_configuration_recording_mode,
               JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.TargetIntervalSeconds') as thumbnail_configuration_target_interval_seconds
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::RecordingConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration' ;
   - StreamKey:
       name: StreamKey
       id: aws.ivs.StreamKey
@@ -432,11 +435,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Value') as value
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::StreamKey' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::StreamKey' ;
   - LoggingConfiguration:
       name: LoggingConfiguration
       id: aws.ivs.LoggingConfiguration
@@ -446,6 +450,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DestinationConfiguration.CloudWatchLogs') as destination_configuration_cloud_watch_logs,
@@ -454,7 +459,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::LoggingConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::LoggingConfiguration' ;
   - Room:
       name: Room
       id: aws.ivs.Room
@@ -464,6 +469,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -473,4 +479,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.MessageReviewHandler.FallbackResult') as message_review_handler_fallback_result,
               JSON_EXTRACT(Properties, '$.MessageReviewHandler.Uri') as message_review_handler_uri,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IVS::Room' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Room' ;

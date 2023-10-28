@@ -1417,11 +1417,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Locations') as locations
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::CidrCollection' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::CidrCollection' ;
   - DNSSEC:
       name: DNSSEC
       id: aws.route53.DNSSEC
@@ -1431,8 +1432,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::DNSSEC' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::DNSSEC' ;
   - HealthCheck:
       name: HealthCheck
       id: aws.route53.HealthCheck
@@ -1442,10 +1444,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.HealthCheckId') as health_check_id,
               JSON_EXTRACT(Properties, '$.HealthCheckConfig') as health_check_config,
               JSON_EXTRACT(Properties, '$.HealthCheckTags') as health_check_tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::HealthCheck' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HealthCheck' ;
   - HostedZone:
       name: HostedZone
       id: aws.route53.HostedZone
@@ -1455,6 +1458,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.HostedZoneConfig.Comment') as hosted_zone_config_comment,
               JSON_EXTRACT(Properties, '$.HostedZoneTags') as hosted_zone_tags,
@@ -1462,7 +1466,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.QueryLoggingConfig.CloudWatchLogsLogGroupArn') as query_logging_config_cloud_watch_logs_log_group_arn,
               JSON_EXTRACT(Properties, '$.VPCs') as v_pcs,
               JSON_EXTRACT(Properties, '$.NameServers') as name_servers
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::HostedZone' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HostedZone' ;
   - KeySigningKey:
       name: KeySigningKey
       id: aws.route53.KeySigningKey
@@ -1472,11 +1476,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KeyManagementServiceArn') as key_management_service_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::KeySigningKey' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::KeySigningKey' ;
   - RecordSetGroup:
       name: RecordSetGroup
       id: aws.route53.RecordSetGroup
@@ -1486,12 +1491,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Comment') as comment,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.HostedZoneName') as hosted_zone_name,
               JSON_EXTRACT(Properties, '$.RecordSets') as record_sets,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RecordSetGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::RecordSetGroup' ;
   - Cluster:
       name: Cluster
       id: aws.route53.Cluster
@@ -1501,12 +1507,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterEndpoints') as cluster_endpoints,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::Cluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::Cluster' ;
   - ControlPanel:
       name: ControlPanel
       id: aws.route53.ControlPanel
@@ -1516,6 +1523,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1523,7 +1531,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DefaultControlPanel') as default_control_panel,
               JSON_EXTRACT(Properties, '$.RoutingControlCount') as routing_control_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ControlPanel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ControlPanel' ;
   - RoutingControl:
       name: RoutingControl
       id: aws.route53.RoutingControl
@@ -1533,12 +1541,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_arn,
               JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RoutingControl' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::RoutingControl' ;
   - SafetyRule:
       name: SafetyRule
       id: aws.route53.SafetyRule
@@ -1548,6 +1557,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AssertionRule.WaitPeriodMs') as assertion_rule_wait_period_ms,
               JSON_EXTRACT(Properties, '$.AssertionRule.AssertedControls') as assertion_rule_asserted_controls,
               JSON_EXTRACT(Properties, '$.GatingRule.GatingControls') as gating_rule_gating_controls,
@@ -1560,7 +1570,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RuleConfig.Threshold') as rule_config_threshold,
               JSON_EXTRACT(Properties, '$.RuleConfig.Inverted') as rule_config_inverted,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::SafetyRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::SafetyRule' ;
   - Cell:
       name: Cell
       id: aws.route53.Cell
@@ -1570,12 +1580,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CellName') as cell_name,
               JSON_EXTRACT(Properties, '$.CellArn') as cell_arn,
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.ParentReadinessScopes') as parent_readiness_scopes,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::Cell' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::Cell' ;
   - ReadinessCheck:
       name: ReadinessCheck
       id: aws.route53.ReadinessCheck
@@ -1585,11 +1596,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
               JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name,
               JSON_EXTRACT(Properties, '$.ReadinessCheckArn') as readiness_check_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ReadinessCheck' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ReadinessCheck' ;
   - RecoveryGroup:
       name: RecoveryGroup
       id: aws.route53.RecoveryGroup
@@ -1599,11 +1611,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_name,
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.RecoveryGroupArn') as recovery_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::RecoveryGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::RecoveryGroup' ;
   - ResourceSet:
       name: ResourceSet
       id: aws.route53.ResourceSet
@@ -1613,12 +1626,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.ResourceSetArn') as resource_set_arn,
               JSON_EXTRACT(Properties, '$.ResourceSetType') as resource_set_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResourceSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResourceSet' ;
   - FirewallDomainList:
       name: FirewallDomainList
       id: aws.route53.FirewallDomainList
@@ -1628,6 +1642,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1640,7 +1655,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.DomainFileUrl') as domain_file_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::FirewallDomainList' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::FirewallDomainList' ;
   - FirewallRuleGroup:
       name: FirewallRuleGroup
       id: aws.route53.FirewallRuleGroup
@@ -1650,6 +1665,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1663,7 +1679,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.FirewallRules') as firewall_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::FirewallRuleGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::FirewallRuleGroup' ;
   - FirewallRuleGroupAssociation:
       name: FirewallRuleGroupAssociation
       id: aws.route53.FirewallRuleGroupAssociation
@@ -1673,6 +1689,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.FirewallRuleGroupId') as firewall_rule_group_id,
@@ -1687,7 +1704,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::FirewallRuleGroupAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::FirewallRuleGroupAssociation' ;
   - ResolverConfig:
       name: ResolverConfig
       id: aws.route53.ResolverConfig
@@ -1697,12 +1714,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OwnerId') as owner_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.AutodefinedReverse') as autodefined_reverse,
               JSON_EXTRACT(Properties, '$.AutodefinedReverseFlag') as autodefined_reverse_flag
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverConfig' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverConfig' ;
   - ResolverDNSSECConfig:
       name: ResolverDNSSECConfig
       id: aws.route53.ResolverDNSSECConfig
@@ -1712,11 +1730,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OwnerId') as owner_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ValidationStatus') as validation_status
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverDNSSECConfig' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverDNSSECConfig' ;
   - ResolverEndpoint:
       name: ResolverEndpoint
       id: aws.route53.ResolverEndpoint
@@ -1726,6 +1745,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
               JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_id,
               JSON_EXTRACT(Properties, '$.IpAddressCount') as ip_address_count,
@@ -1738,7 +1758,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverEndpoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverEndpoint' ;
   - ResolverQueryLoggingConfig:
       name: ResolverQueryLoggingConfig
       id: aws.route53.ResolverQueryLoggingConfig
@@ -1748,6 +1768,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OwnerId') as owner_id,
               JSON_EXTRACT(Properties, '$.Status') as status,
@@ -1758,7 +1779,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CreatorRequestId') as creator_request_id,
               JSON_EXTRACT(Properties, '$.DestinationArn') as destination_arn,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverQueryLoggingConfig' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverQueryLoggingConfig' ;
   - ResolverQueryLoggingConfigAssociation:
       name: ResolverQueryLoggingConfigAssociation
       id: aws.route53.ResolverQueryLoggingConfigAssociation
@@ -1768,6 +1789,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ResolverQueryLogConfigId') as resolver_query_log_config_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
@@ -1775,7 +1797,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Error') as error,
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverQueryLoggingConfigAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverQueryLoggingConfigAssociation' ;
   - ResolverRule:
       name: ResolverRule
       id: aws.route53.ResolverRule
@@ -1785,6 +1807,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_id,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1793,7 +1816,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TargetIps') as target_ips,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverRule' ;
   - ResolverRuleAssociation:
       name: ResolverRuleAssociation
       id: aws.route53.ResolverRuleAssociation
@@ -1803,8 +1826,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.VPCId') as v_pc_id,
               JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id,
               JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53::ResolverRuleAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::ResolverRuleAssociation' ;

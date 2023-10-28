@@ -126,12 +126,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Associations') as associations,
               JSON_EXTRACT(Properties, '$.AliasId') as alias_id,
               JSON_EXTRACT(Properties, '$.ConnectionString') as connection_string,
               JSON_EXTRACT(Properties, '$.ConnectionAliasState') as connection_alias_state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::WorkSpaces::ConnectionAlias' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias' ;
   - Workspace:
       name: Workspace
       id: aws.workspaces.Workspace
@@ -141,6 +142,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.BundleId') as bundle_id,
               JSON_EXTRACT(Properties, '$.DirectoryId') as directory_id,
@@ -154,4 +156,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningMode') as workspace_properties_running_mode,
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningModeAutoStopTimeoutInMinutes') as workspace_properties_running_mode_auto_stop_timeout_in_minutes,
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.UserVolumeSizeGib') as workspace_properties_user_volume_size_gib
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::WorkSpaces::Workspace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::Workspace' ;

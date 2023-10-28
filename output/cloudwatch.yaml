@@ -469,6 +469,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ThresholdMetricId') as threshold_metric_id,
               JSON_EXTRACT(Properties, '$.EvaluateLowSampleCountPercentile') as evaluate_low_sample_count_percentile,
               JSON_EXTRACT(Properties, '$.ExtendedStatistic') as extended_statistic,
@@ -492,7 +493,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DatapointsToAlarm') as datapoints_to_alarm,
               JSON_EXTRACT(Properties, '$.Threshold') as threshold
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::Alarm' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm' ;
   - AnomalyDetector:
       name: AnomalyDetector
       id: aws.cloudwatch.AnomalyDetector
@@ -502,6 +503,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
               JSON_EXTRACT(Properties, '$.Stat') as stat,
               JSON_EXTRACT(Properties, '$.Configuration.MetricTimeZone') as configuration_metric_time_zone,
@@ -514,7 +516,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Dimensions') as single_metric_anomaly_detector_dimensions,
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Stat') as single_metric_anomaly_detector_stat,
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Namespace') as single_metric_anomaly_detector_namespace
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::AnomalyDetector' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector' ;
   - CompositeAlarm:
       name: CompositeAlarm
       id: aws.cloudwatch.CompositeAlarm
@@ -524,6 +526,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name,
               JSON_EXTRACT(Properties, '$.AlarmRule') as alarm_rule,
@@ -535,7 +538,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ActionsSuppressor') as actions_suppressor,
               JSON_EXTRACT(Properties, '$.ActionsSuppressorWaitPeriod') as actions_suppressor_wait_period,
               JSON_EXTRACT(Properties, '$.ActionsSuppressorExtensionPeriod') as actions_suppressor_extension_period
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::CompositeAlarm' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm' ;
   - Dashboard:
       name: Dashboard
       id: aws.cloudwatch.Dashboard
@@ -545,10 +548,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DashboardName') as dashboard_name,
               JSON_EXTRACT(Properties, '$.DashboardBody') as dashboard_body,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::Dashboard' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Dashboard' ;
   - InsightRule:
       name: InsightRule
       id: aws.cloudwatch.InsightRule
@@ -558,12 +562,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RuleState') as rule_state,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RuleBody') as rule_body,
               JSON_EXTRACT(Properties, '$.RuleName') as rule_name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::InsightRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::InsightRule' ;
   - MetricStream:
       name: MetricStream
       id: aws.cloudwatch.MetricStream
@@ -573,6 +578,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
               JSON_EXTRACT(Properties, '$.ExcludeFilters') as exclude_filters,
@@ -586,4 +592,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.StatisticsConfigurations') as statistics_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IncludeLinkedAccountsMetrics') as include_linked_accounts_metrics
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudWatch::MetricStream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::MetricStream' ;

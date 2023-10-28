@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - opensearchserverless
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The opensearchserverless service documentation.
@@ -31,17 +31,12 @@ The opensearchserverless service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/opensearchserverless/AccessPolicy/">AccessPolicy</a><br />
-<a href="/providers/azure/opensearchserverless/Collection/">Collection</a><br />
-<a href="/providers/azure/opensearchserverless/SecurityConfig/">SecurityConfig</a><br />
-<a href="/providers/azure/opensearchserverless/SecurityPolicy/">SecurityPolicy</a><br />
-<a href="/providers/azure/opensearchserverless/VpcEndpoint/">VpcEndpoint</a>
+<a href="/providers/aws/opensearchserverless/AccessPolicy/">AccessPolicy</a><br />
+<a href="/providers/aws/opensearchserverless/Collection/">Collection</a><br />
+<a href="/providers/aws/opensearchserverless/SecurityConfig/">SecurityConfig</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/opensearchserverless/AccessPolicy/">AccessPolicy</a><br />
-<a href="/providers/azure/opensearchserverless/Collection/">Collection</a><br />
-<a href="/providers/azure/opensearchserverless/SecurityConfig/">SecurityConfig</a><br />
-<a href="/providers/azure/opensearchserverless/SecurityPolicy/">SecurityPolicy</a><br />
-<a href="/providers/azure/opensearchserverless/VpcEndpoint/">VpcEndpoint</a>
+<a href="/providers/aws/opensearchserverless/SecurityPolicy/">SecurityPolicy</a><br />
+<a href="/providers/aws/opensearchserverless/VpcEndpoint/">VpcEndpoint</a>
 </div>
 </div>

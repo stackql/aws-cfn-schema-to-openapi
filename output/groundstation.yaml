@@ -431,6 +431,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type,
@@ -443,7 +444,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ConfigData.S3RecordingConfig') as config_data_s3_recording_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GroundStation::Config' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::Config' ;
   - DataflowEndpointGroup:
       name: DataflowEndpointGroup
       id: aws.groundstation.DataflowEndpointGroup
@@ -453,13 +454,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.EndpointDetails') as endpoint_details,
               JSON_EXTRACT(Properties, '$.ContactPrePassDurationSeconds') as contact_pre_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup' ;
   - MissionProfile:
       name: MissionProfile
       id: aws.groundstation.MissionProfile
@@ -469,6 +471,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ContactPrePassDurationSeconds') as contact_pre_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
@@ -482,4 +485,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Region') as region
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GroundStation::MissionProfile' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::MissionProfile' ;

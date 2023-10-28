@@ -204,6 +204,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name,
               JSON_EXTRACT(Properties, '$.DatasetType') as dataset_type,
@@ -212,7 +213,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.EncryptionConfig') as encryption_config,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Forecast::Dataset' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::Dataset' ;
   - DatasetGroup:
       name: DatasetGroup
       id: aws.forecast.DatasetGroup
@@ -222,9 +223,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DatasetArns') as dataset_arns,
               JSON_EXTRACT(Properties, '$.DatasetGroupName') as dataset_group_name,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Forecast::DatasetGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::DatasetGroup' ;

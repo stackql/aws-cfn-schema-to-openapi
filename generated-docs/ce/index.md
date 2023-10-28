@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - ce
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The ce service documentation.
@@ -31,17 +31,12 @@ The ce service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/ce/AnomalyMonitor/">AnomalyMonitor</a><br />
-<a href="/providers/azure/ce/AnomalySubscription/">AnomalySubscription</a><br />
-<a href="/providers/azure/ce/CostCategory/">CostCategory</a><br />
-<a href="/providers/azure/ce/Account/">Account</a><br />
-<a href="/providers/azure/ce/Certificate/">Certificate</a>
+<a href="/providers/aws/ce/Account/">Account</a><br />
+<a href="/providers/aws/ce/AnomalyMonitor/">AnomalyMonitor</a><br />
+<a href="/providers/aws/ce/AnomalySubscription/">AnomalySubscription</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/ce/AnomalyMonitor/">AnomalyMonitor</a><br />
-<a href="/providers/azure/ce/AnomalySubscription/">AnomalySubscription</a><br />
-<a href="/providers/azure/ce/CostCategory/">CostCategory</a><br />
-<a href="/providers/azure/ce/Account/">Account</a><br />
-<a href="/providers/azure/ce/Certificate/">Certificate</a>
+<a href="/providers/aws/ce/Certificate/">Certificate</a><br />
+<a href="/providers/aws/ce/CostCategory/">CostCategory</a>
 </div>
 </div>

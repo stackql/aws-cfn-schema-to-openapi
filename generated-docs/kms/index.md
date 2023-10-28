@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - kms
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The kms service documentation.
@@ -31,13 +31,10 @@ The kms service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/kms/Alias/">Alias</a><br />
-<a href="/providers/azure/kms/Key/">Key</a><br />
-<a href="/providers/azure/kms/ReplicaKey/">ReplicaKey</a>
+<a href="/providers/aws/kms/Alias/">Alias</a><br />
+<a href="/providers/aws/kms/Key/">Key</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/kms/Alias/">Alias</a><br />
-<a href="/providers/azure/kms/Key/">Key</a><br />
-<a href="/providers/azure/kms/ReplicaKey/">ReplicaKey</a>
+<a href="/providers/aws/kms/ReplicaKey/">ReplicaKey</a>
 </div>
 </div>

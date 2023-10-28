@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - robomaker
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The robomaker service documentation.
@@ -31,19 +31,13 @@ The robomaker service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/robomaker/Fleet/">Fleet</a><br />
-<a href="/providers/azure/robomaker/Robot/">Robot</a><br />
-<a href="/providers/azure/robomaker/RobotApplication/">RobotApplication</a><br />
-<a href="/providers/azure/robomaker/RobotApplicationVersion/">RobotApplicationVersion</a><br />
-<a href="/providers/azure/robomaker/SimulationApplication/">SimulationApplication</a><br />
-<a href="/providers/azure/robomaker/SimulationApplicationVersion/">SimulationApplicationVersion</a>
+<a href="/providers/aws/robomaker/Fleet/">Fleet</a><br />
+<a href="/providers/aws/robomaker/Robot/">Robot</a><br />
+<a href="/providers/aws/robomaker/RobotApplication/">RobotApplication</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/robomaker/Fleet/">Fleet</a><br />
-<a href="/providers/azure/robomaker/Robot/">Robot</a><br />
-<a href="/providers/azure/robomaker/RobotApplication/">RobotApplication</a><br />
-<a href="/providers/azure/robomaker/RobotApplicationVersion/">RobotApplicationVersion</a><br />
-<a href="/providers/azure/robomaker/SimulationApplication/">SimulationApplication</a><br />
-<a href="/providers/azure/robomaker/SimulationApplicationVersion/">SimulationApplicationVersion</a>
+<a href="/providers/aws/robomaker/RobotApplicationVersion/">RobotApplicationVersion</a><br />
+<a href="/providers/aws/robomaker/SimulationApplication/">SimulationApplication</a><br />
+<a href="/providers/aws/robomaker/SimulationApplicationVersion/">SimulationApplicationVersion</a>
 </div>
 </div>

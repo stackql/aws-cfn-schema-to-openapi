@@ -284,6 +284,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MonitorType') as monitor_type,
               JSON_EXTRACT(Properties, '$.MonitorName') as monitor_name,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
@@ -293,7 +294,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.MonitorSpecification') as monitor_specification,
               JSON_EXTRACT(Properties, '$.DimensionalValueCount') as dimensional_value_count,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::AnomalyMonitor' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalyMonitor' ;
   - AnomalySubscription:
       name: AnomalySubscription
       id: aws.ce.AnomalySubscription
@@ -303,6 +304,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_name,
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.MonitorArnList') as monitor_arn_list,
@@ -311,7 +313,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ThresholdExpression') as threshold_expression,
               JSON_EXTRACT(Properties, '$.Frequency') as frequency,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::AnomalySubscription' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalySubscription' ;
   - CostCategory:
       name: CostCategory
       id: aws.ce.CostCategory
@@ -321,13 +323,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RuleVersion') as rule_version,
               JSON_EXTRACT(Properties, '$.Rules') as rules,
               JSON_EXTRACT(Properties, '$.SplitChargeRules') as split_charge_rules,
               JSON_EXTRACT(Properties, '$.DefaultValue') as default_value
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::CostCategory' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::CostCategory' ;
   - Account:
       name: Account
       id: aws.ce.Account
@@ -337,8 +340,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ExpiryEventsConfiguration.DaysBeforeExpiry') as expiry_events_configuration_days_before_expiry
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::Account' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::Account' ;
   - Certificate:
       name: Certificate
       id: aws.ce.Certificate
@@ -348,6 +352,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.DomainValidationOptions') as domain_validation_options,
               JSON_EXTRACT(Properties, '$.CertificateTransparencyLoggingPreference') as certificate_transparency_logging_preference,
@@ -356,4 +361,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as subject_alternative_names,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CE::Certificate' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::Certificate' ;

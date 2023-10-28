@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - kinesisvideo
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The kinesisvideo service documentation.
@@ -31,11 +31,9 @@ The kinesisvideo service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/kinesisvideo/SignalingChannel/">SignalingChannel</a><br />
-<a href="/providers/azure/kinesisvideo/Stream/">Stream</a>
+<a href="/providers/aws/kinesisvideo/SignalingChannel/">SignalingChannel</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/kinesisvideo/SignalingChannel/">SignalingChannel</a><br />
-<a href="/providers/azure/kinesisvideo/Stream/">Stream</a>
+<a href="/providers/aws/kinesisvideo/Stream/">Stream</a>
 </div>
 </div>

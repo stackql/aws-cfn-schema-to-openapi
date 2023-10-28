@@ -351,11 +351,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::DataCatalog' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::DataCatalog' ;
   - NamedQuery:
       name: NamedQuery
       id: aws.athena.NamedQuery
@@ -365,13 +366,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Database') as database,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
               JSON_EXTRACT(Properties, '$.NamedQueryId') as named_query_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::NamedQuery' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::NamedQuery' ;
   - PreparedStatement:
       name: PreparedStatement
       id: aws.athena.PreparedStatement
@@ -381,11 +383,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.StatementName') as statement_name,
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.QueryStatement') as query_statement
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::PreparedStatement' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::PreparedStatement' ;
   - WorkGroup:
       name: WorkGroup
       id: aws.athena.WorkGroup
@@ -395,6 +398,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.WorkGroupConfiguration.BytesScannedCutoffPerQuery') as work_group_configuration_bytes_scanned_cutoff_per_query,
@@ -420,4 +424,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.RecursiveDeleteOption') as recursive_delete_option
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Athena::WorkGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::WorkGroup' ;

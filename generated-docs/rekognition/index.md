@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - rekognition
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The rekognition service documentation.
@@ -31,13 +31,10 @@ The rekognition service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/rekognition/Collection/">Collection</a><br />
-<a href="/providers/azure/rekognition/Project/">Project</a><br />
-<a href="/providers/azure/rekognition/StreamProcessor/">StreamProcessor</a>
+<a href="/providers/aws/rekognition/Collection/">Collection</a><br />
+<a href="/providers/aws/rekognition/Project/">Project</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/rekognition/Collection/">Collection</a><br />
-<a href="/providers/azure/rekognition/Project/">Project</a><br />
-<a href="/providers/azure/rekognition/StreamProcessor/">StreamProcessor</a>
+<a href="/providers/aws/rekognition/StreamProcessor/">StreamProcessor</a>
 </div>
 </div>

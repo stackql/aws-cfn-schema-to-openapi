@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - logs
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The logs service documentation.
@@ -31,19 +31,13 @@ The logs service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/logs/Destination/">Destination</a><br />
-<a href="/providers/azure/logs/LogStream/">LogStream</a><br />
-<a href="/providers/azure/logs/MetricFilter/">MetricFilter</a><br />
-<a href="/providers/azure/logs/QueryDefinition/">QueryDefinition</a><br />
-<a href="/providers/azure/logs/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/logs/SubscriptionFilter/">SubscriptionFilter</a>
+<a href="/providers/aws/logs/Destination/">Destination</a><br />
+<a href="/providers/aws/logs/LogStream/">LogStream</a><br />
+<a href="/providers/aws/logs/MetricFilter/">MetricFilter</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/logs/Destination/">Destination</a><br />
-<a href="/providers/azure/logs/LogStream/">LogStream</a><br />
-<a href="/providers/azure/logs/MetricFilter/">MetricFilter</a><br />
-<a href="/providers/azure/logs/QueryDefinition/">QueryDefinition</a><br />
-<a href="/providers/azure/logs/ResourcePolicy/">ResourcePolicy</a><br />
-<a href="/providers/azure/logs/SubscriptionFilter/">SubscriptionFilter</a>
+<a href="/providers/aws/logs/QueryDefinition/">QueryDefinition</a><br />
+<a href="/providers/aws/logs/ResourcePolicy/">ResourcePolicy</a><br />
+<a href="/providers/aws/logs/SubscriptionFilter/">SubscriptionFilter</a>
 </div>
 </div>

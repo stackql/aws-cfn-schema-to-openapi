@@ -161,6 +161,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
@@ -174,7 +175,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.AllowedFeatures') as object_lambda_configuration_allowed_features,
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.CloudWatchMetricsEnabled') as object_lambda_configuration_cloud_watch_metrics_enabled,
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.TransformationConfigurations') as object_lambda_configuration_transformation_configurations
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3ObjectLambda::AccessPoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint' ;
   - AccessPointPolicy:
       name: AccessPointPolicy
       id: aws.s3objectlambda.AccessPointPolicy
@@ -184,6 +185,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy' ;

@@ -90,13 +90,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Label') as label,
               JSON_EXTRACT(Properties, '$.LabelTemplate') as label_template,
               JSON_EXTRACT(Properties, '$.ResourceTypes') as resource_types,
               JSON_EXTRACT(Properties, '$.SinkIdentifier') as sink_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Oam::Link' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Link' ;
   - Sink:
       name: Sink
       id: aws.oam.Sink
@@ -106,8 +107,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Oam::Sink' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Sink' ;

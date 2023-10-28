@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - connect
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The connect service documentation.
@@ -31,35 +31,21 @@ The connect service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/connect/ApprovedOrigin/">ApprovedOrigin</a><br />
-<a href="/providers/azure/connect/ContactFlow/">ContactFlow</a><br />
-<a href="/providers/azure/connect/ContactFlowModule/">ContactFlowModule</a><br />
-<a href="/providers/azure/connect/HoursOfOperation/">HoursOfOperation</a><br />
-<a href="/providers/azure/connect/Instance/">Instance</a><br />
-<a href="/providers/azure/connect/InstanceStorageConfig/">InstanceStorageConfig</a><br />
-<a href="/providers/azure/connect/IntegrationAssociation/">IntegrationAssociation</a><br />
-<a href="/providers/azure/connect/QuickConnect/">QuickConnect</a><br />
-<a href="/providers/azure/connect/Rule/">Rule</a><br />
-<a href="/providers/azure/connect/SecurityKey/">SecurityKey</a><br />
-<a href="/providers/azure/connect/TaskTemplate/">TaskTemplate</a><br />
-<a href="/providers/azure/connect/User/">User</a><br />
-<a href="/providers/azure/connect/UserHierarchyGroup/">UserHierarchyGroup</a><br />
-<a href="/providers/azure/connect/Campaign/">Campaign</a>
+<a href="/providers/aws/connect/ApprovedOrigin/">ApprovedOrigin</a><br />
+<a href="/providers/aws/connect/Campaign/">Campaign</a><br />
+<a href="/providers/aws/connect/ContactFlow/">ContactFlow</a><br />
+<a href="/providers/aws/connect/ContactFlowModule/">ContactFlowModule</a><br />
+<a href="/providers/aws/connect/HoursOfOperation/">HoursOfOperation</a><br />
+<a href="/providers/aws/connect/Instance/">Instance</a><br />
+<a href="/providers/aws/connect/InstanceStorageConfig/">InstanceStorageConfig</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/connect/ApprovedOrigin/">ApprovedOrigin</a><br />
-<a href="/providers/azure/connect/ContactFlow/">ContactFlow</a><br />
-<a href="/providers/azure/connect/ContactFlowModule/">ContactFlowModule</a><br />
-<a href="/providers/azure/connect/HoursOfOperation/">HoursOfOperation</a><br />
-<a href="/providers/azure/connect/Instance/">Instance</a><br />
-<a href="/providers/azure/connect/InstanceStorageConfig/">InstanceStorageConfig</a><br />
-<a href="/providers/azure/connect/IntegrationAssociation/">IntegrationAssociation</a><br />
-<a href="/providers/azure/connect/QuickConnect/">QuickConnect</a><br />
-<a href="/providers/azure/connect/Rule/">Rule</a><br />
-<a href="/providers/azure/connect/SecurityKey/">SecurityKey</a><br />
-<a href="/providers/azure/connect/TaskTemplate/">TaskTemplate</a><br />
-<a href="/providers/azure/connect/User/">User</a><br />
-<a href="/providers/azure/connect/UserHierarchyGroup/">UserHierarchyGroup</a><br />
-<a href="/providers/azure/connect/Campaign/">Campaign</a>
+<a href="/providers/aws/connect/IntegrationAssociation/">IntegrationAssociation</a><br />
+<a href="/providers/aws/connect/QuickConnect/">QuickConnect</a><br />
+<a href="/providers/aws/connect/Rule/">Rule</a><br />
+<a href="/providers/aws/connect/SecurityKey/">SecurityKey</a><br />
+<a href="/providers/aws/connect/TaskTemplate/">TaskTemplate</a><br />
+<a href="/providers/aws/connect/User/">User</a><br />
+<a href="/providers/aws/connect/UserHierarchyGroup/">UserHierarchyGroup</a>
 </div>
 </div>

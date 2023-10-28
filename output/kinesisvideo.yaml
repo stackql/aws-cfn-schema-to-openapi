@@ -112,12 +112,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KinesisVideo::SignalingChannel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel' ;
   - Stream:
       name: Stream
       id: aws.kinesisvideo.Stream
@@ -127,6 +128,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DataRetentionInHours') as data_retention_in_hours,
@@ -134,4 +136,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::KinesisVideo::Stream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::Stream' ;

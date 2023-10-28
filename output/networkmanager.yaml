@@ -727,6 +727,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
@@ -745,7 +746,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.TransportAttachmentId') as transport_attachment_id,
               JSON_EXTRACT(Properties, '$.Options.Protocol') as options_protocol
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
   - ConnectPeer:
       name: ConnectPeer
       id: aws.networkmanager.ConnectPeer
@@ -755,6 +756,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PeerAddress') as peer_address,
               JSON_EXTRACT(Properties, '$.CoreNetworkAddress') as core_network_address,
               JSON_EXTRACT(Properties, '$.BgpOptions.PeerAsn') as bgp_options_peer_asn,
@@ -771,7 +773,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Configuration.Protocol') as configuration_protocol,
               JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as configuration_bgp_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
   - CoreNetwork:
       name: CoreNetwork
       id: aws.networkmanager.CoreNetwork
@@ -781,6 +783,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
@@ -792,7 +795,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Edges') as edges,
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
   - CustomerGatewayAssociation:
       name: CustomerGatewayAssociation
       id: aws.networkmanager.CustomerGatewayAssociation
@@ -802,11 +805,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_arn,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation' ;
   - Device:
       name: Device
       id: aws.networkmanager.Device
@@ -816,6 +820,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DeviceArn') as device_arn,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -829,7 +834,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Vendor') as vendor
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Device' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Device' ;
   - GlobalNetwork:
       name: GlobalNetwork
       id: aws.networkmanager.GlobalNetwork
@@ -839,11 +844,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
   - Link:
       name: Link
       id: aws.networkmanager.Link
@@ -853,6 +859,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.LinkArn') as link_arn,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
@@ -863,7 +870,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Link' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Link' ;
   - LinkAssociation:
       name: LinkAssociation
       id: aws.networkmanager.LinkAssociation
@@ -873,10 +880,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
   - Site:
       name: Site
       id: aws.networkmanager.Site
@@ -886,6 +894,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.SiteArn') as site_arn,
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -894,7 +903,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
               JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
               JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::Site' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Site' ;
   - SiteToSiteVpnAttachment:
       name: SiteToSiteVpnAttachment
       id: aws.networkmanager.SiteToSiteVpnAttachment
@@ -904,6 +913,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
@@ -921,7 +931,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.VpnConnectionArn') as vpn_connection_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
   - TransitGatewayPeering:
       name: TransitGatewayPeering
       id: aws.networkmanager.TransitGatewayPeering
@@ -931,6 +941,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
               JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn,
@@ -943,7 +954,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PeeringType') as peering_type,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering' ;
   - TransitGatewayRegistration:
       name: TransitGatewayRegistration
       id: aws.networkmanager.TransitGatewayRegistration
@@ -953,9 +964,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration' ;
   - TransitGatewayRouteTableAttachment:
       name: TransitGatewayRouteTableAttachment
       id: aws.networkmanager.TransitGatewayRouteTableAttachment
@@ -965,6 +977,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PeeringId') as peering_id,
               JSON_EXTRACT(Properties, '$.TransitGatewayRouteTableArn') as transit_gateway_route_table_arn,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
@@ -983,7 +996,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
   - VpcAttachment:
       name: VpcAttachment
       id: aws.networkmanager.VpcAttachment
@@ -993,6 +1006,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.CoreNetworkArn') as core_network_arn,
               JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id,
@@ -1013,4 +1027,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
               JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as options_ipv6_support,
               JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as options_appliance_mode_support
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;

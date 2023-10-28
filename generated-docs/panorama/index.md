@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - panorama
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The panorama service documentation.
@@ -31,13 +31,10 @@ The panorama service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/panorama/ApplicationInstance/">ApplicationInstance</a><br />
-<a href="/providers/azure/panorama/Package/">Package</a><br />
-<a href="/providers/azure/panorama/PackageVersion/">PackageVersion</a>
+<a href="/providers/aws/panorama/ApplicationInstance/">ApplicationInstance</a><br />
+<a href="/providers/aws/panorama/Package/">Package</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/panorama/ApplicationInstance/">ApplicationInstance</a><br />
-<a href="/providers/azure/panorama/Package/">Package</a><br />
-<a href="/providers/azure/panorama/PackageVersion/">PackageVersion</a>
+<a href="/providers/aws/panorama/PackageVersion/">PackageVersion</a>
 </div>
 </div>

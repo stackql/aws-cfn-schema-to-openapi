@@ -323,12 +323,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.VpcConfiguration.VpcId') as vpc_configuration_vpc_id,
               JSON_EXTRACT(Properties, '$.Policy') as policy
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3Outposts::AccessPoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint' ;
   - Bucket:
       name: Bucket
       id: aws.s3outposts.Bucket
@@ -338,12 +339,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
               JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3Outposts::Bucket' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Bucket' ;
   - BucketPolicy:
       name: BucketPolicy
       id: aws.s3outposts.BucketPolicy
@@ -353,9 +355,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3Outposts::BucketPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy' ;
   - Endpoint:
       name: Endpoint
       id: aws.s3outposts.Endpoint
@@ -365,6 +368,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CidrBlock') as cidr_block,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -375,4 +379,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.AccessType') as access_type,
               JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::S3Outposts::Endpoint' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Endpoint' ;

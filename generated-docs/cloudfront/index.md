@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - cloudfront
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The cloudfront service documentation.
@@ -31,33 +31,20 @@ The cloudfront service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/cloudfront/CachePolicy/">CachePolicy</a><br />
-<a href="/providers/azure/cloudfront/CloudFrontOriginAccessIdentity/">CloudFrontOriginAccessIdentity</a><br />
-<a href="/providers/azure/cloudfront/ContinuousDeploymentPolicy/">ContinuousDeploymentPolicy</a><br />
-<a href="/providers/azure/cloudfront/Distribution/">Distribution</a><br />
-<a href="/providers/azure/cloudfront/Function/">Function</a><br />
-<a href="/providers/azure/cloudfront/KeyGroup/">KeyGroup</a><br />
-<a href="/providers/azure/cloudfront/MonitoringSubscription/">MonitoringSubscription</a><br />
-<a href="/providers/azure/cloudfront/OriginAccessControl/">OriginAccessControl</a><br />
-<a href="/providers/azure/cloudfront/OriginRequestPolicy/">OriginRequestPolicy</a><br />
-<a href="/providers/azure/cloudfront/PublicKey/">PublicKey</a><br />
-<a href="/providers/azure/cloudfront/RealtimeLogConfig/">RealtimeLogConfig</a><br />
-<a href="/providers/azure/cloudfront/ResponseHeadersPolicy/">ResponseHeadersPolicy</a><br />
-<a href="/providers/azure/cloudfront/StreamingDistribution/">StreamingDistribution</a>
+<a href="/providers/aws/cloudfront/CachePolicy/">CachePolicy</a><br />
+<a href="/providers/aws/cloudfront/CloudFrontOriginAccessIdentity/">CloudFrontOriginAccessIdentity</a><br />
+<a href="/providers/aws/cloudfront/ContinuousDeploymentPolicy/">ContinuousDeploymentPolicy</a><br />
+<a href="/providers/aws/cloudfront/Distribution/">Distribution</a><br />
+<a href="/providers/aws/cloudfront/Function/">Function</a><br />
+<a href="/providers/aws/cloudfront/KeyGroup/">KeyGroup</a><br />
+<a href="/providers/aws/cloudfront/MonitoringSubscription/">MonitoringSubscription</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/cloudfront/CachePolicy/">CachePolicy</a><br />
-<a href="/providers/azure/cloudfront/CloudFrontOriginAccessIdentity/">CloudFrontOriginAccessIdentity</a><br />
-<a href="/providers/azure/cloudfront/ContinuousDeploymentPolicy/">ContinuousDeploymentPolicy</a><br />
-<a href="/providers/azure/cloudfront/Distribution/">Distribution</a><br />
-<a href="/providers/azure/cloudfront/Function/">Function</a><br />
-<a href="/providers/azure/cloudfront/KeyGroup/">KeyGroup</a><br />
-<a href="/providers/azure/cloudfront/MonitoringSubscription/">MonitoringSubscription</a><br />
-<a href="/providers/azure/cloudfront/OriginAccessControl/">OriginAccessControl</a><br />
-<a href="/providers/azure/cloudfront/OriginRequestPolicy/">OriginRequestPolicy</a><br />
-<a href="/providers/azure/cloudfront/PublicKey/">PublicKey</a><br />
-<a href="/providers/azure/cloudfront/RealtimeLogConfig/">RealtimeLogConfig</a><br />
-<a href="/providers/azure/cloudfront/ResponseHeadersPolicy/">ResponseHeadersPolicy</a><br />
-<a href="/providers/azure/cloudfront/StreamingDistribution/">StreamingDistribution</a>
+<a href="/providers/aws/cloudfront/OriginAccessControl/">OriginAccessControl</a><br />
+<a href="/providers/aws/cloudfront/OriginRequestPolicy/">OriginRequestPolicy</a><br />
+<a href="/providers/aws/cloudfront/PublicKey/">PublicKey</a><br />
+<a href="/providers/aws/cloudfront/RealtimeLogConfig/">RealtimeLogConfig</a><br />
+<a href="/providers/aws/cloudfront/ResponseHeadersPolicy/">ResponseHeadersPolicy</a><br />
+<a href="/providers/aws/cloudfront/StreamingDistribution/">StreamingDistribution</a>
 </div>
 </div>

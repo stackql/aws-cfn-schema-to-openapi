@@ -225,12 +225,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CellName') as cell_name,
               JSON_EXTRACT(Properties, '$.CellArn') as cell_arn,
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.ParentReadinessScopes') as parent_readiness_scopes,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryReadiness::Cell' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell' ;
   - ReadinessCheck:
       name: ReadinessCheck
       id: aws.route53recoveryreadiness.ReadinessCheck
@@ -240,11 +241,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
               JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name,
               JSON_EXTRACT(Properties, '$.ReadinessCheckArn') as readiness_check_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck' ;
   - RecoveryGroup:
       name: RecoveryGroup
       id: aws.route53recoveryreadiness.RecoveryGroup
@@ -254,11 +256,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_name,
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.RecoveryGroupArn') as recovery_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup' ;
   - ResourceSet:
       name: ResourceSet
       id: aws.route53recoveryreadiness.ResourceSet
@@ -268,9 +271,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.ResourceSetArn') as resource_set_arn,
               JSON_EXTRACT(Properties, '$.ResourceSetType') as resource_set_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet' ;

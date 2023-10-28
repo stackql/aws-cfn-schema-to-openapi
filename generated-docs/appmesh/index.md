@@ -4,14 +4,14 @@ hide_title: false
 hide_table_of_contents: false
 keywords:
   - appmesh
-  - azure
+  - aws
   - stackql
   - infrastructure-as-code
   - configuration-as-data
   - cloud inventory
-description: Query, deploy and manage Azure resources using SQL
+description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
-image: /img/providers/azure/stackql-azure-provider-featured-image.png
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
 
 The appmesh service documentation.
@@ -31,21 +31,14 @@ The appmesh service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/azure/appmesh/GatewayRoute/">GatewayRoute</a><br />
-<a href="/providers/azure/appmesh/Mesh/">Mesh</a><br />
-<a href="/providers/azure/appmesh/Route/">Route</a><br />
-<a href="/providers/azure/appmesh/VirtualGateway/">VirtualGateway</a><br />
-<a href="/providers/azure/appmesh/VirtualNode/">VirtualNode</a><br />
-<a href="/providers/azure/appmesh/VirtualRouter/">VirtualRouter</a><br />
-<a href="/providers/azure/appmesh/VirtualService/">VirtualService</a>
+<a href="/providers/aws/appmesh/GatewayRoute/">GatewayRoute</a><br />
+<a href="/providers/aws/appmesh/Mesh/">Mesh</a><br />
+<a href="/providers/aws/appmesh/Route/">Route</a><br />
+<a href="/providers/aws/appmesh/VirtualGateway/">VirtualGateway</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/azure/appmesh/GatewayRoute/">GatewayRoute</a><br />
-<a href="/providers/azure/appmesh/Mesh/">Mesh</a><br />
-<a href="/providers/azure/appmesh/Route/">Route</a><br />
-<a href="/providers/azure/appmesh/VirtualGateway/">VirtualGateway</a><br />
-<a href="/providers/azure/appmesh/VirtualNode/">VirtualNode</a><br />
-<a href="/providers/azure/appmesh/VirtualRouter/">VirtualRouter</a><br />
-<a href="/providers/azure/appmesh/VirtualService/">VirtualService</a>
+<a href="/providers/aws/appmesh/VirtualNode/">VirtualNode</a><br />
+<a href="/providers/aws/appmesh/VirtualRouter/">VirtualRouter</a><br />
+<a href="/providers/aws/appmesh/VirtualService/">VirtualService</a>
 </div>
 </div>
