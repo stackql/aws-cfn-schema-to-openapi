@@ -99,12 +99,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ProfileName') as profile_name,
               JSON_EXTRACT(Properties, '$.ProfileVersion') as profile_version,
               JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Signer::ProfilePermission' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::ProfilePermission' ;
   - SigningProfile:
       name: SigningProfile
       id: aws.signer.SigningProfile
@@ -114,8 +115,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ProfileName') as profile_name,
               JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Value') as signature_validity_period_value,
               JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Type') as signature_validity_period_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Signer::SigningProfile' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::SigningProfile' ;

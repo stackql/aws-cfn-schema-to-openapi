@@ -109,6 +109,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.DnsIpAddresses') as dns_ip_addresses,
@@ -120,7 +121,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ShortName') as short_name,
               JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DirectoryService::MicrosoftAD' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD' ;
   - SimpleAD:
       name: SimpleAD
       id: aws.directoryservice.SimpleAD
@@ -130,6 +131,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DirectoryId') as directory_id,
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.DnsIpAddresses') as dns_ip_addresses,
@@ -142,4 +144,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Size') as size,
               JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DirectoryService::SimpleAD' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD' ;

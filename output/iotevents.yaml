@@ -774,6 +774,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AlarmModelName') as alarm_model_name,
               JSON_EXTRACT(Properties, '$.AlarmModelDescription') as alarm_model_description,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
@@ -784,7 +785,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.AlarmCapabilities.InitializationConfiguration') as alarm_capabilities_initialization_configuration,
               JSON_EXTRACT(Properties, '$.AlarmCapabilities.AcknowledgeFlow') as alarm_capabilities_acknowledge_flow,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::AlarmModel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel' ;
   - DetectorModel:
       name: DetectorModel
       id: aws.iotevents.DetectorModel
@@ -794,6 +795,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DetectorModelDefinition.InitialStateName') as detector_model_definition_initial_state_name,
               JSON_EXTRACT(Properties, '$.DetectorModelDefinition.States') as detector_model_definition_states,
               JSON_EXTRACT(Properties, '$.DetectorModelDescription') as detector_model_description,
@@ -802,7 +804,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Key') as key,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::DetectorModel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel' ;
   - Input:
       name: Input
       id: aws.iotevents.Input
@@ -812,8 +814,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.InputDefinition.Attributes') as input_definition_attributes,
               JSON_EXTRACT(Properties, '$.InputDescription') as input_description,
               JSON_EXTRACT(Properties, '$.InputName') as input_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::IoTEvents::Input' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::Input' ;

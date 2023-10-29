@@ -200,12 +200,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.BillingToken') as billing_token,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ManagedBlockchain::Accessor' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor' ;
   - Member:
       name: Member
       id: aws.managedblockchain.Member
@@ -215,6 +216,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
               JSON_EXTRACT(Properties, '$.MemberConfiguration.Description') as member_configuration_description,
@@ -227,7 +229,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.Name') as network_configuration_name,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.NetworkFrameworkConfiguration') as network_configuration_network_framework_configuration,
               JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ManagedBlockchain::Member' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Member' ;
   - Node:
       name: Node
       id: aws.managedblockchain.Node
@@ -237,10 +239,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.NodeId') as node_id,
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
               JSON_EXTRACT(Properties, '$.NodeConfiguration.InstanceType') as node_configuration_instance_type,
               JSON_EXTRACT(Properties, '$.NodeConfiguration.AvailabilityZone') as node_configuration_availability_zone
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ManagedBlockchain::Node' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Node' ;

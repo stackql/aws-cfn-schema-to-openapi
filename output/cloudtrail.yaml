@@ -385,10 +385,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudTrail::Channel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel' ;
   - EventDataStore:
       name: EventDataStore
       id: aws.cloudtrail.EventDataStore
@@ -398,6 +399,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AdvancedEventSelectors') as advanced_event_selectors,
               JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_arn,
               JSON_EXTRACT(Properties, '$.MultiRegionEnabled') as multi_region_enabled,
@@ -408,7 +410,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TerminationProtectionEnabled') as termination_protection_enabled,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudTrail::EventDataStore' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.cloudtrail.ResourcePolicy
@@ -418,9 +420,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.ResourcePolicy') as resource_policy
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudTrail::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy' ;
   - Trail:
       name: Trail
       id: aws.cloudtrail.Trail
@@ -430,6 +433,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CloudWatchLogsLogGroupArn') as cloud_watch_logs_log_group_arn,
               JSON_EXTRACT(Properties, '$.CloudWatchLogsRoleArn') as cloud_watch_logs_role_arn,
               JSON_EXTRACT(Properties, '$.EnableLogFileValidation') as enable_log_file_validation,
@@ -447,4 +451,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
               JSON_EXTRACT(Properties, '$.InsightSelectors') as insight_selectors
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CloudTrail::Trail' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Trail' ;

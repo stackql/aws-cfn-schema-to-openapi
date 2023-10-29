@@ -208,6 +208,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.SendingOptions.SendingEnabled') as sending_options_sending_enabled,
               JSON_EXTRACT(Properties, '$.TrackingOptions.CustomRedirectDomain') as tracking_options_custom_redirect_domain,
@@ -215,7 +216,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DeliveryOptions.SendingPoolName') as delivery_options_sending_pool_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::PinpointEmail::ConfigurationSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet' ;
   - ConfigurationSetEventDestination:
       name: ConfigurationSetEventDestination
       id: aws.pinpointemail.ConfigurationSetEventDestination
@@ -225,6 +226,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.EventDestinationName') as event_destination_name,
               JSON_EXTRACT(Properties, '$.ConfigurationSetName') as configuration_set_name,
@@ -234,7 +236,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.EventDestination.MatchingEventTypes') as event_destination_matching_event_types,
               JSON_EXTRACT(Properties, '$.EventDestination.PinpointDestination') as event_destination_pinpoint_destination,
               JSON_EXTRACT(Properties, '$.EventDestination.KinesisFirehoseDestination') as event_destination_kinesis_firehose_destination
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination' ;
   - DedicatedIpPool:
       name: DedicatedIpPool
       id: aws.pinpointemail.DedicatedIpPool
@@ -244,10 +246,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PoolName') as pool_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool' ;
   - Identity:
       name: Identity
       id: aws.pinpointemail.Identity
@@ -257,6 +260,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.IdentityDNSRecordName3') as identity_dn_srecord_name3,
               JSON_EXTRACT(Properties, '$.IdentityDNSRecordName1') as identity_dn_srecord_name1,
@@ -270,4 +274,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.MailFromAttributes.MailFromDomain') as mail_from_attributes_mail_from_domain,
               JSON_EXTRACT(Properties, '$.MailFromAttributes.BehaviorOnMxFailure') as mail_from_attributes_behavior_on_mx_failure
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::PinpointEmail::Identity' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::Identity' ;

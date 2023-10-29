@@ -451,6 +451,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.StreamArn') as stream_arn,
               JSON_EXTRACT(Properties, '$.AttributeDefinitions') as attribute_definitions,
@@ -468,7 +469,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TableId') as table_id,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification.AttributeName') as time_to_live_specification_attribute_name,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification.Enabled') as time_to_live_specification_enabled
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DynamoDB::GlobalTable' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable' ;
   - Table:
       name: Table
       id: aws.dynamodb.Table
@@ -478,6 +479,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.StreamArn') as stream_arn,
               JSON_EXTRACT(Properties, '$.AttributeDefinitions') as attribute_definitions,
@@ -504,4 +506,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputFormat') as import_source_specification_input_format,
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputFormatOptions') as import_source_specification_input_format_options,
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputCompressionType') as import_source_specification_input_compression_type
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DynamoDB::Table' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::Table' ;

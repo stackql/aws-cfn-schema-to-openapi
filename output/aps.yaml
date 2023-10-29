@@ -111,12 +111,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Workspace') as workspace,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Data') as data,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::APS::RuleGroupsNamespace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::RuleGroupsNamespace' ;
   - Workspace:
       name: Workspace
       id: aws.aps.Workspace
@@ -126,6 +127,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
@@ -133,4 +135,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as prometheus_endpoint,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogGroupArn') as logging_configuration_log_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::APS::Workspace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::Workspace' ;

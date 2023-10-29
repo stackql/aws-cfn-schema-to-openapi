@@ -1,0 +1,31 @@
+---
+title: ProvisioningTemplate
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - ProvisioningTemplate
+  - iot
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
+---
+The ProvisioningTemplate resource documentation.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>ProvisioningTemplate</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.iot.ProvisioningTemplate</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>TemplateArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TemplateName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Enabled</code></td><td><code>boolean</code></td><td></td></tr><tr><td><code>ProvisioningRoleArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TemplateBody</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TemplateType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>PreProvisioningHook</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+</tbody></table>

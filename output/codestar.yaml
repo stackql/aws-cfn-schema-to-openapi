@@ -192,6 +192,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.EnableIssues') as enable_issues,
               JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
@@ -201,7 +202,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.IsPrivate') as is_private,
               JSON_EXTRACT(Properties, '$.Code.S3') as code_s3,
               JSON_EXTRACT(Properties, '$.RepositoryDescription') as repository_description
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeStar::GitHubRepository' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository' ;
   - Connection:
       name: Connection
       id: aws.codestar.Connection
@@ -211,6 +212,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
               JSON_EXTRACT(Properties, '$.ConnectionName') as connection_name,
               JSON_EXTRACT(Properties, '$.ConnectionStatus') as connection_status,
@@ -218,7 +220,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ProviderType') as provider_type,
               JSON_EXTRACT(Properties, '$.HostArn') as host_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeStar::Connection' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::Connection' ;
   - NotificationRule:
       name: NotificationRule
       id: aws.codestar.NotificationRule
@@ -228,6 +230,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.EventTypeId') as event_type_id,
               JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
               JSON_EXTRACT(Properties, '$.TargetAddress') as target_address,
@@ -239,4 +242,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeStar::NotificationRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::NotificationRule' ;

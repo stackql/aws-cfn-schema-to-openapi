@@ -89,8 +89,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ExpiryEventsConfiguration.DaysBeforeExpiry') as expiry_events_configuration_days_before_expiry
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CertificateManager::Account' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Account' ;
   - Certificate:
       name: Certificate
       id: aws.certificatemanager.Certificate
@@ -100,6 +101,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.DomainValidationOptions') as domain_validation_options,
               JSON_EXTRACT(Properties, '$.CertificateTransparencyLoggingPreference') as certificate_transparency_logging_preference,
@@ -108,4 +110,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as subject_alternative_names,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CertificateManager::Certificate' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Certificate' ;

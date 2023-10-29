@@ -163,8 +163,9 @@ x-stackql-views:
           select:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
-              SELEC
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration' ;
+              SELECT
+              regio
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration' ;
   - NotificationChannel:
       name: NotificationChannel
       id: aws.devopsguru.NotificationChannel
@@ -174,10 +175,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Config.Sns') as config_sns,
               JSON_EXTRACT(Properties, '$.Config.Filters') as config_filters,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DevOpsGuru::NotificationChannel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::NotificationChannel' ;
   - ResourceCollection:
       name: ResourceCollection
       id: aws.devopsguru.ResourceCollection
@@ -187,7 +189,8 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.CloudFormation') as resource_collection_filter_cloud_formation,
               JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.Tags') as resource_collection_filter_tags,
               JSON_EXTRACT(Properties, '$.ResourceCollectionType') as resource_collection_type
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DevOpsGuru::ResourceCollection' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::ResourceCollection' ;

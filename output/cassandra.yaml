@@ -184,9 +184,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cassandra::Keyspace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Keyspace' ;
   - Table:
       name: Table
       id: aws.cassandra.Table
@@ -196,6 +197,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
               JSON_EXTRACT(Properties, '$.TableName') as table_name,
               JSON_EXTRACT(Properties, '$.RegularColumns') as regular_columns,
@@ -209,4 +211,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as default_time_to_live,
               JSON_EXTRACT(Properties, '$.EncryptionSpecification.EncryptionType') as encryption_specification_encryption_type,
               JSON_EXTRACT(Properties, '$.EncryptionSpecification.KmsKeyIdentifier') as encryption_specification_kms_key_identifier
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cassandra::Table' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Table' ;

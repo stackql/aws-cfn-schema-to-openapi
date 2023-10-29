@@ -470,11 +470,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Timestream::Database' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Database' ;
   - ScheduledQuery:
       name: ScheduledQuery
       id: aws.timestream.ScheduledQuery
@@ -484,6 +485,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ScheduleConfiguration.ScheduleExpression') as schedule_configuration_schedule_expression,
               JSON_EXTRACT(Properties, '$.NotificationConfiguration.SnsConfiguration') as notification_configuration_sns_configuration,
               JSON_EXTRACT(Properties, '$.TargetConfiguration.TimestreamConfiguration') as target_configuration_timestream_configuration,
@@ -496,7 +498,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SQTargetConfiguration') as s_qtarget_configuration,
               JSON_EXTRACT(Properties, '$.SQErrorReportConfiguration') as s_qerror_report_configuration,
               JSON_EXTRACT(Properties, '$.SQKmsKeyId') as s_qkms_key_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Timestream::ScheduledQuery' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::ScheduledQuery' ;
   - Table:
       name: Table
       id: aws.timestream.Table
@@ -506,6 +508,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
@@ -513,4 +516,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RetentionProperties') as retention_properties,
               JSON_EXTRACT(Properties, '$.MagneticStoreWriteProperties') as magnetic_store_write_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Timestream::Table' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Table' ;

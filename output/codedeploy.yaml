@@ -422,10 +422,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::Application' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::Application' ;
   - DeploymentConfig:
       name: DeploymentConfig
       id: aws.codedeploy.DeploymentConfig
@@ -435,6 +436,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
               JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Value') as minimum_healthy_hosts_value,
@@ -442,7 +444,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.Type') as traffic_routing_config_type,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedLinear') as traffic_routing_config_time_based_linear,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedCanary') as traffic_routing_config_time_based_canary
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::DeploymentConfig' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig' ;
   - DeploymentGroup:
       name: DeploymentGroup
       id: aws.codedeploy.DeploymentGroup
@@ -452,6 +454,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.OnPremisesTagSet.OnPremisesTagSetList') as on_premises_tag_set_on_premises_tag_set_list,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentOption') as deployment_style_deployment_option,
@@ -482,4 +485,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DeploymentGroupName') as deployment_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.OnPremisesInstanceTagFilters') as on_premises_instance_tag_filters
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodeDeploy::DeploymentGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup' ;

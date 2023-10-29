@@ -1,0 +1,31 @@
+---
+title: QueryDefinition
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - QueryDefinition
+  - logs
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
+---
+The QueryDefinition resource documentation.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>QueryDefinition</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.logs.QueryDefinition</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>Name</code></td><td><code>string</code></td><td>A name for the saved query definition</td></tr><tr><td><code>QueryString</code></td><td><code>string</code></td><td>The query string to use for this definition</td></tr><tr><td><code>LogGroupNames</code></td><td><code>array</code></td><td>Optionally define specific log groups as part of your query definition</td></tr><tr><td><code>QueryDefinitionId</code></td><td><code>string</code></td><td>Unique identifier of a query definition</td></tr>
+</tbody></table>

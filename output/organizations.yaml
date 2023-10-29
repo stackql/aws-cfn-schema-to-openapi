@@ -213,6 +213,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AccountName') as account_name,
               JSON_EXTRACT(Properties, '$.Email') as email,
               JSON_EXTRACT(Properties, '$.RoleName') as role_name,
@@ -223,7 +224,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.JoinedMethod') as joined_method,
               JSON_EXTRACT(Properties, '$.JoinedTimestamp') as joined_timestamp,
               JSON_EXTRACT(Properties, '$.Status') as status
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::Account' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Account' ;
   - OrganizationalUnit:
       name: OrganizationalUnit
       id: aws.organizations.OrganizationalUnit
@@ -233,12 +234,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ParentId') as parent_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::OrganizationalUnit' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::OrganizationalUnit' ;
   - Policy:
       name: Policy
       id: aws.organizations.Policy
@@ -248,6 +250,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Content') as content,
@@ -257,7 +260,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AwsManaged') as aws_managed
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::Policy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Policy' ;
   - ResourcePolicy:
       name: ResourcePolicy
       id: aws.organizations.ResourcePolicy
@@ -267,8 +270,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Content') as content,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Organizations::ResourcePolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::ResourcePolicy' ;

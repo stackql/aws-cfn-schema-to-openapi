@@ -303,12 +303,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
               JSON_EXTRACT(Properties, '$.RepositoryPolicyText') as repository_policy_text,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RepositoryCatalogData') as repository_catalog_data,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::PublicRepository' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PublicRepository' ;
   - PullThroughCacheRule:
       name: PullThroughCacheRule
       id: aws.ecr.PullThroughCacheRule
@@ -318,9 +319,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.EcrRepositoryPrefix') as ecr_repository_prefix,
               JSON_EXTRACT(Properties, '$.UpstreamRegistryUrl') as upstream_registry_url
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::PullThroughCacheRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule' ;
   - RegistryPolicy:
       name: RegistryPolicy
       id: aws.ecr.RegistryPolicy
@@ -330,8 +332,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PolicyText') as policy_text
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::RegistryPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::RegistryPolicy' ;
   - ReplicationConfiguration:
       name: ReplicationConfiguration
       id: aws.ecr.ReplicationConfiguration
@@ -341,10 +344,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration.ReplicationConfiguration') as replication_configuration_replication_configuration,
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration.RegistryId') as replication_configuration_registry_id,
               JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::ReplicationConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration' ;
   - Repository:
       name: Repository
       id: aws.ecr.Repository
@@ -354,6 +358,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.LifecyclePolicy.LifecyclePolicyText') as lifecycle_policy_lifecycle_policy_text,
               JSON_EXTRACT(Properties, '$.LifecyclePolicy.RegistryId') as lifecycle_policy_registry_id,
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
@@ -365,4 +370,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.ScanOnPush') as image_scanning_configuration_scan_on_push,
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration.EncryptionType') as encryption_configuration_encryption_type,
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as encryption_configuration_kms_key
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECR::Repository' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::Repository' ;

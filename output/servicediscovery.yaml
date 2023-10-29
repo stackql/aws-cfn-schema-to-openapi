@@ -202,12 +202,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace' ;
   - Instance:
       name: Instance
       id: aws.servicediscovery.Instance
@@ -217,10 +218,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.InstanceAttributes') as instance_attributes,
               JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceDiscovery::Instance' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance' ;
   - PrivateDnsNamespace:
       name: PrivateDnsNamespace
       id: aws.servicediscovery.PrivateDnsNamespace
@@ -230,6 +232,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id,
               JSON_EXTRACT(Properties, '$.Vpc') as vpc,
@@ -238,7 +241,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace' ;
   - PublicDnsNamespace:
       name: PublicDnsNamespace
       id: aws.servicediscovery.PublicDnsNamespace
@@ -248,6 +251,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -255,7 +259,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace' ;
   - Service:
       name: Service
       id: aws.servicediscovery.Service
@@ -265,6 +269,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.HealthCheckCustomConfig.FailureThreshold') as health_check_custom_config_failure_threshold,
@@ -279,4 +284,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ServiceDiscovery::Service' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Service' ;

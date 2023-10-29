@@ -232,6 +232,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.StorageEncrypted') as storage_encrypted,
               JSON_EXTRACT(Properties, '$.RestoreToTime') as restore_to_time,
               JSON_EXTRACT(Properties, '$.SnapshotIdentifier') as snapshot_identifier,
@@ -259,7 +260,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.BackupRetentionPeriod') as backup_retention_period,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DocDB::DBCluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBCluster' ;
   - DBClusterParameterGroup:
       name: DBClusterParameterGroup
       id: aws.docdb.DBClusterParameterGroup
@@ -269,13 +270,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Family') as family,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DocDB::DBClusterParameterGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup' ;
   - DBInstance:
       name: DBInstance
       id: aws.docdb.DBInstance
@@ -285,6 +287,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
               JSON_EXTRACT(Properties, '$.DBInstanceClass') as d_binstance_class,
               JSON_EXTRACT(Properties, '$.Port') as port,
@@ -296,7 +299,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DBInstanceIdentifier') as d_binstance_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DocDB::DBInstance' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBInstance' ;
   - DBSubnetGroup:
       name: DBSubnetGroup
       id: aws.docdb.DBSubnetGroup
@@ -306,12 +309,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DBSubnetGroupName') as d_bsubnet_group_name,
               JSON_EXTRACT(Properties, '$.DBSubnetGroupDescription') as d_bsubnet_group_description,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DocDB::DBSubnetGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup' ;
   - Cluster:
       name: Cluster
       id: aws.docdb.Cluster
@@ -321,6 +325,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.ClusterEndpoint') as cluster_endpoint,
@@ -334,4 +339,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DocDB::Cluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::Cluster' ;

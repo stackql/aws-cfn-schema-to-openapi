@@ -365,6 +365,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Category') as category,
               JSON_EXTRACT(Properties, '$.ConfigurationProperties') as configuration_properties,
               JSON_EXTRACT(Properties, '$.InputArtifactDetails.MaximumCount') as input_artifact_details_maximum_count,
@@ -379,7 +380,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::CustomActionType' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType' ;
   - Pipeline:
       name: Pipeline
       id: aws.codepipeline.Pipeline
@@ -389,6 +390,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ArtifactStores') as artifact_stores,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.ArtifactStore.Type') as artifact_store_type,
@@ -401,7 +403,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::Pipeline' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Pipeline' ;
   - Webhook:
       name: Webhook
       id: aws.codepipeline.Webhook
@@ -411,6 +413,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.AllowedIPRange') as authentication_configuration_allowed_ip_range,
               JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.SecretToken') as authentication_configuration_secret_token,
               JSON_EXTRACT(Properties, '$.Filters') as filters,
@@ -422,4 +425,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.TargetPipelineVersion') as target_pipeline_version,
               JSON_EXTRACT(Properties, '$.RegisterWithThirdParty') as register_with_third_party
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::CodePipeline::Webhook' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Webhook' ;

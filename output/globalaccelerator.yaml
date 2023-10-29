@@ -228,6 +228,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.IpAddressType') as ip_address_type,
               JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
@@ -238,7 +239,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DualStackDnsName') as dual_stack_dns_name,
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
   - EndpointGroup:
       name: EndpointGroup
       id: aws.globalaccelerator.EndpointGroup
@@ -248,6 +249,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.EndpointGroupRegion') as endpoint_group_region,
               JSON_EXTRACT(Properties, '$.EndpointConfigurations') as endpoint_configurations,
@@ -259,7 +261,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ThresholdCount') as threshold_count,
               JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn,
               JSON_EXTRACT(Properties, '$.PortOverrides') as port_overrides
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
   - Listener:
       name: Listener
       id: aws.globalaccelerator.Listener
@@ -269,9 +271,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
               JSON_EXTRACT(Properties, '$.PortRanges') as port_ranges,
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.ClientAffinity') as client_affinity
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::GlobalAccelerator::Listener' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener' ;

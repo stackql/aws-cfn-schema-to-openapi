@@ -775,6 +775,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PushSync.ApplicationArns') as push_sync_application_arns,
               JSON_EXTRACT(Properties, '$.PushSync.RoleArn') as push_sync_role_arn,
               JSON_EXTRACT(Properties, '$.CognitoIdentityProviders') as cognito_identity_providers,
@@ -791,7 +792,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SamlProviderARNs') as saml_provider_ar_ns,
               JSON_EXTRACT(Properties, '$.OpenIdConnectProviderARNs') as open_id_connect_provider_ar_ns,
               JSON_EXTRACT(Properties, '$.AllowClassicFlow') as allow_classic_flow
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::IdentityPool' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPool' ;
   - IdentityPoolRoleAttachment:
       name: IdentityPoolRoleAttachment
       id: aws.cognito.IdentityPoolRoleAttachment
@@ -801,11 +802,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.IdentityPoolId') as identity_pool_id,
               JSON_EXTRACT(Properties, '$.Roles') as roles,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RoleMappings') as role_mappings
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment' ;
   - UserPool:
       name: UserPool
       id: aws.cognito.UserPool
@@ -815,6 +817,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.UserPoolTags') as user_pool_tags,
               JSON_EXTRACT(Properties, '$.Policies.PasswordPolicy') as policies_password_policy,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
@@ -869,7 +872,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DeviceConfiguration.DeviceOnlyRememberedOnUserPrompt') as device_configuration_device_only_remembered_on_user_prompt,
               JSON_EXTRACT(Properties, '$.DeviceConfiguration.ChallengeRequiredOnNewDevice') as device_configuration_challenge_required_on_new_device,
               JSON_EXTRACT(Properties, '$.EmailVerificationMessage') as email_verification_message
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPool' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPool' ;
   - UserPoolClient:
       name: UserPoolClient
       id: aws.cognito.UserPoolClient
@@ -879,6 +882,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.ApplicationArn') as analytics_configuration_application_arn,
               JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.ApplicationId') as analytics_configuration_application_id,
               JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.UserDataShared') as analytics_configuration_user_data_shared,
@@ -910,7 +914,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.WriteAttributes') as write_attributes,
               JSON_EXTRACT(Properties, '$.PreventUserExistenceErrors') as prevent_user_existence_errors
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolClient' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolClient' ;
   - UserPoolDomain:
       name: UserPoolDomain
       id: aws.cognito.UserPoolDomain
@@ -920,12 +924,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.CloudFrontDistribution') as cloud_front_distribution,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.CustomDomainConfig.CertificateArn') as custom_domain_config_certificate_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolDomain' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain' ;
   - UserPoolGroup:
       name: UserPoolGroup
       id: aws.cognito.UserPoolGroup
@@ -935,13 +940,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Precedence') as precedence,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolGroup' ;
   - UserPoolIdentityProvider:
       name: UserPoolIdentityProvider
       id: aws.cognito.UserPoolIdentityProvider
@@ -951,6 +957,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ProviderName') as provider_name,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.AttributeMapping') as attribute_mapping,
@@ -958,7 +965,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ProviderType') as provider_type,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.IdpIdentifiers') as idp_identifiers
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider' ;
   - UserPoolResourceServer:
       name: UserPoolResourceServer
       id: aws.cognito.UserPoolResourceServer
@@ -968,12 +975,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Identifier') as identifier,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Scopes') as scopes,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolResourceServer' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolResourceServer' ;
   - UserPoolRiskConfigurationAttachment:
       name: UserPoolRiskConfigurationAttachment
       id: aws.cognito.UserPoolRiskConfigurationAttachment
@@ -983,6 +991,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration.Actions') as compromised_credentials_risk_configuration_actions,
               JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration.EventFilter') as compromised_credentials_risk_configuration_event_filter,
@@ -992,7 +1001,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.AccountTakeoverRiskConfiguration.NotifyConfiguration') as account_takeover_risk_configuration_notify_configuration,
               JSON_EXTRACT(Properties, '$.RiskExceptionConfiguration.BlockedIPRangeList') as risk_exception_configuration_blocked_ip_range_list,
               JSON_EXTRACT(Properties, '$.RiskExceptionConfiguration.SkippedIPRangeList') as risk_exception_configuration_skipped_ip_range_list
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment' ;
   - UserPoolUICustomizationAttachment:
       name: UserPoolUICustomizationAttachment
       id: aws.cognito.UserPoolUICustomizationAttachment
@@ -1002,11 +1011,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CSS') as c_ss,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.ClientId') as client_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment' ;
   - UserPoolUser:
       name: UserPoolUser
       id: aws.cognito.UserPoolUser
@@ -1016,6 +1026,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ValidationData') as validation_data,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Username') as username,
@@ -1025,7 +1036,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DesiredDeliveryMediums') as desired_delivery_mediums,
               JSON_EXTRACT(Properties, '$.ForceAliasCreation') as force_alias_creation,
               JSON_EXTRACT(Properties, '$.UserAttributes') as user_attributes
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolUser' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUser' ;
   - UserPoolUserToGroupAttachment:
       name: UserPoolUserToGroupAttachment
       id: aws.cognito.UserPoolUserToGroupAttachment
@@ -1035,8 +1046,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Username') as username
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment' ;

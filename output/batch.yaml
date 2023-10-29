@@ -750,6 +750,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentArn') as compute_environment_arn,
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentName') as compute_environment_name,
               JSON_EXTRACT(Properties, '$.ComputeResources.AllocationStrategy') as compute_resources_allocation_strategy,
@@ -780,7 +781,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.UnmanagedvCpus') as unmanagedv_cpus,
               JSON_EXTRACT(Properties, '$.EksConfiguration.EksClusterArn') as eks_configuration_eks_cluster_arn,
               JSON_EXTRACT(Properties, '$.EksConfiguration.KubernetesNamespace') as eks_configuration_kubernetes_namespace
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Batch::ComputeEnvironment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment' ;
   - JobDefinition:
       name: JobDefinition
       id: aws.batch.JobDefinition
@@ -790,6 +791,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Timeout.AttemptDurationSeconds') as timeout_attempt_duration_seconds,
               JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
@@ -826,7 +828,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RetryStrategy.EvaluateOnExit') as retry_strategy_evaluate_on_exit,
               JSON_EXTRACT(Properties, '$.RetryStrategy.Attempts') as retry_strategy_attempts,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Batch::JobDefinition' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobDefinition' ;
   - JobQueue:
       name: JobQueue
       id: aws.batch.JobQueue
@@ -836,12 +838,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.JobQueueName') as job_queue_name,
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentOrder') as compute_environment_order,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Batch::JobQueue' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobQueue' ;
   - SchedulingPolicy:
       name: SchedulingPolicy
       id: aws.batch.SchedulingPolicy
@@ -851,9 +854,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.FairsharePolicy.ShareDecaySeconds') as fairshare_policy_share_decay_seconds,
               JSON_EXTRACT(Properties, '$.FairsharePolicy.ComputeReservation') as fairshare_policy_compute_reservation,
               JSON_EXTRACT(Properties, '$.FairsharePolicy.ShareDistribution') as fairshare_policy_share_distribution,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Batch::SchedulingPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy' ;

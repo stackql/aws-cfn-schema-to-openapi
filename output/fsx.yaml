@@ -481,6 +481,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AssociationId') as association_id,
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.FileSystemId') as file_system_id,
@@ -491,7 +492,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.S3.AutoImportPolicy') as s3_auto_import_policy,
               JSON_EXTRACT(Properties, '$.S3.AutoExportPolicy') as s3_auto_export_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::FSx::DataRepositoryAssociation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation' ;
   - FileSystem:
       name: FileSystem
       id: aws.fsx.FileSystem
@@ -501,6 +502,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.StorageType') as storage_type,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity,
@@ -558,7 +560,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LustreMountName') as lustre_mount_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::FSx::FileSystem' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::FileSystem' ;
   - Snapshot:
       name: Snapshot
       id: aws.fsx.Snapshot
@@ -568,12 +570,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.VolumeId') as volume_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::FSx::Snapshot' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Snapshot' ;
   - StorageVirtualMachine:
       name: StorageVirtualMachine
       id: aws.fsx.StorageVirtualMachine
@@ -583,6 +586,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.SvmAdminPassword') as svm_admin_password,
               JSON_EXTRACT(Properties, '$.StorageVirtualMachineId') as storage_virtual_machine_id,
@@ -593,7 +597,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::FSx::StorageVirtualMachine' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine' ;
   - Volume:
       name: Volume
       id: aws.fsx.Volume
@@ -603,6 +607,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.ReadOnly') as open_zf_sconfiguration_read_only,
               JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.Options') as open_zf_sconfiguration_options,
               JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.DataCompressionType') as open_zf_sconfiguration_data_compression_type,
@@ -630,4 +635,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::FSx::Volume' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Volume' ;

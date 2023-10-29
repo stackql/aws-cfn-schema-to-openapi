@@ -245,6 +245,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.State') as state,
@@ -273,7 +274,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.VisualReference.BaseCanaryRunId') as visual_reference_base_canary_run_id,
               JSON_EXTRACT(Properties, '$.VisualReference.BaseScreenshots') as visual_reference_base_screenshots,
               JSON_EXTRACT(Properties, '$.DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Synthetics::Canary' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Canary' ;
   - Group:
       name: Group
       id: aws.synthetics.Group
@@ -283,8 +284,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Synthetics::Group' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Group' ;

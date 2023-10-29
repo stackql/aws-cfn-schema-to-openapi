@@ -138,6 +138,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.TeamId') as team_id,
               JSON_EXTRACT(Properties, '$.TeamsChannelId') as teams_channel_id,
               JSON_EXTRACT(Properties, '$.TeamsTenantId') as teams_tenant_id,
@@ -148,7 +149,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.GuardrailPolicies') as guardrail_policies,
               JSON_EXTRACT(Properties, '$.UserRoleRequired') as user_role_required
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration' ;
   - SlackChannelConfiguration:
       name: SlackChannelConfiguration
       id: aws.chatbot.SlackChannelConfiguration
@@ -158,6 +159,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.SlackWorkspaceId') as slack_workspace_id,
               JSON_EXTRACT(Properties, '$.SlackChannelId') as slack_channel_id,
               JSON_EXTRACT(Properties, '$.ConfigurationName') as configuration_name,
@@ -167,4 +169,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.GuardrailPolicies') as guardrail_policies,
               JSON_EXTRACT(Properties, '$.UserRoleRequired') as user_role_required
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration' ;

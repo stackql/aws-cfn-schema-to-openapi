@@ -170,6 +170,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.AppArn') as app_arn,
@@ -177,7 +178,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.AppTemplateBody') as app_template_body,
               JSON_EXTRACT(Properties, '$.ResourceMappings') as resource_mappings,
               JSON_EXTRACT(Properties, '$.AppAssessmentSchedule') as app_assessment_schedule
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ResilienceHub::App' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::App' ;
   - ResiliencyPolicy:
       name: ResiliencyPolicy
       id: aws.resiliencehub.ResiliencyPolicy
@@ -187,9 +188,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDescription') as policy_description,
               JSON_EXTRACT(Properties, '$.DataLocationConstraint') as data_location_constraint,
               JSON_EXTRACT(Properties, '$.Tier') as tier,
               JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy' ;

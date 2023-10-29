@@ -235,13 +235,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
               JSON_EXTRACT(Properties, '$.TargetId') as target_id,
               JSON_EXTRACT(Properties, '$.TargetType') as target_type,
               JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn,
               JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type,
               JSON_EXTRACT(Properties, '$.PrincipalId') as principal_id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SSO::Assignment' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::Assignment' ;
   - InstanceAccessControlAttributeConfiguration:
       name: InstanceAccessControlAttributeConfiguration
       id: aws.sso.InstanceAccessControlAttributeConfiguration
@@ -251,9 +252,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
               JSON_EXTRACT(Properties, '$.InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration' ;
   - PermissionSet:
       name: PermissionSet
       id: aws.sso.PermissionSet
@@ -263,6 +265,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -275,4 +278,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.CustomerManagedPolicyReferences') as customer_managed_policy_references,
               JSON_EXTRACT(Properties, '$.PermissionsBoundary.CustomerManagedPolicyReference') as permissions_boundary_customer_managed_policy_reference,
               JSON_EXTRACT(Properties, '$.PermissionsBoundary.ManagedPolicyArn') as permissions_boundary_managed_policy_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::SSO::PermissionSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::PermissionSet' ;

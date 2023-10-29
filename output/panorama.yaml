@@ -282,9 +282,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ManifestPayload.PayloadData') as manifest_payload_payload_data,
               JSON_EXTRACT(Properties, '$.ManifestOverridesPayload.PayloadData') as manifest_overrides_payload_payload_data
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Panorama::ApplicationInstance' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance' ;
   - Package:
       name: Package
       id: aws.panorama.Package
@@ -294,12 +295,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.StorageLocation.Bucket') as storage_location_bucket,
               JSON_EXTRACT(Properties, '$.StorageLocation.RepoPrefixLocation') as storage_location_repo_prefix_location,
               JSON_EXTRACT(Properties, '$.StorageLocation.GeneratedPrefixLocation') as storage_location_generated_prefix_location,
               JSON_EXTRACT(Properties, '$.StorageLocation.BinaryPrefixLocation') as storage_location_binary_prefix_location,
               JSON_EXTRACT(Properties, '$.StorageLocation.ManifestPrefixLocation') as storage_location_manifest_prefix_location
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Panorama::Package' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::Package' ;
   - PackageVersion:
       name: PackageVersion
       id: aws.panorama.PackageVersion
@@ -309,6 +311,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.MarkLatest') as mark_latest,
               JSON_EXTRACT(Properties, '$.IsLatestPatch') as is_latest_patch
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Panorama::PackageVersion' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::PackageVersion' ;

@@ -244,12 +244,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterEndpoints') as cluster_endpoints,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryControl::Cluster' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster' ;
   - ControlPanel:
       name: ControlPanel
       id: aws.route53recoverycontrol.ControlPanel
@@ -259,6 +260,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -266,7 +268,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DefaultControlPanel') as default_control_panel,
               JSON_EXTRACT(Properties, '$.RoutingControlCount') as routing_control_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel' ;
   - RoutingControl:
       name: RoutingControl
       id: aws.route53recoverycontrol.RoutingControl
@@ -276,12 +278,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_arn,
               JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl' ;
   - SafetyRule:
       name: SafetyRule
       id: aws.route53recoverycontrol.SafetyRule
@@ -291,6 +294,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.AssertionRule.WaitPeriodMs') as assertion_rule_wait_period_ms,
               JSON_EXTRACT(Properties, '$.AssertionRule.AssertedControls') as assertion_rule_asserted_controls,
               JSON_EXTRACT(Properties, '$.GatingRule.GatingControls') as gating_rule_gating_controls,
@@ -303,4 +307,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RuleConfig.Threshold') as rule_config_threshold,
               JSON_EXTRACT(Properties, '$.RuleConfig.Inverted') as rule_config_inverted,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule' ;

@@ -198,6 +198,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ScheduledActions') as scheduled_actions,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespace,
@@ -209,7 +210,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.MinCapacity') as min_capacity,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget' ;
   - ScalingPolicy:
       name: ScalingPolicy
       id: aws.applicationautoscaling.ScalingPolicy
@@ -219,6 +220,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
@@ -237,4 +239,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleInCooldown') as target_tracking_scaling_policy_configuration_scale_in_cooldown,
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleOutCooldown') as target_tracking_scaling_policy_configuration_scale_out_cooldown,
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.TargetValue') as target_tracking_scaling_policy_configuration_target_value
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy' ;

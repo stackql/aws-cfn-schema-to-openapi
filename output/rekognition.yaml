@@ -296,8 +296,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Rekognition::Collection' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Collection' ;
   - Project:
       name: Project
       id: aws.rekognition.Project
@@ -306,8 +307,9 @@ x-stackql-views:
           select:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
-              SELEC
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Rekognition::Project' ;
+              SELECT
+              regio
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Project' ;
   - StreamProcessor:
       name: StreamProcessor
       id: aws.rekognition.StreamProcessor
@@ -317,6 +319,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
@@ -335,4 +338,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Rekognition::StreamProcessor' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor' ;

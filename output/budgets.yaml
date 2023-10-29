@@ -292,6 +292,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.NotificationsWithSubscribers') as notifications_with_subscribers,
               JSON_EXTRACT(Properties, '$.Budget.BudgetLimit') as budget_budget_limit,
               JSON_EXTRACT(Properties, '$.Budget.TimePeriod') as budget_time_period,
@@ -303,7 +304,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Budget.CostTypes') as budget_cost_types,
               JSON_EXTRACT(Properties, '$.Budget.BudgetType') as budget_budget_type,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Budgets::Budget' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::Budget' ;
   - BudgetsAction:
       name: BudgetsAction
       id: aws.budgets.BudgetsAction
@@ -313,6 +314,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ActionId') as action_id,
               JSON_EXTRACT(Properties, '$.BudgetName') as budget_name,
               JSON_EXTRACT(Properties, '$.NotificationType') as notification_type,
@@ -325,4 +327,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Definition.IamActionDefinition') as definition_iam_action_definition,
               JSON_EXTRACT(Properties, '$.Definition.ScpActionDefinition') as definition_scp_action_definition,
               JSON_EXTRACT(Properties, '$.Definition.SsmActionDefinition') as definition_ssm_action_definition
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Budgets::BudgetsAction' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::BudgetsAction' ;

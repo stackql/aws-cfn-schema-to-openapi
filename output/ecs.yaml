@@ -1089,8 +1089,9 @@ x-stackql-views:
           select:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
-              SELEC
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations' ;
+              SELECT
+              regio
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations' ;
   - PrimaryTaskSet:
       name: PrimaryTaskSet
       id: aws.ecs.PrimaryTaskSet
@@ -1100,10 +1101,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
               JSON_EXTRACT(Properties, '$.TaskSetId') as task_set_id,
               JSON_EXTRACT(Properties, '$.Service') as service
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECS::PrimaryTaskSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet' ;
   - Service:
       name: Service
       id: aws.ecs.Service
@@ -1113,6 +1115,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
               JSON_EXTRACT(Properties, '$.CapacityProviderStrategy') as capacity_provider_strategy,
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
@@ -1143,7 +1146,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECS::Service' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::Service' ;
   - TaskDefinition:
       name: TaskDefinition
       id: aws.ecs.TaskDefinition
@@ -1153,6 +1156,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.TaskDefinitionArn') as task_definition_arn,
               JSON_EXTRACT(Properties, '$.Family') as family,
               JSON_EXTRACT(Properties, '$.ContainerDefinitions') as container_definitions,
@@ -1174,7 +1178,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RuntimePlatform.OperatingSystemFamily') as runtime_platform_operating_system_family,
               JSON_EXTRACT(Properties, '$.IpcMode') as ipc_mode,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECS::TaskDefinition' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskDefinition' ;
   - TaskSet:
       name: TaskSet
       id: aws.ecs.TaskSet
@@ -1184,6 +1188,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
               JSON_EXTRACT(Properties, '$.ExternalId') as external_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -1196,4 +1201,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Service') as service,
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::ECS::TaskSet' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskSet' ;

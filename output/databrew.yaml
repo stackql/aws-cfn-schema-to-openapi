@@ -1233,6 +1233,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Format') as format,
               JSON_EXTRACT(Properties, '$.FormatOptions.Json') as format_options_json,
@@ -1246,7 +1247,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.PathOptions.LastModifiedDateCondition') as path_options_last_modified_date_condition,
               JSON_EXTRACT(Properties, '$.PathOptions.Parameters') as path_options_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Dataset' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Dataset' ;
   - Recipe:
       name: Recipe
       id: aws.databrew.Recipe
@@ -1256,11 +1257,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Steps') as steps,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Recipe' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Recipe' ;
   - Job:
       name: Job
       id: aws.databrew.Job
@@ -1270,6 +1272,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name,
               JSON_EXTRACT(Properties, '$.EncryptionKeyArn') as encryption_key_arn,
               JSON_EXTRACT(Properties, '$.EncryptionMode') as encryption_mode,
@@ -1299,7 +1302,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ProfileConfiguration.ColumnStatisticsConfigurations') as profile_configuration_column_statistics_configurations,
               JSON_EXTRACT(Properties, '$.ProfileConfiguration.EntityDetectorConfiguration') as profile_configuration_entity_detector_configuration,
               JSON_EXTRACT(Properties, '$.ValidationConfigurations') as validation_configurations
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Job' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Job' ;
   - Project:
       name: Project
       id: aws.databrew.Project
@@ -1309,6 +1312,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RecipeName') as recipe_name,
@@ -1316,7 +1320,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Sample.Size') as sample_size,
               JSON_EXTRACT(Properties, '$.Sample.Type') as sample_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Project' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Project' ;
   - Ruleset:
       name: Ruleset
       id: aws.databrew.Ruleset
@@ -1326,12 +1330,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn,
               JSON_EXTRACT(Properties, '$.Rules') as rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Ruleset' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Ruleset' ;
   - Schedule:
       name: Schedule
       id: aws.databrew.Schedule
@@ -1341,8 +1346,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.JobNames') as job_names,
               JSON_EXTRACT(Properties, '$.CronExpression') as cron_expression,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::DataBrew::Schedule' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Schedule' ;

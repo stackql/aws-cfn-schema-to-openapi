@@ -352,6 +352,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DatasetArn') as dataset_arn,
               JSON_EXTRACT(Properties, '$.DatasetType') as dataset_type,
@@ -362,7 +363,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.DatasetImportJob.DatasetArn') as dataset_import_job_dataset_arn,
               JSON_EXTRACT(Properties, '$.DatasetImportJob.DataSource') as dataset_import_job_data_source,
               JSON_EXTRACT(Properties, '$.DatasetImportJob.RoleArn') as dataset_import_job_role_arn
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Personalize::Dataset' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Dataset' ;
   - DatasetGroup:
       name: DatasetGroup
       id: aws.personalize.DatasetGroup
@@ -372,12 +373,13 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Domain') as domain
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Personalize::DatasetGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::DatasetGroup' ;
   - Schema:
       name: Schema
       id: aws.personalize.Schema
@@ -387,11 +389,12 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Domain') as domain
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Personalize::Schema' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Schema' ;
   - Solution:
       name: Solution
       id: aws.personalize.Solution
@@ -401,6 +404,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.EventType') as event_type,
               JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn,
@@ -412,4 +416,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.SolutionConfig.EventValueThreshold') as solution_config_event_value_threshold,
               JSON_EXTRACT(Properties, '$.SolutionConfig.FeatureTransformationParameters') as solution_config_feature_transformation_parameters,
               JSON_EXTRACT(Properties, '$.SolutionConfig.HpoConfig') as solution_config_hpo_config
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Personalize::Solution' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Solution' ;

@@ -2109,6 +2109,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.InputAttachments') as input_attachments,
               JSON_EXTRACT(Properties, '$.InputSpecification.Codec') as input_specification_codec,
               JSON_EXTRACT(Properties, '$.InputSpecification.MaximumBitrate') as input_specification_maximum_bitrate,
@@ -2138,7 +2139,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Inputs') as inputs,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaLive::Channel' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Channel' ;
   - Input:
       name: Input
       id: aws.medialive.Input
@@ -2148,6 +2149,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
               JSON_EXTRACT(Properties, '$.Vpc.SecurityGroupIds') as vpc_security_group_ids,
@@ -2161,7 +2163,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaLive::Input' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Input' ;
   - InputSecurityGroup:
       name: InputSecurityGroup
       id: aws.medialive.InputSecurityGroup
@@ -2171,8 +2173,9 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.WhitelistRules') as whitelist_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::MediaLive::InputSecurityGroup' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup' ;

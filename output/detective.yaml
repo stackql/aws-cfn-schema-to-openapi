@@ -70,9 +70,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Detective::Graph' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::Graph' ;
   - MemberInvitation:
       name: MemberInvitation
       id: aws.detective.MemberInvitation
@@ -82,9 +83,10 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn,
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.MemberEmailAddress') as member_email_address,
               JSON_EXTRACT(Properties, '$.DisableEmailNotification') as disable_email_notification,
               JSON_EXTRACT(Properties, '$.Message') as message
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::Detective::MemberInvitation' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::MemberInvitation' ;

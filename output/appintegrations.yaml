@@ -185,6 +185,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DataIntegrationArn') as data_integration_arn,
@@ -195,7 +196,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ScheduleConfig.ScheduleExpression') as schedule_config_schedule_expression,
               JSON_EXTRACT(Properties, '$.SourceURI') as source_ur_i,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppIntegrations::DataIntegration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration' ;
   - EventIntegration:
       name: EventIntegration
       id: aws.appintegrations.EventIntegration
@@ -205,10 +206,11 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EventIntegrationArn') as event_integration_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.EventBridgeBus') as event_bridge_bus,
               JSON_EXTRACT(Properties, '$.EventFilter.Source') as event_filter_source,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::AppIntegrations::EventIntegration' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration' ;

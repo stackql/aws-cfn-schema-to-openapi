@@ -100,13 +100,14 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.PermissionsMode') as permissions_mode,
               JSON_EXTRACT(Properties, '$.DeletionProtection') as deletion_protection,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::QLDB::Ledger' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Ledger' ;
   - Stream:
       name: Stream
       id: aws.qldb.Stream
@@ -116,6 +117,7 @@ x-stackql-views:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
+              region
               JSON_EXTRACT(Properties, '$.LedgerName') as ledger_name,
               JSON_EXTRACT(Properties, '$.StreamName') as stream_name,
               JSON_EXTRACT(Properties, '$.InclusiveStartTime') as inclusive_start_time,
@@ -124,4 +126,4 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.KinesisConfiguration.AggregationEnabled') as kinesis_configuration_aggregation_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE region = 'ap-southeast-1' and data__TypeName = 'AWS::QLDB::Stream' ;
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Stream' ;
