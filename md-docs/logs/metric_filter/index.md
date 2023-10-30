@@ -1,0 +1,31 @@
+---
+title: metric_filter
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - metric_filter
+  - logs
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
+---
+The metric_filter resource documentation.
+
+## Overview
+<table><tbody>
+<tr><td><b>Name</b></td><td><code>metric_filter</code></td></tr>
+<tr><td><b>Type</b></td><td>Resource</td></tr>
+null
+<tr><td><b>Id</b></td><td><code>aws.logs.metric_filter</code></td></tr>
+</tbody></table>
+
+## Fields
+<table><tbody>
+<tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>FilterName</code></td><td><code>string</code></td><td>A name for the metric filter.</td></tr><tr><td><code>FilterPattern</code></td><td><code>string</code></td><td>Pattern that Logs follows to interpret each entry in a log.</td></tr><tr><td><code>LogGroupName</code></td><td><code>string</code></td><td>Existing log group that you want to associate with this filter.</td></tr><tr><td><code>MetricTransformations</code></td><td><code>array</code></td><td>A collection of information that defines how metric data gets emitted.</td></tr>
+</tbody></table>

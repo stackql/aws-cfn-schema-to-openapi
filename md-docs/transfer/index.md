@@ -1,0 +1,44 @@
+---
+title: transfer
+hide_title: false
+hide_table_of_contents: false
+keywords:
+  - transfer
+  - aws
+  - stackql
+  - infrastructure-as-code
+  - configuration-as-data
+  - cloud inventory
+description: Query, deploy and manage AWS resources using SQL
+custom_edit_url: null
+image: /img/providers/aws/stackql-aws-provider-featured-image.png
+---
+
+The transfer service documentation.
+
+:::info Service Summary
+
+<div class="row">
+<div class="providerDocColumn">
+<span>total resources:&nbsp;<b>7</b></span><br />
+<span>total selectable resources:&nbsp;<b>7</b></span><br />
+<span>total methods:&nbsp;<b>7</b></span><br />
+</div>
+</div>
+
+:::
+
+## Resources
+<div class="row">
+<div class="providerDocColumn">
+<a href="/providers/aws/transfer/agreement/">agreement</a><br />
+<a href="/providers/aws/transfer/certificate/">certificate</a><br />
+<a href="/providers/aws/transfer/connector/">connector</a><br />
+<a href="/providers/aws/transfer/profile/">profile</a>
+</div>
+<div class="providerDocColumn">
+<a href="/providers/aws/transfer/server/">server</a><br />
+<a href="/providers/aws/transfer/user/">user</a><br />
+<a href="/providers/aws/transfer/workflow/">workflow</a>
+</div>
+</div>

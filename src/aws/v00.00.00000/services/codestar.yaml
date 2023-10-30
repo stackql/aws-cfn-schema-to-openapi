@@ -1,0 +1,248 @@
+openapi: 3.0.0
+info:
+  title: CodeStar
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    S3:
+      type: object
+      additionalProperties: false
+      properties:
+        ObjectVersion:
+          type: string
+        Bucket:
+          type: string
+        Key:
+          type: string
+      required:
+        - Bucket
+        - Key
+    Code:
+      type: object
+      additionalProperties: false
+      properties:
+        S3:
+          $ref: '#/components/schemas/S3'
+      required:
+        - S3
+    GitHubRepository:
+      type: object
+      properties:
+        EnableIssues:
+          type: boolean
+        ConnectionArn:
+          type: string
+        RepositoryName:
+          type: string
+        RepositoryAccessToken:
+          type: string
+        Id:
+          type: string
+        RepositoryOwner:
+          type: string
+        IsPrivate:
+          type: boolean
+        Code:
+          $ref: '#/components/schemas/Code'
+        RepositoryDescription:
+          type: string
+      required:
+        - RepositoryName
+        - RepositoryOwner
+      x-stackql-resource-name: git_hub_repository
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      properties:
+        Key:
+          type: string
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          minLength: 1
+          maxLength: 128
+        Value:
+          type: string
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          minLength: 0
+          maxLength: 256
+      required:
+        - Value
+        - Key
+      additionalProperties: false
+    Connection:
+      type: object
+      properties:
+        ConnectionArn:
+          description: The Amazon Resource Name (ARN) of the  connection. The ARN is used as the connection reference when the connection is shared between AWS services.
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: arn:aws(-[\w]+)*:.+:.+:[0-9]{12}:.+
+        ConnectionName:
+          description: The name of the connection. Connection names must be unique in an AWS user account.
+          type: string
+          minLength: 1
+          maxLength: 32
+        ConnectionStatus:
+          description: The current status of the connection.
+          type: string
+        OwnerAccountId:
+          description: The name of the external provider where your third-party code repository is configured. For Bitbucket, this is the account ID of the owner of the Bitbucket repository.
+          type: string
+          minLength: 12
+          maxLength: 12
+          pattern: '[0-9]{12}'
+        ProviderType:
+          description: The name of the external provider where your third-party code repository is configured. You must specify either a ProviderType or a HostArn.
+          type: string
+        HostArn:
+          description: The host arn configured to represent the infrastructure where your third-party provider is installed. You must specify either a ProviderType or a HostArn.
+          type: string
+          minLength: 0
+          maxLength: 256
+          pattern: arn:aws(-[\w]+)*:.+:.+:[0-9]{12}:.+
+        Tags:
+          description: Specifies the tags applied to a connection.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - ConnectionName
+      x-stackql-resource-name: connection
+    Target:
+      type: object
+      additionalProperties: false
+      properties:
+        TargetType:
+          type: string
+        TargetAddress:
+          type: string
+      required:
+        - TargetType
+        - TargetAddress
+    NotificationRule:
+      type: object
+      properties:
+        EventTypeId:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        CreatedBy:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        TargetAddress:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        EventTypeIds:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+            minLength: 1
+            maxLength: 200
+        Status:
+          type: string
+          enum:
+            - ENABLED
+            - DISABLED
+        DetailType:
+          type: string
+          enum:
+            - BASIC
+            - FULL
+        Resource:
+          type: string
+          pattern: ^arn:aws[^:\s]*:[^:\s]*:[^:\s]*:[0-9]{12}:[^\s]+$
+        Targets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Target'
+          maxItems: 10
+        Tags:
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .*:
+              type: string
+        Name:
+          type: string
+          pattern: '[A-Za-z0-9\-_ ]+$'
+          minLength: 1
+          maxLength: 64
+        Arn:
+          type: string
+          pattern: ^arn:aws[^:\s]*:codestar-notifications:[^:\s]+:\d{12}:notificationrule\/(.*\S)?$
+      required:
+        - EventTypeIds
+        - Resource
+        - DetailType
+        - Targets
+        - Name
+      x-stackql-resource-name: notification_rule
+x-stackql-views:
+  - git_hub_repository:
+      name: git_hub_repository
+      id: aws.codestar.git_hub_repository
+      x-cfn-schema-name: GitHubRepository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnableIssues') as enable_issues,
+              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
+              JSON_EXTRACT(Properties, '$.RepositoryAccessToken') as repository_access_token,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.RepositoryOwner') as repository_owner,
+              JSON_EXTRACT(Properties, '$.IsPrivate') as is_private,
+              JSON_EXTRACT(Properties, '$.Code.S3') as code_s3,
+              JSON_EXTRACT(Properties, '$.RepositoryDescription') as repository_description
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository' ;
+  - connection:
+      name: connection
+      id: aws.codestar.connection
+      x-cfn-schema-name: Connection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
+              JSON_EXTRACT(Properties, '$.ConnectionName') as connection_name,
+              JSON_EXTRACT(Properties, '$.ConnectionStatus') as connection_status,
+              JSON_EXTRACT(Properties, '$.OwnerAccountId') as owner_account_id,
+              JSON_EXTRACT(Properties, '$.ProviderType') as provider_type,
+              JSON_EXTRACT(Properties, '$.HostArn') as host_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::Connection' ;
+  - notification_rule:
+      name: notification_rule
+      id: aws.codestar.notification_rule
+      x-cfn-schema-name: NotificationRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EventTypeId') as event_type_id,
+              JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
+              JSON_EXTRACT(Properties, '$.TargetAddress') as target_address,
+              JSON_EXTRACT(Properties, '$.EventTypeIds') as event_type_ids,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.DetailType') as detail_type,
+              JSON_EXTRACT(Properties, '$.Resource') as resource,
+              JSON_EXTRACT(Properties, '$.Targets') as targets,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::NotificationRule' ;
