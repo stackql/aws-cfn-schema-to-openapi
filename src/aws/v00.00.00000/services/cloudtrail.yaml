@@ -375,8 +375,8 @@ components:
         - S3BucketName
         - IsLogging
       x-stackql-resource-name: trail
-x-stackql-views:
-  - channel:
+  x-stackQL-resources:
+    channel:
       name: channel
       id: aws.cloudtrail.channel
       x-cfn-schema-name: Channel
@@ -391,7 +391,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel' ;
-  - event_data_store:
+    event_data_store:
       name: event_data_store
       id: aws.cloudtrail.event_data_store
       x-cfn-schema-name: EventDataStore
@@ -413,7 +413,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore' ;
-  - resource_policy:
+    resource_policy:
       name: resource_policy
       id: aws.cloudtrail.resource_policy
       x-cfn-schema-name: ResourcePolicy
@@ -427,7 +427,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.ResourcePolicy') as resource_policy
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy' ;
-  - trail:
+    trail:
       name: trail
       id: aws.cloudtrail.trail
       x-cfn-schema-name: Trail

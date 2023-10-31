@@ -131,15 +131,17 @@ async function processService(servicePrefix, outputFilename) {
     Object.assign(openAPI.components.schemas, openAPIComponent);
   }
   openAPI.info = {title: serviceTitle, ...openAPI.info};
-  const stackqlViews = generateStackqlViews(openAPI);
-  Object.assign(openAPI, {'x-stackql-views': stackqlViews});
 
+  const stackqlViews = generateStackqlViews(openAPI);
+  if (!openAPI.components['x-stackQL-resources']) {
+      openAPI.components['x-stackQL-resources'] = {};
+  }
+  Object.assign(openAPI.components['x-stackQL-resources'], stackqlViews);
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
   writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
 }
-
 
 function findFilesInDocs(filter) {
 
@@ -181,43 +183,21 @@ function main(){
       console.log('Error processing file', service, error)
     }
   }
+
+  // add cloud_control
+  providerManifest.providerServices['cloud_control'] = {
+    id: `cloud_control:${providerManifest.version}`,
+    name: 'cloud_control',
+    preferred: true,
+    service: {
+        $ref: `aws/${providerManifest.version}/services/cloud_control.yaml`,
+    },
+    title: 'cloud_control',
+    version: providerManifest.version,
+    description: 'cloud_control',
+  };
+
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }
 
 main();
-
-// async function processYamlFilesInDirectory(directory) {
-//     const files = await fsPromises.readdir(directory);
-
-//     for (const file of files) {
-//         console.log('Processing file:', file);
-//         // const filePath = path.join(directory, file);
-//         // const fileStat = await fsPromises.stat(filePath);
-
-//         // // Ensure it's a file, not a directory, and has a .yaml extension
-//         // if (fileStat.isFile() && path.extname(filePath) === '.yaml') {
-//         //     console.log('Adding service to provider manifest:', filePath);
-            
-//         //     const content = await fsPromises.readFile(filePath, 'utf8');  // Ensure encoding is specified
-//         //     const yamlContent = load(content);  // Make sure 'load' is imported from 'js-yaml'
-            
-//         //     const serviceName = yamlContent.info.title;
-//         //     console.log('Service name:', serviceName);
-            
-//         //     providerManifest.providerServices[serviceName] = {
-//         //         id: `${serviceName}:${providerManifest.version}`,
-//         //         name: serviceName,
-//         //         preferred: true,
-//         //         service: {
-//         //             $ref: `aws/${providerManifest.version}/services/${serviceName}.yaml`,
-//         //         },
-//         //         title: serviceName,
-//         //         version: providerManifest.version,
-//         //         description: serviceName,
-//         //     };
-//         // }
-//     }
-//     writeObjectToYamlFile(providerManifest, '../provider.yaml');  // Assuming you have this function defined elsewhere
-// }
-
-// await processYamlFilesInDirectory(outputDir);

@@ -183,8 +183,8 @@ components:
         - SecurityGroups
         - SubnetId
       x-stackql-resource-name: mount_target
-x-stackql-views:
-  - access_point:
+  x-stackQL-resources:
+    access_point:
       name: access_point
       id: aws.efs.access_point
       x-cfn-schema-name: AccessPoint
@@ -206,7 +206,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.RootDirectory.Path') as root_directory_path,
               JSON_EXTRACT(Properties, '$.RootDirectory.CreationInfo') as root_directory_creation_info
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::AccessPoint' ;
-  - file_system:
+    file_system:
       name: file_system
       id: aws.efs.file_system
       x-cfn-schema-name: FileSystem
@@ -231,7 +231,7 @@ x-stackql-views:
               JSON_EXTRACT(Properties, '$.BackupPolicy.Status') as backup_policy_status,
               JSON_EXTRACT(Properties, '$.AvailabilityZoneName') as availability_zone_name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::FileSystem' ;
-  - mount_target:
+    mount_target:
       name: mount_target
       id: aws.efs.mount_target
       x-cfn-schema-name: MountTarget
