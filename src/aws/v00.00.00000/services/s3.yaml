@@ -369,76 +369,80 @@ components:
       additionalProperties: false
       properties:
         Rules:
-          description: A list of lifecycle rules for individual objects in an Amazon S3Outposts bucket.
+          description: A lifecycle rule for individual objects in an Amazon S3 bucket.
           type: array
-          x-insertionOrder: false
           uniqueItems: true
+          x-insertionOrder: true
           items:
             $ref: '#/components/schemas/Rule'
       required:
         - Rules
     Rule:
-      description: 'Specifies lifecycle rules for an Amazon S3Outposts bucket. You must specify at least one of the following: AbortIncompleteMultipartUpload, ExpirationDate, ExpirationInDays.'
       type: object
+      description: 'You must specify at least one of the following properties: AbortIncompleteMultipartUpload, ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions.'
       additionalProperties: false
       properties:
+        AbortIncompleteMultipartUpload:
+          $ref: '#/components/schemas/AbortIncompleteMultipartUpload'
+        ExpirationDate:
+          $ref: '#/components/schemas/iso8601UTC'
+        ExpirationInDays:
+          type: integer
+        ExpiredObjectDeleteMarker:
+          type: boolean
+        Id:
+          type: string
+          maxLength: 255
+        NoncurrentVersionExpirationInDays:
+          type: integer
+        NoncurrentVersionExpiration:
+          $ref: '#/components/schemas/NoncurrentVersionExpiration'
+        NoncurrentVersionTransition:
+          $ref: '#/components/schemas/NoncurrentVersionTransition'
+        NoncurrentVersionTransitions:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/NoncurrentVersionTransition'
+        Prefix:
+          type: string
         Status:
           type: string
           enum:
             - Enabled
             - Disabled
-        Id:
+        TagFilters:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+        ObjectSizeGreaterThan:
           type: string
-          maxLength: 255
-          description: Unique identifier for the lifecycle rule. The value can't be longer than 255 characters.
-        AbortIncompleteMultipartUpload:
-          description: Specifies a lifecycle rule that stops incomplete multipart uploads to an Amazon S3Outposts bucket.
-          $ref: '#/components/schemas/AbortIncompleteMultipartUpload'
-        ExpirationDate:
-          description: Indicates when objects are deleted from Amazon S3Outposts. The date value must be in ISO 8601 format. The time is always midnight UTC.
-          $ref: '#/components/schemas/iso8601UTC'
-        ExpirationInDays:
-          description: Indicates the number of days after creation when objects are deleted from Amazon S3Outposts.
-          type: integer
-          minimum: 1
-        Filter:
-          description: The container for the filter of the lifecycle rule.
-          type: object
-          additionalProperties: false
-          properties:
-            Prefix:
-              description: Object key prefix that identifies one or more objects to which this rule applies.
-              $ref: '#/components/schemas/FilterPrefix'
-            Tag:
-              description: Specifies a tag used to identify a subset of objects for an Amazon S3Outposts bucket.
-              $ref: '#/components/schemas/FilterTag'
-            AndOperator:
-              description: The container for the AND condition for the lifecycle rule. A combination of Prefix and 1 or more Tags OR a minimum of 2 or more tags.
-              $ref: '#/components/schemas/FilterAndOperator'
-          oneOf:
-            - required:
-                - Prefix
-            - required:
-                - Tag
-            - required:
-                - AndOperator
-      anyOf:
-        - required:
-            - Status
-            - AbortIncompleteMultipartUpload
-        - required:
-            - Status
-            - ExpirationDate
-        - required:
-            - Status
-            - ExpirationInDays
+          maxLength: 20
+          pattern: '[0-9]+'
+        ObjectSizeLessThan:
+          type: string
+          maxLength: 20
+          pattern: '[0-9]+'
+        Transition:
+          $ref: '#/components/schemas/Transition'
+        Transitions:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Transition'
+      required:
+        - Status
     AbortIncompleteMultipartUpload:
-      description: Specifies the days since the initiation of an incomplete multipart upload that Amazon S3Outposts will wait before permanently removing all parts of the upload.
+      description: Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload.
       type: object
       additionalProperties: false
       properties:
         DaysAfterInitiation:
-          description: Specifies the number of days after which Amazon S3Outposts aborts an incomplete multipart upload.
+          description: Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload.
           type: integer
           minimum: 0
       required:
@@ -922,13 +926,13 @@ components:
         Key:
           type: string
           minLength: 1
-          maxLength: 1024
-          pattern: ^(?!aws:.*)([\p{L}\p{Z}\p{N}_.:=+\/\-@%]*)$
+          maxLength: 127
+          pattern: ^(?!aws:.*)[a-zA-Z0-9\s\_\.\/\=\+\-]+$
         Value:
           type: string
           minLength: 1
-          maxLength: 1024
-          pattern: ^([\p{L}\p{Z}\p{N}_.:=+\/\-@%]*)$
+          maxLength: 255
+          pattern: ^(?!aws:.*)[a-zA-Z0-9\s\_\.\/\=\+\-]+$
       required:
         - Key
         - Value
@@ -1029,35 +1033,120 @@ components:
     Bucket:
       type: object
       properties:
-        Arn:
-          description: The Amazon Resource Name (ARN) of the specified bucket.
-          maxLength: 2048
-          minLength: 20
-          pattern: ^arn:[^:]+:s3-outposts:[a-zA-Z0-9\-]+:\d{12}:outpost\/[^:]+\/bucket\/[^:]+$
+        AccelerateConfiguration:
+          $ref: '#/components/schemas/AccelerateConfiguration'
+          description: Configuration for the transfer acceleration state.
+        AccessControl:
+          description: A canned access control list (ACL) that grants predefined permissions to the bucket.
+          enum:
+            - AuthenticatedRead
+            - AwsExecRead
+            - BucketOwnerFullControl
+            - BucketOwnerRead
+            - LogDeliveryWrite
+            - Private
+            - PublicRead
+            - PublicReadWrite
           type: string
+        AnalyticsConfigurations:
+          description: The configuration and any analyses for the analytics filter of an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/AnalyticsConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        BucketEncryption:
+          $ref: '#/components/schemas/BucketEncryption'
         BucketName:
-          description: A name for the bucket.
+          description: A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name.
           maxLength: 63
           minLength: 3
-          pattern: (?=^.{3,63}$)(?!^(\d+\.)+\d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])\.)*([a-z0-9]|[a-z0-9][a-z0-9\-]*[a-z0-9])$)
+          pattern: ^[a-z0-9][a-z0-9//.//-]*[a-z0-9]$
           type: string
-        OutpostId:
-          description: The id of the customer outpost on which the bucket resides.
-          pattern: ^(op-[a-f0-9]{17}|\d{12}|ec2)$
-          type: string
+        CorsConfiguration:
+          $ref: '#/components/schemas/CorsConfiguration'
+          description: Rules that define cross-origin resource sharing of objects in this bucket.
+        IntelligentTieringConfigurations:
+          description: Specifies the S3 Intelligent-Tiering configuration for an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/IntelligentTieringConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        InventoryConfigurations:
+          description: The inventory configuration for an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/InventoryConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        LifecycleConfiguration:
+          $ref: '#/components/schemas/LifecycleConfiguration'
+          description: Rules that define how Amazon S3 manages objects during their lifetime.
+        LoggingConfiguration:
+          $ref: '#/components/schemas/LoggingConfiguration'
+          description: Settings that define where logs are stored.
+        MetricsConfigurations:
+          description: Settings that define a metrics configuration for the CloudWatch request metrics from the bucket.
+          items:
+            $ref: '#/components/schemas/MetricsConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        NotificationConfiguration:
+          $ref: '#/components/schemas/NotificationConfiguration'
+          description: Configuration that defines how Amazon S3 handles bucket notifications.
+        ObjectLockConfiguration:
+          $ref: '#/components/schemas/ObjectLockConfiguration'
+          description: Places an Object Lock configuration on the specified bucket.
+        ObjectLockEnabled:
+          description: Indicates whether this bucket has an Object Lock configuration enabled.
+          type: boolean
+        OwnershipControls:
+          description: Specifies the container element for object ownership rules.
+          $ref: '#/components/schemas/OwnershipControls'
+        PublicAccessBlockConfiguration:
+          $ref: '#/components/schemas/PublicAccessBlockConfiguration'
+        ReplicationConfiguration:
+          $ref: '#/components/schemas/ReplicationConfiguration'
+          description: Configuration for replicating objects in an S3 bucket.
         Tags:
-          description: An arbitrary set of tags (key-value pairs) for this S3Outposts bucket.
+          description: An arbitrary set of tags (key-value pairs) for this S3 bucket.
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
           type: array
-          x-insertionOrder: false
-          uniqueItems: true
-        LifecycleConfiguration:
-          description: Rules that define how Amazon S3Outposts manages objects during their lifetime.
-          $ref: '#/components/schemas/LifecycleConfiguration'
-      required:
-        - BucketName
-        - OutpostId
+        VersioningConfiguration:
+          $ref: '#/components/schemas/VersioningConfiguration'
+        WebsiteConfiguration:
+          $ref: '#/components/schemas/WebsiteConfiguration'
+        Arn:
+          $ref: '#/components/schemas/Arn'
+          description: The Amazon Resource Name (ARN) of the specified bucket.
+          x-examples:
+            - arn:aws:s3:::mybucket
+        DomainName:
+          description: The IPv4 DNS name of the specified bucket.
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.amazonaws.com
+          type: string
+        DualStackDomainName:
+          description: The IPv6 DNS name of the specified bucket. For more information about dual-stack endpoints, see [Using Amazon S3 Dual-Stack Endpoints](https://docs.aws.amazon.com/AmazonS3/latest/dev/dual-stack-endpoints.html).
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.dualstack.us-east-2.amazonaws.com
+          type: string
+        RegionalDomainName:
+          description: Returns the regional domain name of the specified bucket.
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.us-east-2.amazonaws.com
+          type: string
+        WebsiteURL:
+          description: The Amazon S3 website endpoint for the specified bucket.
+          x-examples:
+            - 'Example (IPv4): http://mystack-mybucket-kdwwxmddtr2g.s3-website-us-east-2.amazonaws.com/'
+            - 'Example (IPv6): http://mystack-mybucket-kdwwxmddtr2g.s3.dualstack.us-east-2.amazonaws.com/'
+          format: uri
+          type: string
       x-stackql-resource-name: bucket
     BucketPolicy:
       type: object
@@ -1470,45 +1559,6 @@ components:
         - ObjectLambdaAccessPoint
         - PolicyDocument
       x-stackql-resource-name: access_point_policy
-    FilterPrefix:
-      description: Prefix identifies one or more objects to which the rule applies.
-      type: string
-    FilterTag:
-      description: Tag used to identify a subset of objects for an Amazon S3Outposts bucket.
-      type: object
-      additionalProperties: false
-      properties:
-        Key:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          pattern: ^([\p{L}\p{Z}\p{N}_.:=+\/\-@%]*)$
-        Value:
-          type: string
-          minLength: 1
-          maxLength: 1024
-          pattern: ^([\p{L}\p{Z}\p{N}_.:=+\/\-@%]*)$
-      required:
-        - Key
-        - Value
-    FilterAndOperator:
-      oneOf:
-        - type: object
-          additionalProperties: false
-          required:
-            - Tags
-          properties:
-            Prefix:
-              description: Prefix identifies one or more objects to which the rule applies.
-              $ref: '#/components/schemas/FilterPrefix'
-            Tags:
-              description: All of these tags must exist in the object's tag set in order for the rule to apply.
-              type: array
-              x-insertionOrder: false
-              uniqueItems: true
-              minItems: 1
-              items:
-                $ref: '#/components/schemas/FilterTag'
     NetworkInterface:
       description: The container for the network interface.
       type: object
@@ -1617,11 +1667,42 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.AccelerateConfiguration.AccelerationStatus') as accelerate_configuration_acceleration_status,
+              JSON_EXTRACT(Properties, '$.AccessControl') as access_control,
+              JSON_EXTRACT(Properties, '$.AnalyticsConfigurations') as analytics_configurations,
+              JSON_EXTRACT(Properties, '$.BucketEncryption.ServerSideEncryptionConfiguration') as bucket_encryption_server_side_encryption_configuration,
               JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
-              JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,
+              JSON_EXTRACT(Properties, '$.CorsConfiguration.CorsRules') as cors_configuration_cors_rules,
+              JSON_EXTRACT(Properties, '$.IntelligentTieringConfigurations') as intelligent_tiering_configurations,
+              JSON_EXTRACT(Properties, '$.InventoryConfigurations') as inventory_configurations,
+              JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration.DestinationBucketName') as logging_configuration_destination_bucket_name,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogFilePrefix') as logging_configuration_log_file_prefix,
+              JSON_EXTRACT(Properties, '$.MetricsConfigurations') as metrics_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.EventBridgeConfiguration') as notification_configuration_event_bridge_configuration,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.LambdaConfigurations') as notification_configuration_lambda_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.QueueConfigurations') as notification_configuration_queue_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.TopicConfigurations') as notification_configuration_topic_configurations,
+              JSON_EXTRACT(Properties, '$.ObjectLockConfiguration.ObjectLockEnabled') as object_lock_configuration_object_lock_enabled,
+              JSON_EXTRACT(Properties, '$.ObjectLockConfiguration.Rule') as object_lock_configuration_rule,
+              JSON_EXTRACT(Properties, '$.ObjectLockEnabled') as object_lock_enabled,
+              JSON_EXTRACT(Properties, '$.OwnershipControls.Rules') as ownership_controls_rules,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicAcls') as public_access_block_configuration_block_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.IgnorePublicAcls') as public_access_block_configuration_ignore_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
+              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.Role') as replication_configuration_role,
+              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.Rules') as replication_configuration_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules
+              JSON_EXTRACT(Properties, '$.VersioningConfiguration.Status') as versioning_configuration_status,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.ErrorDocument') as website_configuration_error_document,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.IndexDocument') as website_configuration_index_document,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.RoutingRules') as website_configuration_routing_rules,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.RedirectAllRequestsTo') as website_configuration_redirect_all_requests_to,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.DualStackDomainName') as dual_stack_domain_name,
+              JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
+              JSON_EXTRACT(Properties, '$.WebsiteURL') as website_ur_l
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket' ;
     bucket_policy:
       name: bucket_policy
