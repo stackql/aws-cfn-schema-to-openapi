@@ -606,20 +606,14 @@ components:
       type: object
       additionalProperties: false
       properties:
-        ScaleOutCooldown:
-          type: integer
+        CustomizedMetricSpecification:
+          $ref: '#/components/schemas/CustomizedMetricSpecification'
         TargetValue:
           type: number
-        PredefinedScalingMetricSpecification:
-          $ref: '#/components/schemas/PredefinedScalingMetricSpecification'
         DisableScaleIn:
           type: boolean
-        ScaleInCooldown:
-          type: integer
-        EstimatedInstanceWarmup:
-          type: integer
-        CustomizedScalingMetricSpecification:
-          $ref: '#/components/schemas/CustomizedScalingMetricSpecification'
+        PredefinedMetricSpecification:
+          $ref: '#/components/schemas/PredefinedMetricSpecification'
       required:
         - TargetValue
     PredictiveScalingPredefinedLoadMetric:
@@ -871,154 +865,6 @@ components:
       required:
         - AutoScalingGroupName
       x-stackql-resource-name: warm_pool
-    ScalingInstruction:
-      type: object
-      additionalProperties: false
-      properties:
-        DisableDynamicScaling:
-          type: boolean
-        ServiceNamespace:
-          type: string
-        PredictiveScalingMaxCapacityBehavior:
-          type: string
-        ScalableDimension:
-          type: string
-        ScalingPolicyUpdateBehavior:
-          type: string
-        MinCapacity:
-          type: integer
-        TargetTrackingConfigurations:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/TargetTrackingConfiguration'
-        PredictiveScalingMaxCapacityBuffer:
-          type: integer
-        CustomizedLoadMetricSpecification:
-          $ref: '#/components/schemas/CustomizedLoadMetricSpecification'
-        PredefinedLoadMetricSpecification:
-          $ref: '#/components/schemas/PredefinedLoadMetricSpecification'
-        ResourceId:
-          type: string
-        ScheduledActionBufferTime:
-          type: integer
-        MaxCapacity:
-          type: integer
-        PredictiveScalingMode:
-          type: string
-      required:
-        - ResourceId
-        - ServiceNamespace
-        - ScalableDimension
-        - MinCapacity
-        - TargetTrackingConfigurations
-        - MaxCapacity
-    ApplicationSource:
-      type: object
-      additionalProperties: false
-      properties:
-        CloudFormationStackARN:
-          type: string
-        TagFilters:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/TagFilter'
-    CustomizedLoadMetricSpecification:
-      type: object
-      additionalProperties: false
-      properties:
-        MetricName:
-          type: string
-        Statistic:
-          type: string
-        Dimensions:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/MetricDimension'
-        Unit:
-          type: string
-        Namespace:
-          type: string
-      required:
-        - MetricName
-        - Statistic
-        - Namespace
-    PredefinedLoadMetricSpecification:
-      type: object
-      additionalProperties: false
-      properties:
-        PredefinedLoadMetricType:
-          type: string
-        ResourceLabel:
-          type: string
-      required:
-        - PredefinedLoadMetricType
-    TagFilter:
-      type: object
-      additionalProperties: false
-      properties:
-        Values:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        Key:
-          type: string
-      required:
-        - Key
-    PredefinedScalingMetricSpecification:
-      type: object
-      additionalProperties: false
-      properties:
-        ResourceLabel:
-          type: string
-        PredefinedScalingMetricType:
-          type: string
-      required:
-        - PredefinedScalingMetricType
-    CustomizedScalingMetricSpecification:
-      type: object
-      additionalProperties: false
-      properties:
-        MetricName:
-          type: string
-        Statistic:
-          type: string
-        Dimensions:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/MetricDimension'
-        Unit:
-          type: string
-        Namespace:
-          type: string
-      required:
-        - MetricName
-        - Statistic
-        - Namespace
-    ScalingPlan:
-      type: object
-      properties:
-        Id:
-          type: string
-        ScalingPlanName:
-          type: string
-        ScalingPlanVersion:
-          type: string
-        ApplicationSource:
-          $ref: '#/components/schemas/ApplicationSource'
-        ScalingInstructions:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/ScalingInstruction'
-      required:
-        - ScalingInstructions
-        - ApplicationSource
-      x-stackql-resource-name: scaling_plan
   x-stackQL-resources:
     auto_scaling_group:
       name: auto_scaling_group
@@ -1142,13 +988,10 @@ components:
               JSON_EXTRACT(Properties, '$.StepAdjustments') as step_adjustments,
               JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name,
               JSON_EXTRACT(Properties, '$.MinAdjustmentMagnitude') as min_adjustment_magnitude,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.ScaleOutCooldown') as target_tracking_configuration_scale_out_cooldown,
+              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.CustomizedMetricSpecification') as target_tracking_configuration_customized_metric_specification,
               JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.TargetValue') as target_tracking_configuration_target_value,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.PredefinedScalingMetricSpecification') as target_tracking_configuration_predefined_scaling_metric_specification,
               JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.DisableScaleIn') as target_tracking_configuration_disable_scale_in,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.ScaleInCooldown') as target_tracking_configuration_scale_in_cooldown,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.EstimatedInstanceWarmup') as target_tracking_configuration_estimated_instance_warmup,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.CustomizedScalingMetricSpecification') as target_tracking_configuration_customized_scaling_metric_specification,
+              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.PredefinedMetricSpecification') as target_tracking_configuration_predefined_metric_specification,
               JSON_EXTRACT(Properties, '$.EstimatedInstanceWarmup') as estimated_instance_warmup,
               JSON_EXTRACT(Properties, '$.AdjustmentType') as adjustment_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn
@@ -1191,21 +1034,3 @@ components:
               JSON_EXTRACT(Properties, '$.PoolState') as pool_state,
               JSON_EXTRACT(Properties, '$.InstanceReusePolicy.ReuseOnScaleIn') as instance_reuse_policy_reuse_on_scale_in
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::WarmPool' ;
-    scaling_plan:
-      name: scaling_plan
-      id: aws.autoscaling.scaling_plan
-      x-cfn-schema-name: ScalingPlan
-      config:
-        views:
-          select:
-            predicate: sqlDialect == "sqlite3"
-            ddl: |-
-              SELECT
-              region,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.ScalingPlanName') as scaling_plan_name,
-              JSON_EXTRACT(Properties, '$.ScalingPlanVersion') as scaling_plan_version,
-              JSON_EXTRACT(Properties, '$.ApplicationSource.CloudFormationStackARN') as application_source_cloud_formation_stack_ar_n,
-              JSON_EXTRACT(Properties, '$.ApplicationSource.TagFilters') as application_source_tag_filters,
-              JSON_EXTRACT(Properties, '$.ScalingInstructions') as scaling_instructions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::ScalingPlan' ;

@@ -163,7 +163,7 @@ function main(){
 
   for (const service of uniqueServices) {
     try {
-      const filePrefix = `aws-${service}`;
+      const filePrefix = `aws-${service}-`;
       const outputFilename = `${service}.yaml`;
       processService(filePrefix, outputFilename);
       // add service to manifest

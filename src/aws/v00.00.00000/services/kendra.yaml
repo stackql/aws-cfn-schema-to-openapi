@@ -11,7 +11,7 @@ components:
       minLength: 36
       maxLength: 36
     Tag:
-      description: A label for tagging KendraRanking resources
+      description: A label for tagging Kendra resources
       type: object
       properties:
         Key:
@@ -1044,7 +1044,7 @@ components:
         - required:
             - WorkDocsConfiguration
     Name:
-      description: Name of kendra ranking rescore execution plan
+      description: Name of index
       type: string
       minLength: 1
       maxLength: 1000
@@ -1077,7 +1077,7 @@ components:
       type: string
       maxLength: 1000
     Id:
-      description: Unique ID of rescore execution plan
+      description: Unique ID of index
       type: string
       minLength: 36
       maxLength: 36
@@ -1379,11 +1379,14 @@ components:
     CapacityUnitsConfiguration:
       type: object
       properties:
-        RescoreCapacityUnits:
-          $ref: '#/components/schemas/RescoreCapacityUnits'
+        StorageCapacityUnits:
+          $ref: '#/components/schemas/StorageCapacityUnits'
+        QueryCapacityUnits:
+          $ref: '#/components/schemas/QueryCapacityUnits'
       additionalProperties: false
       required:
-        - RescoreCapacityUnits
+        - StorageCapacityUnits
+        - QueryCapacityUnits
     Edition:
       description: Edition of index
       type: string
@@ -1497,37 +1500,6 @@ components:
         - RoleArn
         - Edition
       x-stackql-resource-name: index
-    Tags:
-      description: List of tags
-      type: array
-      x-insertionOrder: false
-      maxItems: 200
-      items:
-        $ref: '#/components/schemas/Tag'
-    RescoreCapacityUnits:
-      type: integer
-      minimum: 0
-    ExecutionPlan:
-      type: object
-      properties:
-        Id:
-          $ref: '#/components/schemas/Id'
-        Arn:
-          $ref: '#/components/schemas/Arn'
-        Description:
-          description: A description for the execution plan
-          $ref: '#/components/schemas/Description'
-        Tags:
-          description: Tags for labeling the execution plan
-          $ref: '#/components/schemas/Tags'
-        Name:
-          $ref: '#/components/schemas/Name'
-        CapacityUnits:
-          description: Capacity units
-          $ref: '#/components/schemas/CapacityUnitsConfiguration'
-      required:
-        - Name
-      x-stackql-resource-name: execution_plan
   x-stackQL-resources:
     data_source:
       name: data_source
@@ -1582,18 +1554,6 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
-              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
+              JSON_EXTRACT(Properties, '$.CapacityUnits.StorageCapacityUnits') as capacity_units_storage_capacity_units,
+              JSON_EXTRACT(Properties, '$.CapacityUnits.QueryCapacityUnits') as capacity_units_query_capacity_units
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index' ;
-    execution_plan:
-      name: execution_plan
-      id: aws.kendra.execution_plan
-      x-cfn-schema-name: ExecutionPlan
-      config:
-        views:
-          select:
-            predicate: sqlDialect == "sqlite3"
-            ddl: |-
-              SELECT
-              region,
-              JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::ExecutionPlan' ;
