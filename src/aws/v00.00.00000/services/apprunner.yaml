@@ -56,6 +56,8 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: observability_configuration
+      x-stackql-primaryIdentifier:
+        - ObservabilityConfigurationArn
     SourceConfiguration:
       description: Source Code configuration
       type: object
@@ -394,6 +396,8 @@ components:
       required:
         - SourceConfiguration
       x-stackql-resource-name: service
+      x-stackql-primaryIdentifier:
+        - ServiceArn
     VpcConnector:
       type: object
       properties:
@@ -435,6 +439,8 @@ components:
       required:
         - Subnets
       x-stackql-resource-name: vpc_connector
+      x-stackql-primaryIdentifier:
+        - VpcConnectorArn
     IngressVpcConfiguration:
       description: The configuration of customer’s VPC and related VPC endpoint
       type: object
@@ -498,7 +504,22 @@ components:
         - ServiceArn
         - IngressVpcConfiguration
       x-stackql-resource-name: vpc_ingress_connection
+      x-stackql-primaryIdentifier:
+        - VpcIngressConnectionArn
   x-stackQL-resources:
+    observability_configurations:
+      name: observability_configurations
+      id: aws.apprunner.observability_configurations
+      x-cfn-schema-name: ObservabilityConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as observability_configuration_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
     observability_configuration:
       name: observability_configuration
       id: aws.apprunner.observability_configuration
@@ -516,7 +537,20 @@ components:
               JSON_EXTRACT(Properties, '$.Latest') as latest,
               JSON_EXTRACT(Properties, '$.TraceConfiguration.Vendor') as trace_configuration_vendor,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
+    services:
+      name: services
+      id: aws.apprunner.services
+      x-cfn-schema-name: Service
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::Service'
     service:
       name: service
       id: aws.apprunner.service
@@ -553,7 +587,20 @@ components:
               JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.EgressConfiguration') as network_configuration_egress_configuration,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.IngressConfiguration') as network_configuration_ingress_configuration
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::Service' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::Service'
+    vpc_connectors:
+      name: vpc_connectors
+      id: aws.apprunner.vpc_connectors
+      x-cfn-schema-name: VpcConnector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VpcConnectorArn') as vpc_connector_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
     vpc_connector:
       name: vpc_connector
       id: aws.apprunner.vpc_connector
@@ -571,7 +618,20 @@ components:
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcConnector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
+    vpc_ingress_connections:
+      name: vpc_ingress_connections
+      id: aws.apprunner.vpc_ingress_connections
+      x-cfn-schema-name: VpcIngressConnection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as vpc_ingress_connection_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'
     vpc_ingress_connection:
       name: vpc_ingress_connection
       id: aws.apprunner.vpc_ingress_connection
@@ -591,4 +651,4 @@ components:
               JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcId') as ingress_vpc_configuration_vpc_id,
               JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcEndpointId') as ingress_vpc_configuration_vpc_endpoint_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'

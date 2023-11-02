@@ -15,6 +15,8 @@ components:
         AccountId:
           $ref: '#/components/schemas/AccountId'
       x-stackql-resource-name: log_anomaly_detection_integration
+      x-stackql-primaryIdentifier:
+        - AccountId
     NotificationChannelConfig:
       description: Information about notification channels you have configured with DevOps Guru.
       type: object
@@ -89,6 +91,8 @@ components:
       required:
         - Config
       x-stackql-resource-name: notification_channel
+      x-stackql-primaryIdentifier:
+        - Id
     ResourceCollectionFilter:
       description: Information about a filter used to specify which AWS resources are analyzed for anomalous behavior by DevOps Guru.
       type: object
@@ -154,7 +158,22 @@ components:
       required:
         - ResourceCollectionFilter
       x-stackql-resource-name: resource_collection
+      x-stackql-primaryIdentifier:
+        - ResourceCollectionType
   x-stackQL-resources:
+    log_anomaly_detection_integrations:
+      name: log_anomaly_detection_integrations
+      id: aws.devopsguru.log_anomaly_detection_integrations
+      x-cfn-schema-name: LogAnomalyDetectionIntegration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration'
     log_anomaly_detection_integration:
       name: log_anomaly_detection_integration
       id: aws.devopsguru.log_anomaly_detection_integration
@@ -166,7 +185,20 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration'
+    notification_channels:
+      name: notification_channels
+      id: aws.devopsguru.notification_channels
+      x-cfn-schema-name: NotificationChannel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::NotificationChannel'
     notification_channel:
       name: notification_channel
       id: aws.devopsguru.notification_channel
@@ -181,7 +213,20 @@ components:
               JSON_EXTRACT(Properties, '$.Config.Sns') as config_sns,
               JSON_EXTRACT(Properties, '$.Config.Filters') as config_filters,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::NotificationChannel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::NotificationChannel'
+    resource_collections:
+      name: resource_collections
+      id: aws.devopsguru.resource_collections
+      x-cfn-schema-name: ResourceCollection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceCollectionType') as resource_collection_type
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::ResourceCollection'
     resource_collection:
       name: resource_collection
       id: aws.devopsguru.resource_collection
@@ -196,4 +241,4 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.CloudFormation') as resource_collection_filter_cloud_formation,
               JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.Tags') as resource_collection_filter_tags,
               JSON_EXTRACT(Properties, '$.ResourceCollectionType') as resource_collection_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DevOpsGuru::ResourceCollection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::ResourceCollection'

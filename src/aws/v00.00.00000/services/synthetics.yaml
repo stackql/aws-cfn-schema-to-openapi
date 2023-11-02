@@ -206,6 +206,8 @@ components:
         - RuntimeVersion
         - StartCanaryAfterCreation
       x-stackql-resource-name: canary
+      x-stackql-primaryIdentifier:
+        - Name
     ResourceArn:
       type: string
       description: Provide Canary Arn associated with the group.
@@ -235,7 +237,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: group
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    canaries:
+      name: canaries
+      id: aws.synthetics.canaries
+      x-cfn-schema-name: Canary
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Canary'
     canary:
       name: canary
       id: aws.synthetics.canary
@@ -275,7 +292,20 @@ components:
               JSON_EXTRACT(Properties, '$.VisualReference.BaseCanaryRunId') as visual_reference_base_canary_run_id,
               JSON_EXTRACT(Properties, '$.VisualReference.BaseScreenshots') as visual_reference_base_screenshots,
               JSON_EXTRACT(Properties, '$.DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Canary' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Canary'
+    groups:
+      name: groups
+      id: aws.synthetics.groups
+      x-cfn-schema-name: Group
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Group'
     group:
       name: group
       id: aws.synthetics.group
@@ -291,4 +321,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Group' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Group'

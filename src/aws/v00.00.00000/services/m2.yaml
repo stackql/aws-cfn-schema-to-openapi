@@ -74,6 +74,8 @@ components:
         - EngineType
         - Name
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationArn
     EfsStorageConfiguration:
       type: object
       description: Defines the storage configuration for an Amazon EFS file system.
@@ -204,7 +206,22 @@ components:
         - InstanceType
         - Name
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - EnvironmentArn
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.m2.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Application'
     application:
       name: application
       id: aws.m2.application
@@ -221,7 +238,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Application'
+    environments:
+      name: environments
+      id: aws.m2.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentArn') as environment_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Environment'
     environment:
       name: environment
       id: aws.m2.environment
@@ -246,4 +276,4 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.StorageConfigurations') as storage_configurations,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Environment'

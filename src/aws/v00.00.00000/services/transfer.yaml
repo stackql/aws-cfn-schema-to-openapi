@@ -94,6 +94,9 @@ components:
         - BaseDirectory
         - AccessRole
       x-stackql-resource-name: agreement
+      x-stackql-primaryIdentifier:
+        - AgreementId
+        - ServerId
     Certificate:
       type: object
       properties:
@@ -182,6 +185,8 @@ components:
         - Certificate
         - Usage
       x-stackql-resource-name: certificate
+      x-stackql-primaryIdentifier:
+        - CertificateId
     Connector:
       type: object
       properties:
@@ -288,6 +293,8 @@ components:
         - As2Config
         - Url
       x-stackql-resource-name: connector
+      x-stackql-primaryIdentifier:
+        - ConnectorId
     CertificateId:
       description: A unique identifier for the certificate.
       type: string
@@ -338,6 +345,8 @@ components:
         - As2Id
         - ProfileType
       x-stackql-resource-name: profile
+      x-stackql-primaryIdentifier:
+        - ProfileId
     IdentityProviderDetails:
       type: object
       additionalProperties: false
@@ -461,6 +470,8 @@ components:
         Certificate:
           type: string
       x-stackql-resource-name: server
+      x-stackql-primaryIdentifier:
+        - ServerId
     SshPublicKey:
       type: object
       additionalProperties: false
@@ -532,6 +543,8 @@ components:
         - ServerId
         - UserName
       x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - Id
     S3Tag:
       description: Specifies the key-value pair that are assigned to a file during the execution of a Tagging step.
       type: object
@@ -786,7 +799,23 @@ components:
       required:
         - Steps
       x-stackql-resource-name: workflow
+      x-stackql-primaryIdentifier:
+        - WorkflowId
   x-stackQL-resources:
+    agreements:
+      name: agreements
+      id: aws.transfer.agreements
+      x-cfn-schema-name: Agreement
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AgreementId') as agreement_id,
+              JSON_EXTRACT(Properties, '$.ServerId') as server_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Agreement'
     agreement:
       name: agreement
       id: aws.transfer.agreement
@@ -808,7 +837,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AgreementId') as agreement_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Agreement' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Agreement'
+    certificates:
+      name: certificates
+      id: aws.transfer.certificates
+      x-cfn-schema-name: Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateId') as certificate_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Certificate'
     certificate:
       name: certificate
       id: aws.transfer.certificate
@@ -835,7 +877,20 @@ components:
               JSON_EXTRACT(Properties, '$.Serial') as serial,
               JSON_EXTRACT(Properties, '$.NotBeforeDate') as not_before_date,
               JSON_EXTRACT(Properties, '$.NotAfterDate') as not_after_date
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Certificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Certificate'
+    connectors:
+      name: connectors
+      id: aws.transfer.connectors
+      x-cfn-schema-name: Connector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConnectorId') as connector_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Connector'
     connector:
       name: connector
       id: aws.transfer.connector
@@ -854,7 +909,20 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingRole') as logging_role,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Url') as url
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Connector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Connector'
+    profiles:
+      name: profiles
+      id: aws.transfer.profiles
+      x-cfn-schema-name: Profile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Profile'
     profile:
       name: profile
       id: aws.transfer.profile
@@ -872,7 +940,20 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateIds') as certificate_ids,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Profile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Profile'
+    servers:
+      name: servers
+      id: aws.transfer.servers
+      x-cfn-schema-name: Server
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServerId') as server_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Server'
     server:
       name: server
       id: aws.transfer.server
@@ -911,7 +992,20 @@ components:
               JSON_EXTRACT(Properties, '$.IdentityProviderType') as identity_provider_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Certificate') as certificate
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Server' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Server'
+    users:
+      name: users
+      id: aws.transfer.users
+      x-cfn-schema-name: User
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::User'
     user:
       name: user
       id: aws.transfer.user
@@ -937,7 +1031,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::User' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::User'
+    workflows:
+      name: workflows
+      id: aws.transfer.workflows
+      x-cfn-schema-name: Workflow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkflowId') as workflow_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Workflow'
     workflow:
       name: workflow
       id: aws.transfer.workflow
@@ -955,4 +1062,4 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.WorkflowId') as workflow_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Workflow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Workflow'

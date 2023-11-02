@@ -53,6 +53,8 @@ components:
       required:
         - CollectionId
       x-stackql-resource-name: collection
+      x-stackql-primaryIdentifier:
+        - CollectionId
     ProjectName:
       description: The name of the project
       type: string
@@ -69,6 +71,8 @@ components:
       required:
         - ProjectName
       x-stackql-resource-name: project
+      x-stackql-primaryIdentifier:
+        - ProjectName
     KinesisVideoStream:
       description: The Kinesis Video Stream that streams the source video.
       type: object
@@ -286,7 +290,22 @@ components:
         - RoleArn
         - KinesisVideoStream
       x-stackql-resource-name: stream_processor
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    collections:
+      name: collections
+      id: aws.rekognition.collections
+      x-cfn-schema-name: Collection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CollectionId') as collection_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Collection'
     collection:
       name: collection
       id: aws.rekognition.collection
@@ -299,7 +318,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Collection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Collection'
+    projects:
+      name: projects
+      id: aws.rekognition.projects
+      x-cfn-schema-name: Project
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Project'
     project:
       name: project
       id: aws.rekognition.project
@@ -311,7 +343,20 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Project' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Project'
+    stream_processors:
+      name: stream_processors
+      id: aws.rekognition.stream_processors
+      x-cfn-schema-name: StreamProcessor
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'
     stream_processor:
       name: stream_processor
       id: aws.rekognition.stream_processor
@@ -341,4 +386,4 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'

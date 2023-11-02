@@ -106,6 +106,8 @@ components:
       required:
         - CachePolicyConfig
       x-stackql-resource-name: cache_policy
+      x-stackql-primaryIdentifier:
+        - Id
     CloudFrontOriginAccessIdentityConfig:
       additionalProperties: false
       properties:
@@ -126,6 +128,8 @@ components:
       required:
         - CloudFrontOriginAccessIdentityConfig
       x-stackql-resource-name: cloud_front_origin_access_identity
+      x-stackql-primaryIdentifier:
+        - Id
     SingleWeightConfig:
       additionalProperties: false
       type: object
@@ -216,6 +220,8 @@ components:
       required:
         - ContinuousDeploymentPolicyConfig
       x-stackql-resource-name: continuous_deployment_policy
+      x-stackql-primaryIdentifier:
+        - Id
     CacheBehavior:
       additionalProperties: false
       properties:
@@ -782,6 +788,8 @@ components:
       required:
         - DistributionConfig
       x-stackql-resource-name: distribution
+      x-stackql-primaryIdentifier:
+        - Id
     FunctionConfig:
       additionalProperties: false
       properties:
@@ -821,6 +829,8 @@ components:
         - FunctionConfig
         - FunctionCode
       x-stackql-resource-name: function
+      x-stackql-primaryIdentifier:
+        - FunctionARN
     KeyGroupConfig:
       additionalProperties: false
       properties:
@@ -849,6 +859,8 @@ components:
       required:
         - KeyGroupConfig
       x-stackql-resource-name: key_group
+      x-stackql-primaryIdentifier:
+        - Id
     MonitoringSubscription:
       type: object
       properties:
@@ -860,6 +872,8 @@ components:
         - DistributionId
         - MonitoringSubscription
       x-stackql-resource-name: monitoring_subscription
+      x-stackql-primaryIdentifier:
+        - DistributionId
     RealtimeMetricsSubscriptionConfig:
       additionalProperties: false
       properties:
@@ -903,6 +917,8 @@ components:
       required:
         - OriginAccessControlConfig
       x-stackql-resource-name: origin_access_control
+      x-stackql-primaryIdentifier:
+        - Id
     OriginRequestPolicyConfig:
       additionalProperties: false
       properties:
@@ -934,6 +950,8 @@ components:
       required:
         - OriginRequestPolicyConfig
       x-stackql-resource-name: origin_request_policy
+      x-stackql-primaryIdentifier:
+        - Id
     PublicKeyConfig:
       additionalProperties: false
       properties:
@@ -962,6 +980,8 @@ components:
       required:
         - PublicKeyConfig
       x-stackql-resource-name: public_key
+      x-stackql-primaryIdentifier:
+        - Id
     EndPoint:
       additionalProperties: false
       properties:
@@ -1014,6 +1034,8 @@ components:
         - Fields
         - SamplingRate
       x-stackql-resource-name: realtime_log_config
+      x-stackql-primaryIdentifier:
+        - Arn
     AccessControlAllowHeaders:
       additionalProperties: false
       properties:
@@ -1263,6 +1285,8 @@ components:
       required:
         - ResponseHeadersPolicyConfig
       x-stackql-resource-name: response_headers_policy
+      x-stackql-primaryIdentifier:
+        - Id
     StreamingDistributionConfig:
       type: object
       additionalProperties: false
@@ -1331,7 +1355,22 @@ components:
         - StreamingDistributionConfig
         - Tags
       x-stackql-resource-name: streaming_distribution
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    cache_policies:
+      name: cache_policies
+      id: aws.cloudfront.cache_policies
+      x-cfn-schema-name: CachePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
     cache_policy:
       name: cache_policy
       id: aws.cloudfront.cache_policy
@@ -1351,7 +1390,20 @@ components:
               JSON_EXTRACT(Properties, '$.CachePolicyConfig.ParametersInCacheKeyAndForwardedToOrigin') as cache_policy_config_parameters_in_cache_key_and_forwarded_to_origin,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CachePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
+    cloud_front_origin_access_identities:
+      name: cloud_front_origin_access_identities
+      id: aws.cloudfront.cloud_front_origin_access_identities
+      x-cfn-schema-name: CloudFrontOriginAccessIdentity
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
     cloud_front_origin_access_identity:
       name: cloud_front_origin_access_identity
       id: aws.cloudfront.cloud_front_origin_access_identity
@@ -1366,7 +1418,20 @@ components:
               JSON_EXTRACT(Properties, '$.CloudFrontOriginAccessIdentityConfig.Comment') as cloud_front_origin_access_identity_config_comment,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.S3CanonicalUserId') as s3_canonical_user_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+    continuous_deployment_policies:
+      name: continuous_deployment_policies
+      id: aws.cloudfront.continuous_deployment_policies
+      x-cfn-schema-name: ContinuousDeploymentPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
     continuous_deployment_policy:
       name: continuous_deployment_policy
       id: aws.cloudfront.continuous_deployment_policy
@@ -1383,7 +1448,20 @@ components:
               JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.TrafficConfig') as continuous_deployment_policy_config_traffic_config,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
+    distributions:
+      name: distributions
+      id: aws.cloudfront.distributions
+      x-cfn-schema-name: Distribution
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Distribution'
     distribution:
       name: distribution
       id: aws.cloudfront.distribution
@@ -1419,7 +1497,20 @@ components:
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Distribution' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Distribution'
+    functions:
+      name: functions
+      id: aws.cloudfront.functions
+      x-cfn-schema-name: Function
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FunctionARN') as function_ar_n
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Function'
     function:
       name: function
       id: aws.cloudfront.function
@@ -1439,7 +1530,20 @@ components:
               JSON_EXTRACT(Properties, '$.FunctionMetadata.FunctionARN') as function_metadata_function_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Stage') as stage
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Function' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Function'
+    key_groups:
+      name: key_groups
+      id: aws.cloudfront.key_groups
+      x-cfn-schema-name: KeyGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
     key_group:
       name: key_group
       id: aws.cloudfront.key_group
@@ -1456,7 +1560,20 @@ components:
               JSON_EXTRACT(Properties, '$.KeyGroupConfig.Items') as key_group_config_items,
               JSON_EXTRACT(Properties, '$.KeyGroupConfig.Name') as key_group_config_name,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
+    monitoring_subscriptions:
+      name: monitoring_subscriptions
+      id: aws.cloudfront.monitoring_subscriptions
+      x-cfn-schema-name: MonitoringSubscription
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
     monitoring_subscription:
       name: monitoring_subscription
       id: aws.cloudfront.monitoring_subscription
@@ -1471,7 +1588,20 @@ components:
               JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id,
               JSON_EXTRACT(Properties, '$.MonitoringSubscription.DistributionId') as monitoring_subscription_distribution_id,
               JSON_EXTRACT(Properties, '$.MonitoringSubscription.MonitoringSubscription') as monitoring_subscription_monitoring_subscription
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
+    origin_access_controls:
+      name: origin_access_controls
+      id: aws.cloudfront.origin_access_controls
+      x-cfn-schema-name: OriginAccessControl
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
     origin_access_control:
       name: origin_access_control
       id: aws.cloudfront.origin_access_control
@@ -1489,7 +1619,20 @@ components:
               JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.SigningBehavior') as origin_access_control_config_signing_behavior,
               JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.OriginAccessControlOriginType') as origin_access_control_config_origin_access_control_origin_type,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
+    origin_request_policies:
+      name: origin_request_policies
+      id: aws.cloudfront.origin_request_policies
+      x-cfn-schema-name: OriginRequestPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
     origin_request_policy:
       name: origin_request_policy
       id: aws.cloudfront.origin_request_policy
@@ -1508,7 +1651,20 @@ components:
               JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.HeadersConfig') as origin_request_policy_config_headers_config,
               JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Name') as origin_request_policy_config_name,
               JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.QueryStringsConfig') as origin_request_policy_config_query_strings_config
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
+    public_keys:
+      name: public_keys
+      id: aws.cloudfront.public_keys
+      x-cfn-schema-name: PublicKey
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
     public_key:
       name: public_key
       id: aws.cloudfront.public_key
@@ -1526,7 +1682,20 @@ components:
               JSON_EXTRACT(Properties, '$.PublicKeyConfig.Comment') as public_key_config_comment,
               JSON_EXTRACT(Properties, '$.PublicKeyConfig.EncodedKey') as public_key_config_encoded_key,
               JSON_EXTRACT(Properties, '$.PublicKeyConfig.Name') as public_key_config_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::PublicKey' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
+    realtime_log_configs:
+      name: realtime_log_configs
+      id: aws.cloudfront.realtime_log_configs
+      x-cfn-schema-name: RealtimeLogConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
     realtime_log_config:
       name: realtime_log_config
       id: aws.cloudfront.realtime_log_config
@@ -1543,7 +1712,20 @@ components:
               JSON_EXTRACT(Properties, '$.Fields') as fields,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SamplingRate') as sampling_rate
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
+    response_headers_policies:
+      name: response_headers_policies
+      id: aws.cloudfront.response_headers_policies
+      x-cfn-schema-name: ResponseHeadersPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
     response_headers_policy:
       name: response_headers_policy
       id: aws.cloudfront.response_headers_policy
@@ -1564,7 +1746,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.RemoveHeadersConfig') as response_headers_policy_config_remove_headers_config,
               JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.SecurityHeadersConfig') as response_headers_policy_config_security_headers_config,
               JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.ServerTimingHeadersConfig') as response_headers_policy_config_server_timing_headers_config
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
+    streaming_distributions:
+      name: streaming_distributions
+      id: aws.cloudfront.streaming_distributions
+      x-cfn-schema-name: StreamingDistribution
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'
     streaming_distribution:
       name: streaming_distribution
       id: aws.cloudfront.streaming_distribution
@@ -1586,4 +1781,4 @@ components:
               JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Aliases') as streaming_distribution_config_aliases,
               JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.TrustedSigners') as streaming_distribution_config_trusted_signers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'

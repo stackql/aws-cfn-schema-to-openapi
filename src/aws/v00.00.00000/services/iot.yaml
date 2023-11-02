@@ -95,6 +95,8 @@ components:
         - AuditCheckConfigurations
         - RoleArn
       x-stackql-resource-name: account_audit_configuration
+      x-stackql-primaryIdentifier:
+        - AccountId
     Tag:
       type: object
       properties:
@@ -144,6 +146,8 @@ components:
       required:
         - AuthorizerFunctionArn
       x-stackql-resource-name: authorizer
+      x-stackql-primaryIdentifier:
+        - AuthorizerName
     RegistrationConfig:
       type: object
       additionalProperties: false
@@ -210,6 +214,8 @@ components:
         - CACertificatePem
         - Status
       x-stackql-resource-name: ca_certificate
+      x-stackql-primaryIdentifier:
+        - Id
     Certificate:
       type: object
       properties:
@@ -243,6 +249,8 @@ components:
       required:
         - Status
       x-stackql-resource-name: certificate
+      x-stackql-primaryIdentifier:
+        - Id
     CustomMetric:
       type: object
       properties:
@@ -280,6 +288,8 @@ components:
       required:
         - MetricType
       x-stackql-resource-name: custom_metric
+      x-stackql-primaryIdentifier:
+        - MetricName
     Dimension:
       type: object
       properties:
@@ -320,6 +330,8 @@ components:
         - Type
         - StringValues
       x-stackql-resource-name: dimension
+      x-stackql-primaryIdentifier:
+        - Name
     AuthorizerConfig:
       type: object
       properties:
@@ -405,6 +417,8 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: domain_configuration
+      x-stackql-primaryIdentifier:
+        - DomainConfigurationName
     AggregationType:
       description: Aggregation types supported by Fleet Indexing
       type: object
@@ -474,6 +488,8 @@ components:
       required:
         - MetricName
       x-stackql-resource-name: fleet_metric
+      x-stackql-primaryIdentifier:
+        - MetricName
     ExponentialRolloutRate:
       description: Allows you to create an exponential rate of rollout for a job.
       type: object
@@ -741,6 +757,8 @@ components:
         - JobTemplateId
         - Description
       x-stackql-resource-name: job_template
+      x-stackql-primaryIdentifier:
+        - JobTemplateId
     Logging:
       type: object
       properties:
@@ -769,6 +787,8 @@ components:
         - RoleArn
         - DefaultLogLevel
       x-stackql-resource-name: logging
+      x-stackql-primaryIdentifier:
+        - AccountId
     ActionParams:
       type: object
       description: The set of parameters for this mitigation action. You can specify only one type of parameter (in other words, you can apply only one action for each defined mitigation action).
@@ -906,6 +926,8 @@ components:
         - RoleArn
         - ActionParams
       x-stackql-resource-name: mitigation_action
+      x-stackql-primaryIdentifier:
+        - ActionName
     Policy:
       type: object
       properties:
@@ -920,6 +942,8 @@ components:
       required:
         - PolicyDocument
       x-stackql-resource-name: policy
+      x-stackql-primaryIdentifier:
+        - Id
     PolicyPrincipalAttachment:
       type: object
       properties:
@@ -933,6 +957,8 @@ components:
         - Principal
         - PolicyName
       x-stackql-resource-name: policy_principal_attachment
+      x-stackql-primaryIdentifier:
+        - Id
     ProvisioningHook:
       type: object
       properties:
@@ -975,6 +1001,8 @@ components:
         - ProvisioningRoleArn
         - TemplateBody
       x-stackql-resource-name: provisioning_template
+      x-stackql-primaryIdentifier:
+        - TemplateName
     ResourceSpecificLogging:
       type: object
       properties:
@@ -1013,6 +1041,8 @@ components:
         - TargetType
         - LogLevel
       x-stackql-resource-name: resource_specific_logging
+      x-stackql-primaryIdentifier:
+        - TargetId
     RoleAlias:
       type: object
       properties:
@@ -1044,6 +1074,8 @@ components:
       required:
         - RoleArn
       x-stackql-resource-name: role_alias
+      x-stackql-primaryIdentifier:
+        - RoleAlias
     ScheduledAudit:
       type: object
       properties:
@@ -1101,6 +1133,8 @@ components:
         - Frequency
         - TargetCheckNames
       x-stackql-resource-name: scheduled_audit
+      x-stackql-primaryIdentifier:
+        - ScheduledAuditName
     Behavior:
       description: A security profile behavior.
       type: object
@@ -1348,6 +1382,8 @@ components:
           type: string
       required: []
       x-stackql-resource-name: security_profile
+      x-stackql-primaryIdentifier:
+        - SecurityProfileName
     AttributePayload:
       type: object
       additionalProperties: false
@@ -1373,6 +1409,8 @@ components:
           minLength: 1
           maxLength: 128
       x-stackql-resource-name: thing
+      x-stackql-primaryIdentifier:
+        - ThingName
     ThingPrincipalAttachment:
       type: object
       properties:
@@ -1386,6 +1424,8 @@ components:
         - Principal
         - ThingName
       x-stackql-resource-name: thing_principal_attachment
+      x-stackql-primaryIdentifier:
+        - Id
     ElasticsearchAction:
       type: object
       additionalProperties: false
@@ -1966,6 +2006,8 @@ components:
       required:
         - TopicRulePayload
       x-stackql-resource-name: topic_rule
+      x-stackql-primaryIdentifier:
+        - RuleName
     TopicRuleDestinationStatus:
       type: string
       enum:
@@ -2015,7 +2057,22 @@ components:
           description: VPC destination properties.
           $ref: '#/components/schemas/VpcDestinationProperties'
       x-stackql-resource-name: topic_rule_destination
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    account_audit_configurations:
+      name: account_audit_configurations
+      id: aws.iot.account_audit_configurations
+      x-cfn-schema-name: AccountAuditConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
     account_audit_configuration:
       name: account_audit_configuration
       id: aws.iot.account_audit_configuration
@@ -2046,7 +2103,20 @@ components:
               JSON_EXTRACT(Properties, '$.AuditCheckConfigurations.IoTPolicyPotentialMisConfigurationCheck') as audit_check_configurations_io_tpolicy_potential_mis_configuration_check,
               JSON_EXTRACT(Properties, '$.AuditNotificationTargetConfigurations.Sns') as audit_notification_target_configurations_sns,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
+    authorizers:
+      name: authorizers
+      id: aws.iot.authorizers
+      x-cfn-schema-name: Authorizer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AuthorizerName') as authorizer_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Authorizer'
     authorizer:
       name: authorizer
       id: aws.iot.authorizer
@@ -2067,7 +2137,20 @@ components:
               JSON_EXTRACT(Properties, '$.TokenSigningPublicKeys') as token_signing_public_keys,
               JSON_EXTRACT(Properties, '$.EnableCachingForHttp') as enable_caching_for_http,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Authorizer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Authorizer'
+    ca_certificates:
+      name: ca_certificates
+      id: aws.iot.ca_certificates
+      x-cfn-schema-name: CACertificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CACertificate'
     ca_certificate:
       name: ca_certificate
       id: aws.iot.ca_certificate
@@ -2091,7 +2174,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CACertificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CACertificate'
+    certificates:
+      name: certificates
+      id: aws.iot.certificates
+      x-cfn-schema-name: Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Certificate'
     certificate:
       name: certificate
       id: aws.iot.certificate
@@ -2110,7 +2206,20 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Certificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Certificate'
+    custom_metrics:
+      name: custom_metrics
+      id: aws.iot.custom_metrics
+      x-cfn-schema-name: CustomMetric
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CustomMetric'
     custom_metric:
       name: custom_metric
       id: aws.iot.custom_metric
@@ -2127,7 +2236,20 @@ components:
               JSON_EXTRACT(Properties, '$.MetricType') as metric_type,
               JSON_EXTRACT(Properties, '$.MetricArn') as metric_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CustomMetric' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CustomMetric'
+    dimensions:
+      name: dimensions
+      id: aws.iot.dimensions
+      x-cfn-schema-name: Dimension
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Dimension'
     dimension:
       name: dimension
       id: aws.iot.dimension
@@ -2144,7 +2266,20 @@ components:
               JSON_EXTRACT(Properties, '$.StringValues') as string_values,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Dimension' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Dimension'
+    domain_configurations:
+      name: domain_configurations
+      id: aws.iot.domain_configurations
+      x-cfn-schema-name: DomainConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainConfigurationName') as domain_configuration_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
     domain_configuration:
       name: domain_configuration
       id: aws.iot.domain_configuration
@@ -2168,7 +2303,20 @@ components:
               JSON_EXTRACT(Properties, '$.DomainType') as domain_type,
               JSON_EXTRACT(Properties, '$.ServerCertificates') as server_certificates,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::DomainConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
+    fleet_metrics:
+      name: fleet_metrics
+      id: aws.iot.fleet_metrics
+      x-cfn-schema-name: FleetMetric
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::FleetMetric'
     fleet_metric:
       name: fleet_metric
       id: aws.iot.fleet_metric
@@ -2195,7 +2343,20 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedDate') as last_modified_date,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::FleetMetric' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::FleetMetric'
+    job_templates:
+      name: job_templates
+      id: aws.iot.job_templates
+      x-cfn-schema-name: JobTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.JobTemplateId') as job_template_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::JobTemplate'
     job_template:
       name: job_template
       id: aws.iot.job_template
@@ -2220,7 +2381,20 @@ components:
               JSON_EXTRACT(Properties, '$.JobExecutionsRetryConfig') as job_executions_retry_config,
               JSON_EXTRACT(Properties, '$.MaintenanceWindows') as maintenance_windows,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::JobTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::JobTemplate'
+    loggings:
+      name: loggings
+      id: aws.iot.loggings
+      x-cfn-schema-name: Logging
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Logging'
     logging:
       name: logging
       id: aws.iot.logging
@@ -2235,7 +2409,20 @@ components:
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.DefaultLogLevel') as default_log_level
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Logging' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Logging'
+    mitigation_actions:
+      name: mitigation_actions
+      id: aws.iot.mitigation_actions
+      x-cfn-schema-name: MitigationAction
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ActionName') as action_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::MitigationAction'
     mitigation_action:
       name: mitigation_action
       id: aws.iot.mitigation_action
@@ -2258,7 +2445,20 @@ components:
               JSON_EXTRACT(Properties, '$.ActionParams.UpdateDeviceCertificateParams') as action_params_update_device_certificate_params,
               JSON_EXTRACT(Properties, '$.MitigationActionArn') as mitigation_action_arn,
               JSON_EXTRACT(Properties, '$.MitigationActionId') as mitigation_action_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::MitigationAction' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::MitigationAction'
+    policies:
+      name: policies
+      id: aws.iot.policies
+      x-cfn-schema-name: Policy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Policy'
     policy:
       name: policy
       id: aws.iot.policy
@@ -2274,7 +2474,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Policy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Policy'
+    policy_principal_attachments:
+      name: policy_principal_attachments
+      id: aws.iot.policy_principal_attachments
+      x-cfn-schema-name: PolicyPrincipalAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
     policy_principal_attachment:
       name: policy_principal_attachment
       id: aws.iot.policy_principal_attachment
@@ -2289,7 +2502,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.Principal') as principal
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
+    provisioning_templates:
+      name: provisioning_templates
+      id: aws.iot.provisioning_templates
+      x-cfn-schema-name: ProvisioningTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
     provisioning_template:
       name: provisioning_template
       id: aws.iot.provisioning_template
@@ -2311,7 +2537,20 @@ components:
               JSON_EXTRACT(Properties, '$.PreProvisioningHook.TargetArn') as pre_provisioning_hook_target_arn,
               JSON_EXTRACT(Properties, '$.PreProvisioningHook.PayloadVersion') as pre_provisioning_hook_payload_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
+    resource_specific_loggings:
+      name: resource_specific_loggings
+      id: aws.iot.resource_specific_loggings
+      x-cfn-schema-name: ResourceSpecificLogging
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TargetId') as target_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
     resource_specific_logging:
       name: resource_specific_logging
       id: aws.iot.resource_specific_logging
@@ -2327,7 +2566,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetName') as target_name,
               JSON_EXTRACT(Properties, '$.LogLevel') as log_level,
               JSON_EXTRACT(Properties, '$.TargetId') as target_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
+    role_aliases:
+      name: role_aliases
+      id: aws.iot.role_aliases
+      x-cfn-schema-name: RoleAlias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RoleAlias') as role_alias
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::RoleAlias'
     role_alias:
       name: role_alias
       id: aws.iot.role_alias
@@ -2344,7 +2596,20 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.CredentialDurationSeconds') as credential_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::RoleAlias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::RoleAlias'
+    scheduled_audits:
+      name: scheduled_audits
+      id: aws.iot.scheduled_audits
+      x-cfn-schema-name: ScheduledAudit
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ScheduledAuditName') as scheduled_audit_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
     scheduled_audit:
       name: scheduled_audit
       id: aws.iot.scheduled_audit
@@ -2363,7 +2628,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetCheckNames') as target_check_names,
               JSON_EXTRACT(Properties, '$.ScheduledAuditArn') as scheduled_audit_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ScheduledAudit' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
+    security_profiles:
+      name: security_profiles
+      id: aws.iot.security_profiles
+      x-cfn-schema-name: SecurityProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SecurityProfileName') as security_profile_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
     security_profile:
       name: security_profile
       id: aws.iot.security_profile
@@ -2383,7 +2661,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TargetArns') as target_arns,
               JSON_EXTRACT(Properties, '$.SecurityProfileArn') as security_profile_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SecurityProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
+    things:
+      name: things
+      id: aws.iot.things
+      x-cfn-schema-name: Thing
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ThingName') as thing_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Thing'
     thing:
       name: thing
       id: aws.iot.thing
@@ -2399,7 +2690,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AttributePayload.Attributes') as attribute_payload_attributes,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Thing' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Thing'
+    thing_principal_attachments:
+      name: thing_principal_attachments
+      id: aws.iot.thing_principal_attachments
+      x-cfn-schema-name: ThingPrincipalAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
     thing_principal_attachment:
       name: thing_principal_attachment
       id: aws.iot.thing_principal_attachment
@@ -2414,7 +2718,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
+    topic_rules:
+      name: topic_rules
+      id: aws.iot.topic_rules
+      x-cfn-schema-name: TopicRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RuleName') as rule_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRule'
     topic_rule:
       name: topic_rule
       id: aws.iot.topic_rule
@@ -2435,7 +2752,20 @@ components:
               JSON_EXTRACT(Properties, '$.TopicRulePayload.Actions') as topic_rule_payload_actions,
               JSON_EXTRACT(Properties, '$.TopicRulePayload.Sql') as topic_rule_payload_sql,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRule'
+    topic_rule_destinations:
+      name: topic_rule_destinations
+      id: aws.iot.topic_rule_destinations
+      x-cfn-schema-name: TopicRuleDestination
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'
     topic_rule_destination:
       name: topic_rule_destination
       id: aws.iot.topic_rule_destination
@@ -2454,4 +2784,4 @@ components:
               JSON_EXTRACT(Properties, '$.VpcProperties.SecurityGroups') as vpc_properties_security_groups,
               JSON_EXTRACT(Properties, '$.VpcProperties.VpcId') as vpc_properties_vpc_id,
               JSON_EXTRACT(Properties, '$.VpcProperties.RoleArn') as vpc_properties_role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'

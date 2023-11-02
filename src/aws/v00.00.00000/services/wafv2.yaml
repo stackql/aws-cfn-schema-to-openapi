@@ -80,6 +80,10 @@ components:
         - IPAddressVersion
         - Scope
       x-stackql-resource-name: ip_set
+      x-stackql-primaryIdentifier:
+        - Name
+        - Id
+        - Scope
     Filter:
       type: object
       properties:
@@ -223,6 +227,8 @@ components:
         - ResourceArn
         - LogDestinationConfigs
       x-stackql-resource-name: logging_configuration
+      x-stackql-primaryIdentifier:
+        - ResourceArn
     RegexPatternSet:
       type: object
       properties:
@@ -260,6 +266,10 @@ components:
         - Scope
         - RegularExpressionList
       x-stackql-resource-name: regex_pattern_set
+      x-stackql-primaryIdentifier:
+        - Name
+        - Id
+        - Scope
     AndStatement:
       type: object
       properties:
@@ -680,6 +690,10 @@ components:
         - Scope
         - VisibilityConfig
       x-stackql-resource-name: rule_group
+      x-stackql-primaryIdentifier:
+        - Name
+        - Id
+        - Scope
     RulePriority:
       description: Priority of the Rule, Rules get evaluated from lower to higher priority.
       type: integer
@@ -1404,6 +1418,10 @@ components:
         - Scope
         - VisibilityConfig
       x-stackql-resource-name: web_acl
+      x-stackql-primaryIdentifier:
+        - Name
+        - Id
+        - Scope
     WebACLAssociation:
       type: object
       properties:
@@ -1415,7 +1433,25 @@ components:
         - ResourceArn
         - WebACLArn
       x-stackql-resource-name: webacl_association
+      x-stackql-primaryIdentifier:
+        - ResourceArn
+        - WebACLArn
   x-stackQL-resources:
+    ip_sets:
+      name: ip_sets
+      id: aws.wafv2.ip_sets
+      x-cfn-schema-name: IPSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::IPSet'
     ip_set:
       name: ip_set
       id: aws.wafv2.ip_set
@@ -1429,7 +1465,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Addresses') as addresses,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::IPSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::IPSet'
+    logging_configurations:
+      name: logging_configurations
+      id: aws.wafv2.logging_configurations
+      x-cfn-schema-name: LoggingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.wafv2.logging_configuration
@@ -1446,7 +1495,22 @@ components:
               JSON_EXTRACT(Properties, '$.RedactedFields') as redacted_fields,
               JSON_EXTRACT(Properties, '$.ManagedByFirewallManager') as managed_by_firewall_manager,
               JSON_EXTRACT(Properties, '$.LoggingFilter') as logging_filter
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
+    regex_pattern_sets:
+      name: regex_pattern_sets
+      id: aws.wafv2.regex_pattern_sets
+      x-cfn-schema-name: RegexPatternSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
     regex_pattern_set:
       name: regex_pattern_set
       id: aws.wafv2.regex_pattern_set
@@ -1465,7 +1529,22 @@ components:
               JSON_EXTRACT(Properties, '$.RegularExpressionList') as regular_expression_list,
               JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
+    rule_groups:
+      name: rule_groups
+      id: aws.wafv2.rule_groups
+      x-cfn-schema-name: RuleGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
     rule_group:
       name: rule_group
       id: aws.wafv2.rule_group
@@ -1485,7 +1564,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AvailableLabels') as available_labels,
               JSON_EXTRACT(Properties, '$.ConsumedLabels') as consumed_labels
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RuleGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
+    web_acls:
+      name: web_acls
+      id: aws.wafv2.web_acls
+      x-cfn-schema-name: WebACL
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACL'
     web_acl:
       name: web_acl
       id: aws.wafv2.web_acl
@@ -1507,7 +1601,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CaptchaConfig.ImmunityTimeProperty') as captcha_config_immunity_time_property,
               JSON_EXTRACT(Properties, '$.ChallengeConfig.ImmunityTimeProperty') as challenge_config_immunity_time_property
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACL' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACL'
+    webacl_associations:
+      name: webacl_associations
+      id: aws.wafv2.webacl_associations
+      x-cfn-schema-name: WebACLAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.WebACLArn') as web_ac_larn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'
     webacl_association:
       name: webacl_association
       id: aws.wafv2.webacl_association
@@ -1519,4 +1627,4 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'

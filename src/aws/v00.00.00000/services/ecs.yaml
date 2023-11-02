@@ -163,6 +163,8 @@ components:
         - Cluster
         - DefaultCapacityProviderStrategy
       x-stackql-resource-name: cluster_capacity_provider_associations
+      x-stackql-primaryIdentifier:
+        - Cluster
     PrimaryTaskSet:
       type: object
       properties:
@@ -180,6 +182,9 @@ components:
         - Service
         - TaskSetId
       x-stackql-resource-name: primary_task_set
+      x-stackql-primaryIdentifier:
+        - Cluster
+        - Service
     AwsVpcConfiguration:
       description: The VPC subnets and security groups associated with a task. All specified subnets and security groups must be from the same VPC.
       type: object
@@ -475,6 +480,9 @@ components:
         TaskDefinition:
           type: string
       x-stackql-resource-name: service
+      x-stackql-primaryIdentifier:
+        - ServiceArn
+        - Cluster
     ContainerDefinition:
       description: List of container definitions that are passed to the Docker daemon on a container instance
       type: object
@@ -1020,6 +1028,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: task_definition
+      x-stackql-primaryIdentifier:
+        - TaskDefinitionArn
     Scale:
       type: object
       properties:
@@ -1080,6 +1090,10 @@ components:
         - Service
         - TaskDefinition
       x-stackql-resource-name: task_set
+      x-stackql-primaryIdentifier:
+        - Cluster
+        - Service
+        - Id
   x-stackQL-resources:
     cluster_capacity_provider_associations:
       name: cluster_capacity_provider_associations
@@ -1092,7 +1106,21 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations'
+    primary_task_sets:
+      name: primary_task_sets
+      id: aws.ecs.primary_task_sets
+      x-cfn-schema-name: PrimaryTaskSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Cluster') as cluster,
+              JSON_EXTRACT(Properties, '$.Service') as service
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
     primary_task_set:
       name: primary_task_set
       id: aws.ecs.primary_task_set
@@ -1107,7 +1135,21 @@ components:
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
               JSON_EXTRACT(Properties, '$.TaskSetId') as task_set_id,
               JSON_EXTRACT(Properties, '$.Service') as service
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
+    services:
+      name: services
+      id: aws.ecs.services
+      x-cfn-schema-name: Service
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
+              JSON_EXTRACT(Properties, '$.Cluster') as cluster
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::Service'
     service:
       name: service
       id: aws.ecs.service
@@ -1149,7 +1191,20 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::Service' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::Service'
+    task_definitions:
+      name: task_definitions
+      id: aws.ecs.task_definitions
+      x-cfn-schema-name: TaskDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TaskDefinitionArn') as task_definition_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
     task_definition:
       name: task_definition
       id: aws.ecs.task_definition
@@ -1182,7 +1237,22 @@ components:
               JSON_EXTRACT(Properties, '$.RuntimePlatform.OperatingSystemFamily') as runtime_platform_operating_system_family,
               JSON_EXTRACT(Properties, '$.IpcMode') as ipc_mode,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
+    task_sets:
+      name: task_sets
+      id: aws.ecs.task_sets
+      x-cfn-schema-name: TaskSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Cluster') as cluster,
+              JSON_EXTRACT(Properties, '$.Service') as service,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskSet'
     task_set:
       name: task_set
       id: aws.ecs.task_set
@@ -1206,4 +1276,4 @@ components:
               JSON_EXTRACT(Properties, '$.Service') as service,
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskSet'

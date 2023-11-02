@@ -33,6 +33,8 @@ components:
         - TargetArn
         - RoleArn
       x-stackql-resource-name: destination
+      x-stackql-primaryIdentifier:
+        - DestinationName
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -68,6 +70,8 @@ components:
       required:
         - LogGroupName
       x-stackql-resource-name: log_stream
+      x-stackql-primaryIdentifier:
+        - Id
     Dimension:
       description: the key-value pairs that further define a metric.
       type: object
@@ -188,6 +192,9 @@ components:
         - LogGroupName
         - MetricTransformations
       x-stackql-resource-name: metric_filter
+      x-stackql-primaryIdentifier:
+        - LogGroupName
+        - FilterName
     QueryDefinition:
       type: object
       properties:
@@ -217,6 +224,8 @@ components:
         - Name
         - QueryString
       x-stackql-resource-name: query_definition
+      x-stackql-primaryIdentifier:
+        - QueryDefinitionId
     ResourcePolicy:
       type: object
       properties:
@@ -236,6 +245,8 @@ components:
         - PolicyName
         - PolicyDocument
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - PolicyName
     SubscriptionFilter:
       type: object
       properties:
@@ -265,7 +276,23 @@ components:
         - FilterPattern
         - LogGroupName
       x-stackql-resource-name: subscription_filter
+      x-stackql-primaryIdentifier:
+        - FilterName
+        - LogGroupName
   x-stackQL-resources:
+    destinations:
+      name: destinations
+      id: aws.logs.destinations
+      x-cfn-schema-name: Destination
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DestinationName') as destination_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Destination'
     destination:
       name: destination
       id: aws.logs.destination
@@ -282,7 +309,20 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationPolicy') as destination_policy,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Destination' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Destination'
+    log_streams:
+      name: log_streams
+      id: aws.logs.log_streams
+      x-cfn-schema-name: LogStream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream'
     log_stream:
       name: log_stream
       id: aws.logs.log_stream
@@ -297,7 +337,21 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogStream'
+    metric_filters:
+      name: metric_filters
+      id: aws.logs.metric_filters
+      x-cfn-schema-name: MetricFilter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
+              JSON_EXTRACT(Properties, '$.FilterName') as filter_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::MetricFilter'
     metric_filter:
       name: metric_filter
       id: aws.logs.metric_filter
@@ -313,7 +367,20 @@ components:
               JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.MetricTransformations') as metric_transformations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::MetricFilter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::MetricFilter'
+    query_definitions:
+      name: query_definitions
+      id: aws.logs.query_definitions
+      x-cfn-schema-name: QueryDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
     query_definition:
       name: query_definition
       id: aws.logs.query_definition
@@ -329,7 +396,20 @@ components:
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
               JSON_EXTRACT(Properties, '$.LogGroupNames') as log_group_names,
               JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::QueryDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
+    resource_policies:
+      name: resource_policies
+      id: aws.logs.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.logs.resource_policy
@@ -343,7 +423,21 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
+    subscription_filters:
+      name: subscription_filters
+      id: aws.logs.subscription_filters
+      x-cfn-schema-name: SubscriptionFilter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
+              JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'
     subscription_filter:
       name: subscription_filter
       id: aws.logs.subscription_filter
@@ -361,4 +455,4 @@ components:
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Distribution') as distribution
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'

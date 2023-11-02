@@ -133,7 +133,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - EnvironmentId
   x-stackQL-resources:
+    environments:
+      name: environments
+      id: aws.finspace.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FinSpace::Environment'
     environment:
       name: environment
       id: aws.finspace.environment
@@ -166,4 +181,4 @@ components:
               JSON_EXTRACT(Properties, '$.SuperuserParameters.LastName') as superuser_parameters_last_name,
               JSON_EXTRACT(Properties, '$.SuperuserParameters.EmailAddress') as superuser_parameters_email_address,
               JSON_EXTRACT(Properties, '$.DataBundles') as data_bundles
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FinSpace::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FinSpace::Environment'

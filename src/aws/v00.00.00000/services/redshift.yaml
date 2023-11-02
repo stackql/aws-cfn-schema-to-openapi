@@ -236,6 +236,8 @@ components:
         - DBName
         - ClusterType
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - ClusterIdentifier
     Parameter:
       type: object
       additionalProperties: false
@@ -278,6 +280,8 @@ components:
         - Description
         - ParameterGroupFamily
       x-stackql-resource-name: cluster_parameter_group
+      x-stackql-primaryIdentifier:
+        - ParameterGroupName
     ClusterSecurityGroup:
       type: object
       properties:
@@ -293,6 +297,8 @@ components:
       required:
         - Description
       x-stackql-resource-name: cluster_security_group
+      x-stackql-primaryIdentifier:
+        - Id
     ClusterSecurityGroupIngress:
       type: object
       properties:
@@ -309,6 +315,8 @@ components:
       required:
         - ClusterSecurityGroupName
       x-stackql-resource-name: cluster_security_group_ingress
+      x-stackql-primaryIdentifier:
+        - Id
     ClusterSubnetGroup:
       type: object
       properties:
@@ -337,6 +345,8 @@ components:
         - Description
         - SubnetIds
       x-stackql-resource-name: cluster_subnet_group
+      x-stackql-primaryIdentifier:
+        - ClusterSubnetGroupName
     VpcSecurityGroup:
       description: Describes the members of a VPC security group.
       type: object
@@ -430,6 +440,8 @@ components:
         - EndpointName
         - VpcSecurityGroupIds
       x-stackql-resource-name: endpoint_access
+      x-stackql-primaryIdentifier:
+        - EndpointName
     AwsAccount:
       type: string
       pattern: ^\d{12}$
@@ -486,6 +498,9 @@ components:
         - ClusterIdentifier
         - Account
       x-stackql-resource-name: endpoint_authorization
+      x-stackql-primaryIdentifier:
+        - ClusterIdentifier
+        - Account
     EventSubscription:
       type: object
       properties:
@@ -571,6 +586,8 @@ components:
       required:
         - SubscriptionName
       x-stackql-resource-name: event_subscription
+      x-stackql-primaryIdentifier:
+        - SubscriptionName
     ResizeClusterMessage:
       description: Describes a resize cluster operation. For example, a scheduled action to run the `ResizeCluster` API operation.
       type: object
@@ -667,7 +684,22 @@ components:
       required:
         - ScheduledActionName
       x-stackql-resource-name: scheduled_action
+      x-stackql-primaryIdentifier:
+        - ScheduledActionName
   x-stackQL-resources:
+    clusters:
+      name: clusters
+      id: aws.redshift.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::Cluster'
     cluster:
       name: cluster
       id: aws.redshift.cluster
@@ -731,7 +763,20 @@ components:
               JSON_EXTRACT(Properties, '$.RevisionTarget') as revision_target,
               JSON_EXTRACT(Properties, '$.ResourceAction') as resource_action,
               JSON_EXTRACT(Properties, '$.RotateEncryptionKey') as rotate_encryption_key
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::Cluster'
+    cluster_parameter_groups:
+      name: cluster_parameter_groups
+      id: aws.redshift.cluster_parameter_groups
+      x-cfn-schema-name: ClusterParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
     cluster_parameter_group:
       name: cluster_parameter_group
       id: aws.redshift.cluster_parameter_group
@@ -748,7 +793,20 @@ components:
               JSON_EXTRACT(Properties, '$.ParameterGroupFamily') as parameter_group_family,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
+    cluster_security_groups:
+      name: cluster_security_groups
+      id: aws.redshift.cluster_security_groups
+      x-cfn-schema-name: ClusterSecurityGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
     cluster_security_group:
       name: cluster_security_group
       id: aws.redshift.cluster_security_group
@@ -763,7 +821,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
+    cluster_security_group_ingresses:
+      name: cluster_security_group_ingresses
+      id: aws.redshift.cluster_security_group_ingresses
+      x-cfn-schema-name: ClusterSecurityGroupIngress
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
     cluster_security_group_ingress:
       name: cluster_security_group_ingress
       id: aws.redshift.cluster_security_group_ingress
@@ -780,7 +851,20 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterSecurityGroupName') as cluster_security_group_name,
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupName') as e_c2_security_group_name,
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupOwnerId') as e_c2_security_group_owner_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
+    cluster_subnet_groups:
+      name: cluster_subnet_groups
+      id: aws.redshift.cluster_subnet_groups
+      x-cfn-schema-name: ClusterSubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterSubnetGroupName') as cluster_subnet_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
     cluster_subnet_group:
       name: cluster_subnet_group
       id: aws.redshift.cluster_subnet_group
@@ -796,7 +880,20 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ClusterSubnetGroupName') as cluster_subnet_group_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
+    endpoint_accesses:
+      name: endpoint_accesses
+      id: aws.redshift.endpoint_accesses
+      x-cfn-schema-name: EndpointAccess
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
     endpoint_access:
       name: endpoint_access
       id: aws.redshift.endpoint_access
@@ -819,7 +916,21 @@ components:
               JSON_EXTRACT(Properties, '$.Port') as port,
               JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as vpc_security_group_ids,
               JSON_EXTRACT(Properties, '$.VpcEndpoint') as vpc_endpoint
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAccess' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
+    endpoint_authorizations:
+      name: endpoint_authorizations
+      id: aws.redshift.endpoint_authorizations
+      x-cfn-schema-name: EndpointAuthorization
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier,
+              JSON_EXTRACT(Properties, '$.Account') as account
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
     endpoint_authorization:
       name: endpoint_authorization
       id: aws.redshift.endpoint_authorization
@@ -840,7 +951,20 @@ components:
               JSON_EXTRACT(Properties, '$.EndpointCount') as endpoint_count,
               JSON_EXTRACT(Properties, '$.VpcIds') as vpc_ids,
               JSON_EXTRACT(Properties, '$.Force') as force
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
+    event_subscriptions:
+      name: event_subscriptions
+      id: aws.redshift.event_subscriptions
+      x-cfn-schema-name: EventSubscription
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
     event_subscription:
       name: event_subscription
       id: aws.redshift.event_subscription
@@ -866,7 +990,20 @@ components:
               JSON_EXTRACT(Properties, '$.SubscriptionCreationTime') as subscription_creation_time,
               JSON_EXTRACT(Properties, '$.SourceIdsList') as source_ids_list,
               JSON_EXTRACT(Properties, '$.EventCategoriesList') as event_categories_list
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EventSubscription' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
+    scheduled_actions:
+      name: scheduled_actions
+      id: aws.redshift.scheduled_actions
+      x-cfn-schema-name: ScheduledAction
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ScheduledActionName') as scheduled_action_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'
     scheduled_action:
       name: scheduled_action
       id: aws.redshift.scheduled_action
@@ -885,4 +1022,4 @@ components:
               JSON_EXTRACT(Properties, '$.Enable') as enable,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.NextInvocations') as next_invocations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ScheduledAction' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'

@@ -420,6 +420,8 @@ components:
       required:
         - Actions
       x-stackql-resource-name: dataset
+      x-stackql-primaryIdentifier:
+        - DatasetName
     DatastoreStorage:
       type: object
       additionalProperties: false
@@ -784,7 +786,22 @@ components:
       required:
         - PipelineActivities
       x-stackql-resource-name: pipeline
+      x-stackql-primaryIdentifier:
+        - PipelineName
   x-stackQL-resources:
+    datasets:
+      name: datasets
+      id: aws.iotanalytics.datasets
+      x-cfn-schema-name: Dataset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
     dataset:
       name: dataset
       id: aws.iotanalytics.dataset
@@ -807,7 +824,20 @@ components:
               JSON_EXTRACT(Properties, '$.RetentionPeriod.NumberOfDays') as retention_period_number_of_days,
               JSON_EXTRACT(Properties, '$.RetentionPeriod.Unlimited') as retention_period_unlimited,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
+    pipelines:
+      name: pipelines
+      id: aws.iotanalytics.pipelines
+      x-cfn-schema-name: Pipeline
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'
     pipeline:
       name: pipeline
       id: aws.iotanalytics.pipeline
@@ -823,4 +853,4 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.PipelineActivities') as pipeline_activities
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'

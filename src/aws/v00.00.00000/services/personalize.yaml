@@ -81,6 +81,8 @@ components:
         - DatasetGroupArn
         - SchemaArn
       x-stackql-resource-name: dataset
+      x-stackql-primaryIdentifier:
+        - DatasetArn
     DatasetGroup:
       type: object
       properties:
@@ -115,6 +117,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: dataset_group
+      x-stackql-primaryIdentifier:
+        - DatasetGroupArn
     Schema:
       type: object
       properties:
@@ -143,6 +147,8 @@ components:
         - Name
         - Schema
       x-stackql-resource-name: schema
+      x-stackql-primaryIdentifier:
+        - SchemaArn
     SolutionArn:
       description: The ARN of the solution
       type: string
@@ -342,7 +348,22 @@ components:
         - Name
         - DatasetGroupArn
       x-stackql-resource-name: solution
+      x-stackql-primaryIdentifier:
+        - SolutionArn
   x-stackQL-resources:
+    datasets:
+      name: datasets
+      id: aws.personalize.datasets
+      x-cfn-schema-name: Dataset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatasetArn') as dataset_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Dataset'
     dataset:
       name: dataset
       id: aws.personalize.dataset
@@ -364,7 +385,20 @@ components:
               JSON_EXTRACT(Properties, '$.DatasetImportJob.DatasetArn') as dataset_import_job_dataset_arn,
               JSON_EXTRACT(Properties, '$.DatasetImportJob.DataSource') as dataset_import_job_data_source,
               JSON_EXTRACT(Properties, '$.DatasetImportJob.RoleArn') as dataset_import_job_role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Dataset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Dataset'
+    dataset_groups:
+      name: dataset_groups
+      id: aws.personalize.dataset_groups
+      x-cfn-schema-name: DatasetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
     dataset_group:
       name: dataset_group
       id: aws.personalize.dataset_group
@@ -381,7 +415,20 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Domain') as domain
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::DatasetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
+    schemata:
+      name: schemata
+      id: aws.personalize.schemata
+      x-cfn-schema-name: Schema
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Schema'
     schema:
       name: schema
       id: aws.personalize.schema
@@ -397,7 +444,20 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Domain') as domain
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Schema' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Schema'
+    solutions:
+      name: solutions
+      id: aws.personalize.solutions
+      x-cfn-schema-name: Solution
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SolutionArn') as solution_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Solution'
     solution:
       name: solution
       id: aws.personalize.solution
@@ -420,4 +480,4 @@ components:
               JSON_EXTRACT(Properties, '$.SolutionConfig.EventValueThreshold') as solution_config_event_value_threshold,
               JSON_EXTRACT(Properties, '$.SolutionConfig.FeatureTransformationParameters') as solution_config_feature_transformation_parameters,
               JSON_EXTRACT(Properties, '$.SolutionConfig.HpoConfig') as solution_config_hpo_config
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Solution' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Solution'

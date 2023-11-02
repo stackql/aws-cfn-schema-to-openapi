@@ -71,6 +71,9 @@ components:
         - ClusterName
         - AddonName
       x-stackql-resource-name: addon
+      x-stackql-primaryIdentifier:
+        - ClusterName
+        - AddonName
     Provider:
       type: object
       additionalProperties: false
@@ -271,6 +274,8 @@ components:
         - RoleArn
         - ResourcesVpcConfig
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - Name
     Selector:
       type: object
       additionalProperties: false
@@ -339,6 +344,9 @@ components:
         - PodExecutionRoleArn
         - Selectors
       x-stackql-resource-name: fargate_profile
+      x-stackql-primaryIdentifier:
+        - ClusterName
+        - FargateProfileName
     RequiredClaim:
       description: The key value pairs that describe required claims in the identity token. If set, each claim is verified to be present in the token with a matching value.
       type: object
@@ -419,6 +427,10 @@ components:
         - Type
         - ClusterName
       x-stackql-resource-name: identity_provider_config
+      x-stackql-primaryIdentifier:
+        - IdentityProviderConfigName
+        - ClusterName
+        - Type
     LaunchTemplateSpecification:
       description: An object representing a launch template specification for AWS EKS Nodegroup.
       type: object
@@ -578,7 +590,23 @@ components:
         - NodeRole
         - Subnets
       x-stackql-resource-name: nodegroup
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    addons:
+      name: addons
+      id: aws.eks.addons
+      x-cfn-schema-name: Addon
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+              JSON_EXTRACT(Properties, '$.AddonName') as addon_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Addon'
     addon:
       name: addon
       id: aws.eks.addon
@@ -599,7 +627,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationValues') as configuration_values,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Addon' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Addon'
+    clusters:
+      name: clusters
+      id: aws.eks.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Cluster'
     cluster:
       name: cluster
       id: aws.eks.cluster
@@ -635,7 +676,21 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterSecurityGroupId') as cluster_security_group_id,
               JSON_EXTRACT(Properties, '$.EncryptionConfigKeyArn') as encryption_config_key_arn,
               JSON_EXTRACT(Properties, '$.OpenIdConnectIssuerUrl') as open_id_connect_issuer_url
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Cluster'
+    fargate_profiles:
+      name: fargate_profiles
+      id: aws.eks.fargate_profiles
+      x-cfn-schema-name: FargateProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+              JSON_EXTRACT(Properties, '$.FargateProfileName') as fargate_profile_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::FargateProfile'
     fargate_profile:
       name: fargate_profile
       id: aws.eks.fargate_profile
@@ -654,7 +709,22 @@ components:
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
               JSON_EXTRACT(Properties, '$.Selectors') as selectors,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::FargateProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::FargateProfile'
+    identity_provider_configs:
+      name: identity_provider_configs
+      id: aws.eks.identity_provider_configs
+      x-cfn-schema-name: IdentityProviderConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.IdentityProviderConfigName') as identity_provider_config_name,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+              JSON_EXTRACT(Properties, '$.Type') as type
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
     identity_provider_config:
       name: identity_provider_config
       id: aws.eks.identity_provider_config
@@ -678,7 +748,20 @@ components:
               JSON_EXTRACT(Properties, '$.Oidc.UsernamePrefix') as oidc_username_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigArn') as identity_provider_config_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
+    nodegroups:
+      name: nodegroups
+      id: aws.eks.nodegroups
+      x-cfn-schema-name: Nodegroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Nodegroup'
     nodegroup:
       name: nodegroup
       id: aws.eks.nodegroup
@@ -716,4 +799,4 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Nodegroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Nodegroup'

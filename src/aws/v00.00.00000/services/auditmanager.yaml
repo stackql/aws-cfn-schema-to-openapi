@@ -241,7 +241,22 @@ components:
           $ref: '#/components/schemas/AssessmentDescription'
       required: []
       x-stackql-resource-name: assessment
+      x-stackql-primaryIdentifier:
+        - AssessmentId
   x-stackQL-resources:
+    assessments:
+      name: assessments
+      id: aws.auditmanager.assessments
+      x-cfn-schema-name: Assessment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssessmentId') as assessment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AuditManager::Assessment'
     assessment:
       name: assessment
       id: aws.auditmanager.assessment
@@ -263,4 +278,4 @@ components:
               JSON_EXTRACT(Properties, '$.Scope.AwsServices') as scope_aws_services,
               JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.Destination') as assessment_reports_destination_destination,
               JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.DestinationType') as assessment_reports_destination_destination_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AuditManager::Assessment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AuditManager::Assessment'

@@ -118,6 +118,9 @@ components:
         - Name
         - ProxyType
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
     NetworkFabricType:
       type: string
       enum:
@@ -163,6 +166,8 @@ components:
         - Name
         - NetworkFabricType
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - EnvironmentIdentifier
     RouteActivationState:
       type: string
       enum:
@@ -259,6 +264,10 @@ components:
         - ServiceIdentifier
         - RouteType
       x-stackql-resource-name: route
+      x-stackql-primaryIdentifier:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
+        - RouteIdentifier
     LambdaEndpointInput:
       type: object
       properties:
@@ -347,7 +356,25 @@ components:
         - EndpointType
         - Name
       x-stackql-resource-name: service
+      x-stackql-primaryIdentifier:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
+        - ServiceIdentifier
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.refactorspaces.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
     application:
       name: application
       id: aws.refactorspaces.application
@@ -373,7 +400,20 @@ components:
               JSON_EXTRACT(Properties, '$.StageName') as stage_name,
               JSON_EXTRACT(Properties, '$.ProxyUrl') as proxy_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
+    environments:
+      name: environments
+      id: aws.refactorspaces.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
     environment:
       name: environment
       id: aws.refactorspaces.environment
@@ -391,7 +431,22 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.TransitGatewayId') as transit_gateway_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
+    routes:
+      name: routes
+      id: aws.refactorspaces.routes
+      x-cfn-schema-name: Route
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
+              JSON_EXTRACT(Properties, '$.RouteIdentifier') as route_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
     route:
       name: route
       id: aws.refactorspaces.route
@@ -415,7 +470,22 @@ components:
               JSON_EXTRACT(Properties, '$.UriPathRoute.Methods') as uri_path_route_methods,
               JSON_EXTRACT(Properties, '$.UriPathRoute.IncludeChildPaths') as uri_path_route_include_child_paths,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Route' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
+    services:
+      name: services
+      id: aws.refactorspaces.services
+      x-cfn-schema-name: Service
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
+              JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Service'
     service:
       name: service
       id: aws.refactorspaces.service
@@ -438,4 +508,4 @@ components:
               JSON_EXTRACT(Properties, '$.UrlEndpoint.Url') as url_endpoint_url,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Service' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Service'

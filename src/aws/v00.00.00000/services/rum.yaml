@@ -294,7 +294,22 @@ components:
         - Name
         - Domain
       x-stackql-resource-name: app_monitor
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    app_monitors:
+      name: app_monitors
+      id: aws.rum.app_monitors
+      x-cfn-schema-name: AppMonitor
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RUM::AppMonitor'
     app_monitor:
       name: app_monitor
       id: aws.rum.app_monitor
@@ -321,4 +336,4 @@ components:
               JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.EnableXRay') as app_monitor_configuration_enable_xray,
               JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.MetricDestinations') as app_monitor_configuration_metric_destinations,
               JSON_EXTRACT(Properties, '$.CustomEvents.Status') as custom_events_status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RUM::AppMonitor' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RUM::AppMonitor'

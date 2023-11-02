@@ -33,6 +33,8 @@ components:
           x-insertionOrder: false
           uniqueItems: false
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationName
     TimeBasedLinear:
       type: object
       additionalProperties: false
@@ -94,6 +96,8 @@ components:
           description: The configuration that specifies how the deployment traffic is routed.
           $ref: '#/components/schemas/TrafficRoutingConfig'
       x-stackql-resource-name: deployment_config
+      x-stackql-primaryIdentifier:
+        - DeploymentConfigName
     OnPremisesTagSet:
       type: object
       additionalProperties: false
@@ -412,7 +416,22 @@ components:
         - ApplicationName
         - ServiceRoleArn
       x-stackql-resource-name: deployment_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.codedeploy.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::Application'
     application:
       name: application
       id: aws.codedeploy.application
@@ -427,7 +446,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::Application'
+    deployment_configs:
+      name: deployment_configs
+      id: aws.codedeploy.deployment_configs
+      x-cfn-schema-name: DeploymentConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
     deployment_config:
       name: deployment_config
       id: aws.codedeploy.deployment_config
@@ -446,7 +478,20 @@ components:
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.Type') as traffic_routing_config_type,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedLinear') as traffic_routing_config_time_based_linear,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedCanary') as traffic_routing_config_time_based_canary
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
+    deployment_groups:
+      name: deployment_groups
+      id: aws.codedeploy.deployment_groups
+      x-cfn-schema-name: DeploymentGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'
     deployment_group:
       name: deployment_group
       id: aws.codedeploy.deployment_group
@@ -488,4 +533,4 @@ components:
               JSON_EXTRACT(Properties, '$.DeploymentGroupName') as deployment_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.OnPremisesInstanceTagFilters') as on_premises_instance_tag_filters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'

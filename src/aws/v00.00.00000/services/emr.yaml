@@ -79,6 +79,8 @@ components:
         - InstanceFleetType
         - ClusterId
       x-stackql-resource-name: instance_fleet_config
+      x-stackql-primaryIdentifier:
+        - Id
     InstanceTypeConfig:
       type: object
       additionalProperties: false
@@ -208,6 +210,8 @@ components:
         - InstanceRole
         - InstanceType
       x-stackql-resource-name: instance_group_config
+      x-stackql-primaryIdentifier:
+        - Id
     HadoopJarStepConfig:
       type: object
       additionalProperties: false
@@ -572,6 +576,8 @@ components:
         - JobFlowRole
         - Name
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - Id
     SecurityConfiguration:
       type: object
       properties:
@@ -583,6 +589,8 @@ components:
       required:
         - SecurityConfiguration
       x-stackql-resource-name: security_configuration
+      x-stackql-primaryIdentifier:
+        - Name
     Step:
       type: object
       properties:
@@ -602,6 +610,8 @@ components:
         - ActionOnFailure
         - Name
       x-stackql-resource-name: step
+      x-stackql-primaryIdentifier:
+        - Id
     SubnetId:
       description: Identifier of a subnet
       type: string
@@ -704,6 +714,8 @@ components:
         - WorkspaceSecurityGroupId
         - DefaultS3Location
       x-stackql-resource-name: studio
+      x-stackql-primaryIdentifier:
+        - StudioId
     IamPolicyArn:
       type: string
       pattern: ^arn:aws(-(cn|us-gov))?:iam::([0-9]{12})?:policy\/[^.]+$
@@ -734,7 +746,24 @@ components:
         - IdentityType
         - SessionPolicyArn
       x-stackql-resource-name: studio_session_mapping
+      x-stackql-primaryIdentifier:
+        - StudioId
+        - IdentityType
+        - IdentityName
   x-stackQL-resources:
+    instance_fleet_configs:
+      name: instance_fleet_configs
+      id: aws.emr.instance_fleet_configs
+      x-cfn-schema-name: InstanceFleetConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
     instance_fleet_config:
       name: instance_fleet_config
       id: aws.emr.instance_fleet_config
@@ -755,7 +784,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.InstanceTypeConfigs') as instance_type_configs,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
+    instance_group_configs:
+      name: instance_group_configs
+      id: aws.emr.instance_group_configs
+      x-cfn-schema-name: InstanceGroupConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
     instance_group_config:
       name: instance_group_config
       id: aws.emr.instance_group_config
@@ -781,7 +823,20 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
               JSON_EXTRACT(Properties, '$.Market') as market,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
+    clusters:
+      name: clusters
+      id: aws.emr.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Cluster'
     cluster:
       name: cluster
       id: aws.emr.cluster
@@ -840,7 +895,20 @@ components:
               JSON_EXTRACT(Properties, '$.VisibleToAllUsers') as visible_to_all_users,
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Cluster'
+    security_configurations:
+      name: security_configurations
+      id: aws.emr.security_configurations
+      x-cfn-schema-name: SecurityConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
     security_configuration:
       name: security_configuration
       id: aws.emr.security_configuration
@@ -854,7 +922,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
+    steps:
+      name: steps
+      id: aws.emr.steps
+      x-cfn-schema-name: Step
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Step'
     step:
       name: step
       id: aws.emr.step
@@ -874,7 +955,20 @@ components:
               JSON_EXTRACT(Properties, '$.HadoopJarStep.StepProperties') as hadoop_jar_step_step_properties,
               JSON_EXTRACT(Properties, '$.JobFlowId') as job_flow_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Step' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Step'
+    studios:
+      name: studios
+      id: aws.emr.studios
+      x-cfn-schema-name: Studio
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Studio'
     studio:
       name: studio
       id: aws.emr.studio
@@ -898,7 +992,22 @@ components:
               JSON_EXTRACT(Properties, '$.WorkspaceSecurityGroupId') as workspace_security_group_id,
               JSON_EXTRACT(Properties, '$.IdpAuthUrl') as idp_auth_url,
               JSON_EXTRACT(Properties, '$.IdpRelayStateParameterName') as idp_relay_state_parameter_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Studio' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Studio'
+    studio_session_mappings:
+      name: studio_session_mappings
+      id: aws.emr.studio_session_mappings
+      x-cfn-schema-name: StudioSessionMapping
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
+              JSON_EXTRACT(Properties, '$.IdentityType') as identity_type,
+              JSON_EXTRACT(Properties, '$.IdentityName') as identity_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
     studio_session_mapping:
       name: studio_session_mapping
       id: aws.emr.studio_session_mapping
@@ -913,4 +1022,4 @@ components:
               JSON_EXTRACT(Properties, '$.IdentityName') as identity_name,
               JSON_EXTRACT(Properties, '$.IdentityType') as identity_type,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'

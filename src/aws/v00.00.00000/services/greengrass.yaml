@@ -21,6 +21,8 @@ components:
         - Connectors
         - ConnectorDefinitionId
       x-stackql-resource-name: connector_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     Connector:
       type: object
       additionalProperties: false
@@ -52,6 +54,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: connector_definition
+      x-stackql-primaryIdentifier:
+        - Id
     CoreDefinitionVersion:
       type: object
       properties:
@@ -68,6 +72,8 @@ components:
         - Cores
         - CoreDefinitionId
       x-stackql-resource-name: core_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     Core:
       type: object
       additionalProperties: false
@@ -102,6 +108,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: core_definition
+      x-stackql-primaryIdentifier:
+        - Id
     DeviceDefinitionVersion:
       type: object
       properties:
@@ -118,6 +126,8 @@ components:
         - Devices
         - DeviceDefinitionId
       x-stackql-resource-name: device_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     Device:
       type: object
       additionalProperties: false
@@ -152,6 +162,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: device_definition
+      x-stackql-primaryIdentifier:
+        - Id
     FunctionDefinitionVersion:
       type: object
       properties:
@@ -170,6 +182,8 @@ components:
         - FunctionDefinitionId
         - Functions
       x-stackql-resource-name: function_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     DefaultConfig:
       type: object
       additionalProperties: false
@@ -269,6 +283,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: function_definition
+      x-stackql-primaryIdentifier:
+        - Id
     GroupVersion:
       type: object
       properties:
@@ -293,6 +309,8 @@ components:
       required:
         - GroupId
       x-stackql-resource-name: group_version
+      x-stackql-primaryIdentifier:
+        - Id
     Group:
       type: object
       properties:
@@ -315,6 +333,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: group
+      x-stackql-primaryIdentifier:
+        - Id
     LoggerDefinitionVersion:
       type: object
       properties:
@@ -331,6 +351,8 @@ components:
         - Loggers
         - LoggerDefinitionId
       x-stackql-resource-name: logger_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     Logger:
       type: object
       additionalProperties: false
@@ -368,6 +390,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: logger_definition
+      x-stackql-primaryIdentifier:
+        - Id
     SecretsManagerSecretResourceData:
       type: object
       additionalProperties: false
@@ -485,6 +509,8 @@ components:
         - Resources
         - ResourceDefinitionId
       x-stackql-resource-name: resource_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     GroupOwnerSetting:
       type: object
       additionalProperties: false
@@ -513,6 +539,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: resource_definition
+      x-stackql-primaryIdentifier:
+        - Id
     SubscriptionDefinitionVersion:
       type: object
       properties:
@@ -529,6 +557,8 @@ components:
         - SubscriptionDefinitionId
         - Subscriptions
       x-stackql-resource-name: subscription_definition_version
+      x-stackql-primaryIdentifier:
+        - Id
     Subscription:
       type: object
       additionalProperties: false
@@ -564,7 +594,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: subscription_definition
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    connector_definition_versions:
+      name: connector_definition_versions
+      id: aws.greengrass.connector_definition_versions
+      x-cfn-schema-name: ConnectorDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
     connector_definition_version:
       name: connector_definition_version
       id: aws.greengrass.connector_definition_version
@@ -579,7 +624,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Connectors') as connectors,
               JSON_EXTRACT(Properties, '$.ConnectorDefinitionId') as connector_definition_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
+    connector_definitions:
+      name: connector_definitions
+      id: aws.greengrass.connector_definitions
+      x-cfn-schema-name: ConnectorDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
     connector_definition:
       name: connector_definition
       id: aws.greengrass.connector_definition
@@ -599,7 +657,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.Connectors') as initial_version_connectors,
               JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionId') as initial_version_connector_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
+    core_definition_versions:
+      name: core_definition_versions
+      id: aws.greengrass.core_definition_versions
+      x-cfn-schema-name: CoreDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
     core_definition_version:
       name: core_definition_version
       id: aws.greengrass.core_definition_version
@@ -614,7 +685,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Cores') as cores,
               JSON_EXTRACT(Properties, '$.CoreDefinitionId') as core_definition_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
+    core_definitions:
+      name: core_definitions
+      id: aws.greengrass.core_definitions
+      x-cfn-schema-name: CoreDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
     core_definition:
       name: core_definition
       id: aws.greengrass.core_definition
@@ -634,7 +718,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.Cores') as initial_version_cores,
               JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionId') as initial_version_core_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
+    device_definition_versions:
+      name: device_definition_versions
+      id: aws.greengrass.device_definition_versions
+      x-cfn-schema-name: DeviceDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
     device_definition_version:
       name: device_definition_version
       id: aws.greengrass.device_definition_version
@@ -649,7 +746,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DeviceDefinitionId') as device_definition_id,
               JSON_EXTRACT(Properties, '$.Devices') as devices
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
+    device_definitions:
+      name: device_definitions
+      id: aws.greengrass.device_definitions
+      x-cfn-schema-name: DeviceDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
     device_definition:
       name: device_definition
       id: aws.greengrass.device_definition
@@ -669,7 +779,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionId') as initial_version_device_definition_id,
               JSON_EXTRACT(Properties, '$.InitialVersion.Devices') as initial_version_devices,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
+    function_definition_versions:
+      name: function_definition_versions
+      id: aws.greengrass.function_definition_versions
+      x-cfn-schema-name: FunctionDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
     function_definition_version:
       name: function_definition_version
       id: aws.greengrass.function_definition_version
@@ -685,7 +808,20 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultConfig.Execution') as default_config_execution,
               JSON_EXTRACT(Properties, '$.Functions') as functions,
               JSON_EXTRACT(Properties, '$.FunctionDefinitionId') as function_definition_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
+    function_definitions:
+      name: function_definitions
+      id: aws.greengrass.function_definitions
+      x-cfn-schema-name: FunctionDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
     function_definition:
       name: function_definition
       id: aws.greengrass.function_definition
@@ -706,7 +842,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.Functions') as initial_version_functions,
               JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionId') as initial_version_function_definition_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
+    group_versions:
+      name: group_versions
+      id: aws.greengrass.group_versions
+      x-cfn-schema-name: GroupVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
     group_version:
       name: group_version
       id: aws.greengrass.group_version
@@ -727,7 +876,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorDefinitionVersionArn') as connector_definition_version_arn,
               JSON_EXTRACT(Properties, '$.SubscriptionDefinitionVersionArn') as subscription_definition_version_arn,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::GroupVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
+    groups:
+      name: groups
+      id: aws.greengrass.groups
+      x-cfn-schema-name: Group
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::Group'
     group:
       name: group
       id: aws.greengrass.group
@@ -755,7 +917,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionVersionArn') as initial_version_subscription_definition_version_arn,
               JSON_EXTRACT(Properties, '$.InitialVersion.GroupId') as initial_version_group_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::Group' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::Group'
+    logger_definition_versions:
+      name: logger_definition_versions
+      id: aws.greengrass.logger_definition_versions
+      x-cfn-schema-name: LoggerDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
     logger_definition_version:
       name: logger_definition_version
       id: aws.greengrass.logger_definition_version
@@ -770,7 +945,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LoggerDefinitionId') as logger_definition_id,
               JSON_EXTRACT(Properties, '$.Loggers') as loggers
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
+    logger_definitions:
+      name: logger_definitions
+      id: aws.greengrass.logger_definitions
+      x-cfn-schema-name: LoggerDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
     logger_definition:
       name: logger_definition
       id: aws.greengrass.logger_definition
@@ -790,7 +978,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionId') as initial_version_logger_definition_id,
               JSON_EXTRACT(Properties, '$.InitialVersion.Loggers') as initial_version_loggers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
+    resource_definition_versions:
+      name: resource_definition_versions
+      id: aws.greengrass.resource_definition_versions
+      x-cfn-schema-name: ResourceDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
     resource_definition_version:
       name: resource_definition_version
       id: aws.greengrass.resource_definition_version
@@ -805,7 +1006,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceDefinitionId') as resource_definition_id,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
+    resource_definitions:
+      name: resource_definitions
+      id: aws.greengrass.resource_definitions
+      x-cfn-schema-name: ResourceDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
     resource_definition:
       name: resource_definition
       id: aws.greengrass.resource_definition
@@ -825,7 +1039,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionId') as initial_version_resource_definition_id,
               JSON_EXTRACT(Properties, '$.InitialVersion.Resources') as initial_version_resources,
               JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
+    subscription_definition_versions:
+      name: subscription_definition_versions
+      id: aws.greengrass.subscription_definition_versions
+      x-cfn-schema-name: SubscriptionDefinitionVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
     subscription_definition_version:
       name: subscription_definition_version
       id: aws.greengrass.subscription_definition_version
@@ -840,7 +1067,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.SubscriptionDefinitionId') as subscription_definition_id,
               JSON_EXTRACT(Properties, '$.Subscriptions') as subscriptions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
+    subscription_definitions:
+      name: subscription_definitions
+      id: aws.greengrass.subscription_definitions
+      x-cfn-schema-name: SubscriptionDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'
     subscription_definition:
       name: subscription_definition
       id: aws.greengrass.subscription_definition
@@ -860,4 +1100,4 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionId') as initial_version_subscription_definition_id,
               JSON_EXTRACT(Properties, '$.InitialVersion.Subscriptions') as initial_version_subscriptions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'

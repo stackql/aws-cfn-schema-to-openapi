@@ -105,7 +105,22 @@ components:
       required:
         - SuiteDefinitionConfiguration
       x-stackql-resource-name: suite_definition
+      x-stackql-primaryIdentifier:
+        - SuiteDefinitionId
   x-stackQL-resources:
+    suite_definitions:
+      name: suite_definitions
+      id: aws.iotcoredeviceadvisor.suite_definitions
+      x-cfn-schema-name: SuiteDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionId') as suite_definition_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'
     suite_definition:
       name: suite_definition
       id: aws.iotcoredeviceadvisor.suite_definition
@@ -122,4 +137,4 @@ components:
               JSON_EXTRACT(Properties, '$.SuiteDefinitionArn') as suite_definition_arn,
               JSON_EXTRACT(Properties, '$.SuiteDefinitionVersion') as suite_definition_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'

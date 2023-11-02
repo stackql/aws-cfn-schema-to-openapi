@@ -100,6 +100,8 @@ components:
         - Name
         - StackId
       x-stackql-resource-name: app
+      x-stackql-primaryIdentifier:
+        - Id
     ElasticLoadBalancerAttachment:
       type: object
       properties:
@@ -113,6 +115,8 @@ components:
         - LayerId
         - ElasticLoadBalancerName
       x-stackql-resource-name: elastic_load_balancer_attachment
+      x-stackql-primaryIdentifier:
+        - Id
     BlockDeviceMapping:
       type: object
       additionalProperties: false
@@ -250,6 +254,8 @@ components:
         - InstanceType
         - StackId
       x-stackql-resource-name: instance
+      x-stackql-primaryIdentifier:
+        - Id
     LifecycleEventConfiguration:
       type: object
       additionalProperties: false
@@ -415,6 +421,8 @@ components:
         - AutoAssignPublicIps
         - StackId
       x-stackql-resource-name: layer
+      x-stackql-primaryIdentifier:
+        - Id
     StackConfigurationManager:
       type: object
       additionalProperties: false
@@ -530,6 +538,8 @@ components:
         - ServiceRoleArn
         - Name
       x-stackql-resource-name: stack
+      x-stackql-primaryIdentifier:
+        - Id
     UserProfile:
       type: object
       properties:
@@ -546,6 +556,8 @@ components:
       required:
         - IamUserArn
       x-stackql-resource-name: user_profile
+      x-stackql-primaryIdentifier:
+        - Id
     Volume:
       type: object
       properties:
@@ -563,7 +575,22 @@ components:
         - Ec2VolumeId
         - StackId
       x-stackql-resource-name: volume
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    apps:
+      name: apps
+      id: aws.opsworks.apps
+      x-cfn-schema-name: App
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::App'
     app:
       name: app
       id: aws.opsworks.app
@@ -595,7 +622,20 @@ components:
               JSON_EXTRACT(Properties, '$.SslConfiguration.PrivateKey') as ssl_configuration_private_key,
               JSON_EXTRACT(Properties, '$.StackId') as stack_id,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::App' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::App'
+    elastic_load_balancer_attachments:
+      name: elastic_load_balancer_attachments
+      id: aws.opsworks.elastic_load_balancer_attachments
+      x-cfn-schema-name: ElasticLoadBalancerAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
     elastic_load_balancer_attachment:
       name: elastic_load_balancer_attachment
       id: aws.opsworks.elastic_load_balancer_attachment
@@ -610,7 +650,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ElasticLoadBalancerName') as elastic_load_balancer_name,
               JSON_EXTRACT(Properties, '$.LayerId') as layer_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::ElasticLoadBalancerAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::ElasticLoadBalancerAttachment'
+    instances:
+      name: instances
+      id: aws.opsworks.instances
+      x-cfn-schema-name: Instance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Instance'
     instance:
       name: instance
       id: aws.opsworks.instance
@@ -654,7 +707,20 @@ components:
               JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Wednesday') as time_based_auto_scaling_wednesday,
               JSON_EXTRACT(Properties, '$.VirtualizationType') as virtualization_type,
               JSON_EXTRACT(Properties, '$.Volumes') as volumes
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Instance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::Instance'
+    layers:
+      name: layers
+      id: aws.opsworks.layers
+      x-cfn-schema-name: Layer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Layer'
     layer:
       name: layer
       id: aws.opsworks.layer
@@ -692,7 +758,20 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.UseEbsOptimizedInstances') as use_ebs_optimized_instances,
               JSON_EXTRACT(Properties, '$.VolumeConfigurations') as volume_configurations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Layer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::Layer'
+    stacks:
+      name: stacks
+      id: aws.opsworks.stacks
+      x-cfn-schema-name: Stack
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Stack'
     stack:
       name: stack
       id: aws.opsworks.stack
@@ -737,7 +816,20 @@ components:
               JSON_EXTRACT(Properties, '$.UseCustomCookbooks') as use_custom_cookbooks,
               JSON_EXTRACT(Properties, '$.UseOpsworksSecurityGroups') as use_opsworks_security_groups,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Stack' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::Stack'
+    user_profiles:
+      name: user_profiles
+      id: aws.opsworks.user_profiles
+      x-cfn-schema-name: UserProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::UserProfile'
     user_profile:
       name: user_profile
       id: aws.opsworks.user_profile
@@ -754,7 +846,20 @@ components:
               JSON_EXTRACT(Properties, '$.AllowSelfManagement') as allow_self_management,
               JSON_EXTRACT(Properties, '$.IamUserArn') as iam_user_arn,
               JSON_EXTRACT(Properties, '$.SshPublicKey') as ssh_public_key
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::UserProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::UserProfile'
+    volumes:
+      name: volumes
+      id: aws.opsworks.volumes
+      x-cfn-schema-name: Volume
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Volume'
     volume:
       name: volume
       id: aws.opsworks.volume
@@ -771,4 +876,4 @@ components:
               JSON_EXTRACT(Properties, '$.MountPoint') as mount_point,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.StackId') as stack_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorks::Volume' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::Volume'

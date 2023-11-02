@@ -75,7 +75,22 @@ components:
         - Name
         - Type
       x-stackql-resource-name: repository_association
+      x-stackql-primaryIdentifier:
+        - AssociationArn
   x-stackQL-resources:
+    repository_associations:
+      name: repository_associations
+      id: aws.codegurureviewer.repository_associations
+      x-cfn-schema-name: RepositoryAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'
     repository_association:
       name: repository_association
       id: aws.codegurureviewer.repository_association
@@ -94,4 +109,4 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn,
               JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'

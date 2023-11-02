@@ -61,6 +61,8 @@ components:
         - IAMRoleARN
         - NodeType
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - Id
     ParameterGroup:
       type: object
       properties:
@@ -73,6 +75,8 @@ components:
         ParameterGroupName:
           type: string
       x-stackql-resource-name: parameter_group
+      x-stackql-primaryIdentifier:
+        - Id
     SubnetGroup:
       type: object
       properties:
@@ -90,7 +94,22 @@ components:
       required:
         - SubnetIds
       x-stackql-resource-name: subnet_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    clusters:
+      name: clusters
+      id: aws.dax.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::Cluster'
     cluster:
       name: cluster
       id: aws.dax.cluster
@@ -120,7 +139,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::Cluster'
+    parameter_groups:
+      name: parameter_groups
+      id: aws.dax.parameter_groups
+      x-cfn-schema-name: ParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
     parameter_group:
       name: parameter_group
       id: aws.dax.parameter_group
@@ -136,7 +168,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::ParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
+    subnet_groups:
+      name: subnet_groups
+      id: aws.dax.subnet_groups
+      x-cfn-schema-name: SubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::SubnetGroup'
     subnet_group:
       name: subnet_group
       id: aws.dax.subnet_group
@@ -152,4 +197,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.SubnetGroupName') as subnet_group_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::SubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::SubnetGroup'

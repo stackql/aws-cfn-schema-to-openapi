@@ -54,6 +54,8 @@ components:
         - Data
         - Name
       x-stackql-resource-name: rule_groups_namespace
+      x-stackql-primaryIdentifier:
+        - Arn
     LoggingConfiguration:
       description: Logging configuration
       type: object
@@ -101,7 +103,22 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: workspace
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    rule_groups_namespaces:
+      name: rule_groups_namespaces
+      id: aws.aps.rule_groups_namespaces
+      x-cfn-schema-name: RuleGroupsNamespace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::RuleGroupsNamespace'
     rule_groups_namespace:
       name: rule_groups_namespace
       id: aws.aps.rule_groups_namespace
@@ -118,7 +135,20 @@ components:
               JSON_EXTRACT(Properties, '$.Data') as data,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::RuleGroupsNamespace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::APS::RuleGroupsNamespace'
+    workspaces:
+      name: workspaces
+      id: aws.aps.workspaces
+      x-cfn-schema-name: Workspace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::Workspace'
     workspace:
       name: workspace
       id: aws.aps.workspace
@@ -137,4 +167,4 @@ components:
               JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as prometheus_endpoint,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogGroupArn') as logging_configuration_log_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::APS::Workspace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::APS::Workspace'

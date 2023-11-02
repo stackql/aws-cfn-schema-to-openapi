@@ -87,6 +87,8 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: channel
+      x-stackql-primaryIdentifier:
+        - ChannelArn
     AdvancedFieldSelector:
       description: A single selector statement in an advanced event selector.
       type: object
@@ -234,6 +236,8 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: event_data_store
+      x-stackql-primaryIdentifier:
+        - EventDataStoreArn
     ResourcePolicy:
       type: object
       properties:
@@ -246,6 +250,8 @@ components:
         - ResourceArn
         - ResourcePolicy
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - ResourceArn
     DataResource:
       description: CloudTrail supports data event logging for Amazon S3 objects and AWS Lambda functions. You can specify up to 250 resources for an individual event selector, but the total number of data resources cannot exceed 250 across all event selectors in a trail. This limit does not apply if you configure resource logging for all data events.
       type: object
@@ -375,7 +381,22 @@ components:
         - S3BucketName
         - IsLogging
       x-stackql-resource-name: trail
+      x-stackql-primaryIdentifier:
+        - TrailName
   x-stackQL-resources:
+    channels:
+      name: channels
+      id: aws.cloudtrail.channels
+      x-cfn-schema-name: Channel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel'
     channel:
       name: channel
       id: aws.cloudtrail.channel
@@ -390,7 +411,20 @@ components:
               JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Channel'
+    event_data_stores:
+      name: event_data_stores
+      id: aws.cloudtrail.event_data_stores
+      x-cfn-schema-name: EventDataStore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
     event_data_store:
       name: event_data_store
       id: aws.cloudtrail.event_data_store
@@ -412,7 +446,20 @@ components:
               JSON_EXTRACT(Properties, '$.TerminationProtectionEnabled') as termination_protection_enabled,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
+    resource_policies:
+      name: resource_policies
+      id: aws.cloudtrail.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.cloudtrail.resource_policy
@@ -426,7 +473,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.ResourcePolicy') as resource_policy
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
+    trails:
+      name: trails
+      id: aws.cloudtrail.trails
+      x-cfn-schema-name: Trail
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TrailName') as trail_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Trail'
     trail:
       name: trail
       id: aws.cloudtrail.trail
@@ -455,4 +515,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
               JSON_EXTRACT(Properties, '$.InsightSelectors') as insight_selectors
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Trail' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Trail'

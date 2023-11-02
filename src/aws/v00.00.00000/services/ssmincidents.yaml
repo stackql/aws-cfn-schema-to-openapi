@@ -85,6 +85,8 @@ components:
       required:
         - Regions
       x-stackql-resource-name: replication_set
+      x-stackql-primaryIdentifier:
+        - Arn
     SSMContact:
       description: The ARN of the contact.
       type: string
@@ -368,7 +370,22 @@ components:
         - Name
         - IncidentTemplate
       x-stackql-resource-name: response_plan
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    replication_sets:
+      name: replication_sets
+      id: aws.ssmincidents.replication_sets
+      x-cfn-schema-name: ReplicationSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
     replication_set:
       name: replication_set
       id: aws.ssmincidents.replication_set
@@ -381,7 +398,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
+    response_plans:
+      name: response_plans
+      id: aws.ssmincidents.response_plans
+      x-cfn-schema-name: ResponsePlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'
     response_plan:
       name: response_plan
       id: aws.ssmincidents.response_plan
@@ -407,4 +437,4 @@ components:
               JSON_EXTRACT(Properties, '$.IncidentTemplate.Summary') as incident_template_summary,
               JSON_EXTRACT(Properties, '$.IncidentTemplate.Title') as incident_template_title,
               JSON_EXTRACT(Properties, '$.IncidentTemplate.IncidentTags') as incident_template_incident_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'

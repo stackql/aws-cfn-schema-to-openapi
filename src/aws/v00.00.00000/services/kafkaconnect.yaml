@@ -331,7 +331,22 @@ components:
         - Plugins
         - ServiceExecutionRoleArn
       x-stackql-resource-name: connector
+      x-stackql-primaryIdentifier:
+        - ConnectorArn
   x-stackQL-resources:
+    connectors:
+      name: connectors
+      id: aws.kafkaconnect.connectors
+      x-cfn-schema-name: Connector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KafkaConnect::Connector'
     connector:
       name: connector
       id: aws.kafkaconnect.connector
@@ -358,4 +373,4 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
               JSON_EXTRACT(Properties, '$.WorkerConfiguration.Revision') as worker_configuration_revision,
               JSON_EXTRACT(Properties, '$.WorkerConfiguration.WorkerConfigurationArn') as worker_configuration_worker_configuration_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KafkaConnect::Connector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KafkaConnect::Connector'

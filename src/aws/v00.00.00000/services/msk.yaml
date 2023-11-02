@@ -20,6 +20,8 @@ components:
       required:
         - ClusterArn
       x-stackql-resource-name: batch_scram_secret
+      x-stackql-primaryIdentifier:
+        - ClusterArn
     S3:
       type: object
       additionalProperties: false
@@ -369,6 +371,8 @@ components:
         - NumberOfBrokerNodes
         - ClusterName
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - Arn
     KafkaVersionsList:
       type: array
       items:
@@ -390,6 +394,8 @@ components:
         - ServerProperties
         - Name
       x-stackql-resource-name: configuration
+      x-stackql-primaryIdentifier:
+        - Arn
     VpcConfig:
       type: object
       additionalProperties: false
@@ -437,7 +443,22 @@ components:
         - VpcConfigs
         - ClientAuthentication
       x-stackql-resource-name: serverless_cluster
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    batch_scram_secrets:
+      name: batch_scram_secrets
+      id: aws.msk.batch_scram_secrets
+      x-cfn-schema-name: BatchScramSecret
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
     batch_scram_secret:
       name: batch_scram_secret
       id: aws.msk.batch_scram_secret
@@ -450,7 +471,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::BatchScramSecret' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
+    clusters:
+      name: clusters
+      id: aws.msk.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Cluster'
     cluster:
       name: cluster
       id: aws.msk.cluster
@@ -483,7 +517,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationInfo.Revision') as configuration_info_revision,
               JSON_EXTRACT(Properties, '$.ConfigurationInfo.Arn') as configuration_info_arn,
               JSON_EXTRACT(Properties, '$.StorageMode') as storage_mode
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Cluster'
+    configurations:
+      name: configurations
+      id: aws.msk.configurations
+      x-cfn-schema-name: Configuration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Configuration'
     configuration:
       name: configuration
       id: aws.msk.configuration
@@ -499,7 +546,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ServerProperties') as server_properties,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Configuration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Configuration'
+    serverless_clusters:
+      name: serverless_clusters
+      id: aws.msk.serverless_clusters
+      x-cfn-schema-name: ServerlessCluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
     serverless_cluster:
       name: serverless_cluster
       id: aws.msk.serverless_cluster
@@ -516,4 +576,4 @@ components:
               JSON_EXTRACT(Properties, '$.VpcConfigs') as vpc_configs,
               JSON_EXTRACT(Properties, '$.ClientAuthentication.Sasl') as client_authentication_sasl,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ServerlessCluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'

@@ -105,6 +105,8 @@ components:
         - TransportAttachmentId
         - Options
       x-stackql-resource-name: connect_attachment
+      x-stackql-primaryIdentifier:
+        - AttachmentId
     ConnectPeerConfiguration:
       type: object
       properties:
@@ -198,6 +200,8 @@ components:
         - PeerAddress
         - InsideCidrBlocks
       x-stackql-resource-name: connect_peer
+      x-stackql-primaryIdentifier:
+        - ConnectPeerId
     CoreNetworkSegment:
       type: object
       properties:
@@ -281,6 +285,8 @@ components:
       required:
         - GlobalNetworkId
       x-stackql-resource-name: core_network
+      x-stackql-primaryIdentifier:
+        - CoreNetworkId
     CustomerGatewayAssociation:
       type: object
       properties:
@@ -301,6 +307,9 @@ components:
         - CustomerGatewayArn
         - DeviceId
       x-stackql-resource-name: customer_gateway_association
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - CustomerGatewayArn
     Location:
       description: The location of the site
       type: object
@@ -356,6 +365,9 @@ components:
       required:
         - GlobalNetworkId
       x-stackql-resource-name: device
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - DeviceId
     GlobalNetwork:
       type: object
       properties:
@@ -374,6 +386,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: global_network
+      x-stackql-primaryIdentifier:
+        - Id
     Bandwidth:
       description: The bandwidth for the link.
       type: object
@@ -422,6 +436,9 @@ components:
         - SiteId
         - Bandwidth
       x-stackql-resource-name: link
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - LinkId
     LinkAssociation:
       type: object
       properties:
@@ -439,6 +456,10 @@ components:
         - DeviceId
         - LinkId
       x-stackql-resource-name: link_association
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - DeviceId
+        - LinkId
     Site:
       type: object
       properties:
@@ -465,6 +486,9 @@ components:
       required:
         - GlobalNetworkId
       x-stackql-resource-name: site
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - SiteId
     SiteToSiteVpnAttachment:
       type: object
       properties:
@@ -520,6 +544,8 @@ components:
         - CoreNetworkId
         - VpnConnectionArn
       x-stackql-resource-name: site_to_site_vpn_attachment
+      x-stackql-primaryIdentifier:
+        - AttachmentId
     TransitGatewayPeering:
       type: object
       properties:
@@ -567,6 +593,8 @@ components:
         - CoreNetworkId
         - TransitGatewayArn
       x-stackql-resource-name: transit_gateway_peering
+      x-stackql-primaryIdentifier:
+        - PeeringId
     TransitGatewayRegistration:
       type: object
       properties:
@@ -580,6 +608,9 @@ components:
         - GlobalNetworkId
         - TransitGatewayArn
       x-stackql-resource-name: transit_gateway_registration
+      x-stackql-primaryIdentifier:
+        - GlobalNetworkId
+        - TransitGatewayArn
     TransitGatewayRouteTableAttachment:
       type: object
       properties:
@@ -639,6 +670,8 @@ components:
         - PeeringId
         - TransitGatewayRouteTableArn
       x-stackql-resource-name: transit_gateway_route_table_attachment
+      x-stackql-primaryIdentifier:
+        - AttachmentId
     VpcOptions:
       description: Vpc options of the attachment.
       type: object
@@ -717,7 +750,22 @@ components:
         - VpcArn
         - SubnetArns
       x-stackql-resource-name: vpc_attachment
+      x-stackql-primaryIdentifier:
+        - AttachmentId
   x-stackQL-resources:
+    connect_attachments:
+      name: connect_attachments
+      id: aws.networkmanager.connect_attachments
+      x-cfn-schema-name: ConnectAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
     connect_attachment:
       name: connect_attachment
       id: aws.networkmanager.connect_attachment
@@ -747,7 +795,20 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.TransportAttachmentId') as transport_attachment_id,
               JSON_EXTRACT(Properties, '$.Options.Protocol') as options_protocol
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
+    connect_peers:
+      name: connect_peers
+      id: aws.networkmanager.connect_peers
+      x-cfn-schema-name: ConnectPeer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConnectPeerId') as connect_peer_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
     connect_peer:
       name: connect_peer
       id: aws.networkmanager.connect_peer
@@ -775,7 +836,20 @@ components:
               JSON_EXTRACT(Properties, '$.Configuration.Protocol') as configuration_protocol,
               JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as configuration_bgp_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
+    core_networks:
+      name: core_networks
+      id: aws.networkmanager.core_networks
+      x-cfn-schema-name: CoreNetwork
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
     core_network:
       name: core_network
       id: aws.networkmanager.core_network
@@ -798,7 +872,21 @@ components:
               JSON_EXTRACT(Properties, '$.Edges') as edges,
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
+    customer_gateway_associations:
+      name: customer_gateway_associations
+      id: aws.networkmanager.customer_gateway_associations
+      x-cfn-schema-name: CustomerGatewayAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
     customer_gateway_association:
       name: customer_gateway_association
       id: aws.networkmanager.customer_gateway_association
@@ -814,7 +902,21 @@ components:
               JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_arn,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
+    devices:
+      name: devices
+      id: aws.networkmanager.devices
+      x-cfn-schema-name: Device
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Device'
     device:
       name: device
       id: aws.networkmanager.device
@@ -839,7 +941,20 @@ components:
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Vendor') as vendor
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Device' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Device'
+    global_networks:
+      name: global_networks
+      id: aws.networkmanager.global_networks
+      x-cfn-schema-name: GlobalNetwork
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
     global_network:
       name: global_network
       id: aws.networkmanager.global_network
@@ -855,7 +970,21 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
+    links:
+      name: links
+      id: aws.networkmanager.links
+      x-cfn-schema-name: Link
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Link'
     link:
       name: link
       id: aws.networkmanager.link
@@ -877,7 +1006,22 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Link' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Link'
+    link_associations:
+      name: link_associations
+      id: aws.networkmanager.link_associations
+      x-cfn-schema-name: LinkAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
     link_association:
       name: link_association
       id: aws.networkmanager.link_association
@@ -892,7 +1036,21 @@ components:
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
+    sites:
+      name: sites
+      id: aws.networkmanager.sites
+      x-cfn-schema-name: Site
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.SiteId') as site_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Site'
     site:
       name: site
       id: aws.networkmanager.site
@@ -912,7 +1070,20 @@ components:
               JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
               JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
               JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Site' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Site'
+    site_to_site_vpn_attachments:
+      name: site_to_site_vpn_attachments
+      id: aws.networkmanager.site_to_site_vpn_attachments
+      x-cfn-schema-name: SiteToSiteVpnAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
     site_to_site_vpn_attachment:
       name: site_to_site_vpn_attachment
       id: aws.networkmanager.site_to_site_vpn_attachment
@@ -941,7 +1112,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.VpnConnectionArn') as vpn_connection_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
+    transit_gateway_peerings:
+      name: transit_gateway_peerings
+      id: aws.networkmanager.transit_gateway_peerings
+      x-cfn-schema-name: TransitGatewayPeering
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PeeringId') as peering_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
     transit_gateway_peering:
       name: transit_gateway_peering
       id: aws.networkmanager.transit_gateway_peering
@@ -965,7 +1149,21 @@ components:
               JSON_EXTRACT(Properties, '$.PeeringType') as peering_type,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
+    transit_gateway_registrations:
+      name: transit_gateway_registrations
+      id: aws.networkmanager.transit_gateway_registrations
+      x-cfn-schema-name: TransitGatewayRegistration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
     transit_gateway_registration:
       name: transit_gateway_registration
       id: aws.networkmanager.transit_gateway_registration
@@ -979,7 +1177,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
+    transit_gateway_route_table_attachments:
+      name: transit_gateway_route_table_attachments
+      id: aws.networkmanager.transit_gateway_route_table_attachments
+      x-cfn-schema-name: TransitGatewayRouteTableAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
     transit_gateway_route_table_attachment:
       name: transit_gateway_route_table_attachment
       id: aws.networkmanager.transit_gateway_route_table_attachment
@@ -1009,7 +1220,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
+    vpc_attachments:
+      name: vpc_attachments
+      id: aws.networkmanager.vpc_attachments
+      x-cfn-schema-name: VpcAttachment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'
     vpc_attachment:
       name: vpc_attachment
       id: aws.networkmanager.vpc_attachment
@@ -1041,4 +1265,4 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
               JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as options_ipv6_support,
               JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as options_appliance_mode_support
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'

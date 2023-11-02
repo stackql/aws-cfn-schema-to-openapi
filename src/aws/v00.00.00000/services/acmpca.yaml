@@ -300,6 +300,9 @@ components:
         - SigningAlgorithm
         - Validity
       x-stackql-resource-name: certificate
+      x-stackql-primaryIdentifier:
+        - Arn
+        - CertificateAuthorityArn
     Tag:
       type: object
       additionalProperties: false
@@ -422,6 +425,8 @@ components:
         - SigningAlgorithm
         - Subject
       x-stackql-resource-name: certificate_authority
+      x-stackql-primaryIdentifier:
+        - Arn
     CertificateAuthorityActivation:
       type: object
       properties:
@@ -444,6 +449,8 @@ components:
         - CertificateAuthorityArn
         - Certificate
       x-stackql-resource-name: certificate_authority_activation
+      x-stackql-primaryIdentifier:
+        - CertificateAuthorityArn
     Permission:
       type: object
       properties:
@@ -467,7 +474,24 @@ components:
         - CertificateAuthorityArn
         - Principal
       x-stackql-resource-name: permission
+      x-stackql-primaryIdentifier:
+        - CertificateAuthorityArn
+        - Principal
   x-stackQL-resources:
+    certificates:
+      name: certificates
+      id: aws.acmpca.certificates
+      x-cfn-schema-name: Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Certificate'
     certificate:
       name: certificate
       id: aws.acmpca.certificate
@@ -488,7 +512,20 @@ components:
               JSON_EXTRACT(Properties, '$.ValidityNotBefore.Value') as validity_not_before_value,
               JSON_EXTRACT(Properties, '$.ValidityNotBefore.Type') as validity_not_before_type,
               JSON_EXTRACT(Properties, '$.Certificate') as certificate
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Certificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::Certificate'
+    certificate_authorities:
+      name: certificate_authorities
+      id: aws.acmpca.certificate_authorities
+      x-cfn-schema-name: CertificateAuthority
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthority'
     certificate_authority:
       name: certificate_authority
       id: aws.acmpca.certificate_authority
@@ -526,7 +563,20 @@ components:
               JSON_EXTRACT(Properties, '$.CsrExtensions.SubjectInformationAccess') as csr_extensions_subject_information_access,
               JSON_EXTRACT(Properties, '$.KeyStorageSecurityStandard') as key_storage_security_standard,
               JSON_EXTRACT(Properties, '$.UsageMode') as usage_mode
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthority' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthority'
+    certificate_authority_activations:
+      name: certificate_authority_activations
+      id: aws.acmpca.certificate_authority_activations
+      x-cfn-schema-name: CertificateAuthorityActivation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthorityActivation'
     certificate_authority_activation:
       name: certificate_authority_activation
       id: aws.acmpca.certificate_authority_activation
@@ -543,7 +593,21 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateChain') as certificate_chain,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.CompleteCertificateChain') as complete_certificate_chain
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthorityActivation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthorityActivation'
+    permissions:
+      name: permissions
+      id: aws.acmpca.permissions
+      x-cfn-schema-name: Permission
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
+              JSON_EXTRACT(Properties, '$.Principal') as principal
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Permission'
     permission:
       name: permission
       id: aws.acmpca.permission
@@ -559,4 +623,4 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.SourceAccount') as source_account
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ACMPCA::Permission' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::Permission'

@@ -7482,6 +7482,9 @@ components:
         - AnalysisId
         - Name
       x-stackql-resource-name: analysis
+      x-stackql-primaryIdentifier:
+        - AnalysisId
+        - AwsAccountId
     AdHocFilteringOption:
       type: object
       properties:
@@ -7782,6 +7785,9 @@ components:
         - DashboardId
         - Name
       x-stackql-resource-name: dashboard
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - DashboardId
     CalculatedColumn:
       type: object
       description: <p>A calculated column for a dataset.</p>
@@ -8444,6 +8450,9 @@ components:
         DataSetUsageConfiguration:
           $ref: '#/components/schemas/DataSetUsageConfiguration'
       x-stackql-resource-name: data_set
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - DataSetId
     AmazonElasticsearchParameters:
       type: object
       description: <p>Amazon Elasticsearch Service parameters.</p>
@@ -9060,6 +9069,9 @@ components:
         VpcConnectionProperties:
           $ref: '#/components/schemas/VpcConnectionProperties'
       x-stackql-resource-name: data_source
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - DataSourceId
     RefreshScheduleMap:
       type: object
       properties:
@@ -9143,6 +9155,10 @@ components:
           $ref: '#/components/schemas/RefreshScheduleMap'
       required: []
       x-stackql-resource-name: refresh_schedule
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - DataSetId
+        - Schedule/ScheduleId
     ColumnGroupColumnSchema:
       type: object
       properties:
@@ -9379,6 +9395,9 @@ components:
         - AwsAccountId
         - TemplateId
       x-stackql-resource-name: template
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - TemplateId
     BorderStyle:
       type: object
       description: <p>The display options for tile borders for visuals.</p>
@@ -9710,7 +9729,24 @@ components:
         - AwsAccountId
         - ThemeId
       x-stackql-resource-name: theme
+      x-stackql-primaryIdentifier:
+        - ThemeId
+        - AwsAccountId
   x-stackQL-resources:
+    analyses:
+      name: analyses
+      id: aws.quicksight.analyses
+      x-cfn-schema-name: Analysis
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AnalysisId') as analysis_id,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Analysis'
     analysis:
       name: analysis
       id: aws.quicksight.analysis
@@ -9746,7 +9782,21 @@ components:
               JSON_EXTRACT(Properties, '$.SourceEntity.SourceTemplate') as source_entity_source_template,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ThemeArn') as theme_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Analysis' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Analysis'
+    dashboards:
+      name: dashboards
+      id: aws.quicksight.dashboards
+      x-cfn-schema-name: Dashboard
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
     dashboard:
       name: dashboard
       id: aws.quicksight.dashboard
@@ -9802,7 +9852,21 @@ components:
               JSON_EXTRACT(Properties, '$.Version.ThemeArn') as version_theme_arn,
               JSON_EXTRACT(Properties, '$.Version.Sheets') as version_sheets,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Dashboard' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
+    data_sets:
+      name: data_sets
+      id: aws.quicksight.data_sets
+      x-cfn-schema-name: DataSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSet'
     data_set:
       name: data_set
       id: aws.quicksight.data_set
@@ -9834,7 +9898,21 @@ components:
               JSON_EXTRACT(Properties, '$.IngestionWaitPolicy.IngestionWaitTimeInHours') as ingestion_wait_policy_ingestion_wait_time_in_hours,
               JSON_EXTRACT(Properties, '$.DataSetUsageConfiguration.DisableUseAsDirectQuerySource') as data_set_usage_configuration_disable_use_as_direct_query_source,
               JSON_EXTRACT(Properties, '$.DataSetUsageConfiguration.DisableUseAsImportedSource') as data_set_usage_configuration_disable_use_as_imported_source
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSet'
+    data_sources:
+      name: data_sources
+      id: aws.quicksight.data_sources
+      x-cfn-schema-name: DataSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.DataSourceId') as data_source_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSource'
     data_source:
       name: data_source
       id: aws.quicksight.data_source
@@ -9880,7 +9958,22 @@ components:
               JSON_EXTRACT(Properties, '$.SslProperties.DisableSsl') as ssl_properties_disable_ssl,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VpcConnectionProperties.VpcConnectionArn') as vpc_connection_properties_vpc_connection_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSource'
+    refresh_schedules:
+      name: refresh_schedules
+      id: aws.quicksight.refresh_schedules
+      x-cfn-schema-name: RefreshSchedule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id,
+              JSON_EXTRACT(Properties, '$.Schedule.ScheduleId') as schedule.schedule_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
     refresh_schedule:
       name: refresh_schedule
       id: aws.quicksight.refresh_schedule
@@ -9899,7 +9992,21 @@ components:
               JSON_EXTRACT(Properties, '$.Schedule.ScheduleFrequency') as schedule_schedule_frequency,
               JSON_EXTRACT(Properties, '$.Schedule.StartAfterDateTime') as schedule_start_after_date_time,
               JSON_EXTRACT(Properties, '$.Schedule.RefreshType') as schedule_refresh_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
+    templates:
+      name: templates
+      id: aws.quicksight.templates
+      x-cfn-schema-name: Template
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.TemplateId') as template_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Template'
     template:
       name: template
       id: aws.quicksight.template
@@ -9938,7 +10045,21 @@ components:
               JSON_EXTRACT(Properties, '$.Version.ThemeArn') as version_theme_arn,
               JSON_EXTRACT(Properties, '$.Version.Sheets') as version_sheets,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Template' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Template'
+    themes:
+      name: themes
+      id: aws.quicksight.themes
+      x-cfn-schema-name: Theme
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ThemeId') as theme_id,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Theme'
     theme:
       name: theme
       id: aws.quicksight.theme
@@ -9972,4 +10093,4 @@ components:
               JSON_EXTRACT(Properties, '$.Version.Arn') as version_arn,
               JSON_EXTRACT(Properties, '$.Version.VersionNumber') as version_version_number,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Theme' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Theme'

@@ -78,7 +78,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: execution_plan
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    execution_plans:
+      name: execution_plans
+      id: aws.kendraranking.execution_plans
+      x-cfn-schema-name: ExecutionPlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'
     execution_plan:
       name: execution_plan
       id: aws.kendraranking.execution_plan
@@ -91,4 +106,4 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.CapacityUnits.RescoreCapacityUnits') as capacity_units_rescore_capacity_units
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'

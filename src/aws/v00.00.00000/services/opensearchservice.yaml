@@ -312,7 +312,22 @@ components:
         SoftwareUpdateOptions:
           $ref: '#/components/schemas/SoftwareUpdateOptions'
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - DomainName
   x-stackQL-resources:
+    domains:
+      name: domains
+      id: aws.opensearchservice.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchService::Domain'
     domain:
       name: domain
       id: aws.opensearchservice.domain
@@ -382,4 +397,4 @@ components:
               JSON_EXTRACT(Properties, '$.OffPeakWindowOptions.Enabled') as off_peak_window_options_enabled,
               JSON_EXTRACT(Properties, '$.OffPeakWindowOptions.OffPeakWindow') as off_peak_window_options_off_peak_window,
               JSON_EXTRACT(Properties, '$.SoftwareUpdateOptions.AutoSoftwareUpdateEnabled') as software_update_options_auto_software_update_enabled
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchService::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchService::Domain'

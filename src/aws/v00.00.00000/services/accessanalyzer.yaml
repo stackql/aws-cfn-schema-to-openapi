@@ -99,7 +99,22 @@ components:
       required:
         - Type
       x-stackql-resource-name: analyzer
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    analyzers:
+      name: analyzers
+      id: aws.accessanalyzer.analyzers
+      x-cfn-schema-name: Analyzer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'
     analyzer:
       name: analyzer
       id: aws.accessanalyzer.analyzer
@@ -116,4 +131,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'

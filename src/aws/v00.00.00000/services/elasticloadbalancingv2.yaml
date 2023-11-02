@@ -187,6 +187,8 @@ components:
         - LoadBalancerArn
         - DefaultActions
       x-stackql-resource-name: listener
+      x-stackql-primaryIdentifier:
+        - ListenerArn
     ListenerCertificate:
       type: object
       properties:
@@ -203,6 +205,8 @@ components:
         - ListenerArn
         - Certificates
       x-stackql-resource-name: listener_certificate
+      x-stackql-primaryIdentifier:
+        - Id
     RuleCondition:
       type: object
       additionalProperties: false
@@ -316,6 +320,8 @@ components:
         - Priority
         - Conditions
       x-stackql-resource-name: listener_rule
+      x-stackql-primaryIdentifier:
+        - RuleArn
     SubnetMapping:
       type: object
       additionalProperties: false
@@ -398,6 +404,8 @@ components:
           items:
             $ref: '#/components/schemas/SubnetMapping'
       x-stackql-resource-name: load_balancer
+      x-stackql-primaryIdentifier:
+        - Id
     Matcher:
       type: object
       additionalProperties: false
@@ -523,7 +531,22 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: target_group
+      x-stackql-primaryIdentifier:
+        - TargetGroupArn
   x-stackQL-resources:
+    listeners:
+      name: listeners
+      id: aws.elasticloadbalancingv2.listeners
+      x-cfn-schema-name: Listener
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
     listener:
       name: listener
       id: aws.elasticloadbalancingv2.listener
@@ -543,7 +566,20 @@ components:
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.AlpnPolicy') as alpn_policy
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
+    listener_certificates:
+      name: listener_certificates
+      id: aws.elasticloadbalancingv2.listener_certificates
+      x-cfn-schema-name: ListenerCertificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
     listener_certificate:
       name: listener_certificate
       id: aws.elasticloadbalancingv2.listener_certificate
@@ -558,7 +594,20 @@ components:
               JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn,
               JSON_EXTRACT(Properties, '$.Certificates') as certificates,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
+    listener_rules:
+      name: listener_rules
+      id: aws.elasticloadbalancingv2.listener_rules
+      x-cfn-schema-name: ListenerRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
     listener_rule:
       name: listener_rule
       id: aws.elasticloadbalancingv2.listener_rule
@@ -576,7 +625,20 @@ components:
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.Conditions') as conditions,
               JSON_EXTRACT(Properties, '$.IsDefault') as is_default
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
+    load_balancers:
+      name: load_balancers
+      id: aws.elasticloadbalancingv2.load_balancers
+      x-cfn-schema-name: LoadBalancer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.elasticloadbalancingv2.load_balancer
@@ -602,7 +664,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LoadBalancerFullName') as load_balancer_full_name,
               JSON_EXTRACT(Properties, '$.SubnetMappings') as subnet_mappings
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+    target_groups:
+      name: target_groups
+      id: aws.elasticloadbalancingv2.target_groups
+      x-cfn-schema-name: TargetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TargetGroupArn') as target_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'
     target_group:
       name: target_group
       id: aws.elasticloadbalancingv2.target_group
@@ -638,4 +713,4 @@ components:
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.TargetGroupName') as target_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'

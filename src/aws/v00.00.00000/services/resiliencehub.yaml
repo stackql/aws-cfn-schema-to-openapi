@@ -100,6 +100,8 @@ components:
         - AppTemplateBody
         - ResourceMappings
       x-stackql-resource-name: app
+      x-stackql-primaryIdentifier:
+        - AppArn
     FailurePolicy:
       description: Failure Policy.
       type: object
@@ -160,7 +162,22 @@ components:
         - Tier
         - Policy
       x-stackql-resource-name: resiliency_policy
+      x-stackql-primaryIdentifier:
+        - PolicyArn
   x-stackQL-resources:
+    apps:
+      name: apps
+      id: aws.resiliencehub.apps
+      x-cfn-schema-name: App
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AppArn') as app_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::App'
     app:
       name: app
       id: aws.resiliencehub.app
@@ -179,7 +196,20 @@ components:
               JSON_EXTRACT(Properties, '$.AppTemplateBody') as app_template_body,
               JSON_EXTRACT(Properties, '$.ResourceMappings') as resource_mappings,
               JSON_EXTRACT(Properties, '$.AppAssessmentSchedule') as app_assessment_schedule
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::App' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::App'
+    resiliency_policies:
+      name: resiliency_policies
+      id: aws.resiliencehub.resiliency_policies
+      x-cfn-schema-name: ResiliencyPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'
     resiliency_policy:
       name: resiliency_policy
       id: aws.resiliencehub.resiliency_policy
@@ -196,4 +226,4 @@ components:
               JSON_EXTRACT(Properties, '$.DataLocationConstraint') as data_location_constraint,
               JSON_EXTRACT(Properties, '$.Tier') as tier,
               JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'

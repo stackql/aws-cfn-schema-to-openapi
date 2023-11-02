@@ -812,7 +812,22 @@ components:
           minItems: 1
           maxItems: 50
       x-stackql-resource-name: delivery_stream
+      x-stackql-primaryIdentifier:
+        - DeliveryStreamName
   x-stackQL-resources:
+    delivery_streams:
+      name: delivery_streams
+      id: aws.kinesisfirehose.delivery_streams
+      x-cfn-schema-name: DeliveryStream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DeliveryStreamName') as delivery_stream_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisFirehose::DeliveryStream'
     delivery_stream:
       name: delivery_stream
       id: aws.kinesisfirehose.delivery_stream
@@ -918,4 +933,4 @@ components:
               JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3BackupMode') as http_endpoint_destination_configuration_s3_backup_mode,
               JSON_EXTRACT(Properties, '$.HttpEndpointDestinationConfiguration.S3Configuration') as http_endpoint_destination_configuration_s3_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisFirehose::DeliveryStream' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisFirehose::DeliveryStream'

@@ -42,7 +42,22 @@ components:
           description: Json object with all simulation details
           type: string
       x-stackql-resource-name: simulation
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    simulations:
+      name: simulations
+      id: aws.simspaceweaver.simulations
+      x-cfn-schema-name: Simulation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'
     simulation:
       name: simulation
       id: aws.simspaceweaver.simulation
@@ -59,4 +74,4 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaS3Location.BucketName') as schema_s3_location_bucket_name,
               JSON_EXTRACT(Properties, '$.SchemaS3Location.ObjectKey') as schema_s3_location_object_key,
               JSON_EXTRACT(Properties, '$.DescribePayload') as describe_payload
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'

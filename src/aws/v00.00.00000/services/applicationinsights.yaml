@@ -448,7 +448,22 @@ components:
       required:
         - ResourceGroupName
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationARN
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.applicationinsights.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationARN') as application_ar_n
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationInsights::Application'
     application:
       name: application
       id: aws.applicationinsights.application
@@ -471,4 +486,4 @@ components:
               JSON_EXTRACT(Properties, '$.AutoConfigurationEnabled') as auto_configuration_enabled,
               JSON_EXTRACT(Properties, '$.ComponentMonitoringSettings') as component_monitoring_settings,
               JSON_EXTRACT(Properties, '$.GroupingType') as grouping_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationInsights::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationInsights::Application'

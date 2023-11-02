@@ -48,6 +48,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: byte_match_set
+      x-stackql-primaryIdentifier:
+        - Id
     IPSetDescriptor:
       type: object
       additionalProperties: false
@@ -74,6 +76,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: ip_set
+      x-stackql-primaryIdentifier:
+        - Id
     Predicate:
       type: object
       additionalProperties: false
@@ -106,6 +110,8 @@ components:
         - MetricName
         - Name
       x-stackql-resource-name: rule
+      x-stackql-primaryIdentifier:
+        - Id
     SizeConstraint:
       type: object
       additionalProperties: false
@@ -139,6 +145,8 @@ components:
         - SizeConstraints
         - Name
       x-stackql-resource-name: size_constraint_set
+      x-stackql-primaryIdentifier:
+        - Id
     SqlInjectionMatchTuple:
       type: object
       additionalProperties: false
@@ -165,6 +173,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: sql_injection_match_set
+      x-stackql-primaryIdentifier:
+        - Id
     ActivatedRule:
       type: object
       additionalProperties: false
@@ -207,6 +217,8 @@ components:
         - MetricName
         - Name
       x-stackql-resource-name: web_acl
+      x-stackql-primaryIdentifier:
+        - Id
     XssMatchTuple:
       type: object
       additionalProperties: false
@@ -234,7 +246,22 @@ components:
         - Name
         - XssMatchTuples
       x-stackql-resource-name: xss_match_set
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    byte_match_sets:
+      name: byte_match_sets
+      id: aws.waf.byte_match_sets
+      x-cfn-schema-name: ByteMatchSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
     byte_match_set:
       name: byte_match_set
       id: aws.waf.byte_match_set
@@ -249,7 +276,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ByteMatchTuples') as byte_match_tuples,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::ByteMatchSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
+    ip_sets:
+      name: ip_sets
+      id: aws.waf.ip_sets
+      x-cfn-schema-name: IPSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::IPSet'
     ip_set:
       name: ip_set
       id: aws.waf.ip_set
@@ -264,7 +304,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.IPSetDescriptors') as i_pset_descriptors,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::IPSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::IPSet'
+    rules:
+      name: rules
+      id: aws.waf.rules
+      x-cfn-schema-name: Rule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::Rule'
     rule:
       name: rule
       id: aws.waf.rule
@@ -280,7 +333,20 @@ components:
               JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Predicates') as predicates
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::Rule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::Rule'
+    size_constraint_sets:
+      name: size_constraint_sets
+      id: aws.waf.size_constraint_sets
+      x-cfn-schema-name: SizeConstraintSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
     size_constraint_set:
       name: size_constraint_set
       id: aws.waf.size_constraint_set
@@ -295,7 +361,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SizeConstraints') as size_constraints
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
+    sql_injection_match_sets:
+      name: sql_injection_match_sets
+      id: aws.waf.sql_injection_match_sets
+      x-cfn-schema-name: SqlInjectionMatchSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
     sql_injection_match_set:
       name: sql_injection_match_set
       id: aws.waf.sql_injection_match_set
@@ -310,7 +389,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SqlInjectionMatchTuples') as sql_injection_match_tuples
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
+    web_acls:
+      name: web_acls
+      id: aws.waf.web_acls
+      x-cfn-schema-name: WebACL
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::WebACL'
     web_acl:
       name: web_acl
       id: aws.waf.web_acl
@@ -327,7 +419,20 @@ components:
               JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Rules') as rules
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::WebACL' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::WebACL'
+    xss_match_sets:
+      name: xss_match_sets
+      id: aws.waf.xss_match_sets
+      x-cfn-schema-name: XssMatchSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::XssMatchSet'
     xss_match_set:
       name: xss_match_set
       id: aws.waf.xss_match_set
@@ -342,4 +447,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.XssMatchTuples') as xss_match_tuples
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::XssMatchSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::XssMatchSet'

@@ -173,7 +173,22 @@ components:
         - DataAccessRoleArn
         - DataLakeS3Uri
       x-stackql-resource-name: flywheel
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    flywheels:
+      name: flywheels
+      id: aws.comprehend.flywheels
+      x-cfn-schema-name: Flywheel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::Flywheel'
     flywheel:
       name: flywheel
       id: aws.comprehend.flywheel
@@ -199,4 +214,4 @@ components:
               JSON_EXTRACT(Properties, '$.TaskConfig.DocumentClassificationConfig') as task_config_document_classification_config,
               JSON_EXTRACT(Properties, '$.TaskConfig.EntityRecognitionConfig') as task_config_entity_recognition_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::Flywheel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Comprehend::Flywheel'

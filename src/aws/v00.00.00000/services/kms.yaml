@@ -23,6 +23,8 @@ components:
         - AliasName
         - TargetKeyId
       x-stackql-resource-name: alias
+      x-stackql-primaryIdentifier:
+        - AliasName
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -106,6 +108,8 @@ components:
       required:
         - KeyPolicy
       x-stackql-resource-name: key
+      x-stackql-primaryIdentifier:
+        - KeyId
     ReplicaKey:
       type: object
       properties:
@@ -144,7 +148,22 @@ components:
         - PrimaryKeyArn
         - KeyPolicy
       x-stackql-resource-name: replica_key
+      x-stackql-primaryIdentifier:
+        - KeyId
   x-stackQL-resources:
+    aliases:
+      name: aliases
+      id: aws.kms.aliases
+      x-cfn-schema-name: Alias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AliasName') as alias_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Alias'
     alias:
       name: alias
       id: aws.kms.alias
@@ -158,7 +177,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AliasName') as alias_name,
               JSON_EXTRACT(Properties, '$.TargetKeyId') as target_key_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Alias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Alias'
+    keys:
+      name: keys
+      id: aws.kms.keys
+      x-cfn-schema-name: Key
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.KeyId') as key_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Key'
     key:
       name: key
       id: aws.kms.key
@@ -181,7 +213,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.KeyId') as key_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Key' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Key'
+    replica_keys:
+      name: replica_keys
+      id: aws.kms.replica_keys
+      x-cfn-schema-name: ReplicaKey
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.KeyId') as key_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::ReplicaKey'
     replica_key:
       name: replica_key
       id: aws.kms.replica_key
@@ -201,4 +246,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.KeyId') as key_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::ReplicaKey' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::ReplicaKey'

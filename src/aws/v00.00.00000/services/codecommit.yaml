@@ -95,7 +95,22 @@ components:
       required:
         - RepositoryName
       x-stackql-resource-name: repository
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    repositories:
+      name: repositories
+      id: aws.codecommit.repositories
+      x-cfn-schema-name: Repository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeCommit::Repository'
     repository:
       name: repository
       id: aws.codecommit.repository
@@ -118,4 +133,4 @@ components:
               JSON_EXTRACT(Properties, '$.RepositoryDescription') as repository_description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeCommit::Repository' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeCommit::Repository'

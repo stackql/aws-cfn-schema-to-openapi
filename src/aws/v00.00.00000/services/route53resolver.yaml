@@ -102,6 +102,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: firewall_domain_list
+      x-stackql-primaryIdentifier:
+        - Id
     FirewallRule:
       description: Firewall Rule associating the Rule Group to a Domain List
       type: object
@@ -223,6 +225,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: firewall_rule_group
+      x-stackql-primaryIdentifier:
+        - Id
     FirewallRuleGroupAssociation:
       type: object
       properties:
@@ -304,6 +308,8 @@ components:
         - VpcId
         - Priority
       x-stackql-resource-name: firewall_rule_group_association
+      x-stackql-primaryIdentifier:
+        - Id
     ResolverConfig:
       type: object
       properties:
@@ -339,6 +345,8 @@ components:
         - ResourceId
         - AutodefinedReverseFlag
       x-stackql-resource-name: resolver_config
+      x-stackql-primaryIdentifier:
+        - Id
     ResolverDNSSECConfig:
       type: object
       properties:
@@ -366,6 +374,8 @@ components:
             - DISABLING
             - DISABLED
       x-stackql-resource-name: resolverdnssec_config
+      x-stackql-primaryIdentifier:
+        - Id
     IpAddressRequest:
       type: object
       additionalProperties: false
@@ -419,6 +429,8 @@ components:
         - Direction
         - SecurityGroupIds
       x-stackql-resource-name: resolver_endpoint
+      x-stackql-primaryIdentifier:
+        - ResolverEndpointId
     ResolverQueryLoggingConfig:
       type: object
       properties:
@@ -477,6 +489,8 @@ components:
           minLength: 20
           maxLength: 40
       x-stackql-resource-name: resolver_query_logging_config
+      x-stackql-primaryIdentifier:
+        - Id
     ResolverQueryLoggingConfigAssociation:
       type: object
       properties:
@@ -521,6 +535,8 @@ components:
           minLength: 20
           maxLength: 40
       x-stackql-resource-name: resolver_query_logging_config_association
+      x-stackql-primaryIdentifier:
+        - Id
     TargetAddress:
       type: object
       additionalProperties: false
@@ -585,6 +601,8 @@ components:
         - DomainName
         - RuleType
       x-stackql-resource-name: resolver_rule
+      x-stackql-primaryIdentifier:
+        - ResolverRuleId
     ResolverRuleAssociation:
       type: object
       properties:
@@ -604,7 +622,22 @@ components:
         - VPCId
         - ResolverRuleId
       x-stackql-resource-name: resolver_rule_association
+      x-stackql-primaryIdentifier:
+        - ResolverRuleAssociationId
   x-stackQL-resources:
+    firewall_domain_lists:
+      name: firewall_domain_lists
+      id: aws.route53resolver.firewall_domain_lists
+      x-cfn-schema-name: FirewallDomainList
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
     firewall_domain_list:
       name: firewall_domain_list
       id: aws.route53resolver.firewall_domain_list
@@ -628,7 +661,20 @@ components:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.DomainFileUrl') as domain_file_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
+    firewall_rule_groups:
+      name: firewall_rule_groups
+      id: aws.route53resolver.firewall_rule_groups
+      x-cfn-schema-name: FirewallRuleGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
     firewall_rule_group:
       name: firewall_rule_group
       id: aws.route53resolver.firewall_rule_group
@@ -653,7 +699,20 @@ components:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.FirewallRules') as firewall_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
+    firewall_rule_group_associations:
+      name: firewall_rule_group_associations
+      id: aws.route53resolver.firewall_rule_group_associations
+      x-cfn-schema-name: FirewallRuleGroupAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
     firewall_rule_group_association:
       name: firewall_rule_group_association
       id: aws.route53resolver.firewall_rule_group_association
@@ -679,7 +738,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
+    resolver_configs:
+      name: resolver_configs
+      id: aws.route53resolver.resolver_configs
+      x-cfn-schema-name: ResolverConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
     resolver_config:
       name: resolver_config
       id: aws.route53resolver.resolver_config
@@ -696,7 +768,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.AutodefinedReverse') as autodefined_reverse,
               JSON_EXTRACT(Properties, '$.AutodefinedReverseFlag') as autodefined_reverse_flag
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
+    resolverdnssec_configs:
+      name: resolverdnssec_configs
+      id: aws.route53resolver.resolverdnssec_configs
+      x-cfn-schema-name: ResolverDNSSECConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
     resolverdnssec_config:
       name: resolverdnssec_config
       id: aws.route53resolver.resolverdnssec_config
@@ -712,7 +797,20 @@ components:
               JSON_EXTRACT(Properties, '$.OwnerId') as owner_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ValidationStatus') as validation_status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
+    resolver_endpoints:
+      name: resolver_endpoints
+      id: aws.route53resolver.resolver_endpoints
+      x-cfn-schema-name: ResolverEndpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
     resolver_endpoint:
       name: resolver_endpoint
       id: aws.route53resolver.resolver_endpoint
@@ -736,7 +834,20 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
+    resolver_query_logging_configs:
+      name: resolver_query_logging_configs
+      id: aws.route53resolver.resolver_query_logging_configs
+      x-cfn-schema-name: ResolverQueryLoggingConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
     resolver_query_logging_config:
       name: resolver_query_logging_config
       id: aws.route53resolver.resolver_query_logging_config
@@ -758,7 +869,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreatorRequestId') as creator_request_id,
               JSON_EXTRACT(Properties, '$.DestinationArn') as destination_arn,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
+    resolver_query_logging_config_associations:
+      name: resolver_query_logging_config_associations
+      id: aws.route53resolver.resolver_query_logging_config_associations
+      x-cfn-schema-name: ResolverQueryLoggingConfigAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
     resolver_query_logging_config_association:
       name: resolver_query_logging_config_association
       id: aws.route53resolver.resolver_query_logging_config_association
@@ -777,7 +901,20 @@ components:
               JSON_EXTRACT(Properties, '$.Error') as error,
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
+    resolver_rules:
+      name: resolver_rules
+      id: aws.route53resolver.resolver_rules
+      x-cfn-schema-name: ResolverRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
     resolver_rule:
       name: resolver_rule
       id: aws.route53resolver.resolver_rule
@@ -797,7 +934,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetIps') as target_ips,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
+    resolver_rule_associations:
+      name: resolver_rule_associations
+      id: aws.route53resolver.resolver_rule_associations
+      x-cfn-schema-name: ResolverRuleAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'
     resolver_rule_association:
       name: resolver_rule_association
       id: aws.route53resolver.resolver_rule_association
@@ -813,4 +963,4 @@ components:
               JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id,
               JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'

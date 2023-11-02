@@ -40,6 +40,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: database
+      x-stackql-primaryIdentifier:
+        - DatabaseName
     Arn:
       description: Amazon Resource Name of the scheduled query that is generated upon creation.
       type: string
@@ -388,6 +390,8 @@ components:
         - ScheduledQueryExecutionRoleArn
         - ErrorReportConfiguration
       x-stackql-resource-name: scheduled_query
+      x-stackql-primaryIdentifier:
+        - Arn
     Table:
       type: object
       properties:
@@ -460,7 +464,23 @@ components:
       required:
         - DatabaseName
       x-stackql-resource-name: table
+      x-stackql-primaryIdentifier:
+        - DatabaseName
+        - TableName
   x-stackQL-resources:
+    databases:
+      name: databases
+      id: aws.timestream.databases
+      x-cfn-schema-name: Database
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatabaseName') as database_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Database'
     database:
       name: database
       id: aws.timestream.database
@@ -476,7 +496,20 @@ components:
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Database' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Timestream::Database'
+    scheduled_queries:
+      name: scheduled_queries
+      id: aws.timestream.scheduled_queries
+      x-cfn-schema-name: ScheduledQuery
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::ScheduledQuery'
     scheduled_query:
       name: scheduled_query
       id: aws.timestream.scheduled_query
@@ -500,7 +533,21 @@ components:
               JSON_EXTRACT(Properties, '$.SQTargetConfiguration') as s_qtarget_configuration,
               JSON_EXTRACT(Properties, '$.SQErrorReportConfiguration') as s_qerror_report_configuration,
               JSON_EXTRACT(Properties, '$.SQKmsKeyId') as s_qkms_key_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::ScheduledQuery' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Timestream::ScheduledQuery'
+    tables:
+      name: tables
+      id: aws.timestream.tables
+      x-cfn-schema-name: Table
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Table'
     table:
       name: table
       id: aws.timestream.table
@@ -519,4 +566,4 @@ components:
               JSON_EXTRACT(Properties, '$.RetentionProperties') as retention_properties,
               JSON_EXTRACT(Properties, '$.MagneticStoreWriteProperties') as magnetic_store_write_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Timestream::Table' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Timestream::Table'

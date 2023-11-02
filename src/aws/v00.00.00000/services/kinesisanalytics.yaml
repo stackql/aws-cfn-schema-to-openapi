@@ -154,6 +154,8 @@ components:
       required:
         - Inputs
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - Id
     Output:
       type: object
       additionalProperties: false
@@ -222,6 +224,8 @@ components:
         - ApplicationName
         - Output
       x-stackql-resource-name: application_output
+      x-stackql-primaryIdentifier:
+        - Id
     ReferenceDataSource:
       type: object
       additionalProperties: false
@@ -277,7 +281,22 @@ components:
         - ReferenceDataSource
         - ApplicationName
       x-stackql-resource-name: application_reference_data_source
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.kinesisanalytics.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
     application:
       name: application
       id: aws.kinesisanalytics.application
@@ -294,7 +313,20 @@ components:
               JSON_EXTRACT(Properties, '$.Inputs') as inputs,
               JSON_EXTRACT(Properties, '$.ApplicationDescription') as application_description,
               JSON_EXTRACT(Properties, '$.ApplicationCode') as application_code
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
+    application_outputs:
+      name: application_outputs
+      id: aws.kinesisanalytics.application_outputs
+      x-cfn-schema-name: ApplicationOutput
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
     application_output:
       name: application_output
       id: aws.kinesisanalytics.application_output
@@ -313,7 +345,20 @@ components:
               JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
               JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
               JSON_EXTRACT(Properties, '$.Output.Name') as output_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
+    application_reference_data_sources:
+      name: application_reference_data_sources
+      id: aws.kinesisanalytics.application_reference_data_sources
+      x-cfn-schema-name: ApplicationReferenceDataSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'
     application_reference_data_source:
       name: application_reference_data_source
       id: aws.kinesisanalytics.application_reference_data_source
@@ -330,4 +375,4 @@ components:
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'

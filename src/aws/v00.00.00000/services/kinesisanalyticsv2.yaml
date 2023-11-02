@@ -673,6 +673,8 @@ components:
         - RuntimeEnvironment
         - ServiceExecutionRole
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationName
     CloudWatchLoggingOption:
       type: object
       additionalProperties: false
@@ -694,6 +696,8 @@ components:
         - CloudWatchLoggingOption
         - ApplicationName
       x-stackql-resource-name: application_cloud_watch_logging_option
+      x-stackql-primaryIdentifier:
+        - Id
     Output:
       type: object
       additionalProperties: false
@@ -753,6 +757,8 @@ components:
         - ApplicationName
         - Output
       x-stackql-resource-name: application_output
+      x-stackql-primaryIdentifier:
+        - Id
     ReferenceDataSource:
       type: object
       additionalProperties: false
@@ -805,7 +811,22 @@ components:
         - ReferenceDataSource
         - ApplicationName
       x-stackql-resource-name: application_reference_data_source
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.kinesisanalyticsv2.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::Application'
     application:
       name: application
       id: aws.kinesisanalyticsv2.application
@@ -832,7 +853,20 @@ components:
               JSON_EXTRACT(Properties, '$.RunConfiguration.FlinkRunConfiguration') as run_configuration_flink_run_configuration,
               JSON_EXTRACT(Properties, '$.ApplicationMaintenanceConfiguration.ApplicationMaintenanceWindowStartTime') as application_maintenance_configuration_application_maintenance_window_start_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::Application'
+    application_cloud_watch_logging_options:
+      name: application_cloud_watch_logging_options
+      id: aws.kinesisanalyticsv2.application_cloud_watch_logging_options
+      x-cfn-schema-name: ApplicationCloudWatchLoggingOption
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption'
     application_cloud_watch_logging_option:
       name: application_cloud_watch_logging_option
       id: aws.kinesisanalyticsv2.application_cloud_watch_logging_option
@@ -847,7 +881,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption.LogStreamARN') as cloud_watch_logging_option_log_stream_ar_n
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption'
+    application_outputs:
+      name: application_outputs
+      id: aws.kinesisanalyticsv2.application_outputs
+      x-cfn-schema-name: ApplicationOutput
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationOutput'
     application_output:
       name: application_output
       id: aws.kinesisanalyticsv2.application_output
@@ -866,7 +913,20 @@ components:
               JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
               JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
               JSON_EXTRACT(Properties, '$.Output.Name') as output_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationOutput' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationOutput'
+    application_reference_data_sources:
+      name: application_reference_data_sources
+      id: aws.kinesisanalyticsv2.application_reference_data_sources
+      x-cfn-schema-name: ApplicationReferenceDataSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource'
     application_reference_data_source:
       name: application_reference_data_source
       id: aws.kinesisanalyticsv2.application_reference_data_source
@@ -883,4 +943,4 @@ components:
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource'

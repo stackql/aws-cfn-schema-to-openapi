@@ -118,6 +118,8 @@ components:
       required:
         - DestinationConfiguration
       x-stackql-resource-name: logging_configuration
+      x-stackql-primaryIdentifier:
+        - Arn
     MessageReviewHandler:
       description: Configuration information for optional review of messages.
       type: object
@@ -193,7 +195,22 @@ components:
             $ref: '#/components/schemas/Tag'
       required: []
       x-stackql-resource-name: room
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    logging_configurations:
+      name: logging_configurations
+      id: aws.ivschat.logging_configurations
+      x-cfn-schema-name: LoggingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.ivschat.logging_configuration
@@ -213,7 +230,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
+    rooms:
+      name: rooms
+      id: aws.ivschat.rooms
+      x-cfn-schema-name: Room
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::Room'
     room:
       name: room
       id: aws.ivschat.room
@@ -234,4 +264,4 @@ components:
               JSON_EXTRACT(Properties, '$.MessageReviewHandler.FallbackResult') as message_review_handler_fallback_result,
               JSON_EXTRACT(Properties, '$.MessageReviewHandler.Uri') as message_review_handler_uri,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::Room' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::Room'

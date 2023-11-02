@@ -80,6 +80,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: accelerator
+      x-stackql-primaryIdentifier:
+        - AcceleratorArn
     EndpointConfiguration:
       description: The configuration for a given endpoint
       type: object
@@ -174,6 +176,8 @@ components:
         - ListenerArn
         - EndpointGroupRegion
       x-stackql-resource-name: endpoint_group
+      x-stackql-primaryIdentifier:
+        - EndpointGroupArn
     PortRange:
       description: A port range to support for connections from  clients to your accelerator.
       type: object
@@ -218,7 +222,22 @@ components:
         - PortRanges
         - Protocol
       x-stackql-resource-name: listener
+      x-stackql-primaryIdentifier:
+        - ListenerArn
   x-stackQL-resources:
+    accelerators:
+      name: accelerators
+      id: aws.globalaccelerator.accelerators
+      x-cfn-schema-name: Accelerator
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
     accelerator:
       name: accelerator
       id: aws.globalaccelerator.accelerator
@@ -240,7 +259,20 @@ components:
               JSON_EXTRACT(Properties, '$.DualStackDnsName') as dual_stack_dns_name,
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
+    endpoint_groups:
+      name: endpoint_groups
+      id: aws.globalaccelerator.endpoint_groups
+      x-cfn-schema-name: EndpointGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
     endpoint_group:
       name: endpoint_group
       id: aws.globalaccelerator.endpoint_group
@@ -263,7 +295,20 @@ components:
               JSON_EXTRACT(Properties, '$.ThresholdCount') as threshold_count,
               JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn,
               JSON_EXTRACT(Properties, '$.PortOverrides') as port_overrides
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
+    listeners:
+      name: listeners
+      id: aws.globalaccelerator.listeners
+      x-cfn-schema-name: Listener
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'
     listener:
       name: listener
       id: aws.globalaccelerator.listener
@@ -280,4 +325,4 @@ components:
               JSON_EXTRACT(Properties, '$.PortRanges') as port_ranges,
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.ClientAffinity') as client_affinity
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'

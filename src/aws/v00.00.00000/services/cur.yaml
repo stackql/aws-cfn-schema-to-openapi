@@ -96,7 +96,22 @@ components:
         - RefreshClosedReports
         - ReportVersioning
       x-stackql-resource-name: report_definition
+      x-stackql-primaryIdentifier:
+        - ReportName
   x-stackQL-resources:
+    report_definitions:
+      name: report_definitions
+      id: aws.cur.report_definitions
+      x-cfn-schema-name: ReportDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReportName') as report_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CUR::ReportDefinition'
     report_definition:
       name: report_definition
       id: aws.cur.report_definition
@@ -120,4 +135,4 @@ components:
               JSON_EXTRACT(Properties, '$.RefreshClosedReports') as refresh_closed_reports,
               JSON_EXTRACT(Properties, '$.ReportVersioning') as report_versioning,
               JSON_EXTRACT(Properties, '$.BillingViewArn') as billing_view_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CUR::ReportDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CUR::ReportDefinition'

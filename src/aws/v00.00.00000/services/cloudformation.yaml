@@ -15,6 +15,8 @@ components:
       required:
         - ServiceToken
       x-stackql-resource-name: custom_resource
+      x-stackql-primaryIdentifier:
+        - Id
     HookDefaultVersion:
       type: object
       properties:
@@ -38,6 +40,8 @@ components:
           pattern: ^[A-Za-z0-9-]{1,128}$
           type: string
       x-stackql-resource-name: hook_default_version
+      x-stackql-primaryIdentifier:
+        - Arn
     HookTypeConfig:
       type: object
       properties:
@@ -68,6 +72,8 @@ components:
             - default
           type: string
       x-stackql-resource-name: hook_type_config
+      x-stackql-primaryIdentifier:
+        - ConfigurationArn
     LoggingConfig:
       type: object
       properties:
@@ -140,6 +146,8 @@ components:
         - SchemaHandlerPackage
         - TypeName
       x-stackql-resource-name: hook_version
+      x-stackql-primaryIdentifier:
+        - Arn
     Macro:
       type: object
       properties:
@@ -159,6 +167,8 @@ components:
         - FunctionName
         - Name
       x-stackql-resource-name: macro
+      x-stackql-primaryIdentifier:
+        - Id
     ModuleDefaultVersion:
       type: object
       properties:
@@ -175,6 +185,8 @@ components:
           pattern: ^[0-9]{8}$
           type: string
       x-stackql-resource-name: module_default_version
+      x-stackql-primaryIdentifier:
+        - Arn
     ModuleVersion:
       type: object
       properties:
@@ -230,6 +242,8 @@ components:
         - ModuleName
         - ModulePackage
       x-stackql-resource-name: module_version
+      x-stackql-primaryIdentifier:
+        - Arn
     PublicTypeVersion:
       type: object
       properties:
@@ -275,6 +289,8 @@ components:
             - HOOK
           type: string
       x-stackql-resource-name: public_type_version
+      x-stackql-primaryIdentifier:
+        - PublicTypeArn
     Publisher:
       type: object
       properties:
@@ -312,6 +328,8 @@ components:
       required:
         - AcceptTermsAndConditions
       x-stackql-resource-name: publisher
+      x-stackql-primaryIdentifier:
+        - PublisherId
     ResourceDefaultVersion:
       type: object
       properties:
@@ -335,6 +353,8 @@ components:
           pattern: ^[A-Za-z0-9-]{1,128}$
           type: string
       x-stackql-resource-name: resource_default_version
+      x-stackql-primaryIdentifier:
+        - Arn
     ResourceVersion:
       type: object
       properties:
@@ -396,6 +416,8 @@ components:
         - SchemaHandlerPackage
         - TypeName
       x-stackql-resource-name: resource_version
+      x-stackql-primaryIdentifier:
+        - Arn
     Tag:
       description: Tag type enables you to specify a key-value pair that can be used to store information about an AWS CloudFormation StackSet.
       type: object
@@ -442,6 +464,8 @@ components:
       required:
         - TemplateURL
       x-stackql-resource-name: stack
+      x-stackql-primaryIdentifier:
+        - Id
     AutoDeployment:
       type: object
       properties:
@@ -662,6 +686,8 @@ components:
         - StackSetName
         - PermissionModel
       x-stackql-resource-name: stack_set
+      x-stackql-primaryIdentifier:
+        - StackSetId
     TypeActivation:
       type: object
       properties:
@@ -721,6 +747,8 @@ components:
             - HOOK
           type: string
       x-stackql-resource-name: type_activation
+      x-stackql-primaryIdentifier:
+        - Arn
     WaitCondition:
       type: object
       properties:
@@ -735,13 +763,30 @@ components:
         Timeout:
           type: string
       x-stackql-resource-name: wait_condition
+      x-stackql-primaryIdentifier:
+        - Id
     WaitConditionHandle:
       type: object
       properties:
         Id:
           type: string
       x-stackql-resource-name: wait_condition_handle
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    custom_resources:
+      name: custom_resources
+      id: aws.cloudformation.custom_resources
+      x-cfn-schema-name: CustomResource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
     custom_resource:
       name: custom_resource
       id: aws.cloudformation.custom_resource
@@ -755,7 +800,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ServiceToken') as service_token
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::CustomResource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
+    hook_default_versions:
+      name: hook_default_versions
+      id: aws.cloudformation.hook_default_versions
+      x-cfn-schema-name: HookDefaultVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
     hook_default_version:
       name: hook_default_version
       id: aws.cloudformation.hook_default_version
@@ -771,7 +829,20 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
+    hook_type_configs:
+      name: hook_type_configs
+      id: aws.cloudformation.hook_type_configs
+      x-cfn-schema-name: HookTypeConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConfigurationArn') as configuration_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
     hook_type_config:
       name: hook_type_config
       id: aws.cloudformation.hook_type_config
@@ -788,7 +859,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationArn') as configuration_arn,
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.ConfigurationAlias') as configuration_alias
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
+    hook_versions:
+      name: hook_versions
+      id: aws.cloudformation.hook_versions
+      x-cfn-schema-name: HookVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
     hook_version:
       name: hook_version
       id: aws.cloudformation.hook_version
@@ -810,7 +894,20 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
+    macros:
+      name: macros
+      id: aws.cloudformation.macros
+      x-cfn-schema-name: Macro
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Macro'
     macro:
       name: macro
       id: aws.cloudformation.macro
@@ -828,7 +925,20 @@ components:
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogRoleARN') as log_role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Macro' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Macro'
+    module_default_versions:
+      name: module_default_versions
+      id: aws.cloudformation.module_default_versions
+      x-cfn-schema-name: ModuleDefaultVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
     module_default_version:
       name: module_default_version
       id: aws.cloudformation.module_default_version
@@ -843,7 +953,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ModuleName') as module_name,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
+    module_versions:
+      name: module_versions
+      id: aws.cloudformation.module_versions
+      x-cfn-schema-name: ModuleVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
     module_version:
       name: module_version
       id: aws.cloudformation.module_version
@@ -865,7 +988,20 @@ components:
               JSON_EXTRACT(Properties, '$.TimeCreated') as time_created,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
+    public_type_versions:
+      name: public_type_versions
+      id: aws.cloudformation.public_type_versions
+      x-cfn-schema-name: PublicTypeVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PublicTypeArn') as public_type_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
     public_type_version:
       name: public_type_version
       id: aws.cloudformation.public_type_version
@@ -885,7 +1021,20 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.LogDeliveryBucket') as log_delivery_bucket,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
+    publishers:
+      name: publishers
+      id: aws.cloudformation.publishers
+      x-cfn-schema-name: Publisher
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PublisherId') as publisher_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
     publisher:
       name: publisher
       id: aws.cloudformation.publisher
@@ -903,7 +1052,20 @@ components:
               JSON_EXTRACT(Properties, '$.PublisherStatus') as publisher_status,
               JSON_EXTRACT(Properties, '$.PublisherProfile') as publisher_profile,
               JSON_EXTRACT(Properties, '$.IdentityProvider') as identity_provider
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Publisher' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
+    resource_default_versions:
+      name: resource_default_versions
+      id: aws.cloudformation.resource_default_versions
+      x-cfn-schema-name: ResourceDefaultVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
     resource_default_version:
       name: resource_default_version
       id: aws.cloudformation.resource_default_version
@@ -919,7 +1081,20 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
+    resource_versions:
+      name: resource_versions
+      id: aws.cloudformation.resource_versions
+      x-cfn-schema-name: ResourceVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
     resource_version:
       name: resource_version
       id: aws.cloudformation.resource_version
@@ -942,7 +1117,20 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
+    stacks:
+      name: stacks
+      id: aws.cloudformation.stacks
+      x-cfn-schema-name: Stack
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Stack'
     stack:
       name: stack
       id: aws.cloudformation.stack
@@ -960,7 +1148,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TemplateURL') as template_ur_l,
               JSON_EXTRACT(Properties, '$.TimeoutInMinutes') as timeout_in_minutes
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Stack' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Stack'
+    stack_sets:
+      name: stack_sets
+      id: aws.cloudformation.stack_sets
+      x-cfn-schema-name: StackSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StackSetId') as stack_set_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
     stack_set:
       name: stack_set
       id: aws.cloudformation.stack_set
@@ -994,7 +1195,20 @@ components:
               JSON_EXTRACT(Properties, '$.TemplateURL') as template_ur_l,
               JSON_EXTRACT(Properties, '$.CallAs') as call_as,
               JSON_EXTRACT(Properties, '$.ManagedExecution') as managed_execution
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::StackSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
+    type_activations:
+      name: type_activations
+      id: aws.cloudformation.type_activations
+      x-cfn-schema-name: TypeActivation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
     type_activation:
       name: type_activation
       id: aws.cloudformation.type_activation
@@ -1018,7 +1232,20 @@ components:
               JSON_EXTRACT(Properties, '$.MajorVersion') as major_version,
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
+    wait_conditions:
+      name: wait_conditions
+      id: aws.cloudformation.wait_conditions
+      x-cfn-schema-name: WaitCondition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
     wait_condition:
       name: wait_condition
       id: aws.cloudformation.wait_condition
@@ -1035,7 +1262,20 @@ components:
               JSON_EXTRACT(Properties, '$.Count') as count,
               JSON_EXTRACT(Properties, '$.Handle') as handle,
               JSON_EXTRACT(Properties, '$.Timeout') as timeout
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
+    wait_condition_handles:
+      name: wait_condition_handles
+      id: aws.cloudformation.wait_condition_handles
+      x-cfn-schema-name: WaitConditionHandle
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'
     wait_condition_handle:
       name: wait_condition_handle
       id: aws.cloudformation.wait_condition_handle
@@ -1048,4 +1288,4 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'

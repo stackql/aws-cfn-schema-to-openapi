@@ -37,6 +37,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - Id
     AttributeGroup:
       type: object
       properties:
@@ -64,6 +66,8 @@ components:
         - Name
         - Attributes
       x-stackql-resource-name: attribute_group
+      x-stackql-primaryIdentifier:
+        - Id
     AttributeGroupAssociation:
       type: object
       properties:
@@ -91,6 +95,8 @@ components:
         - Application
         - AttributeGroup
       x-stackql-resource-name: attribute_group_association
+      x-stackql-primaryIdentifier:
+        - Id
     ResourceAssociation:
       type: object
       properties:
@@ -122,7 +128,22 @@ components:
         - Resource
         - ResourceType
       x-stackql-resource-name: resource_association
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.servicecatalogappregistry.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application'
     application:
       name: application
       id: aws.servicecatalogappregistry.application
@@ -138,7 +159,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application'
+    attribute_groups:
+      name: attribute_groups
+      id: aws.servicecatalogappregistry.attribute_groups
+      x-cfn-schema-name: AttributeGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroup'
     attribute_group:
       name: attribute_group
       id: aws.servicecatalogappregistry.attribute_group
@@ -155,7 +189,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Attributes') as attributes
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroup'
+    attribute_group_associations:
+      name: attribute_group_associations
+      id: aws.servicecatalogappregistry.attribute_group_associations
+      x-cfn-schema-name: AttributeGroupAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation'
     attribute_group_association:
       name: attribute_group_association
       id: aws.servicecatalogappregistry.attribute_group_association
@@ -172,7 +219,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
               JSON_EXTRACT(Properties, '$.AttributeGroupArn') as attribute_group_arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation'
+    resource_associations:
+      name: resource_associations
+      id: aws.servicecatalogappregistry.resource_associations
+      x-cfn-schema-name: ResourceAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation'
     resource_association:
       name: resource_association
       id: aws.servicecatalogappregistry.resource_association
@@ -190,4 +250,4 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation'

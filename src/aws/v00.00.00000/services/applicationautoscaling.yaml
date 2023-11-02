@@ -74,6 +74,8 @@ components:
         - RoleARN
         - MaxCapacity
       x-stackql-resource-name: scalable_target
+      x-stackql-primaryIdentifier:
+        - Id
     StepScalingPolicyConfiguration:
       type: object
       additionalProperties: false
@@ -188,7 +190,22 @@ components:
         - PolicyType
         - PolicyName
       x-stackql-resource-name: scaling_policy
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    scalable_targets:
+      name: scalable_targets
+      id: aws.applicationautoscaling.scalable_targets
+      x-cfn-schema-name: ScalableTarget
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
     scalable_target:
       name: scalable_target
       id: aws.applicationautoscaling.scalable_target
@@ -211,7 +228,20 @@ components:
               JSON_EXTRACT(Properties, '$.MinCapacity') as min_capacity,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
+    scaling_policies:
+      name: scaling_policies
+      id: aws.applicationautoscaling.scaling_policies
+      x-cfn-schema-name: ScalingPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'
     scaling_policy:
       name: scaling_policy
       id: aws.applicationautoscaling.scaling_policy
@@ -241,4 +271,4 @@ components:
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleInCooldown') as target_tracking_scaling_policy_configuration_scale_in_cooldown,
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.ScaleOutCooldown') as target_tracking_scaling_policy_configuration_scale_out_cooldown,
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration.TargetValue') as target_tracking_scaling_policy_configuration_target_value
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'

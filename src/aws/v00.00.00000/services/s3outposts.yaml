@@ -46,6 +46,8 @@ components:
         - Name
         - VpcConfiguration
       x-stackql-resource-name: access_point
+      x-stackql-primaryIdentifier:
+        - Arn
     Tag:
       type: object
       additionalProperties: false
@@ -218,6 +220,8 @@ components:
         - BucketName
         - OutpostId
       x-stackql-resource-name: bucket
+      x-stackql-primaryIdentifier:
+        - Arn
     BucketPolicy:
       type: object
       properties:
@@ -234,6 +238,8 @@ components:
         - Bucket
         - PolicyDocument
       x-stackql-resource-name: bucket_policy
+      x-stackql-primaryIdentifier:
+        - Bucket
     NetworkInterface:
       description: The container for the network interface.
       type: object
@@ -313,7 +319,22 @@ components:
         - SecurityGroupId
         - SubnetId
       x-stackql-resource-name: endpoint
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    access_points:
+      name: access_points
+      id: aws.s3outposts.access_points
+      x-cfn-schema-name: AccessPoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3outposts.access_point
@@ -330,7 +351,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.VpcConfiguration.VpcId') as vpc_configuration_vpc_id,
               JSON_EXTRACT(Properties, '$.Policy') as policy
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
+    buckets:
+      name: buckets
+      id: aws.s3outposts.buckets
+      x-cfn-schema-name: Bucket
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
     bucket:
       name: bucket
       id: aws.s3outposts.bucket
@@ -347,7 +381,20 @@ components:
               JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Bucket' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
+    bucket_policies:
+      name: bucket_policies
+      id: aws.s3outposts.bucket_policies
+      x-cfn-schema-name: BucketPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Bucket') as bucket
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
     bucket_policy:
       name: bucket_policy
       id: aws.s3outposts.bucket_policy
@@ -361,7 +408,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
+    endpoints:
+      name: endpoints
+      id: aws.s3outposts.endpoints
+      x-cfn-schema-name: Endpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'
     endpoint:
       name: endpoint
       id: aws.s3outposts.endpoint
@@ -383,4 +443,4 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.AccessType') as access_type,
               JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Endpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'

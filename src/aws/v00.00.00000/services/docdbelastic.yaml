@@ -74,7 +74,22 @@ components:
         - ShardCount
         - AuthType
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - ClusterArn
   x-stackQL-resources:
+    clusters:
+      name: clusters
+      id: aws.docdbelastic.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'
     cluster:
       name: cluster
       id: aws.docdbelastic.cluster
@@ -99,4 +114,4 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDBElastic::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'

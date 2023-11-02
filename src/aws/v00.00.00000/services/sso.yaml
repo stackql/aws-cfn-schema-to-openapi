@@ -49,6 +49,13 @@ components:
         - PrincipalType
         - PrincipalId
       x-stackql-resource-name: assignment
+      x-stackql-primaryIdentifier:
+        - InstanceArn
+        - TargetId
+        - TargetType
+        - PermissionSetArn
+        - PrincipalType
+        - PrincipalId
     AccessControlAttributeValueSource:
       type: string
       minLength: 0
@@ -111,6 +118,8 @@ components:
       required:
         - InstanceArn
       x-stackql-resource-name: instance_access_control_attribute_configuration
+      x-stackql-primaryIdentifier:
+        - InstanceArn
     Tag:
       description: The metadata that you apply to the permission set to help you categorize and organize them.
       type: object
@@ -225,7 +234,28 @@ components:
         - Name
         - InstanceArn
       x-stackql-resource-name: permission_set
+      x-stackql-primaryIdentifier:
+        - InstanceArn
+        - PermissionSetArn
   x-stackQL-resources:
+    assignments:
+      name: assignments
+      id: aws.sso.assignments
+      x-cfn-schema-name: Assignment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
+              JSON_EXTRACT(Properties, '$.TargetId') as target_id,
+              JSON_EXTRACT(Properties, '$.TargetType') as target_type,
+              JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn,
+              JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type,
+              JSON_EXTRACT(Properties, '$.PrincipalId') as principal_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::Assignment'
     assignment:
       name: assignment
       id: aws.sso.assignment
@@ -243,7 +273,20 @@ components:
               JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn,
               JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type,
               JSON_EXTRACT(Properties, '$.PrincipalId') as principal_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::Assignment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::Assignment'
+    instance_access_control_attribute_configurations:
+      name: instance_access_control_attribute_configurations
+      id: aws.sso.instance_access_control_attribute_configurations
+      x-cfn-schema-name: InstanceAccessControlAttributeConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
     instance_access_control_attribute_configuration:
       name: instance_access_control_attribute_configuration
       id: aws.sso.instance_access_control_attribute_configuration
@@ -257,7 +300,21 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
               JSON_EXTRACT(Properties, '$.InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
+    permission_sets:
+      name: permission_sets
+      id: aws.sso.permission_sets
+      x-cfn-schema-name: PermissionSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
+              JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::PermissionSet'
     permission_set:
       name: permission_set
       id: aws.sso.permission_set
@@ -281,4 +338,4 @@ components:
               JSON_EXTRACT(Properties, '$.CustomerManagedPolicyReferences') as customer_managed_policy_references,
               JSON_EXTRACT(Properties, '$.PermissionsBoundary.CustomerManagedPolicyReference') as permissions_boundary_customer_managed_policy_reference,
               JSON_EXTRACT(Properties, '$.PermissionsBoundary.ManagedPolicyArn') as permissions_boundary_managed_policy_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::PermissionSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::PermissionSet'

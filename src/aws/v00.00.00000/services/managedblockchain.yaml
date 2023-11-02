@@ -66,6 +66,8 @@ components:
       required:
         - AccessorType
       x-stackql-resource-name: accessor
+      x-stackql-primaryIdentifier:
+        - Id
     NetworkConfiguration:
       type: object
       additionalProperties: false
@@ -162,6 +164,8 @@ components:
       required:
         - MemberConfiguration
       x-stackql-resource-name: member
+      x-stackql-primaryIdentifier:
+        - MemberId
     NodeConfiguration:
       type: object
       additionalProperties: false
@@ -190,7 +194,22 @@ components:
         - NetworkId
         - NodeConfiguration
       x-stackql-resource-name: node
+      x-stackql-primaryIdentifier:
+        - NodeId
   x-stackQL-resources:
+    accessors:
+      name: accessors
+      id: aws.managedblockchain.accessors
+      x-cfn-schema-name: Accessor
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
     accessor:
       name: accessor
       id: aws.managedblockchain.accessor
@@ -207,7 +226,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
+    members:
+      name: members
+      id: aws.managedblockchain.members
+      x-cfn-schema-name: Member
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MemberId') as member_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
     member:
       name: member
       id: aws.managedblockchain.member
@@ -231,7 +263,20 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.Name') as network_configuration_name,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.NetworkFrameworkConfiguration') as network_configuration_network_framework_configuration,
               JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Member' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
+    nodes:
+      name: nodes
+      id: aws.managedblockchain.nodes
+      x-cfn-schema-name: Node
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.NodeId') as node_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'
     node:
       name: node
       id: aws.managedblockchain.node
@@ -249,4 +294,4 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
               JSON_EXTRACT(Properties, '$.NodeConfiguration.InstanceType') as node_configuration_instance_type,
               JSON_EXTRACT(Properties, '$.NodeConfiguration.AvailabilityZone') as node_configuration_availability_zone
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Node' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'

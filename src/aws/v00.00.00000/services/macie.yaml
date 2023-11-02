@@ -93,6 +93,8 @@ components:
         - Name
         - Criteria
       x-stackql-resource-name: allow_list
+      x-stackql-primaryIdentifier:
+        - Id
     CustomDataIdentifier:
       type: object
       properties:
@@ -128,6 +130,8 @@ components:
         - Name
         - Regex
       x-stackql-resource-name: custom_data_identifier
+      x-stackql-primaryIdentifier:
+        - Id
     CriterionAdditionalProperties:
       type: object
       properties:
@@ -206,6 +210,8 @@ components:
         - Name
         - FindingCriteria
       x-stackql-resource-name: findings_filter
+      x-stackql-primaryIdentifier:
+        - Id
     Session:
       type: object
       properties:
@@ -231,7 +237,22 @@ components:
           description: Service role used by Macie
           type: string
       x-stackql-resource-name: session
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
   x-stackQL-resources:
+    allow_lists:
+      name: allow_lists
+      id: aws.macie.allow_lists
+      x-cfn-schema-name: AllowList
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::AllowList'
     allow_list:
       name: allow_list
       id: aws.macie.allow_list
@@ -248,7 +269,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::AllowList' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::AllowList'
+    custom_data_identifiers:
+      name: custom_data_identifiers
+      id: aws.macie.custom_data_identifiers
+      x-cfn-schema-name: CustomDataIdentifier
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
     custom_data_identifier:
       name: custom_data_identifier
       id: aws.macie.custom_data_identifier
@@ -268,7 +302,20 @@ components:
               JSON_EXTRACT(Properties, '$.IgnoreWords') as ignore_words,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
+    findings_filters:
+      name: findings_filters
+      id: aws.macie.findings_filters
+      x-cfn-schema-name: FindingsFilter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
     findings_filter:
       name: findings_filter
       id: aws.macie.findings_filter
@@ -286,7 +333,20 @@ components:
               JSON_EXTRACT(Properties, '$.Position') as position,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::FindingsFilter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
+    sessions:
+      name: sessions
+      id: aws.macie.sessions
+      x-cfn-schema-name: Session
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::Session'
     session:
       name: session
       id: aws.macie.session
@@ -302,4 +362,4 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.FindingPublishingFrequency') as finding_publishing_frequency,
               JSON_EXTRACT(Properties, '$.ServiceRole') as service_role
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::Session' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::Session'

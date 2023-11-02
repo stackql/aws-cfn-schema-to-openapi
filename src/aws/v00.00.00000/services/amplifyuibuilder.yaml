@@ -339,6 +339,10 @@ components:
         - Properties
         - Variants
       x-stackql-resource-name: component
+      x-stackql-primaryIdentifier:
+        - AppId
+        - EnvironmentName
+        - Id
     FieldConfig:
       type: object
       properties:
@@ -610,6 +614,10 @@ components:
         - SectionalElements
         - Style
       x-stackql-resource-name: form
+      x-stackql-primaryIdentifier:
+        - AppId
+        - EnvironmentName
+        - Id
     ThemeValue:
       type: object
       properties:
@@ -658,7 +666,26 @@ components:
         - Name
         - Values
       x-stackql-resource-name: theme
+      x-stackql-primaryIdentifier:
+        - AppId
+        - EnvironmentName
+        - Id
   x-stackQL-resources:
+    components:
+      name: components
+      id: aws.amplifyuibuilder.components
+      x-cfn-schema-name: Component
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Component'
     component:
       name: component
       id: aws.amplifyuibuilder.component
@@ -679,7 +706,22 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
               JSON_EXTRACT(Properties, '$.SourceId') as source_id,
               JSON_EXTRACT(Properties, '$.Variants') as variants
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Component' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Component'
+    forms:
+      name: forms
+      id: aws.amplifyuibuilder.forms
+      x-cfn-schema-name: Form
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Form'
     form:
       name: form
       id: aws.amplifyuibuilder.form
@@ -705,7 +747,22 @@ components:
               JSON_EXTRACT(Properties, '$.Style.HorizontalGap') as style_horizontal_gap,
               JSON_EXTRACT(Properties, '$.Style.VerticalGap') as style_vertical_gap,
               JSON_EXTRACT(Properties, '$.Style.OuterPadding') as style_outer_padding
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Form' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Form'
+    themes:
+      name: themes
+      id: aws.amplifyuibuilder.themes
+      x-cfn-schema-name: Theme
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AppId') as app_id,
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Theme'
     theme:
       name: theme
       id: aws.amplifyuibuilder.theme
@@ -723,4 +780,4 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Overrides') as overrides,
               JSON_EXTRACT(Properties, '$.Values') as values
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Theme' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Theme'

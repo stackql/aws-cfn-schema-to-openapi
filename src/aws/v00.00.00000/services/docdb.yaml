@@ -86,6 +86,8 @@ components:
           items:
             type: string
       x-stackql-resource-name: db_cluster
+      x-stackql-primaryIdentifier:
+        - Id
     DBClusterParameterGroup:
       type: object
       properties:
@@ -109,6 +111,8 @@ components:
         - Description
         - Parameters
       x-stackql-resource-name: db_cluster_parameter_group
+      x-stackql-primaryIdentifier:
+        - Id
     DBInstance:
       type: object
       properties:
@@ -141,6 +145,8 @@ components:
         - DBInstanceClass
         - DBClusterIdentifier
       x-stackql-resource-name: db_instance
+      x-stackql-primaryIdentifier:
+        - Id
     DBSubnetGroup:
       type: object
       properties:
@@ -164,7 +170,22 @@ components:
         - DBSubnetGroupDescription
         - SubnetIds
       x-stackql-resource-name: db_subnet_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    db_clusters:
+      name: db_clusters
+      id: aws.docdb.db_clusters
+      x-cfn-schema-name: DBCluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBCluster'
     db_cluster:
       name: db_cluster
       id: aws.docdb.db_cluster
@@ -203,7 +224,20 @@ components:
               JSON_EXTRACT(Properties, '$.BackupRetentionPeriod') as backup_retention_period,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBCluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBCluster'
+    db_cluster_parameter_groups:
+      name: db_cluster_parameter_groups
+      id: aws.docdb.db_cluster_parameter_groups
+      x-cfn-schema-name: DBClusterParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
     db_cluster_parameter_group:
       name: db_cluster_parameter_group
       id: aws.docdb.db_cluster_parameter_group
@@ -221,7 +255,20 @@ components:
               JSON_EXTRACT(Properties, '$.Family') as family,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
+    db_instances:
+      name: db_instances
+      id: aws.docdb.db_instances
+      x-cfn-schema-name: DBInstance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBInstance'
     db_instance:
       name: db_instance
       id: aws.docdb.db_instance
@@ -244,7 +291,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DBInstanceIdentifier') as d_binstance_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBInstance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBInstance'
+    db_subnet_groups:
+      name: db_subnet_groups
+      id: aws.docdb.db_subnet_groups
+      x-cfn-schema-name: DBSubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
     db_subnet_group:
       name: db_subnet_group
       id: aws.docdb.db_subnet_group
@@ -261,4 +321,4 @@ components:
               JSON_EXTRACT(Properties, '$.DBSubnetGroupDescription') as d_bsubnet_group_description,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'

@@ -319,7 +319,22 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: lifecycle_policy
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    lifecycle_policies:
+      name: lifecycle_policies
+      id: aws.dlm.lifecycle_policies
+      x-cfn-schema-name: LifecyclePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'
     lifecycle_policy:
       name: lifecycle_policy
       id: aws.dlm.lifecycle_policy
@@ -345,4 +360,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'

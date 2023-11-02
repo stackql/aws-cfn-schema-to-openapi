@@ -424,6 +424,8 @@ components:
         - ScheduleExpression
         - Target
       x-stackql-resource-name: schedule
+      x-stackql-primaryIdentifier:
+        - Name
     ScheduleGroupState:
       type: string
       description: Specifies the state of the schedule group.
@@ -481,7 +483,22 @@ components:
           description: The list of tags to associate with the schedule group.
           x-insertionOrder: false
       x-stackql-resource-name: schedule_group
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    schedules:
+      name: schedules
+      id: aws.scheduler.schedules
+      x-cfn-schema-name: Schedule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::Schedule'
     schedule:
       name: schedule
       id: aws.scheduler.schedule
@@ -514,7 +531,20 @@ components:
               JSON_EXTRACT(Properties, '$.Target.KinesisParameters') as target_kinesis_parameters,
               JSON_EXTRACT(Properties, '$.Target.SageMakerPipelineParameters') as target_sage_maker_pipeline_parameters,
               JSON_EXTRACT(Properties, '$.Target.SqsParameters') as target_sqs_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::Schedule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::Schedule'
+    schedule_groups:
+      name: schedule_groups
+      id: aws.scheduler.schedule_groups
+      x-cfn-schema-name: ScheduleGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'
     schedule_group:
       name: schedule_group
       id: aws.scheduler.schedule_group
@@ -531,4 +561,4 @@ components:
               JSON_EXTRACT(Properties, '$.LastModificationDate') as last_modification_date,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'

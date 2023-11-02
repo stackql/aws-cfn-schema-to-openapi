@@ -71,6 +71,8 @@ components:
         - SourceArn
         - SourceRoleArn
       x-stackql-resource-name: asset
+      x-stackql-primaryIdentifier:
+        - Id
     HlsIngest:
       description: An HTTP Live Streaming (HLS) ingest resource configuration.
       type: object
@@ -146,6 +148,8 @@ components:
       required:
         - Id
       x-stackql-resource-name: channel
+      x-stackql-primaryIdentifier:
+        - Id
     MssPackage:
       type: object
       description: A Microsoft Smooth Streaming (MSS) PackagingConfiguration.
@@ -465,6 +469,8 @@ components:
         - Id
         - ChannelId
       x-stackql-resource-name: origin_endpoint
+      x-stackql-primaryIdentifier:
+        - Id
     RoleArn:
       description: An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service.
       type: string
@@ -547,6 +553,8 @@ components:
         - PackagingGroupId
         - Id
       x-stackql-resource-name: packaging_configuration
+      x-stackql-primaryIdentifier:
+        - Id
     PackagingGroup:
       type: object
       properties:
@@ -577,7 +585,22 @@ components:
       required:
         - Id
       x-stackql-resource-name: packaging_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    assets:
+      name: assets
+      id: aws.mediapackage.assets
+      x-cfn-schema-name: Asset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Asset'
     asset:
       name: asset
       id: aws.mediapackage.asset
@@ -598,7 +621,20 @@ components:
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
               JSON_EXTRACT(Properties, '$.SourceRoleArn') as source_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Asset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Asset'
+    channels:
+      name: channels
+      id: aws.mediapackage.channels
+      x-cfn-schema-name: Channel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Channel'
     channel:
       name: channel
       id: aws.mediapackage.channel
@@ -617,7 +653,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name,
               JSON_EXTRACT(Properties, '$.IngressAccessLogs.LogGroupName') as ingress_access_logs_log_group_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Channel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Channel'
+    origin_endpoints:
+      name: origin_endpoints
+      id: aws.mediapackage.origin_endpoints
+      x-cfn-schema-name: OriginEndpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
     origin_endpoint:
       name: origin_endpoint
       id: aws.mediapackage.origin_endpoint
@@ -661,7 +710,20 @@ components:
               JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds') as cmaf_package_segment_duration_seconds,
               JSON_EXTRACT(Properties, '$.CmafPackage.IncludeEncoderConfigurationInSegments') as cmaf_package_include_encoder_configuration_in_segments,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
+    packaging_configurations:
+      name: packaging_configurations
+      id: aws.mediapackage.packaging_configurations
+      x-cfn-schema-name: PackagingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
     packaging_configuration:
       name: packaging_configuration
       id: aws.mediapackage.packaging_configuration
@@ -696,7 +758,20 @@ components:
               JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as mss_package_mss_manifests,
               JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as mss_package_segment_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
+    packaging_groups:
+      name: packaging_groups
+      id: aws.mediapackage.packaging_groups
+      x-cfn-schema-name: PackagingGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'
     packaging_group:
       name: packaging_group
       id: aws.mediapackage.packaging_group
@@ -715,4 +790,4 @@ components:
               JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as authorization_secrets_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'

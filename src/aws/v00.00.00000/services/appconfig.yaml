@@ -30,6 +30,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - Id
     Validators:
       type: object
       additionalProperties: false
@@ -70,6 +72,8 @@ components:
         - ApplicationId
         - Name
       x-stackql-resource-name: configuration_profile
+      x-stackql-primaryIdentifier:
+        - Id
     Deployment:
       type: object
       properties:
@@ -101,6 +105,8 @@ components:
         - ConfigurationVersion
         - ApplicationId
       x-stackql-resource-name: deployment
+      x-stackql-primaryIdentifier:
+        - Id
     DeploymentStrategy:
       type: object
       properties:
@@ -131,6 +137,8 @@ components:
         - GrowthFactor
         - Name
       x-stackql-resource-name: deployment_strategy
+      x-stackql-primaryIdentifier:
+        - Id
     Monitors:
       type: object
       additionalProperties: false
@@ -164,6 +172,8 @@ components:
         - ApplicationId
         - Name
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - Id
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -271,6 +281,8 @@ components:
         - Name
         - Actions
       x-stackql-resource-name: extension
+      x-stackql-primaryIdentifier:
+        - Id
     ExtensionAssociation:
       type: object
       properties:
@@ -302,6 +314,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: extension_association
+      x-stackql-primaryIdentifier:
+        - Id
     HostedConfigurationVersion:
       type: object
       properties:
@@ -327,7 +341,22 @@ components:
         - Content
         - ApplicationId
       x-stackql-resource-name: hosted_configuration_version
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.appconfig.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Application'
     application:
       name: application
       id: aws.appconfig.application
@@ -343,7 +372,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Application'
+    configuration_profiles:
+      name: configuration_profiles
+      id: aws.appconfig.configuration_profiles
+      x-cfn-schema-name: ConfigurationProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
     configuration_profile:
       name: configuration_profile
       id: aws.appconfig.configuration_profile
@@ -364,7 +406,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
+    deployments:
+      name: deployments
+      id: aws.appconfig.deployments
+      x-cfn-schema-name: Deployment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Deployment'
     deployment:
       name: deployment
       id: aws.appconfig.deployment
@@ -385,7 +440,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Deployment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Deployment'
+    deployment_strategies:
+      name: deployment_strategies
+      id: aws.appconfig.deployment_strategies
+      x-cfn-schema-name: DeploymentStrategy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
     deployment_strategy:
       name: deployment_strategy
       id: aws.appconfig.deployment_strategy
@@ -406,7 +474,20 @@ components:
               JSON_EXTRACT(Properties, '$.FinalBakeTimeInMinutes') as final_bake_time_in_minutes,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
+    environments:
+      name: environments
+      id: aws.appconfig.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Environment'
     environment:
       name: environment
       id: aws.appconfig.environment
@@ -424,7 +505,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Environment'
+    extensions:
+      name: extensions
+      id: aws.appconfig.extensions
+      x-cfn-schema-name: Extension
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Extension'
     extension:
       name: extension
       id: aws.appconfig.extension
@@ -445,7 +539,20 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.LatestVersionNumber') as latest_version_number,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Extension' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Extension'
+    extension_associations:
+      name: extension_associations
+      id: aws.appconfig.extension_associations
+      x-cfn-schema-name: ExtensionAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
     extension_association:
       name: extension_association
       id: aws.appconfig.extension_association
@@ -466,7 +573,20 @@ components:
               JSON_EXTRACT(Properties, '$.ExtensionVersionNumber') as extension_version_number,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
+    hosted_configuration_versions:
+      name: hosted_configuration_versions
+      id: aws.appconfig.hosted_configuration_versions
+      x-cfn-schema-name: HostedConfigurationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'
     hosted_configuration_version:
       name: hosted_configuration_version
       id: aws.appconfig.hosted_configuration_version
@@ -486,4 +606,4 @@ components:
               JSON_EXTRACT(Properties, '$.VersionLabel') as version_label,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'

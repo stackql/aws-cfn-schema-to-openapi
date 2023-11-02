@@ -333,7 +333,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    environments:
+      name: environments
+      id: aws.mwaa.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MWAA::Environment'
     environment:
       name: environment
       id: aws.mwaa.environment
@@ -354,4 +369,4 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.WorkerLogs') as logging_configuration_worker_logs,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.TaskLogs') as logging_configuration_task_logs,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MWAA::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MWAA::Environment'

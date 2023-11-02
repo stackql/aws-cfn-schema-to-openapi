@@ -40,6 +40,8 @@ components:
           type: string
       required: []
       x-stackql-resource-name: grant
+      x-stackql-primaryIdentifier:
+        - GrantArn
     ValidityDateFormat:
       type: object
       additionalProperties: false
@@ -179,7 +181,22 @@ components:
         - ConsumptionConfiguration
         - Entitlements
       x-stackql-resource-name: license
+      x-stackql-primaryIdentifier:
+        - LicenseArn
   x-stackQL-resources:
+    grants:
+      name: grants
+      id: aws.licensemanager.grants
+      x-cfn-schema-name: Grant
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GrantArn') as grant_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::Grant'
     grant:
       name: grant
       id: aws.licensemanager.grant
@@ -197,7 +214,20 @@ components:
               JSON_EXTRACT(Properties, '$.AllowedOperations') as allowed_operations,
               JSON_EXTRACT(Properties, '$.Principals') as principals,
               JSON_EXTRACT(Properties, '$.Status') as status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::Grant' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::Grant'
+    licenses:
+      name: licenses
+      id: aws.licensemanager.licenses
+      x-cfn-schema-name: License
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LicenseArn') as license_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::License'
     license:
       name: license
       id: aws.licensemanager.license
@@ -224,4 +254,4 @@ components:
               JSON_EXTRACT(Properties, '$.ConsumptionConfiguration.BorrowConfiguration') as consumption_configuration_borrow_configuration,
               JSON_EXTRACT(Properties, '$.LicenseMetadata') as license_metadata,
               JSON_EXTRACT(Properties, '$.Version') as version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::License' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::License'

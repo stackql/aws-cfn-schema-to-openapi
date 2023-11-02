@@ -97,6 +97,8 @@ components:
         - PrimaryAccountId
         - ComputationPreference
       x-stackql-resource-name: billing_group
+      x-stackql-primaryIdentifier:
+        - Arn
     Type:
       type: string
       enum:
@@ -206,6 +208,8 @@ components:
         - Name
         - BillingGroupArn
       x-stackql-resource-name: custom_line_item
+      x-stackql-primaryIdentifier:
+        - Arn
     PricingRuleArn:
       description: Pricing Rule ARN
       type: string
@@ -248,6 +252,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: pricing_plan
+      x-stackql-primaryIdentifier:
+        - Arn
     FreeTier:
       description: The possible customizable free tier configurations.
       type: object
@@ -346,7 +352,22 @@ components:
         - Scope
         - Type
       x-stackql-resource-name: pricing_rule
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    billing_groups:
+      name: billing_groups
+      id: aws.billingconductor.billing_groups
+      x-cfn-schema-name: BillingGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
     billing_group:
       name: billing_group
       id: aws.billingconductor.billing_group
@@ -369,7 +390,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
+    custom_line_items:
+      name: custom_line_items
+      id: aws.billingconductor.custom_line_items
+      x-cfn-schema-name: CustomLineItem
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
     custom_line_item:
       name: custom_line_item
       id: aws.billingconductor.custom_line_item
@@ -396,7 +430,20 @@ components:
               JSON_EXTRACT(Properties, '$.ProductCode') as product_code,
               JSON_EXTRACT(Properties, '$.CurrencyCode') as currency_code,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
+    pricing_plans:
+      name: pricing_plans
+      id: aws.billingconductor.pricing_plans
+      x-cfn-schema-name: PricingPlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
     pricing_plan:
       name: pricing_plan
       id: aws.billingconductor.pricing_plan
@@ -416,7 +463,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
+    pricing_rules:
+      name: pricing_rules
+      id: aws.billingconductor.pricing_rules
+      x-cfn-schema-name: PricingRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'
     pricing_rule:
       name: pricing_rule
       id: aws.billingconductor.pricing_rule
@@ -443,4 +503,4 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'

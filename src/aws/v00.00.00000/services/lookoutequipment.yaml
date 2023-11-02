@@ -163,7 +163,22 @@ components:
         - ModelName
         - RoleArn
       x-stackql-resource-name: inference_scheduler
+      x-stackql-primaryIdentifier:
+        - InferenceSchedulerName
   x-stackQL-resources:
+    inference_schedulers:
+      name: inference_schedulers
+      id: aws.lookoutequipment.inference_schedulers
+      x-cfn-schema-name: InferenceScheduler
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InferenceSchedulerName') as inference_scheduler_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'
     inference_scheduler:
       name: inference_scheduler
       id: aws.lookoutequipment.inference_scheduler
@@ -185,4 +200,4 @@ components:
               JSON_EXTRACT(Properties, '$.ServerSideKmsKeyId') as server_side_kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.InferenceSchedulerArn') as inference_scheduler_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'

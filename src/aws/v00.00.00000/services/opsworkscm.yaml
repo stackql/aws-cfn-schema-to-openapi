@@ -130,7 +130,22 @@ components:
         - InstanceProfileArn
         - InstanceType
       x-stackql-resource-name: server
+      x-stackql-primaryIdentifier:
+        - ServerName
   x-stackQL-resources:
+    servers:
+      name: servers
+      id: aws.opsworkscm.servers
+      x-cfn-schema-name: Server
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServerName') as server_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorksCM::Server'
     server:
       name: server
       id: aws.opsworkscm.server
@@ -165,4 +180,4 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Engine') as engine
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorksCM::Server' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorksCM::Server'

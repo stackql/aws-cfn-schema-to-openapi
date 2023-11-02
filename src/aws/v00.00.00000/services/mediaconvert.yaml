@@ -56,6 +56,8 @@ components:
       required:
         - SettingsJson
       x-stackql-resource-name: job_template
+      x-stackql-primaryIdentifier:
+        - Id
     Preset:
       type: object
       properties:
@@ -76,6 +78,8 @@ components:
       required:
         - SettingsJson
       x-stackql-resource-name: preset
+      x-stackql-primaryIdentifier:
+        - Id
     Queue:
       type: object
       properties:
@@ -94,7 +98,22 @@ components:
         Name:
           type: string
       x-stackql-resource-name: queue
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    job_templates:
+      name: job_templates
+      id: aws.mediaconvert.job_templates
+      x-cfn-schema-name: JobTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
     job_template:
       name: job_template
       id: aws.mediaconvert.job_template
@@ -118,7 +137,20 @@ components:
               JSON_EXTRACT(Properties, '$.HopDestinations') as hop_destinations,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
+    presets:
+      name: presets
+      id: aws.mediaconvert.presets
+      x-cfn-schema-name: Preset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Preset'
     preset:
       name: preset
       id: aws.mediaconvert.preset
@@ -137,7 +169,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Preset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Preset'
+    queues:
+      name: queues
+      id: aws.mediaconvert.queues
+      x-cfn-schema-name: Queue
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Queue'
     queue:
       name: queue
       id: aws.mediaconvert.queue
@@ -156,4 +201,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Queue' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Queue'

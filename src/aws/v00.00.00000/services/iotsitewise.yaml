@@ -85,6 +85,8 @@ components:
         - PortalName
         - RoleArn
       x-stackql-resource-name: portal
+      x-stackql-primaryIdentifier:
+        - PortalId
     Project:
       type: object
       properties:
@@ -120,6 +122,8 @@ components:
         - PortalId
         - ProjectName
       x-stackql-resource-name: project
+      x-stackql-primaryIdentifier:
+        - ProjectId
     AccessPolicyIdentity:
       description: The identity for this access policy. Choose either an SSO user or group or an IAM user or role.
       type: object
@@ -163,6 +167,8 @@ components:
         - AccessPolicyPermission
         - AccessPolicyResource
       x-stackql-resource-name: access_policy
+      x-stackql-primaryIdentifier:
+        - AccessPolicyId
     AssetProperty:
       description: The asset property's definition, alias, unit, and notification state.
       type: object
@@ -256,6 +262,8 @@ components:
         - AssetName
         - AssetModelId
       x-stackql-resource-name: asset
+      x-stackql-primaryIdentifier:
+        - AssetId
     AssetModelCompositeModel:
       description: Contains a composite model definition in an asset model. This composite model definition is applied to all assets created from the asset model.
       type: object
@@ -502,6 +510,8 @@ components:
       required:
         - AssetModelName
       x-stackql-resource-name: asset_model
+      x-stackql-primaryIdentifier:
+        - AssetModelId
     Dashboard:
       type: object
       properties:
@@ -535,6 +545,8 @@ components:
         - DashboardDescription
         - DashboardName
       x-stackql-resource-name: dashboard
+      x-stackql-primaryIdentifier:
+        - DashboardId
     GatewayPlatform:
       description: Contains a gateway's platform information.
       type: object
@@ -618,10 +630,25 @@ components:
         - GatewayName
         - GatewayPlatform
       x-stackql-resource-name: gateway
+      x-stackql-primaryIdentifier:
+        - GatewayId
     AssetId:
       description: The ID of the asset
       type: string
   x-stackQL-resources:
+    portals:
+      name: portals
+      id: aws.iotsitewise.portals
+      x-cfn-schema-name: Portal
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PortalId') as portal_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
     portal:
       name: portal
       id: aws.iotsitewise.portal
@@ -645,7 +672,20 @@ components:
               JSON_EXTRACT(Properties, '$.NotificationSenderEmail') as notification_sender_email,
               JSON_EXTRACT(Properties, '$.Alarms') as alarms,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Portal' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
+    projects:
+      name: projects
+      id: aws.iotsitewise.projects
+      x-cfn-schema-name: Project
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProjectId') as project_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
     project:
       name: project
       id: aws.iotsitewise.project
@@ -664,7 +704,20 @@ components:
               JSON_EXTRACT(Properties, '$.ProjectArn') as project_arn,
               JSON_EXTRACT(Properties, '$.AssetIds') as asset_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Project' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
+    access_policies:
+      name: access_policies
+      id: aws.iotsitewise.access_policies
+      x-cfn-schema-name: AccessPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccessPolicyId') as access_policy_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
     access_policy:
       name: access_policy
       id: aws.iotsitewise.access_policy
@@ -684,7 +737,20 @@ components:
               JSON_EXTRACT(Properties, '$.AccessPolicyPermission') as access_policy_permission,
               JSON_EXTRACT(Properties, '$.AccessPolicyResource.Portal') as access_policy_resource_portal,
               JSON_EXTRACT(Properties, '$.AccessPolicyResource.Project') as access_policy_resource_project
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
+    assets:
+      name: assets
+      id: aws.iotsitewise.assets
+      x-cfn-schema-name: Asset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssetId') as asset_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
     asset:
       name: asset
       id: aws.iotsitewise.asset
@@ -704,7 +770,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssetProperties') as asset_properties,
               JSON_EXTRACT(Properties, '$.AssetHierarchies') as asset_hierarchies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Asset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
+    asset_models:
+      name: asset_models
+      id: aws.iotsitewise.asset_models
+      x-cfn-schema-name: AssetModel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssetModelId') as asset_model_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
     asset_model:
       name: asset_model
       id: aws.iotsitewise.asset_model
@@ -724,7 +803,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssetModelCompositeModels') as asset_model_composite_models,
               JSON_EXTRACT(Properties, '$.AssetModelHierarchies') as asset_model_hierarchies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
+    dashboards:
+      name: dashboards
+      id: aws.iotsitewise.dashboards
+      x-cfn-schema-name: Dashboard
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
     dashboard:
       name: dashboard
       id: aws.iotsitewise.dashboard
@@ -743,7 +835,20 @@ components:
               JSON_EXTRACT(Properties, '$.DashboardDefinition') as dashboard_definition,
               JSON_EXTRACT(Properties, '$.DashboardArn') as dashboard_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
+    gateways:
+      name: gateways
+      id: aws.iotsitewise.gateways
+      x-cfn-schema-name: Gateway
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GatewayId') as gateway_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'
     gateway:
       name: gateway
       id: aws.iotsitewise.gateway
@@ -761,4 +866,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GatewayId') as gateway_id,
               JSON_EXTRACT(Properties, '$.GatewayCapabilitySummaries') as gateway_capability_summaries
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'

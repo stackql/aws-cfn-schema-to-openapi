@@ -78,7 +78,22 @@ components:
         - Targets
         - Name
       x-stackql-resource-name: notification_rule
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    notification_rules:
+      name: notification_rules
+      id: aws.codestarnotifications.notification_rules
+      x-cfn-schema-name: NotificationRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'
     notification_rule:
       name: notification_rule
       id: aws.codestarnotifications.notification_rule
@@ -101,4 +116,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'

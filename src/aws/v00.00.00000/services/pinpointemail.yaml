@@ -60,6 +60,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: configuration_set
+      x-stackql-primaryIdentifier:
+        - Id
     EventDestination:
       type: object
       additionalProperties: false
@@ -144,6 +146,8 @@ components:
         - ConfigurationSetName
         - EventDestinationName
       x-stackql-resource-name: configuration_set_event_destination
+      x-stackql-primaryIdentifier:
+        - Id
     DedicatedIpPool:
       type: object
       properties:
@@ -157,6 +161,8 @@ components:
           items:
             $ref: '#/components/schemas/Tags'
       x-stackql-resource-name: dedicated_ip_pool
+      x-stackql-primaryIdentifier:
+        - Id
     MailFromAttributes:
       type: object
       additionalProperties: false
@@ -198,7 +204,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: identity
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    configuration_sets:
+      name: configuration_sets
+      id: aws.pinpointemail.configuration_sets
+      x-cfn-schema-name: ConfigurationSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
     configuration_set:
       name: configuration_set
       id: aws.pinpointemail.configuration_set
@@ -217,7 +238,20 @@ components:
               JSON_EXTRACT(Properties, '$.DeliveryOptions.SendingPoolName') as delivery_options_sending_pool_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
+    configuration_set_event_destinations:
+      name: configuration_set_event_destinations
+      id: aws.pinpointemail.configuration_set_event_destinations
+      x-cfn-schema-name: ConfigurationSetEventDestination
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
     configuration_set_event_destination:
       name: configuration_set_event_destination
       id: aws.pinpointemail.configuration_set_event_destination
@@ -238,7 +272,20 @@ components:
               JSON_EXTRACT(Properties, '$.EventDestination.MatchingEventTypes') as event_destination_matching_event_types,
               JSON_EXTRACT(Properties, '$.EventDestination.PinpointDestination') as event_destination_pinpoint_destination,
               JSON_EXTRACT(Properties, '$.EventDestination.KinesisFirehoseDestination') as event_destination_kinesis_firehose_destination
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
+    dedicated_ip_pools:
+      name: dedicated_ip_pools
+      id: aws.pinpointemail.dedicated_ip_pools
+      x-cfn-schema-name: DedicatedIpPool
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
     dedicated_ip_pool:
       name: dedicated_ip_pool
       id: aws.pinpointemail.dedicated_ip_pool
@@ -253,7 +300,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PoolName') as pool_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
+    identities:
+      name: identities
+      id: aws.pinpointemail.identities
+      x-cfn-schema-name: Identity
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::Identity'
     identity:
       name: identity
       id: aws.pinpointemail.identity
@@ -278,4 +338,4 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.MailFromAttributes.MailFromDomain') as mail_from_attributes_mail_from_domain,
               JSON_EXTRACT(Properties, '$.MailFromAttributes.BehaviorOnMxFailure') as mail_from_attributes_behavior_on_mx_failure
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::Identity' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::Identity'

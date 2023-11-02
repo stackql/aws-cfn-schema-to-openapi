@@ -209,6 +209,8 @@ components:
         - SignalCatalogArn
         - TargetArn
       x-stackql-resource-name: campaign
+      x-stackql-primaryIdentifier:
+        - Name
     CanInterface:
       type: object
       properties:
@@ -497,6 +499,8 @@ components:
         - Name
         - ModelManifestArn
       x-stackql-resource-name: decoder_manifest
+      x-stackql-primaryIdentifier:
+        - Name
     Fleet:
       type: object
       properties:
@@ -532,6 +536,8 @@ components:
         - Id
         - SignalCatalogArn
       x-stackql-resource-name: fleet
+      x-stackql-primaryIdentifier:
+        - Id
     ModelManifest:
       type: object
       properties:
@@ -576,6 +582,8 @@ components:
         - SignalCatalogArn
         - Name
       x-stackql-resource-name: model_manifest
+      x-stackql-primaryIdentifier:
+        - Name
     Actuator:
       type: object
       properties:
@@ -783,6 +791,8 @@ components:
           maxItems: 50
           minItems: 0
       x-stackql-resource-name: signal_catalog
+      x-stackql-primaryIdentifier:
+        - Name
     VehicleAssociationBehavior:
       type: string
       enum:
@@ -832,7 +842,22 @@ components:
         - DecoderManifestArn
         - ModelManifestArn
       x-stackql-resource-name: vehicle
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    campaigns:
+      name: campaigns
+      id: aws.iotfleetwise.campaigns
+      x-cfn-schema-name: Campaign
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Campaign'
     campaign:
       name: campaign
       id: aws.iotfleetwise.campaign
@@ -858,7 +883,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Campaign' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::Campaign'
+    decoder_manifests:
+      name: decoder_manifests
+      id: aws.iotfleetwise.decoder_manifests
+      x-cfn-schema-name: DecoderManifest
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::DecoderManifest'
     decoder_manifest:
       name: decoder_manifest
       id: aws.iotfleetwise.decoder_manifest
@@ -879,7 +917,20 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkInterfaces') as network_interfaces,
               JSON_EXTRACT(Properties, '$.SignalDecoders') as signal_decoders,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::DecoderManifest' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::DecoderManifest'
+    fleets:
+      name: fleets
+      id: aws.iotfleetwise.fleets
+      x-cfn-schema-name: Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Fleet'
     fleet:
       name: fleet
       id: aws.iotfleetwise.fleet
@@ -898,7 +949,20 @@ components:
               JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
               JSON_EXTRACT(Properties, '$.SignalCatalogArn') as signal_catalog_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Fleet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::Fleet'
+    model_manifests:
+      name: model_manifests
+      id: aws.iotfleetwise.model_manifests
+      x-cfn-schema-name: ModelManifest
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::ModelManifest'
     model_manifest:
       name: model_manifest
       id: aws.iotfleetwise.model_manifest
@@ -918,7 +982,20 @@ components:
               JSON_EXTRACT(Properties, '$.Nodes') as nodes,
               JSON_EXTRACT(Properties, '$.SignalCatalogArn') as signal_catalog_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::ModelManifest' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::ModelManifest'
+    signal_catalogs:
+      name: signal_catalogs
+      id: aws.iotfleetwise.signal_catalogs
+      x-cfn-schema-name: SignalCatalog
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::SignalCatalog'
     signal_catalog:
       name: signal_catalog
       id: aws.iotfleetwise.signal_catalog
@@ -942,7 +1019,20 @@ components:
               JSON_EXTRACT(Properties, '$.NodeCounts.TotalActuators') as node_counts_total_actuators,
               JSON_EXTRACT(Properties, '$.Nodes') as nodes,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::SignalCatalog' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::SignalCatalog'
+    vehicles:
+      name: vehicles
+      id: aws.iotfleetwise.vehicles
+      x-cfn-schema-name: Vehicle
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Vehicle'
     vehicle:
       name: vehicle
       id: aws.iotfleetwise.vehicle
@@ -961,4 +1051,4 @@ components:
               JSON_EXTRACT(Properties, '$.LastModificationTime') as last_modification_time,
               JSON_EXTRACT(Properties, '$.ModelManifestArn') as model_manifest_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetWise::Vehicle' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetWise::Vehicle'

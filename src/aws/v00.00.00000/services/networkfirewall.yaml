@@ -99,6 +99,8 @@ components:
         - VpcId
         - SubnetMappings
       x-stackql-resource-name: firewall
+      x-stackql-primaryIdentifier:
+        - FirewallArn
     FirewallPolicy:
       type: object
       properties:
@@ -131,6 +133,8 @@ components:
         - FirewallPolicyName
         - FirewallPolicy
       x-stackql-resource-name: firewall_policy
+      x-stackql-primaryIdentifier:
+        - FirewallPolicyArn
     CustomAction:
       type: object
       properties:
@@ -245,6 +249,8 @@ components:
         - FirewallArn
         - LoggingConfiguration
       x-stackql-resource-name: logging_configuration
+      x-stackql-primaryIdentifier:
+        - FirewallArn
     LogDestinationConfig:
       type: object
       properties:
@@ -318,6 +324,8 @@ components:
         - Capacity
         - RuleGroupName
       x-stackql-resource-name: rule_group
+      x-stackql-primaryIdentifier:
+        - RuleGroupArn
     RuleVariables:
       type: object
       properties:
@@ -676,6 +684,19 @@ components:
           $ref: '#/components/schemas/RuleOrder'
       additionalProperties: false
   x-stackQL-resources:
+    firewalls:
+      name: firewalls
+      id: aws.networkfirewall.firewalls
+      x-cfn-schema-name: Firewall
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
     firewall:
       name: firewall
       id: aws.networkfirewall.firewall
@@ -697,7 +718,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EndpointIds') as endpoint_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
+    firewall_policies:
+      name: firewall_policies
+      id: aws.networkfirewall.firewall_policies
+      x-cfn-schema-name: FirewallPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FirewallPolicyArn') as firewall_policy_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
     firewall_policy:
       name: firewall_policy
       id: aws.networkfirewall.firewall_policy
@@ -719,7 +753,20 @@ components:
               JSON_EXTRACT(Properties, '$.FirewallPolicyId') as firewall_policy_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
+    logging_configurations:
+      name: logging_configurations
+      id: aws.networkfirewall.logging_configurations
+      x-cfn-schema-name: LoggingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.networkfirewall.logging_configuration
@@ -735,7 +782,20 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.FirewallName') as logging_configuration_firewall_name,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.FirewallArn') as logging_configuration_firewall_arn,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration.LoggingConfiguration') as logging_configuration_logging_configuration
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
+    rule_groups:
+      name: rule_groups
+      id: aws.networkfirewall.rule_groups
+      x-cfn-schema-name: RuleGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RuleGroupArn') as rule_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'
     rule_group:
       name: rule_group
       id: aws.networkfirewall.rule_group
@@ -761,4 +821,4 @@ components:
               JSON_EXTRACT(Properties, '$.Capacity') as capacity,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'

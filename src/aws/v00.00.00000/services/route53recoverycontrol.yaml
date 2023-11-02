@@ -67,6 +67,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - ClusterArn
     ControlPanel:
       type: object
       properties:
@@ -104,6 +106,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: control_panel
+      x-stackql-primaryIdentifier:
+        - ControlPanelArn
     RoutingControl:
       type: object
       properties:
@@ -131,6 +135,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: routing_control
+      x-stackql-primaryIdentifier:
+        - RoutingControlArn
     SafetyRuleName:
       description: The name for the safety rule.
       type: string
@@ -234,7 +240,22 @@ components:
           x-insertionOrder: false
       required: []
       x-stackql-resource-name: safety_rule
+      x-stackql-primaryIdentifier:
+        - SafetyRuleArn
   x-stackQL-resources:
+    clusters:
+      name: clusters
+      id: aws.route53recoverycontrol.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
     cluster:
       name: cluster
       id: aws.route53recoverycontrol.cluster
@@ -251,7 +272,20 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterEndpoints') as cluster_endpoints,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
+    control_panels:
+      name: control_panels
+      id: aws.route53recoverycontrol.control_panels
+      x-cfn-schema-name: ControlPanel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
     control_panel:
       name: control_panel
       id: aws.route53recoverycontrol.control_panel
@@ -270,7 +304,20 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultControlPanel') as default_control_panel,
               JSON_EXTRACT(Properties, '$.RoutingControlCount') as routing_control_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
+    routing_controls:
+      name: routing_controls
+      id: aws.route53recoverycontrol.routing_controls
+      x-cfn-schema-name: RoutingControl
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
     routing_control:
       name: routing_control
       id: aws.route53recoverycontrol.routing_control
@@ -287,7 +334,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
+    safety_rules:
+      name: safety_rules
+      id: aws.route53recoverycontrol.safety_rules
+      x-cfn-schema-name: SafetyRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SafetyRuleArn') as safety_rule_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'
     safety_rule:
       name: safety_rule
       id: aws.route53recoverycontrol.safety_rule
@@ -311,4 +371,4 @@ components:
               JSON_EXTRACT(Properties, '$.RuleConfig.Threshold') as rule_config_threshold,
               JSON_EXTRACT(Properties, '$.RuleConfig.Inverted') as rule_config_inverted,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'

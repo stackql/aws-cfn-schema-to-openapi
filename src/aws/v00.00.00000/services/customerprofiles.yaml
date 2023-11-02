@@ -61,6 +61,8 @@ components:
       required:
         - DomainName
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - DomainName
     Object:
       type: string
       maxLength: 512
@@ -518,6 +520,9 @@ components:
       required:
         - DomainName
       x-stackql-resource-name: integration
+      x-stackql-primaryIdentifier:
+        - DomainName
+        - Uri
     FieldMap:
       type: object
       properties:
@@ -660,7 +665,23 @@ components:
       required:
         - DomainName
       x-stackql-resource-name: object_type
+      x-stackql-primaryIdentifier:
+        - DomainName
+        - ObjectTypeName
   x-stackQL-resources:
+    domains:
+      name: domains
+      id: aws.customerprofiles.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::Domain'
     domain:
       name: domain
       id: aws.customerprofiles.domain
@@ -679,7 +700,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::Domain'
+    integrations:
+      name: integrations
+      id: aws.customerprofiles.integrations
+      x-cfn-schema-name: Integration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.Uri') as uri
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::Integration'
     integration:
       name: integration
       id: aws.customerprofiles.integration
@@ -704,7 +739,21 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ObjectTypeNames') as object_type_names
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::Integration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::Integration'
+    object_types:
+      name: object_types
+      id: aws.customerprofiles.object_types
+      x-cfn-schema-name: ObjectType
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.ObjectTypeName') as object_type_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::ObjectType'
     object_type:
       name: object_type
       id: aws.customerprofiles.object_type
@@ -728,4 +777,4 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TemplateId') as template_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::ObjectType' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::ObjectType'

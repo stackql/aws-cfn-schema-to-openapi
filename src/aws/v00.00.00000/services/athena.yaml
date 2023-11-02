@@ -60,6 +60,8 @@ components:
         - Name
         - Type
       x-stackql-resource-name: data_catalog
+      x-stackql-primaryIdentifier:
+        - Name
     NamedQuery:
       type: object
       properties:
@@ -95,6 +97,8 @@ components:
         - Database
         - QueryString
       x-stackql-resource-name: named_query
+      x-stackql-primaryIdentifier:
+        - NamedQueryId
     PreparedStatement:
       type: object
       properties:
@@ -123,6 +127,9 @@ components:
         - WorkGroup
         - QueryStatement
       x-stackql-resource-name: prepared_statement
+      x-stackql-primaryIdentifier:
+        - StatementName
+        - WorkGroup
     SelectedEngineVersion:
       description: The engine version requested by the user. Possible values are determined by the output of ListEngineVersions, including Auto. The default is Auto.
       type: string
@@ -341,7 +348,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: work_group
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    data_catalogs:
+      name: data_catalogs
+      id: aws.athena.data_catalogs
+      x-cfn-schema-name: DataCatalog
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::DataCatalog'
     data_catalog:
       name: data_catalog
       id: aws.athena.data_catalog
@@ -357,7 +379,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Type') as type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::DataCatalog' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Athena::DataCatalog'
+    named_queries:
+      name: named_queries
+      id: aws.athena.named_queries
+      x-cfn-schema-name: NamedQuery
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.NamedQueryId') as named_query_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::NamedQuery'
     named_query:
       name: named_query
       id: aws.athena.named_query
@@ -375,7 +410,21 @@ components:
               JSON_EXTRACT(Properties, '$.QueryString') as query_string,
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
               JSON_EXTRACT(Properties, '$.NamedQueryId') as named_query_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::NamedQuery' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Athena::NamedQuery'
+    prepared_statements:
+      name: prepared_statements
+      id: aws.athena.prepared_statements
+      x-cfn-schema-name: PreparedStatement
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StatementName') as statement_name,
+              JSON_EXTRACT(Properties, '$.WorkGroup') as work_group
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::PreparedStatement'
     prepared_statement:
       name: prepared_statement
       id: aws.athena.prepared_statement
@@ -391,7 +440,20 @@ components:
               JSON_EXTRACT(Properties, '$.WorkGroup') as work_group,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.QueryStatement') as query_statement
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::PreparedStatement' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Athena::PreparedStatement'
+    work_groups:
+      name: work_groups
+      id: aws.athena.work_groups
+      x-cfn-schema-name: WorkGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::WorkGroup'
     work_group:
       name: work_group
       id: aws.athena.work_group
@@ -428,4 +490,4 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.RecursiveDeleteOption') as recursive_delete_option
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::WorkGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Athena::WorkGroup'

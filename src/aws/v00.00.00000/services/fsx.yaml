@@ -95,6 +95,8 @@ components:
         - FileSystemPath
         - DataRepositoryPath
       x-stackql-resource-name: data_repository_association
+      x-stackql-primaryIdentifier:
+        - AssociationId
     OpenZFSConfiguration:
       type: object
       additionalProperties: false
@@ -369,6 +371,8 @@ components:
         - FileSystemType
         - SubnetIds
       x-stackql-resource-name: file_system
+      x-stackql-primaryIdentifier:
+        - Id
     Snapshot:
       type: object
       properties:
@@ -389,6 +393,8 @@ components:
         - VolumeId
         - Name
       x-stackql-resource-name: snapshot
+      x-stackql-primaryIdentifier:
+        - Id
     ActiveDirectoryConfiguration:
       type: object
       additionalProperties: false
@@ -425,6 +431,8 @@ components:
         - FileSystemId
         - Name
       x-stackql-resource-name: storage_virtual_machine
+      x-stackql-primaryIdentifier:
+        - StorageVirtualMachineId
     TieringPolicy:
       type: object
       additionalProperties: false
@@ -471,7 +479,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: volume
+      x-stackql-primaryIdentifier:
+        - VolumeId
   x-stackQL-resources:
+    data_repository_associations:
+      name: data_repository_associations
+      id: aws.fsx.data_repository_associations
+      x-cfn-schema-name: DataRepositoryAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
     data_repository_association:
       name: data_repository_association
       id: aws.fsx.data_repository_association
@@ -493,7 +516,20 @@ components:
               JSON_EXTRACT(Properties, '$.S3.AutoImportPolicy') as s3_auto_import_policy,
               JSON_EXTRACT(Properties, '$.S3.AutoExportPolicy') as s3_auto_export_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
+    file_systems:
+      name: file_systems
+      id: aws.fsx.file_systems
+      x-cfn-schema-name: FileSystem
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::FileSystem'
     file_system:
       name: file_system
       id: aws.fsx.file_system
@@ -562,7 +598,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LustreMountName') as lustre_mount_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::FileSystem' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::FileSystem'
+    snapshots:
+      name: snapshots
+      id: aws.fsx.snapshots
+      x-cfn-schema-name: Snapshot
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Snapshot'
     snapshot:
       name: snapshot
       id: aws.fsx.snapshot
@@ -579,7 +628,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Snapshot' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Snapshot'
+    storage_virtual_machines:
+      name: storage_virtual_machines
+      id: aws.fsx.storage_virtual_machines
+      x-cfn-schema-name: StorageVirtualMachine
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StorageVirtualMachineId') as storage_virtual_machine_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
     storage_virtual_machine:
       name: storage_virtual_machine
       id: aws.fsx.storage_virtual_machine
@@ -601,7 +663,20 @@ components:
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
+    volumes:
+      name: volumes
+      id: aws.fsx.volumes
+      x-cfn-schema-name: Volume
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VolumeId') as volume_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Volume'
     volume:
       name: volume
       id: aws.fsx.volume
@@ -640,4 +715,4 @@ components:
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Volume' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Volume'

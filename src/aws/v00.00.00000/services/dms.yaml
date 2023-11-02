@@ -17,6 +17,8 @@ components:
         CertificateWallet:
           type: string
       x-stackql-resource-name: certificate
+      x-stackql-primaryIdentifier:
+        - Id
     RedisSettings:
       type: object
       additionalProperties: false
@@ -603,6 +605,8 @@ components:
         - EndpointType
         - EngineName
       x-stackql-resource-name: endpoint
+      x-stackql-primaryIdentifier:
+        - Id
     EventSubscription:
       type: object
       properties:
@@ -634,6 +638,8 @@ components:
       required:
         - SnsTopicArn
       x-stackql-resource-name: event_subscription
+      x-stackql-primaryIdentifier:
+        - Id
     ReplicationInstance:
       type: object
       properties:
@@ -682,6 +688,8 @@ components:
       required:
         - ReplicationInstanceClass
       x-stackql-resource-name: replication_instance
+      x-stackql-primaryIdentifier:
+        - Id
     ReplicationSubnetGroup:
       type: object
       properties:
@@ -705,6 +713,8 @@ components:
         - ReplicationSubnetGroupDescription
         - SubnetIds
       x-stackql-resource-name: replication_subnet_group
+      x-stackql-primaryIdentifier:
+        - Id
     ReplicationTask:
       type: object
       properties:
@@ -746,7 +756,22 @@ components:
         - TargetEndpointArn
         - ReplicationInstanceArn
       x-stackql-resource-name: replication_task
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    certificates:
+      name: certificates
+      id: aws.dms.certificates
+      x-cfn-schema-name: Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Certificate'
     certificate:
       name: certificate
       id: aws.dms.certificate
@@ -762,7 +787,20 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateIdentifier') as certificate_identifier,
               JSON_EXTRACT(Properties, '$.CertificatePem') as certificate_pem,
               JSON_EXTRACT(Properties, '$.CertificateWallet') as certificate_wallet
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Certificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Certificate'
+    endpoints:
+      name: endpoints
+      id: aws.dms.endpoints
+      x-cfn-schema-name: Endpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Endpoint'
     endpoint:
       name: endpoint
       id: aws.dms.endpoint
@@ -1004,7 +1042,20 @@ components:
               JSON_EXTRACT(Properties, '$.PostgreSqlSettings.SecretsManagerAccessRoleArn') as postgre_sql_settings_secrets_manager_access_role_arn,
               JSON_EXTRACT(Properties, '$.PostgreSqlSettings.HeartbeatSchema') as postgre_sql_settings_heartbeat_schema,
               JSON_EXTRACT(Properties, '$.PostgreSqlSettings.SlotName') as postgre_sql_settings_slot_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Endpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Endpoint'
+    event_subscriptions:
+      name: event_subscriptions
+      id: aws.dms.event_subscriptions
+      x-cfn-schema-name: EventSubscription
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::EventSubscription'
     event_subscription:
       name: event_subscription
       id: aws.dms.event_subscription
@@ -1024,7 +1075,20 @@ components:
               JSON_EXTRACT(Properties, '$.SourceIds') as source_ids,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::EventSubscription' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::EventSubscription'
+    replication_instances:
+      name: replication_instances
+      id: aws.dms.replication_instances
+      x-cfn-schema-name: ReplicationInstance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
     replication_instance:
       name: replication_instance
       id: aws.dms.replication_instance
@@ -1054,7 +1118,20 @@ components:
               JSON_EXTRACT(Properties, '$.MultiAZ') as multi_az,
               JSON_EXTRACT(Properties, '$.ReplicationInstancePublicIpAddresses') as replication_instance_public_ip_addresses,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationInstance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
+    replication_subnet_groups:
+      name: replication_subnet_groups
+      id: aws.dms.replication_subnet_groups
+      x-cfn-schema-name: ReplicationSubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
     replication_subnet_group:
       name: replication_subnet_group
       id: aws.dms.replication_subnet_group
@@ -1071,7 +1148,20 @@ components:
               JSON_EXTRACT(Properties, '$.ReplicationSubnetGroupIdentifier') as replication_subnet_group_identifier,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
+    replication_tasks:
+      name: replication_tasks
+      id: aws.dms.replication_tasks
+      x-cfn-schema-name: ReplicationTask
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationTask'
     replication_task:
       name: replication_task
       id: aws.dms.replication_task
@@ -1097,4 +1187,4 @@ components:
               JSON_EXTRACT(Properties, '$.SourceEndpointArn') as source_endpoint_arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationTask' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationTask'

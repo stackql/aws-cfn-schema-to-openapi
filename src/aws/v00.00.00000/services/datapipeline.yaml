@@ -142,7 +142,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: pipeline
+      x-stackql-primaryIdentifier:
+        - PipelineId
   x-stackQL-resources:
+    pipelines:
+      name: pipelines
+      id: aws.datapipeline.pipelines
+      x-cfn-schema-name: Pipeline
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PipelineId') as pipeline_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'
     pipeline:
       name: pipeline
       id: aws.datapipeline.pipeline
@@ -162,4 +177,4 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineObjects') as pipeline_objects,
               JSON_EXTRACT(Properties, '$.PipelineTags') as pipeline_tags,
               JSON_EXTRACT(Properties, '$.PipelineId') as pipeline_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataPipeline::Pipeline' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'

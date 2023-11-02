@@ -316,7 +316,22 @@ components:
         - PermissionType
         - AccountAccessType
       x-stackql-resource-name: workspace
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    workspaces:
+      name: workspaces
+      id: aws.grafana.workspaces
+      x-cfn-schema-name: Workspace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Grafana::Workspace'
     workspace:
       name: workspace
       id: aws.grafana.workspace
@@ -353,4 +368,4 @@ components:
               JSON_EXTRACT(Properties, '$.NotificationDestinations') as notification_destinations,
               JSON_EXTRACT(Properties, '$.OrganizationalUnits') as organizational_units,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Grafana::Workspace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Grafana::Workspace'

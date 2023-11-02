@@ -425,6 +425,8 @@ components:
         - RoleArn
         - AlarmRule
       x-stackql-resource-name: alarm_model
+      x-stackql-primaryIdentifier:
+        - AlarmModelName
     DetectorModelDefinition:
       type: object
       additionalProperties: false
@@ -703,6 +705,8 @@ components:
         - DetectorModelDefinition
         - RoleArn
       x-stackql-resource-name: detector_model
+      x-stackql-primaryIdentifier:
+        - DetectorModelName
     InputDefinition:
       type: object
       additionalProperties: false
@@ -764,7 +768,22 @@ components:
       required:
         - InputDefinition
       x-stackql-resource-name: input
+      x-stackql-primaryIdentifier:
+        - InputName
   x-stackQL-resources:
+    alarm_models:
+      name: alarm_models
+      id: aws.iotevents.alarm_models
+      x-cfn-schema-name: AlarmModel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AlarmModelName') as alarm_model_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
     alarm_model:
       name: alarm_model
       id: aws.iotevents.alarm_model
@@ -786,7 +805,20 @@ components:
               JSON_EXTRACT(Properties, '$.AlarmCapabilities.InitializationConfiguration') as alarm_capabilities_initialization_configuration,
               JSON_EXTRACT(Properties, '$.AlarmCapabilities.AcknowledgeFlow') as alarm_capabilities_acknowledge_flow,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
+    detector_models:
+      name: detector_models
+      id: aws.iotevents.detector_models
+      x-cfn-schema-name: DetectorModel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DetectorModelName') as detector_model_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
     detector_model:
       name: detector_model
       id: aws.iotevents.detector_model
@@ -806,7 +838,20 @@ components:
               JSON_EXTRACT(Properties, '$.Key') as key,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
+    inputs:
+      name: inputs
+      id: aws.iotevents.inputs
+      x-cfn-schema-name: Input
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InputName') as input_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::Input'
     input:
       name: input
       id: aws.iotevents.input
@@ -822,4 +867,4 @@ components:
               JSON_EXTRACT(Properties, '$.InputDescription') as input_description,
               JSON_EXTRACT(Properties, '$.InputName') as input_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::Input' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::Input'

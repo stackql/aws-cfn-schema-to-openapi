@@ -78,6 +78,8 @@ components:
       required:
         - NamespaceName
       x-stackql-resource-name: namespace
+      x-stackql-primaryIdentifier:
+        - NamespaceName
     NamespaceStatus:
       type: string
       enum:
@@ -211,6 +213,8 @@ components:
       required:
         - WorkgroupName
       x-stackql-resource-name: workgroup
+      x-stackql-primaryIdentifier:
+        - WorkgroupName
     WorkgroupStatus:
       type: string
       enum:
@@ -219,6 +223,19 @@ components:
         - MODIFYING
         - DELETING
   x-stackQL-resources:
+    namespaces:
+      name: namespaces
+      id: aws.redshiftserverless.namespaces
+      x-cfn-schema-name: Namespace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.NamespaceName') as namespace_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
     namespace:
       name: namespace
       id: aws.redshiftserverless.namespace
@@ -253,7 +270,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.FinalSnapshotName') as final_snapshot_name,
               JSON_EXTRACT(Properties, '$.FinalSnapshotRetentionPeriod') as final_snapshot_retention_period
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
+    workgroups:
+      name: workgroups
+      id: aws.redshiftserverless.workgroups
+      x-cfn-schema-name: Workgroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkgroupName') as workgroup_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'
     workgroup:
       name: workgroup
       id: aws.redshiftserverless.workgroup
@@ -286,4 +316,4 @@ components:
               JSON_EXTRACT(Properties, '$.Workgroup.Port') as workgroup_port,
               JSON_EXTRACT(Properties, '$.Workgroup.Tags') as workgroup_tags,
               JSON_EXTRACT(Properties, '$.Workgroup.Workgroup') as workgroup_workgroup
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'

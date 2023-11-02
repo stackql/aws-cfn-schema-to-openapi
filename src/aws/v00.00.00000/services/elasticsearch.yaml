@@ -207,7 +207,22 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    domains:
+      name: domains
+      id: aws.elasticsearch.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Elasticsearch::Domain'
     domain:
       name: domain
       id: aws.elasticsearch.domain
@@ -263,4 +278,4 @@ components:
               JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions.KmsKeyId') as encryption_at_rest_options_kms_key_id,
               JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions.Enabled') as encryption_at_rest_options_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Elasticsearch::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Elasticsearch::Domain'

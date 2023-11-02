@@ -102,7 +102,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: group
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    groups:
+      name: groups
+      id: aws.resourcegroups.groups
+      x-cfn-schema-name: Group
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceGroups::Group'
     group:
       name: group
       id: aws.resourcegroups.group
@@ -121,4 +136,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Resources') as resources
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceGroups::Group' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceGroups::Group'

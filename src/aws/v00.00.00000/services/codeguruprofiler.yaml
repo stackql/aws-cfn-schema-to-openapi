@@ -94,7 +94,22 @@ components:
       required:
         - ProfilingGroupName
       x-stackql-resource-name: profiling_group
+      x-stackql-primaryIdentifier:
+        - ProfilingGroupName
   x-stackQL-resources:
+    profiling_groups:
+      name: profiling_groups
+      id: aws.codeguruprofiler.profiling_groups
+      x-cfn-schema-name: ProfilingGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProfilingGroupName') as profiling_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'
     profiling_group:
       name: profiling_group
       id: aws.codeguruprofiler.profiling_group
@@ -111,4 +126,4 @@ components:
               JSON_EXTRACT(Properties, '$.AgentPermissions') as agent_permissions,
               JSON_EXTRACT(Properties, '$.AnomalyDetectionNotificationConfiguration') as anomaly_detection_notification_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'

@@ -49,6 +49,9 @@ components:
         - AuthorizedAccountId
         - AuthorizedAwsRegion
       x-stackql-resource-name: aggregation_authorization
+      x-stackql-primaryIdentifier:
+        - AuthorizedAccountId
+        - AuthorizedAwsRegion
     Scope:
       type: object
       additionalProperties: false
@@ -128,6 +131,8 @@ components:
       required:
         - Source
       x-stackql-resource-name: config_rule
+      x-stackql-primaryIdentifier:
+        - ConfigRuleId
     AccountAggregationSource:
       type: object
       additionalProperties: false
@@ -188,6 +193,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: configuration_aggregator
+      x-stackql-primaryIdentifier:
+        - ConfigurationAggregatorName
     RecordingGroup:
       type: object
       additionalProperties: false
@@ -215,6 +222,8 @@ components:
       required:
         - RoleARN
       x-stackql-resource-name: configuration_recorder
+      x-stackql-primaryIdentifier:
+        - Id
     ParameterName:
       type: string
       minLength: 0
@@ -287,6 +296,8 @@ components:
       required:
         - ConformancePackName
       x-stackql-resource-name: conformance_pack
+      x-stackql-primaryIdentifier:
+        - ConformancePackName
     ConfigSnapshotDeliveryProperties:
       type: object
       additionalProperties: false
@@ -313,6 +324,8 @@ components:
       required:
         - S3BucketName
       x-stackql-resource-name: delivery_channel
+      x-stackql-primaryIdentifier:
+        - Id
     OrganizationManagedRuleMetadata:
       type: object
       additionalProperties: false
@@ -428,6 +441,8 @@ components:
       required:
         - OrganizationConfigRuleName
       x-stackql-resource-name: organization_config_rule
+      x-stackql-primaryIdentifier:
+        - Id
     AccountId:
       type: string
     OrganizationConformancePack:
@@ -477,6 +492,8 @@ components:
       required:
         - OrganizationConformancePackName
       x-stackql-resource-name: organization_conformance_pack
+      x-stackql-primaryIdentifier:
+        - OrganizationConformancePackName
     ExecutionControls:
       type: object
       additionalProperties: false
@@ -521,6 +538,8 @@ components:
         - ConfigRuleName
         - TargetId
       x-stackql-resource-name: remediation_configuration
+      x-stackql-primaryIdentifier:
+        - Id
     StoredQuery:
       type: object
       properties:
@@ -559,7 +578,23 @@ components:
         - QueryName
         - QueryExpression
       x-stackql-resource-name: stored_query
+      x-stackql-primaryIdentifier:
+        - QueryName
   x-stackQL-resources:
+    aggregation_authorizations:
+      name: aggregation_authorizations
+      id: aws.config.aggregation_authorizations
+      x-cfn-schema-name: AggregationAuthorization
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AuthorizedAccountId') as authorized_account_id,
+              JSON_EXTRACT(Properties, '$.AuthorizedAwsRegion') as authorized_aws_region
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
     aggregation_authorization:
       name: aggregation_authorization
       id: aws.config.aggregation_authorization
@@ -575,7 +610,20 @@ components:
               JSON_EXTRACT(Properties, '$.AuthorizedAwsRegion') as authorized_aws_region,
               JSON_EXTRACT(Properties, '$.AggregationAuthorizationArn') as aggregation_authorization_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::AggregationAuthorization' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
+    config_rules:
+      name: config_rules
+      id: aws.config.config_rules
+      x-cfn-schema-name: ConfigRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConfigRuleId') as config_rule_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigRule'
     config_rule:
       name: config_rule
       id: aws.config.config_rule
@@ -602,7 +650,20 @@ components:
               JSON_EXTRACT(Properties, '$.Source.Owner') as source_owner,
               JSON_EXTRACT(Properties, '$.Source.SourceDetails') as source_source_details,
               JSON_EXTRACT(Properties, '$.InputParameters') as input_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigRule'
+    configuration_aggregators:
+      name: configuration_aggregators
+      id: aws.config.configuration_aggregators
+      x-cfn-schema-name: ConfigurationAggregator
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConfigurationAggregatorName') as configuration_aggregator_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
     configuration_aggregator:
       name: configuration_aggregator
       id: aws.config.configuration_aggregator
@@ -621,7 +682,20 @@ components:
               JSON_EXTRACT(Properties, '$.OrganizationAggregationSource.AwsRegions') as organization_aggregation_source_aws_regions,
               JSON_EXTRACT(Properties, '$.OrganizationAggregationSource.RoleArn') as organization_aggregation_source_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
+    configuration_recorders:
+      name: configuration_recorders
+      id: aws.config.configuration_recorders
+      x-cfn-schema-name: ConfigurationRecorder
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
     configuration_recorder:
       name: configuration_recorder
       id: aws.config.configuration_recorder
@@ -639,7 +713,20 @@ components:
               JSON_EXTRACT(Properties, '$.RecordingGroup.AllSupported') as recording_group_all_supported,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
+    conformance_packs:
+      name: conformance_packs
+      id: aws.config.conformance_packs
+      x-cfn-schema-name: ConformancePack
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConformancePackName') as conformance_pack_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConformancePack'
     conformance_pack:
       name: conformance_pack
       id: aws.config.conformance_pack
@@ -658,7 +745,20 @@ components:
               JSON_EXTRACT(Properties, '$.TemplateS3Uri') as template_s3_uri,
               JSON_EXTRACT(Properties, '$.TemplateSSMDocumentDetails') as template_ss_mdocument_details,
               JSON_EXTRACT(Properties, '$.ConformancePackInputParameters') as conformance_pack_input_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConformancePack' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConformancePack'
+    delivery_channels:
+      name: delivery_channels
+      id: aws.config.delivery_channels
+      x-cfn-schema-name: DeliveryChannel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
     delivery_channel:
       name: delivery_channel
       id: aws.config.delivery_channel
@@ -677,7 +777,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.S3KmsKeyArn') as s3_kms_key_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::DeliveryChannel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
+    organization_config_rules:
+      name: organization_config_rules
+      id: aws.config.organization_config_rules
+      x-cfn-schema-name: OrganizationConfigRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
     organization_config_rule:
       name: organization_config_rule
       id: aws.config.organization_config_rule
@@ -720,7 +833,20 @@ components:
               JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.ResourceTypesScope') as organization_custom_policy_rule_metadata_resource_types_scope,
               JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.MaximumExecutionFrequency') as organization_custom_policy_rule_metadata_maximum_execution_frequency,
               JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.InputParameters') as organization_custom_policy_rule_metadata_input_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
+    organization_conformance_packs:
+      name: organization_conformance_packs
+      id: aws.config.organization_conformance_packs
+      x-cfn-schema-name: OrganizationConformancePack
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.OrganizationConformancePackName') as organization_conformance_pack_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
     organization_conformance_pack:
       name: organization_conformance_pack
       id: aws.config.organization_conformance_pack
@@ -739,7 +865,20 @@ components:
               JSON_EXTRACT(Properties, '$.DeliveryS3KeyPrefix') as delivery_s3_key_prefix,
               JSON_EXTRACT(Properties, '$.ConformancePackInputParameters') as conformance_pack_input_parameters,
               JSON_EXTRACT(Properties, '$.ExcludedAccounts') as excluded_accounts
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
+    remediation_configurations:
+      name: remediation_configurations
+      id: aws.config.remediation_configurations
+      x-cfn-schema-name: RemediationConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
     remediation_configuration:
       name: remediation_configuration
       id: aws.config.remediation_configuration
@@ -762,7 +901,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TargetId') as target_id,
               JSON_EXTRACT(Properties, '$.Automatic') as automatic
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::RemediationConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
+    stored_queries:
+      name: stored_queries
+      id: aws.config.stored_queries
+      x-cfn-schema-name: StoredQuery
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.QueryName') as query_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::StoredQuery'
     stored_query:
       name: stored_query
       id: aws.config.stored_query
@@ -780,4 +932,4 @@ components:
               JSON_EXTRACT(Properties, '$.QueryDescription') as query_description,
               JSON_EXTRACT(Properties, '$.QueryExpression') as query_expression,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::StoredQuery' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::StoredQuery'

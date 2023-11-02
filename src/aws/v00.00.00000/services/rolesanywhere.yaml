@@ -45,6 +45,8 @@ components:
         - Name
         - CrlData
       x-stackql-resource-name: crl
+      x-stackql-primaryIdentifier:
+        - CrlId
     Profile:
       type: object
       properties:
@@ -85,6 +87,8 @@ components:
         - Name
         - RoleArns
       x-stackql-resource-name: profile
+      x-stackql-primaryIdentifier:
+        - ProfileId
     Source:
       type: object
       properties:
@@ -142,7 +146,22 @@ components:
         - Name
         - Source
       x-stackql-resource-name: trust_anchor
+      x-stackql-primaryIdentifier:
+        - TrustAnchorId
   x-stackQL-resources:
+    crls:
+      name: crls
+      id: aws.rolesanywhere.crls
+      x-cfn-schema-name: CRL
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CrlId') as crl_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
     crl:
       name: crl
       id: aws.rolesanywhere.crl
@@ -160,7 +179,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.TrustAnchorArn') as trust_anchor_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::CRL' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
+    profiles:
+      name: profiles
+      id: aws.rolesanywhere.profiles
+      x-cfn-schema-name: Profile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
     profile:
       name: profile
       id: aws.rolesanywhere.profile
@@ -182,7 +214,20 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArns') as role_arns,
               JSON_EXTRACT(Properties, '$.SessionPolicy') as session_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::Profile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
+    trust_anchors:
+      name: trust_anchors
+      id: aws.rolesanywhere.trust_anchors
+      x-cfn-schema-name: TrustAnchor
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'
     trust_anchor:
       name: trust_anchor
       id: aws.rolesanywhere.trust_anchor
@@ -201,4 +246,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_id,
               JSON_EXTRACT(Properties, '$.TrustAnchorArn') as trust_anchor_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'

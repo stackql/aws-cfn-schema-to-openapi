@@ -91,6 +91,8 @@ components:
           description: Tracing mode of an Amazon SNS topic. By default TracingConfig is set to PassThrough, and the topic passes through the tracing header it receives from an SNS publisher to its subscriptions. If set to Active, SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing header is true. Only supported on standard topics.
           type: string
       x-stackql-resource-name: topic
+      x-stackql-primaryIdentifier:
+        - TopicArn
     TopicPolicy:
       type: object
       properties:
@@ -107,7 +109,22 @@ components:
         - PolicyDocument
         - Topics
       x-stackql-resource-name: topic_policy
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    topics:
+      name: topics
+      id: aws.sns.topics
+      x-cfn-schema-name: Topic
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::Topic'
     topic:
       name: topic
       id: aws.sns.topic
@@ -130,7 +147,20 @@ components:
               JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn,
               JSON_EXTRACT(Properties, '$.SignatureVersion') as signature_version,
               JSON_EXTRACT(Properties, '$.TracingConfig') as tracing_config
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::Topic' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::Topic'
+    topic_policies:
+      name: topic_policies
+      id: aws.sns.topic_policies
+      x-cfn-schema-name: TopicPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicPolicy'
     topic_policy:
       name: topic_policy
       id: aws.sns.topic_policy
@@ -145,4 +175,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Topics') as topics
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicPolicy'

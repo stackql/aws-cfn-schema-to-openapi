@@ -208,6 +208,8 @@ components:
         - Name
         - ConfigData
       x-stackql-resource-name: config
+      x-stackql-primaryIdentifier:
+        - Arn
     SocketAddress:
       type: object
       properties:
@@ -354,6 +356,8 @@ components:
       required:
         - EndpointDetails
       x-stackql-resource-name: dataflow_endpoint_group
+      x-stackql-primaryIdentifier:
+        - Id
     DataflowEdge:
       type: object
       properties:
@@ -421,7 +425,23 @@ components:
         - DataflowEdges
         - TrackingConfigArn
       x-stackql-resource-name: mission_profile
+      x-stackql-primaryIdentifier:
+        - Id
+        - Arn
   x-stackQL-resources:
+    configs:
+      name: configs
+      id: aws.groundstation.configs
+      x-cfn-schema-name: Config
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::Config'
     config:
       name: config
       id: aws.groundstation.config
@@ -445,7 +465,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigData.S3RecordingConfig') as config_data_s3_recording_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::Config' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::Config'
+    dataflow_endpoint_groups:
+      name: dataflow_endpoint_groups
+      id: aws.groundstation.dataflow_endpoint_groups
+      x-cfn-schema-name: DataflowEndpointGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
     dataflow_endpoint_group:
       name: dataflow_endpoint_group
       id: aws.groundstation.dataflow_endpoint_group
@@ -463,7 +496,21 @@ components:
               JSON_EXTRACT(Properties, '$.ContactPrePassDurationSeconds') as contact_pre_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
+    mission_profiles:
+      name: mission_profiles
+      id: aws.groundstation.mission_profiles
+      x-cfn-schema-name: MissionProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'
     mission_profile:
       name: mission_profile
       id: aws.groundstation.mission_profile
@@ -488,4 +535,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Region') as region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::MissionProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'

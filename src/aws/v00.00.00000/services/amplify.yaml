@@ -214,6 +214,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: app
+      x-stackql-primaryIdentifier:
+        - Arn
     Branch:
       type: object
       properties:
@@ -278,6 +280,8 @@ components:
         - AppId
         - BranchName
       x-stackql-resource-name: branch
+      x-stackql-primaryIdentifier:
+        - Arn
     SubDomainSetting:
       type: object
       additionalProperties: false
@@ -343,7 +347,22 @@ components:
         - DomainName
         - SubDomainSettings
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    apps:
+      name: apps
+      id: aws.amplify.apps
+      x-cfn-schema-name: App
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::App'
     app:
       name: app
       id: aws.amplify.app
@@ -386,7 +405,20 @@ components:
               JSON_EXTRACT(Properties, '$.Platform') as platform,
               JSON_EXTRACT(Properties, '$.Repository') as repository,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::App' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Amplify::App'
+    branches:
+      name: branches
+      id: aws.amplify.branches
+      x-cfn-schema-name: Branch
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::Branch'
     branch:
       name: branch
       id: aws.amplify.branch
@@ -414,7 +446,20 @@ components:
               JSON_EXTRACT(Properties, '$.PullRequestEnvironmentName') as pull_request_environment_name,
               JSON_EXTRACT(Properties, '$.Stage') as stage,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::Branch' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Amplify::Branch'
+    domains:
+      name: domains
+      id: aws.amplify.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::Domain'
     domain:
       name: domain
       id: aws.amplify.domain
@@ -436,4 +481,4 @@ components:
               JSON_EXTRACT(Properties, '$.EnableAutoSubDomain') as enable_auto_sub_domain,
               JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
               JSON_EXTRACT(Properties, '$.SubDomainSettings') as sub_domain_settings
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Amplify::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Amplify::Domain'

@@ -25,6 +25,9 @@ components:
         - Principal
         - StatementId
       x-stackql-resource-name: profile_permission
+      x-stackql-primaryIdentifier:
+        - StatementId
+        - ProfileName
     PlatformId:
       type: string
       enum:
@@ -89,7 +92,23 @@ components:
       required:
         - PlatformId
       x-stackql-resource-name: signing_profile
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    profile_permissions:
+      name: profile_permissions
+      id: aws.signer.profile_permissions
+      x-cfn-schema-name: ProfilePermission
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StatementId') as statement_id,
+              JSON_EXTRACT(Properties, '$.ProfileName') as profile_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
     profile_permission:
       name: profile_permission
       id: aws.signer.profile_permission
@@ -106,7 +125,20 @@ components:
               JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::ProfilePermission' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
+    signing_profiles:
+      name: signing_profiles
+      id: aws.signer.signing_profiles
+      x-cfn-schema-name: SigningProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::SigningProfile'
     signing_profile:
       name: signing_profile
       id: aws.signer.signing_profile
@@ -122,4 +154,4 @@ components:
               JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Value') as signature_validity_period_value,
               JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Type') as signature_validity_period_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::SigningProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::SigningProfile'

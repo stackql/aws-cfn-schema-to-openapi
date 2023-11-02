@@ -81,6 +81,8 @@ components:
           maxLength: 128
       required: []
       x-stackql-resource-name: agent
+      x-stackql-primaryIdentifier:
+        - AgentArn
     Ec2Config:
       additionalProperties: false
       description: The subnet and security group that DataSync uses to access target EFS file system.
@@ -156,6 +158,8 @@ components:
       required:
         - Ec2Config
       x-stackql-resource-name: location_efs
+      x-stackql-primaryIdentifier:
+        - LocationArn
     LocationFSxLustre:
       type: object
       properties:
@@ -201,6 +205,8 @@ components:
       required:
         - SecurityGroupArns
       x-stackql-resource-name: locationf_sx_lustre
+      x-stackql-primaryIdentifier:
+        - LocationArn
     Protocol:
       additionalProperties: false
       description: Configuration settings for an NFS or SMB protocol, currently only support NFS
@@ -321,6 +327,8 @@ components:
         - SecurityGroupArns
         - StorageVirtualMachineArn
       x-stackql-resource-name: locationf_sx_ontap
+      x-stackql-primaryIdentifier:
+        - LocationArn
     MountOptions:
       additionalProperties: false
       description: The mount options used by DataSync to access the SMB server.
@@ -383,6 +391,8 @@ components:
         - SecurityGroupArns
         - Protocol
       x-stackql-resource-name: locationf_sx_open_zfs
+      x-stackql-primaryIdentifier:
+        - LocationArn
     LocationFSxWindows:
       type: object
       properties:
@@ -441,6 +451,8 @@ components:
         - User
         - SecurityGroupArns
       x-stackql-resource-name: locationf_sx_windows
+      x-stackql-primaryIdentifier:
+        - LocationArn
     NameNode:
       additionalProperties: false
       description: HDFS Name Node IP and port information.
@@ -577,6 +589,8 @@ components:
         - AuthenticationType
         - AgentArns
       x-stackql-resource-name: location_hdfs
+      x-stackql-primaryIdentifier:
+        - LocationArn
     OnPremConfig:
       additionalProperties: false
       description: Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.
@@ -634,6 +648,8 @@ components:
       required:
         - OnPremConfig
       x-stackql-resource-name: location_nfs
+      x-stackql-primaryIdentifier:
+        - LocationArn
     LocationObjectStorage:
       type: object
       properties:
@@ -711,6 +727,8 @@ components:
       required:
         - AgentArns
       x-stackql-resource-name: location_object_storage
+      x-stackql-primaryIdentifier:
+        - LocationArn
     S3Config:
       additionalProperties: false
       description: The Amazon Resource Name (ARN) of the AWS IAM role that is used to access an Amazon S3 bucket.
@@ -771,6 +789,8 @@ components:
       required:
         - S3Config
       x-stackql-resource-name: location_s3
+      x-stackql-primaryIdentifier:
+        - LocationArn
     LocationSMB:
       type: object
       properties:
@@ -835,6 +855,8 @@ components:
         - User
         - AgentArns
       x-stackql-resource-name: location_smb
+      x-stackql-primaryIdentifier:
+        - LocationArn
     FilterRule:
       additionalProperties: false
       description: Specifies which files folders and objects to include or exclude when transferring files from source to destination.
@@ -1053,7 +1075,22 @@ components:
         - DestinationLocationArn
         - SourceLocationArn
       x-stackql-resource-name: task
+      x-stackql-primaryIdentifier:
+        - TaskArn
   x-stackQL-resources:
+    agents:
+      name: agents
+      id: aws.datasync.agents
+      x-cfn-schema-name: Agent
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AgentArn') as agent_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Agent'
     agent:
       name: agent
       id: aws.datasync.agent
@@ -1073,7 +1110,7 @@ components:
               JSON_EXTRACT(Properties, '$.EndpointType') as endpoint_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AgentArn') as agent_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Agent' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Agent'
     location_efs:
       name: location_efs
       id: aws.datasync.location_efs
@@ -1095,7 +1132,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationEFS' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationEFS'
+    locationf_sx_lustres:
+      name: locationf_sx_lustres
+      id: aws.datasync.locationf_sx_lustres
+      x-cfn-schema-name: LocationFSxLustre
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
     locationf_sx_lustre:
       name: locationf_sx_lustre
       id: aws.datasync.locationf_sx_lustre
@@ -1113,7 +1163,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
+    locationf_sx_ontaps:
+      name: locationf_sx_ontaps
+      id: aws.datasync.locationf_sx_ontaps
+      x-cfn-schema-name: LocationFSxONTAP
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
     locationf_sx_ontap:
       name: locationf_sx_ontap
       id: aws.datasync.locationf_sx_ontap
@@ -1133,7 +1196,7 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
     locationf_sx_open_zfs:
       name: locationf_sx_open_zfs
       id: aws.datasync.locationf_sx_open_zfs
@@ -1152,7 +1215,7 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxOpenZFS' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxOpenZFS'
     locationf_sx_windows:
       name: locationf_sx_windows
       id: aws.datasync.locationf_sx_windows
@@ -1173,7 +1236,7 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxWindows' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxWindows'
     location_hdfs:
       name: location_hdfs
       id: aws.datasync.location_hdfs
@@ -1201,7 +1264,7 @@ components:
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationHDFS' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationHDFS'
     location_nfs:
       name: location_nfs
       id: aws.datasync.location_nfs
@@ -1220,7 +1283,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationNFS' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationNFS'
+    location_object_storages:
+      name: location_object_storages
+      id: aws.datasync.location_object_storages
+      x-cfn-schema-name: LocationObjectStorage
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
     location_object_storage:
       name: location_object_storage
       id: aws.datasync.location_object_storage
@@ -1244,7 +1320,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
+    location_s3s:
+      name: location_s3s
+      id: aws.datasync.location_s3s
+      x-cfn-schema-name: LocationS3
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationS3'
     location_s3:
       name: location_s3
       id: aws.datasync.location_s3
@@ -1263,7 +1352,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationS3' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationS3'
+    location_smbs:
+      name: location_smbs
+      id: aws.datasync.location_smbs
+      x-cfn-schema-name: LocationSMB
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
     location_smb:
       name: location_smb
       id: aws.datasync.location_smb
@@ -1285,7 +1387,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationSMB' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
+    tasks:
+      name: tasks
+      id: aws.datasync.tasks
+      x-cfn-schema-name: Task
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TaskArn') as task_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Task'
     task:
       name: task
       id: aws.datasync.task
@@ -1322,4 +1437,4 @@ components:
               JSON_EXTRACT(Properties, '$.SourceLocationArn') as source_location_arn,
               JSON_EXTRACT(Properties, '$.TaskArn') as task_arn,
               JSON_EXTRACT(Properties, '$.Status') as status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Task' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Task'

@@ -215,7 +215,22 @@ components:
       required:
         - Listeners
       x-stackql-resource-name: load_balancer
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    load_balancers:
+      name: load_balancers
+      id: aws.elasticloadbalancing.load_balancers
+      x-cfn-schema-name: LoadBalancer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.elasticloadbalancing.load_balancer
@@ -257,4 +272,4 @@ components:
               JSON_EXTRACT(Properties, '$.SourceSecurityGroupGroupName') as source_security_group_group_name,
               JSON_EXTRACT(Properties, '$.ConnectionSettings.IdleTimeout') as connection_settings_idle_timeout,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'

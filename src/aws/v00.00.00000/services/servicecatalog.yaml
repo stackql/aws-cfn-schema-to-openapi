@@ -17,6 +17,8 @@ components:
       required:
         - PortfolioId
       x-stackql-resource-name: accepted_portfolio_share
+      x-stackql-primaryIdentifier:
+        - Id
     CodeStarParameters:
       type: object
       additionalProperties: false
@@ -125,6 +127,8 @@ components:
         - Owner
         - Name
       x-stackql-resource-name: cloud_formation_product
+      x-stackql-primaryIdentifier:
+        - Id
     ProvisioningPreferences:
       type: object
       properties:
@@ -249,6 +253,8 @@ components:
           additionalProperties: false
           maxProperties: 100
       x-stackql-resource-name: cloud_formation_provisioned_product
+      x-stackql-primaryIdentifier:
+        - ProvisionedProductId
     LaunchNotificationConstraint:
       type: object
       properties:
@@ -272,6 +278,8 @@ components:
         - PortfolioId
         - ProductId
       x-stackql-resource-name: launch_notification_constraint
+      x-stackql-primaryIdentifier:
+        - Id
     LaunchRoleConstraint:
       type: object
       properties:
@@ -293,6 +301,8 @@ components:
         - PortfolioId
         - ProductId
       x-stackql-resource-name: launch_role_constraint
+      x-stackql-primaryIdentifier:
+        - Id
     LaunchTemplateConstraint:
       type: object
       properties:
@@ -313,6 +323,8 @@ components:
         - ProductId
         - Rules
       x-stackql-resource-name: launch_template_constraint
+      x-stackql-primaryIdentifier:
+        - Id
     Portfolio:
       type: object
       properties:
@@ -337,6 +349,8 @@ components:
         - DisplayName
         - ProviderName
       x-stackql-resource-name: portfolio
+      x-stackql-primaryIdentifier:
+        - Id
     PortfolioPrincipalAssociation:
       type: object
       properties:
@@ -355,6 +369,8 @@ components:
         - PrincipalType
         - PrincipalARN
       x-stackql-resource-name: portfolio_principal_association
+      x-stackql-primaryIdentifier:
+        - Id
     PortfolioProductAssociation:
       type: object
       properties:
@@ -372,6 +388,8 @@ components:
         - PortfolioId
         - ProductId
       x-stackql-resource-name: portfolio_product_association
+      x-stackql-primaryIdentifier:
+        - Id
     PortfolioShare:
       type: object
       properties:
@@ -389,6 +407,8 @@ components:
         - AccountId
         - PortfolioId
       x-stackql-resource-name: portfolio_share
+      x-stackql-primaryIdentifier:
+        - Id
     ResourceUpdateConstraint:
       type: object
       properties:
@@ -409,6 +429,8 @@ components:
         - PortfolioId
         - ProductId
       x-stackql-resource-name: resource_update_constraint
+      x-stackql-primaryIdentifier:
+        - Id
     DefinitionParameter:
       type: object
       properties:
@@ -456,6 +478,8 @@ components:
         - DefinitionType
         - Definition
       x-stackql-resource-name: service_action
+      x-stackql-primaryIdentifier:
+        - Id
     ServiceActionAssociation:
       type: object
       properties:
@@ -479,6 +503,10 @@ components:
         - ProvisioningArtifactId
         - ServiceActionId
       x-stackql-resource-name: service_action_association
+      x-stackql-primaryIdentifier:
+        - ProductId
+        - ProvisioningArtifactId
+        - ServiceActionId
     StackSetConstraint:
       type: object
       properties:
@@ -518,6 +546,8 @@ components:
         - AccountList
         - ExecutionRole
       x-stackql-resource-name: stack_set_constraint
+      x-stackql-primaryIdentifier:
+        - Id
     TagOption:
       type: object
       properties:
@@ -533,6 +563,8 @@ components:
         - Value
         - Key
       x-stackql-resource-name: tag_option
+      x-stackql-primaryIdentifier:
+        - Id
     TagOptionAssociation:
       type: object
       properties:
@@ -546,7 +578,22 @@ components:
         - TagOptionId
         - ResourceId
       x-stackql-resource-name: tag_option_association
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    accepted_portfolio_shares:
+      name: accepted_portfolio_shares
+      id: aws.servicecatalog.accepted_portfolio_shares
+      x-cfn-schema-name: AcceptedPortfolioShare
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::AcceptedPortfolioShare'
     accepted_portfolio_share:
       name: accepted_portfolio_share
       id: aws.servicecatalog.accepted_portfolio_share
@@ -561,7 +608,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.AcceptLanguage') as accept_language,
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::AcceptedPortfolioShare' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::AcceptedPortfolioShare'
+    cloud_formation_products:
+      name: cloud_formation_products
+      id: aws.servicecatalog.cloud_formation_products
+      x-cfn-schema-name: CloudFormationProduct
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProduct'
     cloud_formation_product:
       name: cloud_formation_product
       id: aws.servicecatalog.cloud_formation_product
@@ -591,7 +651,20 @@ components:
               JSON_EXTRACT(Properties, '$.SourceConnection.Type') as source_connection_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ProvisioningArtifactParameters') as provisioning_artifact_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProduct' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProduct'
+    cloud_formation_provisioned_products:
+      name: cloud_formation_provisioned_products
+      id: aws.servicecatalog.cloud_formation_provisioned_products
+      x-cfn-schema-name: CloudFormationProvisionedProduct
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProvisionedProductId') as provisioned_product_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProvisionedProduct'
     cloud_formation_provisioned_product:
       name: cloud_formation_provisioned_product
       id: aws.servicecatalog.cloud_formation_provisioned_product
@@ -625,7 +698,20 @@ components:
               JSON_EXTRACT(Properties, '$.RecordId') as record_id,
               JSON_EXTRACT(Properties, '$.CloudformationStackArn') as cloudformation_stack_arn,
               JSON_EXTRACT(Properties, '$.Outputs') as outputs
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProvisionedProduct' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::CloudFormationProvisionedProduct'
+    launch_notification_constraints:
+      name: launch_notification_constraints
+      id: aws.servicecatalog.launch_notification_constraints
+      x-cfn-schema-name: LaunchNotificationConstraint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchNotificationConstraint'
     launch_notification_constraint:
       name: launch_notification_constraint
       id: aws.servicecatalog.launch_notification_constraint
@@ -643,7 +729,20 @@ components:
               JSON_EXTRACT(Properties, '$.AcceptLanguage') as accept_language,
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id,
               JSON_EXTRACT(Properties, '$.ProductId') as product_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchNotificationConstraint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchNotificationConstraint'
+    launch_role_constraints:
+      name: launch_role_constraints
+      id: aws.servicecatalog.launch_role_constraints
+      x-cfn-schema-name: LaunchRoleConstraint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchRoleConstraint'
     launch_role_constraint:
       name: launch_role_constraint
       id: aws.servicecatalog.launch_role_constraint
@@ -662,7 +761,20 @@ components:
               JSON_EXTRACT(Properties, '$.ProductId') as product_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchRoleConstraint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchRoleConstraint'
+    launch_template_constraints:
+      name: launch_template_constraints
+      id: aws.servicecatalog.launch_template_constraints
+      x-cfn-schema-name: LaunchTemplateConstraint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchTemplateConstraint'
     launch_template_constraint:
       name: launch_template_constraint
       id: aws.servicecatalog.launch_template_constraint
@@ -680,7 +792,20 @@ components:
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id,
               JSON_EXTRACT(Properties, '$.ProductId') as product_id,
               JSON_EXTRACT(Properties, '$.Rules') as rules
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchTemplateConstraint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::LaunchTemplateConstraint'
+    portfolios:
+      name: portfolios
+      id: aws.servicecatalog.portfolios
+      x-cfn-schema-name: Portfolio
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::Portfolio'
     portfolio:
       name: portfolio
       id: aws.servicecatalog.portfolio
@@ -699,7 +824,20 @@ components:
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
               JSON_EXTRACT(Properties, '$.AcceptLanguage') as accept_language,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::Portfolio' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::Portfolio'
+    portfolio_principal_associations:
+      name: portfolio_principal_associations
+      id: aws.servicecatalog.portfolio_principal_associations
+      x-cfn-schema-name: PortfolioPrincipalAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioPrincipalAssociation'
     portfolio_principal_association:
       name: portfolio_principal_association
       id: aws.servicecatalog.portfolio_principal_association
@@ -716,7 +854,20 @@ components:
               JSON_EXTRACT(Properties, '$.AcceptLanguage') as accept_language,
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id,
               JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioPrincipalAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioPrincipalAssociation'
+    portfolio_product_associations:
+      name: portfolio_product_associations
+      id: aws.servicecatalog.portfolio_product_associations
+      x-cfn-schema-name: PortfolioProductAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioProductAssociation'
     portfolio_product_association:
       name: portfolio_product_association
       id: aws.servicecatalog.portfolio_product_association
@@ -733,7 +884,20 @@ components:
               JSON_EXTRACT(Properties, '$.AcceptLanguage') as accept_language,
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id,
               JSON_EXTRACT(Properties, '$.ProductId') as product_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioProductAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioProductAssociation'
+    portfolio_shares:
+      name: portfolio_shares
+      id: aws.servicecatalog.portfolio_shares
+      x-cfn-schema-name: PortfolioShare
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioShare'
     portfolio_share:
       name: portfolio_share
       id: aws.servicecatalog.portfolio_share
@@ -750,7 +914,20 @@ components:
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.ShareTagOptions') as share_tag_options,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioShare' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::PortfolioShare'
+    resource_update_constraints:
+      name: resource_update_constraints
+      id: aws.servicecatalog.resource_update_constraints
+      x-cfn-schema-name: ResourceUpdateConstraint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ResourceUpdateConstraint'
     resource_update_constraint:
       name: resource_update_constraint
       id: aws.servicecatalog.resource_update_constraint
@@ -768,7 +945,20 @@ components:
               JSON_EXTRACT(Properties, '$.TagUpdateOnProvisionedProduct') as tag_update_on_provisioned_product,
               JSON_EXTRACT(Properties, '$.PortfolioId') as portfolio_id,
               JSON_EXTRACT(Properties, '$.ProductId') as product_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ResourceUpdateConstraint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::ResourceUpdateConstraint'
+    service_actions:
+      name: service_actions
+      id: aws.servicecatalog.service_actions
+      x-cfn-schema-name: ServiceAction
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceAction'
     service_action:
       name: service_action
       id: aws.servicecatalog.service_action
@@ -786,7 +976,22 @@ components:
               JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceAction' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceAction'
+    service_action_associations:
+      name: service_action_associations
+      id: aws.servicecatalog.service_action_associations
+      x-cfn-schema-name: ServiceActionAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProductId') as product_id,
+              JSON_EXTRACT(Properties, '$.ProvisioningArtifactId') as provisioning_artifact_id,
+              JSON_EXTRACT(Properties, '$.ServiceActionId') as service_action_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceActionAssociation'
     service_action_association:
       name: service_action_association
       id: aws.servicecatalog.service_action_association
@@ -801,7 +1006,20 @@ components:
               JSON_EXTRACT(Properties, '$.ProductId') as product_id,
               JSON_EXTRACT(Properties, '$.ProvisioningArtifactId') as provisioning_artifact_id,
               JSON_EXTRACT(Properties, '$.ServiceActionId') as service_action_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceActionAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::ServiceActionAssociation'
+    stack_set_constraints:
+      name: stack_set_constraints
+      id: aws.servicecatalog.stack_set_constraints
+      x-cfn-schema-name: StackSetConstraint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::StackSetConstraint'
     stack_set_constraint:
       name: stack_set_constraint
       id: aws.servicecatalog.stack_set_constraint
@@ -823,7 +1041,20 @@ components:
               JSON_EXTRACT(Properties, '$.AdminRole') as admin_role,
               JSON_EXTRACT(Properties, '$.AccountList') as account_list,
               JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::StackSetConstraint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::StackSetConstraint'
+    tag_options:
+      name: tag_options
+      id: aws.servicecatalog.tag_options
+      x-cfn-schema-name: TagOption
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::TagOption'
     tag_option:
       name: tag_option
       id: aws.servicecatalog.tag_option
@@ -839,7 +1070,20 @@ components:
               JSON_EXTRACT(Properties, '$.Active') as active,
               JSON_EXTRACT(Properties, '$.Value') as value,
               JSON_EXTRACT(Properties, '$.Key') as key
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::TagOption' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::TagOption'
+    tag_option_associations:
+      name: tag_option_associations
+      id: aws.servicecatalog.tag_option_associations
+      x-cfn-schema-name: TagOptionAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::TagOptionAssociation'
     tag_option_association:
       name: tag_option_association
       id: aws.servicecatalog.tag_option_association
@@ -854,4 +1098,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TagOptionId') as tag_option_id,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalog::TagOptionAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalog::TagOptionAssociation'

@@ -28,6 +28,8 @@ components:
         - ApiCachingBehavior
         - Ttl
       x-stackql-resource-name: api_cache
+      x-stackql-primaryIdentifier:
+        - Id
     ApiKey:
       type: object
       properties:
@@ -46,6 +48,8 @@ components:
       required:
         - ApiId
       x-stackql-resource-name: api_key
+      x-stackql-primaryIdentifier:
+        - ApiKeyId
     RdsHttpEndpointConfig:
       type: object
       additionalProperties: false
@@ -207,6 +211,8 @@ components:
         - ApiId
         - Name
       x-stackql-resource-name: data_source
+      x-stackql-primaryIdentifier:
+        - Id
     DomainName:
       type: object
       properties:
@@ -232,6 +238,8 @@ components:
         - DomainName
         - CertificateArn
       x-stackql-resource-name: domain_name
+      x-stackql-primaryIdentifier:
+        - DomainName
     DomainNameApiAssociation:
       type: object
       properties:
@@ -248,6 +256,8 @@ components:
         - DomainName
         - ApiId
       x-stackql-resource-name: domain_name_api_association
+      x-stackql-primaryIdentifier:
+        - ApiAssociationIdentifier
     AppSyncRuntime:
       type: object
       additionalProperties: false
@@ -319,6 +329,8 @@ components:
         - ApiId
         - Name
       x-stackql-resource-name: function_configuration
+      x-stackql-primaryIdentifier:
+        - Id
     OpenIDConnectConfig:
       type: object
       additionalProperties: false
@@ -437,6 +449,8 @@ components:
         - Name
         - AuthenticationType
       x-stackql-resource-name: graphql_api
+      x-stackql-primaryIdentifier:
+        - Id
     GraphQLSchema:
       type: object
       properties:
@@ -451,6 +465,8 @@ components:
       required:
         - ApiId
       x-stackql-resource-name: graphql_schema
+      x-stackql-primaryIdentifier:
+        - Id
     PipelineConfig:
       type: object
       additionalProperties: false
@@ -517,7 +533,22 @@ components:
         - ApiId
         - FieldName
       x-stackql-resource-name: resolver
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    api_caches:
+      name: api_caches
+      id: aws.appsync.api_caches
+      x-cfn-schema-name: ApiCache
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiCache'
     api_cache:
       name: api_cache
       id: aws.appsync.api_cache
@@ -536,7 +567,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.ApiCachingBehavior') as api_caching_behavior,
               JSON_EXTRACT(Properties, '$.Ttl') as ttl
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiCache' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiCache'
+    api_keys:
+      name: api_keys
+      id: aws.appsync.api_keys
+      x-cfn-schema-name: ApiKey
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiKeyId') as api_key_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiKey'
     api_key:
       name: api_key
       id: aws.appsync.api_key
@@ -554,7 +598,20 @@ components:
               JSON_EXTRACT(Properties, '$.Expires') as expires,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiKey' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiKey'
+    data_sources:
+      name: data_sources
+      id: aws.appsync.data_sources
+      x-cfn-schema-name: DataSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DataSource'
     data_source:
       name: data_source
       id: aws.appsync.data_source
@@ -588,7 +645,20 @@ components:
               JSON_EXTRACT(Properties, '$.DynamoDBConfig.Versioned') as dynamo_db_config_versioned,
               JSON_EXTRACT(Properties, '$.ElasticsearchConfig.AwsRegion') as elasticsearch_config_aws_region,
               JSON_EXTRACT(Properties, '$.ElasticsearchConfig.Endpoint') as elasticsearch_config_endpoint
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DataSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DataSource'
+    domain_names:
+      name: domain_names
+      id: aws.appsync.domain_names
+      x-cfn-schema-name: DomainName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainName'
     domain_name:
       name: domain_name
       id: aws.appsync.domain_name
@@ -605,7 +675,20 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateArn') as certificate_arn,
               JSON_EXTRACT(Properties, '$.AppSyncDomainName') as app_sync_domain_name,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainName' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainName'
+    domain_name_api_associations:
+      name: domain_name_api_associations
+      id: aws.appsync.domain_name_api_associations
+      x-cfn-schema-name: DomainNameApiAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiAssociationIdentifier') as api_association_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
     domain_name_api_association:
       name: domain_name_api_association
       id: aws.appsync.domain_name_api_association
@@ -620,7 +703,20 @@ components:
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.ApiAssociationIdentifier') as api_association_identifier
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
+    function_configurations:
+      name: function_configurations
+      id: aws.appsync.function_configurations
+      x-cfn-schema-name: FunctionConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
     function_configuration:
       name: function_configuration
       id: aws.appsync.function_configuration
@@ -652,7 +748,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RequestMappingTemplateS3Location') as request_mapping_template_s3_location,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
+    graphql_apis:
+      name: graphql_apis
+      id: aws.appsync.graphql_apis
+      x-cfn-schema-name: GraphQLApi
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
     graphql_api:
       name: graphql_api
       id: aws.appsync.graphql_api
@@ -687,7 +796,20 @@ components:
               JSON_EXTRACT(Properties, '$.LogConfig.ExcludeVerboseContent') as log_config_exclude_verbose_content,
               JSON_EXTRACT(Properties, '$.LogConfig.FieldLogLevel') as log_config_field_log_level,
               JSON_EXTRACT(Properties, '$.LogConfig.CloudWatchLogsRoleArn') as log_config_cloud_watch_logs_role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLApi' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
+    graphql_schemas:
+      name: graphql_schemas
+      id: aws.appsync.graphql_schemas
+      x-cfn-schema-name: GraphQLSchema
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
     graphql_schema:
       name: graphql_schema
       id: aws.appsync.graphql_schema
@@ -703,7 +825,20 @@ components:
               JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.DefinitionS3Location') as definition_s3_location,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
+    resolvers:
+      name: resolvers
+      id: aws.appsync.resolvers
+      x-cfn-schema-name: Resolver
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::Resolver'
     resolver:
       name: resolver
       id: aws.appsync.resolver
@@ -737,4 +872,4 @@ components:
               JSON_EXTRACT(Properties, '$.RequestMappingTemplateS3Location') as request_mapping_template_s3_location,
               JSON_EXTRACT(Properties, '$.FieldName') as field_name,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::Resolver' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::Resolver'

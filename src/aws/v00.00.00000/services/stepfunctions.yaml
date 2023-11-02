@@ -40,6 +40,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: activity
+      x-stackql-primaryIdentifier:
+        - Arn
     CloudWatchLogsLogGroup:
       type: object
       additionalProperties: false
@@ -152,7 +154,22 @@ components:
       required:
         - RoleArn
       x-stackql-resource-name: state_machine
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    activities:
+      name: activities
+      id: aws.stepfunctions.activities
+      x-cfn-schema-name: Activity
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::Activity'
     activity:
       name: activity
       id: aws.stepfunctions.activity
@@ -167,7 +184,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::Activity' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::Activity'
+    state_machines:
+      name: state_machines
+      id: aws.stepfunctions.state_machines
+      x-cfn-schema-name: StateMachine
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
     state_machine:
       name: state_machine
       id: aws.stepfunctions.state_machine
@@ -193,4 +223,4 @@ components:
               JSON_EXTRACT(Properties, '$.DefinitionS3Location.Key') as definition_s3_location_key,
               JSON_EXTRACT(Properties, '$.DefinitionS3Location.Version') as definition_s3_location_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachine' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'

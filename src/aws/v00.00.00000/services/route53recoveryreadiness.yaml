@@ -50,6 +50,8 @@ components:
             maxItems: 20
           x-insertionOrder: false
       x-stackql-resource-name: cell
+      x-stackql-primaryIdentifier:
+        - CellName
     ReadinessCheck:
       type: object
       properties:
@@ -77,6 +79,8 @@ components:
             maxItems: 20
           x-insertionOrder: false
       x-stackql-resource-name: readiness_check
+      x-stackql-primaryIdentifier:
+        - ReadinessCheckName
     RecoveryGroup:
       type: object
       properties:
@@ -107,6 +111,8 @@ components:
             maxItems: 20
           x-insertionOrder: false
       x-stackql-resource-name: recovery_group
+      x-stackql-primaryIdentifier:
+        - RecoveryGroupName
     NLBResource:
       description: The Network Load Balancer resource that a DNS target resource points to.
       type: object
@@ -215,7 +221,22 @@ components:
         - ResourceSetType
         - Resources
       x-stackql-resource-name: resource_set
+      x-stackql-primaryIdentifier:
+        - ResourceSetName
   x-stackQL-resources:
+    cells:
+      name: cells
+      id: aws.route53recoveryreadiness.cells
+      x-cfn-schema-name: Cell
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CellName') as cell_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
     cell:
       name: cell
       id: aws.route53recoveryreadiness.cell
@@ -232,7 +253,20 @@ components:
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.ParentReadinessScopes') as parent_readiness_scopes,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
+    readiness_checks:
+      name: readiness_checks
+      id: aws.route53recoveryreadiness.readiness_checks
+      x-cfn-schema-name: ReadinessCheck
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
     readiness_check:
       name: readiness_check
       id: aws.route53recoveryreadiness.readiness_check
@@ -248,7 +282,20 @@ components:
               JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name,
               JSON_EXTRACT(Properties, '$.ReadinessCheckArn') as readiness_check_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
+    recovery_groups:
+      name: recovery_groups
+      id: aws.route53recoveryreadiness.recovery_groups
+      x-cfn-schema-name: RecoveryGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
     recovery_group:
       name: recovery_group
       id: aws.route53recoveryreadiness.recovery_group
@@ -264,7 +311,20 @@ components:
               JSON_EXTRACT(Properties, '$.Cells') as cells,
               JSON_EXTRACT(Properties, '$.RecoveryGroupArn') as recovery_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
+    resource_sets:
+      name: resource_sets
+      id: aws.route53recoveryreadiness.resource_sets
+      x-cfn-schema-name: ResourceSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'
     resource_set:
       name: resource_set
       id: aws.route53recoveryreadiness.resource_set
@@ -281,4 +341,4 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceSetArn') as resource_set_arn,
               JSON_EXTRACT(Properties, '$.ResourceSetType') as resource_set_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'

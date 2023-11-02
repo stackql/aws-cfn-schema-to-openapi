@@ -56,6 +56,8 @@ components:
       required:
         - ACLName
       x-stackql-resource-name: acl
+      x-stackql-primaryIdentifier:
+        - ACLName
     Endpoint:
       type: object
       additionalProperties: false
@@ -185,6 +187,8 @@ components:
         - NodeType
         - ACLName
       x-stackql-resource-name: cluster
+      x-stackql-primaryIdentifier:
+        - ClusterName
     ParameterGroup:
       type: object
       properties:
@@ -215,6 +219,8 @@ components:
         - ParameterGroupName
         - Family
       x-stackql-resource-name: parameter_group
+      x-stackql-primaryIdentifier:
+        - ParameterGroupName
     SubnetGroup:
       type: object
       properties:
@@ -247,6 +253,8 @@ components:
         - SubnetGroupName
         - SubnetIds
       x-stackql-resource-name: subnet_group
+      x-stackql-primaryIdentifier:
+        - SubnetGroupName
     User:
       type: object
       properties:
@@ -293,7 +301,22 @@ components:
       required:
         - UserName
       x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - UserName
   x-stackQL-resources:
+    acls:
+      name: acls
+      id: aws.memorydb.acls
+      x-cfn-schema-name: ACL
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ACLName') as a_cl_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ACL'
     acl:
       name: acl
       id: aws.memorydb.acl
@@ -310,7 +333,20 @@ components:
               JSON_EXTRACT(Properties, '$.UserNames') as user_names,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ACL' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ACL'
+    clusters:
+      name: clusters
+      id: aws.memorydb.clusters
+      x-cfn-schema-name: Cluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
     cluster:
       name: cluster
       id: aws.memorydb.cluster
@@ -350,7 +386,20 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterEndpoint.Port') as cluster_endpoint_port,
               JSON_EXTRACT(Properties, '$.AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::Cluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
+    parameter_groups:
+      name: parameter_groups
+      id: aws.memorydb.parameter_groups
+      x-cfn-schema-name: ParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
     parameter_group:
       name: parameter_group
       id: aws.memorydb.parameter_group
@@ -368,7 +417,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.ARN') as a_rn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
+    subnet_groups:
+      name: subnet_groups
+      id: aws.memorydb.subnet_groups
+      x-cfn-schema-name: SubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SubnetGroupName') as subnet_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
     subnet_group:
       name: subnet_group
       id: aws.memorydb.subnet_group
@@ -385,7 +447,20 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ARN') as a_rn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
+    users:
+      name: users
+      id: aws.memorydb.users
+      x-cfn-schema-name: User
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.UserName') as user_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::User'
     user:
       name: user
       id: aws.memorydb.user
@@ -403,4 +478,4 @@ components:
               JSON_EXTRACT(Properties, '$.AuthenticationMode') as authentication_mode,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::User' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::User'

@@ -44,6 +44,8 @@ components:
       required:
         - PermissionsMode
       x-stackql-resource-name: ledger
+      x-stackql-primaryIdentifier:
+        - Id
     Arn:
       type: string
       pattern: arn:[\w+=/,.@-]+:[\w+=/,.@-]+:[\w+=/,.@-]*:[0-9]*:[\w+=,.@-]+(/[\w+=,.@-]+)*
@@ -90,7 +92,23 @@ components:
         - KinesisConfiguration
         - InclusiveStartTime
       x-stackql-resource-name: stream
+      x-stackql-primaryIdentifier:
+        - LedgerName
+        - Id
   x-stackQL-resources:
+    ledgers:
+      name: ledgers
+      id: aws.qldb.ledgers
+      x-cfn-schema-name: Ledger
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Ledger'
     ledger:
       name: ledger
       id: aws.qldb.ledger
@@ -108,7 +126,21 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Ledger' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Ledger'
+    streams:
+      name: streams
+      id: aws.qldb.streams
+      x-cfn-schema-name: Stream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LedgerName') as ledger_name,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Stream'
     stream:
       name: stream
       id: aws.qldb.stream
@@ -128,4 +160,4 @@ components:
               JSON_EXTRACT(Properties, '$.KinesisConfiguration.AggregationEnabled') as kinesis_configuration_aggregation_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Stream' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Stream'

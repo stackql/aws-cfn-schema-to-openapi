@@ -124,6 +124,10 @@ components:
         - Provider
         - Version
       x-stackql-resource-name: custom_action_type
+      x-stackql-primaryIdentifier:
+        - Category
+        - Provider
+        - Version
     ActionDeclaration:
       type: object
       additionalProperties: false
@@ -303,6 +307,8 @@ components:
         - Stages
         - RoleArn
       x-stackql-resource-name: pipeline
+      x-stackql-primaryIdentifier:
+        - Id
     WebhookFilterRule:
       type: object
       additionalProperties: false
@@ -355,7 +361,24 @@ components:
         - TargetAction
         - TargetPipelineVersion
       x-stackql-resource-name: webhook
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    custom_action_types:
+      name: custom_action_types
+      id: aws.codepipeline.custom_action_types
+      x-cfn-schema-name: CustomActionType
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Category') as category,
+              JSON_EXTRACT(Properties, '$.Provider') as provider,
+              JSON_EXTRACT(Properties, '$.Version') as version
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
     custom_action_type:
       name: custom_action_type
       id: aws.codepipeline.custom_action_type
@@ -381,7 +404,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
+    pipelines:
+      name: pipelines
+      id: aws.codepipeline.pipelines
+      x-cfn-schema-name: Pipeline
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
     pipeline:
       name: pipeline
       id: aws.codepipeline.pipeline
@@ -405,7 +441,20 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Pipeline' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
+    webhooks:
+      name: webhooks
+      id: aws.codepipeline.webhooks
+      x-cfn-schema-name: Webhook
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Webhook'
     webhook:
       name: webhook
       id: aws.codepipeline.webhook
@@ -428,4 +477,4 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.TargetPipelineVersion') as target_pipeline_version,
               JSON_EXTRACT(Properties, '$.RegisterWithThirdParty') as register_with_third_party
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Webhook' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Webhook'

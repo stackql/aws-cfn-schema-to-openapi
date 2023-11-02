@@ -64,6 +64,8 @@ components:
       required:
         - DestinationArn
       x-stackql-resource-name: access_log_subscription
+      x-stackql-primaryIdentifier:
+        - Arn
     AuthPolicy:
       type: object
       properties:
@@ -83,6 +85,8 @@ components:
         - ResourceIdentifier
         - Policy
       x-stackql-resource-name: auth_policy
+      x-stackql-primaryIdentifier:
+        - ResourceIdentifier
     Forward:
       type: object
       properties:
@@ -186,6 +190,8 @@ components:
         - DefaultAction
         - Protocol
       x-stackql-resource-name: listener
+      x-stackql-primaryIdentifier:
+        - Arn
     ResourcePolicy:
       type: object
       properties:
@@ -200,6 +206,8 @@ components:
         - ResourceArn
         - Policy
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - ResourceArn
     HeaderMatch:
       type: object
       properties:
@@ -348,6 +356,8 @@ components:
         - Match
         - Priority
       x-stackql-resource-name: rule
+      x-stackql-primaryIdentifier:
+        - Arn
     DnsEntry:
       type: object
       additionalProperties: false
@@ -411,6 +421,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: service
+      x-stackql-primaryIdentifier:
+        - Arn
     ServiceNetwork:
       type: object
       properties:
@@ -448,6 +460,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: service_network
+      x-stackql-primaryIdentifier:
+        - Arn
     ServiceNetworkServiceAssociation:
       type: object
       properties:
@@ -522,6 +536,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: service_network_service_association
+      x-stackql-primaryIdentifier:
+        - Arn
     ServiceNetworkVpcAssociation:
       type: object
       properties:
@@ -594,6 +610,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: service_network_vpc_association
+      x-stackql-primaryIdentifier:
+        - Arn
     HealthCheckConfig:
       type: object
       additionalProperties: false
@@ -755,7 +773,22 @@ components:
       required:
         - Type
       x-stackql-resource-name: target_group
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    access_log_subscriptions:
+      name: access_log_subscriptions
+      id: aws.vpclattice.access_log_subscriptions
+      x-cfn-schema-name: AccessLogSubscription
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::AccessLogSubscription'
     access_log_subscription:
       name: access_log_subscription
       id: aws.vpclattice.access_log_subscription
@@ -774,7 +807,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::AccessLogSubscription' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::AccessLogSubscription'
+    auth_policies:
+      name: auth_policies
+      id: aws.vpclattice.auth_policies
+      x-cfn-schema-name: AuthPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::AuthPolicy'
     auth_policy:
       name: auth_policy
       id: aws.vpclattice.auth_policy
@@ -789,7 +835,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.State') as state
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::AuthPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::AuthPolicy'
+    listeners:
+      name: listeners
+      id: aws.vpclattice.listeners
+      x-cfn-schema-name: Listener
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Listener'
     listener:
       name: listener
       id: aws.vpclattice.listener
@@ -812,7 +871,20 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id,
               JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Listener' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::Listener'
+    resource_policies:
+      name: resource_policies
+      id: aws.vpclattice.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.vpclattice.resource_policy
@@ -826,7 +898,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.Policy') as policy
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::ResourcePolicy'
+    rules:
+      name: rules
+      id: aws.vpclattice.rules
+      x-cfn-schema-name: Rule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Rule'
     rule:
       name: rule
       id: aws.vpclattice.rule
@@ -848,7 +933,20 @@ components:
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Rule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::Rule'
+    services:
+      name: services
+      id: aws.vpclattice.services
+      x-cfn-schema-name: Service
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Service'
     service:
       name: service
       id: aws.vpclattice.service
@@ -872,7 +970,20 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateArn') as certificate_arn,
               JSON_EXTRACT(Properties, '$.CustomDomainName') as custom_domain_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::Service' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::Service'
+    service_networks:
+      name: service_networks
+      id: aws.vpclattice.service_networks
+      x-cfn-schema-name: ServiceNetwork
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetwork'
     service_network:
       name: service_network
       id: aws.vpclattice.service_network
@@ -891,7 +1002,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetwork' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetwork'
+    service_network_service_associations:
+      name: service_network_service_associations
+      id: aws.vpclattice.service_network_service_associations
+      x-cfn-schema-name: ServiceNetworkServiceAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkServiceAssociation'
     service_network_service_association:
       name: service_network_service_association
       id: aws.vpclattice.service_network_service_association
@@ -918,7 +1042,20 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceName') as service_name,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkServiceAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkServiceAssociation'
+    service_network_vpc_associations:
+      name: service_network_vpc_associations
+      id: aws.vpclattice.service_network_vpc_associations
+      x-cfn-schema-name: ServiceNetworkVpcAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkVpcAssociation'
     service_network_vpc_association:
       name: service_network_vpc_association
       id: aws.vpclattice.service_network_vpc_association
@@ -942,7 +1079,20 @@ components:
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.VpcIdentifier') as vpc_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkVpcAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::ServiceNetworkVpcAssociation'
+    target_groups:
+      name: target_groups
+      id: aws.vpclattice.target_groups
+      x-cfn-schema-name: TargetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::TargetGroup'
     target_group:
       name: target_group
       id: aws.vpclattice.target_group
@@ -969,4 +1119,4 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Targets') as targets,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VpcLattice::TargetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VpcLattice::TargetGroup'

@@ -119,6 +119,8 @@ components:
         - Domain
         - Schema
       x-stackql-resource-name: dataset
+      x-stackql-primaryIdentifier:
+        - Arn
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -194,7 +196,22 @@ components:
         - DatasetGroupName
         - Domain
       x-stackql-resource-name: dataset_group
+      x-stackql-primaryIdentifier:
+        - DatasetGroupArn
   x-stackQL-resources:
+    datasets:
+      name: datasets
+      id: aws.forecast.datasets
+      x-cfn-schema-name: Dataset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::Dataset'
     dataset:
       name: dataset
       id: aws.forecast.dataset
@@ -214,7 +231,20 @@ components:
               JSON_EXTRACT(Properties, '$.EncryptionConfig') as encryption_config,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::Dataset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::Dataset'
+    dataset_groups:
+      name: dataset_groups
+      id: aws.forecast.dataset_groups
+      x-cfn-schema-name: DatasetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'
     dataset_group:
       name: dataset_group
       id: aws.forecast.dataset_group
@@ -231,4 +261,4 @@ components:
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::DatasetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'

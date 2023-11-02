@@ -64,6 +64,8 @@ components:
           description: Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.
           $ref: '#/components/schemas/ApplicationResourceLifecycleConfig'
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationName
     SourceBundle:
       type: object
       additionalProperties: false
@@ -95,6 +97,9 @@ components:
         - ApplicationName
         - SourceBundle
       x-stackql-resource-name: application_version
+      x-stackql-primaryIdentifier:
+        - ApplicationName
+        - Id
     SourceConfiguration:
       type: object
       additionalProperties: false
@@ -175,6 +180,9 @@ components:
       required:
         - ApplicationName
       x-stackql-resource-name: configuration_template
+      x-stackql-primaryIdentifier:
+        - ApplicationName
+        - TemplateName
     Tier:
       additionalProperties: false
       type: object
@@ -272,7 +280,22 @@ components:
       required:
         - ApplicationName
       x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - EnvironmentName
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.elasticbeanstalk.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::Application'
     application:
       name: application
       id: aws.elasticbeanstalk.application
@@ -288,7 +311,21 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ResourceLifecycleConfig.ServiceRole') as resource_lifecycle_config_service_role,
               JSON_EXTRACT(Properties, '$.ResourceLifecycleConfig.VersionLifecycleConfig') as resource_lifecycle_config_version_lifecycle_config
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticBeanstalk::Application'
+    application_versions:
+      name: application_versions
+      id: aws.elasticbeanstalk.application_versions
+      x-cfn-schema-name: ApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::ApplicationVersion'
     application_version:
       name: application_version
       id: aws.elasticbeanstalk.application_version
@@ -305,7 +342,21 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.SourceBundle.S3Bucket') as source_bundle_s3_bucket,
               JSON_EXTRACT(Properties, '$.SourceBundle.S3Key') as source_bundle_s3_key
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::ApplicationVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticBeanstalk::ApplicationVersion'
+    configuration_templates:
+      name: configuration_templates
+      id: aws.elasticbeanstalk.configuration_templates
+      x-cfn-schema-name: ConfigurationTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
     configuration_template:
       name: configuration_template
       id: aws.elasticbeanstalk.configuration_template
@@ -326,7 +377,20 @@ components:
               JSON_EXTRACT(Properties, '$.SourceConfiguration.ApplicationName') as source_configuration_application_name,
               JSON_EXTRACT(Properties, '$.SourceConfiguration.TemplateName') as source_configuration_template_name,
               JSON_EXTRACT(Properties, '$.TemplateName') as template_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::ConfigurationTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticBeanstalk::ConfigurationTemplate'
+    environments:
+      name: environments
+      id: aws.elasticbeanstalk.environments
+      x-cfn-schema-name: Environment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::Environment'
     environment:
       name: environment
       id: aws.elasticbeanstalk.environment
@@ -353,4 +417,4 @@ components:
               JSON_EXTRACT(Properties, '$.SolutionStackName') as solution_stack_name,
               JSON_EXTRACT(Properties, '$.CNAMEPrefix') as c_na_me_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticBeanstalk::Environment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticBeanstalk::Environment'

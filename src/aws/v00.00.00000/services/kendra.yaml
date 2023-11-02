@@ -1225,6 +1225,9 @@ components:
         - IndexId
         - Type
       x-stackql-resource-name: data_source
+      x-stackql-primaryIdentifier:
+        - Id
+        - IndexId
     FileFormat:
       description: Format of the input file
       enum:
@@ -1271,6 +1274,9 @@ components:
         - S3Path
         - RoleArn
       x-stackql-resource-name: faq
+      x-stackql-primaryIdentifier:
+        - Id
+        - IndexId
     ServerSideEncryptionConfiguration:
       type: object
       properties:
@@ -1500,7 +1506,23 @@ components:
         - RoleArn
         - Edition
       x-stackql-resource-name: index
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    data_sources:
+      name: data_sources
+      id: aws.kendra.data_sources
+      x-cfn-schema-name: DataSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.IndexId') as index_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::DataSource'
     data_source:
       name: data_source
       id: aws.kendra.data_source
@@ -1526,7 +1548,21 @@ components:
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PreExtractionHookConfiguration') as custom_document_enrichment_configuration_pre_extraction_hook_configuration,
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PostExtractionHookConfiguration') as custom_document_enrichment_configuration_post_extraction_hook_configuration,
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.RoleArn') as custom_document_enrichment_configuration_role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::DataSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::DataSource'
+    faqs:
+      name: faqs
+      id: aws.kendra.faqs
+      x-cfn-schema-name: Faq
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.IndexId') as index_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Faq'
     faq:
       name: faq
       id: aws.kendra.faq
@@ -1541,7 +1577,20 @@ components:
               JSON_EXTRACT(Properties, '$.S3Path.Bucket') as s3_path_bucket,
               JSON_EXTRACT(Properties, '$.S3Path.Key') as s3_path_key,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Faq' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Faq'
+    indices:
+      name: indices
+      id: aws.kendra.indices
+      x-cfn-schema-name: Index
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index'
     index:
       name: index
       id: aws.kendra.index
@@ -1556,4 +1605,4 @@ components:
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.CapacityUnits.StorageCapacityUnits') as capacity_units_storage_capacity_units,
               JSON_EXTRACT(Properties, '$.CapacityUnits.QueryCapacityUnits') as capacity_units_query_capacity_units
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Index'

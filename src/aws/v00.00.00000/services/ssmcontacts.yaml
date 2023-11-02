@@ -100,6 +100,8 @@ components:
         - DisplayName
         - Type
       x-stackql-resource-name: contact
+      x-stackql-primaryIdentifier:
+        - Arn
     ContactChannel:
       type: object
       properties:
@@ -132,6 +134,8 @@ components:
           type: string
           description: The Amazon Resource Name (ARN) of the engagement to a contact channel.
       x-stackql-resource-name: contact_channel
+      x-stackql-primaryIdentifier:
+        - Arn
     Plan:
       type: object
       properties:
@@ -155,6 +159,8 @@ components:
           type: string
           description: The Amazon Resource Name (ARN) of the contact.
       x-stackql-resource-name: plan
+      x-stackql-primaryIdentifier:
+        - Arn
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -341,7 +347,22 @@ components:
         - TimeZoneId
         - Recurrence
       x-stackql-resource-name: rotation
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    contacts:
+      name: contacts
+      id: aws.ssmcontacts.contacts
+      x-cfn-schema-name: Contact
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Contact'
     contact:
       name: contact
       id: aws.ssmcontacts.contact
@@ -358,7 +379,20 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Plan') as plan,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Contact' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMContacts::Contact'
+    contact_channels:
+      name: contact_channels
+      id: aws.ssmcontacts.contact_channels
+      x-cfn-schema-name: ContactChannel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::ContactChannel'
     contact_channel:
       name: contact_channel
       id: aws.ssmcontacts.contact_channel
@@ -376,7 +410,20 @@ components:
               JSON_EXTRACT(Properties, '$.DeferActivation') as defer_activation,
               JSON_EXTRACT(Properties, '$.ChannelAddress') as channel_address,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::ContactChannel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMContacts::ContactChannel'
+    plans:
+      name: plans
+      id: aws.ssmcontacts.plans
+      x-cfn-schema-name: Plan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Plan'
     plan:
       name: plan
       id: aws.ssmcontacts.plan
@@ -392,7 +439,20 @@ components:
               JSON_EXTRACT(Properties, '$.Stages') as stages,
               JSON_EXTRACT(Properties, '$.RotationIds') as rotation_ids,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Plan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMContacts::Plan'
+    rotations:
+      name: rotations
+      id: aws.ssmcontacts.rotations
+      x-cfn-schema-name: Rotation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Rotation'
     rotation:
       name: rotation
       id: aws.ssmcontacts.rotation
@@ -416,4 +476,4 @@ components:
               JSON_EXTRACT(Properties, '$.Recurrence.ShiftCoverages') as recurrence_shift_coverages,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMContacts::Rotation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMContacts::Rotation'

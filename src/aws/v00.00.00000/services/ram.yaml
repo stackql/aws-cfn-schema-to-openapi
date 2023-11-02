@@ -50,7 +50,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: resource_share
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    resource_shares:
+      name: resource_shares
+      id: aws.ram.resource_shares
+      x-cfn-schema-name: ResourceShare
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::ResourceShare'
     resource_share:
       name: resource_share
       id: aws.ram.resource_share
@@ -70,4 +85,4 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::ResourceShare' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::ResourceShare'

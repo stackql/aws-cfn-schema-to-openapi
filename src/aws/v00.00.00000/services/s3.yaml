@@ -97,6 +97,8 @@ components:
       required:
         - Bucket
       x-stackql-resource-name: access_point
+      x-stackql-primaryIdentifier:
+        - Name
     TagFilter:
       description: Tags to use to identify a subset of objects for an Amazon S3 bucket.
       type: object
@@ -1172,6 +1174,8 @@ components:
           format: uri
           type: string
       x-stackql-resource-name: bucket
+      x-stackql-primaryIdentifier:
+        - BucketName
     BucketPolicy:
       type: object
       properties:
@@ -1185,6 +1189,8 @@ components:
         - Bucket
         - PolicyDocument
       x-stackql-resource-name: bucket_policy
+      x-stackql-primaryIdentifier:
+        - Id
     Region:
       type: object
       properties:
@@ -1230,6 +1236,8 @@ components:
       required:
         - Regions
       x-stackql-resource-name: multi_region_access_point
+      x-stackql-primaryIdentifier:
+        - Name
     MultiRegionAccessPointPolicy:
       type: object
       properties:
@@ -1259,6 +1267,8 @@ components:
         - Policy
         - MrapName
       x-stackql-resource-name: multi_region_access_point_policy
+      x-stackql-primaryIdentifier:
+        - MrapName
     Id:
       description: The ID that identifies the Amazon S3 Storage Lens configuration.
       type: string
@@ -1501,7 +1511,22 @@ components:
       required:
         - StorageLensConfiguration
       x-stackql-resource-name: storage_lens
+      x-stackql-primaryIdentifier:
+        - StorageLensConfiguration/Id
   x-stackQL-resources:
+    access_points:
+      name: access_points
+      id: aws.s3.access_points
+      x-cfn-schema-name: AccessPoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3.access_point
@@ -1525,7 +1550,20 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status,
               JSON_EXTRACT(Properties, '$.NetworkOrigin') as network_origin
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessPoint'
+    buckets:
+      name: buckets
+      id: aws.s3.buckets
+      x-cfn-schema-name: Bucket
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket'
     bucket:
       name: bucket
       id: aws.s3.bucket
@@ -1573,7 +1611,20 @@ components:
               JSON_EXTRACT(Properties, '$.DualStackDomainName') as dual_stack_domain_name,
               JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
               JSON_EXTRACT(Properties, '$.WebsiteURL') as website_ur_l
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
+    bucket_policies:
+      name: bucket_policies
+      id: aws.s3.bucket_policies
+      x-cfn-schema-name: BucketPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy'
     bucket_policy:
       name: bucket_policy
       id: aws.s3.bucket_policy
@@ -1588,7 +1639,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::BucketPolicy'
+    multi_region_access_points:
+      name: multi_region_access_points
+      id: aws.s3.multi_region_access_points
+      x-cfn-schema-name: MultiRegionAccessPoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
     multi_region_access_point:
       name: multi_region_access_point
       id: aws.s3.multi_region_access_point
@@ -1608,7 +1672,20 @@ components:
               JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
               JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
               JSON_EXTRACT(Properties, '$.Regions') as regions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
+    multi_region_access_point_policies:
+      name: multi_region_access_point_policies
+      id: aws.s3.multi_region_access_point_policies
+      x-cfn-schema-name: MultiRegionAccessPointPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MrapName') as mrap_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
     multi_region_access_point_policy:
       name: multi_region_access_point_policy
       id: aws.s3.multi_region_access_point_policy
@@ -1623,7 +1700,7 @@ components:
               JSON_EXTRACT(Properties, '$.MrapName') as mrap_name,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
     storage_lens:
       name: storage_lens
       id: aws.s3.storage_lens
@@ -1644,4 +1721,4 @@ components:
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.IsEnabled') as storage_lens_configuration_is_enabled,
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration.StorageLensArn') as storage_lens_configuration_storage_lens_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::StorageLens' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLens'

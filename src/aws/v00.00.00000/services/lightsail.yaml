@@ -63,6 +63,8 @@ components:
         - EvaluationPeriods
         - Threshold
       x-stackql-resource-name: alarm
+      x-stackql-primaryIdentifier:
+        - AlarmName
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -141,6 +143,8 @@ components:
         - BucketName
         - BundleId
       x-stackql-resource-name: bucket
+      x-stackql-primaryIdentifier:
+        - BucketName
     Certificate:
       type: object
       properties:
@@ -173,6 +177,8 @@ components:
         - CertificateName
         - DomainName
       x-stackql-resource-name: certificate
+      x-stackql-primaryIdentifier:
+        - CertificateName
     HealthCheckConfig:
       description: Describes the health check configuration of an Amazon Lightsail container service.
       type: object
@@ -273,6 +279,8 @@ components:
         - Power
         - Scale
       x-stackql-resource-name: container
+      x-stackql-primaryIdentifier:
+        - ServiceName
     ContainerServiceDeployment:
       description: Describes a container deployment configuration of an Amazon Lightsail container service.
       type: object
@@ -411,6 +419,8 @@ components:
         - MasterDatabaseName
         - MasterUsername
       x-stackql-resource-name: database
+      x-stackql-primaryIdentifier:
+        - RelationalDatabaseName
     AutoSnapshotAddOn:
       description: An object that represents additional parameters when enabling or modifying the automatic snapshot add-on
       type: object
@@ -654,6 +664,8 @@ components:
         - DefaultCacheBehavior
         - Origin
       x-stackql-resource-name: distribution
+      x-stackql-primaryIdentifier:
+        - DistributionName
     ipv6Cidrs:
       description: IPv6 Cidrs
       type: array
@@ -836,6 +848,8 @@ components:
         - BlueprintId
         - BundleId
       x-stackql-resource-name: instance
+      x-stackql-primaryIdentifier:
+        - InstanceName
     LoadBalancer:
       type: object
       properties:
@@ -881,6 +895,8 @@ components:
         - LoadBalancerName
         - InstancePort
       x-stackql-resource-name: load_balancer
+      x-stackql-primaryIdentifier:
+        - LoadBalancerName
     LoadBalancerTlsCertificate:
       type: object
       properties:
@@ -917,6 +933,9 @@ components:
         - CertificateName
         - CertificateDomainName
       x-stackql-resource-name: load_balancer_tls_certificate
+      x-stackql-primaryIdentifier:
+        - CertificateName
+        - LoadBalancerName
     StaticIp:
       type: object
       properties:
@@ -937,7 +956,22 @@ components:
       required:
         - StaticIpName
       x-stackql-resource-name: static_ip
+      x-stackql-primaryIdentifier:
+        - StaticIpName
   x-stackQL-resources:
+    alarms:
+      name: alarms
+      id: aws.lightsail.alarms
+      x-cfn-schema-name: Alarm
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Alarm'
     alarm:
       name: alarm
       id: aws.lightsail.alarm
@@ -962,7 +996,20 @@ components:
               JSON_EXTRACT(Properties, '$.Threshold') as threshold,
               JSON_EXTRACT(Properties, '$.TreatMissingData') as treat_missing_data,
               JSON_EXTRACT(Properties, '$.State') as state
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Alarm' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Alarm'
+    buckets:
+      name: buckets
+      id: aws.lightsail.buckets
+      x-cfn-schema-name: Bucket
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Bucket'
     bucket:
       name: bucket
       id: aws.lightsail.bucket
@@ -985,7 +1032,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Url') as url,
               JSON_EXTRACT(Properties, '$.AbleToUpdateBundle') as able_to_update_bundle
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Bucket' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Bucket'
+    certificates:
+      name: certificates
+      id: aws.lightsail.certificates
+      x-cfn-schema-name: Certificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Certificate'
     certificate:
       name: certificate
       id: aws.lightsail.certificate
@@ -1003,7 +1063,20 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateArn') as certificate_arn,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Certificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Certificate'
+    containers:
+      name: containers
+      id: aws.lightsail.containers
+      x-cfn-schema-name: Container
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServiceName') as service_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Container'
     container:
       name: container
       id: aws.lightsail.container
@@ -1025,7 +1098,20 @@ components:
               JSON_EXTRACT(Properties, '$.IsDisabled') as is_disabled,
               JSON_EXTRACT(Properties, '$.Url') as url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Container' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Container'
+    databases:
+      name: databases
+      id: aws.lightsail.databases
+      x-cfn-schema-name: Database
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RelationalDatabaseName') as relational_database_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Database'
     database:
       name: database
       id: aws.lightsail.database
@@ -1053,7 +1139,20 @@ components:
               JSON_EXTRACT(Properties, '$.RotateMasterUserPassword') as rotate_master_user_password,
               JSON_EXTRACT(Properties, '$.RelationalDatabaseParameters') as relational_database_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Database' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Database'
+    distributions:
+      name: distributions
+      id: aws.lightsail.distributions
+      x-cfn-schema-name: Distribution
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DistributionName') as distribution_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Distribution'
     distribution:
       name: distribution
       id: aws.lightsail.distribution
@@ -1087,7 +1186,20 @@ components:
               JSON_EXTRACT(Properties, '$.IsEnabled') as is_enabled,
               JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Distribution' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Distribution'
+    instances:
+      name: instances
+      id: aws.lightsail.instances
+      x-cfn-schema-name: Instance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceName') as instance_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Instance'
     instance:
       name: instance
       id: aws.lightsail.instance
@@ -1124,7 +1236,20 @@ components:
               JSON_EXTRACT(Properties, '$.KeyPairName') as key_pair_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Instance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Instance'
+    load_balancers:
+      name: load_balancers
+      id: aws.lightsail.load_balancers
+      x-cfn-schema-name: LoadBalancer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.lightsail.load_balancer
@@ -1146,7 +1271,21 @@ components:
               JSON_EXTRACT(Properties, '$.SessionStickinessLBCookieDurationSeconds') as session_stickiness_lb_cookie_duration_seconds,
               JSON_EXTRACT(Properties, '$.TlsPolicyName') as tls_policy_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
+    load_balancer_tls_certificates:
+      name: load_balancer_tls_certificates
+      id: aws.lightsail.load_balancer_tls_certificates
+      x-cfn-schema-name: LoadBalancerTlsCertificate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name,
+              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
     load_balancer_tls_certificate:
       name: load_balancer_tls_certificate
       id: aws.lightsail.load_balancer_tls_certificate
@@ -1166,7 +1305,20 @@ components:
               JSON_EXTRACT(Properties, '$.IsAttached') as is_attached,
               JSON_EXTRACT(Properties, '$.HttpsRedirectionEnabled') as https_redirection_enabled,
               JSON_EXTRACT(Properties, '$.Status') as status
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
+    static_ips:
+      name: static_ips
+      id: aws.lightsail.static_ips
+      x-cfn-schema-name: StaticIp
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StaticIpName') as static_ip_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::StaticIp'
     static_ip:
       name: static_ip
       id: aws.lightsail.static_ip
@@ -1183,4 +1335,4 @@ components:
               JSON_EXTRACT(Properties, '$.IsAttached') as is_attached,
               JSON_EXTRACT(Properties, '$.IpAddress') as ip_address,
               JSON_EXTRACT(Properties, '$.StaticIpArn') as static_ip_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::StaticIp' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::StaticIp'

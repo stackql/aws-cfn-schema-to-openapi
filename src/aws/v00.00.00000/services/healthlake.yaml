@@ -137,7 +137,22 @@ components:
       required:
         - DatastoreTypeVersion
       x-stackql-resource-name: fhir_datastore
+      x-stackql-primaryIdentifier:
+        - DatastoreId
   x-stackQL-resources:
+    fhir_datastores:
+      name: fhir_datastores
+      id: aws.healthlake.fhir_datastores
+      x-cfn-schema-name: FHIRDatastore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatastoreId') as datastore_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::HealthLake::FHIRDatastore'
     fhir_datastore:
       name: fhir_datastore
       id: aws.healthlake.fhir_datastore
@@ -154,4 +169,4 @@ components:
               JSON_EXTRACT(Properties, '$.PreloadDataConfig.PreloadDataType') as preload_data_config_preload_data_type,
               JSON_EXTRACT(Properties, '$.SseConfiguration.KmsEncryptionConfig') as sse_configuration_kms_encryption_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::HealthLake::FHIRDatastore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::HealthLake::FHIRDatastore'

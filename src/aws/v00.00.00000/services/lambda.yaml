@@ -57,6 +57,8 @@ components:
         - FunctionVersion
         - Name
       x-stackql-resource-name: alias
+      x-stackql-primaryIdentifier:
+        - Id
     AllowedPublishers:
       type: object
       description: When the CodeSigningConfig is later on attached to a function, the function code will be expected to be signed by profiles from this list
@@ -113,6 +115,8 @@ components:
       required:
         - AllowedPublishers
       x-stackql-resource-name: code_signing_config
+      x-stackql-primaryIdentifier:
+        - CodeSigningConfigArn
     DestinationConfig:
       type: object
       additionalProperties: false
@@ -159,6 +163,8 @@ components:
         - FunctionName
         - Qualifier
       x-stackql-resource-name: event_invoke_config
+      x-stackql-primaryIdentifier:
+        - Id
     FilterCriteria:
       type: object
       description: The filter criteria to control event filtering.
@@ -417,6 +423,8 @@ components:
       required:
         - FunctionName
       x-stackql-resource-name: event_source_mapping
+      x-stackql-primaryIdentifier:
+        - Id
     ImageConfig:
       additionalProperties: false
       type: object
@@ -720,6 +728,8 @@ components:
         - Code
         - Role
       x-stackql-resource-name: function
+      x-stackql-primaryIdentifier:
+        - FunctionName
     Content:
       type: object
       additionalProperties: false
@@ -759,6 +769,8 @@ components:
       required:
         - Content
       x-stackql-resource-name: layer_version
+      x-stackql-primaryIdentifier:
+        - Id
     LayerVersionPermission:
       type: object
       properties:
@@ -777,6 +789,8 @@ components:
         - Action
         - Principal
       x-stackql-resource-name: layer_version_permission
+      x-stackql-primaryIdentifier:
+        - Id
     Permission:
       type: object
       properties:
@@ -803,6 +817,8 @@ components:
         - Action
         - Principal
       x-stackql-resource-name: permission
+      x-stackql-primaryIdentifier:
+        - Id
     AllowHeaders:
       items:
         type: string
@@ -906,6 +922,8 @@ components:
         - TargetFunctionArn
         - AuthType
       x-stackql-resource-name: url
+      x-stackql-primaryIdentifier:
+        - FunctionArn
     Version:
       type: object
       properties:
@@ -924,7 +942,22 @@ components:
       required:
         - FunctionName
       x-stackql-resource-name: version
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    aliases:
+      name: aliases
+      id: aws.lambda.aliases
+      x-cfn-schema-name: Alias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Alias'
     alias:
       name: alias
       id: aws.lambda.alias
@@ -943,7 +976,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RoutingConfig.AdditionalVersionWeights') as routing_config_additional_version_weights,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Alias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Alias'
+    code_signing_configs:
+      name: code_signing_configs
+      id: aws.lambda.code_signing_configs
+      x-cfn-schema-name: CodeSigningConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CodeSigningConfigArn') as code_signing_config_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
     code_signing_config:
       name: code_signing_config
       id: aws.lambda.code_signing_config
@@ -960,7 +1006,20 @@ components:
               JSON_EXTRACT(Properties, '$.CodeSigningPolicies.UntrustedArtifactOnDeployment') as code_signing_policies_untrusted_artifact_on_deployment,
               JSON_EXTRACT(Properties, '$.CodeSigningConfigId') as code_signing_config_id,
               JSON_EXTRACT(Properties, '$.CodeSigningConfigArn') as code_signing_config_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
+    event_invoke_configs:
+      name: event_invoke_configs
+      id: aws.lambda.event_invoke_configs
+      x-cfn-schema-name: EventInvokeConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
     event_invoke_config:
       name: event_invoke_config
       id: aws.lambda.event_invoke_config
@@ -978,7 +1037,20 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationConfig.OnFailure') as destination_config_on_failure,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.MaximumEventAgeInSeconds') as maximum_event_age_in_seconds
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
+    event_source_mappings:
+      name: event_source_mappings
+      id: aws.lambda.event_source_mappings
+      x-cfn-schema-name: EventSourceMapping
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
     event_source_mapping:
       name: event_source_mapping
       id: aws.lambda.event_source_mapping
@@ -1016,7 +1088,20 @@ components:
               JSON_EXTRACT(Properties, '$.DocumentDBEventSourceConfig.DatabaseName') as document_db_event_source_config_database_name,
               JSON_EXTRACT(Properties, '$.DocumentDBEventSourceConfig.CollectionName') as document_db_event_source_config_collection_name,
               JSON_EXTRACT(Properties, '$.DocumentDBEventSourceConfig.FullDocument') as document_db_event_source_config_full_document
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
+    functions:
+      name: functions
+      id: aws.lambda.functions
+      x-cfn-schema-name: Function
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FunctionName') as function_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Function'
     function:
       name: function
       id: aws.lambda.function
@@ -1063,7 +1148,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.EphemeralStorage.Size') as ephemeral_storage_size,
               JSON_EXTRACT(Properties, '$.Architectures') as architectures
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Function' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Function'
+    layer_versions:
+      name: layer_versions
+      id: aws.lambda.layer_versions
+      x-cfn-schema-name: LayerVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
     layer_version:
       name: layer_version
       id: aws.lambda.layer_version
@@ -1084,7 +1182,20 @@ components:
               JSON_EXTRACT(Properties, '$.Content.S3Key') as content_s3_key,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CompatibleArchitectures') as compatible_architectures
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
+    layer_version_permissions:
+      name: layer_version_permissions
+      id: aws.lambda.layer_version_permissions
+      x-cfn-schema-name: LayerVersionPermission
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
     layer_version_permission:
       name: layer_version_permission
       id: aws.lambda.layer_version_permission
@@ -1101,7 +1212,20 @@ components:
               JSON_EXTRACT(Properties, '$.LayerVersionArn') as layer_version_arn,
               JSON_EXTRACT(Properties, '$.OrganizationId') as organization_id,
               JSON_EXTRACT(Properties, '$.Principal') as principal
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
+    permissions:
+      name: permissions
+      id: aws.lambda.permissions
+      x-cfn-schema-name: Permission
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Permission'
     permission:
       name: permission
       id: aws.lambda.permission
@@ -1122,7 +1246,20 @@ components:
               JSON_EXTRACT(Properties, '$.PrincipalOrgID') as principal_org_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Principal') as principal
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Permission' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Permission'
+    urls:
+      name: urls
+      id: aws.lambda.urls
+      x-cfn-schema-name: Url
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FunctionArn') as function_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Url'
     url:
       name: url
       id: aws.lambda.url
@@ -1146,7 +1283,20 @@ components:
               JSON_EXTRACT(Properties, '$.Cors.AllowOrigins') as cors_allow_origins,
               JSON_EXTRACT(Properties, '$.Cors.ExposeHeaders') as cors_expose_headers,
               JSON_EXTRACT(Properties, '$.Cors.MaxAge') as cors_max_age
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Url' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Url'
+    versions:
+      name: versions
+      id: aws.lambda.versions
+      x-cfn-schema-name: Version
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Version'
     version:
       name: version
       id: aws.lambda.version
@@ -1164,4 +1314,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CodeSha256') as code_sha256,
               JSON_EXTRACT(Properties, '$.Version') as version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Version' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Version'

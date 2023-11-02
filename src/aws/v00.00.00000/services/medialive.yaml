@@ -1993,6 +1993,8 @@ components:
         Tags:
           type: object
       x-stackql-resource-name: channel
+      x-stackql-primaryIdentifier:
+        - Id
     InputSourceRequest:
       type: object
       additionalProperties: false
@@ -2078,6 +2080,8 @@ components:
         Name:
           type: string
       x-stackql-resource-name: input
+      x-stackql-primaryIdentifier:
+        - Id
     InputWhitelistRuleCidr:
       type: object
       additionalProperties: false
@@ -2099,7 +2103,22 @@ components:
         Tags:
           type: object
       x-stackql-resource-name: input_security_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    channels:
+      name: channels
+      id: aws.medialive.channels
+      x-cfn-schema-name: Channel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Channel'
     channel:
       name: channel
       id: aws.medialive.channel
@@ -2140,7 +2159,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Inputs') as inputs,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Channel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Channel'
+    inputs:
+      name: inputs
+      id: aws.medialive.inputs
+      x-cfn-schema-name: Input
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Input'
     input:
       name: input
       id: aws.medialive.input
@@ -2165,7 +2197,20 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Input' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Input'
+    input_security_groups:
+      name: input_security_groups
+      id: aws.medialive.input_security_groups
+      x-cfn-schema-name: InputSecurityGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
     input_security_group:
       name: input_security_group
       id: aws.medialive.input_security_group
@@ -2181,4 +2226,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.WhitelistRules') as whitelist_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'

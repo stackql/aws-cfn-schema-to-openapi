@@ -213,6 +213,8 @@ components:
         - PubliclyAccessible
         - BrokerName
       x-stackql-resource-name: broker
+      x-stackql-primaryIdentifier:
+        - Id
     Configuration:
       type: object
       properties:
@@ -245,6 +247,8 @@ components:
         - Data
         - Name
       x-stackql-resource-name: configuration
+      x-stackql-primaryIdentifier:
+        - Id
     ConfigurationAssociation:
       type: object
       properties:
@@ -258,7 +262,22 @@ components:
         - Configuration
         - Broker
       x-stackql-resource-name: configuration_association
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    brokers:
+      name: brokers
+      id: aws.amazonmq.brokers
+      x-cfn-schema-name: Broker
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
     broker:
       name: broker
       id: aws.amazonmq.broker
@@ -313,7 +332,20 @@ components:
               JSON_EXTRACT(Properties, '$.PubliclyAccessible') as publicly_accessible,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Broker' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
+    configurations:
+      name: configurations
+      id: aws.amazonmq.configurations
+      x-cfn-schema-name: Configuration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
     configuration:
       name: configuration
       id: aws.amazonmq.configuration
@@ -335,7 +367,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Configuration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
+    configuration_associations:
+      name: configuration_associations
+      id: aws.amazonmq.configuration_associations
+      x-cfn-schema-name: ConfigurationAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'
     configuration_association:
       name: configuration_association
       id: aws.amazonmq.configuration_association
@@ -351,4 +396,4 @@ components:
               JSON_EXTRACT(Properties, '$.Broker') as broker,
               JSON_EXTRACT(Properties, '$.Configuration.Revision') as configuration_revision,
               JSON_EXTRACT(Properties, '$.Configuration.Id') as configuration_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'

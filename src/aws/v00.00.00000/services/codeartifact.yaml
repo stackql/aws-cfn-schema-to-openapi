@@ -63,6 +63,8 @@ components:
       required:
         - DomainName
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - Arn
     Repository:
       type: object
       properties:
@@ -121,7 +123,22 @@ components:
         - RepositoryName
         - DomainName
       x-stackql-resource-name: repository
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    domains:
+      name: domains
+      id: aws.codeartifact.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
     domain:
       name: domain
       id: aws.codeartifact.domain
@@ -140,7 +157,20 @@ components:
               JSON_EXTRACT(Properties, '$.PermissionsPolicyDocument') as permissions_policy_document,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
+    repositories:
+      name: repositories
+      id: aws.codeartifact.repositories
+      x-cfn-schema-name: Repository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Repository'
     repository:
       name: repository
       id: aws.codeartifact.repository
@@ -162,4 +192,4 @@ components:
               JSON_EXTRACT(Properties, '$.Upstreams') as upstreams,
               JSON_EXTRACT(Properties, '$.PermissionsPolicyDocument') as permissions_policy_document,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Repository' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Repository'

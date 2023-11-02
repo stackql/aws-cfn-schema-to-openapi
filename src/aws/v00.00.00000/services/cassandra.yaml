@@ -37,6 +37,8 @@ components:
           maxItems: 50
       required: []
       x-stackql-resource-name: keyspace
+      x-stackql-primaryIdentifier:
+        - KeyspaceName
     Column:
       type: object
       properties:
@@ -174,7 +176,23 @@ components:
         - KeyspaceName
         - PartitionKeyColumns
       x-stackql-resource-name: table
+      x-stackql-primaryIdentifier:
+        - KeyspaceName
+        - TableName
   x-stackQL-resources:
+    keyspaces:
+      name: keyspaces
+      id: aws.cassandra.keyspaces
+      x-cfn-schema-name: Keyspace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
     keyspace:
       name: keyspace
       id: aws.cassandra.keyspace
@@ -188,7 +206,21 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Keyspace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
+    tables:
+      name: tables
+      id: aws.cassandra.tables
+      x-cfn-schema-name: Table
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Table'
     table:
       name: table
       id: aws.cassandra.table
@@ -213,4 +245,4 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as default_time_to_live,
               JSON_EXTRACT(Properties, '$.EncryptionSpecification.EncryptionType') as encryption_specification_encryption_type,
               JSON_EXTRACT(Properties, '$.EncryptionSpecification.KmsKeyIdentifier') as encryption_specification_kms_key_identifier
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Table' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Table'

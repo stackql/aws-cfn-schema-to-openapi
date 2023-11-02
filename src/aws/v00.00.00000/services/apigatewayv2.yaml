@@ -92,6 +92,8 @@ components:
         ApiKeySelectionExpression:
           type: string
       x-stackql-resource-name: api
+      x-stackql-primaryIdentifier:
+        - ApiId
     AccessLogSettings:
       type: object
       additionalProperties: false
@@ -175,6 +177,8 @@ components:
       required:
         - ApiId
       x-stackql-resource-name: api_gateway_managed_overrides
+      x-stackql-primaryIdentifier:
+        - Id
     ApiMapping:
       type: object
       properties:
@@ -193,6 +197,8 @@ components:
         - Stage
         - ApiId
       x-stackql-resource-name: api_mapping
+      x-stackql-primaryIdentifier:
+        - Id
     JWTConfiguration:
       type: object
       additionalProperties: false
@@ -239,6 +245,9 @@ components:
         - ApiId
         - Name
       x-stackql-resource-name: authorizer
+      x-stackql-primaryIdentifier:
+        - AuthorizerId
+        - ApiId
     Deployment:
       type: object
       properties:
@@ -253,6 +262,9 @@ components:
       required:
         - ApiId
       x-stackql-resource-name: deployment
+      x-stackql-primaryIdentifier:
+        - ApiId
+        - DeploymentId
     MutualTlsAuthentication:
       type: object
       additionalProperties: false
@@ -298,6 +310,8 @@ components:
       required:
         - DomainName
       x-stackql-resource-name: domain_name
+      x-stackql-primaryIdentifier:
+        - Id
     TlsConfig:
       type: object
       additionalProperties: false
@@ -349,6 +363,8 @@ components:
         - ApiId
         - IntegrationType
       x-stackql-resource-name: integration
+      x-stackql-primaryIdentifier:
+        - Id
     IntegrationResponse:
       type: object
       properties:
@@ -373,6 +389,8 @@ components:
         - IntegrationResponseKey
         - ApiId
       x-stackql-resource-name: integration_response
+      x-stackql-primaryIdentifier:
+        - Id
     Model:
       type: object
       properties:
@@ -393,6 +411,9 @@ components:
         - Schema
         - Name
       x-stackql-resource-name: model
+      x-stackql-primaryIdentifier:
+        - ApiId
+        - ModelId
     ParameterConstraints:
       type: object
       additionalProperties: false
@@ -437,6 +458,9 @@ components:
         - RouteKey
         - ApiId
       x-stackql-resource-name: route
+      x-stackql-primaryIdentifier:
+        - ApiId
+        - RouteId
     RouteResponse:
       type: object
       properties:
@@ -459,6 +483,8 @@ components:
         - RouteId
         - ApiId
       x-stackql-resource-name: route_response
+      x-stackql-primaryIdentifier:
+        - Id
     Stage:
       type: object
       properties:
@@ -492,6 +518,8 @@ components:
         - StageName
         - ApiId
       x-stackql-resource-name: stage
+      x-stackql-primaryIdentifier:
+        - Id
     VpcLink:
       type: object
       properties:
@@ -520,7 +548,22 @@ components:
         - SubnetIds
         - Name
       x-stackql-resource-name: vpc_link
+      x-stackql-primaryIdentifier:
+        - VpcLinkId
   x-stackQL-resources:
+    apis:
+      name: apis
+      id: aws.apigatewayv2.apis
+      x-cfn-schema-name: Api
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiId') as api_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
     api:
       name: api
       id: aws.apigatewayv2.api
@@ -559,7 +602,7 @@ components:
               JSON_EXTRACT(Properties, '$.Body') as body,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ApiKeySelectionExpression') as api_key_selection_expression
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Api' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
     api_gateway_managed_overrides:
       name: api_gateway_managed_overrides
       id: aws.apigatewayv2.api_gateway_managed_overrides
@@ -588,7 +631,20 @@ components:
               JSON_EXTRACT(Properties, '$.Route.AuthorizationType') as route_authorization_type,
               JSON_EXTRACT(Properties, '$.Route.AuthorizerId') as route_authorizer_id,
               JSON_EXTRACT(Properties, '$.Route.OperationName') as route_operation_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiGatewayManagedOverrides' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiGatewayManagedOverrides'
+    api_mappings:
+      name: api_mappings
+      id: aws.apigatewayv2.api_mappings
+      x-cfn-schema-name: ApiMapping
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
     api_mapping:
       name: api_mapping
       id: aws.apigatewayv2.api_mapping
@@ -605,7 +661,21 @@ components:
               JSON_EXTRACT(Properties, '$.ApiMappingKey') as api_mapping_key,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
+    authorizers:
+      name: authorizers
+      id: aws.apigatewayv2.authorizers
+      x-cfn-schema-name: Authorizer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
+              JSON_EXTRACT(Properties, '$.ApiId') as api_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
     authorizer:
       name: authorizer
       id: aws.apigatewayv2.authorizer
@@ -630,7 +700,21 @@ components:
               JSON_EXTRACT(Properties, '$.EnableSimpleResponses') as enable_simple_responses,
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
+    deployments:
+      name: deployments
+      id: aws.apigatewayv2.deployments
+      x-cfn-schema-name: Deployment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiId') as api_id,
+              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
     deployment:
       name: deployment
       id: aws.apigatewayv2.deployment
@@ -646,7 +730,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.StageName') as stage_name,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
+    domain_names:
+      name: domain_names
+      id: aws.apigatewayv2.domain_names
+      x-cfn-schema-name: DomainName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
     domain_name:
       name: domain_name
       id: aws.apigatewayv2.domain_name
@@ -666,7 +763,20 @@ components:
               JSON_EXTRACT(Properties, '$.DomainNameConfigurations') as domain_name_configurations,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
+    integrations:
+      name: integrations
+      id: aws.apigatewayv2.integrations
+      x-cfn-schema-name: Integration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
     integration:
       name: integration
       id: aws.apigatewayv2.integration
@@ -697,7 +807,20 @@ components:
               JSON_EXTRACT(Properties, '$.IntegrationSubtype') as integration_subtype,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.IntegrationType') as integration_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
+    integration_responses:
+      name: integration_responses
+      id: aws.apigatewayv2.integration_responses
+      x-cfn-schema-name: IntegrationResponse
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
     integration_response:
       name: integration_response
       id: aws.apigatewayv2.integration_response
@@ -717,7 +840,21 @@ components:
               JSON_EXTRACT(Properties, '$.IntegrationId') as integration_id,
               JSON_EXTRACT(Properties, '$.IntegrationResponseKey') as integration_response_key,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
+    models:
+      name: models
+      id: aws.apigatewayv2.models
+      x-cfn-schema-name: Model
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiId') as api_id,
+              JSON_EXTRACT(Properties, '$.ModelId') as model_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
     model:
       name: model
       id: aws.apigatewayv2.model
@@ -735,7 +872,21 @@ components:
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Model' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
+    routes:
+      name: routes
+      id: aws.apigatewayv2.routes
+      x-cfn-schema-name: Route
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApiId') as api_id,
+              JSON_EXTRACT(Properties, '$.RouteId') as route_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
     route:
       name: route
       id: aws.apigatewayv2.route
@@ -760,7 +911,20 @@ components:
               JSON_EXTRACT(Properties, '$.RequestParameters') as request_parameters,
               JSON_EXTRACT(Properties, '$.Target') as target,
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Route' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
+    route_responses:
+      name: route_responses
+      id: aws.apigatewayv2.route_responses
+      x-cfn-schema-name: RouteResponse
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
     route_response:
       name: route_response
       id: aws.apigatewayv2.route_response
@@ -779,7 +943,20 @@ components:
               JSON_EXTRACT(Properties, '$.ModelSelectionExpression') as model_selection_expression,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.ResponseModels') as response_models
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
+    stages:
+      name: stages
+      id: aws.apigatewayv2.stages
+      x-cfn-schema-name: Stage
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
     stage:
       name: stage
       id: aws.apigatewayv2.stage
@@ -809,7 +986,20 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultRouteSettings.ThrottlingBurstLimit') as default_route_settings_throttling_burst_limit,
               JSON_EXTRACT(Properties, '$.DefaultRouteSettings.ThrottlingRateLimit') as default_route_settings_throttling_rate_limit,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
+    vpc_links:
+      name: vpc_links
+      id: aws.apigatewayv2.vpc_links
+      x-cfn-schema-name: VpcLink
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VpcLinkId') as vpc_link_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'
     vpc_link:
       name: vpc_link
       id: aws.apigatewayv2.vpc_link
@@ -826,4 +1016,4 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'

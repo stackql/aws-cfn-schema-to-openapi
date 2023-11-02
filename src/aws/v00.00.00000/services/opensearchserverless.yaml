@@ -37,6 +37,9 @@ components:
         - Name
         - Policy
       x-stackql-resource-name: access_policy
+      x-stackql-primaryIdentifier:
+        - Type
+        - Name
     Tag:
       type: object
       description: A key-value pair metadata associated with resource
@@ -108,6 +111,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: collection
+      x-stackql-primaryIdentifier:
+        - Id
     SamlConfigOptions:
       type: object
       description: Describes saml options in form of key value map
@@ -165,6 +170,8 @@ components:
         Type:
           $ref: '#/components/schemas/SecurityConfigType'
       x-stackql-resource-name: security_config
+      x-stackql-primaryIdentifier:
+        - Id
     SecurityPolicyType:
       type: string
       description: The possible types for the network policy
@@ -198,6 +205,9 @@ components:
         - Name
         - Policy
       x-stackql-resource-name: security_policy
+      x-stackql-primaryIdentifier:
+        - Type
+        - Name
     VpcEndpoint:
       type: object
       properties:
@@ -246,7 +256,23 @@ components:
         - VpcId
         - SubnetIds
       x-stackql-resource-name: vpc_endpoint
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    access_policies:
+      name: access_policies
+      id: aws.opensearchserverless.access_policies
+      x-cfn-schema-name: AccessPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
     access_policy:
       name: access_policy
       id: aws.opensearchserverless.access_policy
@@ -261,7 +287,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
+    collections:
+      name: collections
+      id: aws.opensearchserverless.collections
+      x-cfn-schema-name: Collection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
     collection:
       name: collection
       id: aws.opensearchserverless.collection
@@ -280,7 +319,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CollectionEndpoint') as collection_endpoint,
               JSON_EXTRACT(Properties, '$.DashboardEndpoint') as dashboard_endpoint
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
+    security_configs:
+      name: security_configs
+      id: aws.opensearchserverless.security_configs
+      x-cfn-schema-name: SecurityConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
     security_config:
       name: security_config
       id: aws.opensearchserverless.security_config
@@ -299,7 +351,21 @@ components:
               JSON_EXTRACT(Properties, '$.SamlOptions.UserAttribute') as saml_options_user_attribute,
               JSON_EXTRACT(Properties, '$.SamlOptions.GroupAttribute') as saml_options_group_attribute,
               JSON_EXTRACT(Properties, '$.SamlOptions.SessionTimeout') as saml_options_session_timeout
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
+    security_policies:
+      name: security_policies
+      id: aws.opensearchserverless.security_policies
+      x-cfn-schema-name: SecurityPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
     security_policy:
       name: security_policy
       id: aws.opensearchserverless.security_policy
@@ -314,7 +380,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
+    vpc_endpoints:
+      name: vpc_endpoints
+      id: aws.opensearchserverless.vpc_endpoints
+      x-cfn-schema-name: VpcEndpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'
     vpc_endpoint:
       name: vpc_endpoint
       id: aws.opensearchserverless.vpc_endpoint
@@ -331,4 +410,4 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'

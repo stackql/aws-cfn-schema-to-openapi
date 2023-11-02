@@ -108,6 +108,8 @@ components:
       required:
         - BackupPlan
       x-stackql-resource-name: backup_plan
+      x-stackql-primaryIdentifier:
+        - BackupPlanId
     BackupSelectionResourceType:
       type: object
       additionalProperties: false
@@ -202,6 +204,8 @@ components:
         - BackupSelection
         - BackupPlanId
       x-stackql-resource-name: backup_selection
+      x-stackql-primaryIdentifier:
+        - Id
     NotificationObjectType:
       type: object
       additionalProperties: false
@@ -256,6 +260,8 @@ components:
       required:
         - BackupVaultName
       x-stackql-resource-name: backup_vault
+      x-stackql-primaryIdentifier:
+        - BackupVaultName
     FrameworkControl:
       type: object
       additionalProperties: false
@@ -372,6 +378,8 @@ components:
       required:
         - FrameworkControls
       x-stackql-resource-name: framework
+      x-stackql-primaryIdentifier:
+        - FrameworkArn
     ReportPlan:
       type: object
       properties:
@@ -458,7 +466,22 @@ components:
         - ReportDeliveryChannel
         - ReportSetting
       x-stackql-resource-name: report_plan
+      x-stackql-primaryIdentifier:
+        - ReportPlanArn
   x-stackQL-resources:
+    backup_plans:
+      name: backup_plans
+      id: aws.backup.backup_plans
+      x-cfn-schema-name: BackupPlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupPlan'
     backup_plan:
       name: backup_plan
       id: aws.backup.backup_plan
@@ -477,7 +500,20 @@ components:
               JSON_EXTRACT(Properties, '$.BackupPlanArn') as backup_plan_arn,
               JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupPlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupPlan'
+    backup_selections:
+      name: backup_selections
+      id: aws.backup.backup_selections
+      x-cfn-schema-name: BackupSelection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupSelection'
     backup_selection:
       name: backup_selection
       id: aws.backup.backup_selection
@@ -498,7 +534,20 @@ components:
               JSON_EXTRACT(Properties, '$.BackupSelection.NotResources') as backup_selection_not_resources,
               JSON_EXTRACT(Properties, '$.BackupSelection.Conditions') as backup_selection_conditions,
               JSON_EXTRACT(Properties, '$.SelectionId') as selection_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupSelection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupSelection'
+    backup_vaults:
+      name: backup_vaults
+      id: aws.backup.backup_vaults
+      x-cfn-schema-name: BackupVault
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BackupVaultName') as backup_vault_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupVault'
     backup_vault:
       name: backup_vault
       id: aws.backup.backup_vault
@@ -519,7 +568,20 @@ components:
               JSON_EXTRACT(Properties, '$.LockConfiguration.MaxRetentionDays') as lock_configuration_max_retention_days,
               JSON_EXTRACT(Properties, '$.LockConfiguration.ChangeableForDays') as lock_configuration_changeable_for_days,
               JSON_EXTRACT(Properties, '$.BackupVaultArn') as backup_vault_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupVault' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupVault'
+    frameworks:
+      name: frameworks
+      id: aws.backup.frameworks
+      x-cfn-schema-name: Framework
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FrameworkArn') as framework_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::Framework'
     framework:
       name: framework
       id: aws.backup.framework
@@ -539,7 +601,20 @@ components:
               JSON_EXTRACT(Properties, '$.FrameworkControls') as framework_controls,
               JSON_EXTRACT(Properties, '$.FrameworkStatus') as framework_status,
               JSON_EXTRACT(Properties, '$.FrameworkTags') as framework_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::Framework' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::Framework'
+    report_plans:
+      name: report_plans
+      id: aws.backup.report_plans
+      x-cfn-schema-name: ReportPlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReportPlanArn') as report_plan_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::ReportPlan'
     report_plan:
       name: report_plan
       id: aws.backup.report_plan
@@ -557,4 +632,4 @@ components:
               JSON_EXTRACT(Properties, '$.ReportPlanTags') as report_plan_tags,
               JSON_EXTRACT(Properties, '$.ReportDeliveryChannel') as report_delivery_channel,
               JSON_EXTRACT(Properties, '$.ReportSetting') as report_setting
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::ReportPlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::ReportPlan'

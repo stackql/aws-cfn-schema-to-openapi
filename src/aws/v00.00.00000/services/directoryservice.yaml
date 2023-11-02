@@ -54,6 +54,8 @@ components:
         - Name
         - Password
       x-stackql-resource-name: microsoft_ad
+      x-stackql-primaryIdentifier:
+        - Id
     SimpleAD:
       type: object
       properties:
@@ -99,7 +101,22 @@ components:
         - Size
         - Name
       x-stackql-resource-name: simple_ad
+      x-stackql-primaryIdentifier:
+        - DirectoryId
   x-stackQL-resources:
+    microsoft_ads:
+      name: microsoft_ads
+      id: aws.directoryservice.microsoft_ads
+      x-cfn-schema-name: MicrosoftAD
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
     microsoft_ad:
       name: microsoft_ad
       id: aws.directoryservice.microsoft_ad
@@ -122,7 +139,20 @@ components:
               JSON_EXTRACT(Properties, '$.ShortName') as short_name,
               JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
+    simple_ads:
+      name: simple_ads
+      id: aws.directoryservice.simple_ads
+      x-cfn-schema-name: SimpleAD
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DirectoryId') as directory_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'
     simple_ad:
       name: simple_ad
       id: aws.directoryservice.simple_ad
@@ -146,4 +176,4 @@ components:
               JSON_EXTRACT(Properties, '$.Size') as size,
               JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'

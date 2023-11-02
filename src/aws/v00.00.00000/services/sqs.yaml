@@ -78,6 +78,8 @@ components:
           type: integer
           description: The length of time during which a message will be unavailable after a message is delivered from the queue. This blocks other components from receiving the same message and gives the initial component time to process and delete the message from the queue. Values must be from 0 to 43,200 seconds (12 hours). If you don't specify a value, AWS CloudFormation uses the default value of 30 seconds.
       x-stackql-resource-name: queue
+      x-stackql-primaryIdentifier:
+        - QueueUrl
     QueuePolicy:
       type: object
       properties:
@@ -94,7 +96,22 @@ components:
         - PolicyDocument
         - Queues
       x-stackql-resource-name: queue_policy
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    queues:
+      name: queues
+      id: aws.sqs.queues
+      x-cfn-schema-name: Queue
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.QueueUrl') as queue_url
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::Queue'
     queue:
       name: queue
       id: aws.sqs.queue
@@ -124,7 +141,20 @@ components:
               JSON_EXTRACT(Properties, '$.RedrivePolicy') as redrive_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VisibilityTimeout') as visibility_timeout
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::Queue' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::Queue'
+    queue_policies:
+      name: queue_policies
+      id: aws.sqs.queue_policies
+      x-cfn-schema-name: QueuePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueuePolicy'
     queue_policy:
       name: queue_policy
       id: aws.sqs.queue_policy
@@ -139,4 +169,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Queues') as queues
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueuePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueuePolicy'

@@ -165,6 +165,8 @@ components:
             type: string
           type: array
       x-stackql-resource-name: db_cluster
+      x-stackql-primaryIdentifier:
+        - DBClusterIdentifier
     DBClusterParameterGroup:
       type: object
       properties:
@@ -188,6 +190,8 @@ components:
         - Description
         - Parameters
       x-stackql-resource-name: db_cluster_parameter_group
+      x-stackql-primaryIdentifier:
+        - Id
     DBInstance:
       type: object
       properties:
@@ -225,6 +229,8 @@ components:
       required:
         - DBInstanceClass
       x-stackql-resource-name: db_instance
+      x-stackql-primaryIdentifier:
+        - Id
     DBParameterGroup:
       type: object
       properties:
@@ -248,6 +254,8 @@ components:
         - Description
         - Parameters
       x-stackql-resource-name: db_parameter_group
+      x-stackql-primaryIdentifier:
+        - Id
     DBSubnetGroup:
       type: object
       properties:
@@ -271,7 +279,22 @@ components:
         - DBSubnetGroupDescription
         - SubnetIds
       x-stackql-resource-name: db_subnet_group
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    db_clusters:
+      name: db_clusters
+      id: aws.neptune.db_clusters
+      x-cfn-schema-name: DBCluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DBClusterIdentifier') as d_bcluster_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBCluster'
     db_cluster:
       name: db_cluster
       id: aws.neptune.db_cluster
@@ -308,7 +331,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UseLatestRestorableTime') as use_latest_restorable_time,
               JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as vpc_security_group_ids
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBCluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBCluster'
+    db_cluster_parameter_groups:
+      name: db_cluster_parameter_groups
+      id: aws.neptune.db_cluster_parameter_groups
+      x-cfn-schema-name: DBClusterParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
     db_cluster_parameter_group:
       name: db_cluster_parameter_group
       id: aws.neptune.db_cluster_parameter_group
@@ -326,7 +362,20 @@ components:
               JSON_EXTRACT(Properties, '$.Family') as family,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
+    db_instances:
+      name: db_instances
+      id: aws.neptune.db_instances
+      x-cfn-schema-name: DBInstance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBInstance'
     db_instance:
       name: db_instance
       id: aws.neptune.db_instance
@@ -352,7 +401,20 @@ components:
               JSON_EXTRACT(Properties, '$.DBInstanceIdentifier') as d_binstance_identifier,
               JSON_EXTRACT(Properties, '$.DBSnapshotIdentifier') as d_bsnapshot_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBInstance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBInstance'
+    db_parameter_groups:
+      name: db_parameter_groups
+      id: aws.neptune.db_parameter_groups
+      x-cfn-schema-name: DBParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
     db_parameter_group:
       name: db_parameter_group
       id: aws.neptune.db_parameter_group
@@ -370,7 +432,20 @@ components:
               JSON_EXTRACT(Properties, '$.Family') as family,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
+    db_subnet_groups:
+      name: db_subnet_groups
+      id: aws.neptune.db_subnet_groups
+      x-cfn-schema-name: DBSubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'
     db_subnet_group:
       name: db_subnet_group
       id: aws.neptune.db_subnet_group
@@ -387,4 +462,4 @@ components:
               JSON_EXTRACT(Properties, '$.DBSubnetGroupDescription') as d_bsubnet_group_description,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'

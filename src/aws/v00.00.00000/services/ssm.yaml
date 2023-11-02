@@ -162,6 +162,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: association
+      x-stackql-primaryIdentifier:
+        - AssociationId
     AttachmentsSource:
       type: object
       properties:
@@ -288,6 +290,8 @@ components:
       required:
         - Content
       x-stackql-resource-name: document
+      x-stackql-primaryIdentifier:
+        - Name
     MaintenanceWindow:
       type: object
       properties:
@@ -325,6 +329,8 @@ components:
         - Duration
         - Name
       x-stackql-resource-name: maintenance_window
+      x-stackql-primaryIdentifier:
+        - Id
     Targets:
       type: object
       additionalProperties: false
@@ -364,6 +370,8 @@ components:
         - ResourceType
         - Targets
       x-stackql-resource-name: maintenance_window_target
+      x-stackql-primaryIdentifier:
+        - Id
     TaskInvocationParameters:
       type: object
       additionalProperties: false
@@ -506,6 +514,8 @@ components:
         - TaskType
         - TaskArn
       x-stackql-resource-name: maintenance_window_task
+      x-stackql-primaryIdentifier:
+        - Id
     Parameter:
       type: object
       properties:
@@ -533,6 +543,8 @@ components:
         - Type
         - Value
       x-stackql-resource-name: parameter
+      x-stackql-primaryIdentifier:
+        - Id
     PatchFilterGroup:
       type: object
       additionalProperties: false
@@ -641,6 +653,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: patch_baseline
+      x-stackql-primaryIdentifier:
+        - Id
     S3Destination:
       type: object
       additionalProperties: false
@@ -742,6 +756,8 @@ components:
       required:
         - SyncName
       x-stackql-resource-name: resource_data_sync
+      x-stackql-primaryIdentifier:
+        - SyncName
     ResourcePolicy:
       type: object
       properties:
@@ -760,7 +776,23 @@ components:
         - ResourceArn
         - Policy
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - PolicyId
+        - ResourceArn
   x-stackQL-resources:
+    associations:
+      name: associations
+      id: aws.ssm.associations
+      x-cfn-schema-name: Association
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Association'
     association:
       name: association
       id: aws.ssm.association
@@ -790,7 +822,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApplyOnlyAtCronInterval') as apply_only_at_cron_interval,
               JSON_EXTRACT(Properties, '$.CalendarNames') as calendar_names,
               JSON_EXTRACT(Properties, '$.ScheduleOffset') as schedule_offset
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Association' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Association'
+    documents:
+      name: documents
+      id: aws.ssm.documents
+      x-cfn-schema-name: Document
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Document'
     document:
       name: document
       id: aws.ssm.document
@@ -812,7 +857,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Requires') as requires,
               JSON_EXTRACT(Properties, '$.UpdateMethod') as update_method
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Document' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Document'
+    maintenance_windows:
+      name: maintenance_windows
+      id: aws.ssm.maintenance_windows
+      x-cfn-schema-name: MaintenanceWindow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
     maintenance_window:
       name: maintenance_window
       id: aws.ssm.maintenance_window
@@ -836,7 +894,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ScheduleTimezone') as schedule_timezone
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
+    maintenance_window_targets:
+      name: maintenance_window_targets
+      id: aws.ssm.maintenance_window_targets
+      x-cfn-schema-name: MaintenanceWindowTarget
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
     maintenance_window_target:
       name: maintenance_window_target
       id: aws.ssm.maintenance_window_target
@@ -855,7 +926,20 @@ components:
               JSON_EXTRACT(Properties, '$.Targets') as targets,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
+    maintenance_window_tasks:
+      name: maintenance_window_tasks
+      id: aws.ssm.maintenance_window_tasks
+      x-cfn-schema-name: MaintenanceWindowTask
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
     maintenance_window_task:
       name: maintenance_window_task
       id: aws.ssm.maintenance_window_task
@@ -887,7 +971,20 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingInfo.Region') as logging_info_region,
               JSON_EXTRACT(Properties, '$.LoggingInfo.S3Prefix') as logging_info_s3_prefix,
               JSON_EXTRACT(Properties, '$.LoggingInfo.S3Bucket') as logging_info_s3_bucket
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
+    parameters:
+      name: parameters
+      id: aws.ssm.parameters
+      x-cfn-schema-name: Parameter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Parameter'
     parameter:
       name: parameter
       id: aws.ssm.parameter
@@ -909,7 +1006,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Parameter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Parameter'
+    patch_baselines:
+      name: patch_baselines
+      id: aws.ssm.patch_baselines
+      x-cfn-schema-name: PatchBaseline
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
     patch_baseline:
       name: patch_baseline
       id: aws.ssm.patch_baseline
@@ -935,7 +1045,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.GlobalFilters.PatchFilters') as global_filters_patch_filters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::PatchBaseline' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
+    resource_data_syncs:
+      name: resource_data_syncs
+      id: aws.ssm.resource_data_syncs
+      x-cfn-schema-name: ResourceDataSync
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SyncName') as sync_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
     resource_data_sync:
       name: resource_data_sync
       id: aws.ssm.resource_data_sync
@@ -963,7 +1086,21 @@ components:
               JSON_EXTRACT(Properties, '$.SyncName') as sync_name,
               JSON_EXTRACT(Properties, '$.SyncType') as sync_type,
               JSON_EXTRACT(Properties, '$.BucketPrefix') as bucket_prefix
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourceDataSync' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
+    resource_policies:
+      name: resource_policies
+      id: aws.ssm.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyId') as policy_id,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.ssm.resource_policy
@@ -979,4 +1116,4 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.PolicyId') as policy_id,
               JSON_EXTRACT(Properties, '$.PolicyHash') as policy_hash
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'

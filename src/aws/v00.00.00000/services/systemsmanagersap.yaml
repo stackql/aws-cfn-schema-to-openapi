@@ -82,7 +82,22 @@ components:
         - ApplicationId
         - ApplicationType
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.systemsmanagersap.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'
     application:
       name: application
       id: aws.systemsmanagersap.application
@@ -102,4 +117,4 @@ components:
               JSON_EXTRACT(Properties, '$.SapInstanceNumber') as sap_instance_number,
               JSON_EXTRACT(Properties, '$.Sid') as sid,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'

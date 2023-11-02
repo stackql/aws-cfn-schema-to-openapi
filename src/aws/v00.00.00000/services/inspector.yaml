@@ -15,6 +15,8 @@ components:
         ResourceGroupArn:
           type: string
       x-stackql-resource-name: assessment_target
+      x-stackql-primaryIdentifier:
+        - Arn
     Tag:
       type: object
       additionalProperties: false
@@ -52,6 +54,8 @@ components:
         - DurationInSeconds
         - RulesPackageArns
       x-stackql-resource-name: assessment_template
+      x-stackql-primaryIdentifier:
+        - Arn
     ResourceGroup:
       type: object
       properties:
@@ -65,7 +69,22 @@ components:
       required:
         - ResourceGroupTags
       x-stackql-resource-name: resource_group
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    assessment_targets:
+      name: assessment_targets
+      id: aws.inspector.assessment_targets
+      x-cfn-schema-name: AssessmentTarget
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
     assessment_target:
       name: assessment_target
       id: aws.inspector.assessment_target
@@ -80,7 +99,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AssessmentTargetName') as assessment_target_name,
               JSON_EXTRACT(Properties, '$.ResourceGroupArn') as resource_group_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
+    assessment_templates:
+      name: assessment_templates
+      id: aws.inspector.assessment_templates
+      x-cfn-schema-name: AssessmentTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
     assessment_template:
       name: assessment_template
       id: aws.inspector.assessment_template
@@ -98,7 +130,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssessmentTemplateName') as assessment_template_name,
               JSON_EXTRACT(Properties, '$.RulesPackageArns') as rules_package_arns,
               JSON_EXTRACT(Properties, '$.UserAttributesForFindings') as user_attributes_for_findings
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
+    resource_groups:
+      name: resource_groups
+      id: aws.inspector.resource_groups
+      x-cfn-schema-name: ResourceGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'
     resource_group:
       name: resource_group
       id: aws.inspector.resource_group
@@ -112,4 +157,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResourceGroupTags') as resource_group_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::ResourceGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'

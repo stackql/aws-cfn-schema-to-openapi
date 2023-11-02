@@ -73,6 +73,8 @@ components:
       required:
         - ConnectionString
       x-stackql-resource-name: connection_alias
+      x-stackql-primaryIdentifier:
+        - AliasId
     WorkspaceProperties:
       type: object
       additionalProperties: false
@@ -116,7 +118,22 @@ components:
         - DirectoryId
         - UserName
       x-stackql-resource-name: workspace
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    connection_aliases:
+      name: connection_aliases
+      id: aws.workspaces.connection_aliases
+      x-cfn-schema-name: ConnectionAlias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AliasId') as alias_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
     connection_alias:
       name: connection_alias
       id: aws.workspaces.connection_alias
@@ -133,7 +150,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectionString') as connection_string,
               JSON_EXTRACT(Properties, '$.ConnectionAliasState') as connection_alias_state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
+    workspaces:
+      name: workspaces
+      id: aws.workspaces.workspaces
+      x-cfn-schema-name: Workspace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'
     workspace:
       name: workspace
       id: aws.workspaces.workspace
@@ -158,4 +188,4 @@ components:
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningMode') as workspace_properties_running_mode,
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningModeAutoStopTimeoutInMinutes') as workspace_properties_running_mode_auto_stop_timeout_in_minutes,
               JSON_EXTRACT(Properties, '$.WorkspaceProperties.UserVolumeSizeGib') as workspace_properties_user_volume_size_gib
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::Workspace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'

@@ -85,6 +85,8 @@ components:
         - MonitorName
         - MonitorType
       x-stackql-resource-name: anomaly_monitor
+      x-stackql-primaryIdentifier:
+        - MonitorArn
     Subscriber:
       type: object
       properties:
@@ -161,6 +163,8 @@ components:
         - Frequency
         - SubscriptionName
       x-stackql-resource-name: anomaly_subscription
+      x-stackql-primaryIdentifier:
+        - SubscriptionArn
     ZonedDateTime:
       description: ISO 8601 date time with offset format
       type: string
@@ -200,7 +204,22 @@ components:
         - RuleVersion
         - Rules
       x-stackql-resource-name: cost_category
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    anomaly_monitors:
+      name: anomaly_monitors
+      id: aws.ce.anomaly_monitors
+      x-cfn-schema-name: AnomalyMonitor
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
     anomaly_monitor:
       name: anomaly_monitor
       id: aws.ce.anomaly_monitor
@@ -221,7 +240,20 @@ components:
               JSON_EXTRACT(Properties, '$.MonitorSpecification') as monitor_specification,
               JSON_EXTRACT(Properties, '$.DimensionalValueCount') as dimensional_value_count,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalyMonitor' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
+    anomaly_subscriptions:
+      name: anomaly_subscriptions
+      id: aws.ce.anomaly_subscriptions
+      x-cfn-schema-name: AnomalySubscription
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SubscriptionArn') as subscription_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
     anomaly_subscription:
       name: anomaly_subscription
       id: aws.ce.anomaly_subscription
@@ -241,7 +273,20 @@ components:
               JSON_EXTRACT(Properties, '$.ThresholdExpression') as threshold_expression,
               JSON_EXTRACT(Properties, '$.Frequency') as frequency,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalySubscription' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
+    cost_categories:
+      name: cost_categories
+      id: aws.ce.cost_categories
+      x-cfn-schema-name: CostCategory
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::CostCategory'
     cost_category:
       name: cost_category
       id: aws.ce.cost_category
@@ -259,4 +304,4 @@ components:
               JSON_EXTRACT(Properties, '$.Rules') as rules,
               JSON_EXTRACT(Properties, '$.SplitChargeRules') as split_charge_rules,
               JSON_EXTRACT(Properties, '$.DefaultValue') as default_value
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::CostCategory' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::CostCategory'

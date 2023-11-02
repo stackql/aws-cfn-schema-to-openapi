@@ -103,6 +103,8 @@ components:
         - ScheduleConfig
         - SourceURI
       x-stackql-resource-name: data_integration
+      x-stackql-primaryIdentifier:
+        - Id
     EventFilter:
       type: object
       properties:
@@ -175,7 +177,22 @@ components:
         - EventBridgeBus
         - EventFilter
       x-stackql-resource-name: event_integration
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    data_integrations:
+      name: data_integrations
+      id: aws.appintegrations.data_integrations
+      x-cfn-schema-name: DataIntegration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
     data_integration:
       name: data_integration
       id: aws.appintegrations.data_integration
@@ -197,7 +214,20 @@ components:
               JSON_EXTRACT(Properties, '$.ScheduleConfig.ScheduleExpression') as schedule_config_schedule_expression,
               JSON_EXTRACT(Properties, '$.SourceURI') as source_ur_i,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
+    event_integrations:
+      name: event_integrations
+      id: aws.appintegrations.event_integrations
+      x-cfn-schema-name: EventIntegration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'
     event_integration:
       name: event_integration
       id: aws.appintegrations.event_integration
@@ -215,4 +245,4 @@ components:
               JSON_EXTRACT(Properties, '$.EventBridgeBus') as event_bridge_bus,
               JSON_EXTRACT(Properties, '$.EventFilter.Source') as event_filter_source,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'

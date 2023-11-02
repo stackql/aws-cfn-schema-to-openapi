@@ -26,6 +26,9 @@ components:
         - Origin
         - InstanceId
       x-stackql-resource-name: approved_origin
+      x-stackql-primaryIdentifier:
+        - InstanceId
+        - Origin
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -106,6 +109,8 @@ components:
         - Name
         - Type
       x-stackql-resource-name: contact_flow
+      x-stackql-primaryIdentifier:
+        - ContactFlowArn
     ContactFlowModule:
       type: object
       properties:
@@ -162,6 +167,8 @@ components:
         - Name
         - Content
       x-stackql-resource-name: contact_flow_module
+      x-stackql-primaryIdentifier:
+        - ContactFlowModuleArn
     HoursOfOperationTimeSlice:
       description: The start time or end time for an hours of operation.
       type: object
@@ -252,6 +259,8 @@ components:
         - TimeZone
         - Config
       x-stackql-resource-name: hours_of_operation
+      x-stackql-primaryIdentifier:
+        - HoursOfOperationArn
     InboundCalls:
       description: Mandatory element which enables inbound calls on new instance.
       type: boolean
@@ -344,6 +353,8 @@ components:
         - IdentityManagementType
         - Attributes
       x-stackql-resource-name: instance
+      x-stackql-primaryIdentifier:
+        - Arn
     KinesisStreamArn:
       description: An ARN is a unique AWS resource identifier.
       type: string
@@ -478,6 +489,10 @@ components:
         - ResourceType
         - StorageType
       x-stackql-resource-name: instance_storage_config
+      x-stackql-primaryIdentifier:
+        - InstanceArn
+        - AssociationId
+        - ResourceType
     IntegrationArn:
       description: ARN of Integration being associated with the instance
       type: string
@@ -509,6 +524,10 @@ components:
         - IntegrationType
         - IntegrationArn
       x-stackql-resource-name: integration_association
+      x-stackql-primaryIdentifier:
+        - InstanceId
+        - IntegrationType
+        - IntegrationArn
     PhoneNumber:
       description: The phone number in E.164 format.
       type: string
@@ -617,6 +636,8 @@ components:
         - InstanceArn
         - QuickConnectConfig
       x-stackql-resource-name: quick_connect
+      x-stackql-primaryIdentifier:
+        - QuickConnectArn
     NotificationRecipientType:
       description: The type of notification recipient.
       type: object
@@ -847,6 +868,8 @@ components:
         - Actions
         - PublishStatus
       x-stackql-resource-name: rule
+      x-stackql-primaryIdentifier:
+        - RuleArn
     Key:
       description: A valid security key in PEM format.
       type: string
@@ -865,6 +888,9 @@ components:
         - Key
         - InstanceId
       x-stackql-resource-name: security_key
+      x-stackql-primaryIdentifier:
+        - InstanceId
+        - AssociationId
     Status:
       description: The status of the task template
       type: string
@@ -1057,6 +1083,8 @@ components:
       required:
         - InstanceArn
       x-stackql-resource-name: task_template
+      x-stackql-primaryIdentifier:
+        - Arn
     FirstName:
       description: The first name. This is required if you are using Amazon Connect or SAML for identity management.
       type: string
@@ -1186,6 +1214,8 @@ components:
         - SecurityProfileArns
         - Username
       x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - UserArn
     UserHierarchyGroupArn:
       description: The Amazon Resource Name (ARN) for the user hierarchy group.
       type: string
@@ -1212,7 +1242,23 @@ components:
         - Name
         - InstanceArn
       x-stackql-resource-name: user_hierarchy_group
+      x-stackql-primaryIdentifier:
+        - UserHierarchyGroupArn
   x-stackQL-resources:
+    approved_origins:
+      name: approved_origins
+      id: aws.connect.approved_origins
+      x-cfn-schema-name: ApprovedOrigin
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
+              JSON_EXTRACT(Properties, '$.Origin') as origin
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ApprovedOrigin'
     approved_origin:
       name: approved_origin
       id: aws.connect.approved_origin
@@ -1224,7 +1270,20 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ApprovedOrigin' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::ApprovedOrigin'
+    contact_flows:
+      name: contact_flows
+      id: aws.connect.contact_flows
+      x-cfn-schema-name: ContactFlow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ContactFlowArn') as contact_flow_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ContactFlow'
     contact_flow:
       name: contact_flow
       id: aws.connect.contact_flow
@@ -1244,7 +1303,20 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ContactFlow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::ContactFlow'
+    contact_flow_modules:
+      name: contact_flow_modules
+      id: aws.connect.contact_flow_modules
+      x-cfn-schema-name: ContactFlowModule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ContactFlowModuleArn') as contact_flow_module_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ContactFlowModule'
     contact_flow_module:
       name: contact_flow_module
       id: aws.connect.contact_flow_module
@@ -1264,7 +1336,20 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::ContactFlowModule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::ContactFlowModule'
+    hours_of_operations:
+      name: hours_of_operations
+      id: aws.connect.hours_of_operations
+      x-cfn-schema-name: HoursOfOperation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.HoursOfOperationArn') as hours_of_operation_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::HoursOfOperation'
     hours_of_operation:
       name: hours_of_operation
       id: aws.connect.hours_of_operation
@@ -1283,7 +1368,20 @@ components:
               JSON_EXTRACT(Properties, '$.Config') as config,
               JSON_EXTRACT(Properties, '$.HoursOfOperationArn') as hours_of_operation_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::HoursOfOperation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::HoursOfOperation'
+    instances:
+      name: instances
+      id: aws.connect.instances
+      x-cfn-schema-name: Instance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::Instance'
     instance:
       name: instance
       id: aws.connect.instance
@@ -1310,7 +1408,22 @@ components:
               JSON_EXTRACT(Properties, '$.Attributes.AutoResolveBestVoices') as attributes_auto_resolve_best_voices,
               JSON_EXTRACT(Properties, '$.Attributes.UseCustomTTSVoices') as attributes_use_custom_tt_svoices,
               JSON_EXTRACT(Properties, '$.Attributes.EarlyMedia') as attributes_early_media
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::Instance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::Instance'
+    instance_storage_configs:
+      name: instance_storage_configs
+      id: aws.connect.instance_storage_configs
+      x-cfn-schema-name: InstanceStorageConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id,
+              JSON_EXTRACT(Properties, '$.ResourceType') as resource_type
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::InstanceStorageConfig'
     instance_storage_config:
       name: instance_storage_config
       id: aws.connect.instance_storage_config
@@ -1331,7 +1444,22 @@ components:
               JSON_EXTRACT(Properties, '$.KinesisVideoStreamConfig.EncryptionConfig') as kinesis_video_stream_config_encryption_config,
               JSON_EXTRACT(Properties, '$.KinesisStreamConfig.StreamArn') as kinesis_stream_config_stream_arn,
               JSON_EXTRACT(Properties, '$.KinesisFirehoseConfig.FirehoseArn') as kinesis_firehose_config_firehose_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::InstanceStorageConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::InstanceStorageConfig'
+    integration_associations:
+      name: integration_associations
+      id: aws.connect.integration_associations
+      x-cfn-schema-name: IntegrationAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
+              JSON_EXTRACT(Properties, '$.IntegrationType') as integration_type,
+              JSON_EXTRACT(Properties, '$.IntegrationArn') as integration_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::IntegrationAssociation'
     integration_association:
       name: integration_association
       id: aws.connect.integration_association
@@ -1343,7 +1471,20 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::IntegrationAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::IntegrationAssociation'
+    quick_connects:
+      name: quick_connects
+      id: aws.connect.quick_connects
+      x-cfn-schema-name: QuickConnect
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.QuickConnectArn') as quick_connect_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::QuickConnect'
     quick_connect:
       name: quick_connect
       id: aws.connect.quick_connect
@@ -1364,7 +1505,20 @@ components:
               JSON_EXTRACT(Properties, '$.QuickConnectConfig.UserConfig') as quick_connect_config_user_config,
               JSON_EXTRACT(Properties, '$.QuickConnectArn') as quick_connect_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::QuickConnect' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::QuickConnect'
+    rules:
+      name: rules
+      id: aws.connect.rules
+      x-cfn-schema-name: Rule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::Rule'
     rule:
       name: rule
       id: aws.connect.rule
@@ -1388,7 +1542,21 @@ components:
               JSON_EXTRACT(Properties, '$.Actions.SendNotificationActions') as actions_send_notification_actions,
               JSON_EXTRACT(Properties, '$.PublishStatus') as publish_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::Rule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::Rule'
+    security_keys:
+      name: security_keys
+      id: aws.connect.security_keys
+      x-cfn-schema-name: SecurityKey
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::SecurityKey'
     security_key:
       name: security_key
       id: aws.connect.security_key
@@ -1400,7 +1568,20 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::SecurityKey' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::SecurityKey'
+    task_templates:
+      name: task_templates
+      id: aws.connect.task_templates
+      x-cfn-schema-name: TaskTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::TaskTemplate'
     task_template:
       name: task_template
       id: aws.connect.task_template
@@ -1421,7 +1602,20 @@ components:
               JSON_EXTRACT(Properties, '$.Defaults') as defaults,
               JSON_EXTRACT(Properties, '$.Fields') as fields,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::TaskTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::TaskTemplate'
+    users:
+      name: users
+      id: aws.connect.users
+      x-cfn-schema-name: User
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.UserArn') as user_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::User'
     user:
       name: user
       id: aws.connect.user
@@ -1451,7 +1645,20 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityProfileArns') as security_profile_arns,
               JSON_EXTRACT(Properties, '$.UserArn') as user_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::User' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::User'
+    user_hierarchy_groups:
+      name: user_hierarchy_groups
+      id: aws.connect.user_hierarchy_groups
+      x-cfn-schema-name: UserHierarchyGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.UserHierarchyGroupArn') as user_hierarchy_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::UserHierarchyGroup'
     user_hierarchy_group:
       name: user_hierarchy_group
       id: aws.connect.user_hierarchy_group
@@ -1465,4 +1672,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Connect::UserHierarchyGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::UserHierarchyGroup'

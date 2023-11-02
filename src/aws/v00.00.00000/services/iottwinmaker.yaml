@@ -350,6 +350,9 @@ components:
         - WorkspaceId
         - ComponentTypeId
       x-stackql-resource-name: component_type
+      x-stackql-primaryIdentifier:
+        - WorkspaceId
+        - ComponentTypeId
     PropertyDefinitionConfiguration:
       description: An object that specifies information about a property.
       type: object
@@ -515,6 +518,9 @@ components:
         - WorkspaceId
         - EntityName
       x-stackql-resource-name: entity
+      x-stackql-primaryIdentifier:
+        - WorkspaceId
+        - EntityId
     Scene:
       type: object
       properties:
@@ -579,6 +585,9 @@ components:
         - SceneId
         - ContentLocation
       x-stackql-resource-name: scene
+      x-stackql-primaryIdentifier:
+        - WorkspaceId
+        - SceneId
     SyncJob:
       type: object
       properties:
@@ -631,6 +640,9 @@ components:
         - SyncSource
         - SyncRole
       x-stackql-resource-name: sync_job
+      x-stackql-primaryIdentifier:
+        - WorkspaceId
+        - SyncSource
     Workspace:
       type: object
       properties:
@@ -681,7 +693,23 @@ components:
         - Role
         - S3Location
       x-stackql-resource-name: workspace
+      x-stackql-primaryIdentifier:
+        - WorkspaceId
   x-stackQL-resources:
+    component_types:
+      name: component_types
+      id: aws.iottwinmaker.component_types
+      x-cfn-schema-name: ComponentType
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
+              JSON_EXTRACT(Properties, '$.ComponentTypeId') as component_type_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
     component_type:
       name: component_type
       id: aws.iottwinmaker.component_type
@@ -707,7 +735,21 @@ components:
               JSON_EXTRACT(Properties, '$.IsAbstract') as is_abstract,
               JSON_EXTRACT(Properties, '$.IsSchemaInitialized') as is_schema_initialized,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
+    entities:
+      name: entities
+      id: aws.iottwinmaker.entities
+      x-cfn-schema-name: Entity
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
+              JSON_EXTRACT(Properties, '$.EntityId') as entity_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
     entity:
       name: entity
       id: aws.iottwinmaker.entity
@@ -730,7 +772,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.Components') as components
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
+    scenes:
+      name: scenes
+      id: aws.iottwinmaker.scenes
+      x-cfn-schema-name: Scene
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
+              JSON_EXTRACT(Properties, '$.SceneId') as scene_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
     scene:
       name: scene
       id: aws.iottwinmaker.scene
@@ -749,7 +805,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.Capabilities') as capabilities
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
+    sync_jobs:
+      name: sync_jobs
+      id: aws.iottwinmaker.sync_jobs
+      x-cfn-schema-name: SyncJob
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
+              JSON_EXTRACT(Properties, '$.SyncSource') as sync_source
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
     sync_job:
       name: sync_job
       id: aws.iottwinmaker.sync_job
@@ -767,7 +837,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
+    workspaces:
+      name: workspaces
+      id: aws.iottwinmaker.workspaces
+      x-cfn-schema-name: Workspace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'
     workspace:
       name: workspace
       id: aws.iottwinmaker.workspace
@@ -785,4 +868,4 @@ components:
               JSON_EXTRACT(Properties, '$.Role') as role,
               JSON_EXTRACT(Properties, '$.S3Location') as s3_location,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'

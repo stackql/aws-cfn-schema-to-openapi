@@ -28,7 +28,22 @@ components:
       required:
         - Definition
       x-stackql-resource-name: flow_template
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    flow_templates:
+      name: flow_templates
+      id: aws.iotthingsgraph.flow_templates
+      x-cfn-schema-name: FlowTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTThingsGraph::FlowTemplate'
     flow_template:
       name: flow_template
       id: aws.iotthingsgraph.flow_template
@@ -44,4 +59,4 @@ components:
               JSON_EXTRACT(Properties, '$.CompatibleNamespaceVersion') as compatible_namespace_version,
               JSON_EXTRACT(Properties, '$.Definition.Language') as definition_language,
               JSON_EXTRACT(Properties, '$.Definition.Text') as definition_text
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTThingsGraph::FlowTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTThingsGraph::FlowTemplate'

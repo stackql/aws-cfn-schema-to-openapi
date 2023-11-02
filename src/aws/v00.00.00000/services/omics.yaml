@@ -182,6 +182,8 @@ components:
         - Name
         - StoreFormat
       x-stackql-resource-name: annotation_store
+      x-stackql-primaryIdentifier:
+        - Name
     ReferenceStore:
       type: object
       properties:
@@ -219,6 +221,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: reference_store
+      x-stackql-primaryIdentifier:
+        - ReferenceStoreId
     RunGroup:
       type: object
       properties:
@@ -255,6 +259,8 @@ components:
         Tags:
           $ref: '#/components/schemas/TagMap'
       x-stackql-resource-name: run_group
+      x-stackql-primaryIdentifier:
+        - Id
     SequenceStore:
       type: object
       properties:
@@ -292,6 +298,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: sequence_store
+      x-stackql-primaryIdentifier:
+        - SequenceStoreId
     VariantStore:
       type: object
       properties:
@@ -339,6 +347,8 @@ components:
         - Name
         - Reference
       x-stackql-resource-name: variant_store
+      x-stackql-primaryIdentifier:
+        - Name
     WorkflowEngine:
       type: string
       maxLength: 64
@@ -432,7 +442,22 @@ components:
         Type:
           $ref: '#/components/schemas/WorkflowType'
       x-stackql-resource-name: workflow
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    annotation_stores:
+      name: annotation_stores
+      id: aws.omics.annotation_stores
+      x-cfn-schema-name: AnnotationStore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
     annotation_store:
       name: annotation_store
       id: aws.omics.annotation_store
@@ -455,7 +480,20 @@ components:
               JSON_EXTRACT(Properties, '$.StoreArn') as store_arn,
               JSON_EXTRACT(Properties, '$.StoreSizeBytes') as store_size_bytes,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::AnnotationStore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
+    reference_stores:
+      name: reference_stores
+      id: aws.omics.reference_stores
+      x-cfn-schema-name: ReferenceStore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReferenceStoreId') as reference_store_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
     reference_store:
       name: reference_store
       id: aws.omics.reference_store
@@ -474,7 +512,20 @@ components:
               JSON_EXTRACT(Properties, '$.ReferenceStoreId') as reference_store_id,
               JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
               JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::ReferenceStore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
+    run_groups:
+      name: run_groups
+      id: aws.omics.run_groups
+      x-cfn-schema-name: RunGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::RunGroup'
     run_group:
       name: run_group
       id: aws.omics.run_group
@@ -493,7 +544,20 @@ components:
               JSON_EXTRACT(Properties, '$.MaxDuration') as max_duration,
               JSON_EXTRACT(Properties, '$.MaxRuns') as max_runs,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::RunGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::RunGroup'
+    sequence_stores:
+      name: sequence_stores
+      id: aws.omics.sequence_stores
+      x-cfn-schema-name: SequenceStore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::SequenceStore'
     sequence_store:
       name: sequence_store
       id: aws.omics.sequence_store
@@ -512,7 +576,20 @@ components:
               JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_id,
               JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
               JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::SequenceStore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::SequenceStore'
+    variant_stores:
+      name: variant_stores
+      id: aws.omics.variant_stores
+      x-cfn-schema-name: VariantStore
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::VariantStore'
     variant_store:
       name: variant_store
       id: aws.omics.variant_store
@@ -535,7 +612,20 @@ components:
               JSON_EXTRACT(Properties, '$.StoreArn') as store_arn,
               JSON_EXTRACT(Properties, '$.StoreSizeBytes') as store_size_bytes,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::VariantStore' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::VariantStore'
+    workflows:
+      name: workflows
+      id: aws.omics.workflows
+      x-cfn-schema-name: Workflow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::Workflow'
     workflow:
       name: workflow
       id: aws.omics.workflow
@@ -555,4 +645,4 @@ components:
               JSON_EXTRACT(Properties, '$.Main') as main,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::Workflow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::Workflow'

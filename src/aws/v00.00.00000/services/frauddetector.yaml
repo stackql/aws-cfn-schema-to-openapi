@@ -132,6 +132,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: label
+      x-stackql-primaryIdentifier:
+        - Arn
     Outcome:
       type: object
       properties:
@@ -166,6 +168,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: outcome
+      x-stackql-primaryIdentifier:
+        - Arn
     Rule:
       type: object
       properties:
@@ -297,6 +301,8 @@ components:
         - Labels
         - Name
       x-stackql-resource-name: event_type
+      x-stackql-primaryIdentifier:
+        - Arn
     Model:
       description: A model to associate with a detector.
       type: object
@@ -372,6 +378,8 @@ components:
         - EventType
         - Rules
       x-stackql-resource-name: detector
+      x-stackql-primaryIdentifier:
+        - Arn
     Variable:
       type: object
       properties:
@@ -461,7 +469,22 @@ components:
         - DefaultValue
         - Name
       x-stackql-resource-name: variable
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    labels:
+      name: labels
+      id: aws.frauddetector.labels
+      x-cfn-schema-name: Label
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Label'
     label:
       name: label
       id: aws.frauddetector.label
@@ -479,7 +502,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Label' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Label'
+    outcomes:
+      name: outcomes
+      id: aws.frauddetector.outcomes
+      x-cfn-schema-name: Outcome
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
     outcome:
       name: outcome
       id: aws.frauddetector.outcome
@@ -497,7 +533,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Outcome' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
+    event_types:
+      name: event_types
+      id: aws.frauddetector.event_types
+      x-cfn-schema-name: EventType
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::EventType'
     event_type:
       name: event_type
       id: aws.frauddetector.event_type
@@ -518,7 +567,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::EventType' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::EventType'
+    detectors:
+      name: detectors
+      id: aws.frauddetector.detectors
+      x-cfn-schema-name: Detector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Detector'
     detector:
       name: detector
       id: aws.frauddetector.detector
@@ -550,7 +612,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
               JSON_EXTRACT(Properties, '$.AssociatedModels') as associated_models
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Detector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Detector'
+    variables:
+      name: variables
+      id: aws.frauddetector.variables
+      x-cfn-schema-name: Variable
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Variable'
     variable:
       name: variable
       id: aws.frauddetector.variable
@@ -572,4 +647,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Variable' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Variable'

@@ -166,6 +166,8 @@ components:
         - ManifestPayload
         - DefaultRuntimeContextDevice
       x-stackql-resource-name: application_instance
+      x-stackql-primaryIdentifier:
+        - ApplicationInstanceId
     NodePackageName:
       type: string
       minLength: 1
@@ -212,6 +214,8 @@ components:
       required:
         - PackageName
       x-stackql-resource-name: package
+      x-stackql-primaryIdentifier:
+        - PackageId
     PackageOwnerAccount:
       type: string
       minLength: 1
@@ -272,7 +276,24 @@ components:
         - PackageVersion
         - PatchVersion
       x-stackql-resource-name: package_version
+      x-stackql-primaryIdentifier:
+        - PackageId
+        - PackageVersion
+        - PatchVersion
   x-stackQL-resources:
+    application_instances:
+      name: application_instances
+      id: aws.panorama.application_instances
+      x-cfn-schema-name: ApplicationInstance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationInstanceId') as application_instance_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
     application_instance:
       name: application_instance
       id: aws.panorama.application_instance
@@ -286,7 +307,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ManifestPayload.PayloadData') as manifest_payload_payload_data,
               JSON_EXTRACT(Properties, '$.ManifestOverridesPayload.PayloadData') as manifest_overrides_payload_payload_data
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
+    packages:
+      name: packages
+      id: aws.panorama.packages
+      x-cfn-schema-name: Package
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PackageId') as package_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::Package'
     package:
       name: package
       id: aws.panorama.package
@@ -303,7 +337,22 @@ components:
               JSON_EXTRACT(Properties, '$.StorageLocation.GeneratedPrefixLocation') as storage_location_generated_prefix_location,
               JSON_EXTRACT(Properties, '$.StorageLocation.BinaryPrefixLocation') as storage_location_binary_prefix_location,
               JSON_EXTRACT(Properties, '$.StorageLocation.ManifestPrefixLocation') as storage_location_manifest_prefix_location
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::Package' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::Package'
+    package_versions:
+      name: package_versions
+      id: aws.panorama.package_versions
+      x-cfn-schema-name: PackageVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PackageId') as package_id,
+              JSON_EXTRACT(Properties, '$.PackageVersion') as package_version,
+              JSON_EXTRACT(Properties, '$.PatchVersion') as patch_version
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::PackageVersion'
     package_version:
       name: package_version
       id: aws.panorama.package_version
@@ -317,4 +366,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.MarkLatest') as mark_latest,
               JSON_EXTRACT(Properties, '$.IsLatestPatch') as is_latest_patch
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::PackageVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::PackageVersion'

@@ -18,7 +18,12 @@ PROVIDER_REGISTRY_ROOT_DIR="$(pwd)"
 REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}'", "localDocRoot": "'${PROVIDER_REGISTRY_ROOT_DIR}'", "verifyConfig": {"nopVerify": true}}'
 ./stackql shell --registry="${REG_STR}"
 ```
-4. run `stackql` commands, for example `select * from aws.s3.bucket WHERE region = 'us-east-1'`
+4. run `stackql` commands, for example 
+```sql
+select * from aws.s3.buckets WHERE region = 'us-east-1';
+select * from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01 ';
+```
+
 
 ## Generate User Markdown Docs
 Use the following script to generate user docs with Docusaurus front matter for AWS view resources:

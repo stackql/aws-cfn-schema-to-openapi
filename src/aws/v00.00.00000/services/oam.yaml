@@ -50,6 +50,8 @@ components:
         - ResourceTypes
         - SinkIdentifier
       x-stackql-resource-name: link
+      x-stackql-primaryIdentifier:
+        - Arn
     Sink:
       type: object
       properties:
@@ -80,7 +82,22 @@ components:
       required:
         - Name
       x-stackql-resource-name: sink
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    links:
+      name: links
+      id: aws.oam.links
+      x-cfn-schema-name: Link
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Link'
     link:
       name: link
       id: aws.oam.link
@@ -98,7 +115,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceTypes') as resource_types,
               JSON_EXTRACT(Properties, '$.SinkIdentifier') as sink_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Link' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Oam::Link'
+    sinks:
+      name: sinks
+      id: aws.oam.sinks
+      x-cfn-schema-name: Sink
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Sink'
     sink:
       name: sink
       id: aws.oam.sink
@@ -114,4 +144,4 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Oam::Sink' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Oam::Sink'

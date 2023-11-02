@@ -35,6 +35,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: http_namespace
+      x-stackql-primaryIdentifier:
+        - Id
     Instance:
       type: object
       properties:
@@ -48,6 +50,8 @@ components:
         - InstanceAttributes
         - ServiceId
       x-stackql-resource-name: instance
+      x-stackql-primaryIdentifier:
+        - InstanceId
     PrivateDnsPropertiesMutable:
       type: object
       additionalProperties: false
@@ -92,6 +96,8 @@ components:
         - Vpc
         - Name
       x-stackql-resource-name: private_dns_namespace
+      x-stackql-primaryIdentifier:
+        - Id
     PublicDnsPropertiesMutable:
       type: object
       additionalProperties: false
@@ -121,6 +127,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: public_dns_namespace
+      x-stackql-primaryIdentifier:
+        - Id
     HealthCheckCustomConfig:
       type: object
       additionalProperties: false
@@ -192,7 +200,22 @@ components:
         Name:
           type: string
       x-stackql-resource-name: service
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    http_namespaces:
+      name: http_namespaces
+      id: aws.servicediscovery.http_namespaces
+      x-cfn-schema-name: HttpNamespace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
     http_namespace:
       name: http_namespace
       id: aws.servicediscovery.http_namespace
@@ -209,7 +232,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
+    instances:
+      name: instances
+      id: aws.servicediscovery.instances
+      x-cfn-schema-name: Instance
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
     instance:
       name: instance
       id: aws.servicediscovery.instance
@@ -224,7 +260,20 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceAttributes') as instance_attributes,
               JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
+    private_dns_namespaces:
+      name: private_dns_namespaces
+      id: aws.servicediscovery.private_dns_namespaces
+      x-cfn-schema-name: PrivateDnsNamespace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
     private_dns_namespace:
       name: private_dns_namespace
       id: aws.servicediscovery.private_dns_namespace
@@ -244,7 +293,20 @@ components:
               JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
+    public_dns_namespaces:
+      name: public_dns_namespaces
+      id: aws.servicediscovery.public_dns_namespaces
+      x-cfn-schema-name: PublicDnsNamespace
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
     public_dns_namespace:
       name: public_dns_namespace
       id: aws.servicediscovery.public_dns_namespace
@@ -263,7 +325,20 @@ components:
               JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
+    services:
+      name: services
+      id: aws.servicediscovery.services
+      x-cfn-schema-name: Service
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'
     service:
       name: service
       id: aws.servicediscovery.service
@@ -289,4 +364,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Service' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'

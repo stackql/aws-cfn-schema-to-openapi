@@ -1657,6 +1657,8 @@ components:
         - DataPrivacy
         - IdleSessionTTLInSeconds
       x-stackql-resource-name: bot
+      x-stackql-primaryIdentifier:
+        - Id
     BotAliasStatus:
       type: string
       enum:
@@ -1679,6 +1681,9 @@ components:
         - BotId
         - BotVersionLocaleSpecification
       x-stackql-resource-name: bot_version
+      x-stackql-primaryIdentifier:
+        - BotId
+        - BotVersion
     Arn:
       type: string
       maxLength: 1000
@@ -1725,6 +1730,9 @@ components:
         - BotId
         - BotAliasName
       x-stackql-resource-name: bot_alias
+      x-stackql-primaryIdentifier:
+        - BotAliasId
+        - BotId
     BotVersionLocaleDetails:
       description: The version of a bot used for a bot locale.
       type: object
@@ -1784,7 +1792,22 @@ components:
         - ResourceArn
         - Policy
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    bots:
+      name: bots
+      id: aws.lex.bots
+      x-cfn-schema-name: Bot
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot'
     bot:
       name: bot
       id: aws.lex.bot
@@ -1809,7 +1832,21 @@ components:
               JSON_EXTRACT(Properties, '$.TestBotAliasSettings.ConversationLogSettings') as test_bot_alias_settings_conversation_log_settings,
               JSON_EXTRACT(Properties, '$.TestBotAliasSettings.Description') as test_bot_alias_settings_description,
               JSON_EXTRACT(Properties, '$.TestBotAliasSettings.SentimentAnalysisSettings') as test_bot_alias_settings_sentiment_analysis_settings
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
+    bot_versions:
+      name: bot_versions
+      id: aws.lex.bot_versions
+      x-cfn-schema-name: BotVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion'
     bot_version:
       name: bot_version
       id: aws.lex.bot_version
@@ -1825,7 +1862,21 @@ components:
               JSON_EXTRACT(Properties, '$.BotVersion.BotVersion') as bot_version_bot_version,
               JSON_EXTRACT(Properties, '$.BotVersion.Description') as bot_version_description,
               JSON_EXTRACT(Properties, '$.BotVersion.BotVersionLocaleSpecification') as bot_version_bot_version_locale_specification
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
+    bot_aliases:
+      name: bot_aliases
+      id: aws.lex.bot_aliases
+      x-cfn-schema-name: BotAlias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BotAliasId') as bot_alias_id,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias'
     bot_alias:
       name: bot_alias
       id: aws.lex.bot_alias
@@ -1845,7 +1896,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConversationLogSettings.TextLogSettings') as conversation_log_settings_text_log_settings,
               JSON_EXTRACT(Properties, '$.SentimentAnalysisSettings') as sentiment_analysis_settings,
               JSON_EXTRACT(Properties, '$.BotAliasTags') as bot_alias_tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
+    resource_policies:
+      name: resource_policies
+      id: aws.lex.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.lex.resource_policy
@@ -1857,4 +1921,4 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'

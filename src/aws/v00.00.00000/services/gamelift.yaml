@@ -53,6 +53,8 @@ components:
         - Name
         - RoutingStrategy
       x-stackql-resource-name: alias
+      x-stackql-primaryIdentifier:
+        - AliasId
     StorageLocation:
       x-$comment: Contains object details present in the S3 Bucket
       type: object
@@ -99,6 +101,8 @@ components:
           type: string
       required: []
       x-stackql-resource-name: build
+      x-stackql-primaryIdentifier:
+        - BuildId
     AnywhereConfiguration:
       description: Configuration for Anywhere fleet.
       properties:
@@ -177,6 +181,8 @@ components:
       required:
         - LocationName
       x-stackql-resource-name: location
+      x-stackql-primaryIdentifier:
+        - LocationName
     LocationCapacity:
       description: Current resource capacity settings in a specified fleet or location. The location value might refer to a fleet's remote location or its home Region.
       type: object
@@ -417,6 +423,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: fleet
+      x-stackql-primaryIdentifier:
+        - FleetId
     AutoScalingPolicy:
       type: object
       description: Configuration settings to define a scaling policy for the Auto Scaling group that is optimized for game hosting
@@ -615,6 +623,8 @@ components:
         - InstanceDefinitions
         - RoleArn
       x-stackql-resource-name: game_server_group
+      x-stackql-primaryIdentifier:
+        - GameServerGroupArn
     AutoScalingGroupArn:
       type: string
       description: A generated unique ID for the EC2 Auto Scaling group that is associated with this game server group.
@@ -723,6 +733,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: game_session_queue
+      x-stackql-primaryIdentifier:
+        - Id
     GameProperty:
       type: object
       additionalProperties: false
@@ -786,6 +798,8 @@ components:
         - RuleSetName
         - Name
       x-stackql-resource-name: matchmaking_configuration
+      x-stackql-primaryIdentifier:
+        - Id
     MatchmakingRuleSet:
       type: object
       properties:
@@ -806,6 +820,8 @@ components:
         - RuleSetBody
         - Name
       x-stackql-resource-name: matchmaking_rule_set
+      x-stackql-primaryIdentifier:
+        - Id
     S3Location:
       type: object
       additionalProperties: false
@@ -843,7 +859,22 @@ components:
       required:
         - StorageLocation
       x-stackql-resource-name: script
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    aliases:
+      name: aliases
+      id: aws.gamelift.aliases
+      x-cfn-schema-name: Alias
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AliasId') as alias_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Alias'
     alias:
       name: alias
       id: aws.gamelift.alias
@@ -861,7 +892,20 @@ components:
               JSON_EXTRACT(Properties, '$.RoutingStrategy.FleetId') as routing_strategy_fleet_id,
               JSON_EXTRACT(Properties, '$.RoutingStrategy.Type') as routing_strategy_type,
               JSON_EXTRACT(Properties, '$.AliasId') as alias_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Alias' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Alias'
+    builds:
+      name: builds
+      id: aws.gamelift.builds
+      x-cfn-schema-name: Build
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BuildId') as build_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Build'
     build:
       name: build
       id: aws.gamelift.build
@@ -881,7 +925,20 @@ components:
               JSON_EXTRACT(Properties, '$.StorageLocation.ObjectVersion') as storage_location_object_version,
               JSON_EXTRACT(Properties, '$.StorageLocation.RoleArn') as storage_location_role_arn,
               JSON_EXTRACT(Properties, '$.Version') as version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Build' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Build'
+    locations:
+      name: locations
+      id: aws.gamelift.locations
+      x-cfn-schema-name: Location
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationName') as location_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Location'
     location:
       name: location
       id: aws.gamelift.location
@@ -896,7 +953,20 @@ components:
               JSON_EXTRACT(Properties, '$.LocationName') as location_name,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Location' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Location'
+    fleets:
+      name: fleets
+      id: aws.gamelift.fleets
+      x-cfn-schema-name: Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FleetId') as fleet_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Fleet'
     fleet:
       name: fleet
       id: aws.gamelift.fleet
@@ -936,7 +1006,20 @@ components:
               JSON_EXTRACT(Properties, '$.RuntimeConfiguration.ServerProcesses') as runtime_configuration_server_processes,
               JSON_EXTRACT(Properties, '$.ServerLaunchParameters') as server_launch_parameters,
               JSON_EXTRACT(Properties, '$.ServerLaunchPath') as server_launch_path
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Fleet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Fleet'
+    game_server_groups:
+      name: game_server_groups
+      id: aws.gamelift.game_server_groups
+      x-cfn-schema-name: GameServerGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GameServerGroupArn') as game_server_group_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
     game_server_group:
       name: game_server_group
       id: aws.gamelift.game_server_group
@@ -953,7 +1036,20 @@ components:
               JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateId') as launch_template_launch_template_id,
               JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateName') as launch_template_launch_template_name,
               JSON_EXTRACT(Properties, '$.LaunchTemplate.Version') as launch_template_version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameServerGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
+    game_session_queues:
+      name: game_session_queues
+      id: aws.gamelift.game_session_queues
+      x-cfn-schema-name: GameSessionQueue
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
     game_session_queue:
       name: game_session_queue
       id: aws.gamelift.game_session_queue
@@ -977,7 +1073,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.PriorityConfiguration.PriorityOrder') as priority_configuration_priority_order,
               JSON_EXTRACT(Properties, '$.PriorityConfiguration.LocationOrder') as priority_configuration_location_order
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
+    matchmaking_configurations:
+      name: matchmaking_configurations
+      id: aws.gamelift.matchmaking_configurations
+      x-cfn-schema-name: MatchmakingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
     matchmaking_configuration:
       name: matchmaking_configuration
       id: aws.gamelift.matchmaking_configuration
@@ -1006,7 +1115,20 @@ components:
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name,
               JSON_EXTRACT(Properties, '$.GameSessionQueueArns') as game_session_queue_arns,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
+    matchmaking_rule_sets:
+      name: matchmaking_rule_sets
+      id: aws.gamelift.matchmaking_rule_sets
+      x-cfn-schema-name: MatchmakingRuleSet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
     matchmaking_rule_set:
       name: matchmaking_rule_set
       id: aws.gamelift.matchmaking_rule_set
@@ -1023,7 +1145,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
+    scripts:
+      name: scripts
+      id: aws.gamelift.scripts
+      x-cfn-schema-name: Script
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Script'
     script:
       name: script
       id: aws.gamelift.script
@@ -1044,4 +1179,4 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Script' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Script'

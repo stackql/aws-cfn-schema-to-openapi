@@ -50,6 +50,8 @@ components:
         Tags:
           $ref: '#/components/schemas/Tags'
       x-stackql-resource-name: group
+      x-stackql-primaryIdentifier:
+        - GroupARN
     ResourcePolicy:
       type: object
       properties:
@@ -71,6 +73,8 @@ components:
         - PolicyName
         - PolicyDocument
       x-stackql-resource-name: resource_policy
+      x-stackql-primaryIdentifier:
+        - PolicyName
     SamplingRule:
       type: object
       properties:
@@ -87,6 +91,8 @@ components:
         Tags:
           $ref: '#/components/schemas/Tags'
       x-stackql-resource-name: sampling_rule
+      x-stackql-primaryIdentifier:
+        - RuleARN
     SamplingRuleRecord:
       type: object
       additionalProperties: false
@@ -162,6 +168,19 @@ components:
       description: The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.
       type: string
   x-stackQL-resources:
+    groups:
+      name: groups
+      id: aws.xray.groups
+      x-cfn-schema-name: Group
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::Group'
     group:
       name: group
       id: aws.xray.group
@@ -178,7 +197,20 @@ components:
               JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n,
               JSON_EXTRACT(Properties, '$.InsightsConfiguration.InsightsEnabled') as insights_configuration_insights_enabled,
               JSON_EXTRACT(Properties, '$.InsightsConfiguration.NotificationsEnabled') as insights_configuration_notifications_enabled
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::Group' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::Group'
+    resource_policies:
+      name: resource_policies
+      id: aws.xray.resource_policies
+      x-cfn-schema-name: ResourcePolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.xray.resource_policy
@@ -193,7 +225,20 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.BypassPolicyLockoutCheck') as bypass_policy_lockout_check
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::ResourcePolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
+    sampling_rules:
+      name: sampling_rules
+      id: aws.xray.sampling_rules
+      x-cfn-schema-name: SamplingRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RuleARN') as rule_ar_n
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::SamplingRule'
     sampling_rule:
       name: sampling_rule
       id: aws.xray.sampling_rule
@@ -226,4 +271,4 @@ components:
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceName') as sampling_rule_update_service_name,
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceType') as sampling_rule_update_service_type,
               JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.URLPath') as sampling_rule_update_ur_lpath
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::SamplingRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::SamplingRule'

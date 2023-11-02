@@ -151,6 +151,8 @@ components:
         - NumCacheNodes
         - Engine
       x-stackql-resource-name: cache_cluster
+      x-stackql-primaryIdentifier:
+        - Id
     GlobalReplicationGroupMember:
       type: object
       additionalProperties: false
@@ -242,6 +244,8 @@ components:
       required:
         - Members
       x-stackql-resource-name: global_replication_group
+      x-stackql-primaryIdentifier:
+        - GlobalReplicationGroupId
     ParameterGroup:
       type: object
       properties:
@@ -265,6 +269,8 @@ components:
         - Description
         - CacheParameterGroupFamily
       x-stackql-resource-name: parameter_group
+      x-stackql-primaryIdentifier:
+        - Id
     NodeGroupConfiguration:
       type: object
       additionalProperties: false
@@ -414,6 +420,8 @@ components:
       required:
         - ReplicationGroupDescription
       x-stackql-resource-name: replication_group
+      x-stackql-primaryIdentifier:
+        - ReplicationGroupId
     SecurityGroup:
       type: object
       properties:
@@ -429,6 +437,8 @@ components:
       required:
         - Description
       x-stackql-resource-name: security_group
+      x-stackql-primaryIdentifier:
+        - Id
     SecurityGroupIngress:
       type: object
       properties:
@@ -444,6 +454,8 @@ components:
         - EC2SecurityGroupName
         - CacheSecurityGroupName
       x-stackql-resource-name: security_group_ingress
+      x-stackql-primaryIdentifier:
+        - Id
     SubnetGroup:
       type: object
       properties:
@@ -470,6 +482,8 @@ components:
         - Description
         - SubnetIds
       x-stackql-resource-name: subnet_group
+      x-stackql-primaryIdentifier:
+        - CacheSubnetGroupName
     User:
       type: object
       properties:
@@ -539,6 +553,8 @@ components:
         - UserName
         - Engine
       x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - UserId
     UserGroup:
       type: object
       properties:
@@ -578,7 +594,22 @@ components:
         - Engine
         - UserIds
       x-stackql-resource-name: user_group
+      x-stackql-primaryIdentifier:
+        - UserGroupId
   x-stackQL-resources:
+    cache_clusters:
+      name: cache_clusters
+      id: aws.elasticache.cache_clusters
+      x-cfn-schema-name: CacheCluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::CacheCluster'
     cache_cluster:
       name: cache_cluster
       id: aws.elasticache.cache_cluster
@@ -620,7 +651,20 @@ components:
               JSON_EXTRACT(Properties, '$.LogDeliveryConfigurations') as log_delivery_configurations,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.AZMode') as a_zmode
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::CacheCluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::CacheCluster'
+    global_replication_groups:
+      name: global_replication_groups
+      id: aws.elasticache.global_replication_groups
+      x-cfn-schema-name: GlobalReplicationGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GlobalReplicationGroupId') as global_replication_group_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::GlobalReplicationGroup'
     global_replication_group:
       name: global_replication_group
       id: aws.elasticache.global_replication_group
@@ -643,7 +687,20 @@ components:
               JSON_EXTRACT(Properties, '$.Members') as members,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.RegionalConfigurations') as regional_configurations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::GlobalReplicationGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::GlobalReplicationGroup'
+    parameter_groups:
+      name: parameter_groups
+      id: aws.elasticache.parameter_groups
+      x-cfn-schema-name: ParameterGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::ParameterGroup'
     parameter_group:
       name: parameter_group
       id: aws.elasticache.parameter_group
@@ -660,7 +717,20 @@ components:
               JSON_EXTRACT(Properties, '$.Properties') as properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CacheParameterGroupFamily') as cache_parameter_group_family
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::ParameterGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::ParameterGroup'
+    replication_groups:
+      name: replication_groups
+      id: aws.elasticache.replication_groups
+      x-cfn-schema-name: ReplicationGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReplicationGroupId') as replication_group_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::ReplicationGroup'
     replication_group:
       name: replication_group
       id: aws.elasticache.replication_group
@@ -720,7 +790,20 @@ components:
               JSON_EXTRACT(Properties, '$.DataTieringEnabled') as data_tiering_enabled,
               JSON_EXTRACT(Properties, '$.LogDeliveryConfigurations') as log_delivery_configurations,
               JSON_EXTRACT(Properties, '$.ReadEndPointAddresses') as read_end_point_addresses
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::ReplicationGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::ReplicationGroup'
+    security_groups:
+      name: security_groups
+      id: aws.elasticache.security_groups
+      x-cfn-schema-name: SecurityGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroup'
     security_group:
       name: security_group
       id: aws.elasticache.security_group
@@ -735,7 +818,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroup'
+    security_group_ingresses:
+      name: security_group_ingresses
+      id: aws.elasticache.security_group_ingresses
+      x-cfn-schema-name: SecurityGroupIngress
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroupIngress'
     security_group_ingress:
       name: security_group_ingress
       id: aws.elasticache.security_group_ingress
@@ -751,7 +847,20 @@ components:
               JSON_EXTRACT(Properties, '$.CacheSecurityGroupName') as cache_security_group_name,
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupName') as e_c2_security_group_name,
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupOwnerId') as e_c2_security_group_owner_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroupIngress' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::SecurityGroupIngress'
+    subnet_groups:
+      name: subnet_groups
+      id: aws.elasticache.subnet_groups
+      x-cfn-schema-name: SubnetGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CacheSubnetGroupName') as cache_subnet_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SubnetGroup'
     subnet_group:
       name: subnet_group
       id: aws.elasticache.subnet_group
@@ -767,7 +876,20 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.CacheSubnetGroupName') as cache_subnet_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::SubnetGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::SubnetGroup'
+    users:
+      name: users
+      id: aws.elasticache.users
+      x-cfn-schema-name: User
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.UserId') as user_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::User'
     user:
       name: user
       id: aws.elasticache.user
@@ -789,7 +911,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AuthenticationMode') as authentication_mode,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::User' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::User'
+    user_groups:
+      name: user_groups
+      id: aws.elasticache.user_groups
+      x-cfn-schema-name: UserGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.UserGroupId') as user_group_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::UserGroup'
     user_group:
       name: user_group
       id: aws.elasticache.user_group
@@ -807,4 +942,4 @@ components:
               JSON_EXTRACT(Properties, '$.UserIds') as user_ids,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElastiCache::UserGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElastiCache::UserGroup'

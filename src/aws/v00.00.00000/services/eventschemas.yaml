@@ -37,6 +37,8 @@ components:
       required:
         - SourceArn
       x-stackql-resource-name: discoverer
+      x-stackql-primaryIdentifier:
+        - DiscovererId
     Registry:
       type: object
       properties:
@@ -54,6 +56,8 @@ components:
           items:
             $ref: '#/components/schemas/TagsEntry'
       x-stackql-resource-name: registry
+      x-stackql-primaryIdentifier:
+        - Id
     RegistryPolicy:
       type: object
       properties:
@@ -69,6 +73,8 @@ components:
         - RegistryName
         - Policy
       x-stackql-resource-name: registry_policy
+      x-stackql-primaryIdentifier:
+        - Id
     Schema:
       type: object
       properties:
@@ -98,7 +104,22 @@ components:
         - Content
         - RegistryName
       x-stackql-resource-name: schema
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    discoverers:
+      name: discoverers
+      id: aws.eventschemas.discoverers
+      x-cfn-schema-name: Discoverer
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DiscovererId') as discoverer_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
     discoverer:
       name: discoverer
       id: aws.eventschemas.discoverer
@@ -116,7 +137,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Discoverer' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
+    registries:
+      name: registries
+      id: aws.eventschemas.registries
+      x-cfn-schema-name: Registry
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Registry'
     registry:
       name: registry
       id: aws.eventschemas.registry
@@ -133,7 +167,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RegistryArn') as registry_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Registry' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Registry'
+    registry_policies:
+      name: registry_policies
+      id: aws.eventschemas.registry_policies
+      x-cfn-schema-name: RegistryPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
     registry_policy:
       name: registry_policy
       id: aws.eventschemas.registry_policy
@@ -149,7 +196,20 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.RegistryName') as registry_name,
               JSON_EXTRACT(Properties, '$.RevisionId') as revision_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
+    schemata:
+      name: schemata
+      id: aws.eventschemas.schemata
+      x-cfn-schema-name: Schema
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Schema'
     schema:
       name: schema
       id: aws.eventschemas.schema
@@ -170,4 +230,4 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn,
               JSON_EXTRACT(Properties, '$.SchemaName') as schema_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Schema' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Schema'

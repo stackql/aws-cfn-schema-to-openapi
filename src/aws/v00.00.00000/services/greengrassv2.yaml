@@ -184,6 +184,8 @@ components:
           maxProperties: 50
           additionalProperties: false
       x-stackql-resource-name: component_version
+      x-stackql-primaryIdentifier:
+        - Arn
     ComponentDeploymentSpecification:
       type: object
       properties:
@@ -409,7 +411,22 @@ components:
       required:
         - TargetArn
       x-stackql-resource-name: deployment
+      x-stackql-primaryIdentifier:
+        - DeploymentId
   x-stackQL-resources:
+    component_versions:
+      name: component_versions
+      id: aws.greengrassv2.component_versions
+      x-cfn-schema-name: ComponentVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
     component_version:
       name: component_version
       id: aws.greengrassv2.component_version
@@ -432,7 +449,20 @@ components:
               JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentDependencies') as lambda_function_component_dependencies,
               JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentLambdaParameters') as lambda_function_component_lambda_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
+    deployments:
+      name: deployments
+      id: aws.greengrassv2.deployments
+      x-cfn-schema-name: Deployment
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'
     deployment:
       name: deployment
       id: aws.greengrassv2.deployment
@@ -456,4 +486,4 @@ components:
               JSON_EXTRACT(Properties, '$.DeploymentPolicies.ComponentUpdatePolicy') as deployment_policies_component_update_policy,
               JSON_EXTRACT(Properties, '$.DeploymentPolicies.ConfigurationValidationPolicy') as deployment_policies_configuration_validation_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::Deployment' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'

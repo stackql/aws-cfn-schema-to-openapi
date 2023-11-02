@@ -136,6 +136,8 @@ components:
         - ComparisonOperator
         - EvaluationPeriods
       x-stackql-resource-name: alarm
+      x-stackql-primaryIdentifier:
+        - Id
     MetricMathAnomalyDetector:
       type: object
       additionalProperties: false
@@ -205,6 +207,8 @@ components:
         SingleMetricAnomalyDetector:
           $ref: '#/components/schemas/SingleMetricAnomalyDetector'
       x-stackql-resource-name: anomaly_detector
+      x-stackql-primaryIdentifier:
+        - Id
     CompositeAlarm:
       type: object
       properties:
@@ -274,6 +278,8 @@ components:
       required:
         - AlarmRule
       x-stackql-resource-name: composite_alarm
+      x-stackql-primaryIdentifier:
+        - AlarmName
     Dashboard:
       type: object
       properties:
@@ -286,6 +292,8 @@ components:
       required:
         - DashboardBody
       x-stackql-resource-name: dashboard
+      x-stackql-primaryIdentifier:
+        - Id
     Tags:
       type: object
       additionalProperties: false
@@ -309,6 +317,8 @@ components:
         - RuleBody
         - RuleName
       x-stackql-resource-name: insight_rule
+      x-stackql-primaryIdentifier:
+        - Id
     MetricStreamFilter:
       description: This structure defines the metrics that will be streamed.
       type: object
@@ -459,7 +469,22 @@ components:
         - RoleArn
         - OutputFormat
       x-stackql-resource-name: metric_stream
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    alarms:
+      name: alarms
+      id: aws.cloudwatch.alarms
+      x-cfn-schema-name: Alarm
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
     alarm:
       name: alarm
       id: aws.cloudwatch.alarm
@@ -494,7 +519,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DatapointsToAlarm') as datapoints_to_alarm,
               JSON_EXTRACT(Properties, '$.Threshold') as threshold
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
+    anomaly_detectors:
+      name: anomaly_detectors
+      id: aws.cloudwatch.anomaly_detectors
+      x-cfn-schema-name: AnomalyDetector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
     anomaly_detector:
       name: anomaly_detector
       id: aws.cloudwatch.anomaly_detector
@@ -518,7 +556,20 @@ components:
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Dimensions') as single_metric_anomaly_detector_dimensions,
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Stat') as single_metric_anomaly_detector_stat,
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Namespace') as single_metric_anomaly_detector_namespace
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
+    composite_alarms:
+      name: composite_alarms
+      id: aws.cloudwatch.composite_alarms
+      x-cfn-schema-name: CompositeAlarm
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
     composite_alarm:
       name: composite_alarm
       id: aws.cloudwatch.composite_alarm
@@ -541,7 +592,20 @@ components:
               JSON_EXTRACT(Properties, '$.ActionsSuppressor') as actions_suppressor,
               JSON_EXTRACT(Properties, '$.ActionsSuppressorWaitPeriod') as actions_suppressor_wait_period,
               JSON_EXTRACT(Properties, '$.ActionsSuppressorExtensionPeriod') as actions_suppressor_extension_period
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
+    dashboards:
+      name: dashboards
+      id: aws.cloudwatch.dashboards
+      x-cfn-schema-name: Dashboard
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
     dashboard:
       name: dashboard
       id: aws.cloudwatch.dashboard
@@ -556,7 +620,20 @@ components:
               JSON_EXTRACT(Properties, '$.DashboardName') as dashboard_name,
               JSON_EXTRACT(Properties, '$.DashboardBody') as dashboard_body,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Dashboard' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
+    insight_rules:
+      name: insight_rules
+      id: aws.cloudwatch.insight_rules
+      x-cfn-schema-name: InsightRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
     insight_rule:
       name: insight_rule
       id: aws.cloudwatch.insight_rule
@@ -573,7 +650,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RuleBody') as rule_body,
               JSON_EXTRACT(Properties, '$.RuleName') as rule_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::InsightRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
+    metric_streams:
+      name: metric_streams
+      id: aws.cloudwatch.metric_streams
+      x-cfn-schema-name: MetricStream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'
     metric_stream:
       name: metric_stream
       id: aws.cloudwatch.metric_stream
@@ -598,4 +688,4 @@ components:
               JSON_EXTRACT(Properties, '$.StatisticsConfigurations') as statistics_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IncludeLinkedAccountsMetrics') as include_linked_accounts_metrics
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::MetricStream' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'

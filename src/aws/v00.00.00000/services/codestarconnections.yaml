@@ -63,7 +63,22 @@ components:
       required:
         - ConnectionName
       x-stackql-resource-name: connection
+      x-stackql-primaryIdentifier:
+        - ConnectionArn
   x-stackQL-resources:
+    connections:
+      name: connections
+      id: aws.codestarconnections.connections
+      x-cfn-schema-name: Connection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'
     connection:
       name: connection
       id: aws.codestarconnections.connection
@@ -82,4 +97,4 @@ components:
               JSON_EXTRACT(Properties, '$.ProviderType') as provider_type,
               JSON_EXTRACT(Properties, '$.HostArn') as host_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::Connection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'

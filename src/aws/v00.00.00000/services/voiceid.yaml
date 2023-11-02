@@ -63,7 +63,22 @@ components:
         - Name
         - ServerSideEncryptionConfiguration
       x-stackql-resource-name: domain
+      x-stackql-primaryIdentifier:
+        - DomainId
   x-stackQL-resources:
+    domains:
+      name: domains
+      id: aws.voiceid.domains
+      x-cfn-schema-name: Domain
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainId') as domain_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VoiceID::Domain'
     domain:
       name: domain
       id: aws.voiceid.domain
@@ -80,4 +95,4 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VoiceID::Domain' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VoiceID::Domain'

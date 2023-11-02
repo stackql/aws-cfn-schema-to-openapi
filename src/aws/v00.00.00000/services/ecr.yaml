@@ -104,6 +104,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: public_repository
+      x-stackql-primaryIdentifier:
+        - RepositoryName
     PullThroughCacheRule:
       type: object
       properties:
@@ -117,6 +119,8 @@ components:
           type: string
           description: The upstreamRegistryUrl is the endpoint of upstream registry url of the public repository to be cached
       x-stackql-resource-name: pull_through_cache_rule
+      x-stackql-primaryIdentifier:
+        - EcrRepositoryPrefix
     EcrRepositoryPrefix:
       type: string
       minLength: 2
@@ -137,6 +141,8 @@ components:
       required:
         - PolicyText
       x-stackql-resource-name: registry_policy
+      x-stackql-primaryIdentifier:
+        - RegistryId
     ReplicationConfiguration:
       type: object
       properties:
@@ -148,6 +154,8 @@ components:
       required:
         - ReplicationConfiguration
       x-stackql-resource-name: replication_configuration
+      x-stackql-primaryIdentifier:
+        - RegistryId
     ReplicationRule:
       type: object
       properties:
@@ -293,7 +301,22 @@ components:
         EncryptionConfiguration:
           $ref: '#/components/schemas/EncryptionConfiguration'
       x-stackql-resource-name: repository
+      x-stackql-primaryIdentifier:
+        - RepositoryName
   x-stackQL-resources:
+    public_repositories:
+      name: public_repositories
+      id: aws.ecr.public_repositories
+      x-cfn-schema-name: PublicRepository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PublicRepository'
     public_repository:
       name: public_repository
       id: aws.ecr.public_repository
@@ -310,7 +333,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RepositoryCatalogData') as repository_catalog_data,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PublicRepository' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PublicRepository'
+    pull_through_cache_rules:
+      name: pull_through_cache_rules
+      id: aws.ecr.pull_through_cache_rules
+      x-cfn-schema-name: PullThroughCacheRule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EcrRepositoryPrefix') as ecr_repository_prefix
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
     pull_through_cache_rule:
       name: pull_through_cache_rule
       id: aws.ecr.pull_through_cache_rule
@@ -324,7 +360,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.EcrRepositoryPrefix') as ecr_repository_prefix,
               JSON_EXTRACT(Properties, '$.UpstreamRegistryUrl') as upstream_registry_url
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
+    registry_policies:
+      name: registry_policies
+      id: aws.ecr.registry_policies
+      x-cfn-schema-name: RegistryPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
     registry_policy:
       name: registry_policy
       id: aws.ecr.registry_policy
@@ -337,7 +386,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyText') as policy_text
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::RegistryPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
+    replication_configurations:
+      name: replication_configurations
+      id: aws.ecr.replication_configurations
+      x-cfn-schema-name: ReplicationConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
     replication_configuration:
       name: replication_configuration
       id: aws.ecr.replication_configuration
@@ -352,7 +414,20 @@ components:
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration.ReplicationConfiguration') as replication_configuration_replication_configuration,
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration.RegistryId') as replication_configuration_registry_id,
               JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
+    repositories:
+      name: repositories
+      id: aws.ecr.repositories
+      x-cfn-schema-name: Repository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::Repository'
     repository:
       name: repository
       id: aws.ecr.repository
@@ -375,4 +450,4 @@ components:
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.ScanOnPush') as image_scanning_configuration_scan_on_push,
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration.EncryptionType') as encryption_configuration_encryption_type,
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as encryption_configuration_kms_key
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::Repository' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::Repository'

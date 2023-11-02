@@ -24,7 +24,22 @@ components:
       required:
         - ProjectName
       x-stackql-resource-name: project
+      x-stackql-primaryIdentifier:
+        - ProjectName
   x-stackQL-resources:
+    projects:
+      name: projects
+      id: aws.lookoutvision.projects
+      x-cfn-schema-name: Project
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutVision::Project'
     project:
       name: project
       id: aws.lookoutvision.project
@@ -36,4 +51,4 @@ components:
             ddl: |-
               SELECT
               region
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutVision::Project' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutVision::Project'

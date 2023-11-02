@@ -239,7 +239,22 @@ components:
         - FilterCriteria
         - FilterAction
       x-stackql-resource-name: filter
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    filters:
+      name: filters
+      id: aws.inspectorv2.filters
+      x-cfn-schema-name: Filter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::Filter'
     filter:
       name: filter
       id: aws.inspectorv2.filter
@@ -285,4 +300,4 @@ components:
               JSON_EXTRACT(Properties, '$.FilterCriteria.VulnerabilitySource') as filter_criteria_vulnerability_source,
               JSON_EXTRACT(Properties, '$.FilterCriteria.VulnerablePackages') as filter_criteria_vulnerable_packages,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::Filter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InspectorV2::Filter'

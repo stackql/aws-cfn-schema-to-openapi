@@ -13,7 +13,22 @@ components:
         Tags:
           type: object
       x-stackql-resource-name: hub
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    hubs:
+      name: hubs
+      id: aws.securityhub.hubs
+      x-cfn-schema-name: Hub
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Hub'
     hub:
       name: hub
       id: aws.securityhub.hub
@@ -27,4 +42,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Hub' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::Hub'

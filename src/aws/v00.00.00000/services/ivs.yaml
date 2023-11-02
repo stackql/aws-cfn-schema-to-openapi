@@ -77,6 +77,8 @@ components:
           maxLength: 128
       required: []
       x-stackql-resource-name: channel
+      x-stackql-primaryIdentifier:
+        - Arn
     PlaybackKeyPair:
       type: object
       properties:
@@ -107,6 +109,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: playback_key_pair
+      x-stackql-primaryIdentifier:
+        - Arn
     DestinationConfiguration:
       description: Recording Destination Configuration.
       type: object
@@ -189,6 +193,8 @@ components:
       required:
         - DestinationConfiguration
       x-stackql-resource-name: recording_configuration
+      x-stackql-primaryIdentifier:
+        - Arn
     StreamKey:
       type: object
       properties:
@@ -216,7 +222,22 @@ components:
       required:
         - ChannelArn
       x-stackql-resource-name: stream_key
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    channels:
+      name: channels
+      id: aws.ivs.channels
+      x-cfn-schema-name: Channel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Channel'
     channel:
       name: channel
       id: aws.ivs.channel
@@ -237,7 +258,20 @@ components:
               JSON_EXTRACT(Properties, '$.PlaybackUrl') as playback_url,
               JSON_EXTRACT(Properties, '$.IngestEndpoint') as ingest_endpoint,
               JSON_EXTRACT(Properties, '$.RecordingConfigurationArn') as recording_configuration_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Channel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Channel'
+    playback_key_pairs:
+      name: playback_key_pairs
+      id: aws.ivs.playback_key_pairs
+      x-cfn-schema-name: PlaybackKeyPair
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
     playback_key_pair:
       name: playback_key_pair
       id: aws.ivs.playback_key_pair
@@ -254,7 +288,20 @@ components:
               JSON_EXTRACT(Properties, '$.Fingerprint') as fingerprint,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
+    recording_configurations:
+      name: recording_configurations
+      id: aws.ivs.recording_configurations
+      x-cfn-schema-name: RecordingConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
     recording_configuration:
       name: recording_configuration
       id: aws.ivs.recording_configuration
@@ -274,7 +321,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.RecordingMode') as thumbnail_configuration_recording_mode,
               JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.TargetIntervalSeconds') as thumbnail_configuration_target_interval_seconds
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
+    stream_keys:
+      name: stream_keys
+      id: aws.ivs.stream_keys
+      x-cfn-schema-name: StreamKey
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::StreamKey'
     stream_key:
       name: stream_key
       id: aws.ivs.stream_key
@@ -290,4 +350,4 @@ components:
               JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Value') as value
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::StreamKey' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::StreamKey'

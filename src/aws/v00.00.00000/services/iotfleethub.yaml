@@ -87,7 +87,22 @@ components:
         - ApplicationName
         - RoleArn
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationId
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.iotfleethub.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetHub::Application'
     application:
       name: application
       id: aws.iotfleethub.application
@@ -111,4 +126,4 @@ components:
               JSON_EXTRACT(Properties, '$.SsoClientId') as sso_client_id,
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetHub::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetHub::Application'

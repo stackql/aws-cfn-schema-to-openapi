@@ -78,6 +78,8 @@ components:
         GrokClassifier:
           $ref: '#/components/schemas/GrokClassifier'
       x-stackql-resource-name: classifier
+      x-stackql-primaryIdentifier:
+        - Id
     ConnectionInput:
       type: object
       additionalProperties: false
@@ -125,6 +127,8 @@ components:
         - ConnectionInput
         - CatalogId
       x-stackql-resource-name: connection
+      x-stackql-primaryIdentifier:
+        - Id
     S3Target:
       type: object
       additionalProperties: false
@@ -289,6 +293,8 @@ components:
         - Role
         - Targets
       x-stackql-resource-name: crawler
+      x-stackql-primaryIdentifier:
+        - Id
     DatabaseIdentifier:
       type: object
       additionalProperties: false
@@ -356,6 +362,8 @@ components:
         - DatabaseInput
         - CatalogId
       x-stackql-resource-name: database
+      x-stackql-primaryIdentifier:
+        - Id
     DataCatalogEncryptionSettings:
       type: object
       properties:
@@ -369,6 +377,8 @@ components:
         - CatalogId
         - DataCatalogEncryptionSettings
       x-stackql-resource-name: data_catalog_encryption_settings
+      x-stackql-primaryIdentifier:
+        - Id
     EncryptionAtRest:
       type: object
       additionalProperties: false
@@ -429,6 +439,8 @@ components:
       required:
         - RoleArn
       x-stackql-resource-name: dev_endpoint
+      x-stackql-primaryIdentifier:
+        - Id
     NotificationProperty:
       type: object
       additionalProperties: false
@@ -509,6 +521,8 @@ components:
         - Role
         - Command
       x-stackql-resource-name: job
+      x-stackql-primaryIdentifier:
+        - Id
     GlueTables:
       type: object
       additionalProperties: false
@@ -611,6 +625,8 @@ components:
         - TransformParameters
         - InputRecordTables
       x-stackql-resource-name: ml_transform
+      x-stackql-primaryIdentifier:
+        - Id
     SchemaReference:
       type: object
       additionalProperties: false
@@ -753,6 +769,8 @@ components:
         - CatalogId
         - PartitionInput
       x-stackql-resource-name: partition
+      x-stackql-primaryIdentifier:
+        - Id
     Tag:
       type: object
       properties:
@@ -802,6 +820,8 @@ components:
         - Schema
         - SchemaDefinition
       x-stackql-resource-name: schema_version
+      x-stackql-primaryIdentifier:
+        - VersionId
     Schema:
       description: Identifier for the schema where the schema version will be created.
       type: object
@@ -843,6 +863,10 @@ components:
         - Key
         - Value
       x-stackql-resource-name: schema_version_metadata
+      x-stackql-primaryIdentifier:
+        - SchemaVersionId
+        - Key
+        - Value
     S3Encryptions:
       type: object
       additionalProperties: false
@@ -885,6 +909,8 @@ components:
         - EncryptionConfiguration
         - Name
       x-stackql-resource-name: security_configuration
+      x-stackql-primaryIdentifier:
+        - Id
     TableIdentifier:
       type: object
       additionalProperties: false
@@ -940,6 +966,8 @@ components:
         - DatabaseName
         - CatalogId
       x-stackql-resource-name: table
+      x-stackql-primaryIdentifier:
+        - Id
     Condition:
       type: object
       additionalProperties: false
@@ -1023,6 +1051,8 @@ components:
         - Type
         - Actions
       x-stackql-resource-name: trigger
+      x-stackql-primaryIdentifier:
+        - Id
     Workflow:
       type: object
       properties:
@@ -1039,7 +1069,22 @@ components:
         MaxConcurrentRuns:
           type: integer
       x-stackql-resource-name: workflow
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    classifiers:
+      name: classifiers
+      id: aws.glue.classifiers
+      x-cfn-schema-name: Classifier
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Classifier'
     classifier:
       name: classifier
       id: aws.glue.classifier
@@ -1068,7 +1113,20 @@ components:
               JSON_EXTRACT(Properties, '$.GrokClassifier.GrokPattern') as grok_classifier_grok_pattern,
               JSON_EXTRACT(Properties, '$.GrokClassifier.Classification') as grok_classifier_classification,
               JSON_EXTRACT(Properties, '$.GrokClassifier.Name') as grok_classifier_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Classifier' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Classifier'
+    connections:
+      name: connections
+      id: aws.glue.connections
+      x-cfn-schema-name: Connection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Connection'
     connection:
       name: connection
       id: aws.glue.connection
@@ -1088,7 +1146,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectionInput.Name') as connection_input_name,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Connection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Connection'
+    crawlers:
+      name: crawlers
+      id: aws.glue.crawlers
+      x-cfn-schema-name: Crawler
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Crawler'
     crawler:
       name: crawler
       id: aws.glue.crawler
@@ -1120,7 +1191,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TablePrefix') as table_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Crawler' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Crawler'
+    databases:
+      name: databases
+      id: aws.glue.databases
+      x-cfn-schema-name: Database
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Database'
     database:
       name: database
       id: aws.glue.database
@@ -1141,7 +1225,7 @@ components:
               JSON_EXTRACT(Properties, '$.DatabaseInput.FederatedDatabase') as database_input_federated_database,
               JSON_EXTRACT(Properties, '$.DatabaseInput.Name') as database_input_name,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Database' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Database'
     data_catalog_encryption_settings:
       name: data_catalog_encryption_settings
       id: aws.glue.data_catalog_encryption_settings
@@ -1158,7 +1242,20 @@ components:
               JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings.DataCatalogEncryptionSettings') as data_catalog_encryption_settings_data_catalog_encryption_settings,
               JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings.CatalogId') as data_catalog_encryption_settings_catalog_id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings'
+    dev_endpoints:
+      name: dev_endpoints
+      id: aws.glue.dev_endpoints
+      x-cfn-schema-name: DevEndpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
     dev_endpoint:
       name: dev_endpoint
       id: aws.glue.dev_endpoint
@@ -1186,7 +1283,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NumberOfWorkers') as number_of_workers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DevEndpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
+    jobs:
+      name: jobs
+      id: aws.glue.jobs
+      x-cfn-schema-name: Job
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Job'
     job:
       name: job
       id: aws.glue.job
@@ -1221,7 +1331,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity,
               JSON_EXTRACT(Properties, '$.NonOverridableArguments') as non_overridable_arguments
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Job' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Job'
+    ml_transforms:
+      name: ml_transforms
+      id: aws.glue.ml_transforms
+      x-cfn-schema-name: MLTransform
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::MLTransform'
     ml_transform:
       name: ml_transform
       id: aws.glue.ml_transform
@@ -1249,7 +1372,20 @@ components:
               JSON_EXTRACT(Properties, '$.NumberOfWorkers') as number_of_workers,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::MLTransform' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::MLTransform'
+    partitions:
+      name: partitions
+      id: aws.glue.partitions
+      x-cfn-schema-name: Partition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Partition'
     partition:
       name: partition
       id: aws.glue.partition
@@ -1268,7 +1404,20 @@ components:
               JSON_EXTRACT(Properties, '$.PartitionInput.StorageDescriptor') as partition_input_storage_descriptor,
               JSON_EXTRACT(Properties, '$.PartitionInput.Values') as partition_input_values,
               JSON_EXTRACT(Properties, '$.PartitionInput.Parameters') as partition_input_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Partition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Partition'
+    schema_versions:
+      name: schema_versions
+      id: aws.glue.schema_versions
+      x-cfn-schema-name: SchemaVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VersionId') as version_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
     schema_version:
       name: schema_version
       id: aws.glue.schema_version
@@ -1285,7 +1434,7 @@ components:
               JSON_EXTRACT(Properties, '$.Schema.RegistryName') as schema_registry_name,
               JSON_EXTRACT(Properties, '$.SchemaDefinition') as schema_definition,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SchemaVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
     schema_version_metadata:
       name: schema_version_metadata
       id: aws.glue.schema_version_metadata
@@ -1300,7 +1449,20 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaVersionId') as schema_version_id,
               JSON_EXTRACT(Properties, '$.Key') as key,
               JSON_EXTRACT(Properties, '$.Value') as value
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SchemaVersionMetadata' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersionMetadata'
+    security_configurations:
+      name: security_configurations
+      id: aws.glue.security_configurations
+      x-cfn-schema-name: SecurityConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
     security_configuration:
       name: security_configuration
       id: aws.glue.security_configuration
@@ -1317,7 +1479,20 @@ components:
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration.CloudWatchEncryption') as encryption_configuration_cloud_watch_encryption,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
+    tables:
+      name: tables
+      id: aws.glue.tables
+      x-cfn-schema-name: Table
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Table'
     table:
       name: table
       id: aws.glue.table
@@ -1343,7 +1518,20 @@ components:
               JSON_EXTRACT(Properties, '$.TableInput.Name') as table_input_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Table' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Table'
+    triggers:
+      name: triggers
+      id: aws.glue.triggers
+      x-cfn-schema-name: Trigger
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Trigger'
     trigger:
       name: trigger
       id: aws.glue.trigger
@@ -1368,7 +1556,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Predicate.Logical') as predicate_logical,
               JSON_EXTRACT(Properties, '$.Predicate.Conditions') as predicate_conditions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Trigger' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Trigger'
+    workflows:
+      name: workflows
+      id: aws.glue.workflows
+      x-cfn-schema-name: Workflow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Workflow'
     workflow:
       name: workflow
       id: aws.glue.workflow
@@ -1386,4 +1587,4 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultRunProperties') as default_run_properties,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.MaxConcurrentRuns') as max_concurrent_runs
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Workflow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Workflow'

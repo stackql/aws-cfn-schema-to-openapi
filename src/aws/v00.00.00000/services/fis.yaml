@@ -239,7 +239,22 @@ components:
         - RoleArn
         - Tags
       x-stackql-resource-name: experiment_template
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    experiment_templates:
+      name: experiment_templates
+      id: aws.fis.experiment_templates
+      x-cfn-schema-name: ExperimentTemplate
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
     experiment_template:
       name: experiment_template
       id: aws.fis.experiment_template
@@ -255,4 +270,4 @@ components:
               JSON_EXTRACT(Properties, '$.LogConfiguration.S3Configuration') as log_configuration_s3_configuration,
               JSON_EXTRACT(Properties, '$.LogConfiguration.LogSchemaVersion') as log_configuration_log_schema_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'

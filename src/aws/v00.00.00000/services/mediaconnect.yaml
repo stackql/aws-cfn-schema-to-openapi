@@ -174,6 +174,8 @@ components:
         - Name
         - Source
       x-stackql-resource-name: flow
+      x-stackql-primaryIdentifier:
+        - FlowArn
     FlowEntitlement:
       type: object
       properties:
@@ -213,6 +215,8 @@ components:
         - Subscribers
         - Description
       x-stackql-resource-name: flow_entitlement
+      x-stackql-primaryIdentifier:
+        - EntitlementArn
     VpcInterfaceAttachment:
       type: object
       description: The settings for attaching a VPC interface to an output.
@@ -284,6 +288,8 @@ components:
         - FlowArn
         - Protocol
       x-stackql-resource-name: flow_output
+      x-stackql-primaryIdentifier:
+        - OutputArn
     FlowSource:
       type: object
       properties:
@@ -342,6 +348,8 @@ components:
         - Name
         - Description
       x-stackql-resource-name: flow_source
+      x-stackql-primaryIdentifier:
+        - SourceArn
     FlowVpcInterface:
       type: object
       properties:
@@ -374,7 +382,23 @@ components:
         - SubnetId
         - SecurityGroupIds
       x-stackql-resource-name: flow_vpc_interface
+      x-stackql-primaryIdentifier:
+        - FlowArn
+        - Name
   x-stackQL-resources:
+    flows:
+      name: flows
+      id: aws.mediaconnect.flows
+      x-cfn-schema-name: Flow
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Flow'
     flow:
       name: flow
       id: aws.mediaconnect.flow
@@ -413,7 +437,20 @@ components:
               JSON_EXTRACT(Properties, '$.SourceFailoverConfig.RecoveryWindow') as source_failover_config_recovery_window,
               JSON_EXTRACT(Properties, '$.SourceFailoverConfig.FailoverMode') as source_failover_config_failover_mode,
               JSON_EXTRACT(Properties, '$.SourceFailoverConfig.SourcePriority') as source_failover_config_source_priority
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Flow' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Flow'
+    flow_entitlements:
+      name: flow_entitlements
+      id: aws.mediaconnect.flow_entitlements
+      x-cfn-schema-name: FlowEntitlement
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.EntitlementArn') as entitlement_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
     flow_entitlement:
       name: flow_entitlement
       id: aws.mediaconnect.flow_entitlement
@@ -441,7 +478,20 @@ components:
               JSON_EXTRACT(Properties, '$.EntitlementStatus') as entitlement_status,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Subscribers') as subscribers
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
+    flow_outputs:
+      name: flow_outputs
+      id: aws.mediaconnect.flow_outputs
+      x-cfn-schema-name: FlowOutput
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.OutputArn') as output_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
     flow_output:
       name: flow_output
       id: aws.mediaconnect.flow_output
@@ -476,7 +526,20 @@ components:
               JSON_EXTRACT(Properties, '$.SmoothingLatency') as smoothing_latency,
               JSON_EXTRACT(Properties, '$.StreamId') as stream_id,
               JSON_EXTRACT(Properties, '$.VpcInterfaceAttachment.VpcInterfaceName') as vpc_interface_attachment_vpc_interface_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
+    flow_sources:
+      name: flow_sources
+      id: aws.mediaconnect.flow_sources
+      x-cfn-schema-name: FlowSource
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SourceArn') as source_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
     flow_source:
       name: flow_source
       id: aws.mediaconnect.flow_source
@@ -511,7 +574,21 @@ components:
               JSON_EXTRACT(Properties, '$.SourceIngestPort') as source_ingest_port,
               JSON_EXTRACT(Properties, '$.VpcInterfaceName') as vpc_interface_name,
               JSON_EXTRACT(Properties, '$.WhitelistCidr') as whitelist_cidr
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowSource' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
+    flow_vpc_interfaces:
+      name: flow_vpc_interfaces
+      id: aws.mediaconnect.flow_vpc_interfaces
+      x-cfn-schema-name: FlowVpcInterface
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'
     flow_vpc_interface:
       name: flow_vpc_interface
       id: aws.mediaconnect.flow_vpc_interface
@@ -529,4 +606,4 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.NetworkInterfaceIds') as network_interface_ids
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'

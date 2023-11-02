@@ -64,6 +64,8 @@ components:
         - Name
         - Type
       x-stackql-resource-name: assistant
+      x-stackql-primaryIdentifier:
+        - AssistantId
     AssociationData:
       type: object
       properties:
@@ -107,6 +109,9 @@ components:
         - AssociationType
         - AssistantId
       x-stackql-resource-name: assistant_association
+      x-stackql-primaryIdentifier:
+        - AssistantAssociationId
+        - AssistantId
     AppIntegrationsConfiguration:
       type: object
       properties:
@@ -184,7 +189,22 @@ components:
         - KnowledgeBaseType
         - Name
       x-stackql-resource-name: knowledge_base
+      x-stackql-primaryIdentifier:
+        - KnowledgeBaseId
   x-stackQL-resources:
+    assistants:
+      name: assistants
+      id: aws.wisdom.assistants
+      x-cfn-schema-name: Assistant
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::Assistant'
     assistant:
       name: assistant
       id: aws.wisdom.assistant
@@ -202,7 +222,21 @@ components:
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::Assistant' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::Assistant'
+    assistant_associations:
+      name: assistant_associations
+      id: aws.wisdom.assistant_associations
+      x-cfn-schema-name: AssistantAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssistantAssociationId') as assistant_association_id,
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
     assistant_association:
       name: assistant_association
       id: aws.wisdom.assistant_association
@@ -220,7 +254,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id,
               JSON_EXTRACT(Properties, '$.Association.KnowledgeBaseId') as association_knowledge_base_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
+    knowledge_bases:
+      name: knowledge_bases
+      id: aws.wisdom.knowledge_bases
+      x-cfn-schema-name: KnowledgeBase
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as knowledge_base_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'
     knowledge_base:
       name: knowledge_base
       id: aws.wisdom.knowledge_base
@@ -240,4 +287,4 @@ components:
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
               JSON_EXTRACT(Properties, '$.SourceConfiguration.AppIntegrations') as source_configuration_app_integrations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'

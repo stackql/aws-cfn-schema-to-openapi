@@ -31,6 +31,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: graph
+      x-stackql-primaryIdentifier:
+        - Arn
     MemberInvitation:
       type: object
       properties:
@@ -60,7 +62,23 @@ components:
         - MemberId
         - MemberEmailAddress
       x-stackql-resource-name: member_invitation
+      x-stackql-primaryIdentifier:
+        - GraphArn
+        - MemberId
   x-stackQL-resources:
+    graphs:
+      name: graphs
+      id: aws.detective.graphs
+      x-cfn-schema-name: Graph
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::Graph'
     graph:
       name: graph
       id: aws.detective.graph
@@ -74,7 +92,21 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::Graph' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::Graph'
+    member_invitations:
+      name: member_invitations
+      id: aws.detective.member_invitations
+      x-cfn-schema-name: MemberInvitation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn,
+              JSON_EXTRACT(Properties, '$.MemberId') as member_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
     member_invitation:
       name: member_invitation
       id: aws.detective.member_invitation
@@ -91,4 +123,4 @@ components:
               JSON_EXTRACT(Properties, '$.MemberEmailAddress') as member_email_address,
               JSON_EXTRACT(Properties, '$.DisableEmailNotification') as disable_email_notification,
               JSON_EXTRACT(Properties, '$.Message') as message
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::MemberInvitation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::MemberInvitation'

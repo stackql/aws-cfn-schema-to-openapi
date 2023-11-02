@@ -87,7 +87,22 @@ components:
         - Name
         - ContainerProvider
       x-stackql-resource-name: virtual_cluster
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    virtual_clusters:
+      name: virtual_clusters
+      id: aws.emrcontainers.virtual_clusters
+      x-cfn-schema-name: VirtualCluster
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRContainers::VirtualCluster'
     virtual_cluster:
       name: virtual_cluster
       id: aws.emrcontainers.virtual_cluster
@@ -106,4 +121,4 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRContainers::VirtualCluster' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMRContainers::VirtualCluster'

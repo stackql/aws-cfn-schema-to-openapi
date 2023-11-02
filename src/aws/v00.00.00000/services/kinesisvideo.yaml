@@ -56,6 +56,8 @@ components:
           maxItems: 50
       required: []
       x-stackql-resource-name: signaling_channel
+      x-stackql-primaryIdentifier:
+        - Name
     Stream:
       type: object
       properties:
@@ -102,7 +104,22 @@ components:
           maxItems: 50
       required: []
       x-stackql-resource-name: stream
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    signaling_channels:
+      name: signaling_channels
+      id: aws.kinesisvideo.signaling_channels
+      x-cfn-schema-name: SignalingChannel
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
     signaling_channel:
       name: signaling_channel
       id: aws.kinesisvideo.signaling_channel
@@ -119,7 +136,20 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
+    streams:
+      name: streams
+      id: aws.kinesisvideo.streams
+      x-cfn-schema-name: Stream
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::Stream'
     stream:
       name: stream
       id: aws.kinesisvideo.stream
@@ -138,4 +168,4 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::Stream' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::Stream'

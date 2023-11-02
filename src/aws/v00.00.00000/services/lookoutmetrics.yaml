@@ -80,6 +80,8 @@ components:
         - AlertSensitivityThreshold
         - Action
       x-stackql-resource-name: alert
+      x-stackql-primaryIdentifier:
+        - Arn
     ColumnName:
       description: Name of a column in the data.
       type: string
@@ -446,7 +448,22 @@ components:
         - AnomalyDetectorConfig
         - MetricSetList
       x-stackql-resource-name: anomaly_detector
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    alerts:
+      name: alerts
+      id: aws.lookoutmetrics.alerts
+      x-cfn-schema-name: Alert
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
     alert:
       name: alert
       id: aws.lookoutmetrics.alert
@@ -464,7 +481,20 @@ components:
               JSON_EXTRACT(Properties, '$.AlertSensitivityThreshold') as alert_sensitivity_threshold,
               JSON_EXTRACT(Properties, '$.Action.SNSConfiguration') as action_sn_sconfiguration,
               JSON_EXTRACT(Properties, '$.Action.LambdaConfiguration') as action_lambda_configuration
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::Alert' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
+    anomaly_detectors:
+      name: anomaly_detectors
+      id: aws.lookoutmetrics.anomaly_detectors
+      x-cfn-schema-name: AnomalyDetector
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'
     anomaly_detector:
       name: anomaly_detector
       id: aws.lookoutmetrics.anomaly_detector
@@ -481,4 +511,4 @@ components:
               JSON_EXTRACT(Properties, '$.AnomalyDetectorConfig.AnomalyDetectorFrequency') as anomaly_detector_config_anomaly_detector_frequency,
               JSON_EXTRACT(Properties, '$.MetricSetList') as metric_set_list,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'

@@ -1,5 +1,4 @@
 import * as fs from 'fs'; // For synchronous methods like fs.existsSync
-import { promises as fsPromises } from 'fs'; // For asynchronous methods like readFile, writeFile
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";

@@ -257,7 +257,22 @@ components:
         - ReleaseLabel
         - Type
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - ApplicationId
   x-stackQL-resources:
+    applications:
+      name: applications
+      id: aws.emrserverless.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRServerless::Application'
     application:
       name: application
       id: aws.emrserverless.application
@@ -284,4 +299,4 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkConfiguration.SecurityGroupIds') as network_configuration_security_group_ids,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRServerless::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMRServerless::Application'

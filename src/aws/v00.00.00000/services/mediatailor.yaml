@@ -184,7 +184,22 @@ components:
         - VideoContentSourceUrl
         - AdDecisionServerUrl
       x-stackql-resource-name: playback_configuration
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    playback_configurations:
+      name: playback_configurations
+      id: aws.mediatailor.playback_configurations
+      x-cfn-schema-name: PlaybackConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'
     playback_configuration:
       name: playback_configuration
       id: aws.mediatailor.playback_configuration
@@ -219,4 +234,4 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TranscodeProfileName') as transcode_profile_name,
               JSON_EXTRACT(Properties, '$.VideoContentSourceUrl') as video_content_source_url
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'

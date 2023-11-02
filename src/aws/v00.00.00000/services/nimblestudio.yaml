@@ -272,6 +272,9 @@ components:
         - StreamConfiguration
         - LaunchProfileProtocolVersions
       x-stackql-resource-name: launch_profile
+      x-stackql-primaryIdentifier:
+        - LaunchProfileId
+        - StudioId
     StreamingImageEncryptionConfiguration:
       type: object
       description: <p>TODO</p>
@@ -334,6 +337,9 @@ components:
         - Ec2ImageId
         - Name
       x-stackql-resource-name: streaming_image
+      x-stackql-primaryIdentifier:
+        - StudioId
+        - StreamingImageId
     StudioEncryptionConfiguration:
       type: object
       description: <p>Configuration of the encryption method that is used for the studio.</p>
@@ -398,6 +404,8 @@ components:
         - AdminRoleArn
         - StudioName
       x-stackql-resource-name: studio
+      x-stackql-primaryIdentifier:
+        - StudioId
     ActiveDirectoryComputerAttribute:
       type: object
       description: |-
@@ -652,7 +660,24 @@ components:
         - Name
         - Type
       x-stackql-resource-name: studio_component
+      x-stackql-primaryIdentifier:
+        - StudioComponentId
+        - StudioId
   x-stackQL-resources:
+    launch_profiles:
+      name: launch_profiles
+      id: aws.nimblestudio.launch_profiles
+      x-cfn-schema-name: LaunchProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LaunchProfileId') as launch_profile_id,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
     launch_profile:
       name: launch_profile
       id: aws.nimblestudio.launch_profile
@@ -681,7 +706,21 @@ components:
               JSON_EXTRACT(Properties, '$.StreamConfiguration.AutomaticTerminationMode') as stream_configuration_automatic_termination_mode,
               JSON_EXTRACT(Properties, '$.StudioComponentIds') as studio_component_ids,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
+    streaming_images:
+      name: streaming_images
+      id: aws.nimblestudio.streaming_images
+      x-cfn-schema-name: StreamingImage
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
+              JSON_EXTRACT(Properties, '$.StreamingImageId') as streaming_image_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
     streaming_image:
       name: streaming_image
       id: aws.nimblestudio.streaming_image
@@ -703,7 +742,20 @@ components:
               JSON_EXTRACT(Properties, '$.Platform') as platform,
               JSON_EXTRACT(Properties, '$.StreamingImageId') as streaming_image_id,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
+    studios:
+      name: studios
+      id: aws.nimblestudio.studios
+      x-cfn-schema-name: Studio
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
     studio:
       name: studio
       id: aws.nimblestudio.studio
@@ -725,7 +777,21 @@ components:
               JSON_EXTRACT(Properties, '$.StudioName') as studio_name,
               JSON_EXTRACT(Properties, '$.StudioUrl') as studio_url,
               JSON_EXTRACT(Properties, '$.UserRoleArn') as user_role_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::Studio' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
+    studio_components:
+      name: studio_components
+      id: aws.nimblestudio.studio_components
+      x-cfn-schema-name: StudioComponent
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StudioComponentId') as studio_component_id,
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'
     studio_component:
       name: studio_component
       id: aws.nimblestudio.studio_component
@@ -746,4 +812,4 @@ components:
               JSON_EXTRACT(Properties, '$.SecureInitializationRoleArn') as secure_initialization_role_arn,
               JSON_EXTRACT(Properties, '$.StudioComponentId') as studio_component_id,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'

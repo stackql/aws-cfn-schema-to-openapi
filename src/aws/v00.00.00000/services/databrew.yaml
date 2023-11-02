@@ -307,6 +307,8 @@ components:
         - Name
         - Input
       x-stackql-resource-name: dataset
+      x-stackql-primaryIdentifier:
+        - Name
     CsvOutputOptions:
       description: Output Csv options
       type: object
@@ -474,6 +476,8 @@ components:
         - Name
         - Steps
       x-stackql-resource-name: recipe
+      x-stackql-primaryIdentifier:
+        - Name
     SampleMode:
       description: Sample configuration mode for profile jobs.
       enum:
@@ -723,6 +727,8 @@ components:
         - RoleArn
         - Type
       x-stackql-resource-name: job
+      x-stackql-primaryIdentifier:
+        - Name
     Sample:
       type: object
       properties:
@@ -776,6 +782,8 @@ components:
         - RecipeName
         - RoleArn
       x-stackql-resource-name: project
+      x-stackql-primaryIdentifier:
+        - Name
     SecondaryInput:
       description: Secondary input
       type: object
@@ -1189,6 +1197,8 @@ components:
         - TargetArn
         - Rules
       x-stackql-resource-name: ruleset
+      x-stackql-primaryIdentifier:
+        - Name
     JobName:
       description: Job name
       type: string
@@ -1223,7 +1233,22 @@ components:
         - Name
         - CronExpression
       x-stackql-resource-name: schedule
+      x-stackql-primaryIdentifier:
+        - Name
   x-stackQL-resources:
+    datasets:
+      name: datasets
+      id: aws.databrew.datasets
+      x-cfn-schema-name: Dataset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Dataset'
     dataset:
       name: dataset
       id: aws.databrew.dataset
@@ -1248,7 +1273,20 @@ components:
               JSON_EXTRACT(Properties, '$.PathOptions.LastModifiedDateCondition') as path_options_last_modified_date_condition,
               JSON_EXTRACT(Properties, '$.PathOptions.Parameters') as path_options_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Dataset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Dataset'
+    recipes:
+      name: recipes
+      id: aws.databrew.recipes
+      x-cfn-schema-name: Recipe
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Recipe'
     recipe:
       name: recipe
       id: aws.databrew.recipe
@@ -1264,7 +1302,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Steps') as steps,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Recipe' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Recipe'
+    jobs:
+      name: jobs
+      id: aws.databrew.jobs
+      x-cfn-schema-name: Job
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Job'
     job:
       name: job
       id: aws.databrew.job
@@ -1305,7 +1356,20 @@ components:
               JSON_EXTRACT(Properties, '$.ProfileConfiguration.ColumnStatisticsConfigurations') as profile_configuration_column_statistics_configurations,
               JSON_EXTRACT(Properties, '$.ProfileConfiguration.EntityDetectorConfiguration') as profile_configuration_entity_detector_configuration,
               JSON_EXTRACT(Properties, '$.ValidationConfigurations') as validation_configurations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Job' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Job'
+    projects:
+      name: projects
+      id: aws.databrew.projects
+      x-cfn-schema-name: Project
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Project'
     project:
       name: project
       id: aws.databrew.project
@@ -1324,7 +1388,20 @@ components:
               JSON_EXTRACT(Properties, '$.Sample.Size') as sample_size,
               JSON_EXTRACT(Properties, '$.Sample.Type') as sample_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Project' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Project'
+    rulesets:
+      name: rulesets
+      id: aws.databrew.rulesets
+      x-cfn-schema-name: Ruleset
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
     ruleset:
       name: ruleset
       id: aws.databrew.ruleset
@@ -1341,7 +1418,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn,
               JSON_EXTRACT(Properties, '$.Rules') as rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Ruleset' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
+    schedules:
+      name: schedules
+      id: aws.databrew.schedules
+      x-cfn-schema-name: Schedule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Schedule'
     schedule:
       name: schedule
       id: aws.databrew.schedule
@@ -1357,4 +1447,4 @@ components:
               JSON_EXTRACT(Properties, '$.CronExpression') as cron_expression,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Schedule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Schedule'

@@ -184,7 +184,22 @@ components:
         - ScalingInstructions
         - ApplicationSource
       x-stackql-resource-name: scaling_plan
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    scaling_plans:
+      name: scaling_plans
+      id: aws.autoscalingplans.scaling_plans
+      x-cfn-schema-name: ScalingPlan
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScalingPlans::ScalingPlan'
     scaling_plan:
       name: scaling_plan
       id: aws.autoscalingplans.scaling_plan
@@ -202,4 +217,4 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationSource.CloudFormationStackARN') as application_source_cloud_formation_stack_ar_n,
               JSON_EXTRACT(Properties, '$.ApplicationSource.TagFilters') as application_source_tag_filters,
               JSON_EXTRACT(Properties, '$.ScalingInstructions') as scaling_instructions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScalingPlans::ScalingPlan' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AutoScalingPlans::ScalingPlan'

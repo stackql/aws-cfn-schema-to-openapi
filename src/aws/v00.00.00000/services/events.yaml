@@ -43,6 +43,8 @@ components:
         - InvocationEndpoint
         - HttpMethod
       x-stackql-resource-name: api_destination
+      x-stackql-primaryIdentifier:
+        - Name
     Archive:
       type: object
       properties:
@@ -63,6 +65,8 @@ components:
       required:
         - SourceArn
       x-stackql-resource-name: archive
+      x-stackql-primaryIdentifier:
+        - ArchiveName
     AuthParameters:
       type: object
       minProperties: 1
@@ -199,6 +203,8 @@ components:
         - AuthorizationType
         - AuthParameters
       x-stackql-resource-name: connection
+      x-stackql-primaryIdentifier:
+        - Name
     HealthCheck:
       type: string
       minLength: 1
@@ -333,6 +339,8 @@ components:
         - RoutingConfig
         - EventBuses
       x-stackql-resource-name: endpoint
+      x-stackql-primaryIdentifier:
+        - Name
     TagEntry:
       type: object
       additionalProperties: false
@@ -365,6 +373,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: event_bus
+      x-stackql-primaryIdentifier:
+        - Id
     Condition:
       type: object
       additionalProperties: false
@@ -395,6 +405,8 @@ components:
       required:
         - StatementId
       x-stackql-resource-name: event_bus_policy
+      x-stackql-primaryIdentifier:
+        - Id
     CapacityProviderStrategyItem:
       type: object
       additionalProperties: false
@@ -720,7 +732,22 @@ components:
         Name:
           type: string
       x-stackql-resource-name: rule
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    api_destinations:
+      name: api_destinations
+      id: aws.events.api_destinations
+      x-cfn-schema-name: ApiDestination
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::ApiDestination'
     api_destination:
       name: api_destination
       id: aws.events.api_destination
@@ -739,7 +766,20 @@ components:
               JSON_EXTRACT(Properties, '$.InvocationRateLimitPerSecond') as invocation_rate_limit_per_second,
               JSON_EXTRACT(Properties, '$.InvocationEndpoint') as invocation_endpoint,
               JSON_EXTRACT(Properties, '$.HttpMethod') as http_method
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::ApiDestination' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::ApiDestination'
+    archives:
+      name: archives
+      id: aws.events.archives
+      x-cfn-schema-name: Archive
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ArchiveName') as archive_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Archive'
     archive:
       name: archive
       id: aws.events.archive
@@ -757,7 +797,20 @@ components:
               JSON_EXTRACT(Properties, '$.EventPattern') as event_pattern,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RetentionDays') as retention_days
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Archive' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Archive'
+    connections:
+      name: connections
+      id: aws.events.connections
+      x-cfn-schema-name: Connection
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Connection'
     connection:
       name: connection
       id: aws.events.connection
@@ -778,7 +831,20 @@ components:
               JSON_EXTRACT(Properties, '$.AuthParameters.BasicAuthParameters') as auth_parameters_basic_auth_parameters,
               JSON_EXTRACT(Properties, '$.AuthParameters.OAuthParameters') as auth_parameters_oauth_parameters,
               JSON_EXTRACT(Properties, '$.AuthParameters.InvocationHttpParameters') as auth_parameters_invocation_http_parameters
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Connection' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Connection'
+    endpoints:
+      name: endpoints
+      id: aws.events.endpoints
+      x-cfn-schema-name: Endpoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Endpoint'
     endpoint:
       name: endpoint
       id: aws.events.endpoint
@@ -800,7 +866,20 @@ components:
               JSON_EXTRACT(Properties, '$.EndpointUrl') as endpoint_url,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.StateReason') as state_reason
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Endpoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Endpoint'
+    event_buses:
+      name: event_buses
+      id: aws.events.event_buses
+      x-cfn-schema-name: EventBus
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus'
     event_bus:
       name: event_bus
       id: aws.events.event_bus
@@ -818,7 +897,20 @@ components:
               JSON_EXTRACT(Properties, '$.EventSourceName') as event_source_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBus'
+    event_bus_policies:
+      name: event_bus_policies
+      id: aws.events.event_bus_policies
+      x-cfn-schema-name: EventBusPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
     event_bus_policy:
       name: event_bus_policy
       id: aws.events.event_bus_policy
@@ -839,7 +931,20 @@ components:
               JSON_EXTRACT(Properties, '$.Statement') as statement,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Principal') as principal
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBusPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
+    rules:
+      name: rules
+      id: aws.events.rules
+      x-cfn-schema-name: Rule
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Rule'
     rule:
       name: rule
       id: aws.events.rule
@@ -861,4 +966,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Rule' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Rule'

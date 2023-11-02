@@ -306,6 +306,8 @@ components:
         - AttributeDefinitions
         - Replicas
       x-stackql-resource-name: global_table
+      x-stackql-primaryIdentifier:
+        - TableName
     DeprecatedKeySchema:
       type: object
       additionalProperties: false
@@ -441,7 +443,22 @@ components:
       required:
         - KeySchema
       x-stackql-resource-name: table
+      x-stackql-primaryIdentifier:
+        - TableName
   x-stackQL-resources:
+    global_tables:
+      name: global_tables
+      id: aws.dynamodb.global_tables
+      x-cfn-schema-name: GlobalTable
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
     global_table:
       name: global_table
       id: aws.dynamodb.global_table
@@ -470,7 +487,20 @@ components:
               JSON_EXTRACT(Properties, '$.TableId') as table_id,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification.AttributeName') as time_to_live_specification_attribute_name,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification.Enabled') as time_to_live_specification_enabled
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
+    tables:
+      name: tables
+      id: aws.dynamodb.tables
+      x-cfn-schema-name: Table
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::Table'
     table:
       name: table
       id: aws.dynamodb.table
@@ -508,4 +538,4 @@ components:
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputFormat') as import_source_specification_input_format,
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputFormatOptions') as import_source_specification_input_format_options,
               JSON_EXTRACT(Properties, '$.ImportSourceSpecification.InputCompressionType') as import_source_specification_input_compression_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::Table' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::Table'

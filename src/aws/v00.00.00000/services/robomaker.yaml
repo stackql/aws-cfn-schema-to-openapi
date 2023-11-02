@@ -33,6 +33,8 @@ components:
           pattern: '[a-zA-Z0-9_\-]{1,255}$'
       required: []
       x-stackql-resource-name: fleet
+      x-stackql-primaryIdentifier:
+        - Arn
     Robot:
       type: object
       properties:
@@ -66,6 +68,8 @@ components:
         - GreengrassGroupId
         - Architecture
       x-stackql-resource-name: robot
+      x-stackql-primaryIdentifier:
+        - Arn
     SourceConfig:
       type: object
       description: Information about a source configuration.
@@ -144,6 +148,8 @@ components:
       required:
         - RobotSoftwareSuite
       x-stackql-resource-name: robot_application
+      x-stackql-primaryIdentifier:
+        - Arn
     RobotApplicationVersion:
       type: object
       properties:
@@ -162,6 +168,8 @@ components:
       required:
         - Application
       x-stackql-resource-name: robot_application_version
+      x-stackql-primaryIdentifier:
+        - Arn
     RenderingEngine:
       description: Information about a rendering engine.
       type: object
@@ -242,6 +250,8 @@ components:
         - RobotSoftwareSuite
         - SimulationSoftwareSuite
       x-stackql-resource-name: simulation_application
+      x-stackql-primaryIdentifier:
+        - Arn
     SimulationApplicationVersion:
       type: object
       properties:
@@ -260,7 +270,22 @@ components:
       required:
         - Application
       x-stackql-resource-name: simulation_application_version
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    fleets:
+      name: fleets
+      id: aws.robomaker.fleets
+      x-cfn-schema-name: Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
     fleet:
       name: fleet
       id: aws.robomaker.fleet
@@ -273,7 +298,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Fleet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
+    robots:
+      name: robots
+      id: aws.robomaker.robots
+      x-cfn-schema-name: Robot
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Robot'
     robot:
       name: robot
       id: aws.robomaker.robot
@@ -289,7 +327,20 @@ components:
               JSON_EXTRACT(Properties, '$.Architecture') as architecture,
               JSON_EXTRACT(Properties, '$.GreengrassGroupId') as greengrass_group_id,
               JSON_EXTRACT(Properties, '$.Name') as name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Robot' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Robot'
+    robot_applications:
+      name: robot_applications
+      id: aws.robomaker.robot_applications
+      x-cfn-schema-name: RobotApplication
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
     robot_application:
       name: robot_application
       id: aws.robomaker.robot_application
@@ -307,7 +358,20 @@ components:
               JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Name') as robot_software_suite_name,
               JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Version') as robot_software_suite_version,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
+    robot_application_versions:
+      name: robot_application_versions
+      id: aws.robomaker.robot_application_versions
+      x-cfn-schema-name: RobotApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
     robot_application_version:
       name: robot_application_version
       id: aws.robomaker.robot_application_version
@@ -321,7 +385,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
               JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
+    simulation_applications:
+      name: simulation_applications
+      id: aws.robomaker.simulation_applications
+      x-cfn-schema-name: SimulationApplication
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
     simulation_application:
       name: simulation_application
       id: aws.robomaker.simulation_application
@@ -343,7 +420,20 @@ components:
               JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite.Version') as simulation_software_suite_version,
               JSON_EXTRACT(Properties, '$.Sources') as sources,
               JSON_EXTRACT(Properties, '$.Environment') as environment
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
+    simulation_application_versions:
+      name: simulation_application_versions
+      id: aws.robomaker.simulation_application_versions
+      x-cfn-schema-name: SimulationApplicationVersion
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'
     simulation_application_version:
       name: simulation_application_version
       id: aws.robomaker.simulation_application_version
@@ -357,4 +447,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
               JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'

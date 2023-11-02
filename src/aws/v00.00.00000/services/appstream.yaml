@@ -73,6 +73,8 @@ components:
         - SourceS3Location
         - SetupScriptDetails
       x-stackql-resource-name: app_block
+      x-stackql-primaryIdentifier:
+        - Arn
     PlatformType:
       type: string
     ApplicationAttribute:
@@ -132,6 +134,8 @@ components:
         - InstanceFamilies
         - AppBlockArn
       x-stackql-resource-name: application
+      x-stackql-primaryIdentifier:
+        - Arn
     ApplicationEntitlementAssociation:
       type: object
       properties:
@@ -146,6 +150,10 @@ components:
         - EntitlementName
         - ApplicationIdentifier
       x-stackql-resource-name: application_entitlement_association
+      x-stackql-primaryIdentifier:
+        - StackName
+        - EntitlementName
+        - ApplicationIdentifier
     ApplicationFleetAssociation:
       type: object
       properties:
@@ -157,6 +165,9 @@ components:
         - FleetName
         - ApplicationArn
       x-stackql-resource-name: application_fleet_association
+      x-stackql-primaryIdentifier:
+        - FleetName
+        - ApplicationArn
     ServiceAccountCredentials:
       type: object
       additionalProperties: false
@@ -195,6 +206,8 @@ components:
         - OrganizationalUnitDistinguishedNames
         - ServiceAccountCredentials
       x-stackql-resource-name: directory_config
+      x-stackql-primaryIdentifier:
+        - DirectoryName
     Attribute:
       type: object
       properties:
@@ -233,6 +246,9 @@ components:
         - AppVisibility
         - Attributes
       x-stackql-resource-name: entitlement
+      x-stackql-primaryIdentifier:
+        - StackName
+        - Name
     ComputeCapacity:
       type: object
       additionalProperties: false
@@ -320,6 +336,8 @@ components:
         - InstanceType
         - Name
       x-stackql-resource-name: fleet
+      x-stackql-primaryIdentifier:
+        - Id
     AccessEndpoint:
       type: object
       additionalProperties: false
@@ -372,6 +390,8 @@ components:
         - InstanceType
         - Name
       x-stackql-resource-name: image_builder
+      x-stackql-primaryIdentifier:
+        - Name
     StorageConnector:
       type: object
       additionalProperties: false
@@ -466,6 +486,8 @@ components:
           items:
             $ref: '#/components/schemas/AccessEndpoint'
       x-stackql-resource-name: stack
+      x-stackql-primaryIdentifier:
+        - Id
     StackFleetAssociation:
       type: object
       properties:
@@ -479,6 +501,8 @@ components:
         - FleetName
         - StackName
       x-stackql-resource-name: stack_fleet_association
+      x-stackql-primaryIdentifier:
+        - Id
     StackUserAssociation:
       type: object
       properties:
@@ -497,6 +521,8 @@ components:
         - UserName
         - AuthenticationType
       x-stackql-resource-name: stack_user_association
+      x-stackql-primaryIdentifier:
+        - Id
     User:
       type: object
       properties:
@@ -516,7 +542,22 @@ components:
         - UserName
         - AuthenticationType
       x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    app_blocks:
+      name: app_blocks
+      id: aws.appstream.app_blocks
+      x-cfn-schema-name: AppBlock
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlock'
     app_block:
       name: app_block
       id: aws.appstream.app_block
@@ -539,7 +580,20 @@ components:
               JSON_EXTRACT(Properties, '$.SetupScriptDetails.TimeoutInSeconds') as setup_script_details_timeout_in_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlock' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlock'
+    applications:
+      name: applications
+      id: aws.appstream.applications
+      x-cfn-schema-name: Application
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Application'
     application:
       name: application
       id: aws.appstream.application
@@ -564,7 +618,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AttributesToDelete') as attributes_to_delete,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Application' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Application'
+    application_entitlement_associations:
+      name: application_entitlement_associations
+      id: aws.appstream.application_entitlement_associations
+      x-cfn-schema-name: ApplicationEntitlementAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StackName') as stack_name,
+              JSON_EXTRACT(Properties, '$.EntitlementName') as entitlement_name,
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
     application_entitlement_association:
       name: application_entitlement_association
       id: aws.appstream.application_entitlement_association
@@ -579,7 +648,21 @@ components:
               JSON_EXTRACT(Properties, '$.StackName') as stack_name,
               JSON_EXTRACT(Properties, '$.EntitlementName') as entitlement_name,
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
+    application_fleet_associations:
+      name: application_fleet_associations
+      id: aws.appstream.application_fleet_associations
+      x-cfn-schema-name: ApplicationFleetAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.FleetName') as fleet_name,
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
     application_fleet_association:
       name: application_fleet_association
       id: aws.appstream.application_fleet_association
@@ -592,7 +675,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FleetName') as fleet_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
+    directory_configs:
+      name: directory_configs
+      id: aws.appstream.directory_configs
+      x-cfn-schema-name: DirectoryConfig
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DirectoryName') as directory_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
     directory_config:
       name: directory_config
       id: aws.appstream.directory_config
@@ -610,7 +706,21 @@ components:
               JSON_EXTRACT(Properties, '$.DirectoryName') as directory_name,
               JSON_EXTRACT(Properties, '$.CertificateBasedAuthProperties.Status') as certificate_based_auth_properties_status,
               JSON_EXTRACT(Properties, '$.CertificateBasedAuthProperties.CertificateAuthorityArn') as certificate_based_auth_properties_certificate_authority_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
+    entitlements:
+      name: entitlements
+      id: aws.appstream.entitlements
+      x-cfn-schema-name: Entitlement
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StackName') as stack_name,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Entitlement'
     entitlement:
       name: entitlement
       id: aws.appstream.entitlement
@@ -629,7 +739,20 @@ components:
               JSON_EXTRACT(Properties, '$.Attributes') as attributes,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Entitlement' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Entitlement'
+    fleets:
+      name: fleets
+      id: aws.appstream.fleets
+      x-cfn-schema-name: Fleet
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Fleet'
     fleet:
       name: fleet
       id: aws.appstream.fleet
@@ -666,7 +789,20 @@ components:
               JSON_EXTRACT(Properties, '$.MaxConcurrentSessions') as max_concurrent_sessions,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ImageArn') as image_arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Fleet' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Fleet'
+    image_builders:
+      name: image_builders
+      id: aws.appstream.image_builders
+      x-cfn-schema-name: ImageBuilder
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
     image_builder:
       name: image_builder
       id: aws.appstream.image_builder
@@ -694,7 +830,20 @@ components:
               JSON_EXTRACT(Properties, '$.StreamingUrl') as streaming_url,
               JSON_EXTRACT(Properties, '$.ImageArn') as image_arn,
               JSON_EXTRACT(Properties, '$.AccessEndpoints') as access_endpoints
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ImageBuilder' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
+    stacks:
+      name: stacks
+      id: aws.appstream.stacks
+      x-cfn-schema-name: Stack
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Stack'
     stack:
       name: stack
       id: aws.appstream.stack
@@ -722,7 +871,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AccessEndpoints') as access_endpoints
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Stack' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Stack'
+    stack_fleet_associations:
+      name: stack_fleet_associations
+      id: aws.appstream.stack_fleet_associations
+      x-cfn-schema-name: StackFleetAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
     stack_fleet_association:
       name: stack_fleet_association
       id: aws.appstream.stack_fleet_association
@@ -737,7 +899,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.FleetName') as fleet_name,
               JSON_EXTRACT(Properties, '$.StackName') as stack_name
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
+    stack_user_associations:
+      name: stack_user_associations
+      id: aws.appstream.stack_user_associations
+      x-cfn-schema-name: StackUserAssociation
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
     stack_user_association:
       name: stack_user_association
       id: aws.appstream.stack_user_association
@@ -754,7 +929,20 @@ components:
               JSON_EXTRACT(Properties, '$.UserName') as user_name,
               JSON_EXTRACT(Properties, '$.StackName') as stack_name,
               JSON_EXTRACT(Properties, '$.AuthenticationType') as authentication_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
+    users:
+      name: users
+      id: aws.appstream.users
+      x-cfn-schema-name: User
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::User'
     user:
       name: user
       id: aws.appstream.user
@@ -772,4 +960,4 @@ components:
               JSON_EXTRACT(Properties, '$.MessageAction') as message_action,
               JSON_EXTRACT(Properties, '$.LastName') as last_name,
               JSON_EXTRACT(Properties, '$.AuthenticationType') as authentication_type
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::User' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::User'

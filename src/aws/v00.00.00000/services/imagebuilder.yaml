@@ -67,6 +67,8 @@ components:
         - Platform
         - Version
       x-stackql-resource-name: component
+      x-stackql-primaryIdentifier:
+        - Arn
     ComponentConfiguration:
       description: Configuration details of the component.
       type: object
@@ -244,6 +246,8 @@ components:
             .{1,}:
               type: string
       x-stackql-resource-name: container_recipe
+      x-stackql-primaryIdentifier:
+        - Arn
     Distribution:
       description: The distributions of the distribution configuration.
       type: object
@@ -439,6 +443,8 @@ components:
         - Name
         - Distributions
       x-stackql-resource-name: distribution_configuration
+      x-stackql-primaryIdentifier:
+        - Arn
     ImageTestsConfiguration:
       description: Image tests configuration.
       type: object
@@ -521,6 +527,8 @@ components:
             .{1,}:
               type: string
       x-stackql-resource-name: image
+      x-stackql-primaryIdentifier:
+        - Arn
     Schedule:
       description: The schedule of the image pipeline.
       type: object
@@ -585,6 +593,8 @@ components:
             .{1,}:
               type: string
       x-stackql-resource-name: image_pipeline
+      x-stackql-primaryIdentifier:
+        - Arn
     AdditionalInstanceConfiguration:
       additionalProperties: false
       description: Specify additional settings and launch scripts for your build instances.
@@ -653,6 +663,8 @@ components:
         - Components
         - ParentImage
       x-stackql-resource-name: image_recipe
+      x-stackql-primaryIdentifier:
+        - Arn
     TagMap:
       description: TagMap
       type: object
@@ -763,7 +775,22 @@ components:
         - Name
         - InstanceProfileName
       x-stackql-resource-name: infrastructure_configuration
+      x-stackql-primaryIdentifier:
+        - Arn
   x-stackQL-resources:
+    components:
+      name: components
+      id: aws.imagebuilder.components
+      x-cfn-schema-name: Component
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Component'
     component:
       name: component
       id: aws.imagebuilder.component
@@ -788,7 +815,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Uri') as uri,
               JSON_EXTRACT(Properties, '$.SupportedOsVersions') as supported_os_versions
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Component' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Component'
+    container_recipes:
+      name: container_recipes
+      id: aws.imagebuilder.container_recipes
+      x-cfn-schema-name: ContainerRecipe
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
     container_recipe:
       name: container_recipe
       id: aws.imagebuilder.container_recipe
@@ -818,7 +858,20 @@ components:
               JSON_EXTRACT(Properties, '$.ParentImage') as parent_image,
               JSON_EXTRACT(Properties, '$.WorkingDirectory') as working_directory,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
+    distribution_configurations:
+      name: distribution_configurations
+      id: aws.imagebuilder.distribution_configurations
+      x-cfn-schema-name: DistributionConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
     distribution_configuration:
       name: distribution_configuration
       id: aws.imagebuilder.distribution_configuration
@@ -835,7 +888,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Distributions') as distributions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
+    images:
+      name: images
+      id: aws.imagebuilder.images
+      x-cfn-schema-name: Image
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Image'
     image:
       name: image
       id: aws.imagebuilder.image
@@ -861,7 +927,20 @@ components:
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.EcrConfiguration') as image_scanning_configuration_ecr_configuration,
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.ImageScanningEnabled') as image_scanning_configuration_image_scanning_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Image' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Image'
+    image_pipelines:
+      name: image_pipelines
+      id: aws.imagebuilder.image_pipelines
+      x-cfn-schema-name: ImagePipeline
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
     image_pipeline:
       name: image_pipeline
       id: aws.imagebuilder.image_pipeline
@@ -889,7 +968,20 @@ components:
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.EcrConfiguration') as image_scanning_configuration_ecr_configuration,
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.ImageScanningEnabled') as image_scanning_configuration_image_scanning_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
+    image_recipes:
+      name: image_recipes
+      id: aws.imagebuilder.image_recipes
+      x-cfn-schema-name: ImageRecipe
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
     image_recipe:
       name: image_recipe
       id: aws.imagebuilder.image_recipe
@@ -912,7 +1004,20 @@ components:
               JSON_EXTRACT(Properties, '$.AdditionalInstanceConfiguration.SystemsManagerAgent') as additional_instance_configuration_systems_manager_agent,
               JSON_EXTRACT(Properties, '$.AdditionalInstanceConfiguration.UserDataOverride') as additional_instance_configuration_user_data_override,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
+    infrastructure_configurations:
+      name: infrastructure_configurations
+      id: aws.imagebuilder.infrastructure_configurations
+      x-cfn-schema-name: InfrastructureConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
     infrastructure_configuration:
       name: infrastructure_configuration
       id: aws.imagebuilder.infrastructure_configuration
@@ -939,4 +1044,4 @@ components:
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'

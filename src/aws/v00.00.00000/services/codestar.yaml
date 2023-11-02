@@ -51,7 +51,22 @@ components:
         - RepositoryName
         - RepositoryOwner
       x-stackql-resource-name: git_hub_repository
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    git_hub_repositories:
+      name: git_hub_repositories
+      id: aws.codestar.git_hub_repositories
+      x-cfn-schema-name: GitHubRepository
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'
     git_hub_repository:
       name: git_hub_repository
       id: aws.codestar.git_hub_repository
@@ -72,4 +87,4 @@ components:
               JSON_EXTRACT(Properties, '$.IsPrivate') as is_private,
               JSON_EXTRACT(Properties, '$.Code.S3') as code_s3,
               JSON_EXTRACT(Properties, '$.RepositoryDescription') as repository_description
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'

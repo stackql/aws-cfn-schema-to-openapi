@@ -96,7 +96,22 @@ components:
       required:
         - ContainerName
       x-stackql-resource-name: container
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    containers:
+      name: containers
+      id: aws.mediastore.containers
+      x-cfn-schema-name: Container
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaStore::Container'
     container:
       name: container
       id: aws.mediastore.container
@@ -118,4 +133,4 @@ components:
               JSON_EXTRACT(Properties, '$.AccessLoggingEnabled') as access_logging_enabled,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaStore::Container' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaStore::Container'

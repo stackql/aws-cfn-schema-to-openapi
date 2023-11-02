@@ -289,6 +289,8 @@ components:
         - VirtualGatewayName
         - Spec
       x-stackql-resource-name: gateway_route
+      x-stackql-primaryIdentifier:
+        - Id
     MeshSpec:
       type: object
       additionalProperties: false
@@ -334,6 +336,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: mesh
+      x-stackql-primaryIdentifier:
+        - Id
     HttpRetryPolicy:
       type: object
       additionalProperties: false
@@ -655,6 +659,8 @@ components:
         - VirtualRouterName
         - Spec
       x-stackql-resource-name: route
+      x-stackql-primaryIdentifier:
+        - Id
     VirtualGatewayListener:
       type: object
       additionalProperties: false
@@ -996,6 +1002,8 @@ components:
         - MeshName
         - Spec
       x-stackql-resource-name: virtual_gateway
+      x-stackql-primaryIdentifier:
+        - Id
     AccessLog:
       type: object
       additionalProperties: false
@@ -1411,6 +1419,8 @@ components:
         - MeshName
         - Spec
       x-stackql-resource-name: virtual_node
+      x-stackql-primaryIdentifier:
+        - Id
     VirtualRouterSpec:
       type: object
       additionalProperties: false
@@ -1458,6 +1468,8 @@ components:
         - MeshName
         - Spec
       x-stackql-resource-name: virtual_router
+      x-stackql-primaryIdentifier:
+        - Id
     VirtualNodeServiceProvider:
       type: object
       additionalProperties: false
@@ -1517,7 +1529,22 @@ components:
         - VirtualServiceName
         - Spec
       x-stackql-resource-name: virtual_service
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    gateway_routes:
+      name: gateway_routes
+      id: aws.appmesh.gateway_routes
+      x-cfn-schema-name: GatewayRoute
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
     gateway_route:
       name: gateway_route
       id: aws.appmesh.gateway_route
@@ -1542,7 +1569,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec.GrpcRoute') as spec_grpc_route,
               JSON_EXTRACT(Properties, '$.Spec.Priority') as spec_priority,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
+    meshes:
+      name: meshes
+      id: aws.appmesh.meshes
+      x-cfn-schema-name: Mesh
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Mesh'
     mesh:
       name: mesh
       id: aws.appmesh.mesh
@@ -1563,7 +1603,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec.EgressFilter') as spec_egress_filter,
               JSON_EXTRACT(Properties, '$.Spec.ServiceDiscovery') as spec_service_discovery,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Mesh' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Mesh'
+    routes:
+      name: routes
+      id: aws.appmesh.routes
+      x-cfn-schema-name: Route
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Route'
     route:
       name: route
       id: aws.appmesh.route
@@ -1589,7 +1642,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec.TcpRoute') as spec_tcp_route,
               JSON_EXTRACT(Properties, '$.Spec.Priority') as spec_priority,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Route' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Route'
+    virtual_gateways:
+      name: virtual_gateways
+      id: aws.appmesh.virtual_gateways
+      x-cfn-schema-name: VirtualGateway
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
     virtual_gateway:
       name: virtual_gateway
       id: aws.appmesh.virtual_gateway
@@ -1612,7 +1678,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec.Listeners') as spec_listeners,
               JSON_EXTRACT(Properties, '$.Spec.BackendDefaults') as spec_backend_defaults,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
+    virtual_nodes:
+      name: virtual_nodes
+      id: aws.appmesh.virtual_nodes
+      x-cfn-schema-name: VirtualNode
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
     virtual_node:
       name: virtual_node
       id: aws.appmesh.virtual_node
@@ -1637,7 +1716,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec.ServiceDiscovery') as spec_service_discovery,
               JSON_EXTRACT(Properties, '$.VirtualNodeName') as virtual_node_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualNode' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
+    virtual_routers:
+      name: virtual_routers
+      id: aws.appmesh.virtual_routers
+      x-cfn-schema-name: VirtualRouter
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
     virtual_router:
       name: virtual_router
       id: aws.appmesh.virtual_router
@@ -1658,7 +1750,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Spec.Listeners') as spec_listeners,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
+    virtual_services:
+      name: virtual_services
+      id: aws.appmesh.virtual_services
+      x-cfn-schema-name: VirtualService
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualService'
     virtual_service:
       name: virtual_service
       id: aws.appmesh.virtual_service
@@ -1679,4 +1784,4 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Spec.Provider') as spec_provider,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualService' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualService'

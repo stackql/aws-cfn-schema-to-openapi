@@ -135,6 +135,8 @@ components:
       required:
         - ObjectLambdaConfiguration
       x-stackql-resource-name: access_point
+      x-stackql-primaryIdentifier:
+        - Name
     AccessPointPolicy:
       type: object
       properties:
@@ -151,7 +153,22 @@ components:
         - ObjectLambdaAccessPoint
         - PolicyDocument
       x-stackql-resource-name: access_point_policy
+      x-stackql-primaryIdentifier:
+        - ObjectLambdaAccessPoint
   x-stackQL-resources:
+    access_points:
+      name: access_points
+      id: aws.s3objectlambda.access_points
+      x-cfn-schema-name: AccessPoint
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3objectlambda.access_point
@@ -176,7 +193,20 @@ components:
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.AllowedFeatures') as object_lambda_configuration_allowed_features,
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.CloudWatchMetricsEnabled') as object_lambda_configuration_cloud_watch_metrics_enabled,
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.TransformationConfigurations') as object_lambda_configuration_transformation_configurations
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
+    access_point_policies:
+      name: access_point_policies
+      id: aws.s3objectlambda.access_point_policies
+      x-cfn-schema-name: AccessPointPolicy
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'
     access_point_policy:
       name: access_point_policy
       id: aws.s3objectlambda.access_point_policy
@@ -190,4 +220,4 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'

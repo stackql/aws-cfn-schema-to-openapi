@@ -60,6 +60,8 @@ components:
         - ExpressionType
         - RoleArn
       x-stackql-resource-name: destination
+      x-stackql-primaryIdentifier:
+        - Name
     LoRaWANDeviceProfile:
       type: object
       additionalProperties: false
@@ -161,6 +163,8 @@ components:
           maxLength: 256
       required: []
       x-stackql-resource-name: device_profile
+      x-stackql-primaryIdentifier:
+        - Id
     LoRaWAN:
       type: object
       properties:
@@ -247,6 +251,8 @@ components:
         - FirmwareUpdateImage
         - FirmwareUpdateRole
       x-stackql-resource-name: fuota_task
+      x-stackql-primaryIdentifier:
+        - Id
     MulticastGroup:
       type: object
       properties:
@@ -290,6 +296,8 @@ components:
       required:
         - LoRaWAN
       x-stackql-resource-name: multicast_group
+      x-stackql-primaryIdentifier:
+        - Id
     WirelessDeviceFrameInfo:
       type: string
       enum:
@@ -350,6 +358,8 @@ components:
       required:
         - Name
       x-stackql-resource-name: network_analyzer_configuration
+      x-stackql-primaryIdentifier:
+        - Name
     SidewalkAccountInfo:
       type: object
       additionalProperties: false
@@ -423,6 +433,8 @@ components:
           items:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: partner_account
+      x-stackql-primaryIdentifier:
+        - PartnerAccountId
     LoRaWANServiceProfile:
       type: object
       additionalProperties: false
@@ -492,6 +504,8 @@ components:
           maxLength: 256
       required: []
       x-stackql-resource-name: service_profile
+      x-stackql-primaryIdentifier:
+        - Id
     LoRaWANGatewayVersion:
       type: object
       additionalProperties: false
@@ -585,6 +599,8 @@ components:
       required:
         - AutoCreateTasks
       x-stackql-resource-name: task_definition
+      x-stackql-primaryIdentifier:
+        - Id
     OtaaV10x:
       type: object
       additionalProperties: false
@@ -755,6 +771,8 @@ components:
         - Type
         - DestinationName
       x-stackql-resource-name: wireless_device
+      x-stackql-primaryIdentifier:
+        - Id
     DeviceCreationFileList:
       description: sidewalk create device's file path
       type: array
@@ -843,6 +861,8 @@ components:
         - DestinationName
         - Sidewalk
       x-stackql-resource-name: wireless_device_import_task
+      x-stackql-primaryIdentifier:
+        - Id
     LoRaWANGateway:
       type: object
       additionalProperties: false
@@ -897,7 +917,22 @@ components:
       required:
         - LoRaWAN
       x-stackql-resource-name: wireless_gateway
+      x-stackql-primaryIdentifier:
+        - Id
   x-stackQL-resources:
+    destinations:
+      name: destinations
+      id: aws.iotwireless.destinations
+      x-cfn-schema-name: Destination
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::Destination'
     destination:
       name: destination
       id: aws.iotwireless.destination
@@ -916,7 +951,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Arn') as arn
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::Destination' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::Destination'
+    device_profiles:
+      name: device_profiles
+      id: aws.iotwireless.device_profiles
+      x-cfn-schema-name: DeviceProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
     device_profile:
       name: device_profile
       id: aws.iotwireless.device_profile
@@ -951,7 +999,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
+    fuota_tasks:
+      name: fuota_tasks
+      id: aws.iotwireless.fuota_tasks
+      x-cfn-schema-name: FuotaTask
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
     fuota_task:
       name: fuota_task
       id: aws.iotwireless.fuota_task
@@ -979,7 +1040,20 @@ components:
               JSON_EXTRACT(Properties, '$.DisassociateWirelessDevice') as disassociate_wireless_device,
               JSON_EXTRACT(Properties, '$.AssociateMulticastGroup') as associate_multicast_group,
               JSON_EXTRACT(Properties, '$.DisassociateMulticastGroup') as disassociate_multicast_group
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
+    multicast_groups:
+      name: multicast_groups
+      id: aws.iotwireless.multicast_groups
+      x-cfn-schema-name: MulticastGroup
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
     multicast_group:
       name: multicast_group
       id: aws.iotwireless.multicast_group
@@ -1003,7 +1077,20 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.AssociateWirelessDevice') as associate_wireless_device,
               JSON_EXTRACT(Properties, '$.DisassociateWirelessDevice') as disassociate_wireless_device
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
+    network_analyzer_configurations:
+      name: network_analyzer_configurations
+      id: aws.iotwireless.network_analyzer_configurations
+      x-cfn-schema-name: NetworkAnalyzerConfiguration
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
     network_analyzer_configuration:
       name: network_analyzer_configuration
       id: aws.iotwireless.network_analyzer_configuration
@@ -1022,7 +1109,20 @@ components:
               JSON_EXTRACT(Properties, '$.WirelessGateways') as wireless_gateways,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
+    partner_accounts:
+      name: partner_accounts
+      id: aws.iotwireless.partner_accounts
+      x-cfn-schema-name: PartnerAccount
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PartnerAccountId') as partner_account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
     partner_account:
       name: partner_account
       id: aws.iotwireless.partner_account
@@ -1045,7 +1145,20 @@ components:
               JSON_EXTRACT(Properties, '$.Fingerprint') as fingerprint,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
+    service_profiles:
+      name: service_profiles
+      id: aws.iotwireless.service_profiles
+      x-cfn-schema-name: ServiceProfile
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
     service_profile:
       name: service_profile
       id: aws.iotwireless.service_profile
@@ -1080,7 +1193,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
+    task_definitions:
+      name: task_definitions
+      id: aws.iotwireless.task_definitions
+      x-cfn-schema-name: TaskDefinition
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
     task_definition:
       name: task_definition
       id: aws.iotwireless.task_definition
@@ -1103,7 +1229,20 @@ components:
               JSON_EXTRACT(Properties, '$.TaskDefinitionType') as task_definition_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
+    wireless_devices:
+      name: wireless_devices
+      id: aws.iotwireless.wireless_devices
+      x-cfn-schema-name: WirelessDevice
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
     wireless_device:
       name: wireless_device
       id: aws.iotwireless.wireless_device
@@ -1132,7 +1271,20 @@ components:
               JSON_EXTRACT(Properties, '$.ThingArn') as thing_arn,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name,
               JSON_EXTRACT(Properties, '$.LastUplinkReceivedAt') as last_uplink_received_at
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
+    wireless_device_import_tasks:
+      name: wireless_device_import_tasks
+      id: aws.iotwireless.wireless_device_import_tasks
+      x-cfn-schema-name: WirelessDeviceImportTask
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
     wireless_device_import_task:
       name: wireless_device_import_task
       id: aws.iotwireless.wireless_device_import_task
@@ -1156,7 +1308,20 @@ components:
               JSON_EXTRACT(Properties, '$.OnboardedImportedDevicesCount') as onboarded_imported_devices_count,
               JSON_EXTRACT(Properties, '$.FailedImportedDevicesCount') as failed_imported_devices_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
+    wireless_gateways:
+      name: wireless_gateways
+      id: aws.iotwireless.wireless_gateways
+      x-cfn-schema-name: WirelessGateway
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'
     wireless_gateway:
       name: wireless_gateway
       id: aws.iotwireless.wireless_gateway
@@ -1178,4 +1343,4 @@ components:
               JSON_EXTRACT(Properties, '$.ThingArn') as thing_arn,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name,
               JSON_EXTRACT(Properties, '$.LastUplinkReceivedAt') as last_uplink_received_at
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway' ;
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'
