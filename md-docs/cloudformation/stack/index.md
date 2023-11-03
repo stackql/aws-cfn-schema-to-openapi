@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The stack resource documentation.
+Gets an individual <code>stack</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>NotificationARNs</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Parameters</code></td><td><code>object</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr><tr><td><code>TemplateURL</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TimeoutInMinutes</code></td><td><code>integer</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.stack
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

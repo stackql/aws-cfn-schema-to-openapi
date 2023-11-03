@@ -20,9 +20,9 @@ The msk service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
-<span>total selectable resources:&nbsp;<b>4</b></span><br />
-<span>total methods:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total selectable resources:&nbsp;<b>8</b></span><br />
+<span>total methods:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -32,10 +32,14 @@ The msk service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/msk/batch_scram_secret/">batch_scram_secret</a><br />
-<a href="/providers/aws/msk/cluster/">cluster</a>
+<a href="/providers/aws/msk/batch_scram_secrets/">batch_scram_secrets</a><br />
+<a href="/providers/aws/msk/cluster/">cluster</a><br />
+<a href="/providers/aws/msk/clusters/">clusters</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/aws/msk/configuration/">configuration</a><br />
-<a href="/providers/aws/msk/serverless_cluster/">serverless_cluster</a>
+<a href="/providers/aws/msk/configurations/">configurations</a><br />
+<a href="/providers/aws/msk/serverless_cluster/">serverless_cluster</a><br />
+<a href="/providers/aws/msk/serverless_clusters/">serverless_clusters</a>
 </div>
 </div>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The user_hierarchy_group resource documentation.
+Gets an individual <code>user_hierarchy_group</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>InstanceArn</code></td><td><code>string</code></td><td>The identifier of the Amazon Connect instance.</td></tr><tr><td><code>UserHierarchyGroupArn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) for the user hierarchy group.</td></tr><tr><td><code>ParentGroupArn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) for the parent user hierarchy group.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the user hierarchy group.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.connect.user_hierarchy_group
+WHERE region = 'us-east-1' AND data__Identifier = '<UserHierarchyGroupArn>'
+</pre>

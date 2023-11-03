@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The certificate_authority_activation resource documentation.
+Gets an individual <code>certificate_authority_activation</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>CertificateAuthorityArn</code></td><td><code>string</code></td><td>Arn of the Certificate Authority.</td></tr><tr><td><code>Certificate</code></td><td><code>string</code></td><td>Certificate Authority certificate that will be installed in the Certificate Authority.</td></tr><tr><td><code>CertificateChain</code></td><td><code>string</code></td><td>Certificate chain for the Certificate Authority certificate.</td></tr><tr><td><code>Status</code></td><td><code>string</code></td><td>The status of the Certificate Authority.</td></tr><tr><td><code>CompleteCertificateChain</code></td><td><code>string</code></td><td>The complete certificate chain, including the Certificate Authority certificate.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.acmpca.certificate_authority_activation
+WHERE region = 'us-east-1' AND data__Identifier = '<CertificateAuthorityArn>'
+</pre>

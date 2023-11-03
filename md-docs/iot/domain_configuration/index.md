@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The domain_configuration resource documentation.
+Gets an individual <code>domain_configuration</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>DomainConfigurationName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AuthorizerConfig</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>DomainName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ServerCertificateArns</code></td><td><code>array</code></td><td></td></tr><tr><td><code>ServiceType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ValidationCertificateArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>DomainConfigurationStatus</code></td><td><code>string</code></td><td></td></tr><tr><td><code>DomainType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ServerCertificates</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.iot.domain_configuration
+WHERE region = 'us-east-1' AND data__Identifier = '<DomainConfigurationName>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The listener resource documentation.
+Gets an individual <code>listener</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ListenerArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the listener.</td></tr><tr><td><code>AcceleratorArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the accelerator.</td></tr><tr><td><code>PortRanges</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Protocol</code></td><td><code>string</code></td><td>The protocol for the listener.</td></tr><tr><td><code>ClientAffinity</code></td><td><code>string</code></td><td>Client affinity lets you direct all requests from a user to the same endpoint.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.globalaccelerator.listener
+WHERE region = 'us-east-1' AND data__Identifier = '<ListenerArn>'
+</pre>

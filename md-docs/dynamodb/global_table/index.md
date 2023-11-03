@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The global_table resource documentation.
+Gets an individual <code>global_table</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>StreamArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AttributeDefinitions</code></td><td><code>array</code></td><td></td></tr><tr><td><code>BillingMode</code></td><td><code>string</code></td><td></td></tr><tr><td><code>GlobalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr><tr><td><code>KeySchema</code></td><td><code>array</code></td><td></td></tr><tr><td><code>LocalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr><tr><td><code>WriteProvisionedThroughputSettings</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Replicas</code></td><td><code>array</code></td><td></td></tr><tr><td><code>SSESpecification</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>StreamSpecification</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>TableName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TableId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TimeToLiveSpecification</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.dynamodb.global_table
+WHERE region = 'us-east-1' AND data__Identifier = '<TableName>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The framework resource documentation.
+Gets an individual <code>framework</code> resource
 
 ## Overview
 <table><tbody>
@@ -37,3 +37,13 @@ null
 
 `UNAVAILABLE` when AWS Backup is unable to validate recording status at this time.</td></tr><tr><td><code>FrameworkTags</code></td><td><code>array</code></td><td>Metadata that you can assign to help organize the frameworks that you create. Each tag is a key-value pair.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.backup.framework
+WHERE region = 'us-east-1' AND data__Identifier = '<FrameworkArn>'
+</pre>

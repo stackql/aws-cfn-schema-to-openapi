@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The bot_version resource documentation.
+Gets an individual <code>bot_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>BotId</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>BotVersion</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Description</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>BotVersionLocaleSpecification</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.lex.bot_version
+WHERE region = 'us-east-1' AND data__Identifier = '<BotId>' AND data__Identifier = '<BotVersion>'
+</pre>

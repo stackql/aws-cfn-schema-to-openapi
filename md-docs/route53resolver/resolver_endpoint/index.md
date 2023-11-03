@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The resolver_endpoint resource documentation.
+Gets an individual <code>resolver_endpoint</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>IpAddresses</code></td><td><code>array</code></td><td></td></tr><tr><td><code>ResolverEndpointId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>IpAddressCount</code></td><td><code>string</code></td><td></td></tr><tr><td><code>OutpostArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>PreferredInstanceType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ResolverEndpointType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Direction</code></td><td><code>string</code></td><td></td></tr><tr><td><code>HostVPCId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>SecurityGroupIds</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.route53resolver.resolver_endpoint
+WHERE region = 'us-east-1' AND data__Identifier = '<ResolverEndpointId>'
+</pre>

@@ -20,9 +20,9 @@ The route53 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>24</b></span><br />
-<span>total selectable resources:&nbsp;<b>24</b></span><br />
-<span>total methods:&nbsp;<b>24</b></span><br />
+<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total selectable resources:&nbsp;<b>12</b></span><br />
+<span>total methods:&nbsp;<b>12</b></span><br />
 </div>
 </div>
 
@@ -31,31 +31,19 @@ The route53 service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/aws/route53/cell/">cell</a><br />
 <a href="/providers/aws/route53/cidr_collection/">cidr_collection</a><br />
-<a href="/providers/aws/route53/cluster/">cluster</a><br />
-<a href="/providers/aws/route53/control_panel/">control_panel</a><br />
+<a href="/providers/aws/route53/cidr_collections/">cidr_collections</a><br />
 <a href="/providers/aws/route53/dnssec/">dnssec</a><br />
-<a href="/providers/aws/route53/firewall_domain_list/">firewall_domain_list</a><br />
-<a href="/providers/aws/route53/firewall_rule_group/">firewall_rule_group</a><br />
-<a href="/providers/aws/route53/firewall_rule_group_association/">firewall_rule_group_association</a><br />
+<a href="/providers/aws/route53/dnssecs/">dnssecs</a><br />
 <a href="/providers/aws/route53/health_check/">health_check</a><br />
-<a href="/providers/aws/route53/hosted_zone/">hosted_zone</a><br />
-<a href="/providers/aws/route53/key_signing_key/">key_signing_key</a><br />
-<a href="/providers/aws/route53/readiness_check/">readiness_check</a>
+<a href="/providers/aws/route53/health_checks/">health_checks</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/route53/hosted_zone/">hosted_zone</a><br />
+<a href="/providers/aws/route53/hosted_zones/">hosted_zones</a><br />
+<a href="/providers/aws/route53/key_signing_key/">key_signing_key</a><br />
+<a href="/providers/aws/route53/key_signing_keys/">key_signing_keys</a><br />
 <a href="/providers/aws/route53/record_set_group/">record_set_group</a><br />
-<a href="/providers/aws/route53/recovery_group/">recovery_group</a><br />
-<a href="/providers/aws/route53/resolver_config/">resolver_config</a><br />
-<a href="/providers/aws/route53/resolver_endpoint/">resolver_endpoint</a><br />
-<a href="/providers/aws/route53/resolver_query_logging_config/">resolver_query_logging_config</a><br />
-<a href="/providers/aws/route53/resolver_query_logging_config_association/">resolver_query_logging_config_association</a><br />
-<a href="/providers/aws/route53/resolver_rule/">resolver_rule</a><br />
-<a href="/providers/aws/route53/resolver_rule_association/">resolver_rule_association</a><br />
-<a href="/providers/aws/route53/resolverdnssec_config/">resolverdnssec_config</a><br />
-<a href="/providers/aws/route53/resource_set/">resource_set</a><br />
-<a href="/providers/aws/route53/routing_control/">routing_control</a><br />
-<a href="/providers/aws/route53/safety_rule/">safety_rule</a>
+<a href="/providers/aws/route53/record_set_groups/">record_set_groups</a>
 </div>
 </div>

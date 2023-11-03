@@ -20,9 +20,9 @@ The quicksight service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
-<span>total selectable resources:&nbsp;<b>7</b></span><br />
-<span>total methods:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>14</b></span><br />
+<span>total selectable resources:&nbsp;<b>14</b></span><br />
+<span>total methods:&nbsp;<b>14</b></span><br />
 </div>
 </div>
 
@@ -31,14 +31,21 @@ The quicksight service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/providers/aws/quicksight/analyses/">analyses</a><br />
 <a href="/providers/aws/quicksight/analysis/">analysis</a><br />
 <a href="/providers/aws/quicksight/dashboard/">dashboard</a><br />
+<a href="/providers/aws/quicksight/dashboards/">dashboards</a><br />
 <a href="/providers/aws/quicksight/data_set/">data_set</a><br />
+<a href="/providers/aws/quicksight/data_sets/">data_sets</a><br />
 <a href="/providers/aws/quicksight/data_source/">data_source</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/quicksight/data_sources/">data_sources</a><br />
 <a href="/providers/aws/quicksight/refresh_schedule/">refresh_schedule</a><br />
+<a href="/providers/aws/quicksight/refresh_schedules/">refresh_schedules</a><br />
 <a href="/providers/aws/quicksight/template/">template</a><br />
-<a href="/providers/aws/quicksight/theme/">theme</a>
+<a href="/providers/aws/quicksight/templates/">templates</a><br />
+<a href="/providers/aws/quicksight/theme/">theme</a><br />
+<a href="/providers/aws/quicksight/themes/">themes</a>
 </div>
 </div>

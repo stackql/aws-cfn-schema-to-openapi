@@ -20,9 +20,9 @@ The batch service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
-<span>total selectable resources:&nbsp;<b>4</b></span><br />
-<span>total methods:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total selectable resources:&nbsp;<b>8</b></span><br />
+<span>total methods:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -32,10 +32,14 @@ The batch service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/batch/compute_environment/">compute_environment</a><br />
-<a href="/providers/aws/batch/job_definition/">job_definition</a>
+<a href="/providers/aws/batch/compute_environments/">compute_environments</a><br />
+<a href="/providers/aws/batch/job_definition/">job_definition</a><br />
+<a href="/providers/aws/batch/job_definitions/">job_definitions</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/aws/batch/job_queue/">job_queue</a><br />
+<a href="/providers/aws/batch/job_queues/">job_queues</a><br />
+<a href="/providers/aws/batch/scheduling_policies/">scheduling_policies</a><br />
 <a href="/providers/aws/batch/scheduling_policy/">scheduling_policy</a>
 </div>
 </div>

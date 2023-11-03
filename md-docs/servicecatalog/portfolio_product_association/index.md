@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The portfolio_product_association resource documentation.
+Gets an individual <code>portfolio_product_association</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>SourcePortfolioId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AcceptLanguage</code></td><td><code>string</code></td><td></td></tr><tr><td><code>PortfolioId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ProductId</code></td><td><code>string</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.servicecatalog.portfolio_product_association
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

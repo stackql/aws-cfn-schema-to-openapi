@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The schema resource documentation.
+Gets an individual <code>schema</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>Name for the schema.</td></tr><tr><td><code>SchemaArn</code></td><td><code>string</code></td><td>Arn for the schema.</td></tr><tr><td><code>Schema</code></td><td><code>string</code></td><td>A schema in Avro JSON format.</td></tr><tr><td><code>Domain</code></td><td><code>string</code></td><td>The domain of a Domain dataset group.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.personalize.schema
+WHERE region = 'us-east-1' AND data__Identifier = '<SchemaArn>'
+</pre>

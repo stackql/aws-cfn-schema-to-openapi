@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The environment resource documentation.
+Gets an individual <code>environment</code> resource
 
 ## Overview
 <table><tbody>
@@ -37,3 +37,13 @@ null
 
     "core.dags_folder": "{AIRFLOW_HOME}/dags"</td></tr><tr><td><code>EnvironmentClass</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>MaxWorkers</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>MinWorkers</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Schedulers</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>NetworkConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>LoggingConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>WeeklyMaintenanceWindowStart</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>object</code></td><td>A map of tags for the environment.</td></tr><tr><td><code>WebserverAccessMode</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.mwaa.environment
+WHERE region = 'us-east-1' AND data__Identifier = '<Name>'
+</pre>

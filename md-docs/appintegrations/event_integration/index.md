@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The event_integration resource documentation.
+Gets an individual <code>event_integration</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The event integration description.</td></tr><tr><td><code>EventIntegrationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the event integration.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the event integration.</td></tr><tr><td><code>EventBridgeBus</code></td><td><code>string</code></td><td>The Amazon Eventbridge bus for the event integration.</td></tr><tr><td><code>EventFilter</code></td><td><code>undefined</code></td><td>The EventFilter (source) associated with the event integration.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags (keys and values) associated with the event integration.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.appintegrations.event_integration
+WHERE region = 'us-east-1' AND data__Identifier = '<Name>'
+</pre>

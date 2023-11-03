@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The resource resource documentation.
+Gets an individual <code>resource</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ResourceId</code></td><td><code>string</code></td><td>A unique primary identifier for a Resource</td></tr><tr><td><code>RestApiId</code></td><td><code>string</code></td><td>The ID of the RestApi resource in which you want to create this resource..</td></tr><tr><td><code>ParentId</code></td><td><code>string</code></td><td>The parent resource's identifier.</td></tr><tr><td><code>PathPart</code></td><td><code>string</code></td><td>The last path segment for this resource.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.apigateway.resource
+WHERE region = 'us-east-1' AND data__Identifier = '<RestApiId>' AND data__Identifier = '<ResourceId>'
+</pre>

@@ -20,9 +20,9 @@ The codedeploy service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The codedeploy service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/codedeploy/application/">application</a><br />
+<a href="/providers/aws/codedeploy/applications/">applications</a><br />
 <a href="/providers/aws/codedeploy/deployment_config/">deployment_config</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/codedeploy/deployment_group/">deployment_group</a>
+<a href="/providers/aws/codedeploy/deployment_configs/">deployment_configs</a><br />
+<a href="/providers/aws/codedeploy/deployment_group/">deployment_group</a><br />
+<a href="/providers/aws/codedeploy/deployment_groups/">deployment_groups</a>
 </div>
 </div>

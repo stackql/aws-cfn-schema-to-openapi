@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The schema_version resource documentation.
+Gets an individual <code>schema_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Schema</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>SchemaDefinition</code></td><td><code>string</code></td><td>Complete definition of the schema in plain-text.</td></tr><tr><td><code>VersionId</code></td><td><code>string</code></td><td>Represents the version ID associated with the schema version.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.glue.schema_version
+WHERE region = 'us-east-1' AND data__Identifier = '<VersionId>'
+</pre>

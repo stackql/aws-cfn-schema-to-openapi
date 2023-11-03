@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The application_version resource documentation.
+Gets an individual <code>application_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ApplicationName</code></td><td><code>string</code></td><td>The name of the Elastic Beanstalk application that is associated with this application version. </td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>A description of this application version.</td></tr><tr><td><code>SourceBundle</code></td><td><code>undefined</code></td><td>The Amazon S3 bucket and key that identify the location of the source bundle for this version. </td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.elasticbeanstalk.application_version
+WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationName>' AND data__Identifier = '<Id>'
+</pre>

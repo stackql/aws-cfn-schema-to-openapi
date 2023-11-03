@@ -32,12 +32,12 @@ The amplify service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/amplify/app/">app</a><br />
-<a href="/providers/aws/amplify/branch/">branch</a><br />
-<a href="/providers/aws/amplify/component/">component</a>
+<a href="/providers/aws/amplify/apps/">apps</a><br />
+<a href="/providers/aws/amplify/branch/">branch</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/amplify/branches/">branches</a><br />
 <a href="/providers/aws/amplify/domain/">domain</a><br />
-<a href="/providers/aws/amplify/form/">form</a><br />
-<a href="/providers/aws/amplify/theme/">theme</a>
+<a href="/providers/aws/amplify/domains/">domains</a>
 </div>
 </div>

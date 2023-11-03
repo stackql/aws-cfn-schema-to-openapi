@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The vpc_endpoint resource documentation.
+Gets an individual <code>vpc_endpoint</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td>The identifier of the VPC Endpoint</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the VPC Endpoint</td></tr><tr><td><code>SecurityGroupIds</code></td><td><code>array</code></td><td>The ID of one or more security groups to associate with the endpoint network interface</td></tr><tr><td><code>SubnetIds</code></td><td><code>array</code></td><td>The ID of one or more subnets in which to create an endpoint network interface</td></tr><tr><td><code>VpcId</code></td><td><code>string</code></td><td>The ID of the VPC in which the endpoint will be used.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.opensearchserverless.vpc_endpoint
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

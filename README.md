@@ -21,7 +21,7 @@ REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}'", "localDocRoot": "'${P
 4. run `stackql` commands, for example 
 ```sql
 select * from aws.s3.buckets WHERE region = 'us-east-1';
-select * from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01 ';
+select bucket_name, region, bucket_encryption_server_side_encryption_configuration from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
 ```
 
 

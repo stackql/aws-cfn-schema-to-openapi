@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The image_pipeline resource documentation.
+Gets an individual <code>image_pipeline</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the image pipeline.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the image pipeline.</td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the image pipeline.</td></tr><tr><td><code>ImageTestsConfiguration</code></td><td><code>undefined</code></td><td>The image tests configuration of the image pipeline.</td></tr><tr><td><code>Status</code></td><td><code>string</code></td><td>The status of the image pipeline.</td></tr><tr><td><code>Schedule</code></td><td><code>undefined</code></td><td>The schedule of the image pipeline.</td></tr><tr><td><code>ImageRecipeArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the image recipe that defines how images are configured, tested, and assessed.</td></tr><tr><td><code>ContainerRecipeArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the container recipe that defines how images are configured and tested.</td></tr><tr><td><code>DistributionConfigurationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the distribution configuration associated with this image pipeline.</td></tr><tr><td><code>InfrastructureConfigurationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the infrastructure configuration associated with this image pipeline.</td></tr><tr><td><code>EnhancedImageMetadataEnabled</code></td><td><code>boolean</code></td><td>Collects additional information about the image being created, including the operating system (OS) version and package list.</td></tr><tr><td><code>ImageScanningConfiguration</code></td><td><code>undefined</code></td><td>Contains settings for vulnerability scans.</td></tr><tr><td><code>Tags</code></td><td><code>object</code></td><td>The tags of this image pipeline.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.imagebuilder.image_pipeline
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

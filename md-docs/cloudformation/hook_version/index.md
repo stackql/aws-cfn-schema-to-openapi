@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The hook_version resource documentation.
+Gets an individual <code>hook_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -39,3 +39,13 @@ PRIVATE: The type is only visible and usable within the account in which it is r
 
 PUBLIC: The type is publically visible and usable within any Amazon account.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.hook_version
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

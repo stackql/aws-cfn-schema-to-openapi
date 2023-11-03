@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The configuration_template resource documentation.
+Gets an individual <code>configuration_template</code> resource
 
 ## Overview
 <table><tbody>
@@ -39,3 +39,13 @@ You must specify SourceConfiguration if you don't specify PlatformArn, Environme
 
 Constraint: If both solution stack name and source configuration are specified, the solution stack of the source configuration template must match the specified solution stack name. </td></tr><tr><td><code>TemplateName</code></td><td><code>string</code></td><td>The name of the configuration template</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.elasticbeanstalk.configuration_template
+WHERE region = 'us-east-1' AND data__Identifier = '<ApplicationName>' AND data__Identifier = '<TemplateName>'
+</pre>

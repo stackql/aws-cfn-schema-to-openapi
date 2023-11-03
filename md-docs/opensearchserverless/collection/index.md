@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The collection resource documentation.
+Gets an individual <code>collection</code> resource
 
 ## Overview
 <table><tbody>
@@ -36,3 +36,13 @@ Contains only lowercase letters a-z, the numbers 0-9 and the hyphen (-)
 Contains between 3 and 32 characters
 </td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>List of tags to be added to the resource</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the collection.</td></tr><tr><td><code>CollectionEndpoint</code></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr><tr><td><code>DashboardEndpoint</code></td><td><code>string</code></td><td>The OpenSearch Dashboards endpoint for the collection.</td></tr><tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.opensearchserverless.collection
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

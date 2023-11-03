@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The fleet resource documentation.
+Gets an individual <code>fleet</code> resource
 
 ## Overview
 <table><tbody>
@@ -33,3 +33,13 @@ Note: It is not currently possible to use the !Ref command to reference a script
 
 This parameter is required unless the parameters ServerLaunchPath and ServerLaunchParameters are defined. Runtime configuration has replaced these parameters, but fleets that use them will continue to work.</td></tr><tr><td><code>ServerLaunchParameters</code></td><td><code>string</code></td><td>This parameter is no longer used but is retained for backward compatibility. Instead, specify server launch parameters in the RuntimeConfiguration parameter. A request must specify either a runtime configuration or values for both ServerLaunchParameters and ServerLaunchPath.</td></tr><tr><td><code>ServerLaunchPath</code></td><td><code>string</code></td><td>This parameter is no longer used. Instead, specify a server launch path using the RuntimeConfiguration parameter. Requests that specify a server launch path and launch parameters instead of a runtime configuration will continue to work.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.gamelift.fleet
+WHERE region = 'us-east-1' AND data__Identifier = '<FleetId>'
+</pre>

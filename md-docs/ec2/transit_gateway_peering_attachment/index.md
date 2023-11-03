@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The transit_gateway_peering_attachment resource documentation.
+Gets an individual <code>transit_gateway_peering_attachment</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Status</code></td><td><code>undefined</code></td><td>The status of the transit gateway peering attachment.</td></tr><tr><td><code>TransitGatewayId</code></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr><tr><td><code>PeerTransitGatewayId</code></td><td><code>string</code></td><td>The ID of the peer transit gateway.</td></tr><tr><td><code>PeerAccountId</code></td><td><code>string</code></td><td>The ID of the peer account</td></tr><tr><td><code>State</code></td><td><code>string</code></td><td>The state of the transit gateway peering attachment. Note that the initiating state has been deprecated.</td></tr><tr><td><code>CreationTime</code></td><td><code>string</code></td><td>The time the transit gateway peering attachment was created.</td></tr><tr><td><code>PeerRegion</code></td><td><code>string</code></td><td>Peer Region</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the transit gateway peering attachment.</td></tr><tr><td><code>TransitGatewayAttachmentId</code></td><td><code>string</code></td><td>The ID of the transit gateway peering attachment.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.transit_gateway_peering_attachment
+WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayAttachmentId>'
+</pre>

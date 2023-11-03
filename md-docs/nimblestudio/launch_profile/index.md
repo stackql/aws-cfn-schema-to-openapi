@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The launch_profile resource documentation.
+Gets an individual <code>launch_profile</code> resource
 
 ## Overview
 <table><tbody>
@@ -32,3 +32,13 @@ null
             version is "2021-03-31".</p></td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td><p>The name for the launch profile.</p></td></tr><tr><td><code>StreamConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>StudioComponentIds</code></td><td><code>array</code></td><td><p>Unique identifiers for a collection of studio components that can be used with this
             launch profile.</p></td></tr><tr><td><code>StudioId</code></td><td><code>string</code></td><td><p>The studio ID. </p></td></tr><tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.nimblestudio.launch_profile
+WHERE region = 'us-east-1' AND data__Identifier = '<LaunchProfileId>' AND data__Identifier = '<StudioId>'
+</pre>

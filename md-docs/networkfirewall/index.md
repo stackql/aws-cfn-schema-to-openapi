@@ -20,9 +20,9 @@ The networkfirewall service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
-<span>total selectable resources:&nbsp;<b>4</b></span><br />
-<span>total methods:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
+<span>total selectable resources:&nbsp;<b>8</b></span><br />
+<span>total methods:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -32,10 +32,14 @@ The networkfirewall service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/networkfirewall/firewall/">firewall</a><br />
-<a href="/providers/aws/networkfirewall/firewall_policy/">firewall_policy</a>
+<a href="/providers/aws/networkfirewall/firewall_policies/">firewall_policies</a><br />
+<a href="/providers/aws/networkfirewall/firewall_policy/">firewall_policy</a><br />
+<a href="/providers/aws/networkfirewall/firewalls/">firewalls</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/aws/networkfirewall/logging_configuration/">logging_configuration</a><br />
-<a href="/providers/aws/networkfirewall/rule_group/">rule_group</a>
+<a href="/providers/aws/networkfirewall/logging_configurations/">logging_configurations</a><br />
+<a href="/providers/aws/networkfirewall/rule_group/">rule_group</a><br />
+<a href="/providers/aws/networkfirewall/rule_groups/">rule_groups</a>
 </div>
 </div>

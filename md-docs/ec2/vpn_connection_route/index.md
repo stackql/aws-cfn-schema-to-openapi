@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The vpn_connection_route resource documentation.
+Gets an individual <code>vpn_connection_route</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>DestinationCidrBlock</code></td><td><code>string</code></td><td>The CIDR block associated with the local subnet of the customer network.</td></tr><tr><td><code>VpnConnectionId</code></td><td><code>string</code></td><td>The ID of the VPN connection.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.vpn_connection_route
+WHERE region = 'us-east-1' AND data__Identifier = '<DestinationCidrBlock>' AND data__Identifier = '<VpnConnectionId>'
+</pre>

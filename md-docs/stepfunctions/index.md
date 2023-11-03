@@ -20,9 +20,9 @@ The stepfunctions service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
-<span>total selectable resources:&nbsp;<b>2</b></span><br />
-<span>total methods:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total selectable resources:&nbsp;<b>4</b></span><br />
+<span>total methods:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -31,9 +31,11 @@ The stepfunctions service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/providers/aws/stepfunctions/activities/">activities</a><br />
 <a href="/providers/aws/stepfunctions/activity/">activity</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/stepfunctions/state_machine/">state_machine</a>
+<a href="/providers/aws/stepfunctions/state_machine/">state_machine</a><br />
+<a href="/providers/aws/stepfunctions/state_machines/">state_machines</a>
 </div>
 </div>

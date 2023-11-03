@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The db_cluster resource documentation.
+Gets an individual <code>db_cluster</code> resource
 
 ## Overview
 <table><tbody>
@@ -53,3 +53,13 @@ If a DB snapshot is specified, the target DB cluster is created from the source 
 
 If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.</td></tr><tr><td><code>VpcSecurityGroupIds</code></td><td><code>array</code></td><td>Provides a list of VPC security groups that the DB cluster belongs to.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.neptune.db_cluster
+WHERE region = 'us-east-1' AND data__Identifier = '<DBClusterIdentifier>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The anomaly_monitor resource documentation.
+Gets an individual <code>anomaly_monitor</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>MonitorArn</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>MonitorType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>MonitorName</code></td><td><code>string</code></td><td>The name of the monitor.</td></tr><tr><td><code>CreationDate</code></td><td><code>string</code></td><td>The date when the monitor was created. </td></tr><tr><td><code>LastEvaluatedDate</code></td><td><code>string</code></td><td>The date when the monitor last evaluated for anomalies.</td></tr><tr><td><code>LastUpdatedDate</code></td><td><code>string</code></td><td>The date when the monitor was last updated.</td></tr><tr><td><code>MonitorDimension</code></td><td><code>string</code></td><td>The dimensions to evaluate</td></tr><tr><td><code>MonitorSpecification</code></td><td><code>string</code></td><td></td></tr><tr><td><code>DimensionalValueCount</code></td><td><code>integer</code></td><td>The value for evaluated dimensions.</td></tr><tr><td><code>ResourceTags</code></td><td><code>array</code></td><td>Tags to assign to monitor.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ce.anomaly_monitor
+WHERE region = 'us-east-1' AND data__Identifier = '<MonitorArn>'
+</pre>

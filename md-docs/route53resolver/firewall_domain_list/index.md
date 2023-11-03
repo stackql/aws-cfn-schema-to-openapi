@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The firewall_domain_list resource documentation.
+Gets an individual <code>firewall_domain_list</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td>ResourceId</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>Arn</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>FirewallDomainListName</td></tr><tr><td><code>DomainCount</code></td><td><code>integer</code></td><td>Count</td></tr><tr><td><code>Status</code></td><td><code>string</code></td><td>ResolverFirewallDomainList, possible values are COMPLETE, DELETING, UPDATING, COMPLETE_IMPORT_FAILED, IMPORTING, and INACTIVE_OWNER_ACCOUNT_CLOSED.</td></tr><tr><td><code>StatusMessage</code></td><td><code>string</code></td><td>FirewallDomainListAssociationStatus</td></tr><tr><td><code>ManagedOwnerName</code></td><td><code>string</code></td><td>ServicePrincipal</td></tr><tr><td><code>CreatorRequestId</code></td><td><code>string</code></td><td>The id of the creator request.</td></tr><tr><td><code>CreationTime</code></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr><tr><td><code>ModificationTime</code></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr><tr><td><code>Domains</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>DomainFileUrl</code></td><td><code>string</code></td><td>S3 URL to import domains from.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.route53resolver.firewall_domain_list
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

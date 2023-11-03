@@ -20,9 +20,9 @@ The globalaccelerator service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The globalaccelerator service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/globalaccelerator/accelerator/">accelerator</a><br />
+<a href="/providers/aws/globalaccelerator/accelerators/">accelerators</a><br />
 <a href="/providers/aws/globalaccelerator/endpoint_group/">endpoint_group</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/globalaccelerator/listener/">listener</a>
+<a href="/providers/aws/globalaccelerator/endpoint_groups/">endpoint_groups</a><br />
+<a href="/providers/aws/globalaccelerator/listener/">listener</a><br />
+<a href="/providers/aws/globalaccelerator/listeners/">listeners</a>
 </div>
 </div>

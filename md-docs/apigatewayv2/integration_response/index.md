@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The integration_response resource documentation.
+Gets an individual <code>integration_response</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ResponseTemplates</code></td><td><code>object</code></td><td></td></tr><tr><td><code>TemplateSelectionExpression</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ResponseParameters</code></td><td><code>object</code></td><td></td></tr><tr><td><code>ContentHandlingStrategy</code></td><td><code>string</code></td><td></td></tr><tr><td><code>IntegrationId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>IntegrationResponseKey</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ApiId</code></td><td><code>string</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.apigatewayv2.integration_response
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

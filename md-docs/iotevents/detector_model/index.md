@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The detector_model resource documentation.
+Gets an individual <code>detector_model</code> resource
 
 ## Overview
 <table><tbody>
@@ -33,3 +33,13 @@ This parameter uses a JSON-path expression to select the attribute-value pair in
 
 For more information, see [Tag](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.iotevents.detector_model
+WHERE region = 'us-east-1' AND data__Identifier = '<DetectorModelName>'
+</pre>

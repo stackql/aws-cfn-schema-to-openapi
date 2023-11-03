@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The topic resource documentation.
+Gets an individual <code>topic</code> resource
 
 ## Overview
 <table><tbody>
@@ -45,3 +45,13 @@ When you set ContentBasedDeduplication to true, Amazon SNS uses a SHA-256 hash t
 
 If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the topic name. For more information, see Name Type.</td></tr><tr><td><code>TopicArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>SignatureVersion</code></td><td><code>string</code></td><td>Version of the Amazon SNS signature used. If the SignatureVersion is 1, Signature is a Base64-encoded SHA1withRSA signature of the Message, MessageId, Type, Timestamp, and TopicArn values. If the SignatureVersion is 2, Signature is a Base64-encoded SHA256withRSA signature of the Message, MessageId, Type, Timestamp, and TopicArn values.</td></tr><tr><td><code>TracingConfig</code></td><td><code>string</code></td><td>Tracing mode of an Amazon SNS topic. By default TracingConfig is set to PassThrough, and the topic passes through the tracing header it receives from an SNS publisher to its subscriptions. If set to Active, SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing header is true. Only supported on standard topics.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.sns.topic
+WHERE region = 'us-east-1' AND data__Identifier = '<TopicArn>'
+</pre>

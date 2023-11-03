@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The dataset resource documentation.
+Gets an individual <code>dataset</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>DatasetName</code></td><td><code>string</code></td><td>A name for the dataset</td></tr><tr><td><code>DatasetType</code></td><td><code>string</code></td><td>The dataset type</td></tr><tr><td><code>DataFrequency</code></td><td><code>string</code></td><td>Frequency of data collection. This parameter is required for RELATED_TIME_SERIES</td></tr><tr><td><code>Domain</code></td><td><code>string</code></td><td>The domain associated with the dataset</td></tr><tr><td><code>EncryptionConfig</code></td><td><code>object</code></td><td></td></tr><tr><td><code>Schema</code></td><td><code>object</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.forecast.dataset
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

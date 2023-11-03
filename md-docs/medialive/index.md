@@ -20,9 +20,9 @@ The medialive service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The medialive service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/medialive/channel/">channel</a><br />
+<a href="/providers/aws/medialive/channels/">channels</a><br />
 <a href="/providers/aws/medialive/input/">input</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/medialive/input_security_group/">input_security_group</a>
+<a href="/providers/aws/medialive/input_security_group/">input_security_group</a><br />
+<a href="/providers/aws/medialive/input_security_groups/">input_security_groups</a><br />
+<a href="/providers/aws/medialive/inputs/">inputs</a>
 </div>
 </div>

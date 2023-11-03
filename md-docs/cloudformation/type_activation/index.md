@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The type_activation resource documentation.
+Gets an individual <code>type_activation</code> resource
 
 ## Overview
 <table><tbody>
@@ -31,3 +31,13 @@ null
 
 We recommend that type names adhere to the following pattern: company_or_organization::service::type.</td></tr><tr><td><code>Type</code></td><td><code>string</code></td><td>The kind of extension</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.type_activation
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

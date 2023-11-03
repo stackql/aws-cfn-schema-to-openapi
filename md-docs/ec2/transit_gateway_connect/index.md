@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The transit_gateway_connect resource documentation.
+Gets an individual <code>transit_gateway_connect</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>TransitGatewayAttachmentId</code></td><td><code>string</code></td><td>The ID of the Connect attachment.</td></tr><tr><td><code>TransportTransitGatewayAttachmentId</code></td><td><code>string</code></td><td>The ID of the attachment from which the Connect attachment was created.</td></tr><tr><td><code>TransitGatewayId</code></td><td><code>string</code></td><td>The ID of the transit gateway.</td></tr><tr><td><code>State</code></td><td><code>string</code></td><td>The state of the attachment.</td></tr><tr><td><code>CreationTime</code></td><td><code>string</code></td><td>The creation time.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the attachment.</td></tr><tr><td><code>Options</code></td><td><code>undefined</code></td><td>The Connect attachment options.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.transit_gateway_connect
+WHERE region = 'us-east-1' AND data__Identifier = '<TransitGatewayAttachmentId>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The readiness_check resource documentation.
+Gets an individual <code>readiness_check</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ResourceSetName</code></td><td><code>string</code></td><td>The name of the resource set to check.</td></tr><tr><td><code>ReadinessCheckName</code></td><td><code>string</code></td><td>Name of the ReadinessCheck to create.</td></tr><tr><td><code>ReadinessCheckArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the readiness check.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.route53recoveryreadiness.readiness_check
+WHERE region = 'us-east-1' AND data__Identifier = '<ReadinessCheckName>'
+</pre>

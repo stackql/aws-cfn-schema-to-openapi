@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The model resource documentation.
+Gets an individual <code>model</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ExecutionRoleArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>EnableNetworkIsolation</code></td><td><code>boolean</code></td><td></td></tr><tr><td><code>PrimaryContainer</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>ModelName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>VpcConfig</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Containers</code></td><td><code>array</code></td><td></td></tr><tr><td><code>InferenceExecutionConfig</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.sagemaker.model
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

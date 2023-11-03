@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The server_certificate resource documentation.
+Gets an individual <code>server_certificate</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>CertificateBody</code></td><td><code>string</code></td><td></td></tr><tr><td><code>CertificateChain</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ServerCertificateName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Path</code></td><td><code>string</code></td><td></td></tr><tr><td><code>PrivateKey</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the server certificate</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.iam.server_certificate
+WHERE region = 'us-east-1' AND data__Identifier = '<ServerCertificateName>'
+</pre>

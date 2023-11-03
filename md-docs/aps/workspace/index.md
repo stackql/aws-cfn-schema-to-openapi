@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The workspace resource documentation.
+Gets an individual <code>workspace</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>WorkspaceId</code></td><td><code>string</code></td><td>Required to identify a specific APS Workspace.</td></tr><tr><td><code>Alias</code></td><td><code>string</code></td><td>AMP Workspace alias.</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>Workspace arn.</td></tr><tr><td><code>AlertManagerDefinition</code></td><td><code>string</code></td><td>The AMP Workspace alert manager definition data</td></tr><tr><td><code>PrometheusEndpoint</code></td><td><code>string</code></td><td>AMP Workspace prometheus endpoint</td></tr><tr><td><code>LoggingConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.aps.workspace
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

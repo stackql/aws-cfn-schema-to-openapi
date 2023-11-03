@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The cidr_collection resource documentation.
+Gets an individual <code>cidr_collection</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td>UUID of the CIDR collection.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>A unique name for the CIDR collection.</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon resource name (ARN) to uniquely identify the AWS resource.</td></tr><tr><td><code>Locations</code></td><td><code>array</code></td><td>A complex type that contains information about the list of CIDR locations.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.route53.cidr_collection
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

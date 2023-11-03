@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The hosted_zone resource documentation.
+Gets an individual <code>hosted_zone</code> resource
 
 ## Overview
 <table><tbody>
@@ -33,3 +33,13 @@ For information about using tags for cost allocation, see Using Cost Allocation 
 
 If you're creating a public hosted zone, this is the name you have registered with your DNS registrar. If your domain name is registered with a registrar other than Route 53, change the name servers for your domain to the set of NameServers that are returned by the Fn::GetAtt intrinsic function.</td></tr><tr><td><code>QueryLoggingConfig</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>VPCs</code></td><td><code>array</code></td><td>A complex type that contains information about the VPCs that are associated with the specified hosted zone.</td></tr><tr><td><code>NameServers</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.route53.hosted_zone
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

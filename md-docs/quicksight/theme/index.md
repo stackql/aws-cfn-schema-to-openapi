@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The theme resource documentation.
+Gets an individual <code>theme</code> resource
 
 ## Overview
 <table><tbody>
@@ -37,3 +37,13 @@ null
 			theme has a description of the version in the <code>VersionDescription</code>
 			field.</p></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.quicksight.theme
+WHERE region = 'us-east-1' AND data__Identifier = '<ThemeId>' AND data__Identifier = '<AwsAccountId>'
+</pre>

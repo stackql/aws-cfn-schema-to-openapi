@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The customer_gateway_association resource documentation.
+Gets an individual <code>customer_gateway_association</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>GlobalNetworkId</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr><tr><td><code>CustomerGatewayArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the customer gateway.</td></tr><tr><td><code>DeviceId</code></td><td><code>string</code></td><td>The ID of the device</td></tr><tr><td><code>LinkId</code></td><td><code>string</code></td><td>The ID of the link</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.networkmanager.customer_gateway_association
+WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>' AND data__Identifier = '<CustomerGatewayArn>'
+</pre>

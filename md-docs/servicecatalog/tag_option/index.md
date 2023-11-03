@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The tag_option resource documentation.
+Gets an individual <code>tag_option</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Active</code></td><td><code>boolean</code></td><td></td></tr><tr><td><code>Value</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Key</code></td><td><code>string</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.servicecatalog.tag_option
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

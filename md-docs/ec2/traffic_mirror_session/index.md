@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The traffic_mirror_session resource documentation.
+Gets an individual <code>traffic_mirror_session</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TrafficMirrorTargetId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr><tr><td><code>SessionNumber</code></td><td><code>integer</code></td><td></td></tr><tr><td><code>VirtualNetworkId</code></td><td><code>integer</code></td><td></td></tr><tr><td><code>PacketLength</code></td><td><code>integer</code></td><td></td></tr><tr><td><code>NetworkInterfaceId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>TrafficMirrorFilterId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.traffic_mirror_session
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

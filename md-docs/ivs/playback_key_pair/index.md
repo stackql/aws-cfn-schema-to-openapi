@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The playback_key_pair resource documentation.
+Gets an individual <code>playback_key_pair</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>An arbitrary string (a nickname) assigned to a playback key pair that helps the customer identify that resource. The value does not need to be unique.</td></tr><tr><td><code>PublicKeyMaterial</code></td><td><code>string</code></td><td>The public portion of a customer-generated key pair.</td></tr><tr><td><code>Fingerprint</code></td><td><code>string</code></td><td>Key-pair identifier.</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>Key-pair identifier.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ivs.playback_key_pair
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

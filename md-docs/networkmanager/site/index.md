@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The site resource documentation.
+Gets an individual <code>site</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>SiteArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the site.</td></tr><tr><td><code>SiteId</code></td><td><code>string</code></td><td>The ID of the site.</td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the site.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the site.</td></tr><tr><td><code>GlobalNetworkId</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr><tr><td><code>Location</code></td><td><code>undefined</code></td><td>The location of the site.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.networkmanager.site
+WHERE region = 'us-east-1' AND data__Identifier = '<GlobalNetworkId>' AND data__Identifier = '<SiteId>'
+</pre>

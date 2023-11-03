@@ -20,9 +20,9 @@ The fsx service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
-<span>total selectable resources:&nbsp;<b>5</b></span><br />
-<span>total methods:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total selectable resources:&nbsp;<b>10</b></span><br />
+<span>total methods:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -32,11 +32,16 @@ The fsx service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/fsx/data_repository_association/">data_repository_association</a><br />
+<a href="/providers/aws/fsx/data_repository_associations/">data_repository_associations</a><br />
 <a href="/providers/aws/fsx/file_system/">file_system</a><br />
+<a href="/providers/aws/fsx/file_systems/">file_systems</a><br />
 <a href="/providers/aws/fsx/snapshot/">snapshot</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/fsx/snapshots/">snapshots</a><br />
 <a href="/providers/aws/fsx/storage_virtual_machine/">storage_virtual_machine</a><br />
-<a href="/providers/aws/fsx/volume/">volume</a>
+<a href="/providers/aws/fsx/storage_virtual_machines/">storage_virtual_machines</a><br />
+<a href="/providers/aws/fsx/volume/">volume</a><br />
+<a href="/providers/aws/fsx/volumes/">volumes</a>
 </div>
 </div>

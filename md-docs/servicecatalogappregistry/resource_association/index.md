@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The resource_association resource documentation.
+Gets an individual <code>resource_association</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Application</code></td><td><code>string</code></td><td>The name or the Id of the Application.</td></tr><tr><td><code>Resource</code></td><td><code>string</code></td><td>The name or the Id of the Resource.</td></tr><tr><td><code>ResourceType</code></td><td><code>string</code></td><td>The type of the CFN Resource for now it's enum CFN_STACK.</td></tr><tr><td><code>ApplicationArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>ResourceArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.servicecatalogappregistry.resource_association
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The gateway_route_table_association resource documentation.
+Gets an individual <code>gateway_route_table_association</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>RouteTableId</code></td><td><code>string</code></td><td>The ID of the route table.</td></tr><tr><td><code>GatewayId</code></td><td><code>string</code></td><td>The ID of the gateway.</td></tr><tr><td><code>AssociationId</code></td><td><code>string</code></td><td>The route table association ID.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.gateway_route_table_association
+WHERE region = 'us-east-1' AND data__Identifier = '<GatewayId>'
+</pre>

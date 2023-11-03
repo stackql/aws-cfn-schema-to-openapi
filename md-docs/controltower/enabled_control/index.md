@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The enabled_control resource documentation.
+Gets an individual <code>enabled_control</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ControlIdentifier</code></td><td><code>string</code></td><td>Arn of the control.</td></tr><tr><td><code>TargetIdentifier</code></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.controltower.enabled_control
+WHERE region = 'us-east-1' AND data__Identifier = '<TargetIdentifier>' AND data__Identifier = '<ControlIdentifier>'
+</pre>

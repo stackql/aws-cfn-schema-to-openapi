@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The public_type_version resource documentation.
+Gets an individual <code>public_type_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -31,3 +31,13 @@ null
 
 We recommend that type names adhere to the following pattern: company_or_organization::service::type.</td></tr><tr><td><code>LogDeliveryBucket</code></td><td><code>string</code></td><td>A url to the S3 bucket where logs for the testType run will be available</td></tr><tr><td><code>Type</code></td><td><code>string</code></td><td>The kind of extension</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.public_type_version
+WHERE region = 'us-east-1' AND data__Identifier = '<PublicTypeArn>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The module_version resource documentation.
+Gets an individual <code>module_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -35,3 +35,13 @@ The only allowed value at present is:
 
 PRIVATE: The type is only visible and usable within the account in which it is registered. Currently, AWS CloudFormation marks any types you register as PRIVATE.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.module_version
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

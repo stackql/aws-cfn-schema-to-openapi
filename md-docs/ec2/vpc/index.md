@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The vpc resource documentation.
+Gets an individual <code>vpc</code> resource
 
 ## Overview
 <table><tbody>
@@ -35,3 +35,13 @@ null
 
 Updating InstanceTenancy requires no replacement only if you are updating its value from "dedicated" to "default". Updating InstanceTenancy from "default" to "dedicated" requires replacement.</td></tr><tr><td><code>Ipv4IpamPoolId</code></td><td><code>string</code></td><td>The ID of an IPv4 IPAM pool you want to use for allocating this VPC's CIDR</td></tr><tr><td><code>Ipv4NetmaskLength</code></td><td><code>integer</code></td><td>The netmask length of the IPv4 CIDR you want to allocate to this VPC from an Amazon VPC IP Address Manager (IPAM) pool</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the VPC.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.ec2.vpc
+WHERE region = 'us-east-1' AND data__Identifier = '<VpcId>'
+</pre>

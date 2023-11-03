@@ -20,9 +20,9 @@ The customerprofiles service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The customerprofiles service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/customerprofiles/domain/">domain</a><br />
+<a href="/providers/aws/customerprofiles/domains/">domains</a><br />
 <a href="/providers/aws/customerprofiles/integration/">integration</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/customerprofiles/object_type/">object_type</a>
+<a href="/providers/aws/customerprofiles/integrations/">integrations</a><br />
+<a href="/providers/aws/customerprofiles/object_type/">object_type</a><br />
+<a href="/providers/aws/customerprofiles/object_types/">object_types</a>
 </div>
 </div>

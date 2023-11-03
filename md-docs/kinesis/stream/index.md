@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The stream resource documentation.
+Gets an individual <code>stream</code> resource
 
 ## Overview
 <table><tbody>
@@ -27,5 +27,15 @@ null
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Kinesis Video stream.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the Kinesis Video stream.</td></tr><tr><td><code>DataRetentionInHours</code></td><td><code>integer</code></td><td>The number of hours till which Kinesis Video will retain the data in the stream</td></tr><tr><td><code>DeviceName</code></td><td><code>string</code></td><td>The name of the device that is writing to the stream.</td></tr><tr><td><code>KmsKeyId</code></td><td><code>string</code></td><td>AWS KMS key ID that Kinesis Video Streams uses to encrypt stream data.</td></tr><tr><td><code>MediaType</code></td><td><code>string</code></td><td>The media type of the stream. Consumers of the stream can use this information when processing the stream.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs associated with the Kinesis Video Stream.</td></tr>
+<tr><td><code>StreamModeDetails</code></td><td><code>undefined</code></td><td>The mode in which the stream is running.</td></tr><tr><td><code>StreamEncryption</code></td><td><code>undefined</code></td><td>When specified, enables or updates server-side encryption using an AWS KMS key for a specified stream.</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the Kinesis stream</td></tr><tr><td><code>RetentionPeriodHours</code></td><td><code>integer</code></td><td>The number of hours for the data records that are stored in shards to remain accessible.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An arbitrary set of tags (key–value pairs) to associate with the Kinesis stream.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the Kinesis stream.</td></tr><tr><td><code>ShardCount</code></td><td><code>integer</code></td><td>The number of shards that the stream uses. Required when StreamMode = PROVISIONED is passed.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.kinesis.stream
+WHERE region = 'us-east-1' AND data__Identifier = '<Name>'
+</pre>

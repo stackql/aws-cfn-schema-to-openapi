@@ -20,9 +20,9 @@ The transfer service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>7</b></span><br />
-<span>total selectable resources:&nbsp;<b>7</b></span><br />
-<span>total methods:&nbsp;<b>7</b></span><br />
+<span>total resources:&nbsp;<b>14</b></span><br />
+<span>total selectable resources:&nbsp;<b>14</b></span><br />
+<span>total methods:&nbsp;<b>14</b></span><br />
 </div>
 </div>
 
@@ -32,13 +32,20 @@ The transfer service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/transfer/agreement/">agreement</a><br />
+<a href="/providers/aws/transfer/agreements/">agreements</a><br />
 <a href="/providers/aws/transfer/certificate/">certificate</a><br />
+<a href="/providers/aws/transfer/certificates/">certificates</a><br />
 <a href="/providers/aws/transfer/connector/">connector</a><br />
+<a href="/providers/aws/transfer/connectors/">connectors</a><br />
 <a href="/providers/aws/transfer/profile/">profile</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/transfer/profiles/">profiles</a><br />
 <a href="/providers/aws/transfer/server/">server</a><br />
+<a href="/providers/aws/transfer/servers/">servers</a><br />
 <a href="/providers/aws/transfer/user/">user</a><br />
-<a href="/providers/aws/transfer/workflow/">workflow</a>
+<a href="/providers/aws/transfer/users/">users</a><br />
+<a href="/providers/aws/transfer/workflow/">workflow</a><br />
+<a href="/providers/aws/transfer/workflows/">workflows</a>
 </div>
 </div>

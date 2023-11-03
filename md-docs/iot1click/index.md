@@ -20,9 +20,9 @@ The iot1click service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The iot1click service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/iot1click/device/">device</a><br />
+<a href="/providers/aws/iot1click/devices/">devices</a><br />
 <a href="/providers/aws/iot1click/placement/">placement</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/iot1click/project/">project</a>
+<a href="/providers/aws/iot1click/placements/">placements</a><br />
+<a href="/providers/aws/iot1click/project/">project</a><br />
+<a href="/providers/aws/iot1click/projects/">projects</a>
 </div>
 </div>

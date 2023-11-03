@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The resource_policy resource documentation.
+Gets an individual <code>resource_policy</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>PolicyName</code></td><td><code>string</code></td><td>A name for resource policy</td></tr><tr><td><code>PolicyDocument</code></td><td><code>string</code></td><td>The policy document</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.logs.resource_policy
+WHERE region = 'us-east-1' AND data__Identifier = '<PolicyName>'
+</pre>

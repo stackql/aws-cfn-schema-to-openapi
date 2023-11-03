@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The permission_set resource documentation.
+Gets an individual <code>permission_set</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name you want to assign to this permission set.</td></tr><tr><td><code>PermissionSetArn</code></td><td><code>string</code></td><td>The permission set that the policy will be attached to</td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>The permission set description.</td></tr><tr><td><code>InstanceArn</code></td><td><code>string</code></td><td>The sso instance arn that the permission set is owned.</td></tr><tr><td><code>SessionDuration</code></td><td><code>string</code></td><td>The length of time that a user can be signed in to an AWS account.</td></tr><tr><td><code>RelayStateType</code></td><td><code>string</code></td><td>The relay state URL that redirect links to any service in the AWS Management Console.</td></tr><tr><td><code>ManagedPolicies</code></td><td><code>array</code></td><td></td></tr><tr><td><code>InlinePolicy</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr><tr><td><code>CustomerManagedPolicyReferences</code></td><td><code>array</code></td><td></td></tr><tr><td><code>PermissionsBoundary</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.sso.permission_set
+WHERE region = 'us-east-1' AND data__Identifier = '<InstanceArn>' AND data__Identifier = '<PermissionSetArn>'
+</pre>

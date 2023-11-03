@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The fargate_profile resource documentation.
+Gets an individual <code>fargate_profile</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ClusterName</code></td><td><code>string</code></td><td>Name of the Cluster</td></tr><tr><td><code>FargateProfileName</code></td><td><code>string</code></td><td>Name of FargateProfile</td></tr><tr><td><code>PodExecutionRoleArn</code></td><td><code>string</code></td><td>The IAM policy arn for pods</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Subnets</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Selectors</code></td><td><code>array</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.eks.fargate_profile
+WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>' AND data__Identifier = '<FargateProfileName>'
+</pre>

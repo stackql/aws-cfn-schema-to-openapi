@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The notebook_instance_lifecycle_config resource documentation.
+Gets an individual <code>notebook_instance_lifecycle_config</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>NotebookInstanceLifecycleConfigName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>OnStart</code></td><td><code>array</code></td><td></td></tr><tr><td><code>OnCreate</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.sagemaker.notebook_instance_lifecycle_config
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

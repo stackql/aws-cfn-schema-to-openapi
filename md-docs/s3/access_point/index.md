@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The access_point resource documentation.
+Gets an individual <code>access_point</code> resource
 
 ## Overview
 <table><tbody>
@@ -27,5 +27,15 @@ null
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AccessPoint.</td></tr><tr><td><code>Bucket</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with.</td></tr><tr><td><code>Name</code></td><td><code>string</code></td><td>A name for the AccessPoint.</td></tr><tr><td><code>VpcConfiguration</code></td><td><code>undefined</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr><tr><td><code>Policy</code></td><td><code>object</code></td><td>The access point policy associated with this access point.</td></tr>
+<tr><td><code>Name</code></td><td><code>string</code></td><td>The name you want to assign to this Access Point. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the access point name.</td></tr><tr><td><code>Alias</code></td><td><code>string</code></td><td>The alias of this Access Point. This alias can be used for compatibility purposes with other AWS services and third-party applications.</td></tr><tr><td><code>Bucket</code></td><td><code>string</code></td><td>The name of the bucket that you want to associate this Access Point with.</td></tr><tr><td><code>BucketAccountId</code></td><td><code>string</code></td><td>The AWS account ID associated with the S3 bucket associated with this access point.</td></tr><tr><td><code>VpcConfiguration</code></td><td><code>undefined</code></td><td>If you include this field, Amazon S3 restricts access to this Access Point to requests from the specified Virtual Private Cloud (VPC).</td></tr><tr><td><code>PublicAccessBlockConfiguration</code></td><td><code>undefined</code></td><td>The PublicAccessBlock configuration that you want to apply to this Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.</td></tr><tr><td><code>Policy</code></td><td><code>object</code></td><td>The Access Point Policy you want to apply to this access point.</td></tr><tr><td><code>PolicyStatus</code></td><td><code>object</code></td><td></td></tr><tr><td><code>NetworkOrigin</code></td><td><code>string</code></td><td>Indicates whether this Access Point allows access from the public Internet. If VpcConfiguration is specified for this Access Point, then NetworkOrigin is VPC, and the Access Point doesn't allow access from the public Internet. Otherwise, NetworkOrigin is Internet, and the Access Point allows access from the public Internet, subject to the Access Point and bucket access policies.</td></tr><tr><td><code>Arn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) of the specified accesspoint.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.s3.access_point
+WHERE region = 'us-east-1' AND data__Identifier = '<Name>'
+</pre>

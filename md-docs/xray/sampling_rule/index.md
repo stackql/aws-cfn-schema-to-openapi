@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The sampling_rule resource documentation.
+Gets an individual <code>sampling_rule</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>SamplingRule</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>SamplingRuleRecord</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>SamplingRuleUpdate</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>RuleARN</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>RuleName</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.xray.sampling_rule
+WHERE region = 'us-east-1' AND data__Identifier = '<RuleARN>'
+</pre>

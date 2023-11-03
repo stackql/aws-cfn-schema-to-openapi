@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The service resource documentation.
+Gets an individual <code>service</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ServiceName</code></td><td><code>string</code></td><td>The AppRunner Service Name.</td></tr><tr><td><code>ServiceId</code></td><td><code>string</code></td><td>The AppRunner Service Id</td></tr><tr><td><code>ServiceArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AppRunner Service.</td></tr><tr><td><code>ServiceUrl</code></td><td><code>string</code></td><td>The Service Url of the AppRunner Service.</td></tr><tr><td><code>Status</code></td><td><code>string</code></td><td>AppRunner Service status.</td></tr><tr><td><code>SourceConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>InstanceConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr><tr><td><code>EncryptionConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>HealthCheckConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>ObservabilityConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>AutoScalingConfigurationArn</code></td><td><code>string</code></td><td>Autoscaling configuration ARN</td></tr><tr><td><code>NetworkConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.apprunner.service
+WHERE region = 'us-east-1' AND data__Identifier = '<ServiceArn>'
+</pre>

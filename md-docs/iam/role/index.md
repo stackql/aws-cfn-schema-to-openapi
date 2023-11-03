@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The role resource documentation.
+Gets an individual <code>role</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the role.</td></tr><tr><td><code>AssumeRolePolicyDocument</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>A description of the role that you provide.</td></tr><tr><td><code>ManagedPolicyArns</code></td><td><code>array</code></td><td>A list of Amazon Resource Names (ARNs) of the IAM managed policies that you want to attach to the role. </td></tr><tr><td><code>MaxSessionDuration</code></td><td><code>integer</code></td><td>The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours. </td></tr><tr><td><code>Path</code></td><td><code>string</code></td><td>The path to the role.</td></tr><tr><td><code>PermissionsBoundary</code></td><td><code>string</code></td><td>The ARN of the policy used to set the permissions boundary for the role.</td></tr><tr><td><code>Policies</code></td><td><code>array</code></td><td>Adds or updates an inline policy document that is embedded in the specified IAM role. </td></tr><tr><td><code>RoleId</code></td><td><code>string</code></td><td>The stable and unique string identifying the role.</td></tr><tr><td><code>RoleName</code></td><td><code>string</code></td><td>A name for the IAM role, up to 64 characters in length.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of tags that are attached to the role.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.iam.role
+WHERE region = 'us-east-1' AND data__Identifier = '<RoleName>'
+</pre>

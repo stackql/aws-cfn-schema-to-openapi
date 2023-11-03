@@ -20,9 +20,9 @@ The ecr service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
-<span>total selectable resources:&nbsp;<b>5</b></span><br />
-<span>total methods:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total selectable resources:&nbsp;<b>10</b></span><br />
+<span>total methods:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -31,12 +31,17 @@ The ecr service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/providers/aws/ecr/public_repositories/">public_repositories</a><br />
 <a href="/providers/aws/ecr/public_repository/">public_repository</a><br />
 <a href="/providers/aws/ecr/pull_through_cache_rule/">pull_through_cache_rule</a><br />
-<a href="/providers/aws/ecr/registry_policy/">registry_policy</a>
+<a href="/providers/aws/ecr/pull_through_cache_rules/">pull_through_cache_rules</a><br />
+<a href="/providers/aws/ecr/registry_policies/">registry_policies</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/ecr/registry_policy/">registry_policy</a><br />
 <a href="/providers/aws/ecr/replication_configuration/">replication_configuration</a><br />
+<a href="/providers/aws/ecr/replication_configurations/">replication_configurations</a><br />
+<a href="/providers/aws/ecr/repositories/">repositories</a><br />
 <a href="/providers/aws/ecr/repository/">repository</a>
 </div>
 </div>

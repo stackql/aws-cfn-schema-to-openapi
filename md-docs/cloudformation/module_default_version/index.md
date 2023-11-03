@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The module_default_version resource documentation.
+Gets an individual <code>module_default_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the module version to set as the default version.</td></tr><tr><td><code>ModuleName</code></td><td><code>string</code></td><td>The name of a module existing in the registry.</td></tr><tr><td><code>VersionId</code></td><td><code>string</code></td><td>The ID of an existing version of the named module to set as the default.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.module_default_version
+WHERE region = 'us-east-1' AND data__Identifier = '<Arn>'
+</pre>

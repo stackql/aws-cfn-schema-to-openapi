@@ -20,9 +20,9 @@ The kinesis service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
-<span>total selectable resources:&nbsp;<b>8</b></span><br />
-<span>total methods:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total selectable resources:&nbsp;<b>4</b></span><br />
+<span>total methods:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -31,15 +31,11 @@ The kinesis service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/aws/kinesis/application/">application</a><br />
-<a href="/providers/aws/kinesis/application_cloud_watch_logging_option/">application_cloud_watch_logging_option</a><br />
-<a href="/providers/aws/kinesis/application_output/">application_output</a><br />
-<a href="/providers/aws/kinesis/application_reference_data_source/">application_reference_data_source</a>
-</div>
-<div class="providerDocColumn">
-<a href="/providers/aws/kinesis/delivery_stream/">delivery_stream</a><br />
-<a href="/providers/aws/kinesis/signaling_channel/">signaling_channel</a><br />
 <a href="/providers/aws/kinesis/stream/">stream</a><br />
 <a href="/providers/aws/kinesis/stream_consumer/">stream_consumer</a>
+</div>
+<div class="providerDocColumn">
+<a href="/providers/aws/kinesis/stream_consumers/">stream_consumers</a><br />
+<a href="/providers/aws/kinesis/streams/">streams</a>
 </div>
 </div>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The db_cluster resource documentation.
+Gets an individual <code>db_cluster</code> resource
 
 ## Overview
 <table><tbody>
@@ -36,3 +36,13 @@ You can use either the name or the Amazon Resource Name (ARN) to specify a DB cl
 After you restore a DB cluster with a SnapshotIdentifier property, you must specify the same SnapshotIdentifier property for any future updates to the DB cluster. When you specify this property for an update, the DB cluster is not restored from the snapshot again, and the data in the database is not changed. However, if you don't specify the SnapshotIdentifier property, an empty DB cluster is created, and the original DB cluster is deleted. If you specify a property that is different from the previous snapshot restore property, the DB cluster is restored from the specified SnapshotIdentifier property, and the original DB cluster is deleted.</td></tr><tr><td><code>SourceDBClusterIdentifier</code></td><td><code>string</code></td><td>The identifier of the source DB cluster from which to restore.</td></tr><tr><td><code>SourceRegion</code></td><td><code>string</code></td><td>The AWS Region which contains the source DB cluster when replicating a DB cluster. For example, us-east-1.</td></tr><tr><td><code>StorageEncrypted</code></td><td><code>boolean</code></td><td>Indicates whether the DB instance is encrypted.
 If you specify the DBClusterIdentifier, SnapshotIdentifier, or SourceDBInstanceIdentifier property, don't specify this property. The value is inherited from the cluster, snapshot, or source DB instance.</td></tr><tr><td><code>StorageType</code></td><td><code>string</code></td><td>Specifies the storage type to be associated with the DB cluster.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr><tr><td><code>UseLatestRestorableTime</code></td><td><code>boolean</code></td><td>A value that indicates whether to restore the DB cluster to the latest restorable backup time. By default, the DB cluster is not restored to the latest restorable backup time.</td></tr><tr><td><code>VpcSecurityGroupIds</code></td><td><code>array</code></td><td>A list of EC2 VPC security groups to associate with this DB cluster.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.rds.db_cluster
+WHERE region = 'us-east-1' AND data__Identifier = '<DBClusterIdentifier>'
+</pre>

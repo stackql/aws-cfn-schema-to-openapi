@@ -20,9 +20,9 @@ The certificatemanager service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2</b></span><br />
-<span>total selectable resources:&nbsp;<b>2</b></span><br />
-<span>total methods:&nbsp;<b>2</b></span><br />
+<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total selectable resources:&nbsp;<b>4</b></span><br />
+<span>total methods:&nbsp;<b>4</b></span><br />
 </div>
 </div>
 
@@ -31,9 +31,11 @@ The certificatemanager service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/aws/certificatemanager/account/">account</a>
+<a href="/providers/aws/certificatemanager/account/">account</a><br />
+<a href="/providers/aws/certificatemanager/accounts/">accounts</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/certificatemanager/certificate/">certificate</a>
+<a href="/providers/aws/certificatemanager/certificate/">certificate</a><br />
+<a href="/providers/aws/certificatemanager/certificates/">certificates</a>
 </div>
 </div>

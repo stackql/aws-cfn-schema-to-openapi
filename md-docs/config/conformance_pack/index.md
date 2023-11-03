@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The conformance_pack resource documentation.
+Gets an individual <code>conformance_pack</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ConformancePackName</code></td><td><code>string</code></td><td>Name of the conformance pack which will be assigned as the unique identifier.</td></tr><tr><td><code>DeliveryS3Bucket</code></td><td><code>string</code></td><td>AWS Config stores intermediate files while processing conformance pack template.</td></tr><tr><td><code>DeliveryS3KeyPrefix</code></td><td><code>string</code></td><td>The prefix for delivery S3 bucket.</td></tr><tr><td><code>TemplateBody</code></td><td><code>string</code></td><td>A string containing full conformance pack template body. You can only specify one of the template body or template S3Uri fields.</td></tr><tr><td><code>TemplateS3Uri</code></td><td><code>string</code></td><td>Location of file containing the template body which points to the conformance pack template that is located in an Amazon S3 bucket. You can only specify one of the template body or template S3Uri fields.</td></tr><tr><td><code>TemplateSSMDocumentDetails</code></td><td><code>object</code></td><td>The TemplateSSMDocumentDetails object contains the name of the SSM document and the version of the SSM document.</td></tr><tr><td><code>ConformancePackInputParameters</code></td><td><code>array</code></td><td>A list of ConformancePackInputParameter objects.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.config.conformance_pack
+WHERE region = 'us-east-1' AND data__Identifier = '<ConformancePackName>'
+</pre>

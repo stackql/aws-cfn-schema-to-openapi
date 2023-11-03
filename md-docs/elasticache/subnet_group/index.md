@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The subnet_group resource documentation.
+Gets an individual <code>subnet_group</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The description for the cache subnet group.</td></tr><tr><td><code>SubnetIds</code></td><td><code>array</code></td><td>The EC2 subnet IDs for the cache subnet group.</td></tr><tr><td><code>CacheSubnetGroupName</code></td><td><code>string</code></td><td>The name for the cache subnet group. This value is stored as a lowercase string.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.elasticache.subnet_group
+WHERE region = 'us-east-1' AND data__Identifier = '<CacheSubnetGroupName>'
+</pre>

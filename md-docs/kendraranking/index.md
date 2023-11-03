@@ -20,9 +20,9 @@ The kendraranking service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>1</b></span><br />
-<span>total selectable resources:&nbsp;<b>1</b></span><br />
-<span>total methods:&nbsp;<b>1</b></span><br />
+<span>total resources:&nbsp;<b>2</b></span><br />
+<span>total selectable resources:&nbsp;<b>2</b></span><br />
+<span>total methods:&nbsp;<b>2</b></span><br />
 </div>
 </div>
 
@@ -34,6 +34,6 @@ The kendraranking service documentation.
 <a href="/providers/aws/kendraranking/execution_plan/">execution_plan</a>
 </div>
 <div class="providerDocColumn">
-
+<a href="/providers/aws/kendraranking/execution_plans/">execution_plans</a>
 </div>
 </div>

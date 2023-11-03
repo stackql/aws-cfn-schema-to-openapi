@@ -20,9 +20,9 @@ The managedblockchain service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The managedblockchain service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/managedblockchain/accessor/">accessor</a><br />
+<a href="/providers/aws/managedblockchain/accessors/">accessors</a><br />
 <a href="/providers/aws/managedblockchain/member/">member</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/managedblockchain/node/">node</a>
+<a href="/providers/aws/managedblockchain/members/">members</a><br />
+<a href="/providers/aws/managedblockchain/node/">node</a><br />
+<a href="/providers/aws/managedblockchain/nodes/">nodes</a>
 </div>
 </div>

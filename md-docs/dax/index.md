@@ -20,9 +20,9 @@ The dax service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>3</b></span><br />
-<span>total selectable resources:&nbsp;<b>3</b></span><br />
-<span>total methods:&nbsp;<b>3</b></span><br />
+<span>total resources:&nbsp;<b>6</b></span><br />
+<span>total selectable resources:&nbsp;<b>6</b></span><br />
+<span>total methods:&nbsp;<b>6</b></span><br />
 </div>
 </div>
 
@@ -32,9 +32,12 @@ The dax service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/dax/cluster/">cluster</a><br />
+<a href="/providers/aws/dax/clusters/">clusters</a><br />
 <a href="/providers/aws/dax/parameter_group/">parameter_group</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/dax/subnet_group/">subnet_group</a>
+<a href="/providers/aws/dax/parameter_groups/">parameter_groups</a><br />
+<a href="/providers/aws/dax/subnet_group/">subnet_group</a><br />
+<a href="/providers/aws/dax/subnet_groups/">subnet_groups</a>
 </div>
 </div>

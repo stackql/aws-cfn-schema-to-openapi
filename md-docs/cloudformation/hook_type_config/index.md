@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The hook_type_config resource documentation.
+Gets an individual <code>hook_type_config</code> resource
 
 ## Overview
 <table><tbody>
@@ -31,3 +31,13 @@ null
 
 We recommend that type names adhere to the following pattern: company_or_organization::service::type.</td></tr><tr><td><code>ConfigurationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the configuration data, in this account and region.</td></tr><tr><td><code>Configuration</code></td><td><code>string</code></td><td>The configuration data for the extension, in this account and region.</td></tr><tr><td><code>ConfigurationAlias</code></td><td><code>string</code></td><td>An alias by which to refer to this extension configuration data.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.cloudformation.hook_type_config
+WHERE region = 'us-east-1' AND data__Identifier = '<ConfigurationArn>'
+</pre>

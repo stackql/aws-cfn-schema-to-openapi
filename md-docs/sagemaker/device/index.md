@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The device resource documentation.
+Gets an individual <code>device</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>DeviceFleetName</code></td><td><code>string</code></td><td>The name of the edge device fleet</td></tr><tr><td><code>Device</code></td><td><code>undefined</code></td><td>The Edge Device you want to register against a device fleet</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>Associate tags with the resource</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.sagemaker.device
+WHERE region = 'us-east-1' AND data__Identifier = '<Device/DeviceName>'
+</pre>

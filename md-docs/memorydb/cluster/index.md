@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The cluster resource documentation.
+Gets an individual <code>cluster</code> resource
 
 ## Overview
 <table><tbody>
@@ -33,3 +33,13 @@ You cannot modify the value of TransitEncryptionEnabled after the cluster is cre
 
 You cannot modify the value of AutoMinorVersionUpgrade after the cluster is created. To enable AutoMinorVersionUpgrade on a cluster you must set AutoMinorVersionUpgrade to true when you create a cluster.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this cluster.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.memorydb.cluster
+WHERE region = 'us-east-1' AND data__Identifier = '<ClusterName>'
+</pre>

@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The file_system resource documentation.
+Gets an individual <code>file_system</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>StorageType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>KmsKeyId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>StorageCapacity</code></td><td><code>integer</code></td><td></td></tr><tr><td><code>RootVolumeId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>LustreConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>BackupId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>OntapConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>DNSName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>SubnetIds</code></td><td><code>array</code></td><td></td></tr><tr><td><code>SecurityGroupIds</code></td><td><code>array</code></td><td></td></tr><tr><td><code>WindowsConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>FileSystemTypeVersion</code></td><td><code>string</code></td><td></td></tr><tr><td><code>OpenZFSConfiguration</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>ResourceARN</code></td><td><code>string</code></td><td></td></tr><tr><td><code>FileSystemType</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr><tr><td><code>LustreMountName</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.fsx.file_system
+WHERE region = 'us-east-1' AND data__Identifier = '<Id>'
+</pre>

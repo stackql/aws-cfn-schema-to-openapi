@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The assistant_association resource documentation.
+Gets an individual <code>assistant_association</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>AssistantAssociationArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AssistantArn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AssistantAssociationId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>AssistantId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Association</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>AssociationType</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.wisdom.assistant_association
+WHERE region = 'us-east-1' AND data__Identifier = '<AssistantAssociationId>' AND data__Identifier = '<AssistantId>'
+</pre>

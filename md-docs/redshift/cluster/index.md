@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The cluster resource documentation.
+Gets an individual <code>cluster</code> resource
 
 ## Overview
 <table><tbody>
@@ -44,3 +44,13 @@ If this option is true , enhanced VPC routing is enabled.
 
 Default: false</td></tr><tr><td><code>MaintenanceTrackName</code></td><td><code>string</code></td><td>The name for the maintenance track that you want to assign for the cluster. This name change is asynchronous. The new track name stays in the PendingModifiedValues for the cluster until the next maintenance window. When the maintenance track changes, the cluster is switched to the latest cluster release available for the maintenance track. At this point, the maintenance track name is applied.</td></tr><tr><td><code>DeferMaintenance</code></td><td><code>boolean</code></td><td>A boolean indicating whether to enable the deferred maintenance window.</td></tr><tr><td><code>DeferMaintenanceIdentifier</code></td><td><code>string</code></td><td>A unique identifier for the deferred maintenance window.</td></tr><tr><td><code>DeferMaintenanceStartTime</code></td><td><code>string</code></td><td>A timestamp indicating the start time for the deferred maintenance window.</td></tr><tr><td><code>DeferMaintenanceEndTime</code></td><td><code>string</code></td><td>A timestamp indicating end time for the deferred maintenance window. If you specify an end time, you can't specify a duration.</td></tr><tr><td><code>DeferMaintenanceDuration</code></td><td><code>integer</code></td><td>An integer indicating the duration of the maintenance window in days. If you specify a duration, you can't specify an end time. The duration must be 45 days or less.</td></tr><tr><td><code>RevisionTarget</code></td><td><code>string</code></td><td>The identifier of the database revision. You can retrieve this value from the response to the DescribeClusterDbRevisions request.</td></tr><tr><td><code>ResourceAction</code></td><td><code>string</code></td><td>The Redshift operation to be performed. Resource Action supports pause-cluster, resume-cluster APIs</td></tr><tr><td><code>RotateEncryptionKey</code></td><td><code>boolean</code></td><td>A boolean indicating if we want to rotate Encryption Keys.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.redshift.cluster
+WHERE region = 'us-east-1' AND data__Identifier = '<ClusterIdentifier>'
+</pre>

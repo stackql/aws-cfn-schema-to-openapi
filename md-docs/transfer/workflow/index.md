@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The workflow resource documentation.
+Gets an individual <code>workflow</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>OnExceptionSteps</code></td><td><code>array</code></td><td>Specifies the steps (actions) to take if any errors are encountered during execution of the workflow.</td></tr><tr><td><code>Steps</code></td><td><code>array</code></td><td>Specifies the details for the steps that are in the specified workflow.</td></tr><tr><td><code>Tags</code></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.</td></tr><tr><td><code>Description</code></td><td><code>string</code></td><td>A textual description for the workflow.</td></tr><tr><td><code>WorkflowId</code></td><td><code>string</code></td><td>A unique identifier for the workflow.</td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the workflow.</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.transfer.workflow
+WHERE region = 'us-east-1' AND data__Identifier = '<WorkflowId>'
+</pre>

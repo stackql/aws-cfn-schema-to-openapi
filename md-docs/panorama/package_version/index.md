@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The package_version resource documentation.
+Gets an individual <code>package_version</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>OwnerAccount</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>PackageId</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>PackageArn</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>PackageVersion</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>PatchVersion</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>MarkLatest</code></td><td><code>boolean</code></td><td></td></tr><tr><td><code>IsLatestPatch</code></td><td><code>boolean</code></td><td></td></tr><tr><td><code>PackageName</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>Status</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>StatusDescription</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>RegisteredTime</code></td><td><code>undefined</code></td><td></td></tr><tr><td><code>UpdatedLatestPatchVersion</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.panorama.package_version
+WHERE region = 'us-east-1' AND data__Identifier = '<PackageId>' AND data__Identifier = '<PackageVersion>' AND data__Identifier = '<PatchVersion>'
+</pre>

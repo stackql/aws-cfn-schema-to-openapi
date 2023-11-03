@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The multi_region_access_point_policy resource documentation.
+Gets an individual <code>multi_region_access_point_policy</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>MrapName</code></td><td><code>string</code></td><td>The name of the Multi Region Access Point to apply policy</td></tr><tr><td><code>Policy</code></td><td><code>object</code></td><td>Policy document to apply to a Multi Region Access Point</td></tr><tr><td><code>PolicyStatus</code></td><td><code>object</code></td><td>The Policy Status associated with this Multi Region Access Point</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.s3.multi_region_access_point_policy
+WHERE region = 'us-east-1' AND data__Identifier = '<MrapName>'
+</pre>

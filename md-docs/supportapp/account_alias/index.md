@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The account_alias resource documentation.
+Gets an individual <code>account_alias</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>AccountAlias</code></td><td><code>string</code></td><td>An account alias associated with a customer's account.</td></tr><tr><td><code>AccountAliasResourceId</code></td><td><code>string</code></td><td>Unique identifier representing an alias tied to an account</td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.supportapp.account_alias
+WHERE region = 'us-east-1' AND data__Identifier = '<AccountAliasResourceId>'
+</pre>

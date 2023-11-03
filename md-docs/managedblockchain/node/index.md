@@ -14,7 +14,7 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-The node resource documentation.
+Gets an individual <code>node</code> resource
 
 ## Overview
 <table><tbody>
@@ -29,3 +29,13 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>NodeId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>MemberId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr><tr><td><code>NetworkId</code></td><td><code>string</code></td><td></td></tr><tr><td><code>NodeConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
 </tbody></table>
+
+## Methods
+Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Example
+<pre>
+SELECT * 
+FROM aws.managedblockchain.node
+WHERE region = 'us-east-1' AND data__Identifier = '<NodeId>'
+</pre>
