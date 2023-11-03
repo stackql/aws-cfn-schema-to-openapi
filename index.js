@@ -1,15 +1,74 @@
-import fs from "fs";
+import * as fs from 'fs'; // For synchronous methods like fs.existsSync
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { dump } from "js-yaml";
+import { dump, load } from "js-yaml";
 import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const docsDir = path.join(__dirname, "docs");
-const outputDir = path.join(__dirname, "output");
+const docsDir = path.join(__dirname, "input-cfn-docs");
+const outputDir = path.join(__dirname, "src/aws/v00.00.00000/services");
+
+let providerManifest = {
+  id: 'aws',
+  name: 'aws',
+  version: 'v00.00.00000',
+  providerServices: {},
+  config: {
+    auth: {
+      type: 'aws_signing_v4',
+      credentialsenvvar: 'AWS_SECRET_ACCESS_KEY',
+      keyIDenvvar: 'AWS_ACCESS_KEY_ID',
+    },
+  },
+};
+
+function clearOutputDir() {
+  // Define directories
+  const servicesDir = outputDir;
+
+  const providerYamlPath = path.join(servicesDir, '..', 'provider.yaml');
+  if (fs.existsSync(providerYamlPath)) {  // Check if the file exists
+      try {
+          fs.unlinkSync(providerYamlPath);  // If it exists, delete it
+          console.log(`Deleted ${providerYamlPath}`);
+      } catch (err) {
+          console.error(`Error deleting file ${providerYamlPath}:`, err);
+      }
+  } else {
+      console.log(`${providerYamlPath} doesn't exist. Nothing to delete.`);
+  }
+
+  for (const dir of [servicesDir]) {
+      if (fs.existsSync(dir)) {
+          // Get all the files in the directory
+          const files = fs.readdirSync(dir);
+
+          for (const file of files) {
+              const filePath = path.join(dir, file);
+              
+              // Skip if the file is cloud_control.yaml
+              if (file === 'cloud_control.yaml') {
+                  continue;
+              }
+
+              // Check if the file ends with .yaml
+              if (path.extname(filePath) === '.yaml') {
+                  try {
+                      fs.unlinkSync(filePath); // Deletes the file
+                      console.log(`Deleted ${filePath}`);
+                  } catch (err) {
+                      console.error(`Error deleting file ${filePath}:`, err);
+                  }
+              }
+          }
+      } else {
+          console.log(`${dir} doesn't exist. Nothing to clean.`);
+      }
+  }
+}
 
 function findFiles(startPath, filter) {
   let results = [];
@@ -71,15 +130,17 @@ async function processService(servicePrefix, outputFilename) {
     Object.assign(openAPI.components.schemas, openAPIComponent);
   }
   openAPI.info = {title: serviceTitle, ...openAPI.info};
-  const stackqlViews = generateStackqlViews(openAPI);
-  Object.assign(openAPI, {'x-stackql-views': stackqlViews});
 
+  const stackqlViews = generateStackqlViews(openAPI);
+  if (!openAPI.components['x-stackQL-resources']) {
+      openAPI.components['x-stackQL-resources'] = {};
+  }
+  Object.assign(openAPI.components['x-stackQL-resources'], stackqlViews);
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
   writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
 }
-
 
 function findFilesInDocs(filter) {
 
@@ -90,6 +151,8 @@ function findFilesInDocs(filter) {
 }
 
 function main(){
+  clearOutputDir();
+
   const docFiles = findFilesInDocs();
   const fileFilters = docFiles
   .filter(filename => filename.startsWith("aws-"))
@@ -99,16 +162,41 @@ function main(){
 
   for (const service of uniqueServices) {
     try {
-      const filePrefix = `aws-${service}`;
+      const filePrefix = `aws-${service}-`;
       const outputFilename = `${service}.yaml`;
       processService(filePrefix, outputFilename);
-      console.log('Service processed', service)
+      // add service to manifest
+      providerManifest.providerServices[service] = {
+        id: `${service}:${providerManifest.version}`,
+        name: service,
+        preferred: true,
+        service: {
+            $ref: `aws/${providerManifest.version}/services/${service}.yaml`,
+        },
+        title: service,
+        version: providerManifest.version,
+        description: service,
+      };
+      console.log('Service processed', service);
     } catch (error) {
       console.log('Error processing file', service, error)
     }
-
   }
 
+  // add cloud_control
+  providerManifest.providerServices['cloud_control'] = {
+    id: `cloud_control:${providerManifest.version}`,
+    name: 'cloud_control',
+    preferred: true,
+    service: {
+        $ref: `aws/${providerManifest.version}/services/cloud_control.yaml`,
+    },
+    title: 'cloud_control',
+    version: providerManifest.version,
+    description: 'cloud_control',
+  };
+
+  writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }
 
-main()
+main();

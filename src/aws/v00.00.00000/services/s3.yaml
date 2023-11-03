@@ -1,0 +1,1747 @@
+openapi: 3.0.0
+info:
+  title: S3
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    VpcConfiguration:
+      description: The Virtual Private Cloud (VPC) configuration for a bucket access point.
+      type: object
+      properties:
+        VpcId:
+          description: If this field is specified, this access point will only allow connections from the specified VPC ID.
+          type: string
+          minLength: 1
+          maxLength: 1024
+    PublicAccessBlockConfiguration:
+      type: object
+      properties:
+        BlockPublicAcls:
+          type: boolean
+          description: |-
+            Specifies whether Amazon S3 should block public access control lists (ACLs) for buckets in this account. Setting this element to TRUE causes the following behavior:
+            - PUT Bucket acl and PUT Object acl calls fail if the specified ACL is public.
+             - PUT Object calls fail if the request includes a public ACL.
+            . - PUT Bucket calls fail if the request includes a public ACL.
+            Enabling this setting doesn't affect existing policies or ACLs.
+        IgnorePublicAcls:
+          type: boolean
+          description: Specifies whether Amazon S3 should ignore public ACLs for buckets in this account. Setting this element to TRUE causes Amazon S3 to ignore all public ACLs on buckets in this account and any objects that they contain. Enabling this setting doesn't affect the persistence of any existing ACLs and doesn't prevent new public ACLs from being set.
+        BlockPublicPolicy:
+          type: boolean
+          description: Specifies whether Amazon S3 should block public bucket policies for buckets in this account. Setting this element to TRUE causes Amazon S3 to reject calls to PUT Bucket policy if the specified bucket policy allows public access. Enabling this setting doesn't affect existing bucket policies.
+        RestrictPublicBuckets:
+          type: boolean
+          description: |-
+            Specifies whether Amazon S3 should restrict public bucket policies for this bucket. Setting this element to TRUE restricts access to this bucket to only AWS services and authorized users within this account if the bucket has a public policy.
+            Enabling this setting doesn't affect previously stored bucket policies, except that public and cross-account access within any public bucket policy, including non-public delegation to specific accounts, is blocked.
+      additionalProperties: false
+    Arn:
+      description: The Amazon Resource Name (ARN) of the specified resource.
+      type: string
+    AccessPoint:
+      type: object
+      properties:
+        Name:
+          description: The name you want to assign to this Access Point. If you don't specify a name, AWS CloudFormation generates a unique ID and uses that ID for the access point name.
+          type: string
+          pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
+          minLength: 3
+          maxLength: 50
+        Alias:
+          description: The alias of this Access Point. This alias can be used for compatibility purposes with other AWS services and third-party applications.
+          type: string
+          pattern: ^[a-z0-9]([a-z0-9\-]*[a-z0-9])?$
+          minLength: 3
+          maxLength: 63
+        Bucket:
+          description: The name of the bucket that you want to associate this Access Point with.
+          type: string
+          minLength: 3
+          maxLength: 255
+        BucketAccountId:
+          description: The AWS account ID associated with the S3 bucket associated with this access point.
+          type: string
+          pattern: ^\d{12}$
+          maxLength: 64
+        VpcConfiguration:
+          description: If you include this field, Amazon S3 restricts access to this Access Point to requests from the specified Virtual Private Cloud (VPC).
+          $ref: '#/components/schemas/VpcConfiguration'
+        PublicAccessBlockConfiguration:
+          description: The PublicAccessBlock configuration that you want to apply to this Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.
+          $ref: '#/components/schemas/PublicAccessBlockConfiguration'
+        Policy:
+          description: The Access Point Policy you want to apply to this access point.
+          type: object
+        PolicyStatus:
+          type: object
+          properties:
+            IsPublic:
+              type: string
+              description: Specifies whether the policy is public or not.
+              enum:
+                - 'true'
+                - 'false'
+        NetworkOrigin:
+          description: Indicates whether this Access Point allows access from the public Internet. If VpcConfiguration is specified for this Access Point, then NetworkOrigin is VPC, and the Access Point doesn't allow access from the public Internet. Otherwise, NetworkOrigin is Internet, and the Access Point allows access from the public Internet, subject to the Access Point and bucket access policies.
+          type: string
+          enum:
+            - Internet
+            - VPC
+        Arn:
+          $ref: '#/components/schemas/Arn'
+          description: The Amazon Resource Name (ARN) of the specified accesspoint.
+          x-examples:
+            - arn:aws:s3:us-west-2:123456789012:accesspoint/test
+      required:
+        - Bucket
+      x-stackql-resource-name: access_point
+      x-stackql-primaryIdentifier:
+        - Name
+    TagFilter:
+      description: Tags to use to identify a subset of objects for an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Key:
+          type: string
+      required:
+        - Value
+        - Key
+    Destination:
+      description: Specifies information about where to publish analysis or configuration results for an Amazon S3 bucket and S3 Replication Time Control (S3 RTC).
+      type: object
+      additionalProperties: false
+      properties:
+        BucketArn:
+          description: The Amazon Resource Name (ARN) of the bucket to which data is exported.
+          type: string
+        BucketAccountId:
+          description: 'The account ID that owns the destination S3 bucket. '
+          type: string
+        Format:
+          description: Specifies the file format used when exporting data to Amazon S3.
+          type: string
+          enum:
+            - CSV
+            - ORC
+            - Parquet
+        Prefix:
+          description: The prefix to use when exporting data. The prefix is prepended to all results.
+          type: string
+      required:
+        - BucketArn
+        - Format
+    AccelerateConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        AccelerationStatus:
+          description: Configures the transfer acceleration state for an Amazon S3 bucket.
+          type: string
+          enum:
+            - Enabled
+            - Suspended
+      required:
+        - AccelerationStatus
+    AnalyticsConfiguration:
+      description: Specifies the configuration and any analyses for the analytics filter of an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        TagFilters:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+        StorageClassAnalysis:
+          $ref: '#/components/schemas/StorageClassAnalysis'
+        Id:
+          description: The ID that identifies the analytics configuration.
+          type: string
+        Prefix:
+          description: The prefix that an object must have to be included in the analytics results.
+          type: string
+      required:
+        - StorageClassAnalysis
+        - Id
+    StorageClassAnalysis:
+      description: Specifies data related to access patterns to be collected and made available to analyze the tradeoffs between different storage classes for an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        DataExport:
+          $ref: '#/components/schemas/DataExport'
+    DataExport:
+      description: Specifies how Amazon S3 Storage Lens metrics should be exported.
+      type: object
+      additionalProperties: false
+      properties:
+        S3BucketDestination:
+          $ref: '#/components/schemas/S3BucketDestination'
+        CloudWatchMetrics:
+          $ref: '#/components/schemas/CloudWatchMetrics'
+    BucketEncryption:
+      description: Specifies default encryption for a bucket using server-side encryption with either Amazon S3-managed keys (SSE-S3) or AWS KMS-managed keys (SSE-KMS).
+      type: object
+      additionalProperties: false
+      properties:
+        ServerSideEncryptionConfiguration:
+          description: Specifies the default server-side-encryption configuration.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/ServerSideEncryptionRule'
+      required:
+        - ServerSideEncryptionConfiguration
+    ServerSideEncryptionRule:
+      description: Specifies the default server-side encryption configuration.
+      type: object
+      additionalProperties: false
+      properties:
+        BucketKeyEnabled:
+          description: Specifies whether Amazon S3 should use an S3 Bucket Key with server-side encryption using KMS (SSE-KMS) for new objects in the bucket. Existing objects are not affected. Setting the BucketKeyEnabled element to true causes Amazon S3 to use an S3 Bucket Key. By default, S3 Bucket Key is not enabled.
+          type: boolean
+        ServerSideEncryptionByDefault:
+          $ref: '#/components/schemas/ServerSideEncryptionByDefault'
+    ServerSideEncryptionByDefault:
+      description: Specifies the default server-side encryption to apply to new objects in the bucket. If a PUT Object request doesn't specify any server-side encryption, this default encryption will be applied.
+      type: object
+      properties:
+        KMSMasterKeyID:
+          description: '"KMSMasterKeyID" can only be used when you set the value of SSEAlgorithm as aws:kms.'
+          type: string
+        SSEAlgorithm:
+          type: string
+          enum:
+            - aws:kms
+            - AES256
+      additionalProperties: false
+      required:
+        - SSEAlgorithm
+    CorsConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        CorsRules:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/CorsRule'
+            maxLength: 100
+      required:
+        - CorsRules
+    CorsRule:
+      type: object
+      description: A set of origins and methods (cross-origin access that you want to allow). You can add up to 100 rules to the configuration.
+      additionalProperties: false
+      properties:
+        AllowedHeaders:
+          description: Headers that are specified in the Access-Control-Request-Headers header.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            type: string
+        AllowedMethods:
+          description: An HTTP method that you allow the origin to execute.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            type: string
+            enum:
+              - GET
+              - PUT
+              - HEAD
+              - POST
+              - DELETE
+        AllowedOrigins:
+          description: One or more origins you want customers to be able to access the bucket from.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            type: string
+        ExposedHeaders:
+          description: One or more headers in the response that you want customers to be able to access from their applications (for example, from a JavaScript XMLHttpRequest object).
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            type: string
+        Id:
+          description: A unique identifier for this rule.
+          type: string
+          maxLength: 255
+        MaxAge:
+          description: The time in seconds that your browser is to cache the preflight response for the specified resource.
+          type: integer
+          minimum: 0
+      required:
+        - AllowedMethods
+        - AllowedOrigins
+    IntelligentTieringConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Id:
+          description: The ID used to identify the S3 Intelligent-Tiering configuration.
+          type: string
+        Prefix:
+          description: An object key name prefix that identifies the subset of objects to which the rule applies.
+          type: string
+        Status:
+          description: Specifies the status of the configuration.
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+        TagFilters:
+          description: A container for a key-value pair.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+        Tierings:
+          description: 'Specifies a list of S3 Intelligent-Tiering storage class tiers in the configuration. At least one tier must be defined in the list. At most, you can specify two tiers in the list, one for each available AccessTier: ARCHIVE_ACCESS and DEEP_ARCHIVE_ACCESS.'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Tiering'
+      required:
+        - Id
+        - Status
+        - Tierings
+    Tiering:
+      type: object
+      additionalProperties: false
+      properties:
+        AccessTier:
+          description: S3 Intelligent-Tiering access tier. See Storage class for automatically optimizing frequently and infrequently accessed objects for a list of access tiers in the S3 Intelligent-Tiering storage class.
+          type: string
+          enum:
+            - ARCHIVE_ACCESS
+            - DEEP_ARCHIVE_ACCESS
+        Days:
+          description: The number of consecutive days of no access after which an object will be eligible to be transitioned to the corresponding tier. The minimum number of days specified for Archive Access tier must be at least 90 days and Deep Archive Access tier must be at least 180 days. The maximum can be up to 2 years (730 days).
+          type: integer
+      required:
+        - AccessTier
+        - Days
+    InventoryConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Destination:
+          $ref: '#/components/schemas/Destination'
+        Enabled:
+          description: Specifies whether the inventory is enabled or disabled.
+          type: boolean
+        Id:
+          description: The ID used to identify the inventory configuration.
+          type: string
+        IncludedObjectVersions:
+          description: Object versions to include in the inventory list.
+          type: string
+          enum:
+            - All
+            - Current
+        OptionalFields:
+          description: Contains the optional fields that are included in the inventory results.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            type: string
+            enum:
+              - Size
+              - LastModifiedDate
+              - StorageClass
+              - ETag
+              - IsMultipartUploaded
+              - ReplicationStatus
+              - EncryptionStatus
+              - ObjectLockRetainUntilDate
+              - ObjectLockMode
+              - ObjectLockLegalHoldStatus
+              - IntelligentTieringAccessTier
+              - BucketKeyStatus
+        Prefix:
+          description: The prefix that is prepended to all inventory results.
+          type: string
+        ScheduleFrequency:
+          description: Specifies the schedule for generating inventory results.
+          type: string
+          enum:
+            - Daily
+            - Weekly
+      required:
+        - Destination
+        - Enabled
+        - Id
+        - IncludedObjectVersions
+        - ScheduleFrequency
+    LifecycleConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Rules:
+          description: A lifecycle rule for individual objects in an Amazon S3 bucket.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Rule'
+      required:
+        - Rules
+    Rule:
+      type: object
+      description: 'You must specify at least one of the following properties: AbortIncompleteMultipartUpload, ExpirationDate, ExpirationInDays, NoncurrentVersionExpirationInDays, NoncurrentVersionTransition, NoncurrentVersionTransitions, Transition, or Transitions.'
+      additionalProperties: false
+      properties:
+        AbortIncompleteMultipartUpload:
+          $ref: '#/components/schemas/AbortIncompleteMultipartUpload'
+        ExpirationDate:
+          $ref: '#/components/schemas/iso8601UTC'
+        ExpirationInDays:
+          type: integer
+        ExpiredObjectDeleteMarker:
+          type: boolean
+        Id:
+          type: string
+          maxLength: 255
+        NoncurrentVersionExpirationInDays:
+          type: integer
+        NoncurrentVersionExpiration:
+          $ref: '#/components/schemas/NoncurrentVersionExpiration'
+        NoncurrentVersionTransition:
+          $ref: '#/components/schemas/NoncurrentVersionTransition'
+        NoncurrentVersionTransitions:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/NoncurrentVersionTransition'
+        Prefix:
+          type: string
+        Status:
+          type: string
+          enum:
+            - Enabled
+            - Disabled
+        TagFilters:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+        ObjectSizeGreaterThan:
+          type: string
+          maxLength: 20
+          pattern: '[0-9]+'
+        ObjectSizeLessThan:
+          type: string
+          maxLength: 20
+          pattern: '[0-9]+'
+        Transition:
+          $ref: '#/components/schemas/Transition'
+        Transitions:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Transition'
+      required:
+        - Status
+    AbortIncompleteMultipartUpload:
+      description: Specifies the days since the initiation of an incomplete multipart upload that Amazon S3 will wait before permanently removing all parts of the upload.
+      type: object
+      additionalProperties: false
+      properties:
+        DaysAfterInitiation:
+          description: Specifies the number of days after which Amazon S3 aborts an incomplete multipart upload.
+          type: integer
+          minimum: 0
+      required:
+        - DaysAfterInitiation
+    iso8601UTC:
+      description: The date value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ssZ)
+      type: string
+      pattern: ^([0-2]\d{3})-(0[0-9]|1[0-2])-([0-2]\d|3[01])T([01]\d|2[0-4]):([0-5]\d):([0-6]\d)((\.\d{3})?)Z$
+    NoncurrentVersionExpiration:
+      type: object
+      description: Container for the expiration rule that describes when noncurrent objects are expired. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 expire noncurrent object versions at a specific period in the object's lifetime
+      additionalProperties: false
+      properties:
+        NoncurrentDays:
+          description: Specified the number of days an object is noncurrent before Amazon S3 can perform the associated action
+          type: integer
+        NewerNoncurrentVersions:
+          description: Specified the number of newer noncurrent and current versions that must exists before performing the associated action
+          type: integer
+      required:
+        - NoncurrentDays
+    NoncurrentVersionTransition:
+      type: object
+      description: >-
+        Container for the transition rule that describes when noncurrent objects transition to the STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR, GLACIER, or DEEP_ARCHIVE storage class. If your bucket is versioning-enabled (or versioning is suspended), you can set this action to request that Amazon S3 transition noncurrent object versions to the STANDARD_IA, ONEZONE_IA, INTELLIGENT_TIERING, GLACIER_IR, GLACIER, or DEEP_ARCHIVE storage class at a specific period in the object's
+        lifetime.
+      additionalProperties: false
+      properties:
+        StorageClass:
+          description: The class of storage used to store the object.
+          type: string
+          enum:
+            - DEEP_ARCHIVE
+            - GLACIER
+            - Glacier
+            - GLACIER_IR
+            - INTELLIGENT_TIERING
+            - ONEZONE_IA
+            - STANDARD_IA
+        TransitionInDays:
+          description: Specifies the number of days an object is noncurrent before Amazon S3 can perform the associated action.
+          type: integer
+        NewerNoncurrentVersions:
+          description: Specified the number of newer noncurrent and current versions that must exists before performing the associated action
+          type: integer
+      required:
+        - StorageClass
+        - TransitionInDays
+    Transition:
+      type: object
+      properties:
+        StorageClass:
+          type: string
+          enum:
+            - DEEP_ARCHIVE
+            - GLACIER
+            - Glacier
+            - GLACIER_IR
+            - INTELLIGENT_TIERING
+            - ONEZONE_IA
+            - STANDARD_IA
+        TransitionDate:
+          $ref: '#/components/schemas/iso8601UTC'
+        TransitionInDays:
+          type: integer
+      additionalProperties: false
+      description: You must specify at least one of "TransitionDate" and "TransitionInDays"
+      required:
+        - StorageClass
+    LoggingConfiguration:
+      type: object
+      properties:
+        DestinationBucketName:
+          type: string
+          description: The name of an Amazon S3 bucket where Amazon S3 store server access log files. You can store log files in any bucket that you own. By default, logs are stored in the bucket where the LoggingConfiguration property is defined.
+        LogFilePrefix:
+          type: string
+      additionalProperties: false
+    MetricsConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        AccessPointArn:
+          type: string
+        Id:
+          type: string
+        Prefix:
+          type: string
+        TagFilters:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+      required:
+        - Id
+    NotificationConfiguration:
+      description: Describes the notification configuration for an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        EventBridgeConfiguration:
+          $ref: '#/components/schemas/EventBridgeConfiguration'
+        LambdaConfigurations:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/LambdaConfiguration'
+        QueueConfigurations:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/QueueConfiguration'
+        TopicConfigurations:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TopicConfiguration'
+    EventBridgeConfiguration:
+      type: object
+      description: Describes the Amazon EventBridge notification configuration for an Amazon S3 bucket.
+      additionalProperties: false
+      properties:
+        EventBridgeEnabled:
+          description: Specifies whether to send notifications to Amazon EventBridge when events occur in an Amazon S3 bucket.
+          type: boolean
+          default: 'true'
+      required:
+        - EventBridgeEnabled
+    LambdaConfiguration:
+      type: object
+      description: Describes the AWS Lambda functions to invoke and the events for which to invoke them.
+      additionalProperties: false
+      properties:
+        Event:
+          description: The Amazon S3 bucket event for which to invoke the AWS Lambda function.
+          type: string
+        Filter:
+          description: The filtering rules that determine which objects invoke the AWS Lambda function.
+          $ref: '#/components/schemas/NotificationFilter'
+        Function:
+          description: The Amazon Resource Name (ARN) of the AWS Lambda function that Amazon S3 invokes when the specified event type occurs.
+          type: string
+      required:
+        - Function
+        - Event
+    QueueConfiguration:
+      type: object
+      description: The Amazon Simple Queue Service queues to publish messages to and the events for which to publish messages.
+      additionalProperties: false
+      properties:
+        Event:
+          description: The Amazon S3 bucket event about which you want to publish messages to Amazon SQS.
+          type: string
+        Filter:
+          description: The filtering rules that determine which objects trigger notifications.
+          $ref: '#/components/schemas/NotificationFilter'
+        Queue:
+          description: The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon S3 publishes a message when it detects events of the specified type.
+          type: string
+      required:
+        - Event
+        - Queue
+    TopicConfiguration:
+      type: object
+      description: The topic to which notifications are sent and the events for which notifications are generated.
+      additionalProperties: false
+      properties:
+        Event:
+          description: The Amazon S3 bucket event about which to send notifications.
+          type: string
+        Filter:
+          description: The filtering rules that determine for which objects to send notifications.
+          $ref: '#/components/schemas/NotificationFilter'
+        Topic:
+          description: The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon S3 publishes a message when it detects events of the specified type.
+          type: string
+      required:
+        - Event
+        - Topic
+    NotificationFilter:
+      type: object
+      description: Specifies object key name filtering rules.
+      additionalProperties: false
+      properties:
+        S3Key:
+          $ref: '#/components/schemas/S3KeyFilter'
+      required:
+        - S3Key
+    S3KeyFilter:
+      type: object
+      description: A container for object key name prefix and suffix filtering rules.
+      additionalProperties: false
+      properties:
+        Rules:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/FilterRule'
+      required:
+        - Rules
+    FilterRule:
+      type: object
+      description: Specifies the Amazon S3 object key name to filter on and whether to filter on the suffix or prefix of the key name.
+      additionalProperties: false
+      properties:
+        Name:
+          type: string
+          maxLength: 1024
+        Value:
+          type: string
+      required:
+        - Value
+        - Name
+    ObjectLockConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        ObjectLockEnabled:
+          type: string
+          x-const: Enabled
+        Rule:
+          $ref: '#/components/schemas/ObjectLockRule'
+    ObjectLockRule:
+      type: object
+      description: The Object Lock rule in place for the specified object.
+      additionalProperties: false
+      properties:
+        DefaultRetention:
+          $ref: '#/components/schemas/DefaultRetention'
+    DefaultRetention:
+      type: object
+      description: The default retention period that you want to apply to new objects placed in the specified bucket.
+      additionalProperties: false
+      properties:
+        Years:
+          type: integer
+        Days:
+          type: integer
+        Mode:
+          type: string
+          enum:
+            - COMPLIANCE
+            - GOVERNANCE
+    OwnershipControls:
+      type: object
+      additionalProperties: false
+      properties:
+        Rules:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/OwnershipControlsRule'
+      required:
+        - Rules
+    OwnershipControlsRule:
+      type: object
+      additionalProperties: false
+      properties:
+        ObjectOwnership:
+          description: Specifies an object ownership rule.
+          type: string
+          enum:
+            - ObjectWriter
+            - BucketOwnerPreferred
+            - BucketOwnerEnforced
+    ReplicationConfiguration:
+      type: object
+      description: A container for replication rules. You can add up to 1,000 rules. The maximum size of a replication configuration is 2 MB.
+      additionalProperties: false
+      properties:
+        Role:
+          description: The Amazon Resource Name (ARN) of the AWS Identity and Access Management (IAM) role that Amazon S3 assumes when replicating objects.
+          type: string
+        Rules:
+          description: A container for one or more replication rules.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/ReplicationRule'
+            maxLength: 1000
+            minLength: 1
+      required:
+        - Role
+        - Rules
+    ReplicationRule:
+      type: object
+      description: Specifies which Amazon S3 objects to replicate and where to store the replicas.
+      additionalProperties: false
+      properties:
+        DeleteMarkerReplication:
+          $ref: '#/components/schemas/DeleteMarkerReplication'
+        Destination:
+          $ref: '#/components/schemas/ReplicationDestination'
+        Filter:
+          $ref: '#/components/schemas/ReplicationRuleFilter'
+        Id:
+          description: A unique identifier for the rule.
+          type: string
+          maxLength: 255
+        Prefix:
+          description: An object key name prefix that identifies the object or objects to which the rule applies.
+          type: string
+          maxLength: 1024
+        Priority:
+          type: integer
+        SourceSelectionCriteria:
+          $ref: '#/components/schemas/SourceSelectionCriteria'
+        Status:
+          description: Specifies whether the rule is enabled.
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+      required:
+        - Destination
+        - Status
+    DeleteMarkerReplication:
+      type: object
+      additionalProperties: false
+      properties:
+        Status:
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+    ReplicationDestination:
+      type: object
+      description: Specifies which Amazon S3 bucket to store replicated objects in and their storage class.
+      additionalProperties: false
+      properties:
+        AccessControlTranslation:
+          $ref: '#/components/schemas/AccessControlTranslation'
+        Account:
+          type: string
+        Bucket:
+          type: string
+        EncryptionConfiguration:
+          $ref: '#/components/schemas/EncryptionConfiguration'
+        Metrics:
+          $ref: '#/components/schemas/Metrics'
+        ReplicationTime:
+          $ref: '#/components/schemas/ReplicationTime'
+        StorageClass:
+          description: The storage class to use when replicating objects, such as S3 Standard or reduced redundancy.
+          type: string
+          enum:
+            - DEEP_ARCHIVE
+            - GLACIER
+            - GLACIER_IR
+            - INTELLIGENT_TIERING
+            - ONEZONE_IA
+            - REDUCED_REDUNDANCY
+            - STANDARD
+            - STANDARD_IA
+      required:
+        - Bucket
+    AccessControlTranslation:
+      type: object
+      description: Specify this only in a cross-account scenario (where source and destination bucket owners are not the same), and you want to change replica ownership to the AWS account that owns the destination bucket. If this is not specified in the replication configuration, the replicas are owned by same AWS account that owns the source object.
+      additionalProperties: false
+      properties:
+        Owner:
+          type: string
+          x-const: Destination
+      required:
+        - Owner
+    EncryptionConfiguration:
+      type: object
+      description: Specifies encryption-related information for an Amazon S3 bucket that is a destination for replicated objects.
+      additionalProperties: false
+      properties:
+        ReplicaKmsKeyID:
+          description: Specifies the ID (Key ARN or Alias ARN) of the customer managed customer master key (CMK) stored in AWS Key Management Service (KMS) for the destination bucket.
+          type: string
+      required:
+        - ReplicaKmsKeyID
+    Metrics:
+      type: object
+      additionalProperties: false
+      properties:
+        EventThreshold:
+          $ref: '#/components/schemas/ReplicationTimeValue'
+        Status:
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+      required:
+        - Status
+    ReplicationTimeValue:
+      type: object
+      additionalProperties: false
+      properties:
+        Minutes:
+          type: integer
+      required:
+        - Minutes
+    ReplicationTime:
+      type: object
+      additionalProperties: false
+      properties:
+        Status:
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+        Time:
+          $ref: '#/components/schemas/ReplicationTimeValue'
+      required:
+        - Status
+        - Time
+    ReplicationRuleFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        And:
+          $ref: '#/components/schemas/ReplicationRuleAndOperator'
+        Prefix:
+          type: string
+        TagFilter:
+          $ref: '#/components/schemas/TagFilter'
+    ReplicationRuleAndOperator:
+      type: object
+      additionalProperties: false
+      properties:
+        Prefix:
+          type: string
+        TagFilters:
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/TagFilter'
+    SourceSelectionCriteria:
+      description: A container that describes additional filters for identifying the source objects that you want to replicate.
+      type: object
+      additionalProperties: false
+      properties:
+        ReplicaModifications:
+          description: A filter that you can specify for selection for modifications on replicas.
+          $ref: '#/components/schemas/ReplicaModifications'
+        SseKmsEncryptedObjects:
+          description: A container for filter information for the selection of Amazon S3 objects encrypted with AWS KMS.
+          $ref: '#/components/schemas/SseKmsEncryptedObjects'
+    ReplicaModifications:
+      type: object
+      additionalProperties: false
+      properties:
+        Status:
+          description: Specifies whether Amazon S3 replicates modifications on replicas.
+          type: string
+          enum:
+            - Enabled
+            - Disabled
+      required:
+        - Status
+    SseKmsEncryptedObjects:
+      type: object
+      description: A container for filter information for the selection of S3 objects encrypted with AWS KMS.
+      additionalProperties: false
+      properties:
+        Status:
+          description: Specifies whether Amazon S3 replicates objects created with server-side encryption using a customer master key (CMK) stored in AWS Key Management Service.
+          type: string
+          enum:
+            - Disabled
+            - Enabled
+      required:
+        - Status
+    Tag:
+      type: object
+      additionalProperties: false
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 127
+          pattern: ^(?!aws:.*)[a-zA-Z0-9\s\_\.\/\=\+\-]+$
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 255
+          pattern: ^(?!aws:.*)[a-zA-Z0-9\s\_\.\/\=\+\-]+$
+      required:
+        - Key
+        - Value
+    VersioningConfiguration:
+      description: Describes the versioning state of an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        Status:
+          description: The versioning state of the bucket.
+          type: string
+          default: Suspended
+          enum:
+            - Enabled
+            - Suspended
+      required:
+        - Status
+    WebsiteConfiguration:
+      type: object
+      description: Specifies website configuration parameters for an Amazon S3 bucket.
+      additionalProperties: false
+      properties:
+        ErrorDocument:
+          description: The name of the error document for the website.
+          type: string
+        IndexDocument:
+          description: The name of the index document for the website.
+          type: string
+        RoutingRules:
+          type: array
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/RoutingRule'
+        RedirectAllRequestsTo:
+          $ref: '#/components/schemas/RedirectAllRequestsTo'
+    RoutingRule:
+      description: Specifies the redirect behavior and when a redirect is applied.
+      type: object
+      additionalProperties: false
+      properties:
+        RedirectRule:
+          description: Container for redirect information. You can redirect requests to another host, to another page, or with another protocol. In the event of an error, you can specify a different error code to return.
+          $ref: '#/components/schemas/RedirectRule'
+        RoutingRuleCondition:
+          $ref: '#/components/schemas/RoutingRuleCondition'
+      required:
+        - RedirectRule
+    RedirectRule:
+      type: object
+      description: Specifies how requests are redirected. In the event of an error, you can specify a different error code to return.
+      additionalProperties: false
+      properties:
+        HostName:
+          description: The host name to use in the redirect request.
+          type: string
+        HttpRedirectCode:
+          description: The HTTP redirect code to use on the response. Not required if one of the siblings is present.
+          type: string
+        Protocol:
+          description: Protocol to use when redirecting requests. The default is the protocol that is used in the original request.
+          enum:
+            - http
+            - https
+          type: string
+        ReplaceKeyPrefixWith:
+          description: The object key prefix to use in the redirect request.
+          type: string
+        ReplaceKeyWith:
+          description: The specific object key to use in the redirect request.d
+          type: string
+    RoutingRuleCondition:
+      description: A container for describing a condition that must be met for the specified redirect to apply.You must specify at least one of HttpErrorCodeReturnedEquals and KeyPrefixEquals
+      type: object
+      additionalProperties: false
+      properties:
+        KeyPrefixEquals:
+          description: The object key name prefix when the redirect is applied.
+          type: string
+        HttpErrorCodeReturnedEquals:
+          description: 'The HTTP error code when the redirect is applied. '
+          type: string
+    RedirectAllRequestsTo:
+      description: Specifies the redirect behavior of all requests to a website endpoint of an Amazon S3 bucket.
+      type: object
+      additionalProperties: false
+      properties:
+        HostName:
+          description: Name of the host where requests are redirected.
+          type: string
+        Protocol:
+          description: Protocol to use when redirecting requests. The default is the protocol that is used in the original request.
+          type: string
+          enum:
+            - http
+            - https
+      required:
+        - HostName
+    Bucket:
+      type: object
+      properties:
+        AccelerateConfiguration:
+          $ref: '#/components/schemas/AccelerateConfiguration'
+          description: Configuration for the transfer acceleration state.
+        AccessControl:
+          description: A canned access control list (ACL) that grants predefined permissions to the bucket.
+          enum:
+            - AuthenticatedRead
+            - AwsExecRead
+            - BucketOwnerFullControl
+            - BucketOwnerRead
+            - LogDeliveryWrite
+            - Private
+            - PublicRead
+            - PublicReadWrite
+          type: string
+        AnalyticsConfigurations:
+          description: The configuration and any analyses for the analytics filter of an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/AnalyticsConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        BucketEncryption:
+          $ref: '#/components/schemas/BucketEncryption'
+        BucketName:
+          description: A name for the bucket. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the bucket name.
+          maxLength: 63
+          minLength: 3
+          pattern: ^[a-z0-9][a-z0-9//.//-]*[a-z0-9]$
+          type: string
+        CorsConfiguration:
+          $ref: '#/components/schemas/CorsConfiguration'
+          description: Rules that define cross-origin resource sharing of objects in this bucket.
+        IntelligentTieringConfigurations:
+          description: Specifies the S3 Intelligent-Tiering configuration for an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/IntelligentTieringConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        InventoryConfigurations:
+          description: The inventory configuration for an Amazon S3 bucket.
+          items:
+            $ref: '#/components/schemas/InventoryConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        LifecycleConfiguration:
+          $ref: '#/components/schemas/LifecycleConfiguration'
+          description: Rules that define how Amazon S3 manages objects during their lifetime.
+        LoggingConfiguration:
+          $ref: '#/components/schemas/LoggingConfiguration'
+          description: Settings that define where logs are stored.
+        MetricsConfigurations:
+          description: Settings that define a metrics configuration for the CloudWatch request metrics from the bucket.
+          items:
+            $ref: '#/components/schemas/MetricsConfiguration'
+          type: array
+          uniqueItems: true
+          x-insertionOrder: true
+        NotificationConfiguration:
+          $ref: '#/components/schemas/NotificationConfiguration'
+          description: Configuration that defines how Amazon S3 handles bucket notifications.
+        ObjectLockConfiguration:
+          $ref: '#/components/schemas/ObjectLockConfiguration'
+          description: Places an Object Lock configuration on the specified bucket.
+        ObjectLockEnabled:
+          description: Indicates whether this bucket has an Object Lock configuration enabled.
+          type: boolean
+        OwnershipControls:
+          description: Specifies the container element for object ownership rules.
+          $ref: '#/components/schemas/OwnershipControls'
+        PublicAccessBlockConfiguration:
+          $ref: '#/components/schemas/PublicAccessBlockConfiguration'
+        ReplicationConfiguration:
+          $ref: '#/components/schemas/ReplicationConfiguration'
+          description: Configuration for replicating objects in an S3 bucket.
+        Tags:
+          description: An arbitrary set of tags (key-value pairs) for this S3 bucket.
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+        VersioningConfiguration:
+          $ref: '#/components/schemas/VersioningConfiguration'
+        WebsiteConfiguration:
+          $ref: '#/components/schemas/WebsiteConfiguration'
+        Arn:
+          $ref: '#/components/schemas/Arn'
+          description: The Amazon Resource Name (ARN) of the specified bucket.
+          x-examples:
+            - arn:aws:s3:::mybucket
+        DomainName:
+          description: The IPv4 DNS name of the specified bucket.
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.amazonaws.com
+          type: string
+        DualStackDomainName:
+          description: The IPv6 DNS name of the specified bucket. For more information about dual-stack endpoints, see [Using Amazon S3 Dual-Stack Endpoints](https://docs.aws.amazon.com/AmazonS3/latest/dev/dual-stack-endpoints.html).
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.dualstack.us-east-2.amazonaws.com
+          type: string
+        RegionalDomainName:
+          description: Returns the regional domain name of the specified bucket.
+          x-examples:
+            - mystack-mybucket-kdwwxmddtr2g.s3.us-east-2.amazonaws.com
+          type: string
+        WebsiteURL:
+          description: The Amazon S3 website endpoint for the specified bucket.
+          x-examples:
+            - 'Example (IPv4): http://mystack-mybucket-kdwwxmddtr2g.s3-website-us-east-2.amazonaws.com/'
+            - 'Example (IPv6): http://mystack-mybucket-kdwwxmddtr2g.s3.dualstack.us-east-2.amazonaws.com/'
+          format: uri
+          type: string
+      x-stackql-resource-name: bucket
+      x-stackql-primaryIdentifier:
+        - BucketName
+    BucketPolicy:
+      type: object
+      properties:
+        Id:
+          type: string
+        Bucket:
+          type: string
+        PolicyDocument:
+          type: object
+      required:
+        - Bucket
+        - PolicyDocument
+      x-stackql-resource-name: bucket_policy
+      x-stackql-primaryIdentifier:
+        - Id
+    Region:
+      type: object
+      properties:
+        Bucket:
+          type: string
+          minLength: 3
+          maxLength: 63
+          pattern: ^[a-z0-9][a-z0-9//.//-]*[a-z0-9]$
+        BucketAccountId:
+          type: string
+          minLength: 12
+          maxLength: 12
+          pattern: ^[0-9]{12}$
+      required:
+        - Bucket
+      additionalProperties: false
+    MultiRegionAccessPoint:
+      type: object
+      properties:
+        Name:
+          description: The name you want to assign to this Multi Region Access Point.
+          type: string
+          pattern: ^[a-z0-9][-a-z0-9]{1,48}[a-z0-9]$
+          minLength: 3
+          maxLength: 50
+        Alias:
+          description: The alias is a unique identifier to, and is part of the public DNS name for this Multi Region Access Point
+          type: string
+        CreatedAt:
+          description: The timestamp of the when the Multi Region Access Point is created
+          type: string
+        PublicAccessBlockConfiguration:
+          description: The PublicAccessBlock configuration that you want to apply to this Multi Region Access Point. You can enable the configuration options in any combination. For more information about when Amazon S3 considers a bucket or object public, see https://docs.aws.amazon.com/AmazonS3/latest/dev/access-control-block-public-access.html#access-control-block-public-access-policy-status 'The Meaning of Public' in the Amazon Simple Storage Service Developer Guide.
+          $ref: '#/components/schemas/PublicAccessBlockConfiguration'
+        Regions:
+          description: The list of buckets that you want to associate this Multi Region Access Point with.
+          type: array
+          uniqueItems: true
+          minItems: 1
+          items:
+            description: The name of the bucket that represents of the region belonging to this Multi Region Access Point.
+            $ref: '#/components/schemas/Region'
+      required:
+        - Regions
+      x-stackql-resource-name: multi_region_access_point
+      x-stackql-primaryIdentifier:
+        - Name
+    MultiRegionAccessPointPolicy:
+      type: object
+      properties:
+        MrapName:
+          description: The name of the Multi Region Access Point to apply policy
+          type: string
+          pattern: ^[a-z0-9][-a-z0-9]{1,48}[a-z0-9]$
+          minLength: 3
+          maxLength: 50
+        Policy:
+          description: Policy document to apply to a Multi Region Access Point
+          type: object
+        PolicyStatus:
+          description: The Policy Status associated with this Multi Region Access Point
+          type: object
+          properties:
+            IsPublic:
+              type: string
+              description: Specifies whether the policy is public or not.
+              enum:
+                - 'true'
+                - 'false'
+          additionalProperties: false
+          required:
+            - IsPublic
+      required:
+        - Policy
+        - MrapName
+      x-stackql-resource-name: multi_region_access_point_policy
+      x-stackql-primaryIdentifier:
+        - MrapName
+    Id:
+      description: The ID that identifies the Amazon S3 Storage Lens configuration.
+      type: string
+      minLength: 1
+      maxLength: 64
+      pattern: ^[a-zA-Z0-9\-_.]+$
+    BucketsAndRegions:
+      description: S3 buckets and Regions to include/exclude in the Amazon S3 Storage Lens configuration.
+      type: object
+      additionalProperties: false
+      properties:
+        Buckets:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Arn'
+        Regions:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            type: string
+            description: An AWS Region.
+    AwsOrg:
+      description: The AWS Organizations ARN to use in the Amazon S3 Storage Lens configuration.
+      type: object
+      additionalProperties: false
+      properties:
+        Arn:
+          $ref: '#/components/schemas/Arn'
+      required:
+        - Arn
+    ActivityMetrics:
+      description: Enables activity metrics.
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether activity metrics are enabled or disabled.
+          type: boolean
+    AdvancedCostOptimizationMetrics:
+      description: Enables advanced cost optimization metrics.
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether advanced cost optimization metrics are enabled or disabled.
+          type: boolean
+    AdvancedDataProtectionMetrics:
+      description: Enables advanced data protection metrics.
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether advanced data protection metrics are enabled or disabled.
+          type: boolean
+    DetailedStatusCodesMetrics:
+      description: Enables detailed status codes metrics.
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether detailed status codes metrics are enabled or disabled.
+          type: boolean
+    SelectionCriteria:
+      description: Selection criteria for prefix-level metrics.
+      type: object
+      additionalProperties: false
+      properties:
+        MaxDepth:
+          description: Max depth of prefixes of S3 key that Amazon S3 Storage Lens will analyze.
+          type: integer
+        Delimiter:
+          description: Delimiter to divide S3 key into hierarchy of prefixes.
+          type: string
+        MinStorageBytesPercentage:
+          description: The minimum storage bytes threshold for the prefixes to be included in the analysis.
+          type: number
+    PrefixLevelStorageMetrics:
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether prefix-level storage metrics are enabled or disabled.
+          type: boolean
+        SelectionCriteria:
+          $ref: '#/components/schemas/SelectionCriteria'
+    PrefixLevel:
+      description: Prefix-level metrics configurations.
+      type: object
+      additionalProperties: false
+      properties:
+        StorageMetrics:
+          $ref: '#/components/schemas/PrefixLevelStorageMetrics'
+      required:
+        - StorageMetrics
+    BucketLevel:
+      description: Bucket-level metrics configurations.
+      type: object
+      additionalProperties: false
+      properties:
+        ActivityMetrics:
+          $ref: '#/components/schemas/ActivityMetrics'
+        AdvancedCostOptimizationMetrics:
+          $ref: '#/components/schemas/AdvancedCostOptimizationMetrics'
+        AdvancedDataProtectionMetrics:
+          $ref: '#/components/schemas/AdvancedDataProtectionMetrics'
+        DetailedStatusCodesMetrics:
+          $ref: '#/components/schemas/DetailedStatusCodesMetrics'
+        PrefixLevel:
+          $ref: '#/components/schemas/PrefixLevel'
+    AccountLevel:
+      description: Account-level metrics configurations.
+      type: object
+      additionalProperties: false
+      properties:
+        ActivityMetrics:
+          $ref: '#/components/schemas/ActivityMetrics'
+        AdvancedCostOptimizationMetrics:
+          $ref: '#/components/schemas/AdvancedCostOptimizationMetrics'
+        AdvancedDataProtectionMetrics:
+          $ref: '#/components/schemas/AdvancedDataProtectionMetrics'
+        DetailedStatusCodesMetrics:
+          $ref: '#/components/schemas/DetailedStatusCodesMetrics'
+        BucketLevel:
+          $ref: '#/components/schemas/BucketLevel'
+      required:
+        - BucketLevel
+    SSEKMS:
+      description: AWS KMS server-side encryption.
+      type: object
+      additionalProperties: false
+      properties:
+        KeyId:
+          description: The ARN of the KMS key to use for encryption.
+          type: string
+      required:
+        - KeyId
+    Encryption:
+      description: Configures the server-side encryption for Amazon S3 Storage Lens report files with either S3-managed keys (SSE-S3) or KMS-managed keys (SSE-KMS).
+      type: object
+      oneOf:
+        - additionalProperties: false
+          properties:
+            SSES3:
+              description: S3 default server-side encryption.
+              type: object
+              additionalProperties: false
+          required:
+            - SSES3
+        - additionalProperties: false
+          properties:
+            SSEKMS:
+              $ref: '#/components/schemas/SSEKMS'
+          required:
+            - SSEKMS
+    S3BucketDestination:
+      description: S3 bucket destination settings for the Amazon S3 Storage Lens metrics export.
+      type: object
+      additionalProperties: false
+      properties:
+        OutputSchemaVersion:
+          description: The version of the output schema to use when exporting Amazon S3 Storage Lens metrics.
+          type: string
+          enum:
+            - V_1
+        Format:
+          description: Specifies the file format to use when exporting Amazon S3 Storage Lens metrics export.
+          type: string
+          enum:
+            - CSV
+            - Parquet
+        AccountId:
+          description: The AWS account ID that owns the destination S3 bucket.
+          type: string
+        Arn:
+          description: The ARN of the bucket to which Amazon S3 Storage Lens exports will be placed.
+          type: string
+        Prefix:
+          description: The prefix to use for Amazon S3 Storage Lens export.
+          type: string
+        Encryption:
+          $ref: '#/components/schemas/Encryption'
+      required:
+        - OutputSchemaVersion
+        - Format
+        - AccountId
+        - Arn
+    CloudWatchMetrics:
+      description: CloudWatch metrics settings for the Amazon S3 Storage Lens metrics export.
+      type: object
+      additionalProperties: false
+      properties:
+        IsEnabled:
+          description: Specifies whether CloudWatch metrics are enabled or disabled.
+          type: boolean
+      required:
+        - IsEnabled
+    StorageLensConfiguration:
+      description: Specifies the details of Amazon S3 Storage Lens configuration.
+      type: object
+      additionalProperties: false
+      properties:
+        Id:
+          $ref: '#/components/schemas/Id'
+        Include:
+          $ref: '#/components/schemas/BucketsAndRegions'
+        Exclude:
+          $ref: '#/components/schemas/BucketsAndRegions'
+        AwsOrg:
+          $ref: '#/components/schemas/AwsOrg'
+        AccountLevel:
+          $ref: '#/components/schemas/AccountLevel'
+        DataExport:
+          $ref: '#/components/schemas/DataExport'
+        IsEnabled:
+          description: Specifies whether the Amazon S3 Storage Lens configuration is enabled or disabled.
+          type: boolean
+        StorageLensArn:
+          description: The ARN for the Amazon S3 Storage Lens configuration.
+          type: string
+      required:
+        - Id
+        - AccountLevel
+        - IsEnabled
+    StorageLens:
+      type: object
+      properties:
+        StorageLensConfiguration:
+          $ref: '#/components/schemas/StorageLensConfiguration'
+        Tags:
+          description: A set of tags (key-value pairs) for this Amazon S3 Storage Lens configuration.
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          maxItems: 50
+      required:
+        - StorageLensConfiguration
+      x-stackql-resource-name: storage_lens
+      x-stackql-primaryIdentifier:
+        - StorageLensConfiguration/Id
+  x-stackQL-resources:
+    access_points:
+      name: access_points
+      id: aws.s3.access_points
+      x-cfn-schema-name: AccessPoint
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint'
+    access_point:
+      name: access_point
+      id: aws.s3.access_point
+      x-cfn-schema-name: AccessPoint
+      x-type: get
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Alias') as alias,
+              JSON_EXTRACT(Properties, '$.Bucket') as bucket,
+              JSON_EXTRACT(Properties, '$.BucketAccountId') as bucket_account_id,
+              JSON_EXTRACT(Properties, '$.VpcConfiguration.VpcId') as vpc_configuration_vpc_id,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicAcls') as public_access_block_configuration_block_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.IgnorePublicAcls') as public_access_block_configuration_ignore_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status,
+              JSON_EXTRACT(Properties, '$.NetworkOrigin') as network_origin
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessPoint'
+    buckets:
+      name: buckets
+      id: aws.s3.buckets
+      x-cfn-schema-name: Bucket
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket'
+    bucket:
+      name: bucket
+      id: aws.s3.bucket
+      x-cfn-schema-name: Bucket
+      x-type: get
+      x-identifiers:
+        - BucketName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccelerateConfiguration.AccelerationStatus') as accelerate_configuration_acceleration_status,
+              JSON_EXTRACT(Properties, '$.AccessControl') as access_control,
+              JSON_EXTRACT(Properties, '$.AnalyticsConfigurations') as analytics_configurations,
+              JSON_EXTRACT(Properties, '$.BucketEncryption.ServerSideEncryptionConfiguration') as bucket_encryption_server_side_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
+              JSON_EXTRACT(Properties, '$.CorsConfiguration.CorsRules') as cors_configuration_cors_rules,
+              JSON_EXTRACT(Properties, '$.IntelligentTieringConfigurations') as intelligent_tiering_configurations,
+              JSON_EXTRACT(Properties, '$.InventoryConfigurations') as inventory_configurations,
+              JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration.DestinationBucketName') as logging_configuration_destination_bucket_name,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogFilePrefix') as logging_configuration_log_file_prefix,
+              JSON_EXTRACT(Properties, '$.MetricsConfigurations') as metrics_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.EventBridgeConfiguration') as notification_configuration_event_bridge_configuration,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.LambdaConfigurations') as notification_configuration_lambda_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.QueueConfigurations') as notification_configuration_queue_configurations,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration.TopicConfigurations') as notification_configuration_topic_configurations,
+              JSON_EXTRACT(Properties, '$.ObjectLockConfiguration.ObjectLockEnabled') as object_lock_configuration_object_lock_enabled,
+              JSON_EXTRACT(Properties, '$.ObjectLockConfiguration.Rule') as object_lock_configuration_rule,
+              JSON_EXTRACT(Properties, '$.ObjectLockEnabled') as object_lock_enabled,
+              JSON_EXTRACT(Properties, '$.OwnershipControls.Rules') as ownership_controls_rules,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicAcls') as public_access_block_configuration_block_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.IgnorePublicAcls') as public_access_block_configuration_ignore_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
+              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.Role') as replication_configuration_role,
+              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.Rules') as replication_configuration_rules,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.VersioningConfiguration.Status') as versioning_configuration_status,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.ErrorDocument') as website_configuration_error_document,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.IndexDocument') as website_configuration_index_document,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.RoutingRules') as website_configuration_routing_rules,
+              JSON_EXTRACT(Properties, '$.WebsiteConfiguration.RedirectAllRequestsTo') as website_configuration_redirect_all_requests_to,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.DualStackDomainName') as dual_stack_domain_name,
+              JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
+              JSON_EXTRACT(Properties, '$.WebsiteURL') as website_ur_l
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
+    bucket_policies:
+      name: bucket_policies
+      id: aws.s3.bucket_policies
+      x-cfn-schema-name: BucketPolicy
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy'
+    bucket_policy:
+      name: bucket_policy
+      id: aws.s3.bucket_policy
+      x-cfn-schema-name: BucketPolicy
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Bucket') as bucket,
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::BucketPolicy'
+    multi_region_access_points:
+      name: multi_region_access_points
+      id: aws.s3.multi_region_access_points
+      x-cfn-schema-name: MultiRegionAccessPoint
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
+    multi_region_access_point:
+      name: multi_region_access_point
+      id: aws.s3.multi_region_access_point
+      x-cfn-schema-name: MultiRegionAccessPoint
+      x-type: get
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Alias') as alias,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicAcls') as public_access_block_configuration_block_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.IgnorePublicAcls') as public_access_block_configuration_ignore_public_acls,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
+              JSON_EXTRACT(Properties, '$.Regions') as regions
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
+    multi_region_access_point_policies:
+      name: multi_region_access_point_policies
+      id: aws.s3.multi_region_access_point_policies
+      x-cfn-schema-name: MultiRegionAccessPointPolicy
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MrapName') as mrap_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
+    multi_region_access_point_policy:
+      name: multi_region_access_point_policy
+      id: aws.s3.multi_region_access_point_policy
+      x-cfn-schema-name: MultiRegionAccessPointPolicy
+      x-type: get
+      x-identifiers:
+        - MrapName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.MrapName') as mrap_name,
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
+    storage_lens:
+      name: storage_lens
+      id: aws.s3.storage_lens
+      x-cfn-schema-name: StorageLens
+      x-type: get
+      x-identifiers:
+        - StorageLensConfiguration/Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Id') as storage_lens_configuration_id,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Include') as storage_lens_configuration_include,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.Exclude') as storage_lens_configuration_exclude,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.AwsOrg') as storage_lens_configuration_aws_org,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.AccountLevel') as storage_lens_configuration_account_level,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.DataExport') as storage_lens_configuration_data_export,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.IsEnabled') as storage_lens_configuration_is_enabled,
+              JSON_EXTRACT(Properties, '$.StorageLensConfiguration.StorageLensArn') as storage_lens_configuration_storage_lens_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLens'

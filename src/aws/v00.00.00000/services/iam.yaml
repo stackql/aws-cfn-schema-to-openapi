@@ -1,0 +1,833 @@
+openapi: 3.0.0
+info:
+  title: IAM
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    AccessKey:
+      type: object
+      properties:
+        Id:
+          type: string
+        SecretAccessKey:
+          type: string
+        Serial:
+          type: integer
+        Status:
+          type: string
+        UserName:
+          type: string
+      required:
+        - UserName
+      x-stackql-resource-name: access_key
+      x-stackql-primaryIdentifier:
+        - Id
+    Policy:
+      type: object
+      additionalProperties: false
+      properties:
+        PolicyDocument:
+          type: object
+        PolicyName:
+          type: string
+      required:
+        - PolicyName
+        - PolicyDocument
+    Group:
+      type: object
+      properties:
+        Id:
+          type: string
+        Arn:
+          type: string
+        GroupName:
+          type: string
+        ManagedPolicyArns:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Path:
+          type: string
+        Policies:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Policy'
+      x-stackql-resource-name: group
+      x-stackql-primaryIdentifier:
+        - Id
+    InstanceProfile:
+      type: object
+      properties:
+        Path:
+          type: string
+          description: The path to the instance profile.
+        Roles:
+          type: array
+          description: The name of the role to associate with the instance profile. Only one role can be assigned to an EC2 instance at a time, and all applications on the instance share the same role and permissions.
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        InstanceProfileName:
+          type: string
+          description: The name of the instance profile to create.
+        Arn:
+          type: string
+          description: The Amazon Resource Name (ARN) of the instance profile.
+      required:
+        - Roles
+      x-stackql-resource-name: instance_profile
+      x-stackql-primaryIdentifier:
+        - InstanceProfileName
+    ManagedPolicy:
+      type: object
+      properties:
+        Id:
+          type: string
+        Description:
+          type: string
+        Groups:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        ManagedPolicyName:
+          type: string
+        Path:
+          type: string
+        PolicyDocument:
+          type: object
+        Roles:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Users:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+      required:
+        - PolicyDocument
+      x-stackql-resource-name: managed_policy
+      x-stackql-primaryIdentifier:
+        - Id
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+          type: string
+          minLength: 1
+          maxLength: 256
+        Key:
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+          type: string
+          minLength: 1
+          maxLength: 128
+      required:
+        - Value
+        - Key
+    OIDCProvider:
+      type: object
+      properties:
+        ClientIdList:
+          type: array
+          x-insertionOrder: false
+          items:
+            minLength: 1
+            maxLength: 255
+            type: string
+        Url:
+          minLength: 1
+          maxLength: 255
+          type: string
+        ThumbprintList:
+          type: array
+          x-insertionOrder: false
+          items:
+            minLength: 40
+            maxLength: 40
+            pattern: '[0-9A-Fa-f]{40}'
+            type: string
+          maxItems: 5
+        Arn:
+          description: Amazon Resource Name (ARN) of the OIDC provider
+          minLength: 20
+          maxLength: 2048
+          type: string
+        Tags:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - ThumbprintList
+      x-stackql-resource-name: oidc_provider
+      x-stackql-primaryIdentifier:
+        - Arn
+    Role:
+      type: object
+      properties:
+        Arn:
+          description: The Amazon Resource Name (ARN) for the role.
+          type: string
+        AssumeRolePolicyDocument:
+          type: string
+        Description:
+          description: A description of the role that you provide.
+          type: string
+        ManagedPolicyArns:
+          description: 'A list of Amazon Resource Names (ARNs) of the IAM managed policies that you want to attach to the role. '
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        MaxSessionDuration:
+          description: 'The maximum session duration (in seconds) that you want to set for the specified role. If you do not specify a value for this setting, the default maximum of one hour is applied. This setting can have a value from 1 hour to 12 hours. '
+          type: integer
+        Path:
+          description: The path to the role.
+          type: string
+        PermissionsBoundary:
+          description: The ARN of the policy used to set the permissions boundary for the role.
+          type: string
+        Policies:
+          description: 'Adds or updates an inline policy document that is embedded in the specified IAM role. '
+          type: array
+          x-insertionOrder: false
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Policy'
+        RoleId:
+          description: The stable and unique string identifying the role.
+          type: string
+        RoleName:
+          description: A name for the IAM role, up to 64 characters in length.
+          type: string
+        Tags:
+          description: A list of tags that are attached to the role.
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - AssumeRolePolicyDocument
+      x-stackql-resource-name: role
+      x-stackql-primaryIdentifier:
+        - RoleName
+    SAMLProvider:
+      type: object
+      properties:
+        Name:
+          minLength: 1
+          maxLength: 128
+          pattern: '[\w._-]+'
+          type: string
+        SamlMetadataDocument:
+          minLength: 1000
+          maxLength: 10000000
+          type: string
+        Arn:
+          description: Amazon Resource Name (ARN) of the SAML provider
+          minLength: 1
+          maxLength: 1600
+          type: string
+        Tags:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - SamlMetadataDocument
+      x-stackql-resource-name: saml_provider
+      x-stackql-primaryIdentifier:
+        - Arn
+    ServerCertificate:
+      type: object
+      properties:
+        CertificateBody:
+          minLength: 1
+          maxLength: 16384
+          pattern: '[\u0009\u000A\u000D\u0020-\u00FF]+'
+          type: string
+        CertificateChain:
+          minLength: 1
+          maxLength: 2097152
+          pattern: '[\u0009\u000A\u000D\u0020-\u00FF]+'
+          type: string
+        ServerCertificateName:
+          minLength: 1
+          maxLength: 128
+          pattern: '[\w+=,.@-]+'
+          type: string
+        Path:
+          minLength: 1
+          maxLength: 512
+          pattern: (\u002F)|(\u002F[\u0021-\u007F]+\u002F)
+          type: string
+        PrivateKey:
+          minLength: 1
+          maxLength: 16384
+          pattern: '[\u0009\u000A\u000D\u0020-\u00FF]+'
+          type: string
+        Arn:
+          description: Amazon Resource Name (ARN) of the server certificate
+          minLength: 1
+          maxLength: 1600
+          type: string
+        Tags:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: server_certificate
+      x-stackql-primaryIdentifier:
+        - ServerCertificateName
+    ServiceLinkedRole:
+      type: object
+      properties:
+        Id:
+          type: string
+        CustomSuffix:
+          type: string
+        Description:
+          type: string
+        AWSServiceName:
+          type: string
+      required:
+        - AWSServiceName
+      x-stackql-resource-name: service_linked_role
+      x-stackql-primaryIdentifier:
+        - Id
+    LoginProfile:
+      type: object
+      additionalProperties: false
+      properties:
+        PasswordResetRequired:
+          type: boolean
+        Password:
+          type: string
+      required:
+        - Password
+    User:
+      type: object
+      properties:
+        Path:
+          type: string
+        ManagedPolicyArns:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Policies:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Policy'
+        UserName:
+          type: string
+        Groups:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Id:
+          type: string
+        Arn:
+          type: string
+        LoginProfile:
+          $ref: '#/components/schemas/LoginProfile'
+        Tags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        PermissionsBoundary:
+          type: string
+      x-stackql-resource-name: user
+      x-stackql-primaryIdentifier:
+        - Id
+    UserToGroupAddition:
+      type: object
+      properties:
+        Id:
+          type: string
+        GroupName:
+          type: string
+        Users:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+      required:
+        - GroupName
+        - Users
+      x-stackql-resource-name: user_to_group_addition
+      x-stackql-primaryIdentifier:
+        - Id
+    VirtualMFADevice:
+      type: object
+      properties:
+        VirtualMfaDeviceName:
+          minLength: 1
+          maxLength: 226
+          pattern: '[\w+=,.@-]+'
+          type: string
+        Path:
+          minLength: 1
+          maxLength: 512
+          pattern: (\u002F)|(\u002F[\u0021-\u007F]+\u002F)
+          type: string
+        SerialNumber:
+          minLength: 9
+          maxLength: 256
+          pattern: '[\w+=/:,.@-]+'
+          type: string
+        Users:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Tags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - Users
+      x-stackql-resource-name: virtualmfa_device
+      x-stackql-primaryIdentifier:
+        - SerialNumber
+  x-stackQL-resources:
+    access_keys:
+      name: access_keys
+      id: aws.iam.access_keys
+      x-cfn-schema-name: AccessKey
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::AccessKey'
+    access_key:
+      name: access_key
+      id: aws.iam.access_key
+      x-cfn-schema-name: AccessKey
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.SecretAccessKey') as secret_access_key,
+              JSON_EXTRACT(Properties, '$.Serial') as serial,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.UserName') as user_name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::AccessKey'
+    groups:
+      name: groups
+      id: aws.iam.groups
+      x-cfn-schema-name: Group
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Group'
+    group:
+      name: group
+      id: aws.iam.group
+      x-cfn-schema-name: Group
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.GroupName') as group_name,
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.Policies') as policies
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Group'
+    instance_profiles:
+      name: instance_profiles
+      id: aws.iam.instance_profiles
+      x-cfn-schema-name: InstanceProfile
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InstanceProfileName') as instance_profile_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
+    instance_profile:
+      name: instance_profile
+      id: aws.iam.instance_profile
+      x-cfn-schema-name: InstanceProfile
+      x-type: get
+      x-identifiers:
+        - InstanceProfileName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.Roles') as roles,
+              JSON_EXTRACT(Properties, '$.InstanceProfileName') as instance_profile_name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
+    managed_policies:
+      name: managed_policies
+      id: aws.iam.managed_policies
+      x-cfn-schema-name: ManagedPolicy
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
+    managed_policy:
+      name: managed_policy
+      id: aws.iam.managed_policy
+      x-cfn-schema-name: ManagedPolicy
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Groups') as groups,
+              JSON_EXTRACT(Properties, '$.ManagedPolicyName') as managed_policy_name,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
+              JSON_EXTRACT(Properties, '$.Roles') as roles,
+              JSON_EXTRACT(Properties, '$.Users') as users
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
+    oidc_providers:
+      name: oidc_providers
+      id: aws.iam.oidc_providers
+      x-cfn-schema-name: OIDCProvider
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
+    oidc_provider:
+      name: oidc_provider
+      id: aws.iam.oidc_provider
+      x-cfn-schema-name: OIDCProvider
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClientIdList') as client_id_list,
+              JSON_EXTRACT(Properties, '$.Url') as url,
+              JSON_EXTRACT(Properties, '$.ThumbprintList') as thumbprint_list,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
+    roles:
+      name: roles
+      id: aws.iam.roles
+      x-cfn-schema-name: Role
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RoleName') as role_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Role'
+    role:
+      name: role
+      id: aws.iam.role
+      x-cfn-schema-name: Role
+      x-type: get
+      x-identifiers:
+        - RoleName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.AssumeRolePolicyDocument') as assume_role_policy_document,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
+              JSON_EXTRACT(Properties, '$.MaxSessionDuration') as max_session_duration,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary,
+              JSON_EXTRACT(Properties, '$.Policies') as policies,
+              JSON_EXTRACT(Properties, '$.RoleId') as role_id,
+              JSON_EXTRACT(Properties, '$.RoleName') as role_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Role'
+    saml_providers:
+      name: saml_providers
+      id: aws.iam.saml_providers
+      x-cfn-schema-name: SAMLProvider
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
+    saml_provider:
+      name: saml_provider
+      id: aws.iam.saml_provider
+      x-cfn-schema-name: SAMLProvider
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.SamlMetadataDocument') as saml_metadata_document,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
+    server_certificates:
+      name: server_certificates
+      id: aws.iam.server_certificates
+      x-cfn-schema-name: ServerCertificate
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServerCertificateName') as server_certificate_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
+    server_certificate:
+      name: server_certificate
+      id: aws.iam.server_certificate
+      x-cfn-schema-name: ServerCertificate
+      x-type: get
+      x-identifiers:
+        - ServerCertificateName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateBody') as certificate_body,
+              JSON_EXTRACT(Properties, '$.CertificateChain') as certificate_chain,
+              JSON_EXTRACT(Properties, '$.ServerCertificateName') as server_certificate_name,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.PrivateKey') as private_key,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
+    service_linked_roles:
+      name: service_linked_roles
+      id: aws.iam.service_linked_roles
+      x-cfn-schema-name: ServiceLinkedRole
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
+    service_linked_role:
+      name: service_linked_role
+      id: aws.iam.service_linked_role
+      x-cfn-schema-name: ServiceLinkedRole
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.CustomSuffix') as custom_suffix,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.AWSServiceName') as a_ws_service_name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
+    users:
+      name: users
+      id: aws.iam.users
+      x-cfn-schema-name: User
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::User'
+    user:
+      name: user
+      id: aws.iam.user
+      x-cfn-schema-name: User
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.ManagedPolicyArns') as managed_policy_arns,
+              JSON_EXTRACT(Properties, '$.Policies') as policies,
+              JSON_EXTRACT(Properties, '$.UserName') as user_name,
+              JSON_EXTRACT(Properties, '$.Groups') as groups,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.LoginProfile.PasswordResetRequired') as login_profile_password_reset_required,
+              JSON_EXTRACT(Properties, '$.LoginProfile.Password') as login_profile_password,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::User'
+    user_to_group_additions:
+      name: user_to_group_additions
+      id: aws.iam.user_to_group_additions
+      x-cfn-schema-name: UserToGroupAddition
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
+    user_to_group_addition:
+      name: user_to_group_addition
+      id: aws.iam.user_to_group_addition
+      x-cfn-schema-name: UserToGroupAddition
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.GroupName') as group_name,
+              JSON_EXTRACT(Properties, '$.Users') as users
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
+    virtualmfa_devices:
+      name: virtualmfa_devices
+      id: aws.iam.virtualmfa_devices
+      x-cfn-schema-name: VirtualMFADevice
+      x-type: list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
+    virtualmfa_device:
+      name: virtualmfa_device
+      id: aws.iam.virtualmfa_device
+      x-cfn-schema-name: VirtualMFADevice
+      x-type: get
+      x-identifiers:
+        - SerialNumber
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.VirtualMfaDeviceName') as virtual_mfa_device_name,
+              JSON_EXTRACT(Properties, '$.Path') as path,
+              JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
+              JSON_EXTRACT(Properties, '$.Users') as users,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
