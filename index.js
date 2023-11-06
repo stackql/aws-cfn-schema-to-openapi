@@ -49,9 +49,9 @@ function clearOutputDir() {
           for (const file of files) {
               const filePath = path.join(dir, file);
               
-              // Skip if the file is cloud_control.yaml
-              if (file === 'cloud_control.yaml') {
-                  continue;
+              // Skip if cloud_control or static service files
+              if (['cloud_control.yaml', 'ec2.yaml', 'iam.yaml', 's3.yaml'].includes(file)) {
+                continue;
               }
 
               // Check if the file ends with .yaml
@@ -150,6 +150,23 @@ function findFilesInDocs(filter) {
   return files;
 }
 
+function addStaticFilesToManifest(service) {
+return (
+  providerManifest.providerServices[service] = {
+    id: `${service}:${providerManifest.version}`,
+    name: service,
+    preferred: true,
+    service: {
+        $ref: `aws/${providerManifest.version}/services/${service}.yaml`,
+    },
+    title: service,
+    version: providerManifest.version,
+    description: service,
+  }
+)
+}
+
+
 function main(){
   clearOutputDir();
 
@@ -162,6 +179,9 @@ function main(){
 
   for (const service of uniqueServices) {
     try {
+      if (['ec2', 'iam', 's3'].includes(service)) {
+        continue;
+      }
       const filePrefix = `aws-${service}-`;
       const outputFilename = `${service}.yaml`;
       processService(filePrefix, outputFilename);
@@ -183,18 +203,11 @@ function main(){
     }
   }
 
-  // add cloud_control
-  providerManifest.providerServices['cloud_control'] = {
-    id: `cloud_control:${providerManifest.version}`,
-    name: 'cloud_control',
-    preferred: true,
-    service: {
-        $ref: `aws/${providerManifest.version}/services/cloud_control.yaml`,
-    },
-    title: 'cloud_control',
-    version: providerManifest.version,
-    description: 'cloud_control',
-  };
+  // add static files
+  addStaticFilesToManifest('cloud_control');
+  addStaticFilesToManifest('ec2');
+  addStaticFilesToManifest('s3');
+  addStaticFilesToManifest('iam');
 
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }
