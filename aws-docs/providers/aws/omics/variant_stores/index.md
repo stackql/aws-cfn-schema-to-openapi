@@ -20,7 +20,7 @@ Retrieves a list of <code>variant_stores</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>variant_stores</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>variant_stores</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.omics.variant_stores</code></td></tr>
 </tbody></table>
 
@@ -31,13 +31,13 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Reference</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>SseConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Status</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Reference</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>SseConfig</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StatusMessage</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StoreArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StoreSizeBytes</code></td><td><code>number</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>UpdateTime</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.omics.variant_stores
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.omics.variant_stores<br/>WHERE region = 'us-east-1'
 </pre>

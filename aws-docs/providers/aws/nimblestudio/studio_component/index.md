@@ -20,7 +20,7 @@ Gets an individual <code>studio_component</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>studio_component</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>studio_component</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.nimblestudio.studio_component</code></td></tr>
 </tbody></table>
 
@@ -37,9 +37,9 @@ null
 <tr><td><code>SecureInitializationRoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StudioComponentId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StudioId</code></td><td><code>string</code></td><td>&lt;p&gt;The studio ID. &lt;&#x2F;p&gt;</td></tr>
-<tr><td><code>Subtype</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Subtype</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -48,7 +48,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.nimblestudio.studio_component
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;StudioComponentId&gt;' AND data__Identifier = '&lt;StudioId&gt;'
+SELECT *<br/>FROM aws.nimblestudio.studio_component<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;StudioComponentId&gt;'<br/>AND data__Identifier = '&lt;StudioId&gt;'
 </pre>

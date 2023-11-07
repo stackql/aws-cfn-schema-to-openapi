@@ -20,7 +20,7 @@ Retrieves a list of <code>application_entitlement_associations</code> in a regio
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>application_entitlement_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>application_entitlement_associations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.application_entitlement_associations</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appstream.application_entitlement_associations
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.appstream.application_entitlement_associations<br/>WHERE region = 'us-east-1'
 </pre>

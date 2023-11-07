@@ -20,7 +20,7 @@ Retrieves a list of <code>named_queries</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>named_queries</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>named_queries</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.athena.named_queries</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.athena.named_queries
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.athena.named_queries<br/>WHERE region = 'us-east-1'
 </pre>

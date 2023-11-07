@@ -20,7 +20,7 @@ Gets an individual <code>xss_match_set</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>xss_match_set</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>xss_match_set</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.waf.xss_match_set</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.waf.xss_match_set
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.waf.xss_match_set<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

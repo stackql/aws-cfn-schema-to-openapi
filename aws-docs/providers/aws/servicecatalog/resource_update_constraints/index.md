@@ -20,7 +20,7 @@ Retrieves a list of <code>resource_update_constraints</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>resource_update_constraints</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>resource_update_constraints</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicecatalog.resource_update_constraints</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.servicecatalog.resource_update_constraints
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.servicecatalog.resource_update_constraints<br/>WHERE region = 'us-east-1'
 </pre>

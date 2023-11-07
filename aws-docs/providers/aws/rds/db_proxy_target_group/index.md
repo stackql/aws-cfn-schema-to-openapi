@@ -20,7 +20,7 @@ Gets an individual <code>db_proxy_target_group</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>db_proxy_target_group</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>db_proxy_target_group</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.rds.db_proxy_target_group</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>DBProxyName</code></td><td><code>string</code></td><td>The identifier for the proxy.</td></tr>
 <tr><td><code>TargetGroupArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) representing the target group.</td></tr>
 <tr><td><code>TargetGroupName</code></td><td><code>string</code></td><td>The identifier for the DBProxyTargetGroup</td></tr>
-<tr><td><code>ConnectionPoolConfigurationInfo</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ConnectionPoolConfigurationInfo</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>DBInstanceIdentifiers</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>DBClusterIdentifiers</code></td><td><code>array</code></td><td></td></tr>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.rds.db_proxy_target_group
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TargetGroupArn&gt;'
+SELECT *<br/>FROM aws.rds.db_proxy_target_group<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;TargetGroupArn&gt;'
 </pre>

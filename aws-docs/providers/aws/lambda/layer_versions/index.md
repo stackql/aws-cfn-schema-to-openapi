@@ -20,7 +20,7 @@ Retrieves a list of <code>layer_versions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>layer_versions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>layer_versions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lambda.layer_versions</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>LicenseInfo</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>LayerName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Content</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Content</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CompatibleArchitectures</code></td><td><code>array</code></td><td></td></tr>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.lambda.layer_versions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.lambda.layer_versions<br/>WHERE region = 'us-east-1'
 </pre>

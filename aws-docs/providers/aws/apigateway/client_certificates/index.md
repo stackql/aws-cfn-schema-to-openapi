@@ -20,7 +20,7 @@ Retrieves a list of <code>client_certificates</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>client_certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>client_certificates</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.client_certificates</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.client_certificates
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.apigateway.client_certificates<br/>WHERE region = 'us-east-1'
 </pre>

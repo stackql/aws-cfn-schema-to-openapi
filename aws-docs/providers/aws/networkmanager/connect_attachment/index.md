@@ -20,7 +20,7 @@ Gets an individual <code>connect_attachment</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>connect_attachment</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>connect_attachment</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkmanager.connect_attachment</code></td></tr>
 </tbody></table>
 
@@ -37,12 +37,12 @@ null
 <tr><td><code>ResourceArn</code></td><td><code>string</code></td><td>The attachment resource ARN.</td></tr>
 <tr><td><code>AttachmentPolicyRuleNumber</code></td><td><code>integer</code></td><td>The policy rule number associated with the attachment.</td></tr>
 <tr><td><code>SegmentName</code></td><td><code>string</code></td><td>The name of the segment attachment.</td></tr>
-<tr><td><code>ProposedSegmentChange</code></td><td><code>undefined</code></td><td>The attachment to move from one segment to another.</td></tr>
+<tr><td><code>ProposedSegmentChange</code></td><td><code>object</code></td><td>The attachment to move from one segment to another.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags for the attachment.</td></tr>
 <tr><td><code>CreatedAt</code></td><td><code>string</code></td><td>Creation time of the attachment.</td></tr>
 <tr><td><code>UpdatedAt</code></td><td><code>string</code></td><td>Last update time of the attachment.</td></tr>
 <tr><td><code>TransportAttachmentId</code></td><td><code>string</code></td><td>Id of transport attachment</td></tr>
-<tr><td><code>Options</code></td><td><code>undefined</code></td><td>Protocol options for connect attachment</td></tr>
+<tr><td><code>Options</code></td><td><code>object</code></td><td>Protocol options for connect attachment</td></tr>
 
 </tbody></table>
 
@@ -51,7 +51,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.networkmanager.connect_attachment
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AttachmentId&gt;'
+SELECT *<br/>FROM aws.networkmanager.connect_attachment<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;AttachmentId&gt;'
 </pre>

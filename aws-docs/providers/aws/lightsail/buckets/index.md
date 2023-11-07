@@ -20,7 +20,7 @@ Retrieves a list of <code>buckets</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>buckets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>buckets</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lightsail.buckets</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>BundleId</code></td><td><code>string</code></td><td>The ID of the bundle to use for the bucket.</td></tr>
 <tr><td><code>BucketArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ObjectVersioning</code></td><td><code>boolean</code></td><td>Specifies whether to enable or disable versioning of objects in the bucket.</td></tr>
-<tr><td><code>AccessRules</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AccessRules</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ResourcesReceivingAccess</code></td><td><code>array</code></td><td>The names of the Lightsail resources for which to set bucket access.</td></tr>
 <tr><td><code>ReadOnlyAccessAccounts</code></td><td><code>array</code></td><td>An array of strings to specify the AWS account IDs that can access the bucket.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.lightsail.buckets
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.lightsail.buckets<br/>WHERE region = 'us-east-1'
 </pre>

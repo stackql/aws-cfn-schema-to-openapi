@@ -20,7 +20,7 @@ Gets an individual <code>webacl_association</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>webacl_association</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>webacl_association</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.wafregional.webacl_association</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.wafregional.webacl_association
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.wafregional.webacl_association<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

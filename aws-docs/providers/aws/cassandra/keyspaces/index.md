@@ -20,7 +20,7 @@ Retrieves a list of <code>keyspaces</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>keyspaces</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>keyspaces</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cassandra.keyspaces</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cassandra.keyspaces
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.cassandra.keyspaces<br/>WHERE region = 'us-east-1'
 </pre>

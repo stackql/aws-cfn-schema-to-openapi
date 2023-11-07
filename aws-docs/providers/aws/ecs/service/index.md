@@ -20,7 +20,7 @@ Gets an individual <code>service</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>service</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>service</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ecs.service</code></td></tr>
 </tbody></table>
 
@@ -30,8 +30,8 @@ null
 <tr><td><code>ServiceArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CapacityProviderStrategy</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Cluster</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DeploymentConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DeploymentController</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>DeploymentConfiguration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DeploymentController</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>DesiredCount</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>EnableECSManagedTags</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>EnableExecuteCommand</code></td><td><code>boolean</code></td><td></td></tr>
@@ -39,14 +39,14 @@ null
 <tr><td><code>LaunchType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>LoadBalancers</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>NetworkConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>NetworkConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>PlacementConstraints</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>PlacementStrategies</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>PlatformVersion</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>PropagateTags</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Role</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>SchedulingStrategy</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ServiceConnectConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ServiceConnectConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ServiceName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ServiceRegistries</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
@@ -59,7 +59,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ecs.service
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ServiceArn&gt;' AND data__Identifier = '&lt;Cluster&gt;'
+SELECT *<br/>FROM aws.ecs.service<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ServiceArn&gt;'<br/>AND data__Identifier = '&lt;Cluster&gt;'
 </pre>

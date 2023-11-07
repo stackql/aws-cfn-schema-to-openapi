@@ -20,7 +20,7 @@ Gets an individual <code>api</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>api</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>api</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.api</code></td></tr>
 </tbody></table>
 
@@ -28,7 +28,7 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>RouteSelectionExpression</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BodyS3Location</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>BodyS3Location</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ApiEndpoint</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>BasePath</code></td><td><code>string</code></td><td></td></tr>
@@ -38,7 +38,7 @@ null
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Target</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CredentialsArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CorsConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>CorsConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Version</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ProtocolType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RouteKey</code></td><td><code>string</code></td><td></td></tr>
@@ -54,7 +54,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigatewayv2.api
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ApiId&gt;'
+SELECT *<br/>FROM aws.apigatewayv2.api<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ApiId&gt;'
 </pre>

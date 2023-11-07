@@ -20,7 +20,7 @@ Retrieves a list of <code>component_types</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>component_types</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>component_types</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iottwinmaker.component_types</code></td></tr>
 </tbody></table>
 
@@ -36,9 +36,9 @@ null
 <tr><td><code>PropertyDefinitions</code></td><td><code>object</code></td><td>An map of the property definitions in the component type. Each property definition's key must be unique to this map.</td></tr>
 <tr><td><code>PropertyGroups</code></td><td><code>object</code></td><td>An map of the property groups in the component type. Each property group's key must be unique to this map.</td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The ARN of the component type.</td></tr>
-<tr><td><code>CreationDateTime</code></td><td><code>undefined</code></td><td>The date and time when the component type was created.</td></tr>
-<tr><td><code>UpdateDateTime</code></td><td><code>undefined</code></td><td>The last date and time when the component type was updated.</td></tr>
-<tr><td><code>Status</code></td><td><code>undefined</code></td><td>The current status of the component type.</td></tr>
+<tr><td><code>CreationDateTime</code></td><td><code>string</code></td><td>The date and time when the component type was created.</td></tr>
+<tr><td><code>UpdateDateTime</code></td><td><code>string</code></td><td>The last date and time when the component type was updated.</td></tr>
+<tr><td><code>Status</code></td><td><code>object</code></td><td>The current status of the component type.</td></tr>
 <tr><td><code>IsAbstract</code></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type is abstract.</td></tr>
 <tr><td><code>IsSchemaInitialized</code></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type has a schema initializer and that the schema initializer has run.</td></tr>
 <tr><td><code>Tags</code></td><td><code>object</code></td><td>A map of key-value pairs to associate with a resource.</td></tr>
@@ -50,7 +50,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iottwinmaker.component_types
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iottwinmaker.component_types<br/>WHERE region = 'us-east-1'
 </pre>

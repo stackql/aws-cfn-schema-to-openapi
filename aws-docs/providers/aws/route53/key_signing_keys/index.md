@@ -20,7 +20,7 @@ Retrieves a list of <code>key_signing_keys</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>key_signing_keys</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>key_signing_keys</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53.key_signing_keys</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.route53.key_signing_keys
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.route53.key_signing_keys<br/>WHERE region = 'us-east-1'
 </pre>

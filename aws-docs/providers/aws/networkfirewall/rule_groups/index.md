@@ -20,7 +20,7 @@ Retrieves a list of <code>rule_groups</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>rule_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>rule_groups</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkfirewall.rule_groups</code></td></tr>
 </tbody></table>
 
@@ -28,9 +28,9 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>RuleGroupName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RuleGroupArn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>RuleGroupArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RuleGroupId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RuleGroup</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>RuleGroup</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Capacity</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.networkfirewall.rule_groups
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.networkfirewall.rule_groups<br/>WHERE region = 'us-east-1'
 </pre>

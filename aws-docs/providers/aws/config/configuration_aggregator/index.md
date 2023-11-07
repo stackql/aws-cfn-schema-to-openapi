@@ -20,7 +20,7 @@ Gets an individual <code>configuration_aggregator</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>configuration_aggregator</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>configuration_aggregator</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.config.configuration_aggregator</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>AccountAggregationSources</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>ConfigurationAggregatorName</code></td><td><code>string</code></td><td>The name of the aggregator.</td></tr>
 <tr><td><code>ConfigurationAggregatorArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the aggregator.</td></tr>
-<tr><td><code>OrganizationAggregationSource</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>OrganizationAggregationSource</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the configuration aggregator.</td></tr>
 
 </tbody></table>
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.config.configuration_aggregator
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ConfigurationAggregatorName&gt;'
+SELECT *<br/>FROM aws.config.configuration_aggregator<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ConfigurationAggregatorName&gt;'
 </pre>

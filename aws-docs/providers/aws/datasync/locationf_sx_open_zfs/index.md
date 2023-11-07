@@ -20,7 +20,7 @@ Gets an individual <code>locationf_sx_open_zfs</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>locationf_sx_open_zfs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>locationf_sx_open_zfs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.datasync.locationf_sx_open_zfs</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>FsxFilesystemArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the FSx OpenZFS file system.</td></tr>
 <tr><td><code>SecurityGroupArns</code></td><td><code>array</code></td><td>The ARNs of the security groups that are to use to configure the FSx OpenZFS file system.</td></tr>
-<tr><td><code>Protocol</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Protocol</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Subdirectory</code></td><td><code>string</code></td><td>A subdirectory in the location's path.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>LocationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Amazon FSx OpenZFS file system location that is created.</td></tr>
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.datasync.locationf_sx_open_zfs
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LocationArn&gt;'
+SELECT *<br/>FROM aws.datasync.locationf_sx_open_zfs<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;LocationArn&gt;'
 </pre>

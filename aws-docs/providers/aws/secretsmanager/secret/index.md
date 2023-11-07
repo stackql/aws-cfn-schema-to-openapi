@@ -20,7 +20,7 @@ Gets an individual <code>secret</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>secret</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>secret</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.secretsmanager.secret</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>KmsKeyId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>SecretString</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>GenerateSecretString</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>GenerateSecretString</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ReplicaRegions</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.secretsmanager.secret
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.secretsmanager.secret<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

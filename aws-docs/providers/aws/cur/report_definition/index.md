@@ -20,7 +20,7 @@ Gets an individual <code>report_definition</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>report_definition</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>report_definition</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cur.report_definition</code></td></tr>
 </tbody></table>
 
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cur.report_definition
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ReportName&gt;'
+SELECT *<br/>FROM aws.cur.report_definition<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ReportName&gt;'
 </pre>

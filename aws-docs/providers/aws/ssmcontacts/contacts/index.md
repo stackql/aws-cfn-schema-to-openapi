@@ -20,7 +20,7 @@ Retrieves a list of <code>contacts</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>contacts</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>contacts</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ssmcontacts.contacts</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ssmcontacts.contacts
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.ssmcontacts.contacts<br/>WHERE region = 'us-east-1'
 </pre>

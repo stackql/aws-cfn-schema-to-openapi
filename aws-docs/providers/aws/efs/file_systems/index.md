@@ -20,7 +20,7 @@ Retrieves a list of <code>file_systems</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>file_systems</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>file_systems</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.efs.file_systems</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,7 @@ null
 <tr><td><code>ThroughputMode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>FileSystemPolicy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>BypassPolicyLockoutSafetyCheck</code></td><td><code>boolean</code></td><td>Whether to bypass the FileSystemPolicy lockout safety check. The policy lockout safety check determines whether the policy in the request will prevent the principal making the request to be locked out from making future PutFileSystemPolicy requests on the file system. Set BypassPolicyLockoutSafetyCheck to True only when you intend to prevent the principal that is making the request from making a subsequent PutFileSystemPolicy request on the file system. Defaults to false</td></tr>
-<tr><td><code>BackupPolicy</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>BackupPolicy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>AvailabilityZoneName</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -48,7 +48,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.efs.file_systems
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.efs.file_systems<br/>WHERE region = 'us-east-1'
 </pre>

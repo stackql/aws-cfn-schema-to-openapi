@@ -20,7 +20,7 @@ Gets an individual <code>target_group</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>target_group</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>target_group</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.elasticloadbalancingv2.target_group</code></td></tr>
 </tbody></table>
 
@@ -30,12 +30,12 @@ null
 <tr><td><code>IpAddressType</code></td><td><code>string</code></td><td>The type of IP address used for this target group. The possible values are ipv4 and ipv6. </td></tr>
 <tr><td><code>HealthCheckIntervalSeconds</code></td><td><code>integer</code></td><td>The approximate amount of time, in seconds, between health checks of an individual target.</td></tr>
 <tr><td><code>LoadBalancerArns</code></td><td><code>array</code></td><td>The Amazon Resource Names (ARNs) of the load balancers that route traffic to this target group.</td></tr>
-<tr><td><code>Matcher</code></td><td><code>undefined</code></td><td>[HTTP&#x2F;HTTPS health checks] The HTTP or gRPC codes to use when checking for a successful response from a target.</td></tr>
-<tr><td><code>HealthCheckPath</code></td><td><code>string</code></td><td>[HTTP&#x2F;HTTPS health checks] The destination for health checks on the targets. [HTTP1 or HTTP2 protocol version] The ping path. The default is &#x2F;. [GRPC protocol version] The path of a custom health check method with the format &#x2F;package.service&#x2F;method. The default is &#x2F;AWS.ALB&#x2F;healthcheck.</td></tr>
+<tr><td><code>Matcher</code></td><td><code>object</code></td><td>&#91;HTTP&#x2F;HTTPS health checks&#93; The HTTP or gRPC codes to use when checking for a successful response from a target.</td></tr>
+<tr><td><code>HealthCheckPath</code></td><td><code>string</code></td><td>&#91;HTTP&#x2F;HTTPS health checks&#93; The destination for health checks on the targets. &#91;HTTP1 or HTTP2 protocol version&#93; The ping path. The default is &#x2F;. &#91;GRPC protocol version&#93; The path of a custom health check method with the format &#x2F;package.service&#x2F;method. The default is &#x2F;AWS.ALB&#x2F;healthcheck.</td></tr>
 <tr><td><code>Port</code></td><td><code>integer</code></td><td>The port on which the targets receive traffic. This port is used unless you specify a port override when registering the target. If the target is a Lambda function, this parameter does not apply. If the protocol is GENEVE, the supported port is 6081.</td></tr>
 <tr><td><code>Targets</code></td><td><code>array</code></td><td>The targets.</td></tr>
 <tr><td><code>HealthCheckEnabled</code></td><td><code>boolean</code></td><td>Indicates whether health checks are enabled. If the target type is lambda, health checks are disabled by default but can be enabled. If the target type is instance, ip, or alb, health checks are always enabled and cannot be disabled.</td></tr>
-<tr><td><code>ProtocolVersion</code></td><td><code>string</code></td><td>[HTTP&#x2F;HTTPS protocol] The protocol version. The possible values are GRPC, HTTP1, and HTTP2.</td></tr>
+<tr><td><code>ProtocolVersion</code></td><td><code>string</code></td><td>&#91;HTTP&#x2F;HTTPS protocol&#93; The protocol version. The possible values are GRPC, HTTP1, and HTTP2.</td></tr>
 <tr><td><code>UnhealthyThresholdCount</code></td><td><code>integer</code></td><td>The number of consecutive health check failures required before considering a target unhealthy.</td></tr>
 <tr><td><code>HealthCheckTimeoutSeconds</code></td><td><code>integer</code></td><td>The amount of time, in seconds, during which no response from a target means a failed health check.</td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the target group.</td></tr>
@@ -58,7 +58,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.elasticloadbalancingv2.target_group
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TargetGroupArn&gt;'
+SELECT *<br/>FROM aws.elasticloadbalancingv2.target_group<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;TargetGroupArn&gt;'
 </pre>

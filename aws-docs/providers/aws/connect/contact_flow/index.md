@@ -20,7 +20,7 @@ Gets an individual <code>contact_flow</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>contact_flow</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>contact_flow</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.contact_flow</code></td></tr>
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.contact_flow
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ContactFlowArn&gt;'
+SELECT *<br/>FROM aws.connect.contact_flow<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ContactFlowArn&gt;'
 </pre>

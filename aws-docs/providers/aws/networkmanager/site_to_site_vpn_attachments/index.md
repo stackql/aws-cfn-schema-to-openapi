@@ -20,7 +20,7 @@ Retrieves a list of <code>site_to_site_vpn_attachments</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>site_to_site_vpn_attachments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>site_to_site_vpn_attachments</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkmanager.site_to_site_vpn_attachments</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,7 @@ null
 <tr><td><code>ResourceArn</code></td><td><code>string</code></td><td>The ARN of the Resource.</td></tr>
 <tr><td><code>AttachmentPolicyRuleNumber</code></td><td><code>integer</code></td><td>The policy rule number associated with the attachment.</td></tr>
 <tr><td><code>SegmentName</code></td><td><code>string</code></td><td>The name of the segment that attachment is in.</td></tr>
-<tr><td><code>ProposedSegmentChange</code></td><td><code>undefined</code></td><td>The attachment to move from one segment to another.</td></tr>
+<tr><td><code>ProposedSegmentChange</code></td><td><code>object</code></td><td>The attachment to move from one segment to another.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags for the attachment.</td></tr>
 <tr><td><code>CreatedAt</code></td><td><code>string</code></td><td>Creation time of the attachment.</td></tr>
 <tr><td><code>UpdatedAt</code></td><td><code>string</code></td><td>Last update time of the attachment.</td></tr>
@@ -50,7 +50,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.networkmanager.site_to_site_vpn_attachments
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.networkmanager.site_to_site_vpn_attachments<br/>WHERE region = 'us-east-1'
 </pre>

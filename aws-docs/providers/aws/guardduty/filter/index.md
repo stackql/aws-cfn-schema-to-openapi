@@ -20,7 +20,7 @@ Gets an individual <code>filter</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>filter</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>filter</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.guardduty.filter</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>Action</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DetectorId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FindingCriteria</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>FindingCriteria</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Rank</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.guardduty.filter
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.guardduty.filter<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

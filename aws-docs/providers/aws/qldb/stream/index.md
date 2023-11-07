@@ -20,7 +20,7 @@ Gets an individual <code>stream</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>stream</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>stream</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.qldb.stream</code></td></tr>
 </tbody></table>
 
@@ -29,12 +29,12 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>LedgerName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StreamName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoleArn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>InclusiveStartTime</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ExclusiveEndTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>KinesisConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>KinesisConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.qldb.stream
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LedgerName&gt;' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.qldb.stream<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;LedgerName&gt;'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

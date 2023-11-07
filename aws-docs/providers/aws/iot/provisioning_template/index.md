@@ -20,7 +20,7 @@ Gets an individual <code>provisioning_template</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>provisioning_template</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>provisioning_template</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.provisioning_template</code></td></tr>
 </tbody></table>
 
@@ -34,7 +34,7 @@ null
 <tr><td><code>ProvisioningRoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>TemplateBody</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>TemplateType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PreProvisioningHook</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>PreProvisioningHook</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 
 </tbody></table>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot.provisioning_template
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TemplateName&gt;'
+SELECT *<br/>FROM aws.iot.provisioning_template<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;TemplateName&gt;'
 </pre>

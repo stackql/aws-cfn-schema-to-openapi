@@ -20,7 +20,7 @@ Gets an individual <code>detector</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>detector</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>detector</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.frauddetector.detector</code></td></tr>
 </tbody></table>
 
@@ -34,7 +34,7 @@ null
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags associated with this detector.</td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the detector.</td></tr>
 <tr><td><code>Rules</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>EventType</code></td><td><code>undefined</code></td><td>The event type to associate this detector with.</td></tr>
+<tr><td><code>EventType</code></td><td><code>object</code></td><td>The event type to associate this detector with.</td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The ARN of the detector.</td></tr>
 <tr><td><code>CreatedTime</code></td><td><code>string</code></td><td>The time when the detector was created.</td></tr>
 <tr><td><code>LastUpdatedTime</code></td><td><code>string</code></td><td>The time when the detector was last updated.</td></tr>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.frauddetector.detector
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.frauddetector.detector<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

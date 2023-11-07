@@ -20,7 +20,7 @@ Gets an individual <code>instance</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instance</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instance</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.instance</code></td></tr>
 </tbody></table>
 
@@ -35,7 +35,7 @@ null
 <tr><td><code>ServiceRole</code></td><td><code>string</code></td><td>Service linked role created as part of instance creation.</td></tr>
 <tr><td><code>InstanceStatus</code></td><td><code>string</code></td><td>Specifies the creation status of new instance.</td></tr>
 <tr><td><code>DirectoryId</code></td><td><code>string</code></td><td>Existing directoryId user wants to map to the new Connect instance.</td></tr>
-<tr><td><code>Attributes</code></td><td><code>undefined</code></td><td>The attributes for the instance.</td></tr>
+<tr><td><code>Attributes</code></td><td><code>object</code></td><td>The attributes for the instance.</td></tr>
 
 </tbody></table>
 
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.instance
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.connect.instance<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

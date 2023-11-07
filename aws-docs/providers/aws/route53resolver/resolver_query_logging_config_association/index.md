@@ -20,7 +20,7 @@ Gets an individual <code>resolver_query_logging_config_association</code> resour
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>resolver_query_logging_config_association</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>resolver_query_logging_config_association</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53resolver.resolver_query_logging_config_association</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.route53resolver.resolver_query_logging_config_association
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.route53resolver.resolver_query_logging_config_association<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

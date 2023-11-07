@@ -20,7 +20,7 @@ Retrieves a list of <code>connections</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>connections</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>connections</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.events.connections</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>SecretArn</code></td><td><code>string</code></td><td>The arn of the secrets manager secret created in the customer account.</td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>Description of the connection.</td></tr>
 <tr><td><code>AuthorizationType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AuthParameters</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AuthParameters</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.events.connections
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.events.connections<br/>WHERE region = 'us-east-1'
 </pre>

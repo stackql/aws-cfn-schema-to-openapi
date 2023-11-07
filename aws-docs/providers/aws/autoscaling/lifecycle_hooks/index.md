@@ -20,7 +20,7 @@ Retrieves a list of <code>lifecycle_hooks</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>lifecycle_hooks</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>lifecycle_hooks</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.autoscaling.lifecycle_hooks</code></td></tr>
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.autoscaling.lifecycle_hooks
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.autoscaling.lifecycle_hooks<br/>WHERE region = 'us-east-1'
 </pre>

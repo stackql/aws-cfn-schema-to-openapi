@@ -20,7 +20,7 @@ Retrieves a list of <code>flow_vpc_interfaces</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>flow_vpc_interfaces</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>flow_vpc_interfaces</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.mediaconnect.flow_vpc_interfaces</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.mediaconnect.flow_vpc_interfaces
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.mediaconnect.flow_vpc_interfaces<br/>WHERE region = 'us-east-1'
 </pre>

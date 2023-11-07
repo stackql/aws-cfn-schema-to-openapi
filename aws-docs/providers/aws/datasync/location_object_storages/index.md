@@ -20,7 +20,7 @@ Retrieves a list of <code>location_object_storages</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>location_object_storages</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>location_object_storages</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.datasync.location_object_storages</code></td></tr>
 </tbody></table>
 
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.datasync.location_object_storages
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.datasync.location_object_storages<br/>WHERE region = 'us-east-1'
 </pre>

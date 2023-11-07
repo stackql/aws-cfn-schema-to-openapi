@@ -20,7 +20,7 @@ Retrieves a list of <code>projects</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>projects</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>projects</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot1click.projects</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>ProjectName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PlacementTemplate</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>PlacementTemplate</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot1click.projects
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iot1click.projects<br/>WHERE region = 'us-east-1'
 </pre>

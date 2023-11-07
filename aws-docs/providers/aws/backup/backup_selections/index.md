@@ -20,7 +20,7 @@ Retrieves a list of <code>backup_selections</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>backup_selections</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>backup_selections</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.backup.backup_selections</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>BackupPlanId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BackupSelection</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>BackupSelection</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>SelectionId</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.backup.backup_selections
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.backup.backup_selections<br/>WHERE region = 'us-east-1'
 </pre>

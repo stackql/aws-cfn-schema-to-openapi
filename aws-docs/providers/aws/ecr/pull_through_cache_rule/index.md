@@ -20,7 +20,7 @@ Gets an individual <code>pull_through_cache_rule</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>pull_through_cache_rule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>pull_through_cache_rule</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ecr.pull_through_cache_rule</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ecr.pull_through_cache_rule
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;EcrRepositoryPrefix&gt;'
+SELECT *<br/>FROM aws.ecr.pull_through_cache_rule<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;EcrRepositoryPrefix&gt;'
 </pre>

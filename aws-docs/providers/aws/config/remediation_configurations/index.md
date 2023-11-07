@@ -20,7 +20,7 @@ Retrieves a list of <code>remediation_configurations</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>remediation_configurations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>remediation_configurations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.config.remediation_configurations</code></td></tr>
 </tbody></table>
 
@@ -28,7 +28,7 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>TargetVersion</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ExecutionControls</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ExecutionControls</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Parameters</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>TargetType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ConfigRuleName</code></td><td><code>string</code></td><td></td></tr>
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.config.remediation_configurations
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.config.remediation_configurations<br/>WHERE region = 'us-east-1'
 </pre>

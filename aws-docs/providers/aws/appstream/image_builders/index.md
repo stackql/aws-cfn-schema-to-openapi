@@ -20,7 +20,7 @@ Retrieves a list of <code>image_builders</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>image_builders</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>image_builders</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.image_builders</code></td></tr>
 </tbody></table>
 
@@ -28,9 +28,9 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>VpcConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>VpcConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>EnableDefaultInternetAccess</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DomainJoinInfo</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>DomainJoinInfo</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>AppstreamAgentVersion</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ImageName</code></td><td><code>string</code></td><td></td></tr>
@@ -49,7 +49,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appstream.image_builders
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.appstream.image_builders<br/>WHERE region = 'us-east-1'
 </pre>

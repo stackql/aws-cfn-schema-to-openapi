@@ -20,7 +20,7 @@ Gets an individual <code>site</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>site</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>site</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkmanager.site</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the site.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the site.</td></tr>
 <tr><td><code>GlobalNetworkId</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
-<tr><td><code>Location</code></td><td><code>undefined</code></td><td>The location of the site.</td></tr>
+<tr><td><code>Location</code></td><td><code>object</code></td><td>The location of the site.</td></tr>
 
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.networkmanager.site
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;GlobalNetworkId&gt;' AND data__Identifier = '&lt;SiteId&gt;'
+SELECT *<br/>FROM aws.networkmanager.site<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;GlobalNetworkId&gt;'<br/>AND data__Identifier = '&lt;SiteId&gt;'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>api_mapping</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>api_mapping</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>api_mapping</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.api_mapping</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigatewayv2.api_mapping
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.apigatewayv2.api_mapping<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

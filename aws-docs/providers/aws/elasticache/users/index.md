@@ -20,7 +20,7 @@ Retrieves a list of <code>users</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>users</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>users</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.elasticache.users</code></td></tr>
 </tbody></table>
 
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.elasticache.users
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.elasticache.users<br/>WHERE region = 'us-east-1'
 </pre>

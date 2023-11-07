@@ -20,7 +20,7 @@ Retrieves a list of <code>metric_filters</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>metric_filters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>metric_filters</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.logs.metric_filters</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.logs.metric_filters
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.logs.metric_filters<br/>WHERE region = 'us-east-1'
 </pre>

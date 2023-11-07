@@ -20,14 +20,14 @@ Retrieves a list of <code>schema_versions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>schema_versions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>schema_versions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.glue.schema_versions</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Schema</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Schema</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>SchemaDefinition</code></td><td><code>string</code></td><td>Complete definition of the schema in plain-text.</td></tr>
 <tr><td><code>VersionId</code></td><td><code>string</code></td><td>Represents the version ID associated with the schema version.</td></tr>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.glue.schema_versions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.glue.schema_versions<br/>WHERE region = 'us-east-1'
 </pre>

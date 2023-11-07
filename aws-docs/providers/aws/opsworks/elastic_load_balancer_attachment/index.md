@@ -20,7 +20,7 @@ Gets an individual <code>elastic_load_balancer_attachment</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>elastic_load_balancer_attachment</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>elastic_load_balancer_attachment</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opsworks.elastic_load_balancer_attachment</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opsworks.elastic_load_balancer_attachment
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.opsworks.elastic_load_balancer_attachment<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

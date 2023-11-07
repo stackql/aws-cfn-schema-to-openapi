@@ -20,7 +20,7 @@ Retrieves a list of <code>collections</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>collections</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>collections</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opensearchserverless.collections</code></td></tr>
 </tbody></table>
 
@@ -34,7 +34,7 @@ null
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the collection.</td></tr>
 <tr><td><code>CollectionEndpoint</code></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr>
 <tr><td><code>DashboardEndpoint</code></td><td><code>string</code></td><td>The OpenSearch Dashboards endpoint for the collection.</td></tr>
-<tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opensearchserverless.collections
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.opensearchserverless.collections<br/>WHERE region = 'us-east-1'
 </pre>

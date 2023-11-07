@@ -20,14 +20,14 @@ Gets an individual <code>location_efs</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>location_efs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>location_efs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.datasync.location_efs</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Ec2Config</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Ec2Config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>EfsFilesystemArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Amazon EFS file system.</td></tr>
 <tr><td><code>AccessPointArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the Amazon EFS Access point that DataSync uses when accessing the EFS file system.</td></tr>
 <tr><td><code>FileSystemAccessRoleArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AWS IAM role that the DataSync will assume when mounting the EFS file system.</td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.datasync.location_efs
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LocationArn&gt;'
+SELECT *<br/>FROM aws.datasync.location_efs<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;LocationArn&gt;'
 </pre>

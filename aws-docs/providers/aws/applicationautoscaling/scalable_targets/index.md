@@ -20,7 +20,7 @@ Retrieves a list of <code>scalable_targets</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>scalable_targets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>scalable_targets</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.applicationautoscaling.scalable_targets</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>ResourceId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ServiceNamespace</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ScalableDimension</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SuspendedState</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SuspendedState</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>MinCapacity</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>RoleARN</code></td><td><code>string</code></td><td></td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.applicationautoscaling.scalable_targets
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.applicationautoscaling.scalable_targets<br/>WHERE region = 'us-east-1'
 </pre>

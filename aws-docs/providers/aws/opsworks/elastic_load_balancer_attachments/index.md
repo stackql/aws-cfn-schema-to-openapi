@@ -20,7 +20,7 @@ Retrieves a list of <code>elastic_load_balancer_attachments</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>elastic_load_balancer_attachments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>elastic_load_balancer_attachments</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opsworks.elastic_load_balancer_attachments</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opsworks.elastic_load_balancer_attachments
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.opsworks.elastic_load_balancer_attachments<br/>WHERE region = 'us-east-1'
 </pre>

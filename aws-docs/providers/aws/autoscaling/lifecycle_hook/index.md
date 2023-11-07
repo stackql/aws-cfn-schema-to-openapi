@@ -20,7 +20,7 @@ Gets an individual <code>lifecycle_hook</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>lifecycle_hook</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>lifecycle_hook</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.autoscaling.lifecycle_hook</code></td></tr>
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.autoscaling.lifecycle_hook
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AutoScalingGroupName&gt;' AND data__Identifier = '&lt;LifecycleHookName&gt;'
+SELECT *<br/>FROM aws.autoscaling.lifecycle_hook<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;AutoScalingGroupName&gt;'<br/>AND data__Identifier = '&lt;LifecycleHookName&gt;'
 </pre>

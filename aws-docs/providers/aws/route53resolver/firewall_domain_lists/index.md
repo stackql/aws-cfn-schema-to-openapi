@@ -20,7 +20,7 @@ Retrieves a list of <code>firewall_domain_lists</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>firewall_domain_lists</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>firewall_domain_lists</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53resolver.firewall_domain_lists</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,7 @@ null
 <tr><td><code>CreatorRequestId</code></td><td><code>string</code></td><td>The id of the creator request.</td></tr>
 <tr><td><code>CreationTime</code></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
 <tr><td><code>ModificationTime</code></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
-<tr><td><code>Domains</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Domains</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>DomainFileUrl</code></td><td><code>string</code></td><td>S3 URL to import domains from.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags</td></tr>
 
@@ -48,7 +48,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.route53resolver.firewall_domain_lists
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.route53resolver.firewall_domain_lists<br/>WHERE region = 'us-east-1'
 </pre>

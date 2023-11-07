@@ -20,7 +20,7 @@ Retrieves a list of <code>applications</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>applications</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>applications</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.applications</code></td></tr>
 </tbody></table>
 
@@ -34,9 +34,9 @@ null
 <tr><td><code>LaunchParameters</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>WorkingDirectory</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>InstanceFamilies</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>IconS3Location</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>AppBlockArn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>IconS3Location</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>AppBlockArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Platforms</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>AttributesToDelete</code></td><td><code>array</code></td><td></td></tr>
@@ -49,7 +49,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appstream.applications
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.appstream.applications<br/>WHERE region = 'us-east-1'
 </pre>

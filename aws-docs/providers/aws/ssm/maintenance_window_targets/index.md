@@ -20,7 +20,7 @@ Retrieves a list of <code>maintenance_window_targets</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>maintenance_window_targets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>maintenance_window_targets</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ssm.maintenance_window_targets</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ssm.maintenance_window_targets
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.ssm.maintenance_window_targets<br/>WHERE region = 'us-east-1'
 </pre>

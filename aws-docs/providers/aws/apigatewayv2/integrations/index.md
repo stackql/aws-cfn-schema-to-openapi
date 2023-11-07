@@ -20,7 +20,7 @@ Retrieves a list of <code>integrations</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>integrations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>integrations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.integrations</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,7 @@ null
 <tr><td><code>CredentialsArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RequestTemplates</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>TimeoutInMillis</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>TlsConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>TlsConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ContentHandlingStrategy</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>IntegrationSubtype</code></td><td><code>string</code></td><td></td></tr>
@@ -54,7 +54,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigatewayv2.integrations
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.apigatewayv2.integrations<br/>WHERE region = 'us-east-1'
 </pre>

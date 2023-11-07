@@ -20,7 +20,7 @@ Retrieves a list of <code>db_security_group_ingresses</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>db_security_group_ingresses</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>db_security_group_ingresses</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.rds.db_security_group_ingresses</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.rds.db_security_group_ingresses
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.rds.db_security_group_ingresses<br/>WHERE region = 'us-east-1'
 </pre>

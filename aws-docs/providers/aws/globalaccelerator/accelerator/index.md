@@ -20,7 +20,7 @@ Gets an individual <code>accelerator</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>accelerator</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>accelerator</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.globalaccelerator.accelerator</code></td></tr>
 </tbody></table>
 
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.globalaccelerator.accelerator
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AcceleratorArn&gt;'
+SELECT *<br/>FROM aws.globalaccelerator.accelerator<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;AcceleratorArn&gt;'
 </pre>

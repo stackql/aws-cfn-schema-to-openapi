@@ -20,7 +20,7 @@ Gets an individual <code>discoverer</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>discoverer</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>discoverer</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.eventschemas.discoverer</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.eventschemas.discoverer
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;DiscovererId&gt;'
+SELECT *<br/>FROM aws.eventschemas.discoverer<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;DiscovererId&gt;'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>endpoint_access</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>endpoint_access</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>endpoint_access</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.redshift.endpoint_access</code></td></tr>
 </tbody></table>
 
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.redshift.endpoint_access
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;EndpointName&gt;'
+SELECT *<br/>FROM aws.redshift.endpoint_access<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;EndpointName&gt;'
 </pre>

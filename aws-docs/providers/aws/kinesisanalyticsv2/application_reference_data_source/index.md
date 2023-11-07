@@ -20,7 +20,7 @@ Gets an individual <code>application_reference_data_source</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>application_reference_data_source</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>application_reference_data_source</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.kinesisanalyticsv2.application_reference_data_source</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ApplicationName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ReferenceDataSource</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ReferenceDataSource</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.kinesisanalyticsv2.application_reference_data_source
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.kinesisanalyticsv2.application_reference_data_source<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

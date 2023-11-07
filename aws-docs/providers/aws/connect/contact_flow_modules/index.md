@@ -20,7 +20,7 @@ Retrieves a list of <code>contact_flow_modules</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>contact_flow_modules</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>contact_flow_modules</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.contact_flow_modules</code></td></tr>
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.contact_flow_modules
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.connect.contact_flow_modules<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Retrieves a list of <code>certificates</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>certificates</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.certificatemanager.certificates</code></td></tr>
 </tbody></table>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.certificatemanager.certificates
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.certificatemanager.certificates<br/>WHERE region = 'us-east-1'
 </pre>

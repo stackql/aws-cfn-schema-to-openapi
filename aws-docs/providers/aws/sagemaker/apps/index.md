@@ -20,7 +20,7 @@ Retrieves a list of <code>apps</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>apps</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>apps</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.sagemaker.apps</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>AppName</code></td><td><code>string</code></td><td>The name of the app.</td></tr>
 <tr><td><code>AppType</code></td><td><code>string</code></td><td>The type of app.</td></tr>
 <tr><td><code>DomainId</code></td><td><code>string</code></td><td>The domain ID.</td></tr>
-<tr><td><code>ResourceSpec</code></td><td><code>undefined</code></td><td>The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.</td></tr>
+<tr><td><code>ResourceSpec</code></td><td><code>object</code></td><td>The instance type and the Amazon Resource Name (ARN) of the SageMaker image created on the instance.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of tags to apply to the app.</td></tr>
 <tr><td><code>UserProfileName</code></td><td><code>string</code></td><td>The user profile name.</td></tr>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.sagemaker.apps
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.sagemaker.apps<br/>WHERE region = 'us-east-1'
 </pre>

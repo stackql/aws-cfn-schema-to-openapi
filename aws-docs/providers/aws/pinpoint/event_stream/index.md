@@ -20,7 +20,7 @@ Gets an individual <code>event_stream</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>event_stream</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>event_stream</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.pinpoint.event_stream</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.pinpoint.event_stream
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.pinpoint.event_stream<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

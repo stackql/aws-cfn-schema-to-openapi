@@ -20,7 +20,7 @@ Retrieves a list of <code>flows</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>flows</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>flows</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.mediaconnect.flows</code></td></tr>
 </tbody></table>
 
@@ -31,8 +31,8 @@ null
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the flow.</td></tr>
 <tr><td><code>AvailabilityZone</code></td><td><code>string</code></td><td>The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones within the current AWS.</td></tr>
 <tr><td><code>FlowAvailabilityZone</code></td><td><code>string</code></td><td>The Availability Zone that you want to create the flow in. These options are limited to the Availability Zones within the current AWS.(ReadOnly)</td></tr>
-<tr><td><code>Source</code></td><td><code>undefined</code></td><td>The source of the flow.</td></tr>
-<tr><td><code>SourceFailoverConfig</code></td><td><code>undefined</code></td><td>The source failover config of the flow.</td></tr>
+<tr><td><code>Source</code></td><td><code>object</code></td><td>The source of the flow.</td></tr>
+<tr><td><code>SourceFailoverConfig</code></td><td><code>object</code></td><td>The source failover config of the flow.</td></tr>
 
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.mediaconnect.flows
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.mediaconnect.flows<br/>WHERE region = 'us-east-1'
 </pre>

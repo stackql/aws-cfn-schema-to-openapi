@@ -20,7 +20,7 @@ Retrieves a list of <code>clusters</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>clusters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>clusters</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.redshift.clusters</code></td></tr>
 </tbody></table>
 
@@ -56,9 +56,9 @@ null
 <tr><td><code>SnapshotIdentifier</code></td><td><code>string</code></td><td>The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.</td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>OwnerAccount</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LoggingProperties</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Endpoint</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DestinationRegion</code></td><td><code>string</code></td><td>The destination AWS Region that you want to copy snapshots to. Constraints: Must be the name of a valid AWS Region. For more information, see Regions and Endpoints in the Amazon Web Services [https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;general&#x2F;latest&#x2F;gr&#x2F;rande.html#redshift_region] General Reference</td></tr>
+<tr><td><code>LoggingProperties</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Endpoint</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DestinationRegion</code></td><td><code>string</code></td><td>The destination AWS Region that you want to copy snapshots to. Constraints: Must be the name of a valid AWS Region. For more information, see Regions and Endpoints in the Amazon Web Services &#91;https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;general&#x2F;latest&#x2F;gr&#x2F;rande.html#redshift_region&#93; General Reference</td></tr>
 <tr><td><code>SnapshotCopyRetentionPeriod</code></td><td><code>integer</code></td><td>The number of days to retain automated snapshots in the destination region after they are copied from the source region. &lt;br&#x2F;&gt;&lt;br&#x2F;&gt; Default is 7. &lt;br&#x2F;&gt;&lt;br&#x2F;&gt; Constraints: Must be at least 1 and no more than 35.</td></tr>
 <tr><td><code>SnapshotCopyGrantName</code></td><td><code>string</code></td><td>The name of the snapshot copy grant to use when snapshots of an AWS KMS-encrypted cluster are copied to the destination region.</td></tr>
 <tr><td><code>ManualSnapshotRetentionPeriod</code></td><td><code>integer</code></td><td>The number of days to retain newly copied snapshots in the destination AWS Region after they are copied from the source AWS Region. If the value is -1, the manual snapshot is retained indefinitely.&lt;br&#x2F;&gt;&lt;br&#x2F;&gt;The value must be either -1 or an integer between 1 and 3,653.</td></tr>
@@ -85,7 +85,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.redshift.clusters
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.redshift.clusters<br/>WHERE region = 'us-east-1'
 </pre>

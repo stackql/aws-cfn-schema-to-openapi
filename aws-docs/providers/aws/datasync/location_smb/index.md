@@ -20,7 +20,7 @@ Gets an individual <code>location_smb</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>location_smb</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>location_smb</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.datasync.location_smb</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>AgentArns</code></td><td><code>array</code></td><td>The Amazon Resource Names (ARNs) of agents to use for a Simple Message Block (SMB) location.</td></tr>
 <tr><td><code>Domain</code></td><td><code>string</code></td><td>The name of the Windows domain that the SMB server belongs to.</td></tr>
-<tr><td><code>MountOptions</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>MountOptions</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Password</code></td><td><code>string</code></td><td>The password of the user who can mount the share and has the permissions to access files and folders in the SMB share.</td></tr>
 <tr><td><code>ServerHostname</code></td><td><code>string</code></td><td>The name of the SMB server. This value is the IP address or Domain Name Service (DNS) name of the SMB server.</td></tr>
 <tr><td><code>Subdirectory</code></td><td><code>string</code></td><td>The subdirectory in the SMB file system that is used to read data from the SMB source location or write data to the SMB destination</td></tr>
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.datasync.location_smb
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LocationArn&gt;'
+SELECT *<br/>FROM aws.datasync.location_smb<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;LocationArn&gt;'
 </pre>

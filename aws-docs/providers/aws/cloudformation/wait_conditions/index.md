@@ -20,7 +20,7 @@ Retrieves a list of <code>wait_conditions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>wait_conditions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>wait_conditions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cloudformation.wait_conditions</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cloudformation.wait_conditions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.cloudformation.wait_conditions<br/>WHERE region = 'us-east-1'
 </pre>

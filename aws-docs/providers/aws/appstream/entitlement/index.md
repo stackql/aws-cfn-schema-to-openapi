@@ -20,7 +20,7 @@ Gets an individual <code>entitlement</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>entitlement</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>entitlement</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.entitlement</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appstream.entitlement
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;StackName&gt;' AND data__Identifier = '&lt;Name&gt;'
+SELECT *<br/>FROM aws.appstream.entitlement<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;StackName&gt;'<br/>AND data__Identifier = '&lt;Name&gt;'
 </pre>

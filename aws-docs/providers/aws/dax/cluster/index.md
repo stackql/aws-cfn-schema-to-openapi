@@ -20,14 +20,14 @@ Gets an individual <code>cluster</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>cluster</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>cluster</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.dax.cluster</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>SSESpecification</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SSESpecification</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ClusterDiscoveryEndpointURL</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ReplicationFactor</code></td><td><code>integer</code></td><td></td></tr>
@@ -53,7 +53,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.dax.cluster
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.dax.cluster<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

@@ -20,7 +20,7 @@ Retrieves a list of <code>layers</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>layers</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>layers</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opsworks.layers</code></td></tr>
 </tbody></table>
 
@@ -33,12 +33,12 @@ null
 <tr><td><code>AutoAssignPublicIps</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>CustomInstanceProfileArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CustomJson</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>CustomRecipes</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>CustomRecipes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>CustomSecurityGroupIds</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>EnableAutoHealing</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>InstallUpdatesOnBoot</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>LifecycleEventConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>LoadBasedAutoScaling</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>LifecycleEventConfiguration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>LoadBasedAutoScaling</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Packages</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Shortname</code></td><td><code>string</code></td><td></td></tr>
@@ -55,7 +55,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opsworks.layers
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.opsworks.layers<br/>WHERE region = 'us-east-1'
 </pre>

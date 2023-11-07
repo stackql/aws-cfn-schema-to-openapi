@@ -20,7 +20,7 @@ Gets an individual <code>packaging_configuration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>packaging_configuration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>packaging_configuration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.mediapackage.packaging_configuration</code></td></tr>
 </tbody></table>
 
@@ -30,10 +30,10 @@ null
 <tr><td><code>Id</code></td><td><code>string</code></td><td>The ID of the PackagingConfiguration.</td></tr>
 <tr><td><code>PackagingGroupId</code></td><td><code>string</code></td><td>The ID of a PackagingGroup.</td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The ARN of the PackagingConfiguration.</td></tr>
-<tr><td><code>CmafPackage</code></td><td><code>undefined</code></td><td>A CMAF packaging configuration.</td></tr>
-<tr><td><code>DashPackage</code></td><td><code>undefined</code></td><td>A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.</td></tr>
-<tr><td><code>HlsPackage</code></td><td><code>undefined</code></td><td>An HTTP Live Streaming (HLS) packaging configuration.</td></tr>
-<tr><td><code>MssPackage</code></td><td><code>undefined</code></td><td>A Microsoft Smooth Streaming (MSS) PackagingConfiguration.</td></tr>
+<tr><td><code>CmafPackage</code></td><td><code>object</code></td><td>A CMAF packaging configuration.</td></tr>
+<tr><td><code>DashPackage</code></td><td><code>object</code></td><td>A Dynamic Adaptive Streaming over HTTP (DASH) packaging configuration.</td></tr>
+<tr><td><code>HlsPackage</code></td><td><code>object</code></td><td>An HTTP Live Streaming (HLS) packaging configuration.</td></tr>
+<tr><td><code>MssPackage</code></td><td><code>object</code></td><td>A Microsoft Smooth Streaming (MSS) PackagingConfiguration.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
 
 </tbody></table>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.mediapackage.packaging_configuration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.mediapackage.packaging_configuration<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

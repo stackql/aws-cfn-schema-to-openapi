@@ -20,7 +20,7 @@ Gets an individual <code>cluster</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>cluster</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>cluster</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.emr.cluster</code></td></tr>
 </tbody></table>
 
@@ -39,15 +39,15 @@ null
 <tr><td><code>Configurations</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>ReleaseLabel</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>ManagedScalingPolicy</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ManagedScalingPolicy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>LogEncryptionKmsKeyId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>AdditionalInfo</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>AutoTerminationPolicy</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>KerberosAttributes</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AutoTerminationPolicy</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>KerberosAttributes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Applications</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>AutoScalingRole</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CustomAmiId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Instances</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Instances</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ScaleDownBehavior</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>JobFlowRole</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>VisibleToAllUsers</code></td><td><code>boolean</code></td><td></td></tr>
@@ -61,7 +61,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.emr.cluster
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.emr.cluster<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

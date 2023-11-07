@@ -20,16 +20,16 @@ Retrieves a list of <code>grants</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>grants</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>grants</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.licensemanager.grants</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>GrantArn</code></td><td><code>undefined</code></td><td>Arn of the grant.</td></tr>
+<tr><td><code>GrantArn</code></td><td><code>string</code></td><td>Arn of the grant.</td></tr>
 <tr><td><code>GrantName</code></td><td><code>string</code></td><td>Name for the created Grant.</td></tr>
-<tr><td><code>LicenseArn</code></td><td><code>undefined</code></td><td>License Arn for the grant.</td></tr>
+<tr><td><code>LicenseArn</code></td><td><code>string</code></td><td>License Arn for the grant.</td></tr>
 <tr><td><code>HomeRegion</code></td><td><code>string</code></td><td>Home region for the created grant.</td></tr>
 <tr><td><code>Version</code></td><td><code>string</code></td><td>The version of the grant.</td></tr>
 <tr><td><code>AllowedOperations</code></td><td><code>array</code></td><td></td></tr>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.licensemanager.grants
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.licensemanager.grants<br/>WHERE region = 'us-east-1'
 </pre>

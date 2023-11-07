@@ -20,7 +20,7 @@ Retrieves a list of <code>permissions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>permissions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>permissions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.acmpca.permissions</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.acmpca.permissions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.acmpca.permissions<br/>WHERE region = 'us-east-1'
 </pre>

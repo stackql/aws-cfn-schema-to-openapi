@@ -20,7 +20,7 @@ Gets an individual <code>server</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>server</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>server</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opsworkscm.server</code></td></tr>
 </tbody></table>
 
@@ -58,7 +58,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opsworkscm.server
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ServerName&gt;'
+SELECT *<br/>FROM aws.opsworkscm.server<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ServerName&gt;'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>storage_virtual_machine</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>storage_virtual_machine</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>storage_virtual_machine</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.fsx.storage_virtual_machine</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>ResourceARN</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>SvmAdminPassword</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StorageVirtualMachineId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ActiveDirectoryConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ActiveDirectoryConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>RootVolumeSecurityStyle</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>FileSystemId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>UUID</code></td><td><code>string</code></td><td></td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.fsx.storage_virtual_machine
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;StorageVirtualMachineId&gt;'
+SELECT *<br/>FROM aws.fsx.storage_virtual_machine<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;StorageVirtualMachineId&gt;'
 </pre>

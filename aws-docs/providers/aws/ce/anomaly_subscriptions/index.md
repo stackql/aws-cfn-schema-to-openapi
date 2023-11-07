@@ -20,14 +20,14 @@ Retrieves a list of <code>anomaly_subscriptions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>anomaly_subscriptions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>anomaly_subscriptions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ce.anomaly_subscriptions</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>SubscriptionArn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SubscriptionArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>SubscriptionName</code></td><td><code>string</code></td><td>The name of the subscription.</td></tr>
 <tr><td><code>AccountId</code></td><td><code>string</code></td><td>The accountId</td></tr>
 <tr><td><code>MonitorArnList</code></td><td><code>array</code></td><td>A list of cost anomaly monitors.</td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ce.anomaly_subscriptions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.ce.anomaly_subscriptions<br/>WHERE region = 'us-east-1'
 </pre>

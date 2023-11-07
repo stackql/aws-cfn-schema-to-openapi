@@ -20,7 +20,7 @@ Retrieves a list of <code>hubs</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>hubs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>hubs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.securityhub.hubs</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.securityhub.hubs
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.securityhub.hubs<br/>WHERE region = 'us-east-1'
 </pre>

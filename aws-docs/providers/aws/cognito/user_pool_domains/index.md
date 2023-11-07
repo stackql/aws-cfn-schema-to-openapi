@@ -20,7 +20,7 @@ Retrieves a list of <code>user_pool_domains</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>user_pool_domains</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>user_pool_domains</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cognito.user_pool_domains</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>UserPoolId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Domain</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CustomDomainConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>CustomDomainConfig</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cognito.user_pool_domains
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.cognito.user_pool_domains<br/>WHERE region = 'us-east-1'
 </pre>

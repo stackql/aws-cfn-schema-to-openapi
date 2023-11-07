@@ -20,7 +20,7 @@ Retrieves a list of <code>recovery_groups</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>recovery_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>recovery_groups</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53recoveryreadiness.recovery_groups</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.route53recoveryreadiness.recovery_groups
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.route53recoveryreadiness.recovery_groups<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>index</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>index</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>index</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.resourceexplorer2.index</code></td></tr>
 </tbody></table>
 
@@ -28,9 +28,9 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>IndexState</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>IndexState</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.resourceexplorer2.index
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.resourceexplorer2.index<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

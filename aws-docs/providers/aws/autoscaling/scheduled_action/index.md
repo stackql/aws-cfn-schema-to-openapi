@@ -20,7 +20,7 @@ Gets an individual <code>scheduled_action</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>scheduled_action</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>scheduled_action</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.autoscaling.scheduled_action</code></td></tr>
 </tbody></table>
 
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.autoscaling.scheduled_action
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ScheduledActionName&gt;' AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
+SELECT *<br/>FROM aws.autoscaling.scheduled_action<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ScheduledActionName&gt;'<br/>AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
 </pre>

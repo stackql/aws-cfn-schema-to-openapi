@@ -20,7 +20,7 @@ Retrieves a list of <code>email_templates</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>email_templates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>email_templates</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.pinpoint.email_templates</code></td></tr>
 </tbody></table>
 
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.pinpoint.email_templates
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.pinpoint.email_templates<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>data_integration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>data_integration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>data_integration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appintegrations.data_integration</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>DataIntegrationArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the data integration.</td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the data integration.</td></tr>
 <tr><td><code>KmsKey</code></td><td><code>string</code></td><td>The KMS key of the data integration.</td></tr>
-<tr><td><code>ScheduleConfig</code></td><td><code>undefined</code></td><td>The name of the data and how often it should be pulled from the source.</td></tr>
+<tr><td><code>ScheduleConfig</code></td><td><code>object</code></td><td>The name of the data and how often it should be pulled from the source.</td></tr>
 <tr><td><code>SourceURI</code></td><td><code>string</code></td><td>The URI of the data source.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags (keys and values) associated with the data integration.</td></tr>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appintegrations.data_integration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.appintegrations.data_integration<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

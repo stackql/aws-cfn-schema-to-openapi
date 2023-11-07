@@ -20,7 +20,7 @@ Retrieves a list of <code>git_hub_repositories</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>git_hub_repositories</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>git_hub_repositories</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codestar.git_hub_repositories</code></td></tr>
 </tbody></table>
 
@@ -34,7 +34,7 @@ null
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RepositoryOwner</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>IsPrivate</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Code</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Code</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>RepositoryDescription</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.codestar.git_hub_repositories
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.codestar.git_hub_repositories<br/>WHERE region = 'us-east-1'
 </pre>

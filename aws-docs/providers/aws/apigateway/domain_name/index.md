@@ -20,7 +20,7 @@ Gets an individual <code>domain_name</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>domain_name</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>domain_name</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.domain_name</code></td></tr>
 </tbody></table>
 
@@ -30,8 +30,8 @@ null
 <tr><td><code>DomainName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DistributionDomainName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DistributionHostedZoneId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EndpointConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>MutualTlsAuthentication</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>EndpointConfiguration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>MutualTlsAuthentication</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>RegionalDomainName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RegionalHostedZoneId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CertificateArn</code></td><td><code>string</code></td><td></td></tr>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.domain_name
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;DomainName&gt;'
+SELECT *<br/>FROM aws.apigateway.domain_name<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;DomainName&gt;'
 </pre>

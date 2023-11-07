@@ -20,7 +20,7 @@ Retrieves a list of <code>microsoft_ads</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>microsoft_ads</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>microsoft_ads</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.directoryservice.microsoft_ads</code></td></tr>
 </tbody></table>
 
@@ -36,7 +36,7 @@ null
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Password</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ShortName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>VpcSettings</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>VpcSettings</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.directoryservice.microsoft_ads
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.directoryservice.microsoft_ads<br/>WHERE region = 'us-east-1'
 </pre>

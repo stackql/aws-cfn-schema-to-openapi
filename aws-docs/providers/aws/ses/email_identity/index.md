@@ -20,7 +20,7 @@ Gets an individual <code>email_identity</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>email_identity</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>email_identity</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ses.email_identity</code></td></tr>
 </tbody></table>
 
@@ -28,11 +28,11 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>EmailIdentity</code></td><td><code>string</code></td><td>The email address or domain to verify.</td></tr>
-<tr><td><code>ConfigurationSetAttributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DkimSigningAttributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DkimAttributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>MailFromAttributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>FeedbackAttributes</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ConfigurationSetAttributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DkimSigningAttributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DkimAttributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>MailFromAttributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>FeedbackAttributes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>DkimDNSTokenName1</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DkimDNSTokenName2</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DkimDNSTokenName3</code></td><td><code>string</code></td><td></td></tr>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ses.email_identity
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;EmailIdentity&gt;'
+SELECT *<br/>FROM aws.ses.email_identity<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;EmailIdentity&gt;'
 </pre>

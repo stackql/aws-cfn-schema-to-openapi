@@ -20,7 +20,7 @@ Gets an individual <code>publisher</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>publisher</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>publisher</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cloudformation.publisher</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cloudformation.publisher
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;PublisherId&gt;'
+SELECT *<br/>FROM aws.cloudformation.publisher<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;PublisherId&gt;'
 </pre>

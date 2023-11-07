@@ -20,7 +20,7 @@ Gets an individual <code>listener_rule</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>listener_rule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>listener_rule</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.elasticloadbalancingv2.listener_rule</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.elasticloadbalancingv2.listener_rule
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;RuleArn&gt;'
+SELECT *<br/>FROM aws.elasticloadbalancingv2.listener_rule<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;RuleArn&gt;'
 </pre>

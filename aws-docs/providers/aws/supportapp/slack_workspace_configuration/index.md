@@ -20,7 +20,7 @@ Gets an individual <code>slack_workspace_configuration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>slack_workspace_configuration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>slack_workspace_configuration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.supportapp.slack_workspace_configuration</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.supportapp.slack_workspace_configuration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TeamId&gt;'
+SELECT *<br/>FROM aws.supportapp.slack_workspace_configuration<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;TeamId&gt;'
 </pre>

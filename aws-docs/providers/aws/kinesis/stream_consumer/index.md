@@ -20,7 +20,7 @@ Gets an individual <code>stream_consumer</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>stream_consumer</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>stream_consumer</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.kinesis.stream_consumer</code></td></tr>
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.kinesis.stream_consumer
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.kinesis.stream_consumer<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

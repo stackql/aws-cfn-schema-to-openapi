@@ -20,7 +20,7 @@ Retrieves a list of <code>access_points</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>access_points</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>access_points</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.s3outposts.access_points</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AccessPoint.</td></tr>
 <tr><td><code>Bucket</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with.</td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>A name for the AccessPoint.</td></tr>
-<tr><td><code>VpcConfiguration</code></td><td><code>undefined</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr>
+<tr><td><code>VpcConfiguration</code></td><td><code>object</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr>
 <tr><td><code>Policy</code></td><td><code>object</code></td><td>The access point policy associated with this access point.</td></tr>
 
 </tbody></table>
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.s3outposts.access_points
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.s3outposts.access_points<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>attribute_group</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>attribute_group</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>attribute_group</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicecatalogappregistry.attribute_group</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the attribute group. </td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the attribute group. </td></tr>
 <tr><td><code>Attributes</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.servicecatalogappregistry.attribute_group
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.servicecatalogappregistry.attribute_group<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

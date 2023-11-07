@@ -20,7 +20,7 @@ Retrieves a list of <code>deployments</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>deployments</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>deployments</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.deployments</code></td></tr>
 </tbody></table>
 
@@ -28,10 +28,10 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>DeploymentId</code></td><td><code>string</code></td><td>Primary Id for this resource</td></tr>
-<tr><td><code>DeploymentCanarySettings</code></td><td><code>undefined</code></td><td>Specifies settings for the canary deployment.</td></tr>
+<tr><td><code>DeploymentCanarySettings</code></td><td><code>object</code></td><td>Specifies settings for the canary deployment.</td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>A description of the purpose of the API Gateway deployment.</td></tr>
 <tr><td><code>RestApiId</code></td><td><code>string</code></td><td>The ID of the RestApi resource to deploy. </td></tr>
-<tr><td><code>StageDescription</code></td><td><code>undefined</code></td><td>Configures the stage that API Gateway creates with this deployment.</td></tr>
+<tr><td><code>StageDescription</code></td><td><code>object</code></td><td>Configures the stage that API Gateway creates with this deployment.</td></tr>
 <tr><td><code>StageName</code></td><td><code>string</code></td><td>A name for the stage that API Gateway creates with this deployment. Use only alphanumeric characters.</td></tr>
 
 </tbody></table>
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.deployments
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.apigateway.deployments<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>deployment</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>deployment</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>deployment</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appconfig.deployment</code></td></tr>
 </tbody></table>
 
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appconfig.deployment
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.appconfig.deployment<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

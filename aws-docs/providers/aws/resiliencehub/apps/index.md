@@ -20,7 +20,7 @@ Retrieves a list of <code>apps</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>apps</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>apps</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.resiliencehub.apps</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td>App description.</td></tr>
 <tr><td><code>AppArn</code></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the App.</td></tr>
 <tr><td><code>ResiliencyPolicyArn</code></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the Resiliency Policy.</td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>AppTemplateBody</code></td><td><code>string</code></td><td>A string containing full ResilienceHub app template body.</td></tr>
 <tr><td><code>ResourceMappings</code></td><td><code>array</code></td><td>An array of ResourceMapping objects.</td></tr>
 <tr><td><code>AppAssessmentSchedule</code></td><td><code>string</code></td><td>Assessment execution schedule.</td></tr>
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.resiliencehub.apps
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.resiliencehub.apps<br/>WHERE region = 'us-east-1'
 </pre>

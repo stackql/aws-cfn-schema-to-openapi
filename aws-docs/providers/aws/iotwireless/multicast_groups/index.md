@@ -20,7 +20,7 @@ Retrieves a list of <code>multicast_groups</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>multicast_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>multicast_groups</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotwireless.multicast_groups</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>Name of Multicast group</td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>Multicast group description</td></tr>
-<tr><td><code>LoRaWAN</code></td><td><code>undefined</code></td><td>Multicast group LoRaWAN</td></tr>
+<tr><td><code>LoRaWAN</code></td><td><code>object</code></td><td>Multicast group LoRaWAN</td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>Multicast group arn. Returned after successful create.</td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td>Multicast group id. Returned after successful create.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the Multicast group.</td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iotwireless.multicast_groups
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iotwireless.multicast_groups<br/>WHERE region = 'us-east-1'
 </pre>

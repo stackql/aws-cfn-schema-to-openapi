@@ -20,7 +20,7 @@ Retrieves a list of <code>matchmaking_rule_sets</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>matchmaking_rule_sets</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>matchmaking_rule_sets</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.gamelift.matchmaking_rule_sets</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.gamelift.matchmaking_rule_sets
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.gamelift.matchmaking_rule_sets<br/>WHERE region = 'us-east-1'
 </pre>

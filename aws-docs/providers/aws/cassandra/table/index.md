@@ -20,7 +20,7 @@ Gets an individual <code>table</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>table</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>table</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cassandra.table</code></td></tr>
 </tbody></table>
 
@@ -32,12 +32,12 @@ null
 <tr><td><code>RegularColumns</code></td><td><code>array</code></td><td>Non-key columns of the table</td></tr>
 <tr><td><code>PartitionKeyColumns</code></td><td><code>array</code></td><td>Partition key columns of the table</td></tr>
 <tr><td><code>ClusteringKeyColumns</code></td><td><code>array</code></td><td>Clustering key columns of the table</td></tr>
-<tr><td><code>BillingMode</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>BillingMode</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>PointInTimeRecoveryEnabled</code></td><td><code>boolean</code></td><td>Indicates whether point in time recovery is enabled (true) or disabled (false) on the table</td></tr>
 <tr><td><code>ClientSideTimestampsEnabled</code></td><td><code>boolean</code></td><td>Indicates whether client side timestamps are enabled (true) or disabled (false) on the table. False by default, once it is enabled it cannot be disabled again.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource</td></tr>
 <tr><td><code>DefaultTimeToLive</code></td><td><code>integer</code></td><td>Default TTL (Time To Live) in seconds, where zero is disabled. If the value is greater than zero, TTL is enabled for the entire table and an expiration timestamp is added to each column.</td></tr>
-<tr><td><code>EncryptionSpecification</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>EncryptionSpecification</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cassandra.table
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;KeyspaceName&gt;' AND data__Identifier = '&lt;TableName&gt;'
+SELECT *<br/>FROM aws.cassandra.table<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;KeyspaceName&gt;'<br/>AND data__Identifier = '&lt;TableName&gt;'
 </pre>

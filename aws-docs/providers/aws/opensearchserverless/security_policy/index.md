@@ -20,7 +20,7 @@ Gets an individual <code>security_policy</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>security_policy</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>security_policy</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.opensearchserverless.security_policy</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the policy</td></tr>
 <tr><td><code>Policy</code></td><td><code>string</code></td><td>The JSON policy document that is the content for the policy</td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the policy</td></tr>
-<tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.opensearchserverless.security_policy
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Type&gt;' AND data__Identifier = '&lt;Name&gt;'
+SELECT *<br/>FROM aws.opensearchserverless.security_policy<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Type&gt;'<br/>AND data__Identifier = '&lt;Name&gt;'
 </pre>

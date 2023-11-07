@@ -20,7 +20,7 @@ Gets an individual <code>scalable_target</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>scalable_target</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>scalable_target</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.applicationautoscaling.scalable_target</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>ResourceId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ServiceNamespace</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ScalableDimension</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SuspendedState</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SuspendedState</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>MinCapacity</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>RoleARN</code></td><td><code>string</code></td><td></td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.applicationautoscaling.scalable_target
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.applicationautoscaling.scalable_target<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

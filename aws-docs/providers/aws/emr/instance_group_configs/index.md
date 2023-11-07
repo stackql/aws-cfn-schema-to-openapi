@@ -20,7 +20,7 @@ Retrieves a list of <code>instance_group_configs</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instance_group_configs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instance_group_configs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.emr.instance_group_configs</code></td></tr>
 </tbody></table>
 
@@ -28,10 +28,10 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>JobFlowId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AutoScalingPolicy</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AutoScalingPolicy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>BidPrice</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>InstanceCount</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>EbsConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>EbsConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>InstanceRole</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CustomAmiId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.emr.instance_group_configs
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.emr.instance_group_configs<br/>WHERE region = 'us-east-1'
 </pre>

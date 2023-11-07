@@ -20,7 +20,7 @@ Gets an individual <code>state_machine</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>state_machine</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>state_machine</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.stepfunctions.state_machine</code></td></tr>
 </tbody></table>
 
@@ -33,11 +33,11 @@ null
 <tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StateMachineName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StateMachineType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LoggingConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>TracingConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DefinitionS3Location</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DefinitionSubstitutions</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Definition</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>LoggingConfiguration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>TracingConfiguration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DefinitionS3Location</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>DefinitionSubstitutions</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Definition</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 
 </tbody></table>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.stepfunctions.state_machine
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.stepfunctions.state_machine<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

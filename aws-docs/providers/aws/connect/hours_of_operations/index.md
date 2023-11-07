@@ -20,7 +20,7 @@ Retrieves a list of <code>hours_of_operations</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>hours_of_operations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>hours_of_operations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.hours_of_operations</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.hours_of_operations
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.connect.hours_of_operations<br/>WHERE region = 'us-east-1'
 </pre>

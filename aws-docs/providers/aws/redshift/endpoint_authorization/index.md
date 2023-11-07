@@ -20,15 +20,15 @@ Gets an individual <code>endpoint_authorization</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>endpoint_authorization</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>endpoint_authorization</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.redshift.endpoint_authorization</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Grantor</code></td><td><code>undefined</code></td><td>The AWS account ID of the cluster owner.</td></tr>
-<tr><td><code>Grantee</code></td><td><code>undefined</code></td><td>The AWS account ID of the grantee of the cluster.</td></tr>
+<tr><td><code>Grantor</code></td><td><code>string</code></td><td>The AWS account ID of the cluster owner.</td></tr>
+<tr><td><code>Grantee</code></td><td><code>string</code></td><td>The AWS account ID of the grantee of the cluster.</td></tr>
 <tr><td><code>ClusterIdentifier</code></td><td><code>string</code></td><td>The cluster identifier.</td></tr>
 <tr><td><code>AuthorizeTime</code></td><td><code>string</code></td><td>The time (UTC) when the authorization was created.</td></tr>
 <tr><td><code>ClusterStatus</code></td><td><code>string</code></td><td>The status of the cluster.</td></tr>
@@ -36,7 +36,7 @@ null
 <tr><td><code>AllowedAllVPCs</code></td><td><code>boolean</code></td><td>Indicates whether all VPCs in the grantee account are allowed access to the cluster.</td></tr>
 <tr><td><code>AllowedVPCs</code></td><td><code>array</code></td><td>The VPCs allowed access to the cluster.</td></tr>
 <tr><td><code>EndpointCount</code></td><td><code>integer</code></td><td>The number of Redshift-managed VPC endpoints created for the authorization.</td></tr>
-<tr><td><code>Account</code></td><td><code>undefined</code></td><td>The target AWS account ID to grant or revoke access for.</td></tr>
+<tr><td><code>Account</code></td><td><code>string</code></td><td>The target AWS account ID to grant or revoke access for.</td></tr>
 <tr><td><code>VpcIds</code></td><td><code>array</code></td><td>The virtual private cloud (VPC) identifiers to grant or revoke access to.</td></tr>
 <tr><td><code>Force</code></td><td><code>boolean</code></td><td> Indicates whether to force the revoke action. If true, the Redshift-managed VPC endpoints associated with the endpoint authorization are also deleted.</td></tr>
 
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.redshift.endpoint_authorization
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ClusterIdentifier&gt;' AND data__Identifier = '&lt;Account&gt;'
+SELECT *<br/>FROM aws.redshift.endpoint_authorization<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ClusterIdentifier&gt;'<br/>AND data__Identifier = '&lt;Account&gt;'
 </pre>

@@ -20,14 +20,14 @@ Retrieves a list of <code>cloud_front_origin_access_identities</code> in a regio
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>cloud_front_origin_access_identities</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>cloud_front_origin_access_identities</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cloudfront.cloud_front_origin_access_identities</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>CloudFrontOriginAccessIdentityConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>CloudFrontOriginAccessIdentityConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>S3CanonicalUserId</code></td><td><code>string</code></td><td></td></tr>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.cloudfront.cloud_front_origin_access_identities
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.cloudfront.cloud_front_origin_access_identities<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>group_membership</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>group_membership</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>group_membership</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.identitystore.group_membership</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>GroupId</code></td><td><code>string</code></td><td>The unique identifier for a group in the identity store.</td></tr>
 <tr><td><code>IdentityStoreId</code></td><td><code>string</code></td><td>The globally unique identifier for the identity store.</td></tr>
-<tr><td><code>MemberId</code></td><td><code>undefined</code></td><td>An object containing the identifier of a group member.</td></tr>
+<tr><td><code>MemberId</code></td><td><code>object</code></td><td>An object containing the identifier of a group member.</td></tr>
 <tr><td><code>MembershipId</code></td><td><code>string</code></td><td>The identifier for a GroupMembership in the identity store.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.identitystore.group_membership
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;MembershipId&gt;' AND data__Identifier = '&lt;IdentityStoreId&gt;'
+SELECT *<br/>FROM aws.identitystore.group_membership<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;MembershipId&gt;'<br/>AND data__Identifier = '&lt;IdentityStoreId&gt;'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>broker</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>broker</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>broker</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.amazonmq.broker</code></td></tr>
 </tbody></table>
 
@@ -28,7 +28,7 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>SecurityGroups</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Configuration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>AuthenticationStrategy</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Users</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>SubnetIds</code></td><td><code>array</code></td><td></td></tr>
@@ -37,21 +37,21 @@ null
 <tr><td><code>AmqpEndpoints</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>DeploymentMode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>EngineType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EncryptionOptions</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>EncryptionOptions</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>ConfigurationRevision</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>StorageType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>EngineVersion</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>MaintenanceWindowStartTime</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>MaintenanceWindowStartTime</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>HostInstanceType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>AutoMinorVersionUpgrade</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Logs</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Logs</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ConfigurationId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>BrokerName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>WssEndpoints</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>IpAddresses</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>OpenWireEndpoints</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>LdapServerMetadata</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>LdapServerMetadata</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>PubliclyAccessible</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
@@ -63,7 +63,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.amazonmq.broker
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.amazonmq.broker<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

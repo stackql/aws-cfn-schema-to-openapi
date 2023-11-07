@@ -20,7 +20,7 @@ Gets an individual <code>profiling_group</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>profiling_group</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>profiling_group</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codeguruprofiler.profiling_group</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>ComputePlatform</code></td><td><code>string</code></td><td>The compute platform of the profiling group.</td></tr>
 <tr><td><code>AgentPermissions</code></td><td><code>object</code></td><td>The agent permissions attached to this profiling group.</td></tr>
 <tr><td><code>AnomalyDetectionNotificationConfiguration</code></td><td><code>array</code></td><td>Configuration for Notification Channels for Anomaly Detection feature in CodeGuru Profiler which enables customers to detect anomalies in the application profile for those methods that represent the highest proportion of CPU time or latency</td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) of the specified profiling group.</td></tr>
+<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified profiling group.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags associated with a profiling group.</td></tr>
 
 </tbody></table>
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.codeguruprofiler.profiling_group
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ProfilingGroupName&gt;'
+SELECT *<br/>FROM aws.codeguruprofiler.profiling_group<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ProfilingGroupName&gt;'
 </pre>

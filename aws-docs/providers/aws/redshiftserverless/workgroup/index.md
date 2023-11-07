@@ -20,7 +20,7 @@ Gets an individual <code>workgroup</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>workgroup</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>workgroup</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.redshiftserverless.workgroup</code></td></tr>
 </tbody></table>
 
@@ -37,7 +37,7 @@ null
 <tr><td><code>PubliclyAccessible</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>Port</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Workgroup</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Workgroup</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.redshiftserverless.workgroup
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;WorkgroupName&gt;'
+SELECT *<br/>FROM aws.redshiftserverless.workgroup<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;WorkgroupName&gt;'
 </pre>

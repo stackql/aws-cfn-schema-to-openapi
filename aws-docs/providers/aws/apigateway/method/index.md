@@ -20,7 +20,7 @@ Gets an individual <code>method</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>method</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>method</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.method</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>AuthorizationType</code></td><td><code>string</code></td><td>The method's authorization type.</td></tr>
 <tr><td><code>AuthorizerId</code></td><td><code>string</code></td><td>The identifier of the authorizer to use on this method.</td></tr>
 <tr><td><code>HttpMethod</code></td><td><code>string</code></td><td>The backend system that the method calls when it receives a request.</td></tr>
-<tr><td><code>Integration</code></td><td><code>undefined</code></td><td>The backend system that the method calls when it receives a request.</td></tr>
+<tr><td><code>Integration</code></td><td><code>object</code></td><td>The backend system that the method calls when it receives a request.</td></tr>
 <tr><td><code>MethodResponses</code></td><td><code>array</code></td><td>The responses that can be sent to the client who calls the method.</td></tr>
 <tr><td><code>OperationName</code></td><td><code>string</code></td><td>A friendly operation name for the method.</td></tr>
 <tr><td><code>RequestModels</code></td><td><code>object</code></td><td>The resources that are used for the request's content type. Specify request models as key-value pairs (string-to-string mapping), with a content type as the key and a Model resource name as the value.</td></tr>
@@ -48,7 +48,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.method
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;RestApiId&gt;' AND data__Identifier = '&lt;ResourceId&gt;' AND data__Identifier = '&lt;HttpMethod&gt;'
+SELECT *<br/>FROM aws.apigateway.method<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;RestApiId&gt;'<br/>AND data__Identifier = '&lt;ResourceId&gt;'<br/>AND data__Identifier = '&lt;HttpMethod&gt;'
 </pre>

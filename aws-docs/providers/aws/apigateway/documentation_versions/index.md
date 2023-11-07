@@ -20,7 +20,7 @@ Retrieves a list of <code>documentation_versions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>documentation_versions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>documentation_versions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.documentation_versions</code></td></tr>
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.documentation_versions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.apigateway.documentation_versions<br/>WHERE region = 'us-east-1'
 </pre>

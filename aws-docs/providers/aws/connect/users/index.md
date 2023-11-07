@@ -20,7 +20,7 @@ Retrieves a list of <code>users</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>users</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>users</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.users</code></td></tr>
 </tbody></table>
 
@@ -33,8 +33,8 @@ null
 <tr><td><code>Username</code></td><td><code>string</code></td><td>The user name for the account.</td></tr>
 <tr><td><code>Password</code></td><td><code>string</code></td><td>The password for the user account. A password is required if you are using Amazon Connect for identity management. Otherwise, it is an error to include a password.</td></tr>
 <tr><td><code>RoutingProfileArn</code></td><td><code>string</code></td><td>The identifier of the routing profile for the user.</td></tr>
-<tr><td><code>IdentityInfo</code></td><td><code>undefined</code></td><td>The information about the identity of the user.</td></tr>
-<tr><td><code>PhoneConfig</code></td><td><code>undefined</code></td><td>The phone settings for the user.</td></tr>
+<tr><td><code>IdentityInfo</code></td><td><code>object</code></td><td>The information about the identity of the user.</td></tr>
+<tr><td><code>PhoneConfig</code></td><td><code>object</code></td><td>The phone settings for the user.</td></tr>
 <tr><td><code>SecurityProfileArns</code></td><td><code>array</code></td><td>One or more security profile arns for the user</td></tr>
 <tr><td><code>UserArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the user.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>One or more tags.</td></tr>
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.users
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.connect.users<br/>WHERE region = 'us-east-1'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>object_type</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>object_type</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>object_type</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.customerprofiles.object_type</code></td></tr>
 </tbody></table>
 
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.customerprofiles.object_type
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;DomainName&gt;' AND data__Identifier = '&lt;ObjectTypeName&gt;'
+SELECT *<br/>FROM aws.customerprofiles.object_type<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;DomainName&gt;'<br/>AND data__Identifier = '&lt;ObjectTypeName&gt;'
 </pre>

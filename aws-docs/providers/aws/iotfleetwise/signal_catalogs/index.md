@@ -20,7 +20,7 @@ Retrieves a list of <code>signal_catalogs</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>signal_catalogs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>signal_catalogs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotfleetwise.signal_catalogs</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>LastModificationTime</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>NodeCounts</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>NodeCounts</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Nodes</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iotfleetwise.signal_catalogs
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iotfleetwise.signal_catalogs<br/>WHERE region = 'us-east-1'
 </pre>

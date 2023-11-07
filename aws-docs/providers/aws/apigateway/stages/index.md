@@ -20,17 +20,17 @@ Retrieves a list of <code>stages</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>stages</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>stages</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.stages</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>AccessLogSetting</code></td><td><code>undefined</code></td><td>Specifies settings for logging access in this stage.</td></tr>
+<tr><td><code>AccessLogSetting</code></td><td><code>object</code></td><td>Specifies settings for logging access in this stage.</td></tr>
 <tr><td><code>CacheClusterEnabled</code></td><td><code>boolean</code></td><td>Indicates whether cache clustering is enabled for the stage.</td></tr>
 <tr><td><code>CacheClusterSize</code></td><td><code>string</code></td><td>The stage's cache cluster size.</td></tr>
-<tr><td><code>CanarySetting</code></td><td><code>undefined</code></td><td>Specifies settings for the canary deployment in this stage.</td></tr>
+<tr><td><code>CanarySetting</code></td><td><code>object</code></td><td>Specifies settings for the canary deployment in this stage.</td></tr>
 <tr><td><code>ClientCertificateId</code></td><td><code>string</code></td><td>The ID of the client certificate that API Gateway uses to call your integration endpoints in the stage. </td></tr>
 <tr><td><code>DeploymentId</code></td><td><code>string</code></td><td>The ID of the deployment that the stage is associated with. This parameter is required to create a stage. </td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>A description of the stage.</td></tr>
@@ -49,7 +49,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.apigateway.stages
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.apigateway.stages<br/>WHERE region = 'us-east-1'
 </pre>

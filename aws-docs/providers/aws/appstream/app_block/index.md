@@ -20,7 +20,7 @@ Gets an individual <code>app_block</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>app_block</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>app_block</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.app_block</code></td></tr>
 </tbody></table>
 
@@ -28,11 +28,11 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DisplayName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SourceS3Location</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>SetupScriptDetails</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SourceS3Location</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>SetupScriptDetails</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>CreatedTime</code></td><td><code>string</code></td><td></td></tr>
 
@@ -43,7 +43,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.appstream.app_block
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.appstream.app_block<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

@@ -20,7 +20,7 @@ Gets an individual <code>findings_filter</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>findings_filter</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>findings_filter</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.macie.findings_filter</code></td></tr>
 </tbody></table>
 
@@ -29,8 +29,8 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td>Findings filter name</td></tr>
 <tr><td><code>Description</code></td><td><code>string</code></td><td>Findings filter description</td></tr>
-<tr><td><code>FindingCriteria</code></td><td><code>undefined</code></td><td>Findings filter criteria.</td></tr>
-<tr><td><code>Action</code></td><td><code>undefined</code></td><td>Findings filter action.</td></tr>
+<tr><td><code>FindingCriteria</code></td><td><code>object</code></td><td>Findings filter criteria.</td></tr>
+<tr><td><code>Action</code></td><td><code>string</code></td><td>Findings filter action.</td></tr>
 <tr><td><code>Position</code></td><td><code>integer</code></td><td>Findings filter position.</td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td>Findings filter ID.</td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td>Findings filter ARN.</td></tr>
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.macie.findings_filter
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.macie.findings_filter<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

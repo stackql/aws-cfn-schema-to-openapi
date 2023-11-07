@@ -20,7 +20,7 @@ Retrieves a list of <code>things</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>things</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>things</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.things</code></td></tr>
 </tbody></table>
 
@@ -29,7 +29,7 @@ null
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AttributePayload</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AttributePayload</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ThingName</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot.things
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iot.things<br/>WHERE region = 'us-east-1'
 </pre>

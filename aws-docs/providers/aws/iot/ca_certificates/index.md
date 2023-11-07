@@ -20,7 +20,7 @@ Retrieves a list of <code>ca_certificates</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>ca_certificates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>ca_certificates</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.ca_certificates</code></td></tr>
 </tbody></table>
 
@@ -33,7 +33,7 @@ null
 <tr><td><code>CertificateMode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>AutoRegistrationStatus</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>RemoveAutoRegistration</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>RegistrationConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>RegistrationConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot.ca_certificates
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iot.ca_certificates<br/>WHERE region = 'us-east-1'
 </pre>

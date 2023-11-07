@@ -20,17 +20,17 @@ Gets an individual <code>bot_version</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>bot_version</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>bot_version</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lex.bot_version</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>BotId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>BotVersion</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>BotVersionLocaleSpecification</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>BotId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>BotVersion</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>BotVersionLocaleSpecification</code></td><td><code>array</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.lex.bot_version
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;BotId&gt;' AND data__Identifier = '&lt;BotVersion&gt;'
+SELECT *<br/>FROM aws.lex.bot_version<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;BotId&gt;'<br/>AND data__Identifier = '&lt;BotVersion&gt;'
 </pre>

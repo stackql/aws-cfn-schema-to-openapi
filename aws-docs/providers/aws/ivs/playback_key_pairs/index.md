@@ -20,7 +20,7 @@ Retrieves a list of <code>playback_key_pairs</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>playback_key_pairs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>playback_key_pairs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ivs.playback_key_pairs</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ivs.playback_key_pairs
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.ivs.playback_key_pairs<br/>WHERE region = 'us-east-1'
 </pre>

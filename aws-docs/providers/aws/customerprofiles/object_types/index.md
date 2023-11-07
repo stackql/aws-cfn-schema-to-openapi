@@ -20,7 +20,7 @@ Retrieves a list of <code>object_types</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>object_types</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>object_types</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.customerprofiles.object_types</code></td></tr>
 </tbody></table>
 
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.customerprofiles.object_types
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.customerprofiles.object_types<br/>WHERE region = 'us-east-1'
 </pre>

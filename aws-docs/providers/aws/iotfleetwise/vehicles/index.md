@@ -20,7 +20,7 @@ Retrieves a list of <code>vehicles</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>vehicles</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>vehicles</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotfleetwise.vehicles</code></td></tr>
 </tbody></table>
 
@@ -28,8 +28,8 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AssociationBehavior</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Attributes</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>AssociationBehavior</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>Attributes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>CreationTime</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DecoderManifestArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iotfleetwise.vehicles
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iotfleetwise.vehicles<br/>WHERE region = 'us-east-1'
 </pre>

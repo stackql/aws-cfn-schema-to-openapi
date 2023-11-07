@@ -20,7 +20,7 @@ Retrieves a list of <code>flywheels</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>flywheels</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>flywheels</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.comprehend.flywheels</code></td></tr>
 </tbody></table>
 
@@ -30,11 +30,11 @@ null
 <tr><td><code>ActiveModelArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DataAccessRoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>DataLakeS3Uri</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataSecurityConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>DataSecurityConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>FlywheelName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ModelType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>TaskConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>TaskConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
@@ -44,7 +44,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.comprehend.flywheels
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.comprehend.flywheels<br/>WHERE region = 'us-east-1'
 </pre>

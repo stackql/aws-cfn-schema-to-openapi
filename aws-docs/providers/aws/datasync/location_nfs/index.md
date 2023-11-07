@@ -20,15 +20,15 @@ Gets an individual <code>location_nfs</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>location_nfs</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>location_nfs</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.datasync.location_nfs</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>MountOptions</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>OnPremConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>MountOptions</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>OnPremConfig</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ServerHostname</code></td><td><code>string</code></td><td>The name of the NFS server. This value is the IP address or DNS name of the NFS server.</td></tr>
 <tr><td><code>Subdirectory</code></td><td><code>string</code></td><td>The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to the NFS destination.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.datasync.location_nfs
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LocationArn&gt;'
+SELECT *<br/>FROM aws.datasync.location_nfs<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;LocationArn&gt;'
 </pre>

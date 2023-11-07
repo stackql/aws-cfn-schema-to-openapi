@@ -20,7 +20,7 @@ Gets an individual <code>mitigation_action</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>mitigation_action</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>mitigation_action</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.mitigation_action</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>ActionName</code></td><td><code>string</code></td><td>A unique identifier for the mitigation action.</td></tr>
 <tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><code>ActionParams</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ActionParams</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>MitigationActionArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>MitigationActionId</code></td><td><code>string</code></td><td></td></tr>
 
@@ -41,7 +41,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot.mitigation_action
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ActionName&gt;'
+SELECT *<br/>FROM aws.iot.mitigation_action<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ActionName&gt;'
 </pre>

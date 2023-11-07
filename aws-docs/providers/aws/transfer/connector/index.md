@@ -20,7 +20,7 @@ Gets an individual <code>connector</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>connector</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>connector</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.transfer.connector</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.transfer.connector
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ConnectorId&gt;'
+SELECT *<br/>FROM aws.transfer.connector<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ConnectorId&gt;'
 </pre>

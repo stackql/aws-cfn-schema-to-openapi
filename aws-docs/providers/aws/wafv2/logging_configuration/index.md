@@ -20,7 +20,7 @@ Gets an individual <code>logging_configuration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>logging_configuration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>logging_configuration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.wafv2.logging_configuration</code></td></tr>
 </tbody></table>
 
@@ -40,7 +40,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.wafv2.logging_configuration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ResourceArn&gt;'
+SELECT *<br/>FROM aws.wafv2.logging_configuration<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;ResourceArn&gt;'
 </pre>

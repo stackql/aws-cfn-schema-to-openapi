@@ -20,7 +20,7 @@ Retrieves a list of <code>task_definitions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>task_definitions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>task_definitions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ecs.task_definitions</code></td></tr>
 </tbody></table>
 
@@ -32,17 +32,17 @@ null
 <tr><td><code>ContainerDefinitions</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Cpu</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>ExecutionRoleArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EphemeralStorage</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>EphemeralStorage</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>InferenceAccelerators</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>Memory</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>NetworkMode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>PlacementConstraints</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>ProxyConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>ProxyConfiguration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>RequiresCompatibilities</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>TaskRoleArn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Volumes</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>PidMode</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RuntimePlatform</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>RuntimePlatform</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>IpcMode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
 
@@ -53,7 +53,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.ecs.task_definitions
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.ecs.task_definitions<br/>WHERE region = 'us-east-1'
 </pre>

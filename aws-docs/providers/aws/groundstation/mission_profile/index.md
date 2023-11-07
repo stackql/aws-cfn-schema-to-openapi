@@ -20,7 +20,7 @@ Gets an individual <code>mission_profile</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>mission_profile</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>mission_profile</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.groundstation.mission_profile</code></td></tr>
 </tbody></table>
 
@@ -31,7 +31,7 @@ null
 <tr><td><code>ContactPrePassDurationSeconds</code></td><td><code>integer</code></td><td>Pre-pass time needed before the contact.</td></tr>
 <tr><td><code>ContactPostPassDurationSeconds</code></td><td><code>integer</code></td><td>Post-pass time needed after the contact.</td></tr>
 <tr><td><code>MinimumViableContactDurationSeconds</code></td><td><code>integer</code></td><td>Visibilities with shorter duration than the specified minimum viable contact duration will be ignored when searching for available contacts.</td></tr>
-<tr><td><code>StreamsKmsKey</code></td><td><code>undefined</code></td><td>The ARN of a KMS Key used for encrypting data during transmission from the source to destination locations.</td></tr>
+<tr><td><code>StreamsKmsKey</code></td><td><code>object</code></td><td>The ARN of a KMS Key used for encrypting data during transmission from the source to destination locations.</td></tr>
 <tr><td><code>StreamsKmsRole</code></td><td><code>string</code></td><td>The ARN of the KMS Key or Alias Key role used to define permissions on KMS Key usage.</td></tr>
 <tr><td><code>DataflowEdges</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>TrackingConfigArn</code></td><td><code>string</code></td><td></td></tr>
@@ -47,7 +47,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.groundstation.mission_profile
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.groundstation.mission_profile<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

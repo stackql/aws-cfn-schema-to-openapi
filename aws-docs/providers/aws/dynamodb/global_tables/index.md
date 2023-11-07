@@ -20,7 +20,7 @@ Retrieves a list of <code>global_tables</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>global_tables</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>global_tables</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.dynamodb.global_tables</code></td></tr>
 </tbody></table>
 
@@ -34,13 +34,13 @@ null
 <tr><td><code>GlobalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>KeySchema</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>LocalSecondaryIndexes</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>WriteProvisionedThroughputSettings</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>WriteProvisionedThroughputSettings</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Replicas</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SSESpecification</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>StreamSpecification</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>SSESpecification</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>StreamSpecification</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>TableName</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>TableId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TimeToLiveSpecification</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>TimeToLiveSpecification</code></td><td><code>object</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -49,7 +49,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.dynamodb.global_tables
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.dynamodb.global_tables<br/>WHERE region = 'us-east-1'
 </pre>

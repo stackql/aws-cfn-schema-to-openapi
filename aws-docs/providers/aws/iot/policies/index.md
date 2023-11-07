@@ -20,7 +20,7 @@ Retrieves a list of <code>policies</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>policies</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.policies</code></td></tr>
 </tbody></table>
 
@@ -39,7 +39,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.iot.policies
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.iot.policies<br/>WHERE region = 'us-east-1'
 </pre>

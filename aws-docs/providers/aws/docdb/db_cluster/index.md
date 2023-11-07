@@ -20,7 +20,7 @@ Gets an individual <code>db_cluster</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>db_cluster</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>db_cluster</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.docdb.db_cluster</code></td></tr>
 </tbody></table>
 
@@ -62,7 +62,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.docdb.db_cluster
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.docdb.db_cluster<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

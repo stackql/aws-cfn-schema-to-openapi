@@ -20,7 +20,7 @@ Gets an individual <code>user_profile</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>user_profile</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>user_profile</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.sagemaker.user_profile</code></td></tr>
 </tbody></table>
 
@@ -32,7 +32,7 @@ null
 <tr><td><code>SingleSignOnUserIdentifier</code></td><td><code>string</code></td><td>A specifier for the type of value specified in SingleSignOnUserValue. Currently, the only supported value is "UserName". If the Domain's AuthMode is SSO, this field is required. If the Domain's AuthMode is not SSO, this field cannot be specified.</td></tr>
 <tr><td><code>SingleSignOnUserValue</code></td><td><code>string</code></td><td>The username of the associated AWS Single Sign-On User for this UserProfile. If the Domain's AuthMode is SSO, this field is required, and must match a valid username of a user in your directory. If the Domain's AuthMode is not SSO, this field cannot be specified.</td></tr>
 <tr><td><code>UserProfileName</code></td><td><code>string</code></td><td>A name for the UserProfile.</td></tr>
-<tr><td><code>UserSettings</code></td><td><code>undefined</code></td><td>A collection of settings.</td></tr>
+<tr><td><code>UserSettings</code></td><td><code>object</code></td><td>A collection of settings.</td></tr>
 <tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of tags to apply to the user profile.</td></tr>
 
 </tbody></table>
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.sagemaker.user_profile
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;UserProfileName&gt;' AND data__Identifier = '&lt;DomainId&gt;'
+SELECT *<br/>FROM aws.sagemaker.user_profile<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;UserProfileName&gt;'<br/>AND data__Identifier = '&lt;DomainId&gt;'
 </pre>

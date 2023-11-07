@@ -20,7 +20,7 @@ Gets an individual <code>repository</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>repository</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>repository</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codeartifact.repository</code></td></tr>
 </tbody></table>
 
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.codeartifact.repository
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
+SELECT *<br/>FROM aws.codeartifact.repository<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Arn&gt;'
 </pre>

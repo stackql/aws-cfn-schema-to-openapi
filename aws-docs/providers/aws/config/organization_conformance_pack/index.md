@@ -20,7 +20,7 @@ Gets an individual <code>organization_conformance_pack</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>organization_conformance_pack</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>organization_conformance_pack</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.config.organization_conformance_pack</code></td></tr>
 </tbody></table>
 
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.config.organization_conformance_pack
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;OrganizationConformancePackName&gt;'
+SELECT *<br/>FROM aws.config.organization_conformance_pack<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;OrganizationConformancePackName&gt;'
 </pre>

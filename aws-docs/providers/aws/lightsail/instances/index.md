@@ -20,7 +20,7 @@ Retrieves a list of <code>instances</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instances</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instances</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lightsail.instances</code></td></tr>
 </tbody></table>
 
@@ -32,10 +32,10 @@ null
 <tr><td><code>IsStaticIp</code></td><td><code>boolean</code></td><td>Is the IP Address of the Instance is the static IP</td></tr>
 <tr><td><code>PrivateIpAddress</code></td><td><code>string</code></td><td>Private IP Address of the Instance</td></tr>
 <tr><td><code>PublicIpAddress</code></td><td><code>string</code></td><td>Public IP Address of the Instance</td></tr>
-<tr><td><code>Location</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Hardware</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>State</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Networking</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Location</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Hardware</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>State</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>Networking</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>UserName</code></td><td><code>string</code></td><td>Username of the  Lightsail instance.</td></tr>
 <tr><td><code>SshKeyName</code></td><td><code>string</code></td><td>SSH Key Name of the  Lightsail instance.</td></tr>
 <tr><td><code>InstanceName</code></td><td><code>string</code></td><td>The names to use for your new Lightsail instance.</td></tr>
@@ -55,7 +55,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.lightsail.instances
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.lightsail.instances<br/>WHERE region = 'us-east-1'
 </pre>

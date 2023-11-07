@@ -20,16 +20,16 @@ Gets an individual <code>security_key</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>security_key</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>security_key</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.security_key</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Key</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>InstanceId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>AssociationId</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Key</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>InstanceId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>AssociationId</code></td><td><code>string</code></td><td></td></tr>
 
 </tbody></table>
 
@@ -38,7 +38,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.connect.security_key
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;InstanceId&gt;' AND data__Identifier = '&lt;AssociationId&gt;'
+SELECT *<br/>FROM aws.connect.security_key<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;InstanceId&gt;'<br/>AND data__Identifier = '&lt;AssociationId&gt;'
 </pre>

@@ -20,7 +20,7 @@ Retrieves a list of <code>services</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>services</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>services</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.vpclattice.services</code></td></tr>
 </tbody></table>
 
@@ -30,7 +30,7 @@ null
 <tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>AuthType</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>CreatedAt</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DnsEntry</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>DnsEntry</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>LastUpdatedAt</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
@@ -46,7 +46,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.vpclattice.services
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.vpclattice.services<br/>WHERE region = 'us-east-1'
 </pre>

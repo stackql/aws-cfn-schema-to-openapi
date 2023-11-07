@@ -20,7 +20,7 @@ Gets an individual <code>event_bus_policy</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>event_bus_policy</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>event_bus_policy</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.events.event_bus_policy</code></td></tr>
 </tbody></table>
 
@@ -28,7 +28,7 @@ null
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>EventBusName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Condition</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>Condition</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>Action</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>StatementId</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>Statement</code></td><td><code>object</code></td><td></td></tr>
@@ -42,7 +42,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.events.event_bus_policy
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
+SELECT *<br/>FROM aws.events.event_bus_policy<br/>WHERE region = 'us-east-1'<br/>AND data__Identifier = '&lt;Id&gt;'
 </pre>

@@ -20,7 +20,7 @@ Retrieves a list of <code>stack_set_constraints</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>stack_set_constraints</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>stack_set_constraints</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicecatalog.stack_set_constraints</code></td></tr>
 </tbody></table>
 
@@ -45,7 +45,5 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
 <pre>
-SELECT * 
-FROM aws.servicecatalog.stack_set_constraints
-WHERE region = 'us-east-1'
+SELECT *<br/>FROM aws.servicecatalog.stack_set_constraints<br/>WHERE region = 'us-east-1'
 </pre>
