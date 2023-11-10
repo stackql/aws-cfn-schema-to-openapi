@@ -104,6 +104,8 @@ components:
       id: aws.mediastore.containers
       x-cfn-schema-name: Container
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -128,8 +130,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
-              JSON_EXTRACT(Properties, '$.MetricPolicy.ContainerLevelMetrics') as metric_policy_container_level_metrics,
-              JSON_EXTRACT(Properties, '$.MetricPolicy.MetricPolicyRules') as metric_policy_metric_policy_rules,
+              JSON_EXTRACT(Properties, '$.MetricPolicy') as metric_policy,
               JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
               JSON_EXTRACT(Properties, '$.ContainerName') as container_name,
               JSON_EXTRACT(Properties, '$.CorsPolicy') as cors_policy,

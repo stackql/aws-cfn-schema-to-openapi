@@ -20,22 +20,23 @@ Gets an individual <code>provisioning_template</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>provisioning_template</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>provisioning_template</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.provisioning_template</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>TemplateArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TemplateName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Enabled</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>ProvisioningRoleArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TemplateBody</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TemplateType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PreProvisioningHook</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>template_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>template_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>enabled</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>provisioning_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>template_body</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>template_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>pre_provisioning_hook</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +44,19 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+template_arn,
+template_name,
+description,
+enabled,
+provisioning_role_arn,
+template_body,
+template_type,
+pre_provisioning_hook,
+tags
 FROM aws.iot.provisioning_template
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TemplateName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;TemplateName&gt;'
+```

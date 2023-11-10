@@ -391,6 +391,8 @@ components:
       id: aws.mediaconnect.flows
       x-cfn-schema-name: Flow
       x-type: list
+      x-identifiers:
+        - FlowArn
       config:
         views:
           select:
@@ -418,35 +420,16 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.AvailabilityZone') as availability_zone,
               JSON_EXTRACT(Properties, '$.FlowAvailabilityZone') as flow_availability_zone,
-              JSON_EXTRACT(Properties, '$.Source.SourceArn') as source_source_arn,
-              JSON_EXTRACT(Properties, '$.Source.Decryption') as source_decryption,
-              JSON_EXTRACT(Properties, '$.Source.Description') as source_description,
-              JSON_EXTRACT(Properties, '$.Source.EntitlementArn') as source_entitlement_arn,
-              JSON_EXTRACT(Properties, '$.Source.IngestIp') as source_ingest_ip,
-              JSON_EXTRACT(Properties, '$.Source.IngestPort') as source_ingest_port,
-              JSON_EXTRACT(Properties, '$.Source.MaxBitrate') as source_max_bitrate,
-              JSON_EXTRACT(Properties, '$.Source.MaxLatency') as source_max_latency,
-              JSON_EXTRACT(Properties, '$.Source.MinLatency') as source_min_latency,
-              JSON_EXTRACT(Properties, '$.Source.Name') as source_name,
-              JSON_EXTRACT(Properties, '$.Source.Protocol') as source_protocol,
-              JSON_EXTRACT(Properties, '$.Source.SenderIpAddress') as source_sender_ip_address,
-              JSON_EXTRACT(Properties, '$.Source.SenderControlPort') as source_sender_control_port,
-              JSON_EXTRACT(Properties, '$.Source.StreamId') as source_stream_id,
-              JSON_EXTRACT(Properties, '$.Source.SourceIngestPort') as source_source_ingest_port,
-              JSON_EXTRACT(Properties, '$.Source.SourceListenerAddress') as source_source_listener_address,
-              JSON_EXTRACT(Properties, '$.Source.SourceListenerPort') as source_source_listener_port,
-              JSON_EXTRACT(Properties, '$.Source.VpcInterfaceName') as source_vpc_interface_name,
-              JSON_EXTRACT(Properties, '$.Source.WhitelistCidr') as source_whitelist_cidr,
-              JSON_EXTRACT(Properties, '$.SourceFailoverConfig.State') as source_failover_config_state,
-              JSON_EXTRACT(Properties, '$.SourceFailoverConfig.RecoveryWindow') as source_failover_config_recovery_window,
-              JSON_EXTRACT(Properties, '$.SourceFailoverConfig.FailoverMode') as source_failover_config_failover_mode,
-              JSON_EXTRACT(Properties, '$.SourceFailoverConfig.SourcePriority') as source_failover_config_source_priority
+              JSON_EXTRACT(Properties, '$.Source') as source,
+              JSON_EXTRACT(Properties, '$.SourceFailoverConfig') as source_failover_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Flow'
     flow_entitlements:
       name: flow_entitlements
       id: aws.mediaconnect.flow_entitlements
       x-cfn-schema-name: FlowEntitlement
       x-type: list
+      x-identifiers:
+        - EntitlementArn
       config:
         views:
           select:
@@ -474,15 +457,7 @@ components:
               JSON_EXTRACT(Properties, '$.EntitlementArn') as entitlement_arn,
               JSON_EXTRACT(Properties, '$.DataTransferSubscriberFeePercent') as data_transfer_subscriber_fee_percent,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Encryption.Algorithm') as encryption_algorithm,
-              JSON_EXTRACT(Properties, '$.Encryption.ConstantInitializationVector') as encryption_constant_initialization_vector,
-              JSON_EXTRACT(Properties, '$.Encryption.DeviceId') as encryption_device_id,
-              JSON_EXTRACT(Properties, '$.Encryption.KeyType') as encryption_key_type,
-              JSON_EXTRACT(Properties, '$.Encryption.Region') as encryption_region,
-              JSON_EXTRACT(Properties, '$.Encryption.ResourceId') as encryption_resource_id,
-              JSON_EXTRACT(Properties, '$.Encryption.RoleArn') as encryption_role_arn,
-              JSON_EXTRACT(Properties, '$.Encryption.SecretArn') as encryption_secret_arn,
-              JSON_EXTRACT(Properties, '$.Encryption.Url') as encryption_url,
+              JSON_EXTRACT(Properties, '$.Encryption') as encryption,
               JSON_EXTRACT(Properties, '$.EntitlementStatus') as entitlement_status,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Subscribers') as subscribers
@@ -492,6 +467,8 @@ components:
       id: aws.mediaconnect.flow_outputs
       x-cfn-schema-name: FlowOutput
       x-type: list
+      x-identifiers:
+        - OutputArn
       config:
         views:
           select:
@@ -518,15 +495,7 @@ components:
               JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn,
               JSON_EXTRACT(Properties, '$.OutputArn') as output_arn,
               JSON_EXTRACT(Properties, '$.CidrAllowList') as cidr_allow_list,
-              JSON_EXTRACT(Properties, '$.Encryption.Algorithm') as encryption_algorithm,
-              JSON_EXTRACT(Properties, '$.Encryption.ConstantInitializationVector') as encryption_constant_initialization_vector,
-              JSON_EXTRACT(Properties, '$.Encryption.DeviceId') as encryption_device_id,
-              JSON_EXTRACT(Properties, '$.Encryption.KeyType') as encryption_key_type,
-              JSON_EXTRACT(Properties, '$.Encryption.Region') as encryption_region,
-              JSON_EXTRACT(Properties, '$.Encryption.ResourceId') as encryption_resource_id,
-              JSON_EXTRACT(Properties, '$.Encryption.RoleArn') as encryption_role_arn,
-              JSON_EXTRACT(Properties, '$.Encryption.SecretArn') as encryption_secret_arn,
-              JSON_EXTRACT(Properties, '$.Encryption.Url') as encryption_url,
+              JSON_EXTRACT(Properties, '$.Encryption') as encryption,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Destination') as destination,
               JSON_EXTRACT(Properties, '$.MaxLatency') as max_latency,
@@ -537,13 +506,15 @@ components:
               JSON_EXTRACT(Properties, '$.RemoteId') as remote_id,
               JSON_EXTRACT(Properties, '$.SmoothingLatency') as smoothing_latency,
               JSON_EXTRACT(Properties, '$.StreamId') as stream_id,
-              JSON_EXTRACT(Properties, '$.VpcInterfaceAttachment.VpcInterfaceName') as vpc_interface_attachment_vpc_interface_name
+              JSON_EXTRACT(Properties, '$.VpcInterfaceAttachment') as vpc_interface_attachment
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
     flow_sources:
       name: flow_sources
       id: aws.mediaconnect.flow_sources
       x-cfn-schema-name: FlowSource
       x-type: list
+      x-identifiers:
+        - SourceArn
       config:
         views:
           select:
@@ -569,15 +540,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn,
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn,
-              JSON_EXTRACT(Properties, '$.Decryption.Algorithm') as decryption_algorithm,
-              JSON_EXTRACT(Properties, '$.Decryption.ConstantInitializationVector') as decryption_constant_initialization_vector,
-              JSON_EXTRACT(Properties, '$.Decryption.DeviceId') as decryption_device_id,
-              JSON_EXTRACT(Properties, '$.Decryption.KeyType') as decryption_key_type,
-              JSON_EXTRACT(Properties, '$.Decryption.Region') as decryption_region,
-              JSON_EXTRACT(Properties, '$.Decryption.ResourceId') as decryption_resource_id,
-              JSON_EXTRACT(Properties, '$.Decryption.RoleArn') as decryption_role_arn,
-              JSON_EXTRACT(Properties, '$.Decryption.SecretArn') as decryption_secret_arn,
-              JSON_EXTRACT(Properties, '$.Decryption.Url') as decryption_url,
+              JSON_EXTRACT(Properties, '$.Decryption') as decryption,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EntitlementArn') as entitlement_arn,
               JSON_EXTRACT(Properties, '$.IngestIp') as ingest_ip,
@@ -596,6 +559,9 @@ components:
       id: aws.mediaconnect.flow_vpc_interfaces
       x-cfn-schema-name: FlowVpcInterface
       x-type: list
+      x-identifiers:
+        - FlowArn
+        - Name
       config:
         views:
           select:

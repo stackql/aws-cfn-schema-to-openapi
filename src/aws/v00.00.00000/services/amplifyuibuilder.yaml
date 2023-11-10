@@ -676,6 +676,10 @@ components:
       id: aws.amplifyuibuilder.components
       x-cfn-schema-name: Component
       x-type: list
+      x-identifiers:
+        - AppId
+        - EnvironmentName
+        - Id
       config:
         views:
           select:
@@ -704,13 +708,19 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AppId') as app_id,
+              JSON_EXTRACT(Properties, '$.BindingProperties') as binding_properties,
               JSON_EXTRACT(Properties, '$.Children') as children,
+              JSON_EXTRACT(Properties, '$.CollectionProperties') as collection_properties,
               JSON_EXTRACT(Properties, '$.ComponentType') as component_type,
               JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+              JSON_EXTRACT(Properties, '$.Events') as events,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Overrides') as overrides,
+              JSON_EXTRACT(Properties, '$.Properties') as properties,
               JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
               JSON_EXTRACT(Properties, '$.SourceId') as source_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Variants') as variants
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Component'
     forms:
@@ -718,6 +728,10 @@ components:
       id: aws.amplifyuibuilder.forms
       x-cfn-schema-name: Form
       x-type: list
+      x-identifiers:
+        - AppId
+        - EnvironmentName
+        - Id
       config:
         views:
           select:
@@ -746,25 +760,27 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AppId') as app_id,
-              JSON_EXTRACT(Properties, '$.Cta.Position') as cta_position,
-              JSON_EXTRACT(Properties, '$.Cta.Clear') as cta_clear,
-              JSON_EXTRACT(Properties, '$.Cta.Cancel') as cta_cancel,
-              JSON_EXTRACT(Properties, '$.Cta.Submit') as cta_submit,
-              JSON_EXTRACT(Properties, '$.DataType.DataSourceType') as data_type_data_source_type,
-              JSON_EXTRACT(Properties, '$.DataType.DataTypeName') as data_type_data_type_name,
+              JSON_EXTRACT(Properties, '$.Cta') as cta,
+              JSON_EXTRACT(Properties, '$.DataType') as data_type,
               JSON_EXTRACT(Properties, '$.EnvironmentName') as environment_name,
+              JSON_EXTRACT(Properties, '$.Fields') as fields,
+              JSON_EXTRACT(Properties, '$.FormActionType') as form_action_type,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SchemaVersion') as schema_version,
-              JSON_EXTRACT(Properties, '$.Style.HorizontalGap') as style_horizontal_gap,
-              JSON_EXTRACT(Properties, '$.Style.VerticalGap') as style_vertical_gap,
-              JSON_EXTRACT(Properties, '$.Style.OuterPadding') as style_outer_padding
+              JSON_EXTRACT(Properties, '$.SectionalElements') as sectional_elements,
+              JSON_EXTRACT(Properties, '$.Style') as style,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Form'
     themes:
       name: themes
       id: aws.amplifyuibuilder.themes
       x-cfn-schema-name: Theme
       x-type: list
+      x-identifiers:
+        - AppId
+        - EnvironmentName
+        - Id
       config:
         views:
           select:
@@ -797,5 +813,6 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Overrides') as overrides,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Values') as values
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmplifyUIBuilder::Theme'

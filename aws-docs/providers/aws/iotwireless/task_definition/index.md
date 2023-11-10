@@ -20,21 +20,22 @@ Gets an individual <code>task_definition</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>task_definition</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>task_definition</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotwireless.task_definition</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the new resource.</td></tr>
-<tr><td><code>AutoCreateTasks</code></td><td><code>boolean</code></td><td>Whether to automatically create tasks using this task definition for all gateways with the specified current version. If false, the task must me created by calling CreateWirelessGatewayTask.</td></tr>
-<tr><td><code>Update</code></td><td><code>undefined</code></td><td>Information about the gateways to update.</td></tr>
-<tr><td><code>LoRaWANUpdateGatewayTaskEntry</code></td><td><code>undefined</code></td><td>The list of task definitions.</td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>The ID of the new wireless gateway task definition</td></tr>
-<tr><td><code>TaskDefinitionType</code></td><td><code>string</code></td><td>A filter to list only the wireless gateway task definitions that use this task definition type</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>TaskDefinition arn. Returned after successful create.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the new resource.</td></tr>
+<tr><td><code>auto_create_tasks</code></td><td><code>boolean</code></td><td>Whether to automatically create tasks using this task definition for all gateways with the specified current version. If false, the task must me created by calling CreateWirelessGatewayTask.</td></tr>
+<tr><td><code>update</code></td><td><code>object</code></td><td>Information about the gateways to update.</td></tr>
+<tr><td><code>lo_ra_wa_nupdate_gateway_task_entry</code></td><td><code>object</code></td><td>The list of task definitions.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>The ID of the new wireless gateway task definition</td></tr>
+<tr><td><code>task_definition_type</code></td><td><code>string</code></td><td>A filter to list only the wireless gateway task definitions that use this task definition type</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>TaskDefinition arn. Returned after successful create.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -42,8 +43,18 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+name,
+auto_create_tasks,
+update,
+lo_ra_wa_nupdate_gateway_task_entry,
+id,
+task_definition_type,
+arn,
+tags
 FROM aws.iotwireless.task_definition
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

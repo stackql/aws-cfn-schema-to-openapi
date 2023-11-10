@@ -20,19 +20,20 @@ Gets an individual <code>stack</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>stack</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>stack</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cloudformation.stack</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>NotificationARNs</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Parameters</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>TemplateURL</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TimeoutInMinutes</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>notification_ar_ns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>parameters</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>template_ur_l</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>timeout_in_minutes</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+notification_ar_ns,
+parameters,
+tags,
+template_ur_l,
+timeout_in_minutes
 FROM aws.cloudformation.stack
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

@@ -20,17 +20,18 @@ Gets an individual <code>rule</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>rule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>rule</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.waf.rule</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>MetricName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Predicates</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>metric_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>predicates</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,14 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+metric_name,
+name,
+predicates
 FROM aws.waf.rule
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

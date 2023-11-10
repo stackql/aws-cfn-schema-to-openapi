@@ -20,22 +20,23 @@ Gets an individual <code>git_hub_repository</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>git_hub_repository</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>git_hub_repository</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codestar.git_hub_repository</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>EnableIssues</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>ConnectionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RepositoryName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RepositoryAccessToken</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RepositoryOwner</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>IsPrivate</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Code</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>RepositoryDescription</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>enable_issues</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>connection_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>repository_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>repository_access_token</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>repository_owner</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>is_private</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>code</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>repository_description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +44,19 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+enable_issues,
+connection_arn,
+repository_name,
+repository_access_token,
+id,
+repository_owner,
+is_private,
+code,
+repository_description
 FROM aws.codestar.git_hub_repository
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

@@ -20,18 +20,15 @@ Retrieves a list of <code>access_policies</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>access_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>access_policies</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotsitewise.access_policies</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>AccessPolicyId</code></td><td><code>string</code></td><td>The ID of the access policy.</td></tr>
-<tr><td><code>AccessPolicyArn</code></td><td><code>string</code></td><td>The ARN of the access policy.</td></tr>
-<tr><td><code>AccessPolicyIdentity</code></td><td><code>undefined</code></td><td>The identity for this access policy. Choose either a user or a group but not both.</td></tr>
-<tr><td><code>AccessPolicyPermission</code></td><td><code>string</code></td><td>The permission level for this access policy. Valid values are ADMINISTRATOR or VIEWER.</td></tr>
-<tr><td><code>AccessPolicyResource</code></td><td><code>undefined</code></td><td>The AWS IoT SiteWise Monitor resource for this access policy. Choose either portal or project but not both.</td></tr>
+<tr><td><code>access_policy_id</code></td><td><code>string</code></td><td>The ID of the access policy.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+access_policy_id
 FROM aws.iotsitewise.access_policies
 WHERE region = 'us-east-1'
-</pre>
+```

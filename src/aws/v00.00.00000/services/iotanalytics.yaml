@@ -794,6 +794,8 @@ components:
       id: aws.iotanalytics.datasets
       x-cfn-schema-name: Dataset
       x-type: list
+      x-identifiers:
+        - DatasetName
       config:
         views:
           select:
@@ -822,11 +824,9 @@ components:
               JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name,
               JSON_EXTRACT(Properties, '$.ContentDeliveryRules') as content_delivery_rules,
               JSON_EXTRACT(Properties, '$.Triggers') as triggers,
-              JSON_EXTRACT(Properties, '$.VersioningConfiguration.Unlimited') as versioning_configuration_unlimited,
-              JSON_EXTRACT(Properties, '$.VersioningConfiguration.MaxVersions') as versioning_configuration_max_versions,
+              JSON_EXTRACT(Properties, '$.VersioningConfiguration') as versioning_configuration,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.RetentionPeriod.NumberOfDays') as retention_period_number_of_days,
-              JSON_EXTRACT(Properties, '$.RetentionPeriod.Unlimited') as retention_period_unlimited,
+              JSON_EXTRACT(Properties, '$.RetentionPeriod') as retention_period,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
     pipelines:
@@ -834,6 +834,8 @@ components:
       id: aws.iotanalytics.pipelines
       x-cfn-schema-name: Pipeline
       x-type: list
+      x-identifiers:
+        - PipelineName
       config:
         views:
           select:

@@ -20,27 +20,15 @@ Retrieves a list of <code>db_instances</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>db_instances</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>db_instances</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.neptune.db_instances</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Endpoint</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Port</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DBParameterGroupName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DBInstanceClass</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AllowMajorVersionUpgrade</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DBClusterIdentifier</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AvailabilityZone</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PreferredMaintenanceWindow</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AutoMinorVersionUpgrade</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DBSubnetGroupName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DBInstanceIdentifier</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DBSnapshotIdentifier</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -48,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.neptune.db_instances
 WHERE region = 'us-east-1'
-</pre>
+```

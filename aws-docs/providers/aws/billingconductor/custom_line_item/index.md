@@ -20,25 +20,26 @@ Gets an individual <code>custom_line_item</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>custom_line_item</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>custom_line_item</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.billingconductor.custom_line_item</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CustomLineItemChargeDetails</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>BillingGroupArn</code></td><td><code>string</code></td><td>Billing Group ARN</td></tr>
-<tr><td><code>BillingPeriodRange</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>ARN</td></tr>
-<tr><td><code>CreationTime</code></td><td><code>integer</code></td><td>Creation timestamp in UNIX epoch time format</td></tr>
-<tr><td><code>LastModifiedTime</code></td><td><code>integer</code></td><td>Latest modified timestamp in UNIX epoch time format</td></tr>
-<tr><td><code>AssociationSize</code></td><td><code>integer</code></td><td>Number of source values associated to this custom line item</td></tr>
-<tr><td><code>ProductCode</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CurrencyCode</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>custom_line_item_charge_details</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>billing_group_arn</code></td><td><code>string</code></td><td>Billing Group ARN</td></tr>
+<tr><td><code>billing_period_range</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>ARN</td></tr>
+<tr><td><code>creation_time</code></td><td><code>integer</code></td><td>Creation timestamp in UNIX epoch time format</td></tr>
+<tr><td><code>last_modified_time</code></td><td><code>integer</code></td><td>Latest modified timestamp in UNIX epoch time format</td></tr>
+<tr><td><code>association_size</code></td><td><code>integer</code></td><td>Number of source values associated to this custom line item</td></tr>
+<tr><td><code>product_code</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>currency_code</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -46,8 +47,22 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+name,
+description,
+custom_line_item_charge_details,
+billing_group_arn,
+billing_period_range,
+arn,
+creation_time,
+last_modified_time,
+association_size,
+product_code,
+currency_code,
+tags
 FROM aws.billingconductor.custom_line_item
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

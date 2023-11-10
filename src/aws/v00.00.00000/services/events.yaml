@@ -740,6 +740,8 @@ components:
       id: aws.events.api_destinations
       x-cfn-schema-name: ApiDestination
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -776,6 +778,8 @@ components:
       id: aws.events.archives
       x-cfn-schema-name: Archive
       x-type: list
+      x-identifiers:
+        - ArchiveName
       config:
         views:
           select:
@@ -811,6 +815,8 @@ components:
       id: aws.events.connections
       x-cfn-schema-name: Connection
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -839,16 +845,15 @@ components:
               JSON_EXTRACT(Properties, '$.SecretArn') as secret_arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.AuthorizationType') as authorization_type,
-              JSON_EXTRACT(Properties, '$.AuthParameters.ApiKeyAuthParameters') as auth_parameters_api_key_auth_parameters,
-              JSON_EXTRACT(Properties, '$.AuthParameters.BasicAuthParameters') as auth_parameters_basic_auth_parameters,
-              JSON_EXTRACT(Properties, '$.AuthParameters.OAuthParameters') as auth_parameters_oauth_parameters,
-              JSON_EXTRACT(Properties, '$.AuthParameters.InvocationHttpParameters') as auth_parameters_invocation_http_parameters
+              JSON_EXTRACT(Properties, '$.AuthParameters') as auth_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Connection'
     endpoints:
       name: endpoints
       id: aws.events.endpoints
       x-cfn-schema-name: Endpoint
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -876,8 +881,9 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.RoutingConfig.FailoverConfig') as routing_config_failover_config,
-              JSON_EXTRACT(Properties, '$.ReplicationConfig.State') as replication_config_state,
+              JSON_EXTRACT(Properties, '$.RoutingConfig') as routing_config,
+              JSON_EXTRACT(Properties, '$.ReplicationConfig') as replication_config,
+              JSON_EXTRACT(Properties, '$.EventBuses') as event_buses,
               JSON_EXTRACT(Properties, '$.EndpointId') as endpoint_id,
               JSON_EXTRACT(Properties, '$.EndpointUrl') as endpoint_url,
               JSON_EXTRACT(Properties, '$.State') as state,
@@ -888,6 +894,8 @@ components:
       id: aws.events.event_buses
       x-cfn-schema-name: EventBus
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -923,6 +931,8 @@ components:
       id: aws.events.event_bus_policies
       x-cfn-schema-name: EventBusPolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -947,9 +957,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.EventBusName') as event_bus_name,
-              JSON_EXTRACT(Properties, '$.Condition.Value') as condition_value,
-              JSON_EXTRACT(Properties, '$.Condition.Type') as condition_type,
-              JSON_EXTRACT(Properties, '$.Condition.Key') as condition_key,
+              JSON_EXTRACT(Properties, '$.Condition') as condition,
               JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id,
               JSON_EXTRACT(Properties, '$.Statement') as statement,
@@ -961,6 +969,8 @@ components:
       id: aws.events.rules
       x-cfn-schema-name: Rule
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

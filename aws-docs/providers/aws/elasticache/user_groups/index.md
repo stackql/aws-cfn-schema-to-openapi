@@ -20,19 +20,15 @@ Retrieves a list of <code>user_groups</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>user_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>user_groups</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.elasticache.user_groups</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Status</code></td><td><code>string</code></td><td>Indicates user group status. Can be "creating", "active", "modifying", "deleting".</td></tr>
-<tr><td><code>UserGroupId</code></td><td><code>string</code></td><td>The ID of the user group.</td></tr>
-<tr><td><code>Engine</code></td><td><code>string</code></td><td>Must be redis.</td></tr>
-<tr><td><code>UserIds</code></td><td><code>array</code></td><td>List of users associated to this user group.</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the user account.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this user.</td></tr>
+<tr><td><code>user_group_id</code></td><td><code>string</code></td><td>The ID of the user group.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+user_group_id
 FROM aws.elasticache.user_groups
 WHERE region = 'us-east-1'
-</pre>
+```

@@ -20,15 +20,16 @@ Gets an individual <code>enabled_control</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>enabled_control</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>enabled_control</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.controltower.enabled_control</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ControlIdentifier</code></td><td><code>string</code></td><td>Arn of the control.</td></tr>
-<tr><td><code>TargetIdentifier</code></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
+<tr><td><code>control_identifier</code></td><td><code>string</code></td><td>Arn of the control.</td></tr>
+<tr><td><code>target_identifier</code></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -36,8 +37,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+control_identifier,
+target_identifier
 FROM aws.controltower.enabled_control
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TargetIdentifier&gt;' AND data__Identifier = '&lt;ControlIdentifier&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;TargetIdentifier&gt;'
+AND data__Identifier = '&lt;ControlIdentifier&gt;'
+```

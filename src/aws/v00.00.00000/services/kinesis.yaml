@@ -119,6 +119,8 @@ components:
       id: aws.kinesis.streams
       x-cfn-schema-name: Stream
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -142,9 +144,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StreamModeDetails.StreamMode') as stream_mode_details_stream_mode,
-              JSON_EXTRACT(Properties, '$.StreamEncryption.EncryptionType') as stream_encryption_encryption_type,
-              JSON_EXTRACT(Properties, '$.StreamEncryption.KeyId') as stream_encryption_key_id,
+              JSON_EXTRACT(Properties, '$.StreamModeDetails') as stream_mode_details,
+              JSON_EXTRACT(Properties, '$.StreamEncryption') as stream_encryption,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RetentionPeriodHours') as retention_period_hours,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -156,6 +157,8 @@ components:
       id: aws.kinesis.stream_consumers
       x-cfn-schema-name: StreamConsumer
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

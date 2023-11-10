@@ -483,6 +483,9 @@ components:
       id: aws.acmpca.certificates
       x-cfn-schema-name: Certificate
       x-type: list
+      x-identifiers:
+        - Arn
+        - CertificateAuthorityArn
       config:
         views:
           select:
@@ -508,21 +511,23 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApiPassthrough.Extensions') as api_passthrough_extensions,
-              JSON_EXTRACT(Properties, '$.ApiPassthrough.Subject') as api_passthrough_subject,
+              JSON_EXTRACT(Properties, '$.ApiPassthrough') as api_passthrough,
+              JSON_EXTRACT(Properties, '$.CertificateAuthorityArn') as certificate_authority_arn,
               JSON_EXTRACT(Properties, '$.CertificateSigningRequest') as certificate_signing_request,
               JSON_EXTRACT(Properties, '$.SigningAlgorithm') as signing_algorithm,
-              JSON_EXTRACT(Properties, '$.Validity.Value') as validity_value,
-              JSON_EXTRACT(Properties, '$.Validity.Type') as validity_type,
-              JSON_EXTRACT(Properties, '$.ValidityNotBefore.Value') as validity_not_before_value,
-              JSON_EXTRACT(Properties, '$.ValidityNotBefore.Type') as validity_not_before_type,
-              JSON_EXTRACT(Properties, '$.Certificate') as certificate
+              JSON_EXTRACT(Properties, '$.TemplateArn') as template_arn,
+              JSON_EXTRACT(Properties, '$.Validity') as validity,
+              JSON_EXTRACT(Properties, '$.ValidityNotBefore') as validity_not_before,
+              JSON_EXTRACT(Properties, '$.Certificate') as certificate,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::Certificate'
     certificate_authorities:
       name: certificate_authorities
       id: aws.acmpca.certificate_authorities
       x-cfn-schema-name: CertificateAuthority
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -546,30 +551,15 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.KeyAlgorithm') as key_algorithm,
               JSON_EXTRACT(Properties, '$.SigningAlgorithm') as signing_algorithm,
-              JSON_EXTRACT(Properties, '$.Subject.Country') as subject_country,
-              JSON_EXTRACT(Properties, '$.Subject.Organization') as subject_organization,
-              JSON_EXTRACT(Properties, '$.Subject.OrganizationalUnit') as subject_organizational_unit,
-              JSON_EXTRACT(Properties, '$.Subject.DistinguishedNameQualifier') as subject_distinguished_name_qualifier,
-              JSON_EXTRACT(Properties, '$.Subject.State') as subject_state,
-              JSON_EXTRACT(Properties, '$.Subject.CommonName') as subject_common_name,
-              JSON_EXTRACT(Properties, '$.Subject.SerialNumber') as subject_serial_number,
-              JSON_EXTRACT(Properties, '$.Subject.Locality') as subject_locality,
-              JSON_EXTRACT(Properties, '$.Subject.Title') as subject_title,
-              JSON_EXTRACT(Properties, '$.Subject.Surname') as subject_surname,
-              JSON_EXTRACT(Properties, '$.Subject.GivenName') as subject_given_name,
-              JSON_EXTRACT(Properties, '$.Subject.Initials') as subject_initials,
-              JSON_EXTRACT(Properties, '$.Subject.Pseudonym') as subject_pseudonym,
-              JSON_EXTRACT(Properties, '$.Subject.GenerationQualifier') as subject_generation_qualifier,
-              JSON_EXTRACT(Properties, '$.Subject.CustomAttributes') as subject_custom_attributes,
-              JSON_EXTRACT(Properties, '$.RevocationConfiguration.CrlConfiguration') as revocation_configuration_crl_configuration,
-              JSON_EXTRACT(Properties, '$.RevocationConfiguration.OcspConfiguration') as revocation_configuration_ocsp_configuration,
+              JSON_EXTRACT(Properties, '$.Subject') as subject,
+              JSON_EXTRACT(Properties, '$.RevocationConfiguration') as revocation_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CertificateSigningRequest') as certificate_signing_request,
-              JSON_EXTRACT(Properties, '$.CsrExtensions.KeyUsage') as csr_extensions_key_usage,
-              JSON_EXTRACT(Properties, '$.CsrExtensions.SubjectInformationAccess') as csr_extensions_subject_information_access,
+              JSON_EXTRACT(Properties, '$.CsrExtensions') as csr_extensions,
               JSON_EXTRACT(Properties, '$.KeyStorageSecurityStandard') as key_storage_security_standard,
               JSON_EXTRACT(Properties, '$.UsageMode') as usage_mode
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ACMPCA::CertificateAuthority'
@@ -578,6 +568,8 @@ components:
       id: aws.acmpca.certificate_authority_activations
       x-cfn-schema-name: CertificateAuthorityActivation
       x-type: list
+      x-identifiers:
+        - CertificateAuthorityArn
       config:
         views:
           select:
@@ -612,6 +604,9 @@ components:
       id: aws.acmpca.permissions
       x-cfn-schema-name: Permission
       x-type: list
+      x-identifiers:
+        - CertificateAuthorityArn
+        - Principal
       config:
         views:
           select:

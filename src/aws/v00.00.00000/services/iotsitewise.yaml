@@ -641,6 +641,8 @@ components:
       id: aws.iotsitewise.portals
       x-cfn-schema-name: Portal
       x-type: list
+      x-identifiers:
+        - PortalId
       config:
         views:
           select:
@@ -682,6 +684,8 @@ components:
       id: aws.iotsitewise.projects
       x-cfn-schema-name: Project
       x-type: list
+      x-identifiers:
+        - ProjectId
       config:
         views:
           select:
@@ -718,6 +722,8 @@ components:
       id: aws.iotsitewise.access_policies
       x-cfn-schema-name: AccessPolicy
       x-type: list
+      x-identifiers:
+        - AccessPolicyId
       config:
         views:
           select:
@@ -743,18 +749,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AccessPolicyId') as access_policy_id,
               JSON_EXTRACT(Properties, '$.AccessPolicyArn') as access_policy_arn,
-              JSON_EXTRACT(Properties, '$.AccessPolicyIdentity.User') as access_policy_identity_user,
-              JSON_EXTRACT(Properties, '$.AccessPolicyIdentity.IamUser') as access_policy_identity_iam_user,
-              JSON_EXTRACT(Properties, '$.AccessPolicyIdentity.IamRole') as access_policy_identity_iam_role,
+              JSON_EXTRACT(Properties, '$.AccessPolicyIdentity') as access_policy_identity,
               JSON_EXTRACT(Properties, '$.AccessPolicyPermission') as access_policy_permission,
-              JSON_EXTRACT(Properties, '$.AccessPolicyResource.Portal') as access_policy_resource_portal,
-              JSON_EXTRACT(Properties, '$.AccessPolicyResource.Project') as access_policy_resource_project
+              JSON_EXTRACT(Properties, '$.AccessPolicyResource') as access_policy_resource
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
     assets:
       name: assets
       id: aws.iotsitewise.assets
       x-cfn-schema-name: Asset
       x-type: list
+      x-identifiers:
+        - AssetId
       config:
         views:
           select:
@@ -792,6 +797,8 @@ components:
       id: aws.iotsitewise.asset_models
       x-cfn-schema-name: AssetModel
       x-type: list
+      x-identifiers:
+        - AssetModelId
       config:
         views:
           select:
@@ -829,6 +836,8 @@ components:
       id: aws.iotsitewise.dashboards
       x-cfn-schema-name: Dashboard
       x-type: list
+      x-identifiers:
+        - DashboardId
       config:
         views:
           select:
@@ -865,6 +874,8 @@ components:
       id: aws.iotsitewise.gateways
       x-cfn-schema-name: Gateway
       x-type: list
+      x-identifiers:
+        - GatewayId
       config:
         views:
           select:
@@ -889,8 +900,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GatewayName') as gateway_name,
-              JSON_EXTRACT(Properties, '$.GatewayPlatform.Greengrass') as gateway_platform_greengrass,
-              JSON_EXTRACT(Properties, '$.GatewayPlatform.GreengrassV2') as gateway_platform_greengrass_v2,
+              JSON_EXTRACT(Properties, '$.GatewayPlatform') as gateway_platform,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GatewayId') as gateway_id,
               JSON_EXTRACT(Properties, '$.GatewayCapabilitySummaries') as gateway_capability_summaries

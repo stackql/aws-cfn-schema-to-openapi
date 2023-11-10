@@ -20,18 +20,19 @@ Gets an individual <code>mount_target</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>mount_target</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>mount_target</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.efs.mount_target</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>IpAddress</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FileSystemId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SecurityGroups</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SubnetId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ip_address</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>file_system_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>security_groups</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>subnet_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+ip_address,
+file_system_id,
+security_groups,
+subnet_id
 FROM aws.efs.mount_target
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

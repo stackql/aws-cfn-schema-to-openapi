@@ -189,6 +189,8 @@ components:
       id: aws.licensemanager.grants
       x-cfn-schema-name: Grant
       x-type: list
+      x-identifiers:
+        - GrantArn
       config:
         views:
           select:
@@ -212,7 +214,9 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.GrantArn') as grant_arn,
               JSON_EXTRACT(Properties, '$.GrantName') as grant_name,
+              JSON_EXTRACT(Properties, '$.LicenseArn') as license_arn,
               JSON_EXTRACT(Properties, '$.HomeRegion') as home_region,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.AllowedOperations') as allowed_operations,
@@ -224,6 +228,8 @@ components:
       id: aws.licensemanager.licenses
       x-cfn-schema-name: License
       x-type: list
+      x-identifiers:
+        - LicenseArn
       config:
         views:
           select:
@@ -248,18 +254,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ProductSKU') as product_sk_u,
-              JSON_EXTRACT(Properties, '$.Issuer.Name') as issuer_name,
-              JSON_EXTRACT(Properties, '$.Issuer.SignKey') as issuer_sign_key,
+              JSON_EXTRACT(Properties, '$.Issuer') as issuer,
               JSON_EXTRACT(Properties, '$.LicenseName') as license_name,
               JSON_EXTRACT(Properties, '$.ProductName') as product_name,
               JSON_EXTRACT(Properties, '$.HomeRegion') as home_region,
-              JSON_EXTRACT(Properties, '$.Validity.Begin') as validity_begin,
-              JSON_EXTRACT(Properties, '$.Validity.End') as validity_end,
+              JSON_EXTRACT(Properties, '$.Validity') as validity,
               JSON_EXTRACT(Properties, '$.Entitlements') as entitlements,
               JSON_EXTRACT(Properties, '$.Beneficiary') as beneficiary,
-              JSON_EXTRACT(Properties, '$.ConsumptionConfiguration.RenewType') as consumption_configuration_renew_type,
-              JSON_EXTRACT(Properties, '$.ConsumptionConfiguration.ProvisionalConfiguration') as consumption_configuration_provisional_configuration,
-              JSON_EXTRACT(Properties, '$.ConsumptionConfiguration.BorrowConfiguration') as consumption_configuration_borrow_configuration,
+              JSON_EXTRACT(Properties, '$.ConsumptionConfiguration') as consumption_configuration,
               JSON_EXTRACT(Properties, '$.LicenseMetadata') as license_metadata,
+              JSON_EXTRACT(Properties, '$.LicenseArn') as license_arn,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Version') as version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::License'

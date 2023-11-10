@@ -20,28 +20,29 @@ Gets an individual <code>component</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>component</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>component</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.amplifyuibuilder.component</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>AppId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BindingProperties</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Children</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>CollectionProperties</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>ComponentType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EnvironmentName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Events</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Overrides</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Properties</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>SchemaVersion</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SourceId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Variants</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>app_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>binding_properties</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>children</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>collection_properties</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>component_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>environment_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>events</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>overrides</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>properties</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>schema_version</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>source_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>variants</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -49,8 +50,27 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+app_id,
+binding_properties,
+children,
+collection_properties,
+component_type,
+environment_name,
+events,
+id,
+name,
+overrides,
+properties,
+schema_version,
+source_id,
+tags,
+variants
 FROM aws.amplifyuibuilder.component
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AppId&gt;' AND data__Identifier = '&lt;EnvironmentName&gt;' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;AppId&gt;'
+AND data__Identifier = '&lt;EnvironmentName&gt;'
+AND data__Identifier = '&lt;Id&gt;'
+```

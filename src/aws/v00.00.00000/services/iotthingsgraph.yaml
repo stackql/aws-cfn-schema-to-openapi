@@ -36,6 +36,8 @@ components:
       id: aws.iotthingsgraph.flow_templates
       x-cfn-schema-name: FlowTemplate
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -61,6 +63,5 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CompatibleNamespaceVersion') as compatible_namespace_version,
-              JSON_EXTRACT(Properties, '$.Definition.Language') as definition_language,
-              JSON_EXTRACT(Properties, '$.Definition.Text') as definition_text
+              JSON_EXTRACT(Properties, '$.Definition') as definition
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTThingsGraph::FlowTemplate'

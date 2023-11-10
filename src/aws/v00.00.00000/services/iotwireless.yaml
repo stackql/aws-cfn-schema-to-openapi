@@ -925,6 +925,8 @@ components:
       id: aws.iotwireless.destinations
       x-cfn-schema-name: Destination
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -961,6 +963,8 @@ components:
       id: aws.iotwireless.device_profiles
       x-cfn-schema-name: DeviceProfile
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -985,25 +989,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.SupportsClassB') as lo_ra_wa_nsupports_class_b,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ClassBTimeout') as lo_ra_wa_nclass_btimeout,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.PingSlotPeriod') as lo_ra_wa_nping_slot_period,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.PingSlotDr') as lo_ra_wa_nping_slot_dr,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.PingSlotFreq') as lo_ra_wa_nping_slot_freq,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.SupportsClassC') as lo_ra_wa_nsupports_class_c,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ClassCTimeout') as lo_ra_wa_nclass_ctimeout,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.MacVersion') as lo_ra_wa_nmac_version,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RegParamsRevision') as lo_ra_wa_nreg_params_revision,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RxDelay1') as lo_ra_wa_nrx_delay1,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RxDrOffset1') as lo_ra_wa_nrx_dr_offset1,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RxFreq2') as lo_ra_wa_nrx_freq2,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RxDataRate2') as lo_ra_wa_nrx_data_rate2,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.FactoryPresetFreqsList') as lo_ra_wa_nfactory_preset_freqs_list,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.MaxEirp') as lo_ra_wa_nmax_eirp,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.MaxDutyCycle') as lo_ra_wa_nmax_duty_cycle,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.SupportsJoin') as lo_ra_wa_nsupports_join,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RfRegion') as lo_ra_wa_nrf_region,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.Supports32BitFCnt') as lo_ra_wa_nsupports32_bit_fcnt,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
@@ -1013,6 +999,8 @@ components:
       id: aws.iotwireless.fuota_tasks
       x-cfn-schema-name: FuotaTask
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1038,10 +1026,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RfRegion') as lo_ra_wa_nrf_region,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DlClass') as lo_ra_wa_ndl_class,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.NumberOfDevicesRequested') as lo_ra_wa_nnumber_of_devices_requested,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.NumberOfDevicesInGroup') as lo_ra_wa_nnumber_of_devices_in_group,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.FirmwareUpdateImage') as firmware_update_image,
               JSON_EXTRACT(Properties, '$.FirmwareUpdateRole') as firmware_update_role,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
@@ -1058,6 +1043,8 @@ components:
       id: aws.iotwireless.multicast_groups
       x-cfn-schema-name: MulticastGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1083,10 +1070,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RfRegion') as lo_ra_wa_nrf_region,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DlClass') as lo_ra_wa_ndl_class,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.NumberOfDevicesRequested') as lo_ra_wa_nnumber_of_devices_requested,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.NumberOfDevicesInGroup') as lo_ra_wa_nnumber_of_devices_in_group,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -1099,6 +1083,8 @@ components:
       id: aws.iotwireless.network_analyzer_configurations
       x-cfn-schema-name: NetworkAnalyzerConfiguration
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -1135,6 +1121,8 @@ components:
       id: aws.iotwireless.partner_accounts
       x-cfn-schema-name: PartnerAccount
       x-type: list
+      x-identifiers:
+        - PartnerAccountId
       config:
         views:
           select:
@@ -1158,14 +1146,12 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Sidewalk.AppServerPrivateKey') as sidewalk_app_server_private_key,
+              JSON_EXTRACT(Properties, '$.Sidewalk') as sidewalk,
               JSON_EXTRACT(Properties, '$.PartnerAccountId') as partner_account_id,
               JSON_EXTRACT(Properties, '$.PartnerType') as partner_type,
-              JSON_EXTRACT(Properties, '$.SidewalkResponse.AmazonId') as sidewalk_response_amazon_id,
-              JSON_EXTRACT(Properties, '$.SidewalkResponse.Fingerprint') as sidewalk_response_fingerprint,
-              JSON_EXTRACT(Properties, '$.SidewalkResponse.Arn') as sidewalk_response_arn,
+              JSON_EXTRACT(Properties, '$.SidewalkResponse') as sidewalk_response,
               JSON_EXTRACT(Properties, '$.AccountLinked') as account_linked,
-              JSON_EXTRACT(Properties, '$.SidewalkUpdate.AppServerPrivateKey') as sidewalk_update_app_server_private_key,
+              JSON_EXTRACT(Properties, '$.SidewalkUpdate') as sidewalk_update,
               JSON_EXTRACT(Properties, '$.Fingerprint') as fingerprint,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -1175,6 +1161,8 @@ components:
       id: aws.iotwireless.service_profiles
       x-cfn-schema-name: ServiceProfile
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1199,25 +1187,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.UlRate') as lo_ra_wa_nul_rate,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.UlBucketSize') as lo_ra_wa_nul_bucket_size,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.UlRatePolicy') as lo_ra_wa_nul_rate_policy,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DlRate') as lo_ra_wa_ndl_rate,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DlBucketSize') as lo_ra_wa_ndl_bucket_size,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DlRatePolicy') as lo_ra_wa_ndl_rate_policy,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.AddGwMetadata') as lo_ra_wa_nadd_gw_metadata,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DevStatusReqFreq') as lo_ra_wa_ndev_status_req_freq,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ReportDevStatusBattery') as lo_ra_wa_nreport_dev_status_battery,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ReportDevStatusMargin') as lo_ra_wa_nreport_dev_status_margin,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DrMin') as lo_ra_wa_ndr_min,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DrMax') as lo_ra_wa_ndr_max,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ChannelMask') as lo_ra_wa_nchannel_mask,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.PrAllowed') as lo_ra_wa_npr_allowed,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.HrAllowed') as lo_ra_wa_nhr_allowed,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RaAllowed') as lo_ra_wa_nra_allowed,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.NwkGeoLoc') as lo_ra_wa_nnwk_geo_loc,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.TargetPer') as lo_ra_wa_ntarget_per,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.MinGwDiversity') as lo_ra_wa_nmin_gw_diversity,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
@@ -1227,6 +1197,8 @@ components:
       id: aws.iotwireless.task_definitions
       x-cfn-schema-name: TaskDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1252,11 +1224,8 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.AutoCreateTasks') as auto_create_tasks,
-              JSON_EXTRACT(Properties, '$.Update.UpdateDataSource') as update_update_data_source,
-              JSON_EXTRACT(Properties, '$.Update.UpdateDataRole') as update_update_data_role,
-              JSON_EXTRACT(Properties, '$.Update.LoRaWAN') as update_lo_ra_wa_n,
-              JSON_EXTRACT(Properties, '$.LoRaWANUpdateGatewayTaskEntry.CurrentVersion') as lo_ra_wa_nupdate_gateway_task_entry_current_version,
-              JSON_EXTRACT(Properties, '$.LoRaWANUpdateGatewayTaskEntry.UpdateVersion') as lo_ra_wa_nupdate_gateway_task_entry_update_version,
+              JSON_EXTRACT(Properties, '$.Update') as update,
+              JSON_EXTRACT(Properties, '$.LoRaWANUpdateGatewayTaskEntry') as lo_ra_wa_nupdate_gateway_task_entry,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TaskDefinitionType') as task_definition_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
@@ -1267,6 +1236,8 @@ components:
       id: aws.iotwireless.wireless_devices
       x-cfn-schema-name: WirelessDevice
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1294,13 +1265,7 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.DestinationName') as destination_name,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DevEui') as lo_ra_wa_ndev_eui,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.DeviceProfileId') as lo_ra_wa_ndevice_profile_id,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.ServiceProfileId') as lo_ra_wa_nservice_profile_id,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.OtaaV11') as lo_ra_wa_notaa_v11,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.OtaaV10x') as lo_ra_wa_notaa_v10x,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.AbpV11') as lo_ra_wa_nabp_v11,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.AbpV10x') as lo_ra_wa_nabp_v10x,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -1313,6 +1278,8 @@ components:
       id: aws.iotwireless.wireless_device_import_tasks
       x-cfn-schema-name: WirelessDeviceImportTask
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1354,6 +1321,8 @@ components:
       id: aws.iotwireless.wireless_gateways
       x-cfn-schema-name: WirelessGateway
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1380,8 +1349,7 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.GatewayEui') as lo_ra_wa_ngateway_eui,
-              JSON_EXTRACT(Properties, '$.LoRaWAN.RfRegion') as lo_ra_wa_nrf_region,
+              JSON_EXTRACT(Properties, '$.LoRaWAN') as lo_ra_wa_n,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ThingArn') as thing_arn,

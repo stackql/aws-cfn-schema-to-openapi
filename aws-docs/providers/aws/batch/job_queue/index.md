@@ -20,20 +20,21 @@ Gets an individual <code>job_queue</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>job_queue</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>job_queue</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.batch.job_queue</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>JobQueueName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>JobQueueArn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>ComputeEnvironmentOrder</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Priority</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>State</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SchedulingPolicyArn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><code>job_queue_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>job_queue_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>compute_environment_order</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>priority</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>state</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>scheduling_policy_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +42,17 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+job_queue_name,
+job_queue_arn,
+compute_environment_order,
+priority,
+state,
+scheduling_policy_arn,
+tags
 FROM aws.batch.job_queue
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;JobQueueArn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;JobQueueArn&gt;'
+```

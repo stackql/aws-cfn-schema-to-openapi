@@ -20,18 +20,19 @@ Gets an individual <code>vpc_link</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>vpc_link</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>vpc_link</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.vpc_link</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>VpcLinkId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SubnetIds</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SecurityGroupIds</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td>This resource type use map for Tags, suggest to use List of Tag</td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>vpc_link_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>subnet_ids</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>security_group_ids</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td>This resource type use map for Tags, suggest to use List of Tag</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+vpc_link_id,
+subnet_ids,
+security_group_ids,
+tags,
+name
 FROM aws.apigatewayv2.vpc_link
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;VpcLinkId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;VpcLinkId&gt;'
+```

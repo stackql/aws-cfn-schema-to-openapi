@@ -265,6 +265,8 @@ components:
       id: aws.emrserverless.applications
       x-cfn-schema-name: Application
       x-type: list
+      x-identifiers:
+        - ApplicationId
       config:
         views:
           select:
@@ -288,19 +290,18 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Architecture') as architecture,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ReleaseLabel') as release_label,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.MaximumCapacity.Cpu') as maximum_capacity_cpu,
-              JSON_EXTRACT(Properties, '$.MaximumCapacity.Memory') as maximum_capacity_memory,
-              JSON_EXTRACT(Properties, '$.MaximumCapacity.Disk') as maximum_capacity_disk,
+              JSON_EXTRACT(Properties, '$.InitialCapacity') as initial_capacity,
+              JSON_EXTRACT(Properties, '$.MaximumCapacity') as maximum_capacity,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.AutoStartConfiguration.Enabled') as auto_start_configuration_enabled,
-              JSON_EXTRACT(Properties, '$.AutoStopConfiguration.Enabled') as auto_stop_configuration_enabled,
-              JSON_EXTRACT(Properties, '$.AutoStopConfiguration.IdleTimeoutMinutes') as auto_stop_configuration_idle_timeout_minutes,
-              JSON_EXTRACT(Properties, '$.ImageConfiguration.ImageUri') as image_configuration_image_uri,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.SubnetIds') as network_configuration_subnet_ids,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.SecurityGroupIds') as network_configuration_security_group_ids,
+              JSON_EXTRACT(Properties, '$.AutoStartConfiguration') as auto_start_configuration,
+              JSON_EXTRACT(Properties, '$.AutoStopConfiguration') as auto_stop_configuration,
+              JSON_EXTRACT(Properties, '$.ImageConfiguration') as image_configuration,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
+              JSON_EXTRACT(Properties, '$.WorkerTypeSpecifications') as worker_type_specifications
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMRServerless::Application'

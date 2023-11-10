@@ -20,26 +20,27 @@ Gets an individual <code>experiment</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>experiment</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>experiment</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.evidently.experiment</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Project</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RunningStatus</code></td><td><code>undefined</code></td><td>Start Experiment. Default is False</td></tr>
-<tr><td><code>RandomizationSalt</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Treatments</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>MetricGoals</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SamplingRate</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>OnlineAbConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Segment</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RemoveSegment</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>project</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>running_status</code></td><td><code>object</code></td><td>Start Experiment. Default is False</td></tr>
+<tr><td><code>randomization_salt</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>treatments</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>metric_goals</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>sampling_rate</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>online_ab_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>segment</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>remove_segment</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -47,8 +48,23 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+name,
+project,
+description,
+running_status,
+randomization_salt,
+treatments,
+metric_goals,
+sampling_rate,
+online_ab_config,
+segment,
+remove_segment,
+tags
 FROM aws.evidently.experiment
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

@@ -20,15 +20,16 @@ Gets an individual <code>tracker_consumer</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>tracker_consumer</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>tracker_consumer</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.location.tracker_consumer</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ConsumerArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TrackerName</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>consumer_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tracker_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -36,8 +37,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+consumer_arn,
+tracker_name
 FROM aws.location.tracker_consumer
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TrackerName&gt;' AND data__Identifier = '&lt;ConsumerArn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;TrackerName&gt;'
+AND data__Identifier = '&lt;ConsumerArn&gt;'
+```

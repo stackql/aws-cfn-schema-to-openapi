@@ -50,6 +50,8 @@ components:
       id: aws.simspaceweaver.simulations
       x-cfn-schema-name: Simulation
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -75,7 +77,6 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.SchemaS3Location.BucketName') as schema_s3_location_bucket_name,
-              JSON_EXTRACT(Properties, '$.SchemaS3Location.ObjectKey') as schema_s3_location_object_key,
+              JSON_EXTRACT(Properties, '$.SchemaS3Location') as schema_s3_location,
               JSON_EXTRACT(Properties, '$.DescribePayload') as describe_payload
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'

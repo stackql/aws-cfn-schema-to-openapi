@@ -20,22 +20,23 @@ Gets an individual <code>flywheel</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>flywheel</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>flywheel</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.comprehend.flywheel</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ActiveModelArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataAccessRoleArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataLakeS3Uri</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataSecurityConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>FlywheelName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ModelType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>TaskConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>active_model_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_access_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_lake_s3_uri</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_security_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>flywheel_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>model_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>task_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +44,19 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+active_model_arn,
+data_access_role_arn,
+data_lake_s3_uri,
+data_security_config,
+flywheel_name,
+model_type,
+tags,
+task_config,
+arn
 FROM aws.comprehend.flywheel
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

@@ -20,17 +20,18 @@ Gets an individual <code>refresh_schedule</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>refresh_schedule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>refresh_schedule</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.quicksight.refresh_schedule</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>&lt;p&gt;The Amazon Resource Name (ARN) of the data source.&lt;&#x2F;p&gt;</td></tr>
-<tr><td><code>AwsAccountId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataSetId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Schedule</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>&lt;p&gt;The Amazon Resource Name (ARN) of the data source.&lt;&#x2F;p&gt;</td></tr>
+<tr><td><code>aws_account_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_set_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>schedule</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+aws_account_id,
+data_set_id,
+schedule
 FROM aws.quicksight.refresh_schedule
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AwsAccountId&gt;' AND data__Identifier = '&lt;DataSetId&gt;' AND data__Identifier = '&lt;Schedule/ScheduleId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;AwsAccountId&gt;'
+AND data__Identifier = '&lt;DataSetId&gt;'
+AND data__Identifier = '&lt;Schedule/ScheduleId&gt;'
+```

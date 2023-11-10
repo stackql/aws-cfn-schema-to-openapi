@@ -586,6 +586,9 @@ components:
       id: aws.config.aggregation_authorizations
       x-cfn-schema-name: AggregationAuthorization
       x-type: list
+      x-identifiers:
+        - AuthorizedAccountId
+        - AuthorizedAwsRegion
       config:
         views:
           select:
@@ -621,6 +624,8 @@ components:
       id: aws.config.config_rules
       x-cfn-schema-name: ConfigRule
       x-type: list
+      x-identifiers:
+        - ConfigRuleId
       config:
         views:
           select:
@@ -646,18 +651,12 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ConfigRuleId') as config_rule_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Scope.TagKey') as scope_tag_key,
-              JSON_EXTRACT(Properties, '$.Scope.ComplianceResourceTypes') as scope_compliance_resource_types,
-              JSON_EXTRACT(Properties, '$.Scope.TagValue') as scope_tag_value,
-              JSON_EXTRACT(Properties, '$.Scope.ComplianceResourceId') as scope_compliance_resource_id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.ComplianceType') as compliance_type,
               JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.MaximumExecutionFrequency') as maximum_execution_frequency,
-              JSON_EXTRACT(Properties, '$.Source.CustomPolicyDetails') as source_custom_policy_details,
-              JSON_EXTRACT(Properties, '$.Source.SourceIdentifier') as source_source_identifier,
-              JSON_EXTRACT(Properties, '$.Source.Owner') as source_owner,
-              JSON_EXTRACT(Properties, '$.Source.SourceDetails') as source_source_details,
+              JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.InputParameters') as input_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigRule'
     configuration_aggregators:
@@ -665,6 +664,8 @@ components:
       id: aws.config.configuration_aggregators
       x-cfn-schema-name: ConfigurationAggregator
       x-type: list
+      x-identifiers:
+        - ConfigurationAggregatorName
       config:
         views:
           select:
@@ -691,9 +692,7 @@ components:
               JSON_EXTRACT(Properties, '$.AccountAggregationSources') as account_aggregation_sources,
               JSON_EXTRACT(Properties, '$.ConfigurationAggregatorName') as configuration_aggregator_name,
               JSON_EXTRACT(Properties, '$.ConfigurationAggregatorArn') as configuration_aggregator_arn,
-              JSON_EXTRACT(Properties, '$.OrganizationAggregationSource.AllAwsRegions') as organization_aggregation_source_all_aws_regions,
-              JSON_EXTRACT(Properties, '$.OrganizationAggregationSource.AwsRegions') as organization_aggregation_source_aws_regions,
-              JSON_EXTRACT(Properties, '$.OrganizationAggregationSource.RoleArn') as organization_aggregation_source_role_arn,
+              JSON_EXTRACT(Properties, '$.OrganizationAggregationSource') as organization_aggregation_source,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
     configuration_recorders:
@@ -701,6 +700,8 @@ components:
       id: aws.config.configuration_recorders
       x-cfn-schema-name: ConfigurationRecorder
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -725,9 +726,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.RecordingGroup.IncludeGlobalResourceTypes') as recording_group_include_global_resource_types,
-              JSON_EXTRACT(Properties, '$.RecordingGroup.ResourceTypes') as recording_group_resource_types,
-              JSON_EXTRACT(Properties, '$.RecordingGroup.AllSupported') as recording_group_all_supported,
+              JSON_EXTRACT(Properties, '$.RecordingGroup') as recording_group,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
@@ -736,6 +735,8 @@ components:
       id: aws.config.conformance_packs
       x-cfn-schema-name: ConformancePack
       x-type: list
+      x-identifiers:
+        - ConformancePackName
       config:
         views:
           select:
@@ -772,6 +773,8 @@ components:
       id: aws.config.delivery_channels
       x-cfn-schema-name: DeliveryChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -796,7 +799,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.S3KeyPrefix') as s3_key_prefix,
-              JSON_EXTRACT(Properties, '$.ConfigSnapshotDeliveryProperties.DeliveryFrequency') as config_snapshot_delivery_properties_delivery_frequency,
+              JSON_EXTRACT(Properties, '$.ConfigSnapshotDeliveryProperties') as config_snapshot_delivery_properties,
               JSON_EXTRACT(Properties, '$.S3BucketName') as s3_bucket_name,
               JSON_EXTRACT(Properties, '$.SnsTopicARN') as sns_topic_ar_n,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -808,6 +811,8 @@ components:
       id: aws.config.organization_config_rules
       x-cfn-schema-name: OrganizationConfigRule
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -831,43 +836,20 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.TagKeyScope') as organization_custom_rule_metadata_tag_key_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.TagValueScope') as organization_custom_rule_metadata_tag_value_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.Description') as organization_custom_rule_metadata_description,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.ResourceIdScope') as organization_custom_rule_metadata_resource_id_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.LambdaFunctionArn') as organization_custom_rule_metadata_lambda_function_arn,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.OrganizationConfigRuleTriggerTypes') as organization_custom_rule_metadata_organization_config_rule_trigger_types,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.ResourceTypesScope') as organization_custom_rule_metadata_resource_types_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.MaximumExecutionFrequency') as organization_custom_rule_metadata_maximum_execution_frequency,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata.InputParameters') as organization_custom_rule_metadata_input_parameters,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.TagKeyScope') as organization_managed_rule_metadata_tag_key_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.TagValueScope') as organization_managed_rule_metadata_tag_value_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.Description') as organization_managed_rule_metadata_description,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.ResourceIdScope') as organization_managed_rule_metadata_resource_id_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.RuleIdentifier') as organization_managed_rule_metadata_rule_identifier,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.ResourceTypesScope') as organization_managed_rule_metadata_resource_types_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.MaximumExecutionFrequency') as organization_managed_rule_metadata_maximum_execution_frequency,
-              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata.InputParameters') as organization_managed_rule_metadata_input_parameters,
+              JSON_EXTRACT(Properties, '$.OrganizationCustomRuleMetadata') as organization_custom_rule_metadata,
+              JSON_EXTRACT(Properties, '$.OrganizationManagedRuleMetadata') as organization_managed_rule_metadata,
               JSON_EXTRACT(Properties, '$.ExcludedAccounts') as excluded_accounts,
               JSON_EXTRACT(Properties, '$.OrganizationConfigRuleName') as organization_config_rule_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.TagKeyScope') as organization_custom_policy_rule_metadata_tag_key_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.TagValueScope') as organization_custom_policy_rule_metadata_tag_value_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.Runtime') as organization_custom_policy_rule_metadata_runtime,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.PolicyText') as organization_custom_policy_rule_metadata_policy_text,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.Description') as organization_custom_policy_rule_metadata_description,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.ResourceIdScope') as organization_custom_policy_rule_metadata_resource_id_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.OrganizationConfigRuleTriggerTypes') as organization_custom_policy_rule_metadata_organization_config_rule_trigger_types,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.DebugLogDeliveryAccounts') as organization_custom_policy_rule_metadata_debug_log_delivery_accounts,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.ResourceTypesScope') as organization_custom_policy_rule_metadata_resource_types_scope,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.MaximumExecutionFrequency') as organization_custom_policy_rule_metadata_maximum_execution_frequency,
-              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata.InputParameters') as organization_custom_policy_rule_metadata_input_parameters
+              JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata') as organization_custom_policy_rule_metadata
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
     organization_conformance_packs:
       name: organization_conformance_packs
       id: aws.config.organization_conformance_packs
       x-cfn-schema-name: OrganizationConformancePack
       x-type: list
+      x-identifiers:
+        - OrganizationConformancePackName
       config:
         views:
           select:
@@ -904,6 +886,8 @@ components:
       id: aws.config.remediation_configurations
       x-cfn-schema-name: RemediationConfiguration
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -928,7 +912,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.TargetVersion') as target_version,
-              JSON_EXTRACT(Properties, '$.ExecutionControls.SsmControls') as execution_controls_ssm_controls,
+              JSON_EXTRACT(Properties, '$.ExecutionControls') as execution_controls,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.TargetType') as target_type,
               JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_name,
@@ -944,6 +928,8 @@ components:
       id: aws.config.stored_queries
       x-cfn-schema-name: StoredQuery
       x-type: list
+      x-identifiers:
+        - QueryName
       config:
         views:
           select:

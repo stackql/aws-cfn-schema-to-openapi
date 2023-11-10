@@ -20,16 +20,17 @@ Gets an individual <code>application</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>application</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>application</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.elasticbeanstalk.application</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ApplicationName</code></td><td><code>string</code></td><td>A name for the Elastic Beanstalk application. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the application name.</td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td>Your description of the application.</td></tr>
-<tr><td><code>ResourceLifecycleConfig</code></td><td><code>undefined</code></td><td>Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.</td></tr>
+<tr><td><code>application_name</code></td><td><code>string</code></td><td>A name for the Elastic Beanstalk application. If you don't specify a name, AWS CloudFormation generates a unique physical ID and uses that ID for the application name.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>Your description of the application.</td></tr>
+<tr><td><code>resource_lifecycle_config</code></td><td><code>object</code></td><td>Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+application_name,
+description,
+resource_lifecycle_config
 FROM aws.elasticbeanstalk.application
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ApplicationName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;ApplicationName&gt;'
+```

@@ -327,6 +327,8 @@ components:
       id: aws.s3outposts.access_points
       x-cfn-schema-name: AccessPoint
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -353,7 +355,7 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.VpcConfiguration.VpcId') as vpc_configuration_vpc_id,
+              JSON_EXTRACT(Properties, '$.VpcConfiguration') as vpc_configuration,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
     buckets:
@@ -361,6 +363,8 @@ components:
       id: aws.s3outposts.buckets
       x-cfn-schema-name: Bucket
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -388,13 +392,15 @@ components:
               JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
               JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.LifecycleConfiguration.Rules') as lifecycle_configuration_rules
+              JSON_EXTRACT(Properties, '$.LifecycleConfiguration') as lifecycle_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
     bucket_policies:
       name: bucket_policies
       id: aws.s3outposts.bucket_policies
       x-cfn-schema-name: BucketPolicy
       x-type: list
+      x-identifiers:
+        - Bucket
       config:
         views:
           select:
@@ -426,6 +432,8 @@ components:
       id: aws.s3outposts.endpoints
       x-cfn-schema-name: Endpoint
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -451,6 +459,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CidrBlock') as cidr_block,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NetworkInterfaces') as network_interfaces,
               JSON_EXTRACT(Properties, '$.OutpostId') as outpost_id,

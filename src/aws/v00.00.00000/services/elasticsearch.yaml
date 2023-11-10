@@ -215,6 +215,8 @@ components:
       id: aws.elasticsearch.domains
       x-cfn-schema-name: Domain
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -238,48 +240,23 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.InstanceCount') as elasticsearch_cluster_config_instance_count,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.WarmEnabled') as elasticsearch_cluster_config_warm_enabled,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.WarmCount') as elasticsearch_cluster_config_warm_count,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.DedicatedMasterEnabled') as elasticsearch_cluster_config_dedicated_master_enabled,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.ZoneAwarenessConfig') as elasticsearch_cluster_config_zone_awareness_config,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.ColdStorageOptions') as elasticsearch_cluster_config_cold_storage_options,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.DedicatedMasterCount') as elasticsearch_cluster_config_dedicated_master_count,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.InstanceType') as elasticsearch_cluster_config_instance_type,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.WarmType') as elasticsearch_cluster_config_warm_type,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.ZoneAwarenessEnabled') as elasticsearch_cluster_config_zone_awareness_enabled,
-              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig.DedicatedMasterType') as elasticsearch_cluster_config_dedicated_master_type,
+              JSON_EXTRACT(Properties, '$.ElasticsearchClusterConfig') as elasticsearch_cluster_config,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.ElasticsearchVersion') as elasticsearch_version,
               JSON_EXTRACT(Properties, '$.LogPublishingOptions') as log_publishing_options,
-              JSON_EXTRACT(Properties, '$.SnapshotOptions.AutomatedSnapshotStartHour') as snapshot_options_automated_snapshot_start_hour,
-              JSON_EXTRACT(Properties, '$.VPCOptions.SecurityGroupIds') as v_pc_options_security_group_ids,
-              JSON_EXTRACT(Properties, '$.VPCOptions.SubnetIds') as v_pc_options_subnet_ids,
-              JSON_EXTRACT(Properties, '$.NodeToNodeEncryptionOptions.Enabled') as node_to_node_encryption_options_enabled,
+              JSON_EXTRACT(Properties, '$.SnapshotOptions') as snapshot_options,
+              JSON_EXTRACT(Properties, '$.VPCOptions') as v_pc_options,
+              JSON_EXTRACT(Properties, '$.NodeToNodeEncryptionOptions') as node_to_node_encryption_options,
               JSON_EXTRACT(Properties, '$.AccessPolicies') as access_policies,
-              JSON_EXTRACT(Properties, '$.DomainEndpointOptions.CustomEndpointCertificateArn') as domain_endpoint_options_custom_endpoint_certificate_arn,
-              JSON_EXTRACT(Properties, '$.DomainEndpointOptions.CustomEndpointEnabled') as domain_endpoint_options_custom_endpoint_enabled,
-              JSON_EXTRACT(Properties, '$.DomainEndpointOptions.EnforceHTTPS') as domain_endpoint_options_enforce_ht_tp_s,
-              JSON_EXTRACT(Properties, '$.DomainEndpointOptions.CustomEndpoint') as domain_endpoint_options_custom_endpoint,
-              JSON_EXTRACT(Properties, '$.DomainEndpointOptions.TLSSecurityPolicy') as domain_endpoint_options_tl_ssecurity_policy,
+              JSON_EXTRACT(Properties, '$.DomainEndpointOptions') as domain_endpoint_options,
               JSON_EXTRACT(Properties, '$.DomainArn') as domain_arn,
-              JSON_EXTRACT(Properties, '$.CognitoOptions.Enabled') as cognito_options_enabled,
-              JSON_EXTRACT(Properties, '$.CognitoOptions.IdentityPoolId') as cognito_options_identity_pool_id,
-              JSON_EXTRACT(Properties, '$.CognitoOptions.UserPoolId') as cognito_options_user_pool_id,
-              JSON_EXTRACT(Properties, '$.CognitoOptions.RoleArn') as cognito_options_role_arn,
+              JSON_EXTRACT(Properties, '$.CognitoOptions') as cognito_options,
               JSON_EXTRACT(Properties, '$.AdvancedOptions') as advanced_options,
-              JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions.Enabled') as advanced_security_options_enabled,
-              JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions.MasterUserOptions') as advanced_security_options_master_user_options,
-              JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions.AnonymousAuthEnabled') as advanced_security_options_anonymous_auth_enabled,
-              JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions.InternalUserDatabaseEnabled') as advanced_security_options_internal_user_database_enabled,
+              JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions') as advanced_security_options,
               JSON_EXTRACT(Properties, '$.DomainEndpoint') as domain_endpoint,
-              JSON_EXTRACT(Properties, '$.EBSOptions.EBSEnabled') as e_bs_options_eb_senabled,
-              JSON_EXTRACT(Properties, '$.EBSOptions.VolumeType') as e_bs_options_volume_type,
-              JSON_EXTRACT(Properties, '$.EBSOptions.Iops') as e_bs_options_iops,
-              JSON_EXTRACT(Properties, '$.EBSOptions.VolumeSize') as e_bs_options_volume_size,
+              JSON_EXTRACT(Properties, '$.EBSOptions') as e_bs_options,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions.KmsKeyId') as encryption_at_rest_options_kms_key_id,
-              JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions.Enabled') as encryption_at_rest_options_enabled,
+              JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions') as encryption_at_rest_options,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Elasticsearch::Domain'

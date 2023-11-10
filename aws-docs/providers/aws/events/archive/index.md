@@ -20,19 +20,20 @@ Gets an individual <code>archive</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>archive</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>archive</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.events.archive</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ArchiveName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SourceArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EventPattern</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RetentionDays</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>archive_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>source_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>event_pattern</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>retention_days</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+archive_name,
+source_arn,
+description,
+event_pattern,
+arn,
+retention_days
 FROM aws.events.archive
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ArchiveName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;ArchiveName&gt;'
+```

@@ -20,19 +20,20 @@ Gets an individual <code>packaging_group</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>packaging_group</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>packaging_group</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.mediapackage.packaging_group</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>The ID of the PackagingGroup.</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The ARN of the PackagingGroup.</td></tr>
-<tr><td><code>DomainName</code></td><td><code>string</code></td><td>The fully qualified domain name for Assets in the PackagingGroup.</td></tr>
-<tr><td><code>Authorization</code></td><td><code>undefined</code></td><td>CDN Authorization</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><code>EgressAccessLogs</code></td><td><code>undefined</code></td><td>The configuration parameters for egress access logging.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>The ID of the PackagingGroup.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The ARN of the PackagingGroup.</td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td>The fully qualified domain name for Assets in the PackagingGroup.</td></tr>
+<tr><td><code>authorization</code></td><td><code>object</code></td><td>CDN Authorization</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
+<tr><td><code>egress_access_logs</code></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+arn,
+domain_name,
+authorization,
+tags,
+egress_access_logs
 FROM aws.mediapackage.packaging_group
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

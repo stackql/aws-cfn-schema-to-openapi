@@ -230,6 +230,8 @@ components:
       id: aws.ivs.channels
       x-cfn-schema-name: Channel
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -268,6 +270,8 @@ components:
       id: aws.ivs.playback_key_pairs
       x-cfn-schema-name: PlaybackKeyPair
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -302,6 +306,8 @@ components:
       id: aws.ivs.recording_configurations
       x-cfn-schema-name: RecordingConfiguration
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -329,16 +335,17 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.RecordingReconnectWindowSeconds') as recording_reconnect_window_seconds,
-              JSON_EXTRACT(Properties, '$.DestinationConfiguration.S3') as destination_configuration_s3,
+              JSON_EXTRACT(Properties, '$.DestinationConfiguration') as destination_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.RecordingMode') as thumbnail_configuration_recording_mode,
-              JSON_EXTRACT(Properties, '$.ThumbnailConfiguration.TargetIntervalSeconds') as thumbnail_configuration_target_interval_seconds
+              JSON_EXTRACT(Properties, '$.ThumbnailConfiguration') as thumbnail_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
     stream_keys:
       name: stream_keys
       id: aws.ivs.stream_keys
       x-cfn-schema-name: StreamKey
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:

@@ -212,6 +212,8 @@ components:
       id: aws.pinpointemail.configuration_sets
       x-cfn-schema-name: ConfigurationSet
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -236,10 +238,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.SendingOptions.SendingEnabled') as sending_options_sending_enabled,
-              JSON_EXTRACT(Properties, '$.TrackingOptions.CustomRedirectDomain') as tracking_options_custom_redirect_domain,
-              JSON_EXTRACT(Properties, '$.ReputationOptions.ReputationMetricsEnabled') as reputation_options_reputation_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.DeliveryOptions.SendingPoolName') as delivery_options_sending_pool_name,
+              JSON_EXTRACT(Properties, '$.SendingOptions') as sending_options,
+              JSON_EXTRACT(Properties, '$.TrackingOptions') as tracking_options,
+              JSON_EXTRACT(Properties, '$.ReputationOptions') as reputation_options,
+              JSON_EXTRACT(Properties, '$.DeliveryOptions') as delivery_options,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
@@ -248,6 +250,8 @@ components:
       id: aws.pinpointemail.configuration_set_event_destinations
       x-cfn-schema-name: ConfigurationSetEventDestination
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -274,18 +278,15 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.EventDestinationName') as event_destination_name,
               JSON_EXTRACT(Properties, '$.ConfigurationSetName') as configuration_set_name,
-              JSON_EXTRACT(Properties, '$.EventDestination.SnsDestination') as event_destination_sns_destination,
-              JSON_EXTRACT(Properties, '$.EventDestination.CloudWatchDestination') as event_destination_cloud_watch_destination,
-              JSON_EXTRACT(Properties, '$.EventDestination.Enabled') as event_destination_enabled,
-              JSON_EXTRACT(Properties, '$.EventDestination.MatchingEventTypes') as event_destination_matching_event_types,
-              JSON_EXTRACT(Properties, '$.EventDestination.PinpointDestination') as event_destination_pinpoint_destination,
-              JSON_EXTRACT(Properties, '$.EventDestination.KinesisFirehoseDestination') as event_destination_kinesis_firehose_destination
+              JSON_EXTRACT(Properties, '$.EventDestination') as event_destination
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
     dedicated_ip_pools:
       name: dedicated_ip_pools
       id: aws.pinpointemail.dedicated_ip_pools
       x-cfn-schema-name: DedicatedIpPool
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -318,6 +319,8 @@ components:
       id: aws.pinpointemail.identities
       x-cfn-schema-name: Identity
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -352,6 +355,5 @@ components:
               JSON_EXTRACT(Properties, '$.DkimSigningEnabled') as dkim_signing_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.MailFromAttributes.MailFromDomain') as mail_from_attributes_mail_from_domain,
-              JSON_EXTRACT(Properties, '$.MailFromAttributes.BehaviorOnMxFailure') as mail_from_attributes_behavior_on_mx_failure
+              JSON_EXTRACT(Properties, '$.MailFromAttributes') as mail_from_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::Identity'

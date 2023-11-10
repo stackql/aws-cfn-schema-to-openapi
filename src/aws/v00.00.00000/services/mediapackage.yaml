@@ -593,6 +593,8 @@ components:
       id: aws.mediapackage.assets
       x-cfn-schema-name: Asset
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -631,6 +633,8 @@ components:
       id: aws.mediapackage.channels
       x-cfn-schema-name: Channel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -657,16 +661,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.HlsIngest.ingestEndpoints') as hls_ingestingest_endpoints,
+              JSON_EXTRACT(Properties, '$.HlsIngest') as hls_ingest,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name,
-              JSON_EXTRACT(Properties, '$.IngressAccessLogs.LogGroupName') as ingress_access_logs_log_group_name
+              JSON_EXTRACT(Properties, '$.EgressAccessLogs') as egress_access_logs,
+              JSON_EXTRACT(Properties, '$.IngressAccessLogs') as ingress_access_logs
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Channel'
     origin_endpoints:
       name: origin_endpoints
       id: aws.mediapackage.origin_endpoints
       x-cfn-schema-name: OriginEndpoint
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -700,27 +706,11 @@ components:
               JSON_EXTRACT(Properties, '$.TimeDelaySeconds') as time_delay_seconds,
               JSON_EXTRACT(Properties, '$.ManifestName') as manifest_name,
               JSON_EXTRACT(Properties, '$.Origination') as origination,
-              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as authorization_cdn_identifier_secret,
-              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as authorization_secrets_role_arn,
-              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as hls_package_encryption,
-              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as hls_package_hls_manifests,
-              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as hls_package_include_dvb_subtitles,
-              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as hls_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as hls_package_use_audio_rendition_group,
-              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as dash_package_dash_manifests,
-              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as dash_package_encryption,
-              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as dash_package_period_triggers,
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds') as dash_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as dash_package_segment_template_format,
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeEncoderConfigurationInSegments') as dash_package_include_encoder_configuration_in_segments,
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream') as dash_package_include_iframe_only_stream,
-              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as mss_package_encryption,
-              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as mss_package_mss_manifests,
-              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as mss_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as cmaf_package_encryption,
-              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as cmaf_package_hls_manifests,
-              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds') as cmaf_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.CmafPackage.IncludeEncoderConfigurationInSegments') as cmaf_package_include_encoder_configuration_in_segments,
+              JSON_EXTRACT(Properties, '$.Authorization') as authorization,
+              JSON_EXTRACT(Properties, '$.HlsPackage') as hls_package,
+              JSON_EXTRACT(Properties, '$.DashPackage') as dash_package,
+              JSON_EXTRACT(Properties, '$.MssPackage') as mss_package,
+              JSON_EXTRACT(Properties, '$.CmafPackage') as cmaf_package,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
     packaging_configurations:
@@ -728,6 +718,8 @@ components:
       id: aws.mediapackage.packaging_configurations
       x-cfn-schema-name: PackagingConfiguration
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -754,25 +746,10 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PackagingGroupId') as packaging_group_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.CmafPackage.Encryption') as cmaf_package_encryption,
-              JSON_EXTRACT(Properties, '$.CmafPackage.HlsManifests') as cmaf_package_hls_manifests,
-              JSON_EXTRACT(Properties, '$.CmafPackage.SegmentDurationSeconds') as cmaf_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.CmafPackage.IncludeEncoderConfigurationInSegments') as cmaf_package_include_encoder_configuration_in_segments,
-              JSON_EXTRACT(Properties, '$.DashPackage.DashManifests') as dash_package_dash_manifests,
-              JSON_EXTRACT(Properties, '$.DashPackage.Encryption') as dash_package_encryption,
-              JSON_EXTRACT(Properties, '$.DashPackage.PeriodTriggers') as dash_package_period_triggers,
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentDurationSeconds') as dash_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.DashPackage.SegmentTemplateFormat') as dash_package_segment_template_format,
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeEncoderConfigurationInSegments') as dash_package_include_encoder_configuration_in_segments,
-              JSON_EXTRACT(Properties, '$.DashPackage.IncludeIframeOnlyStream') as dash_package_include_iframe_only_stream,
-              JSON_EXTRACT(Properties, '$.HlsPackage.Encryption') as hls_package_encryption,
-              JSON_EXTRACT(Properties, '$.HlsPackage.HlsManifests') as hls_package_hls_manifests,
-              JSON_EXTRACT(Properties, '$.HlsPackage.IncludeDvbSubtitles') as hls_package_include_dvb_subtitles,
-              JSON_EXTRACT(Properties, '$.HlsPackage.SegmentDurationSeconds') as hls_package_segment_duration_seconds,
-              JSON_EXTRACT(Properties, '$.HlsPackage.UseAudioRenditionGroup') as hls_package_use_audio_rendition_group,
-              JSON_EXTRACT(Properties, '$.MssPackage.Encryption') as mss_package_encryption,
-              JSON_EXTRACT(Properties, '$.MssPackage.MssManifests') as mss_package_mss_manifests,
-              JSON_EXTRACT(Properties, '$.MssPackage.SegmentDurationSeconds') as mss_package_segment_duration_seconds,
+              JSON_EXTRACT(Properties, '$.CmafPackage') as cmaf_package,
+              JSON_EXTRACT(Properties, '$.DashPackage') as dash_package,
+              JSON_EXTRACT(Properties, '$.HlsPackage') as hls_package,
+              JSON_EXTRACT(Properties, '$.MssPackage') as mss_package,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
     packaging_groups:
@@ -780,6 +757,8 @@ components:
       id: aws.mediapackage.packaging_groups
       x-cfn-schema-name: PackagingGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -806,8 +785,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-              JSON_EXTRACT(Properties, '$.Authorization.CdnIdentifierSecret') as authorization_cdn_identifier_secret,
-              JSON_EXTRACT(Properties, '$.Authorization.SecretsRoleArn') as authorization_secrets_role_arn,
+              JSON_EXTRACT(Properties, '$.Authorization') as authorization,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.EgressAccessLogs.LogGroupName') as egress_access_logs_log_group_name
+              JSON_EXTRACT(Properties, '$.EgressAccessLogs') as egress_access_logs
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'

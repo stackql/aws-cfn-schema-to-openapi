@@ -20,16 +20,17 @@ Gets an individual <code>vdm_attributes</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>vdm_attributes</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>vdm_attributes</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ses.vdm_attributes</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>VdmAttributesResourceId</code></td><td><code>string</code></td><td>Unique identifier for this resource</td></tr>
-<tr><td><code>DashboardAttributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>GuardianAttributes</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>vdm_attributes_resource_id</code></td><td><code>string</code></td><td>Unique identifier for this resource</td></tr>
+<tr><td><code>dashboard_attributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>guardian_attributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+vdm_attributes_resource_id,
+dashboard_attributes,
+guardian_attributes
 FROM aws.ses.vdm_attributes
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;VdmAttributesResourceId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;VdmAttributesResourceId&gt;'
+```

@@ -20,16 +20,17 @@ Gets an individual <code>tag</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>tag</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>tag</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lakeformation.tag</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>CatalogId</code></td><td><code>undefined</code></td><td>The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment.</td></tr>
-<tr><td><code>TagKey</code></td><td><code>undefined</code></td><td>The key-name for the LF-tag.</td></tr>
-<tr><td><code>TagValues</code></td><td><code>undefined</code></td><td>A list of possible values an attribute can take.</td></tr>
+<tr><td><code>catalog_id</code></td><td><code>string</code></td><td>The identifier for the Data Catalog. By default, the account ID. The Data Catalog is the persistent metadata store. It contains database definitions, table definitions, and other control information to manage your Lake Formation environment.</td></tr>
+<tr><td><code>tag_key</code></td><td><code>string</code></td><td>The key-name for the LF-tag.</td></tr>
+<tr><td><code>tag_values</code></td><td><code>array</code></td><td>A list of possible values an attribute can take.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+catalog_id,
+tag_key,
+tag_values
 FROM aws.lakeformation.tag
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;TagKey&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;TagKey&gt;'
+```

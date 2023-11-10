@@ -20,18 +20,15 @@ Retrieves a list of <code>device_profiles</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>device_profiles</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>device_profiles</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotwireless.device_profiles</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>Name of service profile</td></tr>
-<tr><td><code>LoRaWAN</code></td><td><code>undefined</code></td><td>LoRaWANDeviceProfile supports all LoRa specific attributes for service profile for CreateDeviceProfile operation</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the device profile.</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>Service profile Arn. Returned after successful create.</td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>Service profile Id. Returned after successful create.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>Service profile Id. Returned after successful create.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.iotwireless.device_profiles
 WHERE region = 'us-east-1'
-</pre>
+```

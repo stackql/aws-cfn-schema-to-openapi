@@ -1514,6 +1514,9 @@ components:
       id: aws.kendra.data_sources
       x-cfn-schema-name: DataSource
       x-type: list
+      x-identifiers:
+        - Id
+        - IndexId
       config:
         views:
           select:
@@ -1539,26 +1542,26 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.S3Configuration') as data_source_configuration_s3_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SharePointConfiguration') as data_source_configuration_share_point_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.SalesforceConfiguration') as data_source_configuration_salesforce_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.OneDriveConfiguration') as data_source_configuration_one_drive_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.ServiceNowConfiguration') as data_source_configuration_service_now_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.DatabaseConfiguration') as data_source_configuration_database_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.ConfluenceConfiguration') as data_source_configuration_confluence_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.GoogleDriveConfiguration') as data_source_configuration_google_drive_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.WebCrawlerConfiguration') as data_source_configuration_web_crawler_configuration,
-              JSON_EXTRACT(Properties, '$.DataSourceConfiguration.WorkDocsConfiguration') as data_source_configuration_work_docs_configuration,
-              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.InlineConfigurations') as custom_document_enrichment_configuration_inline_configurations,
-              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PreExtractionHookConfiguration') as custom_document_enrichment_configuration_pre_extraction_hook_configuration,
-              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.PostExtractionHookConfiguration') as custom_document_enrichment_configuration_post_extraction_hook_configuration,
-              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration.RoleArn') as custom_document_enrichment_configuration_role_arn
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.IndexId') as index_id,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.DataSourceConfiguration') as data_source_configuration,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration') as custom_document_enrichment_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::DataSource'
     faqs:
       name: faqs
       id: aws.kendra.faqs
       x-cfn-schema-name: Faq
       x-type: list
+      x-identifiers:
+        - Id
+        - IndexId
       config:
         views:
           select:
@@ -1584,8 +1587,14 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.S3Path.Bucket') as s3_path_bucket,
-              JSON_EXTRACT(Properties, '$.S3Path.Key') as s3_path_key,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.IndexId') as index_id,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.FileFormat') as file_format,
+              JSON_EXTRACT(Properties, '$.S3Path') as s3_path,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Faq'
     indices:
@@ -1593,6 +1602,8 @@ components:
       id: aws.kendra.indices
       x-cfn-schema-name: Index
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1616,7 +1627,16 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration.KmsKeyId') as server_side_encryption_configuration_kms_key_id,
-              JSON_EXTRACT(Properties, '$.CapacityUnits.StorageCapacityUnits') as capacity_units_storage_capacity_units,
-              JSON_EXTRACT(Properties, '$.CapacityUnits.QueryCapacityUnits') as capacity_units_query_capacity_units
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Edition') as edition,
+              JSON_EXTRACT(Properties, '$.DocumentMetadataConfigurations') as document_metadata_configurations,
+              JSON_EXTRACT(Properties, '$.CapacityUnits') as capacity_units,
+              JSON_EXTRACT(Properties, '$.UserContextPolicy') as user_context_policy,
+              JSON_EXTRACT(Properties, '$.UserTokenConfigurations') as user_token_configurations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Index'

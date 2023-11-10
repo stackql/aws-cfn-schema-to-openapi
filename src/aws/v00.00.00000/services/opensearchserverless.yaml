@@ -264,6 +264,9 @@ components:
       id: aws.opensearchserverless.access_policies
       x-cfn-schema-name: AccessPolicy
       x-type: list
+      x-identifiers:
+        - Type
+        - Name
       config:
         views:
           select:
@@ -290,6 +293,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
@@ -298,6 +302,8 @@ components:
       id: aws.opensearchserverless.collections
       x-cfn-schema-name: Collection
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -327,13 +333,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CollectionEndpoint') as collection_endpoint,
-              JSON_EXTRACT(Properties, '$.DashboardEndpoint') as dashboard_endpoint
+              JSON_EXTRACT(Properties, '$.DashboardEndpoint') as dashboard_endpoint,
+              JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
     security_configs:
       name: security_configs
       id: aws.opensearchserverless.security_configs
       x-cfn-schema-name: SecurityConfig
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -360,16 +369,17 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.SamlOptions.Metadata') as saml_options_metadata,
-              JSON_EXTRACT(Properties, '$.SamlOptions.UserAttribute') as saml_options_user_attribute,
-              JSON_EXTRACT(Properties, '$.SamlOptions.GroupAttribute') as saml_options_group_attribute,
-              JSON_EXTRACT(Properties, '$.SamlOptions.SessionTimeout') as saml_options_session_timeout
+              JSON_EXTRACT(Properties, '$.SamlOptions') as saml_options,
+              JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
     security_policies:
       name: security_policies
       id: aws.opensearchserverless.security_policies
       x-cfn-schema-name: SecurityPolicy
       x-type: list
+      x-identifiers:
+        - Type
+        - Name
       config:
         views:
           select:
@@ -397,13 +407,16 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
     vpc_endpoints:
       name: vpc_endpoints
       id: aws.opensearchserverless.vpc_endpoints
       x-cfn-schema-name: VpcEndpoint
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

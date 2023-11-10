@@ -20,23 +20,15 @@ Retrieves a list of <code>parameters</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>parameters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>parameters</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.ssm.parameters</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Type</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Policies</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AllowedPattern</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tier</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Value</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DataType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -44,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.ssm.parameters
 WHERE region = 'us-east-1'
-</pre>
+```

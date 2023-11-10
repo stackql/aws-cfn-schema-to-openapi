@@ -20,18 +20,19 @@ Gets an individual <code>role_alias</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>role_alias</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>role_alias</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.role_alias</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>RoleAlias</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoleAliasArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CredentialDurationSeconds</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>role_alias</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>role_alias_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>credential_duration_seconds</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+role_alias,
+role_alias_arn,
+role_arn,
+credential_duration_seconds,
+tags
 FROM aws.iot.role_alias
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;RoleAlias&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;RoleAlias&gt;'
+```

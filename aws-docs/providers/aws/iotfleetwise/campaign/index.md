@@ -20,33 +20,34 @@ Gets an individual <code>campaign</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>campaign</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>campaign</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotfleetwise.campaign</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Status</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Action</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>CreationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Compression</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Priority</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>SignalsToCollect</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>StartTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ExpiryTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LastModificationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SpoolingMode</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>SignalCatalogArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PostTriggerCollectionDuration</code></td><td><code>number</code></td><td></td></tr>
-<tr><td><code>DataExtraDimensions</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>DiagnosticsMode</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>TargetArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CollectionScheme</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>action</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>creation_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>compression</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>priority</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>signals_to_collect</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>start_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>expiry_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_modification_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>spooling_mode</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>signal_catalog_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>post_trigger_collection_duration</code></td><td><code>number</code></td><td></td></tr>
+<tr><td><code>data_extra_dimensions</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>diagnostics_mode</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>collection_scheme</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -54,8 +55,30 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+status,
+action,
+creation_time,
+compression,
+description,
+priority,
+signals_to_collect,
+start_time,
+name,
+expiry_time,
+last_modification_time,
+spooling_mode,
+signal_catalog_arn,
+post_trigger_collection_duration,
+data_extra_dimensions,
+diagnostics_mode,
+target_arn,
+arn,
+collection_scheme,
+tags
 FROM aws.iotfleetwise.campaign
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Name&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Name&gt;'
+```

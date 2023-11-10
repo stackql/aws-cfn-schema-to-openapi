@@ -360,6 +360,8 @@ components:
       id: aws.billingconductor.billing_groups
       x-cfn-schema-name: BillingGroup
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -387,9 +389,10 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.PrimaryAccountId') as primary_account_id,
-              JSON_EXTRACT(Properties, '$.ComputationPreference.PricingPlanArn') as computation_preference_pricing_plan_arn,
-              JSON_EXTRACT(Properties, '$.AccountGrouping.LinkedAccountIds') as account_grouping_linked_account_ids,
+              JSON_EXTRACT(Properties, '$.ComputationPreference') as computation_preference,
+              JSON_EXTRACT(Properties, '$.AccountGrouping') as account_grouping,
               JSON_EXTRACT(Properties, '$.Size') as size,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
@@ -400,6 +403,8 @@ components:
       id: aws.billingconductor.custom_line_items
       x-cfn-schema-name: CustomLineItem
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -425,12 +430,9 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.CustomLineItemChargeDetails.Flat') as custom_line_item_charge_details_flat,
-              JSON_EXTRACT(Properties, '$.CustomLineItemChargeDetails.Percentage') as custom_line_item_charge_details_percentage,
-              JSON_EXTRACT(Properties, '$.CustomLineItemChargeDetails.Type') as custom_line_item_charge_details_type,
+              JSON_EXTRACT(Properties, '$.CustomLineItemChargeDetails') as custom_line_item_charge_details,
               JSON_EXTRACT(Properties, '$.BillingGroupArn') as billing_group_arn,
-              JSON_EXTRACT(Properties, '$.BillingPeriodRange.InclusiveStartBillingPeriod') as billing_period_range_inclusive_start_billing_period,
-              JSON_EXTRACT(Properties, '$.BillingPeriodRange.ExclusiveEndBillingPeriod') as billing_period_range_exclusive_end_billing_period,
+              JSON_EXTRACT(Properties, '$.BillingPeriodRange') as billing_period_range,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
@@ -444,6 +446,8 @@ components:
       id: aws.billingconductor.pricing_plans
       x-cfn-schema-name: PricingPlan
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -481,6 +485,8 @@ components:
       id: aws.billingconductor.pricing_rules
       x-cfn-schema-name: PricingRule
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:

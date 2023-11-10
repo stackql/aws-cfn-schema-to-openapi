@@ -195,6 +195,8 @@ components:
       id: aws.efs.access_points
       x-cfn-schema-name: AccessPoint
       x-type: list
+      x-identifiers:
+        - AccessPointId
       config:
         views:
           select:
@@ -223,17 +225,16 @@ components:
               JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
               JSON_EXTRACT(Properties, '$.AccessPointTags') as access_point_tags,
               JSON_EXTRACT(Properties, '$.FileSystemId') as file_system_id,
-              JSON_EXTRACT(Properties, '$.PosixUser.Uid') as posix_user_uid,
-              JSON_EXTRACT(Properties, '$.PosixUser.Gid') as posix_user_gid,
-              JSON_EXTRACT(Properties, '$.PosixUser.SecondaryGids') as posix_user_secondary_gids,
-              JSON_EXTRACT(Properties, '$.RootDirectory.Path') as root_directory_path,
-              JSON_EXTRACT(Properties, '$.RootDirectory.CreationInfo') as root_directory_creation_info
+              JSON_EXTRACT(Properties, '$.PosixUser') as posix_user,
+              JSON_EXTRACT(Properties, '$.RootDirectory') as root_directory
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::AccessPoint'
     file_systems:
       name: file_systems
       id: aws.efs.file_systems
       x-cfn-schema-name: FileSystem
       x-type: list
+      x-identifiers:
+        - FileSystemId
       config:
         views:
           select:
@@ -268,7 +269,7 @@ components:
               JSON_EXTRACT(Properties, '$.ThroughputMode') as throughput_mode,
               JSON_EXTRACT(Properties, '$.FileSystemPolicy') as file_system_policy,
               JSON_EXTRACT(Properties, '$.BypassPolicyLockoutSafetyCheck') as bypass_policy_lockout_safety_check,
-              JSON_EXTRACT(Properties, '$.BackupPolicy.Status') as backup_policy_status,
+              JSON_EXTRACT(Properties, '$.BackupPolicy') as backup_policy,
               JSON_EXTRACT(Properties, '$.AvailabilityZoneName') as availability_zone_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::FileSystem'
     mount_targets:
@@ -276,6 +277,8 @@ components:
       id: aws.efs.mount_targets
       x-cfn-schema-name: MountTarget
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

@@ -20,22 +20,23 @@ Gets an individual <code>vehicle</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>vehicle</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>vehicle</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotfleetwise.vehicle</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AssociationBehavior</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Attributes</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>CreationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DecoderManifestArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LastModificationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ModelManifestArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>association_behavior</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>attributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>creation_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>decoder_manifest_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_modification_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>model_manifest_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +44,19 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+association_behavior,
+attributes,
+creation_time,
+decoder_manifest_arn,
+name,
+last_modification_time,
+model_manifest_arn,
+tags
 FROM aws.iotfleetwise.vehicle
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Name&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Name&gt;'
+```

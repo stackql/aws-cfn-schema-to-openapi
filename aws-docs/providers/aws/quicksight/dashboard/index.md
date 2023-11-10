@@ -20,29 +20,30 @@ Gets an individual <code>dashboard</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>dashboard</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>dashboard</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.quicksight.dashboard</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AwsAccountId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CreatedTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DashboardId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DashboardPublishOptions</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Definition</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>LastPublishedTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LastUpdatedTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Parameters</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Permissions</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SourceEntity</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>ThemeArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Version</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>VersionDescription</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>aws_account_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>created_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dashboard_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dashboard_publish_options</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>definition</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>last_published_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_updated_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>parameters</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>permissions</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>source_entity</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>theme_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>version</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>version_description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -50,8 +51,27 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+aws_account_id,
+created_time,
+dashboard_id,
+dashboard_publish_options,
+definition,
+last_published_time,
+last_updated_time,
+name,
+parameters,
+permissions,
+source_entity,
+tags,
+theme_arn,
+version,
+version_description
 FROM aws.quicksight.dashboard
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;AwsAccountId&gt;' AND data__Identifier = '&lt;DashboardId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;AwsAccountId&gt;'
+AND data__Identifier = '&lt;DashboardId&gt;'
+```

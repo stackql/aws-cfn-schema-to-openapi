@@ -20,16 +20,17 @@ Gets an individual <code>health_check</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>health_check</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>health_check</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53.health_check</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>HealthCheckId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>HealthCheckConfig</code></td><td><code>object</code></td><td>A complex type that contains information about the health check.</td></tr>
-<tr><td><code>HealthCheckTags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>health_check_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>health_check_config</code></td><td><code>object</code></td><td>A complex type that contains information about the health check.</td></tr>
+<tr><td><code>health_check_tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+health_check_id,
+health_check_config,
+health_check_tags
 FROM aws.route53.health_check
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;HealthCheckId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;HealthCheckId&gt;'
+```

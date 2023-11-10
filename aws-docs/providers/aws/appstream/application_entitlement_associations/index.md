@@ -20,16 +20,17 @@ Retrieves a list of <code>application_entitlement_associations</code> in a regio
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>application_entitlement_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>application_entitlement_associations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.application_entitlement_associations</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>StackName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EntitlementName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ApplicationIdentifier</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>stack_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>entitlement_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>application_identifier</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,12 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+stack_name,
+entitlement_name,
+application_identifier
 FROM aws.appstream.application_entitlement_associations
 WHERE region = 'us-east-1'
-</pre>
+```

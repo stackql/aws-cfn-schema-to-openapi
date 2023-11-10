@@ -20,22 +20,15 @@ Retrieves a list of <code>group_versions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>group_versions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>group_versions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.greengrass.group_versions</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LoggerDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DeviceDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FunctionDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CoreDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ResourceDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ConnectorDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SubscriptionDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>GroupId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.greengrass.group_versions
 WHERE region = 'us-east-1'
-</pre>
+```

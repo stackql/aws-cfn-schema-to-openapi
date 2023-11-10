@@ -208,6 +208,8 @@ components:
       id: aws.servicediscovery.http_namespaces
       x-cfn-schema-name: HttpNamespace
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -242,6 +244,8 @@ components:
       id: aws.servicediscovery.instances
       x-cfn-schema-name: Instance
       x-type: list
+      x-identifiers:
+        - InstanceId
       config:
         views:
           select:
@@ -274,6 +278,8 @@ components:
       id: aws.servicediscovery.private_dns_namespaces
       x-cfn-schema-name: PrivateDnsNamespace
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -302,7 +308,7 @@ components:
               JSON_EXTRACT(Properties, '$.Vpc') as vpc,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
+              JSON_EXTRACT(Properties, '$.Properties') as properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
@@ -311,6 +317,8 @@ components:
       id: aws.servicediscovery.public_dns_namespaces
       x-cfn-schema-name: PublicDnsNamespace
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -338,7 +346,7 @@ components:
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Properties.DnsProperties') as properties_dns_properties,
+              JSON_EXTRACT(Properties, '$.Properties') as properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
@@ -347,6 +355,8 @@ components:
       id: aws.servicediscovery.services
       x-cfn-schema-name: Service
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -372,15 +382,11 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.HealthCheckCustomConfig.FailureThreshold') as health_check_custom_config_failure_threshold,
-              JSON_EXTRACT(Properties, '$.DnsConfig.DnsRecords') as dns_config_dns_records,
-              JSON_EXTRACT(Properties, '$.DnsConfig.RoutingPolicy') as dns_config_routing_policy,
-              JSON_EXTRACT(Properties, '$.DnsConfig.NamespaceId') as dns_config_namespace_id,
+              JSON_EXTRACT(Properties, '$.HealthCheckCustomConfig') as health_check_custom_config,
+              JSON_EXTRACT(Properties, '$.DnsConfig') as dns_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NamespaceId') as namespace_id,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfig.Type') as health_check_config_type,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfig.ResourcePath') as health_check_config_resource_path,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfig.FailureThreshold') as health_check_config_failure_threshold,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfig') as health_check_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name

@@ -20,16 +20,15 @@ Retrieves a list of <code>auth_policies</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>auth_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>auth_policies</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.vpclattice.auth_policies</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ResourceIdentifier</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Policy</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>State</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>resource_identifier</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+resource_identifier
 FROM aws.vpclattice.auth_policies
 WHERE region = 'us-east-1'
-</pre>
+```

@@ -102,6 +102,8 @@ components:
       id: aws.codeguruprofiler.profiling_groups
       x-cfn-schema-name: ProfilingGroup
       x-type: list
+      x-identifiers:
+        - ProfilingGroupName
       config:
         views:
           select:
@@ -129,5 +131,6 @@ components:
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.AgentPermissions') as agent_permissions,
               JSON_EXTRACT(Properties, '$.AnomalyDetectionNotificationConfiguration') as anomaly_detection_notification_configuration,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'

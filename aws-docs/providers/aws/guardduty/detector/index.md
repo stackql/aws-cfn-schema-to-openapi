@@ -20,19 +20,20 @@ Gets an individual <code>detector</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>detector</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>detector</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.guardduty.detector</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>FindingPublishingFrequency</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Enable</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DataSources</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Features</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>finding_publishing_frequency</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>enable</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>data_sources</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>features</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+finding_publishing_frequency,
+enable,
+data_sources,
+features,
+id,
+tags
 FROM aws.guardduty.detector
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

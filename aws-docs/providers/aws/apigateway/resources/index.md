@@ -20,17 +20,16 @@ Retrieves a list of <code>resources</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>resources</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>resources</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.resources</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ResourceId</code></td><td><code>string</code></td><td>A unique primary identifier for a Resource</td></tr>
-<tr><td><code>RestApiId</code></td><td><code>string</code></td><td>The ID of the RestApi resource in which you want to create this resource..</td></tr>
-<tr><td><code>ParentId</code></td><td><code>string</code></td><td>The parent resource's identifier.</td></tr>
-<tr><td><code>PathPart</code></td><td><code>string</code></td><td>The last path segment for this resource.</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the RestApi resource in which you want to create this resource..</td></tr>
+<tr><td><code>resource_id</code></td><td><code>string</code></td><td>A unique primary identifier for a Resource</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +37,11 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+rest_api_id,
+resource_id
 FROM aws.apigateway.resources
 WHERE region = 'us-east-1'
-</pre>
+```

@@ -20,20 +20,21 @@ Gets an individual <code>fargate_profile</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>fargate_profile</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>fargate_profile</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.eks.fargate_profile</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ClusterName</code></td><td><code>string</code></td><td>Name of the Cluster</td></tr>
-<tr><td><code>FargateProfileName</code></td><td><code>string</code></td><td>Name of FargateProfile</td></tr>
-<tr><td><code>PodExecutionRoleArn</code></td><td><code>string</code></td><td>The IAM policy arn for pods</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Subnets</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Selectors</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>cluster_name</code></td><td><code>string</code></td><td>Name of the Cluster</td></tr>
+<tr><td><code>fargate_profile_name</code></td><td><code>string</code></td><td>Name of FargateProfile</td></tr>
+<tr><td><code>pod_execution_role_arn</code></td><td><code>string</code></td><td>The IAM policy arn for pods</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>subnets</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>selectors</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +42,18 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+cluster_name,
+fargate_profile_name,
+pod_execution_role_arn,
+arn,
+subnets,
+selectors,
+tags
 FROM aws.eks.fargate_profile
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ClusterName&gt;' AND data__Identifier = '&lt;FargateProfileName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;ClusterName&gt;'
+AND data__Identifier = '&lt;FargateProfileName&gt;'
+```

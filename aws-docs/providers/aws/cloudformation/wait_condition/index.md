@@ -20,18 +20,19 @@ Gets an individual <code>wait_condition</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>wait_condition</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>wait_condition</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.cloudformation.wait_condition</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Data</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Count</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>Handle</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Timeout</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>count</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>handle</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>timeout</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+data,
+count,
+handle,
+timeout
 FROM aws.cloudformation.wait_condition
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

@@ -20,19 +20,20 @@ Gets an individual <code>label</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>label</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>label</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.frauddetector.label</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the label.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>Tags associated with this label.</td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td>The label description.</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The label ARN.</td></tr>
-<tr><td><code>CreatedTime</code></td><td><code>string</code></td><td>The timestamp when the label was created.</td></tr>
-<tr><td><code>LastUpdatedTime</code></td><td><code>string</code></td><td>The timestamp when the label was last updated.</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the label.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>Tags associated with this label.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>The label description.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The label ARN.</td></tr>
+<tr><td><code>created_time</code></td><td><code>string</code></td><td>The timestamp when the label was created.</td></tr>
+<tr><td><code>last_updated_time</code></td><td><code>string</code></td><td>The timestamp when the label was last updated.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+name,
+tags,
+description,
+arn,
+created_time,
+last_updated_time
 FROM aws.frauddetector.label
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

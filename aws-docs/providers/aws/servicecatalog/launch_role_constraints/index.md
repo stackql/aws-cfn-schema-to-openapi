@@ -20,20 +20,15 @@ Retrieves a list of <code>launch_role_constraints</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>launch_role_constraints</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>launch_role_constraints</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicecatalog.launch_role_constraints</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LocalRoleName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AcceptLanguage</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PortfolioId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ProductId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.servicecatalog.launch_role_constraints
 WHERE region = 'us-east-1'
-</pre>
+```

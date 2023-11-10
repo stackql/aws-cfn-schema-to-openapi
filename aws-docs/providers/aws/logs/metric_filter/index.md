@@ -20,17 +20,18 @@ Gets an individual <code>metric_filter</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>metric_filter</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>metric_filter</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.logs.metric_filter</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>FilterName</code></td><td><code>string</code></td><td>A name for the metric filter.</td></tr>
-<tr><td><code>FilterPattern</code></td><td><code>string</code></td><td>Pattern that Logs follows to interpret each entry in a log.</td></tr>
-<tr><td><code>LogGroupName</code></td><td><code>string</code></td><td>Existing log group that you want to associate with this filter.</td></tr>
-<tr><td><code>MetricTransformations</code></td><td><code>array</code></td><td>A collection of information that defines how metric data gets emitted.</td></tr>
+<tr><td><code>filter_name</code></td><td><code>string</code></td><td>A name for the metric filter.</td></tr>
+<tr><td><code>filter_pattern</code></td><td><code>string</code></td><td>Pattern that Logs follows to interpret each entry in a log.</td></tr>
+<tr><td><code>log_group_name</code></td><td><code>string</code></td><td>Existing log group that you want to associate with this filter.</td></tr>
+<tr><td><code>metric_transformations</code></td><td><code>array</code></td><td>A collection of information that defines how metric data gets emitted.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+filter_name,
+filter_pattern,
+log_group_name,
+metric_transformations
 FROM aws.logs.metric_filter
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LogGroupName&gt;' AND data__Identifier = '&lt;FilterName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;LogGroupName&gt;'
+AND data__Identifier = '&lt;FilterName&gt;'
+```

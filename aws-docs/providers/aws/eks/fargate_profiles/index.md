@@ -20,20 +20,16 @@ Retrieves a list of <code>fargate_profiles</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>fargate_profiles</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>fargate_profiles</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.eks.fargate_profiles</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ClusterName</code></td><td><code>string</code></td><td>Name of the Cluster</td></tr>
-<tr><td><code>FargateProfileName</code></td><td><code>string</code></td><td>Name of FargateProfile</td></tr>
-<tr><td><code>PodExecutionRoleArn</code></td><td><code>string</code></td><td>The IAM policy arn for pods</td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Subnets</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Selectors</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>cluster_name</code></td><td><code>string</code></td><td>Name of the Cluster</td></tr>
+<tr><td><code>fargate_profile_name</code></td><td><code>string</code></td><td>Name of FargateProfile</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +37,11 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+cluster_name,
+fargate_profile_name
 FROM aws.eks.fargate_profiles
 WHERE region = 'us-east-1'
-</pre>
+```

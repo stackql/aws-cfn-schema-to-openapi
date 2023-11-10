@@ -618,6 +618,8 @@ components:
       id: aws.evidently.experiments
       x-cfn-schema-name: Experiment
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -645,16 +647,12 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Project') as project,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.RunningStatus.Status') as running_status_status,
-              JSON_EXTRACT(Properties, '$.RunningStatus.AnalysisCompleteTime') as running_status_analysis_complete_time,
-              JSON_EXTRACT(Properties, '$.RunningStatus.Reason') as running_status_reason,
-              JSON_EXTRACT(Properties, '$.RunningStatus.DesiredState') as running_status_desired_state,
+              JSON_EXTRACT(Properties, '$.RunningStatus') as running_status,
               JSON_EXTRACT(Properties, '$.RandomizationSalt') as randomization_salt,
               JSON_EXTRACT(Properties, '$.Treatments') as treatments,
               JSON_EXTRACT(Properties, '$.MetricGoals') as metric_goals,
               JSON_EXTRACT(Properties, '$.SamplingRate') as sampling_rate,
-              JSON_EXTRACT(Properties, '$.OnlineAbConfig.ControlTreatmentName') as online_ab_config_control_treatment_name,
-              JSON_EXTRACT(Properties, '$.OnlineAbConfig.TreatmentWeights') as online_ab_config_treatment_weights,
+              JSON_EXTRACT(Properties, '$.OnlineAbConfig') as online_ab_config,
               JSON_EXTRACT(Properties, '$.Segment') as segment,
               JSON_EXTRACT(Properties, '$.RemoveSegment') as remove_segment,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -664,6 +662,8 @@ components:
       id: aws.evidently.features
       x-cfn-schema-name: Feature
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -702,6 +702,8 @@ components:
       id: aws.evidently.launches
       x-cfn-schema-name: Launch
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -734,15 +736,15 @@ components:
               JSON_EXTRACT(Properties, '$.Groups') as groups,
               JSON_EXTRACT(Properties, '$.MetricMonitors') as metric_monitors,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.ExecutionStatus.Status') as execution_status_status,
-              JSON_EXTRACT(Properties, '$.ExecutionStatus.DesiredState') as execution_status_desired_state,
-              JSON_EXTRACT(Properties, '$.ExecutionStatus.Reason') as execution_status_reason
+              JSON_EXTRACT(Properties, '$.ExecutionStatus') as execution_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Launch'
     projects:
       name: projects
       id: aws.evidently.projects
       x-cfn-schema-name: Project
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -769,10 +771,8 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.DataDelivery.S3') as data_delivery_s3,
-              JSON_EXTRACT(Properties, '$.DataDelivery.LogGroup') as data_delivery_log_group,
-              JSON_EXTRACT(Properties, '$.AppConfigResource.ApplicationId') as app_config_resource_application_id,
-              JSON_EXTRACT(Properties, '$.AppConfigResource.EnvironmentId') as app_config_resource_environment_id,
+              JSON_EXTRACT(Properties, '$.DataDelivery') as data_delivery,
+              JSON_EXTRACT(Properties, '$.AppConfigResource') as app_config_resource,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Project'
     segments:
@@ -780,6 +780,8 @@ components:
       id: aws.evidently.segments
       x-cfn-schema-name: Segment
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:

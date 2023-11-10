@@ -20,20 +20,15 @@ Retrieves a list of <code>resolver_query_logging_config_associations</code> in a
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>resolver_query_logging_config_associations</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>resolver_query_logging_config_associations</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.route53resolver.resolver_query_logging_config_associations</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>Id</td></tr>
-<tr><td><code>ResolverQueryLogConfigId</code></td><td><code>string</code></td><td>ResolverQueryLogConfigId</td></tr>
-<tr><td><code>ResourceId</code></td><td><code>string</code></td><td>ResourceId</td></tr>
-<tr><td><code>Status</code></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationStatus</td></tr>
-<tr><td><code>Error</code></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationError</td></tr>
-<tr><td><code>ErrorMessage</code></td><td><code>string</code></td><td>ResolverQueryLogConfigAssociationErrorMessage</td></tr>
-<tr><td><code>CreationTime</code></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>Id</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.route53resolver.resolver_query_logging_config_associations
 WHERE region = 'us-east-1'
-</pre>
+```

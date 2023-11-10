@@ -20,17 +20,18 @@ Gets an individual <code>sink</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>sink</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>sink</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.oam.sink</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the ObservabilityAccessManager Sink</td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>The name of the ObservabilityAccessManager Sink.</td></tr>
-<tr><td><code>Policy</code></td><td><code>object</code></td><td>The policy of this ObservabilityAccessManager Sink.</td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td>Tags to apply to the sink</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The Amazon resource name (ARN) of the ObservabilityAccessManager Sink</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the ObservabilityAccessManager Sink.</td></tr>
+<tr><td><code>policy</code></td><td><code>object</code></td><td>The policy of this ObservabilityAccessManager Sink.</td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td>Tags to apply to the sink</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,14 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+name,
+policy,
+tags
 FROM aws.oam.sink
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

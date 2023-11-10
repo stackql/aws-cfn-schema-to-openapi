@@ -598,6 +598,9 @@ components:
       id: aws.eks.addons
       x-cfn-schema-name: Addon
       x-type: list
+      x-identifiers:
+        - ClusterName
+        - AddonName
       config:
         views:
           select:
@@ -638,6 +641,8 @@ components:
       id: aws.eks.clusters
       x-cfn-schema-name: Cluster
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -662,20 +667,12 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.EncryptionConfig') as encryption_config,
-              JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig.ServiceIpv4Cidr') as kubernetes_network_config_service_ipv4_cidr,
-              JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig.ServiceIpv6Cidr') as kubernetes_network_config_service_ipv6_cidr,
-              JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig.IpFamily') as kubernetes_network_config_ip_family,
-              JSON_EXTRACT(Properties, '$.Logging.ClusterLogging') as logging_cluster_logging,
+              JSON_EXTRACT(Properties, '$.KubernetesNetworkConfig') as kubernetes_network_config,
+              JSON_EXTRACT(Properties, '$.Logging') as logging,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig.EndpointPrivateAccess') as resources_vpc_config_endpoint_private_access,
-              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig.EndpointPublicAccess') as resources_vpc_config_endpoint_public_access,
-              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig.PublicAccessCidrs') as resources_vpc_config_public_access_cidrs,
-              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig.SecurityGroupIds') as resources_vpc_config_security_group_ids,
-              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig.SubnetIds') as resources_vpc_config_subnet_ids,
-              JSON_EXTRACT(Properties, '$.OutpostConfig.OutpostArns') as outpost_config_outpost_arns,
-              JSON_EXTRACT(Properties, '$.OutpostConfig.ControlPlaneInstanceType') as outpost_config_control_plane_instance_type,
-              JSON_EXTRACT(Properties, '$.OutpostConfig.ControlPlanePlacement') as outpost_config_control_plane_placement,
+              JSON_EXTRACT(Properties, '$.ResourcesVpcConfig') as resources_vpc_config,
+              JSON_EXTRACT(Properties, '$.OutpostConfig') as outpost_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -691,6 +688,9 @@ components:
       id: aws.eks.fargate_profiles
       x-cfn-schema-name: FargateProfile
       x-type: list
+      x-identifiers:
+        - ClusterName
+        - FargateProfileName
       config:
         views:
           select:
@@ -729,6 +729,10 @@ components:
       id: aws.eks.identity_provider_configs
       x-cfn-schema-name: IdentityProviderConfig
       x-type: list
+      x-identifiers:
+        - IdentityProviderConfigName
+        - ClusterName
+        - Type
       config:
         views:
           select:
@@ -759,13 +763,7 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigName') as identity_provider_config_name,
-              JSON_EXTRACT(Properties, '$.Oidc.ClientId') as oidc_client_id,
-              JSON_EXTRACT(Properties, '$.Oidc.GroupsClaim') as oidc_groups_claim,
-              JSON_EXTRACT(Properties, '$.Oidc.GroupsPrefix') as oidc_groups_prefix,
-              JSON_EXTRACT(Properties, '$.Oidc.IssuerUrl') as oidc_issuer_url,
-              JSON_EXTRACT(Properties, '$.Oidc.RequiredClaims') as oidc_required_claims,
-              JSON_EXTRACT(Properties, '$.Oidc.UsernameClaim') as oidc_username_claim,
-              JSON_EXTRACT(Properties, '$.Oidc.UsernamePrefix') as oidc_username_prefix,
+              JSON_EXTRACT(Properties, '$.Oidc') as oidc,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigArn') as identity_provider_config_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
@@ -774,6 +772,8 @@ components:
       id: aws.eks.nodegroups
       x-cfn-schema-name: Nodegroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -804,22 +804,16 @@ components:
               JSON_EXTRACT(Properties, '$.ForceUpdateEnabled') as force_update_enabled,
               JSON_EXTRACT(Properties, '$.InstanceTypes') as instance_types,
               JSON_EXTRACT(Properties, '$.Labels') as labels,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.Id') as launch_template_id,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.Version') as launch_template_version,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.Name') as launch_template_name,
+              JSON_EXTRACT(Properties, '$.LaunchTemplate') as launch_template,
               JSON_EXTRACT(Properties, '$.NodegroupName') as nodegroup_name,
               JSON_EXTRACT(Properties, '$.NodeRole') as node_role,
               JSON_EXTRACT(Properties, '$.ReleaseVersion') as release_version,
-              JSON_EXTRACT(Properties, '$.RemoteAccess.SourceSecurityGroups') as remote_access_source_security_groups,
-              JSON_EXTRACT(Properties, '$.RemoteAccess.Ec2SshKey') as remote_access_ec2_ssh_key,
-              JSON_EXTRACT(Properties, '$.ScalingConfig.MinSize') as scaling_config_min_size,
-              JSON_EXTRACT(Properties, '$.ScalingConfig.DesiredSize') as scaling_config_desired_size,
-              JSON_EXTRACT(Properties, '$.ScalingConfig.MaxSize') as scaling_config_max_size,
+              JSON_EXTRACT(Properties, '$.RemoteAccess') as remote_access,
+              JSON_EXTRACT(Properties, '$.ScalingConfig') as scaling_config,
               JSON_EXTRACT(Properties, '$.Subnets') as subnets,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Taints') as taints,
-              JSON_EXTRACT(Properties, '$.UpdateConfig.MaxUnavailable') as update_config_max_unavailable,
-              JSON_EXTRACT(Properties, '$.UpdateConfig.MaxUnavailablePercentage') as update_config_max_unavailable_percentage,
+              JSON_EXTRACT(Properties, '$.UpdateConfig') as update_config,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn

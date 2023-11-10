@@ -20,18 +20,19 @@ Gets an individual <code>portfolio_share</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>portfolio_share</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>portfolio_share</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicecatalog.portfolio_share</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>AcceptLanguage</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>PortfolioId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AccountId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ShareTagOptions</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>accept_language</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>portfolio_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>account_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>share_tag_options</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+accept_language,
+portfolio_id,
+account_id,
+share_tag_options,
+id
 FROM aws.servicecatalog.portfolio_share
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

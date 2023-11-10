@@ -1077,6 +1077,8 @@ components:
       id: aws.glue.classifiers
       x-cfn-schema-name: Classifier
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1101,28 +1103,18 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.XMLClassifier.RowTag') as x_ml_classifier_row_tag,
-              JSON_EXTRACT(Properties, '$.XMLClassifier.Classification') as x_ml_classifier_classification,
-              JSON_EXTRACT(Properties, '$.XMLClassifier.Name') as x_ml_classifier_name,
-              JSON_EXTRACT(Properties, '$.JsonClassifier.JsonPath') as json_classifier_json_path,
-              JSON_EXTRACT(Properties, '$.JsonClassifier.Name') as json_classifier_name,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.QuoteSymbol') as csv_classifier_quote_symbol,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.ContainsHeader') as csv_classifier_contains_header,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.Delimiter') as csv_classifier_delimiter,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.Header') as csv_classifier_header,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.AllowSingleColumn') as csv_classifier_allow_single_column,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.DisableValueTrimming') as csv_classifier_disable_value_trimming,
-              JSON_EXTRACT(Properties, '$.CsvClassifier.Name') as csv_classifier_name,
-              JSON_EXTRACT(Properties, '$.GrokClassifier.CustomPatterns') as grok_classifier_custom_patterns,
-              JSON_EXTRACT(Properties, '$.GrokClassifier.GrokPattern') as grok_classifier_grok_pattern,
-              JSON_EXTRACT(Properties, '$.GrokClassifier.Classification') as grok_classifier_classification,
-              JSON_EXTRACT(Properties, '$.GrokClassifier.Name') as grok_classifier_name
+              JSON_EXTRACT(Properties, '$.XMLClassifier') as x_ml_classifier,
+              JSON_EXTRACT(Properties, '$.JsonClassifier') as json_classifier,
+              JSON_EXTRACT(Properties, '$.CsvClassifier') as csv_classifier,
+              JSON_EXTRACT(Properties, '$.GrokClassifier') as grok_classifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Classifier'
     connections:
       name: connections
       id: aws.glue.connections
       x-cfn-schema-name: Connection
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1146,12 +1138,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.Description') as connection_input_description,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.ConnectionType') as connection_input_connection_type,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.MatchCriteria') as connection_input_match_criteria,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.PhysicalConnectionRequirements') as connection_input_physical_connection_requirements,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.ConnectionProperties') as connection_input_connection_properties,
-              JSON_EXTRACT(Properties, '$.ConnectionInput.Name') as connection_input_name,
+              JSON_EXTRACT(Properties, '$.ConnectionInput') as connection_input,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Connection'
@@ -1160,6 +1147,8 @@ components:
       id: aws.glue.crawlers
       x-cfn-schema-name: Crawler
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1185,21 +1174,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Classifiers') as classifiers,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.SchemaChangePolicy.UpdateBehavior') as schema_change_policy_update_behavior,
-              JSON_EXTRACT(Properties, '$.SchemaChangePolicy.DeleteBehavior') as schema_change_policy_delete_behavior,
+              JSON_EXTRACT(Properties, '$.SchemaChangePolicy') as schema_change_policy,
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
-              JSON_EXTRACT(Properties, '$.RecrawlPolicy.RecrawlBehavior') as recrawl_policy_recrawl_behavior,
+              JSON_EXTRACT(Properties, '$.RecrawlPolicy') as recrawl_policy,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
-              JSON_EXTRACT(Properties, '$.Targets.S3Targets') as targets_s3_targets,
-              JSON_EXTRACT(Properties, '$.Targets.CatalogTargets') as targets_catalog_targets,
-              JSON_EXTRACT(Properties, '$.Targets.DeltaTargets') as targets_delta_targets,
-              JSON_EXTRACT(Properties, '$.Targets.MongoDBTargets') as targets_mongo_db_targets,
-              JSON_EXTRACT(Properties, '$.Targets.JdbcTargets') as targets_jdbc_targets,
-              JSON_EXTRACT(Properties, '$.Targets.DynamoDBTargets') as targets_dynamo_db_targets,
+              JSON_EXTRACT(Properties, '$.Targets') as targets,
               JSON_EXTRACT(Properties, '$.CrawlerSecurityConfiguration') as crawler_security_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Role') as role,
-              JSON_EXTRACT(Properties, '$.Schedule.ScheduleExpression') as schedule_schedule_expression,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.TablePrefix') as table_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -1209,6 +1192,8 @@ components:
       id: aws.glue.databases
       x-cfn-schema-name: Database
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1233,13 +1218,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.LocationUri') as database_input_location_uri,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.CreateTableDefaultPermissions') as database_input_create_table_default_permissions,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.Description') as database_input_description,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.Parameters') as database_input_parameters,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.TargetDatabase') as database_input_target_database,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.FederatedDatabase') as database_input_federated_database,
-              JSON_EXTRACT(Properties, '$.DatabaseInput.Name') as database_input_name,
+              JSON_EXTRACT(Properties, '$.DatabaseInput') as database_input,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Database'
     data_catalog_encryption_settings:
@@ -1257,9 +1236,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings.Id') as data_catalog_encryption_settings_id,
-              JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings.DataCatalogEncryptionSettings') as data_catalog_encryption_settings_data_catalog_encryption_settings,
-              JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings.CatalogId') as data_catalog_encryption_settings_catalog_id,
+              JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings') as data_catalog_encryption_settings,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings'
     dev_endpoints:
@@ -1267,6 +1244,8 @@ components:
       id: aws.glue.dev_endpoints
       x-cfn-schema-name: DevEndpoint
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1312,6 +1291,8 @@ components:
       id: aws.glue.jobs
       x-cfn-schema-name: Job
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1335,7 +1316,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Connections.Connections') as connections_connections,
+              JSON_EXTRACT(Properties, '$.Connections') as connections,
               JSON_EXTRACT(Properties, '$.MaxRetries') as max_retries,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Timeout') as timeout,
@@ -1343,15 +1324,13 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Role') as role,
               JSON_EXTRACT(Properties, '$.DefaultArguments') as default_arguments,
-              JSON_EXTRACT(Properties, '$.NotificationProperty.NotifyDelayAfter') as notification_property_notify_delay_after,
+              JSON_EXTRACT(Properties, '$.NotificationProperty') as notification_property,
               JSON_EXTRACT(Properties, '$.WorkerType') as worker_type,
               JSON_EXTRACT(Properties, '$.ExecutionClass') as execution_class,
               JSON_EXTRACT(Properties, '$.LogUri') as log_uri,
-              JSON_EXTRACT(Properties, '$.Command.ScriptLocation') as command_script_location,
-              JSON_EXTRACT(Properties, '$.Command.PythonVersion') as command_python_version,
-              JSON_EXTRACT(Properties, '$.Command.Name') as command_name,
+              JSON_EXTRACT(Properties, '$.Command') as command,
               JSON_EXTRACT(Properties, '$.GlueVersion') as glue_version,
-              JSON_EXTRACT(Properties, '$.ExecutionProperty.MaxConcurrentRuns') as execution_property_max_concurrent_runs,
+              JSON_EXTRACT(Properties, '$.ExecutionProperty') as execution_property,
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NumberOfWorkers') as number_of_workers,
@@ -1364,6 +1343,8 @@ components:
       id: aws.glue.ml_transforms
       x-cfn-schema-name: MLTransform
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1389,17 +1370,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.MaxRetries') as max_retries,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.TransformEncryption.TaskRunSecurityConfigurationName') as transform_encryption_task_run_security_configuration_name,
-              JSON_EXTRACT(Properties, '$.TransformEncryption.MLUserDataEncryption') as transform_encryption_ml_user_data_encryption,
+              JSON_EXTRACT(Properties, '$.TransformEncryption') as transform_encryption,
               JSON_EXTRACT(Properties, '$.Timeout') as timeout,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Role') as role,
               JSON_EXTRACT(Properties, '$.WorkerType') as worker_type,
               JSON_EXTRACT(Properties, '$.GlueVersion') as glue_version,
-              JSON_EXTRACT(Properties, '$.TransformParameters.TransformType') as transform_parameters_transform_type,
-              JSON_EXTRACT(Properties, '$.TransformParameters.FindMatchesParameters') as transform_parameters_find_matches_parameters,
+              JSON_EXTRACT(Properties, '$.TransformParameters') as transform_parameters,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.InputRecordTables.GlueTables') as input_record_tables_glue_tables,
+              JSON_EXTRACT(Properties, '$.InputRecordTables') as input_record_tables,
               JSON_EXTRACT(Properties, '$.NumberOfWorkers') as number_of_workers,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
@@ -1409,6 +1388,8 @@ components:
       id: aws.glue.partitions
       x-cfn-schema-name: Partition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1436,15 +1417,15 @@ components:
               JSON_EXTRACT(Properties, '$.TableName') as table_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
-              JSON_EXTRACT(Properties, '$.PartitionInput.StorageDescriptor') as partition_input_storage_descriptor,
-              JSON_EXTRACT(Properties, '$.PartitionInput.Values') as partition_input_values,
-              JSON_EXTRACT(Properties, '$.PartitionInput.Parameters') as partition_input_parameters
+              JSON_EXTRACT(Properties, '$.PartitionInput') as partition_input
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Partition'
     schema_versions:
       name: schema_versions
       id: aws.glue.schema_versions
       x-cfn-schema-name: SchemaVersion
       x-type: list
+      x-identifiers:
+        - VersionId
       config:
         views:
           select:
@@ -1468,9 +1449,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Schema.SchemaArn') as schema_schema_arn,
-              JSON_EXTRACT(Properties, '$.Schema.SchemaName') as schema_schema_name,
-              JSON_EXTRACT(Properties, '$.Schema.RegistryName') as schema_registry_name,
+              JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.SchemaDefinition') as schema_definition,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
@@ -1499,6 +1478,8 @@ components:
       id: aws.glue.security_configurations
       x-cfn-schema-name: SecurityConfiguration
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1522,9 +1503,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.S3Encryptions') as encryption_configuration_s3_encryptions,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.JobBookmarksEncryption') as encryption_configuration_job_bookmarks_encryption,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.CloudWatchEncryption') as encryption_configuration_cloud_watch_encryption,
+              JSON_EXTRACT(Properties, '$.EncryptionConfiguration') as encryption_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
@@ -1533,6 +1512,8 @@ components:
       id: aws.glue.tables
       x-cfn-schema-name: Table
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1557,17 +1538,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
-              JSON_EXTRACT(Properties, '$.TableInput.Owner') as table_input_owner,
-              JSON_EXTRACT(Properties, '$.TableInput.ViewOriginalText') as table_input_view_original_text,
-              JSON_EXTRACT(Properties, '$.TableInput.Description') as table_input_description,
-              JSON_EXTRACT(Properties, '$.TableInput.TableType') as table_input_table_type,
-              JSON_EXTRACT(Properties, '$.TableInput.Parameters') as table_input_parameters,
-              JSON_EXTRACT(Properties, '$.TableInput.ViewExpandedText') as table_input_view_expanded_text,
-              JSON_EXTRACT(Properties, '$.TableInput.StorageDescriptor') as table_input_storage_descriptor,
-              JSON_EXTRACT(Properties, '$.TableInput.TargetTable') as table_input_target_table,
-              JSON_EXTRACT(Properties, '$.TableInput.PartitionKeys') as table_input_partition_keys,
-              JSON_EXTRACT(Properties, '$.TableInput.Retention') as table_input_retention,
-              JSON_EXTRACT(Properties, '$.TableInput.Name') as table_input_name,
+              JSON_EXTRACT(Properties, '$.TableInput') as table_input,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Table'
@@ -1576,6 +1547,8 @@ components:
       id: aws.glue.triggers
       x-cfn-schema-name: Trigger
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1603,21 +1576,21 @@ components:
               JSON_EXTRACT(Properties, '$.StartOnCreation') as start_on_creation,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Actions') as actions,
-              JSON_EXTRACT(Properties, '$.EventBatchingCondition.BatchSize') as event_batching_condition_batch_size,
-              JSON_EXTRACT(Properties, '$.EventBatchingCondition.BatchWindow') as event_batching_condition_batch_window,
+              JSON_EXTRACT(Properties, '$.EventBatchingCondition') as event_batching_condition,
               JSON_EXTRACT(Properties, '$.WorkflowName') as workflow_name,
               JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Predicate.Logical') as predicate_logical,
-              JSON_EXTRACT(Properties, '$.Predicate.Conditions') as predicate_conditions
+              JSON_EXTRACT(Properties, '$.Predicate') as predicate
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Trigger'
     workflows:
       name: workflows
       id: aws.glue.workflows
       x-cfn-schema-name: Workflow
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

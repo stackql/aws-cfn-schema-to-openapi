@@ -20,16 +20,17 @@ Gets an individual <code>instance</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instance</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instance</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.servicediscovery.instance</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>InstanceAttributes</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>InstanceId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ServiceId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>instance_attributes</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>instance_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>service_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+instance_attributes,
+instance_id,
+service_id
 FROM aws.servicediscovery.instance
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;InstanceId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;InstanceId&gt;'
+```

@@ -20,26 +20,27 @@ Gets an individual <code>license</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>license</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>license</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.licensemanager.license</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ProductSKU</code></td><td><code>string</code></td><td>ProductSKU of the license.</td></tr>
-<tr><td><code>Issuer</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>LicenseName</code></td><td><code>string</code></td><td>Name for the created license.</td></tr>
-<tr><td><code>ProductName</code></td><td><code>string</code></td><td>Product name for the created license.</td></tr>
-<tr><td><code>HomeRegion</code></td><td><code>string</code></td><td>Home region for the created license.</td></tr>
-<tr><td><code>Validity</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Entitlements</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Beneficiary</code></td><td><code>string</code></td><td>Beneficiary of the license.</td></tr>
-<tr><td><code>ConsumptionConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>LicenseMetadata</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>LicenseArn</code></td><td><code>undefined</code></td><td>Amazon Resource Name is a unique name for each resource.</td></tr>
-<tr><td><code>Status</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Version</code></td><td><code>string</code></td><td>The version of the license.</td></tr>
+<tr><td><code>product_sk_u</code></td><td><code>string</code></td><td>ProductSKU of the license.</td></tr>
+<tr><td><code>issuer</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>license_name</code></td><td><code>string</code></td><td>Name for the created license.</td></tr>
+<tr><td><code>product_name</code></td><td><code>string</code></td><td>Product name for the created license.</td></tr>
+<tr><td><code>home_region</code></td><td><code>string</code></td><td>Home region for the created license.</td></tr>
+<tr><td><code>validity</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>entitlements</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>beneficiary</code></td><td><code>string</code></td><td>Beneficiary of the license.</td></tr>
+<tr><td><code>consumption_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>license_metadata</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>license_arn</code></td><td><code>string</code></td><td>Amazon Resource Name is a unique name for each resource.</td></tr>
+<tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>version</code></td><td><code>string</code></td><td>The version of the license.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -47,8 +48,23 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+product_sk_u,
+issuer,
+license_name,
+product_name,
+home_region,
+validity,
+entitlements,
+beneficiary,
+consumption_configuration,
+license_metadata,
+license_arn,
+status,
+version
 FROM aws.licensemanager.license
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;LicenseArn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;LicenseArn&gt;'
+```

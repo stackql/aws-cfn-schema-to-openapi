@@ -781,6 +781,8 @@ components:
       id: aws.vpclattice.access_log_subscriptions
       x-cfn-schema-name: AccessLogSubscription
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -817,6 +819,8 @@ components:
       id: aws.vpclattice.auth_policies
       x-cfn-schema-name: AuthPolicy
       x-type: list
+      x-identifiers:
+        - ResourceIdentifier
       config:
         views:
           select:
@@ -849,6 +853,8 @@ components:
       id: aws.vpclattice.listeners
       x-cfn-schema-name: Listener
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -873,8 +879,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.DefaultAction.Forward') as default_action_forward,
-              JSON_EXTRACT(Properties, '$.DefaultAction.FixedResponse') as default_action_fixed_response,
+              JSON_EXTRACT(Properties, '$.DefaultAction') as default_action,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Port') as port,
@@ -889,6 +894,8 @@ components:
       id: aws.vpclattice.resource_policies
       x-cfn-schema-name: ResourcePolicy
       x-type: list
+      x-identifiers:
+        - ResourceArn
       config:
         views:
           select:
@@ -920,6 +927,8 @@ components:
       id: aws.vpclattice.rules
       x-cfn-schema-name: Rule
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -943,12 +952,11 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Action.Forward') as action_forward,
-              JSON_EXTRACT(Properties, '$.Action.FixedResponse') as action_fixed_response,
+              JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ListenerIdentifier') as listener_identifier,
-              JSON_EXTRACT(Properties, '$.Match.HttpMatch') as match_http_match,
+              JSON_EXTRACT(Properties, '$.Match') as match,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier,
@@ -959,6 +967,8 @@ components:
       id: aws.vpclattice.services
       x-cfn-schema-name: Service
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -985,8 +995,7 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-              JSON_EXTRACT(Properties, '$.DnsEntry.DomainName') as dns_entry_domain_name,
-              JSON_EXTRACT(Properties, '$.DnsEntry.HostedZoneId') as dns_entry_hosted_zone_id,
+              JSON_EXTRACT(Properties, '$.DnsEntry') as dns_entry,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -1000,6 +1009,8 @@ components:
       id: aws.vpclattice.service_networks
       x-cfn-schema-name: ServiceNetwork
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1036,6 +1047,8 @@ components:
       id: aws.vpclattice.service_network_service_associations
       x-cfn-schema-name: ServiceNetworkServiceAssociation
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1061,8 +1074,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-              JSON_EXTRACT(Properties, '$.DnsEntry.DomainName') as dns_entry_domain_name,
-              JSON_EXTRACT(Properties, '$.DnsEntry.HostedZoneId') as dns_entry_hosted_zone_id,
+              JSON_EXTRACT(Properties, '$.DnsEntry') as dns_entry,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ServiceNetworkArn') as service_network_arn,
               JSON_EXTRACT(Properties, '$.ServiceNetworkId') as service_network_id,
@@ -1080,6 +1092,8 @@ components:
       id: aws.vpclattice.service_network_vpc_associations
       x-cfn-schema-name: ServiceNetworkVpcAssociation
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1121,6 +1135,8 @@ components:
       id: aws.vpclattice.target_groups
       x-cfn-schema-name: TargetGroup
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1145,12 +1161,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Config.Port') as config_port,
-              JSON_EXTRACT(Properties, '$.Config.Protocol') as config_protocol,
-              JSON_EXTRACT(Properties, '$.Config.ProtocolVersion') as config_protocol_version,
-              JSON_EXTRACT(Properties, '$.Config.IpAddressType') as config_ip_address_type,
-              JSON_EXTRACT(Properties, '$.Config.VpcIdentifier') as config_vpc_identifier,
-              JSON_EXTRACT(Properties, '$.Config.HealthCheck') as config_health_check,
+              JSON_EXTRACT(Properties, '$.Config') as config,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,

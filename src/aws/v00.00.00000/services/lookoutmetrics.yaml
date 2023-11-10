@@ -456,6 +456,8 @@ components:
       id: aws.lookoutmetrics.alerts
       x-cfn-schema-name: Alert
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -480,17 +482,19 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AlertName') as alert_name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AlertDescription') as alert_description,
               JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn,
               JSON_EXTRACT(Properties, '$.AlertSensitivityThreshold') as alert_sensitivity_threshold,
-              JSON_EXTRACT(Properties, '$.Action.SNSConfiguration') as action_sn_sconfiguration,
-              JSON_EXTRACT(Properties, '$.Action.LambdaConfiguration') as action_lambda_configuration
+              JSON_EXTRACT(Properties, '$.Action') as action
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
     anomaly_detectors:
       name: anomaly_detectors
       id: aws.lookoutmetrics.anomaly_detectors
       x-cfn-schema-name: AnomalyDetector
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -514,9 +518,10 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AnomalyDetectorName') as anomaly_detector_name,
               JSON_EXTRACT(Properties, '$.AnomalyDetectorDescription') as anomaly_detector_description,
-              JSON_EXTRACT(Properties, '$.AnomalyDetectorConfig.AnomalyDetectorFrequency') as anomaly_detector_config_anomaly_detector_frequency,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorConfig') as anomaly_detector_config,
               JSON_EXTRACT(Properties, '$.MetricSetList') as metric_set_list,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'

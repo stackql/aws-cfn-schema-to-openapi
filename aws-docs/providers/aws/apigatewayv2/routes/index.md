@@ -20,26 +20,16 @@ Retrieves a list of <code>routes</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>routes</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>routes</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.routes</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>RouteId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RouteResponseSelectionExpression</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RequestModels</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>OperationName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AuthorizationScopes</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>ApiKeyRequired</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>RouteKey</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AuthorizationType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ModelSelectionExpression</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ApiId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RequestParameters</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Target</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AuthorizerId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>route_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -47,8 +37,11 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+api_id,
+route_id
 FROM aws.apigatewayv2.routes
 WHERE region = 'us-east-1'
-</pre>
+```

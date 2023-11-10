@@ -474,6 +474,8 @@ components:
       id: aws.backup.backup_plans
       x-cfn-schema-name: BackupPlan
       x-type: list
+      x-identifiers:
+        - BackupPlanId
       config:
         views:
           select:
@@ -497,9 +499,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BackupPlan.BackupPlanName') as backup_plan_backup_plan_name,
-              JSON_EXTRACT(Properties, '$.BackupPlan.AdvancedBackupSettings') as backup_plan_advanced_backup_settings,
-              JSON_EXTRACT(Properties, '$.BackupPlan.BackupPlanRule') as backup_plan_backup_plan_rule,
+              JSON_EXTRACT(Properties, '$.BackupPlan') as backup_plan,
               JSON_EXTRACT(Properties, '$.BackupPlanTags') as backup_plan_tags,
               JSON_EXTRACT(Properties, '$.BackupPlanArn') as backup_plan_arn,
               JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id,
@@ -510,6 +510,8 @@ components:
       id: aws.backup.backup_selections
       x-cfn-schema-name: BackupSelection
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -535,12 +537,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id,
-              JSON_EXTRACT(Properties, '$.BackupSelection.IamRoleArn') as backup_selection_iam_role_arn,
-              JSON_EXTRACT(Properties, '$.BackupSelection.ListOfTags') as backup_selection_list_of_tags,
-              JSON_EXTRACT(Properties, '$.BackupSelection.Resources') as backup_selection_resources,
-              JSON_EXTRACT(Properties, '$.BackupSelection.SelectionName') as backup_selection_selection_name,
-              JSON_EXTRACT(Properties, '$.BackupSelection.NotResources') as backup_selection_not_resources,
-              JSON_EXTRACT(Properties, '$.BackupSelection.Conditions') as backup_selection_conditions,
+              JSON_EXTRACT(Properties, '$.BackupSelection') as backup_selection,
               JSON_EXTRACT(Properties, '$.SelectionId') as selection_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupSelection'
     backup_vaults:
@@ -548,6 +545,8 @@ components:
       id: aws.backup.backup_vaults
       x-cfn-schema-name: BackupVault
       x-type: list
+      x-identifiers:
+        - BackupVaultName
       config:
         views:
           select:
@@ -572,13 +571,11 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AccessPolicy') as access_policy,
+              JSON_EXTRACT(Properties, '$.BackupVaultName') as backup_vault_name,
               JSON_EXTRACT(Properties, '$.BackupVaultTags') as backup_vault_tags,
               JSON_EXTRACT(Properties, '$.EncryptionKeyArn') as encryption_key_arn,
-              JSON_EXTRACT(Properties, '$.Notifications.BackupVaultEvents') as notifications_backup_vault_events,
-              JSON_EXTRACT(Properties, '$.Notifications.SNSTopicArn') as notifications_sn_stopic_arn,
-              JSON_EXTRACT(Properties, '$.LockConfiguration.MinRetentionDays') as lock_configuration_min_retention_days,
-              JSON_EXTRACT(Properties, '$.LockConfiguration.MaxRetentionDays') as lock_configuration_max_retention_days,
-              JSON_EXTRACT(Properties, '$.LockConfiguration.ChangeableForDays') as lock_configuration_changeable_for_days,
+              JSON_EXTRACT(Properties, '$.Notifications') as notifications,
+              JSON_EXTRACT(Properties, '$.LockConfiguration') as lock_configuration,
               JSON_EXTRACT(Properties, '$.BackupVaultArn') as backup_vault_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupVault'
     frameworks:
@@ -586,6 +583,8 @@ components:
       id: aws.backup.frameworks
       x-cfn-schema-name: Framework
       x-type: list
+      x-identifiers:
+        - FrameworkArn
       config:
         views:
           select:
@@ -623,6 +622,8 @@ components:
       id: aws.backup.report_plans
       x-cfn-schema-name: ReportPlan
       x-type: list
+      x-identifiers:
+        - ReportPlanArn
       config:
         views:
           select:

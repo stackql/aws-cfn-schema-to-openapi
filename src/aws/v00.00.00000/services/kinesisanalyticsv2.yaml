@@ -819,6 +819,8 @@ components:
       id: aws.kinesisanalyticsv2.applications
       x-cfn-schema-name: Application
       x-type: list
+      x-identifiers:
+        - ApplicationName
       config:
         views:
           select:
@@ -842,20 +844,14 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationCodeConfiguration') as application_configuration_application_code_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ApplicationSnapshotConfiguration') as application_configuration_application_snapshot_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.EnvironmentProperties') as application_configuration_environment_properties,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.FlinkApplicationConfiguration') as application_configuration_flink_application_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.SqlApplicationConfiguration') as application_configuration_sql_application_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.ZeppelinApplicationConfiguration') as application_configuration_zeppelin_application_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationConfiguration.VpcConfigurations') as application_configuration_vpc_configurations,
+              JSON_EXTRACT(Properties, '$.ApplicationConfiguration') as application_configuration,
               JSON_EXTRACT(Properties, '$.ApplicationDescription') as application_description,
               JSON_EXTRACT(Properties, '$.ApplicationMode') as application_mode,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.RuntimeEnvironment') as runtime_environment,
-              JSON_EXTRACT(Properties, '$.RunConfiguration.ApplicationRestoreConfiguration') as run_configuration_application_restore_configuration,
-              JSON_EXTRACT(Properties, '$.RunConfiguration.FlinkRunConfiguration') as run_configuration_flink_run_configuration,
-              JSON_EXTRACT(Properties, '$.ApplicationMaintenanceConfiguration.ApplicationMaintenanceWindowStartTime') as application_maintenance_configuration_application_maintenance_window_start_time,
+              JSON_EXTRACT(Properties, '$.ServiceExecutionRole') as service_execution_role,
+              JSON_EXTRACT(Properties, '$.RunConfiguration') as run_configuration,
+              JSON_EXTRACT(Properties, '$.ApplicationMaintenanceConfiguration') as application_maintenance_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::Application'
     application_cloud_watch_logging_options:
@@ -863,6 +859,8 @@ components:
       id: aws.kinesisanalyticsv2.application_cloud_watch_logging_options
       x-cfn-schema-name: ApplicationCloudWatchLoggingOption
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -888,13 +886,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption.LogStreamARN') as cloud_watch_logging_option_log_stream_ar_n
+              JSON_EXTRACT(Properties, '$.CloudWatchLoggingOption') as cloud_watch_logging_option
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption'
     application_outputs:
       name: application_outputs
       id: aws.kinesisanalyticsv2.application_outputs
       x-cfn-schema-name: ApplicationOutput
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -920,17 +920,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.Output.DestinationSchema') as output_destination_schema,
-              JSON_EXTRACT(Properties, '$.Output.LambdaOutput') as output_lambda_output,
-              JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
-              JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
-              JSON_EXTRACT(Properties, '$.Output.Name') as output_name
+              JSON_EXTRACT(Properties, '$.Output') as output
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationOutput'
     application_reference_data_sources:
       name: application_reference_data_sources
       id: aws.kinesisanalyticsv2.application_reference_data_sources
       x-cfn-schema-name: ApplicationReferenceDataSource
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -956,7 +954,5 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
+              JSON_EXTRACT(Properties, '$.ReferenceDataSource') as reference_data_source
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource'

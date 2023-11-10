@@ -185,6 +185,8 @@ components:
       id: aws.cassandra.keyspaces
       x-cfn-schema-name: Keyspace
       x-type: list
+      x-identifiers:
+        - KeyspaceName
       config:
         views:
           select:
@@ -216,6 +218,9 @@ components:
       id: aws.cassandra.tables
       x-cfn-schema-name: Table
       x-type: list
+      x-identifiers:
+        - KeyspaceName
+        - TableName
       config:
         views:
           select:
@@ -246,12 +251,10 @@ components:
               JSON_EXTRACT(Properties, '$.RegularColumns') as regular_columns,
               JSON_EXTRACT(Properties, '$.PartitionKeyColumns') as partition_key_columns,
               JSON_EXTRACT(Properties, '$.ClusteringKeyColumns') as clustering_key_columns,
-              JSON_EXTRACT(Properties, '$.BillingMode.Mode') as billing_mode_mode,
-              JSON_EXTRACT(Properties, '$.BillingMode.ProvisionedThroughput') as billing_mode_provisioned_throughput,
+              JSON_EXTRACT(Properties, '$.BillingMode') as billing_mode,
               JSON_EXTRACT(Properties, '$.PointInTimeRecoveryEnabled') as point_in_time_recovery_enabled,
               JSON_EXTRACT(Properties, '$.ClientSideTimestampsEnabled') as client_side_timestamps_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as default_time_to_live,
-              JSON_EXTRACT(Properties, '$.EncryptionSpecification.EncryptionType') as encryption_specification_encryption_type,
-              JSON_EXTRACT(Properties, '$.EncryptionSpecification.KmsKeyIdentifier') as encryption_specification_kms_key_identifier
+              JSON_EXTRACT(Properties, '$.EncryptionSpecification') as encryption_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Table'

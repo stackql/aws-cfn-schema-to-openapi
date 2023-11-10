@@ -20,20 +20,15 @@ Retrieves a list of <code>connections</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>connections</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>connections</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codestarconnections.connections</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ConnectionArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the  connection. The ARN is used as the connection reference when the connection is shared between AWS services.</td></tr>
-<tr><td><code>ConnectionName</code></td><td><code>string</code></td><td>The name of the connection. Connection names must be unique in an AWS user account.</td></tr>
-<tr><td><code>ConnectionStatus</code></td><td><code>string</code></td><td>The current status of the connection.</td></tr>
-<tr><td><code>OwnerAccountId</code></td><td><code>string</code></td><td>The name of the external provider where your third-party code repository is configured. For Bitbucket, this is the account ID of the owner of the Bitbucket repository.</td></tr>
-<tr><td><code>ProviderType</code></td><td><code>string</code></td><td>The name of the external provider where your third-party code repository is configured. You must specify either a ProviderType or a HostArn.</td></tr>
-<tr><td><code>HostArn</code></td><td><code>string</code></td><td>The host arn configured to represent the infrastructure where your third-party provider is installed. You must specify either a ProviderType or a HostArn.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>Specifies the tags applied to a connection.</td></tr>
+<tr><td><code>connection_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the  connection. The ARN is used as the connection reference when the connection is shared between AWS services.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+connection_arn
 FROM aws.codestarconnections.connections
 WHERE region = 'us-east-1'
-</pre>
+```

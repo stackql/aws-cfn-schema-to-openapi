@@ -424,6 +424,8 @@ components:
       id: aws.codedeploy.applications
       x-cfn-schema-name: Application
       x-type: list
+      x-identifiers:
+        - ApplicationName
       config:
         views:
           select:
@@ -456,6 +458,8 @@ components:
       id: aws.codedeploy.deployment_configs
       x-cfn-schema-name: DeploymentConfig
       x-type: list
+      x-identifiers:
+        - DeploymentConfigName
       config:
         views:
           select:
@@ -481,17 +485,16 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
-              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Value') as minimum_healthy_hosts_value,
-              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts.Type') as minimum_healthy_hosts_type,
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.Type') as traffic_routing_config_type,
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedLinear') as traffic_routing_config_time_based_linear,
-              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig.TimeBasedCanary') as traffic_routing_config_time_based_canary
+              JSON_EXTRACT(Properties, '$.MinimumHealthyHosts') as minimum_healthy_hosts,
+              JSON_EXTRACT(Properties, '$.TrafficRoutingConfig') as traffic_routing_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
     deployment_groups:
       name: deployment_groups
       id: aws.codedeploy.deployment_groups
       x-cfn-schema-name: DeploymentGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -515,32 +518,22 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OnPremisesTagSet.OnPremisesTagSetList') as on_premises_tag_set_on_premises_tag_set_list,
+              JSON_EXTRACT(Properties, '$.OnPremisesTagSet') as on_premises_tag_set,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentOption') as deployment_style_deployment_option,
-              JSON_EXTRACT(Properties, '$.DeploymentStyle.DeploymentType') as deployment_style_deployment_type,
+              JSON_EXTRACT(Properties, '$.DeploymentStyle') as deployment_style,
               JSON_EXTRACT(Properties, '$.ServiceRoleArn') as service_role_arn,
-              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.GreenFleetProvisioningOption') as blue_green_deployment_configuration_green_fleet_provisioning_option,
-              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.DeploymentReadyOption') as blue_green_deployment_configuration_deployment_ready_option,
-              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration.TerminateBlueInstancesOnDeploymentSuccess') as blue_green_deployment_configuration_terminate_blue_instances_on_deployment_success,
+              JSON_EXTRACT(Properties, '$.BlueGreenDeploymentConfiguration') as blue_green_deployment_configuration,
               JSON_EXTRACT(Properties, '$.AutoScalingGroups') as auto_scaling_groups,
-              JSON_EXTRACT(Properties, '$.Ec2TagSet.Ec2TagSetList') as ec2_tag_set_ec2_tag_set_list,
+              JSON_EXTRACT(Properties, '$.Ec2TagSet') as ec2_tag_set,
               JSON_EXTRACT(Properties, '$.OutdatedInstancesStrategy') as outdated_instances_strategy,
               JSON_EXTRACT(Properties, '$.TriggerConfigurations') as trigger_configurations,
-              JSON_EXTRACT(Properties, '$.Deployment.Description') as deployment_description,
-              JSON_EXTRACT(Properties, '$.Deployment.Revision') as deployment_revision,
-              JSON_EXTRACT(Properties, '$.Deployment.IgnoreApplicationStopFailures') as deployment_ignore_application_stop_failures,
+              JSON_EXTRACT(Properties, '$.Deployment') as deployment,
               JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
-              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Alarms') as alarm_configuration_alarms,
-              JSON_EXTRACT(Properties, '$.AlarmConfiguration.IgnorePollAlarmFailure') as alarm_configuration_ignore_poll_alarm_failure,
-              JSON_EXTRACT(Properties, '$.AlarmConfiguration.Enabled') as alarm_configuration_enabled,
+              JSON_EXTRACT(Properties, '$.AlarmConfiguration') as alarm_configuration,
               JSON_EXTRACT(Properties, '$.Ec2TagFilters') as ec2_tag_filters,
               JSON_EXTRACT(Properties, '$.ECSServices') as e_cs_services,
-              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Events') as auto_rollback_configuration_events,
-              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration.Enabled') as auto_rollback_configuration_enabled,
-              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.TargetGroupInfoList') as load_balancer_info_target_group_info_list,
-              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.ElbInfoList') as load_balancer_info_elb_info_list,
-              JSON_EXTRACT(Properties, '$.LoadBalancerInfo.TargetGroupPairInfoList') as load_balancer_info_target_group_pair_info_list,
+              JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration') as auto_rollback_configuration,
+              JSON_EXTRACT(Properties, '$.LoadBalancerInfo') as load_balancer_info,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DeploymentGroupName') as deployment_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,

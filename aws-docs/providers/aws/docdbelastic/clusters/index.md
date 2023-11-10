@@ -20,26 +20,15 @@ Retrieves a list of <code>clusters</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>clusters</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>clusters</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.docdbelastic.clusters</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ClusterName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ClusterArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ClusterEndpoint</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AdminUserName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AdminUserPassword</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ShardCapacity</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>ShardCount</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>VpcSecurityGroupIds</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SubnetIds</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>PreferredMaintenanceWindow</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>KmsKeyId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>AuthType</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>cluster_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -47,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+cluster_arn
 FROM aws.docdbelastic.clusters
 WHERE region = 'us-east-1'
-</pre>
+```

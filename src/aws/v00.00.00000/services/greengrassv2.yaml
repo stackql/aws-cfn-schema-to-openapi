@@ -419,6 +419,8 @@ components:
       id: aws.greengrassv2.component_versions
       x-cfn-schema-name: ComponentVersion
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -446,12 +448,7 @@ components:
               JSON_EXTRACT(Properties, '$.ComponentName') as component_name,
               JSON_EXTRACT(Properties, '$.ComponentVersion') as component_version,
               JSON_EXTRACT(Properties, '$.InlineRecipe') as inline_recipe,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.LambdaArn') as lambda_function_lambda_arn,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentName') as lambda_function_component_name,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentVersion') as lambda_function_component_version,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentPlatforms') as lambda_function_component_platforms,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentDependencies') as lambda_function_component_dependencies,
-              JSON_EXTRACT(Properties, '$.LambdaFunction.ComponentLambdaParameters') as lambda_function_component_lambda_parameters,
+              JSON_EXTRACT(Properties, '$.LambdaFunction') as lambda_function,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
     deployments:
@@ -459,6 +456,8 @@ components:
       id: aws.greengrassv2.deployments
       x-cfn-schema-name: Deployment
       x-type: list
+      x-identifiers:
+        - DeploymentId
       config:
         views:
           select:
@@ -487,11 +486,7 @@ components:
               JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id,
               JSON_EXTRACT(Properties, '$.DeploymentName') as deployment_name,
               JSON_EXTRACT(Properties, '$.Components') as components,
-              JSON_EXTRACT(Properties, '$.IotJobConfiguration.JobExecutionsRolloutConfig') as iot_job_configuration_job_executions_rollout_config,
-              JSON_EXTRACT(Properties, '$.IotJobConfiguration.AbortConfig') as iot_job_configuration_abort_config,
-              JSON_EXTRACT(Properties, '$.IotJobConfiguration.TimeoutConfig') as iot_job_configuration_timeout_config,
-              JSON_EXTRACT(Properties, '$.DeploymentPolicies.FailureHandlingPolicy') as deployment_policies_failure_handling_policy,
-              JSON_EXTRACT(Properties, '$.DeploymentPolicies.ComponentUpdatePolicy') as deployment_policies_component_update_policy,
-              JSON_EXTRACT(Properties, '$.DeploymentPolicies.ConfigurationValidationPolicy') as deployment_policies_configuration_validation_policy,
+              JSON_EXTRACT(Properties, '$.IotJobConfiguration') as iot_job_configuration,
+              JSON_EXTRACT(Properties, '$.DeploymentPolicies') as deployment_policies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'

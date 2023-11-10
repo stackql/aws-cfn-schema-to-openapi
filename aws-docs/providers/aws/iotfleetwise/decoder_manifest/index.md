@@ -20,23 +20,24 @@ Gets an individual <code>decoder_manifest</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>decoder_manifest</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>decoder_manifest</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotfleetwise.decoder_manifest</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CreationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LastModificationTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ModelManifestArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>NetworkInterfaces</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>SignalDecoders</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Status</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>creation_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_modification_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>model_manifest_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>network_interfaces</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>signal_decoders</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -44,8 +45,20 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+creation_time,
+description,
+last_modification_time,
+model_manifest_arn,
+name,
+network_interfaces,
+signal_decoders,
+status,
+tags
 FROM aws.iotfleetwise.decoder_manifest
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Name&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Name&gt;'
+```

@@ -20,18 +20,19 @@ Gets an individual <code>access_point</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>access_point</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>access_point</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.s3outposts.access_point</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AccessPoint.</td></tr>
-<tr><td><code>Bucket</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with.</td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>A name for the AccessPoint.</td></tr>
-<tr><td><code>VpcConfiguration</code></td><td><code>undefined</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr>
-<tr><td><code>Policy</code></td><td><code>object</code></td><td>The access point policy associated with this access point.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the specified AccessPoint.</td></tr>
+<tr><td><code>bucket</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the bucket you want to associate this AccessPoint with.</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>A name for the AccessPoint.</td></tr>
+<tr><td><code>vpc_configuration</code></td><td><code>object</code></td><td>Virtual Private Cloud (VPC) from which requests can be made to the AccessPoint.</td></tr>
+<tr><td><code>policy</code></td><td><code>object</code></td><td>The access point policy associated with this access point.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +40,15 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn,
+bucket,
+name,
+vpc_configuration,
+policy
 FROM aws.s3outposts.access_point
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

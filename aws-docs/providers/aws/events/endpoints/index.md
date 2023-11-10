@@ -20,24 +20,15 @@ Retrieves a list of <code>endpoints</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>endpoints</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>endpoints</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.events.endpoints</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoleArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RoutingConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>ReplicationConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>EventBuses</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>EndpointId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EndpointUrl</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>State</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>StateReason</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -45,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+name
 FROM aws.events.endpoints
 WHERE region = 'us-east-1'
-</pre>
+```

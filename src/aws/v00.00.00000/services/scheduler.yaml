@@ -491,6 +491,8 @@ components:
       id: aws.scheduler.schedules
       x-cfn-schema-name: Schedule
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -517,30 +519,23 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EndDate') as end_date,
-              JSON_EXTRACT(Properties, '$.FlexibleTimeWindow.Mode') as flexible_time_window_mode,
-              JSON_EXTRACT(Properties, '$.FlexibleTimeWindow.MaximumWindowInMinutes') as flexible_time_window_maximum_window_in_minutes,
+              JSON_EXTRACT(Properties, '$.FlexibleTimeWindow') as flexible_time_window,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ScheduleExpression') as schedule_expression,
               JSON_EXTRACT(Properties, '$.ScheduleExpressionTimezone') as schedule_expression_timezone,
               JSON_EXTRACT(Properties, '$.StartDate') as start_date,
-              JSON_EXTRACT(Properties, '$.Target.Arn') as target_arn,
-              JSON_EXTRACT(Properties, '$.Target.RoleArn') as target_role_arn,
-              JSON_EXTRACT(Properties, '$.Target.DeadLetterConfig') as target_dead_letter_config,
-              JSON_EXTRACT(Properties, '$.Target.RetryPolicy') as target_retry_policy,
-              JSON_EXTRACT(Properties, '$.Target.Input') as target_input,
-              JSON_EXTRACT(Properties, '$.Target.EcsParameters') as target_ecs_parameters,
-              JSON_EXTRACT(Properties, '$.Target.EventBridgeParameters') as target_event_bridge_parameters,
-              JSON_EXTRACT(Properties, '$.Target.KinesisParameters') as target_kinesis_parameters,
-              JSON_EXTRACT(Properties, '$.Target.SageMakerPipelineParameters') as target_sage_maker_pipeline_parameters,
-              JSON_EXTRACT(Properties, '$.Target.SqsParameters') as target_sqs_parameters
+              JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.Target') as target
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::Schedule'
     schedule_groups:
       name: schedule_groups
       id: aws.scheduler.schedule_groups
       x-cfn-schema-name: ScheduleGroup
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -568,5 +563,6 @@ components:
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
               JSON_EXTRACT(Properties, '$.LastModificationDate') as last_modification_date,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'

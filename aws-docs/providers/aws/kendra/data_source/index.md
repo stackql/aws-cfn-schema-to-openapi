@@ -20,24 +20,25 @@ Gets an individual <code>data_source</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>data_source</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>data_source</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.kendra.data_source</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>IndexId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Type</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DataSourceConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Schedule</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>RoleArn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>undefined</code></td><td>Tags for labeling the data source</td></tr>
-<tr><td><code>CustomDocumentEnrichmentConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>index_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_source_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>schedule</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>Tags for labeling the data source</td></tr>
+<tr><td><code>custom_document_enrichment_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -45,8 +46,22 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+arn,
+name,
+index_id,
+type,
+data_source_configuration,
+description,
+schedule,
+role_arn,
+tags,
+custom_document_enrichment_configuration
 FROM aws.kendra.data_source
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;' AND data__Identifier = '&lt;IndexId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;IndexId&gt;'
+```

@@ -20,22 +20,23 @@ Gets an individual <code>group_version</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>group_version</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>group_version</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.greengrass.group_version</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LoggerDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DeviceDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FunctionDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CoreDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ResourceDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ConnectorDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SubscriptionDefinitionVersionArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>GroupId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>logger_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>device_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>function_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>core_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>resource_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>connector_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>subscription_definition_version_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>group_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -43,8 +44,19 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+logger_definition_version_arn,
+device_definition_version_arn,
+function_definition_version_arn,
+core_definition_version_arn,
+resource_definition_version_arn,
+connector_definition_version_arn,
+subscription_definition_version_arn,
+group_id
 FROM aws.greengrass.group_version
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

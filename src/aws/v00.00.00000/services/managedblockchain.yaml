@@ -202,6 +202,8 @@ components:
       id: aws.managedblockchain.accessors
       x-cfn-schema-name: Accessor
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -229,6 +231,8 @@ components:
               JSON_EXTRACT(Properties, '$.BillingToken') as billing_token,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
               JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.AccessorType') as accessor_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
     members:
@@ -236,6 +240,8 @@ components:
       id: aws.managedblockchain.members
       x-cfn-schema-name: Member
       x-type: list
+      x-identifiers:
+        - MemberId
       config:
         views:
           select:
@@ -261,15 +267,8 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
-              JSON_EXTRACT(Properties, '$.MemberConfiguration.Description') as member_configuration_description,
-              JSON_EXTRACT(Properties, '$.MemberConfiguration.MemberFrameworkConfiguration') as member_configuration_member_framework_configuration,
-              JSON_EXTRACT(Properties, '$.MemberConfiguration.Name') as member_configuration_name,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.Description') as network_configuration_description,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.FrameworkVersion') as network_configuration_framework_version,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.VotingPolicy') as network_configuration_voting_policy,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.Framework') as network_configuration_framework,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.Name') as network_configuration_name,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.NetworkFrameworkConfiguration') as network_configuration_network_framework_configuration,
+              JSON_EXTRACT(Properties, '$.MemberConfiguration') as member_configuration,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration,
               JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
     nodes:
@@ -277,6 +276,8 @@ components:
       id: aws.managedblockchain.nodes
       x-cfn-schema-name: Node
       x-type: list
+      x-identifiers:
+        - NodeId
       config:
         views:
           select:
@@ -304,6 +305,5 @@ components:
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
-              JSON_EXTRACT(Properties, '$.NodeConfiguration.InstanceType') as node_configuration_instance_type,
-              JSON_EXTRACT(Properties, '$.NodeConfiguration.AvailabilityZone') as node_configuration_availability_zone
+              JSON_EXTRACT(Properties, '$.NodeConfiguration') as node_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'

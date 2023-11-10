@@ -20,17 +20,15 @@ Retrieves a list of <code>global_networks</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>global_networks</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>global_networks</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkmanager.global_networks</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the global network.</td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the global network.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>The tags for the global network.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id
 FROM aws.networkmanager.global_networks
 WHERE region = 'us-east-1'
-</pre>
+```

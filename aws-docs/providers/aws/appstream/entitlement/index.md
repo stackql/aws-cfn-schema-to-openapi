@@ -20,20 +20,21 @@ Gets an individual <code>entitlement</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>entitlement</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>entitlement</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.appstream.entitlement</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>StackName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AppVisibility</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Attributes</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>CreatedTime</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>LastModifiedTime</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>stack_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>app_visibility</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>attributes</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>created_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_modified_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +42,18 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+name,
+stack_name,
+description,
+app_visibility,
+attributes,
+created_time,
+last_modified_time
 FROM aws.appstream.entitlement
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;StackName&gt;' AND data__Identifier = '&lt;Name&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;StackName&gt;'
+AND data__Identifier = '&lt;Name&gt;'
+```

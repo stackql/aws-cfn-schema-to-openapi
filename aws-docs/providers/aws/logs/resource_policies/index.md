@@ -20,15 +20,15 @@ Retrieves a list of <code>resource_policies</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>resource_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>resource_policies</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.logs.resource_policies</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>PolicyName</code></td><td><code>string</code></td><td>A name for resource policy</td></tr>
-<tr><td><code>PolicyDocument</code></td><td><code>string</code></td><td>The policy document</td></tr>
+<tr><td><code>policy_name</code></td><td><code>string</code></td><td>A name for resource policy</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -36,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+policy_name
 FROM aws.logs.resource_policies
 WHERE region = 'us-east-1'
-</pre>
+```

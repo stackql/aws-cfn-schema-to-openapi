@@ -243,6 +243,13 @@ components:
       id: aws.sso.assignments
       x-cfn-schema-name: Assignment
       x-type: list
+      x-identifiers:
+        - InstanceArn
+        - TargetId
+        - TargetType
+        - PermissionSetArn
+        - PrincipalType
+        - PrincipalId
       config:
         views:
           select:
@@ -288,6 +295,8 @@ components:
       id: aws.sso.instance_access_control_attribute_configurations
       x-cfn-schema-name: InstanceAccessControlAttributeConfiguration
       x-type: list
+      x-identifiers:
+        - InstanceArn
       config:
         views:
           select:
@@ -312,13 +321,17 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
-              JSON_EXTRACT(Properties, '$.InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration
+              JSON_EXTRACT(Properties, '$.InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration,
+              JSON_EXTRACT(Properties, '$.AccessControlAttributes') as access_control_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
     permission_sets:
       name: permission_sets
       id: aws.sso.permission_sets
       x-cfn-schema-name: PermissionSet
       x-type: list
+      x-identifiers:
+        - InstanceArn
+        - PermissionSetArn
       config:
         views:
           select:
@@ -354,6 +367,5 @@ components:
               JSON_EXTRACT(Properties, '$.InlinePolicy') as inline_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CustomerManagedPolicyReferences') as customer_managed_policy_references,
-              JSON_EXTRACT(Properties, '$.PermissionsBoundary.CustomerManagedPolicyReference') as permissions_boundary_customer_managed_policy_reference,
-              JSON_EXTRACT(Properties, '$.PermissionsBoundary.ManagedPolicyArn') as permissions_boundary_managed_policy_arn
+              JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::PermissionSet'

@@ -110,6 +110,8 @@ components:
       id: aws.resourcegroups.groups
       x-cfn-schema-name: Group
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -135,9 +137,9 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.ResourceQuery.Type') as resource_query_type,
-              JSON_EXTRACT(Properties, '$.ResourceQuery.Query') as resource_query_query,
+              JSON_EXTRACT(Properties, '$.ResourceQuery') as resource_query,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.Resources') as resources
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceGroups::Group'

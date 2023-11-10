@@ -20,18 +20,15 @@ Retrieves a list of <code>suite_definitions</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>suite_definitions</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>suite_definitions</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iotcoredeviceadvisor.suite_definitions</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>SuiteDefinitionConfiguration</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>SuiteDefinitionId</code></td><td><code>string</code></td><td>The unique identifier for the suite definition.</td></tr>
-<tr><td><code>SuiteDefinitionArn</code></td><td><code>string</code></td><td>The Amazon Resource name for the suite definition.</td></tr>
-<tr><td><code>SuiteDefinitionVersion</code></td><td><code>string</code></td><td>The suite definition version of a test suite.</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><code>suite_definition_id</code></td><td><code>string</code></td><td>The unique identifier for the suite definition.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+suite_definition_id
 FROM aws.iotcoredeviceadvisor.suite_definitions
 WHERE region = 'us-east-1'
-</pre>
+```

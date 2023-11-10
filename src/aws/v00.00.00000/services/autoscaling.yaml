@@ -885,6 +885,8 @@ components:
       id: aws.autoscaling.auto_scaling_groups
       x-cfn-schema-name: AutoScalingGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -919,11 +921,8 @@ components:
               JSON_EXTRACT(Properties, '$.HealthCheckGracePeriod') as health_check_grace_period,
               JSON_EXTRACT(Properties, '$.DefaultInstanceWarmup') as default_instance_warmup,
               JSON_EXTRACT(Properties, '$.NewInstancesProtectedFromScaleIn') as new_instances_protected_from_scale_in,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateName') as launch_template_launch_template_name,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.LaunchTemplateId') as launch_template_launch_template_id,
-              JSON_EXTRACT(Properties, '$.LaunchTemplate.Version') as launch_template_version,
-              JSON_EXTRACT(Properties, '$.MixedInstancesPolicy.LaunchTemplate') as mixed_instances_policy_launch_template,
-              JSON_EXTRACT(Properties, '$.MixedInstancesPolicy.InstancesDistribution') as mixed_instances_policy_instances_distribution,
+              JSON_EXTRACT(Properties, '$.LaunchTemplate') as launch_template,
+              JSON_EXTRACT(Properties, '$.MixedInstancesPolicy') as mixed_instances_policy,
               JSON_EXTRACT(Properties, '$.VPCZoneIdentifier') as v_pc_zone_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Context') as context,
@@ -947,6 +946,8 @@ components:
       id: aws.autoscaling.launch_configurations
       x-cfn-schema-name: LaunchConfiguration
       x-type: list
+      x-identifiers:
+        - LaunchConfigurationName
       config:
         views:
           select:
@@ -983,9 +984,7 @@ components:
               JSON_EXTRACT(Properties, '$.KernelId') as kernel_id,
               JSON_EXTRACT(Properties, '$.KeyName') as key_name,
               JSON_EXTRACT(Properties, '$.LaunchConfigurationName') as launch_configuration_name,
-              JSON_EXTRACT(Properties, '$.MetadataOptions.HttpPutResponseHopLimit') as metadata_options_http_put_response_hop_limit,
-              JSON_EXTRACT(Properties, '$.MetadataOptions.HttpTokens') as metadata_options_http_tokens,
-              JSON_EXTRACT(Properties, '$.MetadataOptions.HttpEndpoint') as metadata_options_http_endpoint,
+              JSON_EXTRACT(Properties, '$.MetadataOptions') as metadata_options,
               JSON_EXTRACT(Properties, '$.PlacementTenancy') as placement_tenancy,
               JSON_EXTRACT(Properties, '$.RamDiskId') as ram_disk_id,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
@@ -997,6 +996,9 @@ components:
       id: aws.autoscaling.lifecycle_hooks
       x-cfn-schema-name: LifecycleHook
       x-type: list
+      x-identifiers:
+        - AutoScalingGroupName
+        - LifecycleHookName
       config:
         views:
           select:
@@ -1036,6 +1038,8 @@ components:
       id: aws.autoscaling.scaling_policies
       x-cfn-schema-name: ScalingPolicy
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1062,20 +1066,13 @@ components:
               JSON_EXTRACT(Properties, '$.MetricAggregationType') as metric_aggregation_type,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
-              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration.MetricSpecifications') as predictive_scaling_configuration_metric_specifications,
-              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration.MaxCapacityBreachBehavior') as predictive_scaling_configuration_max_capacity_breach_behavior,
-              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration.MaxCapacityBuffer') as predictive_scaling_configuration_max_capacity_buffer,
-              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration.SchedulingBufferTime') as predictive_scaling_configuration_scheduling_buffer_time,
-              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration.Mode') as predictive_scaling_configuration_mode,
+              JSON_EXTRACT(Properties, '$.PredictiveScalingConfiguration') as predictive_scaling_configuration,
               JSON_EXTRACT(Properties, '$.ScalingAdjustment') as scaling_adjustment,
               JSON_EXTRACT(Properties, '$.Cooldown') as cooldown,
               JSON_EXTRACT(Properties, '$.StepAdjustments') as step_adjustments,
               JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name,
               JSON_EXTRACT(Properties, '$.MinAdjustmentMagnitude') as min_adjustment_magnitude,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.CustomizedMetricSpecification') as target_tracking_configuration_customized_metric_specification,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.TargetValue') as target_tracking_configuration_target_value,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.DisableScaleIn') as target_tracking_configuration_disable_scale_in,
-              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration.PredefinedMetricSpecification') as target_tracking_configuration_predefined_metric_specification,
+              JSON_EXTRACT(Properties, '$.TargetTrackingConfiguration') as target_tracking_configuration,
               JSON_EXTRACT(Properties, '$.EstimatedInstanceWarmup') as estimated_instance_warmup,
               JSON_EXTRACT(Properties, '$.AdjustmentType') as adjustment_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn
@@ -1085,6 +1082,9 @@ components:
       id: aws.autoscaling.scheduled_actions
       x-cfn-schema-name: ScheduledAction
       x-type: list
+      x-identifiers:
+        - ScheduledActionName
+        - AutoScalingGroupName
       config:
         views:
           select:
@@ -1125,6 +1125,8 @@ components:
       id: aws.autoscaling.warm_pools
       x-cfn-schema-name: WarmPool
       x-type: list
+      x-identifiers:
+        - AutoScalingGroupName
       config:
         views:
           select:
@@ -1152,5 +1154,5 @@ components:
               JSON_EXTRACT(Properties, '$.MaxGroupPreparedCapacity') as max_group_prepared_capacity,
               JSON_EXTRACT(Properties, '$.MinSize') as min_size,
               JSON_EXTRACT(Properties, '$.PoolState') as pool_state,
-              JSON_EXTRACT(Properties, '$.InstanceReusePolicy.ReuseOnScaleIn') as instance_reuse_policy_reuse_on_scale_in
+              JSON_EXTRACT(Properties, '$.InstanceReusePolicy') as instance_reuse_policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AutoScaling::WarmPool'

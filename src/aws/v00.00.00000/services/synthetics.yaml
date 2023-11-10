@@ -245,6 +245,8 @@ components:
       id: aws.synthetics.canaries
       x-cfn-schema-name: Canary
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -271,30 +273,19 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.State') as state,
-              JSON_EXTRACT(Properties, '$.Code.S3Bucket') as code_s3_bucket,
-              JSON_EXTRACT(Properties, '$.Code.S3Key') as code_s3_key,
-              JSON_EXTRACT(Properties, '$.Code.S3ObjectVersion') as code_s3_object_version,
-              JSON_EXTRACT(Properties, '$.Code.Script') as code_script,
-              JSON_EXTRACT(Properties, '$.Code.Handler') as code_handler,
+              JSON_EXTRACT(Properties, '$.Code') as code,
               JSON_EXTRACT(Properties, '$.ArtifactS3Location') as artifact_s3_location,
-              JSON_EXTRACT(Properties, '$.ArtifactConfig.S3Encryption') as artifact_config_s3_encryption,
-              JSON_EXTRACT(Properties, '$.Schedule.Expression') as schedule_expression,
-              JSON_EXTRACT(Properties, '$.Schedule.DurationInSeconds') as schedule_duration_in_seconds,
+              JSON_EXTRACT(Properties, '$.ArtifactConfig') as artifact_config,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
               JSON_EXTRACT(Properties, '$.RuntimeVersion') as runtime_version,
               JSON_EXTRACT(Properties, '$.SuccessRetentionPeriod') as success_retention_period,
               JSON_EXTRACT(Properties, '$.FailureRetentionPeriod') as failure_retention_period,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.VPCConfig.VpcId') as v_pc_config_vpc_id,
-              JSON_EXTRACT(Properties, '$.VPCConfig.SubnetIds') as v_pc_config_subnet_ids,
-              JSON_EXTRACT(Properties, '$.VPCConfig.SecurityGroupIds') as v_pc_config_security_group_ids,
-              JSON_EXTRACT(Properties, '$.RunConfig.TimeoutInSeconds') as run_config_timeout_in_seconds,
-              JSON_EXTRACT(Properties, '$.RunConfig.MemoryInMB') as run_config_memory_in_mb,
-              JSON_EXTRACT(Properties, '$.RunConfig.ActiveTracing') as run_config_active_tracing,
-              JSON_EXTRACT(Properties, '$.RunConfig.EnvironmentVariables') as run_config_environment_variables,
+              JSON_EXTRACT(Properties, '$.VPCConfig') as v_pc_config,
+              JSON_EXTRACT(Properties, '$.RunConfig') as run_config,
               JSON_EXTRACT(Properties, '$.StartCanaryAfterCreation') as start_canary_after_creation,
-              JSON_EXTRACT(Properties, '$.VisualReference.BaseCanaryRunId') as visual_reference_base_canary_run_id,
-              JSON_EXTRACT(Properties, '$.VisualReference.BaseScreenshots') as visual_reference_base_screenshots,
+              JSON_EXTRACT(Properties, '$.VisualReference') as visual_reference,
               JSON_EXTRACT(Properties, '$.DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Canary'
     groups:
@@ -302,6 +293,8 @@ components:
       id: aws.synthetics.groups
       x-cfn-schema-name: Group
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:

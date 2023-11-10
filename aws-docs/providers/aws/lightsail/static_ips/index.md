@@ -20,18 +20,15 @@ Retrieves a list of <code>static_ips</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>static_ips</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>static_ips</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.lightsail.static_ips</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>StaticIpName</code></td><td><code>string</code></td><td>The name of the static IP address.</td></tr>
-<tr><td><code>AttachedTo</code></td><td><code>string</code></td><td>The instance where the static IP is attached.</td></tr>
-<tr><td><code>IsAttached</code></td><td><code>boolean</code></td><td>A Boolean value indicating whether the static IP is attached.</td></tr>
-<tr><td><code>IpAddress</code></td><td><code>string</code></td><td>The static IP address.</td></tr>
-<tr><td><code>StaticIpArn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>static_ip_name</code></td><td><code>string</code></td><td>The name of the static IP address.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+static_ip_name
 FROM aws.lightsail.static_ips
 WHERE region = 'us-east-1'
-</pre>
+```

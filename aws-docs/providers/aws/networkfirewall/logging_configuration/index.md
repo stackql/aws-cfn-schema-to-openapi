@@ -20,16 +20,17 @@ Gets an individual <code>logging_configuration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>logging_configuration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>logging_configuration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.networkfirewall.logging_configuration</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>FirewallName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FirewallArn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>LoggingConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>firewall_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>firewall_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>logging_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -37,8 +38,13 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+firewall_name,
+firewall_arn,
+logging_configuration
 FROM aws.networkfirewall.logging_configuration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;FirewallArn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;FirewallArn&gt;'
+```

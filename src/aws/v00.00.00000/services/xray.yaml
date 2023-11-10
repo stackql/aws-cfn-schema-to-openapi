@@ -173,6 +173,8 @@ components:
       id: aws.xray.groups
       x-cfn-schema-name: Group
       x-type: list
+      x-identifiers:
+        - GroupARN
       config:
         views:
           select:
@@ -199,14 +201,16 @@ components:
               JSON_EXTRACT(Properties, '$.FilterExpression') as filter_expression,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
               JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n,
-              JSON_EXTRACT(Properties, '$.InsightsConfiguration.InsightsEnabled') as insights_configuration_insights_enabled,
-              JSON_EXTRACT(Properties, '$.InsightsConfiguration.NotificationsEnabled') as insights_configuration_notifications_enabled
+              JSON_EXTRACT(Properties, '$.InsightsConfiguration') as insights_configuration,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::Group'
     resource_policies:
       name: resource_policies
       id: aws.xray.resource_policies
       x-cfn-schema-name: ResourcePolicy
       x-type: list
+      x-identifiers:
+        - PolicyName
       config:
         views:
           select:
@@ -239,6 +243,8 @@ components:
       id: aws.xray.sampling_rules
       x-cfn-schema-name: SamplingRule
       x-type: list
+      x-identifiers:
+        - RuleARN
       config:
         views:
           select:
@@ -262,25 +268,10 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRule') as sampling_rule_sampling_rule,
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleRecord') as sampling_rule_sampling_rule_record,
-              JSON_EXTRACT(Properties, '$.SamplingRule.SamplingRuleUpdate') as sampling_rule_sampling_rule_update,
-              JSON_EXTRACT(Properties, '$.SamplingRule.RuleARN') as sampling_rule_rule_ar_n,
-              JSON_EXTRACT(Properties, '$.SamplingRule.RuleName') as sampling_rule_rule_name,
-              JSON_EXTRACT(Properties, '$.SamplingRule.Tags') as sampling_rule_tags,
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.CreatedAt') as sampling_rule_record_created_at,
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.ModifiedAt') as sampling_rule_record_modified_at,
-              JSON_EXTRACT(Properties, '$.SamplingRuleRecord.SamplingRule') as sampling_rule_record_sampling_rule,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Attributes') as sampling_rule_update_attributes,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.FixedRate') as sampling_rule_update_fixed_rate,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Host') as sampling_rule_update_host,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.HTTPMethod') as sampling_rule_update_ht_tp_method,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.Priority') as sampling_rule_update_priority,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ReservoirSize') as sampling_rule_update_reservoir_size,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ResourceARN') as sampling_rule_update_resource_ar_n,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleARN') as sampling_rule_update_rule_ar_n,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.RuleName') as sampling_rule_update_rule_name,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceName') as sampling_rule_update_service_name,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.ServiceType') as sampling_rule_update_service_type,
-              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate.URLPath') as sampling_rule_update_ur_lpath
+              JSON_EXTRACT(Properties, '$.SamplingRule') as sampling_rule,
+              JSON_EXTRACT(Properties, '$.SamplingRuleRecord') as sampling_rule_record,
+              JSON_EXTRACT(Properties, '$.SamplingRuleUpdate') as sampling_rule_update,
+              JSON_EXTRACT(Properties, '$.RuleARN') as rule_ar_n,
+              JSON_EXTRACT(Properties, '$.RuleName') as rule_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::SamplingRule'

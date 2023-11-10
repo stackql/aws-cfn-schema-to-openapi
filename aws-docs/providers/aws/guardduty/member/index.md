@@ -20,19 +20,20 @@ Gets an individual <code>member</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>member</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>member</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.guardduty.member</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Status</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>MemberId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Email</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Message</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DisableEmailNotification</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DetectorId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>member_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>email</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>message</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>disable_email_notification</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>detector_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+status,
+member_id,
+email,
+message,
+disable_email_notification,
+detector_id
 FROM aws.guardduty.member
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;MemberId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;MemberId&gt;'
+```

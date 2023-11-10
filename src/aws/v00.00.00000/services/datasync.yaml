@@ -1083,6 +1083,8 @@ components:
       id: aws.datasync.agents
       x-cfn-schema-name: Agent
       x-type: list
+      x-identifiers:
+        - AgentArn
       config:
         views:
           select:
@@ -1129,8 +1131,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Ec2Config.SecurityGroupArns') as ec2_config_security_group_arns,
-              JSON_EXTRACT(Properties, '$.Ec2Config.SubnetArn') as ec2_config_subnet_arn,
+              JSON_EXTRACT(Properties, '$.Ec2Config') as ec2_config,
               JSON_EXTRACT(Properties, '$.EfsFilesystemArn') as efs_filesystem_arn,
               JSON_EXTRACT(Properties, '$.AccessPointArn') as access_point_arn,
               JSON_EXTRACT(Properties, '$.FileSystemAccessRoleArn') as file_system_access_role_arn,
@@ -1145,6 +1146,8 @@ components:
       id: aws.datasync.locationf_sx_lustres
       x-cfn-schema-name: LocationFSxLustre
       x-type: list
+      x-identifiers:
+        - LocationArn
       config:
         views:
           select:
@@ -1180,6 +1183,8 @@ components:
       id: aws.datasync.locationf_sx_ontaps
       x-cfn-schema-name: LocationFSxONTAP
       x-type: list
+      x-identifiers:
+        - LocationArn
       config:
         views:
           select:
@@ -1206,7 +1211,7 @@ components:
               JSON_EXTRACT(Properties, '$.StorageVirtualMachineArn') as storage_virtual_machine_arn,
               JSON_EXTRACT(Properties, '$.FsxFilesystemArn') as fsx_filesystem_arn,
               JSON_EXTRACT(Properties, '$.SecurityGroupArns') as security_group_arns,
-              JSON_EXTRACT(Properties, '$.Protocol.NFS') as protocol_nf_s,
+              JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
@@ -1228,7 +1233,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.FsxFilesystemArn') as fsx_filesystem_arn,
               JSON_EXTRACT(Properties, '$.SecurityGroupArns') as security_group_arns,
-              JSON_EXTRACT(Properties, '$.Protocol.NFS') as protocol_nf_s,
+              JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
@@ -1276,8 +1281,7 @@ components:
               JSON_EXTRACT(Properties, '$.BlockSize') as block_size,
               JSON_EXTRACT(Properties, '$.ReplicationFactor') as replication_factor,
               JSON_EXTRACT(Properties, '$.KmsKeyProviderUri') as kms_key_provider_uri,
-              JSON_EXTRACT(Properties, '$.QopConfiguration.RpcProtection') as qop_configuration_rpc_protection,
-              JSON_EXTRACT(Properties, '$.QopConfiguration.DataTransferProtection') as qop_configuration_data_transfer_protection,
+              JSON_EXTRACT(Properties, '$.QopConfiguration') as qop_configuration,
               JSON_EXTRACT(Properties, '$.AuthenticationType') as authentication_type,
               JSON_EXTRACT(Properties, '$.SimpleUser') as simple_user,
               JSON_EXTRACT(Properties, '$.KerberosPrincipal') as kerberos_principal,
@@ -1303,8 +1307,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MountOptions.Version') as mount_options_version,
-              JSON_EXTRACT(Properties, '$.OnPremConfig.AgentArns') as on_prem_config_agent_arns,
+              JSON_EXTRACT(Properties, '$.MountOptions') as mount_options,
+              JSON_EXTRACT(Properties, '$.OnPremConfig') as on_prem_config,
               JSON_EXTRACT(Properties, '$.ServerHostname') as server_hostname,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -1316,6 +1320,8 @@ components:
       id: aws.datasync.location_object_storages
       x-cfn-schema-name: LocationObjectStorage
       x-type: list
+      x-identifiers:
+        - LocationArn
       config:
         views:
           select:
@@ -1357,6 +1363,8 @@ components:
       id: aws.datasync.location_s3s
       x-cfn-schema-name: LocationS3
       x-type: list
+      x-identifiers:
+        - LocationArn
       config:
         views:
           select:
@@ -1380,7 +1388,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.S3Config.BucketAccessRoleArn') as s3_config_bucket_access_role_arn,
+              JSON_EXTRACT(Properties, '$.S3Config') as s3_config,
               JSON_EXTRACT(Properties, '$.S3BucketArn') as s3_bucket_arn,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
               JSON_EXTRACT(Properties, '$.S3StorageClass') as s3_storage_class,
@@ -1393,6 +1401,8 @@ components:
       id: aws.datasync.location_smbs
       x-cfn-schema-name: LocationSMB
       x-type: list
+      x-identifiers:
+        - LocationArn
       config:
         views:
           select:
@@ -1418,7 +1428,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AgentArns') as agent_arns,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
-              JSON_EXTRACT(Properties, '$.MountOptions.Version') as mount_options_version,
+              JSON_EXTRACT(Properties, '$.MountOptions') as mount_options,
               JSON_EXTRACT(Properties, '$.Password') as password,
               JSON_EXTRACT(Properties, '$.ServerHostname') as server_hostname,
               JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
@@ -1432,6 +1442,8 @@ components:
       id: aws.datasync.tasks
       x-cfn-schema-name: Task
       x-type: list
+      x-identifiers:
+        - TaskArn
       config:
         views:
           select:
@@ -1461,23 +1473,11 @@ components:
               JSON_EXTRACT(Properties, '$.CloudWatchLogGroupArn') as cloud_watch_log_group_arn,
               JSON_EXTRACT(Properties, '$.DestinationLocationArn') as destination_location_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Options.Atime') as options_atime,
-              JSON_EXTRACT(Properties, '$.Options.BytesPerSecond') as options_bytes_per_second,
-              JSON_EXTRACT(Properties, '$.Options.Gid') as options_gid,
-              JSON_EXTRACT(Properties, '$.Options.LogLevel') as options_log_level,
-              JSON_EXTRACT(Properties, '$.Options.Mtime') as options_mtime,
-              JSON_EXTRACT(Properties, '$.Options.OverwriteMode') as options_overwrite_mode,
-              JSON_EXTRACT(Properties, '$.Options.PosixPermissions') as options_posix_permissions,
-              JSON_EXTRACT(Properties, '$.Options.PreserveDeletedFiles') as options_preserve_deleted_files,
-              JSON_EXTRACT(Properties, '$.Options.PreserveDevices') as options_preserve_devices,
-              JSON_EXTRACT(Properties, '$.Options.SecurityDescriptorCopyFlags') as options_security_descriptor_copy_flags,
-              JSON_EXTRACT(Properties, '$.Options.TaskQueueing') as options_task_queueing,
-              JSON_EXTRACT(Properties, '$.Options.TransferMode') as options_transfer_mode,
-              JSON_EXTRACT(Properties, '$.Options.Uid') as options_uid,
-              JSON_EXTRACT(Properties, '$.Options.VerifyMode') as options_verify_mode,
-              JSON_EXTRACT(Properties, '$.Options.ObjectTags') as options_object_tags,
-              JSON_EXTRACT(Properties, '$.Schedule.ScheduleExpression') as schedule_schedule_expression,
+              JSON_EXTRACT(Properties, '$.Options') as options,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.SourceLocationArn') as source_location_arn,
               JSON_EXTRACT(Properties, '$.TaskArn') as task_arn,
-              JSON_EXTRACT(Properties, '$.Status') as status
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.SourceNetworkInterfaceArns') as source_network_interface_arns,
+              JSON_EXTRACT(Properties, '$.DestinationNetworkInterfaceArns') as destination_network_interface_arns
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Task'

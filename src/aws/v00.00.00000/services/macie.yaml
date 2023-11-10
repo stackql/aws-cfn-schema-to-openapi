@@ -245,6 +245,8 @@ components:
       id: aws.macie.allow_lists
       x-cfn-schema-name: AllowList
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -270,8 +272,10 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Criteria') as criteria,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::AllowList'
     custom_data_identifiers:
@@ -279,6 +283,8 @@ components:
       id: aws.macie.custom_data_identifiers
       x-cfn-schema-name: CustomDataIdentifier
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -316,6 +322,8 @@ components:
       id: aws.macie.findings_filters
       x-cfn-schema-name: FindingsFilter
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -341,7 +349,8 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.FindingCriteria.Criterion') as finding_criteria_criterion,
+              JSON_EXTRACT(Properties, '$.FindingCriteria') as finding_criteria,
+              JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.Position') as position,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
@@ -351,6 +360,8 @@ components:
       id: aws.macie.sessions
       x-cfn-schema-name: Session
       x-type: list
+      x-identifiers:
+        - AwsAccountId
       config:
         views:
           select:

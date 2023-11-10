@@ -785,6 +785,8 @@ components:
       id: aws.ssm.associations
       x-cfn-schema-name: Association
       x-type: list
+      x-identifiers:
+        - AssociationId
       config:
         views:
           select:
@@ -816,7 +818,7 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.ScheduleExpression') as schedule_expression,
               JSON_EXTRACT(Properties, '$.Targets') as targets,
-              JSON_EXTRACT(Properties, '$.OutputLocation.S3Location') as output_location_s3_location,
+              JSON_EXTRACT(Properties, '$.OutputLocation') as output_location,
               JSON_EXTRACT(Properties, '$.AutomationTargetParameterName') as automation_target_parameter_name,
               JSON_EXTRACT(Properties, '$.MaxErrors') as max_errors,
               JSON_EXTRACT(Properties, '$.MaxConcurrency') as max_concurrency,
@@ -832,6 +834,8 @@ components:
       id: aws.ssm.documents
       x-cfn-schema-name: Document
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -871,6 +875,8 @@ components:
       id: aws.ssm.maintenance_windows
       x-cfn-schema-name: MaintenanceWindow
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -912,6 +918,8 @@ components:
       id: aws.ssm.maintenance_window_targets
       x-cfn-schema-name: MaintenanceWindowTarget
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -948,6 +956,8 @@ components:
       id: aws.ssm.maintenance_window_tasks
       x-cfn-schema-name: MaintenanceWindowTask
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -979,24 +989,21 @@ components:
               JSON_EXTRACT(Properties, '$.Targets') as targets,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.TaskArn') as task_arn,
-              JSON_EXTRACT(Properties, '$.TaskInvocationParameters.MaintenanceWindowStepFunctionsParameters') as task_invocation_parameters_maintenance_window_step_functions_parameters,
-              JSON_EXTRACT(Properties, '$.TaskInvocationParameters.MaintenanceWindowRunCommandParameters') as task_invocation_parameters_maintenance_window_run_command_parameters,
-              JSON_EXTRACT(Properties, '$.TaskInvocationParameters.MaintenanceWindowLambdaParameters') as task_invocation_parameters_maintenance_window_lambda_parameters,
-              JSON_EXTRACT(Properties, '$.TaskInvocationParameters.MaintenanceWindowAutomationParameters') as task_invocation_parameters_maintenance_window_automation_parameters,
+              JSON_EXTRACT(Properties, '$.TaskInvocationParameters') as task_invocation_parameters,
               JSON_EXTRACT(Properties, '$.WindowId') as window_id,
               JSON_EXTRACT(Properties, '$.TaskParameters') as task_parameters,
               JSON_EXTRACT(Properties, '$.TaskType') as task_type,
               JSON_EXTRACT(Properties, '$.CutoffBehavior') as cutoff_behavior,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.LoggingInfo.Region') as logging_info_region,
-              JSON_EXTRACT(Properties, '$.LoggingInfo.S3Prefix') as logging_info_s3_prefix,
-              JSON_EXTRACT(Properties, '$.LoggingInfo.S3Bucket') as logging_info_s3_bucket
+              JSON_EXTRACT(Properties, '$.LoggingInfo') as logging_info
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
     parameters:
       name: parameters
       id: aws.ssm.parameters
       x-cfn-schema-name: Parameter
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1036,6 +1043,8 @@ components:
       id: aws.ssm.patch_baselines
       x-cfn-schema-name: PatchBaseline
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1061,7 +1070,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.OperatingSystem') as operating_system,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.ApprovalRules.PatchRules') as approval_rules_patch_rules,
+              JSON_EXTRACT(Properties, '$.ApprovalRules') as approval_rules,
               JSON_EXTRACT(Properties, '$.Sources') as sources,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RejectedPatches') as rejected_patches,
@@ -1071,7 +1080,7 @@ components:
               JSON_EXTRACT(Properties, '$.ApprovedPatchesComplianceLevel') as approved_patches_compliance_level,
               JSON_EXTRACT(Properties, '$.ApprovedPatchesEnableNonSecurity') as approved_patches_enable_non_security,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.GlobalFilters.PatchFilters') as global_filters_patch_filters,
+              JSON_EXTRACT(Properties, '$.GlobalFilters') as global_filters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
     resource_data_syncs:
@@ -1079,6 +1088,8 @@ components:
       id: aws.ssm.resource_data_syncs
       x-cfn-schema-name: ResourceDataSync
       x-type: list
+      x-identifiers:
+        - SyncName
       config:
         views:
           select:
@@ -1102,16 +1113,9 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.S3Destination.KMSKeyArn') as s3_destination_km_skey_arn,
-              JSON_EXTRACT(Properties, '$.S3Destination.BucketPrefix') as s3_destination_bucket_prefix,
-              JSON_EXTRACT(Properties, '$.S3Destination.BucketName') as s3_destination_bucket_name,
-              JSON_EXTRACT(Properties, '$.S3Destination.BucketRegion') as s3_destination_bucket_region,
-              JSON_EXTRACT(Properties, '$.S3Destination.SyncFormat') as s3_destination_sync_format,
+              JSON_EXTRACT(Properties, '$.S3Destination') as s3_destination,
               JSON_EXTRACT(Properties, '$.KMSKeyArn') as k_ms_key_arn,
-              JSON_EXTRACT(Properties, '$.SyncSource.IncludeFutureRegions') as sync_source_include_future_regions,
-              JSON_EXTRACT(Properties, '$.SyncSource.SourceRegions') as sync_source_source_regions,
-              JSON_EXTRACT(Properties, '$.SyncSource.SourceType') as sync_source_source_type,
-              JSON_EXTRACT(Properties, '$.SyncSource.AwsOrganizationsSource') as sync_source_aws_organizations_source,
+              JSON_EXTRACT(Properties, '$.SyncSource') as sync_source,
               JSON_EXTRACT(Properties, '$.BucketName') as bucket_name,
               JSON_EXTRACT(Properties, '$.BucketRegion') as bucket_region,
               JSON_EXTRACT(Properties, '$.SyncFormat') as sync_format,
@@ -1124,6 +1128,9 @@ components:
       id: aws.ssm.resource_policies
       x-cfn-schema-name: ResourcePolicy
       x-type: list
+      x-identifiers:
+        - PolicyId
+        - ResourceArn
       config:
         views:
           select:

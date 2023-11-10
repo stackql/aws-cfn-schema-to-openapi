@@ -20,18 +20,15 @@ Retrieves a list of <code>backup_plans</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>backup_plans</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>backup_plans</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.backup.backup_plans</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>BackupPlan</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>BackupPlanTags</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>BackupPlanArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BackupPlanId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>VersionId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>backup_plan_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -39,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+backup_plan_id
 FROM aws.backup.backup_plans
 WHERE region = 'us-east-1'
-</pre>
+```

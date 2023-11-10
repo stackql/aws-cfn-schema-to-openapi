@@ -309,6 +309,8 @@ components:
       id: aws.memorydb.acls
       x-cfn-schema-name: ACL
       x-type: list
+      x-identifiers:
+        - ACLName
       config:
         views:
           select:
@@ -343,6 +345,8 @@ components:
       id: aws.memorydb.clusters
       x-cfn-schema-name: Cluster
       x-type: list
+      x-identifiers:
+        - ClusterName
       config:
         views:
           select:
@@ -384,14 +388,14 @@ components:
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
               JSON_EXTRACT(Properties, '$.SnsTopicStatus') as sns_topic_status,
               JSON_EXTRACT(Properties, '$.TLSEnabled') as t_ls_enabled,
+              JSON_EXTRACT(Properties, '$.DataTiering') as data_tiering,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.SnapshotArns') as snapshot_arns,
               JSON_EXTRACT(Properties, '$.SnapshotName') as snapshot_name,
               JSON_EXTRACT(Properties, '$.FinalSnapshotName') as final_snapshot_name,
               JSON_EXTRACT(Properties, '$.ARN') as a_rn,
               JSON_EXTRACT(Properties, '$.EngineVersion') as engine_version,
-              JSON_EXTRACT(Properties, '$.ClusterEndpoint.Address') as cluster_endpoint_address,
-              JSON_EXTRACT(Properties, '$.ClusterEndpoint.Port') as cluster_endpoint_port,
+              JSON_EXTRACT(Properties, '$.ClusterEndpoint') as cluster_endpoint,
               JSON_EXTRACT(Properties, '$.AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
@@ -400,6 +404,8 @@ components:
       id: aws.memorydb.parameter_groups
       x-cfn-schema-name: ParameterGroup
       x-type: list
+      x-identifiers:
+        - ParameterGroupName
       config:
         views:
           select:
@@ -435,6 +441,8 @@ components:
       id: aws.memorydb.subnet_groups
       x-cfn-schema-name: SubnetGroup
       x-type: list
+      x-identifiers:
+        - SubnetGroupName
       config:
         views:
           select:
@@ -469,6 +477,8 @@ components:
       id: aws.memorydb.users
       x-cfn-schema-name: User
       x-type: list
+      x-identifiers:
+        - UserName
       config:
         views:
           select:

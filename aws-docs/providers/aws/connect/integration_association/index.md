@@ -20,17 +20,18 @@ Gets an individual <code>integration_association</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>integration_association</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>integration_association</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.integration_association</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>IntegrationAssociationId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>InstanceId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>IntegrationArn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>IntegrationType</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>integration_association_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>instance_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>integration_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>integration_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+integration_association_id,
+instance_id,
+integration_arn,
+integration_type
 FROM aws.connect.integration_association
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;InstanceId&gt;' AND data__Identifier = '&lt;IntegrationType&gt;' AND data__Identifier = '&lt;IntegrationArn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;InstanceId&gt;'
+AND data__Identifier = '&lt;IntegrationType&gt;'
+AND data__Identifier = '&lt;IntegrationArn&gt;'
+```

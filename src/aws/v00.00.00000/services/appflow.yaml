@@ -2122,6 +2122,8 @@ components:
       id: aws.appflow.connectors
       x-cfn-schema-name: Connector
       x-type: list
+      x-identifiers:
+        - ConnectorLabel
       config:
         views:
           select:
@@ -2148,7 +2150,7 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_label,
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
               JSON_EXTRACT(Properties, '$.ConnectorProvisioningType') as connector_provisioning_type,
-              JSON_EXTRACT(Properties, '$.ConnectorProvisioningConfig.Lambda') as connector_provisioning_config_lambda,
+              JSON_EXTRACT(Properties, '$.ConnectorProvisioningConfig') as connector_provisioning_config,
               JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Connector'
     connector_profiles:
@@ -2156,6 +2158,8 @@ components:
       id: aws.appflow.connector_profiles
       x-cfn-schema-name: ConnectorProfile
       x-type: list
+      x-identifiers:
+        - ConnectorProfileName
       config:
         views:
           select:
@@ -2183,9 +2187,9 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_label,
               JSON_EXTRACT(Properties, '$.ConnectorProfileName') as connector_profile_name,
               JSON_EXTRACT(Properties, '$.KMSArn') as k_ms_arn,
+              JSON_EXTRACT(Properties, '$.ConnectorType') as connector_type,
               JSON_EXTRACT(Properties, '$.ConnectionMode') as connection_mode,
-              JSON_EXTRACT(Properties, '$.ConnectorProfileConfig.ConnectorProfileProperties') as connector_profile_config_connector_profile_properties,
-              JSON_EXTRACT(Properties, '$.ConnectorProfileConfig.ConnectorProfileCredentials') as connector_profile_config_connector_profile_credentials,
+              JSON_EXTRACT(Properties, '$.ConnectorProfileConfig') as connector_profile_config,
               JSON_EXTRACT(Properties, '$.CredentialsArn') as credentials_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile'
     flows:
@@ -2193,6 +2197,8 @@ components:
       id: aws.appflow.flows
       x-cfn-schema-name: Flow
       x-type: list
+      x-identifiers:
+        - FlowName
       config:
         views:
           select:
@@ -2220,16 +2226,10 @@ components:
               JSON_EXTRACT(Properties, '$.FlowName') as flow_name,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.KMSArn') as k_ms_arn,
-              JSON_EXTRACT(Properties, '$.TriggerConfig.TriggerType') as trigger_config_trigger_type,
-              JSON_EXTRACT(Properties, '$.TriggerConfig.TriggerProperties') as trigger_config_trigger_properties,
-              JSON_EXTRACT(Properties, '$.TriggerConfig.ActivateFlowOnCreate') as trigger_config_activate_flow_on_create,
-              JSON_EXTRACT(Properties, '$.SourceFlowConfig.ConnectorType') as source_flow_config_connector_type,
-              JSON_EXTRACT(Properties, '$.SourceFlowConfig.ApiVersion') as source_flow_config_api_version,
-              JSON_EXTRACT(Properties, '$.SourceFlowConfig.ConnectorProfileName') as source_flow_config_connector_profile_name,
-              JSON_EXTRACT(Properties, '$.SourceFlowConfig.SourceConnectorProperties') as source_flow_config_source_connector_properties,
-              JSON_EXTRACT(Properties, '$.SourceFlowConfig.IncrementalPullConfig') as source_flow_config_incremental_pull_config,
+              JSON_EXTRACT(Properties, '$.TriggerConfig') as trigger_config,
+              JSON_EXTRACT(Properties, '$.SourceFlowConfig') as source_flow_config,
               JSON_EXTRACT(Properties, '$.DestinationFlowConfigList') as destination_flow_config_list,
               JSON_EXTRACT(Properties, '$.Tasks') as tasks,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.MetadataCatalogConfig.GlueDataCatalog') as metadata_catalog_config_glue_data_catalog
+              JSON_EXTRACT(Properties, '$.MetadataCatalogConfig') as metadata_catalog_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Flow'

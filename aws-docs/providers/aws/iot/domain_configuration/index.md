@@ -20,24 +20,25 @@ Gets an individual <code>domain_configuration</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>domain_configuration</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>domain_configuration</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.iot.domain_configuration</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>DomainConfigurationName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AuthorizerConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>DomainName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ServerCertificateArns</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>ServiceType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ValidationCertificateArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DomainConfigurationStatus</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DomainType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ServerCertificates</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>domain_configuration_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>authorizer_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>server_certificate_arns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>service_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>validation_certificate_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_configuration_status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>server_certificates</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -45,8 +46,21 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+domain_configuration_name,
+authorizer_config,
+domain_name,
+server_certificate_arns,
+service_type,
+validation_certificate_arn,
+arn,
+domain_configuration_status,
+domain_type,
+server_certificates,
+tags
 FROM aws.iot.domain_configuration
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;DomainConfigurationName&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;DomainConfigurationName&gt;'
+```

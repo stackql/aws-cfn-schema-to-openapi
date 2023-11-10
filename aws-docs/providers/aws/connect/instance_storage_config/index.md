@@ -20,21 +20,22 @@ Gets an individual <code>instance_storage_config</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instance_storage_config</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instance_storage_config</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.connect.instance_storage_config</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>InstanceArn</code></td><td><code>string</code></td><td>Connect Instance ID with which the storage config will be associated</td></tr>
-<tr><td><code>ResourceType</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>AssociationId</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>StorageType</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>S3Config</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>KinesisVideoStreamConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>KinesisStreamConfig</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>KinesisFirehoseConfig</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>instance_arn</code></td><td><code>string</code></td><td>Connect Instance ID with which the storage config will be associated</td></tr>
+<tr><td><code>resource_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>association_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>storage_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>s3_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>kinesis_video_stream_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>kinesis_stream_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>kinesis_firehose_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -42,8 +43,20 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+instance_arn,
+resource_type,
+association_id,
+storage_type,
+s3_config,
+kinesis_video_stream_config,
+kinesis_stream_config,
+kinesis_firehose_config
 FROM aws.connect.instance_storage_config
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;InstanceArn&gt;' AND data__Identifier = '&lt;AssociationId&gt;' AND data__Identifier = '&lt;ResourceType&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;InstanceArn&gt;'
+AND data__Identifier = '&lt;AssociationId&gt;'
+AND data__Identifier = '&lt;ResourceType&gt;'
+```

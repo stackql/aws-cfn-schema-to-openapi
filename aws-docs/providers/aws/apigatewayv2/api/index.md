@@ -20,32 +20,33 @@ Gets an individual <code>api</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>api</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>api</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigatewayv2.api</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>RouteSelectionExpression</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BodyS3Location</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ApiEndpoint</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>BasePath</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>FailOnWarnings</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DisableExecuteApiEndpoint</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>DisableSchemaValidation</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Target</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CredentialsArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CorsConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Version</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ProtocolType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RouteKey</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ApiId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Body</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td>This resource type use map for Tags, suggest to use List of Tag</td></tr>
-<tr><td><code>ApiKeySelectionExpression</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>route_selection_expression</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>body_s3_location</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_endpoint</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>base_path</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>fail_on_warnings</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>disable_execute_api_endpoint</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>disable_schema_validation</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>credentials_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>cors_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>version</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>protocol_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>route_key</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>body</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td>This resource type use map for Tags, suggest to use List of Tag</td></tr>
+<tr><td><code>api_key_selection_expression</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -53,8 +54,29 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+route_selection_expression,
+body_s3_location,
+description,
+api_endpoint,
+base_path,
+fail_on_warnings,
+disable_execute_api_endpoint,
+disable_schema_validation,
+name,
+target,
+credentials_arn,
+cors_configuration,
+version,
+protocol_type,
+route_key,
+api_id,
+body,
+tags,
+api_key_selection_expression
 FROM aws.apigatewayv2.api
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;ApiId&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;ApiId&gt;'
+```

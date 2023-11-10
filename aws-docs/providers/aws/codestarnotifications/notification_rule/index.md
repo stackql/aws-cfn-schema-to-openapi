@@ -20,24 +20,25 @@ Gets an individual <code>notification_rule</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>notification_rule</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>notification_rule</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.codestarnotifications.notification_rule</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>EventTypeId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CreatedBy</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TargetAddress</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EventTypeIds</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Status</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DetailType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Resource</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Targets</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>event_type_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>created_by</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target_address</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>event_type_ids</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>detail_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>resource</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>targets</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -45,8 +46,21 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+event_type_id,
+created_by,
+target_address,
+event_type_ids,
+status,
+detail_type,
+resource,
+targets,
+tags,
+name,
+arn
 FROM aws.codestarnotifications.notification_rule
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

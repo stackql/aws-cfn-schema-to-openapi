@@ -20,17 +20,18 @@ Gets an individual <code>notebook_instance_lifecycle_config</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>notebook_instance_lifecycle_config</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>notebook_instance_lifecycle_config</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.sagemaker.notebook_instance_lifecycle_config</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>NotebookInstanceLifecycleConfigName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>OnStart</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>OnCreate</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>notebook_instance_lifecycle_config_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>on_start</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>on_create</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +39,14 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+notebook_instance_lifecycle_config_name,
+on_start,
+on_create
 FROM aws.sagemaker.notebook_instance_lifecycle_config
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

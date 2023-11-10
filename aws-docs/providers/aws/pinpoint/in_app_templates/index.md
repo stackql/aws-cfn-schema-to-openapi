@@ -20,20 +20,15 @@ Retrieves a list of <code>in_app_templates</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>in_app_templates</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>in_app_templates</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.pinpoint.in_app_templates</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Content</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>CustomConfig</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>Layout</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>TemplateDescription</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TemplateName</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>template_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -41,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+template_name
 FROM aws.pinpoint.in_app_templates
 WHERE region = 'us-east-1'
-</pre>
+```

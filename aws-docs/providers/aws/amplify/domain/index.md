@@ -20,23 +20,24 @@ Gets an individual <code>domain</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>domain</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>domain</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.amplify.domain</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>AppId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>AutoSubDomainCreationPatterns</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>AutoSubDomainIAMRole</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CertificateRecord</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DomainName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DomainStatus</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EnableAutoSubDomain</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>StatusReason</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SubDomainSettings</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>app_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>auto_sub_domain_creation_patterns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>auto_sub_domain_ia_mrole</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>certificate_record</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>enable_auto_sub_domain</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>status_reason</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>sub_domain_settings</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -44,8 +45,20 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+app_id,
+arn,
+auto_sub_domain_creation_patterns,
+auto_sub_domain_ia_mrole,
+certificate_record,
+domain_name,
+domain_status,
+enable_auto_sub_domain,
+status_reason,
+sub_domain_settings
 FROM aws.amplify.domain
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Arn&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Arn&gt;'
+```

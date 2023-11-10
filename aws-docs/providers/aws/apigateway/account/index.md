@@ -20,15 +20,16 @@ Gets an individual <code>account</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>account</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>account</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.account</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td>Primary identifier which is manually generated.</td></tr>
-<tr><td><code>CloudWatchRoleArn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that has write access to CloudWatch Logs in your account.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>Primary identifier which is manually generated.</td></tr>
+<tr><td><code>cloud_watch_role_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that has write access to CloudWatch Logs in your account.</td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -36,8 +37,12 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+cloud_watch_role_arn
 FROM aws.apigateway.account
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

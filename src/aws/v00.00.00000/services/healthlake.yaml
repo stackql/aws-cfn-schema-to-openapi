@@ -145,6 +145,8 @@ components:
       id: aws.healthlake.fhir_datastores
       x-cfn-schema-name: FHIRDatastore
       x-type: list
+      x-identifiers:
+        - DatastoreId
       config:
         views:
           select:
@@ -168,9 +170,14 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CreatedAt.Seconds') as created_at_seconds,
-              JSON_EXTRACT(Properties, '$.CreatedAt.Nanos') as created_at_nanos,
-              JSON_EXTRACT(Properties, '$.PreloadDataConfig.PreloadDataType') as preload_data_config_preload_data_type,
-              JSON_EXTRACT(Properties, '$.SseConfiguration.KmsEncryptionConfig') as sse_configuration_kms_encryption_config,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.DatastoreArn') as datastore_arn,
+              JSON_EXTRACT(Properties, '$.DatastoreEndpoint') as datastore_endpoint,
+              JSON_EXTRACT(Properties, '$.DatastoreId') as datastore_id,
+              JSON_EXTRACT(Properties, '$.DatastoreName') as datastore_name,
+              JSON_EXTRACT(Properties, '$.DatastoreStatus') as datastore_status,
+              JSON_EXTRACT(Properties, '$.DatastoreTypeVersion') as datastore_type_version,
+              JSON_EXTRACT(Properties, '$.PreloadDataConfig') as preload_data_config,
+              JSON_EXTRACT(Properties, '$.SseConfiguration') as sse_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::HealthLake::FHIRDatastore'

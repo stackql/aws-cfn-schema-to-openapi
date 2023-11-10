@@ -366,6 +366,9 @@ components:
       id: aws.refactorspaces.applications
       x-cfn-schema-name: Application
       x-type: list
+      x-identifiers:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
       config:
         views:
           select:
@@ -391,8 +394,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApiGatewayProxy.StageName') as api_gateway_proxy_stage_name,
-              JSON_EXTRACT(Properties, '$.ApiGatewayProxy.EndpointType') as api_gateway_proxy_endpoint_type,
+              JSON_EXTRACT(Properties, '$.ApiGatewayProxy') as api_gateway_proxy,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApiGatewayId') as api_gateway_id,
               JSON_EXTRACT(Properties, '$.VpcLinkId') as vpc_link_id,
@@ -401,6 +403,7 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.ProxyType') as proxy_type,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.StageName') as stage_name,
               JSON_EXTRACT(Properties, '$.ProxyUrl') as proxy_url,
@@ -411,6 +414,8 @@ components:
       id: aws.refactorspaces.environments
       x-cfn-schema-name: Environment
       x-type: list
+      x-identifiers:
+        - EnvironmentIdentifier
       config:
         views:
           select:
@@ -437,6 +442,7 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.NetworkFabricType') as network_fabric_type,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.TransitGatewayId') as transit_gateway_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -446,6 +452,10 @@ components:
       id: aws.refactorspaces.routes
       x-cfn-schema-name: Route
       x-type: list
+      x-identifiers:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
+        - RouteIdentifier
       config:
         views:
           select:
@@ -478,12 +488,10 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
               JSON_EXTRACT(Properties, '$.RouteIdentifier') as route_identifier,
+              JSON_EXTRACT(Properties, '$.RouteType') as route_type,
               JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier,
-              JSON_EXTRACT(Properties, '$.DefaultRoute.ActivationState') as default_route_activation_state,
-              JSON_EXTRACT(Properties, '$.UriPathRoute.SourcePath') as uri_path_route_source_path,
-              JSON_EXTRACT(Properties, '$.UriPathRoute.ActivationState') as uri_path_route_activation_state,
-              JSON_EXTRACT(Properties, '$.UriPathRoute.Methods') as uri_path_route_methods,
-              JSON_EXTRACT(Properties, '$.UriPathRoute.IncludeChildPaths') as uri_path_route_include_child_paths,
+              JSON_EXTRACT(Properties, '$.DefaultRoute') as default_route,
+              JSON_EXTRACT(Properties, '$.UriPathRoute') as uri_path_route,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
     services:
@@ -491,6 +499,10 @@ components:
       id: aws.refactorspaces.services
       x-cfn-schema-name: Service
       x-type: list
+      x-identifiers:
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
+        - ServiceIdentifier
       config:
         views:
           select:
@@ -521,12 +533,12 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.EndpointType') as endpoint_type,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
-              JSON_EXTRACT(Properties, '$.LambdaEndpoint.Arn') as lambda_endpoint_arn,
+              JSON_EXTRACT(Properties, '$.LambdaEndpoint') as lambda_endpoint,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier,
-              JSON_EXTRACT(Properties, '$.UrlEndpoint.HealthUrl') as url_endpoint_health_url,
-              JSON_EXTRACT(Properties, '$.UrlEndpoint.Url') as url_endpoint_url,
+              JSON_EXTRACT(Properties, '$.UrlEndpoint') as url_endpoint,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Service'

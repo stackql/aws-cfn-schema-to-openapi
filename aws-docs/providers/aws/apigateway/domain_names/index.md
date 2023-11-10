@@ -20,25 +20,15 @@ Retrieves a list of <code>domain_names</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>domain_names</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>domain_names</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.apigateway.domain_names</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>DomainName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DistributionDomainName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DistributionHostedZoneId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EndpointConfiguration</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>MutualTlsAuthentication</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>RegionalDomainName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RegionalHostedZoneId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CertificateArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>RegionalCertificateArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>OwnershipVerificationCertificateArn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>SecurityPolicy</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -46,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+domain_name
 FROM aws.apigateway.domain_names
 WHERE region = 'us-east-1'
-</pre>
+```

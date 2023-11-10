@@ -20,19 +20,20 @@ Gets an individual <code>db_security_group_ingress</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>db_security_group_ingress</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>db_security_group_ingress</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.rds.db_security_group_ingress</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>CIDRIP</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>DBSecurityGroupName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EC2SecurityGroupId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EC2SecurityGroupName</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>EC2SecurityGroupOwnerId</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>c_id_ri_p</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>d_bsecurity_group_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>e_c2_security_group_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>e_c2_security_group_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>e_c2_security_group_owner_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -40,8 +41,16 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+id,
+c_id_ri_p,
+d_bsecurity_group_name,
+e_c2_security_group_id,
+e_c2_security_group_name,
+e_c2_security_group_owner_id
 FROM aws.rds.db_security_group_ingress
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

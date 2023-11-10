@@ -795,6 +795,8 @@ components:
       id: aws.cognito.identity_pools
       x-cfn-schema-name: IdentityPool
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -818,13 +820,10 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PushSync.ApplicationArns') as push_sync_application_arns,
-              JSON_EXTRACT(Properties, '$.PushSync.RoleArn') as push_sync_role_arn,
+              JSON_EXTRACT(Properties, '$.PushSync') as push_sync,
               JSON_EXTRACT(Properties, '$.CognitoIdentityProviders') as cognito_identity_providers,
               JSON_EXTRACT(Properties, '$.DeveloperProviderName') as developer_provider_name,
-              JSON_EXTRACT(Properties, '$.CognitoStreams.StreamingStatus') as cognito_streams_streaming_status,
-              JSON_EXTRACT(Properties, '$.CognitoStreams.StreamName') as cognito_streams_stream_name,
-              JSON_EXTRACT(Properties, '$.CognitoStreams.RoleArn') as cognito_streams_role_arn,
+              JSON_EXTRACT(Properties, '$.CognitoStreams') as cognito_streams,
               JSON_EXTRACT(Properties, '$.SupportedLoginProviders') as supported_login_providers,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.CognitoEvents') as cognito_events,
@@ -840,6 +839,8 @@ components:
       id: aws.cognito.identity_pool_role_attachments
       x-cfn-schema-name: IdentityPoolRoleAttachment
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -873,6 +874,8 @@ components:
       id: aws.cognito.user_pools
       x-cfn-schema-name: UserPool
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -897,58 +900,32 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserPoolTags') as user_pool_tags,
-              JSON_EXTRACT(Properties, '$.Policies.PasswordPolicy') as policies_password_policy,
+              JSON_EXTRACT(Properties, '$.Policies') as policies,
               JSON_EXTRACT(Properties, '$.Schema') as schema,
-              JSON_EXTRACT(Properties, '$.AdminCreateUserConfig.InviteMessageTemplate') as admin_create_user_config_invite_message_template,
-              JSON_EXTRACT(Properties, '$.AdminCreateUserConfig.UnusedAccountValidityDays') as admin_create_user_config_unused_account_validity_days,
-              JSON_EXTRACT(Properties, '$.AdminCreateUserConfig.AllowAdminCreateUserOnly') as admin_create_user_config_allow_admin_create_user_only,
-              JSON_EXTRACT(Properties, '$.UsernameConfiguration.CaseSensitive') as username_configuration_case_sensitive,
+              JSON_EXTRACT(Properties, '$.AdminCreateUserConfig') as admin_create_user_config,
+              JSON_EXTRACT(Properties, '$.UsernameConfiguration') as username_configuration,
               JSON_EXTRACT(Properties, '$.UserPoolName') as user_pool_name,
               JSON_EXTRACT(Properties, '$.SmsVerificationMessage') as sms_verification_message,
-              JSON_EXTRACT(Properties, '$.UserAttributeUpdateSettings.AttributesRequireVerificationBeforeUpdate') as user_attribute_update_settings_attributes_require_verification_before_update,
-              JSON_EXTRACT(Properties, '$.EmailConfiguration.ReplyToEmailAddress') as email_configuration_reply_to_email_address,
-              JSON_EXTRACT(Properties, '$.EmailConfiguration.ConfigurationSet') as email_configuration_configuration_set,
-              JSON_EXTRACT(Properties, '$.EmailConfiguration.EmailSendingAccount') as email_configuration_email_sending_account,
-              JSON_EXTRACT(Properties, '$.EmailConfiguration.From') as email_configuration_from,
-              JSON_EXTRACT(Properties, '$.EmailConfiguration.SourceArn') as email_configuration_source_arn,
-              JSON_EXTRACT(Properties, '$.SmsConfiguration.SnsCallerArn') as sms_configuration_sns_caller_arn,
-              JSON_EXTRACT(Properties, '$.SmsConfiguration.SnsRegion') as sms_configuration_sns_region,
-              JSON_EXTRACT(Properties, '$.SmsConfiguration.ExternalId') as sms_configuration_external_id,
+              JSON_EXTRACT(Properties, '$.UserAttributeUpdateSettings') as user_attribute_update_settings,
+              JSON_EXTRACT(Properties, '$.EmailConfiguration') as email_configuration,
+              JSON_EXTRACT(Properties, '$.SmsConfiguration') as sms_configuration,
               JSON_EXTRACT(Properties, '$.EmailVerificationSubject') as email_verification_subject,
-              JSON_EXTRACT(Properties, '$.AccountRecoverySetting.RecoveryMechanisms') as account_recovery_setting_recovery_mechanisms,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.EmailMessageByLink') as verification_message_template_email_message_by_link,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.EmailMessage') as verification_message_template_email_message,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.SmsMessage') as verification_message_template_sms_message,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.EmailSubject') as verification_message_template_email_subject,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.DefaultEmailOption') as verification_message_template_default_email_option,
-              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate.EmailSubjectByLink') as verification_message_template_email_subject_by_link,
+              JSON_EXTRACT(Properties, '$.AccountRecoverySetting') as account_recovery_setting,
+              JSON_EXTRACT(Properties, '$.VerificationMessageTemplate') as verification_message_template,
               JSON_EXTRACT(Properties, '$.ProviderURL') as provider_ur_l,
               JSON_EXTRACT(Properties, '$.MfaConfiguration') as mfa_configuration,
               JSON_EXTRACT(Properties, '$.DeletionProtection') as deletion_protection,
               JSON_EXTRACT(Properties, '$.SmsAuthenticationMessage') as sms_authentication_message,
               JSON_EXTRACT(Properties, '$.ProviderName') as provider_name,
-              JSON_EXTRACT(Properties, '$.UserPoolAddOns.AdvancedSecurityMode') as user_pool_add_ons_advanced_security_mode,
+              JSON_EXTRACT(Properties, '$.UserPoolAddOns') as user_pool_add_ons,
               JSON_EXTRACT(Properties, '$.AliasAttributes') as alias_attributes,
               JSON_EXTRACT(Properties, '$.EnabledMfas') as enabled_mfas,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.CreateAuthChallenge') as lambda_config_create_auth_challenge,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.PreSignUp') as lambda_config_pre_sign_up,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.KMSKeyID') as lambda_config_km_skey_id,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.UserMigration') as lambda_config_user_migration,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.PostAuthentication') as lambda_config_post_authentication,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.VerifyAuthChallengeResponse') as lambda_config_verify_auth_challenge_response,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.PreAuthentication') as lambda_config_pre_authentication,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.DefineAuthChallenge') as lambda_config_define_auth_challenge,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.PreTokenGeneration') as lambda_config_pre_token_generation,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.CustomSMSSender') as lambda_config_custom_sm_ssender,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.PostConfirmation') as lambda_config_post_confirmation,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.CustomMessage') as lambda_config_custom_message,
-              JSON_EXTRACT(Properties, '$.LambdaConfig.CustomEmailSender') as lambda_config_custom_email_sender,
+              JSON_EXTRACT(Properties, '$.LambdaConfig') as lambda_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.UsernameAttributes') as username_attributes,
               JSON_EXTRACT(Properties, '$.AutoVerifiedAttributes') as auto_verified_attributes,
-              JSON_EXTRACT(Properties, '$.DeviceConfiguration.DeviceOnlyRememberedOnUserPrompt') as device_configuration_device_only_remembered_on_user_prompt,
-              JSON_EXTRACT(Properties, '$.DeviceConfiguration.ChallengeRequiredOnNewDevice') as device_configuration_challenge_required_on_new_device,
+              JSON_EXTRACT(Properties, '$.DeviceConfiguration') as device_configuration,
               JSON_EXTRACT(Properties, '$.EmailVerificationMessage') as email_verification_message
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPool'
     user_pool_clients:
@@ -956,6 +933,8 @@ components:
       id: aws.cognito.user_pool_clients
       x-cfn-schema-name: UserPoolClient
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -979,17 +958,11 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.ApplicationArn') as analytics_configuration_application_arn,
-              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.ApplicationId') as analytics_configuration_application_id,
-              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.UserDataShared') as analytics_configuration_user_data_shared,
-              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.RoleArn') as analytics_configuration_role_arn,
-              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration.ExternalId') as analytics_configuration_external_id,
+              JSON_EXTRACT(Properties, '$.AnalyticsConfiguration') as analytics_configuration,
               JSON_EXTRACT(Properties, '$.GenerateSecret') as generate_secret,
               JSON_EXTRACT(Properties, '$.CallbackURLs') as callback_ur_ls,
               JSON_EXTRACT(Properties, '$.IdTokenValidity') as id_token_validity,
-              JSON_EXTRACT(Properties, '$.TokenValidityUnits.IdToken') as token_validity_units_id_token,
-              JSON_EXTRACT(Properties, '$.TokenValidityUnits.RefreshToken') as token_validity_units_refresh_token,
-              JSON_EXTRACT(Properties, '$.TokenValidityUnits.AccessToken') as token_validity_units_access_token,
+              JSON_EXTRACT(Properties, '$.TokenValidityUnits') as token_validity_units,
               JSON_EXTRACT(Properties, '$.ReadAttributes') as read_attributes,
               JSON_EXTRACT(Properties, '$.AllowedOAuthFlowsUserPoolClient') as allowed_oauth_flows_user_pool_client,
               JSON_EXTRACT(Properties, '$.DefaultRedirectURI') as default_redirect_ur_i,
@@ -1016,6 +989,8 @@ components:
       id: aws.cognito.user_pool_domains
       x-cfn-schema-name: UserPoolDomain
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1043,13 +1018,15 @@ components:
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
-              JSON_EXTRACT(Properties, '$.CustomDomainConfig.CertificateArn') as custom_domain_config_certificate_arn
+              JSON_EXTRACT(Properties, '$.CustomDomainConfig') as custom_domain_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain'
     user_pool_groups:
       name: user_pool_groups
       id: aws.cognito.user_pool_groups
       x-cfn-schema-name: UserPoolGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1085,6 +1062,8 @@ components:
       id: aws.cognito.user_pool_identity_providers
       x-cfn-schema-name: UserPoolIdentityProvider
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1121,6 +1100,8 @@ components:
       id: aws.cognito.user_pool_resource_servers
       x-cfn-schema-name: UserPoolResourceServer
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1155,6 +1136,8 @@ components:
       id: aws.cognito.user_pool_risk_configuration_attachments
       x-cfn-schema-name: UserPoolRiskConfigurationAttachment
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1179,20 +1162,19 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration.Actions') as compromised_credentials_risk_configuration_actions,
-              JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration.EventFilter') as compromised_credentials_risk_configuration_event_filter,
+              JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration') as compromised_credentials_risk_configuration,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.ClientId') as client_id,
-              JSON_EXTRACT(Properties, '$.AccountTakeoverRiskConfiguration.Actions') as account_takeover_risk_configuration_actions,
-              JSON_EXTRACT(Properties, '$.AccountTakeoverRiskConfiguration.NotifyConfiguration') as account_takeover_risk_configuration_notify_configuration,
-              JSON_EXTRACT(Properties, '$.RiskExceptionConfiguration.BlockedIPRangeList') as risk_exception_configuration_blocked_ip_range_list,
-              JSON_EXTRACT(Properties, '$.RiskExceptionConfiguration.SkippedIPRangeList') as risk_exception_configuration_skipped_ip_range_list
+              JSON_EXTRACT(Properties, '$.AccountTakeoverRiskConfiguration') as account_takeover_risk_configuration,
+              JSON_EXTRACT(Properties, '$.RiskExceptionConfiguration') as risk_exception_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment'
     user_poolui_customization_attachments:
       name: user_poolui_customization_attachments
       id: aws.cognito.user_poolui_customization_attachments
       x-cfn-schema-name: UserPoolUICustomizationAttachment
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1226,6 +1208,8 @@ components:
       id: aws.cognito.user_pool_users
       x-cfn-schema-name: UserPoolUser
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1264,6 +1248,8 @@ components:
       id: aws.cognito.user_pool_user_to_group_attachments
       x-cfn-schema-name: UserPoolUserToGroupAttachment
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

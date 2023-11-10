@@ -20,17 +20,15 @@ Retrieves a list of <code>cluster_subnet_groups</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>cluster_subnet_groups</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>cluster_subnet_groups</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.redshift.cluster_subnet_groups</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Description</code></td><td><code>string</code></td><td>The description of the parameter group.</td></tr>
-<tr><td><code>SubnetIds</code></td><td><code>array</code></td><td>The list of VPC subnet IDs</td></tr>
-<tr><td><code>Tags</code></td><td><code>array</code></td><td>The list of tags for the cluster parameter group.</td></tr>
-<tr><td><code>ClusterSubnetGroupName</code></td><td><code>string</code></td><td>This name must be unique for all subnet groups that are created by your AWS account. If costumer do not provide it, cloudformation will generate it. Must not be "Default". </td></tr>
+<tr><td><code>cluster_subnet_group_name</code></td><td><code>string</code></td><td>This name must be unique for all subnet groups that are created by your AWS account. If costumer do not provide it, cloudformation will generate it. Must not be "Default". </td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+cluster_subnet_group_name
 FROM aws.redshift.cluster_subnet_groups
 WHERE region = 'us-east-1'
-</pre>
+```

@@ -389,6 +389,8 @@ components:
       id: aws.cloudtrail.channels
       x-cfn-schema-name: Channel
       x-type: list
+      x-identifiers:
+        - ChannelArn
       config:
         views:
           select:
@@ -412,8 +414,10 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
+              JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Channel'
     event_data_stores:
@@ -421,6 +425,8 @@ components:
       id: aws.cloudtrail.event_data_stores
       x-cfn-schema-name: EventDataStore
       x-type: list
+      x-identifiers:
+        - EventDataStoreArn
       config:
         views:
           select:
@@ -445,6 +451,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AdvancedEventSelectors') as advanced_event_selectors,
+              JSON_EXTRACT(Properties, '$.CreatedTimestamp') as created_timestamp,
               JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_arn,
               JSON_EXTRACT(Properties, '$.MultiRegionEnabled') as multi_region_enabled,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -452,6 +459,7 @@ components:
               JSON_EXTRACT(Properties, '$.RetentionPeriod') as retention_period,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.TerminationProtectionEnabled') as termination_protection_enabled,
+              JSON_EXTRACT(Properties, '$.UpdatedTimestamp') as updated_timestamp,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
@@ -460,6 +468,8 @@ components:
       id: aws.cloudtrail.resource_policies
       x-cfn-schema-name: ResourcePolicy
       x-type: list
+      x-identifiers:
+        - ResourceArn
       config:
         views:
           select:
@@ -491,6 +501,8 @@ components:
       id: aws.cloudtrail.trails
       x-cfn-schema-name: Trail
       x-type: list
+      x-identifiers:
+        - TrailName
       config:
         views:
           select:

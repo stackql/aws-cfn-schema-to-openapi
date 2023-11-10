@@ -20,17 +20,15 @@ Retrieves a list of <code>scheduling_policies</code> in a region
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>scheduling_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>scheduling_policies</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.batch.scheduling_policies</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td>Name of Scheduling Policy.</td></tr>
-<tr><td><code>Arn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>FairsharePolicy</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Tags</code></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><code>arn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -38,8 +36,10 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+arn
 FROM aws.batch.scheduling_policies
 WHERE region = 'us-east-1'
-</pre>
+```

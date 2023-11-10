@@ -512,6 +512,8 @@ components:
       id: aws.apprunner.observability_configurations
       x-cfn-schema-name: ObservabilityConfiguration
       x-type: list
+      x-identifiers:
+        - ObservabilityConfigurationArn
       config:
         views:
           select:
@@ -539,7 +541,7 @@ components:
               JSON_EXTRACT(Properties, '$.ObservabilityConfigurationName') as observability_configuration_name,
               JSON_EXTRACT(Properties, '$.ObservabilityConfigurationRevision') as observability_configuration_revision,
               JSON_EXTRACT(Properties, '$.Latest') as latest,
-              JSON_EXTRACT(Properties, '$.TraceConfiguration.Vendor') as trace_configuration_vendor,
+              JSON_EXTRACT(Properties, '$.TraceConfiguration') as trace_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
     services:
@@ -547,6 +549,8 @@ components:
       id: aws.apprunner.services
       x-cfn-schema-name: Service
       x-type: list
+      x-identifiers:
+        - ServiceArn
       config:
         views:
           select:
@@ -575,32 +579,22 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
               JSON_EXTRACT(Properties, '$.ServiceUrl') as service_url,
               JSON_EXTRACT(Properties, '$.Status') as status,
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.CodeRepository') as source_configuration_code_repository,
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.ImageRepository') as source_configuration_image_repository,
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.AutoDeploymentsEnabled') as source_configuration_auto_deployments_enabled,
-              JSON_EXTRACT(Properties, '$.SourceConfiguration.AuthenticationConfiguration') as source_configuration_authentication_configuration,
-              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Cpu') as instance_configuration_cpu,
-              JSON_EXTRACT(Properties, '$.InstanceConfiguration.Memory') as instance_configuration_memory,
-              JSON_EXTRACT(Properties, '$.InstanceConfiguration.InstanceRoleArn') as instance_configuration_instance_role_arn,
+              JSON_EXTRACT(Properties, '$.SourceConfiguration') as source_configuration,
+              JSON_EXTRACT(Properties, '$.InstanceConfiguration') as instance_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as encryption_configuration_kms_key,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Protocol') as health_check_configuration_protocol,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Path') as health_check_configuration_path,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Interval') as health_check_configuration_interval,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.Timeout') as health_check_configuration_timeout,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.HealthyThreshold') as health_check_configuration_healthy_threshold,
-              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration.UnhealthyThreshold') as health_check_configuration_unhealthy_threshold,
-              JSON_EXTRACT(Properties, '$.ObservabilityConfiguration.ObservabilityEnabled') as observability_configuration_observability_enabled,
-              JSON_EXTRACT(Properties, '$.ObservabilityConfiguration.ObservabilityConfigurationArn') as observability_configuration_observability_configuration_arn,
+              JSON_EXTRACT(Properties, '$.EncryptionConfiguration') as encryption_configuration,
+              JSON_EXTRACT(Properties, '$.HealthCheckConfiguration') as health_check_configuration,
+              JSON_EXTRACT(Properties, '$.ObservabilityConfiguration') as observability_configuration,
               JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.EgressConfiguration') as network_configuration_egress_configuration,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.IngressConfiguration') as network_configuration_ingress_configuration
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::Service'
     vpc_connectors:
       name: vpc_connectors
       id: aws.apprunner.vpc_connectors
       x-cfn-schema-name: VpcConnector
       x-type: list
+      x-identifiers:
+        - VpcConnectorArn
       config:
         views:
           select:
@@ -636,6 +630,8 @@ components:
       id: aws.apprunner.vpc_ingress_connections
       x-cfn-schema-name: VpcIngressConnection
       x-type: list
+      x-identifiers:
+        - VpcIngressConnectionArn
       config:
         views:
           select:
@@ -664,7 +660,6 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcId') as ingress_vpc_configuration_vpc_id,
-              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration.VpcEndpointId') as ingress_vpc_configuration_vpc_endpoint_id,
+              JSON_EXTRACT(Properties, '$.IngressVpcConfiguration') as ingress_vpc_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'

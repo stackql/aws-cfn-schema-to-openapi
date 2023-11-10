@@ -20,21 +20,22 @@ Gets an individual <code>instance_fleet_config</code> resource
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>instance_fleet_config</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-null
+<tr><td><b>Description</b></td><td>instance_fleet_config</td></tr>
 <tr><td><b>Id</b></td><td><code>aws.emr.instance_fleet_config</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>InstanceFleetType</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TargetOnDemandCapacity</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>ClusterId</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>TargetSpotCapacity</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>LaunchSpecifications</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>Id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>InstanceTypeConfigs</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>Name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>instance_fleet_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target_on_demand_capacity</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>cluster_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target_spot_capacity</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>launch_specifications</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>instance_type_configs</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
@@ -42,8 +43,18 @@ null
 Currently only <code>SELECT</code> is supported for this resource resource.
 
 ## Example
-<pre>
-SELECT * 
+```sql
+SELECT
+region,
+instance_fleet_type,
+target_on_demand_capacity,
+cluster_id,
+target_spot_capacity,
+launch_specifications,
+id,
+instance_type_configs,
+name
 FROM aws.emr.instance_fleet_config
-WHERE region = 'us-east-1' AND data__Identifier = '&lt;Id&gt;'
-</pre>
+WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;Id&gt;'
+```

@@ -278,6 +278,8 @@ components:
       id: aws.robomaker.fleets
       x-cfn-schema-name: Fleet
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -301,6 +303,8 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
     robots:
@@ -308,6 +312,8 @@ components:
       id: aws.robomaker.robots
       x-cfn-schema-name: Robot
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -331,9 +337,11 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Fleet') as fleet,
               JSON_EXTRACT(Properties, '$.Architecture') as architecture,
               JSON_EXTRACT(Properties, '$.GreengrassGroupId') as greengrass_group_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Robot'
     robot_applications:
@@ -341,6 +349,8 @@ components:
       id: aws.robomaker.robot_applications
       x-cfn-schema-name: RobotApplication
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -367,15 +377,18 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Sources') as sources,
               JSON_EXTRACT(Properties, '$.Environment') as environment,
-              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Name') as robot_software_suite_name,
-              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Version') as robot_software_suite_version,
-              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite') as robot_software_suite,
+              JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
     robot_application_versions:
       name: robot_application_versions
       id: aws.robomaker.robot_application_versions
       x-cfn-schema-name: RobotApplicationVersion
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -399,14 +412,18 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Application') as application,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
-              JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version
+              JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
     simulation_applications:
       name: simulation_applications
       id: aws.robomaker.simulation_applications
       x-cfn-schema-name: SimulationApplication
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -430,22 +447,23 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
-              JSON_EXTRACT(Properties, '$.RenderingEngine.Name') as rendering_engine_name,
-              JSON_EXTRACT(Properties, '$.RenderingEngine.Version') as rendering_engine_version,
-              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Name') as robot_software_suite_name,
-              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite.Version') as robot_software_suite_version,
-              JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite.Name') as simulation_software_suite_name,
-              JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite.Version') as simulation_software_suite_version,
+              JSON_EXTRACT(Properties, '$.RenderingEngine') as rendering_engine,
+              JSON_EXTRACT(Properties, '$.RobotSoftwareSuite') as robot_software_suite,
+              JSON_EXTRACT(Properties, '$.SimulationSoftwareSuite') as simulation_software_suite,
               JSON_EXTRACT(Properties, '$.Sources') as sources,
-              JSON_EXTRACT(Properties, '$.Environment') as environment
+              JSON_EXTRACT(Properties, '$.Environment') as environment,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
     simulation_application_versions:
       name: simulation_application_versions
       id: aws.robomaker.simulation_application_versions
       x-cfn-schema-name: SimulationApplicationVersion
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -469,6 +487,8 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Application') as application,
               JSON_EXTRACT(Properties, '$.CurrentRevisionId') as current_revision_id,
-              JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version
+              JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'
