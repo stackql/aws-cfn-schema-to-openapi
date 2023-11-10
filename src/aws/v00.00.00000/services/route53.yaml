@@ -413,6 +413,8 @@ components:
       id: aws.route53.cidr_collections
       x-cfn-schema-name: CidrCollection
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -446,6 +448,8 @@ components:
       id: aws.route53.dnssecs
       x-cfn-schema-name: DNSSEC
       x-type: list
+      x-identifiers:
+        - HostedZoneId
       config:
         views:
           select:
@@ -476,6 +480,8 @@ components:
       id: aws.route53.health_checks
       x-cfn-schema-name: HealthCheck
       x-type: list
+      x-identifiers:
+        - HealthCheckId
       config:
         views:
           select:
@@ -508,6 +514,8 @@ components:
       id: aws.route53.hosted_zones
       x-cfn-schema-name: HostedZone
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -532,10 +540,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.HostedZoneConfig.Comment') as hosted_zone_config_comment,
+              JSON_EXTRACT(Properties, '$.HostedZoneConfig') as hosted_zone_config,
               JSON_EXTRACT(Properties, '$.HostedZoneTags') as hosted_zone_tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.QueryLoggingConfig.CloudWatchLogsLogGroupArn') as query_logging_config_cloud_watch_logs_log_group_arn,
+              JSON_EXTRACT(Properties, '$.QueryLoggingConfig') as query_logging_config,
               JSON_EXTRACT(Properties, '$.VPCs') as v_pcs,
               JSON_EXTRACT(Properties, '$.NameServers') as name_servers
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::HostedZone'
@@ -544,6 +552,9 @@ components:
       id: aws.route53.key_signing_keys
       x-cfn-schema-name: KeySigningKey
       x-type: list
+      x-identifiers:
+        - HostedZoneId
+        - Name
       config:
         views:
           select:
@@ -579,6 +590,8 @@ components:
       id: aws.route53.record_set_groups
       x-cfn-schema-name: RecordSetGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

@@ -378,6 +378,8 @@ components:
       id: aws.ssmincidents.replication_sets
       x-cfn-schema-name: ReplicationSet
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -401,6 +403,9 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Regions') as regions,
+              JSON_EXTRACT(Properties, '$.DeletionProtected') as deletion_protected,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
     response_plans:
@@ -408,6 +413,8 @@ components:
       id: aws.ssmincidents.response_plans
       x-cfn-schema-name: ResponsePlan
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -434,15 +441,10 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
-              JSON_EXTRACT(Properties, '$.ChatChannel.ChatbotSns') as chat_channel_chatbot_sns,
+              JSON_EXTRACT(Properties, '$.ChatChannel') as chat_channel,
               JSON_EXTRACT(Properties, '$.Engagements') as engagements,
               JSON_EXTRACT(Properties, '$.Actions') as actions,
               JSON_EXTRACT(Properties, '$.Integrations') as integrations,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.DedupeString') as incident_template_dedupe_string,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Impact') as incident_template_impact,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.NotificationTargets') as incident_template_notification_targets,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Summary') as incident_template_summary,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.Title') as incident_template_title,
-              JSON_EXTRACT(Properties, '$.IncidentTemplate.IncidentTags') as incident_template_incident_tags
+              JSON_EXTRACT(Properties, '$.IncidentTemplate') as incident_template
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'

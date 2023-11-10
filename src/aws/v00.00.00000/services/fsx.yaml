@@ -487,6 +487,8 @@ components:
       id: aws.fsx.data_repository_associations
       x-cfn-schema-name: DataRepositoryAssociation
       x-type: list
+      x-identifiers:
+        - AssociationId
       config:
         views:
           select:
@@ -517,8 +519,7 @@ components:
               JSON_EXTRACT(Properties, '$.DataRepositoryPath') as data_repository_path,
               JSON_EXTRACT(Properties, '$.BatchImportMetaDataOnCreate') as batch_import_meta_data_on_create,
               JSON_EXTRACT(Properties, '$.ImportedFileChunkSize') as imported_file_chunk_size,
-              JSON_EXTRACT(Properties, '$.S3.AutoImportPolicy') as s3_auto_import_policy,
-              JSON_EXTRACT(Properties, '$.S3.AutoExportPolicy') as s3_auto_export_policy,
+              JSON_EXTRACT(Properties, '$.S3') as s3,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
     file_systems:
@@ -526,6 +527,8 @@ components:
       id: aws.fsx.file_systems
       x-cfn-schema-name: FileSystem
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -553,54 +556,15 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity,
               JSON_EXTRACT(Properties, '$.RootVolumeId') as root_volume_id,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.DriveCacheType') as lustre_configuration_drive_cache_type,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.AutoImportPolicy') as lustre_configuration_auto_import_policy,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.ImportedFileChunkSize') as lustre_configuration_imported_file_chunk_size,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.DeploymentType') as lustre_configuration_deployment_type,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.DataCompressionType') as lustre_configuration_data_compression_type,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.ImportPath') as lustre_configuration_import_path,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.WeeklyMaintenanceStartTime') as lustre_configuration_weekly_maintenance_start_time,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.DailyAutomaticBackupStartTime') as lustre_configuration_daily_automatic_backup_start_time,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.CopyTagsToBackups') as lustre_configuration_copy_tags_to_backups,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.ExportPath') as lustre_configuration_export_path,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.PerUnitStorageThroughput') as lustre_configuration_per_unit_storage_throughput,
-              JSON_EXTRACT(Properties, '$.LustreConfiguration.AutomaticBackupRetentionDays') as lustre_configuration_automatic_backup_retention_days,
+              JSON_EXTRACT(Properties, '$.LustreConfiguration') as lustre_configuration,
               JSON_EXTRACT(Properties, '$.BackupId') as backup_id,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.JunctionPath') as ontap_configuration_junction_path,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.StorageVirtualMachineId') as ontap_configuration_storage_virtual_machine_id,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SnapshotPolicy') as ontap_configuration_snapshot_policy,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.TieringPolicy') as ontap_configuration_tiering_policy,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.StorageEfficiencyEnabled') as ontap_configuration_storage_efficiency_enabled,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SizeInMegabytes') as ontap_configuration_size_in_megabytes,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.CopyTagsToBackups') as ontap_configuration_copy_tags_to_backups,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SecurityStyle') as ontap_configuration_security_style,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.OntapVolumeType') as ontap_configuration_ontap_volume_type,
+              JSON_EXTRACT(Properties, '$.OntapConfiguration') as ontap_configuration,
               JSON_EXTRACT(Properties, '$.DNSName') as d_ns_name,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.SelfManagedActiveDirectoryConfiguration') as windows_configuration_self_managed_active_directory_configuration,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.AuditLogConfiguration') as windows_configuration_audit_log_configuration,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.WeeklyMaintenanceStartTime') as windows_configuration_weekly_maintenance_start_time,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.ActiveDirectoryId') as windows_configuration_active_directory_id,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.DeploymentType') as windows_configuration_deployment_type,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.Aliases') as windows_configuration_aliases,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.ThroughputCapacity') as windows_configuration_throughput_capacity,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.CopyTagsToBackups') as windows_configuration_copy_tags_to_backups,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.DailyAutomaticBackupStartTime') as windows_configuration_daily_automatic_backup_start_time,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.AutomaticBackupRetentionDays') as windows_configuration_automatic_backup_retention_days,
-              JSON_EXTRACT(Properties, '$.WindowsConfiguration.PreferredSubnetId') as windows_configuration_preferred_subnet_id,
+              JSON_EXTRACT(Properties, '$.WindowsConfiguration') as windows_configuration,
               JSON_EXTRACT(Properties, '$.FileSystemTypeVersion') as file_system_type_version,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.ReadOnly') as open_zf_sconfiguration_read_only,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.Options') as open_zf_sconfiguration_options,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.DataCompressionType') as open_zf_sconfiguration_data_compression_type,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.NfsExports') as open_zf_sconfiguration_nfs_exports,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.StorageCapacityQuotaGiB') as open_zf_sconfiguration_storage_capacity_quota_gi_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.CopyTagsToSnapshots') as open_zf_sconfiguration_copy_tags_to_snapshots,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.ParentVolumeId') as open_zf_sconfiguration_parent_volume_id,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.StorageCapacityReservationGiB') as open_zf_sconfiguration_storage_capacity_reservation_gi_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.RecordSizeKiB') as open_zf_sconfiguration_record_size_ki_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.OriginSnapshot') as open_zf_sconfiguration_origin_snapshot,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.UserAndGroupQuotas') as open_zf_sconfiguration_user_and_group_quotas,
+              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration') as open_zf_sconfiguration,
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.FileSystemType') as file_system_type,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -612,6 +576,8 @@ components:
       id: aws.fsx.snapshots
       x-cfn-schema-name: Snapshot
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -646,6 +612,8 @@ components:
       id: aws.fsx.storage_virtual_machines
       x-cfn-schema-name: StorageVirtualMachine
       x-type: list
+      x-identifiers:
+        - StorageVirtualMachineId
       config:
         views:
           select:
@@ -672,8 +640,7 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.SvmAdminPassword') as svm_admin_password,
               JSON_EXTRACT(Properties, '$.StorageVirtualMachineId') as storage_virtual_machine_id,
-              JSON_EXTRACT(Properties, '$.ActiveDirectoryConfiguration.SelfManagedActiveDirectoryConfiguration') as active_directory_configuration_self_managed_active_directory_configuration,
-              JSON_EXTRACT(Properties, '$.ActiveDirectoryConfiguration.NetBiosName') as active_directory_configuration_net_bios_name,
+              JSON_EXTRACT(Properties, '$.ActiveDirectoryConfiguration') as active_directory_configuration,
               JSON_EXTRACT(Properties, '$.RootVolumeSecurityStyle') as root_volume_security_style,
               JSON_EXTRACT(Properties, '$.FileSystemId') as file_system_id,
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
@@ -685,6 +652,8 @@ components:
       id: aws.fsx.volumes
       x-cfn-schema-name: Volume
       x-type: list
+      x-identifiers:
+        - VolumeId
       config:
         views:
           select:
@@ -708,30 +677,12 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.ReadOnly') as open_zf_sconfiguration_read_only,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.Options') as open_zf_sconfiguration_options,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.DataCompressionType') as open_zf_sconfiguration_data_compression_type,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.NfsExports') as open_zf_sconfiguration_nfs_exports,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.StorageCapacityQuotaGiB') as open_zf_sconfiguration_storage_capacity_quota_gi_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.CopyTagsToSnapshots') as open_zf_sconfiguration_copy_tags_to_snapshots,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.ParentVolumeId') as open_zf_sconfiguration_parent_volume_id,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.StorageCapacityReservationGiB') as open_zf_sconfiguration_storage_capacity_reservation_gi_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.RecordSizeKiB') as open_zf_sconfiguration_record_size_ki_b,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.OriginSnapshot') as open_zf_sconfiguration_origin_snapshot,
-              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration.UserAndGroupQuotas') as open_zf_sconfiguration_user_and_group_quotas,
+              JSON_EXTRACT(Properties, '$.OpenZFSConfiguration') as open_zf_sconfiguration,
               JSON_EXTRACT(Properties, '$.ResourceARN') as resource_ar_n,
               JSON_EXTRACT(Properties, '$.VolumeId') as volume_id,
               JSON_EXTRACT(Properties, '$.VolumeType') as volume_type,
               JSON_EXTRACT(Properties, '$.BackupId') as backup_id,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.JunctionPath') as ontap_configuration_junction_path,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.StorageVirtualMachineId') as ontap_configuration_storage_virtual_machine_id,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SnapshotPolicy') as ontap_configuration_snapshot_policy,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.TieringPolicy') as ontap_configuration_tiering_policy,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.StorageEfficiencyEnabled') as ontap_configuration_storage_efficiency_enabled,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SizeInMegabytes') as ontap_configuration_size_in_megabytes,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.CopyTagsToBackups') as ontap_configuration_copy_tags_to_backups,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.SecurityStyle') as ontap_configuration_security_style,
-              JSON_EXTRACT(Properties, '$.OntapConfiguration.OntapVolumeType') as ontap_configuration_ontap_volume_type,
+              JSON_EXTRACT(Properties, '$.OntapConfiguration') as ontap_configuration,
               JSON_EXTRACT(Properties, '$.UUID') as u_ui_d,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name

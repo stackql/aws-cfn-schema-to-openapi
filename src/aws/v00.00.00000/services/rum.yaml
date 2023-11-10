@@ -302,6 +302,8 @@ components:
       id: aws.rum.app_monitors
       x-cfn-schema-name: AppMonitor
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -329,15 +331,7 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.CwLogEnabled') as cw_log_enabled,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.IdentityPoolId') as app_monitor_configuration_identity_pool_id,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.ExcludedPages') as app_monitor_configuration_excluded_pages,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.IncludedPages') as app_monitor_configuration_included_pages,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.FavoritePages') as app_monitor_configuration_favorite_pages,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.SessionSampleRate') as app_monitor_configuration_session_sample_rate,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.GuestRoleArn') as app_monitor_configuration_guest_role_arn,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.AllowCookies') as app_monitor_configuration_allow_cookies,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.Telemetries') as app_monitor_configuration_telemetries,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.EnableXRay') as app_monitor_configuration_enable_xray,
-              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration.MetricDestinations') as app_monitor_configuration_metric_destinations,
-              JSON_EXTRACT(Properties, '$.CustomEvents.Status') as custom_events_status
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.AppMonitorConfiguration') as app_monitor_configuration,
+              JSON_EXTRACT(Properties, '$.CustomEvents') as custom_events
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RUM::AppMonitor'

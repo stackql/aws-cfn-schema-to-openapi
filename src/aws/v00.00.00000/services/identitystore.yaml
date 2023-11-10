@@ -91,6 +91,9 @@ components:
       id: aws.identitystore.groups
       x-cfn-schema-name: Group
       x-type: list
+      x-identifiers:
+        - GroupId
+        - IdentityStoreId
       config:
         views:
           select:
@@ -126,6 +129,9 @@ components:
       id: aws.identitystore.group_memberships
       x-cfn-schema-name: GroupMembership
       x-type: list
+      x-identifiers:
+        - MembershipId
+        - IdentityStoreId
       config:
         views:
           select:
@@ -153,6 +159,6 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
               JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id,
-              JSON_EXTRACT(Properties, '$.MemberId.UserId') as member_id_user_id,
+              JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.MembershipId') as membership_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership'

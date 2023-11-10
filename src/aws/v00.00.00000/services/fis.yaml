@@ -247,6 +247,8 @@ components:
       id: aws.fis.experiment_templates
       x-cfn-schema-name: ExperimentTemplate
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -270,8 +272,12 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LogConfiguration.CloudWatchLogsConfiguration') as log_configuration_cloud_watch_logs_configuration,
-              JSON_EXTRACT(Properties, '$.LogConfiguration.S3Configuration') as log_configuration_s3_configuration,
-              JSON_EXTRACT(Properties, '$.LogConfiguration.LogSchemaVersion') as log_configuration_log_schema_version,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Targets') as targets,
+              JSON_EXTRACT(Properties, '$.Actions') as actions,
+              JSON_EXTRACT(Properties, '$.StopConditions') as stop_conditions,
+              JSON_EXTRACT(Properties, '$.LogConfiguration') as log_configuration,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'

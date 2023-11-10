@@ -101,6 +101,8 @@ components:
       id: aws.qldb.ledgers
       x-cfn-schema-name: Ledger
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -136,6 +138,9 @@ components:
       id: aws.qldb.streams
       x-cfn-schema-name: Stream
       x-type: list
+      x-identifiers:
+        - LedgerName
+        - Id
       config:
         views:
           select:
@@ -163,10 +168,11 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.LedgerName') as ledger_name,
               JSON_EXTRACT(Properties, '$.StreamName') as stream_name,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.InclusiveStartTime') as inclusive_start_time,
               JSON_EXTRACT(Properties, '$.ExclusiveEndTime') as exclusive_end_time,
-              JSON_EXTRACT(Properties, '$.KinesisConfiguration.StreamArn') as kinesis_configuration_stream_arn,
-              JSON_EXTRACT(Properties, '$.KinesisConfiguration.AggregationEnabled') as kinesis_configuration_aggregation_enabled,
+              JSON_EXTRACT(Properties, '$.KinesisConfiguration') as kinesis_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Stream'

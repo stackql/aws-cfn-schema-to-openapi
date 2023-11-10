@@ -473,6 +473,8 @@ components:
       id: aws.timestream.databases
       x-cfn-schema-name: Database
       x-type: list
+      x-identifiers:
+        - DatabaseName
       config:
         views:
           select:
@@ -506,6 +508,8 @@ components:
       id: aws.timestream.scheduled_queries
       x-cfn-schema-name: ScheduledQuery
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -529,10 +533,16 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ScheduleConfiguration.ScheduleExpression') as schedule_configuration_schedule_expression,
-              JSON_EXTRACT(Properties, '$.NotificationConfiguration.SnsConfiguration') as notification_configuration_sns_configuration,
-              JSON_EXTRACT(Properties, '$.TargetConfiguration.TimestreamConfiguration') as target_configuration_timestream_configuration,
-              JSON_EXTRACT(Properties, '$.ErrorReportConfiguration.S3Configuration') as error_report_configuration_s3_configuration,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ScheduledQueryName') as scheduled_query_name,
+              JSON_EXTRACT(Properties, '$.QueryString') as query_string,
+              JSON_EXTRACT(Properties, '$.ScheduleConfiguration') as schedule_configuration,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration') as notification_configuration,
+              JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
+              JSON_EXTRACT(Properties, '$.ScheduledQueryExecutionRoleArn') as scheduled_query_execution_role_arn,
+              JSON_EXTRACT(Properties, '$.TargetConfiguration') as target_configuration,
+              JSON_EXTRACT(Properties, '$.ErrorReportConfiguration') as error_report_configuration,
+              JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.SQName') as s_qname,
               JSON_EXTRACT(Properties, '$.SQQueryString') as s_qquery_string,
               JSON_EXTRACT(Properties, '$.SQScheduleConfiguration') as s_qschedule_configuration,
@@ -540,13 +550,17 @@ components:
               JSON_EXTRACT(Properties, '$.SQScheduledQueryExecutionRoleArn') as s_qscheduled_query_execution_role_arn,
               JSON_EXTRACT(Properties, '$.SQTargetConfiguration') as s_qtarget_configuration,
               JSON_EXTRACT(Properties, '$.SQErrorReportConfiguration') as s_qerror_report_configuration,
-              JSON_EXTRACT(Properties, '$.SQKmsKeyId') as s_qkms_key_id
+              JSON_EXTRACT(Properties, '$.SQKmsKeyId') as s_qkms_key_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Timestream::ScheduledQuery'
     tables:
       name: tables
       id: aws.timestream.tables
       x-cfn-schema-name: Table
       x-type: list
+      x-identifiers:
+        - DatabaseName
+        - TableName
       config:
         views:
           select:

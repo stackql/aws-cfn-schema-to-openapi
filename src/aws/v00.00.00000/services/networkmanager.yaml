@@ -758,6 +758,8 @@ components:
       id: aws.networkmanager.connect_attachments
       x-cfn-schema-name: ConnectAttachment
       x-type: list
+      x-identifiers:
+        - AttachmentId
       config:
         views:
           select:
@@ -791,20 +793,20 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange') as proposed_segment_change,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.TransportAttachmentId') as transport_attachment_id,
-              JSON_EXTRACT(Properties, '$.Options.Protocol') as options_protocol
+              JSON_EXTRACT(Properties, '$.Options') as options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
     connect_peers:
       name: connect_peers
       id: aws.networkmanager.connect_peers
       x-cfn-schema-name: ConnectPeer
       x-type: list
+      x-identifiers:
+        - ConnectPeerId
       config:
         views:
           select:
@@ -830,7 +832,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.PeerAddress') as peer_address,
               JSON_EXTRACT(Properties, '$.CoreNetworkAddress') as core_network_address,
-              JSON_EXTRACT(Properties, '$.BgpOptions.PeerAsn') as bgp_options_peer_asn,
+              JSON_EXTRACT(Properties, '$.BgpOptions') as bgp_options,
               JSON_EXTRACT(Properties, '$.InsideCidrBlocks') as inside_cidr_blocks,
               JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id,
               JSON_EXTRACT(Properties, '$.ConnectAttachmentId') as connect_attachment_id,
@@ -838,11 +840,7 @@ components:
               JSON_EXTRACT(Properties, '$.EdgeLocation') as edge_location,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
-              JSON_EXTRACT(Properties, '$.Configuration.CoreNetworkAddress') as configuration_core_network_address,
-              JSON_EXTRACT(Properties, '$.Configuration.PeerAddress') as configuration_peer_address,
-              JSON_EXTRACT(Properties, '$.Configuration.InsideCidrBlocks') as configuration_inside_cidr_blocks,
-              JSON_EXTRACT(Properties, '$.Configuration.Protocol') as configuration_protocol,
-              JSON_EXTRACT(Properties, '$.Configuration.BgpConfigurations') as configuration_bgp_configurations,
+              JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
     core_networks:
@@ -850,6 +848,8 @@ components:
       id: aws.networkmanager.core_networks
       x-cfn-schema-name: CoreNetwork
       x-type: list
+      x-identifiers:
+        - CoreNetworkId
       config:
         views:
           select:
@@ -890,6 +890,9 @@ components:
       id: aws.networkmanager.customer_gateway_associations
       x-cfn-schema-name: CustomerGatewayAssociation
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - CustomerGatewayArn
       config:
         views:
           select:
@@ -925,6 +928,9 @@ components:
       id: aws.networkmanager.devices
       x-cfn-schema-name: Device
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - DeviceId
       config:
         views:
           select:
@@ -955,9 +961,7 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
-              JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
-              JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude,
+              JSON_EXTRACT(Properties, '$.Location') as location,
               JSON_EXTRACT(Properties, '$.Model') as model,
               JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
@@ -969,6 +973,8 @@ components:
       id: aws.networkmanager.global_networks
       x-cfn-schema-name: GlobalNetwork
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1002,6 +1008,9 @@ components:
       id: aws.networkmanager.links
       x-cfn-schema-name: Link
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - LinkId
       config:
         views:
           select:
@@ -1031,8 +1040,7 @@ components:
               JSON_EXTRACT(Properties, '$.LinkId') as link_id,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
-              JSON_EXTRACT(Properties, '$.Bandwidth.DownloadSpeed') as bandwidth_download_speed,
-              JSON_EXTRACT(Properties, '$.Bandwidth.UploadSpeed') as bandwidth_upload_speed,
+              JSON_EXTRACT(Properties, '$.Bandwidth') as bandwidth,
               JSON_EXTRACT(Properties, '$.Provider') as provider,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -1043,6 +1051,10 @@ components:
       id: aws.networkmanager.link_associations
       x-cfn-schema-name: LinkAssociation
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - DeviceId
+        - LinkId
       config:
         views:
           select:
@@ -1079,6 +1091,9 @@ components:
       id: aws.networkmanager.sites
       x-cfn-schema-name: Site
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - SiteId
       config:
         views:
           select:
@@ -1109,15 +1124,15 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.Location.Address') as location_address,
-              JSON_EXTRACT(Properties, '$.Location.Latitude') as location_latitude,
-              JSON_EXTRACT(Properties, '$.Location.Longitude') as location_longitude
+              JSON_EXTRACT(Properties, '$.Location') as location
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Site'
     site_to_site_vpn_attachments:
       name: site_to_site_vpn_attachments
       id: aws.networkmanager.site_to_site_vpn_attachments
       x-cfn-schema-name: SiteToSiteVpnAttachment
       x-type: list
+      x-identifiers:
+        - AttachmentId
       config:
         views:
           select:
@@ -1151,9 +1166,7 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange') as proposed_segment_change,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
@@ -1164,6 +1177,8 @@ components:
       id: aws.networkmanager.transit_gateway_peerings
       x-cfn-schema-name: TransitGatewayPeering
       x-type: list
+      x-identifiers:
+        - PeeringId
       config:
         views:
           select:
@@ -1205,6 +1220,9 @@ components:
       id: aws.networkmanager.transit_gateway_registrations
       x-cfn-schema-name: TransitGatewayRegistration
       x-type: list
+      x-identifiers:
+        - GlobalNetworkId
+        - TransitGatewayArn
       config:
         views:
           select:
@@ -1238,6 +1256,8 @@ components:
       id: aws.networkmanager.transit_gateway_route_table_attachments
       x-cfn-schema-name: TransitGatewayRouteTableAttachment
       x-type: list
+      x-identifiers:
+        - AttachmentId
       config:
         views:
           select:
@@ -1273,9 +1293,7 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange') as proposed_segment_change,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -1285,6 +1303,8 @@ components:
       id: aws.networkmanager.vpc_attachments
       x-cfn-schema-name: VpcAttachment
       x-type: list
+      x-identifiers:
+        - AttachmentId
       config:
         views:
           select:
@@ -1319,13 +1339,10 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
               JSON_EXTRACT(Properties, '$.SegmentName') as segment_name,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.Tags') as proposed_segment_change_tags,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.AttachmentPolicyRuleNumber') as proposed_segment_change_attachment_policy_rule_number,
-              JSON_EXTRACT(Properties, '$.ProposedSegmentChange.SegmentName') as proposed_segment_change_segment_name,
+              JSON_EXTRACT(Properties, '$.ProposedSegmentChange') as proposed_segment_change,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
-              JSON_EXTRACT(Properties, '$.Options.Ipv6Support') as options_ipv6_support,
-              JSON_EXTRACT(Properties, '$.Options.ApplianceModeSupport') as options_appliance_mode_support
+              JSON_EXTRACT(Properties, '$.Options') as options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'

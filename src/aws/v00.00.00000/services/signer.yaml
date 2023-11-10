@@ -100,6 +100,9 @@ components:
       id: aws.signer.profile_permissions
       x-cfn-schema-name: ProfilePermission
       x-type: list
+      x-identifiers:
+        - StatementId
+        - ProfileName
       config:
         views:
           select:
@@ -136,6 +139,8 @@ components:
       id: aws.signer.signing_profiles
       x-cfn-schema-name: SigningProfile
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -160,7 +165,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ProfileName') as profile_name,
-              JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Value') as signature_validity_period_value,
-              JSON_EXTRACT(Properties, '$.SignatureValidityPeriod.Type') as signature_validity_period_type,
+              JSON_EXTRACT(Properties, '$.ProfileVersion') as profile_version,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ProfileVersionArn') as profile_version_arn,
+              JSON_EXTRACT(Properties, '$.SignatureValidityPeriod') as signature_validity_period,
+              JSON_EXTRACT(Properties, '$.PlatformId') as platform_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::SigningProfile'

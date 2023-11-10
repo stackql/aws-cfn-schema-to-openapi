@@ -1108,13 +1108,19 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.CapacityProviders') as capacity_providers,
+              JSON_EXTRACT(Properties, '$.Cluster') as cluster,
+              JSON_EXTRACT(Properties, '$.DefaultCapacityProviderStrategy') as default_capacity_provider_strategy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations'
     primary_task_sets:
       name: primary_task_sets
       id: aws.ecs.primary_task_sets
       x-cfn-schema-name: PrimaryTaskSet
       x-type: list
+      x-identifiers:
+        - Cluster
+        - Service
       config:
         views:
           select:
@@ -1149,6 +1155,9 @@ components:
       id: aws.ecs.services
       x-cfn-schema-name: Service
       x-type: list
+      x-identifiers:
+        - ServiceArn
+        - Cluster
       config:
         views:
           select:
@@ -1177,11 +1186,8 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
               JSON_EXTRACT(Properties, '$.CapacityProviderStrategy') as capacity_provider_strategy,
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
-              JSON_EXTRACT(Properties, '$.DeploymentConfiguration.DeploymentCircuitBreaker') as deployment_configuration_deployment_circuit_breaker,
-              JSON_EXTRACT(Properties, '$.DeploymentConfiguration.MaximumPercent') as deployment_configuration_maximum_percent,
-              JSON_EXTRACT(Properties, '$.DeploymentConfiguration.MinimumHealthyPercent') as deployment_configuration_minimum_healthy_percent,
-              JSON_EXTRACT(Properties, '$.DeploymentConfiguration.Alarms') as deployment_configuration_alarms,
-              JSON_EXTRACT(Properties, '$.DeploymentController.Type') as deployment_controller_type,
+              JSON_EXTRACT(Properties, '$.DeploymentConfiguration') as deployment_configuration,
+              JSON_EXTRACT(Properties, '$.DeploymentController') as deployment_controller,
               JSON_EXTRACT(Properties, '$.DesiredCount') as desired_count,
               JSON_EXTRACT(Properties, '$.EnableECSManagedTags') as enable_ec_smanaged_tags,
               JSON_EXTRACT(Properties, '$.EnableExecuteCommand') as enable_execute_command,
@@ -1189,17 +1195,14 @@ components:
               JSON_EXTRACT(Properties, '$.LaunchType') as launch_type,
               JSON_EXTRACT(Properties, '$.LoadBalancers') as load_balancers,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.AwsVpcConfiguration') as network_configuration_aws_vpc_configuration,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration,
               JSON_EXTRACT(Properties, '$.PlacementConstraints') as placement_constraints,
               JSON_EXTRACT(Properties, '$.PlacementStrategies') as placement_strategies,
               JSON_EXTRACT(Properties, '$.PlatformVersion') as platform_version,
               JSON_EXTRACT(Properties, '$.PropagateTags') as propagate_tags,
               JSON_EXTRACT(Properties, '$.Role') as role,
               JSON_EXTRACT(Properties, '$.SchedulingStrategy') as scheduling_strategy,
-              JSON_EXTRACT(Properties, '$.ServiceConnectConfiguration.Enabled') as service_connect_configuration_enabled,
-              JSON_EXTRACT(Properties, '$.ServiceConnectConfiguration.Namespace') as service_connect_configuration_namespace,
-              JSON_EXTRACT(Properties, '$.ServiceConnectConfiguration.Services') as service_connect_configuration_services,
-              JSON_EXTRACT(Properties, '$.ServiceConnectConfiguration.LogConfiguration') as service_connect_configuration_log_configuration,
+              JSON_EXTRACT(Properties, '$.ServiceConnectConfiguration') as service_connect_configuration,
               JSON_EXTRACT(Properties, '$.ServiceName') as service_name,
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -1210,6 +1213,8 @@ components:
       id: aws.ecs.task_definitions
       x-cfn-schema-name: TaskDefinition
       x-type: list
+      x-identifiers:
+        - TaskDefinitionArn
       config:
         views:
           select:
@@ -1238,20 +1243,17 @@ components:
               JSON_EXTRACT(Properties, '$.ContainerDefinitions') as container_definitions,
               JSON_EXTRACT(Properties, '$.Cpu') as cpu,
               JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
-              JSON_EXTRACT(Properties, '$.EphemeralStorage.SizeInGiB') as ephemeral_storage_size_in_gi_b,
+              JSON_EXTRACT(Properties, '$.EphemeralStorage') as ephemeral_storage,
               JSON_EXTRACT(Properties, '$.InferenceAccelerators') as inference_accelerators,
               JSON_EXTRACT(Properties, '$.Memory') as memory,
               JSON_EXTRACT(Properties, '$.NetworkMode') as network_mode,
               JSON_EXTRACT(Properties, '$.PlacementConstraints') as placement_constraints,
-              JSON_EXTRACT(Properties, '$.ProxyConfiguration.ContainerName') as proxy_configuration_container_name,
-              JSON_EXTRACT(Properties, '$.ProxyConfiguration.ProxyConfigurationProperties') as proxy_configuration_proxy_configuration_properties,
-              JSON_EXTRACT(Properties, '$.ProxyConfiguration.Type') as proxy_configuration_type,
+              JSON_EXTRACT(Properties, '$.ProxyConfiguration') as proxy_configuration,
               JSON_EXTRACT(Properties, '$.RequiresCompatibilities') as requires_compatibilities,
               JSON_EXTRACT(Properties, '$.TaskRoleArn') as task_role_arn,
               JSON_EXTRACT(Properties, '$.Volumes') as volumes,
               JSON_EXTRACT(Properties, '$.PidMode') as pid_mode,
-              JSON_EXTRACT(Properties, '$.RuntimePlatform.CpuArchitecture') as runtime_platform_cpu_architecture,
-              JSON_EXTRACT(Properties, '$.RuntimePlatform.OperatingSystemFamily') as runtime_platform_operating_system_family,
+              JSON_EXTRACT(Properties, '$.RuntimePlatform') as runtime_platform,
               JSON_EXTRACT(Properties, '$.IpcMode') as ipc_mode,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
@@ -1260,6 +1262,10 @@ components:
       id: aws.ecs.task_sets
       x-cfn-schema-name: TaskSet
       x-type: list
+      x-identifiers:
+        - Cluster
+        - Service
+        - Id
       config:
         views:
           select:
@@ -1292,10 +1298,9 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LaunchType') as launch_type,
               JSON_EXTRACT(Properties, '$.LoadBalancers') as load_balancers,
-              JSON_EXTRACT(Properties, '$.NetworkConfiguration.AwsVpcConfiguration') as network_configuration_aws_vpc_configuration,
+              JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration,
               JSON_EXTRACT(Properties, '$.PlatformVersion') as platform_version,
-              JSON_EXTRACT(Properties, '$.Scale.Unit') as scale_unit,
-              JSON_EXTRACT(Properties, '$.Scale.Value') as scale_value,
+              JSON_EXTRACT(Properties, '$.Scale') as scale,
               JSON_EXTRACT(Properties, '$.Service') as service,
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition

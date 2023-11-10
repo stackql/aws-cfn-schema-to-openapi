@@ -754,6 +754,8 @@ components:
       id: aws.batch.compute_environments
       x-cfn-schema-name: ComputeEnvironment
       x-type: list
+      x-identifiers:
+        - ComputeEnvironmentArn
       config:
         views:
           select:
@@ -779,40 +781,23 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentArn') as compute_environment_arn,
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentName') as compute_environment_name,
-              JSON_EXTRACT(Properties, '$.ComputeResources.AllocationStrategy') as compute_resources_allocation_strategy,
-              JSON_EXTRACT(Properties, '$.ComputeResources.BidPercentage') as compute_resources_bid_percentage,
-              JSON_EXTRACT(Properties, '$.ComputeResources.DesiredvCpus') as compute_resources_desiredv_cpus,
-              JSON_EXTRACT(Properties, '$.ComputeResources.Ec2Configuration') as compute_resources_ec2_configuration,
-              JSON_EXTRACT(Properties, '$.ComputeResources.Ec2KeyPair') as compute_resources_ec2_key_pair,
-              JSON_EXTRACT(Properties, '$.ComputeResources.ImageId') as compute_resources_image_id,
-              JSON_EXTRACT(Properties, '$.ComputeResources.InstanceRole') as compute_resources_instance_role,
-              JSON_EXTRACT(Properties, '$.ComputeResources.InstanceTypes') as compute_resources_instance_types,
-              JSON_EXTRACT(Properties, '$.ComputeResources.LaunchTemplate') as compute_resources_launch_template,
-              JSON_EXTRACT(Properties, '$.ComputeResources.MaxvCpus') as compute_resources_maxv_cpus,
-              JSON_EXTRACT(Properties, '$.ComputeResources.MinvCpus') as compute_resources_minv_cpus,
-              JSON_EXTRACT(Properties, '$.ComputeResources.PlacementGroup') as compute_resources_placement_group,
-              JSON_EXTRACT(Properties, '$.ComputeResources.SecurityGroupIds') as compute_resources_security_group_ids,
-              JSON_EXTRACT(Properties, '$.ComputeResources.SpotIamFleetRole') as compute_resources_spot_iam_fleet_role,
-              JSON_EXTRACT(Properties, '$.ComputeResources.Subnets') as compute_resources_subnets,
-              JSON_EXTRACT(Properties, '$.ComputeResources.Tags') as compute_resources_tags,
-              JSON_EXTRACT(Properties, '$.ComputeResources.Type') as compute_resources_type,
-              JSON_EXTRACT(Properties, '$.ComputeResources.UpdateToLatestImageVersion') as compute_resources_update_to_latest_image_version,
+              JSON_EXTRACT(Properties, '$.ComputeResources') as compute_resources,
               JSON_EXTRACT(Properties, '$.ReplaceComputeEnvironment') as replace_compute_environment,
               JSON_EXTRACT(Properties, '$.ServiceRole') as service_role,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.UpdatePolicy.TerminateJobsOnUpdate') as update_policy_terminate_jobs_on_update,
-              JSON_EXTRACT(Properties, '$.UpdatePolicy.JobExecutionTimeoutMinutes') as update_policy_job_execution_timeout_minutes,
+              JSON_EXTRACT(Properties, '$.UpdatePolicy') as update_policy,
               JSON_EXTRACT(Properties, '$.UnmanagedvCpus') as unmanagedv_cpus,
-              JSON_EXTRACT(Properties, '$.EksConfiguration.EksClusterArn') as eks_configuration_eks_cluster_arn,
-              JSON_EXTRACT(Properties, '$.EksConfiguration.KubernetesNamespace') as eks_configuration_kubernetes_namespace
+              JSON_EXTRACT(Properties, '$.EksConfiguration') as eks_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment'
     job_definitions:
       name: job_definitions
       id: aws.batch.job_definitions
       x-cfn-schema-name: JobDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -837,40 +822,17 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
-              JSON_EXTRACT(Properties, '$.Timeout.AttemptDurationSeconds') as timeout_attempt_duration_seconds,
+              JSON_EXTRACT(Properties, '$.Timeout') as timeout,
               JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
               JSON_EXTRACT(Properties, '$.PropagateTags') as propagate_tags,
               JSON_EXTRACT(Properties, '$.PlatformCapabilities') as platform_capabilities,
-              JSON_EXTRACT(Properties, '$.EksProperties.PodProperties') as eks_properties_pod_properties,
+              JSON_EXTRACT(Properties, '$.EksProperties') as eks_properties,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.NodeProperties.MainNode') as node_properties_main_node,
-              JSON_EXTRACT(Properties, '$.NodeProperties.NodeRangeProperties') as node_properties_node_range_properties,
-              JSON_EXTRACT(Properties, '$.NodeProperties.NumNodes') as node_properties_num_nodes,
+              JSON_EXTRACT(Properties, '$.NodeProperties') as node_properties,
               JSON_EXTRACT(Properties, '$.SchedulingPriority') as scheduling_priority,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.User') as container_properties_user,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Secrets') as container_properties_secrets,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Memory') as container_properties_memory,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Privileged') as container_properties_privileged,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.LinuxParameters') as container_properties_linux_parameters,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.FargatePlatformConfiguration') as container_properties_fargate_platform_configuration,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.JobRoleArn') as container_properties_job_role_arn,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.ReadonlyRootFilesystem') as container_properties_readonly_root_filesystem,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Vcpus') as container_properties_vcpus,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Image') as container_properties_image,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.ResourceRequirements') as container_properties_resource_requirements,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.LogConfiguration') as container_properties_log_configuration,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.MountPoints') as container_properties_mount_points,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.ExecutionRoleArn') as container_properties_execution_role_arn,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Volumes') as container_properties_volumes,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Command') as container_properties_command,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Environment') as container_properties_environment,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.Ulimits') as container_properties_ulimits,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.NetworkConfiguration') as container_properties_network_configuration,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.InstanceType') as container_properties_instance_type,
-              JSON_EXTRACT(Properties, '$.ContainerProperties.EphemeralStorage') as container_properties_ephemeral_storage,
+              JSON_EXTRACT(Properties, '$.ContainerProperties') as container_properties,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.RetryStrategy.EvaluateOnExit') as retry_strategy_evaluate_on_exit,
-              JSON_EXTRACT(Properties, '$.RetryStrategy.Attempts') as retry_strategy_attempts,
+              JSON_EXTRACT(Properties, '$.RetryStrategy') as retry_strategy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobDefinition'
     job_queues:
@@ -878,6 +840,8 @@ components:
       id: aws.batch.job_queues
       x-cfn-schema-name: JobQueue
       x-type: list
+      x-identifiers:
+        - JobQueueArn
       config:
         views:
           select:
@@ -902,9 +866,11 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobQueueName') as job_queue_name,
+              JSON_EXTRACT(Properties, '$.JobQueueArn') as job_queue_arn,
               JSON_EXTRACT(Properties, '$.ComputeEnvironmentOrder') as compute_environment_order,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.SchedulingPolicyArn') as scheduling_policy_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobQueue'
     scheduling_policies:
@@ -912,6 +878,8 @@ components:
       id: aws.batch.scheduling_policies
       x-cfn-schema-name: SchedulingPolicy
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -936,8 +904,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.FairsharePolicy.ShareDecaySeconds') as fairshare_policy_share_decay_seconds,
-              JSON_EXTRACT(Properties, '$.FairsharePolicy.ComputeReservation') as fairshare_policy_compute_reservation,
-              JSON_EXTRACT(Properties, '$.FairsharePolicy.ShareDistribution') as fairshare_policy_share_distribution,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.FairsharePolicy') as fairshare_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy'

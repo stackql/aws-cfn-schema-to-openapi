@@ -991,6 +991,8 @@ components:
       id: aws.pinpoint.adm_channels
       x-cfn-schema-name: ADMChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1025,6 +1027,8 @@ components:
       id: aws.pinpoint.apns_channels
       x-cfn-schema-name: APNSChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1064,6 +1068,8 @@ components:
       id: aws.pinpoint.apns_sandbox_channels
       x-cfn-schema-name: APNSSandboxChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1103,6 +1109,8 @@ components:
       id: aws.pinpoint.apns_voip_channels
       x-cfn-schema-name: APNSVoipChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1142,6 +1150,8 @@ components:
       id: aws.pinpoint.apns_voip_sandbox_channels
       x-cfn-schema-name: APNSVoipSandboxChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1181,6 +1191,8 @@ components:
       id: aws.pinpoint.apps
       x-cfn-schema-name: App
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1224,17 +1236,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.QuietTime.Start') as quiet_time_start,
-              JSON_EXTRACT(Properties, '$.QuietTime.End') as quiet_time_end,
-              JSON_EXTRACT(Properties, '$.Limits.MessagesPerSecond') as limits_messages_per_second,
-              JSON_EXTRACT(Properties, '$.Limits.Daily') as limits_daily,
-              JSON_EXTRACT(Properties, '$.Limits.MaximumDuration') as limits_maximum_duration,
-              JSON_EXTRACT(Properties, '$.Limits.Total') as limits_total,
-              JSON_EXTRACT(Properties, '$.Limits.Session') as limits_session,
+              JSON_EXTRACT(Properties, '$.QuietTime') as quiet_time,
+              JSON_EXTRACT(Properties, '$.Limits') as limits,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-              JSON_EXTRACT(Properties, '$.CampaignHook.WebUrl') as campaign_hook_web_url,
-              JSON_EXTRACT(Properties, '$.CampaignHook.LambdaFunctionName') as campaign_hook_lambda_function_name,
-              JSON_EXTRACT(Properties, '$.CampaignHook.Mode') as campaign_hook_mode,
+              JSON_EXTRACT(Properties, '$.CampaignHook') as campaign_hook,
               JSON_EXTRACT(Properties, '$.CloudWatchMetricsEnabled') as cloud_watch_metrics_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::ApplicationSettings'
     baidu_channels:
@@ -1242,6 +1247,8 @@ components:
       id: aws.pinpoint.baidu_channels
       x-cfn-schema-name: BaiduChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1276,6 +1283,8 @@ components:
       id: aws.pinpoint.campaigns
       x-cfn-schema-name: Campaign
       x-type: list
+      x-identifiers:
+        - CampaignId
       config:
         views:
           select:
@@ -1302,45 +1311,21 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.SegmentId') as segment_id,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
-              JSON_EXTRACT(Properties, '$.TemplateConfiguration.SMSTemplate') as template_configuration_sm_stemplate,
-              JSON_EXTRACT(Properties, '$.TemplateConfiguration.EmailTemplate') as template_configuration_email_template,
-              JSON_EXTRACT(Properties, '$.TemplateConfiguration.PushTemplate') as template_configuration_push_template,
-              JSON_EXTRACT(Properties, '$.TemplateConfiguration.VoiceTemplate') as template_configuration_voice_template,
+              JSON_EXTRACT(Properties, '$.TemplateConfiguration') as template_configuration,
               JSON_EXTRACT(Properties, '$.IsPaused') as is_paused,
               JSON_EXTRACT(Properties, '$.AdditionalTreatments') as additional_treatments,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SegmentVersion') as segment_version,
               JSON_EXTRACT(Properties, '$.TreatmentDescription') as treatment_description,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.APNSMessage') as message_configuration_ap_ns_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.BaiduMessage') as message_configuration_baidu_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.DefaultMessage') as message_configuration_default_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.InAppMessage') as message_configuration_in_app_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.EmailMessage') as message_configuration_email_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.GCMMessage') as message_configuration_gc_mmessage,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.SMSMessage') as message_configuration_sm_smessage,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.CustomMessage') as message_configuration_custom_message,
-              JSON_EXTRACT(Properties, '$.MessageConfiguration.ADMMessage') as message_configuration_ad_mmessage,
-              JSON_EXTRACT(Properties, '$.Limits.MessagesPerSecond') as limits_messages_per_second,
-              JSON_EXTRACT(Properties, '$.Limits.Daily') as limits_daily,
-              JSON_EXTRACT(Properties, '$.Limits.MaximumDuration') as limits_maximum_duration,
-              JSON_EXTRACT(Properties, '$.Limits.Total') as limits_total,
-              JSON_EXTRACT(Properties, '$.Limits.Session') as limits_session,
+              JSON_EXTRACT(Properties, '$.MessageConfiguration') as message_configuration,
+              JSON_EXTRACT(Properties, '$.Limits') as limits,
               JSON_EXTRACT(Properties, '$.CampaignId') as campaign_id,
               JSON_EXTRACT(Properties, '$.HoldoutPercent') as holdout_percent,
-              JSON_EXTRACT(Properties, '$.Schedule.TimeZone') as schedule_time_zone,
-              JSON_EXTRACT(Properties, '$.Schedule.QuietTime') as schedule_quiet_time,
-              JSON_EXTRACT(Properties, '$.Schedule.EndTime') as schedule_end_time,
-              JSON_EXTRACT(Properties, '$.Schedule.StartTime') as schedule_start_time,
-              JSON_EXTRACT(Properties, '$.Schedule.Frequency') as schedule_frequency,
-              JSON_EXTRACT(Properties, '$.Schedule.EventFilter') as schedule_event_filter,
-              JSON_EXTRACT(Properties, '$.Schedule.IsLocalTime') as schedule_is_local_time,
-              JSON_EXTRACT(Properties, '$.CustomDeliveryConfiguration.EndpointTypes') as custom_delivery_configuration_endpoint_types,
-              JSON_EXTRACT(Properties, '$.CustomDeliveryConfiguration.DeliveryUri') as custom_delivery_configuration_delivery_uri,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
+              JSON_EXTRACT(Properties, '$.CustomDeliveryConfiguration') as custom_delivery_configuration,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-              JSON_EXTRACT(Properties, '$.CampaignHook.WebUrl') as campaign_hook_web_url,
-              JSON_EXTRACT(Properties, '$.CampaignHook.LambdaFunctionName') as campaign_hook_lambda_function_name,
-              JSON_EXTRACT(Properties, '$.CampaignHook.Mode') as campaign_hook_mode,
+              JSON_EXTRACT(Properties, '$.CampaignHook') as campaign_hook,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TreatmentName') as treatment_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::Campaign'
@@ -1349,6 +1334,8 @@ components:
       id: aws.pinpoint.email_channels
       x-cfn-schema-name: EmailChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1385,6 +1372,8 @@ components:
       id: aws.pinpoint.email_templates
       x-cfn-schema-name: EmailTemplate
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1423,6 +1412,8 @@ components:
       id: aws.pinpoint.event_streams
       x-cfn-schema-name: EventStream
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1456,6 +1447,8 @@ components:
       id: aws.pinpoint.gcm_channels
       x-cfn-schema-name: GCMChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1489,6 +1482,8 @@ components:
       id: aws.pinpoint.in_app_templates
       x-cfn-schema-name: InAppTemplate
       x-type: list
+      x-identifiers:
+        - TemplateName
       config:
         views:
           select:
@@ -1525,6 +1520,8 @@ components:
       id: aws.pinpoint.push_templates
       x-cfn-schema-name: PushTemplate
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1548,46 +1545,16 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GCM.Action') as g_cm_action,
-              JSON_EXTRACT(Properties, '$.GCM.ImageUrl') as g_cm_image_url,
-              JSON_EXTRACT(Properties, '$.GCM.SmallImageIconUrl') as g_cm_small_image_icon_url,
-              JSON_EXTRACT(Properties, '$.GCM.Title') as g_cm_title,
-              JSON_EXTRACT(Properties, '$.GCM.ImageIconUrl') as g_cm_image_icon_url,
-              JSON_EXTRACT(Properties, '$.GCM.Sound') as g_cm_sound,
-              JSON_EXTRACT(Properties, '$.GCM.Body') as g_cm_body,
-              JSON_EXTRACT(Properties, '$.GCM.Url') as g_cm_url,
-              JSON_EXTRACT(Properties, '$.Baidu.Action') as baidu_action,
-              JSON_EXTRACT(Properties, '$.Baidu.ImageUrl') as baidu_image_url,
-              JSON_EXTRACT(Properties, '$.Baidu.SmallImageIconUrl') as baidu_small_image_icon_url,
-              JSON_EXTRACT(Properties, '$.Baidu.Title') as baidu_title,
-              JSON_EXTRACT(Properties, '$.Baidu.ImageIconUrl') as baidu_image_icon_url,
-              JSON_EXTRACT(Properties, '$.Baidu.Sound') as baidu_sound,
-              JSON_EXTRACT(Properties, '$.Baidu.Body') as baidu_body,
-              JSON_EXTRACT(Properties, '$.Baidu.Url') as baidu_url,
+              JSON_EXTRACT(Properties, '$.GCM') as g_cm,
+              JSON_EXTRACT(Properties, '$.Baidu') as baidu,
               JSON_EXTRACT(Properties, '$.TemplateName') as template_name,
-              JSON_EXTRACT(Properties, '$.ADM.Action') as a_dm_action,
-              JSON_EXTRACT(Properties, '$.ADM.ImageUrl') as a_dm_image_url,
-              JSON_EXTRACT(Properties, '$.ADM.SmallImageIconUrl') as a_dm_small_image_icon_url,
-              JSON_EXTRACT(Properties, '$.ADM.Title') as a_dm_title,
-              JSON_EXTRACT(Properties, '$.ADM.ImageIconUrl') as a_dm_image_icon_url,
-              JSON_EXTRACT(Properties, '$.ADM.Sound') as a_dm_sound,
-              JSON_EXTRACT(Properties, '$.ADM.Body') as a_dm_body,
-              JSON_EXTRACT(Properties, '$.ADM.Url') as a_dm_url,
-              JSON_EXTRACT(Properties, '$.APNS.Action') as a_pn_saction,
-              JSON_EXTRACT(Properties, '$.APNS.MediaUrl') as a_pn_smedia_url,
-              JSON_EXTRACT(Properties, '$.APNS.Title') as a_pn_stitle,
-              JSON_EXTRACT(Properties, '$.APNS.Sound') as a_pn_ssound,
-              JSON_EXTRACT(Properties, '$.APNS.Body') as a_pn_sbody,
-              JSON_EXTRACT(Properties, '$.APNS.Url') as a_pn_surl,
+              JSON_EXTRACT(Properties, '$.ADM') as a_dm,
+              JSON_EXTRACT(Properties, '$.APNS') as a_pn_s,
               JSON_EXTRACT(Properties, '$.TemplateDescription') as template_description,
               JSON_EXTRACT(Properties, '$.DefaultSubstitutions') as default_substitutions,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Default.Title') as default_title,
-              JSON_EXTRACT(Properties, '$.Default.Action') as default_action,
-              JSON_EXTRACT(Properties, '$.Default.Sound') as default_sound,
-              JSON_EXTRACT(Properties, '$.Default.Body') as default_body,
-              JSON_EXTRACT(Properties, '$.Default.Url') as default_url,
+              JSON_EXTRACT(Properties, '$.Default') as default,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::PushTemplate'
     segments:
@@ -1595,6 +1562,8 @@ components:
       id: aws.pinpoint.segments
       x-cfn-schema-name: Segment
       x-type: list
+      x-identifiers:
+        - SegmentId
       config:
         views:
           select:
@@ -1620,14 +1589,8 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.SegmentId') as segment_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.SegmentGroups.Groups') as segment_groups_groups,
-              JSON_EXTRACT(Properties, '$.SegmentGroups.Include') as segment_groups_include,
-              JSON_EXTRACT(Properties, '$.Dimensions.Demographic') as dimensions_demographic,
-              JSON_EXTRACT(Properties, '$.Dimensions.Metrics') as dimensions_metrics,
-              JSON_EXTRACT(Properties, '$.Dimensions.Attributes') as dimensions_attributes,
-              JSON_EXTRACT(Properties, '$.Dimensions.Behavior') as dimensions_behavior,
-              JSON_EXTRACT(Properties, '$.Dimensions.UserAttributes') as dimensions_user_attributes,
-              JSON_EXTRACT(Properties, '$.Dimensions.Location') as dimensions_location,
+              JSON_EXTRACT(Properties, '$.SegmentGroups') as segment_groups,
+              JSON_EXTRACT(Properties, '$.Dimensions') as dimensions,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
@@ -1637,6 +1600,8 @@ components:
       id: aws.pinpoint.sms_channels
       x-cfn-schema-name: SMSChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1671,6 +1636,8 @@ components:
       id: aws.pinpoint.sms_templates
       x-cfn-schema-name: SmsTemplate
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1707,6 +1674,8 @@ components:
       id: aws.pinpoint.voice_channels
       x-cfn-schema-name: VoiceChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

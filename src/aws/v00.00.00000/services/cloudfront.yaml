@@ -1363,6 +1363,8 @@ components:
       id: aws.cloudfront.cache_policies
       x-cfn-schema-name: CachePolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1386,12 +1388,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Comment') as cache_policy_config_comment,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.DefaultTTL') as cache_policy_config_default_tt_l,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MaxTTL') as cache_policy_config_max_tt_l,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.MinTTL') as cache_policy_config_min_tt_l,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.Name') as cache_policy_config_name,
-              JSON_EXTRACT(Properties, '$.CachePolicyConfig.ParametersInCacheKeyAndForwardedToOrigin') as cache_policy_config_parameters_in_cache_key_and_forwarded_to_origin,
+              JSON_EXTRACT(Properties, '$.CachePolicyConfig') as cache_policy_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
@@ -1400,6 +1397,8 @@ components:
       id: aws.cloudfront.cloud_front_origin_access_identities
       x-cfn-schema-name: CloudFrontOriginAccessIdentity
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1423,7 +1422,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CloudFrontOriginAccessIdentityConfig.Comment') as cloud_front_origin_access_identity_config_comment,
+              JSON_EXTRACT(Properties, '$.CloudFrontOriginAccessIdentityConfig') as cloud_front_origin_access_identity_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.S3CanonicalUserId') as s3_canonical_user_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
@@ -1432,6 +1431,8 @@ components:
       id: aws.cloudfront.continuous_deployment_policies
       x-cfn-schema-name: ContinuousDeploymentPolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1455,9 +1456,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.Enabled') as continuous_deployment_policy_config_enabled,
-              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.StagingDistributionDnsNames') as continuous_deployment_policy_config_staging_distribution_dns_names,
-              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig.TrafficConfig') as continuous_deployment_policy_config_traffic_config,
+              JSON_EXTRACT(Properties, '$.ContinuousDeploymentPolicyConfig') as continuous_deployment_policy_config,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
@@ -1466,6 +1465,8 @@ components:
       id: aws.cloudfront.distributions
       x-cfn-schema-name: Distribution
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1489,27 +1490,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Aliases') as distribution_config_aliases,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CNAMEs') as distribution_config_cn_am_es,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CacheBehaviors') as distribution_config_cache_behaviors,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Comment') as distribution_config_comment,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.ContinuousDeploymentPolicyId') as distribution_config_continuous_deployment_policy_id,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CustomErrorResponses') as distribution_config_custom_error_responses,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.CustomOrigin') as distribution_config_custom_origin,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.DefaultCacheBehavior') as distribution_config_default_cache_behavior,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.DefaultRootObject') as distribution_config_default_root_object,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Enabled') as distribution_config_enabled,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.HttpVersion') as distribution_config_http_version,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.IPV6Enabled') as distribution_config_ip_v6_enabled,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Logging') as distribution_config_logging,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.OriginGroups') as distribution_config_origin_groups,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Origins') as distribution_config_origins,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.PriceClass') as distribution_config_price_class,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Restrictions') as distribution_config_restrictions,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.S3Origin') as distribution_config_s3_origin,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.Staging') as distribution_config_staging,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.ViewerCertificate') as distribution_config_viewer_certificate,
-              JSON_EXTRACT(Properties, '$.DistributionConfig.WebACLId') as distribution_config_web_ac_lid,
+              JSON_EXTRACT(Properties, '$.DistributionConfig') as distribution_config,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -1519,6 +1500,8 @@ components:
       id: aws.cloudfront.functions
       x-cfn-schema-name: Function
       x-type: list
+      x-identifiers:
+        - FunctionARN
       config:
         views:
           select:
@@ -1545,9 +1528,8 @@ components:
               JSON_EXTRACT(Properties, '$.AutoPublish') as auto_publish,
               JSON_EXTRACT(Properties, '$.FunctionARN') as function_ar_n,
               JSON_EXTRACT(Properties, '$.FunctionCode') as function_code,
-              JSON_EXTRACT(Properties, '$.FunctionConfig.Comment') as function_config_comment,
-              JSON_EXTRACT(Properties, '$.FunctionConfig.Runtime') as function_config_runtime,
-              JSON_EXTRACT(Properties, '$.FunctionMetadata.FunctionARN') as function_metadata_function_ar_n,
+              JSON_EXTRACT(Properties, '$.FunctionConfig') as function_config,
+              JSON_EXTRACT(Properties, '$.FunctionMetadata') as function_metadata,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Stage') as stage
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Function'
@@ -1556,6 +1538,8 @@ components:
       id: aws.cloudfront.key_groups
       x-cfn-schema-name: KeyGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1580,9 +1564,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Comment') as key_group_config_comment,
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Items') as key_group_config_items,
-              JSON_EXTRACT(Properties, '$.KeyGroupConfig.Name') as key_group_config_name,
+              JSON_EXTRACT(Properties, '$.KeyGroupConfig') as key_group_config,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
     monitoring_subscriptions:
@@ -1590,6 +1572,8 @@ components:
       id: aws.cloudfront.monitoring_subscriptions
       x-cfn-schema-name: MonitoringSubscription
       x-type: list
+      x-identifiers:
+        - DistributionId
       config:
         views:
           select:
@@ -1614,14 +1598,15 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id,
-              JSON_EXTRACT(Properties, '$.MonitoringSubscription.DistributionId') as monitoring_subscription_distribution_id,
-              JSON_EXTRACT(Properties, '$.MonitoringSubscription.MonitoringSubscription') as monitoring_subscription_monitoring_subscription
+              JSON_EXTRACT(Properties, '$.MonitoringSubscription') as monitoring_subscription
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
     origin_access_controls:
       name: origin_access_controls
       id: aws.cloudfront.origin_access_controls
       x-cfn-schema-name: OriginAccessControl
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1645,11 +1630,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.Name') as origin_access_control_config_name,
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.Description') as origin_access_control_config_description,
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.SigningProtocol') as origin_access_control_config_signing_protocol,
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.SigningBehavior') as origin_access_control_config_signing_behavior,
-              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig.OriginAccessControlOriginType') as origin_access_control_config_origin_access_control_origin_type,
+              JSON_EXTRACT(Properties, '$.OriginAccessControlConfig') as origin_access_control_config,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
     origin_request_policies:
@@ -1657,6 +1638,8 @@ components:
       id: aws.cloudfront.origin_request_policies
       x-cfn-schema-name: OriginRequestPolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1682,17 +1665,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Comment') as origin_request_policy_config_comment,
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.CookiesConfig') as origin_request_policy_config_cookies_config,
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.HeadersConfig') as origin_request_policy_config_headers_config,
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.Name') as origin_request_policy_config_name,
-              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig.QueryStringsConfig') as origin_request_policy_config_query_strings_config
+              JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig') as origin_request_policy_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
     public_keys:
       name: public_keys
       id: aws.cloudfront.public_keys
       x-cfn-schema-name: PublicKey
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1718,16 +1699,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.CallerReference') as public_key_config_caller_reference,
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Comment') as public_key_config_comment,
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.EncodedKey') as public_key_config_encoded_key,
-              JSON_EXTRACT(Properties, '$.PublicKeyConfig.Name') as public_key_config_name
+              JSON_EXTRACT(Properties, '$.PublicKeyConfig') as public_key_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
     realtime_log_configs:
       name: realtime_log_configs
       id: aws.cloudfront.realtime_log_configs
       x-cfn-schema-name: RealtimeLogConfig
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1762,6 +1742,8 @@ components:
       id: aws.cloudfront.response_headers_policies
       x-cfn-schema-name: ResponseHeadersPolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1787,19 +1769,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Comment') as response_headers_policy_config_comment,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.CorsConfig') as response_headers_policy_config_cors_config,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.CustomHeadersConfig') as response_headers_policy_config_custom_headers_config,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.Name') as response_headers_policy_config_name,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.RemoveHeadersConfig') as response_headers_policy_config_remove_headers_config,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.SecurityHeadersConfig') as response_headers_policy_config_security_headers_config,
-              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig.ServerTimingHeadersConfig') as response_headers_policy_config_server_timing_headers_config
+              JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig') as response_headers_policy_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
     streaming_distributions:
       name: streaming_distributions
       id: aws.cloudfront.streaming_distributions
       x-cfn-schema-name: StreamingDistribution
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1825,12 +1803,6 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Logging') as streaming_distribution_config_logging,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Comment') as streaming_distribution_config_comment,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.PriceClass') as streaming_distribution_config_price_class,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.S3Origin') as streaming_distribution_config_s3_origin,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Enabled') as streaming_distribution_config_enabled,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.Aliases') as streaming_distribution_config_aliases,
-              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig.TrustedSigners') as streaming_distribution_config_trusted_signers,
+              JSON_EXTRACT(Properties, '$.StreamingDistributionConfig') as streaming_distribution_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'

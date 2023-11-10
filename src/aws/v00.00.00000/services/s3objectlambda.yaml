@@ -161,6 +161,8 @@ components:
       id: aws.s3objectlambda.access_points
       x-cfn-schema-name: AccessPoint
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -188,21 +190,17 @@ components:
               JSON_EXTRACT(Properties, '$.Alias') as alias,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
-              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicAcls') as public_access_block_configuration_block_public_acls,
-              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.IgnorePublicAcls') as public_access_block_configuration_ignore_public_acls,
-              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.BlockPublicPolicy') as public_access_block_configuration_block_public_policy,
-              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration.RestrictPublicBuckets') as public_access_block_configuration_restrict_public_buckets,
+              JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration') as public_access_block_configuration,
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status,
-              JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.SupportingAccessPoint') as object_lambda_configuration_supporting_access_point,
-              JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.AllowedFeatures') as object_lambda_configuration_allowed_features,
-              JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.CloudWatchMetricsEnabled') as object_lambda_configuration_cloud_watch_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration.TransformationConfigurations') as object_lambda_configuration_transformation_configurations
+              JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration') as object_lambda_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
     access_point_policies:
       name: access_point_policies
       id: aws.s3objectlambda.access_point_policies
       x-cfn-schema-name: AccessPointPolicy
       x-type: list
+      x-identifiers:
+        - ObjectLambdaAccessPoint
       config:
         views:
           select:

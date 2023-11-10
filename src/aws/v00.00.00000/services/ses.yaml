@@ -614,6 +614,8 @@ components:
       id: aws.ses.configuration_sets
       x-cfn-schema-name: ConfigurationSet
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -638,20 +640,20 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.TrackingOptions.CustomRedirectDomain') as tracking_options_custom_redirect_domain,
-              JSON_EXTRACT(Properties, '$.DeliveryOptions.TlsPolicy') as delivery_options_tls_policy,
-              JSON_EXTRACT(Properties, '$.DeliveryOptions.SendingPoolName') as delivery_options_sending_pool_name,
-              JSON_EXTRACT(Properties, '$.ReputationOptions.ReputationMetricsEnabled') as reputation_options_reputation_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.SendingOptions.SendingEnabled') as sending_options_sending_enabled,
-              JSON_EXTRACT(Properties, '$.SuppressionOptions.SuppressedReasons') as suppression_options_suppressed_reasons,
-              JSON_EXTRACT(Properties, '$.VdmOptions.DashboardOptions') as vdm_options_dashboard_options,
-              JSON_EXTRACT(Properties, '$.VdmOptions.GuardianOptions') as vdm_options_guardian_options
+              JSON_EXTRACT(Properties, '$.TrackingOptions') as tracking_options,
+              JSON_EXTRACT(Properties, '$.DeliveryOptions') as delivery_options,
+              JSON_EXTRACT(Properties, '$.ReputationOptions') as reputation_options,
+              JSON_EXTRACT(Properties, '$.SendingOptions') as sending_options,
+              JSON_EXTRACT(Properties, '$.SuppressionOptions') as suppression_options,
+              JSON_EXTRACT(Properties, '$.VdmOptions') as vdm_options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSet'
     configuration_set_event_destinations:
       name: configuration_set_event_destinations
       id: aws.ses.configuration_set_event_destinations
       x-cfn-schema-name: ConfigurationSetEventDestination
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -677,18 +679,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ConfigurationSetName') as configuration_set_name,
-              JSON_EXTRACT(Properties, '$.EventDestination.Name') as event_destination_name,
-              JSON_EXTRACT(Properties, '$.EventDestination.Enabled') as event_destination_enabled,
-              JSON_EXTRACT(Properties, '$.EventDestination.MatchingEventTypes') as event_destination_matching_event_types,
-              JSON_EXTRACT(Properties, '$.EventDestination.CloudWatchDestination') as event_destination_cloud_watch_destination,
-              JSON_EXTRACT(Properties, '$.EventDestination.KinesisFirehoseDestination') as event_destination_kinesis_firehose_destination,
-              JSON_EXTRACT(Properties, '$.EventDestination.SnsDestination') as event_destination_sns_destination
+              JSON_EXTRACT(Properties, '$.EventDestination') as event_destination
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSetEventDestination'
     contact_lists:
       name: contact_lists
       id: aws.ses.contact_lists
       x-cfn-schema-name: ContactList
       x-type: list
+      x-identifiers:
+        - ContactListName
       config:
         views:
           select:
@@ -722,6 +721,8 @@ components:
       id: aws.ses.dedicated_ip_pools
       x-cfn-schema-name: DedicatedIpPool
       x-type: list
+      x-identifiers:
+        - PoolName
       config:
         views:
           select:
@@ -753,6 +754,8 @@ components:
       id: aws.ses.email_identities
       x-cfn-schema-name: EmailIdentity
       x-type: list
+      x-identifiers:
+        - EmailIdentity
       config:
         views:
           select:
@@ -777,14 +780,11 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.EmailIdentity') as email_identity,
-              JSON_EXTRACT(Properties, '$.ConfigurationSetAttributes.ConfigurationSetName') as configuration_set_attributes_configuration_set_name,
-              JSON_EXTRACT(Properties, '$.DkimSigningAttributes.DomainSigningSelector') as dkim_signing_attributes_domain_signing_selector,
-              JSON_EXTRACT(Properties, '$.DkimSigningAttributes.DomainSigningPrivateKey') as dkim_signing_attributes_domain_signing_private_key,
-              JSON_EXTRACT(Properties, '$.DkimSigningAttributes.NextSigningKeyLength') as dkim_signing_attributes_next_signing_key_length,
-              JSON_EXTRACT(Properties, '$.DkimAttributes.SigningEnabled') as dkim_attributes_signing_enabled,
-              JSON_EXTRACT(Properties, '$.MailFromAttributes.MailFromDomain') as mail_from_attributes_mail_from_domain,
-              JSON_EXTRACT(Properties, '$.MailFromAttributes.BehaviorOnMxFailure') as mail_from_attributes_behavior_on_mx_failure,
-              JSON_EXTRACT(Properties, '$.FeedbackAttributes.EmailForwardingEnabled') as feedback_attributes_email_forwarding_enabled,
+              JSON_EXTRACT(Properties, '$.ConfigurationSetAttributes') as configuration_set_attributes,
+              JSON_EXTRACT(Properties, '$.DkimSigningAttributes') as dkim_signing_attributes,
+              JSON_EXTRACT(Properties, '$.DkimAttributes') as dkim_attributes,
+              JSON_EXTRACT(Properties, '$.MailFromAttributes') as mail_from_attributes,
+              JSON_EXTRACT(Properties, '$.FeedbackAttributes') as feedback_attributes,
               JSON_EXTRACT(Properties, '$.DkimDNSTokenName1') as dkim_dn_stoken_name1,
               JSON_EXTRACT(Properties, '$.DkimDNSTokenName2') as dkim_dn_stoken_name2,
               JSON_EXTRACT(Properties, '$.DkimDNSTokenName3') as dkim_dn_stoken_name3,
@@ -797,6 +797,8 @@ components:
       id: aws.ses.receipt_filters
       x-cfn-schema-name: ReceiptFilter
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -821,14 +823,15 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Filter.IpFilter') as filter_ip_filter,
-              JSON_EXTRACT(Properties, '$.Filter.Name') as filter_name
+              JSON_EXTRACT(Properties, '$.Filter') as filter
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptFilter'
     receipt_rules:
       name: receipt_rules
       id: aws.ses.receipt_rules
       x-cfn-schema-name: ReceiptRule
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -854,12 +857,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.After') as after,
-              JSON_EXTRACT(Properties, '$.Rule.ScanEnabled') as rule_scan_enabled,
-              JSON_EXTRACT(Properties, '$.Rule.Recipients') as rule_recipients,
-              JSON_EXTRACT(Properties, '$.Rule.Actions') as rule_actions,
-              JSON_EXTRACT(Properties, '$.Rule.Enabled') as rule_enabled,
-              JSON_EXTRACT(Properties, '$.Rule.Name') as rule_name,
-              JSON_EXTRACT(Properties, '$.Rule.TlsPolicy') as rule_tls_policy,
+              JSON_EXTRACT(Properties, '$.Rule') as rule,
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptRule'
     receipt_rule_sets:
@@ -867,6 +865,8 @@ components:
       id: aws.ses.receipt_rule_sets
       x-cfn-schema-name: ReceiptRuleSet
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -898,6 +898,8 @@ components:
       id: aws.ses.templates
       x-cfn-schema-name: Template
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -922,8 +924,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Template.Id') as template_id,
-              JSON_EXTRACT(Properties, '$.Template.Template') as template_template
+              JSON_EXTRACT(Properties, '$.Template') as template
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::Template'
     vdm_attributes:
       name: vdm_attributes
@@ -940,6 +941,6 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.VdmAttributesResourceId') as vdm_attributes_resource_id,
-              JSON_EXTRACT(Properties, '$.DashboardAttributes.EngagementMetrics') as dashboard_attributes_engagement_metrics,
-              JSON_EXTRACT(Properties, '$.GuardianAttributes.OptimizedSharedDelivery') as guardian_attributes_optimized_shared_delivery
+              JSON_EXTRACT(Properties, '$.DashboardAttributes') as dashboard_attributes,
+              JSON_EXTRACT(Properties, '$.GuardianAttributes') as guardian_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::VdmAttributes'

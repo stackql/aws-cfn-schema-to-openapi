@@ -142,6 +142,8 @@ components:
       id: aws.connectcampaigns.campaigns
       x-cfn-schema-name: Campaign
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -166,13 +168,9 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ConnectInstanceArn') as connect_instance_arn,
-              JSON_EXTRACT(Properties, '$.DialerConfig.ProgressiveDialerConfig') as dialer_config_progressive_dialer_config,
-              JSON_EXTRACT(Properties, '$.DialerConfig.PredictiveDialerConfig') as dialer_config_predictive_dialer_config,
+              JSON_EXTRACT(Properties, '$.DialerConfig') as dialer_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectContactFlowArn') as outbound_call_config_connect_contact_flow_arn,
-              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectSourcePhoneNumber') as outbound_call_config_connect_source_phone_number,
-              JSON_EXTRACT(Properties, '$.OutboundCallConfig.ConnectQueueArn') as outbound_call_config_connect_queue_arn,
-              JSON_EXTRACT(Properties, '$.OutboundCallConfig.AnswerMachineDetectionConfig') as outbound_call_config_answer_machine_detection_config,
+              JSON_EXTRACT(Properties, '$.OutboundCallConfig') as outbound_call_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ConnectCampaigns::Campaign'

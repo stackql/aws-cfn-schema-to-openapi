@@ -669,6 +669,9 @@ components:
       id: aws.nimblestudio.launch_profiles
       x-cfn-schema-name: LaunchProfile
       x-type: list
+      x-identifiers:
+        - LaunchProfileId
+        - StudioId
       config:
         views:
           select:
@@ -699,24 +702,19 @@ components:
               JSON_EXTRACT(Properties, '$.LaunchProfileId') as launch_profile_id,
               JSON_EXTRACT(Properties, '$.LaunchProfileProtocolVersions') as launch_profile_protocol_versions,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.ClipboardMode') as stream_configuration_clipboard_mode,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.Ec2InstanceTypes') as stream_configuration_ec2_instance_types,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.MaxSessionLengthInMinutes') as stream_configuration_max_session_length_in_minutes,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.StreamingImageIds') as stream_configuration_streaming_image_ids,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.MaxStoppedSessionLengthInMinutes') as stream_configuration_max_stopped_session_length_in_minutes,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.SessionStorage') as stream_configuration_session_storage,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.SessionBackup') as stream_configuration_session_backup,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.SessionPersistenceMode') as stream_configuration_session_persistence_mode,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.VolumeConfiguration') as stream_configuration_volume_configuration,
-              JSON_EXTRACT(Properties, '$.StreamConfiguration.AutomaticTerminationMode') as stream_configuration_automatic_termination_mode,
+              JSON_EXTRACT(Properties, '$.StreamConfiguration') as stream_configuration,
               JSON_EXTRACT(Properties, '$.StudioComponentIds') as studio_component_ids,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
     streaming_images:
       name: streaming_images
       id: aws.nimblestudio.streaming_images
       x-cfn-schema-name: StreamingImage
       x-type: list
+      x-identifiers:
+        - StudioId
+        - StreamingImageId
       config:
         views:
           select:
@@ -744,20 +742,22 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Ec2ImageId') as ec2_image_id,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KeyType') as encryption_configuration_key_type,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KeyArn') as encryption_configuration_key_arn,
+              JSON_EXTRACT(Properties, '$.EncryptionConfiguration') as encryption_configuration,
               JSON_EXTRACT(Properties, '$.EulaIds') as eula_ids,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Owner') as owner,
               JSON_EXTRACT(Properties, '$.Platform') as platform,
               JSON_EXTRACT(Properties, '$.StreamingImageId') as streaming_image_id,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
     studios:
       name: studios
       id: aws.nimblestudio.studios
       x-cfn-schema-name: Studio
       x-type: list
+      x-identifiers:
+        - StudioId
       config:
         views:
           select:
@@ -785,11 +785,11 @@ components:
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
               JSON_EXTRACT(Properties, '$.HomeRegion') as home_region,
               JSON_EXTRACT(Properties, '$.SsoClientId') as sso_client_id,
-              JSON_EXTRACT(Properties, '$.StudioEncryptionConfiguration.KeyType') as studio_encryption_configuration_key_type,
-              JSON_EXTRACT(Properties, '$.StudioEncryptionConfiguration.KeyArn') as studio_encryption_configuration_key_arn,
+              JSON_EXTRACT(Properties, '$.StudioEncryptionConfiguration') as studio_encryption_configuration,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
               JSON_EXTRACT(Properties, '$.StudioName') as studio_name,
               JSON_EXTRACT(Properties, '$.StudioUrl') as studio_url,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UserRoleArn') as user_role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
     studio_components:
@@ -797,6 +797,9 @@ components:
       id: aws.nimblestudio.studio_components
       x-cfn-schema-name: StudioComponent
       x-type: list
+      x-identifiers:
+        - StudioComponentId
+        - StudioId
       config:
         views:
           select:
@@ -822,6 +825,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Ec2SecurityGroupIds') as ec2_security_group_ids,
               JSON_EXTRACT(Properties, '$.InitializationScripts') as initialization_scripts,
@@ -830,5 +834,8 @@ components:
               JSON_EXTRACT(Properties, '$.ScriptParameters') as script_parameters,
               JSON_EXTRACT(Properties, '$.SecureInitializationRoleArn') as secure_initialization_role_arn,
               JSON_EXTRACT(Properties, '$.StudioComponentId') as studio_component_id,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
+              JSON_EXTRACT(Properties, '$.Subtype') as subtype,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'

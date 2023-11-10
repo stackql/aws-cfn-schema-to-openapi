@@ -583,6 +583,8 @@ components:
       id: aws.opsworks.apps
       x-cfn-schema-name: App
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -607,12 +609,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.AppSource.Password') as app_source_password,
-              JSON_EXTRACT(Properties, '$.AppSource.Revision') as app_source_revision,
-              JSON_EXTRACT(Properties, '$.AppSource.SshKey') as app_source_ssh_key,
-              JSON_EXTRACT(Properties, '$.AppSource.Type') as app_source_type,
-              JSON_EXTRACT(Properties, '$.AppSource.Url') as app_source_url,
-              JSON_EXTRACT(Properties, '$.AppSource.Username') as app_source_username,
+              JSON_EXTRACT(Properties, '$.AppSource') as app_source,
               JSON_EXTRACT(Properties, '$.Attributes') as attributes,
               JSON_EXTRACT(Properties, '$.DataSources') as data_sources,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -621,9 +618,7 @@ components:
               JSON_EXTRACT(Properties, '$.Environment') as environment,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Shortname') as shortname,
-              JSON_EXTRACT(Properties, '$.SslConfiguration.Certificate') as ssl_configuration_certificate,
-              JSON_EXTRACT(Properties, '$.SslConfiguration.Chain') as ssl_configuration_chain,
-              JSON_EXTRACT(Properties, '$.SslConfiguration.PrivateKey') as ssl_configuration_private_key,
+              JSON_EXTRACT(Properties, '$.SslConfiguration') as ssl_configuration,
               JSON_EXTRACT(Properties, '$.StackId') as stack_id,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::App'
@@ -632,6 +627,8 @@ components:
       id: aws.opsworks.elastic_load_balancer_attachments
       x-cfn-schema-name: ElasticLoadBalancerAttachment
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -664,6 +661,8 @@ components:
       id: aws.opsworks.instances
       x-cfn-schema-name: Instance
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -710,13 +709,7 @@ components:
               JSON_EXTRACT(Properties, '$.StackId') as stack_id,
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.Tenancy') as tenancy,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Friday') as time_based_auto_scaling_friday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Monday') as time_based_auto_scaling_monday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Saturday') as time_based_auto_scaling_saturday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Sunday') as time_based_auto_scaling_sunday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Thursday') as time_based_auto_scaling_thursday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Tuesday') as time_based_auto_scaling_tuesday,
-              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling.Wednesday') as time_based_auto_scaling_wednesday,
+              JSON_EXTRACT(Properties, '$.TimeBasedAutoScaling') as time_based_auto_scaling,
               JSON_EXTRACT(Properties, '$.VirtualizationType') as virtualization_type,
               JSON_EXTRACT(Properties, '$.Volumes') as volumes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorks::Instance'
@@ -725,6 +718,8 @@ components:
       id: aws.opsworks.layers
       x-cfn-schema-name: Layer
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -754,18 +749,12 @@ components:
               JSON_EXTRACT(Properties, '$.AutoAssignPublicIps') as auto_assign_public_ips,
               JSON_EXTRACT(Properties, '$.CustomInstanceProfileArn') as custom_instance_profile_arn,
               JSON_EXTRACT(Properties, '$.CustomJson') as custom_json,
-              JSON_EXTRACT(Properties, '$.CustomRecipes.Configure') as custom_recipes_configure,
-              JSON_EXTRACT(Properties, '$.CustomRecipes.Deploy') as custom_recipes_deploy,
-              JSON_EXTRACT(Properties, '$.CustomRecipes.Setup') as custom_recipes_setup,
-              JSON_EXTRACT(Properties, '$.CustomRecipes.Shutdown') as custom_recipes_shutdown,
-              JSON_EXTRACT(Properties, '$.CustomRecipes.Undeploy') as custom_recipes_undeploy,
+              JSON_EXTRACT(Properties, '$.CustomRecipes') as custom_recipes,
               JSON_EXTRACT(Properties, '$.CustomSecurityGroupIds') as custom_security_group_ids,
               JSON_EXTRACT(Properties, '$.EnableAutoHealing') as enable_auto_healing,
               JSON_EXTRACT(Properties, '$.InstallUpdatesOnBoot') as install_updates_on_boot,
-              JSON_EXTRACT(Properties, '$.LifecycleEventConfiguration.ShutdownEventConfiguration') as lifecycle_event_configuration_shutdown_event_configuration,
-              JSON_EXTRACT(Properties, '$.LoadBasedAutoScaling.DownScaling') as load_based_auto_scaling_down_scaling,
-              JSON_EXTRACT(Properties, '$.LoadBasedAutoScaling.Enable') as load_based_auto_scaling_enable,
-              JSON_EXTRACT(Properties, '$.LoadBasedAutoScaling.UpScaling') as load_based_auto_scaling_up_scaling,
+              JSON_EXTRACT(Properties, '$.LifecycleEventConfiguration') as lifecycle_event_configuration,
+              JSON_EXTRACT(Properties, '$.LoadBasedAutoScaling') as load_based_auto_scaling,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Packages') as packages,
               JSON_EXTRACT(Properties, '$.Shortname') as shortname,
@@ -780,6 +769,8 @@ components:
       id: aws.opsworks.stacks
       x-cfn-schema-name: Stack
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -806,18 +797,11 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.AgentVersion') as agent_version,
               JSON_EXTRACT(Properties, '$.Attributes') as attributes,
-              JSON_EXTRACT(Properties, '$.ChefConfiguration.BerkshelfVersion') as chef_configuration_berkshelf_version,
-              JSON_EXTRACT(Properties, '$.ChefConfiguration.ManageBerkshelf') as chef_configuration_manage_berkshelf,
+              JSON_EXTRACT(Properties, '$.ChefConfiguration') as chef_configuration,
               JSON_EXTRACT(Properties, '$.CloneAppIds') as clone_app_ids,
               JSON_EXTRACT(Properties, '$.ClonePermissions') as clone_permissions,
-              JSON_EXTRACT(Properties, '$.ConfigurationManager.Name') as configuration_manager_name,
-              JSON_EXTRACT(Properties, '$.ConfigurationManager.Version') as configuration_manager_version,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.Password') as custom_cookbooks_source_password,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.Revision') as custom_cookbooks_source_revision,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.SshKey') as custom_cookbooks_source_ssh_key,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.Type') as custom_cookbooks_source_type,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.Url') as custom_cookbooks_source_url,
-              JSON_EXTRACT(Properties, '$.CustomCookbooksSource.Username') as custom_cookbooks_source_username,
+              JSON_EXTRACT(Properties, '$.ConfigurationManager') as configuration_manager,
+              JSON_EXTRACT(Properties, '$.CustomCookbooksSource') as custom_cookbooks_source,
               JSON_EXTRACT(Properties, '$.CustomJson') as custom_json,
               JSON_EXTRACT(Properties, '$.DefaultAvailabilityZone') as default_availability_zone,
               JSON_EXTRACT(Properties, '$.DefaultInstanceProfileArn') as default_instance_profile_arn,
@@ -842,6 +826,8 @@ components:
       id: aws.opsworks.user_profiles
       x-cfn-schema-name: UserProfile
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -876,6 +862,8 @@ components:
       id: aws.opsworks.volumes
       x-cfn-schema-name: Volume
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:

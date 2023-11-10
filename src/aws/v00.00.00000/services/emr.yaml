@@ -756,6 +756,8 @@ components:
       id: aws.emr.instance_fleet_configs
       x-cfn-schema-name: InstanceFleetConfig
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -783,8 +785,7 @@ components:
               JSON_EXTRACT(Properties, '$.TargetOnDemandCapacity') as target_on_demand_capacity,
               JSON_EXTRACT(Properties, '$.ClusterId') as cluster_id,
               JSON_EXTRACT(Properties, '$.TargetSpotCapacity') as target_spot_capacity,
-              JSON_EXTRACT(Properties, '$.LaunchSpecifications.SpotSpecification') as launch_specifications_spot_specification,
-              JSON_EXTRACT(Properties, '$.LaunchSpecifications.OnDemandSpecification') as launch_specifications_on_demand_specification,
+              JSON_EXTRACT(Properties, '$.LaunchSpecifications') as launch_specifications,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.InstanceTypeConfigs') as instance_type_configs,
               JSON_EXTRACT(Properties, '$.Name') as name
@@ -794,6 +795,8 @@ components:
       id: aws.emr.instance_group_configs
       x-cfn-schema-name: InstanceGroupConfig
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -818,12 +821,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobFlowId') as job_flow_id,
-              JSON_EXTRACT(Properties, '$.AutoScalingPolicy.Rules') as auto_scaling_policy_rules,
-              JSON_EXTRACT(Properties, '$.AutoScalingPolicy.Constraints') as auto_scaling_policy_constraints,
+              JSON_EXTRACT(Properties, '$.AutoScalingPolicy') as auto_scaling_policy,
               JSON_EXTRACT(Properties, '$.BidPrice') as bid_price,
               JSON_EXTRACT(Properties, '$.InstanceCount') as instance_count,
-              JSON_EXTRACT(Properties, '$.EbsConfiguration.EbsBlockDeviceConfigs') as ebs_configuration_ebs_block_device_configs,
-              JSON_EXTRACT(Properties, '$.EbsConfiguration.EbsOptimized') as ebs_configuration_ebs_optimized,
+              JSON_EXTRACT(Properties, '$.EbsConfiguration') as ebs_configuration,
               JSON_EXTRACT(Properties, '$.InstanceRole') as instance_role,
               JSON_EXTRACT(Properties, '$.CustomAmiId') as custom_ami_id,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -837,6 +838,8 @@ components:
       id: aws.emr.clusters
       x-cfn-schema-name: Cluster
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -872,36 +875,15 @@ components:
               JSON_EXTRACT(Properties, '$.Configurations') as configurations,
               JSON_EXTRACT(Properties, '$.ReleaseLabel') as release_label,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.ManagedScalingPolicy.ComputeLimits') as managed_scaling_policy_compute_limits,
+              JSON_EXTRACT(Properties, '$.ManagedScalingPolicy') as managed_scaling_policy,
               JSON_EXTRACT(Properties, '$.LogEncryptionKmsKeyId') as log_encryption_kms_key_id,
               JSON_EXTRACT(Properties, '$.AdditionalInfo') as additional_info,
-              JSON_EXTRACT(Properties, '$.AutoTerminationPolicy.IdleTimeout') as auto_termination_policy_idle_timeout,
-              JSON_EXTRACT(Properties, '$.KerberosAttributes.KdcAdminPassword') as kerberos_attributes_kdc_admin_password,
-              JSON_EXTRACT(Properties, '$.KerberosAttributes.Realm') as kerberos_attributes_realm,
-              JSON_EXTRACT(Properties, '$.KerberosAttributes.ADDomainJoinPassword') as kerberos_attributes_ad_domain_join_password,
-              JSON_EXTRACT(Properties, '$.KerberosAttributes.ADDomainJoinUser') as kerberos_attributes_ad_domain_join_user,
-              JSON_EXTRACT(Properties, '$.KerberosAttributes.CrossRealmTrustPrincipalPassword') as kerberos_attributes_cross_realm_trust_principal_password,
+              JSON_EXTRACT(Properties, '$.AutoTerminationPolicy') as auto_termination_policy,
+              JSON_EXTRACT(Properties, '$.KerberosAttributes') as kerberos_attributes,
               JSON_EXTRACT(Properties, '$.Applications') as applications,
               JSON_EXTRACT(Properties, '$.AutoScalingRole') as auto_scaling_role,
               JSON_EXTRACT(Properties, '$.CustomAmiId') as custom_ami_id,
-              JSON_EXTRACT(Properties, '$.Instances.MasterInstanceFleet') as instances_master_instance_fleet,
-              JSON_EXTRACT(Properties, '$.Instances.AdditionalSlaveSecurityGroups') as instances_additional_slave_security_groups,
-              JSON_EXTRACT(Properties, '$.Instances.CoreInstanceFleet') as instances_core_instance_fleet,
-              JSON_EXTRACT(Properties, '$.Instances.CoreInstanceGroup') as instances_core_instance_group,
-              JSON_EXTRACT(Properties, '$.Instances.Ec2SubnetIds') as instances_ec2_subnet_ids,
-              JSON_EXTRACT(Properties, '$.Instances.HadoopVersion') as instances_hadoop_version,
-              JSON_EXTRACT(Properties, '$.Instances.TerminationProtected') as instances_termination_protected,
-              JSON_EXTRACT(Properties, '$.Instances.KeepJobFlowAliveWhenNoSteps') as instances_keep_job_flow_alive_when_no_steps,
-              JSON_EXTRACT(Properties, '$.Instances.Ec2KeyName') as instances_ec2_key_name,
-              JSON_EXTRACT(Properties, '$.Instances.MasterInstanceGroup') as instances_master_instance_group,
-              JSON_EXTRACT(Properties, '$.Instances.Placement') as instances_placement,
-              JSON_EXTRACT(Properties, '$.Instances.TaskInstanceFleets') as instances_task_instance_fleets,
-              JSON_EXTRACT(Properties, '$.Instances.Ec2SubnetId') as instances_ec2_subnet_id,
-              JSON_EXTRACT(Properties, '$.Instances.TaskInstanceGroups') as instances_task_instance_groups,
-              JSON_EXTRACT(Properties, '$.Instances.ServiceAccessSecurityGroup') as instances_service_access_security_group,
-              JSON_EXTRACT(Properties, '$.Instances.EmrManagedSlaveSecurityGroup') as instances_emr_managed_slave_security_group,
-              JSON_EXTRACT(Properties, '$.Instances.AdditionalMasterSecurityGroups') as instances_additional_master_security_groups,
-              JSON_EXTRACT(Properties, '$.Instances.EmrManagedMasterSecurityGroup') as instances_emr_managed_master_security_group,
+              JSON_EXTRACT(Properties, '$.Instances') as instances,
               JSON_EXTRACT(Properties, '$.ScaleDownBehavior') as scale_down_behavior,
               JSON_EXTRACT(Properties, '$.JobFlowRole') as job_flow_role,
               JSON_EXTRACT(Properties, '$.VisibleToAllUsers') as visible_to_all_users,
@@ -913,6 +895,8 @@ components:
       id: aws.emr.security_configurations
       x-cfn-schema-name: SecurityConfiguration
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -944,6 +928,8 @@ components:
       id: aws.emr.steps
       x-cfn-schema-name: Step
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -969,10 +955,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ActionOnFailure') as action_on_failure,
-              JSON_EXTRACT(Properties, '$.HadoopJarStep.Args') as hadoop_jar_step_args,
-              JSON_EXTRACT(Properties, '$.HadoopJarStep.Jar') as hadoop_jar_step_jar,
-              JSON_EXTRACT(Properties, '$.HadoopJarStep.MainClass') as hadoop_jar_step_main_class,
-              JSON_EXTRACT(Properties, '$.HadoopJarStep.StepProperties') as hadoop_jar_step_step_properties,
+              JSON_EXTRACT(Properties, '$.HadoopJarStep') as hadoop_jar_step,
               JSON_EXTRACT(Properties, '$.JobFlowId') as job_flow_id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Step'
@@ -981,6 +964,8 @@ components:
       id: aws.emr.studios
       x-cfn-schema-name: Studio
       x-type: list
+      x-identifiers:
+        - StudioId
       config:
         views:
           select:
@@ -1004,14 +989,18 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AuthMode') as auth_mode,
               JSON_EXTRACT(Properties, '$.DefaultS3Location') as default_s3_location,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.EngineSecurityGroupId') as engine_security_group_id,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.ServiceRole') as service_role,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Url') as url,
+              JSON_EXTRACT(Properties, '$.UserRole') as user_role,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.WorkspaceSecurityGroupId') as workspace_security_group_id,
               JSON_EXTRACT(Properties, '$.IdpAuthUrl') as idp_auth_url,
@@ -1022,6 +1011,10 @@ components:
       id: aws.emr.studio_session_mappings
       x-cfn-schema-name: StudioSessionMapping
       x-type: list
+      x-identifiers:
+        - StudioId
+        - IdentityType
+        - IdentityName
       config:
         views:
           select:
@@ -1051,5 +1044,6 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.IdentityName') as identity_name,
               JSON_EXTRACT(Properties, '$.IdentityType') as identity_type,
+              JSON_EXTRACT(Properties, '$.SessionPolicyArn') as session_policy_arn,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'

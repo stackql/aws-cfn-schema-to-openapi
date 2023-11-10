@@ -289,6 +289,8 @@ components:
       id: aws.kinesisanalytics.applications
       x-cfn-schema-name: Application
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -323,6 +325,8 @@ components:
       id: aws.kinesisanalytics.application_outputs
       x-cfn-schema-name: ApplicationOutput
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -348,17 +352,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.Output.DestinationSchema') as output_destination_schema,
-              JSON_EXTRACT(Properties, '$.Output.LambdaOutput') as output_lambda_output,
-              JSON_EXTRACT(Properties, '$.Output.KinesisFirehoseOutput') as output_kinesis_firehose_output,
-              JSON_EXTRACT(Properties, '$.Output.KinesisStreamsOutput') as output_kinesis_streams_output,
-              JSON_EXTRACT(Properties, '$.Output.Name') as output_name
+              JSON_EXTRACT(Properties, '$.Output') as output
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
     application_reference_data_sources:
       name: application_reference_data_sources
       id: aws.kinesisanalytics.application_reference_data_sources
       x-cfn-schema-name: ApplicationReferenceDataSource
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -384,7 +386,5 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.ReferenceSchema') as reference_data_source_reference_schema,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.TableName') as reference_data_source_table_name,
-              JSON_EXTRACT(Properties, '$.ReferenceDataSource.S3ReferenceDataSource') as reference_data_source_s3_reference_data_source
+              JSON_EXTRACT(Properties, '$.ReferenceDataSource') as reference_data_source
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'

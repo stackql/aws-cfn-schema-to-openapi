@@ -185,6 +185,8 @@ components:
       id: aws.appintegrations.data_integrations
       x-cfn-schema-name: DataIntegration
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -213,9 +215,7 @@ components:
               JSON_EXTRACT(Properties, '$.DataIntegrationArn') as data_integration_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.FirstExecutionFrom') as schedule_config_first_execution_from,
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.Object') as schedule_config_object,
-              JSON_EXTRACT(Properties, '$.ScheduleConfig.ScheduleExpression') as schedule_config_schedule_expression,
+              JSON_EXTRACT(Properties, '$.ScheduleConfig') as schedule_config,
               JSON_EXTRACT(Properties, '$.SourceURI') as source_ur_i,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
@@ -224,6 +224,8 @@ components:
       id: aws.appintegrations.event_integrations
       x-cfn-schema-name: EventIntegration
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -251,6 +253,6 @@ components:
               JSON_EXTRACT(Properties, '$.EventIntegrationArn') as event_integration_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.EventBridgeBus') as event_bridge_bus,
-              JSON_EXTRACT(Properties, '$.EventFilter.Source') as event_filter_source,
+              JSON_EXTRACT(Properties, '$.EventFilter') as event_filter,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'

@@ -248,6 +248,8 @@ components:
       id: aws.route53recoverycontrol.clusters
       x-cfn-schema-name: Cluster
       x-type: list
+      x-identifiers:
+        - ClusterArn
       config:
         views:
           select:
@@ -282,6 +284,8 @@ components:
       id: aws.route53recoverycontrol.control_panels
       x-cfn-schema-name: ControlPanel
       x-type: list
+      x-identifiers:
+        - ControlPanelArn
       config:
         views:
           select:
@@ -318,6 +322,8 @@ components:
       id: aws.route53recoverycontrol.routing_controls
       x-cfn-schema-name: RoutingControl
       x-type: list
+      x-identifiers:
+        - RoutingControlArn
       config:
         views:
           select:
@@ -352,6 +358,8 @@ components:
       id: aws.route53recoverycontrol.safety_rules
       x-cfn-schema-name: SafetyRule
       x-type: list
+      x-identifiers:
+        - SafetyRuleArn
       config:
         views:
           select:
@@ -375,16 +383,12 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssertionRule.WaitPeriodMs') as assertion_rule_wait_period_ms,
-              JSON_EXTRACT(Properties, '$.AssertionRule.AssertedControls') as assertion_rule_asserted_controls,
-              JSON_EXTRACT(Properties, '$.GatingRule.GatingControls') as gating_rule_gating_controls,
-              JSON_EXTRACT(Properties, '$.GatingRule.TargetControls') as gating_rule_target_controls,
-              JSON_EXTRACT(Properties, '$.GatingRule.WaitPeriodMs') as gating_rule_wait_period_ms,
+              JSON_EXTRACT(Properties, '$.AssertionRule') as assertion_rule,
+              JSON_EXTRACT(Properties, '$.GatingRule') as gating_rule,
+              JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SafetyRuleArn') as safety_rule_arn,
               JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn,
               JSON_EXTRACT(Properties, '$.Status') as status,
-              JSON_EXTRACT(Properties, '$.RuleConfig.Type') as rule_config_type,
-              JSON_EXTRACT(Properties, '$.RuleConfig.Threshold') as rule_config_threshold,
-              JSON_EXTRACT(Properties, '$.RuleConfig.Inverted') as rule_config_inverted,
+              JSON_EXTRACT(Properties, '$.RuleConfig') as rule_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'

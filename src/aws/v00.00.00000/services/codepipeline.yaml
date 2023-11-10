@@ -369,6 +369,10 @@ components:
       id: aws.codepipeline.custom_action_types
       x-cfn-schema-name: CustomActionType
       x-type: list
+      x-identifiers:
+        - Category
+        - Provider
+        - Version
       config:
         views:
           select:
@@ -398,15 +402,10 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Category') as category,
               JSON_EXTRACT(Properties, '$.ConfigurationProperties') as configuration_properties,
-              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MaximumCount') as input_artifact_details_maximum_count,
-              JSON_EXTRACT(Properties, '$.InputArtifactDetails.MinimumCount') as input_artifact_details_minimum_count,
-              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MaximumCount') as output_artifact_details_maximum_count,
-              JSON_EXTRACT(Properties, '$.OutputArtifactDetails.MinimumCount') as output_artifact_details_minimum_count,
+              JSON_EXTRACT(Properties, '$.InputArtifactDetails') as input_artifact_details,
+              JSON_EXTRACT(Properties, '$.OutputArtifactDetails') as output_artifact_details,
               JSON_EXTRACT(Properties, '$.Provider') as provider,
-              JSON_EXTRACT(Properties, '$.Settings.EntityUrlTemplate') as settings_entity_url_template,
-              JSON_EXTRACT(Properties, '$.Settings.ExecutionUrlTemplate') as settings_execution_url_template,
-              JSON_EXTRACT(Properties, '$.Settings.RevisionUrlTemplate') as settings_revision_url_template,
-              JSON_EXTRACT(Properties, '$.Settings.ThirdPartyConfigurationUrl') as settings_third_party_configuration_url,
+              JSON_EXTRACT(Properties, '$.Settings') as settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id
@@ -416,6 +415,8 @@ components:
       id: aws.codepipeline.pipelines
       x-cfn-schema-name: Pipeline
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -441,9 +442,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ArtifactStores') as artifact_stores,
               JSON_EXTRACT(Properties, '$.Version') as version,
-              JSON_EXTRACT(Properties, '$.ArtifactStore.Type') as artifact_store_type,
-              JSON_EXTRACT(Properties, '$.ArtifactStore.EncryptionKey') as artifact_store_encryption_key,
-              JSON_EXTRACT(Properties, '$.ArtifactStore.Location') as artifact_store_location,
+              JSON_EXTRACT(Properties, '$.ArtifactStore') as artifact_store,
               JSON_EXTRACT(Properties, '$.DisableInboundStageTransitions') as disable_inbound_stage_transitions,
               JSON_EXTRACT(Properties, '$.Stages') as stages,
               JSON_EXTRACT(Properties, '$.RestartExecutionOnUpdate') as restart_execution_on_update,
@@ -457,6 +456,8 @@ components:
       id: aws.codepipeline.webhooks
       x-cfn-schema-name: Webhook
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -480,8 +481,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.AllowedIPRange') as authentication_configuration_allowed_ip_range,
-              JSON_EXTRACT(Properties, '$.AuthenticationConfiguration.SecretToken') as authentication_configuration_secret_token,
+              JSON_EXTRACT(Properties, '$.AuthenticationConfiguration') as authentication_configuration,
               JSON_EXTRACT(Properties, '$.Filters') as filters,
               JSON_EXTRACT(Properties, '$.Authentication') as authentication,
               JSON_EXTRACT(Properties, '$.TargetPipeline') as target_pipeline,

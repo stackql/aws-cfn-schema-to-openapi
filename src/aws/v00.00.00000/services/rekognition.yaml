@@ -298,6 +298,8 @@ components:
       id: aws.rekognition.collections
       x-cfn-schema-name: Collection
       x-type: list
+      x-identifiers:
+        - CollectionId
       config:
         views:
           select:
@@ -321,6 +323,8 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.CollectionId') as collection_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Collection'
     projects:
@@ -328,6 +332,8 @@ components:
       id: aws.rekognition.projects
       x-cfn-schema-name: Project
       x-type: list
+      x-identifiers:
+        - ProjectName
       config:
         views:
           select:
@@ -350,13 +356,17 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Project'
     stream_processors:
       name: stream_processors
       id: aws.rekognition.stream_processors
       x-cfn-schema-name: StreamProcessor
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -380,19 +390,17 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.KinesisVideoStream.Arn') as kinesis_video_stream_arn,
-              JSON_EXTRACT(Properties, '$.FaceSearchSettings.CollectionId') as face_search_settings_collection_id,
-              JSON_EXTRACT(Properties, '$.FaceSearchSettings.FaceMatchThreshold') as face_search_settings_face_match_threshold,
-              JSON_EXTRACT(Properties, '$.ConnectedHomeSettings.Labels') as connected_home_settings_labels,
-              JSON_EXTRACT(Properties, '$.ConnectedHomeSettings.MinConfidence') as connected_home_settings_min_confidence,
-              JSON_EXTRACT(Properties, '$.KinesisDataStream.Arn') as kinesis_data_stream_arn,
-              JSON_EXTRACT(Properties, '$.S3Destination.BucketName') as s3_destination_bucket_name,
-              JSON_EXTRACT(Properties, '$.S3Destination.ObjectKeyPrefix') as s3_destination_object_key_prefix,
-              JSON_EXTRACT(Properties, '$.NotificationChannel.Arn') as notification_channel_arn,
-              JSON_EXTRACT(Properties, '$.DataSharingPreference.OptIn') as data_sharing_preference_opt_in,
+              JSON_EXTRACT(Properties, '$.KinesisVideoStream') as kinesis_video_stream,
+              JSON_EXTRACT(Properties, '$.FaceSearchSettings') as face_search_settings,
+              JSON_EXTRACT(Properties, '$.ConnectedHomeSettings') as connected_home_settings,
+              JSON_EXTRACT(Properties, '$.KinesisDataStream') as kinesis_data_stream,
+              JSON_EXTRACT(Properties, '$.S3Destination') as s3_destination,
+              JSON_EXTRACT(Properties, '$.NotificationChannel') as notification_channel,
+              JSON_EXTRACT(Properties, '$.DataSharingPreference') as data_sharing_preference,
               JSON_EXTRACT(Properties, '$.PolygonRegionsOfInterest') as polygon_regions_of_interest,
               JSON_EXTRACT(Properties, '$.BoundingBoxRegionsOfInterest') as bounding_box_regions_of_interest,
               JSON_EXTRACT(Properties, '$.Status') as status,

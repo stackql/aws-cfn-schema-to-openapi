@@ -95,6 +95,8 @@ components:
       id: aws.emrcontainers.virtual_clusters
       x-cfn-schema-name: VirtualCluster
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -119,9 +121,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Type') as container_provider_type,
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Id') as container_provider_id,
-              JSON_EXTRACT(Properties, '$.ContainerProvider.Info') as container_provider_info,
+              JSON_EXTRACT(Properties, '$.ContainerProvider') as container_provider,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags

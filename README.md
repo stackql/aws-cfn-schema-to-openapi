@@ -24,7 +24,6 @@ select * from aws.s3.buckets WHERE region = 'us-east-1';
 select bucket_name, region, bucket_encryption_server_side_encryption_configuration from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
 ```
 
-
 ## Generate User Markdown Docs
 Use the following script to generate user docs with Docusaurus front matter for AWS view resources:
 
@@ -32,4 +31,4 @@ Use the following script to generate user docs with Docusaurus front matter for 
 node lib/utils/generate-docs.cjs
 ```
 
-output markdown docs are written to `md-docs`
+output markdown docs are written to `aws-docs`

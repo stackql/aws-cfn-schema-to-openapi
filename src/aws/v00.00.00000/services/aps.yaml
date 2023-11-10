@@ -111,6 +111,8 @@ components:
       id: aws.aps.rule_groups_namespaces
       x-cfn-schema-name: RuleGroupsNamespace
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -145,6 +147,8 @@ components:
       id: aws.aps.workspaces
       x-cfn-schema-name: Workspace
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -173,6 +177,6 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AlertManagerDefinition') as alert_manager_definition,
               JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as prometheus_endpoint,
-              JSON_EXTRACT(Properties, '$.LoggingConfiguration.LogGroupArn') as logging_configuration_log_group_arn,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::APS::Workspace'

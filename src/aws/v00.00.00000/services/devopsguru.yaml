@@ -166,6 +166,8 @@ components:
       id: aws.devopsguru.log_anomaly_detection_integrations
       x-cfn-schema-name: LogAnomalyDetectionIntegration
       x-type: list
+      x-identifiers:
+        - AccountId
       config:
         views:
           select:
@@ -188,13 +190,16 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::LogAnomalyDetectionIntegration'
     notification_channels:
       name: notification_channels
       id: aws.devopsguru.notification_channels
       x-cfn-schema-name: NotificationChannel
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -218,8 +223,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Config.Sns') as config_sns,
-              JSON_EXTRACT(Properties, '$.Config.Filters') as config_filters,
+              JSON_EXTRACT(Properties, '$.Config') as config,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::NotificationChannel'
     resource_collections:
@@ -227,6 +231,8 @@ components:
       id: aws.devopsguru.resource_collections
       x-cfn-schema-name: ResourceCollection
       x-type: list
+      x-identifiers:
+        - ResourceCollectionType
       config:
         views:
           select:
@@ -250,7 +256,6 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.CloudFormation') as resource_collection_filter_cloud_formation,
-              JSON_EXTRACT(Properties, '$.ResourceCollectionFilter.Tags') as resource_collection_filter_tags,
+              JSON_EXTRACT(Properties, '$.ResourceCollectionFilter') as resource_collection_filter,
               JSON_EXTRACT(Properties, '$.ResourceCollectionType') as resource_collection_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DevOpsGuru::ResourceCollection'

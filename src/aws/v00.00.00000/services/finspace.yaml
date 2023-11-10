@@ -141,6 +141,8 @@ components:
       id: aws.finspace.environments
       x-cfn-schema-name: Environment
       x-type: list
+      x-identifiers:
+        - EnvironmentId
       config:
         views:
           select:
@@ -175,14 +177,7 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.DedicatedServiceAccountId') as dedicated_service_account_id,
               JSON_EXTRACT(Properties, '$.FederationMode') as federation_mode,
-              JSON_EXTRACT(Properties, '$.FederationParameters.SamlMetadataURL') as federation_parameters_saml_metadata_ur_l,
-              JSON_EXTRACT(Properties, '$.FederationParameters.FederationProviderName') as federation_parameters_federation_provider_name,
-              JSON_EXTRACT(Properties, '$.FederationParameters.SamlMetadataDocument') as federation_parameters_saml_metadata_document,
-              JSON_EXTRACT(Properties, '$.FederationParameters.ApplicationCallBackURL') as federation_parameters_application_call_back_ur_l,
-              JSON_EXTRACT(Properties, '$.FederationParameters.FederationURN') as federation_parameters_federation_ur_n,
-              JSON_EXTRACT(Properties, '$.FederationParameters.AttributeMap') as federation_parameters_attribute_map,
-              JSON_EXTRACT(Properties, '$.SuperuserParameters.FirstName') as superuser_parameters_first_name,
-              JSON_EXTRACT(Properties, '$.SuperuserParameters.LastName') as superuser_parameters_last_name,
-              JSON_EXTRACT(Properties, '$.SuperuserParameters.EmailAddress') as superuser_parameters_email_address,
+              JSON_EXTRACT(Properties, '$.FederationParameters') as federation_parameters,
+              JSON_EXTRACT(Properties, '$.SuperuserParameters') as superuser_parameters,
               JSON_EXTRACT(Properties, '$.DataBundles') as data_bundles
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FinSpace::Environment'

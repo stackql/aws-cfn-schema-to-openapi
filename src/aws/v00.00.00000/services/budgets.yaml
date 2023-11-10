@@ -293,6 +293,8 @@ components:
       id: aws.budgets.budgets
       x-cfn-schema-name: Budget
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -317,15 +319,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.NotificationsWithSubscribers') as notifications_with_subscribers,
-              JSON_EXTRACT(Properties, '$.Budget.BudgetLimit') as budget_budget_limit,
-              JSON_EXTRACT(Properties, '$.Budget.TimePeriod') as budget_time_period,
-              JSON_EXTRACT(Properties, '$.Budget.AutoAdjustData') as budget_auto_adjust_data,
-              JSON_EXTRACT(Properties, '$.Budget.TimeUnit') as budget_time_unit,
-              JSON_EXTRACT(Properties, '$.Budget.PlannedBudgetLimits') as budget_planned_budget_limits,
-              JSON_EXTRACT(Properties, '$.Budget.CostFilters') as budget_cost_filters,
-              JSON_EXTRACT(Properties, '$.Budget.BudgetName') as budget_budget_name,
-              JSON_EXTRACT(Properties, '$.Budget.CostTypes') as budget_cost_types,
-              JSON_EXTRACT(Properties, '$.Budget.BudgetType') as budget_budget_type,
+              JSON_EXTRACT(Properties, '$.Budget') as budget,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::Budget'
     budgets_actions:
@@ -333,6 +327,9 @@ components:
       id: aws.budgets.budgets_actions
       x-cfn-schema-name: BudgetsAction
       x-type: list
+      x-identifiers:
+        - ActionId
+        - BudgetName
       config:
         views:
           select:
@@ -362,12 +359,9 @@ components:
               JSON_EXTRACT(Properties, '$.BudgetName') as budget_name,
               JSON_EXTRACT(Properties, '$.NotificationType') as notification_type,
               JSON_EXTRACT(Properties, '$.ActionType') as action_type,
-              JSON_EXTRACT(Properties, '$.ActionThreshold.Value') as action_threshold_value,
-              JSON_EXTRACT(Properties, '$.ActionThreshold.Type') as action_threshold_type,
+              JSON_EXTRACT(Properties, '$.ActionThreshold') as action_threshold,
               JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
               JSON_EXTRACT(Properties, '$.ApprovalModel') as approval_model,
               JSON_EXTRACT(Properties, '$.Subscribers') as subscribers,
-              JSON_EXTRACT(Properties, '$.Definition.IamActionDefinition') as definition_iam_action_definition,
-              JSON_EXTRACT(Properties, '$.Definition.ScpActionDefinition') as definition_scp_action_definition,
-              JSON_EXTRACT(Properties, '$.Definition.SsmActionDefinition') as definition_ssm_action_definition
+              JSON_EXTRACT(Properties, '$.Definition') as definition
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::BudgetsAction'

@@ -212,6 +212,8 @@ components:
       id: aws.ce.anomaly_monitors
       x-cfn-schema-name: AnomalyMonitor
       x-type: list
+      x-identifiers:
+        - MonitorArn
       config:
         views:
           select:
@@ -235,6 +237,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_arn,
               JSON_EXTRACT(Properties, '$.MonitorType') as monitor_type,
               JSON_EXTRACT(Properties, '$.MonitorName') as monitor_name,
               JSON_EXTRACT(Properties, '$.CreationDate') as creation_date,
@@ -250,6 +253,8 @@ components:
       id: aws.ce.anomaly_subscriptions
       x-cfn-schema-name: AnomalySubscription
       x-type: list
+      x-identifiers:
+        - SubscriptionArn
       config:
         views:
           select:
@@ -273,6 +278,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.SubscriptionArn') as subscription_arn,
               JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_name,
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.MonitorArnList') as monitor_arn_list,
@@ -287,6 +293,8 @@ components:
       id: aws.ce.cost_categories
       x-cfn-schema-name: CostCategory
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -311,6 +319,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.EffectiveStart') as effective_start,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RuleVersion') as rule_version,
               JSON_EXTRACT(Properties, '$.Rules') as rules,

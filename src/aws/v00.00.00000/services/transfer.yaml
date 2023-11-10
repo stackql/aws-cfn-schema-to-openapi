@@ -807,6 +807,9 @@ components:
       id: aws.transfer.agreements
       x-cfn-schema-name: Agreement
       x-type: list
+      x-identifiers:
+        - AgreementId
+        - ServerId
       config:
         views:
           select:
@@ -848,6 +851,8 @@ components:
       id: aws.transfer.certificates
       x-cfn-schema-name: Certificate
       x-type: list
+      x-identifiers:
+        - CertificateId
       config:
         views:
           select:
@@ -892,6 +897,8 @@ components:
       id: aws.transfer.connectors
       x-cfn-schema-name: Connector
       x-type: list
+      x-identifiers:
+        - ConnectorId
       config:
         views:
           select:
@@ -928,6 +935,8 @@ components:
       id: aws.transfer.profiles
       x-cfn-schema-name: Profile
       x-type: list
+      x-identifiers:
+        - ProfileId
       config:
         views:
           select:
@@ -963,6 +972,8 @@ components:
       id: aws.transfer.servers
       x-cfn-schema-name: Server
       x-type: list
+      x-identifiers:
+        - ServerId
       config:
         views:
           select:
@@ -988,26 +999,15 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.LoggingRole') as logging_role,
               JSON_EXTRACT(Properties, '$.Protocols') as protocols,
-              JSON_EXTRACT(Properties, '$.IdentityProviderDetails.Function') as identity_provider_details_function,
-              JSON_EXTRACT(Properties, '$.IdentityProviderDetails.DirectoryId') as identity_provider_details_directory_id,
-              JSON_EXTRACT(Properties, '$.IdentityProviderDetails.Url') as identity_provider_details_url,
-              JSON_EXTRACT(Properties, '$.IdentityProviderDetails.InvocationRole') as identity_provider_details_invocation_role,
-              JSON_EXTRACT(Properties, '$.EndpointDetails.AddressAllocationIds') as endpoint_details_address_allocation_ids,
-              JSON_EXTRACT(Properties, '$.EndpointDetails.VpcId') as endpoint_details_vpc_id,
-              JSON_EXTRACT(Properties, '$.EndpointDetails.VpcEndpointId') as endpoint_details_vpc_endpoint_id,
-              JSON_EXTRACT(Properties, '$.EndpointDetails.SecurityGroupIds') as endpoint_details_security_group_ids,
-              JSON_EXTRACT(Properties, '$.EndpointDetails.SubnetIds') as endpoint_details_subnet_ids,
+              JSON_EXTRACT(Properties, '$.IdentityProviderDetails') as identity_provider_details,
+              JSON_EXTRACT(Properties, '$.EndpointDetails') as endpoint_details,
               JSON_EXTRACT(Properties, '$.PreAuthenticationLoginBanner') as pre_authentication_login_banner,
               JSON_EXTRACT(Properties, '$.ServerId') as server_id,
               JSON_EXTRACT(Properties, '$.PostAuthenticationLoginBanner') as post_authentication_login_banner,
               JSON_EXTRACT(Properties, '$.EndpointType') as endpoint_type,
               JSON_EXTRACT(Properties, '$.SecurityPolicyName') as security_policy_name,
-              JSON_EXTRACT(Properties, '$.ProtocolDetails.As2Transports') as protocol_details_as2_transports,
-              JSON_EXTRACT(Properties, '$.ProtocolDetails.PassiveIp') as protocol_details_passive_ip,
-              JSON_EXTRACT(Properties, '$.ProtocolDetails.SetStatOption') as protocol_details_set_stat_option,
-              JSON_EXTRACT(Properties, '$.ProtocolDetails.TlsSessionResumptionMode') as protocol_details_tls_session_resumption_mode,
-              JSON_EXTRACT(Properties, '$.WorkflowDetails.OnUpload') as workflow_details_on_upload,
-              JSON_EXTRACT(Properties, '$.WorkflowDetails.OnPartialUpload') as workflow_details_on_partial_upload,
+              JSON_EXTRACT(Properties, '$.ProtocolDetails') as protocol_details,
+              JSON_EXTRACT(Properties, '$.WorkflowDetails') as workflow_details,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.IdentityProviderType') as identity_provider_type,
@@ -1019,6 +1019,8 @@ components:
       id: aws.transfer.users
       x-cfn-schema-name: User
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1049,9 +1051,7 @@ components:
               JSON_EXTRACT(Properties, '$.ServerId') as server_id,
               JSON_EXTRACT(Properties, '$.UserName') as user_name,
               JSON_EXTRACT(Properties, '$.HomeDirectoryMappings') as home_directory_mappings,
-              JSON_EXTRACT(Properties, '$.PosixProfile.Uid') as posix_profile_uid,
-              JSON_EXTRACT(Properties, '$.PosixProfile.SecondaryGids') as posix_profile_secondary_gids,
-              JSON_EXTRACT(Properties, '$.PosixProfile.Gid') as posix_profile_gid,
+              JSON_EXTRACT(Properties, '$.PosixProfile') as posix_profile,
               JSON_EXTRACT(Properties, '$.SshPublicKeys') as ssh_public_keys,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
@@ -1062,6 +1062,8 @@ components:
       id: aws.transfer.workflows
       x-cfn-schema-name: Workflow
       x-type: list
+      x-identifiers:
+        - WorkflowId
       config:
         views:
           select:

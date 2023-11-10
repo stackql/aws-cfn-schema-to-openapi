@@ -126,6 +126,8 @@ components:
       id: aws.workspaces.connection_aliases
       x-cfn-schema-name: ConnectionAlias
       x-type: list
+      x-identifiers:
+        - AliasId
       config:
         views:
           select:
@@ -160,6 +162,8 @@ components:
       id: aws.workspaces.workspaces
       x-cfn-schema-name: Workspace
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -191,9 +195,5 @@ components:
               JSON_EXTRACT(Properties, '$.UserName') as user_name,
               JSON_EXTRACT(Properties, '$.UserVolumeEncryptionEnabled') as user_volume_encryption_enabled,
               JSON_EXTRACT(Properties, '$.VolumeEncryptionKey') as volume_encryption_key,
-              JSON_EXTRACT(Properties, '$.WorkspaceProperties.ComputeTypeName') as workspace_properties_compute_type_name,
-              JSON_EXTRACT(Properties, '$.WorkspaceProperties.RootVolumeSizeGib') as workspace_properties_root_volume_size_gib,
-              JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningMode') as workspace_properties_running_mode,
-              JSON_EXTRACT(Properties, '$.WorkspaceProperties.RunningModeAutoStopTimeoutInMinutes') as workspace_properties_running_mode_auto_stop_timeout_in_minutes,
-              JSON_EXTRACT(Properties, '$.WorkspaceProperties.UserVolumeSizeGib') as workspace_properties_user_volume_size_gib
+              JSON_EXTRACT(Properties, '$.WorkspaceProperties') as workspace_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'

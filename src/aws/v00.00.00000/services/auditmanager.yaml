@@ -249,6 +249,8 @@ components:
       id: aws.auditmanager.assessments
       x-cfn-schema-name: Assessment
       x-type: list
+      x-identifiers:
+        - AssessmentId
       config:
         views:
           select:
@@ -272,14 +274,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AwsAccount.Id') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.AwsAccount.EmailAddress') as aws_account_email_address,
-              JSON_EXTRACT(Properties, '$.AwsAccount.Name') as aws_account_name,
+              JSON_EXTRACT(Properties, '$.FrameworkId') as framework_id,
+              JSON_EXTRACT(Properties, '$.AssessmentId') as assessment_id,
+              JSON_EXTRACT(Properties, '$.AwsAccount') as aws_account,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Delegations') as delegations,
               JSON_EXTRACT(Properties, '$.Roles') as roles,
-              JSON_EXTRACT(Properties, '$.Scope.AwsAccounts') as scope_aws_accounts,
-              JSON_EXTRACT(Properties, '$.Scope.AwsServices') as scope_aws_services,
-              JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.Destination') as assessment_reports_destination_destination,
-              JSON_EXTRACT(Properties, '$.AssessmentReportsDestination.DestinationType') as assessment_reports_destination_destination_type
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
+              JSON_EXTRACT(Properties, '$.AssessmentReportsDestination') as assessment_reports_destination,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AuditManager::Assessment'

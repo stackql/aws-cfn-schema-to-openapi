@@ -286,6 +286,8 @@ components:
       id: aws.panorama.application_instances
       x-cfn-schema-name: ApplicationInstance
       x-type: list
+      x-identifiers:
+        - ApplicationInstanceId
       config:
         views:
           select:
@@ -309,14 +311,32 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ManifestPayload.PayloadData') as manifest_payload_payload_data,
-              JSON_EXTRACT(Properties, '$.ManifestOverridesPayload.PayloadData') as manifest_overrides_payload_payload_data
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ManifestPayload') as manifest_payload,
+              JSON_EXTRACT(Properties, '$.ManifestOverridesPayload') as manifest_overrides_payload,
+              JSON_EXTRACT(Properties, '$.RuntimeRoleArn') as runtime_role_arn,
+              JSON_EXTRACT(Properties, '$.DefaultRuntimeContextDevice') as default_runtime_context_device,
+              JSON_EXTRACT(Properties, '$.DefaultRuntimeContextDeviceName') as default_runtime_context_device_name,
+              JSON_EXTRACT(Properties, '$.ApplicationInstanceId') as application_instance_id,
+              JSON_EXTRACT(Properties, '$.ApplicationInstanceIdToReplace') as application_instance_id_to_replace,
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
+              JSON_EXTRACT(Properties, '$.StatusFilter') as status_filter,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.HealthStatus') as health_status,
+              JSON_EXTRACT(Properties, '$.StatusDescription') as status_description,
+              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
+              JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
     packages:
       name: packages
       id: aws.panorama.packages
       x-cfn-schema-name: Package
       x-type: list
+      x-identifiers:
+        - PackageId
       config:
         views:
           select:
@@ -340,17 +360,22 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StorageLocation.Bucket') as storage_location_bucket,
-              JSON_EXTRACT(Properties, '$.StorageLocation.RepoPrefixLocation') as storage_location_repo_prefix_location,
-              JSON_EXTRACT(Properties, '$.StorageLocation.GeneratedPrefixLocation') as storage_location_generated_prefix_location,
-              JSON_EXTRACT(Properties, '$.StorageLocation.BinaryPrefixLocation') as storage_location_binary_prefix_location,
-              JSON_EXTRACT(Properties, '$.StorageLocation.ManifestPrefixLocation') as storage_location_manifest_prefix_location
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name,
+              JSON_EXTRACT(Properties, '$.PackageId') as package_id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.StorageLocation') as storage_location,
+              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::Package'
     package_versions:
       name: package_versions
       id: aws.panorama.package_versions
       x-cfn-schema-name: PackageVersion
       x-type: list
+      x-identifiers:
+        - PackageId
+        - PackageVersion
+        - PatchVersion
       config:
         views:
           select:
@@ -378,6 +403,16 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
+              JSON_EXTRACT(Properties, '$.PackageId') as package_id,
+              JSON_EXTRACT(Properties, '$.PackageArn') as package_arn,
+              JSON_EXTRACT(Properties, '$.PackageVersion') as package_version,
+              JSON_EXTRACT(Properties, '$.PatchVersion') as patch_version,
               JSON_EXTRACT(Properties, '$.MarkLatest') as mark_latest,
-              JSON_EXTRACT(Properties, '$.IsLatestPatch') as is_latest_patch
+              JSON_EXTRACT(Properties, '$.IsLatestPatch') as is_latest_patch,
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.StatusDescription') as status_description,
+              JSON_EXTRACT(Properties, '$.RegisteredTime') as registered_time,
+              JSON_EXTRACT(Properties, '$.UpdatedLatestPatchVersion') as updated_latest_patch_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::PackageVersion'

@@ -355,6 +355,8 @@ components:
       id: aws.ssmcontacts.contacts
       x-cfn-schema-name: Contact
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -389,6 +391,8 @@ components:
       id: aws.ssmcontacts.contact_channels
       x-cfn-schema-name: ContactChannel
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -424,6 +428,8 @@ components:
       id: aws.ssmcontacts.plans
       x-cfn-schema-name: Plan
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -457,6 +463,8 @@ components:
       id: aws.ssmcontacts.rotations
       x-cfn-schema-name: Rotation
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -484,12 +492,7 @@ components:
               JSON_EXTRACT(Properties, '$.ContactIds') as contact_ids,
               JSON_EXTRACT(Properties, '$.StartTime') as start_time,
               JSON_EXTRACT(Properties, '$.TimeZoneId') as time_zone_id,
-              JSON_EXTRACT(Properties, '$.Recurrence.MonthlySettings') as recurrence_monthly_settings,
-              JSON_EXTRACT(Properties, '$.Recurrence.WeeklySettings') as recurrence_weekly_settings,
-              JSON_EXTRACT(Properties, '$.Recurrence.DailySettings') as recurrence_daily_settings,
-              JSON_EXTRACT(Properties, '$.Recurrence.NumberOfOnCalls') as recurrence_number_of_on_calls,
-              JSON_EXTRACT(Properties, '$.Recurrence.RecurrenceMultiplier') as recurrence_recurrence_multiplier,
-              JSON_EXTRACT(Properties, '$.Recurrence.ShiftCoverages') as recurrence_shift_coverages,
+              JSON_EXTRACT(Properties, '$.Recurrence') as recurrence,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMContacts::Rotation'

@@ -98,6 +98,8 @@ components:
       id: aws.resourceexplorer2.default_view_associations
       x-cfn-schema-name: DefaultViewAssociation
       x-type: list
+      x-identifiers:
+        - AssociatedAwsPrincipal
       config:
         views:
           select:
@@ -129,6 +131,8 @@ components:
       id: aws.resourceexplorer2.indices
       x-cfn-schema-name: Index
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -152,13 +156,18 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.IndexState') as index_state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::Index'
     views:
       name: views
       id: aws.resourceexplorer2.views
       x-cfn-schema-name: View
       x-type: list
+      x-identifiers:
+        - ViewArn
       config:
         views:
           select:
@@ -183,7 +192,8 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.IncludedProperties') as included_properties,
-              JSON_EXTRACT(Properties, '$.Filters.FilterString') as filters_filter_string,
+              JSON_EXTRACT(Properties, '$.Filters') as filters,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
               JSON_EXTRACT(Properties, '$.ViewName') as view_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::View'

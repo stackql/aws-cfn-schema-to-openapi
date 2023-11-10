@@ -1442,6 +1442,10 @@ components:
       id: aws.wafv2.ip_sets
       x-cfn-schema-name: IPSet
       x-type: list
+      x-identifiers:
+        - Name
+        - Id
+        - Scope
       config:
         views:
           select:
@@ -1469,6 +1473,12 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
+              JSON_EXTRACT(Properties, '$.IPAddressVersion') as i_paddress_version,
               JSON_EXTRACT(Properties, '$.Addresses') as addresses,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::IPSet'
@@ -1477,6 +1487,8 @@ components:
       id: aws.wafv2.logging_configurations
       x-cfn-schema-name: LoggingConfiguration
       x-type: list
+      x-identifiers:
+        - ResourceArn
       config:
         views:
           select:
@@ -1511,6 +1523,10 @@ components:
       id: aws.wafv2.regex_pattern_sets
       x-cfn-schema-name: RegexPatternSet
       x-type: list
+      x-identifiers:
+        - Name
+        - Id
+        - Scope
       config:
         views:
           select:
@@ -1551,6 +1567,10 @@ components:
       id: aws.wafv2.rule_groups
       x-cfn-schema-name: RuleGroup
       x-type: list
+      x-identifiers:
+        - Name
+        - Id
+        - Scope
       config:
         views:
           select:
@@ -1578,12 +1598,17 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Capacity') as capacity,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.Rules') as rules,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.SampledRequestsEnabled') as visibility_config_sampled_requests_enabled,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.CloudWatchMetricsEnabled') as visibility_config_cloud_watch_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.MetricName') as visibility_config_metric_name,
+              JSON_EXTRACT(Properties, '$.VisibilityConfig') as visibility_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.LabelNamespace') as label_namespace,
+              JSON_EXTRACT(Properties, '$.CustomResponseBodies') as custom_response_bodies,
               JSON_EXTRACT(Properties, '$.AvailableLabels') as available_labels,
               JSON_EXTRACT(Properties, '$.ConsumedLabels') as consumed_labels
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
@@ -1592,6 +1617,10 @@ components:
       id: aws.wafv2.web_acls
       x-cfn-schema-name: WebACL
       x-type: list
+      x-identifiers:
+        - Name
+        - Id
+        - Scope
       config:
         views:
           select:
@@ -1619,22 +1648,30 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Capacity') as capacity,
-              JSON_EXTRACT(Properties, '$.DefaultAction.Allow') as default_action_allow,
-              JSON_EXTRACT(Properties, '$.DefaultAction.Block') as default_action_block,
+              JSON_EXTRACT(Properties, '$.DefaultAction') as default_action,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.Rules') as rules,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.SampledRequestsEnabled') as visibility_config_sampled_requests_enabled,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.CloudWatchMetricsEnabled') as visibility_config_cloud_watch_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.VisibilityConfig.MetricName') as visibility_config_metric_name,
+              JSON_EXTRACT(Properties, '$.VisibilityConfig') as visibility_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.CaptchaConfig.ImmunityTimeProperty') as captcha_config_immunity_time_property,
-              JSON_EXTRACT(Properties, '$.ChallengeConfig.ImmunityTimeProperty') as challenge_config_immunity_time_property
+              JSON_EXTRACT(Properties, '$.LabelNamespace') as label_namespace,
+              JSON_EXTRACT(Properties, '$.CustomResponseBodies') as custom_response_bodies,
+              JSON_EXTRACT(Properties, '$.CaptchaConfig') as captcha_config,
+              JSON_EXTRACT(Properties, '$.ChallengeConfig') as challenge_config,
+              JSON_EXTRACT(Properties, '$.TokenDomains') as token_domains
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACL'
     webacl_associations:
       name: webacl_associations
       id: aws.wafv2.webacl_associations
       x-cfn-schema-name: WebACLAssociation
       x-type: list
+      x-identifiers:
+        - ResourceArn
+        - WebACLArn
       config:
         views:
           select:
@@ -1659,5 +1696,7 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.WebACLArn') as web_ac_larn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'

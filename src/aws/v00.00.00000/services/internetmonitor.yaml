@@ -121,6 +121,8 @@ components:
       id: aws.internetmonitor.monitors
       x-cfn-schema-name: Monitor
       x-type: list
+      x-identifiers:
+        - MonitorName
       config:
         views:
           select:
@@ -144,13 +146,17 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.ModifiedAt') as modified_at,
               JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_arn,
               JSON_EXTRACT(Properties, '$.MonitorName') as monitor_name,
+              JSON_EXTRACT(Properties, '$.ProcessingStatus') as processing_status,
               JSON_EXTRACT(Properties, '$.ProcessingStatusInfo') as processing_status_info,
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.ResourcesToAdd') as resources_to_add,
               JSON_EXTRACT(Properties, '$.ResourcesToRemove') as resources_to_remove,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCityNetworksToMonitor') as max_city_networks_to_monitor,
-              JSON_EXTRACT(Properties, '$.InternetMeasurementsLogDelivery.S3Config') as internet_measurements_log_delivery_s3_config
+              JSON_EXTRACT(Properties, '$.InternetMeasurementsLogDelivery') as internet_measurements_log_delivery
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'

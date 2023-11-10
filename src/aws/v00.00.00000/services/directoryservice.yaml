@@ -109,6 +109,8 @@ components:
       id: aws.directoryservice.microsoft_ads
       x-cfn-schema-name: MicrosoftAD
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -141,14 +143,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Password') as password,
               JSON_EXTRACT(Properties, '$.ShortName') as short_name,
-              JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
-              JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
+              JSON_EXTRACT(Properties, '$.VpcSettings') as vpc_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
     simple_ads:
       name: simple_ads
       id: aws.directoryservice.simple_ads
       x-cfn-schema-name: SimpleAD
       x-type: list
+      x-identifiers:
+        - DirectoryId
       config:
         views:
           select:
@@ -182,6 +185,5 @@ components:
               JSON_EXTRACT(Properties, '$.Password') as password,
               JSON_EXTRACT(Properties, '$.ShortName') as short_name,
               JSON_EXTRACT(Properties, '$.Size') as size,
-              JSON_EXTRACT(Properties, '$.VpcSettings.SubnetIds') as vpc_settings_subnet_ids,
-              JSON_EXTRACT(Properties, '$.VpcSettings.VpcId') as vpc_settings_vpc_id
+              JSON_EXTRACT(Properties, '$.VpcSettings') as vpc_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'

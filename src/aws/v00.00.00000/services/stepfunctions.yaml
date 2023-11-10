@@ -162,6 +162,8 @@ components:
       id: aws.stepfunctions.activities
       x-cfn-schema-name: Activity
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -194,6 +196,8 @@ components:
       id: aws.stepfunctions.state_machines
       x-cfn-schema-name: StateMachine
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -223,12 +227,10 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.StateMachineName') as state_machine_name,
               JSON_EXTRACT(Properties, '$.StateMachineType') as state_machine_type,
-              JSON_EXTRACT(Properties, '$.LoggingConfiguration.Level') as logging_configuration_level,
-              JSON_EXTRACT(Properties, '$.LoggingConfiguration.IncludeExecutionData') as logging_configuration_include_execution_data,
-              JSON_EXTRACT(Properties, '$.LoggingConfiguration.Destinations') as logging_configuration_destinations,
-              JSON_EXTRACT(Properties, '$.TracingConfiguration.Enabled') as tracing_configuration_enabled,
-              JSON_EXTRACT(Properties, '$.DefinitionS3Location.Bucket') as definition_s3_location_bucket,
-              JSON_EXTRACT(Properties, '$.DefinitionS3Location.Key') as definition_s3_location_key,
-              JSON_EXTRACT(Properties, '$.DefinitionS3Location.Version') as definition_s3_location_version,
+              JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration,
+              JSON_EXTRACT(Properties, '$.TracingConfiguration') as tracing_configuration,
+              JSON_EXTRACT(Properties, '$.DefinitionS3Location') as definition_s3_location,
+              JSON_EXTRACT(Properties, '$.DefinitionSubstitutions') as definition_substitutions,
+              JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'

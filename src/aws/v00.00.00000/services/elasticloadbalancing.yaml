@@ -223,6 +223,8 @@ components:
       id: aws.elasticloadbalancing.load_balancers
       x-cfn-schema-name: LoadBalancer
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -247,24 +249,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
-              JSON_EXTRACT(Properties, '$.ConnectionDrainingPolicy.Enabled') as connection_draining_policy_enabled,
-              JSON_EXTRACT(Properties, '$.ConnectionDrainingPolicy.Timeout') as connection_draining_policy_timeout,
+              JSON_EXTRACT(Properties, '$.ConnectionDrainingPolicy') as connection_draining_policy,
               JSON_EXTRACT(Properties, '$.Policies') as policies,
               JSON_EXTRACT(Properties, '$.Scheme') as scheme,
               JSON_EXTRACT(Properties, '$.AvailabilityZones') as availability_zones,
               JSON_EXTRACT(Properties, '$.SourceSecurityGroupOwnerAlias') as source_security_group_owner_alias,
-              JSON_EXTRACT(Properties, '$.HealthCheck.Target') as health_check_target,
-              JSON_EXTRACT(Properties, '$.HealthCheck.UnhealthyThreshold') as health_check_unhealthy_threshold,
-              JSON_EXTRACT(Properties, '$.HealthCheck.Timeout') as health_check_timeout,
-              JSON_EXTRACT(Properties, '$.HealthCheck.HealthyThreshold') as health_check_healthy_threshold,
-              JSON_EXTRACT(Properties, '$.HealthCheck.Interval') as health_check_interval,
+              JSON_EXTRACT(Properties, '$.HealthCheck') as health_check,
               JSON_EXTRACT(Properties, '$.CanonicalHostedZoneNameID') as canonical_hosted_zone_name_id,
               JSON_EXTRACT(Properties, '$.CanonicalHostedZoneName') as canonical_hosted_zone_name,
               JSON_EXTRACT(Properties, '$.DNSName') as d_ns_name,
-              JSON_EXTRACT(Properties, '$.AccessLoggingPolicy.Enabled') as access_logging_policy_enabled,
-              JSON_EXTRACT(Properties, '$.AccessLoggingPolicy.S3BucketName') as access_logging_policy_s3_bucket_name,
-              JSON_EXTRACT(Properties, '$.AccessLoggingPolicy.EmitInterval') as access_logging_policy_emit_interval,
-              JSON_EXTRACT(Properties, '$.AccessLoggingPolicy.S3BucketPrefix') as access_logging_policy_s3_bucket_prefix,
+              JSON_EXTRACT(Properties, '$.AccessLoggingPolicy') as access_logging_policy,
               JSON_EXTRACT(Properties, '$.Instances') as instances,
               JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_name,
               JSON_EXTRACT(Properties, '$.Listeners') as listeners,
@@ -274,6 +268,6 @@ components:
               JSON_EXTRACT(Properties, '$.LBCookieStickinessPolicy') as l_bcookie_stickiness_policy,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.SourceSecurityGroupGroupName') as source_security_group_group_name,
-              JSON_EXTRACT(Properties, '$.ConnectionSettings.IdleTimeout') as connection_settings_idle_timeout,
+              JSON_EXTRACT(Properties, '$.ConnectionSettings') as connection_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'

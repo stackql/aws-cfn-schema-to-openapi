@@ -1800,6 +1800,8 @@ components:
       id: aws.lex.bots
       x-cfn-schema-name: Bot
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1823,25 +1825,28 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.DataPrivacy') as data_privacy,
               JSON_EXTRACT(Properties, '$.IdleSessionTTLInSeconds') as idle_session_tt_lin_seconds,
               JSON_EXTRACT(Properties, '$.BotLocales') as bot_locales,
-              JSON_EXTRACT(Properties, '$.BotFileS3Location.S3Bucket') as bot_file_s3_location_s3_bucket,
-              JSON_EXTRACT(Properties, '$.BotFileS3Location.S3ObjectKey') as bot_file_s3_location_s3_object_key,
-              JSON_EXTRACT(Properties, '$.BotFileS3Location.S3ObjectVersion') as bot_file_s3_location_s3_object_version,
+              JSON_EXTRACT(Properties, '$.BotFileS3Location') as bot_file_s3_location,
               JSON_EXTRACT(Properties, '$.BotTags') as bot_tags,
               JSON_EXTRACT(Properties, '$.TestBotAliasTags') as test_bot_alias_tags,
               JSON_EXTRACT(Properties, '$.AutoBuildBotLocales') as auto_build_bot_locales,
-              JSON_EXTRACT(Properties, '$.TestBotAliasSettings.BotAliasLocaleSettings') as test_bot_alias_settings_bot_alias_locale_settings,
-              JSON_EXTRACT(Properties, '$.TestBotAliasSettings.ConversationLogSettings') as test_bot_alias_settings_conversation_log_settings,
-              JSON_EXTRACT(Properties, '$.TestBotAliasSettings.Description') as test_bot_alias_settings_description,
-              JSON_EXTRACT(Properties, '$.TestBotAliasSettings.SentimentAnalysisSettings') as test_bot_alias_settings_sentiment_analysis_settings
+              JSON_EXTRACT(Properties, '$.TestBotAliasSettings') as test_bot_alias_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
     bot_versions:
       name: bot_versions
       id: aws.lex.bot_versions
       x-cfn-schema-name: BotVersion
       x-type: list
+      x-identifiers:
+        - BotId
+        - BotVersion
       config:
         views:
           select:
@@ -1867,16 +1872,19 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotId') as bot_version_bot_id,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotVersion') as bot_version_bot_version,
-              JSON_EXTRACT(Properties, '$.BotVersion.Description') as bot_version_description,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotVersionLocaleSpecification') as bot_version_bot_version_locale_specification
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.BotVersionLocaleSpecification') as bot_version_locale_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
     bot_aliases:
       name: bot_aliases
       id: aws.lex.bot_aliases
       x-cfn-schema-name: BotAlias
       x-type: list
+      x-identifiers:
+        - BotAliasId
+        - BotId
       config:
         views:
           select:
@@ -1902,12 +1910,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotId') as bot_version_bot_id,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotVersion') as bot_version_bot_version,
-              JSON_EXTRACT(Properties, '$.BotVersion.Description') as bot_version_description,
-              JSON_EXTRACT(Properties, '$.BotVersion.BotVersionLocaleSpecification') as bot_version_bot_version_locale_specification,
-              JSON_EXTRACT(Properties, '$.ConversationLogSettings.AudioLogSettings') as conversation_log_settings_audio_log_settings,
-              JSON_EXTRACT(Properties, '$.ConversationLogSettings.TextLogSettings') as conversation_log_settings_text_log_settings,
+              JSON_EXTRACT(Properties, '$.BotAliasId') as bot_alias_id,
+              JSON_EXTRACT(Properties, '$.BotId') as bot_id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.BotAliasStatus') as bot_alias_status,
+              JSON_EXTRACT(Properties, '$.BotAliasLocaleSettings') as bot_alias_locale_settings,
+              JSON_EXTRACT(Properties, '$.BotAliasName') as bot_alias_name,
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version,
+              JSON_EXTRACT(Properties, '$.ConversationLogSettings') as conversation_log_settings,
+              JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.SentimentAnalysisSettings') as sentiment_analysis_settings,
               JSON_EXTRACT(Properties, '$.BotAliasTags') as bot_alias_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
@@ -1916,6 +1927,8 @@ components:
       id: aws.lex.resource_policies
       x-cfn-schema-name: ResourcePolicy
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1938,5 +1951,9 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.RevisionId') as revision_id,
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'

@@ -309,6 +309,8 @@ components:
       id: aws.ecr.public_repositories
       x-cfn-schema-name: PublicRepository
       x-type: list
+      x-identifiers:
+        - RepositoryName
       config:
         views:
           select:
@@ -343,6 +345,8 @@ components:
       id: aws.ecr.pull_through_cache_rules
       x-cfn-schema-name: PullThroughCacheRule
       x-type: list
+      x-identifiers:
+        - EcrRepositoryPrefix
       config:
         views:
           select:
@@ -374,6 +378,8 @@ components:
       id: aws.ecr.registry_policies
       x-cfn-schema-name: RegistryPolicy
       x-type: list
+      x-identifiers:
+        - RegistryId
       config:
         views:
           select:
@@ -397,6 +403,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.RegistryId') as registry_id,
               JSON_EXTRACT(Properties, '$.PolicyText') as policy_text
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
     replication_configurations:
@@ -404,6 +411,8 @@ components:
       id: aws.ecr.replication_configurations
       x-cfn-schema-name: ReplicationConfiguration
       x-type: list
+      x-identifiers:
+        - RegistryId
       config:
         views:
           select:
@@ -427,8 +436,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.ReplicationConfiguration') as replication_configuration_replication_configuration,
-              JSON_EXTRACT(Properties, '$.ReplicationConfiguration.RegistryId') as replication_configuration_registry_id,
+              JSON_EXTRACT(Properties, '$.ReplicationConfiguration') as replication_configuration,
               JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
     repositories:
@@ -436,6 +444,8 @@ components:
       id: aws.ecr.repositories
       x-cfn-schema-name: Repository
       x-type: list
+      x-identifiers:
+        - RepositoryName
       config:
         views:
           select:
@@ -459,15 +469,13 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LifecyclePolicy.LifecyclePolicyText') as lifecycle_policy_lifecycle_policy_text,
-              JSON_EXTRACT(Properties, '$.LifecyclePolicy.RegistryId') as lifecycle_policy_registry_id,
+              JSON_EXTRACT(Properties, '$.LifecyclePolicy') as lifecycle_policy,
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
               JSON_EXTRACT(Properties, '$.RepositoryPolicyText') as repository_policy_text,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RepositoryUri') as repository_uri,
               JSON_EXTRACT(Properties, '$.ImageTagMutability') as image_tag_mutability,
-              JSON_EXTRACT(Properties, '$.ImageScanningConfiguration.ScanOnPush') as image_scanning_configuration_scan_on_push,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.EncryptionType') as encryption_configuration_encryption_type,
-              JSON_EXTRACT(Properties, '$.EncryptionConfiguration.KmsKey') as encryption_configuration_kms_key
+              JSON_EXTRACT(Properties, '$.ImageScanningConfiguration') as image_scanning_configuration,
+              JSON_EXTRACT(Properties, '$.EncryptionConfiguration') as encryption_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::Repository'

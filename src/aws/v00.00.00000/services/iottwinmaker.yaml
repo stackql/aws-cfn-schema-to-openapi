@@ -701,6 +701,9 @@ components:
       id: aws.iottwinmaker.component_types
       x-cfn-schema-name: ComponentType
       x-type: list
+      x-identifiers:
+        - WorkspaceId
+        - ComponentTypeId
       config:
         views:
           select:
@@ -735,8 +738,9 @@ components:
               JSON_EXTRACT(Properties, '$.PropertyDefinitions') as property_definitions,
               JSON_EXTRACT(Properties, '$.PropertyGroups') as property_groups,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Status.State') as status_state,
-              JSON_EXTRACT(Properties, '$.Status.Error') as status_error,
+              JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
+              JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.IsAbstract') as is_abstract,
               JSON_EXTRACT(Properties, '$.IsSchemaInitialized') as is_schema_initialized,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -746,6 +750,9 @@ components:
       id: aws.iottwinmaker.entities
       x-cfn-schema-name: Entity
       x-type: list
+      x-identifiers:
+        - WorkspaceId
+        - EntityId
       config:
         views:
           select:
@@ -773,12 +780,13 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.EntityId') as entity_id,
               JSON_EXTRACT(Properties, '$.EntityName') as entity_name,
-              JSON_EXTRACT(Properties, '$.Status.State') as status_state,
-              JSON_EXTRACT(Properties, '$.Status.Error') as status_error,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.HasChildEntities') as has_child_entities,
               JSON_EXTRACT(Properties, '$.ParentEntityId') as parent_entity_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
+              JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.Components') as components
@@ -788,6 +796,9 @@ components:
       id: aws.iottwinmaker.scenes
       x-cfn-schema-name: Scene
       x-type: list
+      x-identifiers:
+        - WorkspaceId
+        - SceneId
       config:
         views:
           select:
@@ -817,6 +828,8 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ContentLocation') as content_location,
+              JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
+              JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.Capabilities') as capabilities
@@ -826,6 +839,9 @@ components:
       id: aws.iottwinmaker.sync_jobs
       x-cfn-schema-name: SyncJob
       x-type: list
+      x-identifiers:
+        - WorkspaceId
+        - SyncSource
       config:
         views:
           select:
@@ -854,6 +870,8 @@ components:
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
               JSON_EXTRACT(Properties, '$.SyncSource') as sync_source,
               JSON_EXTRACT(Properties, '$.SyncRole') as sync_role,
+              JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
+              JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -863,6 +881,8 @@ components:
       id: aws.iottwinmaker.workspaces
       x-cfn-schema-name: Workspace
       x-type: list
+      x-identifiers:
+        - WorkspaceId
       config:
         views:
           select:
@@ -891,5 +911,7 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Role') as role,
               JSON_EXTRACT(Properties, '$.S3Location') as s3_location,
+              JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
+              JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'

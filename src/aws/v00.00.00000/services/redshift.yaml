@@ -692,6 +692,8 @@ components:
       id: aws.redshift.clusters
       x-cfn-schema-name: Cluster
       x-type: list
+      x-identifiers:
+        - ClusterIdentifier
       config:
         views:
           select:
@@ -744,10 +746,8 @@ components:
               JSON_EXTRACT(Properties, '$.SnapshotIdentifier') as snapshot_identifier,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
-              JSON_EXTRACT(Properties, '$.LoggingProperties.BucketName') as logging_properties_bucket_name,
-              JSON_EXTRACT(Properties, '$.LoggingProperties.S3KeyPrefix') as logging_properties_s3_key_prefix,
-              JSON_EXTRACT(Properties, '$.Endpoint.Port') as endpoint_port,
-              JSON_EXTRACT(Properties, '$.Endpoint.Address') as endpoint_address,
+              JSON_EXTRACT(Properties, '$.LoggingProperties') as logging_properties,
+              JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
               JSON_EXTRACT(Properties, '$.DestinationRegion') as destination_region,
               JSON_EXTRACT(Properties, '$.SnapshotCopyRetentionPeriod') as snapshot_copy_retention_period,
               JSON_EXTRACT(Properties, '$.SnapshotCopyGrantName') as snapshot_copy_grant_name,
@@ -773,6 +773,8 @@ components:
       id: aws.redshift.cluster_parameter_groups
       x-cfn-schema-name: ClusterParameterGroup
       x-type: list
+      x-identifiers:
+        - ParameterGroupName
       config:
         views:
           select:
@@ -807,6 +809,8 @@ components:
       id: aws.redshift.cluster_security_groups
       x-cfn-schema-name: ClusterSecurityGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -839,6 +843,8 @@ components:
       id: aws.redshift.cluster_security_group_ingresses
       x-cfn-schema-name: ClusterSecurityGroupIngress
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -873,6 +879,8 @@ components:
       id: aws.redshift.cluster_subnet_groups
       x-cfn-schema-name: ClusterSubnetGroup
       x-type: list
+      x-identifiers:
+        - ClusterSubnetGroupName
       config:
         views:
           select:
@@ -906,6 +914,8 @@ components:
       id: aws.redshift.endpoint_accesses
       x-cfn-schema-name: EndpointAccess
       x-type: list
+      x-identifiers:
+        - EndpointName
       config:
         views:
           select:
@@ -946,6 +956,9 @@ components:
       id: aws.redshift.endpoint_authorizations
       x-cfn-schema-name: EndpointAuthorization
       x-type: list
+      x-identifiers:
+        - ClusterIdentifier
+        - Account
       config:
         views:
           select:
@@ -971,6 +984,8 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Grantor') as grantor,
+              JSON_EXTRACT(Properties, '$.Grantee') as grantee,
               JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier,
               JSON_EXTRACT(Properties, '$.AuthorizeTime') as authorize_time,
               JSON_EXTRACT(Properties, '$.ClusterStatus') as cluster_status,
@@ -978,6 +993,7 @@ components:
               JSON_EXTRACT(Properties, '$.AllowedAllVPCs') as allowed_all_vp_cs,
               JSON_EXTRACT(Properties, '$.AllowedVPCs') as allowed_vp_cs,
               JSON_EXTRACT(Properties, '$.EndpointCount') as endpoint_count,
+              JSON_EXTRACT(Properties, '$.Account') as account,
               JSON_EXTRACT(Properties, '$.VpcIds') as vpc_ids,
               JSON_EXTRACT(Properties, '$.Force') as force
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
@@ -986,6 +1002,8 @@ components:
       id: aws.redshift.event_subscriptions
       x-cfn-schema-name: EventSubscription
       x-type: list
+      x-identifiers:
+        - SubscriptionName
       config:
         views:
           select:
@@ -1029,6 +1047,8 @@ components:
       id: aws.redshift.scheduled_actions
       x-cfn-schema-name: ScheduledAction
       x-type: list
+      x-identifiers:
+        - ScheduledActionName
       config:
         views:
           select:
@@ -1053,9 +1073,12 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ScheduledActionName') as scheduled_action_name,
+              JSON_EXTRACT(Properties, '$.TargetAction') as target_action,
               JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.IamRole') as iam_role,
               JSON_EXTRACT(Properties, '$.ScheduledActionDescription') as scheduled_action_description,
+              JSON_EXTRACT(Properties, '$.StartTime') as start_time,
+              JSON_EXTRACT(Properties, '$.EndTime') as end_time,
               JSON_EXTRACT(Properties, '$.Enable') as enable,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.NextInvocations') as next_invocations

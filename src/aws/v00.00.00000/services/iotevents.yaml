@@ -776,6 +776,8 @@ components:
       id: aws.iotevents.alarm_models
       x-cfn-schema-name: AlarmModel
       x-type: list
+      x-identifiers:
+        - AlarmModelName
       config:
         views:
           select:
@@ -804,10 +806,9 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Key') as key,
               JSON_EXTRACT(Properties, '$.Severity') as severity,
-              JSON_EXTRACT(Properties, '$.AlarmRule.SimpleRule') as alarm_rule_simple_rule,
-              JSON_EXTRACT(Properties, '$.AlarmEventActions.AlarmActions') as alarm_event_actions_alarm_actions,
-              JSON_EXTRACT(Properties, '$.AlarmCapabilities.InitializationConfiguration') as alarm_capabilities_initialization_configuration,
-              JSON_EXTRACT(Properties, '$.AlarmCapabilities.AcknowledgeFlow') as alarm_capabilities_acknowledge_flow,
+              JSON_EXTRACT(Properties, '$.AlarmRule') as alarm_rule,
+              JSON_EXTRACT(Properties, '$.AlarmEventActions') as alarm_event_actions,
+              JSON_EXTRACT(Properties, '$.AlarmCapabilities') as alarm_capabilities,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
     detector_models:
@@ -815,6 +816,8 @@ components:
       id: aws.iotevents.detector_models
       x-cfn-schema-name: DetectorModel
       x-type: list
+      x-identifiers:
+        - DetectorModelName
       config:
         views:
           select:
@@ -838,8 +841,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DetectorModelDefinition.InitialStateName') as detector_model_definition_initial_state_name,
-              JSON_EXTRACT(Properties, '$.DetectorModelDefinition.States') as detector_model_definition_states,
+              JSON_EXTRACT(Properties, '$.DetectorModelDefinition') as detector_model_definition,
               JSON_EXTRACT(Properties, '$.DetectorModelDescription') as detector_model_description,
               JSON_EXTRACT(Properties, '$.DetectorModelName') as detector_model_name,
               JSON_EXTRACT(Properties, '$.EvaluationMethod') as evaluation_method,
@@ -852,6 +854,8 @@ components:
       id: aws.iotevents.inputs
       x-cfn-schema-name: Input
       x-type: list
+      x-identifiers:
+        - InputName
       config:
         views:
           select:
@@ -875,7 +879,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InputDefinition.Attributes') as input_definition_attributes,
+              JSON_EXTRACT(Properties, '$.InputDefinition') as input_definition,
               JSON_EXTRACT(Properties, '$.InputDescription') as input_description,
               JSON_EXTRACT(Properties, '$.InputName') as input_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags

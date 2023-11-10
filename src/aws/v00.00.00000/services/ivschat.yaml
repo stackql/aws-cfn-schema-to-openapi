@@ -203,6 +203,8 @@ components:
       id: aws.ivschat.logging_configurations
       x-cfn-schema-name: LoggingConfiguration
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -228,9 +230,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DestinationConfiguration.CloudWatchLogs') as destination_configuration_cloud_watch_logs,
-              JSON_EXTRACT(Properties, '$.DestinationConfiguration.Firehose') as destination_configuration_firehose,
-              JSON_EXTRACT(Properties, '$.DestinationConfiguration.S3') as destination_configuration_s3,
+              JSON_EXTRACT(Properties, '$.DestinationConfiguration') as destination_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -240,6 +240,8 @@ components:
       id: aws.ivschat.rooms
       x-cfn-schema-name: Room
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -269,7 +271,6 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingConfigurationIdentifiers') as logging_configuration_identifiers,
               JSON_EXTRACT(Properties, '$.MaximumMessageLength') as maximum_message_length,
               JSON_EXTRACT(Properties, '$.MaximumMessageRatePerSecond') as maximum_message_rate_per_second,
-              JSON_EXTRACT(Properties, '$.MessageReviewHandler.FallbackResult') as message_review_handler_fallback_result,
-              JSON_EXTRACT(Properties, '$.MessageReviewHandler.Uri') as message_review_handler_uri,
+              JSON_EXTRACT(Properties, '$.MessageReviewHandler') as message_review_handler,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::Room'

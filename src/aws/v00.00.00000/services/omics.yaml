@@ -450,6 +450,8 @@ components:
       id: aws.omics.annotation_stores
       x-cfn-schema-name: AnnotationStore
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -477,12 +479,15 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Reference.ReferenceArn') as reference_reference_arn,
-              JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
-              JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn,
+              JSON_EXTRACT(Properties, '$.Reference') as reference,
+              JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
               JSON_EXTRACT(Properties, '$.StoreArn') as store_arn,
+              JSON_EXTRACT(Properties, '$.StoreFormat') as store_format,
+              JSON_EXTRACT(Properties, '$.StoreOptions') as store_options,
               JSON_EXTRACT(Properties, '$.StoreSizeBytes') as store_size_bytes,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
     reference_stores:
@@ -490,6 +495,8 @@ components:
       id: aws.omics.reference_stores
       x-cfn-schema-name: ReferenceStore
       x-type: list
+      x-identifiers:
+        - ReferenceStoreId
       config:
         views:
           select:
@@ -518,14 +525,16 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ReferenceStoreId') as reference_store_id,
-              JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
-              JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn
+              JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
     run_groups:
       name: run_groups
       id: aws.omics.run_groups
       x-cfn-schema-name: RunGroup
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -555,13 +564,16 @@ components:
               JSON_EXTRACT(Properties, '$.MaxCpus') as max_cpus,
               JSON_EXTRACT(Properties, '$.MaxDuration') as max_duration,
               JSON_EXTRACT(Properties, '$.MaxRuns') as max_runs,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::RunGroup'
     sequence_stores:
       name: sequence_stores
       id: aws.omics.sequence_stores
       x-cfn-schema-name: SequenceStore
       x-type: list
+      x-identifiers:
+        - SequenceStoreId
       config:
         views:
           select:
@@ -590,14 +602,16 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_id,
-              JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
-              JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn
+              JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::SequenceStore'
     variant_stores:
       name: variant_stores
       id: aws.omics.variant_stores
       x-cfn-schema-name: VariantStore
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -625,12 +639,13 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Reference.ReferenceArn') as reference_reference_arn,
-              JSON_EXTRACT(Properties, '$.SseConfig.Type') as sse_config_type,
-              JSON_EXTRACT(Properties, '$.SseConfig.KeyArn') as sse_config_key_arn,
+              JSON_EXTRACT(Properties, '$.Reference') as reference,
+              JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
+              JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
               JSON_EXTRACT(Properties, '$.StoreArn') as store_arn,
               JSON_EXTRACT(Properties, '$.StoreSizeBytes') as store_size_bytes,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::VariantStore'
     workflows:
@@ -638,6 +653,8 @@ components:
       id: aws.omics.workflows
       x-cfn-schema-name: Workflow
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -665,8 +682,13 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.DefinitionUri') as definition_uri,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Engine') as engine,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Main') as main,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity
+              JSON_EXTRACT(Properties, '$.ParameterTemplate') as parameter_template,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::Workflow'

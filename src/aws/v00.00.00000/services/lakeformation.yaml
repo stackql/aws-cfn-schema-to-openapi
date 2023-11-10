@@ -443,6 +443,11 @@ components:
       id: aws.lakeformation.data_cells_filters
       x-cfn-schema-name: DataCellsFilter
       x-type: list
+      x-identifiers:
+        - TableCatalogId
+        - DatabaseName
+        - TableName
+        - Name
       config:
         views:
           select:
@@ -472,9 +477,13 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RowFilter.FilterExpression') as row_filter_filter_expression,
-              JSON_EXTRACT(Properties, '$.RowFilter.AllRowsWildcard') as row_filter_all_rows_wildcard,
-              JSON_EXTRACT(Properties, '$.ColumnWildcard.ExcludedColumnNames') as column_wildcard_excluded_column_names
+              JSON_EXTRACT(Properties, '$.TableCatalogId') as table_catalog_id,
+              JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.RowFilter') as row_filter,
+              JSON_EXTRACT(Properties, '$.ColumnNames') as column_names,
+              JSON_EXTRACT(Properties, '$.ColumnWildcard') as column_wildcard
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::DataCellsFilter'
     data_lake_settings:
       name: data_lake_settings
@@ -491,7 +500,11 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AllowExternalDataFiltering') as allow_external_data_filtering,
+              JSON_EXTRACT(Properties, '$.ExternalDataFilteringAllowList') as external_data_filtering_allow_list,
+              JSON_EXTRACT(Properties, '$.CreateTableDefaultPermissions') as create_table_default_permissions,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
+              JSON_EXTRACT(Properties, '$.Admins') as admins,
+              JSON_EXTRACT(Properties, '$.CreateDatabaseDefaultPermissions') as create_database_default_permissions,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.AuthorizedSessionTagValueList') as authorized_session_tag_value_list,
               JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as trusted_resource_owners
@@ -510,13 +523,10 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
-              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
-              JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
+              JSON_EXTRACT(Properties, '$.Resource') as resource,
               JSON_EXTRACT(Properties, '$.Permissions') as permissions,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DataLakePrincipal.DataLakePrincipalIdentifier') as data_lake_principal_data_lake_principal_identifier,
+              JSON_EXTRACT(Properties, '$.DataLakePrincipal') as data_lake_principal,
               JSON_EXTRACT(Properties, '$.PermissionsWithGrantOption') as permissions_with_grant_option
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Permissions'
     principal_permissions:
@@ -534,11 +544,11 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Principal.DataLakePrincipalIdentifier') as principal_data_lake_principal_identifier,
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
-              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
-              JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
+              JSON_EXTRACT(Properties, '$.Catalog') as catalog,
+              JSON_EXTRACT(Properties, '$.Principal') as principal,
+              JSON_EXTRACT(Properties, '$.Resource') as resource,
+              JSON_EXTRACT(Properties, '$.Permissions') as permissions,
+              JSON_EXTRACT(Properties, '$.PermissionsWithGrantOption') as permissions_with_grant_option,
               JSON_EXTRACT(Properties, '$.PrincipalIdentifier') as principal_identifier,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::PrincipalPermissions'
@@ -547,6 +557,8 @@ components:
       id: aws.lakeformation.tags
       x-cfn-schema-name: Tag
       x-type: list
+      x-identifiers:
+        - TagKey
       config:
         views:
           select:
@@ -569,13 +581,19 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
+              JSON_EXTRACT(Properties, '$.TagKey') as tag_key,
+              JSON_EXTRACT(Properties, '$.TagValues') as tag_values
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Tag'
     tag_associations:
       name: tag_associations
       id: aws.lakeformation.tag_associations
       x-cfn-schema-name: TagAssociation
       x-type: list
+      x-identifiers:
+        - ResourceIdentifier
+        - TagsIdentifier
       config:
         views:
           select:
@@ -601,10 +619,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Resource.Catalog') as resource_catalog,
-              JSON_EXTRACT(Properties, '$.Resource.Database') as resource_database,
-              JSON_EXTRACT(Properties, '$.Resource.Table') as resource_table,
-              JSON_EXTRACT(Properties, '$.Resource.TableWithColumns') as resource_table_with_columns,
+              JSON_EXTRACT(Properties, '$.Resource') as resource,
+              JSON_EXTRACT(Properties, '$.LFTags') as l_ftags,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
               JSON_EXTRACT(Properties, '$.TagsIdentifier') as tags_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::TagAssociation'

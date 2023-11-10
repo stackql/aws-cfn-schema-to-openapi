@@ -602,6 +602,8 @@ components:
       id: aws.greengrass.connector_definition_versions
       x-cfn-schema-name: ConnectorDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -634,6 +636,8 @@ components:
       id: aws.greengrass.connector_definitions
       x-cfn-schema-name: ConnectorDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -661,9 +665,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Connectors') as initial_version_connectors,
-              JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionId') as initial_version_connector_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
     core_definition_versions:
@@ -671,6 +673,8 @@ components:
       id: aws.greengrass.core_definition_versions
       x-cfn-schema-name: CoreDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -703,6 +707,8 @@ components:
       id: aws.greengrass.core_definitions
       x-cfn-schema-name: CoreDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -730,9 +736,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Cores') as initial_version_cores,
-              JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionId') as initial_version_core_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
     device_definition_versions:
@@ -740,6 +744,8 @@ components:
       id: aws.greengrass.device_definition_versions
       x-cfn-schema-name: DeviceDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -772,6 +778,8 @@ components:
       id: aws.greengrass.device_definitions
       x-cfn-schema-name: DeviceDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -799,9 +807,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionId') as initial_version_device_definition_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Devices') as initial_version_devices,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
     function_definition_versions:
@@ -809,6 +815,8 @@ components:
       id: aws.greengrass.function_definition_versions
       x-cfn-schema-name: FunctionDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -833,7 +841,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DefaultConfig.Execution') as default_config_execution,
+              JSON_EXTRACT(Properties, '$.DefaultConfig') as default_config,
               JSON_EXTRACT(Properties, '$.Functions') as functions,
               JSON_EXTRACT(Properties, '$.FunctionDefinitionId') as function_definition_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
@@ -842,6 +850,8 @@ components:
       id: aws.greengrass.function_definitions
       x-cfn-schema-name: FunctionDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -869,10 +879,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.DefaultConfig') as initial_version_default_config,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Functions') as initial_version_functions,
-              JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionId') as initial_version_function_definition_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
     group_versions:
@@ -880,6 +887,8 @@ components:
       id: aws.greengrass.group_versions
       x-cfn-schema-name: GroupVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -918,6 +927,8 @@ components:
       id: aws.greengrass.groups
       x-cfn-schema-name: Group
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -947,15 +958,7 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionVersionArn') as initial_version_logger_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.DeviceDefinitionVersionArn') as initial_version_device_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.FunctionDefinitionVersionArn') as initial_version_function_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.CoreDefinitionVersionArn') as initial_version_core_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionVersionArn') as initial_version_resource_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.ConnectorDefinitionVersionArn') as initial_version_connector_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionVersionArn') as initial_version_subscription_definition_version_arn,
-              JSON_EXTRACT(Properties, '$.InitialVersion.GroupId') as initial_version_group_id,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::Group'
     logger_definition_versions:
@@ -963,6 +966,8 @@ components:
       id: aws.greengrass.logger_definition_versions
       x-cfn-schema-name: LoggerDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -995,6 +1000,8 @@ components:
       id: aws.greengrass.logger_definitions
       x-cfn-schema-name: LoggerDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1022,9 +1029,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.LoggerDefinitionId') as initial_version_logger_definition_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Loggers') as initial_version_loggers,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
     resource_definition_versions:
@@ -1032,6 +1037,8 @@ components:
       id: aws.greengrass.resource_definition_versions
       x-cfn-schema-name: ResourceDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1064,6 +1071,8 @@ components:
       id: aws.greengrass.resource_definitions
       x-cfn-schema-name: ResourceDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1092,15 +1101,15 @@ components:
               JSON_EXTRACT(Properties, '$.LatestVersionArn') as latest_version_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.ResourceDefinitionId') as initial_version_resource_definition_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Resources') as initial_version_resources,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
     subscription_definition_versions:
       name: subscription_definition_versions
       id: aws.greengrass.subscription_definition_versions
       x-cfn-schema-name: SubscriptionDefinitionVersion
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1133,6 +1142,8 @@ components:
       id: aws.greengrass.subscription_definitions
       x-cfn-schema-name: SubscriptionDefinition
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1160,8 +1171,6 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Id') as initial_version_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.SubscriptionDefinitionId') as initial_version_subscription_definition_id,
-              JSON_EXTRACT(Properties, '$.InitialVersion.Subscriptions') as initial_version_subscriptions,
+              JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'

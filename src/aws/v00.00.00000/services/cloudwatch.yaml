@@ -477,6 +477,8 @@ components:
       id: aws.cloudwatch.alarms
       x-cfn-schema-name: Alarm
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -529,6 +531,8 @@ components:
       id: aws.cloudwatch.anomaly_detectors
       x-cfn-schema-name: AnomalyDetector
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -554,22 +558,20 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.MetricName') as metric_name,
               JSON_EXTRACT(Properties, '$.Stat') as stat,
-              JSON_EXTRACT(Properties, '$.Configuration.MetricTimeZone') as configuration_metric_time_zone,
-              JSON_EXTRACT(Properties, '$.Configuration.ExcludedTimeRanges') as configuration_excluded_time_ranges,
-              JSON_EXTRACT(Properties, '$.MetricMathAnomalyDetector.MetricDataQueries') as metric_math_anomaly_detector_metric_data_queries,
+              JSON_EXTRACT(Properties, '$.Configuration') as configuration,
+              JSON_EXTRACT(Properties, '$.MetricMathAnomalyDetector') as metric_math_anomaly_detector,
               JSON_EXTRACT(Properties, '$.Dimensions') as dimensions,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Namespace') as namespace,
-              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.MetricName') as single_metric_anomaly_detector_metric_name,
-              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Dimensions') as single_metric_anomaly_detector_dimensions,
-              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Stat') as single_metric_anomaly_detector_stat,
-              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector.Namespace') as single_metric_anomaly_detector_namespace
+              JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector') as single_metric_anomaly_detector
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
     composite_alarms:
       name: composite_alarms
       id: aws.cloudwatch.composite_alarms
       x-cfn-schema-name: CompositeAlarm
       x-type: list
+      x-identifiers:
+        - AlarmName
       config:
         views:
           select:
@@ -610,6 +612,8 @@ components:
       id: aws.cloudwatch.dashboards
       x-cfn-schema-name: Dashboard
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -642,6 +646,8 @@ components:
       id: aws.cloudwatch.insight_rules
       x-cfn-schema-name: InsightRule
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -669,13 +675,16 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RuleBody') as rule_body,
-              JSON_EXTRACT(Properties, '$.RuleName') as rule_name
+              JSON_EXTRACT(Properties, '$.RuleName') as rule_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
     metric_streams:
       name: metric_streams
       id: aws.cloudwatch.metric_streams
       x-cfn-schema-name: MetricStream
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:

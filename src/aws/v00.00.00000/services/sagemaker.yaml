@@ -4275,6 +4275,11 @@ components:
       id: aws.sagemaker.apps
       x-cfn-schema-name: App
       x-type: list
+      x-identifiers:
+        - AppName
+        - AppType
+        - DomainId
+        - UserProfileName
       config:
         views:
           select:
@@ -4308,9 +4313,7 @@ components:
               JSON_EXTRACT(Properties, '$.AppName') as app_name,
               JSON_EXTRACT(Properties, '$.AppType') as app_type,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.ResourceSpec.InstanceType') as resource_spec_instance_type,
-              JSON_EXTRACT(Properties, '$.ResourceSpec.SageMakerImageArn') as resource_spec_sage_maker_image_arn,
-              JSON_EXTRACT(Properties, '$.ResourceSpec.SageMakerImageVersionArn') as resource_spec_sage_maker_image_version_arn,
+              JSON_EXTRACT(Properties, '$.ResourceSpec') as resource_spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::App'
@@ -4319,6 +4322,8 @@ components:
       id: aws.sagemaker.app_image_configs
       x-cfn-schema-name: AppImageConfig
       x-type: list
+      x-identifiers:
+        - AppImageConfigName
       config:
         views:
           select:
@@ -4344,8 +4349,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AppImageConfigArn') as app_image_config_arn,
               JSON_EXTRACT(Properties, '$.AppImageConfigName') as app_image_config_name,
-              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig.FileSystemConfig') as kernel_gateway_image_config_file_system_config,
-              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig.KernelSpecs') as kernel_gateway_image_config_kernel_specs,
+              JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig') as kernel_gateway_image_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
     code_repositories:
@@ -4353,6 +4357,8 @@ components:
       id: aws.sagemaker.code_repositories
       x-cfn-schema-name: CodeRepository
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -4376,9 +4382,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GitConfig.SecretArn') as git_config_secret_arn,
-              JSON_EXTRACT(Properties, '$.GitConfig.RepositoryUrl') as git_config_repository_url,
-              JSON_EXTRACT(Properties, '$.GitConfig.Branch') as git_config_branch,
+              JSON_EXTRACT(Properties, '$.GitConfig') as git_config,
               JSON_EXTRACT(Properties, '$.CodeRepositoryName') as code_repository_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -4388,6 +4392,8 @@ components:
       id: aws.sagemaker.data_quality_job_definitions
       x-cfn-schema-name: DataQualityJobDefinition
       x-type: list
+      x-identifiers:
+        - JobDefinitionArn
       config:
         views:
           select:
@@ -4412,25 +4418,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
-              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.BaseliningJobName') as data_quality_baseline_config_baselining_job_name,
-              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.ConstraintsResource') as data_quality_baseline_config_constraints_resource,
-              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig.StatisticsResource') as data_quality_baseline_config_statistics_resource,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ContainerArguments') as data_quality_app_specification_container_arguments,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ContainerEntrypoint') as data_quality_app_specification_container_entrypoint,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.ImageUri') as data_quality_app_specification_image_uri,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.PostAnalyticsProcessorSourceUri') as data_quality_app_specification_post_analytics_processor_source_uri,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.RecordPreprocessorSourceUri') as data_quality_app_specification_record_preprocessor_source_uri,
-              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification.Environment') as data_quality_app_specification_environment,
-              JSON_EXTRACT(Properties, '$.DataQualityJobInput.EndpointInput') as data_quality_job_input_endpoint_input,
-              JSON_EXTRACT(Properties, '$.DataQualityJobInput.BatchTransformInput') as data_quality_job_input_batch_transform_input,
-              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig.KmsKeyId') as data_quality_job_output_config_kms_key_id,
-              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig.MonitoringOutputs') as data_quality_job_output_config_monitoring_outputs,
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
+              JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
+              JSON_EXTRACT(Properties, '$.DataQualityBaselineConfig') as data_quality_baseline_config,
+              JSON_EXTRACT(Properties, '$.DataQualityAppSpecification') as data_quality_app_specification,
+              JSON_EXTRACT(Properties, '$.DataQualityJobInput') as data_quality_job_input,
+              JSON_EXTRACT(Properties, '$.DataQualityJobOutputConfig') as data_quality_job_output_config,
+              JSON_EXTRACT(Properties, '$.JobResources') as job_resources,
+              JSON_EXTRACT(Properties, '$.NetworkConfig') as network_config,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
+              JSON_EXTRACT(Properties, '$.StoppingCondition') as stopping_condition,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition'
@@ -4439,6 +4436,8 @@ components:
       id: aws.sagemaker.devices
       x-cfn-schema-name: Device
       x-type: list
+      x-identifiers:
+        - Device/DeviceName
       config:
         views:
           select:
@@ -4463,9 +4462,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_name,
-              JSON_EXTRACT(Properties, '$.Device.DeviceFleetName') as device_device_fleet_name,
-              JSON_EXTRACT(Properties, '$.Device.Device') as device_device,
-              JSON_EXTRACT(Properties, '$.Device.Tags') as device_tags,
+              JSON_EXTRACT(Properties, '$.Device') as device,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Device'
     device_fleets:
@@ -4473,6 +4470,8 @@ components:
       id: aws.sagemaker.device_fleets
       x-cfn-schema-name: DeviceFleet
       x-type: list
+      x-identifiers:
+        - DeviceFleetName
       config:
         views:
           select:
@@ -4498,8 +4497,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_name,
-              JSON_EXTRACT(Properties, '$.OutputConfig.S3OutputLocation') as output_config_s3_output_location,
-              JSON_EXTRACT(Properties, '$.OutputConfig.KmsKeyId') as output_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.OutputConfig') as output_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DeviceFleet'
@@ -4508,6 +4506,8 @@ components:
       id: aws.sagemaker.endpoints
       x-cfn-schema-name: Endpoint
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -4536,8 +4536,7 @@ components:
               JSON_EXTRACT(Properties, '$.ExcludeRetainedVariantProperties') as exclude_retained_variant_properties,
               JSON_EXTRACT(Properties, '$.EndpointConfigName') as endpoint_config_name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DeploymentConfig.AutoRollbackConfiguration') as deployment_config_auto_rollback_configuration,
-              JSON_EXTRACT(Properties, '$.DeploymentConfig.BlueGreenUpdatePolicy') as deployment_config_blue_green_update_policy,
+              JSON_EXTRACT(Properties, '$.DeploymentConfig') as deployment_config,
               JSON_EXTRACT(Properties, '$.RetainDeploymentConfig') as retain_deployment_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Endpoint'
@@ -4546,6 +4545,8 @@ components:
       id: aws.sagemaker.endpoint_configs
       x-cfn-schema-name: EndpointConfig
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -4570,18 +4571,12 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ShadowProductionVariants') as shadow_production_variants,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.CaptureOptions') as data_capture_config_capture_options,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.KmsKeyId') as data_capture_config_kms_key_id,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.DestinationS3Uri') as data_capture_config_destination_s3_uri,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.InitialSamplingPercentage') as data_capture_config_initial_sampling_percentage,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.CaptureContentTypeHeader') as data_capture_config_capture_content_type_header,
-              JSON_EXTRACT(Properties, '$.DataCaptureConfig.EnableCapture') as data_capture_config_enable_capture,
+              JSON_EXTRACT(Properties, '$.DataCaptureConfig') as data_capture_config,
               JSON_EXTRACT(Properties, '$.ProductionVariants') as production_variants,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.ClientConfig') as async_inference_config_client_config,
-              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig.OutputConfig') as async_inference_config_output_config,
+              JSON_EXTRACT(Properties, '$.AsyncInferenceConfig') as async_inference_config,
               JSON_EXTRACT(Properties, '$.EndpointConfigName') as endpoint_config_name,
-              JSON_EXTRACT(Properties, '$.ExplainerConfig.ClarifyExplainerConfig') as explainer_config_clarify_explainer_config,
+              JSON_EXTRACT(Properties, '$.ExplainerConfig') as explainer_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::EndpointConfig'
@@ -4590,6 +4585,8 @@ components:
       id: aws.sagemaker.feature_groups
       x-cfn-schema-name: FeatureGroup
       x-type: list
+      x-identifiers:
+        - FeatureGroupName
       config:
         views:
           select:
@@ -4628,6 +4625,8 @@ components:
       id: aws.sagemaker.images
       x-cfn-schema-name: Image
       x-type: list
+      x-identifiers:
+        - ImageArn
       config:
         views:
           select:
@@ -4651,6 +4650,11 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.ImageName') as image_name,
+              JSON_EXTRACT(Properties, '$.ImageArn') as image_arn,
+              JSON_EXTRACT(Properties, '$.ImageRoleArn') as image_role_arn,
+              JSON_EXTRACT(Properties, '$.ImageDisplayName') as image_display_name,
+              JSON_EXTRACT(Properties, '$.ImageDescription') as image_description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Image'
     image_versions:
@@ -4658,6 +4662,8 @@ components:
       id: aws.sagemaker.image_versions
       x-cfn-schema-name: ImageVersion
       x-type: list
+      x-identifiers:
+        - ImageVersionArn
       config:
         views:
           select:
@@ -4680,13 +4686,21 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.ImageName') as image_name,
+              JSON_EXTRACT(Properties, '$.ImageArn') as image_arn,
+              JSON_EXTRACT(Properties, '$.ImageVersionArn') as image_version_arn,
+              JSON_EXTRACT(Properties, '$.BaseImage') as base_image,
+              JSON_EXTRACT(Properties, '$.ContainerImage') as container_image,
+              JSON_EXTRACT(Properties, '$.Version') as version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
     inference_experiments:
       name: inference_experiments
       id: aws.sagemaker.inference_experiments
       x-cfn-schema-name: InferenceExperiment
       x-type: list
+      x-identifiers:
+        - Name
       config:
         views:
           select:
@@ -4715,18 +4729,13 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointName') as endpoint_metadata_endpoint_name,
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointConfigName') as endpoint_metadata_endpoint_config_name,
-              JSON_EXTRACT(Properties, '$.EndpointMetadata.EndpointStatus') as endpoint_metadata_endpoint_status,
-              JSON_EXTRACT(Properties, '$.Schedule.StartTime') as schedule_start_time,
-              JSON_EXTRACT(Properties, '$.Schedule.EndTime') as schedule_end_time,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
+              JSON_EXTRACT(Properties, '$.EndpointMetadata') as endpoint_metadata,
+              JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.Destination') as data_storage_config_destination,
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.KmsKey') as data_storage_config_kms_key,
-              JSON_EXTRACT(Properties, '$.DataStorageConfig.ContentType') as data_storage_config_content_type,
+              JSON_EXTRACT(Properties, '$.DataStorageConfig') as data_storage_config,
               JSON_EXTRACT(Properties, '$.ModelVariants') as model_variants,
-              JSON_EXTRACT(Properties, '$.ShadowModeConfig.SourceModelVariantName') as shadow_mode_config_source_model_variant_name,
-              JSON_EXTRACT(Properties, '$.ShadowModeConfig.ShadowModelVariants') as shadow_mode_config_shadow_model_variants,
+              JSON_EXTRACT(Properties, '$.ShadowModeConfig') as shadow_mode_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
@@ -4739,6 +4748,8 @@ components:
       id: aws.sagemaker.models
       x-cfn-schema-name: Model
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -4764,20 +4775,11 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
               JSON_EXTRACT(Properties, '$.EnableNetworkIsolation') as enable_network_isolation,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ImageConfig') as primary_container_image_config,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.InferenceSpecificationName') as primary_container_inference_specification_name,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ContainerHostname') as primary_container_container_hostname,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelPackageName') as primary_container_model_package_name,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Mode') as primary_container_mode,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Environment') as primary_container_environment,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.ModelDataUrl') as primary_container_model_data_url,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.Image') as primary_container_image,
-              JSON_EXTRACT(Properties, '$.PrimaryContainer.MultiModelConfig') as primary_container_multi_model_config,
+              JSON_EXTRACT(Properties, '$.PrimaryContainer') as primary_container,
               JSON_EXTRACT(Properties, '$.ModelName') as model_name,
-              JSON_EXTRACT(Properties, '$.VpcConfig.SecurityGroupIds') as vpc_config_security_group_ids,
-              JSON_EXTRACT(Properties, '$.VpcConfig.Subnets') as vpc_config_subnets,
+              JSON_EXTRACT(Properties, '$.VpcConfig') as vpc_config,
               JSON_EXTRACT(Properties, '$.Containers') as containers,
-              JSON_EXTRACT(Properties, '$.InferenceExecutionConfig.Mode') as inference_execution_config_mode,
+              JSON_EXTRACT(Properties, '$.InferenceExecutionConfig') as inference_execution_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Model'
@@ -4786,6 +4788,8 @@ components:
       id: aws.sagemaker.model_bias_job_definitions
       x-cfn-schema-name: ModelBiasJobDefinition
       x-type: list
+      x-identifiers:
+        - JobDefinitionArn
       config:
         views:
           select:
@@ -4810,22 +4814,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
-              JSON_EXTRACT(Properties, '$.ModelBiasBaselineConfig.BaseliningJobName') as model_bias_baseline_config_baselining_job_name,
-              JSON_EXTRACT(Properties, '$.ModelBiasBaselineConfig.ConstraintsResource') as model_bias_baseline_config_constraints_resource,
-              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ImageUri') as model_bias_app_specification_image_uri,
-              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.ConfigUri') as model_bias_app_specification_config_uri,
-              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification.Environment') as model_bias_app_specification_environment,
-              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.EndpointInput') as model_bias_job_input_endpoint_input,
-              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.BatchTransformInput') as model_bias_job_input_batch_transform_input,
-              JSON_EXTRACT(Properties, '$.ModelBiasJobInput.GroundTruthS3Input') as model_bias_job_input_ground_truth_s3_input,
-              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig.KmsKeyId') as model_bias_job_output_config_kms_key_id,
-              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig.MonitoringOutputs') as model_bias_job_output_config_monitoring_outputs,
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
+              JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
+              JSON_EXTRACT(Properties, '$.ModelBiasBaselineConfig') as model_bias_baseline_config,
+              JSON_EXTRACT(Properties, '$.ModelBiasAppSpecification') as model_bias_app_specification,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobInput') as model_bias_job_input,
+              JSON_EXTRACT(Properties, '$.ModelBiasJobOutputConfig') as model_bias_job_output_config,
+              JSON_EXTRACT(Properties, '$.JobResources') as job_resources,
+              JSON_EXTRACT(Properties, '$.NetworkConfig') as network_config,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
+              JSON_EXTRACT(Properties, '$.StoppingCondition') as stopping_condition,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition'
@@ -4834,6 +4832,8 @@ components:
       id: aws.sagemaker.model_cards
       x-cfn-schema-name: ModelCard
       x-type: list
+      x-identifiers:
+        - ModelCardName
       config:
         views:
           select:
@@ -4860,22 +4860,13 @@ components:
               JSON_EXTRACT(Properties, '$.ModelCardArn') as model_card_arn,
               JSON_EXTRACT(Properties, '$.ModelCardVersion') as model_card_version,
               JSON_EXTRACT(Properties, '$.ModelCardName') as model_card_name,
-              JSON_EXTRACT(Properties, '$.SecurityConfig.KmsKeyId') as security_config_kms_key_id,
+              JSON_EXTRACT(Properties, '$.SecurityConfig') as security_config,
               JSON_EXTRACT(Properties, '$.ModelCardStatus') as model_card_status,
-              JSON_EXTRACT(Properties, '$.Content.ModelOverview') as content_model_overview,
-              JSON_EXTRACT(Properties, '$.Content.IntendedUses') as content_intended_uses,
-              JSON_EXTRACT(Properties, '$.Content.BusinessDetails') as content_business_details,
-              JSON_EXTRACT(Properties, '$.Content.TrainingDetails') as content_training_details,
-              JSON_EXTRACT(Properties, '$.Content.EvaluationDetails') as content_evaluation_details,
-              JSON_EXTRACT(Properties, '$.Content.AdditionalInformation') as content_additional_information,
+              JSON_EXTRACT(Properties, '$.Content') as content,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-              JSON_EXTRACT(Properties, '$.CreatedBy.DomainId') as created_by_domain_id,
-              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileArn') as created_by_user_profile_arn,
-              JSON_EXTRACT(Properties, '$.CreatedBy.UserProfileName') as created_by_user_profile_name,
+              JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.DomainId') as last_modified_by_domain_id,
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileArn') as last_modified_by_user_profile_arn,
-              JSON_EXTRACT(Properties, '$.LastModifiedBy.UserProfileName') as last_modified_by_user_profile_name,
+              JSON_EXTRACT(Properties, '$.LastModifiedBy') as last_modified_by,
               JSON_EXTRACT(Properties, '$.ModelCardProcessingStatus') as model_card_processing_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelCard'
@@ -4884,6 +4875,8 @@ components:
       id: aws.sagemaker.model_explainability_job_definitions
       x-cfn-schema-name: ModelExplainabilityJobDefinition
       x-type: list
+      x-identifiers:
+        - JobDefinitionArn
       config:
         views:
           select:
@@ -4908,21 +4901,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityBaselineConfig.BaseliningJobName') as model_explainability_baseline_config_baselining_job_name,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityBaselineConfig.ConstraintsResource') as model_explainability_baseline_config_constraints_resource,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.ImageUri') as model_explainability_app_specification_image_uri,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.ConfigUri') as model_explainability_app_specification_config_uri,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification.Environment') as model_explainability_app_specification_environment,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobInput.EndpointInput') as model_explainability_job_input_endpoint_input,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobInput.BatchTransformInput') as model_explainability_job_input_batch_transform_input,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobOutputConfig.KmsKeyId') as model_explainability_job_output_config_kms_key_id,
-              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobOutputConfig.MonitoringOutputs') as model_explainability_job_output_config_monitoring_outputs,
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
+              JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityBaselineConfig') as model_explainability_baseline_config,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityAppSpecification') as model_explainability_app_specification,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobInput') as model_explainability_job_input,
+              JSON_EXTRACT(Properties, '$.ModelExplainabilityJobOutputConfig') as model_explainability_job_output_config,
+              JSON_EXTRACT(Properties, '$.JobResources') as job_resources,
+              JSON_EXTRACT(Properties, '$.NetworkConfig') as network_config,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
+              JSON_EXTRACT(Properties, '$.StoppingCondition') as stopping_condition,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition'
@@ -4931,6 +4919,8 @@ components:
       id: aws.sagemaker.model_packages
       x-cfn-schema-name: ModelPackage
       x-type: list
+      x-identifiers:
+        - ModelPackageArn
       config:
         views:
           select:
@@ -4955,44 +4945,44 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Containers') as additional_inference_specification_definition_containers,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Description') as additional_inference_specification_definition_description,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.Name') as additional_inference_specification_definition_name,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedContentTypes') as additional_inference_specification_definition_supported_content_types,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedRealtimeInferenceInstanceTypes') as additional_inference_specification_definition_supported_realtime_inference_instance_types,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedResponseMIMETypes') as additional_inference_specification_definition_supported_response_mi_me_types,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition.SupportedTransformInstanceTypes') as additional_inference_specification_definition_supported_transform_instance_types,
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Bias') as drift_check_baselines_bias,
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.Explainability') as drift_check_baselines_explainability,
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelDataQuality') as drift_check_baselines_model_data_quality,
-              JSON_EXTRACT(Properties, '$.DriftCheckBaselines.ModelQuality') as drift_check_baselines_model_quality,
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.Containers') as inference_specification_containers,
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedContentTypes') as inference_specification_supported_content_types,
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedRealtimeInferenceInstanceTypes') as inference_specification_supported_realtime_inference_instance_types,
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedResponseMIMETypes') as inference_specification_supported_response_mi_me_types,
-              JSON_EXTRACT(Properties, '$.InferenceSpecification.SupportedTransformInstanceTypes') as inference_specification_supported_transform_instance_types,
-              JSON_EXTRACT(Properties, '$.MetadataProperties.CommitId') as metadata_properties_commit_id,
-              JSON_EXTRACT(Properties, '$.MetadataProperties.GeneratedBy') as metadata_properties_generated_by,
-              JSON_EXTRACT(Properties, '$.MetadataProperties.ProjectId') as metadata_properties_project_id,
-              JSON_EXTRACT(Properties, '$.MetadataProperties.Repository') as metadata_properties_repository,
-              JSON_EXTRACT(Properties, '$.ModelMetrics.Bias') as model_metrics_bias,
-              JSON_EXTRACT(Properties, '$.ModelMetrics.Explainability') as model_metrics_explainability,
-              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelDataQuality') as model_metrics_model_data_quality,
-              JSON_EXTRACT(Properties, '$.ModelMetrics.ModelQuality') as model_metrics_model_quality,
-              JSON_EXTRACT(Properties, '$.SourceAlgorithmSpecification.SourceAlgorithms') as source_algorithm_specification_source_algorithms,
-              JSON_EXTRACT(Properties, '$.ValidationSpecification.ValidationProfiles') as validation_specification_validation_profiles,
-              JSON_EXTRACT(Properties, '$.ValidationSpecification.ValidationRole') as validation_specification_validation_role,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails.ImageScanStatuses') as model_package_status_details_image_scan_statuses,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails.ValidationStatuses') as model_package_status_details_validation_statuses,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.FailureReason') as model_package_status_item_failure_reason,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Name') as model_package_status_item_name,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem.Status') as model_package_status_item_status
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecifications') as additional_inference_specifications,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition') as additional_inference_specification_definition,
+              JSON_EXTRACT(Properties, '$.CertifyForMarketplace') as certify_for_marketplace,
+              JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
+              JSON_EXTRACT(Properties, '$.CustomerMetadataProperties') as customer_metadata_properties,
+              JSON_EXTRACT(Properties, '$.Domain') as domain,
+              JSON_EXTRACT(Properties, '$.DriftCheckBaselines') as drift_check_baselines,
+              JSON_EXTRACT(Properties, '$.InferenceSpecification') as inference_specification,
+              JSON_EXTRACT(Properties, '$.MetadataProperties') as metadata_properties,
+              JSON_EXTRACT(Properties, '$.ModelApprovalStatus') as model_approval_status,
+              JSON_EXTRACT(Properties, '$.ModelMetrics') as model_metrics,
+              JSON_EXTRACT(Properties, '$.ModelPackageDescription') as model_package_description,
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupName') as model_package_group_name,
+              JSON_EXTRACT(Properties, '$.ModelPackageName') as model_package_name,
+              JSON_EXTRACT(Properties, '$.SamplePayloadUrl') as sample_payload_url,
+              JSON_EXTRACT(Properties, '$.SourceAlgorithmSpecification') as source_algorithm_specification,
+              JSON_EXTRACT(Properties, '$.Task') as task,
+              JSON_EXTRACT(Properties, '$.ValidationSpecification') as validation_specification,
+              JSON_EXTRACT(Properties, '$.ModelPackageArn') as model_package_arn,
+              JSON_EXTRACT(Properties, '$.ApprovalDescription') as approval_description,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.LastModifiedBy') as last_modified_by,
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatus') as model_package_status,
+              JSON_EXTRACT(Properties, '$.ModelPackageVersion') as model_package_version,
+              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationsToAdd') as additional_inference_specifications_to_add,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails') as model_package_status_details,
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem') as model_package_status_item,
+              JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
+              JSON_EXTRACT(Properties, '$.Environment') as environment
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
     model_package_groups:
       name: model_package_groups
       id: aws.sagemaker.model_package_groups
       x-cfn-schema-name: ModelPackageGroup
       x-type: list
+      x-identifiers:
+        - ModelPackageGroupArn
       config:
         views:
           select:
@@ -5017,6 +5007,9 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupArn') as model_package_group_arn,
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupName') as model_package_group_name,
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupDescription') as model_package_group_description,
               JSON_EXTRACT(Properties, '$.ModelPackageGroupPolicy') as model_package_group_policy,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.ModelPackageGroupStatus') as model_package_group_status
@@ -5026,6 +5019,8 @@ components:
       id: aws.sagemaker.model_quality_job_definitions
       x-cfn-schema-name: ModelQualityJobDefinition
       x-type: list
+      x-identifiers:
+        - JobDefinitionArn
       config:
         views:
           select:
@@ -5050,26 +5045,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn,
-              JSON_EXTRACT(Properties, '$.ModelQualityBaselineConfig.BaseliningJobName') as model_quality_baseline_config_baselining_job_name,
-              JSON_EXTRACT(Properties, '$.ModelQualityBaselineConfig.ConstraintsResource') as model_quality_baseline_config_constraints_resource,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ContainerArguments') as model_quality_app_specification_container_arguments,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ContainerEntrypoint') as model_quality_app_specification_container_entrypoint,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ImageUri') as model_quality_app_specification_image_uri,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.PostAnalyticsProcessorSourceUri') as model_quality_app_specification_post_analytics_processor_source_uri,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.RecordPreprocessorSourceUri') as model_quality_app_specification_record_preprocessor_source_uri,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.Environment') as model_quality_app_specification_environment,
-              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification.ProblemType') as model_quality_app_specification_problem_type,
-              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.EndpointInput') as model_quality_job_input_endpoint_input,
-              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.BatchTransformInput') as model_quality_job_input_batch_transform_input,
-              JSON_EXTRACT(Properties, '$.ModelQualityJobInput.GroundTruthS3Input') as model_quality_job_input_ground_truth_s3_input,
-              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig.KmsKeyId') as model_quality_job_output_config_kms_key_id,
-              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig.MonitoringOutputs') as model_quality_job_output_config_monitoring_outputs,
-              JSON_EXTRACT(Properties, '$.JobResources.ClusterConfig') as job_resources_cluster_config,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableInterContainerTrafficEncryption') as network_config_enable_inter_container_traffic_encryption,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.EnableNetworkIsolation') as network_config_enable_network_isolation,
-              JSON_EXTRACT(Properties, '$.NetworkConfig.VpcConfig') as network_config_vpc_config,
+              JSON_EXTRACT(Properties, '$.JobDefinitionName') as job_definition_name,
+              JSON_EXTRACT(Properties, '$.ModelQualityBaselineConfig') as model_quality_baseline_config,
+              JSON_EXTRACT(Properties, '$.ModelQualityAppSpecification') as model_quality_app_specification,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobInput') as model_quality_job_input,
+              JSON_EXTRACT(Properties, '$.ModelQualityJobOutputConfig') as model_quality_job_output_config,
+              JSON_EXTRACT(Properties, '$.JobResources') as job_resources,
+              JSON_EXTRACT(Properties, '$.NetworkConfig') as network_config,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.StoppingCondition.MaxRuntimeInSeconds') as stopping_condition_max_runtime_in_seconds,
+              JSON_EXTRACT(Properties, '$.StoppingCondition') as stopping_condition,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition'
@@ -5078,6 +5063,8 @@ components:
       id: aws.sagemaker.monitoring_schedules
       x-cfn-schema-name: MonitoringSchedule
       x-type: list
+      x-identifiers:
+        - MonitoringScheduleArn
       config:
         views:
           select:
@@ -5102,22 +5089,14 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.MonitoringScheduleArn') as monitoring_schedule_arn,
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringJobDefinition') as monitoring_schedule_config_monitoring_job_definition,
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringJobDefinitionName') as monitoring_schedule_config_monitoring_job_definition_name,
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.MonitoringType') as monitoring_schedule_config_monitoring_type,
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig.ScheduleConfig') as monitoring_schedule_config_schedule_config,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleName') as monitoring_schedule_name,
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleConfig') as monitoring_schedule_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
               JSON_EXTRACT(Properties, '$.FailureReason') as failure_reason,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.CreationTime') as last_monitoring_execution_summary_creation_time,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.EndpointName') as last_monitoring_execution_summary_endpoint_name,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.FailureReason') as last_monitoring_execution_summary_failure_reason,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.LastModifiedTime') as last_monitoring_execution_summary_last_modified_time,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.MonitoringExecutionStatus') as last_monitoring_execution_summary_monitoring_execution_status,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.MonitoringScheduleName') as last_monitoring_execution_summary_monitoring_schedule_name,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.ProcessingJobArn') as last_monitoring_execution_summary_processing_job_arn,
-              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary.ScheduledTime') as last_monitoring_execution_summary_scheduled_time,
+              JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary') as last_monitoring_execution_summary,
               JSON_EXTRACT(Properties, '$.MonitoringScheduleStatus') as monitoring_schedule_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::MonitoringSchedule'
     notebook_instances:
@@ -5125,6 +5104,8 @@ components:
       id: aws.sagemaker.notebook_instances
       x-cfn-schema-name: NotebookInstance
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -5158,7 +5139,7 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.InstanceMetadataServiceConfiguration.MinimumInstanceMetadataServiceVersion') as instance_metadata_service_configuration_minimum_instance_metadata_service_version,
+              JSON_EXTRACT(Properties, '$.InstanceMetadataServiceConfiguration') as instance_metadata_service_configuration,
               JSON_EXTRACT(Properties, '$.RootAccess') as root_access,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.NotebookInstanceName') as notebook_instance_name,
@@ -5171,6 +5152,8 @@ components:
       id: aws.sagemaker.notebook_instance_lifecycle_configs
       x-cfn-schema-name: NotebookInstanceLifecycleConfig
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -5204,6 +5187,8 @@ components:
       id: aws.sagemaker.pipelines
       x-cfn-schema-name: Pipeline
       x-type: list
+      x-identifiers:
+        - PipelineName
       config:
         views:
           select:
@@ -5240,6 +5225,8 @@ components:
       id: aws.sagemaker.projects
       x-cfn-schema-name: Project
       x-type: list
+      x-identifiers:
+        - ProjectArn
       config:
         views:
           select:
@@ -5264,6 +5251,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ProjectArn') as project_arn,
+              JSON_EXTRACT(Properties, '$.ProjectId') as project_id,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name,
+              JSON_EXTRACT(Properties, '$.ProjectDescription') as project_description,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.ServiceCatalogProvisioningDetails') as service_catalog_provisioning_details,
               JSON_EXTRACT(Properties, '$.ServiceCatalogProvisionedProductDetails') as service_catalog_provisioned_product_details,
@@ -5274,6 +5265,9 @@ components:
       id: aws.sagemaker.spaces
       x-cfn-schema-name: Space
       x-type: list
+      x-identifiers:
+        - DomainId
+        - SpaceName
       config:
         views:
           select:
@@ -5302,8 +5296,7 @@ components:
               JSON_EXTRACT(Properties, '$.SpaceArn') as space_arn,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
               JSON_EXTRACT(Properties, '$.SpaceName') as space_name,
-              JSON_EXTRACT(Properties, '$.SpaceSettings.JupyterServerAppSettings') as space_settings_jupyter_server_app_settings,
-              JSON_EXTRACT(Properties, '$.SpaceSettings.KernelGatewayAppSettings') as space_settings_kernel_gateway_app_settings,
+              JSON_EXTRACT(Properties, '$.SpaceSettings') as space_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Space'
     user_profiles:
@@ -5311,6 +5304,9 @@ components:
       id: aws.sagemaker.user_profiles
       x-cfn-schema-name: UserProfile
       x-type: list
+      x-identifiers:
+        - UserProfileName
+        - DomainId
       config:
         views:
           select:
@@ -5341,12 +5337,7 @@ components:
               JSON_EXTRACT(Properties, '$.SingleSignOnUserIdentifier') as single_sign_on_user_identifier,
               JSON_EXTRACT(Properties, '$.SingleSignOnUserValue') as single_sign_on_user_value,
               JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name,
-              JSON_EXTRACT(Properties, '$.UserSettings.ExecutionRole') as user_settings_execution_role,
-              JSON_EXTRACT(Properties, '$.UserSettings.JupyterServerAppSettings') as user_settings_jupyter_server_app_settings,
-              JSON_EXTRACT(Properties, '$.UserSettings.KernelGatewayAppSettings') as user_settings_kernel_gateway_app_settings,
-              JSON_EXTRACT(Properties, '$.UserSettings.RStudioServerProAppSettings') as user_settings_rstudio_server_pro_app_settings,
-              JSON_EXTRACT(Properties, '$.UserSettings.SecurityGroups') as user_settings_security_groups,
-              JSON_EXTRACT(Properties, '$.UserSettings.SharingSettings') as user_settings_sharing_settings,
+              JSON_EXTRACT(Properties, '$.UserSettings') as user_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::UserProfile'
     workteams:
@@ -5354,6 +5345,8 @@ components:
       id: aws.sagemaker.workteams
       x-cfn-schema-name: Workteam
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -5378,7 +5371,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.NotificationConfiguration.NotificationTopicArn') as notification_configuration_notification_topic_arn,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration') as notification_configuration,
               JSON_EXTRACT(Properties, '$.WorkteamName') as workteam_name,
               JSON_EXTRACT(Properties, '$.MemberDefinitions') as member_definitions,
               JSON_EXTRACT(Properties, '$.Id') as id,

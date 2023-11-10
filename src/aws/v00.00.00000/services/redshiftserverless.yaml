@@ -228,6 +228,8 @@ components:
       id: aws.redshiftserverless.namespaces
       x-cfn-schema-name: Namespace
       x-type: list
+      x-identifiers:
+        - NamespaceName
       config:
         views:
           select:
@@ -258,18 +260,7 @@ components:
               JSON_EXTRACT(Properties, '$.IamRoles') as iam_roles,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.LogExports') as log_exports,
-              JSON_EXTRACT(Properties, '$.Namespace.AdminUserPassword') as namespace_admin_user_password,
-              JSON_EXTRACT(Properties, '$.Namespace.AdminUsername') as namespace_admin_username,
-              JSON_EXTRACT(Properties, '$.Namespace.DbName') as namespace_db_name,
-              JSON_EXTRACT(Properties, '$.Namespace.DefaultIamRoleArn') as namespace_default_iam_role_arn,
-              JSON_EXTRACT(Properties, '$.Namespace.IamRoles') as namespace_iam_roles,
-              JSON_EXTRACT(Properties, '$.Namespace.KmsKeyId') as namespace_kms_key_id,
-              JSON_EXTRACT(Properties, '$.Namespace.LogExports') as namespace_log_exports,
-              JSON_EXTRACT(Properties, '$.Namespace.Namespace') as namespace_namespace,
-              JSON_EXTRACT(Properties, '$.Namespace.NamespaceName') as namespace_namespace_name,
-              JSON_EXTRACT(Properties, '$.Namespace.Tags') as namespace_tags,
-              JSON_EXTRACT(Properties, '$.Namespace.FinalSnapshotName') as namespace_final_snapshot_name,
-              JSON_EXTRACT(Properties, '$.Namespace.FinalSnapshotRetentionPeriod') as namespace_final_snapshot_retention_period,
+              JSON_EXTRACT(Properties, '$.Namespace') as namespace,
               JSON_EXTRACT(Properties, '$.NamespaceName') as namespace_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.FinalSnapshotName') as final_snapshot_name,
@@ -280,6 +271,8 @@ components:
       id: aws.redshiftserverless.workgroups
       x-cfn-schema-name: Workgroup
       x-type: list
+      x-identifiers:
+        - WorkgroupName
       config:
         views:
           select:
@@ -313,15 +306,5 @@ components:
               JSON_EXTRACT(Properties, '$.PubliclyAccessible') as publicly_accessible,
               JSON_EXTRACT(Properties, '$.Port') as port,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Workgroup.WorkgroupName') as workgroup_workgroup_name,
-              JSON_EXTRACT(Properties, '$.Workgroup.NamespaceName') as workgroup_namespace_name,
-              JSON_EXTRACT(Properties, '$.Workgroup.BaseCapacity') as workgroup_base_capacity,
-              JSON_EXTRACT(Properties, '$.Workgroup.EnhancedVpcRouting') as workgroup_enhanced_vpc_routing,
-              JSON_EXTRACT(Properties, '$.Workgroup.ConfigParameters') as workgroup_config_parameters,
-              JSON_EXTRACT(Properties, '$.Workgroup.SecurityGroupIds') as workgroup_security_group_ids,
-              JSON_EXTRACT(Properties, '$.Workgroup.SubnetIds') as workgroup_subnet_ids,
-              JSON_EXTRACT(Properties, '$.Workgroup.PubliclyAccessible') as workgroup_publicly_accessible,
-              JSON_EXTRACT(Properties, '$.Workgroup.Port') as workgroup_port,
-              JSON_EXTRACT(Properties, '$.Workgroup.Tags') as workgroup_tags,
-              JSON_EXTRACT(Properties, '$.Workgroup.Workgroup') as workgroup_workgroup
+              JSON_EXTRACT(Properties, '$.Workgroup') as workgroup
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'

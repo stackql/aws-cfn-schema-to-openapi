@@ -1052,6 +1052,8 @@ components:
       id: aws.apigateway.accounts
       x-cfn-schema-name: Account
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1083,6 +1085,8 @@ components:
       id: aws.apigateway.api_keys
       x-cfn-schema-name: ApiKey
       x-type: list
+      x-identifiers:
+        - APIKeyId
       config:
         views:
           select:
@@ -1121,6 +1125,9 @@ components:
       id: aws.apigateway.authorizers
       x-cfn-schema-name: Authorizer
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - AuthorizerId
       config:
         views:
           select:
@@ -1163,6 +1170,9 @@ components:
       id: aws.apigateway.base_path_mappings
       x-cfn-schema-name: BasePathMapping
       x-type: list
+      x-identifiers:
+        - DomainName
+        - BasePath
       config:
         views:
           select:
@@ -1198,6 +1208,8 @@ components:
       id: aws.apigateway.client_certificates
       x-cfn-schema-name: ClientCertificate
       x-type: list
+      x-identifiers:
+        - ClientCertificateId
       config:
         views:
           select:
@@ -1230,6 +1242,9 @@ components:
       id: aws.apigateway.deployments
       x-cfn-schema-name: Deployment
       x-type: list
+      x-identifiers:
+        - DeploymentId
+        - RestApiId
       config:
         views:
           select:
@@ -1256,30 +1271,10 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id,
-              JSON_EXTRACT(Properties, '$.DeploymentCanarySettings.PercentTraffic') as deployment_canary_settings_percent_traffic,
-              JSON_EXTRACT(Properties, '$.DeploymentCanarySettings.StageVariableOverrides') as deployment_canary_settings_stage_variable_overrides,
-              JSON_EXTRACT(Properties, '$.DeploymentCanarySettings.UseStageCache') as deployment_canary_settings_use_stage_cache,
+              JSON_EXTRACT(Properties, '$.DeploymentCanarySettings') as deployment_canary_settings,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.RestApiId') as rest_api_id,
-              JSON_EXTRACT(Properties, '$.StageDescription.AccessLogSetting') as stage_description_access_log_setting,
-              JSON_EXTRACT(Properties, '$.StageDescription.CacheClusterEnabled') as stage_description_cache_cluster_enabled,
-              JSON_EXTRACT(Properties, '$.StageDescription.CacheClusterSize') as stage_description_cache_cluster_size,
-              JSON_EXTRACT(Properties, '$.StageDescription.CacheDataEncrypted') as stage_description_cache_data_encrypted,
-              JSON_EXTRACT(Properties, '$.StageDescription.CacheTtlInSeconds') as stage_description_cache_ttl_in_seconds,
-              JSON_EXTRACT(Properties, '$.StageDescription.CachingEnabled') as stage_description_caching_enabled,
-              JSON_EXTRACT(Properties, '$.StageDescription.CanarySetting') as stage_description_canary_setting,
-              JSON_EXTRACT(Properties, '$.StageDescription.ClientCertificateId') as stage_description_client_certificate_id,
-              JSON_EXTRACT(Properties, '$.StageDescription.DataTraceEnabled') as stage_description_data_trace_enabled,
-              JSON_EXTRACT(Properties, '$.StageDescription.Description') as stage_description_description,
-              JSON_EXTRACT(Properties, '$.StageDescription.DocumentationVersion') as stage_description_documentation_version,
-              JSON_EXTRACT(Properties, '$.StageDescription.LoggingLevel') as stage_description_logging_level,
-              JSON_EXTRACT(Properties, '$.StageDescription.MethodSettings') as stage_description_method_settings,
-              JSON_EXTRACT(Properties, '$.StageDescription.MetricsEnabled') as stage_description_metrics_enabled,
-              JSON_EXTRACT(Properties, '$.StageDescription.Tags') as stage_description_tags,
-              JSON_EXTRACT(Properties, '$.StageDescription.ThrottlingBurstLimit') as stage_description_throttling_burst_limit,
-              JSON_EXTRACT(Properties, '$.StageDescription.ThrottlingRateLimit') as stage_description_throttling_rate_limit,
-              JSON_EXTRACT(Properties, '$.StageDescription.TracingEnabled') as stage_description_tracing_enabled,
-              JSON_EXTRACT(Properties, '$.StageDescription.Variables') as stage_description_variables,
+              JSON_EXTRACT(Properties, '$.StageDescription') as stage_description,
               JSON_EXTRACT(Properties, '$.StageName') as stage_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGateway::Deployment'
     documentation_parts:
@@ -1287,6 +1282,9 @@ components:
       id: aws.apigateway.documentation_parts
       x-cfn-schema-name: DocumentationPart
       x-type: list
+      x-identifiers:
+        - DocumentationPartId
+        - RestApiId
       config:
         views:
           select:
@@ -1313,11 +1311,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DocumentationPartId') as documentation_part_id,
-              JSON_EXTRACT(Properties, '$.Location.Method') as location_method,
-              JSON_EXTRACT(Properties, '$.Location.Name') as location_name,
-              JSON_EXTRACT(Properties, '$.Location.Path') as location_path,
-              JSON_EXTRACT(Properties, '$.Location.StatusCode') as location_status_code,
-              JSON_EXTRACT(Properties, '$.Location.Type') as location_type,
+              JSON_EXTRACT(Properties, '$.Location') as location,
               JSON_EXTRACT(Properties, '$.Properties') as properties,
               JSON_EXTRACT(Properties, '$.RestApiId') as rest_api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGateway::DocumentationPart'
@@ -1326,6 +1320,9 @@ components:
       id: aws.apigateway.documentation_versions
       x-cfn-schema-name: DocumentationVersion
       x-type: list
+      x-identifiers:
+        - DocumentationVersion
+        - RestApiId
       config:
         views:
           select:
@@ -1360,6 +1357,8 @@ components:
       id: aws.apigateway.domain_names
       x-cfn-schema-name: DomainName
       x-type: list
+      x-identifiers:
+        - DomainName
       config:
         views:
           select:
@@ -1386,10 +1385,8 @@ components:
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.DistributionDomainName') as distribution_domain_name,
               JSON_EXTRACT(Properties, '$.DistributionHostedZoneId') as distribution_hosted_zone_id,
-              JSON_EXTRACT(Properties, '$.EndpointConfiguration.Types') as endpoint_configuration_types,
-              JSON_EXTRACT(Properties, '$.EndpointConfiguration.VpcEndpointIds') as endpoint_configuration_vpc_endpoint_ids,
-              JSON_EXTRACT(Properties, '$.MutualTlsAuthentication.TruststoreUri') as mutual_tls_authentication_truststore_uri,
-              JSON_EXTRACT(Properties, '$.MutualTlsAuthentication.TruststoreVersion') as mutual_tls_authentication_truststore_version,
+              JSON_EXTRACT(Properties, '$.EndpointConfiguration') as endpoint_configuration,
+              JSON_EXTRACT(Properties, '$.MutualTlsAuthentication') as mutual_tls_authentication,
               JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
               JSON_EXTRACT(Properties, '$.RegionalHostedZoneId') as regional_hosted_zone_id,
               JSON_EXTRACT(Properties, '$.CertificateArn') as certificate_arn,
@@ -1403,6 +1400,8 @@ components:
       id: aws.apigateway.gateway_responses
       x-cfn-schema-name: GatewayResponse
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1438,6 +1437,10 @@ components:
       id: aws.apigateway.methods
       x-cfn-schema-name: Method
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - ResourceId
+        - HttpMethod
       config:
         views:
           select:
@@ -1470,20 +1473,7 @@ components:
               JSON_EXTRACT(Properties, '$.AuthorizationType') as authorization_type,
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
               JSON_EXTRACT(Properties, '$.HttpMethod') as http_method,
-              JSON_EXTRACT(Properties, '$.Integration.CacheKeyParameters') as integration_cache_key_parameters,
-              JSON_EXTRACT(Properties, '$.Integration.CacheNamespace') as integration_cache_namespace,
-              JSON_EXTRACT(Properties, '$.Integration.ConnectionId') as integration_connection_id,
-              JSON_EXTRACT(Properties, '$.Integration.ConnectionType') as integration_connection_type,
-              JSON_EXTRACT(Properties, '$.Integration.ContentHandling') as integration_content_handling,
-              JSON_EXTRACT(Properties, '$.Integration.Credentials') as integration_credentials,
-              JSON_EXTRACT(Properties, '$.Integration.IntegrationHttpMethod') as integration_integration_http_method,
-              JSON_EXTRACT(Properties, '$.Integration.IntegrationResponses') as integration_integration_responses,
-              JSON_EXTRACT(Properties, '$.Integration.PassthroughBehavior') as integration_passthrough_behavior,
-              JSON_EXTRACT(Properties, '$.Integration.RequestParameters') as integration_request_parameters,
-              JSON_EXTRACT(Properties, '$.Integration.RequestTemplates') as integration_request_templates,
-              JSON_EXTRACT(Properties, '$.Integration.TimeoutInMillis') as integration_timeout_in_millis,
-              JSON_EXTRACT(Properties, '$.Integration.Type') as integration_type,
-              JSON_EXTRACT(Properties, '$.Integration.Uri') as integration_uri,
+              JSON_EXTRACT(Properties, '$.Integration') as integration,
               JSON_EXTRACT(Properties, '$.MethodResponses') as method_responses,
               JSON_EXTRACT(Properties, '$.OperationName') as operation_name,
               JSON_EXTRACT(Properties, '$.RequestModels') as request_models,
@@ -1497,6 +1487,9 @@ components:
       id: aws.apigateway.models
       x-cfn-schema-name: Model
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - Name
       config:
         views:
           select:
@@ -1533,6 +1526,9 @@ components:
       id: aws.apigateway.request_validators
       x-cfn-schema-name: RequestValidator
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - RequestValidatorId
       config:
         views:
           select:
@@ -1569,6 +1565,9 @@ components:
       id: aws.apigateway.resources
       x-cfn-schema-name: Resource
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - ResourceId
       config:
         views:
           select:
@@ -1604,6 +1603,8 @@ components:
       id: aws.apigateway.rest_apis
       x-cfn-schema-name: RestApi
       x-type: list
+      x-identifiers:
+        - RestApiId
       config:
         views:
           select:
@@ -1632,13 +1633,9 @@ components:
               JSON_EXTRACT(Properties, '$.ApiKeySourceType') as api_key_source_type,
               JSON_EXTRACT(Properties, '$.BinaryMediaTypes') as binary_media_types,
               JSON_EXTRACT(Properties, '$.Body') as body,
-              JSON_EXTRACT(Properties, '$.BodyS3Location.Bucket') as body_s3_location_bucket,
-              JSON_EXTRACT(Properties, '$.BodyS3Location.ETag') as body_s3_location_etag,
-              JSON_EXTRACT(Properties, '$.BodyS3Location.Version') as body_s3_location_version,
-              JSON_EXTRACT(Properties, '$.BodyS3Location.Key') as body_s3_location_key,
+              JSON_EXTRACT(Properties, '$.BodyS3Location') as body_s3_location,
               JSON_EXTRACT(Properties, '$.CloneFrom') as clone_from,
-              JSON_EXTRACT(Properties, '$.EndpointConfiguration.Types') as endpoint_configuration_types,
-              JSON_EXTRACT(Properties, '$.EndpointConfiguration.VpcEndpointIds') as endpoint_configuration_vpc_endpoint_ids,
+              JSON_EXTRACT(Properties, '$.EndpointConfiguration') as endpoint_configuration,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.DisableExecuteApiEndpoint') as disable_execute_api_endpoint,
               JSON_EXTRACT(Properties, '$.FailOnWarnings') as fail_on_warnings,
@@ -1654,6 +1651,9 @@ components:
       id: aws.apigateway.stages
       x-cfn-schema-name: Stage
       x-type: list
+      x-identifiers:
+        - RestApiId
+        - StageName
       config:
         views:
           select:
@@ -1679,14 +1679,10 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessLogSetting.DestinationArn') as access_log_setting_destination_arn,
-              JSON_EXTRACT(Properties, '$.AccessLogSetting.Format') as access_log_setting_format,
+              JSON_EXTRACT(Properties, '$.AccessLogSetting') as access_log_setting,
               JSON_EXTRACT(Properties, '$.CacheClusterEnabled') as cache_cluster_enabled,
               JSON_EXTRACT(Properties, '$.CacheClusterSize') as cache_cluster_size,
-              JSON_EXTRACT(Properties, '$.CanarySetting.DeploymentId') as canary_setting_deployment_id,
-              JSON_EXTRACT(Properties, '$.CanarySetting.PercentTraffic') as canary_setting_percent_traffic,
-              JSON_EXTRACT(Properties, '$.CanarySetting.StageVariableOverrides') as canary_setting_stage_variable_overrides,
-              JSON_EXTRACT(Properties, '$.CanarySetting.UseStageCache') as canary_setting_use_stage_cache,
+              JSON_EXTRACT(Properties, '$.CanarySetting') as canary_setting,
               JSON_EXTRACT(Properties, '$.ClientCertificateId') as client_certificate_id,
               JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
@@ -1703,6 +1699,8 @@ components:
       id: aws.apigateway.usage_plans
       x-cfn-schema-name: UsagePlan
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1729,12 +1727,9 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApiStages') as api_stages,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Quota.Limit') as quota_limit,
-              JSON_EXTRACT(Properties, '$.Quota.Offset') as quota_offset,
-              JSON_EXTRACT(Properties, '$.Quota.Period') as quota_period,
+              JSON_EXTRACT(Properties, '$.Quota') as quota,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Throttle.BurstLimit') as throttle_burst_limit,
-              JSON_EXTRACT(Properties, '$.Throttle.RateLimit') as throttle_rate_limit,
+              JSON_EXTRACT(Properties, '$.Throttle') as throttle,
               JSON_EXTRACT(Properties, '$.UsagePlanName') as usage_plan_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGateway::UsagePlan'
     usage_plan_keys:
@@ -1742,6 +1737,8 @@ components:
       id: aws.apigateway.usage_plan_keys
       x-cfn-schema-name: UsagePlanKey
       x-type: list
+      x-identifiers:
+        - Id
       config:
         views:
           select:
@@ -1775,6 +1772,8 @@ components:
       id: aws.apigateway.vpc_links
       x-cfn-schema-name: VpcLink
       x-type: list
+      x-identifiers:
+        - VpcLinkId
       config:
         views:
           select:

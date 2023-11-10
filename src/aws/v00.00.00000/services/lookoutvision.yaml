@@ -32,6 +32,8 @@ components:
       id: aws.lookoutvision.projects
       x-cfn-schema-name: Project
       x-type: list
+      x-identifiers:
+        - ProjectName
       config:
         views:
           select:
@@ -54,5 +56,7 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutVision::Project'

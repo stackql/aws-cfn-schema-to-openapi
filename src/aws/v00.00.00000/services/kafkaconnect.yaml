@@ -339,6 +339,8 @@ components:
       id: aws.kafkaconnect.connectors
       x-cfn-schema-name: Connector
       x-type: list
+      x-identifiers:
+        - ConnectorArn
       config:
         views:
           select:
@@ -362,19 +364,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Capacity.AutoScaling') as capacity_auto_scaling,
-              JSON_EXTRACT(Properties, '$.Capacity.ProvisionedCapacity') as capacity_provisioned_capacity,
+              JSON_EXTRACT(Properties, '$.Capacity') as capacity,
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
               JSON_EXTRACT(Properties, '$.ConnectorConfiguration') as connector_configuration,
               JSON_EXTRACT(Properties, '$.ConnectorDescription') as connector_description,
               JSON_EXTRACT(Properties, '$.ConnectorName') as connector_name,
-              JSON_EXTRACT(Properties, '$.KafkaCluster.ApacheKafkaCluster') as kafka_cluster_apache_kafka_cluster,
-              JSON_EXTRACT(Properties, '$.KafkaClusterClientAuthentication.AuthenticationType') as kafka_cluster_client_authentication_authentication_type,
-              JSON_EXTRACT(Properties, '$.KafkaClusterEncryptionInTransit.EncryptionType') as kafka_cluster_encryption_in_transit_encryption_type,
+              JSON_EXTRACT(Properties, '$.KafkaCluster') as kafka_cluster,
+              JSON_EXTRACT(Properties, '$.KafkaClusterClientAuthentication') as kafka_cluster_client_authentication,
+              JSON_EXTRACT(Properties, '$.KafkaClusterEncryptionInTransit') as kafka_cluster_encryption_in_transit,
               JSON_EXTRACT(Properties, '$.KafkaConnectVersion') as kafka_connect_version,
-              JSON_EXTRACT(Properties, '$.LogDelivery.WorkerLogDelivery') as log_delivery_worker_log_delivery,
+              JSON_EXTRACT(Properties, '$.LogDelivery') as log_delivery,
               JSON_EXTRACT(Properties, '$.Plugins') as plugins,
               JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
-              JSON_EXTRACT(Properties, '$.WorkerConfiguration.Revision') as worker_configuration_revision,
-              JSON_EXTRACT(Properties, '$.WorkerConfiguration.WorkerConfigurationArn') as worker_configuration_worker_configuration_arn
+              JSON_EXTRACT(Properties, '$.WorkerConfiguration') as worker_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KafkaConnect::Connector'

@@ -1250,6 +1250,9 @@ components:
       id: aws.connect.approved_origins
       x-cfn-schema-name: ApprovedOrigin
       x-type: list
+      x-identifiers:
+        - InstanceId
+        - Origin
       config:
         views:
           select:
@@ -1274,13 +1277,17 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.Origin') as origin,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::ApprovedOrigin'
     contact_flows:
       name: contact_flows
       id: aws.connect.contact_flows
       x-cfn-schema-name: ContactFlow
       x-type: list
+      x-identifiers:
+        - ContactFlowArn
       config:
         views:
           select:
@@ -1318,6 +1325,8 @@ components:
       id: aws.connect.contact_flow_modules
       x-cfn-schema-name: ContactFlowModule
       x-type: list
+      x-identifiers:
+        - ContactFlowModuleArn
       config:
         views:
           select:
@@ -1355,6 +1364,8 @@ components:
       id: aws.connect.hours_of_operations
       x-cfn-schema-name: HoursOfOperation
       x-type: list
+      x-identifiers:
+        - HoursOfOperationArn
       config:
         views:
           select:
@@ -1391,6 +1402,8 @@ components:
       id: aws.connect.instances
       x-cfn-schema-name: Instance
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1422,19 +1435,17 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceRole') as service_role,
               JSON_EXTRACT(Properties, '$.InstanceStatus') as instance_status,
               JSON_EXTRACT(Properties, '$.DirectoryId') as directory_id,
-              JSON_EXTRACT(Properties, '$.Attributes.InboundCalls') as attributes_inbound_calls,
-              JSON_EXTRACT(Properties, '$.Attributes.OutboundCalls') as attributes_outbound_calls,
-              JSON_EXTRACT(Properties, '$.Attributes.ContactflowLogs') as attributes_contactflow_logs,
-              JSON_EXTRACT(Properties, '$.Attributes.ContactLens') as attributes_contact_lens,
-              JSON_EXTRACT(Properties, '$.Attributes.AutoResolveBestVoices') as attributes_auto_resolve_best_voices,
-              JSON_EXTRACT(Properties, '$.Attributes.UseCustomTTSVoices') as attributes_use_custom_tt_svoices,
-              JSON_EXTRACT(Properties, '$.Attributes.EarlyMedia') as attributes_early_media
+              JSON_EXTRACT(Properties, '$.Attributes') as attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::Instance'
     instance_storage_configs:
       name: instance_storage_configs
       id: aws.connect.instance_storage_configs
       x-cfn-schema-name: InstanceStorageConfig
       x-type: list
+      x-identifiers:
+        - InstanceArn
+        - AssociationId
+        - ResourceType
       config:
         views:
           select:
@@ -1463,20 +1474,23 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
-              JSON_EXTRACT(Properties, '$.S3Config.BucketName') as s3_config_bucket_name,
-              JSON_EXTRACT(Properties, '$.S3Config.BucketPrefix') as s3_config_bucket_prefix,
-              JSON_EXTRACT(Properties, '$.S3Config.EncryptionConfig') as s3_config_encryption_config,
-              JSON_EXTRACT(Properties, '$.KinesisVideoStreamConfig.Prefix') as kinesis_video_stream_config_prefix,
-              JSON_EXTRACT(Properties, '$.KinesisVideoStreamConfig.RetentionPeriodHours') as kinesis_video_stream_config_retention_period_hours,
-              JSON_EXTRACT(Properties, '$.KinesisVideoStreamConfig.EncryptionConfig') as kinesis_video_stream_config_encryption_config,
-              JSON_EXTRACT(Properties, '$.KinesisStreamConfig.StreamArn') as kinesis_stream_config_stream_arn,
-              JSON_EXTRACT(Properties, '$.KinesisFirehoseConfig.FirehoseArn') as kinesis_firehose_config_firehose_arn
+              JSON_EXTRACT(Properties, '$.ResourceType') as resource_type,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id,
+              JSON_EXTRACT(Properties, '$.StorageType') as storage_type,
+              JSON_EXTRACT(Properties, '$.S3Config') as s3_config,
+              JSON_EXTRACT(Properties, '$.KinesisVideoStreamConfig') as kinesis_video_stream_config,
+              JSON_EXTRACT(Properties, '$.KinesisStreamConfig') as kinesis_stream_config,
+              JSON_EXTRACT(Properties, '$.KinesisFirehoseConfig') as kinesis_firehose_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::InstanceStorageConfig'
     integration_associations:
       name: integration_associations
       id: aws.connect.integration_associations
       x-cfn-schema-name: IntegrationAssociation
       x-type: list
+      x-identifiers:
+        - InstanceId
+        - IntegrationType
+        - IntegrationArn
       config:
         views:
           select:
@@ -1503,13 +1517,19 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.IntegrationAssociationId') as integration_association_id,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
+              JSON_EXTRACT(Properties, '$.IntegrationArn') as integration_arn,
+              JSON_EXTRACT(Properties, '$.IntegrationType') as integration_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::IntegrationAssociation'
     quick_connects:
       name: quick_connects
       id: aws.connect.quick_connects
       x-cfn-schema-name: QuickConnect
       x-type: list
+      x-identifiers:
+        - QuickConnectArn
       config:
         views:
           select:
@@ -1536,10 +1556,7 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.QuickConnectConfig.QuickConnectType') as quick_connect_config_quick_connect_type,
-              JSON_EXTRACT(Properties, '$.QuickConnectConfig.PhoneConfig') as quick_connect_config_phone_config,
-              JSON_EXTRACT(Properties, '$.QuickConnectConfig.QueueConfig') as quick_connect_config_queue_config,
-              JSON_EXTRACT(Properties, '$.QuickConnectConfig.UserConfig') as quick_connect_config_user_config,
+              JSON_EXTRACT(Properties, '$.QuickConnectConfig') as quick_connect_config,
               JSON_EXTRACT(Properties, '$.QuickConnectArn') as quick_connect_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::QuickConnect'
@@ -1548,6 +1565,8 @@ components:
       id: aws.connect.rules
       x-cfn-schema-name: Rule
       x-type: list
+      x-identifiers:
+        - RuleArn
       config:
         views:
           select:
@@ -1574,13 +1593,9 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
-              JSON_EXTRACT(Properties, '$.TriggerEventSource.EventSourceName') as trigger_event_source_event_source_name,
-              JSON_EXTRACT(Properties, '$.TriggerEventSource.IntegrationAssociationArn') as trigger_event_source_integration_association_arn,
+              JSON_EXTRACT(Properties, '$.TriggerEventSource') as trigger_event_source,
               JSON_EXTRACT(Properties, '$.Function') as function,
-              JSON_EXTRACT(Properties, '$.Actions.AssignContactCategoryActions') as actions_assign_contact_category_actions,
-              JSON_EXTRACT(Properties, '$.Actions.EventBridgeActions') as actions_event_bridge_actions,
-              JSON_EXTRACT(Properties, '$.Actions.TaskActions') as actions_task_actions,
-              JSON_EXTRACT(Properties, '$.Actions.SendNotificationActions') as actions_send_notification_actions,
+              JSON_EXTRACT(Properties, '$.Actions') as actions,
               JSON_EXTRACT(Properties, '$.PublishStatus') as publish_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::Rule'
@@ -1589,6 +1604,9 @@ components:
       id: aws.connect.security_keys
       x-cfn-schema-name: SecurityKey
       x-type: list
+      x-identifiers:
+        - InstanceId
+        - AssociationId
       config:
         views:
           select:
@@ -1613,13 +1631,18 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |-
               SELECT
-              region
+              region,
+              JSON_EXTRACT(Properties, '$.Key') as key,
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::SecurityKey'
     task_templates:
       name: task_templates
       id: aws.connect.task_templates
       x-cfn-schema-name: TaskTemplate
       x-type: list
+      x-identifiers:
+        - Arn
       config:
         views:
           select:
@@ -1651,6 +1674,8 @@ components:
               JSON_EXTRACT(Properties, '$.Constraints') as constraints,
               JSON_EXTRACT(Properties, '$.Defaults') as defaults,
               JSON_EXTRACT(Properties, '$.Fields') as fields,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::TaskTemplate'
     users:
@@ -1658,6 +1683,8 @@ components:
       id: aws.connect.users
       x-cfn-schema-name: User
       x-type: list
+      x-identifiers:
+        - UserArn
       config:
         views:
           select:
@@ -1687,15 +1714,8 @@ components:
               JSON_EXTRACT(Properties, '$.Username') as username,
               JSON_EXTRACT(Properties, '$.Password') as password,
               JSON_EXTRACT(Properties, '$.RoutingProfileArn') as routing_profile_arn,
-              JSON_EXTRACT(Properties, '$.IdentityInfo.FirstName') as identity_info_first_name,
-              JSON_EXTRACT(Properties, '$.IdentityInfo.LastName') as identity_info_last_name,
-              JSON_EXTRACT(Properties, '$.IdentityInfo.Email') as identity_info_email,
-              JSON_EXTRACT(Properties, '$.IdentityInfo.SecondaryEmail') as identity_info_secondary_email,
-              JSON_EXTRACT(Properties, '$.IdentityInfo.Mobile') as identity_info_mobile,
-              JSON_EXTRACT(Properties, '$.PhoneConfig.AfterContactWorkTimeLimit') as phone_config_after_contact_work_time_limit,
-              JSON_EXTRACT(Properties, '$.PhoneConfig.AutoAccept') as phone_config_auto_accept,
-              JSON_EXTRACT(Properties, '$.PhoneConfig.DeskPhoneNumber') as phone_config_desk_phone_number,
-              JSON_EXTRACT(Properties, '$.PhoneConfig.PhoneType') as phone_config_phone_type,
+              JSON_EXTRACT(Properties, '$.IdentityInfo') as identity_info,
+              JSON_EXTRACT(Properties, '$.PhoneConfig') as phone_config,
               JSON_EXTRACT(Properties, '$.SecurityProfileArns') as security_profile_arns,
               JSON_EXTRACT(Properties, '$.UserArn') as user_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -1705,6 +1725,8 @@ components:
       id: aws.connect.user_hierarchy_groups
       x-cfn-schema-name: UserHierarchyGroup
       x-type: list
+      x-identifiers:
+        - UserHierarchyGroupArn
       config:
         views:
           select:
@@ -1729,5 +1751,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
+              JSON_EXTRACT(Properties, '$.UserHierarchyGroupArn') as user_hierarchy_group_arn,
+              JSON_EXTRACT(Properties, '$.ParentGroupArn') as parent_group_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Connect::UserHierarchyGroup'
