@@ -29,13 +29,13 @@ Gets an individual <code>map</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>create_time</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>data_source</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>map_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>map_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>pricing_plan</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>update_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -43,19 +43,41 @@ Gets an individual <code>map</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>map</code> resource, the following permissions are required:
+
+### Read
+<pre>
+geo:DescribeMap</pre>
+
+### Update
+<pre>
+geo:CreateMap,
+geo:DescribeMap,
+geo:TagResource,
+geo:UntagResource,
+geo:UpdateMap</pre>
+
+### Delete
+<pre>
+geo:DeleteMap,
+geo:DescribeMap</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 configuration,
 create_time,
-data_source,
 description,
 map_arn,
-arn,
 map_name,
 pricing_plan,
-update_time
+tags,
+update_time,
+arn
 FROM aws.location.map
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;MapName&gt;'

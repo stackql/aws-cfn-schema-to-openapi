@@ -216,6 +216,62 @@ components:
       x-stackql-resource-name: app
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - AppId
+        - AppName
+        - Arn
+        - DefaultDomain
+      x-required-permissions:
+        create:
+          - amplify:GetApp
+          - amplify:CreateApp
+          - amplify:TagResource
+          - codecommit:GetRepository
+          - codecommit:PutRepositoryTriggers
+          - codecommit:GetRepositoryTriggers
+          - sns:CreateTopic
+          - sns:Subscribe
+          - iam:PassRole
+        delete:
+          - amplify:GetApp
+          - amplify:DeleteApp
+          - codecommit:GetRepository
+          - codecommit:GetRepositoryTriggers
+          - codecommit:PutRepositoryTriggers
+          - sns:Unsubscribe
+          - iam:PassRole
+        list:
+          - amplify:GetApp
+          - amplify:ListApps
+          - amplify:ListTagsForResource
+          - iam:PassRole
+        read:
+          - amplify:GetApp
+          - amplify:ListTagsForResource
+          - codecommit:GetRepository
+          - codecommit:GetRepositoryTriggers
+          - iam:PassRole
+        update:
+          - amplify:GetApp
+          - amplify:UpdateApp
+          - amplify:ListTagsForResource
+          - amplify:TagResource
+          - amplify:UntagResource
+          - codecommit:GetRepository
+          - codecommit:PutRepositoryTriggers
+          - codecommit:GetRepositoryTriggers
+          - sns:CreateTopic
+          - sns:Subscribe
+          - sns:Unsubscribe
+          - iam:PassRole
+    Backend:
+      type: object
+      additionalProperties: false
+      properties:
+        StackArn:
+          type: string
+          minLength: 20
+          maxLength: 2048
     Branch:
       type: object
       properties:
@@ -230,6 +286,8 @@ components:
           pattern: (?s).*
         BasicAuthConfig:
           $ref: '#/components/schemas/BasicAuthConfig'
+        Backend:
+          $ref: '#/components/schemas/Backend'
         BranchName:
           type: string
           minLength: 1
@@ -282,6 +340,63 @@ components:
       x-stackql-resource-name: branch
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - AppId
+        - BranchName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - amplify:GetBranch
+          - amplify:CreateBranch
+          - amplify:TagResource
+          - codecommit:GetRepository
+          - codecommit:PutRepositoryTriggers
+          - codecommit:GetRepositoryTriggers
+          - s3:GetObject
+          - s3:GetObjectAcl
+          - s3:PutObject
+          - s3:PutObjectAcl
+          - sns:CreateTopic
+          - sns:Subscribe
+          - iam:PassRole
+        delete:
+          - amplify:GetBranch
+          - amplify:DeleteBranch
+          - codecommit:GetRepository
+          - codecommit:GetRepositoryTriggers
+          - sns:Unsubscribe
+          - iam:PassRole
+        list:
+          - amplify:GetBranch
+          - amplify:ListBranches
+          - amplify:ListTagsForResource
+          - iam:PassRole
+        read:
+          - amplify:GetBranch
+          - amplify:ListTagsForResource
+          - codecommit:GetRepository
+          - codecommit:GetRepositoryTriggers
+          - s3:GetObject
+          - s3:GetObjectAcl
+          - iam:PassRole
+        update:
+          - amplify:GetBranch
+          - amplify:UpdateBranch
+          - amplify:ListTagsForResource
+          - amplify:TagResource
+          - amplify:UntagResource
+          - codecommit:GetRepository
+          - codecommit:PutRepositoryTriggers
+          - codecommit:GetRepositoryTriggers
+          - s3:GetObject
+          - s3:GetObjectAcl
+          - s3:PutObject
+          - s3:PutObjectAcl
+          - sns:CreateTopic
+          - sns:Subscribe
+          - sns:Unsubscribe
+          - iam:PassRole
     SubDomainSetting:
       type: object
       additionalProperties: false
@@ -349,6 +464,42 @@ components:
       x-stackql-resource-name: domain
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - AppId
+        - DomainName
+      x-read-only-properties:
+        - Arn
+        - DomainStatus
+        - StatusReason
+        - CertificateRecord
+      x-required-permissions:
+        create:
+          - amplify:CreateDomainAssociation
+          - route53:ListHostedZones
+          - route53:ChangeResourceRecordSets
+          - iam:PassRole
+          - amplify:TagResource
+        delete:
+          - amplify:DeleteDomainAssociation
+          - iam:PassRole
+          - amplify:DeleteDomainAssociation
+        list:
+          - amplify:ListDomainAssociations
+          - iam:PassRole
+          - amplify:ListTagsForResource
+        read:
+          - amplify:GetDomainAssociation
+          - route53:ListHostedZones
+          - iam:PassRole
+          - amplify:ListTagsForResource
+        update:
+          - amplify:UpdateDomainAssociation
+          - route53:ListHostedZones
+          - route53:ChangeResourceRecordSets
+          - iam:PassRole
+          - amplify:ListTagsForResource
+          - amplify:TagResource
+          - amplify:UntagResource
   x-stackQL-resources:
     apps:
       name: apps
@@ -433,6 +584,7 @@ components:
               JSON_EXTRACT(Properties, '$.AppId') as app_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.BasicAuthConfig') as basic_auth_config,
+              JSON_EXTRACT(Properties, '$.Backend') as backend,
               JSON_EXTRACT(Properties, '$.BranchName') as branch_name,
               JSON_EXTRACT(Properties, '$.BuildSpec') as build_spec,
               JSON_EXTRACT(Properties, '$.Description') as description,

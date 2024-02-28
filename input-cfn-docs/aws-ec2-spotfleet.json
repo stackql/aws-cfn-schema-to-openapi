@@ -574,6 +574,9 @@
         "OnDemandMaxPricePercentageOverLowestPrice" : {
           "type" : "integer"
         },
+        "MaxSpotPriceAsPercentageOfOptimalOnDemandPrice" : {
+          "type" : "integer"
+        },
         "BareMetal" : {
           "type" : "string",
           "enum" : [ "included", "required", "excluded" ]
@@ -625,7 +628,7 @@
           "uniqueItems" : false,
           "items" : {
             "type" : "string",
-            "enum" : [ "nvidia", "amd", "amazon-web-services", "xilinx" ]
+            "enum" : [ "amazon-web-services", "amd", "habana", "nvidia", "xilinx" ]
           }
         },
         "AcceleratorNames" : {
@@ -633,7 +636,7 @@
           "uniqueItems" : false,
           "items" : {
             "type" : "string",
-            "enum" : [ "a100", "v100", "k80", "t4", "m60", "radeon-pro-v520", "vu9p", "inferentia", "k520" ]
+            "enum" : [ "a10g", "a100", "h100", "inferentia", "k520", "k80", "m60", "radeon-pro-v520", "t4", "t4g", "vu9p", "v100" ]
           }
         },
         "AcceleratorTotalMemoryMiB" : {
@@ -753,10 +756,11 @@
   "required" : [ "SpotFleetRequestConfigData" ],
   "createOnlyProperties" : [ "/properties/SpotFleetRequestConfigData/AllocationStrategy", "/properties/SpotFleetRequestConfigData/IamFleetRole", "/properties/SpotFleetRequestConfigData/InstanceInterruptionBehavior", "/properties/SpotFleetRequestConfigData/InstancePoolsToUseCount", "/properties/SpotFleetRequestConfigData/LaunchSpecifications", "/properties/SpotFleetRequestConfigData/LaunchTemplateConfigs", "/properties/SpotFleetRequestConfigData/LoadBalancersConfig", "/properties/SpotFleetRequestConfigData/OnDemandAllocationStrategy", "/properties/SpotFleetRequestConfigData/OnDemandMaxTotalPrice", "/properties/SpotFleetRequestConfigData/OnDemandTargetCapacity", "/properties/SpotFleetRequestConfigData/ReplaceUnhealthyInstances", "/properties/SpotFleetRequestConfigData/SpotMaintenanceStrategies", "/properties/SpotFleetRequestConfigData/SpotMaxTotalPrice", "/properties/SpotFleetRequestConfigData/SpotPrice", "/properties/SpotFleetRequestConfigData/TagSpecifications", "/properties/SpotFleetRequestConfigData/TerminateInstancesWithExpiration", "/properties/SpotFleetRequestConfigData/Type", "/properties/SpotFleetRequestConfigData/ValidFrom", "/properties/SpotFleetRequestConfigData/ValidUntil" ],
   "readOnlyProperties" : [ "/properties/Id" ],
+  "writeOnlyProperties" : [ "/properties/SpotFleetRequestConfigData/TagSpecifications", "/properties/SpotFleetRequestConfigData/LaunchSpecifications/*/NetworkInterfaces/*/Groups" ],
   "primaryIdentifier" : [ "/properties/Id" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "ec2:RequestSpotFleet", "ec2:DescribeSpotFleetRequests" ]
+      "permissions" : [ "iam:PassRole", "ec2:CreateTags", "ec2:RequestSpotFleet", "ec2:DescribeSpotFleetRequests", "ec2:RunInstances" ]
     },
     "delete" : {
       "permissions" : [ "ec2:DescribeSpotFleetRequests", "ec2:CancelSpotFleetRequests" ]

@@ -50,7 +50,12 @@ function clearOutputDir() {
               const filePath = path.join(dir, file);
               
               // Skip if cloud_control or static service files
-              if (['cloud_control.yaml', 'ec2.yaml', 'iam.yaml', 's3.yaml'].includes(file)) {
+              if ([
+                'cloud_control.yaml', 
+                // 'ec2.yaml', 
+                // 'iam.yaml', 
+                // 's3.yaml',
+              ].includes(file)) {
                 continue;
               }
 
@@ -179,9 +184,9 @@ function main(){
 
   for (const service of uniqueServices) {
     try {
-      if (['ec2', 'iam', 's3'].includes(service)) {
-        continue;
-      }
+      // if (['ec2', 'iam', 's3'].includes(service)) {
+      //   continue;
+      // }
       const filePrefix = `aws-${service}-`;
       const outputFilename = `${service}.yaml`;
       processService(filePrefix, outputFilename);
@@ -205,9 +210,9 @@ function main(){
 
   // add static files
   addStaticFilesToManifest('cloud_control');
-  addStaticFilesToManifest('ec2');
-  addStaticFilesToManifest('s3');
-  addStaticFilesToManifest('iam');
+  // addStaticFilesToManifest('ec2');
+  // addStaticFilesToManifest('s3');
+  // addStaticFilesToManifest('iam');
 
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }

@@ -48,6 +48,37 @@ Gets an individual <code>image_builder</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>image_builder</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appstream:CreateImageBuilder,
+appstream:CreateImageBuilderStreamingURL,
+appstream:CreateStreamingURL,
+appstream:DeleteImageBuilder,
+appstream:DescribeImageBuilders,
+appstream:StartImageBuilder,
+appstream:StopImageBuilder,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus</pre>
+
+### Delete
+<pre>
+appstream:CreateImageBuilder,
+appstream:CreateImageBuilderStreamingURL,
+appstream:CreateStreamingURL,
+appstream:DeleteImageBuilder,
+appstream:DescribeImageBuilders,
+appstream:StartImageBuilder,
+appstream:StopImageBuilder,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus</pre>
+
+
 ## Example
 ```sql
 SELECT

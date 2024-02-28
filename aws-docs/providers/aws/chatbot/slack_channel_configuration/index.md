@@ -43,6 +43,24 @@ Gets an individual <code>slack_channel_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>slack_channel_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+chatbot:DescribeSlackChannelConfigurations</pre>
+
+### Update
+<pre>
+chatbot:UpdateSlackChannelConfiguration,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+chatbot:DeleteSlackChannelConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

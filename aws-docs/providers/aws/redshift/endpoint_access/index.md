@@ -45,6 +45,47 @@ Gets an individual <code>endpoint_access</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>endpoint_access</code> resource, the following permissions are required:
+
+### Read
+<pre>
+redshift:DescribeEndpointAccess,
+ec2:DescribeClientVpnEndpoints,
+ec2:DescribeVpcEndpoint,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets</pre>
+
+### Update
+<pre>
+redshift:DescribeEndpointAccess,
+redshift:ModifyEndpointAccess,
+ec2:ModifyClientVpnEndpoint,
+ec2:ModifyVpcEndpoint,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets</pre>
+
+### Delete
+<pre>
+redshift:DeleteEndpointAccess,
+redshift:DescribeEndpointAccess,
+ec2:DeleteClientVpnEndpoint,
+ec2:DeleteVpcEndpoint,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeVpcEndpoint</pre>
+
+
 ## Example
 ```sql
 SELECT

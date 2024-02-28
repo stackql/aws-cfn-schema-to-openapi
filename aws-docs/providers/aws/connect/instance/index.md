@@ -36,12 +36,42 @@ Gets an individual <code>instance</code> resource
 <tr><td><code>instance_status</code></td><td><code>string</code></td><td>Specifies the creation status of new instance.</td></tr>
 <tr><td><code>directory_id</code></td><td><code>string</code></td><td>Existing directoryId user wants to map to the new Connect instance.</td></tr>
 <tr><td><code>attributes</code></td><td><code>object</code></td><td>The attributes for the instance.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>instance</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeInstance,
+connect:ListInstanceAttributes,
+ds:DescribeDirectories</pre>
+
+### Update
+<pre>
+connect:ListInstanceAttributes,
+connect:UpdateInstanceAttribute,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+connect:TagResource,
+connect:UntagResource</pre>
+
+### Delete
+<pre>
+connect:DeleteInstance,
+connect:DescribeInstance,
+connect:UntagResource,
+ds:DeleteDirectory,
+ds:UnauthorizeApplication,
+ds:DescribeDirectories</pre>
+
 
 ## Example
 ```sql
@@ -55,7 +85,8 @@ created_time,
 service_role,
 instance_status,
 directory_id,
-attributes
+attributes,
+tags
 FROM aws.connect.instance
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

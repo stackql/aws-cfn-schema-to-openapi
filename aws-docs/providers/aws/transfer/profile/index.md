@@ -40,6 +40,25 @@ Gets an individual <code>profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+transfer:DescribeProfile</pre>
+
+### Update
+<pre>
+transfer:UpdateProfile,
+transfer:UnTagResource,
+transfer:TagResource</pre>
+
+### Delete
+<pre>
+transfer:DeleteProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

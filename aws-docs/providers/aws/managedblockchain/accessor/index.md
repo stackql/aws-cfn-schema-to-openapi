@@ -33,6 +33,7 @@ Gets an individual <code>accessor</code> resource
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>accessor_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>network_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -40,6 +41,26 @@ Gets an individual <code>accessor</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>accessor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+managedblockchain:GetAccessor</pre>
+
+### Update
+<pre>
+managedblockchain:GetAccessor,
+managedblockchain:CreateAccessor,
+managedblockchain:TagResource,
+managedblockchain:UntagResource</pre>
+
+### Delete
+<pre>
+managedblockchain:DeleteAccessor</pre>
+
 
 ## Example
 ```sql
@@ -51,6 +72,7 @@ creation_date,
 id,
 status,
 accessor_type,
+network_type,
 tags
 FROM aws.managedblockchain.accessor
 WHERE region = 'us-east-1'

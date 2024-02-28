@@ -35,12 +35,17 @@ Gets an individual <code>certificate</code> resource
 <tr><td><code>subject_alternative_names</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>key_algorithm</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+
+
+
 
 ## Example
 ```sql
@@ -53,7 +58,8 @@ domain_name,
 validation_method,
 subject_alternative_names,
 id,
-tags
+tags,
+key_algorithm
 FROM aws.certificatemanager.certificate
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

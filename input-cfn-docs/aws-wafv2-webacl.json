@@ -286,7 +286,6 @@
           "items" : {
             "$ref" : "#/definitions/RuleActionOverride"
           },
-          "minItems" : 1,
           "maxItems" : 100
         }
       },
@@ -347,7 +346,15 @@
         },
         "AggregateKeyType" : {
           "type" : "string",
-          "enum" : [ "IP", "FORWARDED_IP" ]
+          "enum" : [ "CONSTANT", "IP", "FORWARDED_IP", "CUSTOM_KEYS" ]
+        },
+        "CustomKeys" : {
+          "description" : "Specifies the aggregate keys to use in a rate-base rule.",
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/RateBasedStatementCustomKey"
+          },
+          "maxItems" : 5
         },
         "ScopeDownStatement" : {
           "$ref" : "#/definitions/Statement"
@@ -357,6 +364,156 @@
         }
       },
       "required" : [ "Limit", "AggregateKeyType" ],
+      "additionalProperties" : false
+    },
+    "RateBasedStatementCustomKey" : {
+      "description" : "Specifies a single custom aggregate key for a rate-base rule.",
+      "type" : "object",
+      "properties" : {
+        "Cookie" : {
+          "$ref" : "#/definitions/RateLimitCookie"
+        },
+        "ForwardedIP" : {
+          "$ref" : "#/definitions/RateLimitForwardedIP"
+        },
+        "Header" : {
+          "$ref" : "#/definitions/RateLimitHeader"
+        },
+        "HTTPMethod" : {
+          "$ref" : "#/definitions/RateLimitHTTPMethod"
+        },
+        "IP" : {
+          "$ref" : "#/definitions/RateLimitIP"
+        },
+        "LabelNamespace" : {
+          "$ref" : "#/definitions/RateLimitLabelNamespace"
+        },
+        "QueryArgument" : {
+          "$ref" : "#/definitions/RateLimitQueryArgument"
+        },
+        "QueryString" : {
+          "$ref" : "#/definitions/RateLimitQueryString"
+        },
+        "UriPath" : {
+          "$ref" : "#/definitions/RateLimitUriPath"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "RateLimitCookie" : {
+      "description" : "Specifies a cookie as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "description" : "The name of the cookie to use.",
+          "type" : "string",
+          "pattern" : ".*\\S.*",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "TextTransformations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TextTransformation"
+          }
+        }
+      },
+      "required" : [ "Name", "TextTransformations" ],
+      "additionalProperties" : false
+    },
+    "RateLimitForwardedIP" : {
+      "description" : "Specifies the first IP address in an HTTP header as an aggregate key for a rate-based rule.",
+      "type" : "object"
+    },
+    "RateLimitHeader" : {
+      "description" : "Specifies a header as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "description" : "The name of the header to use.",
+          "type" : "string",
+          "pattern" : ".*\\S.*",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "TextTransformations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TextTransformation"
+          }
+        }
+      },
+      "required" : [ "Name", "TextTransformations" ],
+      "additionalProperties" : false
+    },
+    "RateLimitHTTPMethod" : {
+      "description" : "Specifies the request's HTTP method as an aggregate key for a rate-based rule.",
+      "type" : "object"
+    },
+    "RateLimitIP" : {
+      "description" : "Specifies the IP address in the web request as an aggregate key for a rate-based rule.",
+      "type" : "object"
+    },
+    "RateLimitLabelNamespace" : {
+      "description" : "Specifies a label namespace to use as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "Namespace" : {
+          "description" : "The namespace to use for aggregation.",
+          "type" : "string",
+          "pattern" : "^[0-9A-Za-z_:-]{1,1024}$"
+        }
+      },
+      "required" : [ "Namespace" ],
+      "additionalProperties" : false
+    },
+    "RateLimitQueryArgument" : {
+      "description" : "Specifies a query argument in the request as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "Name" : {
+          "description" : "The name of the query argument to use.",
+          "type" : "string",
+          "pattern" : ".*\\S.*",
+          "minLength" : 1,
+          "maxLength" : 64
+        },
+        "TextTransformations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TextTransformation"
+          }
+        }
+      },
+      "required" : [ "Name", "TextTransformations" ],
+      "additionalProperties" : false
+    },
+    "RateLimitQueryString" : {
+      "description" : "Specifies the request's query string as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "TextTransformations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TextTransformation"
+          }
+        }
+      },
+      "required" : [ "TextTransformations" ],
+      "additionalProperties" : false
+    },
+    "RateLimitUriPath" : {
+      "description" : "Specifies the request's URI Path as an aggregate key for a rate-based rule.",
+      "type" : "object",
+      "properties" : {
+        "TextTransformations" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TextTransformation"
+          }
+        }
+      },
+      "required" : [ "TextTransformations" ],
       "additionalProperties" : false
     },
     "RateLimit" : {
@@ -667,7 +824,6 @@
           "items" : {
             "$ref" : "#/definitions/RuleActionOverride"
           },
-          "minItems" : 1,
           "maxItems" : 100
         }
       },
@@ -999,6 +1155,9 @@
         },
         "AWSManagedRulesATPRuleSet" : {
           "$ref" : "#/definitions/AWSManagedRulesATPRuleSet"
+        },
+        "AWSManagedRulesACFPRuleSet" : {
+          "$ref" : "#/definitions/AWSManagedRulesACFPRuleSet"
         }
       },
       "additionalProperties" : false
@@ -1010,6 +1169,9 @@
         "InspectionLevel" : {
           "type" : "string",
           "enum" : [ "COMMON", "TARGETED" ]
+        },
+        "EnableMachineLearning" : {
+          "type" : "boolean"
         }
       },
       "required" : [ "InspectionLevel" ],
@@ -1022,6 +1184,9 @@
         "LoginPath" : {
           "type" : "string"
         },
+        "EnableRegexInPath" : {
+          "type" : "boolean"
+        },
         "RequestInspection" : {
           "$ref" : "#/definitions/RequestInspection"
         },
@@ -1030,6 +1195,29 @@
         }
       },
       "required" : [ "LoginPath" ],
+      "additionalProperties" : false
+    },
+    "AWSManagedRulesACFPRuleSet" : {
+      "description" : "Configures how to use the Account creation fraud prevention managed rule group in the web ACL",
+      "type" : "object",
+      "properties" : {
+        "CreationPath" : {
+          "type" : "string"
+        },
+        "RegistrationPagePath" : {
+          "type" : "string"
+        },
+        "RequestInspection" : {
+          "$ref" : "#/definitions/RequestInspectionACFP"
+        },
+        "ResponseInspection" : {
+          "$ref" : "#/definitions/ResponseInspection"
+        },
+        "EnableRegexInPath" : {
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "CreationPath", "RegistrationPagePath", "RequestInspection" ],
       "additionalProperties" : false
     },
     "RequestInspection" : {
@@ -1048,6 +1236,39 @@
         }
       },
       "required" : [ "PayloadType", "UsernameField", "PasswordField" ],
+      "additionalProperties" : false
+    },
+    "RequestInspectionACFP" : {
+      "description" : "Configures the inspection of sign-up requests",
+      "type" : "object",
+      "properties" : {
+        "PayloadType" : {
+          "type" : "string",
+          "enum" : [ "JSON", "FORM_ENCODED" ]
+        },
+        "UsernameField" : {
+          "$ref" : "#/definitions/FieldIdentifier"
+        },
+        "PasswordField" : {
+          "$ref" : "#/definitions/FieldIdentifier"
+        },
+        "EmailField" : {
+          "$ref" : "#/definitions/FieldIdentifier"
+        },
+        "PhoneNumberFields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/PhoneNumberField"
+          }
+        },
+        "AddressFields" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/AddressField"
+          }
+        }
+      },
+      "required" : [ "PayloadType" ],
       "additionalProperties" : false
     },
     "ResponseInspection" : {
@@ -1208,6 +1429,47 @@
         "minLength" : 1,
         "maxLength" : 253
       }
+    },
+    "AssociationConfig" : {
+      "description" : "AssociationConfig for body inspection",
+      "type" : "object",
+      "properties" : {
+        "RequestBody" : {
+          "$ref" : "#/definitions/RequestBody"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "RequestBody" : {
+      "type" : "object",
+      "description" : "Map of AssociatedResourceType and RequestBodyAssociatedResourceTypeConfig",
+      "patternProperties" : {
+        "^(CLOUDFRONT)$" : {
+          "$ref" : "#/definitions/RequestBodyAssociatedResourceTypeConfig"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "RequestBodyAssociatedResourceTypeConfig" : {
+      "description" : "Configures the inspection size in the request body.",
+      "type" : "object",
+      "properties" : {
+        "DefaultSizeInspectionLimit" : {
+          "$ref" : "#/definitions/SizeInspectionLimit"
+        }
+      },
+      "required" : [ "DefaultSizeInspectionLimit" ],
+      "additionalProperties" : false
+    },
+    "SizeInspectionLimit" : {
+      "type" : "string",
+      "enum" : [ "KB_16", "KB_32", "KB_48", "KB_64" ]
+    },
+    "PhoneNumberField" : {
+      "$ref" : "#/definitions/FieldIdentifier"
+    },
+    "AddressField" : {
+      "$ref" : "#/definitions/FieldIdentifier"
     },
     "FieldIdentifier" : {
       "type" : "object",
@@ -1392,6 +1654,9 @@
     },
     "TokenDomains" : {
       "$ref" : "#/definitions/TokenDomains"
+    },
+    "AssociationConfig" : {
+      "$ref" : "#/definitions/AssociationConfig"
     }
   },
   "required" : [ "DefaultAction", "Scope", "VisibilityConfig" ],
@@ -1399,6 +1664,12 @@
   "createOnlyProperties" : [ "/properties/Name", "/properties/Scope" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/Capacity", "/properties/Id", "/properties/LabelNamespace" ],
   "additionalProperties" : false,
+  "tagging" : {
+    "cloudFormationSystemTags" : false,
+    "tagOnCreate" : false,
+    "tagUpdatable" : false,
+    "taggable" : false
+  },
   "handlers" : {
     "create" : {
       "permissions" : [ "wafv2:CreateWebACL", "wafv2:GetWebACL", "wafv2:ListTagsForResource" ]
@@ -1413,7 +1684,15 @@
       "permissions" : [ "wafv2:UpdateWebACL", "wafv2:GetWebACL", "wafv2:ListTagsForResource" ]
     },
     "list" : {
-      "permissions" : [ "wafv2:listWebACLs" ]
+      "permissions" : [ "wafv2:listWebACLs" ],
+      "handlerSchema" : {
+        "properties" : {
+          "Scope" : {
+            "$ref" : "resource-schema.json#/properties/Scope"
+          }
+        },
+        "required" : [ "Scope" ]
+      }
     }
   }
 }

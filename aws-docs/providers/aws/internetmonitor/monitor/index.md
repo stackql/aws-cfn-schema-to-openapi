@@ -39,13 +39,50 @@ Gets an individual <code>monitor</code> resource
 <tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>max_city_networks_to_monitor</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>traffic_percentage_to_monitor</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>internet_measurements_log_delivery</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>health_events_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>monitor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+internetmonitor:GetMonitor,
+internetmonitor:ListTagsForResource,
+logs:GetLogDelivery</pre>
+
+### Update
+<pre>
+internetmonitor:CreateMonitor,
+internetmonitor:GetMonitor,
+internetmonitor:UpdateMonitor,
+internetmonitor:TagResource,
+internetmonitor:UntagResource,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+s3:ListBucket,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+internetmonitor:UpdateMonitor,
+internetmonitor:DeleteMonitor,
+internetmonitor:GetMonitor,
+logs:DeleteLogDelivery</pre>
+
 
 ## Example
 ```sql
@@ -63,7 +100,9 @@ resources_to_remove,
 status,
 tags,
 max_city_networks_to_monitor,
-internet_measurements_log_delivery
+traffic_percentage_to_monitor,
+internet_measurements_log_delivery,
+health_events_config
 FROM aws.internetmonitor.monitor
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;MonitorName&gt;'

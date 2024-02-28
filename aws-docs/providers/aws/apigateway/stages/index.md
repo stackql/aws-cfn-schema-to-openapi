@@ -27,14 +27,30 @@ Retrieves a list of <code>stages</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the RestApi resource that you're deploying with this stage.</td></tr>
-<tr><td><code>stage_name</code></td><td><code>string</code></td><td>The name of the stage, which API Gateway uses as the first path segment in the invoked Uniform Resource Identifier (URI).</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
+<tr><td><code>stage_name</code></td><td><code>string</code></td><td>The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>stages</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:POST,
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT</pre>
+
+### List
+<pre>
+apigateway:GET</pre>
+
 
 ## Example
 ```sql

@@ -46,6 +46,30 @@ Gets an individual <code>transit_gateway_peering</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>transit_gateway_peering</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetTransitGatewayPeering,
+networkmanager:TagResource</pre>
+
+### Update
+<pre>
+networkmanager:TagResource,
+networkmanager:UntagResource,
+networkmanager:ListTagsForResource,
+networkmanager:GetTransitGatewayPeering,
+ec2:DescribeRegions</pre>
+
+### Delete
+<pre>
+networkmanager:DeletePeering,
+networkmanager:GetTransitGatewayPeering,
+ec2:DescribeRegions</pre>
+
+
 ## Example
 ```sql
 SELECT

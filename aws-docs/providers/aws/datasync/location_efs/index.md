@@ -43,6 +43,27 @@ Gets an individual <code>location_efs</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location_efs</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationEfs,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationEfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

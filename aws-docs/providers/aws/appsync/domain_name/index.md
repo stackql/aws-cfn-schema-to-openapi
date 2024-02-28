@@ -39,6 +39,24 @@ Gets an individual <code>domain_name</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain_name</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+appsync:GetDomainName,
+appsync:DeleteDomainName</pre>
+
+### Update
+<pre>
+appsync:UpdateDomainName</pre>
+
+### Read
+<pre>
+appsync:GetDomainName</pre>
+
+
 ## Example
 ```sql
 SELECT

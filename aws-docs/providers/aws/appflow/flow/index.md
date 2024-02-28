@@ -32,6 +32,7 @@ Gets an individual <code>flow</code> resource
 <tr><td><code>description</code></td><td><code>string</code></td><td>Description of the flow.</td></tr>
 <tr><td><code>k_ms_arn</code></td><td><code>string</code></td><td>The ARN of the AWS Key Management Service (AWS KMS) key that's used to encrypt your function's environment variables. If it's not provided, AWS Lambda uses a default service key.</td></tr>
 <tr><td><code>trigger_config</code></td><td><code>object</code></td><td>Trigger settings of the flow.</td></tr>
+<tr><td><code>flow_status</code></td><td><code>string</code></td><td>Flow activation status for Scheduled- and Event-triggered flows</td></tr>
 <tr><td><code>source_flow_config</code></td><td><code>object</code></td><td>Configurations of Source connector of the flow.</td></tr>
 <tr><td><code>destination_flow_config_list</code></td><td><code>array</code></td><td>List of Destination connectors of the flow.</td></tr>
 <tr><td><code>tasks</code></td><td><code>array</code></td><td>List of tasks for the flow.</td></tr>
@@ -44,6 +45,37 @@ Gets an individual <code>flow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flow</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appflow:DescribeFlow,
+appflow:ListTagsForResource</pre>
+
+### Update
+<pre>
+appflow:UpdateFlow,
+appflow:StartFlow,
+appflow:StopFlow,
+appflow:TagResource,
+appflow:UntagResource,
+appflow:ListTagsForResource,
+appflow:UseConnectorProfile,
+iam:PassRole,
+s3:ListAllMyBuckets,
+s3:GetBucketLocation,
+s3:GetBucketPolicy,
+kms:ListGrants,
+secretsmanager:CreateSecret,
+secretsmanager:PutResourcePolicy</pre>
+
+### Delete
+<pre>
+appflow:DeleteFlow</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -53,6 +85,7 @@ flow_name,
 description,
 k_ms_arn,
 trigger_config,
+flow_status,
 source_flow_config,
 destination_flow_config_list,
 tasks,

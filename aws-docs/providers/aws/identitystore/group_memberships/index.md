@@ -36,6 +36,20 @@ Retrieves a list of <code>group_memberships</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>group_memberships</code> resource, the following permissions are required:
+
+### Create
+<pre>
+identitystore:CreateGroupMembership,
+identitystore:DescribeGroupMembership</pre>
+
+### List
+<pre>
+identitystore:ListGroupMemberships</pre>
+
+
 ## Example
 ```sql
 SELECT

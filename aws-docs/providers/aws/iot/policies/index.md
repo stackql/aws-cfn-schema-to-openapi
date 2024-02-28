@@ -35,6 +35,22 @@ Retrieves a list of <code>policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreatePolicy,
+iot:GetPolicy,
+iot:TagResource,
+iot:ListTagsForResource</pre>
+
+### List
+<pre>
+iot:ListPolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

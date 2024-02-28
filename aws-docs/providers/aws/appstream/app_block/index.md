@@ -35,12 +35,27 @@ Gets an individual <code>app_block</code> resource
 <tr><td><code>setup_script_details</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>created_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>packaging_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>post_setup_script_details</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>app_block</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appstream:DescribeAppBlocks</pre>
+
+### Delete
+<pre>
+appstream:DeleteAppBlock</pre>
+
 
 ## Example
 ```sql
@@ -53,7 +68,9 @@ display_name,
 source_s3_location,
 setup_script_details,
 tags,
-created_time
+created_time,
+packaging_type,
+post_setup_script_details
 FROM aws.appstream.app_block
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

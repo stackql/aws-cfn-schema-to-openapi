@@ -43,6 +43,20 @@ Gets an individual <code>asset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>asset</code> resource, the following permissions are required:
+
+### Read
+<pre>
+mediapackage-vod:DescribeAsset</pre>
+
+### Delete
+<pre>
+mediapackage-vod:DescribeAsset,
+mediapackage-vod:DeleteAsset</pre>
+
+
 ## Example
 ```sql
 SELECT

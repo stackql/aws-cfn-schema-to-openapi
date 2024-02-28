@@ -35,6 +35,17 @@ Retrieves a list of <code>users</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>users</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:CreateUser,
+connect:TagResource,
+connect:AssociateUserProficiencies</pre>
+
+
 ## Example
 ```sql
 SELECT

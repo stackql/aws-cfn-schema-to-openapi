@@ -44,6 +44,7 @@ Gets an individual <code>fleet</code> resource
 <tr><td><code>display_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>stream_view</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>iam_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>max_sessions_per_instance</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>instance_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>max_concurrent_sessions</code></td><td><code>integer</code></td><td></td></tr>
@@ -55,6 +56,10 @@ Gets an individual <code>fleet</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+
+
+
 
 ## Example
 ```sql
@@ -77,6 +82,7 @@ disconnect_timeout_in_seconds,
 display_name,
 stream_view,
 iam_role_arn,
+max_sessions_per_instance,
 id,
 instance_type,
 max_concurrent_sessions,

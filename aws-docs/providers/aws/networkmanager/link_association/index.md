@@ -37,6 +37,19 @@ Gets an individual <code>link_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>link_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetLinkAssociations</pre>
+
+### Delete
+<pre>
+networkmanager:DisassociateLink</pre>
+
+
 ## Example
 ```sql
 SELECT

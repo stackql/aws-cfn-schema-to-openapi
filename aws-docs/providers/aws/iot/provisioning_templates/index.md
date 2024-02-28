@@ -35,6 +35,24 @@ Retrieves a list of <code>provisioning_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>provisioning_templates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:PassRole,
+iot:CreateProvisioningTemplate,
+iot:DescribeProvisioningTemplate,
+iot:TagResource,
+iot:ListTagsForResource</pre>
+
+### List
+<pre>
+iot:ListProvisioningTemplates</pre>
+
+
 ## Example
 ```sql
 SELECT

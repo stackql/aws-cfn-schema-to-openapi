@@ -46,6 +46,80 @@ Gets an individual <code>detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>detector</code> resource, the following permissions are required:
+
+### Update
+<pre>
+frauddetector:GetDetectors,
+frauddetector:GetDetectorVersion,
+frauddetector:PutDetector,
+frauddetector:UpdateDetectorVersion,
+frauddetector:UpdateDetectorVersionStatus,
+frauddetector:UpdateDetectorVersionMetadata,
+frauddetector:UpdateRuleVersion,
+frauddetector:UpdateRuleMetadata,
+frauddetector:CreateRule,
+frauddetector:CreateVariable,
+frauddetector:UpdateVariable,
+frauddetector:GetVariables,
+frauddetector:PutLabel,
+frauddetector:PutOutcome,
+frauddetector:PutEntityType,
+frauddetector:PutEventType,
+frauddetector:GetRules,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetOutcomes,
+frauddetector:GetEntityTypes,
+frauddetector:GetExternalModels,
+frauddetector:GetModelVersion,
+frauddetector:DeleteEventType,
+frauddetector:DeleteVariable,
+frauddetector:DeleteLabel,
+frauddetector:DeleteEntityType,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource</pre>
+
+### Delete
+<pre>
+frauddetector:GetDetectors,
+frauddetector:GetDetectorVersion,
+frauddetector:DescribeDetector,
+frauddetector:GetRules,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetOutcomes,
+frauddetector:GetEntityTypes,
+frauddetector:DeleteDetector,
+frauddetector:DeleteDetectorVersion,
+frauddetector:DeleteRule,
+frauddetector:DeleteEventType,
+frauddetector:DeleteVariable,
+frauddetector:DeleteLabel,
+frauddetector:DeleteOutcome,
+frauddetector:DeleteEntityType,
+frauddetector:ListTagsForResource</pre>
+
+### Read
+<pre>
+frauddetector:GetDetectors,
+frauddetector:GetDetectorVersion,
+frauddetector:DescribeDetector,
+frauddetector:GetRules,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetExternalModels,
+frauddetector:GetModelVersion,
+frauddetector:GetLabels,
+frauddetector:GetOutcomes,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

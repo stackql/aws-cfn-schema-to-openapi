@@ -43,6 +43,27 @@ Gets an individual <code>custom_action_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>custom_action_type</code> resource, the following permissions are required:
+
+### Read
+<pre>
+codepipeline:ListActionTypes,
+codepipeline:ListTagsForResource</pre>
+
+### Update
+<pre>
+codepipeline:ListActionTypes,
+codepipeline:TagResource,
+codepipeline:UntagResource</pre>
+
+### Delete
+<pre>
+codepipeline:DeleteCustomActionType,
+codepipeline:ListActionTypes</pre>
+
+
 ## Example
 ```sql
 SELECT

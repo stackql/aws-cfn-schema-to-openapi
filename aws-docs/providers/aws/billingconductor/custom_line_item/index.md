@@ -38,6 +38,7 @@ Gets an individual <code>custom_line_item</code> resource
 <tr><td><code>association_size</code></td><td><code>integer</code></td><td>Number of source values associated to this custom line item</td></tr>
 <tr><td><code>product_code</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>currency_code</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>account_id</code></td><td><code>string</code></td><td>The account which this custom line item will be charged to</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -45,6 +46,36 @@ Gets an individual <code>custom_line_item</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>custom_line_item</code> resource, the following permissions are required:
+
+### Read
+<pre>
+billingconductor:ListCustomLineItems,
+billingconductor:ListCustomLineItemVersions,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:ListTagsForResource</pre>
+
+### Update
+<pre>
+billingconductor:UpdateCustomLineItem,
+billingconductor:ListCustomLineItems,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:BatchAssociateResourcesToCustomLineItem,
+billingconductor:BatchDisassociateResourcesFromCustomLineItem,
+billingconductor:TagResource,
+billingconductor:UntagResource</pre>
+
+### Delete
+<pre>
+billingconductor:DeleteCustomLineItem,
+billingconductor:ListCustomLineItems,
+billingconductor:BatchDisassociateResourcesFromCustomLineItem,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:UntagResource</pre>
+
 
 ## Example
 ```sql
@@ -61,6 +92,7 @@ last_modified_time,
 association_size,
 product_code,
 currency_code,
+account_id,
 tags
 FROM aws.billingconductor.custom_line_item
 WHERE region = 'us-east-1'

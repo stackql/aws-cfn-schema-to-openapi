@@ -38,6 +38,23 @@ Gets an individual <code>hook_default_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>hook_default_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cloudformation:DescribeType</pre>
+
+### Update
+<pre>
+cloudformation:SetTypeDefaultVersion</pre>
+
+### Delete
+<pre>
+</pre>
+
+
 ## Example
 ```sql
 SELECT

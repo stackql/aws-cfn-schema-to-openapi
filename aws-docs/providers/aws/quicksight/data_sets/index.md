@@ -36,6 +36,30 @@ Retrieves a list of <code>data_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+quicksight:DescribeDataSet,
+quicksight:DescribeDataSetPermissions,
+quicksight:DescribeIngestion,
+quicksight:ListIngestions,
+quicksight:CreateDataSet,
+quicksight:PassDataSource,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:ListTagsForResource,
+quicksight:DescribeDataSetRefreshProperties,
+quicksight:PutDataSetRefreshProperties</pre>
+
+### List
+<pre>
+quicksight:DescribeDataSet,
+quicksight:ListDataSets</pre>
+
+
 ## Example
 ```sql
 SELECT

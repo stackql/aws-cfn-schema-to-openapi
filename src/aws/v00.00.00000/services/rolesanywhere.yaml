@@ -47,6 +47,28 @@ components:
       x-stackql-resource-name: crl
       x-stackql-primaryIdentifier:
         - CrlId
+      x-read-only-properties:
+        - CrlId
+      x-required-permissions:
+        create:
+          - rolesanywhere:ImportCrl
+          - rolesanywhere:TagResource
+          - rolesanywhere:ListTagsForResource
+        read:
+          - rolesanywhere:GetCrl
+          - rolesanywhere:ListTagsForResource
+        update:
+          - rolesanywhere:EnableCrl
+          - rolesanywhere:DisableCrl
+          - rolesanywhere:UpdateCrl
+          - rolesanywhere:TagResource
+          - rolesanywhere:UntagResource
+          - rolesanywhere:ListTagsForResource
+        delete:
+          - rolesanywhere:DeleteCrl
+        list:
+          - rolesanywhere:ListCrls
+          - rolesanywhere:ListTagsForResource
     Profile:
       type: object
       properties:
@@ -89,6 +111,61 @@ components:
       x-stackql-resource-name: profile
       x-stackql-primaryIdentifier:
         - ProfileId
+      x-read-only-properties:
+        - ProfileId
+        - ProfileArn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:GetPolicy
+          - iam:PassRole
+          - rolesanywhere:CreateProfile
+          - rolesanywhere:TagResource
+          - rolesanywhere:ListTagsForResource
+        read:
+          - rolesanywhere:GetProfile
+          - rolesanywhere:ListTagsForResource
+        update:
+          - iam:GetRole
+          - iam:GetPolicy
+          - iam:PassRole
+          - rolesanywhere:UpdateProfile
+          - rolesanywhere:EnableProfile
+          - rolesanywhere:DisableProfile
+          - rolesanywhere:TagResource
+          - rolesanywhere:UntagResource
+          - rolesanywhere:ListTagsForResource
+        delete:
+          - rolesanywhere:DeleteProfile
+        list:
+          - rolesanywhere:ListProfiles
+          - rolesanywhere:ListTagsForResource
+    NotificationChannel:
+      type: string
+      enum:
+        - ALL
+    NotificationEvent:
+      type: string
+      enum:
+        - CA_CERTIFICATE_EXPIRY
+        - END_ENTITY_CERTIFICATE_EXPIRY
+    NotificationSetting:
+      type: object
+      properties:
+        Enabled:
+          type: boolean
+        Event:
+          $ref: '#/components/schemas/NotificationEvent'
+        Threshold:
+          type: number
+          maximum: 360
+          minimum: 1
+        Channel:
+          $ref: '#/components/schemas/NotificationChannel'
+      required:
+        - Enabled
+        - Event
+      additionalProperties: false
     Source:
       type: object
       properties:
@@ -128,6 +205,12 @@ components:
           type: boolean
         Name:
           type: string
+        NotificationSettings:
+          type: array
+          items:
+            $ref: '#/components/schemas/NotificationSetting'
+          maxItems: 50
+          minItems: 0
         Source:
           $ref: '#/components/schemas/Source'
         Tags:
@@ -148,6 +231,34 @@ components:
       x-stackql-resource-name: trust_anchor
       x-stackql-primaryIdentifier:
         - TrustAnchorId
+      x-read-only-properties:
+        - TrustAnchorId
+        - TrustAnchorArn
+      x-required-permissions:
+        create:
+          - iam:CreateServiceLinkedRole
+          - rolesanywhere:CreateTrustAnchor
+          - rolesanywhere:TagResource
+          - rolesanywhere:ListTagsForResource
+        read:
+          - rolesanywhere:GetTrustAnchor
+          - rolesanywhere:ListTagsForResource
+        update:
+          - acm-pca:GetCertificateAuthorityCertificate
+          - rolesanywhere:ListTagsForResource
+          - rolesanywhere:TagResource
+          - rolesanywhere:UntagResource
+          - rolesanywhere:EnableTrustAnchor
+          - rolesanywhere:DisableTrustAnchor
+          - rolesanywhere:UpdateTrustAnchor
+          - rolesanywhere:GetTrustAnchor
+          - rolesanywhere:PutNotificationSettings
+          - rolesanywhere:ResetNotificationSettings
+        delete:
+          - rolesanywhere:DeleteTrustAnchor
+        list:
+          - rolesanywhere:ListTrustAnchors
+          - rolesanywhere:ListTagsForResource
   x-stackQL-resources:
     crls:
       name: crls
@@ -259,6 +370,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.NotificationSettings') as notification_settings,
               JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_id,

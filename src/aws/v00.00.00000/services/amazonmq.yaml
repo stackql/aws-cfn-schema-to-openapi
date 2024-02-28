@@ -54,6 +54,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        ReplicationUser:
+          type: boolean
         ConsoleAccess:
           type: boolean
         Username:
@@ -122,6 +124,8 @@ components:
           uniqueItems: false
           items:
             type: string
+        DataReplicationPrimaryBrokerArn:
+          type: string
         Configuration:
           $ref: '#/components/schemas/ConfigurationId'
         AuthenticationStrategy:
@@ -178,6 +182,8 @@ components:
           $ref: '#/components/schemas/LogList'
         ConfigurationId:
           type: string
+        DataReplicationMode:
+          type: string
         BrokerName:
           type: string
         WssEndpoints:
@@ -215,6 +221,26 @@ components:
       x-stackql-resource-name: broker
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - BrokerName
+        - StorageType
+        - DeploymentMode
+        - EngineType
+        - SubnetIds
+        - AuthenticationStrategy
+        - EncryptionOptions
+        - PubliclyAccessible
+      x-read-only-properties:
+        - IpAddresses
+        - Id
+        - MqttEndpoints
+        - OpenWireEndpoints
+        - ConfigurationId
+        - ConfigurationRevision
+        - StompEndpoints
+        - WssEndpoints
+        - AmqpEndpoints
+        - Arn
     Configuration:
       type: object
       properties:
@@ -249,6 +275,15 @@ components:
       x-stackql-resource-name: configuration
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - EngineType
+        - Name
+        - AuthenticationStrategy
+        - EngineVersion
+      x-read-only-properties:
+        - Revision
+        - Id
+        - Arn
     ConfigurationAssociation:
       type: object
       properties:
@@ -263,6 +298,10 @@ components:
         - Broker
       x-stackql-resource-name: configuration_association
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Broker
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     brokers:
@@ -296,6 +335,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
+              JSON_EXTRACT(Properties, '$.DataReplicationPrimaryBrokerArn') as data_replication_primary_broker_arn,
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.AuthenticationStrategy') as authentication_strategy,
               JSON_EXTRACT(Properties, '$.Users') as users,
@@ -315,6 +355,7 @@ components:
               JSON_EXTRACT(Properties, '$.AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
               JSON_EXTRACT(Properties, '$.Logs') as logs,
               JSON_EXTRACT(Properties, '$.ConfigurationId') as configuration_id,
+              JSON_EXTRACT(Properties, '$.DataReplicationMode') as data_replication_mode,
               JSON_EXTRACT(Properties, '$.BrokerName') as broker_name,
               JSON_EXTRACT(Properties, '$.WssEndpoints') as wss_endpoints,
               JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,

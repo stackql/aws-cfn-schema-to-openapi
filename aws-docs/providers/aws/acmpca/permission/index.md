@@ -38,6 +38,19 @@ Gets an individual <code>permission</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>permission</code> resource, the following permissions are required:
+
+### Read
+<pre>
+acm-pca:ListPermissions</pre>
+
+### Delete
+<pre>
+acm-pca:DeletePermission</pre>
+
+
 ## Example
 ```sql
 SELECT

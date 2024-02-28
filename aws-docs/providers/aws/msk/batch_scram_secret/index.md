@@ -36,6 +36,34 @@ Gets an individual <code>batch_scram_secret</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>batch_scram_secret</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+kafka:BatchDisassociateScramSecret,
+kafka:ListScramSecrets,
+kms:CreateGrant,
+kms:DescribeKey</pre>
+
+### Read
+<pre>
+kafka:ListScramSecrets,
+kms:CreateGrant,
+kms:DescribeKey,
+secretsmanager:GetSecretValue</pre>
+
+### Update
+<pre>
+kafka:BatchAssociateScramSecret,
+kafka:BatchDisassociateScramSecret,
+kafka:ListScramSecrets,
+kms:CreateGrant,
+kms:DescribeKey,
+secretsmanager:GetSecretValue</pre>
+
+
 ## Example
 ```sql
 SELECT

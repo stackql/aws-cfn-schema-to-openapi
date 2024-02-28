@@ -35,6 +35,21 @@ Retrieves a list of <code>scheduled_audits</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>scheduled_audits</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateScheduledAudit,
+iot:DescribeScheduledAudit,
+iot:TagResource</pre>
+
+### List
+<pre>
+iot:ListScheduledAudits</pre>
+
+
 ## Example
 ```sql
 SELECT

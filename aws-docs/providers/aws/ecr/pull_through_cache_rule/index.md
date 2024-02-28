@@ -29,6 +29,8 @@ Gets an individual <code>pull_through_cache_rule</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>ecr_repository_prefix</code></td><td><code>string</code></td><td>The ECRRepositoryPrefix is a custom alias for upstream registry url.</td></tr>
 <tr><td><code>upstream_registry_url</code></td><td><code>string</code></td><td>The upstreamRegistryUrl is the endpoint of upstream registry url of the public repository to be cached</td></tr>
+<tr><td><code>credential_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AWS Secrets Manager secret that identifies the credentials to authenticate to the upstream registry.</td></tr>
+<tr><td><code>upstream_registry</code></td><td><code>string</code></td><td>The name of the upstream registry.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -36,12 +38,36 @@ Gets an individual <code>pull_through_cache_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pull_through_cache_rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecr:DescribePullThroughCacheRules</pre>
+
+### Update
+<pre>
+ecr:DescribePullThroughCacheRules,
+ecr:CreatePullThroughCacheRule,
+ecr:DeletePullThroughCacheRule,
+iam:CreateServiceLinkedRole,
+secretsmanager:GetSecretValue</pre>
+
+### Delete
+<pre>
+ecr:DescribePullThroughCacheRules,
+ecr:DeletePullThroughCacheRule</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 ecr_repository_prefix,
-upstream_registry_url
+upstream_registry_url,
+credential_arn,
+upstream_registry
 FROM aws.ecr.pull_through_cache_rule
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;EcrRepositoryPrefix&gt;'

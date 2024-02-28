@@ -40,6 +40,29 @@ Gets an individual <code>crl</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>crl</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rolesanywhere:GetCrl,
+rolesanywhere:ListTagsForResource</pre>
+
+### Update
+<pre>
+rolesanywhere:EnableCrl,
+rolesanywhere:DisableCrl,
+rolesanywhere:UpdateCrl,
+rolesanywhere:TagResource,
+rolesanywhere:UntagResource,
+rolesanywhere:ListTagsForResource</pre>
+
+### Delete
+<pre>
+rolesanywhere:DeleteCrl</pre>
+
+
 ## Example
 ```sql
 SELECT

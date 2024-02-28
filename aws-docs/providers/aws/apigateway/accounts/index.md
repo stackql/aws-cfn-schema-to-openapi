@@ -27,13 +27,24 @@ Retrieves a list of <code>accounts</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td>Primary identifier which is manually generated.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>accounts</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:PATCH,
+iam:GetRole,
+iam:PassRole</pre>
+
 
 ## Example
 ```sql

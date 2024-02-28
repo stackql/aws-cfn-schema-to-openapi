@@ -35,6 +35,24 @@ Gets an individual <code>dnssec</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dnssec</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53:GetDNSSEC</pre>
+
+### Delete
+<pre>
+route53:GetDNSSEC,
+route53:DisableHostedZoneDNSSEC,
+kms:DescribeKey,
+kms:GetPublicKey,
+kms:Sign,
+kms:CreateGrant</pre>
+
+
 ## Example
 ```sql
 SELECT

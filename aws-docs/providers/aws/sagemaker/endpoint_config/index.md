@@ -29,9 +29,12 @@ Gets an individual <code>endpoint_config</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>shadow_production_variants</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>data_capture_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>execution_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>enable_network_isolation</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>production_variants</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>kms_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>async_inference_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>vpc_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>endpoint_config_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>explainer_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
@@ -43,15 +46,22 @@ Gets an individual <code>endpoint_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 shadow_production_variants,
 data_capture_config,
+execution_role_arn,
+enable_network_isolation,
 production_variants,
 kms_key_id,
 async_inference_config,
+vpc_config,
 endpoint_config_name,
 explainer_config,
 id,

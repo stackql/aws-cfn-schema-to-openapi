@@ -36,6 +36,47 @@ Retrieves a list of <code>tables</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tables</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cassandra:Create,
+cassandra:CreateMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+cassandra:TagResource,
+cassandra:TagMultiRegionResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:Encrypt,
+kms:Decrypt,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:PutScalingPolicy,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+cloudwatch:GetMetricData,
+cloudwatch:PutMetricAlarm</pre>
+
+### List
+<pre>
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:PutScalingPolicy,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+cloudwatch:GetMetricData,
+cloudwatch:PutMetricAlarm</pre>
+
+
 ## Example
 ```sql
 SELECT

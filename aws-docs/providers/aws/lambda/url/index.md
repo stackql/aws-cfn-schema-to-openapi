@@ -41,6 +41,23 @@ Gets an individual <code>url</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>url</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lambda:GetFunctionUrlConfig</pre>
+
+### Update
+<pre>
+lambda:UpdateFunctionUrlConfig</pre>
+
+### Delete
+<pre>
+lambda:DeleteFunctionUrlConfig</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -36,6 +36,25 @@ Gets an individual <code>access_point_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_point_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+s3:GetAccessPointPolicyForObjectLambda</pre>
+
+### Update
+<pre>
+s3:PutAccessPointPolicyForObjectLambda,
+s3:GetAccessPointPolicyForObjectLambda</pre>
+
+### Delete
+<pre>
+s3:DeleteAccessPointPolicyForObjectLambda,
+s3:GetAccessPointPolicyForObjectLambda</pre>
+
+
 ## Example
 ```sql
 SELECT

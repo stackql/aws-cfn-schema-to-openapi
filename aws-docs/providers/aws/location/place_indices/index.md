@@ -35,6 +35,22 @@ Retrieves a list of <code>place_indices</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>place_indices</code> resource, the following permissions are required:
+
+### Create
+<pre>
+geo:CreatePlaceIndex,
+geo:DescribePlaceIndex,
+geo:TagResource,
+geo:UntagResource</pre>
+
+### List
+<pre>
+geo:ListPlaceIndexes</pre>
+
+
 ## Example
 ```sql
 SELECT

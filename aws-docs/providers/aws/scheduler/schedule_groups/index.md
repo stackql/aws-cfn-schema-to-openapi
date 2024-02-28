@@ -35,6 +35,22 @@ Retrieves a list of <code>schedule_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schedule_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+scheduler:TagResource,
+scheduler:CreateScheduleGroup,
+scheduler:GetScheduleGroup,
+scheduler:ListTagsForResource</pre>
+
+### List
+<pre>
+scheduler:ListScheduleGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

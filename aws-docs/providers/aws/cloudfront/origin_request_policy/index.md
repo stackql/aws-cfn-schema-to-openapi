@@ -37,6 +37,25 @@ Gets an individual <code>origin_request_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>origin_request_policy</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteOriginRequestPolicy,
+cloudfront:GetOriginRequestPolicy</pre>
+
+### Read
+<pre>
+cloudfront:GetOriginRequestPolicy</pre>
+
+### Update
+<pre>
+cloudfront:UpdateOriginRequestPolicy,
+cloudfront:GetOriginRequestPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -42,6 +42,24 @@ Gets an individual <code>configuration_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_template</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticbeanstalk:DescribeConfigurationSettings</pre>
+
+### Update
+<pre>
+elasticbeanstalk:UpdateConfigurationTemplate</pre>
+
+### Delete
+<pre>
+elasticbeanstalk:DeleteConfigurationTemplate,
+elasticbeanstalk:DescribeConfigurationSettings</pre>
+
+
 ## Example
 ```sql
 SELECT

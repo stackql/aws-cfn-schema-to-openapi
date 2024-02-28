@@ -27,15 +27,33 @@ Gets an individual <code>documentation_version</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td>The description of the API documentation snapshot.</td></tr>
-<tr><td><code>documentation_version</code></td><td><code>string</code></td><td>The version identifier of the API documentation snapshot.</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The identifier of the API.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>A description about the new documentation snapshot.</td></tr>
+<tr><td><code>documentation_version</code></td><td><code>string</code></td><td>The version identifier of the to-be-updated documentation version.</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>documentation_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:PATCH</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

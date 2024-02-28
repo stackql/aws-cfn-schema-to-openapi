@@ -50,6 +50,24 @@ Gets an individual <code>origin_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>origin_endpoint</code> resource, the following permissions are required:
+
+### Read
+<pre>
+mediapackage:DescribeOriginEndpoint</pre>
+
+### Update
+<pre>
+mediapackage:UpdateOriginEndpoint,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+mediapackage:DeleteOriginEndpoint</pre>
+
+
 ## Example
 ```sql
 SELECT

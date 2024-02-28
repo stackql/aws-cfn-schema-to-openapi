@@ -42,12 +42,34 @@ Gets an individual <code>web_acl</code> resource
 <tr><td><code>captcha_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>challenge_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>token_domains</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>association_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>web_acl</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+wafv2:DeleteWebACL,
+wafv2:GetWebACL</pre>
+
+### Read
+<pre>
+wafv2:GetWebACL,
+wafv2:ListTagsForResource</pre>
+
+### Update
+<pre>
+wafv2:UpdateWebACL,
+wafv2:GetWebACL,
+wafv2:ListTagsForResource</pre>
+
 
 ## Example
 ```sql
@@ -67,7 +89,8 @@ label_namespace,
 custom_response_bodies,
 captcha_config,
 challenge_config,
-token_domains
+token_domains,
+association_config
 FROM aws.wafv2.web_acl
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Name&gt;'

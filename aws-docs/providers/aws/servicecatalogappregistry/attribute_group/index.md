@@ -40,6 +40,27 @@ Gets an individual <code>attribute_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>attribute_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:GetAttributeGroup</pre>
+
+### Update
+<pre>
+servicecatalog:GetAttributeGroup,
+servicecatalog:UpdateAttributeGroup,
+servicecatalog:ListTagsForResource,
+servicecatalog:TagResource,
+servicecatalog:UntagResource</pre>
+
+### Delete
+<pre>
+servicecatalog:DeleteAttributeGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

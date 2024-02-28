@@ -27,12 +27,13 @@ Gets an individual <code>version</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>function_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>provisioned_concurrency_config</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>code_sha256</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>version</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>function_arn</code></td><td><code>string</code></td><td>The ARN of the version.</td></tr>
+<tr><td><code>version</code></td><td><code>string</code></td><td>The version number.</td></tr>
+<tr><td><code>code_sha256</code></td><td><code>string</code></td><td>Only publish a version if the hash value matches the value that's specified. Use this option to avoid publishing a version if the function code has changed since you last updated it. Updates are not supported for this property.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>A description for the version to override the description in the function configuration. Updates are not supported for this property.</td></tr>
+<tr><td><code>function_name</code></td><td><code>string</code></td><td>The name of the Lambda function.</td></tr>
+<tr><td><code>provisioned_concurrency_config</code></td><td><code>object</code></td><td>Specifies a provisioned concurrency configuration for a function's version. Updates are not supported for this property.</td></tr>
+<tr><td><code>runtime_policy</code></td><td><code>object</code></td><td>Specifies the runtime management configuration of a function. Displays runtimeVersionArn only for Manual.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -40,17 +41,38 @@ Gets an individual <code>version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lambda:GetFunctionConfiguration,
+lambda:GetProvisionedConcurrencyConfig,
+lambda:GetRuntimeManagementConfig</pre>
+
+### Delete
+<pre>
+lambda:GetFunctionConfiguration,
+lambda:DeleteFunction</pre>
+
+### Update
+<pre>
+</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
+function_arn,
+version,
+code_sha256,
+description,
 function_name,
 provisioned_concurrency_config,
-description,
-id,
-code_sha256,
-version
+runtime_policy
 FROM aws.lambda.version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;FunctionArn&gt;'
 ```

@@ -32,15 +32,36 @@ Gets an individual <code>filter</code> resource
 <tr><td><code>detector_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>finding_criteria</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>rank</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>filter</code> resource, the following permissions are required:
+
+### Read
+<pre>
+guardduty:GetFilter</pre>
+
+### Delete
+<pre>
+guardduty:ListDetectors,
+guardduty:ListFilters,
+guardduty:GetFilter,
+guardduty:DeleteFilter</pre>
+
+### Update
+<pre>
+guardduty:UpdateFilter,
+guardduty:GetFilter,
+guardduty:ListFilters</pre>
+
 
 ## Example
 ```sql
@@ -51,10 +72,10 @@ description,
 detector_id,
 finding_criteria,
 rank,
-id,
-tags,
-name
+name,
+tags
 FROM aws.guardduty.filter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;DetectorId&gt;'
+AND data__Identifier = '&lt;Name&gt;'
 ```

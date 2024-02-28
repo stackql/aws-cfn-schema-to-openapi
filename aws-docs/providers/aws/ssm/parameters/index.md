@@ -27,7 +27,7 @@ Retrieves a list of <code>parameters</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the parameter.&lt;br&#x2F;&gt; The maximum length constraint listed below includes capacity for additional system attributes that aren't part of the name. The maximum length for a parameter name, including the full length of the parameter ARN, is 1011 characters. For example, the length of the following parameter name is 65 characters, not 20 characters: ``arn:aws:ssm:us-east-2:111222333444:parameter&#x2F;ExampleParameterName``</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,26 @@ Retrieves a list of <code>parameters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>parameters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ssm:PutParameter,
+ssm:AddTagsToResource,
+ssm:GetParameters</pre>
+
+### List
+<pre>
+ssm:DescribeParameters</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+name
 FROM aws.ssm.parameters
 WHERE region = 'us-east-1'
 ```

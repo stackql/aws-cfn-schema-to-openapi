@@ -44,6 +44,34 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+amplify:DeleteDomainAssociation,
+iam:PassRole,
+amplify:DeleteDomainAssociation</pre>
+
+### Read
+<pre>
+amplify:GetDomainAssociation,
+route53:ListHostedZones,
+iam:PassRole,
+amplify:ListTagsForResource</pre>
+
+### Update
+<pre>
+amplify:UpdateDomainAssociation,
+route53:ListHostedZones,
+route53:ChangeResourceRecordSets,
+iam:PassRole,
+amplify:ListTagsForResource,
+amplify:TagResource,
+amplify:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

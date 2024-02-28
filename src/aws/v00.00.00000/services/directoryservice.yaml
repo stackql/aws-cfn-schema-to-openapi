@@ -56,6 +56,17 @@ components:
       x-stackql-resource-name: microsoft_ad
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - VpcSettings
+        - Edition
+        - Name
+        - Password
+        - ShortName
+        - CreateAlias
+      x-read-only-properties:
+        - Alias
+        - DnsIpAddresses
+        - Id
     SimpleAD:
       type: object
       properties:
@@ -103,6 +114,49 @@ components:
       x-stackql-resource-name: simple_ad
       x-stackql-primaryIdentifier:
         - DirectoryId
+      x-create-only-properties:
+        - Size
+        - VpcSettings
+        - Name
+        - Password
+        - ShortName
+        - Description
+        - CreateAlias
+      x-read-only-properties:
+        - Alias
+        - DnsIpAddresses
+        - DirectoryId
+      x-required-permissions:
+        create:
+          - ds:CreateDirectory
+          - ds:CreateAlias
+          - ds:EnableSso
+          - ds:DescribeDirectories
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - ec2:CreateSecurityGroup
+          - ec2:CreateNetworkInterface
+          - ec2:DescribeNetworkInterfaces
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:AuthorizeSecurityGroupEgress
+          - ec2:CreateTags
+        read:
+          - ds:DescribeDirectories
+        update:
+          - ds:EnableSso
+          - ds:DisableSso
+          - ds:DescribeDirectories
+        delete:
+          - ds:DeleteDirectory
+          - ds:DescribeDirectories
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DeleteSecurityGroup
+          - ec2:DeleteNetworkInterface
+          - ec2:RevokeSecurityGroupIngress
+          - ec2:RevokeSecurityGroupEgress
+          - ec2:DeleteTags
+        list:
+          - ds:DescribeDirectories
   x-stackQL-resources:
     microsoft_ads:
       name: microsoft_ads

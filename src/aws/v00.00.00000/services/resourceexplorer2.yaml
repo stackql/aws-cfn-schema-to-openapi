@@ -19,6 +19,20 @@ components:
       x-stackql-resource-name: default_view_association
       x-stackql-primaryIdentifier:
         - AssociatedAwsPrincipal
+      x-read-only-properties:
+        - AssociatedAwsPrincipal
+      x-required-permissions:
+        create:
+          - resource-explorer-2:GetDefaultView
+          - resource-explorer-2:AssociateDefaultView
+        update:
+          - resource-explorer-2:GetDefaultView
+          - resource-explorer-2:AssociateDefaultView
+        read:
+          - resource-explorer-2:GetDefaultView
+        delete:
+          - resource-explorer-2:GetDefaultView
+          - resource-explorer-2:DisassociateDefaultView
     IndexType:
       type: string
       enum:
@@ -54,32 +68,62 @@ components:
       x-stackql-resource-name: index
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - Arn
+        - IndexState
+      x-required-permissions:
+        create:
+          - resource-explorer-2:CreateIndex
+          - resource-explorer-2:GetIndex
+          - resource-explorer-2:TagResource
+          - resource-explorer-2:UpdateIndexType
+          - resource-explorer-2:DeleteIndex
+          - iam:CreateServiceLinkedRole
+        update:
+          - resource-explorer-2:GetIndex
+          - resource-explorer-2:UpdateIndexType
+          - resource-explorer-2:TagResource
+          - resource-explorer-2:UntagResource
+          - resource-explorer-2:ListTagsForResource
+        delete:
+          - resource-explorer-2:DeleteIndex
+          - resource-explorer-2:GetIndex
+          - resource-explorer-2:UntagResource
+        list:
+          - resource-explorer-2:ListIndexes
+        read:
+          - resource-explorer-2:GetIndex
     IncludedProperty:
       type: object
       properties:
         Name:
           type: string
+          maxLength: 1011
+          minLength: 1
       required:
         - Name
       additionalProperties: false
-    Filters:
+    SearchFilter:
       type: object
       properties:
         FilterString:
           type: string
+          maxLength: 2048
+          minLength: 0
       required:
         - FilterString
       additionalProperties: false
     View:
       type: object
       properties:
+        Filters:
+          $ref: '#/components/schemas/SearchFilter'
         IncludedProperties:
           type: array
           items:
             $ref: '#/components/schemas/IncludedProperty'
-          x-insertionOrder: false
-        Filters:
-          $ref: '#/components/schemas/Filters'
+        Scope:
+          type: string
         Tags:
           $ref: '#/components/schemas/TagMap'
         ViewArn:
@@ -92,6 +136,28 @@ components:
       x-stackql-resource-name: view
       x-stackql-primaryIdentifier:
         - ViewArn
+      x-create-only-properties:
+        - Scope
+        - ViewName
+      x-read-only-properties:
+        - ViewArn
+      x-required-permissions:
+        create:
+          - resource-explorer-2:CreateView
+          - resource-explorer-2:TagResource
+        read:
+          - resource-explorer-2:GetView
+        update:
+          - resource-explorer-2:UpdateView
+          - resource-explorer-2:TagResource
+          - resource-explorer-2:UntagResource
+          - resource-explorer-2:ListTagsForResource
+        delete:
+          - resource-explorer-2:DeleteView
+          - resource-explorer-2:GetView
+          - resource-explorer-2:UntagResource
+        list:
+          - resource-explorer-2:ListViews
   x-stackQL-resources:
     default_view_associations:
       name: default_view_associations
@@ -191,8 +257,9 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.IncludedProperties') as included_properties,
               JSON_EXTRACT(Properties, '$.Filters') as filters,
+              JSON_EXTRACT(Properties, '$.IncludedProperties') as included_properties,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
               JSON_EXTRACT(Properties, '$.ViewName') as view_name

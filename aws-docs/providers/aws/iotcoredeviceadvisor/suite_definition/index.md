@@ -39,6 +39,38 @@ Gets an individual <code>suite_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>suite_definition</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotdeviceadvisor:GetSuiteDefinition,
+iotdeviceadvisor:TagResource</pre>
+
+### Update
+<pre>
+iot:DescribeCertificate,
+iot:DescribeThing,
+iot:GetPolicy,
+iot:ListAttachedPolicies,
+iot:ListCertificates,
+iot:ListPrincipalPolicies,
+iot:ListTagsForResource,
+iot:ListThingPrincipals,
+iot:ListThings,
+iotdeviceadvisor:UpdateSuiteDefinition,
+iotdeviceadvisor:GetSuiteDefinition,
+iotdeviceadvisor:UntagResource,
+iotdeviceadvisor:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iotdeviceadvisor:GetSuiteDefinition,
+iotdeviceadvisor:DeleteSuiteDefinition</pre>
+
+
 ## Example
 ```sql
 SELECT

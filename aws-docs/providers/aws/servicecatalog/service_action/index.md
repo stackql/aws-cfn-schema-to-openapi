@@ -40,6 +40,25 @@ Gets an individual <code>service_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service_action</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:DescribeServiceAction</pre>
+
+### Update
+<pre>
+servicecatalog:UpdateServiceAction,
+iam:GetRole,
+ssm:DescribeDocument</pre>
+
+### Delete
+<pre>
+servicecatalog:DeleteServiceAction</pre>
+
+
 ## Example
 ```sql
 SELECT

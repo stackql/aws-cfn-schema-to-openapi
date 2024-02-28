@@ -66,6 +66,29 @@ components:
       x-stackql-resource-name: assistant
       x-stackql-primaryIdentifier:
         - AssistantId
+      x-create-only-properties:
+        - Description
+        - Name
+        - ServerSideEncryptionConfiguration
+        - Tags
+        - Type
+      x-read-only-properties:
+        - AssistantId
+        - AssistantArn
+      x-required-permissions:
+        create:
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - wisdom:CreateAssistant
+          - wisdom:TagResource
+        update:
+          - wisdom:GetAssistant
+        read:
+          - wisdom:GetAssistant
+        list:
+          - wisdom:ListAssistants
+        delete:
+          - wisdom:DeleteAssistant
     AssociationData:
       type: object
       properties:
@@ -112,6 +135,27 @@ components:
       x-stackql-primaryIdentifier:
         - AssistantAssociationId
         - AssistantId
+      x-create-only-properties:
+        - Association
+        - AssociationType
+        - AssistantId
+        - Tags
+      x-read-only-properties:
+        - AssistantAssociationId
+        - AssistantAssociationArn
+        - AssistantArn
+      x-required-permissions:
+        create:
+          - wisdom:CreateAssistantAssociation
+          - wisdom:TagResource
+        update:
+          - wisdom:GetAssistantAssociation
+        read:
+          - wisdom:GetAssistantAssociation
+        list:
+          - wisdom:ListAssistantAssociations
+        delete:
+          - wisdom:DeleteAssistantAssociation
     AppIntegrationsConfiguration:
       type: object
       properties:
@@ -191,6 +235,41 @@ components:
       x-stackql-resource-name: knowledge_base
       x-stackql-primaryIdentifier:
         - KnowledgeBaseId
+      x-create-only-properties:
+        - Description
+        - KnowledgeBaseType
+        - Name
+        - ServerSideEncryptionConfiguration
+        - SourceConfiguration
+        - Tags
+      x-read-only-properties:
+        - KnowledgeBaseId
+        - KnowledgeBaseArn
+      x-required-permissions:
+        create:
+          - appflow:CreateFlow
+          - appflow:DeleteFlow
+          - appflow:StartFlow
+          - appflow:TagResource
+          - appflow:UseConnectorProfile
+          - app-integrations:CreateDataIntegrationAssociation
+          - app-integrations:GetDataIntegration
+          - kms:DescribeKey
+          - kms:CreateGrant
+          - kms:ListGrants
+          - wisdom:CreateKnowledgeBase
+          - wisdom:TagResource
+        update:
+          - wisdom:GetKnowledgeBase
+        delete:
+          - appflow:DeleteFlow
+          - appflow:StopFlow
+          - app-integrations:DeleteDataIntegrationAssociation
+          - wisdom:DeleteKnowledgeBase
+        list:
+          - wisdom:ListKnowledgeBases
+        read:
+          - wisdom:GetKnowledgeBase
   x-stackQL-resources:
     assistants:
       name: assistants

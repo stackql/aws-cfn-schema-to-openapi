@@ -44,6 +44,26 @@ Gets an individual <code>agreement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>agreement</code> resource, the following permissions are required:
+
+### Read
+<pre>
+transfer:DescribeAgreement</pre>
+
+### Update
+<pre>
+transfer:UpdateAgreement,
+transfer:UnTagResource,
+transfer:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+transfer:DeleteAgreement</pre>
+
+
 ## Example
 ```sql
 SELECT

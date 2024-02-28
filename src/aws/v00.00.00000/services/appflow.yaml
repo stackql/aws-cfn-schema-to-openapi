@@ -58,6 +58,23 @@ components:
       x-stackql-resource-name: connector
       x-stackql-primaryIdentifier:
         - ConnectorLabel
+      x-create-only-properties:
+        - ConnectorLabel
+      x-read-only-properties:
+        - ConnectorArn
+      x-required-permissions:
+        create:
+          - appflow:RegisterConnector
+          - lambda:InvokeFunction
+        read:
+          - appflow:DescribeConnector
+        delete:
+          - appflow:UnRegisterConnector
+        list:
+          - appflow:ListConnectors
+        update:
+          - appflow:UpdateConnectorRegistration
+          - lambda:InvokeFunction
     ConnectorType:
       type: string
       enum:
@@ -362,6 +379,9 @@ components:
           $ref: '#/components/schemas/PrivateLinkServiceName'
         OAuthProperties:
           $ref: '#/components/schemas/OAuthProperties'
+        DisableSSO:
+          description: If you set this parameter to true, Amazon AppFlow bypasses the single sign-on (SSO) settings in your SAP account when it accesses your SAP OData instance.
+          type: boolean
     SalesforceConnectorProfileCredentials:
       type: object
       properties:
@@ -377,6 +397,12 @@ components:
         ClientCredentialsArn:
           description: The client credentials to fetch access token and refresh token.
           $ref: '#/components/schemas/ClientCredentialsArn'
+        OAuth2GrantType:
+          description: The grant types to fetch an access token
+          $ref: '#/components/schemas/OAuth2GrantType'
+        JwtToken:
+          description: The credentials used to access your Salesforce records
+          $ref: '#/components/schemas/JwtToken'
     SalesforceConnectorProfileProperties:
       type: object
       properties:
@@ -420,9 +446,6 @@ components:
           $ref: '#/components/schemas/ClientCredentialsArn'
     ServiceNowConnectorProfileCredentials:
       type: object
-      required:
-        - Username
-        - Password
       properties:
         Username:
           description: The name of the user.
@@ -430,6 +453,9 @@ components:
         Password:
           description: The password that corresponds to the username.
           $ref: '#/components/schemas/Password'
+        OAuth2Credentials:
+          description: The OAuth 2.0 credentials required to authenticate the user.
+          $ref: '#/components/schemas/OAuth2Credentials'
     ServiceNowConnectorProfileProperties:
       type: object
       required:
@@ -686,6 +712,7 @@ components:
       enum:
         - CLIENT_CREDENTIALS
         - AUTHORIZATION_CODE
+        - JWT_BEARER
     TokenUrlCustomProperties:
       description: A map for properties for custom connector Token Url.
       type: object
@@ -737,7 +764,7 @@ components:
     AuthCode:
       type: string
       pattern: \S+
-      maxLength: 512
+      maxLength: 4096
     BucketName:
       type: string
       minLength: 3
@@ -781,7 +808,7 @@ components:
     Stage:
       type: string
       pattern: \S+
-      maxLength: 16
+      maxLength: 512
     PrivateLinkServiceName:
       type: string
       pattern: \S+
@@ -790,10 +817,14 @@ components:
       type: string
       pattern: \S+
       maxLength: 512
+    JwtToken:
+      type: string
+      pattern: ^[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.[A-Za-z0-9-_.+/=]*$
+      maxLength: 8000
     RefreshToken:
       type: string
       pattern: \S+
-      maxLength: 2048
+      maxLength: 4096
     Region:
       type: string
       pattern: \S+
@@ -920,6 +951,42 @@ components:
       x-stackql-resource-name: connector_profile
       x-stackql-primaryIdentifier:
         - ConnectorProfileName
+      x-create-only-properties:
+        - ConnectorProfileName
+        - ConnectorType
+        - ConnectorLabel
+      x-read-only-properties:
+        - ConnectorProfileArn
+        - CredentialsArn
+      x-required-permissions:
+        create:
+          - appflow:CreateConnectorProfile
+          - kms:ListKeys
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:CreateGrant
+          - kms:ListGrants
+          - iam:PassRole
+          - secretsmanager:CreateSecret
+          - secretsmanager:GetSecretValue
+          - secretsmanager:PutResourcePolicy
+        delete:
+          - appflow:DeleteConnectorProfile
+        list:
+          - appflow:DescribeConnectorProfiles
+        read:
+          - appflow:DescribeConnectorProfiles
+        update:
+          - appflow:UpdateConnectorProfile
+          - kms:ListKeys
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:CreateGrant
+          - kms:ListGrants
+          - iam:PassRole
+          - secretsmanager:CreateSecret
+          - secretsmanager:GetSecretValue
+          - secretsmanager:PutResourcePolicy
     TriggerConfig:
       description: Trigger settings of the flow.
       type: object
@@ -930,9 +997,6 @@ components:
         TriggerProperties:
           description: Details required based on the type of trigger
           $ref: '#/components/schemas/ScheduledTriggerProperties'
-        ActivateFlowOnCreate:
-          description: Active 'Scheduled' or 'Event' flow after creation. Without activation the default state of such flows upon creation is DRAFT.
-          type: boolean
       required:
         - TriggerType
       additionalProperties: false
@@ -1002,7 +1066,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TaskPropertiesObject'
-          additionalProperties: false
       required:
         - SourceFields
         - TaskType
@@ -1438,6 +1501,10 @@ components:
       properties:
         ObjectPath:
           $ref: '#/components/schemas/Object'
+        parallelismConfig:
+          $ref: '#/components/schemas/SAPODataParallelismConfig'
+        paginationConfig:
+          $ref: '#/components/schemas/SAPODataPaginationConfig'
       required:
         - ObjectPath
       additionalProperties: false
@@ -1526,6 +1593,23 @@ components:
           $ref: '#/components/schemas/EntityName'
         CustomProperties:
           $ref: '#/components/schemas/CustomProperties'
+        DataTransferApi:
+          type: object
+          properties:
+            Name:
+              type: string
+              maxLength: 64
+              pattern: '[\w/-]+'
+            Type:
+              type: string
+              enum:
+                - SYNC
+                - ASYNC
+                - AUTOMATIC
+          required:
+            - Name
+            - Type
+          additionalProperties: false
       required:
         - EntityName
       additionalProperties: false
@@ -2058,6 +2142,32 @@ components:
         - AUTOMATIC
         - BULKV2
         - REST_SYNC
+    SAPODataParallelismConfig:
+      description: SAP Source connector parallelism factor
+      type: object
+      properties:
+        maxParallelism:
+          $ref: '#/components/schemas/SAPODataMaxParallelism'
+      required:
+        - maxParallelism
+      additionalProperties: false
+    SAPODataPaginationConfig:
+      description: SAP Source connector page size
+      type: object
+      properties:
+        maxPageSize:
+          $ref: '#/components/schemas/SAPODataMaxPageSize'
+      required:
+        - maxPageSize
+      additionalProperties: false
+    SAPODataMaxParallelism:
+      type: integer
+      minimum: 1
+      maximum: 10
+    SAPODataMaxPageSize:
+      type: integer
+      minimum: 1
+      maximum: 10000
     Flow:
       type: object
       properties:
@@ -2086,6 +2196,13 @@ components:
         TriggerConfig:
           description: Trigger settings of the flow.
           $ref: '#/components/schemas/TriggerConfig'
+        FlowStatus:
+          description: Flow activation status for Scheduled- and Event-triggered flows
+          type: string
+          enum:
+            - Active
+            - Suspended
+            - Draft
         SourceFlowConfig:
           description: Configurations of Source connector of the flow.
           $ref: '#/components/schemas/SourceFlowConfig'
@@ -2116,6 +2233,51 @@ components:
       x-stackql-resource-name: flow
       x-stackql-primaryIdentifier:
         - FlowName
+      x-create-only-properties:
+        - FlowName
+        - KMSArn
+      x-read-only-properties:
+        - FlowArn
+      x-required-permissions:
+        create:
+          - appflow:CreateFlow
+          - appflow:StartFlow
+          - appflow:TagResource
+          - appflow:ListTagsForResource
+          - appflow:UseConnectorProfile
+          - iam:PassRole
+          - s3:ListAllMyBuckets
+          - s3:GetBucketLocation
+          - s3:GetBucketPolicy
+          - kms:ListGrants
+          - kms:ListKeys
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:CreateGrant
+          - secretsmanager:CreateSecret
+          - secretsmanager:PutResourcePolicy
+        read:
+          - appflow:DescribeFlow
+          - appflow:ListTagsForResource
+        update:
+          - appflow:UpdateFlow
+          - appflow:StartFlow
+          - appflow:StopFlow
+          - appflow:TagResource
+          - appflow:UntagResource
+          - appflow:ListTagsForResource
+          - appflow:UseConnectorProfile
+          - iam:PassRole
+          - s3:ListAllMyBuckets
+          - s3:GetBucketLocation
+          - s3:GetBucketPolicy
+          - kms:ListGrants
+          - secretsmanager:CreateSecret
+          - secretsmanager:PutResourcePolicy
+        delete:
+          - appflow:DeleteFlow
+        list:
+          - appflow:ListFlows
   x-stackQL-resources:
     connectors:
       name: connectors
@@ -2227,6 +2389,7 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.KMSArn') as k_ms_arn,
               JSON_EXTRACT(Properties, '$.TriggerConfig') as trigger_config,
+              JSON_EXTRACT(Properties, '$.FlowStatus') as flow_status,
               JSON_EXTRACT(Properties, '$.SourceFlowConfig') as source_flow_config,
               JSON_EXTRACT(Properties, '$.DestinationFlowConfigList') as destination_flow_config_list,
               JSON_EXTRACT(Properties, '$.Tasks') as tasks,

@@ -5,78 +5,98 @@ info:
 paths: {}
 components:
   schemas:
-    FeatureAdditionalConfiguration:
+    TagItem:
       type: object
       additionalProperties: false
       properties:
-        Status:
+        Key:
           type: string
-        Name:
+          minLength: 1
+          maxLength: 128
+        Value:
           type: string
-    FeatureConfigurations:
-      type: object
-      additionalProperties: false
-      properties:
-        Status:
-          type: string
-        AdditionalConfiguration:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/FeatureAdditionalConfiguration'
-        Name:
-          type: string
-    CFNMalwareProtectionConfiguration:
-      type: object
-      additionalProperties: false
-      properties:
-        ScanEc2InstanceWithFindings:
-          $ref: '#/components/schemas/CFNScanEc2InstanceWithFindingsConfiguration'
+          minLength: 0
+          maxLength: 256
+      required:
+        - Key
+        - Value
     CFNS3LogsConfiguration:
       type: object
       additionalProperties: false
       properties:
         Enable:
           type: boolean
-    CFNScanEc2InstanceWithFindingsConfiguration:
-      type: object
-      additionalProperties: false
-      properties:
-        EbsVolumes:
-          type: boolean
+      required:
+        - Enable
     CFNKubernetesAuditLogsConfiguration:
       type: object
       additionalProperties: false
       properties:
         Enable:
           type: boolean
-    Tag:
-      type: object
-      additionalProperties: false
-      properties:
-        Value:
-          type: string
-        Key:
-          type: string
       required:
-        - Value
-        - Key
+        - Enable
     CFNKubernetesConfiguration:
       type: object
       additionalProperties: false
       properties:
         AuditLogs:
           $ref: '#/components/schemas/CFNKubernetesAuditLogsConfiguration'
+      required:
+        - AuditLogs
     CFNDataSourceConfigurations:
       type: object
       additionalProperties: false
       properties:
-        MalwareProtection:
-          $ref: '#/components/schemas/CFNMalwareProtectionConfiguration'
         S3Logs:
           $ref: '#/components/schemas/CFNS3LogsConfiguration'
         Kubernetes:
           $ref: '#/components/schemas/CFNKubernetesConfiguration'
+        MalwareProtection:
+          $ref: '#/components/schemas/CFNMalwareProtectionConfiguration'
+    CFNMalwareProtectionConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        ScanEc2InstanceWithFindings:
+          $ref: '#/components/schemas/CFNScanEc2InstanceWithFindingsConfiguration'
+    CFNScanEc2InstanceWithFindingsConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        EbsVolumes:
+          type: boolean
+    CFNFeatureConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Name:
+          type: string
+          maxLength: 128
+        Status:
+          type: string
+          enum:
+            - ENABLED
+            - DISABLED
+        AdditionalConfiguration:
+          type: array
+          items:
+            $ref: '#/components/schemas/CFNFeatureAdditionalConfiguration'
+      required:
+        - Name
+        - Status
+    CFNFeatureAdditionalConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Name:
+          type: string
+          minLength: 1
+          maxLength: 256
+        Status:
+          type: string
+          minLength: 1
+          maxLength: 128
     Detector:
       type: object
       properties:
@@ -88,51 +108,49 @@ components:
           $ref: '#/components/schemas/CFNDataSourceConfigurations'
         Features:
           type: array
-          uniqueItems: false
           items:
-            $ref: '#/components/schemas/FeatureConfigurations'
+            $ref: '#/components/schemas/CFNFeatureConfiguration'
         Id:
           type: string
         Tags:
           type: array
-          uniqueItems: false
           items:
-            $ref: '#/components/schemas/Tag'
+            $ref: '#/components/schemas/TagItem'
       required:
         - Enable
       x-stackql-resource-name: detector
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - guardduty:CreateDetector
+          - guardduty:GetDetector
+          - guardduty:TagResource
+          - iam:CreateServiceLinkedRole
+          - iam:GetRole
+        read:
+          - guardduty:GetDetector
+        delete:
+          - guardduty:ListDetectors
+          - guardduty:DeleteDetector
+          - guardduty:GetDetector
+        update:
+          - guardduty:UpdateDetector
+          - guardduty:GetDetector
+          - guardduty:ListDetectors
+          - iam:CreateServiceLinkedRole
+          - iam:GetRole
+        list:
+          - guardduty:ListDetectors
     Condition:
       type: object
       additionalProperties: false
       properties:
-        LessThanOrEqual:
-          type: integer
         Lt:
           type: integer
-        GreaterThanOrEqual:
-          type: integer
-        Eq:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
         Gt:
-          type: integer
-        NotEquals:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        Equals:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        LessThan:
-          type: integer
-        GreaterThan:
           type: integer
         Gte:
           type: integer
@@ -141,16 +159,45 @@ components:
           uniqueItems: false
           items:
             type: string
+        Eq:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
         Lte:
           type: integer
+        Equals:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        GreaterThan:
+          type: integer
+          format: int64
+        GreaterThanOrEqual:
+          type: integer
+          format: int64
+        LessThan:
+          type: integer
+          format: int64
+        LessThanOrEqual:
+          type: integer
+          format: int64
+        NotEquals:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
     FindingCriteria:
       type: object
       additionalProperties: false
       properties:
         Criterion:
           type: object
-        ItemType:
-          $ref: '#/components/schemas/Condition'
+          x-patternProperties:
+            ^.+$:
+              $ref: '#/components/schemas/Condition'
+          additionalProperties: false
     Filter:
       type: object
       properties:
@@ -160,72 +207,142 @@ components:
           type: string
         DetectorId:
           type: string
+          minLength: 1
+          maxLength: 300
         FindingCriteria:
           $ref: '#/components/schemas/FindingCriteria'
         Rank:
           type: integer
-        Id:
-          type: string
-        Tags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tag'
+          minimum: 1
+          maximum: 100
         Name:
           type: string
+          minLength: 1
+          maxLength: 64
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagItem'
       required:
-        - Action
-        - Description
-        - DetectorId
         - FindingCriteria
-        - Rank
-        - Name
       x-stackql-resource-name: filter
       x-stackql-primaryIdentifier:
-        - Id
+        - DetectorId
+        - Name
+      x-create-only-properties:
+        - DetectorId
+        - Name
+      x-required-permissions:
+        create:
+          - guardduty:CreateFilter
+          - guardduty:GetFilter
+          - guardduty:TagResource
+        read:
+          - guardduty:GetFilter
+        delete:
+          - guardduty:ListDetectors
+          - guardduty:ListFilters
+          - guardduty:GetFilter
+          - guardduty:DeleteFilter
+        update:
+          - guardduty:UpdateFilter
+          - guardduty:GetFilter
+          - guardduty:ListFilters
+        list:
+          - guardduty:ListFilters
     IPSet:
       type: object
       properties:
+        Id:
+          type: string
         Format:
           type: string
         Activate:
           type: boolean
         DetectorId:
           type: string
-        Id:
-          type: string
-        Tags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tag'
+          minLength: 1
+          maxLength: 300
         Name:
           type: string
+          minLength: 1
+          maxLength: 300
         Location:
           type: string
+          minLength: 1
+          maxLength: 300
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagItem'
       required:
         - Format
-        - Activate
-        - DetectorId
         - Location
       x-stackql-resource-name: ip_set
       x-stackql-primaryIdentifier:
         - Id
+        - DetectorId
+      x-create-only-properties:
+        - Format
+        - DetectorId
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - guardduty:CreateIPSet
+          - guardduty:GetIPSet
+          - guardduty:TagResource
+          - iam:PutRolePolicy
+        read:
+          - guardduty:GetIPSet
+        delete:
+          - guardduty:GetDetector
+          - guardduty:ListDetectors
+          - guardduty:ListIPSets
+          - guardduty:GetIPSet
+          - guardduty:DeleteIPSet
+          - iam:DeleteRolePolicy
+        update:
+          - guardduty:UpdateIPSet
+          - guardduty:GetIPSet
+          - guardduty:ListIPSets
+          - iam:PutRolePolicy
+        list:
+          - guardduty:ListIPSets
     Master:
       type: object
       properties:
-        DetectorId:
-          type: string
         MasterId:
+          description: ID of the account used as the master account.
           type: string
         InvitationId:
+          description: Value used to validate the master account to the member account.
+          type: string
+        DetectorId:
+          description: Unique ID of the detector of the GuardDuty member account.
           type: string
       required:
-        - DetectorId
         - MasterId
+        - DetectorId
       x-stackql-resource-name: master
       x-stackql-primaryIdentifier:
+        - DetectorId
         - MasterId
+      x-create-only-properties:
+        - MasterId
+        - InvitationId
+        - DetectorId
+      x-required-permissions:
+        create:
+          - guardduty:ListInvitations
+          - guardduty:AcceptInvitation
+          - guardduty:GetMasterAccount
+        read:
+          - guardduty:GetMasterAccount
+        delete:
+          - guardduty:DisassociateFromMasterAccount
+        list:
+          - guardduty:GetMasterAccount
     Member:
       type: object
       properties:
@@ -242,40 +359,91 @@ components:
         DetectorId:
           type: string
       required:
-        - MemberId
         - Email
-        - DetectorId
       x-stackql-resource-name: member
       x-stackql-primaryIdentifier:
+        - DetectorId
         - MemberId
+      x-create-only-properties:
+        - DetectorId
+        - MemberId
+      x-required-permissions:
+        create:
+          - guardduty:CreateMembers
+          - guardduty:GetMembers
+        read:
+          - guardduty:GetMembers
+        delete:
+          - guardduty:GetMembers
+          - guardduty:DisassociateMembers
+          - guardduty:DeleteMembers
+        update:
+          - guardduty:GetMembers
+          - guardduty:CreateMembers
+          - guardduty:DisassociateMembers
+          - guardduty:StartMonitoringMembers
+          - guardduty:StopMonitoringMembers
+          - guardduty:InviteMembers
+        list:
+          - guardduty:ListMembers
     ThreatIntelSet:
       type: object
       properties:
+        Id:
+          type: string
         Format:
           type: string
+          minLength: 1
+          maxLength: 300
         Activate:
           type: boolean
         DetectorId:
           type: string
-        Id:
-          type: string
-        Tags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tag'
+          minLength: 1
+          maxLength: 32
         Name:
           type: string
         Location:
           type: string
+          minLength: 1
+          maxLength: 300
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/TagItem'
       required:
         - Format
-        - Activate
-        - DetectorId
         - Location
       x-stackql-resource-name: threat_intel_set
       x-stackql-primaryIdentifier:
         - Id
+        - DetectorId
+      x-create-only-properties:
+        - Format
+        - DetectorId
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - guardduty:CreateThreatIntelSet
+          - guardduty:GetThreatIntelSet
+          - guardduty:TagResource
+          - iam:PutRolePolicy
+        read:
+          - guardduty:GetThreatIntelSet
+        delete:
+          - guardduty:ListDetectors
+          - guardduty:ListThreatIntelSets
+          - guardduty:DeleteThreatIntelSet
+          - guardduty:GetThreatIntelSet
+          - iam:DeleteRolePolicy
+        update:
+          - guardduty:UpdateThreatIntelSet
+          - guardduty:GetThreatIntelSet
+          - guardduty:ListThreatIntelSets
+          - iam:PutRolePolicy
+        list:
+          - guardduty:ListThreatIntelSets
   x-stackQL-resources:
     detectors:
       name: detectors
@@ -320,7 +488,8 @@ components:
       x-cfn-schema-name: Filter
       x-type: list
       x-identifiers:
-        - Id
+        - DetectorId
+        - Name
       config:
         views:
           select:
@@ -328,7 +497,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
+              JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Filter'
     filter:
       name: filter
@@ -336,7 +506,8 @@ components:
       x-cfn-schema-name: Filter
       x-type: get
       x-identifiers:
-        - Id
+        - DetectorId
+        - Name
       config:
         views:
           select:
@@ -349,9 +520,8 @@ components:
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
               JSON_EXTRACT(Properties, '$.FindingCriteria') as finding_criteria,
               JSON_EXTRACT(Properties, '$.Rank') as rank,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Filter'
     ip_sets:
       name: ip_sets
@@ -360,6 +530,7 @@ components:
       x-type: list
       x-identifiers:
         - Id
+        - DetectorId
       config:
         views:
           select:
@@ -367,7 +538,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
     ip_set:
       name: ip_set
@@ -376,6 +548,7 @@ components:
       x-type: get
       x-identifiers:
         - Id
+        - DetectorId
       config:
         views:
           select:
@@ -383,13 +556,13 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Format') as format,
               JSON_EXTRACT(Properties, '$.Activate') as activate,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Location') as location
+              JSON_EXTRACT(Properties, '$.Location') as location,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
     masters:
       name: masters
@@ -397,6 +570,7 @@ components:
       x-cfn-schema-name: Master
       x-type: list
       x-identifiers:
+        - DetectorId
         - MasterId
       config:
         views:
@@ -405,6 +579,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
               JSON_EXTRACT(Properties, '$.MasterId') as master_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Master'
     master:
@@ -413,6 +588,7 @@ components:
       x-cfn-schema-name: Master
       x-type: get
       x-identifiers:
+        - DetectorId
         - MasterId
       config:
         views:
@@ -421,9 +597,9 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
               JSON_EXTRACT(Properties, '$.MasterId') as master_id,
-              JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id
+              JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id,
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Master'
     members:
       name: members
@@ -431,6 +607,7 @@ components:
       x-cfn-schema-name: Member
       x-type: list
       x-identifiers:
+        - DetectorId
         - MemberId
       config:
         views:
@@ -439,6 +616,7 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
               JSON_EXTRACT(Properties, '$.MemberId') as member_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Member'
     member:
@@ -447,6 +625,7 @@ components:
       x-cfn-schema-name: Member
       x-type: get
       x-identifiers:
+        - DetectorId
         - MemberId
       config:
         views:
@@ -469,6 +648,7 @@ components:
       x-type: list
       x-identifiers:
         - Id
+        - DetectorId
       config:
         views:
           select:
@@ -476,7 +656,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'
     threat_intel_set:
       name: threat_intel_set
@@ -485,6 +666,7 @@ components:
       x-type: get
       x-identifiers:
         - Id
+        - DetectorId
       config:
         views:
           select:
@@ -492,11 +674,11 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Format') as format,
               JSON_EXTRACT(Properties, '$.Activate') as activate,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name,
-              JSON_EXTRACT(Properties, '$.Location') as location
+              JSON_EXTRACT(Properties, '$.Location') as location,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'

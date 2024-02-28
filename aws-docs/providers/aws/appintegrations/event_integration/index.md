@@ -40,6 +40,27 @@ Gets an individual <code>event_integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_integration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+app-integrations:GetEventIntegration,
+app-integrations:ListTagsForResource</pre>
+
+### Update
+<pre>
+app-integrations:GetEventIntegration,
+app-integrations:UpdateEventIntegration,
+app-integrations:TagResource,
+app-integrations:UntagResource</pre>
+
+### Delete
+<pre>
+app-integrations:DeleteEventIntegration</pre>
+
+
 ## Example
 ```sql
 SELECT

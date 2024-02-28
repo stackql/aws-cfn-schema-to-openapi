@@ -38,6 +38,20 @@ Gets an individual <code>simulation_application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>simulation_application_version</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+robomaker:DeleteSimulationApplication,
+robomaker:DescribeSimulationApplication</pre>
+
+### Read
+<pre>
+robomaker:DescribeSimulationApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

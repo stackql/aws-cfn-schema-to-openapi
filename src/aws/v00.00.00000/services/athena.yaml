@@ -5,11 +5,9 @@ info:
 paths: {}
 components:
   schemas:
-    Tags:
-      type: array
-      x-insertionOrder: false
-      items:
-        $ref: '#/components/schemas/Tag'
+    Arn:
+      description: The Amazon Resource Name (ARN) of the specified capacity reservation
+      type: string
     Tag:
       type: object
       properties:
@@ -25,6 +23,125 @@ components:
         - Key
         - Value
       additionalProperties: false
+    WorkgroupName:
+      pattern: '[a-zA-Z0-9._-]{1,128}'
+      type: string
+    WorkgroupNames:
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/WorkgroupName'
+    CapacityAssignment:
+      type: object
+      properties:
+        WorkgroupNames:
+          $ref: '#/components/schemas/WorkgroupNames'
+      required:
+        - WorkgroupNames
+      additionalProperties: false
+    CapacityAssignments:
+      description: List of capacity assignments
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/CapacityAssignment'
+    CapacityAssignmentConfiguration:
+      description: Assignment configuration to assign workgroups to a reservation
+      type: object
+      properties:
+        CapacityAssignments:
+          $ref: '#/components/schemas/CapacityAssignments'
+      required:
+        - CapacityAssignments
+      additionalProperties: false
+    CapacityReservationStatus:
+      type: string
+      enum:
+        - PENDING
+        - ACTIVE
+        - CANCELLING
+        - CANCELLED
+        - FAILED
+        - UPDATE_PENDING
+    CapacityReservation:
+      type: object
+      properties:
+        Arn:
+          $ref: '#/components/schemas/Arn'
+        Name:
+          description: The reservation name.
+          pattern: '[a-zA-Z0-9._-]{1,128}'
+          type: string
+        Status:
+          description: The status of the reservation.
+          $ref: '#/components/schemas/CapacityReservationStatus'
+        TargetDpus:
+          description: The number of DPUs to request to be allocated to the reservation.
+          type: integer
+          format: int64
+          minimum: 1
+        AllocatedDpus:
+          description: The number of DPUs Athena has provisioned and allocated for the reservation
+          type: integer
+          format: int64
+          minimum: 0
+        CapacityAssignmentConfiguration:
+          $ref: '#/components/schemas/CapacityAssignmentConfiguration'
+        CreationTime:
+          description: The date and time the reservation was created.
+          type: string
+        LastSuccessfulAllocationTime:
+          description: The timestamp when the last successful allocated was made
+          type: string
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - Name
+        - TargetDpus
+      x-stackql-resource-name: capacity_reservation
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - Status
+        - AllocatedDpus
+        - CreationTime
+        - LastSuccessfulAllocationTime
+      x-required-permissions:
+        create:
+          - athena:CreateCapacityReservation
+          - athena:PutCapacityAssignmentConfiguration
+          - athena:GetCapacityReservation
+          - athena:TagResource
+        read:
+          - athena:GetCapacityReservation
+          - athena:GetCapacityAssignmentConfiguration
+          - athena:ListTagsForResource
+        update:
+          - athena:UpdateCapacityReservation
+          - athena:PutCapacityAssignmentConfiguration
+          - athena:GetCapacityReservation
+          - athena:TagResource
+          - athena:UntagResource
+        delete:
+          - athena:CancelCapacityReservation
+          - athena:GetCapacityReservation
+          - athena:DeleteCapacityReservation
+        list:
+          - athena:ListCapacityReservations
+          - athena:GetCapacityReservation
+    Tags:
+      type: array
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/Tag'
     DataCatalog:
       type: object
       properties:
@@ -62,6 +179,25 @@ components:
       x-stackql-resource-name: data_catalog
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-required-permissions:
+        create:
+          - athena:CreateDataCatalog
+          - athena:TagResource
+        read:
+          - athena:GetDataCatalog
+          - athena:ListTagsForResource
+        update:
+          - athena:UpdateDataCatalog
+          - athena:TagResource
+          - athena:GetDataCatalog
+          - athena:UntagResource
+          - athena:ListTagsForResource
+        delete:
+          - athena:DeleteDataCatalog
+        list:
+          - athena:ListDataCatalog
     NamedQuery:
       type: object
       properties:
@@ -99,6 +235,23 @@ components:
       x-stackql-resource-name: named_query
       x-stackql-primaryIdentifier:
         - NamedQueryId
+      x-create-only-properties:
+        - Name
+        - Database
+        - Description
+        - QueryString
+        - WorkGroup
+      x-read-only-properties:
+        - NamedQueryId
+      x-required-permissions:
+        create:
+          - athena:CreateNamedQuery
+        read:
+          - athena:GetNamedQuery
+        list:
+          - athena:ListNamedQueries
+        delete:
+          - athena:DeleteNamedQuery
     PreparedStatement:
       type: object
       properties:
@@ -130,6 +283,22 @@ components:
       x-stackql-primaryIdentifier:
         - StatementName
         - WorkGroup
+      x-create-only-properties:
+        - StatementName
+        - WorkGroup
+      x-required-permissions:
+        create:
+          - athena:CreatePreparedStatement
+          - athena:GetPreparedStatement
+        read:
+          - athena:GetPreparedStatement
+        update:
+          - athena:UpdatePreparedStatement
+        delete:
+          - athena:DeletePreparedStatement
+          - athena:GetPreparedStatement
+        list:
+          - athena:ListPreparedStatements
     SelectedEngineVersion:
       description: The engine version requested by the user. Possible values are determined by the output of ListEngineVersions, including Auto. The default is Auto.
       type: string
@@ -350,7 +519,90 @@ components:
       x-stackql-resource-name: work_group
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - CreationTime
+        - WorkGroupConfiguration/EngineVersion/EffectiveEngineVersion
+        - WorkGroupConfigurationUpdates/EngineVersion/EffectiveEngineVersion
+      x-required-permissions:
+        create:
+          - athena:CreateWorkGroup
+          - athena:TagResource
+          - iam:PassRole
+          - s3:GetBucketLocation
+          - s3:GetObject
+          - s3:ListBucket
+          - s3:ListBucketMultipartUploads
+          - s3:AbortMultipartUpload
+          - s3:PutObject
+          - s3:ListMultipartUploadParts
+          - kms:Decrypt
+          - kms:GenerateDataKey
+        read:
+          - athena:GetWorkGroup
+          - athena:ListTagsForResource
+        list:
+          - athena:ListWorkGroups
+        delete:
+          - athena:DeleteWorkGroup
+          - athena:GetWorkGroup
+          - athena:UntagResource
+        update:
+          - athena:UpdateWorkGroup
+          - athena:TagResource
+          - athena:UntagResource
+          - iam:PassRole
+          - s3:GetBucketLocation
+          - s3:GetObject
+          - s3:ListBucket
+          - s3:ListBucketMultipartUploads
+          - s3:AbortMultipartUpload
+          - s3:PutObject
+          - s3:ListMultipartUploadParts
+          - kms:Decrypt
+          - kms:GenerateDataKey
   x-stackQL-resources:
+    capacity_reservations:
+      name: capacity_reservations
+      id: aws.athena.capacity_reservations
+      x-cfn-schema-name: CapacityReservation
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Athena::CapacityReservation'
+    capacity_reservation:
+      name: capacity_reservation
+      id: aws.athena.capacity_reservation
+      x-cfn-schema-name: CapacityReservation
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.TargetDpus') as target_dpus,
+              JSON_EXTRACT(Properties, '$.AllocatedDpus') as allocated_dpus,
+              JSON_EXTRACT(Properties, '$.CapacityAssignmentConfiguration') as capacity_assignment_configuration,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.LastSuccessfulAllocationTime') as last_successful_allocation_time,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Athena::CapacityReservation'
     data_catalogs:
       name: data_catalogs
       id: aws.athena.data_catalogs

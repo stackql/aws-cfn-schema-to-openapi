@@ -34,6 +34,7 @@ components:
           enum:
             - RuleName
             - MqttTopic
+            - SnsTopic
         Description:
           description: Destination description
           type: string
@@ -58,10 +59,32 @@ components:
         - Name
         - Expression
         - ExpressionType
-        - RoleArn
       x-stackql-resource-name: destination
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iotwireless:CreateDestination
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetDestination
+          - iotwireless:ListTagsForResource
+        update:
+          - iam:PassRole
+          - iotwireless:UpdateDestination
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DeleteDestination
+        list:
+          - iotwireless:ListDestinations
+          - iotwireless:ListTagsForResource
     LoRaWANDeviceProfile:
       type: object
       additionalProperties: false
@@ -165,6 +188,22 @@ components:
       x-stackql-resource-name: device_profile
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iotwireless:CreateDeviceProfile
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetDeviceProfile
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DeleteDeviceProfile
+        list:
+          - iotwireless:ListDeviceProfiles
+          - iotwireless:ListTagsForResource
     LoRaWAN:
       type: object
       properties:
@@ -253,6 +292,35 @@ components:
       x-stackql-resource-name: fuota_task
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - Id
+        - FuotaTaskStatus
+        - LoRaWAN/StartTime
+      x-required-permissions:
+        create:
+          - iotwireless:CreateFuotaTask
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+          - iam:GetRole
+          - iam:PassRole
+        read:
+          - iotwireless:GetFuotaTask
+          - iotwireless:ListTagsForResource
+        update:
+          - iam:PassRole
+          - iotwireless:UpdateFuotaTask
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+          - iotwireless:AssociateMulticastGroupWithFuotaTask
+          - iotwireless:DisassociateMulticastGroupFromFuotaTask
+          - iotwireless:AssociateWirelessDeviceWithFuotaTask
+          - iotwireless:DisassociateWirelessDeviceFromFuotaTask
+        delete:
+          - iotwireless:DeleteFuotaTask
+        list:
+          - iotwireless:ListFuotaTasks
+          - iotwireless:ListTagsForResource
     MulticastGroup:
       type: object
       properties:
@@ -298,6 +366,31 @@ components:
       x-stackql-resource-name: multicast_group
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - Id
+        - Status
+        - LoRaWAN/NumberOfDevicesRequested
+        - LoRaWAN/NumberOfDevicesInGroup
+      x-required-permissions:
+        create:
+          - iotwireless:CreateMulticastGroup
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetMulticastGroup
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdateMulticastGroup
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+          - iotwireless:AssociateWirelessDeviceWithMulticastGroup
+          - iotwireless:DisassociateWirelessDeviceFromMulticastGroup
+        delete:
+          - iotwireless:DeleteMulticastGroup
+        list:
+          - iotwireless:ListMulticastGroups
+          - iotwireless:ListTagsForResource
     WirelessDeviceFrameInfo:
       type: string
       enum:
@@ -360,6 +453,28 @@ components:
       x-stackql-resource-name: network_analyzer_configuration
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iotwireless:CreateNetworkAnalyzerConfiguration
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetNetworkAnalyzerConfiguration
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdateNetworkAnalyzerConfiguration
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DeleteNetworkAnalyzerConfiguration
+        list:
+          - iotwireless:ListNetworkAnalyzerConfigurations
+          - iotwireless:ListTagsForResource
     SidewalkAccountInfo:
       type: object
       additionalProperties: false
@@ -435,6 +550,28 @@ components:
       x-stackql-resource-name: partner_account
       x-stackql-primaryIdentifier:
         - PartnerAccountId
+      x-create-only-properties:
+        - PartnerAccountId
+      x-read-only-properties:
+        - Arn
+        - Fingerprint
+      x-required-permissions:
+        create:
+          - iotwireless:AssociateAwsAccountWithPartnerAccount
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetPartnerAccount
+          - iotwireless:ListTagsForResource
+        list:
+          - iotwireless:ListPartnerAccounts
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdatePartnerAccount
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DisassociateAwsAccountFromPartnerAccount
     LoRaWANServiceProfile:
       type: object
       additionalProperties: false
@@ -506,6 +643,38 @@ components:
       x-stackql-resource-name: service_profile
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+        - LoRaWAN/UlRate
+        - LoRaWAN/UlBucketSize
+        - LoRaWAN/UlRatePolicy
+        - LoRaWAN/DlRate
+        - LoRaWAN/DlBucketSize
+        - LoRaWAN/DlRatePolicy
+        - LoRaWAN/DevStatusReqFreq
+        - LoRaWAN/ReportDevStatusBattery
+        - LoRaWAN/ReportDevStatusMargin
+        - LoRaWAN/DrMin
+        - LoRaWAN/DrMax
+        - LoRaWAN/ChannelMask
+        - LoRaWAN/HrAllowed
+        - LoRaWAN/NwkGeoLoc
+        - LoRaWAN/TargetPer
+        - LoRaWAN/MinGwDiversity
+      x-required-permissions:
+        create:
+          - iotwireless:CreateServiceProfile
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetServiceProfile
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DeleteServiceProfile
+        list:
+          - iotwireless:ListServiceProfiles
+          - iotwireless:ListTagsForResource
     LoRaWANGatewayVersion:
       type: object
       additionalProperties: false
@@ -601,6 +770,24 @@ components:
       x-stackql-resource-name: task_definition
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - iotwireless:CreateWirelessGatewayTaskDefinition
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+          - iam:GetRole
+          - iam:PassRole
+        read:
+          - iotwireless:GetWirelessGatewayTaskDefinition
+          - iotwireless:ListTagsForResource
+        delete:
+          - iotwireless:DeleteWirelessGatewayTaskDefinition
+        list:
+          - iotwireless:ListWirelessGatewayTaskDefinitions
+          - iotwireless:ListTagsForResource
     OtaaV10x:
       type: object
       additionalProperties: false
@@ -689,6 +876,17 @@ components:
       required:
         - DevAddr
         - SessionKeys
+    FPorts:
+      type: object
+      additionalProperties: false
+      properties:
+        Applications:
+          description: A list of optional LoRaWAN application information, which can be used for geolocation.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Application'
     LoRaWANDevice:
       type: object
       additionalProperties: false
@@ -710,6 +908,8 @@ components:
           $ref: '#/components/schemas/AbpV11'
         AbpV10x:
           $ref: '#/components/schemas/AbpV10x'
+        FPorts:
+          $ref: '#/components/schemas/FPorts'
       oneOf:
         - required:
             - OtaaV11
@@ -719,6 +919,26 @@ components:
             - AbpV11
         - required:
             - AbpV10x
+    Application:
+      description: LoRaWAN application configuration, which can be used to perform geolocation.
+      type: object
+      properties:
+        DestinationName:
+          description: The name of the position data destination that describes the AWS IoT rule that processes the device's position data for use by AWS IoT Core for LoRaWAN.
+          type: string
+          pattern: '[a-zA-Z0-9-_]+'
+          maxLength: 128
+        FPort:
+          description: The Fport value.
+          type: integer
+          minimum: 1
+          maximum: 223
+        Type:
+          description: Application type, which can be specified to obtain real-time position information of your LoRaWAN device.
+          type: string
+          enum:
+            - SemtechGeolocation
+      additionalProperties: false
     WirelessDevice:
       type: object
       properties:
@@ -773,6 +993,29 @@ components:
       x-stackql-resource-name: wireless_device
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - ThingName
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - iotwireless:CreateWirelessDevice
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetWirelessDevice
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdateWirelessDevice
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+          - iotwireless:AssociateWirelessDeviceWithThing
+        delete:
+          - iotwireless:DeleteWirelessDevice
+          - iotwireless:DisassociateWirelessDeviceFromThing
+        list:
+          - iotwireless:ListWirelessDevices
+          - iotwireless:ListTagsForResource
     DeviceCreationFileList:
       description: sidewalk create device's file path
       type: array
@@ -863,6 +1106,37 @@ components:
       x-stackql-resource-name: wireless_device_import_task
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+        - CreationDate
+        - Status
+        - StatusReason
+        - InitializedImportedDevicesCount
+        - PendingImportedDevicesCount
+        - OnboardedImportedDevicesCount
+        - FailedImportedDevicesCount
+        - Sidewalk/DeviceCreationFileList
+      x-required-permissions:
+        create:
+          - iotwireless:StartWirelessDeviceImportTask
+          - iotwireless:StartSingleWirelessDeviceImportTask
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+          - iam:PassRole
+        read:
+          - iotwireless:GetWirelessDeviceImportTask
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdateWirelessDeviceImportTask
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+          - iam:PassRole
+        delete:
+          - iotwireless:DeleteWirelessDeviceImportTask
+        list:
+          - iotwireless:ListWirelessDeviceImportTasks
+          - iotwireless:ListTagsForResource
     LoRaWANGateway:
       type: object
       additionalProperties: false
@@ -919,6 +1193,28 @@ components:
       x-stackql-resource-name: wireless_gateway
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - iotwireless:CreateWirelessGateway
+          - iotwireless:TagResource
+          - iotwireless:ListTagsForResource
+        read:
+          - iotwireless:GetWirelessGateway
+          - iotwireless:ListTagsForResource
+        update:
+          - iotwireless:UpdateWirelessGateway
+          - iotwireless:UntagResource
+          - iotwireless:ListTagsForResource
+          - iotwireless:AssociateWirelessGatewayWithThing
+        delete:
+          - iotwireless:DeleteWirelessGateway
+          - iotwireless:DisassociateWirelessGatewayFromThing
+        list:
+          - iotwireless:ListWirelessGateways
+          - iotwireless:ListTagsForResource
   x-stackQL-resources:
     destinations:
       name: destinations

@@ -46,6 +46,7 @@ components:
         IpAddresses:
           description: The IP addresses from BYOIP Prefix pool.
           default: null
+          x-insertionOrder: true
           type: array
           items:
             $ref: '#/components/schemas/IpAddress'
@@ -58,12 +59,14 @@ components:
           type: string
         Ipv4Addresses:
           description: The IPv4 addresses assigned to the accelerator.
+          x-insertionOrder: true
           type: array
           items:
             type: string
         Ipv6Addresses:
           description: The IPv6 addresses assigned if the accelerator is dualstack
           default: null
+          x-insertionOrder: true
           type: array
           items:
             type: string
@@ -74,6 +77,7 @@ components:
           description: The Amazon Resource Name (ARN) of the accelerator.
           type: string
         Tags:
+          x-insertionOrder: true
           type: array
           items:
             $ref: '#/components/schemas/Tag'
@@ -82,12 +86,39 @@ components:
       x-stackql-resource-name: accelerator
       x-stackql-primaryIdentifier:
         - AcceleratorArn
+      x-read-only-properties:
+        - AcceleratorArn
+        - DnsName
+        - Ipv4Addresses
+        - Ipv6Addresses
+        - DualStackDnsName
+      x-required-permissions:
+        create:
+          - globalaccelerator:CreateAccelerator
+          - globalaccelerator:DescribeAccelerator
+          - globalaccelerator:TagResource
+        read:
+          - globalaccelerator:DescribeAccelerator
+        update:
+          - globalaccelerator:UpdateAccelerator
+          - globalaccelerator:TagResource
+          - globalaccelerator:UntagResource
+          - globalaccelerator:DescribeAccelerator
+        delete:
+          - globalaccelerator:UpdateAccelerator
+          - globalaccelerator:DeleteAccelerator
+          - globalaccelerator:DescribeAccelerator
+        list:
+          - globalaccelerator:ListAccelerators
     EndpointConfiguration:
       description: The configuration for a given endpoint
       type: object
       properties:
         EndpointId:
           description: Id of the endpoint. For Network/Application Load Balancer this value is the ARN.  For EIP, this value is the allocation ID.  For EC2 instances, this is the EC2 instance ID
+          type: string
+        AttachmentArn:
+          description: Attachment ARN that provides access control to the cross account endpoint. Not required for resources hosted in the same account as the endpoint group.
           type: string
         Weight:
           description: The weight for the endpoint.
@@ -178,6 +209,32 @@ components:
       x-stackql-resource-name: endpoint_group
       x-stackql-primaryIdentifier:
         - EndpointGroupArn
+      x-create-only-properties:
+        - EndpointGroupRegion
+        - ListenerArn
+      x-read-only-properties:
+        - EndpointGroupArn
+      x-required-permissions:
+        create:
+          - globalaccelerator:CreateEndpointGroup
+          - globalaccelerator:DescribeEndpointGroup
+          - globalaccelerator:DescribeAccelerator
+          - globalaccelerator:DescribeListener
+          - globalaccelerator:ListAccelerators
+          - globalaccelerator:ListListeners
+        read:
+          - globalaccelerator:DescribeEndpointGroup
+        update:
+          - globalaccelerator:UpdateEndpointGroup
+          - globalaccelerator:DescribeEndpointGroup
+          - globalaccelerator:DescribeListener
+          - globalaccelerator:DescribeAccelerator
+        delete:
+          - globalaccelerator:DeleteEndpointGroup
+          - globalaccelerator:DescribeEndpointGroup
+          - globalaccelerator:DescribeAccelerator
+        list:
+          - globalaccelerator:ListEndpointGroups
     PortRange:
       description: A port range to support for connections from  clients to your accelerator.
       type: object
@@ -224,6 +281,27 @@ components:
       x-stackql-resource-name: listener
       x-stackql-primaryIdentifier:
         - ListenerArn
+      x-create-only-properties:
+        - AcceleratorArn
+      x-read-only-properties:
+        - ListenerArn
+      x-required-permissions:
+        create:
+          - globalaccelerator:CreateListener
+          - globalaccelerator:DescribeListener
+          - globalaccelerator:DescribeAccelerator
+        read:
+          - globalaccelerator:DescribeListener
+        update:
+          - globalaccelerator:UpdateListener
+          - globalaccelerator:DescribeListener
+          - globalaccelerator:DescribeAccelerator
+        delete:
+          - globalaccelerator:DescribeListener
+          - globalaccelerator:DeleteListener
+          - globalaccelerator:DescribeAccelerator
+        list:
+          - globalaccelerator:ListListeners
   x-stackQL-resources:
     accelerators:
       name: accelerators

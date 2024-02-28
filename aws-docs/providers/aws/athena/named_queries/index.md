@@ -35,6 +35,19 @@ Retrieves a list of <code>named_queries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>named_queries</code> resource, the following permissions are required:
+
+### Create
+<pre>
+athena:CreateNamedQuery</pre>
+
+### List
+<pre>
+athena:ListNamedQueries</pre>
+
+
 ## Example
 ```sql
 SELECT

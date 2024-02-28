@@ -40,6 +40,23 @@ components:
       x-stackql-primaryIdentifier:
         - Type
         - Name
+      x-create-only-properties:
+        - Type
+        - Name
+      x-required-permissions:
+        create:
+          - aoss:CreateAccessPolicy
+          - aoss:GetAccessPolicy
+        read:
+          - aoss:GetAccessPolicy
+        update:
+          - aoss:UpdateAccessPolicy
+          - aoss:GetAccessPolicy
+        delete:
+          - aoss:DeleteAccessPolicy
+          - aoss:GetAccessPolicy
+        list:
+          - aoss:ListAccessPolicies
     Tag:
       type: object
       description: A key-value pair metadata associated with resource
@@ -64,6 +81,13 @@ components:
       enum:
         - SEARCH
         - TIMESERIES
+        - VECTORSEARCH
+    StandbyReplicas:
+      type: string
+      description: The possible standby replicas for the collection
+      enum:
+        - ENABLED
+        - DISABLED
     Collection:
       type: object
       properties:
@@ -108,11 +132,87 @@ components:
           type: string
         Type:
           $ref: '#/components/schemas/CollectionType'
+        StandbyReplicas:
+          $ref: '#/components/schemas/StandbyReplicas'
       required:
         - Name
       x-stackql-resource-name: collection
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - Tags
+        - Type
+      x-read-only-properties:
+        - Id
+        - Arn
+        - CollectionEndpoint
+        - DashboardEndpoint
+      x-required-permissions:
+        create:
+          - aoss:CreateCollection
+          - aoss:BatchGetCollection
+          - iam:CreateServiceLinkedRole
+        delete:
+          - aoss:DeleteCollection
+          - aoss:BatchGetCollection
+        list:
+          - aoss:ListCollections
+        read:
+          - aoss:BatchGetCollection
+        update:
+          - aoss:UpdateCollection
+          - aoss:BatchGetCollection
+    LifecyclePolicyType:
+      type: string
+      description: The type of lifecycle policy
+      enum:
+        - retention
+    LifecyclePolicy:
+      type: object
+      properties:
+        Name:
+          type: string
+          maxLength: 32
+          minLength: 3
+          pattern: ^[a-z][a-z0-9-]+$
+          description: The name of the policy
+        Type:
+          $ref: '#/components/schemas/LifecyclePolicyType'
+        Description:
+          type: string
+          maxLength: 1000
+          minLength: 0
+          description: The description of the policy
+        Policy:
+          type: string
+          minLength: 1
+          maxLength: 20480
+          pattern: '[\u0009\u000A\u000D\u0020-\u007E\u00A1-\u00FF]+'
+          description: The JSON policy document that is the content for the policy
+      required:
+        - Type
+        - Name
+        - Policy
+      x-stackql-resource-name: lifecycle_policy
+      x-stackql-primaryIdentifier:
+        - Type
+        - Name
+      x-create-only-properties:
+        - Type
+        - Name
+      x-required-permissions:
+        create:
+          - aoss:CreateLifecyclePolicy
+        read:
+          - aoss:BatchGetLifecyclePolicy
+        update:
+          - aoss:UpdateLifecyclePolicy
+          - aoss:BatchGetLifecyclePolicy
+        delete:
+          - aoss:DeleteLifecyclePolicy
+        list:
+          - aoss:ListLifecyclePolicies
     SamlConfigOptions:
       type: object
       description: Describes saml options in form of key value map
@@ -120,7 +220,7 @@ components:
         Metadata:
           type: string
           description: The XML saml provider metadata document that you want to use
-          maxLength: 20480
+          maxLength: 51200
           minLength: 1
           pattern: '[\u0009\u000A\u000D\u0020-\u007E\u00A1-\u00FF]+'
         UserAttribute:
@@ -172,6 +272,23 @@ components:
       x-stackql-resource-name: security_config
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Type
+        - Name
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - aoss:CreateSecurityConfig
+        read:
+          - aoss:GetSecurityConfig
+        update:
+          - aoss:GetSecurityConfig
+          - aoss:UpdateSecurityConfig
+        delete:
+          - aoss:DeleteSecurityConfig
+        list:
+          - aoss:ListSecurityConfigs
     SecurityPolicyType:
       type: string
       description: The possible types for the network policy
@@ -208,6 +325,28 @@ components:
       x-stackql-primaryIdentifier:
         - Type
         - Name
+      x-create-only-properties:
+        - Type
+        - Name
+      x-required-permissions:
+        create:
+          - aoss:GetSecurityPolicy
+          - aoss:CreateSecurityPolicy
+          - kms:DescribeKey
+          - kms:CreateGrant
+        update:
+          - aoss:GetSecurityPolicy
+          - aoss:UpdateSecurityPolicy
+          - kms:DescribeKey
+          - kms:CreateGrant
+        delete:
+          - aoss:GetSecurityPolicy
+          - aoss:DeleteSecurityPolicy
+        list:
+          - aoss:ListSecurityPolicies
+        read:
+          - aoss:GetSecurityPolicy
+          - kms:DescribeKey
     VpcEndpoint:
       type: object
       properties:
@@ -258,6 +397,74 @@ components:
       x-stackql-resource-name: vpc_endpoint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - VpcId
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - aoss:BatchGetVpcEndpoint
+          - aoss:CreateVpcEndpoint
+          - ec2:CreateVpcEndpoint
+          - ec2:DeleteVpcEndPoints
+          - ec2:DescribeVpcEndpoints
+          - ec2:ModifyVpcEndPoint
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - ec2:CreateTags
+          - route53:ChangeResourceRecordSets
+          - route53:GetChange
+          - route53:GetHostedZone
+          - route53:ListResourceRecordSets
+          - route53:ListHostedZonesByName
+          - route53:CreateHostedZone
+          - route53:ListHostedZonesByVPC
+          - route53:AssociateVPCWithHostedZone
+        read:
+          - aoss:BatchGetVpcEndpoint
+          - ec2:DescribeVpcEndpoints
+        update:
+          - aoss:BatchGetVpcEndpoint
+          - aoss:UpdateVpcEndpoint
+          - ec2:CreateVpcEndpoint
+          - ec2:DeleteVpcEndPoints
+          - ec2:DescribeVpcEndpoints
+          - ec2:ModifyVpcEndPoint
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - ec2:CreateTags
+          - route53:ChangeResourceRecordSets
+          - route53:GetChange
+          - route53:GetHostedZone
+          - route53:ListResourceRecordSets
+          - route53:ListHostedZonesByName
+          - route53:CreateHostedZone
+          - route53:ListHostedZonesByVPC
+          - route53:AssociateVPCWithHostedZone
+        delete:
+          - aoss:BatchGetVpcEndpoint
+          - aoss:DeleteVpcEndpoint
+          - ec2:DeleteVpcEndPoints
+          - ec2:DescribeVpcEndpoints
+          - ec2:ModifyVpcEndPoint
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - ec2:CreateTags
+          - route53:ChangeResourceRecordSets
+          - route53:DeleteHostedZone
+          - route53:GetChange
+          - route53:GetHostedZone
+          - route53:ListResourceRecordSets
+          - route53:ListHostedZonesByName
+          - route53:ListHostedZonesByVPC
+          - route53:AssociateVPCWithHostedZone
+        list:
+          - aoss:ListVpcEndpoints
+          - ec2:DescribeVpcEndpoints
   x-stackQL-resources:
     access_policies:
       name: access_policies
@@ -334,8 +541,47 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CollectionEndpoint') as collection_endpoint,
               JSON_EXTRACT(Properties, '$.DashboardEndpoint') as dashboard_endpoint,
-              JSON_EXTRACT(Properties, '$.Type') as type
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.StandbyReplicas') as standby_replicas
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
+    lifecycle_policies:
+      name: lifecycle_policies
+      id: aws.opensearchserverless.lifecycle_policies
+      x-cfn-schema-name: LifecyclePolicy
+      x-type: list
+      x-identifiers:
+        - Type
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
+    lifecycle_policy:
+      name: lifecycle_policy
+      id: aws.opensearchserverless.lifecycle_policy
+      x-cfn-schema-name: LifecyclePolicy
+      x-type: get
+      x-identifiers:
+        - Type
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Policy') as policy
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
     security_configs:
       name: security_configs
       id: aws.opensearchserverless.security_configs

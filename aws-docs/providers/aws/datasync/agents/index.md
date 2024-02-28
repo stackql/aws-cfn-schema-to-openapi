@@ -35,6 +35,26 @@ Retrieves a list of <code>agents</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>agents</code> resource, the following permissions are required:
+
+### Create
+<pre>
+datasync:CreateAgent,
+datasync:TagResource,
+datasync:DescribeAgent,
+datasync:ListTagsForResource,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcEndpoints</pre>
+
+### List
+<pre>
+datasync:ListAgents</pre>
+
+
 ## Example
 ```sql
 SELECT

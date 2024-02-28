@@ -38,6 +38,20 @@ Gets an individual <code>robot_application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>robot_application_version</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+robomaker:DeleteRobotApplication,
+robomaker:DescribeRobotApplication</pre>
+
+### Read
+<pre>
+robomaker:DescribeRobotApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

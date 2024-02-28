@@ -55,7 +55,7 @@ components:
           type: string
           minLength: 0
           maxLength: 40
-          pattern: (\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}:\d{2}Z)?
+          pattern: (\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}:\d{2}Z)?|(NOT_EVALUATED_YET)
         LastUpdatedDate:
           description: The date when the monitor was last updated.
           type: string
@@ -87,6 +87,29 @@ components:
       x-stackql-resource-name: anomaly_monitor
       x-stackql-primaryIdentifier:
         - MonitorArn
+      x-create-only-properties:
+        - MonitorType
+        - MonitorDimension
+        - MonitorSpecification
+        - ResourceTags
+      x-read-only-properties:
+        - MonitorArn
+        - CreationDate
+        - LastEvaluatedDate
+        - LastUpdatedDate
+        - DimensionalValueCount
+      x-required-permissions:
+        create:
+          - ce:CreateAnomalyMonitor
+          - ce:TagResource
+        read:
+          - ce:GetAnomalyMonitors
+        update:
+          - ce:UpdateAnomalyMonitor
+        delete:
+          - ce:DeleteAnomalyMonitor
+        list:
+          - ce:GetAnomalyMonitors
     Subscriber:
       type: object
       properties:
@@ -165,6 +188,24 @@ components:
       x-stackql-resource-name: anomaly_subscription
       x-stackql-primaryIdentifier:
         - SubscriptionArn
+      x-create-only-properties:
+        - ResourceTags
+      x-read-only-properties:
+        - SubscriptionArn
+        - AccountId
+        - Subscribers/*/Status
+      x-required-permissions:
+        create:
+          - ce:CreateAnomalySubscription
+          - ce:TagResource
+        read:
+          - ce:GetAnomalySubscriptions
+        update:
+          - ce:UpdateAnomalySubscription
+        delete:
+          - ce:DeleteAnomalySubscription
+        list:
+          - ce:GetAnomalySubscriptions
     ZonedDateTime:
       description: ISO 8601 date time with offset format
       type: string
@@ -206,6 +247,22 @@ components:
       x-stackql-resource-name: cost_category
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - EffectiveStart
+      x-required-permissions:
+        create:
+          - ce:CreateCostCategoryDefinition
+        read:
+          - ce:DescribeCostCategoryDefinition
+        update:
+          - ce:UpdateCostCategoryDefinition
+        delete:
+          - ce:DeleteCostCategoryDefinition
+        list:
+          - ce:ListCostCategoryDefinitions
   x-stackQL-resources:
     anomaly_monitors:
       name: anomaly_monitors

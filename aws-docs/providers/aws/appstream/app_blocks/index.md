@@ -35,6 +35,19 @@ Retrieves a list of <code>app_blocks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>app_blocks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appstream:CreateAppBlock,
+appstream:TagResource,
+s3:GetObject,
+s3:ListBucket,
+s3:GetBucketOwnershipControls</pre>
+
+
 ## Example
 ```sql
 SELECT

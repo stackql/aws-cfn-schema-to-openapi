@@ -29,14 +29,17 @@ Gets an individual <code>tracker</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>create_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>event_bridge_enabled</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>kms_key_enable_geospatial_queries</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>kms_key_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>position_filtering</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>pricing_plan</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>pricing_plan_data_source</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>position_filtering</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>tracker_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tracker_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>update_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -44,20 +47,48 @@ Gets an individual <code>tracker</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tracker</code> resource, the following permissions are required:
+
+### Read
+<pre>
+geo:DescribeTracker,
+kms:DescribeKey</pre>
+
+### Update
+<pre>
+geo:CreateTracker,
+geo:DescribeTracker,
+geo:TagResource,
+geo:UntagResource,
+kms:DescribeKey,
+kms:CreateGrant,
+geo:UpdateTracker</pre>
+
+### Delete
+<pre>
+geo:DeleteTracker,
+geo:DescribeTracker</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 create_time,
 description,
+event_bridge_enabled,
+kms_key_enable_geospatial_queries,
 kms_key_id,
+position_filtering,
 pricing_plan,
 pricing_plan_data_source,
-position_filtering,
+tags,
 tracker_arn,
-arn,
 tracker_name,
-update_time
+update_time,
+arn
 FROM aws.location.tracker
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;TrackerName&gt;'

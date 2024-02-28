@@ -27,7 +27,7 @@ Retrieves a list of <code>layer_versions</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>layer_version_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,26 @@ Retrieves a list of <code>layer_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>layer_versions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lambda:PublishLayerVersion,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### List
+<pre>
+lambda:ListLayerVersions</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+layer_version_arn
 FROM aws.lambda.layer_versions
 WHERE region = 'us-east-1'
 ```

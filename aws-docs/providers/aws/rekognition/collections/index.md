@@ -35,6 +35,22 @@ Retrieves a list of <code>collections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>collections</code> resource, the following permissions are required:
+
+### Create
+<pre>
+rekognition:CreateCollection,
+rekognition:DescribeCollection,
+rekognition:ListTagsForResource,
+rekognition:TagResource</pre>
+
+### List
+<pre>
+rekognition:ListCollections</pre>
+
+
 ## Example
 ```sql
 SELECT

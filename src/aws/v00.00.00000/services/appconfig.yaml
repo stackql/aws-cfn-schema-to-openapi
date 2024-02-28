@@ -18,62 +18,152 @@ components:
       properties:
         Description:
           type: string
-        Id:
+          description: A description of the application.
+        ApplicationId:
           type: string
+          description: The application Id
         Tags:
           type: array
-          uniqueItems: false
+          description: Metadata to assign to the application. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.
+          uniqueItems: true
           items:
             $ref: '#/components/schemas/Tags'
+          x-insertionOrder: false
         Name:
           type: string
+          description: A name for the application.
       required:
         - Name
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
-        - Id
+        - ApplicationId
+      x-read-only-properties:
+        - ApplicationId
+      x-required-permissions:
+        create:
+          - appconfig:CreateApplication
+          - appconfig:GetApplication
+          - appconfig:ListTagsForResource
+          - appconfig:TagResource
+        read:
+          - appconfig:GetApplication
+          - appconfig:ListTagsForResource
+        update:
+          - appconfig:UpdateApplication
+          - appconfig:TagResource
+          - appconfig:UntagResource
+        delete:
+          - appconfig:GetApplication
+          - appconfig:DeleteApplication
+        list:
+          - appconfig:ListApplications
     Validators:
+      description: A list of methods for validating the configuration.
       type: object
       additionalProperties: false
       properties:
         Type:
           type: string
+          description: AWS AppConfig supports validators of type JSON_SCHEMA and LAMBDA.
         Content:
           type: string
+          description: Either the JSON Schema content or the Amazon Resource Name (ARN) of an Lambda function.
+          minLength: 0
+          maxLength: 32768
     ConfigurationProfile:
       type: object
       properties:
         LocationUri:
           type: string
+          description: A URI to locate the configuration. You can specify the AWS AppConfig hosted configuration store, Systems Manager (SSM) document, an SSM Parameter Store parameter, or an Amazon S3 object.
+          minLength: 1
+          maxLength: 2048
         Type:
           type: string
+          description: 'The type of configurations contained in the profile. When calling this API, enter one of the following values for Type: AWS.AppConfig.FeatureFlags, AWS.Freeform'
+          pattern: ^[a-zA-Z\.]+
         Description:
           type: string
+          description: A description of the configuration profile.
+          minLength: 0
+          maxLength: 1024
         Validators:
           type: array
+          description: A list of methods for validating the configuration.
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Validators'
+          x-insertionOrder: false
+          maxItems: 2
         RetrievalRoleArn:
           type: string
-        Id:
+          description: The ARN of an IAM role with permission to access the configuration at the specified LocationUri.
+          minLength: 20
+          maxLength: 2048
+          pattern: ^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):(iam)::\d{12}:role[/].*)$
+        ConfigurationProfileId:
           type: string
+          description: The configuration profile ID
         ApplicationId:
           type: string
+          description: The application ID.
+          pattern: '[a-z0-9]{4,7}'
         Tags:
           type: array
+          description: Metadata to assign to the configuration profile. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tags'
+          x-insertionOrder: false
         Name:
           type: string
+          description: A name for the configuration profile.
+          minLength: 1
+          maxLength: 128
+        KmsKeyIdentifier:
+          type: string
+          description: The AWS Key Management Service key identifier (key ID, key alias, or key ARN) provided when the resource was created or updated.
+          pattern: ^[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}|alias/[a-zA-Z0-9/_-]{1,250}|arn:aws[a-zA-Z-]*:kms:[a-z]{2}(-gov|-iso(b?))?-[a-z]+-\d{1}:\d{12}:(key/[0-9a-f-]{36}|alias/[a-zA-Z0-9/_-]{1,250})$
+        KmsKeyArn:
+          type: string
+          description: The Amazon Resource Name of the AWS Key Management Service key to encrypt new configuration data versions in the AWS AppConfig hosted configuration store. This attribute is only used for hosted configuration types. To encrypt data managed in other configuration stores, see the documentation for how to specify an AWS KMS key for that particular service.
+          minLength: 20
+          maxLength: 2048
+          pattern: arn:(aws[a-zA-Z-]*)?:[a-z]+:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:[a-zA-Z0-9-_/:.]+
       required:
         - LocationUri
         - ApplicationId
         - Name
       x-stackql-resource-name: configuration_profile
       x-stackql-primaryIdentifier:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
+      x-create-only-properties:
+        - LocationUri
+        - Type
+        - ApplicationId
+      x-read-only-properties:
+        - ConfigurationProfileId
+        - KmsKeyArn
+      x-required-permissions:
+        create:
+          - appconfig:CreateConfigurationProfile
+          - appconfig:GetConfigurationProfile
+          - appconfig:TagResource
+          - appconfig:ListTagsForResource
+          - iam:PassRole
+        read:
+          - appconfig:GetConfigurationProfile
+          - appconfig:ListTagsForResource
+        update:
+          - appconfig:UpdateConfigurationProfile
+          - appconfig:TagResource
+          - appconfig:UntagResource
+          - iam:PassRole
+        delete:
+          - appconfig:DeleteConfigurationProfile
+        list:
+          - appconfig:ListConfigurationProfiles
     Deployment:
       type: object
       properties:
@@ -107,6 +197,17 @@ components:
       x-stackql-resource-name: deployment
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - KmsKeyIdentifier
+        - DeploymentStrategyId
+        - ConfigurationVersion
+        - ApplicationId
+        - ConfigurationProfileId
+        - Tags
+        - EnvironmentId
+        - Description
+      x-read-only-properties:
+        - Id
     DeploymentStrategy:
       type: object
       properties:
@@ -139,41 +240,29 @@ components:
       x-stackql-resource-name: deployment_strategy
       x-stackql-primaryIdentifier:
         - Id
-    Monitors:
+      x-create-only-properties:
+        - Name
+        - ReplicateTo
+      x-read-only-properties:
+        - Id
+    Monitor:
       type: object
+      description: Amazon CloudWatch alarm to monitor during the deployment process.
       additionalProperties: false
       properties:
         AlarmArn:
           type: string
+          description: Amazon Resource Name (ARN) of the Amazon CloudWatch alarm.
+          minLength: 1
+          maxLength: 2048
         AlarmRoleArn:
           type: string
-    Environment:
-      type: object
-      properties:
-        Monitors:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Monitors'
-        Description:
-          type: string
-        Id:
-          type: string
-        ApplicationId:
-          type: string
-        Tags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tags'
-        Name:
-          type: string
+          description: ARN of an AWS Identity and Access Management (IAM) role for AWS AppConfig to monitor AlarmArn.
+          minLength: 20
+          maxLength: 2048
+          pattern: ^((arn):(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):(iam)::\d{12}:role[/].*)$
       required:
-        - ApplicationId
-        - Name
-      x-stackql-resource-name: environment
-      x-stackql-primaryIdentifier:
-        - Id
+        - AlarmArn
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -192,6 +281,73 @@ components:
         - Key
         - Value
       additionalProperties: false
+    Environment:
+      type: object
+      properties:
+        EnvironmentId:
+          type: string
+          description: The environment ID.
+          pattern: '[a-z0-9]{4,7}'
+        ApplicationId:
+          type: string
+          description: The application ID.
+          pattern: '[a-z0-9]{4,7}'
+        Name:
+          type: string
+          description: A name for the environment.
+          minLength: 1
+          maxLength: 64
+        Description:
+          type: string
+          description: A description of the environment.
+          minLength: 0
+          maxLength: 1024
+        Monitors:
+          type: array
+          description: Amazon CloudWatch alarms to monitor during the deployment process.
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Monitor'
+          minItems: 0
+          maxItems: 5
+        Tags:
+          type: array
+          description: Metadata to assign to the environment. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+      required:
+        - Name
+        - ApplicationId
+      x-stackql-resource-name: environment
+      x-stackql-primaryIdentifier:
+        - ApplicationId
+        - EnvironmentId
+      x-create-only-properties:
+        - ApplicationId
+      x-read-only-properties:
+        - EnvironmentId
+      x-required-permissions:
+        create:
+          - appconfig:CreateEnvironment
+          - appconfig:GetEnvironment
+          - appconfig:ListTagsForResource
+          - appconfig:TagResource
+          - iam:PassRole
+        read:
+          - appconfig:GetEnvironment
+          - appconfig:ListTagsForResource
+        update:
+          - appconfig:UpdateEnvironment
+          - appconfig:TagResource
+          - appconfig:UntagResource
+          - iam:PassRole
+        delete:
+          - appconfig:GetEnvironment
+          - appconfig:DeleteEnvironment
+        list:
+          - appconfig:ListEnvironments
     Actions:
       description: A list of actions for an extension to take at a specific action point.
       uniqueItems: true
@@ -283,6 +439,31 @@ components:
       x-stackql-resource-name: extension
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - Tags
+        - Tags/*/Key
+        - Tags/*/Value
+      x-read-only-properties:
+        - Id
+        - Arn
+        - VersionNumber
+      x-required-permissions:
+        create:
+          - appconfig:CreateExtension
+          - appconfig:TagResource
+          - iam:PassRole
+        read:
+          - appconfig:GetExtension
+        update:
+          - appconfig:UpdateExtension
+          - appconfig:TagResource
+          - appconfig:UntagResource
+        delete:
+          - appconfig:DeleteExtension
+          - appconfig:UntagResource
+        list:
+          - appconfig:ListExtensions
     ExtensionAssociation:
       type: object
       properties:
@@ -316,33 +497,98 @@ components:
       x-stackql-resource-name: extension_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ExtensionIdentifier
+        - ResourceIdentifier
+        - ExtensionVersionNumber
+        - Tags
+        - Tags/*/Key
+        - Tags/*/Value
+      x-read-only-properties:
+        - Id
+        - Arn
+        - ResourceArn
+        - ExtensionArn
+      x-required-permissions:
+        create:
+          - appconfig:CreateExtensionAssociation
+          - appconfig:TagResource
+        read:
+          - appconfig:GetExtensionAssociation
+        update:
+          - appconfig:UpdateExtensionAssociation
+          - appconfig:TagResource
+          - appconfig:UntagResource
+        delete:
+          - appconfig:DeleteExtensionAssociation
+          - appconfig:UntagResource
+        list:
+          - appconfig:ListExtensionAssociations
     HostedConfigurationVersion:
       type: object
       properties:
-        ConfigurationProfileId:
-          type: string
-        Description:
-          type: string
-        ContentType:
-          type: string
-        LatestVersionNumber:
-          type: number
-        Content:
-          type: string
-        VersionLabel:
-          type: string
-        Id:
-          type: string
         ApplicationId:
           type: string
+          description: The application ID.
+          pattern: '[a-z0-9]{4,7}'
+        ConfigurationProfileId:
+          type: string
+          description: The configuration profile ID.
+          pattern: '[a-z0-9]{4,7}'
+        VersionNumber:
+          type: string
+          description: Current version number of hosted configuration version.
+        Description:
+          type: string
+          description: A description of the hosted configuration version.
+          minLength: 0
+          maxLength: 1024
+        Content:
+          type: string
+          description: The content of the configuration or the configuration data.
+        ContentType:
+          type: string
+          description: A standard MIME type describing the format of the configuration content.
+          minLength: 1
+          maxLength: 255
+        LatestVersionNumber:
+          type: integer
+          description: An optional locking token used to prevent race conditions from overwriting configuration updates when creating a new version. To ensure your data is not overwritten when creating multiple hosted configuration versions in rapid succession, specify the version number of the latest hosted configuration version.
+        VersionLabel:
+          type: string
+          description: A user-defined label for an AWS AppConfig hosted configuration version.
+          pattern: ^$|.*[^0-9].*
+          minLength: 0
+          maxLength: 64
       required:
-        - ConfigurationProfileId
-        - ContentType
-        - Content
         - ApplicationId
+        - ConfigurationProfileId
+        - Content
+        - ContentType
       x-stackql-resource-name: hosted_configuration_version
       x-stackql-primaryIdentifier:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
+        - VersionNumber
+      x-create-only-properties:
+        - ApplicationId
+        - ConfigurationProfileId
+        - Description
+        - Content
+        - ContentType
+        - LatestVersionNumber
+        - VersionLabel
+      x-read-only-properties:
+        - VersionNumber
+      x-required-permissions:
+        create:
+          - appconfig:CreateHostedConfigurationVersion
+        read:
+          - appconfig:GetHostedConfigurationVersion
+        delete:
+          - appconfig:DeleteHostedConfigurationVersion
+        list:
+          - appconfig:ListHostedConfigurationVersions
   x-stackQL-resources:
     applications:
       name: applications
@@ -350,7 +596,7 @@ components:
       x-cfn-schema-name: Application
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationId
       config:
         views:
           select:
@@ -358,7 +604,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Application'
     application:
       name: application
@@ -366,7 +612,7 @@ components:
       x-cfn-schema-name: Application
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationId
       config:
         views:
           select:
@@ -375,7 +621,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Application'
@@ -385,7 +631,8 @@ components:
       x-cfn-schema-name: ConfigurationProfile
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
       config:
         views:
           select:
@@ -393,7 +640,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
+              JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
     configuration_profile:
       name: configuration_profile
@@ -401,7 +649,8 @@ components:
       x-cfn-schema-name: ConfigurationProfile
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
       config:
         views:
           select:
@@ -414,10 +663,12 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Validators') as validators,
               JSON_EXTRACT(Properties, '$.RetrievalRoleArn') as retrieval_role_arn,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.KmsKeyIdentifier') as kms_key_identifier,
+              JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
     deployments:
       name: deployments
@@ -505,7 +756,8 @@ components:
       x-cfn-schema-name: Environment
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationId
+        - EnvironmentId
       config:
         views:
           select:
@@ -513,7 +765,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Environment'
     environment:
       name: environment
@@ -521,7 +774,8 @@ components:
       x-cfn-schema-name: Environment
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationId
+        - EnvironmentId
       config:
         views:
           select:
@@ -529,12 +783,12 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Monitors') as monitors,
-              JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Monitors') as monitors,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Environment'
     extensions:
       name: extensions
@@ -622,7 +876,9 @@ components:
       x-cfn-schema-name: HostedConfigurationVersion
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
+        - VersionNumber
       config:
         views:
           select:
@@ -630,7 +886,9 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
+              JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id,
+              JSON_EXTRACT(Properties, '$.VersionNumber') as version_number
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'
     hosted_configuration_version:
       name: hosted_configuration_version
@@ -638,7 +896,9 @@ components:
       x-cfn-schema-name: HostedConfigurationVersion
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationId
+        - ConfigurationProfileId
+        - VersionNumber
       config:
         views:
           select:
@@ -646,12 +906,12 @@ components:
             ddl: |-
               SELECT
               region,
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id,
+              JSON_EXTRACT(Properties, '$.VersionNumber') as version_number,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Content') as content,
               JSON_EXTRACT(Properties, '$.ContentType') as content_type,
               JSON_EXTRACT(Properties, '$.LatestVersionNumber') as latest_version_number,
-              JSON_EXTRACT(Properties, '$.Content') as content,
-              JSON_EXTRACT(Properties, '$.VersionLabel') as version_label,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              JSON_EXTRACT(Properties, '$.VersionLabel') as version_label
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'

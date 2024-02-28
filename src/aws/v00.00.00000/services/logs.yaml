@@ -5,6 +5,356 @@ info:
 paths: {}
 components:
   schemas:
+    AccountPolicy:
+      type: object
+      properties:
+        AccountId:
+          description: User account id
+          type: string
+          pattern: ^\d{12}$
+        PolicyName:
+          description: The name of the account policy
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^[^:*]{1,256}$
+        PolicyDocument:
+          description: |-
+            The body of the policy document you want to use for this topic.
+
+            You can only add one policy per PolicyType.
+
+            The policy must be in JSON string format.
+
+            Length Constraints: Maximum length of 30720
+          type: string
+          minLength: 1
+          maxLength: 30720
+        PolicyType:
+          description: Type of the policy.
+          type: string
+          enum:
+            - DATA_PROTECTION_POLICY
+            - SUBSCRIPTION_FILTER_POLICY
+        Scope:
+          description: Scope for policy application
+          type: string
+          enum:
+            - ALL
+        SelectionCriteria:
+          description: Log group  selection criteria to apply policy only to a subset of log groups. SelectionCriteria string can be up to 25KB and cloudwatchlogs determines the length of selectionCriteria by using its UTF-8 bytes
+          type: string
+      required:
+        - PolicyName
+        - PolicyType
+        - PolicyDocument
+      x-stackql-resource-name: account_policy
+      x-stackql-primaryIdentifier:
+        - AccountId
+        - PolicyType
+        - PolicyName
+      x-create-only-properties:
+        - PolicyName
+        - PolicyType
+      x-read-only-properties:
+        - AccountId
+      x-required-permissions:
+        create:
+          - logs:PutAccountPolicy
+          - logs:PutDataProtectionPolicy
+          - logs:DescribeAccountPolicies
+          - logs:CreateLogDelivery
+          - s3:REST.PUT.OBJECT
+          - firehose:TagDeliveryStream
+          - logs:PutSubscriptionFilter
+          - logs:DeleteSubscriptionFilter
+          - iam:PassRole
+        read:
+          - logs:DescribeAccountPolicies
+        update:
+          - logs:PutAccountPolicy
+          - logs:PutDataProtectionPolicy
+          - logs:DescribeAccountPolicies
+          - logs:DeleteAccountPolicy
+          - logs:DeleteDataProtectionPolicy
+          - logs:CreateLogDelivery
+          - logs:PutSubscriptionFilter
+          - logs:DeleteSubscriptionFilter
+          - s3:REST.PUT.OBJECT
+          - firehose:TagDeliveryStream
+          - iam:PassRole
+        delete:
+          - logs:DeleteAccountPolicy
+          - logs:DeleteDataProtectionPolicy
+          - logs:DescribeAccountPolicies
+          - logs:DeleteSubscriptionFilter
+          - iam:PassRole
+        list:
+          - logs:DescribeAccountPolicies
+    Tag:
+      description: A key-value pair to associate with a resource.
+      type: object
+      additionalProperties: false
+      properties:
+        Key:
+          type: string
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
+          minLength: 1
+          maxLength: 128
+        Value:
+          type: string
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
+          minLength: 0
+          maxLength: 256
+      required:
+        - Key
+        - Value
+    Arn:
+      description: The Amazon Resource Name (ARN) that uniquely identifies this delivery source.
+      type: string
+      minLength: 16
+      maxLength: 2048
+      pattern: ^arn:(aws[a-zA-Z-]*)?:[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9_/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_/+=,@.-]{0,1023}$
+    Delivery:
+      type: object
+      properties:
+        DeliveryId:
+          description: The unique ID that identifies this delivery in your account.
+          type: string
+          minLength: 1
+          maxLength: 64
+          pattern: ^[0-9A-Za-z]+$
+        Arn:
+          description: The Amazon Resource Name (ARN) that uniquely identifies this delivery.
+          $ref: '#/components/schemas/Arn'
+        DeliverySourceName:
+          description: The name of the delivery source that is associated with this delivery.
+          type: string
+          pattern: '[\w-]*$'
+          minLength: 1
+          maxLength: 60
+        DeliveryDestinationArn:
+          description: The ARN of the delivery destination that is associated with this delivery.
+          $ref: '#/components/schemas/Arn'
+        DeliveryDestinationType:
+          description: Displays whether the delivery destination associated with this delivery is CloudWatch Logs, Amazon S3, or Kinesis Data Firehose.
+          type: string
+          minLength: 1
+          maxLength: 12
+          pattern: ^[0-9A-Za-z]+$
+        Tags:
+          description: The tags that have been assigned to this delivery.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - DeliverySourceName
+        - DeliveryDestinationArn
+      x-stackql-resource-name: delivery
+      x-stackql-primaryIdentifier:
+        - DeliveryId
+      x-create-only-properties:
+        - DeliverySourceName
+        - DeliveryDestinationArn
+      x-read-only-properties:
+        - DeliveryId
+        - Arn
+        - DeliveryDestinationType
+      x-required-permissions:
+        create:
+          - logs:CreateDelivery
+          - logs:GetDelivery
+          - logs:DescribeDeliveries
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:GetDeliverySource
+          - logs:GetDeliveryDestination
+        read:
+          - logs:GetDelivery
+          - logs:ListTagsForResource
+        update:
+          - logs:GetDelivery
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:UntagResource
+        delete:
+          - logs:DeleteDelivery
+          - logs:ListTagsForResource
+          - logs:UntagResource
+        list:
+          - logs:DescribeDeliveries
+          - logs:ListTagsForResource
+    DestinationPolicy:
+      type: object
+      properties:
+        DeliveryDestinationName:
+          type: string
+          description: The name of the delivery destination to assign this policy to
+          minLength: 1
+          maxLength: 60
+        DeliveryDestinationPolicy:
+          type: string
+          description: The contents of the policy attached to the delivery destination
+          minLength: 1
+          maxLength: 51200
+      required:
+        - DeliveryDestinationName
+        - DeliveryDestinationPolicy
+      additionalProperties: false
+    DeliveryDestination:
+      type: object
+      properties:
+        Name:
+          description: The name of this delivery destination.
+          type: string
+          pattern: '[\w-]*$'
+          minLength: 1
+          maxLength: 60
+        Arn:
+          description: The Amazon Resource Name (ARN) that uniquely identifies this delivery destination.
+          $ref: '#/components/schemas/Arn'
+        DestinationResourceArn:
+          description: The ARN of the AWS resource that will receive the logs.
+          $ref: '#/components/schemas/Arn'
+        Tags:
+          description: The tags that have been assigned to this delivery destination.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        DeliveryDestinationType:
+          description: Displays whether this delivery destination is CloudWatch Logs, Amazon S3, or Kinesis Data Firehose.
+          type: string
+          minLength: 1
+          maxLength: 12
+          pattern: ^[0-9A-Za-z]+$
+        DeliveryDestinationPolicy:
+          description: |-
+            IAM policy that grants permissions to CloudWatch Logs to deliver logs cross-account to a specified destination in this account.
+
+            The policy must be in JSON string format.
+
+            Length Constraints: Maximum length of 51200
+          type: object
+          items:
+            $ref: '#/components/schemas/DestinationPolicy'
+      required:
+        - Name
+      x-stackql-resource-name: delivery_destination
+      x-stackql-primaryIdentifier:
+        - Name
+      x-create-only-properties:
+        - Name
+        - DestinationResourceArn
+      x-read-only-properties:
+        - Arn
+        - DeliveryDestinationType
+      x-required-permissions:
+        create:
+          - logs:PutDeliveryDestination
+          - logs:GetDeliveryDestination
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:UntagResource
+          - logs:PutDeliveryDestinationPolicy
+          - logs:GetDeliveryDestinationPolicy
+        read:
+          - logs:GetDeliveryDestination
+          - logs:ListTagsForResource
+          - logs:GetDeliveryDestinationPolicy
+        update:
+          - logs:PutDeliveryDestination
+          - logs:GetDeliveryDestination
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:UntagResource
+          - logs:DeleteDeliveryDestinationPolicy
+          - logs:PutDeliveryDestinationPolicy
+          - logs:GetDeliveryDestinationPolicy
+        delete:
+          - logs:DeleteDeliveryDestination
+          - logs:DeleteDeliveryDestinationPolicy
+        list:
+          - logs:DescribeDeliveryDestinations
+          - logs:GetDeliveryDestinationPolicy
+    DeliverySource:
+      type: object
+      properties:
+        Name:
+          description: The unique name of the Log source.
+          type: string
+          pattern: '[\w-]*$'
+          minLength: 1
+          maxLength: 60
+        Arn:
+          description: The Amazon Resource Name (ARN) that uniquely identifies this delivery source.
+          $ref: '#/components/schemas/Arn'
+        ResourceArns:
+          description: This array contains the ARN of the AWS resource that sends logs and is represented by this delivery source. Currently, only one ARN can be in the array.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Arn'
+        ResourceArn:
+          description: The ARN of the resource that will be sending the logs.
+          $ref: '#/components/schemas/Arn'
+        Service:
+          description: The AWS service that is sending logs.
+          type: string
+          pattern: '[\w-]*$'
+          minLength: 1
+          maxLength: 255
+        LogType:
+          description: The type of logs being delivered. Only mandatory when the resourceArn could match more than one. In such a case, the error message will contain all the possible options.
+          type: string
+          pattern: '[\w-]*$'
+          minLength: 1
+          maxLength: 255
+        Tags:
+          description: The tags that have been assigned to this delivery source.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - Name
+      x-stackql-resource-name: delivery_source
+      x-stackql-primaryIdentifier:
+        - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Service
+        - ResourceArns
+        - Arn
+      x-required-permissions:
+        create:
+          - logs:PutDeliverySource
+          - logs:GetDeliverySource
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:AllowVendedLogDeliveryForResource
+          - codewhisperer:AllowVendedLogDeliveryForResource
+          - autoloop:AllowVendedLogDeliveryForResource
+          - workmail:AllowVendedLogDeliveryForResource
+        read:
+          - logs:GetDeliverySource
+          - logs:ListTagsForResource
+        update:
+          - logs:PutDeliverySource
+          - logs:GetDeliverySource
+          - logs:ListTagsForResource
+          - logs:TagResource
+          - logs:UntagResource
+        delete:
+          - logs:DeleteDeliverySource
+        list:
+          - logs:DescribeDeliverySources
     Destination:
       type: object
       properties:
@@ -35,24 +385,97 @@ components:
       x-stackql-resource-name: destination
       x-stackql-primaryIdentifier:
         - DestinationName
-    Tag:
-      description: A key-value pair to associate with a resource.
+      x-create-only-properties:
+        - DestinationName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - logs:PutDestination
+          - logs:PutDestinationPolicy
+          - logs:DescribeDestinations
+          - iam:PassRole
+        read:
+          - logs:DescribeDestinations
+        update:
+          - logs:PutDestination
+          - logs:PutDestinationPolicy
+          - logs:DescribeDestinations
+          - iam:PassRole
+        delete:
+          - logs:DeleteDestination
+        list:
+          - logs:DescribeDestinations
+    LogAnomalyDetector:
       type: object
-      additionalProperties: false
       properties:
-        Key:
+        AccountId:
+          description: Account ID for owner of detector
           type: string
-          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
-          minLength: 1
-          maxLength: 128
-        Value:
+        KmsKeyId:
+          description: The Amazon Resource Name (ARN) of the CMK to use when encrypting log data.
           type: string
-          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., :, /, =, +, - and @.'
-          minLength: 0
           maxLength: 256
-      required:
-        - Key
-        - Value
+        DetectorName:
+          description: Name of detector
+          type: string
+        LogGroupArnList:
+          description: List of Arns for the given log group
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+            minLength: 20
+            maxLength: 2048
+        EvaluationFrequency:
+          description: How often log group is evaluated
+          type: string
+          enum:
+            - FIVE_MIN
+            - TEN_MIN
+            - FIFTEEN_MIN
+            - THIRTY_MIN
+            - ONE_HOUR
+        FilterPattern:
+          description: ''
+          type: string
+          pattern: ''
+        AnomalyDetectorStatus:
+          description: Current status of detector.
+          type: string
+        AnomalyVisibilityTime:
+          description: ''
+          type: number
+        CreationTimeStamp:
+          description: When detector was created.
+          type: number
+        LastModifiedTimeStamp:
+          description: When detector was lsat modified.
+          type: number
+        AnomalyDetectorArn:
+          description: ARN of LogAnomalyDetector
+          type: string
+      required: []
+      x-stackql-resource-name: log_anomaly_detector
+      x-stackql-primaryIdentifier:
+        - AnomalyDetectorArn
+      x-read-only-properties:
+        - AnomalyDetectorArn
+        - CreationTimeStamp
+        - LastModifiedTimeStamp
+        - AnomalyDetectorStatus
+      x-required-permissions:
+        create:
+          - logs:CreateLogAnomalyDetector
+        read:
+          - logs:GetLogAnomalyDetector
+        update:
+          - logs:UpdateLogAnomalyDetector
+        delete:
+          - logs:DeleteLogAnomalyDetector
+        list:
+          - logs:ListLogAnomalyDetectors
     LogGroup:
       type: string
       pattern: '[\.\-_/#A-Za-z0-9]+'
@@ -61,17 +484,30 @@ components:
     LogStream:
       type: object
       properties:
-        Id:
-          type: string
         LogGroupName:
           type: string
+          description: The name of the log group where the log stream is created.
         LogStreamName:
           type: string
+          description: The name of the log stream. The name must be unique wihtin the log group.
       required:
         - LogGroupName
       x-stackql-resource-name: log_stream
       x-stackql-primaryIdentifier:
-        - Id
+        - LogGroupName
+        - LogStreamName
+      x-create-only-properties:
+        - LogGroupName
+        - LogStreamName
+      x-required-permissions:
+        create:
+          - logs:CreateLogStream
+        read:
+          - logs:DescribeLogStreams
+        delete:
+          - logs:DeleteLogStream
+        list:
+          - logs:DescribeLogStreams
     Dimension:
       description: the key-value pairs that further define a metric.
       type: object
@@ -195,6 +631,22 @@ components:
       x-stackql-primaryIdentifier:
         - LogGroupName
         - FilterName
+      x-create-only-properties:
+        - FilterName
+        - LogGroupName
+      x-required-permissions:
+        create:
+          - logs:PutMetricFilter
+          - logs:DescribeMetricFilters
+        read:
+          - logs:DescribeMetricFilters
+        update:
+          - logs:PutMetricFilter
+          - logs:DescribeMetricFilters
+        delete:
+          - logs:DeleteMetricFilter
+        list:
+          - logs:DescribeMetricFilters
     QueryDefinition:
       type: object
       properties:
@@ -226,6 +678,19 @@ components:
       x-stackql-resource-name: query_definition
       x-stackql-primaryIdentifier:
         - QueryDefinitionId
+      x-read-only-properties:
+        - QueryDefinitionId
+      x-required-permissions:
+        create:
+          - logs:PutQueryDefinition
+        read:
+          - logs:DescribeQueryDefinitions
+        update:
+          - logs:PutQueryDefinition
+        delete:
+          - logs:DeleteQueryDefinition
+        list:
+          - logs:DescribeQueryDefinitions
     ResourcePolicy:
       type: object
       properties:
@@ -247,6 +712,22 @@ components:
       x-stackql-resource-name: resource_policy
       x-stackql-primaryIdentifier:
         - PolicyName
+      x-create-only-properties:
+        - PolicyName
+      x-required-permissions:
+        create:
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+        read:
+          - logs:DescribeResourcePolicies
+        update:
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DeleteResourcePolicy
+        delete:
+          - logs:DeleteResourcePolicy
+        list:
+          - logs:DescribeResourcePolicies
     SubscriptionFilter:
       type: object
       properties:
@@ -279,7 +760,180 @@ components:
       x-stackql-primaryIdentifier:
         - FilterName
         - LogGroupName
+      x-create-only-properties:
+        - FilterName
+        - LogGroupName
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - logs:PutSubscriptionFilter
+          - logs:DescribeSubscriptionFilters
+        read:
+          - logs:DescribeSubscriptionFilters
+        update:
+          - iam:PassRole
+          - logs:PutSubscriptionFilter
+          - logs:DescribeSubscriptionFilters
+        delete:
+          - logs:DeleteSubscriptionFilter
+        list:
+          - logs:DescribeSubscriptionFilters
   x-stackQL-resources:
+    account_policies:
+      name: account_policies
+      id: aws.logs.account_policies
+      x-cfn-schema-name: AccountPolicy
+      x-type: list
+      x-identifiers:
+        - AccountId
+        - PolicyType
+        - PolicyName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id,
+              JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
+    account_policy:
+      name: account_policy
+      id: aws.logs.account_policy
+      x-cfn-schema-name: AccountPolicy
+      x-type: get
+      x-identifiers:
+        - AccountId
+        - PolicyType
+        - PolicyName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id,
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
+              JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
+              JSON_EXTRACT(Properties, '$.Scope') as scope,
+              JSON_EXTRACT(Properties, '$.SelectionCriteria') as selection_criteria
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
+    deliveries:
+      name: deliveries
+      id: aws.logs.deliveries
+      x-cfn-schema-name: Delivery
+      x-type: list
+      x-identifiers:
+        - DeliveryId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DeliveryId') as delivery_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Delivery'
+    delivery:
+      name: delivery
+      id: aws.logs.delivery
+      x-cfn-schema-name: Delivery
+      x-type: get
+      x-identifiers:
+        - DeliveryId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DeliveryId') as delivery_id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.DeliverySourceName') as delivery_source_name,
+              JSON_EXTRACT(Properties, '$.DeliveryDestinationArn') as delivery_destination_arn,
+              JSON_EXTRACT(Properties, '$.DeliveryDestinationType') as delivery_destination_type,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Delivery'
+    delivery_destinations:
+      name: delivery_destinations
+      id: aws.logs.delivery_destinations
+      x-cfn-schema-name: DeliveryDestination
+      x-type: list
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
+    delivery_destination:
+      name: delivery_destination
+      id: aws.logs.delivery_destination
+      x-cfn-schema-name: DeliveryDestination
+      x-type: get
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.DestinationResourceArn') as destination_resource_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.DeliveryDestinationType') as delivery_destination_type,
+              JSON_EXTRACT(Properties, '$.DeliveryDestinationPolicy') as delivery_destination_policy
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
+    delivery_sources:
+      name: delivery_sources
+      id: aws.logs.delivery_sources
+      x-cfn-schema-name: DeliverySource
+      x-type: list
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliverySource'
+    delivery_source:
+      name: delivery_source
+      id: aws.logs.delivery_source
+      x-cfn-schema-name: DeliverySource
+      x-type: get
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.Service') as service,
+              JSON_EXTRACT(Properties, '$.LogType') as log_type,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliverySource'
     destinations:
       name: destinations
       id: aws.logs.destinations
@@ -316,13 +970,13 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Destination'
-    log_streams:
-      name: log_streams
-      id: aws.logs.log_streams
-      x-cfn-schema-name: LogStream
+    log_anomaly_detectors:
+      name: log_anomaly_detectors
+      id: aws.logs.log_anomaly_detectors
+      x-cfn-schema-name: LogAnomalyDetector
       x-type: list
       x-identifiers:
-        - Id
+        - AnomalyDetectorArn
       config:
         views:
           select:
@@ -330,7 +984,51 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
+    log_anomaly_detector:
+      name: log_anomaly_detector
+      id: aws.logs.log_anomaly_detector
+      x-cfn-schema-name: LogAnomalyDetector
+      x-type: get
+      x-identifiers:
+        - AnomalyDetectorArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id,
+              JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
+              JSON_EXTRACT(Properties, '$.DetectorName') as detector_name,
+              JSON_EXTRACT(Properties, '$.LogGroupArnList') as log_group_arn_list,
+              JSON_EXTRACT(Properties, '$.EvaluationFrequency') as evaluation_frequency,
+              JSON_EXTRACT(Properties, '$.FilterPattern') as filter_pattern,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorStatus') as anomaly_detector_status,
+              JSON_EXTRACT(Properties, '$.AnomalyVisibilityTime') as anomaly_visibility_time,
+              JSON_EXTRACT(Properties, '$.CreationTimeStamp') as creation_time_stamp,
+              JSON_EXTRACT(Properties, '$.LastModifiedTimeStamp') as last_modified_time_stamp,
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
+    log_streams:
+      name: log_streams
+      id: aws.logs.log_streams
+      x-cfn-schema-name: LogStream
+      x-type: list
+      x-identifiers:
+        - LogGroupName
+        - LogStreamName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
+              JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream'
     log_stream:
       name: log_stream
@@ -338,7 +1036,8 @@ components:
       x-cfn-schema-name: LogStream
       x-type: get
       x-identifiers:
-        - Id
+        - LogGroupName
+        - LogStreamName
       config:
         views:
           select:
@@ -346,7 +1045,6 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogStream'

@@ -38,6 +38,29 @@ Gets an individual <code>index</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>index</code> resource, the following permissions are required:
+
+### Update
+<pre>
+resource-explorer-2:GetIndex,
+resource-explorer-2:UpdateIndexType,
+resource-explorer-2:TagResource,
+resource-explorer-2:UntagResource,
+resource-explorer-2:ListTagsForResource</pre>
+
+### Delete
+<pre>
+resource-explorer-2:DeleteIndex,
+resource-explorer-2:GetIndex,
+resource-explorer-2:UntagResource</pre>
+
+### Read
+<pre>
+resource-explorer-2:GetIndex</pre>
+
+
 ## Example
 ```sql
 SELECT

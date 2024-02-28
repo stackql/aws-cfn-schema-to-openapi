@@ -27,13 +27,31 @@ Retrieves a list of <code>db_subnet_groups</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>d_bsubnet_group_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>d_bsubnet_group_name</code></td><td><code>string</code></td><td>The name for the DB subnet group. This value is stored as a lowercase string.&lt;br&#x2F;&gt; Constraints: Must contain no more than 255 lowercase alphanumeric characters or hyphens. Must not be "Default".&lt;br&#x2F;&gt; Example: ``mysubnetgroup``</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>db_subnet_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:CreateServiceLinkedRole,
+rds:CreateDBSubnetGroup,
+rds:DescribeDBSubnetGroups,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource,
+rds:ListTagsForResource</pre>
+
+### List
+<pre>
+rds:DescribeDBSubnetGroups</pre>
+
 
 ## Example
 ```sql

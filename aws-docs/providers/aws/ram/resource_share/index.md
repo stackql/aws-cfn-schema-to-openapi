@@ -33,6 +33,7 @@ Gets an individual <code>resource_share</code> resource
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>resource_arns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>sources</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -41,6 +42,10 @@ Gets an individual <code>resource_share</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+
+
+
 
 ## Example
 ```sql
@@ -52,6 +57,7 @@ allow_external_principals,
 id,
 arn,
 resource_arns,
+sources,
 tags,
 name
 FROM aws.ram.resource_share

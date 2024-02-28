@@ -35,6 +35,24 @@ Retrieves a list of <code>model_package_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_package_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateModelPackageGroup,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:GetModelPackageGroupPolicy,
+sagemaker:PutModelPackageGroupPolicy,
+sagemaker:ListTags,
+sagemaker:AddTags</pre>
+
+### List
+<pre>
+sagemaker:ListModelPackageGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

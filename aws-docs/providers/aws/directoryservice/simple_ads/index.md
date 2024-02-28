@@ -35,6 +35,30 @@ Retrieves a list of <code>simple_ads</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>simple_ads</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ds:CreateDirectory,
+ds:CreateAlias,
+ds:EnableSso,
+ds:DescribeDirectories,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+ec2:CreateSecurityGroup,
+ec2:CreateNetworkInterface,
+ec2:DescribeNetworkInterfaces,
+ec2:AuthorizeSecurityGroupIngress,
+ec2:AuthorizeSecurityGroupEgress,
+ec2:CreateTags</pre>
+
+### List
+<pre>
+ds:DescribeDirectories</pre>
+
+
 ## Example
 ```sql
 SELECT

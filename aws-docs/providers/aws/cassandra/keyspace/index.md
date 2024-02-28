@@ -29,6 +29,7 @@ Gets an individual <code>keyspace</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>keyspace_name</code></td><td><code>string</code></td><td>Name for Cassandra keyspace</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>replication_specification</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -36,12 +37,41 @@ Gets an individual <code>keyspace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>keyspace</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cassandra:Select,
+cassandra:SelectMultiRegionResource</pre>
+
+### Update
+<pre>
+cassandra:Alter,
+cassandra:AlterMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+cassandra:TagResource,
+cassandra:TagMultiRegionResource,
+cassandra:UntagResource,
+cassandra:UntagMultiRegionResource</pre>
+
+### Delete
+<pre>
+cassandra:Drop,
+cassandra:DropMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 keyspace_name,
-tags
+tags,
+replication_specification
 FROM aws.cassandra.keyspace
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;KeyspaceName&gt;'

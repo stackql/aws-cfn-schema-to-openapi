@@ -36,6 +36,10 @@ Gets an individual <code>receipt_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

@@ -10,7 +10,7 @@ components:
       properties:
         LambdaArn:
           type: string
-          pattern: ^arn:aws(-(cn|us-gov))?:lambda:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+          pattern: ^arn:[^:]*:lambda:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
         ComponentName:
           type: string
         ComponentVersion:
@@ -186,6 +186,33 @@ components:
       x-stackql-resource-name: component_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - LambdaFunction
+        - InlineRecipe
+      x-read-only-properties:
+        - Arn
+        - ComponentName
+        - ComponentVersion
+      x-required-permissions:
+        create:
+          - greengrass:CreateComponentVersion
+          - greengrass:DescribeComponent
+          - greengrass:ListTagsForResource
+          - greengrass:TagResource
+          - lambda:GetFunction
+          - s3:GetObject
+        read:
+          - greengrass:DescribeComponent
+          - greengrass:ListTagsForResource
+        update:
+          - greengrass:DescribeComponent
+          - greengrass:ListTagsForResource
+          - greengrass:TagResource
+          - greengrass:UntagResource
+        delete:
+          - greengrass:DeleteComponent
+        list:
+          - greengrass:ListComponentVersions
     ComponentDeploymentSpecification:
       type: object
       properties:
@@ -413,6 +440,52 @@ components:
       x-stackql-resource-name: deployment
       x-stackql-primaryIdentifier:
         - DeploymentId
+      x-create-only-properties:
+        - TargetArn
+        - ParentTargetArn
+        - DeploymentName
+        - Components
+        - IotJobConfiguration
+        - DeploymentPolicies
+      x-read-only-properties:
+        - DeploymentId
+      x-required-permissions:
+        create:
+          - greengrass:CreateDeployment
+          - greengrass:GetDeployment
+          - greengrass:TagResource
+          - iot:CancelJob
+          - iot:CreateJob
+          - iot:DeleteThingShadow
+          - iot:DescribeJob
+          - iot:DescribeThing
+          - iot:DescribeThingGroup
+          - iot:GetThingShadow
+          - iot:UpdateJob
+          - iot:UpdateThingShadow
+        read:
+          - greengrass:GetDeployment
+          - iot:DescribeJob
+          - iot:DescribeThing
+          - iot:DescribeThingGroup
+          - iot:GetThingShadow
+        update:
+          - greengrass:GetDeployment
+          - greengrass:TagResource
+          - greengrass:UntagResource
+          - iot:DescribeJob
+        delete:
+          - greengrass:DeleteDeployment
+          - greengrass:CancelDeployment
+          - iot:CancelJob
+          - iot:DeleteJob
+          - iot:DescribeJob
+        list:
+          - greengrass:ListDeployments
+          - iot:DescribeJob
+          - iot:DescribeThing
+          - iot:DescribeThingGroup
+          - iot:GetThingShadow
   x-stackQL-resources:
     component_versions:
       name: component_versions

@@ -54,6 +54,27 @@ Gets an individual <code>job</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>job</code> resource, the following permissions are required:
+
+### Read
+<pre>
+databrew:DescribeJob,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+### Update
+<pre>
+databrew:UpdateProfileJob,
+databrew:UpdateRecipeJob,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+databrew:DeleteJob</pre>
+
+
 ## Example
 ```sql
 SELECT

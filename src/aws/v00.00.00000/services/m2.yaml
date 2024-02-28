@@ -67,6 +67,9 @@ components:
         Name:
           type: string
           pattern: ^[A-Za-z0-9][A-Za-z0-9_\-]{1,59}$
+        RoleArn:
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]|):[0-9]{12}:[A-Za-z0-9/][A-Za-z0-9:_/+=,@.-]{0,1023}$
         Tags:
           $ref: '#/components/schemas/TagMap'
       required:
@@ -76,6 +79,44 @@ components:
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
         - ApplicationArn
+      x-create-only-properties:
+        - EngineType
+        - Name
+        - KmsKeyId
+        - RoleArn
+      x-read-only-properties:
+        - ApplicationArn
+        - ApplicationId
+      x-required-permissions:
+        create:
+          - m2:CreateApplication
+          - m2:GetApplication
+          - m2:ListTagsForResource
+          - m2:TagResource
+          - s3:GetObject
+          - s3:ListBucket
+          - kms:DescribeKey
+          - kms:CreateGrant
+          - iam:PassRole
+        read:
+          - m2:GetApplication
+          - m2:ListTagsForResource
+        update:
+          - m2:UpdateApplication
+          - m2:GetApplication
+          - m2:ListTagsForResource
+          - m2:TagResource
+          - m2:UntagResource
+          - s3:GetObject
+          - s3:ListBucket
+        delete:
+          - elasticloadbalancing:DeleteListener
+          - elasticloadbalancing:DeleteTargetGroup
+          - logs:DeleteLogDelivery
+          - m2:GetApplication
+          - m2:DeleteApplication
+        list:
+          - m2:ListApplications
     EfsStorageConfiguration:
       type: object
       description: Defines the storage configuration for an Amazon EFS file system.
@@ -208,6 +249,54 @@ components:
       x-stackql-resource-name: environment
       x-stackql-primaryIdentifier:
         - EnvironmentArn
+      x-create-only-properties:
+        - Description
+        - EngineType
+        - KmsKeyId
+        - Name
+        - PubliclyAccessible
+        - SecurityGroupIds
+        - StorageConfigurations
+        - SubnetIds
+      x-read-only-properties:
+        - EnvironmentArn
+        - EnvironmentId
+      x-required-permissions:
+        create:
+          - ec2:CreateNetworkInterface
+          - ec2:CreateNetworkInterfacePermission
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeVpcs
+          - ec2:ModifyNetworkInterfaceAttribute
+          - elasticfilesystem:DescribeMountTargets
+          - elasticloadbalancing:CreateLoadBalancer
+          - elasticloadbalancing:AddTags
+          - fsx:DescribeFileSystems
+          - iam:CreateServiceLinkedRole
+          - kms:DescribeKey
+          - kms:CreateGrant
+          - m2:CreateEnvironment
+          - m2:GetEnvironment
+          - m2:ListTagsForResource
+          - m2:TagResource
+        read:
+          - m2:ListTagsForResource
+          - m2:GetEnvironment
+        update:
+          - m2:TagResource
+          - m2:UntagResource
+          - m2:ListTagsForResource
+          - m2:GetEnvironment
+          - m2:UpdateEnvironment
+        delete:
+          - elasticloadbalancing:DeleteLoadBalancer
+          - m2:DeleteEnvironment
+          - m2:GetEnvironment
+        list:
+          - m2:ListEnvironments
   x-stackQL-resources:
     applications:
       name: applications
@@ -246,6 +335,7 @@ components:
               JSON_EXTRACT(Properties, '$.EngineType') as engine_type,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Application'
     environments:

@@ -36,6 +36,25 @@ Gets an individual <code>bucket_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bucket_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+s3-outposts:GetBucketPolicy</pre>
+
+### Update
+<pre>
+s3-outposts:PutBucketPolicy,
+s3-outposts:GetBucketPolicy</pre>
+
+### Delete
+<pre>
+s3-outposts:DeleteBucketPolicy,
+s3-outposts:GetBucketPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

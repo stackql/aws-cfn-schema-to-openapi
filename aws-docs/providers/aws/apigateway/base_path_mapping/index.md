@@ -27,16 +27,35 @@ Gets an individual <code>base_path_mapping</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>base_path</code></td><td><code>string</code></td><td>The base path name that callers of the API must provide in the URL after the domain name.</td></tr>
-<tr><td><code>domain_name</code></td><td><code>string</code></td><td>The DomainName of an AWS::ApiGateway::DomainName resource.</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the API.</td></tr>
-<tr><td><code>stage</code></td><td><code>string</code></td><td>The name of the API's stage.</td></tr>
+<tr><td><code>base_path</code></td><td><code>string</code></td><td>The base path name that callers of the API must provide as part of the URL after the domain name.</td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td>The domain name of the BasePathMapping resource to be described.</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
+<tr><td><code>stage</code></td><td><code>string</code></td><td>The name of the associated stage.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>base_path_mapping</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:DELETE,
+apigateway:PATCH</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

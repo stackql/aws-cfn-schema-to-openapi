@@ -36,6 +36,25 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetResourcePolicy</pre>
+
+### Update
+<pre>
+vpc-lattice:GetResourcePolicy,
+vpc-lattice:PutResourcePolicy</pre>
+
+### Delete
+<pre>
+vpc-lattice:GetResourcePolicy,
+vpc-lattice:DeleteResourcePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -31,12 +31,33 @@ Gets an individual <code>user_hierarchy_group</code> resource
 <tr><td><code>user_hierarchy_group_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the user hierarchy group.</td></tr>
 <tr><td><code>parent_group_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the parent user hierarchy group.</td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td>The name of the user hierarchy group.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>One or more tags.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>user_hierarchy_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeUserHierarchyGroup</pre>
+
+### Delete
+<pre>
+connect:DeleteUserHierarchyGroup,
+connect:UntagResource</pre>
+
+### Update
+<pre>
+connect:UpdateUserHierarchyGroupName,
+connect:TagResource,
+connect:UntagResource</pre>
+
 
 ## Example
 ```sql
@@ -45,7 +66,8 @@ region,
 instance_arn,
 user_hierarchy_group_arn,
 parent_group_arn,
-name
+name,
+tags
 FROM aws.connect.user_hierarchy_group
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;UserHierarchyGroupArn&gt;'

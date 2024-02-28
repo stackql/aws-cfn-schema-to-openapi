@@ -35,6 +35,32 @@ Retrieves a list of <code>instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instances</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lightsail:CreateInstances,
+lightsail:GetInstances,
+lightsail:EnableAddOn,
+lightsail:GetInstance,
+lightsail:DisableAddOn,
+lightsail:PutInstancePublicPorts,
+lightsail:AttachDisk,
+lightsail:DetachDisk,
+lightsail:StartInstance,
+lightsail:StopInstance,
+lightsail:GetDisk,
+lightsail:GetRegions,
+lightsail:TagResource,
+lightsail:UntagResource</pre>
+
+### List
+<pre>
+lightsail:GetInstances</pre>
+
+
 ## Example
 ```sql
 SELECT

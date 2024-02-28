@@ -34,6 +34,7 @@ Gets an individual <code>form</code> resource
 <tr><td><code>fields</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>form_action_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>label_decorator</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>schema_version</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>sectional_elements</code></td><td><code>object</code></td><td></td></tr>
@@ -46,6 +47,32 @@ Gets an individual <code>form</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>form</code> resource, the following permissions are required:
+
+### Read
+<pre>
+amplify:GetApp,
+amplifyuibuilder:GetForm,
+amplifyuibuilder:TagResource</pre>
+
+### Update
+<pre>
+amplify:GetApp,
+amplifyuibuilder:GetForm,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource,
+amplifyuibuilder:UpdateForm</pre>
+
+### Delete
+<pre>
+amplify:GetApp,
+amplifyuibuilder:DeleteForm,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -57,6 +84,7 @@ environment_name,
 fields,
 form_action_type,
 id,
+label_decorator,
 name,
 schema_version,
 sectional_elements,

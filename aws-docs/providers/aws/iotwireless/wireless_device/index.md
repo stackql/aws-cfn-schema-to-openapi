@@ -45,6 +45,28 @@ Gets an individual <code>wireless_device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>wireless_device</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetWirelessDevice,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotwireless:UpdateWirelessDevice,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateWirelessDeviceWithThing</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteWirelessDevice,
+iotwireless:DisassociateWirelessDeviceFromThing</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -41,6 +41,10 @@ Gets an individual <code>user_pool_identity_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

@@ -45,6 +45,23 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+*</pre>
+
+### Update
+<pre>
+*</pre>
+
+### Delete
+<pre>
+*</pre>
+
+
 ## Example
 ```sql
 SELECT

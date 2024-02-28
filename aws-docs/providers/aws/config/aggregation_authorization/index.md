@@ -38,6 +38,29 @@ Gets an individual <code>aggregation_authorization</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>aggregation_authorization</code> resource, the following permissions are required:
+
+### Update
+<pre>
+config:DescribeAggregationAuthorizations,
+config:TagResource,
+config:UntagResource,
+config:ListTagsForResource</pre>
+
+### Read
+<pre>
+config:DescribeAggregationAuthorizations,
+config:ListTagsForResource</pre>
+
+### Delete
+<pre>
+config:DescribeAggregationAuthorizations,
+config:DeleteAggregationAuthorization,
+config:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

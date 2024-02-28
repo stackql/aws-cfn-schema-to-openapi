@@ -35,6 +35,25 @@ Retrieves a list of <code>portals</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>portals</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotsitewise:CreatePortal,
+iotsitewise:DescribePortal,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iam:PassRole,
+sso:CreateManagedApplicationInstance,
+sso:DescribeRegisteredRegions</pre>
+
+### List
+<pre>
+iotsitewise:ListPortals</pre>
+
+
 ## Example
 ```sql
 SELECT

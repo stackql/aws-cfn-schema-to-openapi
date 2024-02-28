@@ -47,6 +47,26 @@ Gets an individual <code>scaling_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>scaling_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+autoscaling:DescribePolicies</pre>
+
+### Update
+<pre>
+autoscaling:DescribePolicies,
+autoscaling:PutScalingPolicy,
+cloudwatch:GetMetricData</pre>
+
+### Delete
+<pre>
+autoscaling:DeletePolicy,
+autoscaling:DescribePolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

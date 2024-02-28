@@ -35,6 +35,20 @@ Retrieves a list of <code>anomaly_monitors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>anomaly_monitors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ce:CreateAnomalyMonitor,
+ce:TagResource</pre>
+
+### List
+<pre>
+ce:GetAnomalyMonitors</pre>
+
+
 ## Example
 ```sql
 SELECT

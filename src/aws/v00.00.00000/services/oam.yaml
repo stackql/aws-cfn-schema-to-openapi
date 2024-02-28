@@ -11,6 +11,7 @@ components:
         - AWS::CloudWatch::Metric
         - AWS::Logs::LogGroup
         - AWS::XRay::Trace
+        - AWS::ApplicationInsights::Application
     Link:
       type: object
       properties:
@@ -52,6 +53,36 @@ components:
       x-stackql-resource-name: link
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - SinkIdentifier
+        - LabelTemplate
+      x-read-only-properties:
+        - Arn
+        - Label
+      x-required-permissions:
+        create:
+          - oam:CreateLink
+          - oam:GetLink
+          - cloudwatch:Link
+          - logs:Link
+          - xray:Link
+          - applicationinsights:Link
+        read:
+          - oam:GetLink
+        update:
+          - oam:GetLink
+          - oam:UpdateLink
+          - cloudwatch:Link
+          - logs:Link
+          - xray:Link
+          - applicationinsights:Link
+          - oam:TagResource
+          - oam:UntagResource
+        delete:
+          - oam:DeleteLink
+          - oam:GetLink
+        list:
+          - oam:ListLinks
     Sink:
       type: object
       properties:
@@ -84,6 +115,31 @@ components:
       x-stackql-resource-name: sink
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - oam:CreateSink
+          - oam:PutSinkPolicy
+          - oam:GetSinkPolicy
+          - oam:GetSink
+        delete:
+          - oam:DeleteSink
+          - oam:GetSinkPolicy
+          - oam:GetSink
+        list:
+          - oam:ListSinks
+        read:
+          - oam:GetSinkPolicy
+          - oam:GetSink
+        update:
+          - oam:PutSinkPolicy
+          - oam:GetSinkPolicy
+          - oam:GetSink
+          - oam:TagResource
+          - oam:UntagResource
   x-stackQL-resources:
     links:
       name: links

@@ -36,6 +36,21 @@ Retrieves a list of <code>lifecycle_hooks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>lifecycle_hooks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+autoscaling:PutLifecycleHook,
+autoscaling:DescribeLifecycleHooks,
+iam:PassRole</pre>
+
+### List
+<pre>
+autoscaling:DescribeLifecycleHooks</pre>
+
+
 ## Example
 ```sql
 SELECT

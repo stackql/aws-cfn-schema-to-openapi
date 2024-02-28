@@ -35,6 +35,22 @@ Retrieves a list of <code>flow_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flow_sources</code> resource, the following permissions are required:
+
+### Create
+<pre>
+mediaconnect:CreateFlow,
+mediaconnect:DescribeFlow,
+mediaconnect:AddFlowSources,
+iam:PassRole</pre>
+
+### List
+<pre>
+mediaconnect:DescribeFlow</pre>
+
+
 ## Example
 ```sql
 SELECT

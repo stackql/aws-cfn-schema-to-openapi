@@ -52,6 +52,29 @@ Gets an individual <code>queue</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>queue</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sqs:GetQueueAttributes,
+sqs:ListQueueTags</pre>
+
+### Update
+<pre>
+sqs:SetQueueAttributes,
+sqs:GetQueueAttributes,
+sqs:ListQueueTags,
+sqs:TagQueue,
+sqs:UntagQueue</pre>
+
+### Delete
+<pre>
+sqs:DeleteQueue,
+sqs:GetQueueAttributes</pre>
+
+
 ## Example
 ```sql
 SELECT

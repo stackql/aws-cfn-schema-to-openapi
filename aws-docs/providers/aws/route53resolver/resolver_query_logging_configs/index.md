@@ -35,6 +35,32 @@ Retrieves a list of <code>resolver_query_logging_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_query_logging_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resolverquerylogging:CreateConfig,
+resolverquerylogging:GetConfig,
+route53resolver:CreateResolverQueryLogConfig,
+route53resolver:GetResolverQueryLogConfig,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+resolverquerylogging:ListConfig,
+route53resolver:ListResolverQueryLogConfigs</pre>
+
+
 ## Example
 ```sql
 SELECT

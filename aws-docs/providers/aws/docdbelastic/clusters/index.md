@@ -35,6 +35,38 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>clusters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+docdb-elastic:CreateCluster,
+ec2:CreateVpcEndpoint,
+ec2:DescribeVpcEndpoints,
+ec2:DeleteVpcEndpoints,
+ec2:ModifyVpcEndpoint,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcAttribute,
+ec2:DescribeVpcs,
+ec2:DescribeAvailabilityZones,
+secretsmanager:ListSecrets,
+secretsmanager:ListSecretVersionIds,
+secretsmanager:DescribeSecret,
+secretsmanager:GetSecretValue,
+secretsmanager:GetResourcePolicy,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:GenerateDataKey,
+kms:Decrypt,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+docdb-elastic:ListClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

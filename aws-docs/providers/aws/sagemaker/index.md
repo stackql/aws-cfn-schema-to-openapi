@@ -35,8 +35,6 @@ The sagemaker service documentation.
 <a href="/providers/aws/sagemaker/app_image_config/">app_image_config</a><br />
 <a href="/providers/aws/sagemaker/app_image_configs/">app_image_configs</a><br />
 <a href="/providers/aws/sagemaker/apps/">apps</a><br />
-<a href="/providers/aws/sagemaker/code_repositories/">code_repositories</a><br />
-<a href="/providers/aws/sagemaker/code_repository/">code_repository</a><br />
 <a href="/providers/aws/sagemaker/data_quality_job_definition/">data_quality_job_definition</a><br />
 <a href="/providers/aws/sagemaker/data_quality_job_definitions/">data_quality_job_definitions</a><br />
 <a href="/providers/aws/sagemaker/device/">device</a><br />
@@ -53,6 +51,8 @@ The sagemaker service documentation.
 <a href="/providers/aws/sagemaker/image_version/">image_version</a><br />
 <a href="/providers/aws/sagemaker/image_versions/">image_versions</a><br />
 <a href="/providers/aws/sagemaker/images/">images</a><br />
+<a href="/providers/aws/sagemaker/inference_component/">inference_component</a><br />
+<a href="/providers/aws/sagemaker/inference_components/">inference_components</a><br />
 <a href="/providers/aws/sagemaker/inference_experiment/">inference_experiment</a><br />
 <a href="/providers/aws/sagemaker/inference_experiments/">inference_experiments</a><br />
 <a href="/providers/aws/sagemaker/model/">model</a><br />

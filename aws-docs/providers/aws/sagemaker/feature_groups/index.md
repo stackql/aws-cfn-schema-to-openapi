@@ -35,6 +35,29 @@ Retrieves a list of <code>feature_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>feature_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+kms:CreateGrant,
+kms:DescribeKey,
+glue:CreateTable,
+glue:GetTable,
+glue:CreateDatabase,
+glue:GetDatabase,
+sagemaker:CreateFeatureGroup,
+sagemaker:DescribeFeatureGroup,
+sagemaker:AddTags,
+sagemaker:ListTags</pre>
+
+### List
+<pre>
+sagemaker:ListFeatureGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

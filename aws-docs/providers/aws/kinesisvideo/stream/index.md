@@ -41,6 +41,26 @@ Gets an individual <code>stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stream</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kinesisvideo:DescribeStream</pre>
+
+### Update
+<pre>
+kinesisvideo:DescribeStream,
+kinesisvideo:UpdateStream,
+kinesisvideo:UpdateDataRetention</pre>
+
+### Delete
+<pre>
+kinesisvideo:DescribeStream,
+kinesisvideo:DeleteStream</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,25 @@ Gets an individual <code>configuration_set_event_destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_set_event_destination</code> resource, the following permissions are required:
+
+### Update
+<pre>
+ses:UpdateConfigurationSetEventDestination,
+ses:GetConfigurationSetEventDestinations</pre>
+
+### Delete
+<pre>
+ses:DeleteConfigurationSetEventDestination</pre>
+
+### Read
+<pre>
+ses:GetConfigurationSetEventDestinations,
+ses:DescribeConfigurationSet</pre>
+
+
 ## Example
 ```sql
 SELECT

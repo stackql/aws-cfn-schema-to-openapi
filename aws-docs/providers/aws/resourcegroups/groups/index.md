@@ -35,6 +35,24 @@ Retrieves a list of <code>groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resource-groups:CreateGroup,
+resource-groups:Tag,
+cloudformation:DescribeStacks,
+cloudformation:ListStackResources,
+resource-groups:ListGroupResources,
+resource-groups:GroupResources</pre>
+
+### List
+<pre>
+resource-groups:ListGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

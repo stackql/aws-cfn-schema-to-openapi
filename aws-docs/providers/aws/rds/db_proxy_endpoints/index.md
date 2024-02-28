@@ -35,6 +35,20 @@ Retrieves a list of <code>db_proxy_endpoints</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_proxy_endpoints</code> resource, the following permissions are required:
+
+### Create
+<pre>
+rds:CreateDBProxyEndpoint,
+rds:DescribeDBProxyEndpoints</pre>
+
+### List
+<pre>
+rds:DescribeDBProxyEndpoints</pre>
+
+
 ## Example
 ```sql
 SELECT

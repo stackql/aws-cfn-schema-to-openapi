@@ -35,6 +35,10 @@ components:
           type: boolean
         DedicatedMasterType:
           type: string
+        MultiAZWithStandbyEnabled:
+          type: boolean
+        ColdStorageOptions:
+          $ref: '#/components/schemas/ColdStorageOptions'
     LogPublishingOption:
       type: object
       additionalProperties: false
@@ -111,7 +115,7 @@ components:
       properties:
         MetadataContent:
           type: string
-          maxLength: 20480
+          maxLength: 1048576
           minLength: 1
         EntityId:
           type: string
@@ -246,6 +250,12 @@ components:
       properties:
         AutoSoftwareUpdateEnabled:
           type: boolean
+    ColdStorageOptions:
+      type: object
+      additionalProperties: false
+      properties:
+        Enabled:
+          type: boolean
     Domain:
       type: object
       properties:
@@ -255,6 +265,8 @@ components:
           type: string
         AccessPolicies:
           type: object
+        IPAddressType:
+          type: string
         EngineVersion:
           type: string
         AdvancedOptions:
@@ -282,6 +294,8 @@ components:
         AdvancedSecurityOptions:
           $ref: '#/components/schemas/AdvancedSecurityOptionsInput'
         DomainEndpoint:
+          type: string
+        DomainEndpointV2:
           type: string
         DomainEndpoints:
           type: object
@@ -314,6 +328,37 @@ components:
       x-stackql-resource-name: domain
       x-stackql-primaryIdentifier:
         - DomainName
+      x-create-only-properties:
+        - DomainName
+      x-read-only-properties:
+        - Id
+        - Arn
+        - DomainArn
+        - DomainEndpoint
+        - DomainEndpointV2
+        - DomainEndpoints
+        - ServiceSoftwareOptions
+        - AdvancedSecurityOptions/AnonymousAuthDisableDate
+      x-required-permissions:
+        create:
+          - es:CreateDomain
+          - es:DescribeDomain
+          - es:AddTags
+          - es:ListTags
+        read:
+          - es:DescribeDomain
+          - es:ListTags
+        update:
+          - es:UpdateDomain
+          - es:UpgradeDomain
+          - es:DescribeDomain
+          - es:AddTags
+          - es:RemoveTags
+          - es:ListTags
+          - es:DescribeDomainChangeProgress
+        delete:
+          - es:DeleteDomain
+          - es:DescribeDomain
   x-stackQL-resources:
     domains:
       name: domains
@@ -348,6 +393,7 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterConfig') as cluster_config,
               JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
               JSON_EXTRACT(Properties, '$.AccessPolicies') as access_policies,
+              JSON_EXTRACT(Properties, '$.IPAddressType') as i_paddress_type,
               JSON_EXTRACT(Properties, '$.EngineVersion') as engine_version,
               JSON_EXTRACT(Properties, '$.AdvancedOptions') as advanced_options,
               JSON_EXTRACT(Properties, '$.LogPublishingOptions') as log_publishing_options,
@@ -358,6 +404,7 @@ components:
               JSON_EXTRACT(Properties, '$.CognitoOptions') as cognito_options,
               JSON_EXTRACT(Properties, '$.AdvancedSecurityOptions') as advanced_security_options,
               JSON_EXTRACT(Properties, '$.DomainEndpoint') as domain_endpoint,
+              JSON_EXTRACT(Properties, '$.DomainEndpointV2') as domain_endpoint_v2,
               JSON_EXTRACT(Properties, '$.DomainEndpoints') as domain_endpoints,
               JSON_EXTRACT(Properties, '$.EBSOptions') as e_bs_options,
               JSON_EXTRACT(Properties, '$.Id') as id,

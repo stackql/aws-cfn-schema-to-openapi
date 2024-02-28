@@ -42,6 +42,41 @@ Gets an individual <code>instance_storage_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instance_storage_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeInstanceStorageConfig,
+connect:ListInstanceStorageConfigs,
+connect:DescribeInstance,
+ds:DescribeDirectories,
+s3:GetBucketAcl,
+s3:GetBucketLocation</pre>
+
+### Update
+<pre>
+connect:UpdateInstanceStorageConfig,
+ds:DescribeDirectories,
+s3:GetBucketAcl,
+s3:GetBucketLocation,
+kinesis:DescribeStream,
+iam:PutRolePolicy,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:RetireGrant,
+firehose:DescribeDeliveryStream</pre>
+
+### Delete
+<pre>
+connect:DisassociateInstanceStorageConfig,
+connect:DescribeInstance,
+s3:GetBucketAcl,
+s3:GetBucketLocation,
+kms:RetireGrant</pre>
+
+
 ## Example
 ```sql
 SELECT

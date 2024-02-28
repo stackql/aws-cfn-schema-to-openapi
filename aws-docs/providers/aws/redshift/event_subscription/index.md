@@ -48,6 +48,31 @@ Gets an individual <code>event_subscription</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_subscription</code> resource, the following permissions are required:
+
+### Read
+<pre>
+redshift:DescribeEventSubscriptions,
+redshift:DescribeTags</pre>
+
+### Update
+<pre>
+redshift:ModifyEventSubscription,
+redshift:CreateTags,
+redshift:DescribeTags,
+redshift:DescribeEventSubscriptions,
+redshift:DeleteTags</pre>
+
+### Delete
+<pre>
+redshift:DescribeEventSubscriptions,
+redshift:DeleteEventSubscription,
+redshift:DescribeTags,
+redshift:DeleteTags</pre>
+
+
 ## Example
 ```sql
 SELECT

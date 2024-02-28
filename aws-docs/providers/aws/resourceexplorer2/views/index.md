@@ -35,6 +35,20 @@ Retrieves a list of <code>views</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>views</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resource-explorer-2:CreateView,
+resource-explorer-2:TagResource</pre>
+
+### List
+<pre>
+resource-explorer-2:ListViews</pre>
+
+
 ## Example
 ```sql
 SELECT

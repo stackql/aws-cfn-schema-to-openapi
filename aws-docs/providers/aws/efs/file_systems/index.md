@@ -35,6 +35,34 @@ Retrieves a list of <code>file_systems</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>file_systems</code> resource, the following permissions are required:
+
+### Create
+<pre>
+elasticfilesystem:CreateFileSystem,
+elasticfilesystem:DescribeReplicationConfigurations,
+elasticfilesystem:TagResource,
+elasticfilesystem:CreateReplicationConfiguration,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:PutBackupPolicy,
+elasticfilesystem:PutFileSystemPolicy,
+elasticfilesystem:PutLifecycleConfiguration,
+elasticfilesystem:UpdateFileSystemProtection,
+kms:DescribeKey,
+kms:GenerateDataKeyWithoutPlaintext,
+kms:CreateGrant</pre>
+
+### List
+<pre>
+elasticfilesystem:DescribeBackupPolicy,
+elasticfilesystem:DescribeFileSystemPolicy,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeLifecycleConfiguration,
+elasticfilesystem:DescribeReplicationConfigurations</pre>
+
+
 ## Example
 ```sql
 SELECT

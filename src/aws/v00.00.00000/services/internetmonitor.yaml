@@ -54,6 +54,39 @@ components:
             - ENABLED
             - DISABLED
       additionalProperties: false
+    HealthEventsConfig:
+      type: object
+      properties:
+        AvailabilityScoreThreshold:
+          type: number
+          minimum: 0
+          maximum: 100
+        PerformanceScoreThreshold:
+          type: number
+          minimum: 0
+          maximum: 100
+        AvailabilityLocalHealthEventsConfig:
+          $ref: '#/components/schemas/LocalHealthEventsConfig'
+        PerformanceLocalHealthEventsConfig:
+          $ref: '#/components/schemas/LocalHealthEventsConfig'
+      additionalProperties: false
+    LocalHealthEventsConfig:
+      type: object
+      properties:
+        Status:
+          type: string
+          enum:
+            - ENABLED
+            - DISABLED
+        HealthScoreThreshold:
+          type: number
+          minimum: 0
+          maximum: 100
+        MinTrafficImpact:
+          type: number
+          minimum: 0
+          maximum: 100
+      additionalProperties: false
     Monitor:
       type: object
       properties:
@@ -108,13 +141,67 @@ components:
           type: integer
           minimum: 1
           maximum: 500000
+        TrafficPercentageToMonitor:
+          type: integer
+          minimum: 1
+          maximum: 100
         InternetMeasurementsLogDelivery:
           $ref: '#/components/schemas/InternetMeasurementsLogDelivery'
+        HealthEventsConfig:
+          $ref: '#/components/schemas/HealthEventsConfig'
       required:
         - MonitorName
       x-stackql-resource-name: monitor
       x-stackql-primaryIdentifier:
         - MonitorName
+      x-create-only-properties:
+        - MonitorName
+      x-read-only-properties:
+        - CreatedAt
+        - ModifiedAt
+        - MonitorArn
+        - ProcessingStatus
+        - ProcessingStatusInfo
+      x-required-permissions:
+        create:
+          - internetmonitor:CreateMonitor
+          - internetmonitor:GetMonitor
+          - internetmonitor:TagResource
+          - internetmonitor:UntagResource
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - s3:ListBucket
+          - iam:PassRole
+        read:
+          - internetmonitor:GetMonitor
+          - internetmonitor:ListTagsForResource
+          - logs:GetLogDelivery
+        update:
+          - internetmonitor:CreateMonitor
+          - internetmonitor:GetMonitor
+          - internetmonitor:UpdateMonitor
+          - internetmonitor:TagResource
+          - internetmonitor:UntagResource
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:ListLogDeliveries
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - s3:ListBucket
+          - iam:PassRole
+        delete:
+          - internetmonitor:UpdateMonitor
+          - internetmonitor:DeleteMonitor
+          - internetmonitor:GetMonitor
+          - logs:DeleteLogDelivery
+        list:
+          - internetmonitor:ListMonitors
+          - internetmonitor:GetMonitor
+          - logs:GetLogDelivery
   x-stackQL-resources:
     monitors:
       name: monitors
@@ -158,5 +245,7 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCityNetworksToMonitor') as max_city_networks_to_monitor,
-              JSON_EXTRACT(Properties, '$.InternetMeasurementsLogDelivery') as internet_measurements_log_delivery
+              JSON_EXTRACT(Properties, '$.TrafficPercentageToMonitor') as traffic_percentage_to_monitor,
+              JSON_EXTRACT(Properties, '$.InternetMeasurementsLogDelivery') as internet_measurements_log_delivery,
+              JSON_EXTRACT(Properties, '$.HealthEventsConfig') as health_events_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'

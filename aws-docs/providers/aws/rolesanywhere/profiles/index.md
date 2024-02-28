@@ -35,6 +35,25 @@ Retrieves a list of <code>profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:GetPolicy,
+iam:PassRole,
+rolesanywhere:CreateProfile,
+rolesanywhere:TagResource,
+rolesanywhere:ListTagsForResource</pre>
+
+### List
+<pre>
+rolesanywhere:ListProfiles,
+rolesanywhere:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

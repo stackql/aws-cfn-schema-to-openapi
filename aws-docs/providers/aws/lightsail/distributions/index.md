@@ -35,6 +35,28 @@ Retrieves a list of <code>distributions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>distributions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lightsail:AttachCertificateToDistribution,
+lightsail:CreateDistribution,
+lightsail:DetachCertificateFromDistribution,
+lightsail:GetCertificates,
+lightsail:GetCertificateDetails,
+lightsail:GetDistributions,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateDistribution,
+lightsail:UpdateDistributionBundle</pre>
+
+### List
+<pre>
+lightsail:GetDistributions</pre>
+
+
 ## Example
 ```sql
 SELECT

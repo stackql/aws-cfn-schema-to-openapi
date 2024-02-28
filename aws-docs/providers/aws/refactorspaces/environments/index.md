@@ -35,6 +35,46 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>environments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+refactor-spaces:CreateEnvironment,
+refactor-spaces:GetEnvironment,
+refactor-spaces:TagResource,
+ec2:CreateTransitGateway,
+ec2:AuthorizeSecurityGroupIngress,
+ec2:CreateSecurityGroup,
+ec2:CreateTags,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeRouteTables,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeTags,
+ec2:DescribeTransitGateways,
+ec2:DescribeTransitGatewayVpcAttachments,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions,
+ec2:RevokeSecurityGroupIngress,
+ram:AssociateResourceShare,
+ram:CreateResourceShare,
+ram:GetResourceShareAssociations,
+ram:GetResourceShares,
+ram:TagResource,
+ram:GetResourceShareInvitations,
+ram:AcceptResourceShareInvitation,
+ram:DisassociateResourceShare,
+tag:GetResources,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+refactor-spaces:ListEnvironments,
+refactor-spaces:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

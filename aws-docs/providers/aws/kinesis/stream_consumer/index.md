@@ -40,6 +40,10 @@ Gets an individual <code>stream_consumer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

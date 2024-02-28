@@ -35,6 +35,23 @@ Retrieves a list of <code>topic_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>topic_rules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+iot:CreateTopicRule,
+iot:GetTopicRule,
+iot:TagResource,
+iot:ListTagsForResource</pre>
+
+### List
+<pre>
+iot:ListTopicRules</pre>
+
+
 ## Example
 ```sql
 SELECT

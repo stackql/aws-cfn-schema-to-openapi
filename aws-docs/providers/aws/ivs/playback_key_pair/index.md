@@ -39,6 +39,27 @@ Gets an individual <code>playback_key_pair</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>playback_key_pair</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ivs:GetPlaybackKeyPair</pre>
+
+### Update
+<pre>
+ivs:GetPlaybackKeyPair,
+ivs:ListTagsForResource,
+ivs:UntagResource,
+ivs:TagResource</pre>
+
+### Delete
+<pre>
+ivs:DeletePlaybackKeyPair,
+ivs:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

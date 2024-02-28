@@ -37,6 +37,19 @@ Gets an individual <code>schema_version_metadata</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schema_version_metadata</code> resource, the following permissions are required:
+
+### Read
+<pre>
+glue:querySchemaVersionMetadata</pre>
+
+### Delete
+<pre>
+glue:removeSchemaVersionMetadata</pre>
+
+
 ## Example
 ```sql
 SELECT

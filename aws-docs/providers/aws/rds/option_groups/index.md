@@ -35,6 +35,25 @@ Retrieves a list of <code>option_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>option_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:CreateServiceLinkedRole,
+rds:AddTagsToResource,
+rds:CreateOptionGroup,
+rds:DescribeOptionGroups,
+rds:ListTagsForResource,
+rds:ModifyOptionGroup,
+rds:RemoveTagsFromResource</pre>
+
+### List
+<pre>
+rds:DescribeOptionGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

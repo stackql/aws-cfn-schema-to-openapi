@@ -46,6 +46,28 @@ Gets an individual <code>variant_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>variant_store</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetVariantStore</pre>
+
+### Update
+<pre>
+omics:UpdateVariantStore,
+omics:TagResource,
+omics:UntagResource,
+omics:ListTagsForResource,
+omics:GetVariantStore</pre>
+
+### Delete
+<pre>
+omics:DeleteVariantStore,
+omics:ListVariantStores</pre>
+
+
 ## Example
 ```sql
 SELECT

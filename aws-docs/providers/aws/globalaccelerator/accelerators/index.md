@@ -35,6 +35,21 @@ Retrieves a list of <code>accelerators</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>accelerators</code> resource, the following permissions are required:
+
+### Create
+<pre>
+globalaccelerator:CreateAccelerator,
+globalaccelerator:DescribeAccelerator,
+globalaccelerator:TagResource</pre>
+
+### List
+<pre>
+globalaccelerator:ListAccelerators</pre>
+
+
 ## Example
 ```sql
 SELECT

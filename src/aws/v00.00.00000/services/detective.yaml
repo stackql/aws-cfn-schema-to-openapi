@@ -30,9 +30,38 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
+        AutoEnableMembers:
+          type: boolean
+          default: false
+          description: Indicates whether to automatically enable new organization accounts as member accounts in the organization behavior graph.
       x-stackql-resource-name: graph
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - detective:CreateGraph
+          - detective:UpdateOrganizationConfiguration
+          - organizations:DescribeOrganization
+        update:
+          - detective:UntagResource
+          - detective:TagResource
+          - detective:ListTagsForResource
+          - detective:UpdateOrganizationConfiguration
+          - organizations:DescribeOrganization
+        read:
+          - detective:ListGraphs
+          - detective:ListTagsForResource
+          - detective:DescribeOrganizationConfiguration
+          - organizations:DescribeOrganization
+        delete:
+          - detective:DeleteGraph
+        list:
+          - detective:ListGraphs
+          - detective:ListTagsForResource
+          - detective:DescribeOrganizationConfiguration
+          - organizations:DescribeOrganization
     MemberInvitation:
       type: object
       properties:
@@ -65,6 +94,60 @@ components:
       x-stackql-primaryIdentifier:
         - GraphArn
         - MemberId
+      x-create-only-properties:
+        - GraphArn
+        - MemberId
+      x-required-permissions:
+        create:
+          - detective:CreateMembers
+          - detective:GetMembers
+        read:
+          - detective:GetMembers
+        update: []
+        delete:
+          - detective:DeleteMembers
+        list:
+          - detective:ListGraphs
+          - detective:ListMembers
+    OrganizationAdmin:
+      type: object
+      properties:
+        AccountId:
+          description: The account ID of the account that should be registered as your Organization's delegated administrator for Detective
+          type: string
+          pattern: '[0-9]{12}'
+        GraphArn:
+          type: string
+          description: The Detective graph ARN
+      required:
+        - AccountId
+      x-stackql-resource-name: organization_admin
+      x-stackql-primaryIdentifier:
+        - AccountId
+      x-create-only-properties:
+        - AccountId
+      x-read-only-properties:
+        - GraphArn
+      x-required-permissions:
+        create:
+          - detective:EnableOrganizationAdminAccount
+          - detective:ListOrganizationAdminAccount
+          - iam:CreateServiceLinkedRole
+          - organizations:RegisterDelegatedAdministrator
+          - organizations:DescribeOrganization
+          - organizations:EnableAWSServiceAccess
+          - organizations:ListAccounts
+        read:
+          - detective:ListOrganizationAdminAccount
+          - organizations:DescribeOrganization
+        update: []
+        delete:
+          - detective:DisableOrganizationAdminAccount
+          - detective:ListOrganizationAdminAccount
+          - organizations:DescribeOrganization
+        list:
+          - detective:ListOrganizationAdminAccount
+          - organizations:DescribeOrganization
   x-stackQL-resources:
     graphs:
       name: graphs
@@ -97,7 +180,8 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.AutoEnableMembers') as auto_enable_members
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::Graph'
     member_invitations:
       name: member_invitations
@@ -138,3 +222,36 @@ components:
               JSON_EXTRACT(Properties, '$.DisableEmailNotification') as disable_email_notification,
               JSON_EXTRACT(Properties, '$.Message') as message
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
+    organization_admins:
+      name: organization_admins
+      id: aws.detective.organization_admins
+      x-cfn-schema-name: OrganizationAdmin
+      x-type: list
+      x-identifiers:
+        - AccountId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'
+    organization_admin:
+      name: organization_admin
+      id: aws.detective.organization_admin
+      x-cfn-schema-name: OrganizationAdmin
+      x-type: get
+      x-identifiers:
+        - AccountId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id,
+              JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'

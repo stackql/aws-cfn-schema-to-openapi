@@ -35,6 +35,10 @@ Retrieves a list of <code>user_poolui_customization_attachments</code> in a regi
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

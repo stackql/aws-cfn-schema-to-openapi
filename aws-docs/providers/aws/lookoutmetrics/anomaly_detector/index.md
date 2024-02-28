@@ -40,6 +40,27 @@ Gets an individual <code>anomaly_detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>anomaly_detector</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lookoutmetrics:DescribeAnomalyDetector,
+lookoutmetrics:DescribeMetricSet,
+lookoutmetrics:ListMetricSets</pre>
+
+### Update
+<pre>
+lookoutmetrics:UpdateAnomalyDetector,
+lookoutmetrics:UpdateMetricSet</pre>
+
+### Delete
+<pre>
+lookoutmetrics:DescribeAnomalyDetector,
+lookoutmetrics:DeleteAnomalyDetector</pre>
+
+
 ## Example
 ```sql
 SELECT

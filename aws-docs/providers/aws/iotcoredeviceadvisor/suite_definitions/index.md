@@ -35,6 +35,30 @@ Retrieves a list of <code>suite_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>suite_definitions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:DescribeCertificate,
+iot:DescribeThing,
+iot:GetPolicy,
+iot:ListAttachedPolicies,
+iot:ListCertificates,
+iot:ListPrincipalPolicies,
+iot:ListTagsForResource,
+iot:ListThingPrincipals,
+iot:ListThings,
+iotdeviceadvisor:CreateSuiteDefinition,
+iotdeviceadvisor:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+iotdeviceadvisor:ListSuiteDefinitions</pre>
+
+
 ## Example
 ```sql
 SELECT

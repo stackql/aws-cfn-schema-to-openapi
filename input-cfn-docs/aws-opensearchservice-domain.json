@@ -45,6 +45,12 @@
         },
         "DedicatedMasterType" : {
           "type" : "string"
+        },
+        "MultiAZWithStandbyEnabled" : {
+          "type" : "boolean"
+        },
+        "ColdStorageOptions" : {
+          "$ref" : "#/definitions/ColdStorageOptions"
         }
       }
     },
@@ -158,7 +164,7 @@
       "properties" : {
         "MetadataContent" : {
           "type" : "string",
-          "maxLength" : 20480,
+          "maxLength" : 1048576,
           "minLength" : 1
         },
         "EntityId" : {
@@ -346,6 +352,15 @@
           "type" : "boolean"
         }
       }
+    },
+    "ColdStorageOptions" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "Enabled" : {
+          "type" : "boolean"
+        }
+      }
     }
   },
   "properties" : {
@@ -357,6 +372,9 @@
     },
     "AccessPolicies" : {
       "type" : "object"
+    },
+    "IPAddressType" : {
+      "type" : "string"
     },
     "EngineVersion" : {
       "type" : "string"
@@ -398,6 +416,9 @@
       "$ref" : "#/definitions/AdvancedSecurityOptionsInput"
     },
     "DomainEndpoint" : {
+      "type" : "string"
+    },
+    "DomainEndpointV2" : {
       "type" : "string"
     },
     "DomainEndpoints" : {
@@ -445,7 +466,7 @@
   "additionalProperties" : false,
   "createOnlyProperties" : [ "/properties/DomainName" ],
   "conditionalCreateOnlyProperties" : [ "/properties/EncryptionAtRestOptions/properties", "/properties/AdvancedSecurityOptions/properties/Enabled" ],
-  "readOnlyProperties" : [ "/properties/Id", "/properties/Arn", "/properties/DomainArn", "/properties/DomainEndpoint", "/properties/DomainEndpoints", "/properties/ServiceSoftwareOptions", "/properties/AdvancedSecurityOptions/AnonymousAuthDisableDate" ],
+  "readOnlyProperties" : [ "/properties/Id", "/properties/Arn", "/properties/DomainArn", "/properties/DomainEndpoint", "/properties/DomainEndpointV2", "/properties/DomainEndpoints", "/properties/ServiceSoftwareOptions", "/properties/AdvancedSecurityOptions/AnonymousAuthDisableDate" ],
   "writeOnlyProperties" : [ "/properties/AdvancedSecurityOptions/MasterUserOptions", "/properties/AdvancedSecurityOptions/SAMLOptions/MasterUserName", "/properties/AdvancedSecurityOptions/SAMLOptions/MasterBackendRole" ],
   "primaryIdentifier" : [ "/properties/DomainName" ],
   "handlers" : {
@@ -456,7 +477,8 @@
       "permissions" : [ "es:DescribeDomain", "es:ListTags" ]
     },
     "update" : {
-      "permissions" : [ "es:UpdateDomain", "es:UpgradeDomain", "es:DescribeDomain", "es:AddTags", "es:RemoveTags", "es:ListTags" ]
+      "permissions" : [ "es:UpdateDomain", "es:UpgradeDomain", "es:DescribeDomain", "es:AddTags", "es:RemoveTags", "es:ListTags", "es:DescribeDomainChangeProgress" ],
+      "timeoutInMinutes" : 780
     },
     "delete" : {
       "permissions" : [ "es:DeleteDomain", "es:DescribeDomain" ]

@@ -35,6 +35,23 @@ Retrieves a list of <code>security_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateSecurityProfile,
+iot:AttachSecurityProfile,
+iot:DescribeSecurityProfile,
+iot:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+iot:ListSecurityProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT

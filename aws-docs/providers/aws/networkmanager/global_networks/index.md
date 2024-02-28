@@ -35,6 +35,22 @@ Retrieves a list of <code>global_networks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>global_networks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:CreateGlobalNetwork,
+networkmanager:DescribeGlobalNetworks,
+networkmanager:TagResource,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+networkmanager:DescribeGlobalNetworks</pre>
+
+
 ## Example
 ```sql
 SELECT

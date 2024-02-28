@@ -35,6 +35,40 @@ Retrieves a list of <code>canaries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>canaries</code> resource, the following permissions are required:
+
+### Create
+<pre>
+synthetics:CreateCanary,
+synthetics:StartCanary,
+synthetics:GetCanary,
+synthetics:TagResource,
+s3:CreateBucket,
+s3:GetObject,
+s3:GetObjectVersion,
+s3:PutBucketEncryption,
+s3:PutEncryptionConfiguration,
+s3:GetBucketLocation,
+lambda:CreateFunction,
+lambda:AddPermission,
+lambda:PublishVersion,
+lambda:UpdateFunctionConfiguration,
+lambda:GetFunctionConfiguration,
+lambda:GetLayerVersionByArn,
+lambda:GetLayerVersion,
+lambda:PublishLayerVersion,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups,
+iam:PassRole</pre>
+
+### List
+<pre>
+synthetics:DescribeCanaries</pre>
+
+
 ## Example
 ```sql
 SELECT

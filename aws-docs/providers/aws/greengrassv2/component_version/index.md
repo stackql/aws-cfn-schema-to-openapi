@@ -40,6 +40,27 @@ Gets an individual <code>component_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>component_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+greengrass:DescribeComponent,
+greengrass:ListTagsForResource</pre>
+
+### Update
+<pre>
+greengrass:DescribeComponent,
+greengrass:ListTagsForResource,
+greengrass:TagResource,
+greengrass:UntagResource</pre>
+
+### Delete
+<pre>
+greengrass:DeleteComponent</pre>
+
+
 ## Example
 ```sql
 SELECT

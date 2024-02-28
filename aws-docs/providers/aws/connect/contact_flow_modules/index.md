@@ -35,6 +35,20 @@ Retrieves a list of <code>contact_flow_modules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact_flow_modules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:CreateContactFlowModule,
+connect:TagResource</pre>
+
+### List
+<pre>
+connect:ListContactFlowModules</pre>
+
+
 ## Example
 ```sql
 SELECT

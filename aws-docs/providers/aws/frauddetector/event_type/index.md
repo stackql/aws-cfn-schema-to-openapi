@@ -43,6 +43,54 @@ Gets an individual <code>event_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_type</code> resource, the following permissions are required:
+
+### Update
+<pre>
+frauddetector:BatchCreateVariable,
+frauddetector:BatchGetVariable,
+frauddetector:CreateVariable,
+frauddetector:UpdateVariable,
+frauddetector:GetVariables,
+frauddetector:PutLabel,
+frauddetector:PutEntityType,
+frauddetector:PutEventType,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetEntityTypes,
+frauddetector:DeleteEventType,
+frauddetector:DeleteVariable,
+frauddetector:DeleteLabel,
+frauddetector:DeleteEntityType,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource</pre>
+
+### Delete
+<pre>
+frauddetector:BatchGetVariable,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetEntityTypes,
+frauddetector:DeleteEventType,
+frauddetector:DeleteVariable,
+frauddetector:DeleteLabel,
+frauddetector:DeleteEntityType,
+frauddetector:ListTagsForResource</pre>
+
+### Read
+<pre>
+frauddetector:BatchGetVariable,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

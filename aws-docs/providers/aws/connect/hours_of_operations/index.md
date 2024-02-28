@@ -35,6 +35,20 @@ Retrieves a list of <code>hours_of_operations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>hours_of_operations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:CreateHoursOfOperation,
+connect:TagResource</pre>
+
+### List
+<pre>
+connect:ListHoursOfOperations</pre>
+
+
 ## Example
 ```sql
 SELECT

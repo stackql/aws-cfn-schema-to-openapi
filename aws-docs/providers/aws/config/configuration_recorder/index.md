@@ -29,6 +29,7 @@ Gets an individual <code>configuration_recorder</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>recording_group</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>recording_mode</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>role_ar_n</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -38,12 +39,17 @@ Gets an individual <code>configuration_recorder</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 id,
 recording_group,
+recording_mode,
 role_ar_n,
 name
 FROM aws.config.configuration_recorder

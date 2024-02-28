@@ -32,6 +32,7 @@ Gets an individual <code>security_profile</code> resource
 <tr><td><code>behaviors</code></td><td><code>array</code></td><td>Specifies the behaviors that, when violated by a device (thing), cause an alert.</td></tr>
 <tr><td><code>alert_targets</code></td><td><code>object</code></td><td>Specifies the destinations to which alerts are sent.</td></tr>
 <tr><td><code>additional_metrics_to_retain_v2</code></td><td><code>array</code></td><td>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.</td></tr>
+<tr><td><code>metrics_export_config</code></td><td><code>object</code></td><td>A structure containing the mqtt topic for metrics export.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>Metadata that can be used to manage the security profile.</td></tr>
 <tr><td><code>target_arns</code></td><td><code>array</code></td><td>A set of target ARNs that the security profile is attached to.</td></tr>
 <tr><td><code>security_profile_arn</code></td><td><code>string</code></td><td>The ARN (Amazon resource name) of the created security profile.</td></tr>
@@ -42,6 +43,33 @@ Gets an individual <code>security_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeSecurityProfile,
+iot:ListTagsForResource,
+iot:ListTargetsForSecurityProfile</pre>
+
+### Update
+<pre>
+iot:UpdateSecurityProfile,
+iot:ListTargetsForSecurityProfile,
+iot:AttachSecurityProfile,
+iot:DetachSecurityProfile,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iot:DescribeSecurityProfile,
+iot:DeleteSecurityProfile</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -51,6 +79,7 @@ security_profile_description,
 behaviors,
 alert_targets,
 additional_metrics_to_retain_v2,
+metrics_export_config,
 tags,
 target_arns,
 security_profile_arn

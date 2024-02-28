@@ -35,6 +35,30 @@ Retrieves a list of <code>images</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>images</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ecr:BatchGetRepositoryScanningConfiguration,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+imagebuilder:GetImageRecipe,
+imagebuilder:GetInfrastructureConfiguration,
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:GetWorkflow,
+imagebuilder:GetImage,
+imagebuilder:CreateImage,
+imagebuilder:TagResource,
+inspector2:BatchGetAccountStatus</pre>
+
+### List
+<pre>
+imagebuilder:ListImages</pre>
+
+
 ## Example
 ```sql
 SELECT

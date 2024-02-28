@@ -40,6 +40,31 @@ Gets an individual <code>option_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>option_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeOptionGroups,
+rds:ListTagsForResource</pre>
+
+### Update
+<pre>
+rds:AddTagsToResource,
+rds:DescribeOptionGroups,
+rds:ListTagsForResource,
+rds:ModifyOptionGroup,
+rds:RemoveTagsFromResource</pre>
+
+### Delete
+<pre>
+rds:DeleteOptionGroup,
+rds:DescribeOptionGroups,
+rds:ListTagsForResource,
+rds:RemoveTagsFromResource</pre>
+
+
 ## Example
 ```sql
 SELECT

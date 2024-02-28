@@ -44,6 +44,28 @@ Gets an individual <code>inference_scheduler</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>inference_scheduler</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lookoutequipment:DescribeInferenceScheduler</pre>
+
+### Delete
+<pre>
+lookoutequipment:DeleteInferenceScheduler,
+lookoutequipment:StopInferenceScheduler,
+lookoutequipment:DescribeInferenceScheduler</pre>
+
+### Update
+<pre>
+lookoutequipment:UpdateInferenceScheduler,
+lookoutequipment:DescribeInferenceScheduler,
+lookoutequipment:StopInferenceScheduler,
+lookoutequipment:StartInferenceScheduler</pre>
+
+
 ## Example
 ```sql
 SELECT

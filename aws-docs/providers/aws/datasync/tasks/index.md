@@ -35,6 +35,37 @@ Retrieves a list of <code>tasks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tasks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+datasync:CreateTask,
+datasync:DescribeTask,
+datasync:ListTagsForResource,
+datasync:TagResource,
+s3:ListAllMyBuckets,
+s3:ListBucket,
+ec2:DescribeNetworkInterfaces,
+ec2:CreateNetworkInterface,
+ec2:DeleteNetworkInterface,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:CreateNetworkInterfacePermission,
+fsx:DescribeFileSystems,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeMountTargets,
+logs:DescribeLogGroups,
+iam:GetRole,
+iam:PassRole,
+iam:AssumeRole</pre>
+
+### List
+<pre>
+datasync:ListTasks</pre>
+
+
 ## Example
 ```sql
 SELECT

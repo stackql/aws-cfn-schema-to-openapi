@@ -39,6 +39,28 @@ Gets an individual <code>dimension</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dimension</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeDimension,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iot:UpdateDimension,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource</pre>
+
+### Delete
+<pre>
+iot:DescribeDimension,
+iot:DeleteDimension</pre>
+
+
 ## Example
 ```sql
 SELECT

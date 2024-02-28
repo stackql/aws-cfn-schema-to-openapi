@@ -35,6 +35,19 @@ Retrieves a list of <code>origin_request_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>origin_request_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudfront:CreateOriginRequestPolicy</pre>
+
+### List
+<pre>
+cloudfront:ListOriginRequestPolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

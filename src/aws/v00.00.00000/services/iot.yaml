@@ -97,6 +97,24 @@ components:
       x-stackql-resource-name: account_audit_configuration
       x-stackql-primaryIdentifier:
         - AccountId
+      x-create-only-properties:
+        - AccountId
+      x-required-permissions:
+        create:
+          - iot:UpdateAccountAuditConfiguration
+          - iot:DescribeAccountAuditConfiguration
+          - iam:PassRole
+        read:
+          - iot:DescribeAccountAuditConfiguration
+        update:
+          - iot:UpdateAccountAuditConfiguration
+          - iot:DescribeAccountAuditConfiguration
+          - iam:PassRole
+        delete:
+          - iot:DescribeAccountAuditConfiguration
+          - iot:DeleteAccountAuditConfiguration
+        list:
+          - iot:DescribeAccountAuditConfiguration
     Tag:
       type: object
       properties:
@@ -148,6 +166,89 @@ components:
       x-stackql-resource-name: authorizer
       x-stackql-primaryIdentifier:
         - AuthorizerName
+      x-create-only-properties:
+        - SigningDisabled
+        - AuthorizerName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iot:CreateAuthorizer
+          - iot:DescribeAuthorizer
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeAuthorizer
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateAuthorizer
+          - iot:DescribeAuthorizer
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        delete:
+          - iot:UpdateAuthorizer
+          - iot:DeleteAuthorizer
+          - iot:DescribeAuthorizer
+        list:
+          - iot:ListAuthorizers
+    BillingGroup:
+      type: object
+      properties:
+        Id:
+          type: string
+        Arn:
+          type: string
+        BillingGroupName:
+          type: string
+          pattern: '[a-zA-Z0-9:_-]+'
+          minLength: 1
+          maxLength: 128
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        BillingGroupProperties:
+          type: object
+          additionalProperties: false
+          properties:
+            BillingGroupDescription:
+              type: string
+              maxLength: 2028
+              pattern: '[\p{Graph}\x20]*'
+      x-stackql-resource-name: billing_group
+      x-stackql-primaryIdentifier:
+        - BillingGroupName
+      x-create-only-properties:
+        - BillingGroupName
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iot:DescribeBillingGroup
+          - iot:ListTagsForResource
+          - iot:CreateBillingGroup
+          - iot:TagResource
+        delete:
+          - iot:DescribeBillingGroup
+          - iot:DeleteBillingGroup
+        list:
+          - iot:ListBillingGroups
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeBillingGroup
+          - iot:ListTagsForResource
+        update:
+          - iot:DescribeBillingGroup
+          - iot:UpdateBillingGroup
+          - iot:ListTagsForResource
+          - iot:TagResource
+          - iot:UntagResource
     RegistrationConfig:
       type: object
       additionalProperties: false
@@ -216,6 +317,38 @@ components:
       x-stackql-resource-name: ca_certificate
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - VerificationCertificatePem
+        - CertificateMode
+        - CACertificatePem
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:RegisterCACertificate
+          - iot:DescribeCACertificate
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeCACertificate
+          - iot:ListTagsForResource
+        update:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:UpdateCACertificate
+          - iot:DescribeCACertificate
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        delete:
+          - iot:UpdateCACertificate
+          - iot:DeleteCACertificate
+          - iot:DescribeCACertificate
+        list:
+          - iot:ListCACertificates
     Certificate:
       type: object
       properties:
@@ -251,6 +384,94 @@ components:
       x-stackql-resource-name: certificate
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - CertificateSigningRequest
+        - CACertificatePem
+        - CertificatePem
+        - CertificateMode
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iot:CreateCertificateFromCsr
+          - iot:RegisterCertificate
+          - iot:RegisterCertificateWithoutCA
+          - iot:DescribeCertificate
+        read:
+          - iot:DescribeCertificate
+        update:
+          - iot:UpdateCertificate
+          - iot:DescribeCertificate
+        delete:
+          - iot:DeleteCertificate
+          - iot:UpdateCertificate
+          - iot:DescribeCertificate
+        list:
+          - iot:ListCertificates
+    CertificateProviderOperation:
+      type: string
+      enum:
+        - CreateCertificateFromCsr
+    CertificateProvider:
+      type: object
+      properties:
+        CertificateProviderName:
+          type: string
+          pattern: '[\w=,@-]+'
+          minLength: 1
+          maxLength: 128
+        LambdaFunctionArn:
+          type: string
+          minLength: 1
+          maxLength: 170
+        AccountDefaultForOperations:
+          type: array
+          minItems: 1
+          maxItems: 1
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/CertificateProviderOperation'
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Tag'
+        Arn:
+          type: string
+      required:
+        - LambdaFunctionArn
+        - AccountDefaultForOperations
+      x-stackql-resource-name: certificate_provider
+      x-stackql-primaryIdentifier:
+        - CertificateProviderName
+      x-create-only-properties:
+        - CertificateProviderName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iot:CreateCertificateProvider
+          - iot:DescribeCertificateProvider
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeCertificateProvider
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateCertificateProvider
+          - iot:DescribeCertificateProvider
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        delete:
+          - iot:DeleteCertificateProvider
+          - iot:DescribeCertificateProvider
+        list:
+          - iot:ListCertificateProviders
     CustomMetric:
       type: object
       properties:
@@ -290,6 +511,28 @@ components:
       x-stackql-resource-name: custom_metric
       x-stackql-primaryIdentifier:
         - MetricName
+      x-create-only-properties:
+        - MetricName
+        - MetricType
+      x-read-only-properties:
+        - MetricArn
+      x-required-permissions:
+        create:
+          - iot:CreateCustomMetric
+          - iot:TagResource
+        read:
+          - iot:DescribeCustomMetric
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateCustomMetric
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+        delete:
+          - iot:DescribeCustomMetric
+          - iot:DeleteCustomMetric
+        list:
+          - iot:ListCustomMetrics
     Dimension:
       type: object
       properties:
@@ -332,6 +575,28 @@ components:
       x-stackql-resource-name: dimension
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Type
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iot:CreateDimension
+          - iot:TagResource
+        read:
+          - iot:DescribeDimension
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateDimension
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+        delete:
+          - iot:DescribeDimension
+          - iot:DeleteDimension
+        list:
+          - iot:ListDimensions
     AuthorizerConfig:
       type: object
       properties:
@@ -342,6 +607,12 @@ components:
           minLength: 1
           maxLength: 128
           pattern: ^[\w=,@-]+$
+      additionalProperties: false
+    ServerCertificateConfig:
+      type: object
+      properties:
+        EnableOCSPCheck:
+          type: boolean
       additionalProperties: false
     ServerCertificateSummary:
       type: object
@@ -358,6 +629,13 @@ components:
             - VALID
         ServerCertificateStatusDetail:
           type: string
+      additionalProperties: false
+    TlsConfig:
+      type: object
+      properties:
+        SecurityPolicy:
+          type: string
+          maxLength: 128
       additionalProperties: false
     DomainConfiguration:
       type: object
@@ -405,11 +683,15 @@ components:
             - ENDPOINT
             - AWS_MANAGED
             - CUSTOMER_MANAGED
+        ServerCertificateConfig:
+          $ref: '#/components/schemas/ServerCertificateConfig'
         ServerCertificates:
           type: array
           x-insertionOrder: true
           items:
             $ref: '#/components/schemas/ServerCertificateSummary'
+        TlsConfig:
+          $ref: '#/components/schemas/TlsConfig'
         Tags:
           type: array
           x-insertionOrder: true
@@ -419,6 +701,39 @@ components:
       x-stackql-resource-name: domain_configuration
       x-stackql-primaryIdentifier:
         - DomainConfigurationName
+      x-create-only-properties:
+        - DomainConfigurationName
+        - DomainName
+        - ServiceType
+        - ValidationCertificateArn
+        - ServerCertificateArns
+      x-read-only-properties:
+        - Arn
+        - DomainType
+        - ServerCertificates
+      x-required-permissions:
+        create:
+          - iot:CreateDomainConfiguration
+          - iot:UpdateDomainConfiguration
+          - iot:DescribeDomainConfiguration
+          - iot:TagResource
+          - iot:ListTagsForResource
+          - acm:GetCertificate
+        read:
+          - iot:DescribeDomainConfiguration
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateDomainConfiguration
+          - iot:DescribeDomainConfiguration
+          - iot:ListTagsForResource
+          - iot:TagResource
+          - iot:UntagResource
+        delete:
+          - iot:DescribeDomainConfiguration
+          - iot:DeleteDomainConfiguration
+          - iot:UpdateDomainConfiguration
+        list:
+          - iot:ListDomainConfigurations
     AggregationType:
       description: Aggregation types supported by Fleet Indexing
       type: object
@@ -436,6 +751,10 @@ components:
         - Name
         - Values
       additionalProperties: false
+    iso8601UTC:
+      description: The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)
+      type: string
+      pattern: ^([0-2]\d{3})-(0[0-9]|1[0-2])-([0-2]\d|3[01])T([01]\d|2[0-4]):([0-5]\d):([0-6]\d)((\.\d{3})?)Z$
     FleetMetric:
       type: object
       properties:
@@ -470,10 +789,10 @@ components:
           type: string
         CreationDate:
           description: The creation date of a fleet metric
-          type: number
+          $ref: '#/components/schemas/iso8601UTC'
         LastModifiedDate:
           description: The last modified date of a fleet metric
-          type: number
+          $ref: '#/components/schemas/iso8601UTC'
         Version:
           description: The version of a fleet metric
           type: number
@@ -490,6 +809,32 @@ components:
       x-stackql-resource-name: fleet_metric
       x-stackql-primaryIdentifier:
         - MetricName
+      x-create-only-properties:
+        - MetricName
+      x-read-only-properties:
+        - MetricArn
+        - CreationDate
+        - LastModifiedDate
+        - Version
+      x-required-permissions:
+        create:
+          - iot:CreateFleetMetric
+          - iot:DescribeFleetMetric
+          - iot:TagResource
+        read:
+          - iot:DescribeFleetMetric
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateFleetMetric
+          - iot:DescribeFleetMetric
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+        delete:
+          - iot:DeleteFleetMetric
+          - iot:DescribeFleetMetric
+        list:
+          - iot:ListFleetMetrics
     ExponentialRolloutRate:
       description: Allows you to create an exponential rate of rollout for a job.
       type: object
@@ -559,50 +904,50 @@ components:
       type: object
       additionalProperties: false
       properties:
-        S3:
-          $ref: '#/components/schemas/S3Action'
         CloudwatchAlarm:
           $ref: '#/components/schemas/CloudwatchAlarmAction'
         CloudwatchLogs:
           $ref: '#/components/schemas/CloudwatchLogsAction'
-        IotEvents:
-          $ref: '#/components/schemas/IotEventsAction'
-        Firehose:
-          $ref: '#/components/schemas/FirehoseAction'
-        Republish:
-          $ref: '#/components/schemas/RepublishAction'
-        StepFunctions:
-          $ref: '#/components/schemas/StepFunctionsAction'
-        DynamoDB:
-          $ref: '#/components/schemas/DynamoDBAction'
-        Http:
-          $ref: '#/components/schemas/HttpAction'
-        DynamoDBv2:
-          $ref: '#/components/schemas/DynamoDBv2Action'
         CloudwatchMetric:
           $ref: '#/components/schemas/CloudwatchMetricAction'
-        IotSiteWise:
-          $ref: '#/components/schemas/IotSiteWiseAction'
+        DynamoDB:
+          $ref: '#/components/schemas/DynamoDBAction'
+        DynamoDBv2:
+          $ref: '#/components/schemas/DynamoDBv2Action'
         Elasticsearch:
           $ref: '#/components/schemas/ElasticsearchAction'
-        Sqs:
-          $ref: '#/components/schemas/SqsAction'
-        Kinesis:
-          $ref: '#/components/schemas/KinesisAction'
+        Firehose:
+          $ref: '#/components/schemas/FirehoseAction'
+        Http:
+          $ref: '#/components/schemas/HttpAction'
         IotAnalytics:
           $ref: '#/components/schemas/IotAnalyticsAction'
-        Sns:
-          $ref: '#/components/schemas/SnsAction'
-        Lambda:
-          $ref: '#/components/schemas/LambdaAction'
-        Timestream:
-          $ref: '#/components/schemas/TimestreamAction'
+        IotEvents:
+          $ref: '#/components/schemas/IotEventsAction'
+        IotSiteWise:
+          $ref: '#/components/schemas/IotSiteWiseAction'
         Kafka:
           $ref: '#/components/schemas/KafkaAction'
-        OpenSearch:
-          $ref: '#/components/schemas/OpenSearchAction'
+        Kinesis:
+          $ref: '#/components/schemas/KinesisAction'
+        Lambda:
+          $ref: '#/components/schemas/LambdaAction'
         Location:
           $ref: '#/components/schemas/LocationAction'
+        OpenSearch:
+          $ref: '#/components/schemas/OpenSearchAction'
+        Republish:
+          $ref: '#/components/schemas/RepublishAction'
+        S3:
+          $ref: '#/components/schemas/S3Action'
+        Sns:
+          $ref: '#/components/schemas/SnsAction'
+        Sqs:
+          $ref: '#/components/schemas/SqsAction'
+        StepFunctions:
+          $ref: '#/components/schemas/StepFunctionsAction'
+        Timestream:
+          $ref: '#/components/schemas/TimestreamAction'
     FailureType:
       type: string
       enum:
@@ -658,6 +1003,11 @@ components:
           minimum: 1
           maximum: 1430
       additionalProperties: false
+    DestinationPackageVersion:
+      description: Specifies target package version ARNs for a software update job.
+      type: string
+      minLength: 1
+      maxLength: 1600
     JobTemplate:
       type: object
       properties:
@@ -745,6 +1095,11 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/MaintenanceWindow'
+        DestinationPackageVersions:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/DestinationPackageVersion'
         Tags:
           description: Metadata that can be used to manage the JobTemplate.
           type: array
@@ -759,6 +1114,34 @@ components:
       x-stackql-resource-name: job_template
       x-stackql-primaryIdentifier:
         - JobTemplateId
+      x-create-only-properties:
+        - JobTemplateId
+        - JobArn
+        - Description
+        - Document
+        - DocumentSource
+        - TimeoutConfig
+        - JobExecutionsRolloutConfig
+        - AbortConfig
+        - PresignedUrlConfig
+        - Tags
+        - DestinationPackageVersions
+        - JobExecutionsRetryConfig
+        - MaintenanceWindows
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iot:CreateJobTemplate
+          - iam:PassRole
+          - s3:GetObject
+          - iot:TagResource
+        read:
+          - iot:DescribeJobTemplate
+        delete:
+          - iot:DeleteJobTemplate
+        list:
+          - iot:ListJobTemplates
     Logging:
       type: object
       properties:
@@ -789,6 +1172,24 @@ components:
       x-stackql-resource-name: logging
       x-stackql-primaryIdentifier:
         - AccountId
+      x-create-only-properties:
+        - AccountId
+      x-required-permissions:
+        create:
+          - iot:SetV2LoggingOptions
+          - iot:GetV2LoggingOptions
+          - iam:PassRole
+        read:
+          - iot:GetV2LoggingOptions
+        update:
+          - iot:SetV2LoggingOptions
+          - iot:GetV2LoggingOptions
+          - iam:PassRole
+        delete:
+          - iot:SetV2LoggingOptions
+          - iot:GetV2LoggingOptions
+        list:
+          - iot:GetV2LoggingOptions
     ActionParams:
       type: object
       description: The set of parameters for this mitigation action. You can specify only one type of parameter (in other words, you can apply only one action for each defined mitigation action).
@@ -928,6 +1329,31 @@ components:
       x-stackql-resource-name: mitigation_action
       x-stackql-primaryIdentifier:
         - ActionName
+      x-create-only-properties:
+        - ActionName
+      x-read-only-properties:
+        - MitigationActionArn
+        - MitigationActionId
+      x-required-permissions:
+        create:
+          - iot:CreateMitigationAction
+          - iot:DescribeMitigationAction
+          - iot:TagResource
+          - iam:PassRole
+        read:
+          - iot:DescribeMitigationAction
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateMitigationAction
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+          - iam:PassRole
+        delete:
+          - iot:DescribeMitigationAction
+          - iot:DeleteMitigationAction
+        list:
+          - iot:ListMitigationActions
     Policy:
       type: object
       properties:
@@ -936,14 +1362,49 @@ components:
         Arn:
           type: string
         PolicyDocument:
-          type: object
+          type: string
         PolicyName:
           type: string
+        Tags:
+          type: array
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/Tag'
       required:
         - PolicyDocument
       x-stackql-resource-name: policy
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PolicyName
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iot:CreatePolicy
+          - iot:GetPolicy
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:GetPolicy
+          - iot:ListTagsForResource
+        delete:
+          - iot:DeletePolicy
+          - iot:GetPolicy
+          - iot:ListPolicyVersions
+          - iot:DeletePolicyVersion
+        update:
+          - iot:GetPolicy
+          - iot:ListPolicyVersions
+          - iot:CreatePolicyVersion
+          - iot:DeletePolicyVersion
+          - iot:SetDefaultPolicyVersion
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        list:
+          - iot:ListPolicies
     PolicyPrincipalAttachment:
       type: object
       properties:
@@ -958,6 +1419,11 @@ components:
         - PolicyName
       x-stackql-resource-name: policy_principal_attachment
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - PolicyName
+        - Principal
+      x-read-only-properties:
         - Id
     ProvisioningHook:
       type: object
@@ -1003,6 +1469,38 @@ components:
       x-stackql-resource-name: provisioning_template
       x-stackql-primaryIdentifier:
         - TemplateName
+      x-create-only-properties:
+        - TemplateName
+        - TemplateType
+      x-read-only-properties:
+        - TemplateArn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:CreateProvisioningTemplate
+          - iot:DescribeProvisioningTemplate
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeProvisioningTemplate
+          - iot:ListTagsForResource
+        update:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:UpdateProvisioningTemplate
+          - iot:CreateProvisioningTemplateVersion
+          - iot:ListProvisioningTemplateVersions
+          - iot:DeleteProvisioningTemplateVersion
+          - iot:DescribeProvisioningTemplate
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        delete:
+          - iot:DeleteProvisioningTemplate
+          - iot:DescribeProvisioningTemplate
+        list:
+          - iot:ListProvisioningTemplates
     ResourceSpecificLogging:
       type: object
       properties:
@@ -1043,6 +1541,25 @@ components:
       x-stackql-resource-name: resource_specific_logging
       x-stackql-primaryIdentifier:
         - TargetId
+      x-create-only-properties:
+        - TargetName
+        - TargetType
+      x-read-only-properties:
+        - TargetId
+      x-required-permissions:
+        create:
+          - iot:ListV2LoggingLevels
+          - iot:SetV2LoggingLevel
+        read:
+          - iot:ListV2LoggingLevels
+        update:
+          - iot:ListV2LoggingLevels
+          - iot:SetV2LoggingLevel
+        delete:
+          - iot:ListV2LoggingLevels
+          - iot:DeleteV2LoggingLevel
+        list:
+          - iot:ListV2LoggingLevels
     RoleAlias:
       type: object
       properties:
@@ -1076,6 +1593,36 @@ components:
       x-stackql-resource-name: role_alias
       x-stackql-primaryIdentifier:
         - RoleAlias
+      x-create-only-properties:
+        - RoleAlias
+      x-read-only-properties:
+        - RoleAliasArn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:CreateRoleAlias
+          - iot:DescribeRoleAlias
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:DescribeRoleAlias
+          - iot:ListTagsForResource
+        update:
+          - iam:GetRole
+          - iam:PassRole
+          - iot:UpdateRoleAlias
+          - iot:DescribeRoleAlias
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:ListTagsForResource
+        delete:
+          - iot:DeleteRoleAlias
+          - iot:DescribeRoleAlias
+        list:
+          - iot:ListRoleAliases
     ScheduledAudit:
       type: object
       properties:
@@ -1135,6 +1682,28 @@ components:
       x-stackql-resource-name: scheduled_audit
       x-stackql-primaryIdentifier:
         - ScheduledAuditName
+      x-create-only-properties:
+        - ScheduledAuditName
+      x-read-only-properties:
+        - ScheduledAuditArn
+      x-required-permissions:
+        create:
+          - iot:CreateScheduledAudit
+          - iot:DescribeScheduledAudit
+          - iot:TagResource
+        read:
+          - iot:DescribeScheduledAudit
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdateScheduledAudit
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+        delete:
+          - iot:DescribeScheduledAudit
+          - iot:DeleteScheduledAudit
+        list:
+          - iot:ListScheduledAudits
     Behavior:
       description: A security profile behavior.
       type: object
@@ -1158,9 +1727,14 @@ components:
         SuppressAlerts:
           description: Manage Detect alarm SNS notifications by setting behavior notification to on or suppressed. Detect will continue to performing device behavior evaluations. However, suppressed alarms wouldn't be forwarded for SNS notification.
           type: boolean
+        ExportMetric:
+          $ref: '#/components/schemas/ExportMetric'
       required:
         - Name
       additionalProperties: false
+    ExportMetric:
+      description: Flag to enable/disable metrics export for metric to be retained.
+      type: boolean
     MetricDimension:
       description: The dimension of a metric.
       type: object
@@ -1322,6 +1896,8 @@ components:
           maxLength: 128
         MetricDimension:
           $ref: '#/components/schemas/MetricDimension'
+        ExportMetric:
+          $ref: '#/components/schemas/ExportMetric'
       required:
         - Metric
       additionalProperties: false
@@ -1360,6 +1936,24 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/MetricToRetain'
+        MetricsExportConfig:
+          description: A structure containing the mqtt topic for metrics export.
+          type: object
+          properties:
+            MqttTopic:
+              description: The topic for metrics export.
+              type: string
+              minLength: 1
+              maxLength: 512
+            RoleArn:
+              description: The ARN of the role that grants permission to publish to mqtt topic.
+              type: string
+              minLength: 20
+              maxLength: 2048
+          required:
+            - MqttTopic
+            - RoleArn
+          additionalProperties: false
         Tags:
           description: Metadata that can be used to manage the security profile.
           type: array
@@ -1384,16 +1978,187 @@ components:
       x-stackql-resource-name: security_profile
       x-stackql-primaryIdentifier:
         - SecurityProfileName
+      x-create-only-properties:
+        - SecurityProfileName
+      x-read-only-properties:
+        - SecurityProfileArn
+      x-required-permissions:
+        create:
+          - iot:CreateSecurityProfile
+          - iot:AttachSecurityProfile
+          - iot:DescribeSecurityProfile
+          - iot:TagResource
+          - iam:PassRole
+        read:
+          - iot:DescribeSecurityProfile
+          - iot:ListTagsForResource
+          - iot:ListTargetsForSecurityProfile
+        update:
+          - iot:UpdateSecurityProfile
+          - iot:ListTargetsForSecurityProfile
+          - iot:AttachSecurityProfile
+          - iot:DetachSecurityProfile
+          - iot:ListTagsForResource
+          - iot:UntagResource
+          - iot:TagResource
+          - iam:PassRole
+        delete:
+          - iot:DescribeSecurityProfile
+          - iot:DeleteSecurityProfile
+        list:
+          - iot:ListSecurityProfiles
+    SoftwarePackage:
+      type: object
+      properties:
+        Description:
+          type: string
+          maxLength: 1024
+          minLength: 0
+          pattern: ^[^\p{C}]+$
+        PackageArn:
+          type: string
+        PackageName:
+          type: string
+          maxLength: 128
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-_.]+$
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: software_package
+      x-stackql-primaryIdentifier:
+        - PackageName
+      x-create-only-properties:
+        - PackageName
+      x-read-only-properties:
+        - PackageArn
+      x-required-permissions:
+        create:
+          - iot:CreatePackage
+          - iot:GetPackage
+          - iot:TagResource
+          - iot:GetIndexingConfiguration
+        read:
+          - iot:GetPackage
+          - iot:ListTagsForResource
+        update:
+          - iot:CreatePackage
+          - iot:UpdatePackage
+          - iot:GetPackage
+          - iot:ListTagsForResource
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:GetIndexingConfiguration
+        delete:
+          - iot:DeletePackage
+          - iot:DeletePackageVersion
+          - iot:GetPackage
+          - iot:GetPackageVersion
+          - iot:UpdatePackage
+          - iot:UpdatePackageVersion
+          - iot:GetIndexingConfiguration
+          - iot:ListPackageVersions
+        list:
+          - iot:ListPackages
+    PackageVersionStatus:
+      type: string
+      enum:
+        - DRAFT
+        - PUBLISHED
+        - DEPRECATED
+    ResourceAttributes:
+      type: object
+      x-patternProperties:
+        ^[a-zA-Z0-9:_-]+$:
+          type: string
+          minLength: 1
+          pattern: ^[^\p{C}]+$
+      additionalProperties: false
+    SoftwarePackageVersion:
+      type: object
+      properties:
+        Attributes:
+          $ref: '#/components/schemas/ResourceAttributes'
+        Description:
+          type: string
+          maxLength: 1024
+          minLength: 0
+          pattern: ^[^\p{C}]+$
+        ErrorReason:
+          type: string
+        PackageName:
+          type: string
+          maxLength: 128
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-_.]+$
+        PackageVersionArn:
+          type: string
+        Status:
+          $ref: '#/components/schemas/PackageVersionStatus'
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        VersionName:
+          type: string
+          maxLength: 64
+          minLength: 1
+          pattern: ^[a-zA-Z0-9-_.]+$
+      required:
+        - PackageName
+      x-stackql-resource-name: software_package_version
+      x-stackql-primaryIdentifier:
+        - PackageName
+        - VersionName
+      x-create-only-properties:
+        - PackageName
+        - VersionName
+      x-read-only-properties:
+        - ErrorReason
+        - PackageVersionArn
+        - Status
+      x-required-permissions:
+        create:
+          - iot:CreatePackageVersion
+          - iot:GetPackageVersion
+          - iot:TagResource
+          - iot:GetIndexingConfiguration
+        read:
+          - iot:GetPackageVersion
+          - iot:ListTagsForResource
+        update:
+          - iot:UpdatePackageVersion
+          - iot:GetPackageVersion
+          - iot:ListTagsForResource
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:GetIndexingConfiguration
+        delete:
+          - iot:DeletePackageVersion
+          - iot:UpdatePackageVersion
+          - iot:GetPackageVersion
+          - iot:GetIndexingConfiguration
+        list:
+          - iot:ListPackageVersions
     AttributePayload:
       type: object
       additionalProperties: false
       properties:
         Attributes:
           type: object
-          additionalProperties: false
           x-patternProperties:
             '[a-zA-Z0-9_.,@/:#-]+':
               type: string
+          additionalProperties: false
     Thing:
       type: object
       properties:
@@ -1411,6 +2176,97 @@ components:
       x-stackql-resource-name: thing
       x-stackql-primaryIdentifier:
         - ThingName
+      x-create-only-properties:
+        - ThingName
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - iot:CreateThing
+          - iot:DescribeThing
+        delete:
+          - iot:DeleteThing
+          - iot:DescribeThing
+        list:
+          - iot:ListThings
+        read:
+          - iot:DescribeThing
+        update:
+          - iot:UpdateThing
+          - iot:DescribeThing
+    ThingGroup:
+      type: object
+      properties:
+        Id:
+          type: string
+        Arn:
+          type: string
+        ThingGroupName:
+          type: string
+          pattern: '[a-zA-Z0-9:_-]+'
+          minLength: 1
+          maxLength: 128
+        ParentGroupName:
+          type: string
+          pattern: '[a-zA-Z0-9:_-]+'
+          minLength: 1
+          maxLength: 128
+        QueryString:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        ThingGroupProperties:
+          type: object
+          additionalProperties: false
+          properties:
+            AttributePayload:
+              $ref: '#/components/schemas/AttributePayload'
+            ThingGroupDescription:
+              type: string
+              pattern: '[\p{Graph}\x20]*'
+              maxLength: 2028
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: thing_group
+      x-stackql-primaryIdentifier:
+        - ThingGroupName
+      x-create-only-properties:
+        - ThingGroupName
+        - ParentGroupName
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iot:DescribeThingGroup
+          - iot:ListTagsForResource
+          - iot:CreateThingGroup
+          - iot:CreateDynamicThingGroup
+          - iot:TagResource
+        delete:
+          - iot:DescribeThingGroup
+          - iot:DeleteThingGroup
+          - iot:DeleteDynamicThingGroup
+        list:
+          - iot:ListThingGroups
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeThingGroup
+          - iot:ListTagsForResource
+        update:
+          - iot:ListTagsForResource
+          - iot:DescribeThingGroup
+          - iot:UpdateThingGroup
+          - iot:UpdateDynamicThingGroup
+          - iot:TagResource
+          - iot:UntagResource
     ThingPrincipalAttachment:
       type: object
       properties:
@@ -1426,331 +2282,83 @@ components:
       x-stackql-resource-name: thing_principal_attachment
       x-stackql-primaryIdentifier:
         - Id
-    ElasticsearchAction:
+      x-create-only-properties:
+        - ThingName
+        - Principal
+      x-read-only-properties:
+        - Id
+    ThingType:
       type: object
-      additionalProperties: false
       properties:
-        Type:
-          type: string
-        Index:
-          type: string
         Id:
           type: string
-        Endpoint:
+        Arn:
           type: string
-        RoleArn:
+        ThingTypeName:
           type: string
-      required:
-        - Type
-        - Endpoint
-        - Index
-        - Id
-        - RoleArn
-    KinesisAction:
-      type: object
-      additionalProperties: false
-      properties:
-        PartitionKey:
-          type: string
-        StreamName:
-          type: string
-        RoleArn:
-          type: string
-      required:
-        - StreamName
-        - RoleArn
-    FirehoseAction:
-      type: object
-      additionalProperties: false
-      properties:
-        DeliveryStreamName:
-          type: string
-        RoleArn:
-          type: string
-        Separator:
-          type: string
-        BatchMode:
+          pattern: '[a-zA-Z0-9:_-]+'
+          minLength: 1
+          maxLength: 128
+        DeprecateThingType:
           type: boolean
-      required:
-        - DeliveryStreamName
-        - RoleArn
-    AssetPropertyTimestamp:
-      type: object
-      additionalProperties: false
-      properties:
-        TimeInSeconds:
-          type: string
-        OffsetInNanos:
-          type: string
-      required:
-        - TimeInSeconds
-    CloudwatchMetricAction:
-      type: object
-      additionalProperties: false
-      properties:
-        MetricName:
-          type: string
-        MetricValue:
-          type: string
-        MetricNamespace:
-          type: string
-        MetricUnit:
-          type: string
-        RoleArn:
-          type: string
-        MetricTimestamp:
-          type: string
-      required:
-        - MetricName
-        - MetricValue
-        - MetricNamespace
-        - MetricUnit
-        - RoleArn
-    AssetPropertyVariant:
-      type: object
-      additionalProperties: false
-      properties:
-        StringValue:
-          type: string
-        DoubleValue:
-          type: string
-        BooleanValue:
-          type: string
-        IntegerValue:
-          type: string
-    DynamoDBAction:
-      type: object
-      additionalProperties: false
-      properties:
-        TableName:
-          type: string
-        PayloadField:
-          type: string
-        RangeKeyField:
-          type: string
-        HashKeyField:
-          type: string
-        RangeKeyValue:
-          type: string
-        RangeKeyType:
-          type: string
-        HashKeyType:
-          type: string
-        HashKeyValue:
-          type: string
-        RoleArn:
-          type: string
-      required:
-        - TableName
-        - HashKeyField
-        - HashKeyValue
-        - RoleArn
-    UserProperty:
-      type: object
-      additionalProperties: false
-      required:
-        - Key
-        - Value
-      properties:
-        Key:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        Value:
-          type: string
-          minLength: 0
-          maxLength: 1024
-    UserProperties:
-      type: array
-      minItems: 1
-      maxItems: 100
-      items:
-        $ref: '#/components/schemas/UserProperty'
-    RepublishActionHeaders:
-      type: object
-      additionalProperties: false
-      properties:
-        PayloadFormatIndicator:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        ContentType:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        ResponseTopic:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        CorrelationData:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        MessageExpiry:
-          type: string
-          minLength: 0
-          maxLength: 1024
-        UserProperties:
-          $ref: '#/components/schemas/UserProperties'
-    RepublishAction:
-      type: object
-      additionalProperties: false
-      properties:
-        Qos:
-          type: integer
-        Topic:
-          type: string
-        RoleArn:
-          type: string
-        Headers:
-          $ref: '#/components/schemas/RepublishActionHeaders'
-      required:
-        - Topic
-        - RoleArn
-    SnsAction:
-      type: object
-      additionalProperties: false
-      properties:
-        TargetArn:
-          type: string
-        MessageFormat:
-          type: string
-        RoleArn:
-          type: string
-      required:
-        - TargetArn
-        - RoleArn
-    StepFunctionsAction:
-      type: object
-      additionalProperties: false
-      properties:
-        ExecutionNamePrefix:
-          type: string
-        StateMachineName:
-          type: string
-        RoleArn:
-          type: string
-      required:
-        - StateMachineName
-        - RoleArn
-    SqsAction:
-      type: object
-      additionalProperties: false
-      properties:
-        RoleArn:
-          type: string
-        UseBase64:
-          type: boolean
-        QueueUrl:
-          type: string
-      required:
-        - RoleArn
-        - QueueUrl
-    SigV4Authorization:
-      type: object
-      additionalProperties: false
-      properties:
-        ServiceName:
-          type: string
-        SigningRegion:
-          type: string
-        RoleArn:
-          type: string
-      required:
-        - ServiceName
-        - SigningRegion
-        - RoleArn
-    LambdaAction:
-      type: object
-      additionalProperties: false
-      properties:
-        FunctionArn:
-          type: string
-    PutAssetPropertyValueEntry:
-      type: object
-      additionalProperties: false
-      properties:
-        PropertyAlias:
-          type: string
-        PropertyValues:
+        ThingTypeProperties:
+          type: object
+          additionalProperties: false
+          properties:
+            SearchableAttributes:
+              type: array
+              maxItems: 3
+              uniqueItems: true
+              x-insertionOrder: true
+              items:
+                type: string
+                pattern: '[a-zA-Z0-9_.,@/:#-]+'
+                maxLength: 128
+            ThingTypeDescription:
+              pattern: '[\p{Graph}\x20]*'
+              type: string
+              maxLength: 2028
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
           type: array
+          maxItems: 50
           uniqueItems: true
+          x-insertionOrder: false
           items:
-            $ref: '#/components/schemas/AssetPropertyValue'
-        AssetId:
-          type: string
-        EntryId:
-          type: string
-        PropertyId:
-          type: string
-      required:
-        - PropertyValues
-    PutItemInput:
-      type: object
-      additionalProperties: false
-      properties:
-        TableName:
-          type: string
-      required:
-        - TableName
-    S3Action:
-      type: object
-      additionalProperties: false
-      properties:
-        BucketName:
-          type: string
-        Key:
-          type: string
-        RoleArn:
-          type: string
-        CannedAcl:
-          $ref: '#/components/schemas/CannedAccessControlList'
-      required:
-        - BucketName
-        - Key
-        - RoleArn
-    AssetPropertyValue:
-      type: object
-      additionalProperties: false
-      properties:
-        Value:
-          $ref: '#/components/schemas/AssetPropertyVariant'
-        Timestamp:
-          $ref: '#/components/schemas/AssetPropertyTimestamp'
-        Quality:
-          type: string
-      required:
-        - Value
-        - Timestamp
-    DynamoDBv2Action:
-      type: object
-      additionalProperties: false
-      properties:
-        PutItem:
-          $ref: '#/components/schemas/PutItemInput'
-        RoleArn:
-          type: string
-    IotEventsAction:
-      type: object
-      additionalProperties: false
-      properties:
-        InputName:
-          type: string
-        RoleArn:
-          type: string
-        MessageId:
-          type: string
-        BatchMode:
-          type: boolean
-      required:
-        - InputName
-        - RoleArn
-    HttpAuthorization:
-      type: object
-      additionalProperties: false
-      properties:
-        Sigv4:
-          $ref: '#/components/schemas/SigV4Authorization'
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: thing_type
+      x-stackql-primaryIdentifier:
+        - ThingTypeName
+      x-create-only-properties:
+        - ThingTypeName
+        - ThingTypeProperties
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - iot:DescribeThingType
+          - iot:ListTagsForResource
+          - iot:CreateThingType
+          - iot:DeprecateThingType
+          - iot:TagResource
+        delete:
+          - iot:DescribeThingType
+          - iot:DeleteThingType
+          - iot:DeprecateThingType
+        list:
+          - iot:ListThingTypes
+          - iot:ListTagsForResource
+        read:
+          - iot:DescribeThingType
+          - iot:ListTagsForResource
+        update:
+          - iot:DescribeThingType
+          - iot:UpdateThingType
+          - iot:ListTagsForResource
+          - iot:TagResource
+          - iot:UntagResource
+          - iot:DeprecateThingType
     TopicRulePayload:
       type: object
       additionalProperties: false
@@ -1802,104 +2410,72 @@ components:
       required:
         - LogGroupName
         - RoleArn
-    IotAnalyticsAction:
+    CloudwatchMetricAction:
       type: object
       additionalProperties: false
       properties:
+        MetricName:
+          type: string
+        MetricValue:
+          type: string
+        MetricNamespace:
+          type: string
+        MetricUnit:
+          type: string
         RoleArn:
           type: string
-        ChannelName:
+        MetricTimestamp:
           type: string
-        BatchMode:
-          type: boolean
       required:
-        - ChannelName
+        - MetricName
+        - MetricValue
+        - MetricNamespace
+        - MetricUnit
         - RoleArn
-    HttpActionHeader:
+    DynamoDBAction:
       type: object
       additionalProperties: false
       properties:
-        Value:
-          type: string
-        Key:
-          type: string
-      required:
-        - Value
-        - Key
-    IotSiteWiseAction:
-      type: object
-      additionalProperties: false
-      properties:
-        RoleArn:
-          type: string
-        PutAssetPropertyValueEntries:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/PutAssetPropertyValueEntry'
-      required:
-        - PutAssetPropertyValueEntries
-        - RoleArn
-    HttpAction:
-      type: object
-      additionalProperties: false
-      properties:
-        ConfirmationUrl:
-          type: string
-        Headers:
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/HttpActionHeader'
-        Url:
-          type: string
-        Auth:
-          $ref: '#/components/schemas/HttpAuthorization'
-      required:
-        - Url
-    TimestreamAction:
-      type: object
-      additionalProperties: false
-      properties:
-        RoleArn:
-          type: string
-        DatabaseName:
-          type: string
         TableName:
           type: string
-        Dimensions:
-          $ref: '#/components/schemas/TimestreamDimensionsList'
-        Timestamp:
-          $ref: '#/components/schemas/TimestreamTimestamp'
+        PayloadField:
+          type: string
+        RangeKeyField:
+          type: string
+        HashKeyField:
+          type: string
+        RangeKeyValue:
+          type: string
+        RangeKeyType:
+          type: string
+        HashKeyType:
+          type: string
+        HashKeyValue:
+          type: string
+        RoleArn:
+          type: string
       required:
-        - RoleArn
-        - DatabaseName
         - TableName
-        - Dimensions
-    KafkaAction:
+        - HashKeyField
+        - HashKeyValue
+        - RoleArn
+    DynamoDBv2Action:
       type: object
       additionalProperties: false
       properties:
-        DestinationArn:
+        PutItem:
+          $ref: '#/components/schemas/PutItemInput'
+        RoleArn:
           type: string
-        Topic:
+    PutItemInput:
+      type: object
+      additionalProperties: false
+      properties:
+        TableName:
           type: string
-        Key:
-          type: string
-        Partition:
-          type: string
-        ClientProperties:
-          type: object
-          additionalProperties: false
-          x-patternProperties:
-            .*:
-              type: string
-          minProperties: 1
       required:
-        - DestinationArn
-        - Topic
-        - ClientProperties
-    OpenSearchAction:
+        - TableName
+    ElasticsearchAction:
       type: object
       additionalProperties: false
       properties:
@@ -1919,6 +2495,223 @@ components:
         - Index
         - Id
         - RoleArn
+    FirehoseAction:
+      type: object
+      additionalProperties: false
+      properties:
+        DeliveryStreamName:
+          type: string
+        RoleArn:
+          type: string
+        Separator:
+          type: string
+        BatchMode:
+          type: boolean
+      required:
+        - DeliveryStreamName
+        - RoleArn
+    HttpAction:
+      type: object
+      additionalProperties: false
+      properties:
+        ConfirmationUrl:
+          type: string
+        Headers:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/HttpActionHeader'
+        Url:
+          type: string
+        Auth:
+          $ref: '#/components/schemas/HttpAuthorization'
+      required:
+        - Url
+    HttpActionHeader:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Key:
+          type: string
+      required:
+        - Value
+        - Key
+    HttpAuthorization:
+      type: object
+      additionalProperties: false
+      properties:
+        Sigv4:
+          $ref: '#/components/schemas/SigV4Authorization'
+    SigV4Authorization:
+      type: object
+      additionalProperties: false
+      properties:
+        ServiceName:
+          type: string
+        SigningRegion:
+          type: string
+        RoleArn:
+          type: string
+      required:
+        - ServiceName
+        - SigningRegion
+        - RoleArn
+    IotAnalyticsAction:
+      type: object
+      additionalProperties: false
+      properties:
+        RoleArn:
+          type: string
+        ChannelName:
+          type: string
+        BatchMode:
+          type: boolean
+      required:
+        - ChannelName
+        - RoleArn
+    IotEventsAction:
+      type: object
+      additionalProperties: false
+      properties:
+        InputName:
+          type: string
+        RoleArn:
+          type: string
+        MessageId:
+          type: string
+        BatchMode:
+          type: boolean
+      required:
+        - InputName
+        - RoleArn
+    IotSiteWiseAction:
+      type: object
+      additionalProperties: false
+      properties:
+        RoleArn:
+          type: string
+        PutAssetPropertyValueEntries:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/PutAssetPropertyValueEntry'
+      required:
+        - PutAssetPropertyValueEntries
+        - RoleArn
+    PutAssetPropertyValueEntry:
+      type: object
+      additionalProperties: false
+      properties:
+        PropertyAlias:
+          type: string
+        PropertyValues:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/AssetPropertyValue'
+        AssetId:
+          type: string
+        EntryId:
+          type: string
+        PropertyId:
+          type: string
+      required:
+        - PropertyValues
+    AssetPropertyValue:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          $ref: '#/components/schemas/AssetPropertyVariant'
+        Timestamp:
+          $ref: '#/components/schemas/AssetPropertyTimestamp'
+        Quality:
+          type: string
+      required:
+        - Value
+        - Timestamp
+    AssetPropertyVariant:
+      type: object
+      additionalProperties: false
+      properties:
+        StringValue:
+          type: string
+        DoubleValue:
+          type: string
+        BooleanValue:
+          type: string
+        IntegerValue:
+          type: string
+    AssetPropertyTimestamp:
+      type: object
+      additionalProperties: false
+      properties:
+        TimeInSeconds:
+          type: string
+        OffsetInNanos:
+          type: string
+      required:
+        - TimeInSeconds
+    KafkaAction:
+      type: object
+      additionalProperties: false
+      properties:
+        DestinationArn:
+          type: string
+        Topic:
+          type: string
+        Key:
+          type: string
+        Partition:
+          type: string
+        ClientProperties:
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .*:
+              type: string
+          minProperties: 1
+        Headers:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/KafkaActionHeader'
+      required:
+        - DestinationArn
+        - Topic
+        - ClientProperties
+    KafkaActionHeader:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Key:
+          type: string
+      required:
+        - Value
+        - Key
+    KinesisAction:
+      type: object
+      additionalProperties: false
+      properties:
+        PartitionKey:
+          type: string
+        StreamName:
+          type: string
+        RoleArn:
+          type: string
+      required:
+        - StreamName
+        - RoleArn
+    LambdaAction:
+      type: object
+      additionalProperties: false
+      properties:
+        FunctionArn:
+          type: string
     LocationAction:
       type: object
       additionalProperties: false
@@ -1941,6 +2734,114 @@ components:
         - DeviceId
         - Latitude
         - Longitude
+    Timestamp:
+      type: object
+      properties:
+        Value:
+          type: string
+        Unit:
+          type: string
+      additionalProperties: false
+      required:
+        - Value
+    OpenSearchAction:
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          type: string
+        Index:
+          type: string
+        Id:
+          type: string
+        Endpoint:
+          type: string
+        RoleArn:
+          type: string
+      required:
+        - Type
+        - Endpoint
+        - Index
+        - Id
+        - RoleArn
+    RepublishAction:
+      type: object
+      additionalProperties: false
+      properties:
+        Qos:
+          type: integer
+        Topic:
+          type: string
+        RoleArn:
+          type: string
+        Headers:
+          $ref: '#/components/schemas/RepublishActionHeaders'
+      required:
+        - Topic
+        - RoleArn
+    RepublishActionHeaders:
+      type: object
+      additionalProperties: false
+      properties:
+        PayloadFormatIndicator:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        ContentType:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        ResponseTopic:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        CorrelationData:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        MessageExpiry:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        UserProperties:
+          $ref: '#/components/schemas/UserProperties'
+    UserProperties:
+      type: array
+      minItems: 1
+      maxItems: 100
+      items:
+        $ref: '#/components/schemas/UserProperty'
+    UserProperty:
+      type: object
+      additionalProperties: false
+      required:
+        - Key
+        - Value
+      properties:
+        Key:
+          type: string
+          minLength: 0
+          maxLength: 1024
+        Value:
+          type: string
+          minLength: 0
+          maxLength: 1024
+    S3Action:
+      type: object
+      additionalProperties: false
+      properties:
+        BucketName:
+          type: string
+        Key:
+          type: string
+        RoleArn:
+          type: string
+        CannedAcl:
+          $ref: '#/components/schemas/CannedAccessControlList'
+      required:
+        - BucketName
+        - Key
+        - RoleArn
     CannedAccessControlList:
       type: string
       enum:
@@ -1952,6 +2853,64 @@ components:
         - bucket-owner-read
         - bucket-owner-full-control
         - log-delivery-write
+    SnsAction:
+      type: object
+      additionalProperties: false
+      properties:
+        TargetArn:
+          type: string
+        MessageFormat:
+          type: string
+        RoleArn:
+          type: string
+      required:
+        - TargetArn
+        - RoleArn
+    StepFunctionsAction:
+      type: object
+      additionalProperties: false
+      properties:
+        ExecutionNamePrefix:
+          type: string
+        StateMachineName:
+          type: string
+        RoleArn:
+          type: string
+      required:
+        - StateMachineName
+        - RoleArn
+    SqsAction:
+      type: object
+      additionalProperties: false
+      properties:
+        RoleArn:
+          type: string
+        UseBase64:
+          type: boolean
+        QueueUrl:
+          type: string
+      required:
+        - RoleArn
+        - QueueUrl
+    TimestreamAction:
+      type: object
+      additionalProperties: false
+      properties:
+        RoleArn:
+          type: string
+        DatabaseName:
+          type: string
+        TableName:
+          type: string
+        Dimensions:
+          $ref: '#/components/schemas/TimestreamDimensionsList'
+        Timestamp:
+          $ref: '#/components/schemas/TimestreamTimestamp'
+      required:
+        - RoleArn
+        - DatabaseName
+        - TableName
+        - Dimensions
     TimestreamDimensionsList:
       type: array
       minItems: 1
@@ -1980,16 +2939,6 @@ components:
       required:
         - Value
         - Unit
-    Timestamp:
-      type: object
-      properties:
-        Value:
-          type: string
-        Unit:
-          type: string
-      additionalProperties: false
-      required:
-        - Value
     TopicRule:
       type: object
       properties:
@@ -2001,6 +2950,7 @@ components:
           $ref: '#/components/schemas/TopicRulePayload'
         Tags:
           type: array
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
       required:
@@ -2008,6 +2958,32 @@ components:
       x-stackql-resource-name: topic_rule
       x-stackql-primaryIdentifier:
         - RuleName
+      x-create-only-properties:
+        - RuleName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iot:CreateTopicRule
+          - iot:GetTopicRule
+          - iot:TagResource
+          - iot:ListTagsForResource
+        read:
+          - iot:GetTopicRule
+          - iot:ListTagsForResource
+        update:
+          - iam:PassRole
+          - iot:GetTopicRule
+          - iot:ListTagsForResource
+          - iot:ReplaceTopicRule
+          - iot:TagResource
+          - iot:UntagResource
+        delete:
+          - iot:GetTopicRule
+          - iot:DeleteTopicRule
+        list:
+          - iot:ListTopicRules
     TopicRuleDestinationStatus:
       type: string
       enum:
@@ -2059,6 +3035,29 @@ components:
       x-stackql-resource-name: topic_rule_destination
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - HttpUrlProperties
+        - VpcProperties
+      x-read-only-properties:
+        - Arn
+        - StatusReason
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iot:CreateTopicRuleDestination
+          - iot:GetTopicRuleDestination
+          - iot:UpdateTopicRuleDestination
+        read:
+          - iot:GetTopicRuleDestination
+        update:
+          - iam:PassRole
+          - iot:GetTopicRuleDestination
+          - iot:UpdateTopicRuleDestination
+        delete:
+          - iot:GetTopicRuleDestination
+          - iot:DeleteTopicRuleDestination
+        list:
+          - iot:ListTopicRuleDestinations
   x-stackQL-resources:
     account_audit_configurations:
       name: account_audit_configurations
@@ -2135,6 +3134,42 @@ components:
               JSON_EXTRACT(Properties, '$.EnableCachingForHttp') as enable_caching_for_http,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Authorizer'
+    billing_groups:
+      name: billing_groups
+      id: aws.iot.billing_groups
+      x-cfn-schema-name: BillingGroup
+      x-type: list
+      x-identifiers:
+        - BillingGroupName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.BillingGroupName') as billing_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::BillingGroup'
+    billing_group:
+      name: billing_group
+      id: aws.iot.billing_group
+      x-cfn-schema-name: BillingGroup
+      x-type: get
+      x-identifiers:
+        - BillingGroupName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.BillingGroupName') as billing_group_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.BillingGroupProperties') as billing_group_properties
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::BillingGroup'
     ca_certificates:
       name: ca_certificates
       id: aws.iot.ca_certificates
@@ -2214,6 +3249,42 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Certificate'
+    certificate_providers:
+      name: certificate_providers
+      id: aws.iot.certificate_providers
+      x-cfn-schema-name: CertificateProvider
+      x-type: list
+      x-identifiers:
+        - CertificateProviderName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateProviderName') as certificate_provider_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
+    certificate_provider:
+      name: certificate_provider
+      id: aws.iot.certificate_provider
+      x-cfn-schema-name: CertificateProvider
+      x-type: get
+      x-identifiers:
+        - CertificateProviderName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.CertificateProviderName') as certificate_provider_name,
+              JSON_EXTRACT(Properties, '$.LambdaFunctionArn') as lambda_function_arn,
+              JSON_EXTRACT(Properties, '$.AccountDefaultForOperations') as account_default_for_operations,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
     custom_metrics:
       name: custom_metrics
       id: aws.iot.custom_metrics
@@ -2325,7 +3396,9 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DomainConfigurationStatus') as domain_configuration_status,
               JSON_EXTRACT(Properties, '$.DomainType') as domain_type,
+              JSON_EXTRACT(Properties, '$.ServerCertificateConfig') as server_certificate_config,
               JSON_EXTRACT(Properties, '$.ServerCertificates') as server_certificates,
+              JSON_EXTRACT(Properties, '$.TlsConfig') as tls_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
     fleet_metrics:
@@ -2415,6 +3488,7 @@ components:
               JSON_EXTRACT(Properties, '$.PresignedUrlConfig') as presigned_url_config,
               JSON_EXTRACT(Properties, '$.JobExecutionsRetryConfig') as job_executions_retry_config,
               JSON_EXTRACT(Properties, '$.MaintenanceWindows') as maintenance_windows,
+              JSON_EXTRACT(Properties, '$.DestinationPackageVersions') as destination_package_versions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::JobTemplate'
     loggings:
@@ -2521,7 +3595,8 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
-              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Policy'
     policy_principal_attachments:
       name: policy_principal_attachments
@@ -2741,10 +3816,88 @@ components:
               JSON_EXTRACT(Properties, '$.Behaviors') as behaviors,
               JSON_EXTRACT(Properties, '$.AlertTargets') as alert_targets,
               JSON_EXTRACT(Properties, '$.AdditionalMetricsToRetainV2') as additional_metrics_to_retain_v2,
+              JSON_EXTRACT(Properties, '$.MetricsExportConfig') as metrics_export_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TargetArns') as target_arns,
               JSON_EXTRACT(Properties, '$.SecurityProfileArn') as security_profile_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
+    software_packages:
+      name: software_packages
+      id: aws.iot.software_packages
+      x-cfn-schema-name: SoftwarePackage
+      x-type: list
+      x-identifiers:
+        - PackageName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
+    software_package:
+      name: software_package
+      id: aws.iot.software_package
+      x-cfn-schema-name: SoftwarePackage
+      x-type: get
+      x-identifiers:
+        - PackageName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.PackageArn') as package_arn,
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
+    software_package_versions:
+      name: software_package_versions
+      id: aws.iot.software_package_versions
+      x-cfn-schema-name: SoftwarePackageVersion
+      x-type: list
+      x-identifiers:
+        - PackageName
+        - VersionName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name,
+              JSON_EXTRACT(Properties, '$.VersionName') as version_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
+    software_package_version:
+      name: software_package_version
+      id: aws.iot.software_package_version
+      x-cfn-schema-name: SoftwarePackageVersion
+      x-type: get
+      x-identifiers:
+        - PackageName
+        - VersionName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Attributes') as attributes,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ErrorReason') as error_reason,
+              JSON_EXTRACT(Properties, '$.PackageName') as package_name,
+              JSON_EXTRACT(Properties, '$.PackageVersionArn') as package_version_arn,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.VersionName') as version_name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
     things:
       name: things
       id: aws.iot.things
@@ -2780,6 +3933,44 @@ components:
               JSON_EXTRACT(Properties, '$.AttributePayload') as attribute_payload,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Thing'
+    thing_groups:
+      name: thing_groups
+      id: aws.iot.thing_groups
+      x-cfn-schema-name: ThingGroup
+      x-type: list
+      x-identifiers:
+        - ThingGroupName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ThingGroupName') as thing_group_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingGroup'
+    thing_group:
+      name: thing_group
+      id: aws.iot.thing_group
+      x-cfn-schema-name: ThingGroup
+      x-type: get
+      x-identifiers:
+        - ThingGroupName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ThingGroupName') as thing_group_name,
+              JSON_EXTRACT(Properties, '$.ParentGroupName') as parent_group_name,
+              JSON_EXTRACT(Properties, '$.QueryString') as query_string,
+              JSON_EXTRACT(Properties, '$.ThingGroupProperties') as thing_group_properties,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingGroup'
     thing_principal_attachments:
       name: thing_principal_attachments
       id: aws.iot.thing_principal_attachments
@@ -2814,6 +4005,43 @@ components:
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
+    thing_types:
+      name: thing_types
+      id: aws.iot.thing_types
+      x-cfn-schema-name: ThingType
+      x-type: list
+      x-identifiers:
+        - ThingTypeName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ThingTypeName') as thing_type_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingType'
+    thing_type:
+      name: thing_type
+      id: aws.iot.thing_type
+      x-cfn-schema-name: ThingType
+      x-type: get
+      x-identifiers:
+        - ThingTypeName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.ThingTypeName') as thing_type_name,
+              JSON_EXTRACT(Properties, '$.DeprecateThingType') as deprecate_thing_type,
+              JSON_EXTRACT(Properties, '$.ThingTypeProperties') as thing_type_properties,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingType'
     topic_rules:
       name: topic_rules
       id: aws.iot.topic_rules

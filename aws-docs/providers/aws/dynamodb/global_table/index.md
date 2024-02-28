@@ -48,6 +48,72 @@ Gets an individual <code>global_table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>global_table</code> resource, the following permissions are required:
+
+### Read
+<pre>
+dynamodb:Describe*,
+application-autoscaling:Describe*,
+cloudwatch:PutMetricData,
+dynamodb:ListTagsOfResource,
+kms:DescribeKey</pre>
+
+### Update
+<pre>
+dynamodb:Describe*,
+dynamodb:CreateTableReplica,
+dynamodb:UpdateTable,
+dynamodb:UpdateTimeToLive,
+dynamodb:UpdateContinuousBackups,
+dynamodb:UpdateContributorInsights,
+dynamodb:ListTagsOfResource,
+dynamodb:Query,
+dynamodb:Scan,
+dynamodb:UpdateItem,
+dynamodb:PutItem,
+dynamodb:GetItem,
+dynamodb:DeleteItem,
+dynamodb:BatchWriteItem,
+dynamodb:DeleteTable,
+dynamodb:DeleteTableReplica,
+dynamodb:UpdateItem,
+dynamodb:TagResource,
+dynamodb:UntagResource,
+dynamodb:EnableKinesisStreamingDestination,
+dynamodb:DisableKinesisStreamingDestination,
+dynamodb:UpdateTableReplicaAutoScaling,
+dynamodb:UpdateKinesisStreamingDestination,
+application-autoscaling:DeleteScalingPolicy,
+application-autoscaling:DeleteScheduledAction,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:Describe*,
+application-autoscaling:PutScalingPolicy,
+application-autoscaling:PutScheduledAction,
+application-autoscaling:RegisterScalableTarget,
+kinesis:ListStreams,
+kinesis:DescribeStream,
+kinesis:PutRecords,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:RevokeGrant,
+cloudwatch:PutMetricData</pre>
+
+### Delete
+<pre>
+dynamodb:Describe*,
+dynamodb:DeleteTable,
+application-autoscaling:DeleteScalingPolicy,
+application-autoscaling:DeleteScheduledAction,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:Describe*,
+application-autoscaling:PutScalingPolicy,
+application-autoscaling:PutScheduledAction,
+application-autoscaling:RegisterScalableTarget</pre>
+
+
 ## Example
 ```sql
 SELECT

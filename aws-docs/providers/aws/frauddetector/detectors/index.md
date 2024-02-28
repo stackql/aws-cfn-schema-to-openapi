@@ -35,6 +35,50 @@ Retrieves a list of <code>detectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>detectors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+frauddetector:PutDetector,
+frauddetector:CreateDetectorVersion,
+frauddetector:UpdateDetectorVersionStatus,
+frauddetector:CreateRule,
+frauddetector:CreateVariable,
+frauddetector:PutLabel,
+frauddetector:PutOutcome,
+frauddetector:PutEntityType,
+frauddetector:PutEventType,
+frauddetector:DescribeDetector,
+frauddetector:GetDetectors,
+frauddetector:GetDetectorVersion,
+frauddetector:GetRules,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetExternalModels,
+frauddetector:GetModelVersion,
+frauddetector:GetLabels,
+frauddetector:GetOutcomes,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource</pre>
+
+### List
+<pre>
+frauddetector:GetDetectors,
+frauddetector:GetDetectorVersion,
+frauddetector:DescribeDetector,
+frauddetector:GetRules,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetExternalModels,
+frauddetector:GetModelVersion,
+frauddetector:GetLabels,
+frauddetector:GetOutcomes,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

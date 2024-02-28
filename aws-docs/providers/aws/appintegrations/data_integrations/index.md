@@ -35,6 +35,35 @@ Retrieves a list of <code>data_integrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_integrations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+app-integrations:CreateDataIntegration,
+app-integrations:TagResource,
+appflow:DescribeConnectorProfiles,
+appflow:CreateFlow,
+appflow:DeleteFlow,
+appflow:DescribeConnectorEntity,
+appflow:UseConnectorProfile,
+appflow:TagResource,
+appflow:UntagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:ListGrants,
+kms:ListKeys,
+s3:GetBucketNotification,
+s3:PutBucketNotification,
+s3:GetEncryptionConfiguration</pre>
+
+### List
+<pre>
+app-integrations:ListDataIntegrations</pre>
+
+
 ## Example
 ```sql
 SELECT

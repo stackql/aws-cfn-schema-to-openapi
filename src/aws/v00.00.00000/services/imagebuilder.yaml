@@ -69,6 +69,42 @@ components:
       x-stackql-resource-name: component
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Version
+        - ChangeDescription
+        - Description
+        - Platform
+        - Data
+        - Uri
+        - KmsKeyId
+        - SupportedOsVersions
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - Type
+        - Encrypted
+      x-required-permissions:
+        create:
+          - iam:CreateServiceLinkedRole
+          - iam:GetRole
+          - kms:GenerateDataKey*
+          - kms:Encrypt
+          - kms:Decrypt
+          - s3:GetObject
+          - s3:HeadBucket
+          - s3:GetBucketLocation
+          - imagebuilder:TagResource
+          - imagebuilder:GetComponent
+          - imagebuilder:CreateComponent
+        read:
+          - imagebuilder:GetComponent
+        delete:
+          - imagebuilder:GetComponent
+          - imagebuilder:UnTagResource
+          - imagebuilder:DeleteComponent
+        list:
+          - imagebuilder:ListComponents
     ComponentConfiguration:
       description: Configuration details of the component.
       type: object
@@ -248,6 +284,50 @@ components:
       x-stackql-resource-name: container_recipe
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Version
+        - ContainerType
+        - TargetRepository
+        - InstanceConfiguration
+        - ParentImage
+        - Description
+        - DockerfileTemplateUri
+        - DockerfileTemplateData
+        - ImageOsVersionOverride
+        - KmsKeyId
+        - PlatformOverride
+        - WorkingDirectory
+        - Components
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:CreateServiceLinkedRole
+          - imagebuilder:GetComponent
+          - imagebuilder:TagResource
+          - imagebuilder:GetContainerRecipe
+          - imagebuilder:CreateContainerRecipe
+          - imagebuilder:GetImage
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:ReEncryptFrom
+          - kms:ReEncryptTo
+          - kms:GenerateDataKey*
+          - s3:GetObject
+          - s3:ListBucket
+          - ecr:DescribeRepositories
+          - ec2:DescribeImages
+        read:
+          - imagebuilder:GetContainerRecipe
+        delete:
+          - imagebuilder:UnTagResource
+          - imagebuilder:GetContainerRecipe
+          - imagebuilder:DeleteContainerRecipe
+        list:
+          - imagebuilder:ListContainerRecipes
     Distribution:
       description: The distributions of the distribution configuration.
       type: object
@@ -445,6 +525,34 @@ components:
       x-stackql-resource-name: distribution_configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:CreateServiceLinkedRole
+          - ec2:DescribeLaunchTemplates
+          - ec2:CreateLaunchTemplateVersion
+          - ec2:ModifyLaunchTemplate
+          - imagebuilder:TagResource
+          - imagebuilder:GetDistributionConfiguration
+          - imagebuilder:CreateDistributionConfiguration
+        update:
+          - ec2:DescribeLaunchTemplates
+          - ec2:CreateLaunchTemplateVersion
+          - ec2:ModifyLaunchTemplate
+          - imagebuilder:GetDistributionConfiguration
+          - imagebuilder:UpdateDistributionConfiguration
+        read:
+          - imagebuilder:GetDistributionConfiguration
+        delete:
+          - imagebuilder:GetDistributionConfiguration
+          - imagebuilder:UnTagResource
+          - imagebuilder:DeleteDistributionConfiguration
+        list:
+          - imagebuilder:ListDistributionConfigurations
     ImageTestsConfiguration:
       description: Image tests configuration.
       type: object
@@ -481,8 +589,46 @@ components:
           items:
             type: string
         RepositoryName:
-          description: The name of the container repository that Amazon Inspector scans to identify findings for your container images. The name includes the path for the repository location. If you don’t provide this information, Image Builder creates a repository in your account named image-builder-image-scanning-repository to use for vulnerability scans for your output container images.
+          description: The name of the container repository that Amazon Inspector scans to identify findings for your container images. The name includes the path for the repository location. If you don't provide this information, Image Builder creates a repository in your account named image-builder-image-scanning-repository to use for vulnerability scans for your output container images.
           type: string
+    WorkflowConfiguration:
+      description: The workflow configuration of the image
+      type: object
+      additionalProperties: false
+      properties:
+        WorkflowArn:
+          description: The Amazon Resource Name (ARN) of the workflow
+          type: string
+        Parameters:
+          description: The parameters associated with the workflow
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/WorkflowParameter'
+        ParallelGroup:
+          description: The parallel group name
+          type: string
+        OnFailure:
+          description: Define execution decision in case of workflow failure
+          type: string
+          enum:
+            - CONTINUE
+            - ABORT
+    WorkflowParameter:
+      description: A parameter associated with the workflow
+      type: object
+      additionalProperties: false
+      properties:
+        Name:
+          type: string
+        Value:
+          type: array
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/WorkflowParameterValue'
+    WorkflowParameterValue:
+      description: The value associated with the workflow parameter
+      type: string
     Image:
       type: object
       properties:
@@ -507,6 +653,12 @@ components:
         InfrastructureConfigurationArn:
           description: The Amazon Resource Name (ARN) of the infrastructure configuration.
           type: string
+        Workflows:
+          description: Workflows to define the image build process
+          type: array
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/WorkflowConfiguration'
         ImageId:
           description: The AMI ID of the EC2 AMI in current region.
           type: string
@@ -519,6 +671,9 @@ components:
         ImageScanningConfiguration:
           description: Contains settings for vulnerability scans.
           $ref: '#/components/schemas/ImageScanningConfiguration'
+        ExecutionRole:
+          description: The execution role name/ARN for the image build, if provided
+          type: string
         Tags:
           description: The tags associated with the image.
           type: object
@@ -529,6 +684,44 @@ components:
       x-stackql-resource-name: image
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ImageRecipeArn
+        - ContainerRecipeArn
+        - InfrastructureConfigurationArn
+        - Workflows
+        - DistributionConfigurationArn
+        - ImageTestsConfiguration
+        - ImageScanningConfiguration
+        - EnhancedImageMetadataEnabled
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - Name
+        - ImageId
+        - ImageUri
+      x-required-permissions:
+        create:
+          - ecr:BatchGetRepositoryScanningConfiguration
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - imagebuilder:GetImageRecipe
+          - imagebuilder:GetInfrastructureConfiguration
+          - imagebuilder:GetDistributionConfiguration
+          - imagebuilder:GetWorkflow
+          - imagebuilder:GetImage
+          - imagebuilder:CreateImage
+          - imagebuilder:TagResource
+          - inspector2:BatchGetAccountStatus
+        read:
+          - imagebuilder:GetImage
+        delete:
+          - imagebuilder:GetImage
+          - imagebuilder:DeleteImage
+          - imagebuilder:UnTagResource
+          - imagebuilder:CancelImageCreation
+        list:
+          - imagebuilder:ListImages
     Schedule:
       description: The schedule of the image pipeline.
       type: object
@@ -579,12 +772,21 @@ components:
         InfrastructureConfigurationArn:
           description: The Amazon Resource Name (ARN) of the infrastructure configuration associated with this image pipeline.
           type: string
+        Workflows:
+          description: Workflows to define the image build process
+          type: array
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/WorkflowConfiguration'
         EnhancedImageMetadataEnabled:
           description: Collects additional information about the image being created, including the operating system (OS) version and package list.
           type: boolean
         ImageScanningConfiguration:
           description: Contains settings for vulnerability scans.
           $ref: '#/components/schemas/ImageScanningConfiguration'
+        ExecutionRole:
+          description: The execution role name/ARN for the image build, if provided
+          type: string
         Tags:
           description: The tags of this image pipeline.
           type: object
@@ -595,6 +797,37 @@ components:
       x-stackql-resource-name: image_pipeline
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - ecr:BatchGetRepositoryScanningConfiguration
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - imagebuilder:TagResource
+          - imagebuilder:GetImagePipeline
+          - imagebuilder:GetImageRecipe
+          - imagebuilder:GetInfrastructureConfiguration
+          - imagebuilder:GetDistributionConfiguration
+          - imagebuilder:CreateImagePipeline
+          - imagebuilder:GetWorkflow
+          - inspector2:BatchGetAccountStatus
+        update:
+          - iam:PassRole
+          - imagebuilder:GetImagePipeline
+          - imagebuilder:UpdateImagePipeline
+          - imagebuilder:GetWorkflow
+        read:
+          - imagebuilder:GetImagePipeline
+        delete:
+          - imagebuilder:UnTagResource
+          - imagebuilder:GetImagePipeline
+          - imagebuilder:DeleteImagePipeline
+        list:
+          - imagebuilder:ListImagePipelines
     AdditionalInstanceConfiguration:
       additionalProperties: false
       description: Specify additional settings and launch scripts for your build instances.
@@ -665,6 +898,35 @@ components:
       x-stackql-resource-name: image_recipe
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Version
+        - Components
+        - ParentImage
+        - Description
+        - BlockDeviceMappings
+        - WorkingDirectory
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - iam:CreateServiceLinkedRole
+          - imagebuilder:GetComponent
+          - imagebuilder:GetImage
+          - imagebuilder:TagResource
+          - imagebuilder:GetImageRecipe
+          - imagebuilder:CreateImageRecipe
+          - ec2:DescribeImages
+        read:
+          - imagebuilder:GetImageRecipe
+        delete:
+          - imagebuilder:UnTagResource
+          - imagebuilder:GetImageRecipe
+          - imagebuilder:DeleteImageRecipe
+        list:
+          - imagebuilder:ListImageRecipes
     TagMap:
       description: TagMap
       type: object
@@ -777,6 +1039,354 @@ components:
       x-stackql-resource-name: infrastructure_configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iam:GetRole
+          - iam:GetInstanceProfile
+          - iam:CreateServiceLinkedRole
+          - sns:Publish
+          - imagebuilder:TagResource
+          - imagebuilder:GetInfrastructureConfiguration
+          - imagebuilder:CreateInfrastructureConfiguration
+        update:
+          - iam:PassRole
+          - sns:Publish
+          - imagebuilder:GetInfrastructureConfiguration
+          - imagebuilder:UpdateInfrastructureConfiguration
+        read:
+          - imagebuilder:GetInfrastructureConfiguration
+        delete:
+          - imagebuilder:UnTagResource
+          - imagebuilder:GetInfrastructureConfiguration
+          - imagebuilder:DeleteInfrastructureConfiguration
+        list:
+          - imagebuilder:ListInfrastructureConfigurations
+    PolicyDetail:
+      description: The policy detail of the lifecycle policy.
+      type: object
+      additionalProperties: false
+      properties:
+        Action:
+          $ref: '#/components/schemas/Action'
+        Filter:
+          $ref: '#/components/schemas/Filter'
+        ExclusionRules:
+          $ref: '#/components/schemas/ExclusionRules'
+      required:
+        - Action
+        - Filter
+    Action:
+      description: The action of the policy detail.
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          description: The action type of the policy detail.
+          type: string
+          enum:
+            - DELETE
+            - DEPRECATE
+            - DISABLE
+        IncludeResources:
+          $ref: '#/components/schemas/IncludeResources'
+      required:
+        - Type
+    Filter:
+      description: The filters to apply of the policy detail.
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          description: The filter type.
+          type: string
+          enum:
+            - AGE
+            - COUNT
+        Value:
+          description: The filter value.
+          type: integer
+        Unit:
+          description: The value's time unit.
+          $ref: '#/components/schemas/TimeUnit'
+        RetainAtLeast:
+          description: The minimum number of Image Builder resources to retain.
+          type: integer
+      required:
+        - Type
+        - Value
+    ExclusionRules:
+      description: The exclusion rules to apply of the policy detail.
+      type: object
+      additionalProperties: false
+      properties:
+        TagMap:
+          description: The Image Builder tags to filter on.
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .{1,}:
+              type: string
+        Amis:
+          $ref: '#/components/schemas/AmiExclusionRules'
+    TimeUnit:
+      description: A time unit.
+      type: string
+      enum:
+        - DAYS
+        - WEEKS
+        - MONTHS
+        - YEARS
+    IncludeResources:
+      description: The included resources of the policy detail.
+      type: object
+      additionalProperties: false
+      properties:
+        Amis:
+          description: Use to configure lifecycle actions on AMIs.
+          type: boolean
+        Containers:
+          description: Use to configure lifecycle actions on containers.
+          type: boolean
+        Snapshots:
+          description: Use to configure lifecycle actions on snapshots.
+          type: boolean
+    AmiExclusionRules:
+      description: The AMI exclusion rules for the policy detail.
+      type: object
+      additionalProperties: false
+      properties:
+        IsPublic:
+          description: Use to apply lifecycle policy actions on whether the AMI is public.
+          type: boolean
+        Regions:
+          description: Use to apply lifecycle policy actions on AMIs distributed to a set of regions.
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        SharedAccounts:
+          description: Use to apply lifecycle policy actions on AMIs shared with a set of regions.
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        LastLaunched:
+          description: Use to apply lifecycle policy actions on AMIs launched before a certain time.
+          $ref: '#/components/schemas/LastLaunched'
+        TagMap:
+          description: The AMIs to select by tag.
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .{1,}:
+              type: string
+    LastLaunched:
+      description: The last launched time of a resource.
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          description: The last launched value.
+          type: integer
+        Unit:
+          description: The value's time unit.
+          $ref: '#/components/schemas/TimeUnit'
+      required:
+        - Value
+        - Unit
+    ResourceSelection:
+      description: The resource selection for the lifecycle policy.
+      type: object
+      additionalProperties: false
+      properties:
+        Recipes:
+          description: The recipes to select.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/RecipeSelection'
+        TagMap:
+          description: The Image Builder resources to select by tag.
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .{1,}:
+              type: string
+    RecipeSelection:
+      description: The recipe to apply the lifecycle policy for.
+      type: object
+      additionalProperties: false
+      properties:
+        Name:
+          description: The recipe name.
+          type: string
+        SemanticVersion:
+          description: The recipe version.
+          type: string
+      required:
+        - Name
+        - SemanticVersion
+    LifecyclePolicy:
+      type: object
+      properties:
+        Arn:
+          description: The Amazon Resource Name (ARN) of the lifecycle policy.
+          type: string
+        Name:
+          description: The name of the lifecycle policy.
+          type: string
+        Description:
+          description: The description of the lifecycle policy.
+          type: string
+        Status:
+          description: The status of the lifecycle policy.
+          type: string
+          enum:
+            - DISABLED
+            - ENABLED
+        ExecutionRole:
+          description: The execution role of the lifecycle policy.
+          type: string
+        ResourceType:
+          description: The resource type of the lifecycle policy.
+          type: string
+          enum:
+            - AMI_IMAGE
+            - CONTAINER_IMAGE
+        PolicyDetails:
+          description: The policy details of the lifecycle policy.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/PolicyDetail'
+        ResourceSelection:
+          description: The resource selection of the lifecycle policy.
+          $ref: '#/components/schemas/ResourceSelection'
+        Tags:
+          description: The tags associated with the lifecycle policy.
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .{1,}:
+              type: string
+      required:
+        - Name
+        - ExecutionRole
+        - ResourceType
+        - PolicyDetails
+        - ResourceSelection
+      x-stackql-resource-name: lifecycle_policy
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - imagebuilder:CreateLifecyclePolicy
+          - imagebuilder:GetLifecyclePolicy
+          - imagebuilder:TagResource
+        update:
+          - iam:PassRole
+          - imagebuilder:GetLifecyclePolicy
+          - imagebuilder:UpdateLifecyclePolicy
+        read:
+          - imagebuilder:GetLifecyclePolicy
+        delete:
+          - imagebuilder:GetLifecyclePolicy
+          - imagebuilder:DeleteLifecyclePolicy
+          - imagebuilder:UnTagResource
+        list:
+          - imagebuilder:ListLifecyclePolicies
+    Workflow:
+      type: object
+      properties:
+        Arn:
+          description: The Amazon Resource Name (ARN) of the workflow.
+          type: string
+        Name:
+          description: The name of the workflow.
+          type: string
+        Version:
+          description: The version of the workflow.
+          type: string
+        Description:
+          description: The description of the workflow.
+          type: string
+        ChangeDescription:
+          description: The change description of the workflow.
+          type: string
+        Type:
+          description: The type of the workflow denotes whether the workflow is used to build, test, or distribute.
+          type: string
+          enum:
+            - BUILD
+            - TEST
+            - DISTRIBUTION
+        Data:
+          description: The data of the workflow.
+          type: string
+          minLength: 1
+          maxLength: 16000
+        Uri:
+          description: The uri of the workflow.
+          type: string
+        KmsKeyId:
+          description: The KMS key identifier used to encrypt the workflow.
+          type: string
+        Tags:
+          description: The tags associated with the workflow.
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            .{1,}:
+              type: string
+      required:
+        - Name
+        - Type
+        - Version
+      x-stackql-resource-name: workflow
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - Name
+        - Version
+        - ChangeDescription
+        - Description
+        - Data
+        - Uri
+        - Type
+        - KmsKeyId
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - iam:GetRole
+          - kms:GenerateDataKey*
+          - kms:Encrypt
+          - kms:Decrypt
+          - s3:GetObject
+          - s3:HeadBucket
+          - s3:GetBucketLocation
+          - imagebuilder:TagResource
+          - imagebuilder:GetWorkflow
+          - imagebuilder:CreateWorkflow
+        read:
+          - imagebuilder:GetWorkflow
+        delete:
+          - imagebuilder:GetWorkflow
+          - imagebuilder:UnTagResource
+          - imagebuilder:DeleteWorkflow
+        list:
+          - imagebuilder:ListWorkflows
   x-stackQL-resources:
     components:
       name: components
@@ -942,10 +1552,12 @@ components:
               JSON_EXTRACT(Properties, '$.ContainerRecipeArn') as container_recipe_arn,
               JSON_EXTRACT(Properties, '$.DistributionConfigurationArn') as distribution_configuration_arn,
               JSON_EXTRACT(Properties, '$.InfrastructureConfigurationArn') as infrastructure_configuration_arn,
+              JSON_EXTRACT(Properties, '$.Workflows') as workflows,
               JSON_EXTRACT(Properties, '$.ImageId') as image_id,
               JSON_EXTRACT(Properties, '$.ImageUri') as image_uri,
               JSON_EXTRACT(Properties, '$.EnhancedImageMetadataEnabled') as enhanced_image_metadata_enabled,
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration') as image_scanning_configuration,
+              JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Image'
     image_pipelines:
@@ -988,8 +1600,10 @@ components:
               JSON_EXTRACT(Properties, '$.ContainerRecipeArn') as container_recipe_arn,
               JSON_EXTRACT(Properties, '$.DistributionConfigurationArn') as distribution_configuration_arn,
               JSON_EXTRACT(Properties, '$.InfrastructureConfigurationArn') as infrastructure_configuration_arn,
+              JSON_EXTRACT(Properties, '$.Workflows') as workflows,
               JSON_EXTRACT(Properties, '$.EnhancedImageMetadataEnabled') as enhanced_image_metadata_enabled,
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration') as image_scanning_configuration,
+              JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
     image_recipes:
@@ -1078,3 +1692,84 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
+    lifecycle_policies:
+      name: lifecycle_policies
+      id: aws.imagebuilder.lifecycle_policies
+      x-cfn-schema-name: LifecyclePolicy
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
+    lifecycle_policy:
+      name: lifecycle_policy
+      id: aws.imagebuilder.lifecycle_policy
+      x-cfn-schema-name: LifecyclePolicy
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role,
+              JSON_EXTRACT(Properties, '$.ResourceType') as resource_type,
+              JSON_EXTRACT(Properties, '$.PolicyDetails') as policy_details,
+              JSON_EXTRACT(Properties, '$.ResourceSelection') as resource_selection,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
+    workflows:
+      name: workflows
+      id: aws.imagebuilder.workflows
+      x-cfn-schema-name: Workflow
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'
+    workflow:
+      name: workflow
+      id: aws.imagebuilder.workflow
+      x-cfn-schema-name: Workflow
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Version') as version,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ChangeDescription') as change_description,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.Data') as data,
+              JSON_EXTRACT(Properties, '$.Uri') as uri,
+              JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'

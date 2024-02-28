@@ -42,6 +42,28 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm-sap:GetApplication,
+ssm-sap:ListTagsForResource</pre>
+
+### Update
+<pre>
+ssm-sap:TagResource,
+ssm-sap:UntagResource,
+ssm-sap:ListTagsForResource,
+ssm-sap:GetApplication</pre>
+
+### Delete
+<pre>
+ssm-sap:DeregisterApplication,
+ssm-sap:GetApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

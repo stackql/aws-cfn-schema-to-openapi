@@ -13,12 +13,16 @@ components:
           $ref: '#/components/schemas/ProgressiveDialerConfig'
         PredictiveDialerConfig:
           $ref: '#/components/schemas/PredictiveDialerConfig'
+        AgentlessDialerConfig:
+          $ref: '#/components/schemas/AgentlessDialerConfig'
       additionalProperties: false
       oneOf:
         - required:
             - ProgressiveDialerConfig
         - required:
             - PredictiveDialerConfig
+        - required:
+            - AgentlessDialerConfig
     OutboundCallConfig:
       type: object
       description: The configuration used for outbound calls.
@@ -41,7 +45,6 @@ components:
           $ref: '#/components/schemas/AnswerMachineDetectionConfig'
       required:
         - ConnectContactFlowArn
-        - ConnectQueueArn
       additionalProperties: false
     PredictiveDialerConfig:
       type: object
@@ -52,6 +55,11 @@ components:
           maximum: 1
           minimum: 0
           description: The bandwidth allocation of a queue resource.
+        DialingCapacity:
+          type: number
+          maximum: 1
+          minimum: 0.01
+          description: Allocates dialing capacity for this campaign between multiple active campaigns.
       required:
         - BandwidthAllocation
       additionalProperties: false
@@ -64,8 +72,24 @@ components:
           maximum: 1
           minimum: 0
           description: The bandwidth allocation of a queue resource.
+        DialingCapacity:
+          type: number
+          maximum: 1
+          minimum: 0.01
+          description: Allocates dialing capacity for this campaign between multiple active campaigns.
       required:
         - BandwidthAllocation
+      additionalProperties: false
+    AgentlessDialerConfig:
+      type: object
+      description: Agentless Dialer config
+      properties:
+        DialingCapacity:
+          type: number
+          maximum: 1
+          minimum: 0.01
+          description: Allocates dialing capacity for this campaign between multiple active campaigns.
+      required: []
       additionalProperties: false
     AnswerMachineDetectionConfig:
       type: object
@@ -136,6 +160,31 @@ components:
       x-stackql-resource-name: campaign
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ConnectInstanceArn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - connect-campaigns:CreateCampaign
+          - connect-campaigns:DescribeCampaign
+          - connect-campaigns:TagResource
+          - connect:DescribeContactFlow
+          - connect:DescribeInstance
+          - connect:DescribeQueue
+        read:
+          - connect-campaigns:DescribeCampaign
+        delete:
+          - connect-campaigns:DeleteCampaign
+        list:
+          - connect-campaigns:ListCampaigns
+        update:
+          - connect-campaigns:UpdateCampaignDialerConfig
+          - connect-campaigns:UpdateCampaignName
+          - connect-campaigns:UpdateCampaignOutboundCallConfig
+          - connect-campaigns:TagResource
+          - connect-campaigns:UntagResource
+          - connect-campaigns:DescribeCampaign
   x-stackQL-resources:
     campaigns:
       name: campaigns

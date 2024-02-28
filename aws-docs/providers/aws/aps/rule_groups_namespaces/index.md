@@ -35,6 +35,22 @@ Retrieves a list of <code>rule_groups_namespaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rule_groups_namespaces</code> resource, the following permissions are required:
+
+### Create
+<pre>
+aps:CreateRuleGroupsNamespace,
+aps:DescribeRuleGroupsNamespace,
+aps:TagResource</pre>
+
+### List
+<pre>
+aps:ListRuleGroupsNamespaces,
+aps:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

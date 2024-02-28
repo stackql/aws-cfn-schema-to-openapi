@@ -35,6 +35,20 @@ Retrieves a list of <code>notification_channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>notification_channels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+fms:PutNotificationChannel,
+iam:PassRole</pre>
+
+### List
+<pre>
+fms:GetNotificationChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

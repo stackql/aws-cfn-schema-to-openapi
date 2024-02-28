@@ -43,6 +43,26 @@ Gets an individual <code>partner_account</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>partner_account</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetPartnerAccount,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotwireless:UpdatePartnerAccount,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iotwireless:DisassociateAwsAccountFromPartnerAccount</pre>
+
+
 ## Example
 ```sql
 SELECT

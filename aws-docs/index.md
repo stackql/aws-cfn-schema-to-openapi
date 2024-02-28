@@ -21,12 +21,12 @@ Cloud services from AWS.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total services:&nbsp;<b>214</b></span><br />
-<span>total methods:&nbsp;<b>2,612</b></span><br />
+<span>total services:&nbsp;<b>231</b></span><br />
+<span>total methods:&nbsp;<b>2,559</b></span><br />
 </div>
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>2,178</b></span><br />
-<span>total selectable resources:&nbsp;<b>2,082</b></span><br />
+<span>total resources:&nbsp;<b>2,125</b></span><br />
+<span>total selectable resources:&nbsp;<b>2,029</b></span><br />
 </div>
 </div>
 
@@ -106,11 +106,14 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/appstream/">appstream</a><br />
 <a href="/providers/aws/appsync/">appsync</a><br />
 <a href="/providers/aws/aps/">aps</a><br />
+<a href="/providers/aws/arczonalshift/">arczonalshift</a><br />
 <a href="/providers/aws/athena/">athena</a><br />
 <a href="/providers/aws/auditmanager/">auditmanager</a><br />
 <a href="/providers/aws/autoscaling/">autoscaling</a><br />
 <a href="/providers/aws/autoscalingplans/">autoscalingplans</a><br />
+<a href="/providers/aws/b2bi/">b2bi</a><br />
 <a href="/providers/aws/backup/">backup</a><br />
+<a href="/providers/aws/backupgateway/">backupgateway</a><br />
 <a href="/providers/aws/batch/">batch</a><br />
 <a href="/providers/aws/billingconductor/">billingconductor</a><br />
 <a href="/providers/aws/budgets/">budgets</a><br />
@@ -118,6 +121,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/ce/">ce</a><br />
 <a href="/providers/aws/certificatemanager/">certificatemanager</a><br />
 <a href="/providers/aws/chatbot/">chatbot</a><br />
+<a href="/providers/aws/cleanrooms/">cleanrooms</a><br />
 <a href="/providers/aws/cloud9/">cloud9</a><br />
 <a href="/providers/aws/cloud_control/">cloud_control</a><br />
 <a href="/providers/aws/cloudformation/">cloudformation</a><br />
@@ -145,6 +149,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/databrew/">databrew</a><br />
 <a href="/providers/aws/datapipeline/">datapipeline</a><br />
 <a href="/providers/aws/datasync/">datasync</a><br />
+<a href="/providers/aws/datazone/">datazone</a><br />
 <a href="/providers/aws/dax/">dax</a><br />
 <a href="/providers/aws/detective/">detective</a><br />
 <a href="/providers/aws/devopsguru/">devopsguru</a><br />
@@ -167,6 +172,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/emr/">emr</a><br />
 <a href="/providers/aws/emrcontainers/">emrcontainers</a><br />
 <a href="/providers/aws/emrserverless/">emrserverless</a><br />
+<a href="/providers/aws/entityresolution/">entityresolution</a><br />
 <a href="/providers/aws/events/">events</a><br />
 <a href="/providers/aws/eventschemas/">eventschemas</a><br />
 <a href="/providers/aws/evidently/">evidently</a><br />
@@ -184,6 +190,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/greengrassv2/">greengrassv2</a><br />
 <a href="/providers/aws/groundstation/">groundstation</a><br />
 <a href="/providers/aws/guardduty/">guardduty</a><br />
+<a href="/providers/aws/healthimaging/">healthimaging</a><br />
 <a href="/providers/aws/healthlake/">healthlake</a><br />
 <a href="/providers/aws/iam/">iam</a><br />
 <a href="/providers/aws/identitystore/">identitystore</a><br />
@@ -196,10 +203,10 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/iotanalytics/">iotanalytics</a><br />
 <a href="/providers/aws/iotcoredeviceadvisor/">iotcoredeviceadvisor</a><br />
 <a href="/providers/aws/iotevents/">iotevents</a><br />
-</div>
-<div class="providerDocColumn">
 <a href="/providers/aws/iotfleethub/">iotfleethub</a><br />
 <a href="/providers/aws/iotfleetwise/">iotfleetwise</a><br />
+</div>
+<div class="providerDocColumn">
 <a href="/providers/aws/iotsitewise/">iotsitewise</a><br />
 <a href="/providers/aws/iotthingsgraph/">iotthingsgraph</a><br />
 <a href="/providers/aws/iottwinmaker/">iottwinmaker</a><br />
@@ -232,12 +239,14 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/mediaconvert/">mediaconvert</a><br />
 <a href="/providers/aws/medialive/">medialive</a><br />
 <a href="/providers/aws/mediapackage/">mediapackage</a><br />
+<a href="/providers/aws/mediapackagev2/">mediapackagev2</a><br />
 <a href="/providers/aws/mediastore/">mediastore</a><br />
 <a href="/providers/aws/mediatailor/">mediatailor</a><br />
 <a href="/providers/aws/memorydb/">memorydb</a><br />
 <a href="/providers/aws/msk/">msk</a><br />
 <a href="/providers/aws/mwaa/">mwaa</a><br />
 <a href="/providers/aws/neptune/">neptune</a><br />
+<a href="/providers/aws/neptunegraph/">neptunegraph</a><br />
 <a href="/providers/aws/networkfirewall/">networkfirewall</a><br />
 <a href="/providers/aws/networkmanager/">networkmanager</a><br />
 <a href="/providers/aws/nimblestudio/">nimblestudio</a><br />
@@ -248,11 +257,14 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/opsworks/">opsworks</a><br />
 <a href="/providers/aws/opsworkscm/">opsworkscm</a><br />
 <a href="/providers/aws/organizations/">organizations</a><br />
+<a href="/providers/aws/osis/">osis</a><br />
 <a href="/providers/aws/panorama/">panorama</a><br />
+<a href="/providers/aws/pcaconnectorad/">pcaconnectorad</a><br />
 <a href="/providers/aws/personalize/">personalize</a><br />
 <a href="/providers/aws/pinpoint/">pinpoint</a><br />
 <a href="/providers/aws/pinpointemail/">pinpointemail</a><br />
 <a href="/providers/aws/pipes/">pipes</a><br />
+<a href="/providers/aws/proton/">proton</a><br />
 <a href="/providers/aws/qldb/">qldb</a><br />
 <a href="/providers/aws/quicksight/">quicksight</a><br />
 <a href="/providers/aws/ram/">ram</a><br />
@@ -272,6 +284,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/route53resolver/">route53resolver</a><br />
 <a href="/providers/aws/rum/">rum</a><br />
 <a href="/providers/aws/s3/">s3</a><br />
+<a href="/providers/aws/s3express/">s3express</a><br />
 <a href="/providers/aws/s3objectlambda/">s3objectlambda</a><br />
 <a href="/providers/aws/s3outposts/">s3outposts</a><br />
 <a href="/providers/aws/sagemaker/">sagemaker</a><br />
@@ -283,6 +296,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/servicecatalogappregistry/">servicecatalogappregistry</a><br />
 <a href="/providers/aws/servicediscovery/">servicediscovery</a><br />
 <a href="/providers/aws/ses/">ses</a><br />
+<a href="/providers/aws/shield/">shield</a><br />
 <a href="/providers/aws/signer/">signer</a><br />
 <a href="/providers/aws/simspaceweaver/">simspaceweaver</a><br />
 <a href="/providers/aws/sns/">sns</a><br />
@@ -297,6 +311,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/systemsmanagersap/">systemsmanagersap</a><br />
 <a href="/providers/aws/timestream/">timestream</a><br />
 <a href="/providers/aws/transfer/">transfer</a><br />
+<a href="/providers/aws/verifiedpermissions/">verifiedpermissions</a><br />
 <a href="/providers/aws/voiceid/">voiceid</a><br />
 <a href="/providers/aws/vpclattice/">vpclattice</a><br />
 <a href="/providers/aws/waf/">waf</a><br />
@@ -304,6 +319,8 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/wafv2/">wafv2</a><br />
 <a href="/providers/aws/wisdom/">wisdom</a><br />
 <a href="/providers/aws/workspaces/">workspaces</a><br />
+<a href="/providers/aws/workspacesthinclient/">workspacesthinclient</a><br />
+<a href="/providers/aws/workspacesweb/">workspacesweb</a><br />
 <a href="/providers/aws/xray/">xray</a><br />
 </div>
 </div>

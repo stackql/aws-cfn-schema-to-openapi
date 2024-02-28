@@ -42,6 +42,33 @@ Gets an individual <code>pricing_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pricing_plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+billingconductor:ListPricingPlans,
+billingconductor:ListPricingRulesAssociatedToPricingPlan,
+billingconductor:ListTagsForResource</pre>
+
+### Update
+<pre>
+billingconductor:ListPricingPlans,
+billingconductor:UpdatePricingPlan,
+billingconductor:ListPricingRulesAssociatedToPricingPlan,
+billingconductor:AssociatePricingRules,
+billingconductor:DisassociatePricingRules,
+billingconductor:TagResource,
+billingconductor:UntagResource</pre>
+
+### Delete
+<pre>
+billingconductor:ListPricingPlans,
+billingconductor:DeletePricingPlan,
+billingconductor:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

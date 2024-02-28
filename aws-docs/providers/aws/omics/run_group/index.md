@@ -31,6 +31,7 @@ Gets an individual <code>run_group</code> resource
 <tr><td><code>creation_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>max_cpus</code></td><td><code>number</code></td><td></td></tr>
+<tr><td><code>max_gpus</code></td><td><code>number</code></td><td></td></tr>
 <tr><td><code>max_duration</code></td><td><code>number</code></td><td></td></tr>
 <tr><td><code>max_runs</code></td><td><code>number</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
@@ -42,6 +43,28 @@ Gets an individual <code>run_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>run_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetRunGroup</pre>
+
+### Update
+<pre>
+omics:UpdateRunGroup,
+omics:TagResource,
+omics:GetRunGroup,
+omics:ListTagsForResource,
+omics:UntagResource</pre>
+
+### Delete
+<pre>
+omics:DeleteRunGroup,
+omics:GetRunGroup</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -50,6 +73,7 @@ arn,
 creation_time,
 id,
 max_cpus,
+max_gpus,
 max_duration,
 max_runs,
 name,

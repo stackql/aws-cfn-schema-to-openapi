@@ -35,6 +35,23 @@ Retrieves a list of <code>model_bias_job_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_bias_job_definitions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateModelBiasJobDefinition,
+sagemaker:DescribeModelBiasJobDefinition,
+iam:PassRole,
+sagemaker:AddTags</pre>
+
+### List
+<pre>
+sagemaker:ListModelBiasJobDefinitions,
+sagemaker:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

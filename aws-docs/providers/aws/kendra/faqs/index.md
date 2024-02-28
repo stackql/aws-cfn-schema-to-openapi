@@ -36,6 +36,23 @@ Retrieves a list of <code>faqs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>faqs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kendra:CreateFaq,
+kendra:DescribeFaq,
+iam:PassRole,
+kendra:ListTagsForResource,
+kendra:TagResource</pre>
+
+### List
+<pre>
+kendra:ListFaqs</pre>
+
+
 ## Example
 ```sql
 SELECT

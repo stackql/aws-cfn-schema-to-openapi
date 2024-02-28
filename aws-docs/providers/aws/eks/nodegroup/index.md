@@ -54,6 +54,32 @@ Gets an individual <code>nodegroup</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>nodegroup</code> resource, the following permissions are required:
+
+### Read
+<pre>
+eks:DescribeNodegroup</pre>
+
+### Delete
+<pre>
+eks:DeleteNodegroup,
+eks:DescribeNodegroup</pre>
+
+### Update
+<pre>
+iam:GetRole,
+iam:PassRole,
+eks:DescribeNodegroup,
+eks:DescribeUpdate,
+eks:ListUpdates,
+eks:TagResource,
+eks:UntagResource,
+eks:UpdateNodegroupConfig,
+eks:UpdateNodegroupVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

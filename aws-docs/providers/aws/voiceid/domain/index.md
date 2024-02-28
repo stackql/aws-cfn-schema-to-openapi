@@ -39,6 +39,34 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+<pre>
+voiceid:DescribeDomain,
+voiceid:ListTagsForResource,
+kms:Decrypt</pre>
+
+### Update
+<pre>
+voiceid:DescribeDomain,
+voiceid:UpdateDomain,
+voiceid:TagResource,
+voiceid:UntagResource,
+voiceid:ListTagsForResource,
+kms:CreateGrant,
+kms:Decrypt,
+kms:DescribeKey</pre>
+
+### Delete
+<pre>
+voiceid:DeleteDomain,
+voiceid:DescribeDomain,
+kms:Decrypt</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,21 @@ Retrieves a list of <code>extensions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>extensions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appconfig:CreateExtension,
+appconfig:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+appconfig:ListExtensions</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -44,6 +44,31 @@ Gets an individual <code>account</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>account</code> resource, the following permissions are required:
+
+### Read
+<pre>
+organizations:DescribeAccount,
+organizations:ListParents,
+organizations:ListTagsForResource</pre>
+
+### Update
+<pre>
+organizations:MoveAccount,
+organizations:TagResource,
+organizations:UntagResource,
+organizations:ListRoots,
+organizations:DescribeAccount,
+organizations:ListParents,
+organizations:ListTagsForResource</pre>
+
+### Delete
+<pre>
+organizations:CloseAccount</pre>
+
+
 ## Example
 ```sql
 SELECT

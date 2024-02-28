@@ -35,6 +35,20 @@ Retrieves a list of <code>schemata</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schemata</code> resource, the following permissions are required:
+
+### Create
+<pre>
+personalize:CreateSchema,
+personalize:DescribeSchema</pre>
+
+### List
+<pre>
+personalize:ListSchemas</pre>
+
+
 ## Example
 ```sql
 SELECT

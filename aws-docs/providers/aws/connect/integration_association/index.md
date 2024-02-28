@@ -38,6 +38,42 @@ Gets an individual <code>integration_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>integration_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:ListBots,
+connect:ListLambdaFunctions,
+connect:ListIntegrationAssociations</pre>
+
+### Update
+<pre>
+</pre>
+
+### Delete
+<pre>
+connect:DescribeInstance,
+ds:DescribeDirectories,
+app-integrations:DeleteEventIntegrationAssociation,
+events:ListTargetsByRule,
+events:RemoveTargets,
+events:DeleteRule,
+connect:DisassociateBot,
+connect:DisassociateLambdaFunction,
+connect:DeleteIntegrationAssociation,
+connect:ListBots,
+connect:ListLambdaFunctions,
+connect:ListIntegrationAssociations,
+lex:DeleteResourcePolicy,
+lex:DeleteResourcePolicyStatement,
+lambda:RemovePermission,
+iam:GetRolePolicy,
+iam:DeleteRolePolicy,
+iam:PutRolePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

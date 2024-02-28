@@ -42,6 +42,29 @@ Gets an individual <code>framework</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>framework</code> resource, the following permissions are required:
+
+### Read
+<pre>
+backup:DescribeFramework,
+backup:ListTags</pre>
+
+### Update
+<pre>
+backup:DescribeFramework,
+backup:UpdateFramework,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource</pre>
+
+### Delete
+<pre>
+backup:DeleteFramework,
+backup:DescribeFramework</pre>
+
+
 ## Example
 ```sql
 SELECT

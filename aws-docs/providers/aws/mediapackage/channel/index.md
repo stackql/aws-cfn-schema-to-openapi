@@ -41,6 +41,25 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+mediapackage:DescribeChannel</pre>
+
+### Update
+<pre>
+mediapackage:UpdateChannel,
+mediapackage:ConfigureLogs,
+iam:CreateServiceLinkedRole</pre>
+
+### Delete
+<pre>
+mediapackage:DeleteChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

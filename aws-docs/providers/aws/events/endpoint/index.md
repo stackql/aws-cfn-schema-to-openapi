@@ -45,6 +45,27 @@ Gets an individual <code>endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>endpoint</code> resource, the following permissions are required:
+
+### Read
+<pre>
+events:DescribeEndpoint</pre>
+
+### Update
+<pre>
+events:DescribeEndpoint,
+events:UpdateEndpoint,
+route53:GetHealthCheck,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+events:DeleteEndpoint,
+events:DescribeEndpoint</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,25 @@ Retrieves a list of <code>rest_apis</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rest_apis</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:GET,
+apigateway:POST,
+apigateway:PUT,
+apigateway:PATCH,
+apigateway:UpdateRestApiPolicy,
+s3:GetObject,
+iam:PassRole</pre>
+
+### List
+<pre>
+apigateway:GET</pre>
+
+
 ## Example
 ```sql
 SELECT

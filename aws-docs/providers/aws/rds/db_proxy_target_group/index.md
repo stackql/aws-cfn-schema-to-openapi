@@ -40,6 +40,27 @@ Gets an individual <code>db_proxy_target_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_proxy_target_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeDBProxyTargetGroups,
+rds:DescribeDBProxyTargets</pre>
+
+### Update
+<pre>
+rds:DescribeDBProxyTargetGroups,
+rds:ModifyDBProxyTargetGroup,
+rds:RegisterDBProxyTargets,
+rds:DeregisterDBProxyTargets</pre>
+
+### Delete
+<pre>
+rds:DeregisterDBProxyTargets</pre>
+
+
 ## Example
 ```sql
 SELECT

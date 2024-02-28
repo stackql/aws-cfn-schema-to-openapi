@@ -47,6 +47,31 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:DescribeConfigurationSettings,
+elasticbeanstalk:ListTagsForResource</pre>
+
+### Update
+<pre>
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:UpdateEnvironment,
+elasticbeanstalk:UpdateTagsForResource,
+elasticbeanstalk:AssociateEnvironmentOperationsRole,
+elasticbeanstalk:DisassociateEnvironmentOperationsRole,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:TerminateEnvironment</pre>
+
+
 ## Example
 ```sql
 SELECT

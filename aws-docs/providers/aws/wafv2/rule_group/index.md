@@ -47,6 +47,27 @@ Gets an individual <code>rule_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rule_group</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+wafv2:DeleteRuleGroup,
+wafv2:GetRuleGroup</pre>
+
+### Read
+<pre>
+wafv2:GetRuleGroup,
+wafv2:ListTagsForResource</pre>
+
+### Update
+<pre>
+wafv2:UpdateRuleGroup,
+wafv2:GetRuleGroup,
+wafv2:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

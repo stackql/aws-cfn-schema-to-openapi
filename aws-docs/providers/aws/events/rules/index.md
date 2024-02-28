@@ -27,7 +27,7 @@ Retrieves a list of <code>rules</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The ARN of the rule, such as arn:aws:events:us-east-2:123456789012:rule&#x2F;example.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,27 @@ Retrieves a list of <code>rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+events:DescribeRule,
+events:PutRule,
+events:PutTargets</pre>
+
+### List
+<pre>
+events:ListRules</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+arn
 FROM aws.events.rules
 WHERE region = 'us-east-1'
 ```

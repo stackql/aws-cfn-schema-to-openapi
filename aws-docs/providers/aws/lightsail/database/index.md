@@ -50,6 +50,31 @@ Gets an individual <code>database</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>database</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetRelationalDatabase,
+lightsail:GetRelationalDatabases</pre>
+
+### Update
+<pre>
+lightsail:GetRelationalDatabase,
+lightsail:GetRelationalDatabases,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateRelationalDatabase,
+lightsail:UpdateRelationalDatabaseParameters</pre>
+
+### Delete
+<pre>
+lightsail:DeleteRelationalDatabase,
+lightsail:GetRelationalDatabase,
+lightsail:GetRelationalDatabases</pre>
+
+
 ## Example
 ```sql
 SELECT

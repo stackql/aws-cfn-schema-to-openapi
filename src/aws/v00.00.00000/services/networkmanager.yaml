@@ -12,6 +12,7 @@ components:
         Tags:
           description: The key-value tags that changed for the segment.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
@@ -25,7 +26,6 @@ components:
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
-      x-insertionOrder: false
       properties:
         Key:
           type: string
@@ -52,7 +52,7 @@ components:
           description: ID of the CoreNetwork that the attachment will be attached to.
           type: string
         CoreNetworkArn:
-          description: The ARN of a core network for the VPC attachment.
+          description: The ARN of a core network.
           type: string
         AttachmentId:
           description: The ID of the attachment.
@@ -84,6 +84,7 @@ components:
         Tags:
           description: Tags for the attachment.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
@@ -107,14 +108,53 @@ components:
       x-stackql-resource-name: connect_attachment
       x-stackql-primaryIdentifier:
         - AttachmentId
+      x-create-only-properties:
+        - CoreNetworkId
+        - EdgeLocation
+        - TransportAttachmentId
+        - Options
+      x-read-only-properties:
+        - CoreNetworkArn
+        - CreatedAt
+        - UpdatedAt
+        - AttachmentType
+        - State
+        - ResourceArn
+        - AttachmentId
+        - OwnerAccountId
+        - AttachmentPolicyRuleNumber
+        - SegmentName
+      x-required-permissions:
+        create:
+          - networkmanager:GetConnectAttachment
+          - networkmanager:CreateConnectAttachment
+          - networkmanager:TagResource
+          - ec2:DescribeRegions
+        read:
+          - networkmanager:GetConnectAttachment
+        update:
+          - networkmanager:GetConnectAttachment
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:GetConnectAttachment
+          - networkmanager:DeleteAttachment
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListAttachments
     ConnectPeerConfiguration:
       type: object
       properties:
         CoreNetworkAddress:
+          description: The IP address of a core network.
           type: string
         PeerAddress:
+          description: The IP address of the Connect peer.
           type: string
         InsideCidrBlocks:
+          description: The inside IP addresses used for a Connect peer configuration.
           type: array
           x-insertionOrder: false
           items:
@@ -128,7 +168,7 @@ components:
             $ref: '#/components/schemas/ConnectPeerBgpConfiguration'
       additionalProperties: false
     TunnelProtocol:
-      description: Tunnel protocol type (Only support GRE for now)
+      description: The protocol used for a Connect peer configuration.
       type: string
     BgpOptions:
       description: Bgp options
@@ -142,12 +182,16 @@ components:
       type: object
       properties:
         CoreNetworkAsn:
+          description: The ASN of the Coret Network.
           type: number
         PeerAsn:
+          description: The ASN of the Connect peer.
           type: number
         CoreNetworkAddress:
+          description: The address of a core network.
           type: string
         PeerAddress:
+          description: The address of a core network Connect peer.
           type: string
       additionalProperties: false
     ConnectPeer:
@@ -189,19 +233,56 @@ components:
         Configuration:
           description: Configuration of the connect peer.
           $ref: '#/components/schemas/ConnectPeerConfiguration'
+        SubnetArn:
+          description: The subnet ARN for the connect peer.
+          type: string
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
       required:
         - ConnectAttachmentId
         - PeerAddress
-        - InsideCidrBlocks
       x-stackql-resource-name: connect_peer
       x-stackql-primaryIdentifier:
         - ConnectPeerId
+      x-create-only-properties:
+        - PeerAddress
+        - CoreNetworkAddress
+        - BgpOptions
+        - InsideCidrBlocks
+        - ConnectAttachmentId
+        - SubnetArn
+      x-read-only-properties:
+        - ConnectPeerId
+        - State
+        - CreatedAt
+        - Configuration
+        - CoreNetworkId
+        - EdgeLocation
+      x-required-permissions:
+        create:
+          - networkmanager:GetConnectPeer
+          - networkmanager:CreateConnectPeer
+          - networkmanager:TagResource
+          - ec2:DescribeRegions
+        read:
+          - networkmanager:GetConnectPeer
+        update:
+          - networkmanager:GetConnectPeer
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:GetConnectPeer
+          - networkmanager:DeleteConnectPeer
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListConnectPeers
     CoreNetworkSegment:
       type: object
       properties:
@@ -279,6 +360,7 @@ components:
         Tags:
           description: The tags for the global network.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
@@ -287,6 +369,44 @@ components:
       x-stackql-resource-name: core_network
       x-stackql-primaryIdentifier:
         - CoreNetworkId
+      x-create-only-properties:
+        - GlobalNetworkId
+      x-read-only-properties:
+        - OwnerAccount
+        - CoreNetworkId
+        - CoreNetworkArn
+        - CreatedAt
+        - State
+        - Segments
+        - Edges
+      x-required-permissions:
+        create:
+          - networkmanager:CreateCoreNetwork
+          - networkmanager:GetCoreNetwork
+          - networkmanager:GetCoreNetworkPolicy
+          - networkmanager:TagResource
+          - ec2:DescribeRegions
+        read:
+          - networkmanager:GetCoreNetwork
+          - networkmanager:GetCoreNetworkPolicy
+        update:
+          - networkmanager:UpdateCoreNetwork
+          - networkmanager:GetCoreNetwork
+          - networkmanager:ListTagsForResource
+          - networkmanager:PutCoreNetworkPolicy
+          - networkmanager:GetCoreNetworkPolicy
+          - networkmanager:ExecuteCoreNetworkChangeSet
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:DeleteCoreNetwork
+          - networkmanager:UntagResource
+          - networkmanager:GetCoreNetwork
+          - networkmanager:GetCoreNetworkPolicy
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListCoreNetworks
     CustomerGatewayAssociation:
       type: object
       properties:
@@ -310,6 +430,21 @@ components:
       x-stackql-primaryIdentifier:
         - GlobalNetworkId
         - CustomerGatewayArn
+      x-create-only-properties:
+        - GlobalNetworkId
+        - CustomerGatewayArn
+        - DeviceId
+        - LinkId
+      x-required-permissions:
+        create:
+          - networkmanager:GetCustomerGatewayAssociations
+          - networkmanager:AssociateCustomerGateway
+        read:
+          - networkmanager:GetCustomerGatewayAssociations
+        list:
+          - networkmanager:GetCustomerGatewayAssociations
+        delete:
+          - networkmanager:DisassociateCustomerGateway
     Location:
       description: The location of the site
       type: object
@@ -322,6 +457,17 @@ components:
           type: string
         Longitude:
           description: The longitude.
+          type: string
+      additionalProperties: false
+    AWSLocation:
+      description: The Amazon Web Services location of the device, if applicable.
+      type: object
+      properties:
+        Zone:
+          description: The Zone that the device is located in. Specify the ID of an Availability Zone, Local Zone, Wavelength Zone, or an Outpost.
+          type: string
+        SubnetArn:
+          description: The Amazon Resource Name (ARN) of the subnet that the device is located in.
           type: string
       additionalProperties: false
     Device:
@@ -339,11 +485,16 @@ components:
         Tags:
           description: The tags for the device.
           type: array
+          uniqueItems: true
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
         GlobalNetworkId:
           description: The ID of the global network.
           type: string
+        AWSLocation:
+          description: The Amazon Web Services location of the device, if applicable.
+          $ref: '#/components/schemas/AWSLocation'
         Location:
           description: The site location.
           $ref: '#/components/schemas/Location'
@@ -362,12 +513,43 @@ components:
         Vendor:
           description: The device vendor.
           type: string
+        CreatedAt:
+          description: The date and time that the device was created.
+          type: string
+        State:
+          description: The state of the device.
+          type: string
       required:
         - GlobalNetworkId
       x-stackql-resource-name: device
       x-stackql-primaryIdentifier:
         - GlobalNetworkId
         - DeviceId
+      x-create-only-properties:
+        - GlobalNetworkId
+      x-read-only-properties:
+        - DeviceId
+        - DeviceArn
+        - State
+        - CreatedAt
+      x-required-permissions:
+        create:
+          - networkmanager:CreateDevice
+          - networkmanager:GetDevices
+          - networkmanager:TagResource
+        read:
+          - networkmanager:GetDevices
+        update:
+          - networkmanager:UpdateDevice
+          - networkmanager:ListTagsForResource
+          - networkmanager:GetDevices
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+        delete:
+          - networkmanager:GetDevices
+          - networkmanager:DeleteDevice
+        list:
+          - networkmanager:GetDevices
     GlobalNetwork:
       type: object
       properties:
@@ -383,11 +565,41 @@ components:
         Tags:
           description: The tags for the global network.
           type: array
+          uniqueItems: true
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
+        CreatedAt:
+          description: The date and time that the global network was created.
+          type: string
+        State:
+          description: The state of the global network.
+          type: string
       x-stackql-resource-name: global_network
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - networkmanager:CreateGlobalNetwork
+          - networkmanager:DescribeGlobalNetworks
+          - networkmanager:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - networkmanager:DescribeGlobalNetworks
+        update:
+          - networkmanager:UpdateGlobalNetwork
+          - networkmanager:DescribeGlobalNetworks
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - networkmanager:ListTagsForResource
+        delete:
+          - networkmanager:DeleteGlobalNetwork
+          - networkmanager:DescribeGlobalNetworks
+        list:
+          - networkmanager:DescribeGlobalNetworks
     Bandwidth:
       description: The bandwidth for the link.
       type: object
@@ -426,10 +638,18 @@ components:
         Tags:
           description: The tags for the link.
           type: array
+          uniqueItems: true
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
         Type:
           description: The type of the link.
+          type: string
+        CreatedAt:
+          description: The date and time that the device was created.
+          type: string
+        State:
+          description: The state of the link.
           type: string
       required:
         - GlobalNetworkId
@@ -439,6 +659,32 @@ components:
       x-stackql-primaryIdentifier:
         - GlobalNetworkId
         - LinkId
+      x-create-only-properties:
+        - GlobalNetworkId
+        - SiteId
+      x-read-only-properties:
+        - LinkId
+        - LinkArn
+        - CreatedAt
+        - State
+      x-required-permissions:
+        create:
+          - networkmanager:CreateLink
+          - networkmanager:GetLinks
+          - networkmanager:TagResource
+        read:
+          - networkmanager:GetLinks
+        update:
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:GetLinks
+          - networkmanager:UntagResource
+          - networkmanager:UpdateLink
+        delete:
+          - networkmanager:GetLinks
+          - networkmanager:DeleteLink
+        list:
+          - networkmanager:GetLinks
     LinkAssociation:
       type: object
       properties:
@@ -460,6 +706,20 @@ components:
         - GlobalNetworkId
         - DeviceId
         - LinkId
+      x-create-only-properties:
+        - GlobalNetworkId
+        - DeviceId
+        - LinkId
+      x-required-permissions:
+        create:
+          - networkmanager:GetLinkAssociations
+          - networkmanager:AssociateLink
+        read:
+          - networkmanager:GetLinkAssociations
+        list:
+          - networkmanager:GetLinkAssociations
+        delete:
+          - networkmanager:DisassociateLink
     Site:
       type: object
       properties:
@@ -475,6 +735,8 @@ components:
         Tags:
           description: The tags for the site.
           type: array
+          uniqueItems: true
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
         GlobalNetworkId:
@@ -483,12 +745,43 @@ components:
         Location:
           description: The location of the site.
           $ref: '#/components/schemas/Location'
+        CreatedAt:
+          description: The date and time that the device was created.
+          type: string
+        State:
+          description: The state of the site.
+          type: string
       required:
         - GlobalNetworkId
       x-stackql-resource-name: site
       x-stackql-primaryIdentifier:
         - GlobalNetworkId
         - SiteId
+      x-create-only-properties:
+        - GlobalNetworkId
+      x-read-only-properties:
+        - SiteId
+        - SiteArn
+        - State
+        - CreatedAt
+      x-required-permissions:
+        create:
+          - networkmanager:CreateSite
+          - networkmanager:GetSites
+          - networkmanager:TagResource
+        read:
+          - networkmanager:GetSites
+        update:
+          - networkmanager:GetSites
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - networkmanager:UpdateSite
+        delete:
+          - networkmanager:GetSites
+          - networkmanager:DeleteSite
+        list:
+          - networkmanager:GetSites
     SiteToSiteVpnAttachment:
       type: object
       properties:
@@ -528,6 +821,7 @@ components:
         Tags:
           description: Tags for the attachment.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
@@ -546,6 +840,41 @@ components:
       x-stackql-resource-name: site_to_site_vpn_attachment
       x-stackql-primaryIdentifier:
         - AttachmentId
+      x-create-only-properties:
+        - CoreNetworkId
+        - VpnConnectionArn
+      x-read-only-properties:
+        - CoreNetworkArn
+        - CreatedAt
+        - UpdatedAt
+        - AttachmentType
+        - State
+        - ResourceArn
+        - AttachmentId
+        - OwnerAccountId
+        - EdgeLocation
+        - AttachmentPolicyRuleNumber
+        - SegmentName
+      x-required-permissions:
+        create:
+          - networkmanager:GetSiteToSiteVpnAttachment
+          - networkmanager:CreateSiteToSiteVpnAttachment
+          - ec2:DescribeRegions
+          - networkmanager:TagResource
+        read:
+          - networkmanager:GetSiteToSiteVpnAttachment
+        update:
+          - networkmanager:GetSiteToSiteVpnAttachment
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:GetSiteToSiteVpnAttachment
+          - networkmanager:DeleteAttachment
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListAttachments
     TransitGatewayPeering:
       type: object
       properties:
@@ -595,6 +924,43 @@ components:
       x-stackql-resource-name: transit_gateway_peering
       x-stackql-primaryIdentifier:
         - PeeringId
+      x-create-only-properties:
+        - CoreNetworkId
+        - TransitGatewayArn
+      x-read-only-properties:
+        - CoreNetworkArn
+        - PeeringId
+        - State
+        - PeeringType
+        - OwnerAccountId
+        - EdgeLocation
+        - ResourceArn
+        - CreatedAt
+        - TransitGatewayPeeringAttachmentId
+      x-required-permissions:
+        create:
+          - networkmanager:CreateTransitGatewayPeering
+          - networkmanager:TagResource
+          - networkmanager:GetTransitGatewayPeering
+          - iam:CreateServiceLinkedRole
+          - ec2:CreateTransitGatewayPeeringAttachment
+          - ec2:AcceptTransitGatewayPeeringAttachment
+          - ec2:DescribeRegions
+        read:
+          - networkmanager:GetTransitGatewayPeering
+          - networkmanager:TagResource
+        update:
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - networkmanager:ListTagsForResource
+          - networkmanager:GetTransitGatewayPeering
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:DeletePeering
+          - networkmanager:GetTransitGatewayPeering
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListPeerings
     TransitGatewayRegistration:
       type: object
       properties:
@@ -611,6 +977,20 @@ components:
       x-stackql-primaryIdentifier:
         - GlobalNetworkId
         - TransitGatewayArn
+      x-create-only-properties:
+        - GlobalNetworkId
+        - TransitGatewayArn
+      x-required-permissions:
+        create:
+          - networkmanager:RegisterTransitGateway
+          - networkmanager:GetTransitGatewayRegistrations
+        read:
+          - networkmanager:GetTransitGatewayRegistrations
+        list:
+          - networkmanager:GetTransitGatewayRegistrations
+        delete:
+          - networkmanager:DeregisterTransitGateway
+          - networkmanager:GetTransitGatewayRegistrations
     TransitGatewayRouteTableAttachment:
       type: object
       properties:
@@ -672,6 +1052,43 @@ components:
       x-stackql-resource-name: transit_gateway_route_table_attachment
       x-stackql-primaryIdentifier:
         - AttachmentId
+      x-create-only-properties:
+        - PeeringId
+        - TransitGatewayRouteTableArn
+      x-read-only-properties:
+        - CoreNetworkArn
+        - CoreNetworkId
+        - CreatedAt
+        - UpdatedAt
+        - AttachmentType
+        - State
+        - ResourceArn
+        - AttachmentId
+        - OwnerAccountId
+        - EdgeLocation
+        - AttachmentPolicyRuleNumber
+        - SegmentName
+      x-required-permissions:
+        create:
+          - networkmanager:CreateTransitGatewayRouteTableAttachment
+          - networkmanager:GetTransitGatewayRouteTableAttachment
+          - networkmanager:TagResource
+          - iam:CreateServiceLinkedRole
+          - ec2:DescribeRegions
+        read:
+          - networkmanager:GetTransitGatewayRouteTableAttachment
+        update:
+          - networkmanager:GetTransitGatewayRouteTableAttachment
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:GetTransitGatewayRouteTableAttachment
+          - networkmanager:DeleteAttachment
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListAttachments
     VpcOptions:
       description: Vpc options of the attachment.
       type: object
@@ -727,6 +1144,7 @@ components:
         Tags:
           description: Tags for the attachment.
           type: array
+          uniqueItems: true
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
@@ -752,6 +1170,44 @@ components:
       x-stackql-resource-name: vpc_attachment
       x-stackql-primaryIdentifier:
         - AttachmentId
+      x-create-only-properties:
+        - CoreNetworkId
+        - VpcArn
+      x-read-only-properties:
+        - CoreNetworkArn
+        - CreatedAt
+        - UpdatedAt
+        - AttachmentType
+        - State
+        - AttachmentId
+        - OwnerAccountId
+        - EdgeLocation
+        - AttachmentPolicyRuleNumber
+        - SegmentName
+        - ResourceArn
+      x-required-permissions:
+        create:
+          - networkmanager:CreateVpcAttachment
+          - networkmanager:GetVpcAttachment
+          - networkmanager:TagResource
+          - ec2:DescribeRegions
+          - iam:CreateServiceLinkedRole
+        read:
+          - networkmanager:GetVpcAttachment
+        update:
+          - networkmanager:UpdateVpcAttachment
+          - networkmanager:GetVpcAttachment
+          - networkmanager:ListTagsForResource
+          - networkmanager:TagResource
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        delete:
+          - networkmanager:DeleteAttachment
+          - networkmanager:GetVpcAttachment
+          - networkmanager:UntagResource
+          - ec2:DescribeRegions
+        list:
+          - networkmanager:ListAttachments
   x-stackQL-resources:
     connect_attachments:
       name: connect_attachments
@@ -841,6 +1297,7 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
+              JSON_EXTRACT(Properties, '$.SubnetArn') as subnet_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
     core_networks:
@@ -961,12 +1418,15 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
+              JSON_EXTRACT(Properties, '$.AWSLocation') as a_ws_location,
               JSON_EXTRACT(Properties, '$.Location') as location,
               JSON_EXTRACT(Properties, '$.Model') as model,
               JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number,
               JSON_EXTRACT(Properties, '$.SiteId') as site_id,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.Vendor') as vendor
+              JSON_EXTRACT(Properties, '$.Vendor') as vendor,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Device'
     global_networks:
       name: global_networks
@@ -1001,7 +1461,9 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
     links:
       name: links
@@ -1044,7 +1506,9 @@ components:
               JSON_EXTRACT(Properties, '$.Provider') as provider,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Type') as type
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Link'
     link_associations:
       name: link_associations
@@ -1124,7 +1588,9 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.Location') as location
+              JSON_EXTRACT(Properties, '$.Location') as location,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Site'
     site_to_site_vpn_attachments:
       name: site_to_site_vpn_attachments

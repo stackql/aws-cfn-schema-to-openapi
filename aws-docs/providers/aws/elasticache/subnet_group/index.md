@@ -38,6 +38,29 @@ Gets an individual <code>subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>subnet_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticache:DescribeCacheSubnetGroups,
+elasticache:ListTagsForResource</pre>
+
+### Delete
+<pre>
+elasticache:DeleteCacheSubnetGroup,
+elasticache:DescribeCacheSubnetGroups,
+elasticache:ListTagsForResource</pre>
+
+### Update
+<pre>
+elasticache:ModifyCacheSubnetGroup,
+elasticache:DescribeCacheSubnetGroups,
+elasticache:AddTagsToResource,
+elasticache:RemoveTagsFromResource</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -36,6 +36,16 @@ Retrieves a list of <code>primary_task_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>primary_task_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ecs:DescribeTaskSets,
+ecs:UpdateServicePrimaryTaskSet</pre>
+
+
 ## Example
 ```sql
 SELECT

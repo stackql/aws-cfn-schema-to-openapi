@@ -18,6 +18,24 @@ components:
           type: string
       required:
         - RoleArn
+    ServerlessScalingConfiguration:
+      description: Contains the scaling configuration of an Neptune Serverless DB cluster.
+      type: object
+      additionalProperties: false
+      properties:
+        MinCapacity:
+          description: The minimum number of Neptune capacity units (NCUs) for a DB instance in an Neptune Serverless cluster. You can specify NCU values in half-step increments, such as 8, 8.5, 9, and so on. The smallest value you can use is 1, whereas the largest is 128.
+          type: number
+          minimum: 1
+          maximum: 128
+        MaxCapacity:
+          description: The maximum number of Neptune capacity units (NCUs) for a DB instance in an Neptune Serverless cluster. You can specify NCU values in half-step increments, such as 40, 40.5, 41, and so on. The smallest value you can use is 2.5, whereas the largest is 128.
+          type: number
+          minimum: 2.5
+          maximum: 128
+      required:
+        - MinCapacity
+        - MaxCapacity
     Tag:
       type: object
       additionalProperties: false
@@ -33,10 +51,10 @@ components:
       type: object
       properties:
         Endpoint:
-          description: 'The connection endpoint for the DB cluster. For example: mystack-mydbcluster-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com'
+          description: 'The connection endpoint for the DB cluster. For example: `mystack-mydbcluster-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com`'
           type: string
         ReadEndpoint:
-          description: 'The reader endpoint for the DB cluster. For example: mystack-mydbcluster-ro-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com'
+          description: 'The reader endpoint for the DB cluster. For example: `mystack-mydbcluster-ro-1apw1j4phylrk.cg034hpkmmjt.us-east-2.rds.amazonaws.com`'
           type: string
         ClusterResourceId:
           description: 'The resource id for the DB cluster. For example: `cluster-ABCD1234EFGH5678IJKL90MNOP`. The cluster ID uniquely identifies the cluster and is used in things like IAM authentication policies.'
@@ -60,6 +78,9 @@ components:
           default: 1
           minimum: 1
           type: integer
+        CopyTagsToSnapshot:
+          description: A value that indicates whether to copy all tags from the DB cluster to snapshots of the DB cluster. The default behaviour is not to copy them.
+          type: boolean
         DBClusterIdentifier:
           description: The DB cluster identifier. Contains a user-supplied DB cluster identifier. This identifier is the unique key that identifies a DB cluster stored as a lowercase string.
           type: string
@@ -69,6 +90,17 @@ components:
         DBClusterParameterGroupName:
           description: Provides the name of the DB cluster parameter group.
           type: string
+        DBInstanceParameterGroupName:
+          description: The name of the DB parameter group to apply to all instances of the DB cluster. Used only in case of a major EngineVersion upgrade request.
+          type: string
+        DBPort:
+          description: |-
+            The port number on which the DB instances in the DB cluster accept connections. 
+
+            If not specified, the default port used is `8182`. 
+
+            Note: `Port` property will soon be deprecated from this resource. Please update existing templates to rename it with new property `DBPort` having same functionalities.
+          type: integer
         DBSubnetGroupName:
           description: Specifies information on the subnet group associated with the DB cluster, including the name, description, and subnets in the subnet group.
           type: string
@@ -92,7 +124,7 @@ components:
           description: If `StorageEncrypted` is true, the Amazon KMS key identifier for the encrypted DB cluster.
           type: string
         Port:
-          description: Specifies the port that the database engine is listening on.
+          description: 'The port number on which the DB cluster accepts connections. For example: `8182`.'
           type: string
         PreferredBackupWindow:
           description: Specifies the daily time range during which automated backups are created if automated backups are enabled, as determined by the BackupRetentionPeriod.
@@ -117,6 +149,9 @@ components:
             If a DB cluster snapshot is specified, the target DB cluster is created from the source DB cluster restore point with the same configuration as the original source DB cluster, except that the new DB cluster is created with the default security group.
           type: string
           default: full-copy
+        ServerlessScalingConfiguration:
+          description: Contains the scaling configuration used by the Neptune Serverless Instances within this DB cluster.
+          $ref: '#/components/schemas/ServerlessScalingConfiguration'
         SnapshotIdentifier:
           description: |-
             Specifies the identifier for a DB cluster snapshot. Must match the identifier of an existing snapshot.
@@ -167,6 +202,68 @@ components:
       x-stackql-resource-name: db_cluster
       x-stackql-primaryIdentifier:
         - DBClusterIdentifier
+      x-create-only-properties:
+        - AvailabilityZones
+        - DBClusterIdentifier
+        - DBSubnetGroupName
+        - KmsKeyId
+        - RestoreToTime
+        - RestoreType
+        - SnapshotIdentifier
+        - SourceDBClusterIdentifier
+        - StorageEncrypted
+        - UseLatestRestorableTime
+      x-read-only-properties:
+        - Endpoint
+        - ClusterResourceId
+        - Port
+        - ReadEndpoint
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - rds:AddRoleToDBCluster
+          - rds:AddTagsToResource
+          - rds:CreateDBCluster
+          - rds:CreateDBInstance
+          - rds:DescribeDBClusters
+          - rds:ListTagsForResource
+          - rds:ModifyDBCluster
+          - rds:RestoreDBClusterFromSnapshot
+          - rds:RestoreDBClusterToPointInTime
+          - kms:*
+        read:
+          - rds:DescribeDBClusters
+          - rds:ListTagsForResource
+          - kms:*
+        update:
+          - ec2:DescribeSecurityGroups
+          - iam:PassRole
+          - rds:AddRoleToDBCluster
+          - rds:AddTagsToResource
+          - rds:DescribeDBClusters
+          - rds:DescribeDBInstances
+          - rds:DescribeDBSubnetGroups
+          - rds:DescribeGlobalClusters
+          - rds:ListTagsForResource
+          - rds:ModifyDBCluster
+          - rds:ModifyDBInstance
+          - rds:RemoveFromGlobalCluster
+          - rds:RemoveRoleFromDBCluster
+          - rds:RemoveTagsFromResource
+          - kms:*
+        delete:
+          - rds:DeleteDBCluster
+          - rds:DeleteDBInstance
+          - rds:DescribeDBClusters
+          - rds:DescribeGlobalClusters
+          - rds:ListTagsForResource
+          - rds:RemoveFromGlobalCluster
+          - rds:CreateDBClusterSnapshot
+          - kms:*
+        list:
+          - rds:DescribeDBClusters
+          - rds:ListTagsForResource
+          - kms:*
     DBClusterParameterGroup:
       type: object
       properties:
@@ -191,6 +288,12 @@ components:
         - Parameters
       x-stackql-resource-name: db_cluster_parameter_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Family
+        - Description
+        - Name
+      x-read-only-properties:
         - Id
     DBInstance:
       type: object
@@ -231,6 +334,16 @@ components:
       x-stackql-resource-name: db_instance
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - DBClusterIdentifier
+        - AvailabilityZone
+        - DBInstanceIdentifier
+        - DBSubnetGroupName
+        - DBSnapshotIdentifier
+      x-read-only-properties:
+        - Endpoint
+        - Port
+        - Id
     DBParameterGroup:
       type: object
       properties:
@@ -256,6 +369,12 @@ components:
       x-stackql-resource-name: db_parameter_group
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Family
+        - Description
+        - Name
+      x-read-only-properties:
+        - Id
     DBSubnetGroup:
       type: object
       properties:
@@ -280,6 +399,10 @@ components:
         - SubnetIds
       x-stackql-resource-name: db_subnet_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DBSubnetGroupName
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     db_clusters:
@@ -318,8 +441,11 @@ components:
               JSON_EXTRACT(Properties, '$.AssociatedRoles') as associated_roles,
               JSON_EXTRACT(Properties, '$.AvailabilityZones') as availability_zones,
               JSON_EXTRACT(Properties, '$.BackupRetentionPeriod') as backup_retention_period,
+              JSON_EXTRACT(Properties, '$.CopyTagsToSnapshot') as copy_tags_to_snapshot,
               JSON_EXTRACT(Properties, '$.DBClusterIdentifier') as d_bcluster_identifier,
               JSON_EXTRACT(Properties, '$.DBClusterParameterGroupName') as d_bcluster_parameter_group_name,
+              JSON_EXTRACT(Properties, '$.DBInstanceParameterGroupName') as d_binstance_parameter_group_name,
+              JSON_EXTRACT(Properties, '$.DBPort') as d_bport,
               JSON_EXTRACT(Properties, '$.DBSubnetGroupName') as d_bsubnet_group_name,
               JSON_EXTRACT(Properties, '$.DeletionProtection') as deletion_protection,
               JSON_EXTRACT(Properties, '$.EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports,
@@ -331,6 +457,7 @@ components:
               JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as preferred_maintenance_window,
               JSON_EXTRACT(Properties, '$.RestoreToTime') as restore_to_time,
               JSON_EXTRACT(Properties, '$.RestoreType') as restore_type,
+              JSON_EXTRACT(Properties, '$.ServerlessScalingConfiguration') as serverless_scaling_configuration,
               JSON_EXTRACT(Properties, '$.SnapshotIdentifier') as snapshot_identifier,
               JSON_EXTRACT(Properties, '$.SourceDBClusterIdentifier') as source_db_cluster_identifier,
               JSON_EXTRACT(Properties, '$.StorageEncrypted') as storage_encrypted,

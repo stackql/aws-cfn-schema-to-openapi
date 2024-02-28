@@ -40,6 +40,43 @@ Gets an individual <code>package</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>package</code> resource, the following permissions are required:
+
+### Read
+<pre>
+panorama:DescribePackage,
+panorama:ListTagsForResource,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### Update
+<pre>
+panorama:DescribePackage,
+panorama:ListTagsForResource,
+panorama:TagResource,
+panorama:UntagResource,
+s3:PutObject,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### Delete
+<pre>
+panorama:DeletePackage,
+panorama:DescribePackage,
+s3:DeleteObject,
+s3:DeleteObjectVersion,
+s3:DeleteObjectVersionTagging,
+s3:ListObjects,
+s3:ListObjectsV2,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

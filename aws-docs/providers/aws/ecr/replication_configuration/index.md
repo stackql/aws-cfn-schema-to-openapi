@@ -36,6 +36,27 @@ Gets an individual <code>replication_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>replication_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecr:DescribeRegistry</pre>
+
+### Update
+<pre>
+ecr:DescribeRegistry,
+ecr:PutReplicationConfiguration,
+iam:CreateServiceLinkedRole</pre>
+
+### Delete
+<pre>
+ecr:DescribeRegistry,
+ecr:PutReplicationConfiguration,
+iam:CreateServiceLinkedRole</pre>
+
+
 ## Example
 ```sql
 SELECT

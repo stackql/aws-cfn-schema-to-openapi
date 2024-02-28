@@ -13,7 +13,8 @@
       "type" : "boolean"
     },
     "NetworkAclAssociationId" : {
-      "type" : "string"
+      "type" : "string",
+      "description" : "The ID of the network ACL that is associated with the subnet's VPC"
     },
     "AvailabilityZone" : {
       "type" : "string"
@@ -25,7 +26,8 @@
       "type" : "string"
     },
     "SubnetId" : {
-      "type" : "string"
+      "type" : "string",
+      "description" : "The ID of the subnet"
     },
     "Ipv6CidrBlocks" : {
       "type" : "array",
@@ -67,7 +69,30 @@
       "items" : {
         "$ref" : "#/definitions/Tag"
       }
+    },
+    "Ipv4IpamPoolId" : {
+      "type" : "string",
+      "description" : "The ID of an IPv4 IPAM pool you want to use for allocating this subnet's CIDR"
+    },
+    "Ipv4NetmaskLength" : {
+      "type" : "integer",
+      "description" : "The netmask length of the IPv4 CIDR you want to allocate to this subnet from an Amazon VPC IP Address Manager (IPAM) pool"
+    },
+    "Ipv6IpamPoolId" : {
+      "type" : "string",
+      "description" : "The ID of an IPv6 IPAM pool you want to use for allocating this subnet's CIDR"
+    },
+    "Ipv6NetmaskLength" : {
+      "type" : "integer",
+      "description" : "The netmask length of the IPv6 CIDR you want to allocate to this subnet from an Amazon VPC IP Address Manager (IPAM) pool"
     }
+  },
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : true,
+    "cloudFormationSystemTags" : true,
+    "tagProperty" : "/properties/Tags"
   },
   "definitions" : {
     "Tag" : {
@@ -85,10 +110,11 @@
     }
   },
   "required" : [ "VpcId" ],
-  "createOnlyProperties" : [ "/properties/VpcId", "/properties/AvailabilityZone", "/properties/AvailabilityZoneId", "/properties/CidrBlock", "/properties/OutpostArn", "/properties/Ipv6Native" ],
+  "createOnlyProperties" : [ "/properties/VpcId", "/properties/AvailabilityZone", "/properties/AvailabilityZoneId", "/properties/CidrBlock", "/properties/OutpostArn", "/properties/Ipv6Native", "/properties/Ipv4IpamPoolId", "/properties/Ipv4NetmaskLength", "/properties/Ipv6IpamPoolId", "/properties/Ipv6NetmaskLength" ],
   "conditionalCreateOnlyProperties" : [ "/properties/Ipv6CidrBlock" ],
   "primaryIdentifier" : [ "/properties/SubnetId" ],
-  "readOnlyProperties" : [ "/properties/NetworkAclAssociationId", "/properties/SubnetId", "/properties/Ipv6CidrBlocks" ],
+  "readOnlyProperties" : [ "/properties/NetworkAclAssociationId", "/properties/SubnetId" ],
+  "writeOnlyProperties" : [ "/properties/Ipv4IpamPoolId", "/properties/Ipv4NetmaskLength", "/properties/Ipv6IpamPoolId", "/properties/Ipv6NetmaskLength" ],
   "handlers" : {
     "create" : {
       "permissions" : [ "ec2:DescribeSubnets", "ec2:CreateSubnet", "ec2:CreateTags", "ec2:ModifySubnetAttribute" ]

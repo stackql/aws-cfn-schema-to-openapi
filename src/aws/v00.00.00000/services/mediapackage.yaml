@@ -73,6 +73,25 @@ components:
       x-stackql-resource-name: asset
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - EgressEndpoints/*/PackagingConfigurationId
+        - EgressEndpoints/*/Url
+      x-required-permissions:
+        create:
+          - mediapackage-vod:CreateAsset
+          - mediapackage-vod:DescribeAsset
+          - mediapackage-vod:TagResource
+          - iam:PassRole
+        read:
+          - mediapackage-vod:DescribeAsset
+        delete:
+          - mediapackage-vod:DescribeAsset
+          - mediapackage-vod:DeleteAsset
+        list:
+          - mediapackage-vod:ListAssets
+          - mediapackage-vod:DescribePackagingGroup
     HlsIngest:
       description: An HTTP Live Streaming (HLS) ingest resource configuration.
       type: object
@@ -150,6 +169,33 @@ components:
       x-stackql-resource-name: channel
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Id
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - HlsIngest/ingestEndpoints/*/Id
+        - HlsIngest/ingestEndpoints/*/Username
+        - HlsIngest/ingestEndpoints/*/Password
+        - HlsIngest/ingestEndpoints/*/Url
+      x-required-permissions:
+        create:
+          - mediapackage:CreateChannel
+          - mediapackage:DescribeChannel
+          - mediapackage:UpdateChannel
+          - mediapackage:TagResource
+          - mediapackage:ConfigureLogs
+          - iam:CreateServiceLinkedRole
+        read:
+          - mediapackage:DescribeChannel
+        update:
+          - mediapackage:UpdateChannel
+          - mediapackage:ConfigureLogs
+          - iam:CreateServiceLinkedRole
+        delete:
+          - mediapackage:DeleteChannel
+        list:
+          - mediapackage:ListChannels
     MssPackage:
       type: object
       description: A Microsoft Smooth Streaming (MSS) PackagingConfiguration.
@@ -471,6 +517,28 @@ components:
       x-stackql-resource-name: origin_endpoint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Id
+      x-read-only-properties:
+        - Arn
+        - Url
+      x-required-permissions:
+        create:
+          - mediapackage:CreateOriginEndpoint
+          - mediapackage:DescribeOriginEndpoint
+          - mediapackage:DescribeChannel
+          - mediapackage:TagResource
+          - iam:PassRole
+          - acm:DescribeCertificate
+        read:
+          - mediapackage:DescribeOriginEndpoint
+        update:
+          - mediapackage:UpdateOriginEndpoint
+          - iam:PassRole
+        delete:
+          - mediapackage:DeleteOriginEndpoint
+        list:
+          - mediapackage:ListOriginEndpoints
     RoleArn:
       description: An Amazon Resource Name (ARN) of an IAM role that AWS Elemental MediaPackage will assume when accessing the key provider service.
       type: string
@@ -555,6 +623,24 @@ components:
       x-stackql-resource-name: packaging_configuration
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Id
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - mediapackage-vod:CreatePackagingConfiguration
+          - mediapackage-vod:DescribePackagingConfiguration
+          - mediapackage-vod:TagResource
+          - iam:PassRole
+        read:
+          - mediapackage-vod:DescribePackagingConfiguration
+        delete:
+          - mediapackage-vod:DescribePackagingConfiguration
+          - mediapackage-vod:DeletePackagingConfiguration
+        list:
+          - mediapackage-vod:ListPackagingConfigurations
+          - mediapackage-vod:DescribePackagingGroup
     PackagingGroup:
       type: object
       properties:
@@ -587,6 +673,34 @@ components:
       x-stackql-resource-name: packaging_group
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Id
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - DomainName
+      x-required-permissions:
+        create:
+          - mediapackage-vod:CreatePackagingGroup
+          - mediapackage-vod:DescribePackagingGroup
+          - mediapackage-vod:TagResource
+          - mediapackage-vod:ConfigureLogs
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+        read:
+          - mediapackage-vod:DescribePackagingGroup
+        update:
+          - mediapackage-vod:DescribePackagingGroup
+          - mediapackage-vod:UpdatePackagingGroup
+          - mediapackage-vod:ConfigureLogs
+          - mediapackage-vod:TagResource
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+        list:
+          - mediapackage-vod:ListPackagingGroups
+        delete:
+          - mediapackage-vod:DescribePackagingGroup
+          - mediapackage-vod:DeletePackagingGroup
   x-stackQL-resources:
     assets:
       name: assets

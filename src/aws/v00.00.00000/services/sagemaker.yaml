@@ -70,6 +70,12 @@ components:
             - ml.g5.16xlarge
             - ml.g5.24xlarge
             - ml.g5.48xlarge
+            - ml.p4d.24xlarge
+            - ml.p4de.24xlarge
+            - ml.geospatial.interactive
+            - ml.trn1.2xlarge
+            - ml.trn1.32xlarge
+            - ml.trn1n.32xlarge
         SageMakerImageArn:
           type: string
           description: The ARN of the SageMaker image that the image version belongs to.
@@ -148,6 +154,27 @@ components:
         - AppType
         - DomainId
         - UserProfileName
+      x-create-only-properties:
+        - AppName
+        - AppType
+        - DomainId
+        - UserProfileName
+        - Tags
+        - ResourceSpec
+      x-read-only-properties:
+        - AppArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateApp
+          - sagemaker:DescribeApp
+        read:
+          - sagemaker:DescribeApp
+          - sagemaker:DescribeApp
+        delete:
+          - sagemaker:DeleteApp
+          - sagemaker:DescribeApp
+        list:
+          - sagemaker:ListApps
     KernelGatewayImageConfig:
       type: object
       description: The configuration for the file system and kernels in a SageMaker image running as a KernelGateway app.
@@ -165,6 +192,72 @@ components:
             $ref: '#/components/schemas/KernelSpec'
       required:
         - KernelSpecs
+    JupyterLabAppImageConfig:
+      type: object
+      description: The configuration for the kernels in a SageMaker image running as a JupyterLab app.
+      additionalProperties: false
+      properties:
+        ContainerConfig:
+          $ref: '#/components/schemas/ContainerConfig'
+          description: The container configuration for a SageMaker image.
+    ContainerConfig:
+      type: object
+      description: The container configuration for a SageMaker image.
+      additionalProperties: false
+      properties:
+        ContainerArguments:
+          type: array
+          description: A list of arguments to apply to the container.
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/CustomImageContainerArguments'
+          minItems: 0
+          maxItems: 50
+        ContainerEntrypoint:
+          type: array
+          description: The custom entry point to use on container.
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/CustomImageContainerEntrypoint'
+          minItems: 0
+          maxItems: 1
+        ContainerEnvironmentVariables:
+          type: array
+          description: A list of variables to apply to the custom container.
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/CustomImageContainerEnvironmentVariable'
+          minItems: 0
+          maxItems: 25
+    CustomImageContainerArguments:
+      type: string
+      description: The container image arguments
+      minLength: 1
+      maxLength: 64
+      pattern: ^(?!\s*$).+
+    CustomImageContainerEntrypoint:
+      type: string
+      description: The container entry point
+      minLength: 1
+      maxLength: 256
+      pattern: ^(?!\s*$).+
+    CustomImageContainerEnvironmentVariable:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^(?!\s*$).+
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 256
+          pattern: ^(?!\s*$).+
+      required:
+        - Key
+        - Value
     FileSystemConfig:
       type: object
       description: The Amazon Elastic File System (EFS) storage configuration for a SageMaker image.
@@ -220,6 +313,9 @@ components:
         KernelGatewayImageConfig:
           $ref: '#/components/schemas/KernelGatewayImageConfig'
           description: The KernelGatewayImageConfig.
+        JupyterLabAppImageConfig:
+          $ref: '#/components/schemas/JupyterLabAppImageConfig'
+          description: The JupyterLabAppImageConfig.
         Tags:
           type: array
           description: A list of tags to apply to the AppImageConfig.
@@ -233,6 +329,25 @@ components:
       x-stackql-resource-name: app_image_config
       x-stackql-primaryIdentifier:
         - AppImageConfigName
+      x-create-only-properties:
+        - AppImageConfigName
+        - Tags
+      x-read-only-properties:
+        - AppImageConfigArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateAppImageConfig
+          - sagemaker:DescribeAppImageConfig
+        read:
+          - sagemaker:DescribeAppImageConfig
+        update:
+          - sagemaker:UpdateAppImageConfig
+          - sagemaker:DescribeAppImageConfig
+        delete:
+          - sagemaker:DeleteAppImageConfig
+          - sagemaker:DescribeAppImageConfig
+        list:
+          - sagemaker:ListAppImageConfigs
     GitConfig:
       type: object
       additionalProperties: false
@@ -247,23 +362,15 @@ components:
         - RepositoryUrl
     CodeRepository:
       type: object
+      additionalProperties: false
       properties:
-        GitConfig:
-          $ref: '#/components/schemas/GitConfig'
-        CodeRepositoryName:
+        RepositoryUrl:
           type: string
-        Id:
-          type: string
-        Tags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tag'
+          description: A CodeRepository (valid URL) to be used within Jupyter's Git extension.
+          maxLength: 256
+          pattern: ^https://([.\-_a-zA-Z0-9]+/?){3,1016}$
       required:
-        - GitConfig
-      x-stackql-resource-name: code_repository
-      x-stackql-primaryIdentifier:
-        - Id
+        - RepositoryUrl
     DataQualityBaselineConfig:
       type: object
       additionalProperties: false
@@ -375,6 +482,10 @@ components:
           enum:
             - Pipe
             - File
+        ExcludeFeaturesAttribute:
+          type: string
+          description: Indexes or names of the features to be excluded from analysis
+          maxLength: 100
       required:
         - EndpointName
         - LocalPath
@@ -407,6 +518,10 @@ components:
           enum:
             - Pipe
             - File
+        ExcludeFeaturesAttribute:
+          type: string
+          description: Indexes or names of the features to be excluded from analysis
+          maxLength: 100
       required:
         - DataCapturedDestinationS3Uri
         - DatasetFormat
@@ -643,6 +758,34 @@ components:
       x-stackql-resource-name: data_quality_job_definition
       x-stackql-primaryIdentifier:
         - JobDefinitionArn
+      x-create-only-properties:
+        - JobDefinitionName
+        - DataQualityAppSpecification
+        - DataQualityBaselineConfig
+        - DataQualityJobInput
+        - DataQualityJobOutputConfig
+        - JobResources
+        - NetworkConfig
+        - RoleArn
+        - StoppingCondition
+        - Tags
+        - EndpointName
+      x-read-only-properties:
+        - CreationTime
+        - JobDefinitionArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateDataQualityJobDefinition
+          - sagemaker:DescribeDataQualityJobDefinition
+          - sagemaker:AddTags
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteDataQualityJobDefinition
+        read:
+          - sagemaker:DescribeDataQualityJobDefinition
+        list:
+          - sagemaker:ListDataQualityJobDefinitions
+          - sagemaker:ListTags
     Device:
       type: object
       properties:
@@ -665,6 +808,17 @@ components:
       x-stackql-resource-name: device
       x-stackql-primaryIdentifier:
         - Device/DeviceName
+      x-create-only-properties:
+        - Device/DeviceName
+      x-required-permissions:
+        create:
+          - sagemaker:RegisterDevices
+        read:
+          - sagemaker:DescribeDevice
+        update:
+          - sagemaker:UpdateDevices
+        delete:
+          - sagemaker:DeregisterDevices
     EdgeOutputConfig:
       type: object
       properties:
@@ -718,6 +872,19 @@ components:
       x-stackql-resource-name: device_fleet
       x-stackql-primaryIdentifier:
         - DeviceFleetName
+      x-create-only-properties:
+        - DeviceFleetName
+      x-required-permissions:
+        create:
+          - sagemaker:CreateDeviceFleet
+          - iam:PassRole
+        read:
+          - sagemaker:DescribeDeviceFleet
+        update:
+          - sagemaker:UpdateDeviceFleet
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteDeviceFleet
     UserSettings:
       type: object
       description: A collection of settings that apply to users of Amazon SageMaker Studio. These settings are specified when the CreateUserProfile API is called, and as DefaultUserSettings when the CreateDomain API is called.
@@ -737,6 +904,31 @@ components:
           description: The kernel gateway app settings.
         RStudioServerProAppSettings:
           $ref: '#/components/schemas/RStudioServerProAppSettings'
+        JupyterLabAppSettings:
+          $ref: '#/components/schemas/JupyterLabAppSettings'
+        SpaceStorageSettings:
+          $ref: '#/components/schemas/DefaultSpaceStorageSettings'
+        CodeEditorAppSettings:
+          $ref: '#/components/schemas/CodeEditorAppSettings'
+        DefaultLandingUri:
+          type: string
+          description: Defines which Amazon SageMaker application users are directed to by default.
+          maxLength: 1023
+        StudioWebPortal:
+          type: string
+          description: Indicates whether the Studio experience is available to users. If not, users cannot access Studio.
+          enum:
+            - ENABLED
+            - DISABLED
+        CustomPosixUserConfig:
+          $ref: '#/components/schemas/CustomPosixUserConfig'
+        CustomFileSystemConfigs:
+          type: array
+          uniqueItems: true
+          minItems: 0
+          maxItems: 2
+          items:
+            $ref: '#/components/schemas/CustomFileSystemConfig'
         SecurityGroups:
           type: array
           description: The security groups for the Amazon Virtual Private Cloud (VPC) that Studio uses for communication.
@@ -778,6 +970,8 @@ components:
             type: string
             maxLength: 32
             pattern: '[-0-9a-zA-Z]+'
+      required:
+        - ExecutionRole
     JupyterServerAppSettings:
       type: object
       description: The JupyterServer app settings.
@@ -801,6 +995,121 @@ components:
         DefaultResourceSpec:
           $ref: '#/components/schemas/ResourceSpec'
           description: The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the KernelGateway app.
+    JupyterLabAppSettings:
+      type: object
+      description: The JupyterLab app settings.
+      additionalProperties: false
+      properties:
+        DefaultResourceSpec:
+          $ref: '#/components/schemas/ResourceSpec'
+          description: The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the JupyterLab app.
+        LifecycleConfigArns:
+          type: array
+          description: A list of LifecycleConfigArns available for use with JupyterLab apps.
+          uniqueItems: false
+          minItems: 0
+          maxItems: 30
+          items:
+            $ref: '#/components/schemas/StudioLifecycleConfigArn'
+        CodeRepositories:
+          type: array
+          description: A list of CodeRepositories available for use with JupyterLab apps.
+          uniqueItems: false
+          minItems: 0
+          maxItems: 30
+          items:
+            $ref: '#/components/schemas/CodeRepository'
+        CustomImages:
+          type: array
+          description: A list of custom images available for use for JupyterLab apps
+          uniqueItems: false
+          minItems: 0
+          maxItems: 30
+          items:
+            $ref: '#/components/schemas/CustomImage'
+    DefaultSpaceStorageSettings:
+      type: object
+      description: Default storage settings for a space.
+      additionalProperties: false
+      properties:
+        DefaultEbsStorageSettings:
+          $ref: '#/components/schemas/DefaultEbsStorageSettings'
+    DefaultEbsStorageSettings:
+      type: object
+      description: Properties related to the Amazon Elastic Block Store volume.
+      additionalProperties: false
+      properties:
+        DefaultEbsVolumeSizeInGb:
+          description: Default size of the Amazon EBS volume in Gb
+          $ref: '#/components/schemas/SpaceEbsVolumeSizeInGb'
+        MaximumEbsVolumeSizeInGb:
+          description: Maximum size of the Amazon EBS volume in Gb. Must be greater than or equal to the DefaultEbsVolumeSizeInGb.
+          $ref: '#/components/schemas/SpaceEbsVolumeSizeInGb'
+      required:
+        - DefaultEbsVolumeSizeInGb
+        - MaximumEbsVolumeSizeInGb
+    SpaceEbsVolumeSizeInGb:
+      type: integer
+      minimum: 5
+      maximum: 16384
+    CodeEditorAppSettings:
+      type: object
+      description: The CodeEditor app settings.
+      additionalProperties: false
+      properties:
+        DefaultResourceSpec:
+          $ref: '#/components/schemas/ResourceSpec'
+          description: The default instance type and the Amazon Resource Name (ARN) of the default SageMaker image used by the CodeEditor app.
+        LifecycleConfigArns:
+          type: array
+          description: A list of LifecycleConfigArns available for use with CodeEditor apps.
+          uniqueItems: false
+          minItems: 0
+          maxItems: 30
+          items:
+            $ref: '#/components/schemas/StudioLifecycleConfigArn'
+    StudioLifecycleConfigArn:
+      type: string
+      description: The Amazon Resource Name (ARN) of the Lifecycle Configuration to attach to the Resource.
+      maxLength: 256
+      pattern: arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:studio-lifecycle-config/.*
+    CustomPosixUserConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        Uid:
+          type: integer
+          minimum: 10000
+          maximum: 4000000
+        Gid:
+          type: integer
+          minimum: 1001
+          maximum: 4000000
+      required:
+        - Uid
+        - Gid
+    CustomFileSystemConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        EFSFileSystemConfig:
+          $ref: '#/components/schemas/EFSFileSystemConfig'
+    EFSFileSystemConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        FileSystemPath:
+          type: string
+          pattern: ^\/\S*$
+          minLength: 1
+          maxLength: 256
+        FileSystemId:
+          type: string
+          minLength: 11
+          maxLength: 21
+          pattern: ^(fs-[0-9a-f]{8,})$
+      required:
+        - FileSystemId
     CustomImage:
       type: object
       description: A custom SageMaker image.
@@ -862,6 +1171,30 @@ components:
             pattern: '[-0-9a-zA-Z]+'
         RStudioServerProDomainSettings:
           $ref: '#/components/schemas/RStudioServerProDomainSettings'
+        DockerSettings:
+          $ref: '#/components/schemas/DockerSettings'
+    DockerSettings:
+      type: object
+      description: A collection of settings that are required to start docker-proxy server.
+      additionalProperties: false
+      properties:
+        EnableDockerAccess:
+          type: string
+          description: The flag to enable/disable docker-proxy server
+          enum:
+            - ENABLED
+            - DISABLED
+        VpcOnlyTrustedAccounts:
+          type: array
+          description: A list of account id's that would be used to pull images from in VpcOnly mode
+          uniqueItems: false
+          x-insertionOrder: false
+          minItems: 0
+          maxItems: 10
+          items:
+            type: string
+            maxLength: 12
+            pattern: ^[0-9]$
     RStudioServerProDomainSettings:
       type: object
       description: A collection of settings that update the current configuration for the RStudioServerPro Domain-level app.
@@ -932,6 +1265,21 @@ components:
       required:
         - Type
         - Value
+    RollingUpdatePolicy:
+      type: object
+      additionalProperties: false
+      properties:
+        MaximumExecutionTimeoutInSeconds:
+          type: integer
+        MaximumBatchSize:
+          $ref: '#/components/schemas/CapacitySize'
+        WaitIntervalInSeconds:
+          type: integer
+        RollbackMaximumBatchSize:
+          $ref: '#/components/schemas/CapacitySize'
+      required:
+        - MaximumBatchSize
+        - WaitIntervalInSeconds
     Alarm:
       type: object
       additionalProperties: false
@@ -957,10 +1305,10 @@ components:
       properties:
         AutoRollbackConfiguration:
           $ref: '#/components/schemas/AutoRollbackConfig'
+        RollingUpdatePolicy:
+          $ref: '#/components/schemas/RollingUpdatePolicy'
         BlueGreenUpdatePolicy:
           $ref: '#/components/schemas/BlueGreenUpdatePolicy'
-      required:
-        - BlueGreenUpdatePolicy
     BlueGreenUpdatePolicy:
       type: object
       additionalProperties: false
@@ -1023,10 +1371,29 @@ components:
       x-stackql-resource-name: endpoint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - EndpointName
+      x-read-only-properties:
+        - Id
+    ManagedInstanceScaling:
+      type: object
+      additionalProperties: false
+      properties:
+        Status:
+          type: string
+        MaxInstanceCount:
+          type: integer
+        MinInstanceCount:
+          type: integer
     AsyncInferenceNotificationConfig:
       type: object
       additionalProperties: false
       properties:
+        IncludeInferenceResponseIn:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
         SuccessTopic:
           type: string
         ErrorTopic:
@@ -1038,8 +1405,8 @@ components:
       type: object
       additionalProperties: false
       properties:
-        ModelDataDownloadTimeoutInSeconds:
-          type: integer
+        ManagedInstanceScaling:
+          $ref: '#/components/schemas/ManagedInstanceScaling'
         ModelName:
           type: string
         VolumeSizeInGB:
@@ -1048,22 +1415,24 @@ components:
           type: boolean
         VariantName:
           type: string
-        ContainerStartupHealthCheckTimeoutInSeconds:
-          type: integer
         InitialInstanceCount:
+          type: integer
+        RoutingConfig:
+          $ref: '#/components/schemas/RoutingConfig'
+        AcceleratorType:
+          type: string
+        InitialVariantWeight:
+          type: number
+        ModelDataDownloadTimeoutInSeconds:
+          type: integer
+        ContainerStartupHealthCheckTimeoutInSeconds:
           type: integer
         ServerlessConfig:
           $ref: '#/components/schemas/ServerlessConfig'
         InstanceType:
           type: string
-        AcceleratorType:
-          type: string
-        InitialVariantWeight:
-          type: number
       required:
-        - ModelName
         - VariantName
-        - InitialVariantWeight
     ClarifyInferenceConfig:
       type: object
       additionalProperties: false
@@ -1133,6 +1502,12 @@ components:
             pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*/[a-zA-Z0-9](-*[a-zA-Z0-9.])*
             minLength: 1
             maxLength: 256
+    RoutingConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        RoutingStrategy:
+          type: string
     ClarifyTextConfig:
       type: object
       additionalProperties: false
@@ -1201,6 +1576,8 @@ components:
           type: integer
         MemorySizeInMB:
           type: integer
+        ProvisionedConcurrency:
+          type: integer
       required:
         - MaxConcurrency
         - MemorySizeInMB
@@ -1250,8 +1627,8 @@ components:
           type: string
         S3OutputPath:
           type: string
-      required:
-        - S3OutputPath
+        S3FailurePath:
+          type: string
     EndpointConfig:
       type: object
       properties:
@@ -1262,6 +1639,10 @@ components:
             $ref: '#/components/schemas/ProductionVariant'
         DataCaptureConfig:
           $ref: '#/components/schemas/DataCaptureConfig'
+        ExecutionRoleArn:
+          type: string
+        EnableNetworkIsolation:
+          type: boolean
         ProductionVariants:
           type: array
           uniqueItems: false
@@ -1271,6 +1652,8 @@ components:
           type: string
         AsyncInferenceConfig:
           $ref: '#/components/schemas/AsyncInferenceConfig'
+        VpcConfig:
+          $ref: '#/components/schemas/VpcConfig'
         EndpointConfigName:
           type: string
         ExplainerConfig:
@@ -1286,6 +1669,19 @@ components:
         - ProductionVariants
       x-stackql-resource-name: endpoint_config
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - KmsKeyId
+        - AsyncInferenceConfig
+        - ExecutionRoleArn
+        - ShadowProductionVariants
+        - EnableNetworkIsolation
+        - ProductionVariants
+        - DataCaptureConfig
+        - ExplainerConfig
+        - EndpointConfigName
+        - VpcConfig
+      x-read-only-properties:
         - Id
     FeatureDefinition:
       type: object
@@ -1308,6 +1704,32 @@ components:
     KmsKeyId:
       type: string
       maxLength: 2048
+    StorageType:
+      type: string
+      enum:
+        - Standard
+        - InMemory
+    TtlDuration:
+      type: object
+      description: TTL configuration of the feature group
+      additionalProperties: false
+      properties:
+        Unit:
+          $ref: '#/components/schemas/Unit'
+        Value:
+          $ref: '#/components/schemas/Value'
+    Unit:
+      type: string
+      description: Unit of ttl configuration
+      enum:
+        - Seconds
+        - Minutes
+        - Hours
+        - Days
+        - Weeks
+    Value:
+      type: integer
+      description: Value of ttl configuration
     OnlineStoreSecurityConfig:
       type: object
       additionalProperties: false
@@ -1355,6 +1777,26 @@ components:
       enum:
         - Iceberg
         - Glue
+    ThroughputMode:
+      type: string
+      description: Throughput mode configuration of the feature group
+      enum:
+        - OnDemand
+        - Provisioned
+    ThroughputConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        ThroughputMode:
+          $ref: '#/components/schemas/ThroughputMode'
+        ProvisionedReadCapacityUnits:
+          type: integer
+          description: For provisioned feature groups with online store enabled, this indicates the read throughput you are billed for and can consume without throttling.
+        ProvisionedWriteCapacityUnits:
+          type: integer
+          description: For provisioned feature groups, this indicates the write throughput you are billed for and can consume without throttling.
+      required:
+        - ThroughputMode
     FeatureGroup:
       type: object
       properties:
@@ -1380,6 +1822,7 @@ components:
           type: array
           description: An Array of Feature Definition
           uniqueItems: false
+          x-insertionOrder: false
           minItems: 1
           maxItems: 2500
           items:
@@ -1392,6 +1835,10 @@ components:
               $ref: '#/components/schemas/OnlineStoreSecurityConfig'
             EnableOnlineStore:
               type: boolean
+            StorageType:
+              $ref: '#/components/schemas/StorageType'
+            TtlDuration:
+              $ref: '#/components/schemas/TtlDuration'
         OfflineStoreConfig:
           type: object
           additionalProperties: false
@@ -1406,6 +1853,8 @@ components:
               $ref: '#/components/schemas/TableFormat'
           required:
             - S3StorageConfig
+        ThroughputConfig:
+          $ref: '#/components/schemas/ThroughputConfig'
         RoleArn:
           type: string
           description: Role Arn
@@ -1416,10 +1865,17 @@ components:
           type: string
           description: Description about the FeatureGroup.
           maxLength: 128
+        CreationTime:
+          description: A timestamp of FeatureGroup creation time.
+          type: string
+        FeatureGroupStatus:
+          description: The status of the feature group.
+          type: string
         Tags:
           type: array
           description: An array of key-value pair to apply to this resource.
           uniqueItems: false
+          x-insertionOrder: false
           maxItems: 50
           items:
             $ref: '#/components/schemas/Tag'
@@ -1431,6 +1887,47 @@ components:
       x-stackql-resource-name: feature_group
       x-stackql-primaryIdentifier:
         - FeatureGroupName
+      x-create-only-properties:
+        - FeatureGroupName
+        - RecordIdentifierFeatureName
+        - EventTimeFeatureName
+        - OnlineStoreConfig/SecurityConfig
+        - OnlineStoreConfig/EnableOnlineStore
+        - OnlineStoreConfig/StorageType
+        - OfflineStoreConfig
+        - RoleArn
+        - Description
+        - Tags
+      x-read-only-properties:
+        - CreationTime
+        - FeatureGroupStatus
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - glue:CreateTable
+          - glue:GetTable
+          - glue:CreateDatabase
+          - glue:GetDatabase
+          - sagemaker:CreateFeatureGroup
+          - sagemaker:DescribeFeatureGroup
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+        update:
+          - sagemaker:UpdateFeatureGroup
+          - sagemaker:DescribeFeatureGroup
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+          - sagemaker:DeleteTags
+        read:
+          - sagemaker:DescribeFeatureGroup
+          - sagemaker:ListTags
+        delete:
+          - sagemaker:DeleteFeatureGroup
+          - sagemaker:DescribeFeatureGroup
+        list:
+          - sagemaker:ListFeatureGroups
     ImageName:
       type: string
       description: The name of the image this version belongs to.
@@ -1442,7 +1939,7 @@ components:
       description: The Amazon Resource Name (ARN) of the parent image.
       minLength: 1
       maxLength: 256
-      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image\/[a-z0-9]([-.]?[a-z0-9])*$
+      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image\/[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*$
     ImageRoleArn:
       description: The Amazon Resource Name (ARN) of an IAM role that enables Amazon SageMaker to perform tasks on behalf of the customer.
       type: string
@@ -1476,7 +1973,6 @@ components:
           $ref: '#/components/schemas/ImageDescription'
         Tags:
           type: array
-          minItems: 1
           maxItems: 50
           description: An array of key-value pairs to apply to this resource.
           items:
@@ -1487,12 +1983,38 @@ components:
       x-stackql-resource-name: image
       x-stackql-primaryIdentifier:
         - ImageArn
+      x-create-only-properties:
+        - ImageName
+      x-read-only-properties:
+        - ImageArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateImage
+          - sagemaker:DescribeImage
+          - iam:PassRole
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+        read:
+          - sagemaker:DescribeImage
+          - sagemaker:ListTags
+        update:
+          - sagemaker:UpdateImage
+          - sagemaker:DescribeImage
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteImage
+          - sagemaker:DescribeImage
+        list:
+          - sagemaker:ListImages
     ImageVersionArn:
       type: string
       description: The Amazon Resource Name (ARN) of the image version.
       minLength: 1
       maxLength: 256
-      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image-version\/[a-z0-9]([-.]?[a-z0-9])*\/[0-9]+$
+      pattern: ^arn:aws(-[\w]+)*:sagemaker:[a-z0-9\-]*:[0-9]{12}:image-version\/[a-zA-Z0-9]([-.]?[a-zA-Z0-9])*\/[0-9]+$
     BaseImage:
       type: string
       description: The registry path of the container image on which this image version is based.
@@ -1500,15 +2022,67 @@ components:
       maxLength: 255
       pattern: .+
     ContainerImage:
+      description: The image to use for the container that will be materialized for the inference component
       type: string
-      description: The registry path of the container image that contains this image version.
-      minLength: 1
+      pattern: '[\S]+'
       maxLength: 255
-      pattern: .+
+    Alias:
+      type: string
+      description: The alias of the image version.
+      minLength: 1
+      maxLength: 128
+      pattern: (?!^[.-])^([a-zA-Z0-9-_.]+)$
+    Aliases:
+      type: array
+      description: List of aliases for the image version.
+      items:
+        $ref: '#/components/schemas/Alias'
     Version:
       type: integer
       description: The version number of the image version.
       minimum: 1
+    VendorGuidance:
+      type: string
+      description: The availability of the image version specified by the maintainer.
+      enum:
+        - NOT_PROVIDED
+        - STABLE
+        - TO_BE_ARCHIVED
+        - ARCHIVED
+    JobType:
+      type: string
+      description: Indicates SageMaker job type compatibility.
+      enum:
+        - TRAINING
+        - INFERENCE
+        - NOTEBOOK_KERNEL
+    MLFramework:
+      type: string
+      description: The machine learning framework vended in the image version.
+      pattern: ^[a-zA-Z]+ ?\d+\.\d+(\.\d+)?$
+      minLength: 1
+      maxLength: 128
+    ProgrammingLang:
+      type: string
+      description: The supported programming language and its version.
+      pattern: ^[a-zA-Z]+ ?\d+\.\d+(\.\d+)?$
+      minLength: 1
+      maxLength: 128
+    Processor:
+      type: string
+      description: Indicates CPU or GPU compatibility.
+      enum:
+        - CPU
+        - GPU
+    Horovod:
+      type: boolean
+      description: Indicates Horovod compatibility.
+    ReleaseNotes:
+      type: string
+      description: The maintainer description of the image version.
+      pattern: .*
+      minLength: 1
+      maxLength: 255
     ImageVersion:
       type: object
       properties:
@@ -1524,12 +2098,269 @@ components:
           $ref: '#/components/schemas/ContainerImage'
         Version:
           $ref: '#/components/schemas/Version'
+        Alias:
+          $ref: '#/components/schemas/Alias'
+        Aliases:
+          $ref: '#/components/schemas/Aliases'
+        VendorGuidance:
+          $ref: '#/components/schemas/VendorGuidance'
+        JobType:
+          $ref: '#/components/schemas/JobType'
+        MLFramework:
+          $ref: '#/components/schemas/MLFramework'
+        ProgrammingLang:
+          $ref: '#/components/schemas/ProgrammingLang'
+        Processor:
+          $ref: '#/components/schemas/Processor'
+        Horovod:
+          $ref: '#/components/schemas/Horovod'
+        ReleaseNotes:
+          $ref: '#/components/schemas/ReleaseNotes'
       required:
         - ImageName
         - BaseImage
       x-stackql-resource-name: image_version
       x-stackql-primaryIdentifier:
         - ImageVersionArn
+      x-create-only-properties:
+        - ImageName
+        - BaseImage
+      x-read-only-properties:
+        - ImageVersionArn
+        - ImageArn
+        - Version
+        - ContainerImage
+      x-required-permissions:
+        create:
+          - sagemaker:CreateImageVersion
+          - sagemaker:DescribeImageVersion
+        read:
+          - sagemaker:DescribeImageVersion
+        update:
+          - sagemaker:UpdateImageVersion
+          - sagemaker:DescribeImageVersion
+          - sagemaker:ListAliases
+        delete:
+          - sagemaker:DeleteImageVersion
+          - sagemaker:DescribeImageVersion
+        list:
+          - sagemaker:ListImageVersions
+    InferenceComponentArn:
+      description: The Amazon Resource Name (ARN) of the inference component
+      type: string
+      minLength: 1
+      maxLength: 256
+    InferenceComponentName:
+      description: The name of the inference component
+      type: string
+      pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
+      maxLength: 63
+    EndpointArn:
+      description: The Amazon Resource Name (ARN) of the endpoint the inference component is associated with
+      type: string
+      minLength: 1
+      maxLength: 256
+    VariantName:
+      description: The name of the endpoint variant the inference component is associated with
+      type: string
+      pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
+      maxLength: 63
+    FailureReason:
+      description: The failure reason if the inference component is in a failed state
+      type: string
+      maxLength: 63
+    ModelName:
+      description: The name of the model to use with the inference component
+      type: string
+      pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
+      maxLength: 63
+    Timestamp:
+      type: string
+    DeployedImage:
+      description: ''
+      type: object
+      additionalProperties: false
+      properties:
+        SpecifiedImage:
+          $ref: '#/components/schemas/ContainerImage'
+        ResolvedImage:
+          $ref: '#/components/schemas/ContainerImage'
+        ResolutionTime:
+          $ref: '#/components/schemas/Timestamp'
+    Url:
+      type: string
+      pattern: ^(https|s3)://([^/]+)/?(.*)$
+      maxLength: 1024
+    EnvironmentMap:
+      description: Environment variables to specify on the container
+      type: object
+      additionalProperties: false
+      maxProperties: 16
+      x-patternProperties:
+        ^[a-zA-Z_][a-zA-Z0-9_]{1,1024}$:
+          type: string
+          pattern: ^[\S\s]*$
+          maxLength: 1024
+    InferenceComponentContainerSpecification:
+      description: ''
+      type: object
+      additionalProperties: false
+      properties:
+        DeployedImage:
+          $ref: '#/components/schemas/DeployedImage'
+        Image:
+          $ref: '#/components/schemas/ContainerImage'
+        ArtifactUrl:
+          $ref: '#/components/schemas/Url'
+        Environment:
+          $ref: '#/components/schemas/EnvironmentMap'
+    StartupParameterTimeoutInSeconds:
+      type: integer
+      minimum: 60
+      maximum: 3600
+    InferenceComponentStartupParameters:
+      description: ''
+      type: object
+      additionalProperties: false
+      properties:
+        ModelDataDownloadTimeoutInSeconds:
+          $ref: '#/components/schemas/StartupParameterTimeoutInSeconds'
+        ContainerStartupHealthCheckTimeoutInSeconds:
+          $ref: '#/components/schemas/StartupParameterTimeoutInSeconds'
+    NumberOfCpuCores:
+      type: number
+      minimum: 0.25
+    NumberOfAcceleratorDevices:
+      type: number
+      minimum: 1
+    MemoryInMb:
+      type: integer
+      minimum: 128
+    InferenceComponentComputeResourceRequirements:
+      description: ''
+      type: object
+      additionalProperties: false
+      properties:
+        NumberOfCpuCoresRequired:
+          $ref: '#/components/schemas/NumberOfCpuCores'
+        NumberOfAcceleratorDevicesRequired:
+          $ref: '#/components/schemas/NumberOfAcceleratorDevices'
+        MinMemoryRequiredInMb:
+          $ref: '#/components/schemas/MemoryInMb'
+        MaxMemoryRequiredInMb:
+          $ref: '#/components/schemas/MemoryInMb'
+    InferenceComponentSpecification:
+      description: The specification for the inference component
+      type: object
+      additionalProperties: false
+      properties:
+        ModelName:
+          $ref: '#/components/schemas/ModelName'
+        Container:
+          $ref: '#/components/schemas/InferenceComponentContainerSpecification'
+        StartupParameters:
+          $ref: '#/components/schemas/InferenceComponentStartupParameters'
+        ComputeResourceRequirements:
+          $ref: '#/components/schemas/InferenceComponentComputeResourceRequirements'
+      required:
+        - ComputeResourceRequirements
+    InferenceComponentCopyCount:
+      description: The number of copies for the inference component
+      type: integer
+      minimum: 0
+    InferenceComponentRuntimeConfig:
+      description: The runtime config for the inference component
+      type: object
+      additionalProperties: false
+      properties:
+        CopyCount:
+          $ref: '#/components/schemas/InferenceComponentCopyCount'
+        DesiredCopyCount:
+          $ref: '#/components/schemas/InferenceComponentCopyCount'
+        CurrentCopyCount:
+          $ref: '#/components/schemas/InferenceComponentCopyCount'
+    InferenceComponentStatus:
+      type: string
+      enum:
+        - InService
+        - Creating
+        - Updating
+        - Failed
+        - Deleting
+    TagList:
+      type: array
+      maxItems: 50
+      description: An array of tags to apply to the resource
+      items:
+        $ref: '#/components/schemas/Tag'
+    InferenceComponent:
+      type: object
+      properties:
+        InferenceComponentArn:
+          $ref: '#/components/schemas/InferenceComponentArn'
+        InferenceComponentName:
+          $ref: '#/components/schemas/InferenceComponentName'
+        EndpointArn:
+          $ref: '#/components/schemas/EndpointArn'
+        EndpointName:
+          $ref: '#/components/schemas/EndpointName'
+        VariantName:
+          $ref: '#/components/schemas/VariantName'
+        FailureReason:
+          $ref: '#/components/schemas/FailureReason'
+        Specification:
+          $ref: '#/components/schemas/InferenceComponentSpecification'
+        RuntimeConfig:
+          $ref: '#/components/schemas/InferenceComponentRuntimeConfig'
+        InferenceComponentStatus:
+          $ref: '#/components/schemas/InferenceComponentStatus'
+        CreationTime:
+          $ref: '#/components/schemas/Timestamp'
+        LastModifiedTime:
+          $ref: '#/components/schemas/Timestamp'
+        Tags:
+          $ref: '#/components/schemas/TagList'
+      required:
+        - EndpointName
+        - VariantName
+        - Specification
+        - RuntimeConfig
+      x-stackql-resource-name: inference_component
+      x-stackql-primaryIdentifier:
+        - InferenceComponentArn
+      x-read-only-properties:
+        - InferenceComponentArn
+        - Specification/Container/DeployedImage
+        - RuntimeConfig/DesiredCopyCount
+        - RuntimeConfig/CurrentCopyCount
+        - CreationTime
+        - LastModifiedTime
+        - FailureReason
+        - InferenceComponentStatus
+      x-required-permissions:
+        create:
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+          - sagemaker:CreateInferenceComponent
+          - sagemaker:DescribeInferenceComponent
+        update:
+          - sagemaker:UpdateInferenceComponent
+          - sagemaker:UpdateInferenceComponentRuntimeConfig
+          - sagemaker:DescribeInferenceComponent
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+          - sagemaker:DeleteTags
+        delete:
+          - sagemaker:DescribeInferenceComponent
+          - sagemaker:DeleteInferenceComponent
+          - sagemaker:DeleteTags
+        read:
+          - sagemaker:DescribeInferenceComponent
+          - sagemaker:ListTags
+        list:
+          - sagemaker:ListInferenceComponents
+          - sagemaker:DescribeInferenceComponent
+          - sagemaker:ListTags
     EndpointMetadata:
       description: The metadata of the endpoint on which the inference experiment ran.
       type: object
@@ -1772,6 +2603,43 @@ components:
       x-stackql-resource-name: inference_experiment
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Type
+        - RoleArn
+        - EndpointName
+        - KmsKey
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModifiedTime
+        - EndpointMetadata
+        - Status
+      x-required-permissions:
+        create:
+          - sagemaker:CreateInferenceExperiment
+          - sagemaker:DescribeInferenceExperiment
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteInferenceExperiment
+          - sagemaker:DescribeInferenceExperiment
+          - sagemaker:StopInferenceExperiment
+          - sagemaker:ListTags
+        list:
+          - sagemaker:ListInferenceExperiments
+        read:
+          - sagemaker:DescribeInferenceExperiment
+          - sagemaker:ListTags
+        update:
+          - sagemaker:UpdateInferenceExperiment
+          - sagemaker:StartInferenceExperiment
+          - sagemaker:StopInferenceExperiment
+          - sagemaker:DescribeInferenceExperiment
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+          - sagemaker:ListTags
     ImageConfig:
       type: object
       additionalProperties: false
@@ -1782,6 +2650,14 @@ components:
           type: string
       required:
         - RepositoryAccessMode
+    ModelAccessConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        AcceptEula:
+          type: boolean
+      required:
+        - AcceptEula
     RepositoryAuthConfig:
       type: object
       additionalProperties: false
@@ -1790,6 +2666,26 @@ components:
           type: string
       required:
         - RepositoryCredentialsProviderArn
+    S3DataSource:
+      description: Describes the S3 data source.
+      type: object
+      additionalProperties: false
+      properties:
+        S3DataType:
+          description: The S3 Data Source Type
+          type: string
+          enum:
+            - ManifestFile
+            - S3Prefix
+            - AugmentedManifestFile
+        S3Uri:
+          description: Depending on the value specified for the S3DataType, identifies either a key name prefix or a manifest.
+          type: string
+          maxLength: 1024
+          pattern: ^(https|s3)://([^/]+)/?(.*)$
+      required:
+        - S3DataType
+        - S3Uri
     ContainerDefinition:
       type: object
       additionalProperties: false
@@ -1810,6 +2706,8 @@ components:
           type: string
         Image:
           type: string
+        ModelDataSource:
+          $ref: '#/components/schemas/ModelDataSource'
         MultiModelConfig:
           $ref: '#/components/schemas/MultiModelConfig'
     InferenceExecutionConfig:
@@ -1820,6 +2718,14 @@ components:
           type: string
       required:
         - Mode
+    ModelDataSource:
+      type: object
+      additionalProperties: false
+      properties:
+        S3DataSource:
+          $ref: '#/components/schemas/S3DataSource'
+      required:
+        - S3DataSource
     MultiModelConfig:
       type: object
       additionalProperties: false
@@ -1853,10 +2759,18 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
-      required:
-        - ExecutionRoleArn
       x-stackql-resource-name: model
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - ExecutionRoleArn
+        - EnableNetworkIsolation
+        - InferenceExecutionConfig
+        - PrimaryContainer
+        - ModelName
+        - VpcConfig
+        - Containers
+      x-read-only-properties:
         - Id
     ModelBiasBaselineConfig:
       type: object
@@ -1976,6 +2890,34 @@ components:
       x-stackql-resource-name: model_bias_job_definition
       x-stackql-primaryIdentifier:
         - JobDefinitionArn
+      x-create-only-properties:
+        - JobDefinitionName
+        - ModelBiasAppSpecification
+        - ModelBiasBaselineConfig
+        - ModelBiasJobInput
+        - ModelBiasJobOutputConfig
+        - JobResources
+        - NetworkConfig
+        - RoleArn
+        - StoppingCondition
+        - Tags
+        - EndpointName
+      x-read-only-properties:
+        - CreationTime
+        - JobDefinitionArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateModelBiasJobDefinition
+          - sagemaker:DescribeModelBiasJobDefinition
+          - iam:PassRole
+          - sagemaker:AddTags
+        delete:
+          - sagemaker:DeleteModelBiasJobDefinition
+        read:
+          - sagemaker:DescribeModelBiasJobDefinition
+        list:
+          - sagemaker:ListModelBiasJobDefinitions
+          - sagemaker:ListTags
     SecurityConfig:
       type: object
       description: |+
@@ -1989,19 +2931,22 @@ components:
           maxLength: 2048
           pattern: .*
     UserContext:
+      description: Information about the user who created or modified an experiment, trial, trial component, lineage group, project, or model card.
       type: object
       additionalProperties: false
-      description: Information about the user who created or modified an experiment, trial, trial component, lineage group, or project.
       properties:
-        DomainId:
-          type: string
-          description: The domain associated with the user.
         UserProfileArn:
-          type: string
           description: The Amazon Resource Name (ARN) of the user's profile.
-        UserProfileName:
           type: string
+          default: UnsetValue
+        UserProfileName:
           description: The name of the user's profile.
+          type: string
+          default: UnsetValue
+        DomainId:
+          description: The domain associated with the user.
+          type: string
+          default: UnsetValue
     Content:
       type: object
       description: The content of the model card.
@@ -2009,6 +2954,8 @@ components:
       properties:
         ModelOverview:
           $ref: '#/components/schemas/ModelOverview'
+        ModelPackageDetails:
+          $ref: '#/components/schemas/ModelPackageDetails'
         IntendedUses:
           $ref: '#/components/schemas/IntendedUses'
         BusinessDetails:
@@ -2077,6 +3024,69 @@ components:
               items:
                 type: string
                 maxLength: 1024
+    ModelPackageDetails:
+      description: Metadata information related to model package version
+      type: object
+      additionalProperties: false
+      properties:
+        ModelPackageDescription:
+          description: A brief summary of the model package
+          type: string
+          maxLength: 1024
+        ModelPackageArn:
+          description: The Amazon Resource Name (ARN) of the model package
+          type: string
+          minLength: 1
+          maxLength: 2048
+        CreatedBy:
+          description: Information about the user who created model package.
+          $ref: '#/components/schemas/ModelPackageCreator'
+        ModelPackageStatus:
+          description: Current status of model package
+          type: string
+          enum:
+            - Pending
+            - InProgress
+            - Completed
+            - Failed
+            - Deleting
+        ModelApprovalStatus:
+          description: Current approval status of model package
+          type: string
+          enum:
+            - Approved
+            - Rejected
+            - PendingManualApproval
+        ApprovalDescription:
+          description: A description provided for the model approval
+          type: string
+          maxLength: 1024
+        ModelPackageGroupName:
+          description: If the model is a versioned model, the name of the model group that the versioned model belongs to.
+          type: string
+          minLength: 1
+          maxLength: 63
+        ModelPackageName:
+          description: Name of the model package
+          type: string
+          minLength: 1
+          maxLength: 63
+        ModelPackageVersion:
+          description: Version of the model package
+          type: number
+          minimum: 1
+        Domain:
+          description: The machine learning domain of the model package you specified. Common machine learning domains include computer vision and natural language processing.
+          type: string
+        Task:
+          description: The machine learning task you specified that your model package accomplishes. Common machine learning tasks include object detection and image classification.
+          type: string
+        SourceAlgorithms:
+          description: A list of algorithms that were used to create a model package.
+          $ref: '#/components/schemas/SourceAlgorithms'
+        InferenceSpecification:
+          description: Details about inference jobs that can be run with models based on this model package.
+          $ref: '#/components/schemas/InferenceSpecification'
     IntendedUses:
       description: Intended usage of model.
       type: object
@@ -2260,6 +3270,99 @@ components:
             '[a-zA-Z_][a-zA-Z0-9_]*':
               type: string
               maxLength: 1024
+    ModelPackageCreator:
+      type: object
+      additionalProperties: false
+      properties:
+        UserProfileName:
+          description: The name of the user's profile in Studio
+          type: string
+          maxLength: 63
+    SourceAlgorithms:
+      type: array
+      minItems: 1
+      maxItems: 1
+      x-insertionOrder: true
+      items:
+        $ref: '#/components/schemas/SourceAlgorithm'
+    SourceAlgorithm:
+      description: Specifies an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+      type: object
+      additionalProperties: false
+      properties:
+        AlgorithmName:
+          description: The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
+          type: string
+          minLength: 1
+          maxLength: 170
+          pattern: (arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:[a-z\-]*\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$
+        ModelDataUrl:
+          description: The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix).
+          type: string
+          maxLength: 1024
+          pattern: ^(https|s3)://([^/]+)/?(.*)$
+      required:
+        - AlgorithmName
+    InferenceSpecification:
+      description: Details about inference jobs that can be run with models based on this model package.
+      type: object
+      additionalProperties: false
+      properties:
+        Containers:
+          description: The Amazon ECR registry path of the Docker image that contains the inference code.
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/ModelPackageContainerDefinition'
+          minItems: 1
+          maxItems: 15
+          x-insertionOrder: true
+        SupportedContentTypes:
+          description: The supported MIME types for the input data.
+          type: array
+          items:
+            $ref: '#/components/schemas/ContentType'
+          x-insertionOrder: true
+        SupportedRealtimeInferenceInstanceTypes:
+          description: A list of the instance types that are used to generate inferences in real-time
+          type: array
+          items:
+            $ref: '#/components/schemas/InferenceInstanceType'
+          x-insertionOrder: true
+        SupportedResponseMIMETypes:
+          description: The supported MIME types for the output data.
+          type: array
+          items:
+            $ref: '#/components/schemas/ResponseMIMEType'
+          x-insertionOrder: true
+        SupportedTransformInstanceTypes:
+          description: A list of the instance types on which a transformation job can be run or on which an endpoint can be deployed.
+          type: array
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/TransformInstanceType'
+          x-insertionOrder: true
+      required:
+        - Containers
+        - SupportedContentTypes
+        - SupportedResponseMIMETypes
+    Container:
+      type: object
+      additionalProperties: false
+      required:
+        - Image
+      properties:
+        ModelDataUrl:
+          description: The Amazon S3 path where the model artifacts, which result from model training, are stored.
+          type: string
+          maxLength: 1024
+        Image:
+          description: Inference environment path. The Amazon EC2 Container Registry (Amazon ECR) path where inference code is stored.
+          type: string
+          maxLength: 255
+        NearestModelName:
+          description: The name of a pre-trained machine learning benchmarked by Amazon SageMaker Inference Recommender model that matches your model.
+          type: string
     RiskRating:
       description: Risk rating of model.
       type: string
@@ -2353,7 +3456,6 @@ components:
                 minItems: 2
                 maxItems: 2
               minItems: 1
-              maxItems: 20
         XAxisName:
           $ref: '#/components/schemas/AxisNameString'
         YAxisName:
@@ -2383,7 +3485,6 @@ components:
               items:
                 type: number
               minItems: 1
-              maxItems: 20
         XAxisName:
           $ref: '#/components/schemas/AxisNameArray'
         YAxisName:
@@ -2532,6 +3633,58 @@ components:
       x-stackql-resource-name: model_card
       x-stackql-primaryIdentifier:
         - ModelCardName
+      x-create-only-properties:
+        - ModelCardName
+        - SecurityConfig
+      x-read-only-properties:
+        - ModelCardArn
+        - ModelCardVersion
+        - CreatedBy/DomainId
+        - CreatedBy/UserProfileArn
+        - CreatedBy/UserProfileName
+        - LastModifiedBy/DomainId
+        - LastModifiedBy/UserProfileArn
+        - LastModifiedBy/UserProfileName
+        - CreationTime
+        - LastModifiedTime
+        - ModelCardProcessingStatus
+      x-required-permissions:
+        create:
+          - sagemaker:CreateModelCard
+          - kms:DescribeKey
+          - kms:GenerateDataKey
+          - kms:CreateGrant
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:DescribeModelPackage
+          - sagemaker:AddTags
+        read:
+          - sagemaker:DescribeModelCard
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:DescribeModelPackage
+          - kms:Decrypt
+          - sagemaker:ListTags
+        update:
+          - sagemaker:UpdateModelCard
+          - sagemaker:DescribeModelCard
+          - kms:GenerateDataKey
+          - kms:Decrypt
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:DescribeModelPackage
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+        delete:
+          - sagemaker:DescribeModelCard
+          - sagemaker:DeleteModelCard
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:DescribeModelPackage
+          - kms:RetireGrant
+          - kms:Decrypt
+          - sagemaker:ListTags
+          - sagemaker:DeleteTags
+        list:
+          - sagemaker:ListModelCards
+          - sagemaker:ListModelCardVersions
     ModelExplainabilityBaselineConfig:
       type: object
       additionalProperties: false
@@ -2628,6 +3781,34 @@ components:
       x-stackql-resource-name: model_explainability_job_definition
       x-stackql-primaryIdentifier:
         - JobDefinitionArn
+      x-create-only-properties:
+        - JobDefinitionName
+        - ModelExplainabilityAppSpecification
+        - ModelExplainabilityBaselineConfig
+        - ModelExplainabilityJobInput
+        - ModelExplainabilityJobOutputConfig
+        - JobResources
+        - NetworkConfig
+        - RoleArn
+        - StoppingCondition
+        - Tags
+        - EndpointName
+      x-read-only-properties:
+        - CreationTime
+        - JobDefinitionArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateModelExplainabilityJobDefinition
+          - sagemaker:DescribeModelExplainabilityJobDefinition
+          - iam:PassRole
+          - sagemaker:AddTags
+        delete:
+          - sagemaker:DeleteModelExplainabilityJobDefinition
+        read:
+          - sagemaker:DescribeModelExplainabilityJobDefinition
+        list:
+          - sagemaker:ListModelExplainabilityJobDefinitions
+          - sagemaker:ListTags
     AdditionalInferenceSpecifications:
       type: array
       minItems: 1
@@ -2824,49 +4005,6 @@ components:
           pattern: ^(https|s3)://([^/]+)/?(.*)$
       required:
         - S3Uri
-    InferenceSpecification:
-      description: Details about inference jobs that can be run with models based on this model package.
-      type: object
-      additionalProperties: false
-      properties:
-        Containers:
-          description: The Amazon ECR registry path of the Docker image that contains the inference code.
-          type: array
-          uniqueItems: true
-          items:
-            $ref: '#/components/schemas/ModelPackageContainerDefinition'
-          minItems: 1
-          maxItems: 15
-          x-insertionOrder: true
-        SupportedContentTypes:
-          description: The supported MIME types for the input data.
-          type: array
-          items:
-            $ref: '#/components/schemas/ContentType'
-          x-insertionOrder: true
-        SupportedRealtimeInferenceInstanceTypes:
-          description: A list of the instance types that are used to generate inferences in real-time
-          type: array
-          items:
-            $ref: '#/components/schemas/InferenceInstanceType'
-          x-insertionOrder: true
-        SupportedResponseMIMETypes:
-          description: The supported MIME types for the output data.
-          type: array
-          items:
-            $ref: '#/components/schemas/ResponseMIMEType'
-          x-insertionOrder: true
-        SupportedTransformInstanceTypes:
-          description: A list of the instance types on which a transformation job can be run or on which an endpoint can be deployed.
-          type: array
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/TransformInstanceType'
-          x-insertionOrder: true
-      required:
-        - Containers
-        - SupportedContentTypes
-        - SupportedResponseMIMETypes
     Environment:
       type: object
       description: Sets the environment variables in the Docker container
@@ -2919,11 +4057,6 @@ components:
           description: A structure with Model Input details.
           pattern: ^(https|s3)://([^/]+)/?(.*)$
           maxLength: 1024
-        ProductId:
-          type: string
-          description: The AWS Marketplace product ID of the model package.
-          pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
-          maxLength: 256
         Framework:
           type: string
           description: The machine learning framework of the model package container image.
@@ -2970,6 +4103,12 @@ components:
         - Approved
         - Rejected
         - PendingManualApproval
+    SkipModelValidation:
+      type: string
+      description: Indicates if you want to skip model validation.
+      enum:
+        - None
+        - All
     ModelMetrics:
       description: A structure that contains model metrics reports.
       type: object
@@ -3053,24 +4192,6 @@ components:
       required:
         - SourceAlgorithms
       x-insertionOrder: true
-    SourceAlgorithm:
-      description: Specifies an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
-      type: object
-      additionalProperties: false
-      properties:
-        AlgorithmName:
-          description: The name of an algorithm that was used to create the model package. The algorithm must be either an algorithm resource in your Amazon SageMaker account or an algorithm in AWS Marketplace that you are subscribed to.
-          type: string
-          minLength: 1
-          maxLength: 170
-          pattern: (arn:aws[a-z\-]*:sagemaker:[a-z0-9\-]*:[0-9]{12}:[a-z\-]*\/)?([a-zA-Z0-9]([a-zA-Z0-9-]){0,62})(?<!-)$
-        ModelDataUrl:
-          description: The Amazon S3 path where the model artifacts, which result from model training, are stored. This path must point to a single gzip compressed tar archive (.tar.gz suffix).
-          type: string
-          maxLength: 1024
-          pattern: ^(https|s3)://([^/]+)/?(.*)$
-      required:
-        - AlgorithmName
     ValidationSpecification:
       description: Specifies configurations for one or more transform jobs that Amazon SageMaker runs to test the model package.
       type: object
@@ -3177,26 +4298,6 @@ components:
           $ref: '#/components/schemas/S3DataSource'
       required:
         - S3DataSource
-    S3DataSource:
-      description: Describes the S3 data source.
-      type: object
-      additionalProperties: false
-      properties:
-        S3DataType:
-          description: The S3 Data Source Type
-          type: string
-          enum:
-            - ManifestFile
-            - S3Prefix
-            - AugmentedManifestFile
-        S3Uri:
-          description: Depending on the value specified for the S3DataType, identifies either a key name prefix or a manifest.
-          type: string
-          maxLength: 1024
-          pattern: ^(https|s3)://([^/]+)/?(.*)$
-      required:
-        - S3DataType
-        - S3Uri
     TransformOutput:
       description: Describes the results of a transform job.
       type: object
@@ -3256,13 +4357,9 @@ components:
       type: string
       maxLength: 1024
       pattern: .*
-    CreatedBy:
-      $ref: '#/components/schemas/UserContext'
     CreationTime:
       description: The time at which the model package was created.
       type: string
-    LastModifiedBy:
-      $ref: '#/components/schemas/UserContext'
     LastModifiedTime:
       description: The time at which the model package was last modified.
       type: string
@@ -3279,18 +4376,11 @@ components:
       description: Details about the current status of the model package.
       type: object
       properties:
-        ImageScanStatuses:
-          type: array
-          items:
-            $ref: '#/components/schemas/ModelPackageStatusItem'
-          x-insertionOrder: true
         ValidationStatuses:
           type: array
           items:
             $ref: '#/components/schemas/ModelPackageStatusItem'
           x-insertionOrder: true
-      required:
-        - ValidationStatuses
       additionalProperties: false
     ModelPackageStatusItem:
       description: Represents the overall status of a model package.
@@ -3335,8 +4425,6 @@ components:
             $ref: '#/components/schemas/Tag'
         AdditionalInferenceSpecifications:
           $ref: '#/components/schemas/AdditionalInferenceSpecifications'
-        AdditionalInferenceSpecificationDefinition:
-          $ref: '#/components/schemas/AdditionalInferenceSpecificationDefinition'
         CertifyForMarketplace:
           $ref: '#/components/schemas/CertifyForMarketplace'
         ClientToken:
@@ -3363,6 +4451,8 @@ components:
           $ref: '#/components/schemas/ModelPackageName'
         SamplePayloadUrl:
           $ref: '#/components/schemas/SamplePayloadUrl'
+        SkipModelValidation:
+          $ref: '#/components/schemas/SkipModelValidation'
         SourceAlgorithmSpecification:
           $ref: '#/components/schemas/SourceAlgorithmSpecification'
         Task:
@@ -3375,8 +4465,6 @@ components:
           $ref: '#/components/schemas/ApprovalDescription'
         CreationTime:
           $ref: '#/components/schemas/CreationTime'
-        LastModifiedBy:
-          $ref: '#/components/schemas/LastModifiedBy'
         LastModifiedTime:
           $ref: '#/components/schemas/LastModifiedTime'
         ModelPackageStatus:
@@ -3387,15 +4475,56 @@ components:
           $ref: '#/components/schemas/AdditionalInferenceSpecifications'
         ModelPackageStatusDetails:
           $ref: '#/components/schemas/ModelPackageStatusDetails'
-        ModelPackageStatusItem:
-          $ref: '#/components/schemas/ModelPackageStatusItem'
-        CreatedBy:
-          $ref: '#/components/schemas/CreatedBy'
-        Environment:
-          $ref: '#/components/schemas/Environment'
       x-stackql-resource-name: model_package
       x-stackql-primaryIdentifier:
         - ModelPackageArn
+      x-create-only-properties:
+        - ModelPackageGroupName
+        - ModelPackageDescription
+        - InferenceSpecification
+        - ValidationSpecification
+        - SourceAlgorithmSpecification
+        - MetadataProperties
+        - ModelMetrics
+        - ClientToken
+        - DriftCheckBaselines
+        - Domain
+        - Task
+        - SamplePayloadUrl
+      x-read-only-properties:
+        - ModelPackageArn
+        - CreationTime
+        - ModelPackageStatus
+      x-required-permissions:
+        create:
+          - ecr:BatchGetImage
+          - ecr:DescribeImages
+          - ecr:StartImageScan
+          - ecr:DescribeImageScanFindings
+          - sagemaker:AddTags
+          - sagemaker:CreateModel
+          - sagemaker:CreateModelPackage
+          - sagemaker:CreateTrainingJob
+          - sagemaker:CreateTransformJob
+          - sagemaker:DescribeTransformJob
+          - sagemaker:DescribeModelPackage
+          - sagemaker:ListTags
+          - iam:PassRole
+          - s3:GetObject
+        read:
+          - sagemaker:DescribeModelPackage
+          - sagemaker:ListTags
+        update:
+          - sagemaker:UpdateModelPackage
+          - sagemaker:DescribeModelPackage
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+        delete:
+          - sagemaker:DeleteModelPackage
+          - sagemaker:DescribeModelPackage
+        list:
+          - sagemaker:ListModelPackages
     ModelPackageGroupDescription:
       type: string
       description: The description of the model package group.
@@ -3442,6 +4571,41 @@ components:
       x-stackql-resource-name: model_package_group
       x-stackql-primaryIdentifier:
         - ModelPackageGroupArn
+      x-create-only-properties:
+        - ModelPackageGroupName
+        - ModelPackageGroupDescription
+      x-read-only-properties:
+        - ModelPackageGroupArn
+        - CreationTime
+        - ModelPackageGroupStatus
+      x-required-permissions:
+        create:
+          - sagemaker:CreateModelPackageGroup
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:GetModelPackageGroupPolicy
+          - sagemaker:PutModelPackageGroupPolicy
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+        delete:
+          - sagemaker:DeleteModelPackageGroup
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:GetModelPackageGroupPolicy
+          - sagemaker:DeleteModelPackageGroupPolicy
+        list:
+          - sagemaker:ListModelPackageGroups
+        read:
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:GetModelPackageGroupPolicy
+          - sagemaker:PutModelPackageGroupPolicy
+          - sagemaker:ListTags
+        update:
+          - sagemaker:DescribeModelPackageGroup
+          - sagemaker:GetModelPackageGroupPolicy
+          - sagemaker:DeleteModelPackageGroupPolicy
+          - sagemaker:PutModelPackageGroupPolicy
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
     ModelQualityBaselineConfig:
       type: object
       additionalProperties: false
@@ -3570,6 +4734,34 @@ components:
       x-stackql-resource-name: model_quality_job_definition
       x-stackql-primaryIdentifier:
         - JobDefinitionArn
+      x-create-only-properties:
+        - JobDefinitionName
+        - ModelQualityAppSpecification
+        - ModelQualityBaselineConfig
+        - ModelQualityJobInput
+        - ModelQualityJobOutputConfig
+        - JobResources
+        - NetworkConfig
+        - RoleArn
+        - StoppingCondition
+        - Tags
+        - EndpointName
+      x-read-only-properties:
+        - CreationTime
+        - JobDefinitionArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateModelQualityJobDefinition
+          - sagemaker:DescribeModelQualityJobDefinition
+          - sagemaker:AddTags
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteModelQualityJobDefinition
+        read:
+          - sagemaker:DescribeModelQualityJobDefinition
+        list:
+          - sagemaker:ListModelQualityJobDefinitions
+          - sagemaker:ListTags
     MonitoringScheduleConfig:
       type: object
       additionalProperties: false
@@ -3707,12 +4899,24 @@ components:
       description: Configuration details about the monitoring schedule.
       properties:
         ScheduleExpression:
-          description: A cron expression that describes details about the monitoring schedule.
+          description: A cron expression or 'NOW' that describes details about the monitoring schedule.
           type: string
           minLength: 1
           maxLength: 256
+        DataAnalysisStartTime:
+          description: Data Analysis start time, e.g. -PT1H
+          $ref: '#/components/schemas/DataAnalysisTimeString'
+        DataAnalysisEndTime:
+          description: Data Analysis end time, e.g. PT0H
+          $ref: '#/components/schemas/DataAnalysisTimeString'
       required:
         - ScheduleExpression
+    DataAnalysisTimeString:
+      type: string
+      description: Analysis time in ISO duration format
+      pattern: ^.?P.*
+      minLength: 1
+      maxLength: 15
     MonitoringExecutionSummary:
       description: Summary of information about monitoring job
       type: object
@@ -3809,6 +5013,27 @@ components:
       x-stackql-resource-name: monitoring_schedule
       x-stackql-primaryIdentifier:
         - MonitoringScheduleArn
+      x-create-only-properties:
+        - MonitoringScheduleName
+      x-read-only-properties:
+        - MonitoringScheduleArn
+        - CreationTime
+        - LastModifiedTime
+      x-required-permissions:
+        create:
+          - sagemaker:CreateMonitoringSchedule
+          - sagemaker:DescribeMonitoringSchedule
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteMonitoringSchedule
+          - sagemaker:DescribeMonitoringSchedule
+        list:
+          - sagemaker:ListMonitoringSchedule
+        read:
+          - sagemaker:DescribeMonitoringSchedule
+        update:
+          - sagemaker:UpdateMonitoringSchedule
+          - sagemaker:DescribeMonitoringSchedule
     InstanceMetadataServiceConfiguration:
       type: object
       additionalProperties: false
@@ -3872,6 +5097,15 @@ components:
       x-stackql-resource-name: notebook_instance
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - KmsKeyId
+        - NotebookInstanceName
+        - SecurityGroupIds
+        - SubnetId
+        - DirectInternetAccess
+        - PlatformIdentifier
+      x-read-only-properties:
+        - Id
     NotebookInstanceLifecycleHook:
       type: object
       additionalProperties: false
@@ -3897,6 +5131,10 @@ components:
             $ref: '#/components/schemas/NotebookInstanceLifecycleHook'
       x-stackql-resource-name: notebook_instance_lifecycle_config
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - NotebookInstanceLifecycleConfigName
+      x-read-only-properties:
         - Id
     S3Location:
       type: object
@@ -3981,6 +5219,31 @@ components:
       x-stackql-resource-name: pipeline
       x-stackql-primaryIdentifier:
         - PipelineName
+      x-create-only-properties:
+        - PipelineName
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - s3:GetObject
+          - sagemaker:CreatePipeline
+          - sagemaker:DescribePipeline
+          - sagemaker:AddTags
+          - sagemaker:ListTags
+        read:
+          - sagemaker:DescribePipeline
+          - sagemaker:ListTags
+        update:
+          - iam:PassRole
+          - s3:GetObject
+          - sagemaker:UpdatePipeline
+          - sagemaker:DescribePipeline
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+          - sagemaker:ListTags
+        delete:
+          - sagemaker:DeletePipeline
+        list:
+          - sagemaker:ListPipelines
     ProjectDescription:
       type: string
       description: The description of the project.
@@ -4104,6 +5367,63 @@ components:
       x-stackql-resource-name: project
       x-stackql-primaryIdentifier:
         - ProjectArn
+      x-create-only-properties:
+        - ProjectName
+        - ProjectDescription
+        - ServiceCatalogProvisioningDetails
+        - Tags
+      x-read-only-properties:
+        - ProjectArn
+        - CreationTime
+        - ProjectId
+        - ProjectStatus
+      x-required-permissions:
+        create:
+          - sagemaker:AddTags
+          - sagemaker:CreateProject
+          - sagemaker:DescribeProject
+          - sagemaker:ListTags
+          - servicecatalog:DescribeProduct
+          - servicecatalog:DescribeProvisioningArtifact
+          - servicecatalog:ProvisionProduct
+          - servicecatalog:DescribeProvisionedProduct
+          - servicecatalog:TerminateProvisionedProduct
+        read:
+          - sagemaker:DescribeProject
+          - sagemaker:ListTags
+        update:
+          - sagemaker:DescribeProject
+          - sagemaker:ListTags
+          - sagemaker:AddTags
+          - sagemaker:DeleteTags
+        delete:
+          - sagemaker:DeleteProject
+          - sagemaker:DescribeProject
+          - servicecatalog:TerminateProvisionedProduct
+          - servicecatalog:DescribeRecord
+        list:
+          - sagemaker:ListProjects
+    SpaceSharingSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        SharingType:
+          type: string
+          enum:
+            - Private
+            - Shared
+      required:
+        - SharingType
+    OwnershipSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        OwnerUserProfileName:
+          type: string
+          maxLength: 63
+          pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9]){0,62}
+      required:
+        - OwnerUserProfileName
     SpaceSettings:
       type: object
       description: A collection of settings that apply to spaces of Amazon SageMaker Studio. These settings are specified when the CreateSpace API is called.
@@ -4115,6 +5435,91 @@ components:
         KernelGatewayAppSettings:
           $ref: '#/components/schemas/KernelGatewayAppSettings'
           description: The kernel gateway app settings.
+        JupyterLabAppSettings:
+          $ref: '#/components/schemas/SpaceJupyterLabAppSettings'
+          description: The JupyterLab app settings.
+        CodeEditorAppSettings:
+          $ref: '#/components/schemas/SpaceCodeEditorAppSettings'
+          description: The CodeEditor app settings.
+        SpaceStorageSettings:
+          $ref: '#/components/schemas/SpaceStorageSettings'
+          description: Default storage settings for a space.
+        AppType:
+          $ref: '#/components/schemas/AppType'
+        CustomFileSystems:
+          $ref: '#/components/schemas/CustomFileSystems'
+    AppType:
+      type: string
+      enum:
+        - JupyterServer
+        - KernelGateway
+        - TensorBoard
+        - RStudioServerPro
+        - RSessionGateway
+        - JupyterLab
+        - CodeEditor
+    CustomFileSystems:
+      type: array
+      uniqueItems: true
+      minItems: 0
+      maxItems: 1
+      items:
+        $ref: '#/components/schemas/CustomFileSystem'
+    CustomFileSystem:
+      type: object
+      additionalProperties: false
+      properties:
+        EFSFileSystem:
+          $ref: '#/components/schemas/EFSFileSystem'
+    EFSFileSystem:
+      type: object
+      additionalProperties: false
+      properties:
+        FileSystemId:
+          type: string
+          minLength: 11
+          maxLength: 21
+          pattern: ^(fs-[0-9a-f]{8,})$
+      required:
+        - FileSystemId
+    SpaceJupyterLabAppSettings:
+      type: object
+      description: The JupyterServer app settings.
+      additionalProperties: false
+      properties:
+        DefaultResourceSpec:
+          $ref: '#/components/schemas/ResourceSpec'
+        CodeRepositories:
+          type: array
+          description: A list of CodeRepositories available for use with JupyterLab apps.
+          uniqueItems: false
+          minItems: 0
+          maxItems: 30
+          items:
+            $ref: '#/components/schemas/CodeRepository'
+    SpaceCodeEditorAppSettings:
+      type: object
+      description: The CodeEditor app settings.
+      additionalProperties: false
+      properties:
+        DefaultResourceSpec:
+          $ref: '#/components/schemas/ResourceSpec'
+    SpaceStorageSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        EbsStorageSettings:
+          $ref: '#/components/schemas/EbsStorageSettings'
+    EbsStorageSettings:
+      type: object
+      description: Properties related to the space's Amazon Elastic Block Store volume.
+      additionalProperties: false
+      properties:
+        EbsVolumeSizeInGb:
+          description: Size of the Amazon EBS volume in Gb
+          $ref: '#/components/schemas/SpaceEbsVolumeSizeInGb'
+      required:
+        - EbsVolumeSizeInGb
     Space:
       type: object
       properties:
@@ -4147,6 +5552,17 @@ components:
           maxItems: 50
           items:
             $ref: '#/components/schemas/Tag'
+        OwnershipSettings:
+          $ref: '#/components/schemas/OwnershipSettings'
+        SpaceSharingSettings:
+          $ref: '#/components/schemas/SpaceSharingSettings'
+        SpaceDisplayName:
+          type: string
+          maxLength: 64
+          pattern: ^(?!\s*$).+
+        Url:
+          type: string
+          maxLength: 1024
       required:
         - DomainId
         - SpaceName
@@ -4154,6 +5570,28 @@ components:
       x-stackql-primaryIdentifier:
         - DomainId
         - SpaceName
+      x-create-only-properties:
+        - DomainId
+        - SpaceName
+        - SpaceSharingSettings
+        - OwnershipSettings
+      x-read-only-properties:
+        - SpaceArn
+        - Url
+      x-required-permissions:
+        create:
+          - sagemaker:CreateSpace
+          - sagemaker:DescribeSpace
+        read:
+          - sagemaker:DescribeSpace
+        update:
+          - sagemaker:UpdateSpace
+          - sagemaker:DescribeSpace
+        delete:
+          - sagemaker:DeleteSpace
+          - sagemaker:DescribeSpace
+        list:
+          - sagemaker:ListSpaces
     UserProfile:
       type: object
       properties:
@@ -4202,6 +5640,36 @@ components:
       x-stackql-primaryIdentifier:
         - UserProfileName
         - DomainId
+      x-create-only-properties:
+        - DomainId
+        - UserProfileName
+        - SingleSignOnUserIdentifier
+        - SingleSignOnUserValue
+        - UserSettings/RStudioServerProAppSettings/AccessStatus
+        - UserSettings/RStudioServerProAppSettings/UserGroup
+        - Tags
+      x-read-only-properties:
+        - UserProfileArn
+      x-required-permissions:
+        create:
+          - sagemaker:CreateUserProfile
+          - sagemaker:DescribeUserProfile
+          - sagemaker:DescribeImage
+          - sagemaker:DescribeImageVersion
+          - iam:PassRole
+        read:
+          - sagemaker:DescribeUserProfile
+        update:
+          - sagemaker:UpdateUserProfile
+          - sagemaker:DescribeUserProfile
+          - sagemaker:DescribeImage
+          - sagemaker:DescribeImageVersion
+          - iam:PassRole
+        delete:
+          - sagemaker:DeleteUserProfile
+          - sagemaker:DescribeUserProfile
+        list:
+          - sagemaker:ListUserProfiles
     OidcMemberDefinition:
       type: object
       additionalProperties: false
@@ -4268,6 +5736,11 @@ components:
             $ref: '#/components/schemas/Tag'
       x-stackql-resource-name: workteam
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - WorkteamName
+        - WorkforceName
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     apps:
@@ -4350,43 +5823,9 @@ components:
               JSON_EXTRACT(Properties, '$.AppImageConfigArn') as app_image_config_arn,
               JSON_EXTRACT(Properties, '$.AppImageConfigName') as app_image_config_name,
               JSON_EXTRACT(Properties, '$.KernelGatewayImageConfig') as kernel_gateway_image_config,
+              JSON_EXTRACT(Properties, '$.JupyterLabAppImageConfig') as jupyter_lab_app_image_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
-    code_repositories:
-      name: code_repositories
-      id: aws.sagemaker.code_repositories
-      x-cfn-schema-name: CodeRepository
-      x-type: list
-      x-identifiers:
-        - Id
-      config:
-        views:
-          select:
-            predicate: sqlDialect == "sqlite3"
-            ddl: |-
-              SELECT
-              region,
-              JSON_EXTRACT(Properties, '$.Id') as id
-              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::CodeRepository'
-    code_repository:
-      name: code_repository
-      id: aws.sagemaker.code_repository
-      x-cfn-schema-name: CodeRepository
-      x-type: get
-      x-identifiers:
-        - Id
-      config:
-        views:
-          select:
-            predicate: sqlDialect == "sqlite3"
-            ddl: |-
-              SELECT
-              region,
-              JSON_EXTRACT(Properties, '$.GitConfig') as git_config,
-              JSON_EXTRACT(Properties, '$.CodeRepositoryName') as code_repository_name,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
-              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::CodeRepository'
     data_quality_job_definitions:
       name: data_quality_job_definitions
       id: aws.sagemaker.data_quality_job_definitions
@@ -4572,9 +6011,12 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ShadowProductionVariants') as shadow_production_variants,
               JSON_EXTRACT(Properties, '$.DataCaptureConfig') as data_capture_config,
+              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
+              JSON_EXTRACT(Properties, '$.EnableNetworkIsolation') as enable_network_isolation,
               JSON_EXTRACT(Properties, '$.ProductionVariants') as production_variants,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.AsyncInferenceConfig') as async_inference_config,
+              JSON_EXTRACT(Properties, '$.VpcConfig') as vpc_config,
               JSON_EXTRACT(Properties, '$.EndpointConfigName') as endpoint_config_name,
               JSON_EXTRACT(Properties, '$.ExplainerConfig') as explainer_config,
               JSON_EXTRACT(Properties, '$.Id') as id,
@@ -4616,8 +6058,11 @@ components:
               JSON_EXTRACT(Properties, '$.FeatureDefinitions') as feature_definitions,
               JSON_EXTRACT(Properties, '$.OnlineStoreConfig') as online_store_config,
               JSON_EXTRACT(Properties, '$.OfflineStoreConfig') as offline_store_config,
+              JSON_EXTRACT(Properties, '$.ThroughputConfig') as throughput_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.FeatureGroupStatus') as feature_group_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::FeatureGroup'
     images:
@@ -4692,8 +6137,60 @@ components:
               JSON_EXTRACT(Properties, '$.ImageVersionArn') as image_version_arn,
               JSON_EXTRACT(Properties, '$.BaseImage') as base_image,
               JSON_EXTRACT(Properties, '$.ContainerImage') as container_image,
-              JSON_EXTRACT(Properties, '$.Version') as version
+              JSON_EXTRACT(Properties, '$.Version') as version,
+              JSON_EXTRACT(Properties, '$.Alias') as alias,
+              JSON_EXTRACT(Properties, '$.Aliases') as aliases,
+              JSON_EXTRACT(Properties, '$.VendorGuidance') as vendor_guidance,
+              JSON_EXTRACT(Properties, '$.JobType') as job_type,
+              JSON_EXTRACT(Properties, '$.MLFramework') as m_lframework,
+              JSON_EXTRACT(Properties, '$.ProgrammingLang') as programming_lang,
+              JSON_EXTRACT(Properties, '$.Processor') as processor,
+              JSON_EXTRACT(Properties, '$.Horovod') as horovod,
+              JSON_EXTRACT(Properties, '$.ReleaseNotes') as release_notes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
+    inference_components:
+      name: inference_components
+      id: aws.sagemaker.inference_components
+      x-cfn-schema-name: InferenceComponent
+      x-type: list
+      x-identifiers:
+        - InferenceComponentArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InferenceComponentArn') as inference_component_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
+    inference_component:
+      name: inference_component
+      id: aws.sagemaker.inference_component
+      x-cfn-schema-name: InferenceComponent
+      x-type: get
+      x-identifiers:
+        - InferenceComponentArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.InferenceComponentArn') as inference_component_arn,
+              JSON_EXTRACT(Properties, '$.InferenceComponentName') as inference_component_name,
+              JSON_EXTRACT(Properties, '$.EndpointArn') as endpoint_arn,
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name,
+              JSON_EXTRACT(Properties, '$.VariantName') as variant_name,
+              JSON_EXTRACT(Properties, '$.FailureReason') as failure_reason,
+              JSON_EXTRACT(Properties, '$.Specification') as specification,
+              JSON_EXTRACT(Properties, '$.RuntimeConfig') as runtime_config,
+              JSON_EXTRACT(Properties, '$.InferenceComponentStatus') as inference_component_status,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
     inference_experiments:
       name: inference_experiments
       id: aws.sagemaker.inference_experiments
@@ -4946,7 +6443,6 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecifications') as additional_inference_specifications,
-              JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationDefinition') as additional_inference_specification_definition,
               JSON_EXTRACT(Properties, '$.CertifyForMarketplace') as certify_for_marketplace,
               JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
               JSON_EXTRACT(Properties, '$.CustomerMetadataProperties') as customer_metadata_properties,
@@ -4960,21 +6456,18 @@ components:
               JSON_EXTRACT(Properties, '$.ModelPackageGroupName') as model_package_group_name,
               JSON_EXTRACT(Properties, '$.ModelPackageName') as model_package_name,
               JSON_EXTRACT(Properties, '$.SamplePayloadUrl') as sample_payload_url,
+              JSON_EXTRACT(Properties, '$.SkipModelValidation') as skip_model_validation,
               JSON_EXTRACT(Properties, '$.SourceAlgorithmSpecification') as source_algorithm_specification,
               JSON_EXTRACT(Properties, '$.Task') as task,
               JSON_EXTRACT(Properties, '$.ValidationSpecification') as validation_specification,
               JSON_EXTRACT(Properties, '$.ModelPackageArn') as model_package_arn,
               JSON_EXTRACT(Properties, '$.ApprovalDescription') as approval_description,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
-              JSON_EXTRACT(Properties, '$.LastModifiedBy') as last_modified_by,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.ModelPackageStatus') as model_package_status,
               JSON_EXTRACT(Properties, '$.ModelPackageVersion') as model_package_version,
               JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationsToAdd') as additional_inference_specifications_to_add,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails') as model_package_status_details,
-              JSON_EXTRACT(Properties, '$.ModelPackageStatusItem') as model_package_status_item,
-              JSON_EXTRACT(Properties, '$.CreatedBy') as created_by,
-              JSON_EXTRACT(Properties, '$.Environment') as environment
+              JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails') as model_package_status_details
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
     model_package_groups:
       name: model_package_groups
@@ -5297,7 +6790,11 @@ components:
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
               JSON_EXTRACT(Properties, '$.SpaceName') as space_name,
               JSON_EXTRACT(Properties, '$.SpaceSettings') as space_settings,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.OwnershipSettings') as ownership_settings,
+              JSON_EXTRACT(Properties, '$.SpaceSharingSettings') as space_sharing_settings,
+              JSON_EXTRACT(Properties, '$.SpaceDisplayName') as space_display_name,
+              JSON_EXTRACT(Properties, '$.Url') as url
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Space'
     user_profiles:
       name: user_profiles

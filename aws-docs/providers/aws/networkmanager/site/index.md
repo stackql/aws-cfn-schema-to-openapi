@@ -33,12 +33,36 @@ Gets an individual <code>site</code> resource
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags for the site.</td></tr>
 <tr><td><code>global_network_id</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
 <tr><td><code>location</code></td><td><code>object</code></td><td>The location of the site.</td></tr>
+<tr><td><code>created_at</code></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
+<tr><td><code>state</code></td><td><code>string</code></td><td>The state of the site.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>site</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetSites</pre>
+
+### Update
+<pre>
+networkmanager:GetSites,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+networkmanager:UpdateSite</pre>
+
+### Delete
+<pre>
+networkmanager:GetSites,
+networkmanager:DeleteSite</pre>
+
 
 ## Example
 ```sql
@@ -49,7 +73,9 @@ site_id,
 description,
 tags,
 global_network_id,
-location
+location,
+created_at,
+state
 FROM aws.networkmanager.site
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;GlobalNetworkId&gt;'

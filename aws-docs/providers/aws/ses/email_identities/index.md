@@ -35,6 +35,23 @@ Retrieves a list of <code>email_identities</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>email_identities</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ses:CreateEmailIdentity,
+ses:PutEmailIdentityMailFromAttributes,
+ses:PutEmailIdentityFeedbackAttributes,
+ses:PutEmailIdentityDkimAttributes,
+ses:GetEmailIdentity</pre>
+
+### List
+<pre>
+ses:ListEmailIdentities</pre>
+
+
 ## Example
 ```sql
 SELECT

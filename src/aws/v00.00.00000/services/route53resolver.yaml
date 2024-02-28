@@ -104,6 +104,54 @@ components:
       x-stackql-resource-name: firewall_domain_list
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Arn
+        - DomainCount
+        - Status
+        - StatusMessage
+        - ManagedOwnerName
+        - CreatorRequestId
+        - CreationTime
+        - ModificationTime
+      x-required-permissions:
+        create:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        list:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        read:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        delete:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        update:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
     FirewallRule:
       description: Firewall Rule associating the Rule Group to a Domain List
       type: object
@@ -145,6 +193,11 @@ components:
           type: integer
           minimum: 0
           maximum: 604800
+        Qtype:
+          description: Qtype
+          type: string
+          minLength: 1
+          maxLength: 16
       required:
         - FirewallDomainListId
         - Priority
@@ -227,6 +280,55 @@ components:
       x-stackql-resource-name: firewall_rule_group
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Arn
+        - RuleCount
+        - Status
+        - StatusMessage
+        - OwnerId
+        - ShareStatus
+        - CreatorRequestId
+        - CreationTime
+        - ModificationTime
+      x-required-permissions:
+        create:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        read:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        list:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        delete:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        update:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
     FirewallRuleGroupAssociation:
       type: object
       properties:
@@ -310,6 +412,163 @@ components:
       x-stackql-resource-name: firewall_rule_group_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - FirewallRuleGroupId
+        - VpcId
+      x-read-only-properties:
+        - Id
+        - Arn
+        - ManagedOwnerName
+        - Status
+        - StatusMessage
+        - CreatorRequestId
+        - CreationTime
+        - ModificationTime
+      x-required-permissions:
+        create:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        read:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        list:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        delete:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+        update:
+          - route53resolver:*
+          - ec2:*
+          - logs:*
+          - iam:*
+          - lambda:*
+          - s3:*
+    OutpostResolver:
+      type: object
+      properties:
+        Id:
+          description: Id
+          type: string
+          minLength: 1
+          maxLength: 64
+        CreatorRequestId:
+          description: The id of the creator request.
+          type: string
+          minLength: 1
+          maxLength: 255
+        Name:
+          description: The OutpostResolver name.
+          type: string
+          minLength: 1
+          maxLength: 255
+        Arn:
+          description: The OutpostResolver ARN.
+          type: string
+          minLength: 1
+          maxLength: 1024
+        OutpostArn:
+          description: The Outpost ARN.
+          type: string
+          minLength: 1
+          maxLength: 1024
+        PreferredInstanceType:
+          description: The OutpostResolver instance type.
+          type: string
+          minLength: 1
+          maxLength: 255
+        Status:
+          description: The OutpostResolver status, possible values are CREATING, OPERATIONAL, UPDATING, DELETING, ACTION_NEEDED, FAILED_CREATION and FAILED_DELETION.
+          type: string
+          enum:
+            - CREATING
+            - OPERATIONAL
+            - DELETING
+            - UPDATING
+            - ACTION_NEEDED
+            - FAILED_CREATION
+            - FAILED_DELETION
+        StatusMessage:
+          description: The OutpostResolver status message.
+          type: string
+        InstanceCount:
+          description: The number of OutpostResolvers.
+          type: integer
+          minimum: 4
+          maximum: 256
+        CreationTime:
+          description: The OutpostResolver creation time
+          type: string
+          minLength: 20
+          maxLength: 40
+        ModificationTime:
+          description: The OutpostResolver last modified time
+          type: string
+          minLength: 20
+          maxLength: 40
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - OutpostArn
+        - PreferredInstanceType
+        - Name
+      x-stackql-resource-name: outpost_resolver
+      x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - OutpostArn
+      x-read-only-properties:
+        - Id
+        - Arn
+        - Status
+        - StatusMessage
+        - CreationTime
+        - ModificationTime
+        - CreatorRequestId
+      x-required-permissions:
+        create:
+          - route53resolver:CreateOutpostResolver
+          - route53resolver:GetOutpostResolver
+          - route53resolver:ListTagsForResource
+          - outposts:GetOutpost
+        read:
+          - route53resolver:GetOutpostResolver
+          - route53resolver:ListTagsForResource
+        update:
+          - route53resolver:UpdateOutpostResolver
+          - route53resolver:GetOutpostResolver
+          - route53resolver:UntagResource
+          - route53resolver:TagResource
+          - route53resolver:ListTagsForResource
+        delete:
+          - route53resolver:DeleteOutpostResolver
+          - route53resolver:GetOutpostResolver
+          - route53resolver:ListOutpostResolvers
+          - route53resolver:ListResolverEndpoints
+        list:
+          - route53resolver:ListOutpostResolvers
+          - route53resolver:ListTagsForResource
     ResolverConfig:
       type: object
       properties:
@@ -346,7 +605,29 @@ components:
         - AutodefinedReverseFlag
       x-stackql-resource-name: resolver_config
       x-stackql-primaryIdentifier:
+        - ResourceId
+      x-create-only-properties:
+        - ResourceId
+        - AutodefinedReverseFlag
+      x-read-only-properties:
+        - OwnerId
         - Id
+        - AutodefinedReverse
+      x-required-permissions:
+        create:
+          - route53resolver:UpdateResolverConfig
+          - route53resolver:GetResolverConfig
+          - ec2:DescribeVpcs
+        read:
+          - route53resolver:GetResolverConfig
+          - ec2:DescribeVpcs
+        delete:
+          - route53resolver:UpdateResolverConfig
+          - route53resolver:ListResolverConfigs
+          - ec2:DescribeVpcs
+        list:
+          - route53resolver:ListResolverConfigs
+          - ec2:DescribeVpcs
     ResolverDNSSECConfig:
       type: object
       properties:
@@ -376,6 +657,29 @@ components:
       x-stackql-resource-name: resolverdnssec_config
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ResourceId
+      x-read-only-properties:
+        - OwnerId
+        - Id
+        - ValidationStatus
+      x-required-permissions:
+        create:
+          - resolverdnssec:CreateConfig
+          - route53resolver:UpdateResolverDnssecConfig
+          - route53resolver:GetResolverDnssecConfig
+          - ec2:DescribeVpcs
+        read:
+          - resolverdnssec:GetConfig
+          - route53resolver:ListResolverDnssecConfigs
+        delete:
+          - resolverdnssec:DeleteConfig
+          - route53resolver:UpdateResolverDnssecConfig
+          - route53resolver:ListResolverDnssecConfigs
+          - ec2:DescribeVpcs
+        list:
+          - resolverdnssec:ListConfig
+          - route53resolver:ListResolverDnssecConfigs
     IpAddressRequest:
       type: object
       additionalProperties: false
@@ -391,39 +695,44 @@ components:
     ResolverEndpoint:
       type: object
       properties:
-        IpAddresses:
+        ResolverEndpointId:
+          type: string
+        Protocols:
           type: array
           uniqueItems: false
           items:
-            $ref: '#/components/schemas/IpAddressRequest'
-        ResolverEndpointId:
-          type: string
-        IpAddressCount:
-          type: string
+            type: string
         OutpostArn:
-          type: string
-        PreferredInstanceType:
           type: string
         ResolverEndpointType:
           type: string
-        Arn:
-          type: string
         Direction:
-          type: string
-        HostVPCId:
           type: string
         SecurityGroupIds:
           type: array
           uniqueItems: false
           items:
             type: string
+        Name:
+          type: string
+        IpAddresses:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/IpAddressRequest'
+        IpAddressCount:
+          type: string
+        PreferredInstanceType:
+          type: string
+        Arn:
+          type: string
+        HostVPCId:
+          type: string
         Tags:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
-        Name:
-          type: string
       required:
         - IpAddresses
         - Direction
@@ -431,6 +740,16 @@ components:
       x-stackql-resource-name: resolver_endpoint
       x-stackql-primaryIdentifier:
         - ResolverEndpointId
+      x-create-only-properties:
+        - OutpostArn
+        - Direction
+        - SecurityGroupIds
+        - PreferredInstanceType
+      x-read-only-properties:
+        - ResolverEndpointId
+        - IpAddressCount
+        - Arn
+        - HostVPCId
     ResolverQueryLoggingConfig:
       type: object
       properties:
@@ -491,6 +810,44 @@ components:
       x-stackql-resource-name: resolver_query_logging_config
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - DestinationArn
+      x-read-only-properties:
+        - OwnerId
+        - Status
+        - ShareStatus
+        - AssociationCount
+        - Arn
+        - CreatorRequestId
+        - CreationTime
+        - Id
+      x-required-permissions:
+        create:
+          - resolverquerylogging:CreateConfig
+          - resolverquerylogging:GetConfig
+          - route53resolver:CreateResolverQueryLogConfig
+          - route53resolver:GetResolverQueryLogConfig
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:ListLogDeliveries
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - iam:CreateServiceLinkedRole
+        read:
+          - resolverquerylogging:GetConfig
+          - route53resolver:GetResolverQueryLogConfig
+        delete:
+          - resolverquerylogging:DeleteConfig
+          - resolverquerylogging:ListConfig
+          - route53resolver:DeleteResolverQueryLogConfig
+          - route53resolver:ListResolverQueryLogConfigs
+        list:
+          - resolverquerylogging:ListConfig
+          - route53resolver:ListResolverQueryLogConfigs
     ResolverQueryLoggingConfigAssociation:
       type: object
       properties:
@@ -537,6 +894,34 @@ components:
       x-stackql-resource-name: resolver_query_logging_config_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ResolverQueryLogConfigId
+        - ResourceId
+      x-read-only-properties:
+        - Status
+        - Error
+        - ErrorMessage
+        - CreationTime
+        - Id
+      x-required-permissions:
+        create:
+          - resolverquerylogging:AssociateConfig
+          - resolverquerylogging:GetConfigAssociation
+          - route53resolver:AssociateResolverQueryLogConfig
+          - ec2:DescribeVpcs
+          - route53resolver:GetResolverQueryLogConfigAssociation
+        read:
+          - resolverquerylogging:GetConfigAssociation
+          - route53resolver:GetResolverQueryLogConfigAssociation
+        delete:
+          - resolverquerylogging:DisassociateConfig
+          - resolverquerylogging:ListConfigAssociation
+          - route53resolver:DisassociateResolverQueryLogConfig
+          - route53resolver:ListResolverQueryLogConfigAssociations
+          - route53resolver:GetResolverQueryLogConfigAssociation
+        list:
+          - resolverquerylogging:ListConfigAssociations
+          - route53resolver:ListResolverQueryLogConfigAssociations
     TargetAddress:
       type: object
       additionalProperties: false
@@ -552,6 +937,12 @@ components:
           description: 'The port at Ip that you want to forward DNS queries to. '
           minLength: 0
           maxLength: 65535
+        Protocol:
+          type: string
+          description: 'The protocol that you want to use to forward DNS queries. '
+          enum:
+            - Do53
+            - DoH
     ResolverRule:
       type: object
       properties:
@@ -603,6 +994,31 @@ components:
       x-stackql-resource-name: resolver_rule
       x-stackql-primaryIdentifier:
         - ResolverRuleId
+      x-create-only-properties:
+        - RuleType
+      x-read-only-properties:
+        - Arn
+        - ResolverRuleId
+      x-required-permissions:
+        create:
+          - route53resolver:CreateResolverRule
+          - route53resolver:GetResolverRule
+          - route53resolver:ListTagsForResource
+          - route53resolver:TagResource
+        read:
+          - route53resolver:GetResolverRule
+          - route53resolver:ListTagsForResource
+        update:
+          - route53resolver:UpdateResolverRule
+          - route53resolver:GetResolverRule
+          - route53resolver:ListTagsForResource
+          - route53resolver:TagResource
+          - route53resolver:UntagResource
+        delete:
+          - route53resolver:DeleteResolverRule
+          - route53resolver:GetResolverRule
+        list:
+          - route53resolver:ListResolverRules
     ResolverRuleAssociation:
       type: object
       properties:
@@ -624,6 +1040,24 @@ components:
       x-stackql-resource-name: resolver_rule_association
       x-stackql-primaryIdentifier:
         - ResolverRuleAssociationId
+      x-create-only-properties:
+        - Name
+        - VPCId
+        - ResolverRuleId
+      x-read-only-properties:
+        - ResolverRuleAssociationId
+      x-required-permissions:
+        create:
+          - route53resolver:AssociateResolverRule
+          - route53resolver:GetResolverRuleAssociation
+          - ec2:DescribeVpcs
+        read:
+          - route53resolver:GetResolverRuleAssociation
+        delete:
+          - route53resolver:DisassociateResolverRule
+          - route53resolver:GetResolverRuleAssociation
+        list:
+          - route53resolver:ListResolverRuleAssociations
   x-stackQL-resources:
     firewall_domain_lists:
       name: firewall_domain_lists
@@ -758,10 +1192,10 @@ components:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
-    resolver_configs:
-      name: resolver_configs
-      id: aws.route53resolver.resolver_configs
-      x-cfn-schema-name: ResolverConfig
+    outpost_resolvers:
+      name: outpost_resolvers
+      id: aws.route53resolver.outpost_resolvers
+      x-cfn-schema-name: OutpostResolver
       x-type: list
       x-identifiers:
         - Id
@@ -773,6 +1207,49 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
+    outpost_resolver:
+      name: outpost_resolver
+      id: aws.route53resolver.outpost_resolver
+      x-cfn-schema-name: OutpostResolver
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.CreatorRequestId') as creator_request_id,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.OutpostArn') as outpost_arn,
+              JSON_EXTRACT(Properties, '$.PreferredInstanceType') as preferred_instance_type,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
+              JSON_EXTRACT(Properties, '$.InstanceCount') as instance_count,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
+              JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
+    resolver_configs:
+      name: resolver_configs
+      id: aws.route53resolver.resolver_configs
+      x-cfn-schema-name: ResolverConfig
+      x-type: list
+      x-identifiers:
+        - ResourceId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ResourceId') as resource_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
     resolver_config:
       name: resolver_config
@@ -780,7 +1257,7 @@ components:
       x-cfn-schema-name: ResolverConfig
       x-type: get
       x-identifiers:
-        - Id
+        - ResourceId
       config:
         views:
           select:
@@ -859,18 +1336,19 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
               JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_id,
-              JSON_EXTRACT(Properties, '$.IpAddressCount') as ip_address_count,
+              JSON_EXTRACT(Properties, '$.Protocols') as protocols,
               JSON_EXTRACT(Properties, '$.OutpostArn') as outpost_arn,
-              JSON_EXTRACT(Properties, '$.PreferredInstanceType') as preferred_instance_type,
               JSON_EXTRACT(Properties, '$.ResolverEndpointType') as resolver_endpoint_type,
-              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Direction') as direction,
-              JSON_EXTRACT(Properties, '$.HostVPCId') as host_vp_cid,
               JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.IpAddresses') as ip_addresses,
+              JSON_EXTRACT(Properties, '$.IpAddressCount') as ip_address_count,
+              JSON_EXTRACT(Properties, '$.PreferredInstanceType') as preferred_instance_type,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.HostVPCId') as host_vp_cid,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
     resolver_query_logging_configs:
       name: resolver_query_logging_configs

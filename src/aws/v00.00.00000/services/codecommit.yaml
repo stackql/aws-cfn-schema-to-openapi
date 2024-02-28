@@ -68,6 +68,8 @@ components:
       properties:
         CloneUrlHttp:
           type: string
+        KmsKeyId:
+          type: string
         CloneUrlSsh:
           type: string
         RepositoryName:
@@ -97,6 +99,12 @@ components:
       x-stackql-resource-name: repository
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - CloneUrlHttp
+        - Id
+        - Name
+        - CloneUrlSsh
+        - Arn
   x-stackQL-resources:
     repositories:
       name: repositories
@@ -129,6 +137,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.CloneUrlHttp') as clone_url_http,
+              JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.CloneUrlSsh') as clone_url_ssh,
               JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name,
               JSON_EXTRACT(Properties, '$.Triggers') as triggers,

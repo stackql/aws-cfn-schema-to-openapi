@@ -40,6 +40,29 @@ Gets an individual <code>label</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>label</code> resource, the following permissions are required:
+
+### Read
+<pre>
+frauddetector:GetLabels,
+frauddetector:ListTagsForResource</pre>
+
+### Update
+<pre>
+frauddetector:GetLabels,
+frauddetector:PutLabel,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource</pre>
+
+### Delete
+<pre>
+frauddetector:GetLabels,
+frauddetector:DeleteLabel</pre>
+
+
 ## Example
 ```sql
 SELECT

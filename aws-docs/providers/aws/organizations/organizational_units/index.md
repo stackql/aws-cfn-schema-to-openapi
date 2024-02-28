@@ -35,6 +35,23 @@ Retrieves a list of <code>organizational_units</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>organizational_units</code> resource, the following permissions are required:
+
+### Create
+<pre>
+organizations:CreateOrganizationalUnit,
+organizations:DescribeOrganizationalUnit,
+organizations:ListParents,
+organizations:ListTagsForResource,
+organizations:TagResource</pre>
+
+### List
+<pre>
+organizations:ListOrganizationalUnitsForParent</pre>
+
+
 ## Example
 ```sql
 SELECT

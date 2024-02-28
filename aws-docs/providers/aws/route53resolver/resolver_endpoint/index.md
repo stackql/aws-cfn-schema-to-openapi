@@ -27,18 +27,19 @@ Gets an individual <code>resolver_endpoint</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>ip_addresses</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>resolver_endpoint_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>ip_address_count</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>protocols</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>outpost_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>preferred_instance_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>resolver_endpoint_type</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>direction</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>host_vp_cid</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>security_group_ids</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ip_addresses</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>ip_address_count</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>preferred_instance_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>host_vp_cid</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -46,22 +47,27 @@ Gets an individual <code>resolver_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
-ip_addresses,
 resolver_endpoint_id,
-ip_address_count,
+protocols,
 outpost_arn,
-preferred_instance_type,
 resolver_endpoint_type,
-arn,
 direction,
-host_vp_cid,
 security_group_ids,
-tags,
-name
+name,
+ip_addresses,
+ip_address_count,
+preferred_instance_type,
+arn,
+host_vp_cid,
+tags
 FROM aws.route53resolver.resolver_endpoint
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;ResolverEndpointId&gt;'

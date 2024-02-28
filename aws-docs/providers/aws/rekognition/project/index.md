@@ -36,6 +36,24 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rekognition:DescribeProjects</pre>
+
+### Update
+<pre>
+</pre>
+
+### Delete
+<pre>
+rekognition:DescribeProjects,
+rekognition:DeleteProject</pre>
+
+
 ## Example
 ```sql
 SELECT

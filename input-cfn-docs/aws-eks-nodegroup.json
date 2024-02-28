@@ -208,7 +208,13 @@
     }
   },
   "additionalProperties" : false,
-  "taggable" : true,
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : true,
+    "cloudFormationSystemTags" : true,
+    "tagProperty" : "/properties/Tags"
+  },
   "required" : [ "ClusterName", "NodeRole", "Subnets" ],
   "createOnlyProperties" : [ "/properties/CapacityType", "/properties/NodegroupName", "/properties/RemoteAccess", "/properties/NodeRole", "/properties/ClusterName", "/properties/InstanceTypes", "/properties/DiskSize", "/properties/AmiType", "/properties/Subnets" ],
   "writeOnlyProperties" : [ "/properties/ForceUpdateEnabled" ],
@@ -216,7 +222,7 @@
   "readOnlyProperties" : [ "/properties/Id", "/properties/Arn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "eks:CreateNodegroup", "eks:DescribeNodegroup", "eks:TagResource", "ec2:DescribeSubnets", "ec2:DescribeVpcs", "ec2:DescribeSecurityGroups", "ec2:DescribeKeyPairs", "ec2:CreateTags", "ec2:DeleteTags", "ec2:DescribeRouteTables", "ec2:DescribeLaunchTemplates", "ec2:DescribeLaunchTemplateVersions", "ec2:RunInstances", "iam:CreateServiceLinkedRole", "iam:GetRole", "iam:ListAttachedRolePolicies" ]
+      "permissions" : [ "eks:CreateNodegroup", "eks:DescribeNodegroup", "eks:TagResource", "ec2:DescribeSubnets", "ec2:DescribeVpcs", "ec2:DescribeSecurityGroups", "ec2:DescribeKeyPairs", "ec2:CreateTags", "ec2:DeleteTags", "ec2:DescribeRouteTables", "ec2:DescribeLaunchTemplates", "ec2:DescribeLaunchTemplateVersions", "ec2:RunInstances", "iam:CreateServiceLinkedRole", "iam:GetRole", "iam:PassRole", "iam:ListAttachedRolePolicies" ]
     },
     "read" : {
       "permissions" : [ "eks:DescribeNodegroup" ]
@@ -225,6 +231,14 @@
       "permissions" : [ "eks:DeleteNodegroup", "eks:DescribeNodegroup" ]
     },
     "list" : {
+      "handlerSchema" : {
+        "properties" : {
+          "ClusterName" : {
+            "$ref" : "resource-schema.json#/properties/ClusterName"
+          }
+        },
+        "required" : [ "ClusterName" ]
+      },
       "permissions" : [ "eks:ListNodegroups" ]
     },
     "update" : {

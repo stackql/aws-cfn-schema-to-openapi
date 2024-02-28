@@ -41,6 +41,37 @@ Gets an individual <code>stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stream</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kinesis:DescribeStreamSummary,
+kinesis:ListTagsForStream</pre>
+
+### Update
+<pre>
+kinesis:EnableEnhancedMonitoring,
+kinesis:DisableEnhancedMonitoring,
+kinesis:DescribeStreamSummary,
+kinesis:UpdateShardCount,
+kinesis:UpdateStreamMode,
+kinesis:IncreaseStreamRetentionPeriod,
+kinesis:DecreaseStreamRetentionPeriod,
+kinesis:StartStreamEncryption,
+kinesis:StopStreamEncryption,
+kinesis:AddTagsToStream,
+kinesis:RemoveTagsFromStream,
+kinesis:ListTagsForStream</pre>
+
+### Delete
+<pre>
+kinesis:DescribeStreamSummary,
+kinesis:DeleteStream,
+kinesis:RemoveTagsFromStream</pre>
+
+
 ## Example
 ```sql
 SELECT

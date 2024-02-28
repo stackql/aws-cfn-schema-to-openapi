@@ -43,6 +43,30 @@ Gets an individual <code>addon</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>addon</code> resource, the following permissions are required:
+
+### Read
+<pre>
+eks:DescribeAddon</pre>
+
+### Delete
+<pre>
+eks:DeleteAddon,
+eks:DescribeAddon</pre>
+
+### Update
+<pre>
+iam:PassRole,
+eks:UpdateAddon,
+eks:DescribeAddon,
+eks:DescribeUpdate,
+eks:ListTagsForResource,
+eks:TagResource,
+eks:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

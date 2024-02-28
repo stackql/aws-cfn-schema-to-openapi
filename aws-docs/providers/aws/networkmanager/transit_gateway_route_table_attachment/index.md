@@ -50,6 +50,29 @@ Gets an individual <code>transit_gateway_route_table_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>transit_gateway_route_table_attachment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetTransitGatewayRouteTableAttachment</pre>
+
+### Update
+<pre>
+networkmanager:GetTransitGatewayRouteTableAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions</pre>
+
+### Delete
+<pre>
+networkmanager:GetTransitGatewayRouteTableAttachment,
+networkmanager:DeleteAttachment,
+ec2:DescribeRegions</pre>
+
+
 ## Example
 ```sql
 SELECT

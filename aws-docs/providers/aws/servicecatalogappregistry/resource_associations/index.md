@@ -27,7 +27,9 @@ Retrieves a list of <code>resource_associations</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>application_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>resource_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>resource_type</code></td><td><code>string</code></td><td>The type of the CFN Resource for now it's enum CFN_STACK.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +37,27 @@ Retrieves a list of <code>resource_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+servicecatalog:AssociateResource,
+cloudformation:DescribeStacks</pre>
+
+### List
+<pre>
+servicecatalog:ListAssociatedResources</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+application_arn,
+resource_arn,
+resource_type
 FROM aws.servicecatalogappregistry.resource_associations
 WHERE region = 'us-east-1'
 ```

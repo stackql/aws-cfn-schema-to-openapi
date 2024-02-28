@@ -35,6 +35,26 @@ Retrieves a list of <code>datasets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>datasets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+databrew:CreateDataset,
+databrew:TagResource,
+databrew:UntagResource,
+glue:GetConnection,
+glue:GetTable,
+iam:PassRole</pre>
+
+### List
+<pre>
+databrew:ListDatasets,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+
 ## Example
 ```sql
 SELECT

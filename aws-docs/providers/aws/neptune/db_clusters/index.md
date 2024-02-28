@@ -35,6 +35,31 @@ Retrieves a list of <code>db_clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_clusters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+rds:AddRoleToDBCluster,
+rds:AddTagsToResource,
+rds:CreateDBCluster,
+rds:CreateDBInstance,
+rds:DescribeDBClusters,
+rds:ListTagsForResource,
+rds:ModifyDBCluster,
+rds:RestoreDBClusterFromSnapshot,
+rds:RestoreDBClusterToPointInTime,
+kms:*</pre>
+
+### List
+<pre>
+rds:DescribeDBClusters,
+rds:ListTagsForResource,
+kms:*</pre>
+
+
 ## Example
 ```sql
 SELECT

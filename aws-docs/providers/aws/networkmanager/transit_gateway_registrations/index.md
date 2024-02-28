@@ -36,6 +36,20 @@ Retrieves a list of <code>transit_gateway_registrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>transit_gateway_registrations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:RegisterTransitGateway,
+networkmanager:GetTransitGatewayRegistrations</pre>
+
+### List
+<pre>
+networkmanager:GetTransitGatewayRegistrations</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,30 @@ Retrieves a list of <code>monitors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>monitors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+internetmonitor:CreateMonitor,
+internetmonitor:GetMonitor,
+internetmonitor:TagResource,
+internetmonitor:UntagResource,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+s3:ListBucket,
+iam:PassRole</pre>
+
+### List
+<pre>
+internetmonitor:ListMonitors,
+internetmonitor:GetMonitor,
+logs:GetLogDelivery</pre>
+
+
 ## Example
 ```sql
 SELECT

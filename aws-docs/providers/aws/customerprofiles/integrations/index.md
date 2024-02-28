@@ -36,6 +36,28 @@ Retrieves a list of <code>integrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>integrations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+profile:GetIntegration,
+profile:PutIntegration,
+appflow:CreateFlow,
+app-integrations:CreateEventIntegrationAssociation,
+app-integrations:GetEventIntegration,
+events:ListTargetsByRule,
+events:PutRule,
+events:PutTargets,
+events:PutEvents,
+profile:TagResource</pre>
+
+### List
+<pre>
+profile:ListIntegrations</pre>
+
+
 ## Example
 ```sql
 SELECT

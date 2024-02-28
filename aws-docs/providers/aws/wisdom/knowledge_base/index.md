@@ -43,6 +43,26 @@ Gets an individual <code>knowledge_base</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>knowledge_base</code> resource, the following permissions are required:
+
+### Update
+<pre>
+wisdom:GetKnowledgeBase</pre>
+
+### Delete
+<pre>
+appflow:DeleteFlow,
+appflow:StopFlow,
+app-integrations:DeleteDataIntegrationAssociation,
+wisdom:DeleteKnowledgeBase</pre>
+
+### Read
+<pre>
+wisdom:GetKnowledgeBase</pre>
+
+
 ## Example
 ```sql
 SELECT

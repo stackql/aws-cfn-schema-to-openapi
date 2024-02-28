@@ -39,6 +39,34 @@ Gets an individual <code>db_cluster_parameter_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_cluster_parameter_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeDBClusterParameterGroups,
+rds:DescribeDBClusterParameters,
+rds:DescribeEngineDefaultClusterParameters,
+rds:ListTagsForResource</pre>
+
+### Update
+<pre>
+rds:AddTagsToResource,
+rds:DescribeDBClusterParameterGroups,
+rds:DescribeDBClusterParameters,
+rds:DescribeDBClusters,
+rds:DescribeEngineDefaultClusterParameters,
+rds:ListTagsForResource,
+rds:ModifyDBClusterParameterGroup,
+rds:RemoveTagsFromResource,
+rds:ResetDBClusterParameterGroup</pre>
+
+### Delete
+<pre>
+rds:DeleteDBClusterParameterGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

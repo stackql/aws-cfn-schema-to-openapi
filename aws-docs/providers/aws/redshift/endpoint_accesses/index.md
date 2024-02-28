@@ -35,6 +35,34 @@ Retrieves a list of <code>endpoint_accesses</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>endpoint_accesses</code> resource, the following permissions are required:
+
+### Create
+<pre>
+redshift:CreateEndpointAccess,
+redshift:DescribeEndpointAccess,
+ec2:CreateClientVpnEndpoint,
+ec2:CreateVpcEndpoint,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets</pre>
+
+### List
+<pre>
+redshift:DescribeEndpointAccess,
+ec2:DescribeClientVpnEndpoints,
+ec2:DescribeVpcEndpoints,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets</pre>
+
+
 ## Example
 ```sql
 SELECT

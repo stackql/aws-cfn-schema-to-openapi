@@ -35,6 +35,23 @@ Retrieves a list of <code>packaging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>packaging_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+mediapackage-vod:CreatePackagingConfiguration,
+mediapackage-vod:DescribePackagingConfiguration,
+mediapackage-vod:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+mediapackage-vod:ListPackagingConfigurations,
+mediapackage-vod:DescribePackagingGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -184,6 +184,44 @@ components:
       x-stackql-resource-name: annotation_store
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Reference
+        - SseConfig
+        - StoreFormat
+        - StoreOptions
+        - Tags
+      x-read-only-properties:
+        - CreationTime
+        - Id
+        - Status
+        - StatusMessage
+        - StoreArn
+        - StoreSizeBytes
+        - UpdateTime
+      x-required-permissions:
+        create:
+          - omics:CreateAnnotationStore
+          - omics:TagResource
+          - kms:DescribeKey
+          - kms:GenerateDataKey
+          - kms:CreateGrant
+          - ram:AcceptResourceShareInvitation
+          - ram:GetResourceShareInvitations
+          - omics:GetAnnotationStore
+        read:
+          - omics:GetAnnotationStore
+        update:
+          - omics:UpdateAnnotationStore
+          - omics:TagResource
+          - omics:UntagResource
+          - omics:GetAnnotationStore
+          - omics:ListTagsForResource
+        delete:
+          - omics:DeleteAnnotationStore
+          - omics:ListAnnotationStores
+        list:
+          - omics:ListAnnotationStores
     ReferenceStore:
       type: object
       properties:
@@ -223,6 +261,26 @@ components:
       x-stackql-resource-name: reference_store
       x-stackql-primaryIdentifier:
         - ReferenceStoreId
+      x-create-only-properties:
+        - Description
+        - Name
+        - SseConfig
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - ReferenceStoreId
+      x-required-permissions:
+        create:
+          - omics:CreateReferenceStore
+          - omics:TagResource
+        read:
+          - omics:GetReferenceStore
+          - omics:ListTagsForResource
+        delete:
+          - omics:DeleteReferenceStore
+        list:
+          - omics:ListReferenceStores
     RunGroup:
       type: object
       properties:
@@ -240,6 +298,10 @@ components:
           minLength: 1
           pattern: ^[0-9]+$
         MaxCpus:
+          type: number
+          maximum: 100000
+          minimum: 1
+        MaxGpus:
           type: number
           maximum: 100000
           minimum: 1
@@ -261,6 +323,27 @@ components:
       x-stackql-resource-name: run_group
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - Id
+      x-required-permissions:
+        create:
+          - omics:CreateRunGroup
+          - omics:TagResource
+        read:
+          - omics:GetRunGroup
+        update:
+          - omics:UpdateRunGroup
+          - omics:TagResource
+          - omics:GetRunGroup
+          - omics:ListTagsForResource
+          - omics:UntagResource
+        delete:
+          - omics:DeleteRunGroup
+          - omics:GetRunGroup
+        list:
+          - omics:ListRunGroups
     SequenceStore:
       type: object
       properties:
@@ -286,6 +369,11 @@ components:
           minLength: 1
           pattern: ^[\p{L}||\p{M}||\p{Z}||\p{S}||\p{N}||\p{P}]+$
           description: A name for the store.
+        FallbackLocation:
+          type: string
+          minLength: 1
+          pattern: ^s3:\/\/([a-z0-9][a-z0-9-.]{1,61}[a-z0-9])\/?((.{1,1024})\/)?$
+          description: An S3 URI representing the bucket and folder to store failed read set uploads.
         SequenceStoreId:
           type: string
           maxLength: 36
@@ -300,6 +388,27 @@ components:
       x-stackql-resource-name: sequence_store
       x-stackql-primaryIdentifier:
         - SequenceStoreId
+      x-create-only-properties:
+        - Description
+        - Name
+        - FallbackLocation
+        - SseConfig
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - SequenceStoreId
+      x-required-permissions:
+        create:
+          - omics:CreateSequenceStore
+          - omics:TagResource
+        read:
+          - omics:GetSequenceStore
+          - omics:ListTagsForResource
+        delete:
+          - omics:DeleteSequenceStore
+        list:
+          - omics:ListSequenceStores
     VariantStore:
       type: object
       properties:
@@ -349,6 +458,42 @@ components:
       x-stackql-resource-name: variant_store
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Reference
+        - SseConfig
+        - Tags
+      x-read-only-properties:
+        - CreationTime
+        - Id
+        - Status
+        - StatusMessage
+        - StoreArn
+        - StoreSizeBytes
+        - UpdateTime
+      x-required-permissions:
+        create:
+          - omics:CreateVariantStore
+          - omics:TagResource
+          - kms:DescribeKey
+          - kms:GenerateDataKey
+          - kms:CreateGrant
+          - ram:AcceptResourceShareInvitation
+          - ram:GetResourceShareInvitations
+          - omics:GetVariantStore
+        read:
+          - omics:GetVariantStore
+        update:
+          - omics:UpdateVariantStore
+          - omics:TagResource
+          - omics:UntagResource
+          - omics:ListTagsForResource
+          - omics:GetVariantStore
+        delete:
+          - omics:DeleteVariantStore
+          - omics:ListVariantStores
+        list:
+          - omics:ListVariantStores
     WorkflowEngine:
       type: string
       maxLength: 64
@@ -356,6 +501,13 @@ components:
       enum:
         - WDL
         - NEXTFLOW
+        - CWL
+    Accelerators:
+      type: string
+      maxLength: 64
+      minLength: 1
+      enum:
+        - GPU
     WorkflowParameter:
       type: object
       properties:
@@ -433,6 +585,8 @@ components:
           $ref: '#/components/schemas/WorkflowParameterTemplate'
         Status:
           $ref: '#/components/schemas/WorkflowStatus'
+        Accelerators:
+          $ref: '#/components/schemas/Accelerators'
         StorageCapacity:
           type: number
           maximum: 100000
@@ -444,6 +598,47 @@ components:
       x-stackql-resource-name: workflow
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - DefinitionUri
+        - Engine
+        - Main
+        - ParameterTemplate
+        - StorageCapacity
+        - Accelerators
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - Id
+        - Status
+        - Type
+      x-required-permissions:
+        create:
+          - omics:CreateWorkflow
+          - omics:GetWorkflow
+          - omics:TagResource
+          - s3:PutObject
+          - s3:GetObject
+          - s3:GetObjectAttributes
+          - s3:HeadObject
+          - s3:GetEncryptionConfiguration
+          - kms:Decrypt
+          - kms:GenerateDataKey
+          - kms:GenerateDataKeyPair
+          - kms:GenerateDataKeyPairWithoutPlaintext
+          - kms:GenerateDataKeyWithoutPlaintext
+        read:
+          - omics:GetWorkflow
+        update:
+          - omics:UpdateWorkflow
+          - omics:GetWorkflow
+          - omics:TagResource
+          - omics:ListTagsForResource
+          - omics:UntagResource
+        delete:
+          - omics:DeleteWorkflow
+          - omics:GetWorkflow
+        list:
+          - omics:ListWorkflows
   x-stackQL-resources:
     annotation_stores:
       name: annotation_stores
@@ -562,6 +757,7 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.MaxCpus') as max_cpus,
+              JSON_EXTRACT(Properties, '$.MaxGpus') as max_gpus,
               JSON_EXTRACT(Properties, '$.MaxDuration') as max_duration,
               JSON_EXTRACT(Properties, '$.MaxRuns') as max_runs,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -601,6 +797,7 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.FallbackLocation') as fallback_location,
               JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_id,
               JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
@@ -688,6 +885,7 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ParameterTemplate') as parameter_template,
               JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.Accelerators') as accelerators,
               JSON_EXTRACT(Properties, '$.StorageCapacity') as storage_capacity,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type

@@ -40,6 +40,25 @@ Gets an individual <code>contact_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact_channel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm-contacts:GetContactChannel</pre>
+
+### Update
+<pre>
+ssm-contacts:UpdateContactChannel,
+ssm-contacts:GetContactChannel</pre>
+
+### Delete
+<pre>
+ssm-contacts:DeleteContactChannel,
+ssm-contacts:GetContactChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

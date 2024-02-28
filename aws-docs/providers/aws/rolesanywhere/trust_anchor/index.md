@@ -29,6 +29,7 @@ Gets an individual <code>trust_anchor</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>enabled</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>notification_settings</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>source</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>trust_anchor_id</code></td><td><code>string</code></td><td></td></tr>
@@ -40,12 +41,40 @@ Gets an individual <code>trust_anchor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>trust_anchor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rolesanywhere:GetTrustAnchor,
+rolesanywhere:ListTagsForResource</pre>
+
+### Update
+<pre>
+acm-pca:GetCertificateAuthorityCertificate,
+rolesanywhere:ListTagsForResource,
+rolesanywhere:TagResource,
+rolesanywhere:UntagResource,
+rolesanywhere:EnableTrustAnchor,
+rolesanywhere:DisableTrustAnchor,
+rolesanywhere:UpdateTrustAnchor,
+rolesanywhere:GetTrustAnchor,
+rolesanywhere:PutNotificationSettings,
+rolesanywhere:ResetNotificationSettings</pre>
+
+### Delete
+<pre>
+rolesanywhere:DeleteTrustAnchor</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 enabled,
 name,
+notification_settings,
 source,
 tags,
 trust_anchor_id,

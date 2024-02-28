@@ -35,6 +35,21 @@ Retrieves a list of <code>stored_queries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stored_queries</code> resource, the following permissions are required:
+
+### Create
+<pre>
+config:PutStoredQuery,
+config:GetStoredQuery,
+config:TagResource</pre>
+
+### List
+<pre>
+config:ListStoredQueries</pre>
+
+
 ## Example
 ```sql
 SELECT

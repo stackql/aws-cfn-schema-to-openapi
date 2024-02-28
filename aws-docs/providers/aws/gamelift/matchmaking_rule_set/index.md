@@ -27,11 +27,11 @@ Gets an individual <code>matchmaking_rule_set</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>rule_set_body</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>A unique identifier for the matchmaking rule set.</td></tr>
+<tr><td><code>rule_set_body</code></td><td><code>string</code></td><td>A collection of matchmaking rules, formatted as a JSON string.</td></tr>
+<tr><td><code>creation_time</code></td><td><code>string</code></td><td>A time stamp indicating when this data object was created. Format is a number expressed in Unix time as milliseconds.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) that is assigned to a Amazon GameLift matchmaking rule set resource and uniquely identifies it.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,16 +39,38 @@ Gets an individual <code>matchmaking_rule_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>matchmaking_rule_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+gamelift:DescribeMatchmakingRuleSets,
+gamelift:ValidateMatchmakingRuleSet,
+gamelift:ListTagsForResource</pre>
+
+### Delete
+<pre>
+gamelift:DeleteMatchmakingRuleSet</pre>
+
+### Update
+<pre>
+gamelift:DescribeMatchmakingRuleSets,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
+name,
 rule_set_body,
-id,
+creation_time,
 arn,
-tags,
-name
+tags
 FROM aws.gamelift.matchmaking_rule_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;Name&gt;'
 ```

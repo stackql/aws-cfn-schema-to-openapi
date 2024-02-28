@@ -39,6 +39,23 @@ Gets an individual <code>code_signing_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>code_signing_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lambda:GetCodeSigningConfig</pre>
+
+### Update
+<pre>
+lambda:UpdateCodeSigningConfig</pre>
+
+### Delete
+<pre>
+lambda:DeleteCodeSigningConfig</pre>
+
+
 ## Example
 ```sql
 SELECT

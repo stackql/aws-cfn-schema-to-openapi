@@ -75,6 +75,10 @@
       "type" : "string",
       "pattern" : "^[A-Za-z0-9][A-Za-z0-9_\\-]{1,59}$"
     },
+    "RoleArn" : {
+      "type" : "string",
+      "pattern" : "^arn:(aws|aws-cn|aws-iso|aws-iso-[a-z]{1}|aws-us-gov):[A-Za-z0-9][A-Za-z0-9_/.-]{0,62}:([a-z]{2}-((iso[a-z]{0,1}-)|(gov-)){0,1}[a-z]+-[0-9]|):[0-9]{12}:[A-Za-z0-9/][A-Za-z0-9:_/+=,@.-]{0,1023}$"
+    },
     "Tags" : {
       "$ref" : "#/definitions/TagMap"
     }
@@ -88,20 +92,20 @@
   "required" : [ "Definition", "EngineType", "Name" ],
   "readOnlyProperties" : [ "/properties/ApplicationArn", "/properties/ApplicationId" ],
   "writeOnlyProperties" : [ "/properties/Definition" ],
-  "createOnlyProperties" : [ "/properties/EngineType", "/properties/Name", "/properties/KmsKeyId" ],
+  "createOnlyProperties" : [ "/properties/EngineType", "/properties/Name", "/properties/KmsKeyId", "/properties/RoleArn" ],
   "primaryIdentifier" : [ "/properties/ApplicationArn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "m2:CreateApplication", "m2:ListTagsForResource", "s3:GetObject", "s3:ListBucket" ]
+      "permissions" : [ "m2:CreateApplication", "m2:GetApplication", "m2:ListTagsForResource", "m2:TagResource", "s3:GetObject", "s3:ListBucket", "kms:DescribeKey", "kms:CreateGrant", "iam:PassRole" ]
     },
     "read" : {
       "permissions" : [ "m2:GetApplication", "m2:ListTagsForResource" ]
     },
     "update" : {
-      "permissions" : [ "m2:UpdateApplication", "m2:ListTagsForResource", "m2:TagResource", "m2:UntagResource", "s3:GetObject", "s3:ListBucket" ]
+      "permissions" : [ "m2:UpdateApplication", "m2:GetApplication", "m2:ListTagsForResource", "m2:TagResource", "m2:UntagResource", "s3:GetObject", "s3:ListBucket" ]
     },
     "delete" : {
-      "permissions" : [ "elasticloadbalancing:DeleteListener", "elasticloadbalancing:DeleteTargetGroup", "m2:DeleteApplication" ]
+      "permissions" : [ "elasticloadbalancing:DeleteListener", "elasticloadbalancing:DeleteTargetGroup", "logs:DeleteLogDelivery", "m2:GetApplication", "m2:DeleteApplication" ]
     },
     "list" : {
       "permissions" : [ "m2:ListApplications" ]

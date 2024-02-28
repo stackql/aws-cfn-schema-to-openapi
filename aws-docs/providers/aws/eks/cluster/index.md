@@ -34,6 +34,7 @@ Gets an individual <code>cluster</code> resource
 <tr><td><code>id</code></td><td><code>string</code></td><td>The unique ID given to your cluster.</td></tr>
 <tr><td><code>resources_vpc_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>outpost_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>access_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf.</td></tr>
 <tr><td><code>version</code></td><td><code>string</code></td><td>The desired Kubernetes version for your cluster. If you don't specify a value here, the latest version available in Amazon EKS is used.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
@@ -50,6 +51,30 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+eks:DescribeCluster</pre>
+
+### Update
+<pre>
+iam:PassRole,
+eks:UpdateClusterConfig,
+eks:UpdateClusterVersion,
+eks:DescribeCluster,
+eks:DescribeUpdate,
+eks:TagResource,
+eks:UntagResource</pre>
+
+### Delete
+<pre>
+eks:DeleteCluster,
+eks:DescribeCluster</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -61,6 +86,7 @@ name,
 id,
 resources_vpc_config,
 outpost_config,
+access_config,
 role_arn,
 version,
 tags,

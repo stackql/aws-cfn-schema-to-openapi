@@ -40,6 +40,28 @@ Gets an individual <code>config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+groundstation:GetConfig,
+groundstation:ListTagsForResource</pre>
+
+### Update
+<pre>
+groundstation:UpdateConfig,
+groundstation:ListTagsForResource,
+groundstation:TagResource,
+groundstation:UntagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+groundstation:DeleteConfig</pre>
+
+
 ## Example
 ```sql
 SELECT

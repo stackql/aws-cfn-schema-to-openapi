@@ -35,6 +35,26 @@ Retrieves a list of <code>image_recipes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>image_recipes</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+imagebuilder:GetComponent,
+imagebuilder:GetImage,
+imagebuilder:TagResource,
+imagebuilder:GetImageRecipe,
+imagebuilder:CreateImageRecipe,
+ec2:DescribeImages</pre>
+
+### List
+<pre>
+imagebuilder:ListImageRecipes</pre>
+
+
 ## Example
 ```sql
 SELECT

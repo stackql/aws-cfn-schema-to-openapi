@@ -43,6 +43,30 @@ Gets an individual <code>simulation_application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>simulation_application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+robomaker:DescribeSimulationApplication</pre>
+
+### Update
+<pre>
+robomaker:TagResource,
+robomaker:UntagResource,
+robomaker:UpdateSimulationApplication,
+ecr:BatchGetImage,
+ecr:GetAuthorizationToken,
+ecr:BatchCheckLayerAvailability,
+ecr-public:GetAuthorizationToken</pre>
+
+### Delete
+<pre>
+robomaker:DescribeSimulationApplication,
+robomaker:DeleteSimulationApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

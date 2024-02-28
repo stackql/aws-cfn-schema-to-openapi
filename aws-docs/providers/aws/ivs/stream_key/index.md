@@ -38,6 +38,28 @@ Gets an individual <code>stream_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stream_key</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ivs:GetStreamKey,
+ivs:ListTagsForResource</pre>
+
+### Update
+<pre>
+ivs:GetStreamKey,
+ivs:TagResource,
+ivs:UntagResource,
+ivs:ListTagsForResource</pre>
+
+### Delete
+<pre>
+ivs:DeleteStreamKey,
+ivs:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -27,13 +27,42 @@ Retrieves a list of <code>workgroups</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>workgroup_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>workgroup_name</code></td><td><code>string</code></td><td>The name of the workgroup.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>workgroups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAvailabilityZones,
+redshift-serverless:CreateNamespace,
+redshift-serverless:CreateWorkgroup,
+redshift-serverless:GetWorkgroup</pre>
+
+### List
+<pre>
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAvailabilityZones,
+redshift-serverless:ListWorkgroups</pre>
+
 
 ## Example
 ```sql

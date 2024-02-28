@@ -20,9 +20,9 @@ The frauddetector service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>10</b></span><br />
-<span>total selectable resources:&nbsp;<b>10</b></span><br />
-<span>total methods:&nbsp;<b>10</b></span><br />
+<span>total resources:&nbsp;<b>12</b></span><br />
+<span>total selectable resources:&nbsp;<b>12</b></span><br />
+<span>total methods:&nbsp;<b>12</b></span><br />
 </div>
 </div>
 
@@ -35,10 +35,12 @@ The frauddetector service documentation.
 <a href="/providers/aws/frauddetector/detectors/">detectors</a><br />
 <a href="/providers/aws/frauddetector/event_type/">event_type</a><br />
 <a href="/providers/aws/frauddetector/event_types/">event_types</a><br />
-<a href="/providers/aws/frauddetector/label/">label</a>
+<a href="/providers/aws/frauddetector/label/">label</a><br />
+<a href="/providers/aws/frauddetector/labels/">labels</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/frauddetector/labels/">labels</a><br />
+<a href="/providers/aws/frauddetector/list/">list</a><br />
+<a href="/providers/aws/frauddetector/lists/">lists</a><br />
 <a href="/providers/aws/frauddetector/outcome/">outcome</a><br />
 <a href="/providers/aws/frauddetector/outcomes/">outcomes</a><br />
 <a href="/providers/aws/frauddetector/variable/">variable</a><br />

@@ -38,6 +38,20 @@ Gets an individual <code>schema</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schema</code> resource, the following permissions are required:
+
+### Read
+<pre>
+personalize:DescribeSchema</pre>
+
+### Delete
+<pre>
+personalize:DeleteSchema,
+personalize:DescribeSchema</pre>
+
+
 ## Example
 ```sql
 SELECT

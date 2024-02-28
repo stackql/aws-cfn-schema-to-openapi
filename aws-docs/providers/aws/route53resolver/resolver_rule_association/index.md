@@ -38,6 +38,20 @@ Gets an individual <code>resolver_rule_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_rule_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53resolver:GetResolverRuleAssociation</pre>
+
+### Delete
+<pre>
+route53resolver:DisassociateResolverRule,
+route53resolver:GetResolverRuleAssociation</pre>
+
+
 ## Example
 ```sql
 SELECT

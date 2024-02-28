@@ -48,6 +48,28 @@ Gets an individual <code>annotation_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>annotation_store</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetAnnotationStore</pre>
+
+### Update
+<pre>
+omics:UpdateAnnotationStore,
+omics:TagResource,
+omics:UntagResource,
+omics:GetAnnotationStore,
+omics:ListTagsForResource</pre>
+
+### Delete
+<pre>
+omics:DeleteAnnotationStore,
+omics:ListAnnotationStores</pre>
+
+
 ## Example
 ```sql
 SELECT

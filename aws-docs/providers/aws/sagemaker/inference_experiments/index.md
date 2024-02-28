@@ -35,6 +35,23 @@ Retrieves a list of <code>inference_experiments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>inference_experiments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateInferenceExperiment,
+sagemaker:DescribeInferenceExperiment,
+sagemaker:AddTags,
+sagemaker:ListTags,
+iam:PassRole</pre>
+
+### List
+<pre>
+sagemaker:ListInferenceExperiments</pre>
+
+
 ## Example
 ```sql
 SELECT

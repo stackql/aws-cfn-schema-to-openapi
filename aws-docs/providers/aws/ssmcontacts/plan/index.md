@@ -38,6 +38,27 @@ Gets an individual <code>plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm-contacts:GetContact</pre>
+
+### Update
+<pre>
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact</pre>
+
+### Delete
+<pre>
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact</pre>
+
+
 ## Example
 ```sql
 SELECT

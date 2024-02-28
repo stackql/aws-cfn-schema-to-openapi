@@ -38,6 +38,60 @@ Gets an individual <code>cluster_subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster_subnet_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+redshift:DescribeClusterSubnetGroups,
+redshift:DescribeTags,
+ec2:AllocateAddress,
+ec2:AssociateAddress,
+ec2:AttachNetworkInterface,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAddresses,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs</pre>
+
+### Update
+<pre>
+redshift:ModifyClusterSubnetGroup,
+redshift:DescribeClusterSubnetGroups,
+redshift:DescribeTags,
+redshift:CreateTags,
+redshift:DeleteTags,
+ec2:AllocateAddress,
+ec2:AssociateAddress,
+ec2:AttachNetworkInterface,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAddresses,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs</pre>
+
+### Delete
+<pre>
+redshift:DeleteClusterSubnetGroup,
+redshift:DescribeClusterSubnetGroups,
+redshift:DescribeTags,
+ec2:AllocateAddress,
+ec2:AssociateAddress,
+ec2:AttachNetworkInterface,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAddresses,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs</pre>
+
+
 ## Example
 ```sql
 SELECT

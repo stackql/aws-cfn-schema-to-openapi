@@ -35,6 +35,38 @@ Retrieves a list of <code>access_log_subscriptions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_log_subscriptions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+vpc-lattice:CreateAccessLogSubscription,
+vpc-lattice:TagResource,
+vpc-lattice:GetAccessLogSubscription,
+vpc-lattice:ListTagsForResource,
+logs:CreateLogDelivery,
+logs:CreateLogStream,
+logs:PutDestination,
+logs:PutDestinationPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+logs:GetLogDelivery,
+s3:PutBucketLogging,
+s3:GetBucketLogging,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+firehose:TagDeliveryStream,
+firehose:CreateDeliveryStream,
+firehose:DescribeDeliveryStream,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+vpc-lattice:ListAccessLogSubscriptions</pre>
+
+
 ## Example
 ```sql
 SELECT

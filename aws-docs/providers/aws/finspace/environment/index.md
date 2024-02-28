@@ -41,12 +41,31 @@ Gets an individual <code>environment</code> resource
 <tr><td><code>federation_parameters</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>superuser_parameters</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>data_bundles</code></td><td><code>array</code></td><td>ARNs of FinSpace Data Bundles to install</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+finspace:GetEnvironment</pre>
+
+### Update
+<pre>
+finspace:UpdateEnvironment</pre>
+
+### Delete
+<pre>
+finspace:DeleteEnvironment,
+finspace:GetEnvironment</pre>
+
 
 ## Example
 ```sql
@@ -65,7 +84,8 @@ dedicated_service_account_id,
 federation_mode,
 federation_parameters,
 superuser_parameters,
-data_bundles
+data_bundles,
+tags
 FROM aws.finspace.environment
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;EnvironmentId&gt;'

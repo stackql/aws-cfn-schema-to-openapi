@@ -35,6 +35,37 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>environments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ec2:CreateNetworkInterface,
+ec2:CreateNetworkInterfacePermission,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcAttribute,
+ec2:DescribeVpcs,
+ec2:ModifyNetworkInterfaceAttribute,
+elasticfilesystem:DescribeMountTargets,
+elasticloadbalancing:CreateLoadBalancer,
+elasticloadbalancing:AddTags,
+fsx:DescribeFileSystems,
+iam:CreateServiceLinkedRole,
+kms:DescribeKey,
+kms:CreateGrant,
+m2:CreateEnvironment,
+m2:GetEnvironment,
+m2:ListTagsForResource,
+m2:TagResource</pre>
+
+### List
+<pre>
+m2:ListEnvironments</pre>
+
+
 ## Example
 ```sql
 SELECT

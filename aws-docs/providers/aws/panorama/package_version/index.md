@@ -46,6 +46,38 @@ Gets an individual <code>package_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>package_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+panorama:DescribePackageVersion,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### Update
+<pre>
+panorama:DescribePackageVersion,
+panorama:RegisterPackageVersion,
+s3:ListBucket,
+s3:PutObject,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### Delete
+<pre>
+panorama:DeregisterPackageVersion,
+panorama:DescribePackageVersion,
+s3:DeleteObject,
+s3:DeleteObjectVersion,
+s3:DeleteObjectVersionTagging,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

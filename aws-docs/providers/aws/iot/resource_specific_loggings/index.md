@@ -35,6 +35,20 @@ Retrieves a list of <code>resource_specific_loggings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_specific_loggings</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:ListV2LoggingLevels,
+iot:SetV2LoggingLevel</pre>
+
+### List
+<pre>
+iot:ListV2LoggingLevels</pre>
+
+
 ## Example
 ```sql
 SELECT

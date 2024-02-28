@@ -47,6 +47,19 @@ Gets an individual <code>model_quality_job_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_quality_job_definition</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+sagemaker:DeleteModelQualityJobDefinition</pre>
+
+### Read
+<pre>
+sagemaker:DescribeModelQualityJobDefinition</pre>
+
+
 ## Example
 ```sql
 SELECT

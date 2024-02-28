@@ -45,6 +45,29 @@ Gets an individual <code>service</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetService,
+vpc-lattice:ListTagsForResource</pre>
+
+### Update
+<pre>
+vpc-lattice:UpdateService,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+vpc-lattice:GetService,
+vpc-lattice:ListTagsForResource</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteService,
+vpc-lattice:GetService</pre>
+
+
 ## Example
 ```sql
 SELECT

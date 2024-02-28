@@ -47,6 +47,31 @@ Gets an individual <code>fuota_task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fuota_task</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetFuotaTask,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:PassRole,
+iotwireless:UpdateFuotaTask,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateMulticastGroupWithFuotaTask,
+iotwireless:DisassociateMulticastGroupFromFuotaTask,
+iotwireless:AssociateWirelessDeviceWithFuotaTask,
+iotwireless:DisassociateWirelessDeviceFromFuotaTask</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteFuotaTask</pre>
+
+
 ## Example
 ```sql
 SELECT

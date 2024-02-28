@@ -41,6 +41,29 @@ Gets an individual <code>conformance_pack</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>conformance_pack</code> resource, the following permissions are required:
+
+### Read
+<pre>
+config:DescribeConformancePacks</pre>
+
+### Update
+<pre>
+config:PutConformancePack,
+config:DescribeConformancePackStatus,
+s3:GetObject,
+s3:GetBucketAcl,
+iam:CreateServiceLinkedRole,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+config:DeleteConformancePack,
+config:DescribeConformancePackStatus</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -39,6 +39,20 @@ Gets an individual <code>device_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>device_profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetDeviceProfile,
+iotwireless:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteDeviceProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

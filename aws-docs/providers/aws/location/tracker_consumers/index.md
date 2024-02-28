@@ -36,6 +36,20 @@ Retrieves a list of <code>tracker_consumers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tracker_consumers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+geo:AssociateTrackerConsumer,
+geo:ListTrackerConsumers</pre>
+
+### List
+<pre>
+geo:ListTrackerConsumers</pre>
+
+
 ## Example
 ```sql
 SELECT

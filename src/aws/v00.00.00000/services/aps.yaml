@@ -56,6 +56,31 @@ components:
       x-stackql-resource-name: rule_groups_namespace
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Workspace
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - aps:CreateRuleGroupsNamespace
+          - aps:DescribeRuleGroupsNamespace
+          - aps:TagResource
+        read:
+          - aps:DescribeRuleGroupsNamespace
+          - aps:ListTagsForResource
+        update:
+          - aps:PutRuleGroupsNamespace
+          - aps:DescribeRuleGroupsNamespace
+          - aps:TagResource
+          - aps:UntagResource
+          - aps:ListTagsForResource
+        delete:
+          - aps:DeleteRuleGroupsNamespace
+          - aps:DescribeRuleGroupsNamespace
+        list:
+          - aps:ListRuleGroupsNamespaces
+          - aps:ListTagsForResource
     LoggingConfiguration:
       description: Logging configuration
       type: object
@@ -94,6 +119,12 @@ components:
           type: string
         LoggingConfiguration:
           $ref: '#/components/schemas/LoggingConfiguration'
+        KmsKeyArn:
+          description: KMS Key ARN used to encrypt and decrypt AMP workspace data.
+          type: string
+          pattern: ^arn:aws[-a-z]*:kms:[-a-z0-9]+:[0-9]{12}:key/.+$
+          minLength: 20
+          maxLength: 2048
         Tags:
           description: An array of key-value pairs to apply to this resource.
           type: array
@@ -105,6 +136,60 @@ components:
       x-stackql-resource-name: workspace
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - KmsKeyArn
+      x-read-only-properties:
+        - WorkspaceId
+        - Arn
+        - PrometheusEndpoint
+      x-required-permissions:
+        create:
+          - aps:CreateWorkspace
+          - aps:DescribeWorkspace
+          - aps:TagResource
+          - aps:CreateAlertManagerDefinition
+          - aps:DescribeAlertManagerDefinition
+          - aps:CreateLoggingConfiguration
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+          - logs:PutResourcePolicy
+          - kms:CreateGrant
+          - kms:Decrypt
+          - kms:GenerateDataKey
+        read:
+          - aps:DescribeWorkspace
+          - aps:ListTagsForResource
+          - aps:DescribeAlertManagerDefinition
+          - aps:DescribeLoggingConfiguration
+        update:
+          - aps:UpdateWorkspaceAlias
+          - aps:DescribeWorkspace
+          - aps:TagResource
+          - aps:UntagResource
+          - aps:ListTagsForResource
+          - aps:CreateAlertManagerDefinition
+          - aps:PutAlertManagerDefinition
+          - aps:DeleteAlertManagerDefinition
+          - aps:CreateLoggingConfiguration
+          - aps:DescribeLoggingConfiguration
+          - aps:UpdateLoggingConfiguration
+          - aps:DeleteLoggingConfiguration
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:ListLogDeliveries
+          - logs:DeleteLogDelivery
+          - logs:PutResourcePolicy
+        delete:
+          - aps:DeleteWorkspace
+          - aps:DescribeWorkspace
+          - aps:DeleteAlertManagerDefinition
+          - aps:DeleteLoggingConfiguration
+          - logs:DeleteLogDelivery
+        list:
+          - aps:ListWorkspaces
+          - aps:ListTagsForResource
   x-stackQL-resources:
     rule_groups_namespaces:
       name: rule_groups_namespaces
@@ -178,5 +263,6 @@ components:
               JSON_EXTRACT(Properties, '$.AlertManagerDefinition') as alert_manager_definition,
               JSON_EXTRACT(Properties, '$.PrometheusEndpoint') as prometheus_endpoint,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration,
+              JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::APS::Workspace'

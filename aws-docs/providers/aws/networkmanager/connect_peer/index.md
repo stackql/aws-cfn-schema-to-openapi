@@ -38,6 +38,7 @@ Gets an individual <code>connect_peer</code> resource
 <tr><td><code>state</code></td><td><code>string</code></td><td>State of the connect peer.</td></tr>
 <tr><td><code>created_at</code></td><td><code>string</code></td><td>Connect peer creation time.</td></tr>
 <tr><td><code>configuration</code></td><td><code>object</code></td><td>Configuration of the connect peer.</td></tr>
+<tr><td><code>subnet_arn</code></td><td><code>string</code></td><td>The subnet ARN for the connect peer.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -45,6 +46,29 @@ Gets an individual <code>connect_peer</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>connect_peer</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetConnectPeer</pre>
+
+### Update
+<pre>
+networkmanager:GetConnectPeer,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions</pre>
+
+### Delete
+<pre>
+networkmanager:GetConnectPeer,
+networkmanager:DeleteConnectPeer,
+ec2:DescribeRegions</pre>
+
 
 ## Example
 ```sql
@@ -61,6 +85,7 @@ edge_location,
 state,
 created_at,
 configuration,
+subnet_arn,
 tags
 FROM aws.networkmanager.connect_peer
 WHERE region = 'us-east-1'

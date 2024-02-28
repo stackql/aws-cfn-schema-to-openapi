@@ -35,6 +35,21 @@ Retrieves a list of <code>scaling_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>scaling_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+autoscaling:DescribePolicies,
+autoscaling:PutScalingPolicy,
+cloudwatch:GetMetricData</pre>
+
+### List
+<pre>
+autoscaling:DescribePolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

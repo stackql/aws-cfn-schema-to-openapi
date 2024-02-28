@@ -40,6 +40,7 @@ Gets an individual <code>deployment_group</code> resource
 <tr><td><code>deployment_config_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>alarm_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>ec2_tag_filters</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>termination_hook_enabled</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>e_cs_services</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>auto_rollback_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>load_balancer_info</code></td><td><code>object</code></td><td></td></tr>
@@ -53,6 +54,10 @@ Gets an individual <code>deployment_group</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+
+
+
 
 ## Example
 ```sql
@@ -71,6 +76,7 @@ deployment,
 deployment_config_name,
 alarm_configuration,
 ec2_tag_filters,
+termination_hook_enabled,
 e_cs_services,
 auto_rollback_configuration,
 load_balancer_info,

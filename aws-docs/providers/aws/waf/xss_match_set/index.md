@@ -37,6 +37,10 @@ Gets an individual <code>xss_match_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,7 @@ Gets an individual <code>workflow</code> resource
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>parameter_template</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>accelerators</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>storage_capacity</code></td><td><code>number</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>type</code></td><td><code>string</code></td><td></td></tr>
@@ -46,6 +47,28 @@ Gets an individual <code>workflow</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>workflow</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetWorkflow</pre>
+
+### Update
+<pre>
+omics:UpdateWorkflow,
+omics:GetWorkflow,
+omics:TagResource,
+omics:ListTagsForResource,
+omics:UntagResource</pre>
+
+### Delete
+<pre>
+omics:DeleteWorkflow,
+omics:GetWorkflow</pre>
+
 
 ## Example
 ```sql
@@ -61,6 +84,7 @@ main,
 name,
 parameter_template,
 status,
+accelerators,
 storage_capacity,
 tags,
 type

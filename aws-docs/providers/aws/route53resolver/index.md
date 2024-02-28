@@ -20,9 +20,9 @@ The route53resolver service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>20</b></span><br />
-<span>total selectable resources:&nbsp;<b>20</b></span><br />
-<span>total methods:&nbsp;<b>20</b></span><br />
+<span>total resources:&nbsp;<b>22</b></span><br />
+<span>total selectable resources:&nbsp;<b>22</b></span><br />
+<span>total methods:&nbsp;<b>22</b></span><br />
 </div>
 </div>
 
@@ -37,12 +37,14 @@ The route53resolver service documentation.
 <a href="/providers/aws/route53resolver/firewall_rule_group_association/">firewall_rule_group_association</a><br />
 <a href="/providers/aws/route53resolver/firewall_rule_group_associations/">firewall_rule_group_associations</a><br />
 <a href="/providers/aws/route53resolver/firewall_rule_groups/">firewall_rule_groups</a><br />
+<a href="/providers/aws/route53resolver/outpost_resolver/">outpost_resolver</a><br />
+<a href="/providers/aws/route53resolver/outpost_resolvers/">outpost_resolvers</a><br />
 <a href="/providers/aws/route53resolver/resolver_config/">resolver_config</a><br />
 <a href="/providers/aws/route53resolver/resolver_configs/">resolver_configs</a><br />
-<a href="/providers/aws/route53resolver/resolver_endpoint/">resolver_endpoint</a><br />
-<a href="/providers/aws/route53resolver/resolver_endpoints/">resolver_endpoints</a>
+<a href="/providers/aws/route53resolver/resolver_endpoint/">resolver_endpoint</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/route53resolver/resolver_endpoints/">resolver_endpoints</a><br />
 <a href="/providers/aws/route53resolver/resolver_query_logging_config/">resolver_query_logging_config</a><br />
 <a href="/providers/aws/route53resolver/resolver_query_logging_config_association/">resolver_query_logging_config_association</a><br />
 <a href="/providers/aws/route53resolver/resolver_query_logging_config_associations/">resolver_query_logging_config_associations</a><br />

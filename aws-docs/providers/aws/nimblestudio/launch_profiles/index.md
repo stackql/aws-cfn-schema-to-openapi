@@ -36,6 +36,25 @@ Retrieves a list of <code>launch_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>launch_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+nimble:CreateLaunchProfile,
+nimble:GetLaunchProfile,
+nimble:TagResource,
+ec2:CreateNetworkInterface,
+ec2:CreateNetworkInterfacePermission,
+ec2:RunInstances,
+ec2:DescribeSubnets</pre>
+
+### List
+<pre>
+nimble:ListLaunchProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT

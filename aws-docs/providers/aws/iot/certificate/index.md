@@ -41,6 +41,26 @@ Gets an individual <code>certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificate</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeCertificate</pre>
+
+### Update
+<pre>
+iot:UpdateCertificate,
+iot:DescribeCertificate</pre>
+
+### Delete
+<pre>
+iot:DeleteCertificate,
+iot:UpdateCertificate,
+iot:DescribeCertificate</pre>
+
+
 ## Example
 ```sql
 SELECT

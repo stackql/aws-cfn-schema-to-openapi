@@ -48,6 +48,28 @@ Gets an individual <code>infrastructure_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>infrastructure_configuration</code> resource, the following permissions are required:
+
+### Update
+<pre>
+iam:PassRole,
+sns:Publish,
+imagebuilder:GetInfrastructureConfiguration,
+imagebuilder:UpdateInfrastructureConfiguration</pre>
+
+### Read
+<pre>
+imagebuilder:GetInfrastructureConfiguration</pre>
+
+### Delete
+<pre>
+imagebuilder:UnTagResource,
+imagebuilder:GetInfrastructureConfiguration,
+imagebuilder:DeleteInfrastructureConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

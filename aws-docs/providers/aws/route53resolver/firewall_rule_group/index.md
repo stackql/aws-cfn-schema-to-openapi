@@ -47,6 +47,38 @@ Gets an individual <code>firewall_rule_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>firewall_rule_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53resolver:*,
+ec2:*,
+logs:*,
+iam:*,
+lambda:*,
+s3:*</pre>
+
+### Delete
+<pre>
+route53resolver:*,
+ec2:*,
+logs:*,
+iam:*,
+lambda:*,
+s3:*</pre>
+
+### Update
+<pre>
+route53resolver:*,
+ec2:*,
+logs:*,
+iam:*,
+lambda:*,
+s3:*</pre>
+
+
 ## Example
 ```sql
 SELECT

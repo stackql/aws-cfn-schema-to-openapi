@@ -23,6 +23,117 @@ components:
         - Key
         - Value
       additionalProperties: false
+    AccessPolicy:
+      description: An access policy to associate with the current access entry.
+      type: object
+      additionalProperties: false
+      properties:
+        PolicyArn:
+          type: string
+          description: The ARN of the access policy to add to the access entry.
+        AccessScope:
+          $ref: '#/components/schemas/AccessScope'
+      required:
+        - PolicyArn
+        - AccessScope
+    AccessScope:
+      description: The access scope of the access policy.
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          description: The type of the access scope.
+          type: string
+          enum:
+            - namespace
+            - cluster
+        Namespaces:
+          description: The namespaces to associate with the access scope. Only specify if Type is set to 'namespace'.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+      required:
+        - Type
+    AccessEntry:
+      type: object
+      properties:
+        ClusterName:
+          description: The cluster that the access entry is created for.
+          type: string
+          minLength: 1
+        PrincipalArn:
+          description: The principal ARN that the access entry is created for.
+          type: string
+          minLength: 1
+        Username:
+          description: The Kubernetes user that the access entry is associated with.
+          type: string
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        AccessEntryArn:
+          description: The ARN of the access entry.
+          type: string
+        KubernetesGroups:
+          description: The Kubernetes groups that the access entry is associated with.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+        AccessPolicies:
+          description: An array of access policies that are associated with the access entry.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/AccessPolicy'
+          maxItems: 20
+        Type:
+          description: The node type to associate with the access entry.
+          type: string
+      required:
+        - PrincipalArn
+        - ClusterName
+      x-stackql-resource-name: access_entry
+      x-stackql-primaryIdentifier:
+        - PrincipalArn
+        - ClusterName
+      x-create-only-properties:
+        - PrincipalArn
+        - ClusterName
+        - Type
+      x-read-only-properties:
+        - AccessEntryArn
+      x-required-permissions:
+        create:
+          - eks:CreateAccessEntry
+          - eks:DescribeAccessEntry
+          - eks:AssociateAccessPolicy
+          - eks:TagResource
+          - eks:ListAssociatedAccessPolicies
+        read:
+          - eks:DescribeAccessEntry
+          - eks:ListAssociatedAccessPolicies
+        update:
+          - eks:DescribeAccessEntry
+          - eks:ListAssociatedAccessPolicies
+          - eks:UpdateAccessEntry
+          - eks:AssociateAccessPolicy
+          - eks:DisassociateAccessPolicy
+          - eks:TagResource
+          - eks:UntagResource
+        delete:
+          - eks:DeleteAccessEntry
+          - eks:DescribeAccessEntry
+        list:
+          - eks:ListAccessEntries
     Addon:
       type: object
       properties:
@@ -74,6 +185,32 @@ components:
       x-stackql-primaryIdentifier:
         - ClusterName
         - AddonName
+      x-create-only-properties:
+        - ClusterName
+        - AddonName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - eks:CreateAddon
+          - eks:DescribeAddon
+          - eks:TagResource
+          - iam:PassRole
+        read:
+          - eks:DescribeAddon
+        delete:
+          - eks:DeleteAddon
+          - eks:DescribeAddon
+        list:
+          - eks:ListAddons
+        update:
+          - iam:PassRole
+          - eks:UpdateAddon
+          - eks:DescribeAddon
+          - eks:DescribeUpdate
+          - eks:ListTagsForResource
+          - eks:TagResource
+          - eks:UntagResource
     Provider:
       type: object
       additionalProperties: false
@@ -212,6 +349,21 @@ components:
       required:
         - OutpostArns
         - ControlPlaneInstanceType
+    AccessConfig:
+      description: An object representing the Access Config to use for the cluster.
+      additionalProperties: false
+      type: object
+      properties:
+        BootstrapClusterCreatorAdminPermissions:
+          description: Set this value to false to avoid creating a default cluster admin Access Entry using the IAM principal used to create the cluster.
+          type: boolean
+        AuthenticationMode:
+          description: Specify the authentication mode that should be used to create your cluster.
+          type: string
+          enum:
+            - CONFIG_MAP
+            - API_AND_CONFIG_MAP
+            - API
     Cluster:
       type: object
       properties:
@@ -238,6 +390,8 @@ components:
           $ref: '#/components/schemas/ResourcesVpcConfig'
         OutpostConfig:
           $ref: '#/components/schemas/OutpostConfig'
+        AccessConfig:
+          $ref: '#/components/schemas/AccessConfig'
         RoleArn:
           description: The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to AWS API operations on your behalf.
           type: string
@@ -276,6 +430,56 @@ components:
       x-stackql-resource-name: cluster
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - OutpostConfig
+        - EncryptionConfig
+        - KubernetesNetworkConfig
+        - AccessConfig/BootstrapClusterCreatorAdminPermissions
+        - Name
+        - RoleArn
+      x-read-only-properties:
+        - Id
+        - Arn
+        - Endpoint
+        - CertificateAuthorityData
+        - ClusterSecurityGroupId
+        - EncryptionConfigKeyArn
+        - OpenIdConnectIssuerUrl
+        - KubernetesNetworkConfig/ServiceIpv6Cidr
+      x-required-permissions:
+        create:
+          - eks:CreateCluster
+          - eks:DescribeCluster
+          - eks:TagResource
+          - iam:PassRole
+          - iam:GetRole
+          - iam:ListAttachedRolePolicies
+          - iam:CreateServiceLinkedRole
+          - iam:CreateInstanceProfile
+          - iam:TagInstanceProfile
+          - iam:AddRoleToInstanceProfile
+          - iam:GetInstanceProfile
+          - iam:DeleteInstanceProfile
+          - iam:RemoveRoleFromInstanceProfile
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - kms:DescribeKey
+          - kms:CreateGrant
+        read:
+          - eks:DescribeCluster
+        update:
+          - iam:PassRole
+          - eks:UpdateClusterConfig
+          - eks:UpdateClusterVersion
+          - eks:DescribeCluster
+          - eks:DescribeUpdate
+          - eks:TagResource
+          - eks:UntagResource
+        delete:
+          - eks:DeleteCluster
+          - eks:DescribeCluster
+        list:
+          - eks:ListClusters
     Selector:
       type: object
       additionalProperties: false
@@ -347,6 +551,34 @@ components:
       x-stackql-primaryIdentifier:
         - ClusterName
         - FargateProfileName
+      x-create-only-properties:
+        - ClusterName
+        - FargateProfileName
+        - PodExecutionRoleArn
+        - Subnets
+        - Selectors
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - eks:CreateFargateProfile
+          - eks:DescribeFargateProfile
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - eks:TagResource
+        read:
+          - eks:DescribeFargateProfile
+        delete:
+          - eks:DeleteFargateProfile
+          - eks:DescribeFargateProfile
+        list:
+          - eks:ListFargateProfiles
+        update:
+          - eks:DescribeFargateProfile
+          - eks:ListTagsForResource
+          - eks:TagResource
+          - eks:UntagResource
     RequiredClaim:
       description: The key value pairs that describe required claims in the identity token. If set, each claim is verified to be present in the token with a matching value.
       type: object
@@ -431,6 +663,30 @@ components:
         - IdentityProviderConfigName
         - ClusterName
         - Type
+      x-create-only-properties:
+        - Oidc
+        - Type
+        - IdentityProviderConfigName
+        - ClusterName
+      x-read-only-properties:
+        - IdentityProviderConfigArn
+      x-required-permissions:
+        create:
+          - eks:DescribeUpdate
+          - eks:AssociateIdentityProviderConfig
+          - eks:DescribeIdentityProviderConfig
+          - eks:TagResource
+        read:
+          - eks:DescribeIdentityProviderConfig
+        update:
+          - eks:DescribeIdentityProviderConfig
+          - eks:TagResource
+          - eks:UntagResource
+        delete:
+          - eks:DisassociateIdentityProviderConfig
+          - eks:DescribeIdentityProviderConfig
+        list:
+          - eks:ListIdentityProviderConfigs
     LaunchTemplateSpecification:
       description: An object representing a launch template specification for AWS EKS Nodegroup.
       type: object
@@ -592,7 +848,164 @@ components:
       x-stackql-resource-name: nodegroup
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - CapacityType
+        - NodegroupName
+        - RemoteAccess
+        - NodeRole
+        - ClusterName
+        - InstanceTypes
+        - DiskSize
+        - AmiType
+        - Subnets
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - eks:CreateNodegroup
+          - eks:DescribeNodegroup
+          - eks:TagResource
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeKeyPairs
+          - ec2:CreateTags
+          - ec2:DeleteTags
+          - ec2:DescribeRouteTables
+          - ec2:DescribeLaunchTemplates
+          - ec2:DescribeLaunchTemplateVersions
+          - ec2:RunInstances
+          - iam:CreateServiceLinkedRole
+          - iam:GetRole
+          - iam:PassRole
+          - iam:ListAttachedRolePolicies
+        read:
+          - eks:DescribeNodegroup
+        delete:
+          - eks:DeleteNodegroup
+          - eks:DescribeNodegroup
+        list:
+          - eks:ListNodegroups
+        update:
+          - iam:GetRole
+          - iam:PassRole
+          - eks:DescribeNodegroup
+          - eks:DescribeUpdate
+          - eks:ListUpdates
+          - eks:TagResource
+          - eks:UntagResource
+          - eks:UpdateNodegroupConfig
+          - eks:UpdateNodegroupVersion
+    PodIdentityAssociation:
+      type: object
+      properties:
+        ClusterName:
+          description: The cluster that the pod identity association is created for.
+          type: string
+          minLength: 1
+        RoleArn:
+          description: The IAM role ARN that the pod identity association is created for.
+          type: string
+        Namespace:
+          description: The Kubernetes namespace that the pod identity association is created for.
+          type: string
+        ServiceAccount:
+          description: The Kubernetes service account that the pod identity association is created for.
+          type: string
+        AssociationArn:
+          description: The ARN of the pod identity association.
+          type: string
+        AssociationId:
+          description: The ID of the pod identity association.
+          type: string
+          minLength: 1
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - ClusterName
+        - RoleArn
+        - Namespace
+        - ServiceAccount
+      x-stackql-resource-name: pod_identity_association
+      x-stackql-primaryIdentifier:
+        - AssociationArn
+      x-create-only-properties:
+        - ClusterName
+        - Namespace
+        - ServiceAccount
+      x-read-only-properties:
+        - AssociationArn
+        - AssociationId
+      x-required-permissions:
+        create:
+          - eks:CreatePodIdentityAssociation
+          - eks:DescribePodIdentityAssociation
+          - eks:TagResource
+          - iam:PassRole
+          - iam:GetRole
+        read:
+          - eks:DescribePodIdentityAssociation
+        update:
+          - eks:DescribePodIdentityAssociation
+          - eks:UpdatePodIdentityAssociation
+          - eks:TagResource
+          - eks:UntagResource
+          - iam:PassRole
+          - iam:GetRole
+        delete:
+          - eks:DeletePodIdentityAssociation
+          - eks:DescribePodIdentityAssociation
+        list:
+          - eks:ListPodIdentityAssociations
   x-stackQL-resources:
+    access_entries:
+      name: access_entries
+      id: aws.eks.access_entries
+      x-cfn-schema-name: AccessEntry
+      x-type: list
+      x-identifiers:
+        - PrincipalArn
+        - ClusterName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PrincipalArn') as principal_arn,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::AccessEntry'
+    access_entry:
+      name: access_entry
+      id: aws.eks.access_entry
+      x-cfn-schema-name: AccessEntry
+      x-type: get
+      x-identifiers:
+        - PrincipalArn
+        - ClusterName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+              JSON_EXTRACT(Properties, '$.PrincipalArn') as principal_arn,
+              JSON_EXTRACT(Properties, '$.Username') as username,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.AccessEntryArn') as access_entry_arn,
+              JSON_EXTRACT(Properties, '$.KubernetesGroups') as kubernetes_groups,
+              JSON_EXTRACT(Properties, '$.AccessPolicies') as access_policies,
+              JSON_EXTRACT(Properties, '$.Type') as type
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::AccessEntry'
     addons:
       name: addons
       id: aws.eks.addons
@@ -673,6 +1086,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ResourcesVpcConfig') as resources_vpc_config,
               JSON_EXTRACT(Properties, '$.OutpostConfig') as outpost_config,
+              JSON_EXTRACT(Properties, '$.AccessConfig') as access_config,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
@@ -818,3 +1232,41 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Nodegroup'
+    pod_identity_associations:
+      name: pod_identity_associations
+      id: aws.eks.pod_identity_associations
+      x-cfn-schema-name: PodIdentityAssociation
+      x-type: list
+      x-identifiers:
+        - AssociationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'
+    pod_identity_association:
+      name: pod_identity_association
+      id: aws.eks.pod_identity_association
+      x-cfn-schema-name: PodIdentityAssociation
+      x-type: get
+      x-identifiers:
+        - AssociationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Namespace') as namespace,
+              JSON_EXTRACT(Properties, '$.ServiceAccount') as service_account,
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn,
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'

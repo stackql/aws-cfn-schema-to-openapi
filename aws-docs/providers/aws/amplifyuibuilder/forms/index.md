@@ -37,6 +37,24 @@ Retrieves a list of <code>forms</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>forms</code> resource, the following permissions are required:
+
+### Create
+<pre>
+amplify:GetApp,
+amplifyuibuilder:CreateForm,
+amplifyuibuilder:GetForm,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource</pre>
+
+### List
+<pre>
+amplify:GetApp,
+amplifyuibuilder:ListForms</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -40,6 +40,26 @@ Gets an individual <code>listener_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>listener_rule</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+elasticloadbalancing:DeleteRule,
+elasticloadbalancing:DescribeRules</pre>
+
+### Read
+<pre>
+elasticloadbalancing:DescribeRules</pre>
+
+### Update
+<pre>
+elasticloadbalancing:ModifyRule,
+elasticloadbalancing:SetRulePriorities,
+elasticloadbalancing:DescribeRules</pre>
+
+
 ## Example
 ```sql
 SELECT

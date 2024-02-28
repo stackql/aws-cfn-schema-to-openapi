@@ -35,6 +35,22 @@ Retrieves a list of <code>job_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>job_templates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateJobTemplate,
+iam:PassRole,
+s3:GetObject,
+iot:TagResource</pre>
+
+### List
+<pre>
+iot:ListJobTemplates</pre>
+
+
 ## Example
 ```sql
 SELECT

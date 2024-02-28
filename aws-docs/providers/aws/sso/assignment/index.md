@@ -40,6 +40,25 @@ Gets an individual <code>assignment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assignment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sso:ListAccountAssignments,
+iam:GetSAMLProvider,
+iam:ListRolePolicies</pre>
+
+### Delete
+<pre>
+sso:ListAccountAssignments,
+sso:DeleteAccountAssignment,
+sso:DescribeAccountAssignmentDeletionStatus,
+iam:GetSAMLProvider,
+iam:ListRolePolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

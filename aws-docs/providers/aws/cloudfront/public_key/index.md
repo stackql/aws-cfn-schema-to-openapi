@@ -37,6 +37,25 @@ Gets an individual <code>public_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>public_key</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeletePublicKey,
+cloudfront:GetPublicKey</pre>
+
+### Read
+<pre>
+cloudfront:GetPublicKey</pre>
+
+### Update
+<pre>
+cloudfront:UpdatePublicKey,
+cloudfront:GetPublicKey</pre>
+
+
 ## Example
 ```sql
 SELECT

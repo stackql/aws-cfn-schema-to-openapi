@@ -229,6 +229,17 @@ components:
           items:
             $ref: '#/components/schemas/PropertyName'
       additionalProperties: false
+    CompositeComponentType:
+      description: An object that sets information about a composite component type.
+      type: object
+      properties:
+        ComponentTypeId:
+          description: The id of the composite component type.
+          type: string
+          pattern: '[a-zA-Z_\.\-0-9:]+'
+          minLength: 1
+          maxLength: 256
+      additionalProperties: false
     Status:
       type: object
       properties:
@@ -297,9 +308,7 @@ components:
             '[a-zA-Z_\-0-9]+':
               $ref: '#/components/schemas/Function'
         IsSingleton:
-          description: |+
-            A Boolean value that specifies whether an entity can have more than one component of this type.
-
+          description: A Boolean value that specifies whether an entity can have more than one component of this type.
           type: boolean
         PropertyDefinitions:
           description: An map of the property definitions in the component type. Each property definition's key must be unique to this map.
@@ -314,6 +323,13 @@ components:
           x-patternProperties:
             '[a-zA-Z_\-0-9]+':
               $ref: '#/components/schemas/PropertyGroup'
+          additionalProperties: false
+        CompositeComponentTypes:
+          description: An map of the composite component types in the component type. Each composite component type's key must be unique to this map.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9]+':
+              $ref: '#/components/schemas/CompositeComponentType'
           additionalProperties: false
         Arn:
           description: The ARN of the component type.
@@ -353,6 +369,43 @@ components:
       x-stackql-primaryIdentifier:
         - WorkspaceId
         - ComponentTypeId
+      x-create-only-properties:
+        - WorkspaceId
+        - ComponentTypeId
+      x-read-only-properties:
+        - Arn
+        - CreationDateTime
+        - UpdateDateTime
+        - Status
+        - IsAbstract
+        - IsSchemaInitialized
+      x-required-permissions:
+        create:
+          - iottwinmaker:CreateComponentType
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+        read:
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+        update:
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+          - iottwinmaker:UntagResource
+          - iottwinmaker:UpdateComponentType
+        delete:
+          - iottwinmaker:DeleteComponentType
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetWorkspace
+        list:
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListComponentTypes
+          - iottwinmaker:ListTagsForResource
     PropertyDefinitionConfiguration:
       description: An object that specifies information about a property.
       type: object
@@ -448,6 +501,50 @@ components:
           description: The current status of the entity.
           $ref: '#/components/schemas/Status'
       additionalProperties: false
+    CompositeComponent:
+      type: object
+      properties:
+        ComponentName:
+          description: The name of the component.
+          type: string
+          pattern: '[a-zA-Z_\-0-9]+'
+          minLength: 1
+          maxLength: 256
+        ComponentPath:
+          description: The path of the component.
+          type: string
+          pattern: '[a-zA-Z_\-0-9/]+'
+          minLength: 1
+          maxLength: 256
+        ComponentTypeId:
+          description: The ID of the component type.
+          type: string
+          pattern: '[a-zA-Z_\-0-9]+'
+          minLength: 1
+          maxLength: 256
+        Description:
+          description: The description of the component.
+          type: string
+          minLength: 0
+          maxLength: 512
+        Properties:
+          description: An object that maps strings to the properties to set in the component type. Each string in the mapping must be unique to this object.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9]+':
+              $ref: '#/components/schemas/Property'
+          additionalProperties: false
+        PropertyGroups:
+          description: An object that maps strings to the property groups to set in the component type. Each string in the mapping must be unique to this object.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9]+':
+              $ref: '#/components/schemas/PropertyGroup'
+          additionalProperties: false
+        Status:
+          description: The current status of the component.
+          $ref: '#/components/schemas/Status'
+      additionalProperties: false
     Entity:
       type: object
       properties:
@@ -514,6 +611,13 @@ components:
             '[a-zA-Z_\-0-9]+':
               $ref: '#/components/schemas/Component'
           additionalProperties: false
+        CompositeComponents:
+          description: A map that sets information about a composite component.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9/]+':
+              $ref: '#/components/schemas/CompositeComponent'
+          additionalProperties: false
       required:
         - WorkspaceId
         - EntityName
@@ -521,6 +625,52 @@ components:
       x-stackql-primaryIdentifier:
         - WorkspaceId
         - EntityId
+      x-create-only-properties:
+        - WorkspaceId
+        - EntityId
+      x-read-only-properties:
+        - Arn
+        - CreationDateTime
+        - UpdateDateTime
+        - Status
+        - HasChildEntities
+      x-required-permissions:
+        create:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:CreateEntity
+          - iottwinmaker:GetEntity
+          - iottwinmaker:ListComponents
+          - iottwinmaker:ListProperties
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+        read:
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetEntity
+          - iottwinmaker:ListComponents
+          - iottwinmaker:ListProperties
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListEntities
+          - iottwinmaker:ListTagsForResource
+        update:
+          - iottwinmaker:GetComponentType
+          - iottwinmaker:GetEntity
+          - iottwinmaker:ListComponents
+          - iottwinmaker:ListProperties
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+          - iottwinmaker:UntagResource
+          - iottwinmaker:UpdateEntity
+          - iottwinmaker:UpdateComponentType
+        delete:
+          - iottwinmaker:GetEntity
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:DeleteEntity
+        list:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:GetEntity
+          - iottwinmaker:ListEntities
     Scene:
       type: object
       properties:
@@ -580,6 +730,28 @@ components:
             minLength: 0
             maxLength: 256
             pattern: .*
+        SceneMetadata:
+          description: A key-value pair of scene metadata for the scene.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9]+':
+              type: string
+              minLength: 0
+              maxLength: 2048
+          minLength: 0
+          maxLength: 50
+          additionalProperties: false
+        GeneratedSceneMetadata:
+          description: A key-value pair of generated scene metadata for the scene.
+          type: object
+          x-patternProperties:
+            '[a-zA-Z_\-0-9]+':
+              type: string
+              minLength: 0
+              maxLength: 2048
+          minLength: 0
+          maxLength: 50
+          additionalProperties: false
       required:
         - WorkspaceId
         - SceneId
@@ -588,6 +760,40 @@ components:
       x-stackql-primaryIdentifier:
         - WorkspaceId
         - SceneId
+      x-create-only-properties:
+        - SceneId
+        - WorkspaceId
+      x-read-only-properties:
+        - Arn
+        - CreationDateTime
+        - UpdateDateTime
+        - GeneratedSceneMetadata
+      x-required-permissions:
+        create:
+          - iottwinmaker:CreateScene
+          - iottwinmaker:GetScene
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+        read:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:GetScene
+          - iottwinmaker:ListTagsForResource
+        update:
+          - iottwinmaker:GetScene
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+          - iottwinmaker:UntagResource
+          - iottwinmaker:UpdateScene
+        delete:
+          - iottwinmaker:DeleteScene
+          - iottwinmaker:GetScene
+          - iottwinmaker:GetWorkspace
+        list:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:ListScenes
     SyncJob:
       type: object
       properties:
@@ -643,6 +849,36 @@ components:
       x-stackql-primaryIdentifier:
         - WorkspaceId
         - SyncSource
+      x-create-only-properties:
+        - WorkspaceId
+        - SyncSource
+        - SyncRole
+        - Tags
+      x-read-only-properties:
+        - Arn
+        - CreationDateTime
+        - UpdateDateTime
+        - State
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iottwinmaker:CreateSyncJob
+          - iottwinmaker:GetSyncJob
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+        read:
+          - iottwinmaker:GetSyncJob
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+        delete:
+          - iottwinmaker:DeleteSyncJob
+          - iottwinmaker:GetSyncJob
+          - iottwinmaker:GetWorkspace
+        list:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListSyncJobs
+          - iottwinmaker:ListTagsForResource
     Workspace:
       type: object
       properties:
@@ -695,6 +931,35 @@ components:
       x-stackql-resource-name: workspace
       x-stackql-primaryIdentifier:
         - WorkspaceId
+      x-create-only-properties:
+        - WorkspaceId
+      x-read-only-properties:
+        - Arn
+        - CreationDateTime
+        - UpdateDateTime
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iottwinmaker:CreateWorkspace
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+        read:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+        update:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:TagResource
+          - iottwinmaker:UntagResource
+          - iottwinmaker:UpdateWorkspace
+        delete:
+          - iottwinmaker:DeleteWorkspace
+          - iottwinmaker:GetWorkspace
+        list:
+          - iottwinmaker:GetWorkspace
+          - iottwinmaker:ListTagsForResource
+          - iottwinmaker:ListWorkspaces
   x-stackQL-resources:
     component_types:
       name: component_types
@@ -737,6 +1002,7 @@ components:
               JSON_EXTRACT(Properties, '$.IsSingleton') as is_singleton,
               JSON_EXTRACT(Properties, '$.PropertyDefinitions') as property_definitions,
               JSON_EXTRACT(Properties, '$.PropertyGroups') as property_groups,
+              JSON_EXTRACT(Properties, '$.CompositeComponentTypes') as composite_component_types,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.CreationDateTime') as creation_date_time,
               JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
@@ -789,7 +1055,8 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.Components') as components
+              JSON_EXTRACT(Properties, '$.Components') as components,
+              JSON_EXTRACT(Properties, '$.CompositeComponents') as composite_components
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
     scenes:
       name: scenes
@@ -832,7 +1099,9 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.Capabilities') as capabilities
+              JSON_EXTRACT(Properties, '$.Capabilities') as capabilities,
+              JSON_EXTRACT(Properties, '$.SceneMetadata') as scene_metadata,
+              JSON_EXTRACT(Properties, '$.GeneratedSceneMetadata') as generated_scene_metadata
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
     sync_jobs:
       name: sync_jobs

@@ -44,6 +44,28 @@ Gets an individual <code>listener</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>listener</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetListener,
+vpc-lattice:ListTagsForResource</pre>
+
+### Update
+<pre>
+vpc-lattice:UpdateListener,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+vpc-lattice:GetListener,
+vpc-lattice:ListTagsForResource</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteListener</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -30,6 +30,7 @@ Gets an individual <code>domain</code> resource
 <tr><td><code>cluster_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>access_policies</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>i_paddress_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>engine_version</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>advanced_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>log_publishing_options</code></td><td><code>object</code></td><td></td></tr>
@@ -40,6 +41,7 @@ Gets an individual <code>domain</code> resource
 <tr><td><code>cognito_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>advanced_security_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>domain_endpoint</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_endpoint_v2</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>domain_endpoints</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>e_bs_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
@@ -57,6 +59,31 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+<pre>
+es:DescribeDomain,
+es:ListTags</pre>
+
+### Update
+<pre>
+es:UpdateDomain,
+es:UpgradeDomain,
+es:DescribeDomain,
+es:AddTags,
+es:RemoveTags,
+es:ListTags,
+es:DescribeDomainChangeProgress</pre>
+
+### Delete
+<pre>
+es:DeleteDomain,
+es:DescribeDomain</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -64,6 +91,7 @@ region,
 cluster_config,
 domain_name,
 access_policies,
+i_paddress_type,
 engine_version,
 advanced_options,
 log_publishing_options,
@@ -74,6 +102,7 @@ domain_endpoint_options,
 cognito_options,
 advanced_security_options,
 domain_endpoint,
+domain_endpoint_v2,
 domain_endpoints,
 e_bs_options,
 id,

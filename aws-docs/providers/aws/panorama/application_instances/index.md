@@ -35,6 +35,31 @@ Retrieves a list of <code>application_instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application_instances</code> resource, the following permissions are required:
+
+### Create
+<pre>
+panorama:CreateApplicationInstance,
+panorama:ListTagsForResource,
+panorama:TagResource,
+panorama:DescribeApplicationInstance,
+panorama:DescribeApplicationInstanceDetails,
+iam:PassRole,
+s3:ListBucket,
+s3:PutObject,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### List
+<pre>
+panorama:ListApplicationInstances,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

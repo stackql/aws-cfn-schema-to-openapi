@@ -35,6 +35,30 @@ Retrieves a list of <code>firewalls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>firewalls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ec2:CreateVpcEndpoint,
+ec2:DescribeVpcEndpoints,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+iam:CreateServiceLinkedRole,
+network-firewall:CreateFirewall,
+network-firewall:DescribeFirewallPolicy,
+network-firewall:DescribeRuleGroup,
+network-firewall:TagResource,
+network-firewall:AssociateSubnets,
+network-firewall:AssociateFirewallPolicy,
+network-firewall:DescribeFirewall</pre>
+
+### List
+<pre>
+network-firewall:ListFirewalls</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -36,6 +36,24 @@ Retrieves a list of <code>fargate_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fargate_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+eks:CreateFargateProfile,
+eks:DescribeFargateProfile,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+eks:TagResource</pre>
+
+### List
+<pre>
+eks:ListFargateProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT

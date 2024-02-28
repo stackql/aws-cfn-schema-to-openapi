@@ -40,6 +40,31 @@ Gets an individual <code>link</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>link</code> resource, the following permissions are required:
+
+### Read
+<pre>
+oam:GetLink</pre>
+
+### Update
+<pre>
+oam:GetLink,
+oam:UpdateLink,
+cloudwatch:Link,
+logs:Link,
+xray:Link,
+applicationinsights:Link,
+oam:TagResource,
+oam:UntagResource</pre>
+
+### Delete
+<pre>
+oam:DeleteLink,
+oam:GetLink</pre>
+
+
 ## Example
 ```sql
 SELECT

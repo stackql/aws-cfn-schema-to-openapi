@@ -45,6 +45,32 @@ Gets an individual <code>simple_ad</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>simple_ad</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ds:DescribeDirectories</pre>
+
+### Update
+<pre>
+ds:EnableSso,
+ds:DisableSso,
+ds:DescribeDirectories</pre>
+
+### Delete
+<pre>
+ds:DeleteDirectory,
+ds:DescribeDirectories,
+ec2:DescribeNetworkInterfaces,
+ec2:DeleteSecurityGroup,
+ec2:DeleteNetworkInterface,
+ec2:RevokeSecurityGroupIngress,
+ec2:RevokeSecurityGroupEgress,
+ec2:DeleteTags</pre>
+
+
 ## Example
 ```sql
 SELECT

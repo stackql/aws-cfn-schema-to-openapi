@@ -27,9 +27,9 @@ Gets an individual <code>master</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>detector_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>master_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>invitation_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>master_id</code></td><td><code>string</code></td><td>ID of the account used as the master account.</td></tr>
+<tr><td><code>invitation_id</code></td><td><code>string</code></td><td>Value used to validate the master account to the member account.</td></tr>
+<tr><td><code>detector_id</code></td><td><code>string</code></td><td>Unique ID of the detector of the GuardDuty member account.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -37,14 +37,28 @@ Gets an individual <code>master</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>master</code> resource, the following permissions are required:
+
+### Read
+<pre>
+guardduty:GetMasterAccount</pre>
+
+### Delete
+<pre>
+guardduty:DisassociateFromMasterAccount</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-detector_id,
 master_id,
-invitation_id
+invitation_id,
+detector_id
 FROM aws.guardduty.master
 WHERE region = 'us-east-1'
+AND data__Identifier = '&lt;DetectorId&gt;'
 AND data__Identifier = '&lt;MasterId&gt;'
 ```

@@ -47,6 +47,27 @@ Gets an individual <code>db_proxy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_proxy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeDBProxies</pre>
+
+### Update
+<pre>
+rds:ModifyDBProxy,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+rds:DescribeDBProxies,
+rds:DeleteDBProxy</pre>
+
+
 ## Example
 ```sql
 SELECT

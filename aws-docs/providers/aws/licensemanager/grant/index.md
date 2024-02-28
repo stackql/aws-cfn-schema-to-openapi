@@ -42,6 +42,23 @@ Gets an individual <code>grant</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>grant</code> resource, the following permissions are required:
+
+### Read
+<pre>
+license-manager:GetGrant</pre>
+
+### Update
+<pre>
+license-manager:CreateGrantVersion</pre>
+
+### Delete
+<pre>
+license-manager:DeleteGrant</pre>
+
+
 ## Example
 ```sql
 SELECT

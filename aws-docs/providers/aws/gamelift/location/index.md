@@ -37,6 +37,27 @@ Gets an individual <code>location</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location</code> resource, the following permissions are required:
+
+### Read
+<pre>
+gamelift:ListLocations,
+gamelift:ListTagsForResource</pre>
+
+### Delete
+<pre>
+gamelift:DeleteLocation</pre>
+
+### Update
+<pre>
+gamelift:ListLocations,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

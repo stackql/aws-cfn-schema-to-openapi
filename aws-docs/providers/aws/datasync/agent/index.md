@@ -42,6 +42,28 @@ Gets an individual <code>agent</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>agent</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeAgent,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:UpdateAgent,
+datasync:DescribeAgent,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource</pre>
+
+### Delete
+<pre>
+datasync:DeleteAgent</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -47,6 +47,27 @@ Gets an individual <code>identity_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>identity_pool</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cognito-identity:DescribeIdentityPool</pre>
+
+### Update
+<pre>
+cognito-identity:UpdateIdentityPool,
+cognito-identity:DescribeIdentityPool,
+cognito-sync:SetIdentityPoolConfiguration,
+cognito-sync:SetCognitoEvents,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+cognito-identity:DeleteIdentityPool</pre>
+
+
 ## Example
 ```sql
 SELECT

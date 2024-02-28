@@ -36,6 +36,24 @@ Gets an individual <code>notification_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>notification_channel</code> resource, the following permissions are required:
+
+### Update
+<pre>
+fms:PutNotificationChannel,
+iam:PassRole</pre>
+
+### Read
+<pre>
+fms:GetNotificationChannel</pre>
+
+### Delete
+<pre>
+fms:DeleteNotificationChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

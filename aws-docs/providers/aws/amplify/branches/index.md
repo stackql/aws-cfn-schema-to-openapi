@@ -35,6 +35,34 @@ Retrieves a list of <code>branches</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>branches</code> resource, the following permissions are required:
+
+### Create
+<pre>
+amplify:GetBranch,
+amplify:CreateBranch,
+amplify:TagResource,
+codecommit:GetRepository,
+codecommit:PutRepositoryTriggers,
+codecommit:GetRepositoryTriggers,
+s3:GetObject,
+s3:GetObjectAcl,
+s3:PutObject,
+s3:PutObjectAcl,
+sns:CreateTopic,
+sns:Subscribe,
+iam:PassRole</pre>
+
+### List
+<pre>
+amplify:GetBranch,
+amplify:ListBranches,
+amplify:ListTagsForResource,
+iam:PassRole</pre>
+
+
 ## Example
 ```sql
 SELECT

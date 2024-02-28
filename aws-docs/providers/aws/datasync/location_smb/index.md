@@ -44,6 +44,28 @@ Gets an individual <code>location_smb</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location_smb</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationSmb,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationSmb,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+datasync:UpdateLocationSmb</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

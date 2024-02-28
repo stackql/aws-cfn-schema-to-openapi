@@ -35,6 +35,24 @@ Retrieves a list of <code>configuration_aggregators</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_aggregators</code> resource, the following permissions are required:
+
+### Create
+<pre>
+config:PutConfigurationAggregator,
+config:DescribeConfigurationAggregators,
+config:TagResource,
+iam:PassRole,
+organizations:EnableAWSServiceAccess,
+organizations:ListDelegatedAdministrators</pre>
+
+### List
+<pre>
+config:DescribeConfigurationAggregators</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -49,6 +49,25 @@ Gets an individual <code>certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificate</code> resource, the following permissions are required:
+
+### Read
+<pre>
+transfer:DescribeCertificate</pre>
+
+### Update
+<pre>
+transfer:UpdateCertificate,
+transfer:UnTagResource,
+transfer:TagResource</pre>
+
+### Delete
+<pre>
+transfer:DeleteCertificate</pre>
+
+
 ## Example
 ```sql
 SELECT

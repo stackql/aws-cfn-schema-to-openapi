@@ -38,6 +38,20 @@ Gets an individual <code>group_membership</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>group_membership</code> resource, the following permissions are required:
+
+### Read
+<pre>
+identitystore:DescribeGroupMembership</pre>
+
+### Delete
+<pre>
+identitystore:DeleteGroupMembership,
+identitystore:DescribeGroupMembership</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -41,6 +41,23 @@ Gets an individual <code>vpc_ingress_connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_ingress_connection</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apprunner:DescribeVpcIngressConnection</pre>
+
+### Update
+<pre>
+apprunner:UpdateVpcIngressConnection</pre>
+
+### Delete
+<pre>
+apprunner:DeleteVpcIngressConnection</pre>
+
+
 ## Example
 ```sql
 SELECT

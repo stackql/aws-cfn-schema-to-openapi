@@ -43,6 +43,27 @@ Gets an individual <code>stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stream</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+qldb:CancelJournalKinesisStream,
+qldb:DescribeJournalKinesisStream</pre>
+
+### Read
+<pre>
+qldb:DescribeJournalKinesisStream,
+qldb:ListTagsForResource</pre>
+
+### Update
+<pre>
+qldb:DescribeJournalKinesisStream,
+qldb:UntagResource,
+qldb:TagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

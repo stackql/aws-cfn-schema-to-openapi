@@ -27,6 +27,13 @@
   },
   "additionalProperties" : false,
   "required" : [ "BackupPlan" ],
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : true,
+    "cloudFormationSystemTags" : true,
+    "tagProperty" : "/properties/BackupPlanTags"
+  },
   "readOnlyProperties" : [ "/properties/BackupPlanId", "/properties/VersionId", "/properties/BackupPlanArn" ],
   "primaryIdentifier" : [ "/properties/BackupPlanId" ],
   "definitions" : {
@@ -73,6 +80,9 @@
           "type" : "number"
         },
         "ScheduleExpression" : {
+          "type" : "string"
+        },
+        "ScheduleExpressionTimezone" : {
           "type" : "string"
         },
         "RecoveryPointTags" : {
@@ -136,6 +146,9 @@
         },
         "DeleteAfterDays" : {
           "type" : "number"
+        },
+        "OptInToArchiveForSupportedResources" : {
+          "type" : "boolean"
         }
       }
     }
@@ -145,7 +158,7 @@
       "permissions" : [ "backup:GetBackupPlan", "backup:ListTags" ]
     },
     "create" : {
-      "permissions" : [ "backup:CreateBackupPlan" ]
+      "permissions" : [ "backup:GetBackupPlan", "backup:TagResource", "backup:CreateBackupPlan" ]
     },
     "delete" : {
       "permissions" : [ "backup:GetBackupPlan", "backup:DeleteBackupPlan" ]

@@ -41,6 +41,33 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotsitewise:DescribeProject,
+iotsitewise:ListTagsForResource,
+iotsitewise:ListProjectAssets</pre>
+
+### Update
+<pre>
+iotsitewise:DescribeProject,
+iotsitewise:UpdateProject,
+iotsitewise:BatchAssociateProjectAssets,
+iotsitewise:BatchDisAssociateProjectAssets,
+iotsitewise:ListProjectAssets,
+iotsitewise:TagResource,
+iotsitewise:UntagResource,
+iotsitewise:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iotsitewise:DescribeProject,
+iotsitewise:DeleteProject</pre>
+
+
 ## Example
 ```sql
 SELECT

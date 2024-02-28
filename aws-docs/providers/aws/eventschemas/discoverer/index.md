@@ -27,12 +27,13 @@ Gets an individual <code>discoverer</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>discoverer_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>discoverer_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>cross_account</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>source_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>discoverer_arn</code></td><td><code>string</code></td><td>The ARN of the discoverer.</td></tr>
+<tr><td><code>discoverer_id</code></td><td><code>string</code></td><td>The Id of the discoverer.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>A description for the discoverer.</td></tr>
+<tr><td><code>source_arn</code></td><td><code>string</code></td><td>The ARN of the event bus.</td></tr>
+<tr><td><code>cross_account</code></td><td><code>boolean</code></td><td>Defines whether event schemas from other accounts are discovered. Default is True.</td></tr>
+<tr><td><code>state</code></td><td><code>string</code></td><td>Defines the current state of the discoverer.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>Tags associated with the resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -40,17 +41,45 @@ Gets an individual <code>discoverer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>discoverer</code> resource, the following permissions are required:
+
+### Read
+<pre>
+schemas:DescribeDiscoverer</pre>
+
+### Update
+<pre>
+schemas:DescribeDiscoverer,
+schemas:UpdateDiscoverer,
+schemas:TagResource,
+schemas:UntagResource,
+schemas:ListTagsForResource,
+events:PutTargets,
+events:PutRule</pre>
+
+### Delete
+<pre>
+schemas:DescribeDiscoverer,
+schemas:DeleteDiscoverer,
+events:DeleteRule,
+events:DisableRule,
+events:RemoveTargets</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 discoverer_arn,
 discoverer_id,
-cross_account,
 description,
 source_arn,
+cross_account,
+state,
 tags
 FROM aws.eventschemas.discoverer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DiscovererId&gt;'
+AND data__Identifier = '&lt;DiscovererArn&gt;'
 ```

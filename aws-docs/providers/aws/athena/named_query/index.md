@@ -40,6 +40,19 @@ Gets an individual <code>named_query</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>named_query</code> resource, the following permissions are required:
+
+### Read
+<pre>
+athena:GetNamedQuery</pre>
+
+### Delete
+<pre>
+athena:DeleteNamedQuery</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,25 @@ Gets an individual <code>cluster_capacity_provider_associations</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster_capacity_provider_associations</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecs:DescribeClusters</pre>
+
+### Update
+<pre>
+ecs:DescribeClusters,
+ecs:PutClusterCapacityProviders</pre>
+
+### Delete
+<pre>
+ecs:PutClusterCapacityProviders,
+ecs:DescribeClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

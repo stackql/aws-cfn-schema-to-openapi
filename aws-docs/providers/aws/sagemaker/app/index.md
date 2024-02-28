@@ -41,6 +41,21 @@ Gets an individual <code>app</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>app</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeApp,
+sagemaker:DescribeApp</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteApp,
+sagemaker:DescribeApp</pre>
+
+
 ## Example
 ```sql
 SELECT

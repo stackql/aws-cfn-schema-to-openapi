@@ -35,6 +35,37 @@ Retrieves a list of <code>workspaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>workspaces</code> resource, the following permissions are required:
+
+### Create
+<pre>
+grafana:CreateWorkspace,
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration,
+grafana:UpdateWorkspaceAuthentication,
+sso:DescribeRegisteredRegions,
+sso:CreateManagedApplicationInstance,
+organizations:DescribeOrganization,
+sso:GetSharedSsoConfiguration,
+iam:PassRole,
+ec2:GetManagedPrefixListEntries,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+iam:CreateServiceLinkedRole,
+sso:ListApplicationInstances,
+sso:GetApplicationInstance</pre>
+
+### List
+<pre>
+grafana:ListWorkspaces,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

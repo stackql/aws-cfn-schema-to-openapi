@@ -47,6 +47,28 @@ Gets an individual <code>metric_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>metric_stream</code> resource, the following permissions are required:
+
+### Update
+<pre>
+cloudwatch:PutMetricStream,
+cloudwatch:GetMetricStream,
+cloudwatch:TagResource,
+cloudwatch:UntagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+cloudwatch:DeleteMetricStream,
+cloudwatch:GetMetricStream</pre>
+
+### Read
+<pre>
+cloudwatch:GetMetricStream</pre>
+
+
 ## Example
 ```sql
 SELECT

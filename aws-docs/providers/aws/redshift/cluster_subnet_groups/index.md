@@ -35,6 +35,43 @@ Retrieves a list of <code>cluster_subnet_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster_subnet_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+redshift:CreateClusterSubnetGroup,
+redshift:CreateTags,
+redshift:DescribeClusterSubnetGroups,
+redshift:DescribeTags,
+ec2:AllocateAddress,
+ec2:AssociateAddress,
+ec2:AttachNetworkInterface,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAddresses,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs</pre>
+
+### List
+<pre>
+redshift:DescribeClusterSubnetGroups,
+redshift:DescribeTags,
+ec2:AllocateAddress,
+ec2:AssociateAddress,
+ec2:AttachNetworkInterface,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAddresses,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,48 @@ Retrieves a list of <code>bots</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bots</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+lex:DescribeBot,
+lex:CreateUploadUrl,
+lex:StartImport,
+lex:DescribeImport,
+lex:ListTagsForResource,
+lex:TagResource,
+lex:CreateBot,
+lex:CreateBotLocale,
+lex:CreateIntent,
+lex:CreateSlot,
+lex:CreateSlotType,
+lex:UpdateBot,
+lex:UpdateBotLocale,
+lex:UpdateIntent,
+lex:UpdateSlot,
+lex:UpdateSlotType,
+lex:DeleteBotLocale,
+lex:DeleteIntent,
+lex:DeleteSlot,
+lex:DeleteSlotType,
+lex:DescribeBotLocale,
+lex:BuildBotLocale,
+lex:ListBots,
+lex:ListBotLocales,
+lex:CreateCustomVocabulary,
+lex:UpdateCustomVocabulary,
+lex:DeleteCustomVocabulary,
+s3:GetObject,
+lex:UpdateBotAlias</pre>
+
+### List
+<pre>
+lex:ListBots</pre>
+
+
 ## Example
 ```sql
 SELECT

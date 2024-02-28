@@ -37,6 +37,25 @@ Gets an individual <code>key_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>key_group</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteKeyGroup,
+cloudfront:GetKeyGroup</pre>
+
+### Read
+<pre>
+cloudfront:GetKeyGroup</pre>
+
+### Update
+<pre>
+cloudfront:UpdateKeyGroup,
+cloudfront:GetKeyGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

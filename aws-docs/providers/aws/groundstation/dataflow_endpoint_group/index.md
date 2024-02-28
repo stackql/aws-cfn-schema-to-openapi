@@ -40,6 +40,21 @@ Gets an individual <code>dataflow_endpoint_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dataflow_endpoint_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+groundstation:GetDataflowEndpointGroup,
+groundstation:ListTagsForResource</pre>
+
+### Delete
+<pre>
+groundstation:DeleteDataflowEndpointGroup,
+groundstation:GetDataflowEndpointGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

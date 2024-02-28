@@ -35,6 +35,23 @@ Retrieves a list of <code>control_panels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>control_panels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53-recovery-control-config:CreateControlPanel,
+route53-recovery-control-config:DescribeCluster,
+route53-recovery-control-config:DescribeControlPanel,
+route53-recovery-control-config:ListTagsForResource,
+route53-recovery-control-config:TagResource</pre>
+
+### List
+<pre>
+route53-recovery-control-config:ListControlPanels</pre>
+
+
 ## Example
 ```sql
 SELECT

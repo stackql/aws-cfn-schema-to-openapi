@@ -83,9 +83,30 @@
         },
         "StatefulEngineOptions" : {
           "$ref" : "#/definitions/StatefulEngineOptions"
+        },
+        "PolicyVariables" : {
+          "type" : "object",
+          "properties" : {
+            "RuleVariables" : {
+              "$ref" : "#/definitions/RuleVariables"
+            }
+          },
+          "additionalProperties" : false
+        },
+        "TLSInspectionConfigurationArn" : {
+          "$ref" : "#/definitions/ResourceArn"
         }
       },
       "required" : [ "StatelessDefaultActions", "StatelessFragmentDefaultActions" ],
+      "additionalProperties" : false
+    },
+    "RuleVariables" : {
+      "type" : "object",
+      "patternProperties" : {
+        "^[A-Za-z0-9_]{1,32}$" : {
+          "$ref" : "#/definitions/IPSet"
+        }
+      },
       "additionalProperties" : false
     },
     "CustomAction" : {
@@ -175,6 +196,25 @@
       "minimum" : 1,
       "maximum" : 65535
     },
+    "VariableDefinition" : {
+      "type" : "string",
+      "minLength" : 1,
+      "pattern" : "^.*$"
+    },
+    "IPSet" : {
+      "type" : "object",
+      "properties" : {
+        "Definition" : {
+          "type" : "array",
+          "insertionOrder" : true,
+          "uniqueItems" : false,
+          "items" : {
+            "$ref" : "#/definitions/VariableDefinition"
+          }
+        }
+      },
+      "additionalProperties" : false
+    },
     "StatefulRuleGroupOverride" : {
       "type" : "object",
       "properties" : {
@@ -206,7 +246,7 @@
     },
     "StreamExceptionPolicy" : {
       "type" : "string",
-      "enum" : [ "DROP", "CONTINUE" ]
+      "enum" : [ "DROP", "CONTINUE", "REJECT" ]
     }
   },
   "properties" : {
@@ -243,19 +283,22 @@
       }
     }
   },
+  "tagging" : {
+    "taggable" : true
+  },
   "required" : [ "FirewallPolicyName", "FirewallPolicy" ],
   "readOnlyProperties" : [ "/properties/FirewallPolicyArn", "/properties/FirewallPolicyId" ],
   "primaryIdentifier" : [ "/properties/FirewallPolicyArn" ],
   "createOnlyProperties" : [ "/properties/FirewallPolicyName" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "network-firewall:CreateFirewallPolicy", "network-firewall:DescribeFirewallPolicy", "network-firewall:TagResource" ]
+      "permissions" : [ "network-firewall:CreateFirewallPolicy", "network-firewall:DescribeFirewallPolicy", "network-firewall:ListTLSInspectionConfigurations", "network-firewall:TagResource", "network-firewall:ListRuleGroups" ]
     },
     "read" : {
       "permissions" : [ "network-firewall:DescribeFirewallPolicy", "network-firewall:ListTagsForResources" ]
     },
     "update" : {
-      "permissions" : [ "network-firewall:UpdateFirewallPolicy", "network-firewall:DescribeFirewallPolicy", "network-firewall:TagResource", "network-firewall:UntagResource" ]
+      "permissions" : [ "network-firewall:UpdateFirewallPolicy", "network-firewall:DescribeFirewallPolicy", "network-firewall:TagResource", "network-firewall:UntagResource", "network-firewall:ListRuleGroups", "network-firewall:ListTLSInspectionConfigurations" ]
     },
     "delete" : {
       "permissions" : [ "network-firewall:DeleteFirewallPolicy", "network-firewall:DescribeFirewallPolicy", "network-firewall:UntagResource" ]

@@ -20,9 +20,9 @@ The organizations service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
-<span>total selectable resources:&nbsp;<b>8</b></span><br />
-<span>total methods:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total selectable resources:&nbsp;<b>10</b></span><br />
+<span>total methods:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -33,10 +33,12 @@ The organizations service documentation.
 <div class="providerDocColumn">
 <a href="/providers/aws/organizations/account/">account</a><br />
 <a href="/providers/aws/organizations/accounts/">accounts</a><br />
+<a href="/providers/aws/organizations/organization/">organization</a><br />
 <a href="/providers/aws/organizations/organizational_unit/">organizational_unit</a><br />
 <a href="/providers/aws/organizations/organizational_units/">organizational_units</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/organizations/organizations/">organizations</a><br />
 <a href="/providers/aws/organizations/policies/">policies</a><br />
 <a href="/providers/aws/organizations/policy/">policy</a><br />
 <a href="/providers/aws/organizations/resource_policies/">resource_policies</a><br />

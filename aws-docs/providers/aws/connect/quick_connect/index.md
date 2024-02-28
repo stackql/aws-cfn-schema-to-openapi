@@ -33,12 +33,34 @@ Gets an individual <code>quick_connect</code> resource
 <tr><td><code>quick_connect_config</code></td><td><code>object</code></td><td>Configuration settings for the quick connect.</td></tr>
 <tr><td><code>quick_connect_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the quick connect.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><code>quick_connect_type</code></td><td><code>string</code></td><td>The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE_NUMBER), or Queue (QUEUE).</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>quick_connect</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeQuickConnect</pre>
+
+### Delete
+<pre>
+connect:DeleteQuickConnect,
+connect:UntagResource</pre>
+
+### Update
+<pre>
+connect:UpdateQuickConnectName,
+connect:UpdateQuickConnectConfig,
+connect:TagResource,
+connect:UntagResource</pre>
+
 
 ## Example
 ```sql
@@ -49,7 +71,8 @@ name,
 description,
 quick_connect_config,
 quick_connect_arn,
-tags
+tags,
+quick_connect_type
 FROM aws.connect.quick_connect
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;QuickConnectArn&gt;'

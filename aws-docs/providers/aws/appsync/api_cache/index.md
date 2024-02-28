@@ -29,6 +29,7 @@ Gets an individual <code>api_cache</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>transit_encryption_enabled</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>health_metrics_config</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>at_rest_encryption_enabled</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
@@ -41,12 +42,17 @@ Gets an individual <code>api_cache</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 type,
 transit_encryption_enabled,
+health_metrics_config,
 at_rest_encryption_enabled,
 id,
 api_id,

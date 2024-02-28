@@ -35,6 +35,26 @@ Retrieves a list of <code>locationf_sx_lustres</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>locationf_sx_lustres</code> resource, the following permissions are required:
+
+### Create
+<pre>
+datasync:CreateLocationFsxLustre,
+datasync:DescribeLocationFsxLustre,
+datasync:ListTagsForResource,
+datasync:TagResource,
+fsx:DescribeFileSystems,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups</pre>
+
+### List
+<pre>
+datasync:ListLocations</pre>
+
+
 ## Example
 ```sql
 SELECT

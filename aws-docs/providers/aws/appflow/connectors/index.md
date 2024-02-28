@@ -35,6 +35,20 @@ Retrieves a list of <code>connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connectors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appflow:RegisterConnector,
+lambda:InvokeFunction</pre>
+
+### List
+<pre>
+appflow:ListConnectors</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -20,9 +20,9 @@ The ivs service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
-<span>total selectable resources:&nbsp;<b>8</b></span><br />
-<span>total methods:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total selectable resources:&nbsp;<b>10</b></span><br />
+<span>total methods:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -34,11 +34,13 @@ The ivs service documentation.
 <a href="/providers/aws/ivs/channel/">channel</a><br />
 <a href="/providers/aws/ivs/channels/">channels</a><br />
 <a href="/providers/aws/ivs/playback_key_pair/">playback_key_pair</a><br />
-<a href="/providers/aws/ivs/playback_key_pairs/">playback_key_pairs</a>
+<a href="/providers/aws/ivs/playback_key_pairs/">playback_key_pairs</a><br />
+<a href="/providers/aws/ivs/recording_configuration/">recording_configuration</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/ivs/recording_configuration/">recording_configuration</a><br />
 <a href="/providers/aws/ivs/recording_configurations/">recording_configurations</a><br />
+<a href="/providers/aws/ivs/stage/">stage</a><br />
+<a href="/providers/aws/ivs/stages/">stages</a><br />
 <a href="/providers/aws/ivs/stream_key/">stream_key</a><br />
 <a href="/providers/aws/ivs/stream_keys/">stream_keys</a>
 </div>

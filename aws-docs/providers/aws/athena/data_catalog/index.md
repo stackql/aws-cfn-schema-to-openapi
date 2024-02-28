@@ -39,6 +39,28 @@ Gets an individual <code>data_catalog</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_catalog</code> resource, the following permissions are required:
+
+### Read
+<pre>
+athena:GetDataCatalog,
+athena:ListTagsForResource</pre>
+
+### Update
+<pre>
+athena:UpdateDataCatalog,
+athena:TagResource,
+athena:GetDataCatalog,
+athena:UntagResource,
+athena:ListTagsForResource</pre>
+
+### Delete
+<pre>
+athena:DeleteDataCatalog</pre>
+
+
 ## Example
 ```sql
 SELECT

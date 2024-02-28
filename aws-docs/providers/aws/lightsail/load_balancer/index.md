@@ -44,6 +44,33 @@ Gets an individual <code>load_balancer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>load_balancer</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetLoadBalancer,
+lightsail:GetLoadBalancers</pre>
+
+### Update
+<pre>
+lightsail:GetLoadBalancer,
+lightsail:GetLoadBalancers,
+lightsail:GetInstance,
+lightsail:AttachInstancesToLoadBalancer,
+lightsail:DetachInstancesFromLoadBalancer,
+lightsail:UpdateLoadBalancerAttribute,
+lightsail:TagResource,
+lightsail:UntagResource</pre>
+
+### Delete
+<pre>
+lightsail:DeleteLoadBalancer,
+lightsail:GetLoadBalancer,
+lightsail:GetLoadBalancers</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -36,6 +36,30 @@ Retrieves a list of <code>enabled_controls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>enabled_controls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+controltower:ListEnabledControls,
+controltower:GetEnabledControl,
+controltower:GetControlOperation,
+controltower:EnableControl,
+controltower:TagResource,
+organizations:UpdatePolicy,
+organizations:CreatePolicy,
+organizations:AttachPolicy,
+organizations:DetachPolicy,
+organizations:ListPoliciesForTarget,
+organizations:ListTargetsForPolicy,
+organizations:DescribePolicy</pre>
+
+### List
+<pre>
+controltower:ListEnabledControls</pre>
+
+
 ## Example
 ```sql
 SELECT

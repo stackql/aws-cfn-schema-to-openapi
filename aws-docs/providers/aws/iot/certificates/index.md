@@ -35,6 +35,22 @@ Retrieves a list of <code>certificates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateCertificateFromCsr,
+iot:RegisterCertificate,
+iot:RegisterCertificateWithoutCA,
+iot:DescribeCertificate</pre>
+
+### List
+<pre>
+iot:ListCertificates</pre>
+
+
 ## Example
 ```sql
 SELECT

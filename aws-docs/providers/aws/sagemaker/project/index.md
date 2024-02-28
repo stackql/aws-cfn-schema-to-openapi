@@ -43,6 +43,30 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeProject,
+sagemaker:ListTags</pre>
+
+### Update
+<pre>
+sagemaker:DescribeProject,
+sagemaker:ListTags,
+sagemaker:AddTags,
+sagemaker:DeleteTags</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteProject,
+sagemaker:DescribeProject,
+servicecatalog:TerminateProvisionedProduct,
+servicecatalog:DescribeRecord</pre>
+
+
 ## Example
 ```sql
 SELECT

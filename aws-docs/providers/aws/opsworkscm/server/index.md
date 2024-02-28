@@ -57,6 +57,27 @@ Gets an individual <code>server</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>server</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+opsworks-cm:DeleteServer,
+opsworks-cm:DescribeServers</pre>
+
+### Update
+<pre>
+opsworks-cm:UpdateServer,
+opsworks-cm:TagResource,
+opsworks-cm:UntagResource,
+opsworks-cm:DescribeServers</pre>
+
+### Read
+<pre>
+opsworks-cm:DescribeServers</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -31,8 +31,6 @@ components:
           type: string
         S3KeyPrefix:
           type: string
-      required:
-        - BucketName
     Endpoint:
       type: object
       additionalProperties: false
@@ -48,12 +46,15 @@ components:
           description: A unique identifier for the cluster. You use this identifier to refer to the cluster for any subsequent cluster operations such as deleting or modifying. All alphabetical characters must be lower case, no hypens at the end, no two consecutive hyphens. Cluster name should be unique for all clusters within an AWS account
           type: string
           maxLength: 63
+        ClusterNamespaceArn:
+          description: The Amazon Resource Name (ARN) of the cluster namespace.
+          type: string
         MasterUsername:
           description: The user name associated with the master user account for the cluster that is being created. The user name can't be PUBLIC and first character must be a letter.
           type: string
           maxLength: 128
         MasterUserPassword:
-          description: The password associated with the master user account for the cluster that is being created. Password must be between 8 and 64 characters in length, should have at least one uppercase letter.Must contain at least one lowercase letter.Must contain one number.Can be any printable ASCII character.
+          description: The password associated with the master user account for the cluster that is being created. You can't use MasterUserPassword if ManageMasterPassword is true. Password must be between 8 and 64 characters in length, should have at least one uppercase letter.Must contain at least one lowercase letter.Must contain one number.Can be any printable ASCII character.
           type: string
           maxLength: 64
         NodeType:
@@ -146,8 +147,6 @@ components:
         SnapshotIdentifier:
           description: The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.
           type: string
-        Id:
-          type: string
         OwnerAccount:
           type: string
         LoggingProperties:
@@ -224,13 +223,27 @@ components:
           description: The identifier of the database revision. You can retrieve this value from the response to the DescribeClusterDbRevisions request.
           type: string
         ResourceAction:
-          description: The Redshift operation to be performed. Resource Action supports pause-cluster, resume-cluster APIs
+          description: The Redshift operation to be performed. Resource Action supports pause-cluster, resume-cluster, failover-primary-compute APIs
           type: string
         RotateEncryptionKey:
           description: A boolean indicating if we want to rotate Encryption Keys.
           type: boolean
+        MultiAZ:
+          description: A boolean indicating if the redshift cluster is multi-az or not. If you don't provide this parameter or set the value to false, the redshift cluster will be single-az.
+          type: boolean
+        NamespaceResourcePolicy:
+          description: The namespace resource policy document that will be attached to a Redshift cluster.
+          type: object
+        ManageMasterPassword:
+          description: A boolean indicating if the redshift cluster's admin user credentials is managed by Redshift or not. You can't use MasterUserPassword if ManageMasterPassword is true. If ManageMasterPassword is false or not set, Amazon Redshift uses MasterUserPassword for the admin user account's password.
+          type: boolean
+        MasterPasswordSecretKmsKeyId:
+          description: The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin user credentials secret.
+          type: string
+        MasterPasswordSecretArn:
+          description: The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.
+          type: string
       required:
-        - MasterUserPassword
         - NodeType
         - MasterUsername
         - DBName
@@ -238,6 +251,96 @@ components:
       x-stackql-resource-name: cluster
       x-stackql-primaryIdentifier:
         - ClusterIdentifier
+      x-create-only-properties:
+        - ClusterIdentifier
+        - OwnerAccount
+        - SnapshotIdentifier
+        - DBName
+        - SnapshotClusterIdentifier
+        - ClusterSubnetGroupName
+        - MasterUsername
+      x-read-only-properties:
+        - DeferMaintenanceIdentifier
+        - Endpoint/Port
+        - Endpoint/Address
+        - ClusterNamespaceArn
+        - MasterPasswordSecretArn
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - redshift:DescribeClusters
+          - redshift:CreateCluster
+          - redshift:RestoreFromClusterSnapshot
+          - redshift:EnableLogging
+          - redshift:DescribeLoggingStatus
+          - redshift:CreateTags
+          - redshift:DescribeTags
+          - redshift:GetResourcePolicy
+          - redshift:PutResourcePolicy
+          - redshift:ModifyClusterMaintenance
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeAddresses
+          - ec2:AssociateAddress
+          - ec2:CreateNetworkInterface
+          - ec2:ModifyNetworkInterfaceAttribute
+          - ec2:CreateVpcEndpoint
+          - ec2:DescribeVpcEndpoints
+          - ec2:ModifyVpcEndpoint
+          - ec2:AllocateAddress
+          - ec2:CreateSecurityGroup
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroupRules
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeNetworkAcls
+          - ec2:DescribeRouteTables
+          - cloudwatch:PutMetricData
+        read:
+          - redshift:DescribeClusters
+          - redshift:DescribeLoggingStatus
+          - redshift:DescribeSnapshotCopyGrant
+          - redshift:DescribeClusterDbRevisions
+          - redshift:DescribeTags
+          - redshift:GetResourcePolicy
+        update:
+          - iam:PassRole
+          - redshift:DescribeClusters
+          - redshift:ModifyCluster
+          - redshift:ModifyClusterIamRoles
+          - redshift:EnableLogging
+          - redshift:CreateTags
+          - redshift:DeleteTags
+          - redshift:DescribeTags
+          - redshift:DisableLogging
+          - redshift:DescribeLoggingStatus
+          - redshift:RebootCluster
+          - redshift:EnableSnapshotCopy
+          - redshift:DisableSnapshotCopy
+          - redshift:ModifySnapshotCopyRetentionPeriod
+          - redshift:ModifyAquaConfiguration
+          - redshift:ResizeCluster
+          - redshift:ModifyClusterMaintenance
+          - redshift:DescribeClusterDbRevisions
+          - redshift:ModifyClusterDbRevisions
+          - redshift:PauseCluster
+          - redshift:ResumeCluster
+          - redshift:RotateEncryptionKey
+          - redshift:FailoverPrimaryCompute
+          - redshift:PutResourcePolicy
+          - redshift:GetResourcePolicy
+          - redshift:DeleteResourcePolicy
+          - cloudwatch:PutMetricData
+        delete:
+          - redshift:DescribeTags
+          - redshift:DescribeClusters
+          - redshift:DeleteCluster
+        list:
+          - redshift:DescribeTags
+          - redshift:DescribeClusters
     Parameter:
       type: object
       additionalProperties: false
@@ -282,6 +385,53 @@ components:
       x-stackql-resource-name: cluster_parameter_group
       x-stackql-primaryIdentifier:
         - ParameterGroupName
+      x-create-only-properties:
+        - ParameterGroupName
+        - ParameterGroupFamily
+        - Description
+      x-required-permissions:
+        create:
+          - redshift:CreateClusterParameterGroup
+          - redshift:ModifyClusterParameterGroup
+          - redshift:DescribeClusterParameterGroups
+          - redshift:DescribeClusterParameters
+          - redshift:DescribeTags
+          - redshift:CreateTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+        read:
+          - redshift:DescribeClusterParameterGroups
+          - initech:DescribeReport
+          - redshift:DescribeClusterParameters
+          - redshift:DescribeTags
+        update:
+          - redshift:DescribeClusterParameterGroups
+          - redshift:ResetClusterParameterGroup
+          - redshift:ModifyClusterParameterGroup
+          - redshift:DescribeClusterParameters
+          - redshift:DescribeTags
+          - redshift:CreateTags
+          - redshift:DeleteTags
+          - initech:UpdateReport
+        delete:
+          - redshift:DescribeTags
+          - redshift:DescribeClusterParameterGroups
+          - redshift:DeleteClusterParameterGroup
+          - redshift:DescribeClusterParameters
+          - initech:DeleteReport
+        list:
+          - redshift:DescribeTags
+          - redshift:DescribeClusterParameterGroups
+          - redshift:DescribeClusterParameters
+          - initech:ListReports
     ClusterSecurityGroup:
       type: object
       properties:
@@ -298,6 +448,10 @@ components:
         - Description
       x-stackql-resource-name: cluster_security_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Description
+      x-read-only-properties:
         - Id
     ClusterSecurityGroupIngress:
       type: object
@@ -316,6 +470,13 @@ components:
         - ClusterSecurityGroupName
       x-stackql-resource-name: cluster_security_group_ingress
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - ClusterSecurityGroupName
+        - CIDRIP
+        - EC2SecurityGroupOwnerId
+        - EC2SecurityGroupName
+      x-read-only-properties:
         - Id
     ClusterSubnetGroup:
       type: object
@@ -347,6 +508,80 @@ components:
       x-stackql-resource-name: cluster_subnet_group
       x-stackql-primaryIdentifier:
         - ClusterSubnetGroupName
+      x-read-only-properties:
+        - ClusterSubnetGroupName
+      x-required-permissions:
+        create:
+          - redshift:CreateClusterSubnetGroup
+          - redshift:CreateTags
+          - redshift:DescribeClusterSubnetGroups
+          - redshift:DescribeTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+        read:
+          - redshift:DescribeClusterSubnetGroups
+          - redshift:DescribeTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+        update:
+          - redshift:ModifyClusterSubnetGroup
+          - redshift:DescribeClusterSubnetGroups
+          - redshift:DescribeTags
+          - redshift:CreateTags
+          - redshift:DeleteTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+        delete:
+          - redshift:DeleteClusterSubnetGroup
+          - redshift:DescribeClusterSubnetGroups
+          - redshift:DescribeTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+        list:
+          - redshift:DescribeClusterSubnetGroups
+          - redshift:DescribeTags
+          - ec2:AllocateAddress
+          - ec2:AssociateAddress
+          - ec2:AttachNetworkInterface
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeAddresses
+          - ec2:DescribeAvailabilityZones
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
     VpcSecurityGroup:
       description: Describes the members of a VPC security group.
       type: object
@@ -442,6 +677,76 @@ components:
       x-stackql-resource-name: endpoint_access
       x-stackql-primaryIdentifier:
         - EndpointName
+      x-create-only-properties:
+        - EndpointName
+        - ClusterIdentifier
+        - ResourceOwner
+        - SubnetGroupName
+      x-read-only-properties:
+        - Address
+        - EndpointStatus
+        - EndpointCreateTime
+        - Port
+        - VpcSecurityGroups
+        - VpcSecurityGroups/*/VpcSecurityGroupId
+        - VpcSecurityGroups/*/Status
+        - VpcEndpoint
+        - VpcEndpoint/VpcEndpointId
+        - VpcEndpoint/VpcId
+        - VpcEndpoint/NetworkInterfaces/*/NetworkInterfaceId
+        - VpcEndpoint/NetworkInterfaces/*/PrivateIpAddress
+        - VpcEndpoint/NetworkInterfaces/*/SubnetId
+        - VpcEndpoint/NetworkInterfaces/*/AvailabilityZone
+      x-required-permissions:
+        create:
+          - redshift:CreateEndpointAccess
+          - redshift:DescribeEndpointAccess
+          - ec2:CreateClientVpnEndpoint
+          - ec2:CreateVpcEndpoint
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
+        read:
+          - redshift:DescribeEndpointAccess
+          - ec2:DescribeClientVpnEndpoints
+          - ec2:DescribeVpcEndpoint
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
+        update:
+          - redshift:DescribeEndpointAccess
+          - redshift:ModifyEndpointAccess
+          - ec2:ModifyClientVpnEndpoint
+          - ec2:ModifyVpcEndpoint
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
+        delete:
+          - redshift:DeleteEndpointAccess
+          - redshift:DescribeEndpointAccess
+          - ec2:DeleteClientVpnEndpoint
+          - ec2:DeleteVpcEndpoint
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcEndpoint
+        list:
+          - redshift:DescribeEndpointAccess
+          - ec2:DescribeClientVpnEndpoints
+          - ec2:DescribeVpcEndpoints
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
     AwsAccount:
       type: string
       pattern: ^\d{12}$
@@ -501,6 +806,40 @@ components:
       x-stackql-primaryIdentifier:
         - ClusterIdentifier
         - Account
+      x-create-only-properties:
+        - ClusterIdentifier
+        - Account
+      x-read-only-properties:
+        - Grantor
+        - Grantee
+        - AuthorizeTime
+        - ClusterStatus
+        - Status
+        - AllowedAllVPCs
+        - AllowedVPCs
+        - EndpointCount
+      x-required-permissions:
+        create:
+          - redshift:AuthorizeEndpointAccess
+          - redshift:DescribeEndpointAuthorization
+        read:
+          - redshift:DescribeEndpointAuthorization
+        update:
+          - redshift:AuthorizeEndpointAccess
+          - redshift:DescribeEndpointAuthorization
+          - redshift:RevokeEndpointAccess
+        delete:
+          - redshift:RevokeEndpointAccess
+          - redshift:DeleteEndpointAccess
+          - redshift:DescribeEndpointAuthorization
+          - ec2:DeleteClientVpnEndpoint
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeAddresses
+          - ec2:DescribeInternetGateways
+          - ec2:DescribeSubnets
+        list:
+          - redshift:DescribeEndpointAuthorization
     EventSubscription:
       type: object
       properties:
@@ -588,6 +927,38 @@ components:
       x-stackql-resource-name: event_subscription
       x-stackql-primaryIdentifier:
         - SubscriptionName
+      x-create-only-properties:
+        - SubscriptionName
+      x-read-only-properties:
+        - CustomerAwsId
+        - CustSubscriptionId
+        - Status
+        - SubscriptionCreationTime
+        - SourceIdsList
+        - EventCategoriesList
+      x-required-permissions:
+        create:
+          - redshift:CreateEventSubscription
+          - redshift:CreateTags
+          - redshift:DescribeTags
+          - redshift:DescribeEventSubscriptions
+        read:
+          - redshift:DescribeEventSubscriptions
+          - redshift:DescribeTags
+        update:
+          - redshift:ModifyEventSubscription
+          - redshift:CreateTags
+          - redshift:DescribeTags
+          - redshift:DescribeEventSubscriptions
+          - redshift:DeleteTags
+        delete:
+          - redshift:DescribeEventSubscriptions
+          - redshift:DeleteEventSubscription
+          - redshift:DescribeTags
+          - redshift:DeleteTags
+        list:
+          - redshift:DescribeTags
+          - redshift:DescribeEventSubscriptions
     ResizeClusterMessage:
       description: Describes a resize cluster operation. For example, a scheduled action to run the `ResizeCluster` API operation.
       type: object
@@ -686,6 +1057,38 @@ components:
       x-stackql-resource-name: scheduled_action
       x-stackql-primaryIdentifier:
         - ScheduledActionName
+      x-create-only-properties:
+        - ScheduledActionName
+      x-read-only-properties:
+        - State
+        - NextInvocations
+      x-required-permissions:
+        create:
+          - redshift:CreateScheduledAction
+          - redshift:DescribeScheduledActions
+          - redshift:DescribeTags
+          - redshift:PauseCluster
+          - redshift:ResumeCluster
+          - redshift:ResizeCluster
+          - iam:PassRole
+        read:
+          - redshift:DescribeScheduledActions
+          - redshift:DescribeTags
+        update:
+          - redshift:DescribeScheduledActions
+          - redshift:ModifyScheduledAction
+          - redshift:PauseCluster
+          - redshift:ResumeCluster
+          - redshift:ResizeCluster
+          - redshift:DescribeTags
+          - iam:PassRole
+        delete:
+          - redshift:DescribeTags
+          - redshift:DescribeScheduledActions
+          - redshift:DeleteScheduledAction
+        list:
+          - redshift:DescribeTags
+          - redshift:DescribeScheduledActions
   x-stackQL-resources:
     clusters:
       name: clusters
@@ -718,6 +1121,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier,
+              JSON_EXTRACT(Properties, '$.ClusterNamespaceArn') as cluster_namespace_arn,
               JSON_EXTRACT(Properties, '$.MasterUsername') as master_username,
               JSON_EXTRACT(Properties, '$.MasterUserPassword') as master_user_password,
               JSON_EXTRACT(Properties, '$.NodeType') as node_type,
@@ -744,7 +1148,6 @@ components:
               JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as vpc_security_group_ids,
               JSON_EXTRACT(Properties, '$.SnapshotClusterIdentifier') as snapshot_cluster_identifier,
               JSON_EXTRACT(Properties, '$.SnapshotIdentifier') as snapshot_identifier,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
               JSON_EXTRACT(Properties, '$.LoggingProperties') as logging_properties,
               JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
@@ -766,7 +1169,12 @@ components:
               JSON_EXTRACT(Properties, '$.DeferMaintenanceDuration') as defer_maintenance_duration,
               JSON_EXTRACT(Properties, '$.RevisionTarget') as revision_target,
               JSON_EXTRACT(Properties, '$.ResourceAction') as resource_action,
-              JSON_EXTRACT(Properties, '$.RotateEncryptionKey') as rotate_encryption_key
+              JSON_EXTRACT(Properties, '$.RotateEncryptionKey') as rotate_encryption_key,
+              JSON_EXTRACT(Properties, '$.MultiAZ') as multi_az,
+              JSON_EXTRACT(Properties, '$.NamespaceResourcePolicy') as namespace_resource_policy,
+              JSON_EXTRACT(Properties, '$.ManageMasterPassword') as manage_master_password,
+              JSON_EXTRACT(Properties, '$.MasterPasswordSecretKmsKeyId') as master_password_secret_kms_key_id,
+              JSON_EXTRACT(Properties, '$.MasterPasswordSecretArn') as master_password_secret_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::Cluster'
     cluster_parameter_groups:
       name: cluster_parameter_groups

@@ -204,6 +204,22 @@ components:
           minimum: 1
       required:
         - LogSchemaVersion
+    ExperimentTemplateExperimentOptions:
+      type: object
+      additionalProperties: false
+      properties:
+        AccountTargeting:
+          type: string
+          description: The account targeting setting for the experiment template.
+          enum:
+            - multi-account
+            - single-account
+        EmptyTargetResolutionMode:
+          type: string
+          description: The target resolution failure mode for the experiment template.
+          enum:
+            - fail
+            - skip
     RoleArn:
       type: string
       description: The Amazon Resource Name (ARN) of an IAM role that grants the AWS FIS service permission to perform service actions on your behalf.
@@ -232,6 +248,8 @@ components:
               type: string
               maxLength: 256
           additionalProperties: false
+        ExperimentOptions:
+          $ref: '#/components/schemas/ExperimentTemplateExperimentOptions'
       required:
         - Description
         - StopConditions
@@ -241,6 +259,77 @@ components:
       x-stackql-resource-name: experiment_template
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Tags
+        - ExperimentOptions/properties/AccountTargeting
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - fis:CreateExperimentTemplate
+          - fis:TagResource
+          - iam:PassRole
+        read:
+          - fis:GetExperimentTemplate
+          - fis:ListTagsForResource
+        update:
+          - fis:UpdateExperimentTemplate
+          - fis:TagResource
+          - fis:UntagResource
+          - iam:PassRole
+        delete:
+          - fis:DeleteExperimentTemplate
+        list:
+          - fis:ListExperimentTemplates
+          - fis:ListTagsForResource
+    TargetExperimentTemplateId:
+      type: string
+      description: The ID of the experiment template.
+    TargetAccountId:
+      type: string
+      description: The AWS account ID of the target account.
+      maxLength: 512
+    TargetAccountRoleArn:
+      type: string
+      description: The Amazon Resource Name (ARN) of an IAM role for the target account.
+      maxLength: 1224
+    TargetAccountConfigurationDescription:
+      type: string
+      description: The description of the target account.
+      maxLength: 512
+    TargetAccountConfiguration:
+      type: object
+      properties:
+        ExperimentTemplateId:
+          $ref: '#/components/schemas/TargetExperimentTemplateId'
+        AccountId:
+          $ref: '#/components/schemas/TargetAccountId'
+        RoleArn:
+          $ref: '#/components/schemas/TargetAccountRoleArn'
+        Description:
+          $ref: '#/components/schemas/TargetAccountConfigurationDescription'
+      required:
+        - ExperimentTemplateId
+        - AccountId
+        - RoleArn
+      x-stackql-resource-name: target_account_configuration
+      x-stackql-primaryIdentifier:
+        - ExperimentTemplateId
+        - AccountId
+      x-create-only-properties:
+        - ExperimentTemplateId
+        - AccountId
+      x-required-permissions:
+        create:
+          - fis:CreateTargetAccountConfiguration
+        read:
+          - fis:GetTargetAccountConfiguration
+        update:
+          - fis:UpdateTargetAccountConfiguration
+        delete:
+          - fis:DeleteTargetAccountConfiguration
+        list:
+          - fis:ListTargetAccountConfigurations
   x-stackQL-resources:
     experiment_templates:
       name: experiment_templates
@@ -279,5 +368,44 @@ components:
               JSON_EXTRACT(Properties, '$.StopConditions') as stop_conditions,
               JSON_EXTRACT(Properties, '$.LogConfiguration') as log_configuration,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ExperimentOptions') as experiment_options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
+    target_account_configurations:
+      name: target_account_configurations
+      id: aws.fis.target_account_configurations
+      x-cfn-schema-name: TargetAccountConfiguration
+      x-type: list
+      x-identifiers:
+        - ExperimentTemplateId
+        - AccountId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ExperimentTemplateId') as experiment_template_id,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'
+    target_account_configuration:
+      name: target_account_configuration
+      id: aws.fis.target_account_configuration
+      x-cfn-schema-name: TargetAccountConfiguration
+      x-type: get
+      x-identifiers:
+        - ExperimentTemplateId
+        - AccountId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ExperimentTemplateId') as experiment_template_id,
+              JSON_EXTRACT(Properties, '$.AccountId') as account_id,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.Description') as description
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'

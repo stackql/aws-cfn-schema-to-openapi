@@ -35,6 +35,22 @@ Retrieves a list of <code>backup_selections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>backup_selections</code> resource, the following permissions are required:
+
+### Create
+<pre>
+backup:CreateBackupSelection,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+backup:ListBackupSelections</pre>
+
+
 ## Example
 ```sql
 SELECT

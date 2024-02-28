@@ -34,6 +34,7 @@ Gets an individual <code>task</code> resource
 <tr><td><code>destination_location_arn</code></td><td><code>string</code></td><td>The ARN of an AWS storage resource's location.</td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td>The name of a task. This value is a text reference that is used to identify the task in the console.</td></tr>
 <tr><td><code>options</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>task_report_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>schedule</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>source_location_arn</code></td><td><code>string</code></td><td>The ARN of the source location for the task.</td></tr>
 <tr><td><code>task_arn</code></td><td><code>string</code></td><td>The ARN of the task.</td></tr>
@@ -47,6 +48,38 @@ Gets an individual <code>task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>task</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeTask,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:UpdateTask,
+datasync:DescribeTask,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+logs:DescribeLogGroups,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+datasync:DeleteTask,
+ec2:DescribeNetworkInterfaces,
+ec2:DeleteNetworkInterface,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+fsx:DescribeFileSystems,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeMountTargets,
+iam:GetRole</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -58,6 +91,7 @@ cloud_watch_log_group_arn,
 destination_location_arn,
 name,
 options,
+task_report_config,
 schedule,
 source_location_arn,
 task_arn,

@@ -36,6 +36,25 @@ Gets an individual <code>account_alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>account_alias</code> resource, the following permissions are required:
+
+### Read
+<pre>
+supportapp:GetAccountAlias</pre>
+
+### Update
+<pre>
+supportapp:PutAccountAlias,
+supportapp:GetAccountAlias</pre>
+
+### Delete
+<pre>
+supportapp:DeleteAccountAlias,
+supportapp:GetAccountAlias</pre>
+
+
 ## Example
 ```sql
 SELECT

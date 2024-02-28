@@ -29,6 +29,30 @@ components:
       required:
         - Value
         - Key
+    LoggingConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        Protocol:
+          type: string
+          description: Indicates one of the supported protocols for the SNS topic
+          enum:
+            - http/s
+            - sqs
+            - lambda
+            - firehose
+            - application
+        SuccessFeedbackRoleArn:
+          type: string
+          description: The IAM role ARN to be used when logging successful message deliveries in Amazon CloudWatch
+        SuccessFeedbackSampleRate:
+          type: string
+          description: The percentage of successful message deliveries to be logged in Amazon CloudWatch. Valid percentage values range from 0 to 100
+        FailureFeedbackRoleArn:
+          type: string
+          description: The IAM role ARN to be used when logging failed message deliveries in Amazon CloudWatch
+      required:
+        - Protocol
     Topic:
       type: object
       properties:
@@ -70,6 +94,9 @@ components:
             (Optional) To override the generated value, you can specify a value for the the MessageDeduplicationId parameter for the Publish action.
 
           type: boolean
+        ArchivePolicy:
+          description: The archive policy determines the number of days Amazon SNS retains messages. You can set a retention period from 1 to 365 days.
+          type: object
         Tags:
           type: array
           uniqueItems: false
@@ -90,19 +117,95 @@ components:
         TracingConfig:
           description: Tracing mode of an Amazon SNS topic. By default TracingConfig is set to PassThrough, and the topic passes through the tracing header it receives from an SNS publisher to its subscriptions. If set to Active, SNS will vend X-Ray segment data to topic owner account if the sampled flag in the tracing header is true. Only supported on standard topics.
           type: string
+        DeliveryStatusLogging:
+          description: Delivery status logging configuration for supported protocols for an Amazon SNS topic.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/LoggingConfig'
       x-stackql-resource-name: topic
       x-stackql-primaryIdentifier:
         - TopicArn
+      x-create-only-properties:
+        - TopicName
+        - FifoTopic
+      x-read-only-properties:
+        - TopicArn
+      x-required-permissions:
+        create:
+          - sns:CreateTopic
+          - sns:TagResource
+          - sns:Subscribe
+          - sns:GetTopicAttributes
+          - sns:PutDataProtectionPolicy
+          - iam:GetRole
+          - iam:PassRole
+        read:
+          - sns:GetTopicAttributes
+          - sns:ListTagsForResource
+          - sns:ListSubscriptionsByTopic
+          - sns:GetDataProtectionPolicy
+        update:
+          - sns:SetTopicAttributes
+          - sns:TagResource
+          - sns:UntagResource
+          - sns:Subscribe
+          - sns:Unsubscribe
+          - sns:GetTopicAttributes
+          - sns:ListTagsForResource
+          - sns:ListSubscriptionsByTopic
+          - sns:GetDataProtectionPolicy
+          - sns:PutDataProtectionPolicy
+          - iam:GetRole
+          - iam:PassRole
+        delete:
+          - sns:GetTopicAttributes
+          - sns:DeleteTopic
+        list:
+          - sns:ListTopics
+    TopicInlinePolicy:
+      type: object
+      properties:
+        PolicyDocument:
+          description: A policy document that contains permissions to add to the specified SNS topics.
+          type: object
+        TopicArn:
+          description: The Amazon Resource Name (ARN) of the topic to which you want to add the policy.
+          type: string
+      required:
+        - PolicyDocument
+        - TopicArn
+      x-stackql-resource-name: topic_inline_policy
+      x-stackql-primaryIdentifier:
+        - TopicArn
+      x-create-only-properties:
+        - TopicArn
+      x-required-permissions:
+        create:
+          - sns:SetTopicAttributes
+          - sns:GetTopicAttributes
+        read:
+          - sns:GetTopicAttributes
+        delete:
+          - sns:SetTopicAttributes
+          - sns:GetTopicAttributes
+        update:
+          - sns:SetTopicAttributes
+          - sns:GetTopicAttributes
     TopicPolicy:
       type: object
       properties:
         Id:
+          description: The provider-assigned unique ID for this managed resource.
           type: string
         PolicyDocument:
-          type: object
+          type: string
         Topics:
+          description: The Amazon Resource Names (ARN) of the topics to which you want to add the policy. You can use the [Ref](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-ref.html)` function to specify an [AWS::SNS::Topic](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html) resource.
           type: array
           uniqueItems: false
+          x-insertionOrder: false
           items:
             type: string
       required:
@@ -111,6 +214,15 @@ components:
       x-stackql-resource-name: topic_policy
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - sns:SetTopicAttributes
+        update:
+          - sns:SetTopicAttributes
+        delete:
+          - sns:SetTopicAttributes
   x-stackQL-resources:
     topics:
       name: topics
@@ -148,12 +260,47 @@ components:
               JSON_EXTRACT(Properties, '$.Subscription') as subscription,
               JSON_EXTRACT(Properties, '$.FifoTopic') as fifo_topic,
               JSON_EXTRACT(Properties, '$.ContentBasedDeduplication') as content_based_deduplication,
+              JSON_EXTRACT(Properties, '$.ArchivePolicy') as archive_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TopicName') as topic_name,
               JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn,
               JSON_EXTRACT(Properties, '$.SignatureVersion') as signature_version,
-              JSON_EXTRACT(Properties, '$.TracingConfig') as tracing_config
+              JSON_EXTRACT(Properties, '$.TracingConfig') as tracing_config,
+              JSON_EXTRACT(Properties, '$.DeliveryStatusLogging') as delivery_status_logging
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::Topic'
+    topic_inline_policies:
+      name: topic_inline_policies
+      id: aws.sns.topic_inline_policies
+      x-cfn-schema-name: TopicInlinePolicy
+      x-type: list
+      x-identifiers:
+        - TopicArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
+    topic_inline_policy:
+      name: topic_inline_policy
+      id: aws.sns.topic_inline_policy
+      x-cfn-schema-name: TopicInlinePolicy
+      x-type: get
+      x-identifiers:
+        - TopicArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
+              JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
     topic_policies:
       name: topic_policies
       id: aws.sns.topic_policies

@@ -36,6 +36,45 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+<pre>
+refactor-spaces:GetApplication,
+refactor-spaces:CreateApplication,
+refactor-spaces:TagResource,
+ec2:CreateTags,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:DescribeAccountAttributes,
+ec2:DescribeInternetGateways,
+ec2:ModifyVpcEndpointServicePermissions,
+apigateway:DELETE,
+apigateway:GET,
+apigateway:PATCH,
+apigateway:POST,
+apigateway:PUT,
+apigateway:UpdateRestApiPolicy,
+apigateway:Update*,
+apigateway:Delete*,
+apigateway:Get*,
+apigateway:Put*,
+elasticloadbalancing:CreateLoadBalancer,
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:DescribeTags,
+elasticloadbalancing:AddTags,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+refactor-spaces:ListApplications,
+refactor-spaces:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

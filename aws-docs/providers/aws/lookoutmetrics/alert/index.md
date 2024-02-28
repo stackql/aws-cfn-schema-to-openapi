@@ -40,6 +40,19 @@ Gets an individual <code>alert</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>alert</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lookoutmetrics:DescribeAlert</pre>
+
+### Delete
+<pre>
+lookoutmetrics:DeleteAlert</pre>
+
+
 ## Example
 ```sql
 SELECT

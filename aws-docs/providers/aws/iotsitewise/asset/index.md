@@ -42,6 +42,40 @@ Gets an individual <code>asset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>asset</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotsitewise:AssociateAssets,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:DisassociateAssets,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:UpdateAsset,
+iotsitewise:UpdateAssetProperty,
+iotsitewise:UntagResource</pre>
+
+### Delete
+<pre>
+iotsitewise:DeleteAsset,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:DisassociateAssets,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

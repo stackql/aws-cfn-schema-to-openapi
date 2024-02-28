@@ -41,6 +41,28 @@ Gets an individual <code>location_nfs</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location_nfs</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationNfs,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationNfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+datasync:UpdateLocationNfs</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -44,6 +44,32 @@ Gets an individual <code>launch</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>launch</code> resource, the following permissions are required:
+
+### Read
+<pre>
+evidently:GetLaunch,
+evidently:ListTagsForResource</pre>
+
+### Update
+<pre>
+evidently:UpdateLaunch,
+evidently:ListTagsForResource,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetLaunch,
+evidently:StartLaunch,
+evidently:StopLaunch</pre>
+
+### Delete
+<pre>
+evidently:DeleteLaunch,
+evidently:UntagResource,
+evidently:GetLaunch</pre>
+
+
 ## Example
 ```sql
 SELECT

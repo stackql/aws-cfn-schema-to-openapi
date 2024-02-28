@@ -42,6 +42,27 @@ Gets an individual <code>contact_flow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact_flow</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeContactFlow</pre>
+
+### Delete
+<pre>
+connect:DeleteContactFlow,
+connect:UntagResource</pre>
+
+### Update
+<pre>
+connect:UpdateContactFlowMetadata,
+connect:UpdateContactFlowContent,
+connect:TagResource,
+connect:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

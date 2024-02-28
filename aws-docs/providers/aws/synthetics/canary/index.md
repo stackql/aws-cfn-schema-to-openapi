@@ -51,6 +51,47 @@ Gets an individual <code>canary</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>canary</code> resource, the following permissions are required:
+
+### Update
+<pre>
+synthetics:UpdateCanary,
+synthetics:StartCanary,
+synthetics:StopCanary,
+synthetics:GetCanary,
+synthetics:TagResource,
+synthetics:UntagResource,
+s3:GetObject,
+s3:GetObjectVersion,
+s3:PutBucketEncryption,
+s3:PutEncryptionConfiguration,
+s3:GetBucketLocation,
+lambda:AddPermission,
+lambda:PublishVersion,
+lambda:UpdateFunctionConfiguration,
+lambda:GetFunctionConfiguration,
+lambda:GetLayerVersionByArn,
+lambda:GetLayerVersion,
+lambda:PublishLayerVersion,
+iam:PassRole</pre>
+
+### Read
+<pre>
+synthetics:GetCanary,
+synthetics:DescribeCanaries,
+synthetics:ListTagsForResource,
+iam:ListRoles,
+s3:ListAllMyBuckets,
+s3:GetBucketLocation</pre>
+
+### Delete
+<pre>
+synthetics:DeleteCanary,
+synthetics:GetCanary</pre>
+
+
 ## Example
 ```sql
 SELECT

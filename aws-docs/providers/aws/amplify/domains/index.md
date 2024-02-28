@@ -35,6 +35,25 @@ Retrieves a list of <code>domains</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domains</code> resource, the following permissions are required:
+
+### Create
+<pre>
+amplify:CreateDomainAssociation,
+route53:ListHostedZones,
+route53:ChangeResourceRecordSets,
+iam:PassRole,
+amplify:TagResource</pre>
+
+### List
+<pre>
+amplify:ListDomainAssociations,
+iam:PassRole,
+amplify:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

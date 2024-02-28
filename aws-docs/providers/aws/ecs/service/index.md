@@ -51,12 +51,35 @@ Gets an individual <code>service</code> resource
 <tr><td><code>service_registries</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>task_definition</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>volume_configurations</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecs:DescribeServices</pre>
+
+### Update
+<pre>
+ecs:DescribeServices,
+ecs:ListTagsForResource,
+ecs:TagResource,
+ecs:UntagResource,
+ecs:UpdateService</pre>
+
+### Delete
+<pre>
+ecs:DeleteService,
+ecs:DescribeServices</pre>
+
 
 ## Example
 ```sql
@@ -85,7 +108,8 @@ service_connect_configuration,
 service_name,
 service_registries,
 tags,
-task_definition
+task_definition,
+volume_configurations
 FROM aws.ecs.service
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;ServiceArn&gt;'

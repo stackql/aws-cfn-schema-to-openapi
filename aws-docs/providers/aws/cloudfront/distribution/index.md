@@ -27,16 +27,42 @@ Gets an individual <code>distribution</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>distribution_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>distribution_config</code></td><td><code>object</code></td><td>The distribution's configuration.</td></tr>
 <tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>A complex type that contains zero or more ``Tag`` elements.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>distribution</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteDistribution,
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig</pre>
+
+### Read
+<pre>
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig</pre>
+
+### Update
+<pre>
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig,
+cloudfront:UpdateDistribution,
+cloudfront:UpdateDistributionWithStagingConfig,
+cloudfront:ListTagsForResource,
+cloudfront:TagResource,
+cloudfront:UntagResource</pre>
+
 
 ## Example
 ```sql

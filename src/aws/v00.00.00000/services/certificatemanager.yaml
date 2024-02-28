@@ -27,6 +27,20 @@ components:
       x-stackql-resource-name: account
       x-stackql-primaryIdentifier:
         - AccountId
+      x-read-only-properties:
+        - AccountId
+      x-required-permissions:
+        create:
+          - acm:GetAccountConfiguration
+          - acm:PutAccountConfiguration
+        read:
+          - acm:GetAccountConfiguration
+        update:
+          - acm:GetAccountConfiguration
+          - acm:PutAccountConfiguration
+        delete:
+          - acm:GetAccountConfiguration
+          - acm:PutAccountConfiguration
     DomainValidationOption:
       type: object
       additionalProperties: false
@@ -78,10 +92,21 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
+        KeyAlgorithm:
+          type: string
       required:
         - DomainName
       x-stackql-resource-name: certificate
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - SubjectAlternativeNames
+        - DomainValidationOptions
+        - ValidationMethod
+        - KeyAlgorithm
+        - DomainName
+        - CertificateAuthorityArn
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     accounts:
@@ -154,5 +179,6 @@ components:
               JSON_EXTRACT(Properties, '$.ValidationMethod') as validation_method,
               JSON_EXTRACT(Properties, '$.SubjectAlternativeNames') as subject_alternative_names,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.KeyAlgorithm') as key_algorithm
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CertificateManager::Certificate'

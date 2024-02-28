@@ -50,6 +50,21 @@ Gets an individual <code>container_recipe</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>container_recipe</code> resource, the following permissions are required:
+
+### Read
+<pre>
+imagebuilder:GetContainerRecipe</pre>
+
+### Delete
+<pre>
+imagebuilder:UnTagResource,
+imagebuilder:GetContainerRecipe,
+imagebuilder:DeleteContainerRecipe</pre>
+
+
 ## Example
 ```sql
 SELECT

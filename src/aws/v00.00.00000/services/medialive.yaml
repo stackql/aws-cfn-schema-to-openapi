@@ -51,8 +51,16 @@ components:
           type: string
         BitstreamMode:
           type: string
+        AttenuationControl:
+          type: string
         Bitrate:
           type: number
+    AudioDolbyEDecode:
+      type: object
+      additionalProperties: false
+      properties:
+        ProgramSelection:
+          type: string
     AudioCodecSettings:
       type: object
       additionalProperties: false
@@ -63,6 +71,8 @@ components:
           $ref: '#/components/schemas/Ac3Settings'
         Mp2Settings:
           $ref: '#/components/schemas/Mp2Settings'
+        Eac3AtmosSettings:
+          $ref: '#/components/schemas/Eac3AtmosSettings'
         PassThroughSettings:
           $ref: '#/components/schemas/PassThroughSettings'
         WavSettings:
@@ -92,6 +102,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        TimecodeBurninSettings:
+          $ref: '#/components/schemas/TimecodeBurninSettings'
         NumRefFrames:
           type: integer
         TemporalAq:
@@ -196,6 +208,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        OutputStaticImageOverlayScheduleActions:
+          type: string
         InputPrepareScheduleActions:
           type: string
     MultiplexGroupSettings:
@@ -260,6 +274,8 @@ components:
       properties:
         InputEndAction:
           type: string
+        OutputLockingSettings:
+          $ref: '#/components/schemas/OutputLockingSettings'
         OutputTimingSource:
           type: string
         OutputLockingMode:
@@ -270,6 +286,9 @@ components:
           type: integer
         InputLossBehavior:
           $ref: '#/components/schemas/InputLossBehavior'
+    PipelineLockingSettings:
+      type: object
+      additionalProperties: false
     FrameCaptureS3Settings:
       type: object
       additionalProperties: false
@@ -286,6 +305,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        DolbyEDecode:
+          $ref: '#/components/schemas/AudioDolbyEDecode'
         Tracks:
           type: array
           uniqueItems: false
@@ -405,6 +426,8 @@ components:
           $ref: '#/components/schemas/Scte35SpliceInsert'
         Scte35TimeSignalApos:
           $ref: '#/components/schemas/Scte35TimeSignalApos'
+        Esam:
+          $ref: '#/components/schemas/Esam'
     AvailBlanking:
       type: object
       additionalProperties: false
@@ -506,6 +529,8 @@ components:
           type: integer
         PmtInterval:
           type: integer
+        KlvDataPids:
+          type: string
         NielsenId3Behavior:
           type: string
         PcrPid:
@@ -521,6 +546,8 @@ components:
         Scte35Pid:
           type: string
         Scte35Behavior:
+          type: string
+        KlvBehavior:
           type: string
         EcmPid:
           type: string
@@ -545,6 +572,8 @@ components:
           uniqueItems: false
           items:
             type: string
+        IncludeFillerNalUnits:
+          type: string
         InputLossAction:
           type: string
         RestartDelay:
@@ -609,15 +638,50 @@ components:
       type: object
       additionalProperties: false
       properties:
-        CaptureInterval:
-          type: integer
+        TimecodeBurninSettings:
+          $ref: '#/components/schemas/TimecodeBurninSettings'
         CaptureIntervalUnits:
           type: string
+        CaptureInterval:
+          type: integer
+    ColorCorrectionSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        GlobalColorCorrections:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/ColorCorrection'
     CdiInputSpecification:
       type: object
       additionalProperties: false
       properties:
         Resolution:
+          type: string
+    Esam:
+      type: object
+      additionalProperties: false
+      properties:
+        AdAvailOffset:
+          type: integer
+        ZoneIdentity:
+          type: string
+        AcquisitionPointId:
+          type: string
+        PoisEndpoint:
+          type: string
+        Username:
+          type: string
+        PasswordParam:
+          type: string
+    MaintenanceCreateSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        MaintenanceDay:
+          type: string
+        MaintenanceStartTime:
           type: string
     InputSettings:
       type: object
@@ -692,6 +756,8 @@ components:
           $ref: '#/components/schemas/Rec709Settings'
         ColorSpacePassthroughSettings:
           $ref: '#/components/schemas/ColorSpacePassthroughSettings'
+        DolbyVision81Settings:
+          $ref: '#/components/schemas/DolbyVision81Settings'
         Hdr10Settings:
           $ref: '#/components/schemas/Hdr10Settings'
     VideoCodecSettings:
@@ -770,6 +836,16 @@ components:
     TeletextDestinationSettings:
       type: object
       additionalProperties: false
+    ColorCorrection:
+      type: object
+      additionalProperties: false
+      properties:
+        OutputColorSpace:
+          type: string
+        InputColorSpace:
+          type: string
+        Uri:
+          type: string
     WebvttDestinationSettings:
       type: object
       additionalProperties: false
@@ -806,6 +882,8 @@ components:
           $ref: '#/components/schemas/GlobalConfiguration'
         MotionGraphicsConfiguration:
           $ref: '#/components/schemas/MotionGraphicsConfiguration'
+        ThumbnailConfiguration:
+          $ref: '#/components/schemas/ThumbnailConfiguration'
         FeatureActivations:
           $ref: '#/components/schemas/FeatureActivations'
         CaptionDescriptions:
@@ -815,6 +893,8 @@ components:
             $ref: '#/components/schemas/CaptionDescription'
         AvailConfiguration:
           $ref: '#/components/schemas/AvailConfiguration'
+        ColorCorrectionSettings:
+          $ref: '#/components/schemas/ColorCorrectionSettings'
         OutputGroups:
           type: array
           uniqueItems: false
@@ -881,6 +961,48 @@ components:
       properties:
         EtvPlatformPid:
           type: string
+        AribCaptionsPid:
+          type: string
+        EbpPlacement:
+          type: string
+        DvbSubPids:
+          type: string
+        SegmentationStyle:
+          type: string
+        Klv:
+          type: string
+        Scte35PrerollPullupMilliseconds:
+          type: number
+        TimedMetadataBehavior:
+          type: string
+        DvbTeletextPid:
+          type: string
+        Scte35Control:
+          type: string
+        PcrPeriod:
+          type: integer
+        SegmentationTime:
+          type: number
+        CcDescriptor:
+          type: string
+        PmtPid:
+          type: string
+        DvbNitSettings:
+          $ref: '#/components/schemas/DvbNitSettings'
+        EtvSignalPid:
+          type: string
+        Arib:
+          type: string
+        TimedMetadataPid:
+          type: string
+        AudioPids:
+          type: string
+        AudioBufferModel:
+          type: string
+        Ebif:
+          type: string
+        PcrControl:
+          type: string
         PatInterval:
           type: integer
         ProgramNum:
@@ -893,49 +1015,27 @@ components:
           type: number
         PmtInterval:
           type: integer
-        AribCaptionsPid:
-          type: string
         EsRateInPes:
           type: string
         VideoPid:
           type: string
         TransportStreamId:
           type: integer
-        EbpPlacement:
-          type: string
-        DvbSubPids:
-          type: string
-        SegmentationStyle:
-          type: string
         Scte35Pid:
           type: string
         AudioStreamType:
-          type: string
-        Klv:
           type: string
         EbpLookaheadMs:
           type: integer
         DvbTdtSettings:
           $ref: '#/components/schemas/DvbTdtSettings'
-        TimedMetadataBehavior:
-          type: string
         EbpAudioInterval:
           type: string
         FragmentTime:
           type: number
-        DvbTeletextPid:
-          type: string
-        Scte35Control:
-          type: string
-        PcrPeriod:
-          type: integer
         NielsenId3Behavior:
           type: string
         PcrPid:
-          type: string
-        SegmentationTime:
-          type: number
-        CcDescriptor:
           type: string
         AudioFramesPerPes:
           type: integer
@@ -943,36 +1043,21 @@ components:
           type: string
         Bitrate:
           type: integer
-        PmtPid:
-          type: string
         Scte27Pids:
           type: string
         SegmentationMarkers:
           type: string
-        DvbNitSettings:
-          $ref: '#/components/schemas/DvbNitSettings'
         DvbSdtSettings:
           $ref: '#/components/schemas/DvbSdtSettings'
-        EtvSignalPid:
-          type: string
-        Arib:
-          type: string
         BufferModel:
           type: string
         EcmPid:
           type: string
-        TimedMetadataPid:
-          type: string
-        AudioPids:
-          type: string
-        AudioBufferModel:
-          type: string
-        Ebif:
-          type: string
         AribCaptionsPidControl:
           type: string
-        PcrControl:
-          type: string
+    DolbyVision81Settings:
+      type: object
+      additionalProperties: false
     HlsGroupSettings:
       type: object
       additionalProperties: false
@@ -1088,6 +1173,12 @@ components:
     ColorSpacePassthroughSettings:
       type: object
       additionalProperties: false
+    ThumbnailConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        State:
+          type: string
     AudioHlsRenditionSelection:
       type: object
       additionalProperties: false
@@ -1188,6 +1279,24 @@ components:
     PassThroughSettings:
       type: object
       additionalProperties: false
+    Eac3AtmosSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        CodingMode:
+          type: string
+        Dialnorm:
+          type: integer
+        SurroundTrim:
+          type: number
+        DrcRf:
+          type: string
+        Bitrate:
+          type: number
+        DrcLine:
+          type: string
+        HeightTrim:
+          type: number
     InputLossFailoverSettings:
       type: object
       additionalProperties: false
@@ -1243,6 +1352,14 @@ components:
           $ref: '#/components/schemas/AutomaticInputFailoverSettings'
         InputSettings:
           $ref: '#/components/schemas/InputSettings'
+    EpochLockingSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        JamSyncTime:
+          type: string
+        CustomEpoch:
+          type: string
     VideoSelectorPid:
       type: object
       additionalProperties: false
@@ -1425,6 +1542,16 @@ components:
           type: string
         Resolution:
           type: string
+    TimecodeBurninSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        Prefix:
+          type: string
+        FontSize:
+          type: string
+        Position:
+          type: string
     AudioSelector:
       type: object
       additionalProperties: false
@@ -1463,6 +1590,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        TimecodeBurninSettings:
+          $ref: '#/components/schemas/TimecodeBurninSettings'
         Slices:
           type: integer
         QvbrQualityLevel:
@@ -1591,17 +1720,27 @@ components:
           type: integer
         BackgroundColor:
           type: string
+    OutputLockingSettings:
+      type: object
+      additionalProperties: false
+      properties:
+        EpochLockingSettings:
+          $ref: '#/components/schemas/EpochLockingSettings'
+        PipelineLockingSettings:
+          $ref: '#/components/schemas/PipelineLockingSettings'
     CaptionDescription:
       type: object
       additionalProperties: false
       properties:
         DestinationSettings:
           $ref: '#/components/schemas/CaptionDestinationSettings'
-        CaptionSelectorName:
-          type: string
         LanguageCode:
           type: string
         LanguageDescription:
+          type: string
+        Accessibility:
+          type: string
+        CaptionSelectorName:
           type: string
         Name:
           type: string
@@ -1647,6 +1786,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        TimecodeBurninSettings:
+          $ref: '#/components/schemas/TimecodeBurninSettings'
         ColorSpace:
           type: string
         FixedAfd:
@@ -1948,6 +2089,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        Timezone:
+          type: string
         CheckDigitString:
           type: string
         Sid:
@@ -1969,6 +2112,8 @@ components:
             $ref: '#/components/schemas/OutputDestination'
         Vpc:
           $ref: '#/components/schemas/VpcOutputSettings'
+        Maintenance:
+          $ref: '#/components/schemas/MaintenanceCreateSettings'
         LogLevel:
           type: string
         RoleArn:
@@ -1995,6 +2140,12 @@ components:
       x-stackql-resource-name: channel
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Vpc
+      x-read-only-properties:
+        - Inputs
+        - Id
+        - Arn
     InputSourceRequest:
       type: object
       additionalProperties: false
@@ -2082,6 +2233,12 @@ components:
       x-stackql-resource-name: input
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Vpc
+        - Type
+      x-read-only-properties:
+        - Id
+        - Arn
     InputWhitelistRuleCidr:
       type: object
       additionalProperties: false
@@ -2105,6 +2262,341 @@ components:
       x-stackql-resource-name: input_security_group
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - Id
+    MultiplexOutputDestination:
+      description: Multiplex MediaConnect output destination settings.
+      type: object
+      properties:
+        MultiplexMediaConnectOutputDestinationSettings:
+          description: Multiplex MediaConnect output destination settings.
+          properties:
+            EntitlementArn:
+              type: string
+              description: The MediaConnect entitlement ARN available as a Flow source.
+              minLength: 1
+          additionalProperties: false
+      additionalProperties: false
+    MultiplexSettings:
+      type: object
+      description: A key-value pair to associate with a resource.
+      properties:
+        MaximumVideoBufferDelayMilliseconds:
+          type: integer
+          description: Maximum video buffer delay in milliseconds.
+          minimum: 800
+          maximum: 3000
+        TransportStreamBitrate:
+          type: integer
+          description: Transport stream bit rate.
+          minimum: 1000000
+          maximum: 100000000
+        TransportStreamId:
+          type: integer
+          description: Transport stream ID.
+          minimum: 0
+          maximum: 65535
+        TransportStreamReservedBitrate:
+          type: integer
+          description: Transport stream reserved bit rate.
+          minimum: 0
+          maximum: 100000000
+      required:
+        - TransportStreamBitrate
+        - TransportStreamId
+      additionalProperties: false
+    Tags:
+      description: A key-value pair to associate with a resource.
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+      additionalProperties: false
+    Multiplex:
+      type: object
+      properties:
+        Arn:
+          type: string
+          description: The unique arn of the multiplex.
+        AvailabilityZones:
+          description: A list of availability zones for the multiplex.
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        Destinations:
+          description: A list of the multiplex output destinations.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/MultiplexOutputDestination'
+        Id:
+          type: string
+          description: The unique id of the multiplex.
+        MultiplexSettings:
+          $ref: '#/components/schemas/MultiplexSettings'
+          description: Configuration for a multiplex event.
+        Name:
+          type: string
+          description: Name of multiplex.
+        PipelinesRunningCount:
+          type: integer
+          description: The number of currently healthy pipelines.
+        ProgramCount:
+          type: integer
+          description: The number of programs in the multiplex.
+        State:
+          type: string
+          enum:
+            - CREATING
+            - CREATE_FAILED
+            - IDLE
+            - STARTING
+            - RUNNING
+            - RECOVERING
+            - STOPPING
+            - DELETING
+            - DELETED
+        Tags:
+          description: A collection of key-value pairs.
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tags'
+      required:
+        - AvailabilityZones
+        - MultiplexSettings
+        - Name
+      x-stackql-resource-name: multiplex
+      x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - AvailabilityZones
+      x-read-only-properties:
+        - Arn
+        - Id
+        - PipelinesRunningCount
+        - ProgramCount
+        - State
+      x-required-permissions:
+        create:
+          - medialive:CreateMultiplex
+          - medialive:DescribeMultiplex
+          - medialive:CreateTags
+        read:
+          - medialive:DescribeMultiplex
+        update:
+          - medialive:UpdateMultiplex
+          - medialive:DescribeMultiplex
+          - medialive:CreateTags
+          - medialive:DeleteTags
+        delete:
+          - medialive:DeleteMultiplex
+          - medialive:DescribeMultiplex
+        list:
+          - medialive:ListMultiplexes
+    MultiplexProgramSettings:
+      description: Multiplex Program settings configuration.
+      type: object
+      properties:
+        PreferredChannelPipeline:
+          type: string
+          $ref: '#/components/schemas/PreferredChannelPipeline'
+        ProgramNumber:
+          type: integer
+          description: Unique program number.
+          minimum: 0
+          maximum: 65535
+        ServiceDescriptor:
+          $ref: '#/components/schemas/MultiplexProgramServiceDescriptor'
+          description: Transport stream service descriptor configuration for the Multiplex program.
+        VideoSettings:
+          $ref: '#/components/schemas/MultiplexVideoSettings'
+          description: Program video settings configuration.
+      required:
+        - ProgramNumber
+      additionalProperties: false
+    PreferredChannelPipeline:
+      type: string
+      description: |
+        Indicates which pipeline is preferred by the multiplex for program ingest.
+        If set to \"PIPELINE_0\" or \"PIPELINE_1\" and an unhealthy ingest causes the multiplex to switch to the non-preferred pipeline,
+        it will switch back once that ingest is healthy again. If set to \"CURRENTLY_ACTIVE\",
+        it will not switch back to the other pipeline based on it recovering to a healthy state,
+        it will only switch if the active pipeline becomes unhealthy.
+      enum:
+        - CURRENTLY_ACTIVE
+        - PIPELINE_0
+        - PIPELINE_1
+    MultiplexProgramServiceDescriptor:
+      description: Transport stream service descriptor configuration for the Multiplex program.
+      type: object
+      properties:
+        ProviderName:
+          type: string
+          description: Name of the provider.
+          minLength: 1
+          maxLength: 256
+        ServiceName:
+          type: string
+          description: Name of the service.
+          minLength: 1
+          maxLength: 256
+      required:
+        - ProviderName
+        - ServiceName
+      additionalProperties: false
+    MultiplexVideoSettings:
+      description: The video configuration for each program in a multiplex.
+      type: object
+      oneOf:
+        - type: object
+          properties:
+            ConstantBitrate:
+              type: integer
+              description: |-
+                The constant bitrate configuration for the video encode.
+                When this field is defined, StatmuxSettings must be undefined.
+              minimum: 100000
+              maximum: 100000000
+          required:
+            - ConstantBitrate
+          additionalProperties: false
+        - type: object
+          properties:
+            StatmuxSettings:
+              description: |-
+                Statmux rate control settings.
+                When this field is defined, ConstantBitrate must be undefined.
+              $ref: '#/components/schemas/MultiplexStatmuxVideoSettings'
+          required:
+            - StatmuxSettings
+          additionalProperties: false
+    MultiplexStatmuxVideoSettings:
+      description: Statmux rate control settings
+      type: object
+      properties:
+        MaximumBitrate:
+          type: integer
+          description: Maximum statmux bitrate.
+          minimum: 100000
+          maximum: 100000000
+        MinimumBitrate:
+          type: integer
+          description: Minimum statmux bitrate.
+          minimum: 100000
+          maximum: 100000000
+        Priority:
+          type: integer
+          description: The purpose of the priority is to use a combination of the\nmultiplex rate control algorithm and the QVBR capability of the\nencoder to prioritize the video quality of some channels in a\nmultiplex over others.  Channels that have a higher priority will\nget higher video quality at the expense of the video quality of\nother channels in the multiplex with lower priority.
+          minimum: -5
+          maximum: 5
+      additionalProperties: false
+    MultiplexProgramPacketIdentifiersMap:
+      description: Packet identifiers map for a given Multiplex program.
+      type: object
+      properties:
+        AudioPids:
+          type: array
+          items:
+            type: integer
+          x-insertionOrder: true
+        DvbSubPids:
+          type: array
+          items:
+            type: integer
+          x-insertionOrder: true
+        DvbTeletextPid:
+          type: integer
+        EtvPlatformPid:
+          type: integer
+        EtvSignalPid:
+          type: integer
+        KlvDataPids:
+          type: array
+          items:
+            type: integer
+          x-insertionOrder: true
+        PcrPid:
+          type: integer
+        PmtPid:
+          type: integer
+        PrivateMetadataPid:
+          type: integer
+        Scte27Pids:
+          type: array
+          items:
+            type: integer
+          x-insertionOrder: true
+        Scte35Pid:
+          type: integer
+        TimedMetadataPid:
+          type: integer
+        VideoPid:
+          type: integer
+      additionalProperties: false
+    MultiplexProgramPipelineDetail:
+      description: The current source for one of the pipelines in the multiplex.
+      type: object
+      properties:
+        ActiveChannelPipeline:
+          type: string
+          description: Identifies the channel pipeline that is currently active for the pipeline (identified by PipelineId) in the multiplex.
+        PipelineId:
+          type: string
+          description: Identifies a specific pipeline in the multiplex.
+      additionalProperties: false
+    Multiplexprogram:
+      type: object
+      properties:
+        ChannelId:
+          type: string
+          description: The MediaLive channel associated with the program.
+        MultiplexId:
+          type: string
+          description: The ID of the multiplex that the program belongs to.
+        MultiplexProgramSettings:
+          description: The settings for this multiplex program.
+          $ref: '#/components/schemas/MultiplexProgramSettings'
+        PreferredChannelPipeline:
+          description: The settings for this multiplex program.
+          $ref: '#/components/schemas/PreferredChannelPipeline'
+        PacketIdentifiersMap:
+          $ref: '#/components/schemas/MultiplexProgramPacketIdentifiersMap'
+          description: The packet identifier map for this multiplex program.
+        PipelineDetails:
+          description: Contains information about the current sources for the specified program in the specified multiplex. Keep in mind that each multiplex pipeline connects to both pipelines in a given source channel (the channel identified by the program). But only one of those channel pipelines is ever active at one time.
+          type: array
+          items:
+            $ref: '#/components/schemas/MultiplexProgramPipelineDetail'
+          x-insertionOrder: true
+        ProgramName:
+          type: string
+          description: The name of the multiplex program.
+      x-stackql-resource-name: multiplexprogram
+      x-stackql-primaryIdentifier:
+        - ProgramName
+        - MultiplexId
+      x-create-only-properties:
+        - ProgramName
+        - MultiplexId
+      x-required-permissions:
+        create:
+          - medialive:CreateMultiplexProgram
+          - medialive:DescribeMultiplexProgram
+        read:
+          - medialive:DescribeMultiplexProgram
+        update:
+          - medialive:UpdateMultiplexProgram
+          - medialive:DescribeMultiplexProgram
+        delete:
+          - medialive:DeleteMultiplexProgram
+          - medialive:DescribeMultiplexProgram
+        list:
+          - medialive:ListMultiplexPrograms
   x-stackQL-resources:
     channels:
       name: channels
@@ -2140,6 +2632,7 @@ components:
               JSON_EXTRACT(Properties, '$.InputSpecification') as input_specification,
               JSON_EXTRACT(Properties, '$.Destinations') as destinations,
               JSON_EXTRACT(Properties, '$.Vpc') as vpc,
+              JSON_EXTRACT(Properties, '$.Maintenance') as maintenance,
               JSON_EXTRACT(Properties, '$.LogLevel') as log_level,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
@@ -2229,3 +2722,85 @@ components:
               JSON_EXTRACT(Properties, '$.WhitelistRules') as whitelist_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
+    multiplexes:
+      name: multiplexes
+      id: aws.medialive.multiplexes
+      x-cfn-schema-name: Multiplex
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
+    multiplex:
+      name: multiplex
+      id: aws.medialive.multiplex
+      x-cfn-schema-name: Multiplex
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.AvailabilityZones') as availability_zones,
+              JSON_EXTRACT(Properties, '$.Destinations') as destinations,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.MultiplexSettings') as multiplex_settings,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.PipelinesRunningCount') as pipelines_running_count,
+              JSON_EXTRACT(Properties, '$.ProgramCount') as program_count,
+              JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
+    multiplexprograms:
+      name: multiplexprograms
+      id: aws.medialive.multiplexprograms
+      x-cfn-schema-name: Multiplexprogram
+      x-type: list
+      x-identifiers:
+        - ProgramName
+        - MultiplexId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ProgramName') as program_name,
+              JSON_EXTRACT(Properties, '$.MultiplexId') as multiplex_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'
+    multiplexprogram:
+      name: multiplexprogram
+      id: aws.medialive.multiplexprogram
+      x-cfn-schema-name: Multiplexprogram
+      x-type: get
+      x-identifiers:
+        - ProgramName
+        - MultiplexId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ChannelId') as channel_id,
+              JSON_EXTRACT(Properties, '$.MultiplexId') as multiplex_id,
+              JSON_EXTRACT(Properties, '$.MultiplexProgramSettings') as multiplex_program_settings,
+              JSON_EXTRACT(Properties, '$.PreferredChannelPipeline') as preferred_channel_pipeline,
+              JSON_EXTRACT(Properties, '$.PacketIdentifiersMap') as packet_identifiers_map,
+              JSON_EXTRACT(Properties, '$.PipelineDetails') as pipeline_details,
+              JSON_EXTRACT(Properties, '$.ProgramName') as program_name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'

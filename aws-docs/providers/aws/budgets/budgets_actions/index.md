@@ -36,6 +36,21 @@ Retrieves a list of <code>budgets_actions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>budgets_actions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+budgets:CreateBudgetAction,
+iam:PassRole</pre>
+
+### List
+<pre>
+budgets:DescribeBudgetActionsForAccount,
+budgets:DescribeBudgetActionsForBudget</pre>
+
+
 ## Example
 ```sql
 SELECT

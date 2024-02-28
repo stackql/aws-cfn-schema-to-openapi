@@ -35,6 +35,20 @@ Retrieves a list of <code>profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+transfer:CreateProfile,
+transfer:TagResource</pre>
+
+### List
+<pre>
+transfer:ListProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT

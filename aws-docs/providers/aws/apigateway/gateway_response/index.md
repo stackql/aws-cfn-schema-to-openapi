@@ -27,18 +27,33 @@ Gets an individual <code>gateway_response</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td>A Cloudformation auto generated ID.</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The identifier of the API.</td></tr>
-<tr><td><code>response_type</code></td><td><code>string</code></td><td>The type of the Gateway Response.</td></tr>
-<tr><td><code>status_code</code></td><td><code>string</code></td><td>The HTTP status code for the response.</td></tr>
-<tr><td><code>response_parameters</code></td><td><code>object</code></td><td>The response parameters (paths, query strings, and headers) for the response.</td></tr>
-<tr><td><code>response_templates</code></td><td><code>object</code></td><td>The response templates for the response.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
+<tr><td><code>response_type</code></td><td><code>string</code></td><td>The response type of the associated GatewayResponse.</td></tr>
+<tr><td><code>status_code</code></td><td><code>string</code></td><td>The HTTP status code for this GatewayResponse.</td></tr>
+<tr><td><code>response_parameters</code></td><td><code>object</code></td><td>Response parameters (paths, query strings and headers) of the GatewayResponse as a string-to-string map of key-value pairs.</td></tr>
+<tr><td><code>response_templates</code></td><td><code>object</code></td><td>Response templates of the GatewayResponse as a string-to-string map of key-value pairs.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>gateway_response</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:PUT</pre>
+
+### Delete
+<pre>
+apigateway:GET,
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

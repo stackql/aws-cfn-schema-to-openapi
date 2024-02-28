@@ -35,6 +35,21 @@ Retrieves a list of <code>collections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>collections</code> resource, the following permissions are required:
+
+### Create
+<pre>
+aoss:CreateCollection,
+aoss:BatchGetCollection,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+aoss:ListCollections</pre>
+
+
 ## Example
 ```sql
 SELECT

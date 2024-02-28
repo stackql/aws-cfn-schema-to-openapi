@@ -35,6 +35,49 @@ Retrieves a list of <code>app_monitors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>app_monitors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+rum:CreateAppMonitor,
+dynamodb:GetItem,
+dynamodb:PutItem,
+s3:GetObject,
+s3:PutObject,
+s3:GetObjectAcl,
+s3:DoesObjectExist,
+logs:CreateLogDelivery,
+logs:CreateLogGroup,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+logs:PutRetentionPolicy,
+rum:TagResource,
+cognito-identity:DescribeIdentityPool,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+rum:PutRumMetricsDestination,
+rum:BatchCreateRumMetricDefinitions</pre>
+
+### List
+<pre>
+rum:ListAppMonitors,
+dynamodb:DescribeTable,
+rum:GetAppMonitor,
+dynamodb:GetItem,
+dynamodb:BatchGetItem,
+dynamodb:Query,
+s3:GetObject,
+s3:DoesObjectExist,
+s3:GetObjectAcl,
+logs:DescribeLogGroups,
+rum:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

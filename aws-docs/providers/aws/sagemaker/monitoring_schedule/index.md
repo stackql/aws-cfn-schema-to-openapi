@@ -44,6 +44,25 @@ Gets an individual <code>monitoring_schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>monitoring_schedule</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+sagemaker:DeleteMonitoringSchedule,
+sagemaker:DescribeMonitoringSchedule</pre>
+
+### Read
+<pre>
+sagemaker:DescribeMonitoringSchedule</pre>
+
+### Update
+<pre>
+sagemaker:UpdateMonitoringSchedule,
+sagemaker:DescribeMonitoringSchedule</pre>
+
+
 ## Example
 ```sql
 SELECT

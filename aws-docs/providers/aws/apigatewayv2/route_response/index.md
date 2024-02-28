@@ -27,19 +27,39 @@ Gets an individual <code>route_response</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>route_response_key</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>response_parameters</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>route_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>model_selection_expression</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>response_models</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>route_response_key</code></td><td><code>string</code></td><td>The route response key.</td></tr>
+<tr><td><code>response_parameters</code></td><td><code>undefined</code></td><td>The route response parameters.</td></tr>
+<tr><td><code>route_id</code></td><td><code>string</code></td><td>The route ID.</td></tr>
+<tr><td><code>model_selection_expression</code></td><td><code>string</code></td><td>The model selection expression for the route response. Supported only for WebSocket APIs.</td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td>The API identifier.</td></tr>
+<tr><td><code>response_models</code></td><td><code>object</code></td><td>The response models for the route response.</td></tr>
+<tr><td><code>route_response_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>route_response</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT</pre>
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Delete
+<pre>
+apigateway:GET,
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql
@@ -48,11 +68,13 @@ region,
 route_response_key,
 response_parameters,
 route_id,
-id,
 model_selection_expression,
 api_id,
-response_models
+response_models,
+route_response_id
 FROM aws.apigatewayv2.route_response
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;ApiId&gt;'
+AND data__Identifier = '&lt;RouteId&gt;'
+AND data__Identifier = '&lt;RouteResponseId&gt;'
 ```

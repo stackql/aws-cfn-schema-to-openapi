@@ -42,6 +42,27 @@ Gets an individual <code>ip_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>ip_set</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+wafv2:DeleteIPSet,
+wafv2:GetIPSet</pre>
+
+### Read
+<pre>
+wafv2:GetIPSet,
+wafv2:ListTagsForResource</pre>
+
+### Update
+<pre>
+wafv2:UpdateIPSet,
+wafv2:GetIPSet,
+wafv2:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,21 @@ Retrieves a list of <code>resiliency_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resiliency_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resiliencehub:CreateResiliencyPolicy,
+resiliencehub:DescribeResiliencyPolicy,
+resiliencehub:TagResource</pre>
+
+### List
+<pre>
+resiliencehub:ListResiliencyPolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

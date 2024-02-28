@@ -28,6 +28,7 @@ Gets an individual <code>repository</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>clone_url_http</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>kms_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>clone_url_ssh</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>repository_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>triggers</code></td><td><code>array</code></td><td></td></tr>
@@ -44,11 +45,16 @@ Gets an individual <code>repository</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 clone_url_http,
+kms_key_id,
 clone_url_ssh,
 repository_name,
 triggers,

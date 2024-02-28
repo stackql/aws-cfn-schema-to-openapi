@@ -38,6 +38,23 @@ Gets an individual <code>application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticbeanstalk:DescribeApplicationVersions</pre>
+
+### Update
+<pre>
+elasticbeanstalk:UpdateApplicationVersion</pre>
+
+### Delete
+<pre>
+elasticbeanstalk:DeleteApplicationVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

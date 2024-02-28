@@ -35,12 +35,14 @@ Gets an individual <code>dashboard</code> resource
 <tr><td><code>definition</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>last_published_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>last_updated_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>link_sharing_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>parameters</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>permissions</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>source_entity</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>theme_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>validation_strategy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>version</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>version_description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -49,6 +51,36 @@ Gets an individual <code>dashboard</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>dashboard</code> resource, the following permissions are required:
+
+### Read
+<pre>
+quicksight:DescribeDashboard,
+quicksight:DescribeDashboardPermissions,
+quicksight:ListTagsForResource</pre>
+
+### Update
+<pre>
+quicksight:DescribeDashboard,
+quicksight:DescribeDashboardPermissions,
+quicksight:UpdateDashboard,
+quicksight:UpdateDashboardPermissions,
+quicksight:UpdateDashboardPublishedVersion,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource</pre>
+
+### Delete
+<pre>
+quicksight:DescribeDashboard,
+quicksight:DeleteDashboard</pre>
+
 
 ## Example
 ```sql
@@ -62,12 +94,14 @@ dashboard_publish_options,
 definition,
 last_published_time,
 last_updated_time,
+link_sharing_configuration,
 name,
 parameters,
 permissions,
 source_entity,
 tags,
 theme_arn,
+validation_strategy,
 version,
 version_description
 FROM aws.quicksight.dashboard

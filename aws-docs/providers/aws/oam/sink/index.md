@@ -38,6 +38,30 @@ Gets an individual <code>sink</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sink</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+oam:DeleteSink,
+oam:GetSinkPolicy,
+oam:GetSink</pre>
+
+### Read
+<pre>
+oam:GetSinkPolicy,
+oam:GetSink</pre>
+
+### Update
+<pre>
+oam:PutSinkPolicy,
+oam:GetSinkPolicy,
+oam:GetSink,
+oam:TagResource,
+oam:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

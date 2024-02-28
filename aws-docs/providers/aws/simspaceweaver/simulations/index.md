@@ -35,6 +35,22 @@ Retrieves a list of <code>simulations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>simulations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+simspaceweaver:StartSimulation,
+simspaceweaver:DescribeSimulation,
+iam:GetRole,
+iam:PassRole</pre>
+
+### List
+<pre>
+simspaceweaver:ListSimulations</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -40,6 +40,32 @@ Gets an individual <code>resource_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_set</code> resource, the following permissions are required:
+
+### Update
+<pre>
+fms:PutResourceSet,
+fms:BatchAssociateResource,
+fms:BatchDisassociateResource,
+fms:GetResourceSet,
+fms:ListResourceSetResources,
+fms:TagResource,
+fms:UntagResource,
+fms:ListTagsForResource</pre>
+
+### Read
+<pre>
+fms:GetResourceSet,
+fms:ListResourceSetResources,
+fms:ListTagsForResource</pre>
+
+### Delete
+<pre>
+fms:DeleteResourceSet</pre>
+
+
 ## Example
 ```sql
 SELECT

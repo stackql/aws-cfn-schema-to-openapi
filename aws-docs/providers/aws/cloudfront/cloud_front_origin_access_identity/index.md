@@ -37,6 +37,25 @@ Gets an individual <code>cloud_front_origin_access_identity</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cloud_front_origin_access_identity</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteCloudFrontOriginAccessIdentity,
+cloudfront:GetCloudFrontOriginAccessIdentity</pre>
+
+### Read
+<pre>
+cloudfront:GetCloudFrontOriginAccessIdentity</pre>
+
+### Update
+<pre>
+cloudfront:UpdateCloudFrontOriginAccessIdentity,
+cloudfront:GetCloudFrontOriginAccessIdentity</pre>
+
+
 ## Example
 ```sql
 SELECT

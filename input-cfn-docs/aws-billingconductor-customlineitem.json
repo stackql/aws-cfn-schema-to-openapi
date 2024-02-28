@@ -57,6 +57,41 @@
       },
       "required" : [ "ChargeValue" ]
     },
+    "LineItemFilters" : {
+      "type" : "array",
+      "insertionOrder" : false,
+      "uniqueItems" : true,
+      "items" : {
+        "$ref" : "#/definitions/LineItemFilter"
+      }
+    },
+    "LineItemFilter" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "Attribute" : {
+          "type" : "string",
+          "enum" : [ "LINE_ITEM_TYPE" ]
+        },
+        "MatchOption" : {
+          "type" : "string",
+          "enum" : [ "NOT_EQUAL" ]
+        },
+        "Values" : {
+          "type" : "array",
+          "insertionOrder" : false,
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "#/definitions/LineItemFilterValue"
+          }
+        }
+      },
+      "required" : [ "Attribute", "MatchOption", "Values" ]
+    },
+    "LineItemFilterValue" : {
+      "type" : "string",
+      "enum" : [ "SAVINGS_PLAN_NEGATION" ]
+    },
     "CustomLineItemChargeDetails" : {
       "type" : "object",
       "additionalProperties" : false,
@@ -69,6 +104,9 @@
         },
         "Type" : {
           "$ref" : "#/definitions/Type"
+        },
+        "LineItemFilters" : {
+          "$ref" : "#/definitions/LineItemFilters"
         }
       },
       "required" : [ "Type" ]
@@ -142,6 +180,11 @@
       "type" : "string",
       "enum" : [ "USD", "CNY" ]
     },
+    "AccountId" : {
+      "type" : "string",
+      "description" : "The account which this custom line item will be charged to",
+      "pattern" : "[0-9]{12}"
+    },
     "Tags" : {
       "type" : "array",
       "uniqueItems" : true,
@@ -161,14 +204,14 @@
   },
   "required" : [ "Name", "BillingGroupArn" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/CreationTime", "/properties/LastModifiedTime", "/properties/AssociationSize", "/properties/CurrencyCode", "/properties/ProductCode" ],
-  "createOnlyProperties" : [ "/properties/BillingGroupArn", "/properties/BillingPeriodRange/InclusiveStartBillingPeriod", "/properties/BillingPeriodRange/ExclusiveEndBillingPeriod", "/properties/CustomLineItemChargeDetails/Type" ],
+  "createOnlyProperties" : [ "/properties/BillingGroupArn", "/properties/AccountId", "/properties/BillingPeriodRange/InclusiveStartBillingPeriod", "/properties/BillingPeriodRange/ExclusiveEndBillingPeriod", "/properties/CustomLineItemChargeDetails/Type" ],
   "primaryIdentifier" : [ "/properties/Arn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "billingconductor:CreateCustomLineItem", "billingconductor:BatchAssociateResourcesToCustomLineItem", "billingconductor:ListCustomLineItems" ]
+      "permissions" : [ "billingconductor:CreateCustomLineItem", "billingconductor:BatchAssociateResourcesToCustomLineItem", "billingconductor:ListCustomLineItems", "billingconductor:TagResource", "billingconductor:ListTagsForResource" ]
     },
     "read" : {
-      "permissions" : [ "billingconductor:ListCustomLineItems", "billingconductor:ListResourcesAssociatedToCustomLineItem", "billingconductor:ListTagsForResource" ]
+      "permissions" : [ "billingconductor:ListCustomLineItems", "billingconductor:ListCustomLineItemVersions", "billingconductor:ListResourcesAssociatedToCustomLineItem", "billingconductor:ListTagsForResource" ]
     },
     "list" : {
       "permissions" : [ "billingconductor:ListCustomLineItems", "billingconductor:ListResourcesAssociatedToCustomLineItem", "billingconductor:ListTagsForResource" ]
@@ -177,7 +220,7 @@
       "permissions" : [ "billingconductor:UpdateCustomLineItem", "billingconductor:ListCustomLineItems", "billingconductor:ListResourcesAssociatedToCustomLineItem", "billingconductor:BatchAssociateResourcesToCustomLineItem", "billingconductor:BatchDisassociateResourcesFromCustomLineItem", "billingconductor:TagResource", "billingconductor:UntagResource" ]
     },
     "delete" : {
-      "permissions" : [ "billingconductor:DeleteCustomLineItem", "billingconductor:BatchDisassociateResourcesFromCustomLineItem", "billingconductor:ListResourcesAssociatedToCustomLineItem" ]
+      "permissions" : [ "billingconductor:DeleteCustomLineItem", "billingconductor:ListCustomLineItems", "billingconductor:BatchDisassociateResourcesFromCustomLineItem", "billingconductor:ListResourcesAssociatedToCustomLineItem", "billingconductor:UntagResource" ]
     }
   }
 }

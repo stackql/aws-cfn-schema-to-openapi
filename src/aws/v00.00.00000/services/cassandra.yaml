@@ -21,6 +21,50 @@ components:
       required:
         - Value
         - Key
+    ReplicationSpecification:
+      type: object
+      additionalProperties: false
+      properties:
+        ReplicationStrategy:
+          type: string
+          enum:
+            - SINGLE_REGION
+            - MULTI_REGION
+        RegionList:
+          $ref: '#/components/schemas/RegionList'
+      default:
+        properties:
+          ReplicationStrategy:
+            type: string
+            x-const: SINGLE_REGION
+      x-dependencies:
+        RegionList:
+          - ReplicationStrategy
+    RegionList:
+      type: array
+      items:
+        type: string
+        enum:
+          - ap-northeast-1
+          - ap-northeast-2
+          - ap-south-1
+          - ap-southeast-1
+          - ap-southeast-2
+          - ca-central-1
+          - eu-central-1
+          - eu-north-1
+          - eu-west-1
+          - eu-west-2
+          - eu-west-3
+          - sa-east-1
+          - us-east-1
+          - us-east-2
+          - us-west-1
+          - us-west-2
+      uniqueItems: true
+      x-insertionOrder: false
+      minItems: 2
+      maxItems: 6
     Keyspace:
       type: object
       properties:
@@ -35,10 +79,44 @@ components:
             $ref: '#/components/schemas/Tag'
           minItems: 0
           maxItems: 50
+        ReplicationSpecification:
+          $ref: '#/components/schemas/ReplicationSpecification'
       required: []
       x-stackql-resource-name: keyspace
       x-stackql-primaryIdentifier:
         - KeyspaceName
+      x-create-only-properties:
+        - ReplicationSpecification
+        - KeyspaceName
+      x-required-permissions:
+        create:
+          - cassandra:Create
+          - cassandra:CreateMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - cassandra:TagResource
+          - cassandra:TagMultiRegionResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+        update:
+          - cassandra:Alter
+          - cassandra:AlterMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - cassandra:TagResource
+          - cassandra:TagMultiRegionResource
+          - cassandra:UntagResource
+          - cassandra:UntagMultiRegionResource
+        delete:
+          - cassandra:Drop
+          - cassandra:DropMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+        list:
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
     Column:
       type: object
       properties:
@@ -117,6 +195,71 @@ components:
     KmsKeyIdentifier:
       description: 'The AWS KMS customer master key (CMK) that should be used for the AWS KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. '
       type: string
+    AutoScalingSpecification:
+      description: Represents the read and write settings used for AutoScaling.
+      type: object
+      properties:
+        WriteCapacityAutoScaling:
+          $ref: '#/components/schemas/AutoScalingSetting'
+        ReadCapacityAutoScaling:
+          $ref: '#/components/schemas/AutoScalingSetting'
+      additionalProperties: false
+    AutoScalingSetting:
+      description: Represents configuration for auto scaling.
+      type: object
+      properties:
+        AutoScalingDisabled:
+          type: boolean
+          default: false
+        MinimumUnits:
+          type: integer
+          minimum: 1
+        MaximumUnits:
+          type: integer
+          minimum: 1
+        ScalingPolicy:
+          $ref: '#/components/schemas/ScalingPolicy'
+      additionalProperties: false
+    ScalingPolicy:
+      description: Represents scaling policy.
+      type: object
+      properties:
+        TargetTrackingScalingPolicyConfiguration:
+          $ref: '#/components/schemas/TargetTrackingScalingPolicyConfiguration'
+      additionalProperties: false
+    TargetTrackingScalingPolicyConfiguration:
+      description: Represents configuration for target tracking scaling policy.
+      type: object
+      properties:
+        DisableScaleIn:
+          type: boolean
+          default: 'false'
+        ScaleInCooldown:
+          type: integer
+          default: 0
+        ScaleOutCooldown:
+          type: integer
+          default: 0
+        TargetValue:
+          type: integer
+      required:
+        - TargetValue
+      additionalProperties: false
+    ReplicaSpecification:
+      description: Represents replica specifications.
+      type: object
+      properties:
+        Region:
+          type: string
+          minLength: 2
+          maxLength: 25
+        ReadCapacityUnits:
+          type: integer
+        ReadCapacityAutoScaling:
+          $ref: '#/components/schemas/AutoScalingSetting'
+      required:
+        - Region
+      additionalProperties: false
     Table:
       type: object
       properties:
@@ -172,6 +315,15 @@ components:
           minimum: 0
         EncryptionSpecification:
           $ref: '#/components/schemas/EncryptionSpecification'
+        AutoScalingSpecifications:
+          $ref: '#/components/schemas/AutoScalingSpecification'
+        ReplicaSpecifications:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          x-insertionOrder: true
+          items:
+            $ref: '#/components/schemas/ReplicaSpecification'
       required:
         - KeyspaceName
         - PartitionKeyColumns
@@ -179,6 +331,93 @@ components:
       x-stackql-primaryIdentifier:
         - KeyspaceName
         - TableName
+      x-create-only-properties:
+        - KeyspaceName
+        - TableName
+        - PartitionKeyColumns
+        - ClusteringKeyColumns
+        - ClientSideTimestampsEnabled
+      x-required-permissions:
+        create:
+          - cassandra:Create
+          - cassandra:CreateMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - cassandra:TagResource
+          - cassandra:TagMultiRegionResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:Encrypt
+          - kms:Decrypt
+          - application-autoscaling:DescribeScalableTargets
+          - application-autoscaling:DescribeScalingPolicies
+          - application-autoscaling:DeregisterScalableTarget
+          - application-autoscaling:RegisterScalableTarget
+          - application-autoscaling:PutScalingPolicy
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:GetMetricData
+          - cloudwatch:PutMetricAlarm
+        read:
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - application-autoscaling:DescribeScalableTargets
+          - application-autoscaling:DescribeScalingPolicies
+          - application-autoscaling:DeregisterScalableTarget
+          - application-autoscaling:RegisterScalableTarget
+          - application-autoscaling:PutScalingPolicy
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:GetMetricData
+          - cloudwatch:PutMetricAlarm
+        update:
+          - cassandra:Alter
+          - cassandra:AlterMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - cassandra:TagResource
+          - cassandra:TagMultiRegionResource
+          - cassandra:UntagResource
+          - cassandra:UntagMultiRegionResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:Encrypt
+          - kms:Decrypt
+          - application-autoscaling:DescribeScalableTargets
+          - application-autoscaling:DescribeScalingPolicies
+          - application-autoscaling:DeregisterScalableTarget
+          - application-autoscaling:RegisterScalableTarget
+          - application-autoscaling:PutScalingPolicy
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:GetMetricData
+          - cloudwatch:PutMetricAlarm
+        delete:
+          - cassandra:Drop
+          - cassandra:DropMultiRegionResource
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - application-autoscaling:DescribeScalableTargets
+          - application-autoscaling:DescribeScalingPolicies
+          - application-autoscaling:DeregisterScalableTarget
+          - application-autoscaling:RegisterScalableTarget
+          - application-autoscaling:PutScalingPolicy
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:GetMetricData
+          - cloudwatch:PutMetricAlarm
+        list:
+          - cassandra:Select
+          - cassandra:SelectMultiRegionResource
+          - application-autoscaling:DescribeScalableTargets
+          - application-autoscaling:DescribeScalingPolicies
+          - application-autoscaling:DeregisterScalableTarget
+          - application-autoscaling:RegisterScalableTarget
+          - application-autoscaling:PutScalingPolicy
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:GetMetricData
+          - cloudwatch:PutMetricAlarm
   x-stackQL-resources:
     keyspaces:
       name: keyspaces
@@ -211,7 +450,8 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ReplicationSpecification') as replication_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
     tables:
       name: tables
@@ -256,5 +496,7 @@ components:
               JSON_EXTRACT(Properties, '$.ClientSideTimestampsEnabled') as client_side_timestamps_enabled,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.DefaultTimeToLive') as default_time_to_live,
-              JSON_EXTRACT(Properties, '$.EncryptionSpecification') as encryption_specification
+              JSON_EXTRACT(Properties, '$.EncryptionSpecification') as encryption_specification,
+              JSON_EXTRACT(Properties, '$.AutoScalingSpecifications') as auto_scaling_specifications,
+              JSON_EXTRACT(Properties, '$.ReplicaSpecifications') as replica_specifications
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Table'

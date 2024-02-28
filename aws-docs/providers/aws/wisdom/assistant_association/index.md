@@ -41,6 +41,23 @@ Gets an individual <code>assistant_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assistant_association</code> resource, the following permissions are required:
+
+### Update
+<pre>
+wisdom:GetAssistantAssociation</pre>
+
+### Read
+<pre>
+wisdom:GetAssistantAssociation</pre>
+
+### Delete
+<pre>
+wisdom:DeleteAssistantAssociation</pre>
+
+
 ## Example
 ```sql
 SELECT

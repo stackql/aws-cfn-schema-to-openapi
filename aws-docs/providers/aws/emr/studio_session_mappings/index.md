@@ -37,6 +37,27 @@ Retrieves a list of <code>studio_session_mappings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>studio_session_mappings</code> resource, the following permissions are required:
+
+### Create
+<pre>
+elasticmapreduce:CreateStudioSessionMapping,
+sso-directory:SearchUsers,
+sso-directory:SearchGroups,
+sso-directory:DescribeUser,
+sso-directory:DescribeGroup,
+sso:ListDirectoryAssociations,
+sso:GetProfile,
+sso:ListProfiles,
+sso:AssociateProfile</pre>
+
+### List
+<pre>
+elasticmapreduce:ListStudioSessionMappings</pre>
+
+
 ## Example
 ```sql
 SELECT

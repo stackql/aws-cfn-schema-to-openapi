@@ -29,6 +29,7 @@ Gets an individual <code>table</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>database_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>table_input</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>open_table_format_input</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>catalog_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -38,12 +39,17 @@ Gets an individual <code>table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 database_name,
 table_input,
+open_table_format_input,
 id,
 catalog_id
 FROM aws.glue.table

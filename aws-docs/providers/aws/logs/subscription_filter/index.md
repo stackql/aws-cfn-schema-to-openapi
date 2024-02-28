@@ -40,6 +40,25 @@ Gets an individual <code>subscription_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>subscription_filter</code> resource, the following permissions are required:
+
+### Read
+<pre>
+logs:DescribeSubscriptionFilters</pre>
+
+### Update
+<pre>
+iam:PassRole,
+logs:PutSubscriptionFilter,
+logs:DescribeSubscriptionFilters</pre>
+
+### Delete
+<pre>
+logs:DeleteSubscriptionFilter</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -28,13 +28,32 @@ components:
       x-stackql-primaryIdentifier:
         - StatementId
         - ProfileName
+      x-create-only-properties:
+        - ProfileName
+        - Action
+        - Principal
+        - StatementId
+        - ProfileVersion
+      x-required-permissions:
+        create:
+          - signer:AddProfilePermission
+          - signer:ListProfilePermissions
+        read:
+          - signer:ListProfilePermissions
+        delete:
+          - signer:RemoveProfilePermission
+          - signer:ListProfilePermissions
+        list:
+          - signer:ListProfilePermissions
+          - signer:GetSigningProfile
     PlatformId:
       type: string
       enum:
         - AWSLambda-SHA384-ECDSA
+        - Notation-OCI-SHA384-ECDSA
     Arn:
       type: string
-      pattern: ^arn:aws(-(cn|gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
+      pattern: ^arn:aws(-(cn|us-gov))?:[a-z-]+:(([a-z]+-)+[0-9])?:([0-9]{12})?:[^.]+$
     ProfileVersion:
       type: string
       pattern: ^[0-9a-zA-Z]{10}$
@@ -94,6 +113,29 @@ components:
       x-stackql-resource-name: signing_profile
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - PlatformId
+        - SignatureValidityPeriod
+      x-read-only-properties:
+        - ProfileName
+        - ProfileVersion
+        - Arn
+        - ProfileVersionArn
+      x-required-permissions:
+        create:
+          - signer:PutSigningProfile
+          - signer:TagResource
+        read:
+          - signer:GetSigningProfile
+        delete:
+          - signer:CancelSigningProfile
+          - signer:GetSigningProfile
+        list:
+          - signer:ListSigningProfiles
+        update:
+          - signer:TagResource
+          - signer:UntagResource
+          - signer:GetSigningProfile
   x-stackQL-resources:
     profile_permissions:
       name: profile_permissions

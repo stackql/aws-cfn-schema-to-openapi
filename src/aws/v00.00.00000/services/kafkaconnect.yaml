@@ -19,7 +19,7 @@ components:
         - BootstrapServers
         - Vpc
     AutoScaling:
-      description: 'Details about auto scaling of a connector. '
+      description: Details about auto scaling of a connector.
       type: object
       additionalProperties: false
       properties:
@@ -333,6 +333,62 @@ components:
       x-stackql-resource-name: connector
       x-stackql-primaryIdentifier:
         - ConnectorArn
+      x-create-only-properties:
+        - ConnectorConfiguration
+        - ConnectorDescription
+        - ConnectorName
+        - KafkaCluster
+        - KafkaClusterClientAuthentication
+        - KafkaClusterEncryptionInTransit
+        - KafkaConnectVersion
+        - LogDelivery
+        - Plugins
+        - ServiceExecutionRoleArn
+        - WorkerConfiguration
+      x-read-only-properties:
+        - ConnectorArn
+      x-required-permissions:
+        create:
+          - kafkaconnect:CreateConnector
+          - kafkaconnect:DescribeConnector
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - ec2:CreateNetworkInterface
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - firehose:TagDeliveryStream
+        read:
+          - kafkaconnect:DescribeConnector
+        delete:
+          - kafkaconnect:DeleteConnector
+          - kafkaconnect:DescribeConnector
+          - logs:DeleteLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+        update:
+          - kafkaconnect:UpdateConnector
+          - kafkaconnect:DescribeConnector
+          - iam:CreateServiceLinkedRole
+          - logs:UpdateLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - firehose:TagDeliveryStream
+        list:
+          - kafkaconnect:ListConnectors
   x-stackQL-resources:
     connectors:
       name: connectors

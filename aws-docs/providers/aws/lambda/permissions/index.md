@@ -27,6 +27,7 @@ Retrieves a list of <code>permissions</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>function_name</code></td><td><code>string</code></td><td>The name of the Lambda function, version, or alias.&lt;br&#x2F;&gt;  **Name formats**&lt;br&#x2F;&gt; +   *Function name* – ``my-function`` (name-only), ``my-function:v1`` (with alias).&lt;br&#x2F;&gt;  +   *Function ARN* – ``arn:aws:lambda:us-west-2:123456789012:function:my-function``.&lt;br&#x2F;&gt;  +   *Partial ARN* – ``123456789012:function:my-function``.&lt;br&#x2F;&gt;  &lt;br&#x2F;&gt; You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.</td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -35,10 +36,24 @@ Retrieves a list of <code>permissions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>permissions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lambda:AddPermission</pre>
+
+### List
+<pre>
+lambda:GetPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
+function_name,
 id
 FROM aws.lambda.permissions
 WHERE region = 'us-east-1'

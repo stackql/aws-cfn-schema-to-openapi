@@ -35,6 +35,23 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+kinesisanalytics:CreateApplication,
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:ListTagsForResource,
+kinesisanalytics:UpdateApplicationMaintenanceConfiguration</pre>
+
+### List
+<pre>
+kinesisanalytics:ListApplications</pre>
+
+
 ## Example
 ```sql
 SELECT

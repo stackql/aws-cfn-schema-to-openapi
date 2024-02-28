@@ -39,6 +39,24 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appflow:DescribeConnector</pre>
+
+### Delete
+<pre>
+appflow:UnRegisterConnector</pre>
+
+### Update
+<pre>
+appflow:UpdateConnectorRegistration,
+lambda:InvokeFunction</pre>
+
+
 ## Example
 ```sql
 SELECT

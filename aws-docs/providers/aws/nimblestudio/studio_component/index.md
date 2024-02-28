@@ -47,6 +47,32 @@ Gets an individual <code>studio_component</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>studio_component</code> resource, the following permissions are required:
+
+### Read
+<pre>
+nimble:GetStudioComponent</pre>
+
+### Update
+<pre>
+iam:PassRole,
+nimble:UpdateStudioComponent,
+nimble:GetStudioComponent,
+ds:AuthorizeApplication,
+ec2:DescribeSecurityGroups,
+fsx:DescribeFilesystems,
+ds:DescribeDirectories</pre>
+
+### Delete
+<pre>
+nimble:DeleteStudioComponent,
+nimble:GetStudioComponent,
+nimble:UntagResource,
+ds:UnauthorizeApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

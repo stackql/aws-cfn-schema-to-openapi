@@ -39,6 +39,25 @@ Gets an individual <code>access_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotsitewise:DescribeAccessPolicy</pre>
+
+### Update
+<pre>
+iotsitewise:DescribeAccessPolicy,
+iotsitewise:UpdateAccessPolicy</pre>
+
+### Delete
+<pre>
+iotsitewise:DescribeAccessPolicy,
+iotsitewise:DeleteAccessPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

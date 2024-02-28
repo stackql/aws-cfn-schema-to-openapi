@@ -24,6 +24,19 @@ components:
       x-stackql-resource-name: notification_channel
       x-stackql-primaryIdentifier:
         - SnsTopicArn
+      x-required-permissions:
+        create:
+          - fms:PutNotificationChannel
+          - iam:PassRole
+        update:
+          - fms:PutNotificationChannel
+          - iam:PassRole
+        read:
+          - fms:GetNotificationChannel
+        delete:
+          - fms:DeleteNotificationChannel
+        list:
+          - fms:GetNotificationChannel
     AccountId:
       description: An AWS account ID.
       type: string
@@ -229,6 +242,49 @@ components:
       x-stackql-resource-name: policy
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - fms:PutPolicy
+          - fms:TagResource
+          - waf-regional:ListRuleGroups
+          - wafv2:CheckCapacity
+          - wafv2:ListRuleGroups
+          - wafv2:ListAvailableManagedRuleGroups
+          - wafv2:ListAvailableManagedRuleGroupVersions
+          - network-firewall:DescribeRuleGroup
+          - network-firewall:DescribeRuleGroupMetadata
+          - route53resolver:ListFirewallRuleGroups
+          - ec2:DescribeAvailabilityZones
+          - s3:PutBucketPolicy
+          - s3:GetBucketPolicy
+        update:
+          - fms:PutPolicy
+          - fms:GetPolicy
+          - fms:TagResource
+          - fms:UntagResource
+          - fms:ListTagsForResource
+          - waf-regional:ListRuleGroups
+          - wafv2:CheckCapacity
+          - wafv2:ListRuleGroups
+          - wafv2:ListAvailableManagedRuleGroups
+          - wafv2:ListAvailableManagedRuleGroupVersions
+          - network-firewall:DescribeRuleGroup
+          - network-firewall:DescribeRuleGroupMetadata
+          - route53resolver:ListFirewallRuleGroups
+          - ec2:DescribeAvailabilityZones
+          - s3:PutBucketPolicy
+          - s3:GetBucketPolicy
+        read:
+          - fms:GetPolicy
+          - fms:ListTagsForResource
+        delete:
+          - fms:DeletePolicy
+        list:
+          - fms:ListPolicies
+          - fms:ListTagsForResource
     Tag:
       description: A tag.
       type: object
@@ -290,6 +346,31 @@ components:
       x-stackql-resource-name: resource_set
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - fms:PutResourceSet
+          - fms:BatchAssociateResource
+          - fms:ListResourceSetResources
+          - fms:TagResource
+        update:
+          - fms:PutResourceSet
+          - fms:BatchAssociateResource
+          - fms:BatchDisassociateResource
+          - fms:GetResourceSet
+          - fms:ListResourceSetResources
+          - fms:TagResource
+          - fms:UntagResource
+          - fms:ListTagsForResource
+        read:
+          - fms:GetResourceSet
+          - fms:ListResourceSetResources
+          - fms:ListTagsForResource
+        delete:
+          - fms:DeleteResourceSet
+        list:
+          - fms:ListResourceSets
   x-stackQL-resources:
     notification_channels:
       name: notification_channels

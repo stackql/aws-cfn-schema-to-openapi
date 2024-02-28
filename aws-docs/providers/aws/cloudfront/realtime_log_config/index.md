@@ -39,6 +39,26 @@ Gets an individual <code>realtime_log_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>realtime_log_config</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteRealtimeLogConfig,
+cloudfront:GetRealtimeLogConfig</pre>
+
+### Read
+<pre>
+cloudfront:GetRealtimeLogConfig</pre>
+
+### Update
+<pre>
+cloudfront:UpdateRealtimeLogConfig,
+cloudfront:GetRealtimeLogConfig,
+iam:PassRole</pre>
+
+
 ## Example
 ```sql
 SELECT

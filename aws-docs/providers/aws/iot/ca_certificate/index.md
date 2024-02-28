@@ -44,6 +44,32 @@ Gets an individual <code>ca_certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>ca_certificate</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeCACertificate,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:GetRole,
+iam:PassRole,
+iot:UpdateCACertificate,
+iot:DescribeCACertificate,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iot:UpdateCACertificate,
+iot:DeleteCACertificate,
+iot:DescribeCACertificate</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -42,6 +42,29 @@ Gets an individual <code>workspace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>workspace</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource</pre>
+
+### Update
+<pre>
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateWorkspace</pre>
+
+### Delete
+<pre>
+iottwinmaker:DeleteWorkspace,
+iottwinmaker:GetWorkspace</pre>
+
+
 ## Example
 ```sql
 SELECT

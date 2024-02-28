@@ -43,6 +43,30 @@ Gets an individual <code>authorizer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>authorizer</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeAuthorizer,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iot:UpdateAuthorizer,
+iot:DescribeAuthorizer,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iot:UpdateAuthorizer,
+iot:DeleteAuthorizer,
+iot:DescribeAuthorizer</pre>
+
+
 ## Example
 ```sql
 SELECT

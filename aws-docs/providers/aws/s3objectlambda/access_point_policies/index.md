@@ -35,6 +35,16 @@ Retrieves a list of <code>access_point_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_point_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+s3:PutAccessPointPolicyForObjectLambda,
+s3:GetAccessPointPolicyForObjectLambda</pre>
+
+
 ## Example
 ```sql
 SELECT

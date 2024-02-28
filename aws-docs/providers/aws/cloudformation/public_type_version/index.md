@@ -42,6 +42,20 @@ Gets an individual <code>public_type_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>public_type_version</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+</pre>
+
+### Read
+<pre>
+cloudformation:DescribeType,
+cloudformation:DescribePublisher</pre>
+
+
 ## Example
 ```sql
 SELECT

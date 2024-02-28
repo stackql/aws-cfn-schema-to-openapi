@@ -28,14 +28,15 @@ Gets an individual <code>geofence_collection</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>collection_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>collection_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>create_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>kms_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>pricing_plan</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>pricing_plan_data_source</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>update_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -43,19 +44,45 @@ Gets an individual <code>geofence_collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>geofence_collection</code> resource, the following permissions are required:
+
+### Read
+<pre>
+geo:DescribeGeofenceCollection,
+kms:DescribeKey</pre>
+
+### Update
+<pre>
+geo:CreateGeofenceCollection,
+geo:DescribeGeofenceCollection,
+geo:TagResource,
+geo:UntagResource,
+kms:DescribeKey,
+kms:CreateGrant,
+geo:UpdateGeofenceCollection</pre>
+
+### Delete
+<pre>
+geo:DeleteGeofenceCollection,
+geo:DescribeGeofenceCollection</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 collection_arn,
-arn,
 collection_name,
 create_time,
 description,
 kms_key_id,
 pricing_plan,
 pricing_plan_data_source,
-update_time
+tags,
+update_time,
+arn
 FROM aws.location.geofence_collection
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;CollectionName&gt;'

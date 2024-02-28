@@ -28,8 +28,9 @@ Gets an individual <code>cluster</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>cluster_identifier</code></td><td><code>string</code></td><td>A unique identifier for the cluster. You use this identifier to refer to the cluster for any subsequent cluster operations such as deleting or modifying. All alphabetical characters must be lower case, no hypens at the end, no two consecutive hyphens. Cluster name should be unique for all clusters within an AWS account</td></tr>
+<tr><td><code>cluster_namespace_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the cluster namespace.</td></tr>
 <tr><td><code>master_username</code></td><td><code>string</code></td><td>The user name associated with the master user account for the cluster that is being created. The user name can't be PUBLIC and first character must be a letter.</td></tr>
-<tr><td><code>master_user_password</code></td><td><code>string</code></td><td>The password associated with the master user account for the cluster that is being created. Password must be between 8 and 64 characters in length, should have at least one uppercase letter.Must contain at least one lowercase letter.Must contain one number.Can be any printable ASCII character.</td></tr>
+<tr><td><code>master_user_password</code></td><td><code>string</code></td><td>The password associated with the master user account for the cluster that is being created. You can't use MasterUserPassword if ManageMasterPassword is true. Password must be between 8 and 64 characters in length, should have at least one uppercase letter.Must contain at least one lowercase letter.Must contain one number.Can be any printable ASCII character.</td></tr>
 <tr><td><code>node_type</code></td><td><code>string</code></td><td>The node type to be provisioned for the cluster.Valid Values: ds2.xlarge | ds2.8xlarge | dc1.large | dc1.8xlarge | dc2.large | dc2.8xlarge | ra3.4xlarge | ra3.16xlarge</td></tr>
 <tr><td><code>allow_version_upgrade</code></td><td><code>boolean</code></td><td>Major version upgrades can be applied during the maintenance window to the Amazon Redshift engine that is running on the cluster. Default value is True</td></tr>
 <tr><td><code>automated_snapshot_retention_period</code></td><td><code>integer</code></td><td>The number of days that automated snapshots are retained. If the value is 0, automated snapshots are disabled. Default value is 1</td></tr>
@@ -54,7 +55,6 @@ Gets an individual <code>cluster</code> resource
 <tr><td><code>vpc_security_group_ids</code></td><td><code>array</code></td><td>A list of Virtual Private Cloud (VPC) security groups to be associated with the cluster.</td></tr>
 <tr><td><code>snapshot_cluster_identifier</code></td><td><code>string</code></td><td>The name of the cluster the source snapshot was created from. This parameter is required if your IAM user has a policy containing a snapshot resource element that specifies anything other than * for the cluster name.</td></tr>
 <tr><td><code>snapshot_identifier</code></td><td><code>string</code></td><td>The name of the snapshot from which to create the new cluster. This parameter isn't case sensitive.</td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>owner_account</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>logging_properties</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>endpoint</code></td><td><code>object</code></td><td></td></tr>
@@ -75,8 +75,13 @@ Gets an individual <code>cluster</code> resource
 <tr><td><code>defer_maintenance_end_time</code></td><td><code>string</code></td><td>A timestamp indicating end time for the deferred maintenance window. If you specify an end time, you can't specify a duration.</td></tr>
 <tr><td><code>defer_maintenance_duration</code></td><td><code>integer</code></td><td>An integer indicating the duration of the maintenance window in days. If you specify a duration, you can't specify an end time. The duration must be 45 days or less.</td></tr>
 <tr><td><code>revision_target</code></td><td><code>string</code></td><td>The identifier of the database revision. You can retrieve this value from the response to the DescribeClusterDbRevisions request.</td></tr>
-<tr><td><code>resource_action</code></td><td><code>string</code></td><td>The Redshift operation to be performed. Resource Action supports pause-cluster, resume-cluster APIs</td></tr>
+<tr><td><code>resource_action</code></td><td><code>string</code></td><td>The Redshift operation to be performed. Resource Action supports pause-cluster, resume-cluster, failover-primary-compute APIs</td></tr>
 <tr><td><code>rotate_encryption_key</code></td><td><code>boolean</code></td><td>A boolean indicating if we want to rotate Encryption Keys.</td></tr>
+<tr><td><code>multi_az</code></td><td><code>boolean</code></td><td>A boolean indicating if the redshift cluster is multi-az or not. If you don't provide this parameter or set the value to false, the redshift cluster will be single-az.</td></tr>
+<tr><td><code>namespace_resource_policy</code></td><td><code>object</code></td><td>The namespace resource policy document that will be attached to a Redshift cluster.</td></tr>
+<tr><td><code>manage_master_password</code></td><td><code>boolean</code></td><td>A boolean indicating if the redshift cluster's admin user credentials is managed by Redshift or not. You can't use MasterUserPassword if ManageMasterPassword is true. If ManageMasterPassword is false or not set, Amazon Redshift uses MasterUserPassword for the admin user account's password.</td></tr>
+<tr><td><code>master_password_secret_kms_key_id</code></td><td><code>string</code></td><td>The ID of the Key Management Service (KMS) key used to encrypt and store the cluster's admin user credentials secret.</td></tr>
+<tr><td><code>master_password_secret_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the cluster's admin user credentials secret.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -84,11 +89,62 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+redshift:DescribeClusters,
+redshift:DescribeLoggingStatus,
+redshift:DescribeSnapshotCopyGrant,
+redshift:DescribeClusterDbRevisions,
+redshift:DescribeTags,
+redshift:GetResourcePolicy</pre>
+
+### Update
+<pre>
+iam:PassRole,
+redshift:DescribeClusters,
+redshift:ModifyCluster,
+redshift:ModifyClusterIamRoles,
+redshift:EnableLogging,
+redshift:CreateTags,
+redshift:DeleteTags,
+redshift:DescribeTags,
+redshift:DisableLogging,
+redshift:DescribeLoggingStatus,
+redshift:RebootCluster,
+redshift:EnableSnapshotCopy,
+redshift:DisableSnapshotCopy,
+redshift:ModifySnapshotCopyRetentionPeriod,
+redshift:ModifyAquaConfiguration,
+redshift:ResizeCluster,
+redshift:ModifyClusterMaintenance,
+redshift:DescribeClusterDbRevisions,
+redshift:ModifyClusterDbRevisions,
+redshift:PauseCluster,
+redshift:ResumeCluster,
+redshift:RotateEncryptionKey,
+redshift:FailoverPrimaryCompute,
+redshift:PutResourcePolicy,
+redshift:GetResourcePolicy,
+redshift:DeleteResourcePolicy,
+cloudwatch:PutMetricData</pre>
+
+### Delete
+<pre>
+redshift:DescribeTags,
+redshift:DescribeClusters,
+redshift:DeleteCluster</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 cluster_identifier,
+cluster_namespace_arn,
 master_username,
 master_user_password,
 node_type,
@@ -115,7 +171,6 @@ tags,
 vpc_security_group_ids,
 snapshot_cluster_identifier,
 snapshot_identifier,
-id,
 owner_account,
 logging_properties,
 endpoint,
@@ -137,7 +192,12 @@ defer_maintenance_end_time,
 defer_maintenance_duration,
 revision_target,
 resource_action,
-rotate_encryption_key
+rotate_encryption_key,
+multi_az,
+namespace_resource_policy,
+manage_master_password,
+master_password_secret_kms_key_id,
+master_password_secret_arn
 FROM aws.redshift.cluster
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;ClusterIdentifier&gt;'

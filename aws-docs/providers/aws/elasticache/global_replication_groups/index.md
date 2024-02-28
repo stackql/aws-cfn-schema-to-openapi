@@ -35,6 +35,20 @@ Retrieves a list of <code>global_replication_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>global_replication_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+elasticache:CreateGlobalReplicationGroup,
+elasticache:DescribeGlobalReplicationGroups</pre>
+
+### List
+<pre>
+elasticache:DescribeGlobalReplicationGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

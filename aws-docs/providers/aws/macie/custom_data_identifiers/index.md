@@ -35,6 +35,21 @@ Retrieves a list of <code>custom_data_identifiers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>custom_data_identifiers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+macie2:CreateCustomDataIdentifier,
+macie2:GetCustomDataIdentifier,
+macie2:TagResource</pre>
+
+### List
+<pre>
+macie2:ListCustomDataIdentifiers</pre>
+
+
 ## Example
 ```sql
 SELECT

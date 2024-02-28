@@ -35,6 +35,21 @@ Retrieves a list of <code>resolver_rule_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_rule_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53resolver:AssociateResolverRule,
+route53resolver:GetResolverRuleAssociation,
+ec2:DescribeVpcs</pre>
+
+### List
+<pre>
+route53resolver:ListResolverRuleAssociations</pre>
+
+
 ## Example
 ```sql
 SELECT

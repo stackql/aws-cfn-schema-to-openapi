@@ -35,6 +35,21 @@ Retrieves a list of <code>connections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connections</code> resource, the following permissions are required:
+
+### Create
+<pre>
+codestar-connections:CreateConnection,
+codestar-connections:TagResource</pre>
+
+### List
+<pre>
+codestar-connections:ListConnections,
+codestar-connections:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

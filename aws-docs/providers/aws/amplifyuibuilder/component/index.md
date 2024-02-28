@@ -32,9 +32,11 @@ Gets an individual <code>component</code> resource
 <tr><td><code>children</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>collection_properties</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>component_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>created_at</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>environment_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>events</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>modified_at</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>overrides</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>properties</code></td><td><code>object</code></td><td></td></tr>
@@ -49,6 +51,31 @@ Gets an individual <code>component</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>component</code> resource, the following permissions are required:
+
+### Read
+<pre>
+amplify:GetApp,
+amplifyuibuilder:GetComponent</pre>
+
+### Update
+<pre>
+amplify:GetApp,
+amplifyuibuilder:GetComponent,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource,
+amplifyuibuilder:UpdateComponent</pre>
+
+### Delete
+<pre>
+amplify:GetApp,
+amplifyuibuilder:DeleteComponent,
+amplifyuibuilder:GetComponent,
+amplifyuibuilder:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -58,9 +85,11 @@ binding_properties,
 children,
 collection_properties,
 component_type,
+created_at,
 environment_name,
 events,
 id,
+modified_at,
 name,
 overrides,
 properties,

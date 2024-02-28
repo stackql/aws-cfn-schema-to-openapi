@@ -35,6 +35,22 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ssm-sap:RegisterApplication,
+ssm-sap:GetApplication,
+ssm-sap:TagResource,
+ssm-sap:ListTagsForResource</pre>
+
+### List
+<pre>
+ssm-sap:ListApplications</pre>
+
+
 ## Example
 ```sql
 SELECT

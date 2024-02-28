@@ -35,6 +35,31 @@ Retrieves a list of <code>workflows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>workflows</code> resource, the following permissions are required:
+
+### Create
+<pre>
+omics:CreateWorkflow,
+omics:GetWorkflow,
+omics:TagResource,
+s3:PutObject,
+s3:GetObject,
+s3:GetObjectAttributes,
+s3:HeadObject,
+s3:GetEncryptionConfiguration,
+kms:Decrypt,
+kms:GenerateDataKey,
+kms:GenerateDataKeyPair,
+kms:GenerateDataKeyPairWithoutPlaintext,
+kms:GenerateDataKeyWithoutPlaintext</pre>
+
+### List
+<pre>
+omics:ListWorkflows</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -38,6 +38,30 @@ Gets an individual <code>database</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>database</code> resource, the following permissions are required:
+
+### Read
+<pre>
+timestream:DescribeDatabase,
+timestream:DescribeEndpoints,
+timestream:ListTagsForResource</pre>
+
+### Update
+<pre>
+timestream:UpdateDatabase,
+timestream:DescribeDatabase,
+timestream:DescribeEndpoints,
+timestream:TagResource,
+timestream:UntagResource</pre>
+
+### Delete
+<pre>
+timestream:DeleteDatabase,
+timestream:DescribeEndpoints</pre>
+
+
 ## Example
 ```sql
 SELECT

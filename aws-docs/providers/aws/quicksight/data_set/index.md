@@ -34,6 +34,7 @@ Gets an individual <code>data_set</code> resource
 <tr><td><code>consumed_spice_capacity_in_bytes</code></td><td><code>number</code></td><td>&lt;p&gt;The amount of SPICE capacity used by this dataset. This is 0 if the dataset isn't&lt;br&#x2F;&gt;            imported into SPICE.&lt;&#x2F;p&gt;</td></tr>
 <tr><td><code>created_time</code></td><td><code>string</code></td><td>&lt;p&gt;The time that this dataset was created.&lt;&#x2F;p&gt;</td></tr>
 <tr><td><code>data_set_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dataset_parameters</code></td><td><code>array</code></td><td>&lt;p&gt;The parameters declared in the dataset.&lt;&#x2F;p&gt;</td></tr>
 <tr><td><code>field_folders</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>import_mode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>last_updated_time</code></td><td><code>string</code></td><td>&lt;p&gt;The last time that this dataset was updated.&lt;&#x2F;p&gt;</td></tr>
@@ -43,15 +44,56 @@ Gets an individual <code>data_set</code> resource
 <tr><td><code>permissions</code></td><td><code>array</code></td><td>&lt;p&gt;A list of resource permissions on the dataset.&lt;&#x2F;p&gt;</td></tr>
 <tr><td><code>physical_table_map</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>row_level_permission_data_set</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>row_level_permission_tag_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>&lt;p&gt;Contains a map of the key-value pairs for the resource tag or tags assigned to the dataset.&lt;&#x2F;p&gt;</td></tr>
 <tr><td><code>ingestion_wait_policy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>data_set_usage_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>data_set_refresh_properties</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>data_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+quicksight:DescribeDataSet,
+quicksight:DescribeDataSetPermissions,
+quicksight:ListTagsForResource,
+quicksight:DescribeDataSetRefreshProperties</pre>
+
+### Update
+<pre>
+quicksight:DescribeDataSet,
+quicksight:DescribeDataSetPermissions,
+quicksight:PassDataSource,
+quicksight:UpdateDataSet,
+quicksight:UpdateDataSetPermissions,
+quicksight:PassDataSet,
+quicksight:DescribeIngestion,
+quicksight:ListIngestions,
+quicksight:CancelIngestion,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource,
+quicksight:PutDataSetRefreshProperties,
+quicksight:DescribeDataSetRefreshProperties,
+quicksight:DeleteDataSetRefreshProperties</pre>
+
+### Delete
+<pre>
+quicksight:DescribeDataSet,
+quicksight:DeleteDataSet,
+quicksight:ListTagsForResource,
+quicksight:DescribeIngestion,
+quicksight:DeleteDataSetRefreshProperties,
+quicksight:DescribeDataSetRefreshProperties</pre>
+
 
 ## Example
 ```sql
@@ -64,6 +106,7 @@ column_level_permission_rules,
 consumed_spice_capacity_in_bytes,
 created_time,
 data_set_id,
+dataset_parameters,
 field_folders,
 import_mode,
 last_updated_time,
@@ -73,9 +116,11 @@ output_columns,
 permissions,
 physical_table_map,
 row_level_permission_data_set,
+row_level_permission_tag_configuration,
 tags,
 ingestion_wait_policy,
-data_set_usage_configuration
+data_set_usage_configuration,
+data_set_refresh_properties
 FROM aws.quicksight.data_set
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;AwsAccountId&gt;'

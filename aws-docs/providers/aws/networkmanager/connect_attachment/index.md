@@ -28,7 +28,7 @@ Gets an individual <code>connect_attachment</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>core_network_id</code></td><td><code>string</code></td><td>ID of the CoreNetwork that the attachment will be attached to.</td></tr>
-<tr><td><code>core_network_arn</code></td><td><code>string</code></td><td>The ARN of a core network for the VPC attachment.</td></tr>
+<tr><td><code>core_network_arn</code></td><td><code>string</code></td><td>The ARN of a core network.</td></tr>
 <tr><td><code>attachment_id</code></td><td><code>string</code></td><td>The ID of the attachment.</td></tr>
 <tr><td><code>owner_account_id</code></td><td><code>string</code></td><td>The ID of the attachment account owner.</td></tr>
 <tr><td><code>attachment_type</code></td><td><code>string</code></td><td>The type of attachment.</td></tr>
@@ -49,6 +49,29 @@ Gets an individual <code>connect_attachment</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>connect_attachment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetConnectAttachment</pre>
+
+### Update
+<pre>
+networkmanager:GetConnectAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions</pre>
+
+### Delete
+<pre>
+networkmanager:GetConnectAttachment,
+networkmanager:DeleteAttachment,
+ec2:DescribeRegions</pre>
+
 
 ## Example
 ```sql

@@ -275,6 +275,36 @@ components:
       x-stackql-primaryIdentifier:
         - LaunchProfileId
         - StudioId
+      x-create-only-properties:
+        - Ec2SubnetIds
+        - StudioId
+        - Tags
+      x-read-only-properties:
+        - LaunchProfileId
+      x-required-permissions:
+        create:
+          - nimble:CreateLaunchProfile
+          - nimble:GetLaunchProfile
+          - nimble:TagResource
+          - ec2:CreateNetworkInterface
+          - ec2:CreateNetworkInterfacePermission
+          - ec2:RunInstances
+          - ec2:DescribeSubnets
+        read:
+          - nimble:GetLaunchProfile
+        update:
+          - nimble:UpdateLaunchProfile
+          - nimble:GetLaunchProfile
+          - ec2:CreateNetworkInterface
+          - ec2:CreateNetworkInterfacePermission
+          - ec2:DescribeSubnets
+          - ec2:RunInstances
+        delete:
+          - nimble:DeleteLaunchProfile
+          - nimble:GetLaunchProfile
+          - nimble:UntagResource
+        list:
+          - nimble:ListLaunchProfiles
     StreamingImageEncryptionConfiguration:
       type: object
       description: <p>TODO</p>
@@ -340,6 +370,54 @@ components:
       x-stackql-primaryIdentifier:
         - StudioId
         - StreamingImageId
+      x-create-only-properties:
+        - Ec2ImageId
+        - StudioId
+        - Tags
+      x-read-only-properties:
+        - EncryptionConfiguration
+        - EulaIds
+        - Owner
+        - Platform
+        - StreamingImageId
+      x-required-permissions:
+        create:
+          - nimble:CreateStreamingImage
+          - nimble:GetStreamingImage
+          - nimble:TagResource
+          - ec2:DescribeImages
+          - ec2:DescribeSnapshots
+          - ec2:ModifyInstanceAttribute
+          - ec2:ModifySnapshotAttribute
+          - ec2:ModifyImageAttribute
+          - ec2:RegisterImage
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:CreateGrant
+          - kms:ListGrants
+          - kms:GenerateDataKey
+        read:
+          - nimble:GetStreamingImage
+        update:
+          - nimble:UpdateStreamingImage
+          - nimble:GetStreamingImage
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:CreateGrant
+          - kms:ListGrants
+          - kms:GenerateDataKey
+        delete:
+          - nimble:DeleteStreamingImage
+          - nimble:GetStreamingImage
+          - nimble:UntagResource
+          - ec2:ModifyInstanceAttribute
+          - ec2:ModifySnapshotAttribute
+          - ec2:DeregisterImage
+          - ec2:DeleteSnapshot
+          - kms:ListGrants
+          - kms:RetireGrant
+        list:
+          - nimble:ListStreamingImages
     StudioEncryptionConfiguration:
       type: object
       description: <p>Configuration of the encryption method that is used for the studio.</p>
@@ -406,6 +484,54 @@ components:
       x-stackql-resource-name: studio
       x-stackql-primaryIdentifier:
         - StudioId
+      x-create-only-properties:
+        - StudioName
+        - Tags
+      x-read-only-properties:
+        - HomeRegion
+        - SsoClientId
+        - StudioId
+        - StudioUrl
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - nimble:CreateStudio
+          - nimble:GetStudio
+          - nimble:TagResource
+          - sso:CreateManagedApplicationInstance
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:CreateGrant
+          - kms:ListGrants
+          - kms:GenerateDataKey
+        read:
+          - nimble:GetStudio
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:ListGrants
+          - kms:GenerateDataKey
+        update:
+          - iam:PassRole
+          - nimble:UpdateStudio
+          - nimble:GetStudio
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:CreateGrant
+          - kms:ListGrants
+          - kms:GenerateDataKey
+        delete:
+          - nimble:DeleteStudio
+          - nimble:GetStudio
+          - nimble:UntagResource
+          - kms:Encrypt
+          - kms:Decrypt
+          - kms:ListGrants
+          - kms:RetireGrant
+          - kms:GenerateDataKey
+          - sso:DeleteManagedApplicationInstance
+          - sso:GetManagedApplicationInstance
+        list:
+          - nimble:ListStudios
     ActiveDirectoryComputerAttribute:
       type: object
       description: |-
@@ -663,6 +789,39 @@ components:
       x-stackql-primaryIdentifier:
         - StudioComponentId
         - StudioId
+      x-create-only-properties:
+        - StudioId
+        - Subtype
+        - Tags
+      x-read-only-properties:
+        - StudioComponentId
+      x-required-permissions:
+        create:
+          - iam:PassRole
+          - nimble:CreateStudioComponent
+          - nimble:GetStudioComponent
+          - nimble:TagResource
+          - ds:AuthorizeApplication
+          - ec2:DescribeSecurityGroups
+          - fsx:DescribeFilesystems
+          - ds:DescribeDirectories
+        read:
+          - nimble:GetStudioComponent
+        update:
+          - iam:PassRole
+          - nimble:UpdateStudioComponent
+          - nimble:GetStudioComponent
+          - ds:AuthorizeApplication
+          - ec2:DescribeSecurityGroups
+          - fsx:DescribeFilesystems
+          - ds:DescribeDirectories
+        delete:
+          - nimble:DeleteStudioComponent
+          - nimble:GetStudioComponent
+          - nimble:UntagResource
+          - ds:UnauthorizeApplication
+        list:
+          - nimble:ListStudioComponents
   x-stackQL-resources:
     launch_profiles:
       name: launch_profiles

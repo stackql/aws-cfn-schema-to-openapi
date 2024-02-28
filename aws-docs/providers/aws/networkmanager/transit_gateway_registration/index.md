@@ -36,6 +36,20 @@ Gets an individual <code>transit_gateway_registration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>transit_gateway_registration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetTransitGatewayRegistrations</pre>
+
+### Delete
+<pre>
+networkmanager:DeregisterTransitGateway,
+networkmanager:GetTransitGatewayRegistrations</pre>
+
+
 ## Example
 ```sql
 SELECT

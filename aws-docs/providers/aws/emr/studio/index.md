@@ -43,12 +43,39 @@ Gets an individual <code>studio</code> resource
 <tr><td><code>workspace_security_group_id</code></td><td><code>string</code></td><td>The ID of the Amazon EMR Studio Workspace security group. The Workspace security group allows outbound network traffic to resources in the Engine security group, and it must be in the same VPC specified by VpcId.</td></tr>
 <tr><td><code>idp_auth_url</code></td><td><code>string</code></td><td>Your identity provider's authentication endpoint. Amazon EMR Studio redirects federated users to this endpoint for authentication when logging in to a Studio with the Studio URL.</td></tr>
 <tr><td><code>idp_relay_state_parameter_name</code></td><td><code>string</code></td><td>The name of relay state parameter for external Identity Provider.</td></tr>
+<tr><td><code>trusted_identity_propagation_enabled</code></td><td><code>boolean</code></td><td>A Boolean indicating whether to enable Trusted identity propagation for the Studio. The default value is false.</td></tr>
+<tr><td><code>idc_user_assignment</code></td><td><code>string</code></td><td>Specifies whether IAM Identity Center user assignment is REQUIRED or OPTIONAL. If the value is set to REQUIRED, users must be explicitly assigned to the Studio application to access the Studio.</td></tr>
+<tr><td><code>idc_instance_arn</code></td><td><code>string</code></td><td>The ARN of the IAM Identity Center instance to create the Studio application.</td></tr>
+<tr><td><code>encryption_key_arn</code></td><td><code>string</code></td><td>The AWS KMS key identifier (ARN) used to encrypt AWS EMR Studio workspace and notebook files when backed up to AWS S3.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>studio</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticmapreduce:DescribeStudio,
+sso:GetManagedApplicationInstance</pre>
+
+### Update
+<pre>
+elasticmapreduce:UpdateStudio,
+elasticmapreduce:DescribeStudio,
+elasticmapreduce:AddTags,
+elasticmapreduce:RemoveTags</pre>
+
+### Delete
+<pre>
+elasticmapreduce:DeleteStudio,
+elasticmapreduce:DescribeStudio,
+sso:DeleteManagedApplicationInstance</pre>
+
 
 ## Example
 ```sql
@@ -69,7 +96,11 @@ user_role,
 vpc_id,
 workspace_security_group_id,
 idp_auth_url,
-idp_relay_state_parameter_name
+idp_relay_state_parameter_name,
+trusted_identity_propagation_enabled,
+idc_user_assignment,
+idc_instance_arn,
+encryption_key_arn
 FROM aws.emr.studio
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;StudioId&gt;'

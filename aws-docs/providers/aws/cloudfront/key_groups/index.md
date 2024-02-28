@@ -35,6 +35,19 @@ Retrieves a list of <code>key_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>key_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudfront:CreateKeyGroup</pre>
+
+### List
+<pre>
+cloudfront:ListKeyGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

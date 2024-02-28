@@ -38,6 +38,26 @@ Gets an individual <code>scheduling_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>scheduling_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+Batch:DescribeSchedulingPolicies</pre>
+
+### Update
+<pre>
+Batch:UpdateSchedulingPolicy,
+Batch:TagResource,
+Batch:UnTagResource</pre>
+
+### Delete
+<pre>
+Batch:DescribeSchedulingPolicies,
+Batch:DeleteSchedulingPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

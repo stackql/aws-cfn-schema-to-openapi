@@ -41,6 +41,23 @@ Gets an individual <code>entitlement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>entitlement</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appstream:DescribeEntitlements</pre>
+
+### Update
+<pre>
+appstream:UpdateEntitlement</pre>
+
+### Delete
+<pre>
+appstream:DeleteEntitlement</pre>
+
+
 ## Example
 ```sql
 SELECT

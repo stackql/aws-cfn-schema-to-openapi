@@ -33,12 +33,41 @@ Gets an individual <code>image_version</code> resource
 <tr><td><code>base_image</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>container_image</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>version</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>alias</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>aliases</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>vendor_guidance</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>job_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>m_lframework</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>programming_lang</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>processor</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>horovod</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>release_notes</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>image_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeImageVersion</pre>
+
+### Update
+<pre>
+sagemaker:UpdateImageVersion,
+sagemaker:DescribeImageVersion,
+sagemaker:ListAliases</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteImageVersion,
+sagemaker:DescribeImageVersion</pre>
+
 
 ## Example
 ```sql
@@ -49,7 +78,16 @@ image_arn,
 image_version_arn,
 base_image,
 container_image,
-version
+version,
+alias,
+aliases,
+vendor_guidance,
+job_type,
+m_lframework,
+programming_lang,
+processor,
+horovod,
+release_notes
 FROM aws.sagemaker.image_version
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;ImageVersionArn&gt;'

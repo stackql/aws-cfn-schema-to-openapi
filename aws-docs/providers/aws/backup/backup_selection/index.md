@@ -38,6 +38,20 @@ Gets an individual <code>backup_selection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>backup_selection</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+backup:GetBackupSelection,
+backup:DeleteBackupSelection</pre>
+
+### Read
+<pre>
+backup:GetBackupSelection</pre>
+
+
 ## Example
 ```sql
 SELECT

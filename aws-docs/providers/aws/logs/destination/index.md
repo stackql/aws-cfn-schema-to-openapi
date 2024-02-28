@@ -39,6 +39,26 @@ Gets an individual <code>destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>destination</code> resource, the following permissions are required:
+
+### Read
+<pre>
+logs:DescribeDestinations</pre>
+
+### Update
+<pre>
+logs:PutDestination,
+logs:PutDestinationPolicy,
+logs:DescribeDestinations,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+logs:DeleteDestination</pre>
+
+
 ## Example
 ```sql
 SELECT

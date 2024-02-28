@@ -35,6 +35,22 @@ Retrieves a list of <code>segments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>segments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+evidently:CreateSegment,
+evidently:GetSegment,
+evidently:TagResource</pre>
+
+### List
+<pre>
+evidently:ListSegment,
+evidently:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

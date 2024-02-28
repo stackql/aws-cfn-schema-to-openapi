@@ -35,6 +35,10 @@ Retrieves a list of <code>launch_notification_constraints</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

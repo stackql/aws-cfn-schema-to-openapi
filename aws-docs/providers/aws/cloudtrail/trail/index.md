@@ -30,6 +30,7 @@ Gets an individual <code>trail</code> resource
 <tr><td><code>cloud_watch_logs_log_group_arn</code></td><td><code>string</code></td><td>Specifies a log group name using an Amazon Resource Name (ARN), a unique identifier that represents the log group to which CloudTrail logs will be delivered. Not required unless you specify CloudWatchLogsRoleArn.</td></tr>
 <tr><td><code>cloud_watch_logs_role_arn</code></td><td><code>string</code></td><td>Specifies the role for the CloudWatch Logs endpoint to assume to write to a user's log group.</td></tr>
 <tr><td><code>enable_log_file_validation</code></td><td><code>boolean</code></td><td>Specifies whether log file validation is enabled. The default is false.</td></tr>
+<tr><td><code>advanced_event_selectors</code></td><td><code>array</code></td><td>The advanced event selectors that were used to select events for the data store.</td></tr>
 <tr><td><code>event_selectors</code></td><td><code>array</code></td><td>Use event selectors to further specify the management and data event settings for your trail. By default, trails created without specific event selectors will be configured to log all read and write management events, and no data events. When an event occurs in your account, CloudTrail evaluates the event selector for all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail doesn't log the event. You can configure up to five event selectors for a trail.</td></tr>
 <tr><td><code>include_global_service_events</code></td><td><code>boolean</code></td><td>Specifies whether the trail is publishing events from global services such as IAM to the log files.</td></tr>
 <tr><td><code>is_logging</code></td><td><code>boolean</code></td><td>Whether the CloudTrail is currently logging AWS API calls.</td></tr>
@@ -51,6 +52,41 @@ Gets an individual <code>trail</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>trail</code> resource, the following permissions are required:
+
+### Read
+<pre>
+CloudTrail:GetTrail,
+CloudTrail:GetTrailStatus,
+CloudTrail:ListTags,
+CloudTrail:GetEventSelectors,
+CloudTrail:GetInsightSelectors,
+CloudTrail:DescribeTrails</pre>
+
+### Update
+<pre>
+CloudTrail:UpdateTrail,
+CloudTrail:StartLogging,
+CloudTrail:StopLogging,
+CloudTrail:AddTags,
+CloudTrail:RemoveTags,
+CloudTrail:PutEventSelectors,
+CloudTrail:PutInsightSelectors,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+organizations:DescribeOrganization,
+organizations:ListAWSServiceAccessForOrganization,
+CloudTrail:GetTrail,
+CloudTrail:DescribeTrails</pre>
+
+### Delete
+<pre>
+CloudTrail:DeleteTrail</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -58,6 +94,7 @@ region,
 cloud_watch_logs_log_group_arn,
 cloud_watch_logs_role_arn,
 enable_log_file_validation,
+advanced_event_selectors,
 event_selectors,
 include_global_service_events,
 is_logging,

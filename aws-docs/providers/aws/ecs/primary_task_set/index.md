@@ -37,6 +37,24 @@ Gets an individual <code>primary_task_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>primary_task_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+</pre>
+
+### Update
+<pre>
+ecs:DescribeTaskSets,
+ecs:UpdateServicePrimaryTaskSet</pre>
+
+### Delete
+<pre>
+</pre>
+
+
 ## Example
 ```sql
 SELECT

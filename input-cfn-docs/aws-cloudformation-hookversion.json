@@ -71,12 +71,18 @@
   },
   "required" : [ "SchemaHandlerPackage", "TypeName" ],
   "writeOnlyProperties" : [ "/properties/SchemaHandlerPackage" ],
-  "readOnlyProperties" : [ "/properties/Arn", "/properties/IsDefaultVersion", "/properties/ProvisioningType", "/properties/Visibility", "/properties/VersionId", "/properties/TypeArn" ],
+  "readOnlyProperties" : [ "/properties/Arn", "/properties/IsDefaultVersion", "/properties/Visibility", "/properties/VersionId", "/properties/TypeArn" ],
   "createOnlyProperties" : [ "/properties/ExecutionRoleArn", "/properties/LoggingConfig", "/properties/SchemaHandlerPackage", "/properties/TypeName" ],
   "primaryIdentifier" : [ "/properties/Arn" ],
+  "tagging" : {
+    "taggable" : false,
+    "tagOnCreate" : false,
+    "tagUpdatable" : false,
+    "cloudFormationSystemTags" : false
+  },
   "handlers" : {
     "create" : {
-      "permissions" : [ "cloudformation:DescribeTypeRegistration", "cloudformation:RegisterType", "iam:PassRole", "s3:GetObject", "s3:ListBucket", "kms:Decrypt" ]
+      "permissions" : [ "cloudformation:DescribeType", "cloudformation:DescribeTypeRegistration", "cloudformation:RegisterType", "iam:PassRole", "s3:GetObject", "s3:ListBucket", "kms:Decrypt" ]
     },
     "read" : {
       "permissions" : [ "cloudformation:DescribeType" ]
@@ -85,7 +91,17 @@
       "permissions" : [ "cloudformation:DeregisterType", "cloudformation:DescribeType" ]
     },
     "list" : {
-      "permissions" : [ "cloudformation:ListTypes" ]
+      "handlerSchema" : {
+        "properties" : {
+          "TypeName" : {
+            "$ref" : "resource-schema.json#/properties/TypeName"
+          },
+          "TypeArn" : {
+            "$ref" : "resource-schema.json#/properties/TypeArn"
+          }
+        }
+      },
+      "permissions" : [ "cloudformation:ListTypes", "cloudformation:ListTypeVersions" ]
     }
   },
   "additionalProperties" : false

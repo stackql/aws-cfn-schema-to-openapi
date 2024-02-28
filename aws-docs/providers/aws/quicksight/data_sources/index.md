@@ -36,6 +36,24 @@ Retrieves a list of <code>data_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_sources</code> resource, the following permissions are required:
+
+### Create
+<pre>
+quicksight:CreateDataSource,
+quicksight:DescribeDataSource,
+quicksight:DescribeDataSourcePermissions,
+quicksight:TagResource,
+quicksight:ListTagsForResource</pre>
+
+### List
+<pre>
+quicksight:DescribeDataSource,
+quicksight:ListDataSources</pre>
+
+
 ## Example
 ```sql
 SELECT

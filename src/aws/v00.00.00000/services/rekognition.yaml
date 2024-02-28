@@ -55,6 +55,28 @@ components:
       x-stackql-resource-name: collection
       x-stackql-primaryIdentifier:
         - CollectionId
+      x-create-only-properties:
+        - CollectionId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - rekognition:CreateCollection
+          - rekognition:DescribeCollection
+          - rekognition:ListTagsForResource
+          - rekognition:TagResource
+        read:
+          - rekognition:DescribeCollection
+          - rekognition:ListTagsForResource
+        update:
+          - rekognition:TagResource
+          - rekognition:UntagResource
+          - rekognition:DescribeCollection
+          - rekognition:ListTagsForResource
+        delete:
+          - rekognition:DeleteCollection
+        list:
+          - rekognition:ListCollections
     ProjectName:
       description: The name of the project
       type: string
@@ -73,6 +95,21 @@ components:
       x-stackql-resource-name: project
       x-stackql-primaryIdentifier:
         - ProjectName
+      x-create-only-properties:
+        - ProjectName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - rekognition:CreateProject
+        read:
+          - rekognition:DescribeProjects
+        update: []
+        delete:
+          - rekognition:DescribeProjects
+          - rekognition:DeleteProject
+        list:
+          - rekognition:DescribeProjects
     KinesisVideoStream:
       description: The Kinesis Video Stream that streams the source video.
       type: object
@@ -292,6 +329,42 @@ components:
       x-stackql-resource-name: stream_processor
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - KmsKeyId
+        - RoleArn
+        - KinesisVideoStream
+        - ConnectedHomeSettings
+        - FaceSearchSettings
+        - KinesisDataStream
+        - S3Destination
+        - NotificationChannel
+        - BoundingBoxRegionsOfInterest
+        - PolygonRegionsOfInterest
+        - DataSharingPreference
+      x-read-only-properties:
+        - Arn
+        - Status
+        - StatusMessage
+      x-required-permissions:
+        create:
+          - rekognition:CreateStreamProcessor
+          - iam:PassRole
+          - rekognition:DescribeStreamProcessor
+          - rekognition:ListTagsForResource
+          - rekognition:TagResource
+        read:
+          - rekognition:DescribeStreamProcessor
+          - rekognition:ListTagsForResource
+        update:
+          - rekognition:TagResource
+          - rekognition:UntagResource
+          - rekognition:ListTagsForResource
+          - rekognition:DescribeStreamProcessor
+        delete:
+          - rekognition:DeleteStreamProcessor
+        list:
+          - rekognition:ListStreamProcessors
   x-stackQL-resources:
     collections:
       name: collections

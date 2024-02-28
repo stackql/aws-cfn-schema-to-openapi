@@ -27,14 +27,30 @@ Retrieves a list of <code>deployments</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>deployment_id</code></td><td><code>string</code></td><td>Primary Id for this resource</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the RestApi resource to deploy. </td></tr>
+<tr><td><code>deployment_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>deployments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:POST,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:GET</pre>
+
+### List
+<pre>
+apigateway:GET</pre>
+
 
 ## Example
 ```sql

@@ -69,6 +69,27 @@ components:
       x-stackql-resource-name: cluster
       x-stackql-primaryIdentifier:
         - ClusterArn
+      x-create-only-properties:
+        - Name
+        - Tags
+      x-read-only-properties:
+        - ClusterArn
+        - ClusterEndpoints
+        - Status
+      x-required-permissions:
+        create:
+          - route53-recovery-control-config:CreateCluster
+          - route53-recovery-control-config:DescribeCluster
+          - route53-recovery-control-config:ListTagsForResource
+          - route53-recovery-control-config:TagResource
+        read:
+          - route53-recovery-control-config:DescribeCluster
+          - route53-recovery-control-config:ListTagsForResource
+        delete:
+          - route53-recovery-control-config:DescribeCluster
+          - route53-recovery-control-config:DeleteCluster
+        list:
+          - route53-recovery-control-config:ListClusters
     ControlPanel:
       type: object
       properties:
@@ -108,6 +129,35 @@ components:
       x-stackql-resource-name: control_panel
       x-stackql-primaryIdentifier:
         - ControlPanelArn
+      x-create-only-properties:
+        - ClusterArn
+        - Tags
+      x-read-only-properties:
+        - ControlPanelArn
+        - Status
+        - RoutingControlCount
+        - DefaultControlPanel
+      x-required-permissions:
+        create:
+          - route53-recovery-control-config:CreateControlPanel
+          - route53-recovery-control-config:DescribeCluster
+          - route53-recovery-control-config:DescribeControlPanel
+          - route53-recovery-control-config:ListTagsForResource
+          - route53-recovery-control-config:TagResource
+        read:
+          - route53-recovery-control-config:DescribeControlPanel
+          - route53-recovery-control-config:ListTagsForResource
+        update:
+          - route53-recovery-control-config:UpdateControlPanel
+          - route53-recovery-control-config:DescribeControlPanel
+          - route53-recovery-control-config:ListTagsForResource
+          - route53-recovery-control-config:TagResource
+          - route53-recovery-control-config:UntagResource
+        delete:
+          - route53-recovery-control-config:DeleteControlPanel
+          - route53-recovery-control-config:DescribeControlPanel
+        list:
+          - route53-recovery-control-config:ListControlPanels
     RoutingControl:
       type: object
       properties:
@@ -137,6 +187,29 @@ components:
       x-stackql-resource-name: routing_control
       x-stackql-primaryIdentifier:
         - RoutingControlArn
+      x-create-only-properties:
+        - ControlPanelArn
+        - ClusterArn
+      x-read-only-properties:
+        - RoutingControlArn
+        - Status
+      x-required-permissions:
+        create:
+          - route53-recovery-control-config:CreateRoutingControl
+          - route53-recovery-control-config:DescribeRoutingControl
+          - route53-recovery-control-config:DescribeControlPanel
+          - route53-recovery-control-config:DescribeCluster
+        read:
+          - route53-recovery-control-config:DescribeRoutingControl
+        update:
+          - route53-recovery-control-config:UpdateRoutingControl
+          - route53-recovery-control-config:DescribeRoutingControl
+          - route53-recovery-control-config:DescribeControlPanel
+        delete:
+          - route53-recovery-control-config:DescribeRoutingControl
+          - route53-recovery-control-config:DeleteRoutingControl
+        list:
+          - route53-recovery-control-config:ListRoutingControls
     SafetyRuleName:
       description: The name for the safety rule.
       type: string
@@ -242,6 +315,36 @@ components:
       x-stackql-resource-name: safety_rule
       x-stackql-primaryIdentifier:
         - SafetyRuleArn
+      x-create-only-properties:
+        - ControlPanelArn
+        - RuleConfig
+        - ControlPanelArn
+        - Tags
+      x-read-only-properties:
+        - SafetyRuleArn
+        - Status
+      x-required-permissions:
+        create:
+          - route53-recovery-control-config:CreateSafetyRule
+          - route53-recovery-control-config:DescribeSafetyRule
+          - route53-recovery-control-config:DescribeControlPanel
+          - route53-recovery-control-config:DescribeRoutingControl
+          - route53-recovery-control-config:ListTagsForResource
+          - route53-recovery-control-config:TagResource
+        read:
+          - route53-recovery-control-config:DescribeSafetyRule
+          - route53-recovery-control-config:ListTagsForResource
+        update:
+          - route53-recovery-control-config:UpdateSafetyRule
+          - route53-recovery-control-config:DescribeSafetyRule
+          - route53-recovery-control-config:ListTagsForResource
+          - route53-recovery-control-config:TagResource
+          - route53-recovery-control-config:UntagResource
+        delete:
+          - route53-recovery-control-config:DescribeSafetyRule
+          - route53-recovery-control-config:DeleteSafetyRule
+        list:
+          - route53-recovery-control-config:ListSafetyRules
   x-stackQL-resources:
     clusters:
       name: clusters

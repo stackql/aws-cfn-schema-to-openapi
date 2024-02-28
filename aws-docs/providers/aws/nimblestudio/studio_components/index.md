@@ -36,6 +36,26 @@ Retrieves a list of <code>studio_components</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>studio_components</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+nimble:CreateStudioComponent,
+nimble:GetStudioComponent,
+nimble:TagResource,
+ds:AuthorizeApplication,
+ec2:DescribeSecurityGroups,
+fsx:DescribeFilesystems,
+ds:DescribeDirectories</pre>
+
+### List
+<pre>
+nimble:ListStudioComponents</pre>
+
+
 ## Example
 ```sql
 SELECT

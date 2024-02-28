@@ -58,6 +58,25 @@ Gets an individual <code>event_source_mapping</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_source_mapping</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+lambda:DeleteEventSourceMapping,
+lambda:GetEventSourceMapping</pre>
+
+### Read
+<pre>
+lambda:GetEventSourceMapping</pre>
+
+### Update
+<pre>
+lambda:UpdateEventSourceMapping,
+lambda:GetEventSourceMapping</pre>
+
+
 ## Example
 ```sql
 SELECT

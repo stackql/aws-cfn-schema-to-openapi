@@ -27,7 +27,7 @@ Retrieves a list of <code>schemata</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>schema_arn</code></td><td><code>string</code></td><td>The ARN of the schema.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,27 @@ Retrieves a list of <code>schemata</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schemata</code> resource, the following permissions are required:
+
+### Create
+<pre>
+schemas:DescribeSchema,
+schemas:CreateSchema,
+schemas:TagResource</pre>
+
+### List
+<pre>
+schemas:ListSchemas,
+schemas:ListSchemaVersions</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+schema_arn
 FROM aws.eventschemas.schemata
 WHERE region = 'us-east-1'
 ```

@@ -44,6 +44,44 @@ Gets an individual <code>target_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>target_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetTargetGroup,
+vpc-lattice:ListTargets,
+vpc-lattice:ListTagsForResource</pre>
+
+### Update
+<pre>
+vpc-lattice:UpdateTargetGroup,
+vpc-lattice:GetTargetGroup,
+vpc-lattice:ListTargets,
+vpc-lattice:RegisterTargets,
+vpc-lattice:DeregisterTargets,
+ec2:DescribeVpcs,
+ec2:DescribeInstances,
+ec2:DescribeSubnets,
+ec2:DescribeAvailabilityZoneMappings,
+elasticloadbalancing:DescribeLoadBalancers,
+lambda:Invoke,
+lambda:RemovePermission,
+lambda:AddPermission,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+vpc-lattice:ListTagsForResource</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteTargetGroup,
+vpc-lattice:GetTargetGroup,
+vpc-lattice:DeregisterTargets,
+vpc-lattice:ListTargets,
+lambda:RemovePermission</pre>
+
+
 ## Example
 ```sql
 SELECT

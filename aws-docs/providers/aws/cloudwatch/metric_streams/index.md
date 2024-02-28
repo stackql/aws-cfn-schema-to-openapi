@@ -35,6 +35,22 @@ Retrieves a list of <code>metric_streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>metric_streams</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudwatch:PutMetricStream,
+cloudwatch:GetMetricStream,
+cloudwatch:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+cloudwatch:ListMetricStreams</pre>
+
+
 ## Example
 ```sql
 SELECT

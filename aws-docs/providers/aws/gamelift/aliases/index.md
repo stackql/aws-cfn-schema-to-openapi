@@ -35,6 +35,19 @@ Retrieves a list of <code>aliases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>aliases</code> resource, the following permissions are required:
+
+### Create
+<pre>
+gamelift:CreateAlias</pre>
+
+### List
+<pre>
+gamelift:ListAliases</pre>
+
+
 ## Example
 ```sql
 SELECT

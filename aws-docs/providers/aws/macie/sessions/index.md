@@ -35,6 +35,20 @@ Retrieves a list of <code>sessions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sessions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+macie2:GetMacieSession,
+macie2:EnableMacie</pre>
+
+### List
+<pre>
+macie2:GetMacieSession</pre>
+
+
 ## Example
 ```sql
 SELECT

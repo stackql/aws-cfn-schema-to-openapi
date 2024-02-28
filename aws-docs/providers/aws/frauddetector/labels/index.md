@@ -35,6 +35,23 @@ Retrieves a list of <code>labels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>labels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+frauddetector:GetLabels,
+frauddetector:PutLabel,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource</pre>
+
+### List
+<pre>
+frauddetector:GetLabels,
+frauddetector:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

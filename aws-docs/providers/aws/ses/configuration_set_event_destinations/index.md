@@ -35,6 +35,17 @@ Retrieves a list of <code>configuration_set_event_destinations</code> in a regio
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_set_event_destinations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ses:CreateConfigurationSetEventDestination,
+ses:GetConfigurationSetEventDestinations,
+ses:DescribeConfigurationSet</pre>
+
+
 ## Example
 ```sql
 SELECT

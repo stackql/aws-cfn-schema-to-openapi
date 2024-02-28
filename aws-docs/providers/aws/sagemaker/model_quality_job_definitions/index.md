@@ -35,6 +35,23 @@ Retrieves a list of <code>model_quality_job_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_quality_job_definitions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateModelQualityJobDefinition,
+sagemaker:DescribeModelQualityJobDefinition,
+sagemaker:AddTags,
+iam:PassRole</pre>
+
+### List
+<pre>
+sagemaker:ListModelQualityJobDefinitions,
+sagemaker:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

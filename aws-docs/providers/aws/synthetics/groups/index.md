@@ -35,6 +35,22 @@ Retrieves a list of <code>groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+synthetics:CreateGroup,
+synthetics:AssociateResource,
+synthetics:TagResource,
+synthetics:GetGroup</pre>
+
+### List
+<pre>
+synthetics:ListGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,25 @@ Retrieves a list of <code>replication_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>replication_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ssm-incidents:CreateReplicationSet,
+ssm-incidents:ListReplicationSets,
+ssm-incidents:UpdateDeletionProtection,
+ssm-incidents:GetReplicationSet,
+ssm-incidents:TagResource,
+ssm-incidents:ListTagsForResource,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+ssm-incidents:ListReplicationSets</pre>
+
+
 ## Example
 ```sql
 SELECT

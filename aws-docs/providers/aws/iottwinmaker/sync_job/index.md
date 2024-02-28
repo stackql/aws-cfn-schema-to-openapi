@@ -42,6 +42,23 @@ Gets an individual <code>sync_job</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sync_job</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iottwinmaker:GetSyncJob,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iottwinmaker:DeleteSyncJob,
+iottwinmaker:GetSyncJob,
+iottwinmaker:GetWorkspace</pre>
+
+
 ## Example
 ```sql
 SELECT

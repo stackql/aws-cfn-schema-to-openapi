@@ -36,6 +36,24 @@ Gets an individual <code>registry_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>registry_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecr:GetRegistryPolicy</pre>
+
+### Update
+<pre>
+ecr:GetRegistryPolicy,
+ecr:PutRegistryPolicy</pre>
+
+### Delete
+<pre>
+ecr:DeleteRegistryPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

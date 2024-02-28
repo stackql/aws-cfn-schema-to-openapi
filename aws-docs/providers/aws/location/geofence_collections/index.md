@@ -35,6 +35,24 @@ Retrieves a list of <code>geofence_collections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>geofence_collections</code> resource, the following permissions are required:
+
+### Create
+<pre>
+geo:CreateGeofenceCollection,
+geo:DescribeGeofenceCollection,
+geo:TagResource,
+geo:UntagResource,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### List
+<pre>
+geo:ListGeofenceCollections</pre>
+
+
 ## Example
 ```sql
 SELECT

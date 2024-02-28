@@ -27,7 +27,7 @@ Retrieves a list of <code>auto_scaling_groups</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>auto_scaling_group_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,35 @@ Retrieves a list of <code>auto_scaling_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>auto_scaling_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+autoscaling:*,
+cloudwatch:PutMetricAlarm,
+ec2:Describe*,
+ec2:GetInstanceTypesFromInstanceRequirements,
+ec2:RunInstances,
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:DescribeTargetGroups,
+iam:CreateServiceLinkedRole,
+iam:PassRole,
+managed-fleets:GetAutoScalingGroup,
+managed-fleets:CreateAutoScalingGroup,
+ssm:GetParameters</pre>
+
+### List
+<pre>
+autoscaling:*</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+auto_scaling_group_name
 FROM aws.autoscaling.auto_scaling_groups
 WHERE region = 'us-east-1'
 ```

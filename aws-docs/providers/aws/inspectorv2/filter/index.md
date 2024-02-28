@@ -39,6 +39,25 @@ Gets an individual <code>filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>filter</code> resource, the following permissions are required:
+
+### Read
+<pre>
+inspector2:ListFilters</pre>
+
+### Update
+<pre>
+inspector2:ListFilters,
+inspector2:UpdateFilter</pre>
+
+### Delete
+<pre>
+inspector2:DeleteFilter,
+inspector2:ListFilters</pre>
+
+
 ## Example
 ```sql
 SELECT

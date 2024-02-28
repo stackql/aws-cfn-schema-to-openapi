@@ -27,13 +27,22 @@ Retrieves a list of <code>topic_policies</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>The provider-assigned unique ID for this managed resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>topic_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sns:SetTopicAttributes</pre>
+
 
 ## Example
 ```sql

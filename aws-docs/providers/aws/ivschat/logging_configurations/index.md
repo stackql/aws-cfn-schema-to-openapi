@@ -35,6 +35,30 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ivschat:CreateLoggingConfiguration,
+ivschat:GetLoggingConfiguration,
+logs:CreateLogDelivery,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+iam:CreateServiceLinkedRole,
+firehose:TagDeliveryStream,
+ivschat:TagResource</pre>
+
+### List
+<pre>
+ivschat:ListLoggingConfigurations,
+ivschat:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

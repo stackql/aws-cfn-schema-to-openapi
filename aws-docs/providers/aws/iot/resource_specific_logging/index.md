@@ -38,6 +38,25 @@ Gets an individual <code>resource_specific_logging</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_specific_logging</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:ListV2LoggingLevels</pre>
+
+### Update
+<pre>
+iot:ListV2LoggingLevels,
+iot:SetV2LoggingLevel</pre>
+
+### Delete
+<pre>
+iot:ListV2LoggingLevels,
+iot:DeleteV2LoggingLevel</pre>
+
+
 ## Example
 ```sql
 SELECT

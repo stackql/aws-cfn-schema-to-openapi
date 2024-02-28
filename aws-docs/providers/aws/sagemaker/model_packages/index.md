@@ -35,6 +35,32 @@ Retrieves a list of <code>model_packages</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_packages</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ecr:BatchGetImage,
+ecr:DescribeImages,
+ecr:StartImageScan,
+ecr:DescribeImageScanFindings,
+sagemaker:AddTags,
+sagemaker:CreateModel,
+sagemaker:CreateModelPackage,
+sagemaker:CreateTrainingJob,
+sagemaker:CreateTransformJob,
+sagemaker:DescribeTransformJob,
+sagemaker:DescribeModelPackage,
+sagemaker:ListTags,
+iam:PassRole,
+s3:GetObject</pre>
+
+### List
+<pre>
+sagemaker:ListModelPackages</pre>
+
+
 ## Example
 ```sql
 SELECT

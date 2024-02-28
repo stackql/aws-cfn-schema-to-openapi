@@ -35,6 +35,20 @@ Retrieves a list of <code>resource_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lex:CreateResourcePolicy,
+lex:DescribeResourcePolicy</pre>
+
+### List
+<pre>
+lex:DescribeResourcePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

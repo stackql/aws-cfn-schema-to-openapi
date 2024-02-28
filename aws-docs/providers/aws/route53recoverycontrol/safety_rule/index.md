@@ -42,6 +42,29 @@ Gets an individual <code>safety_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>safety_rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53-recovery-control-config:DescribeSafetyRule,
+route53-recovery-control-config:ListTagsForResource</pre>
+
+### Update
+<pre>
+route53-recovery-control-config:UpdateSafetyRule,
+route53-recovery-control-config:DescribeSafetyRule,
+route53-recovery-control-config:ListTagsForResource,
+route53-recovery-control-config:TagResource,
+route53-recovery-control-config:UntagResource</pre>
+
+### Delete
+<pre>
+route53-recovery-control-config:DescribeSafetyRule,
+route53-recovery-control-config:DeleteSafetyRule</pre>
+
+
 ## Example
 ```sql
 SELECT

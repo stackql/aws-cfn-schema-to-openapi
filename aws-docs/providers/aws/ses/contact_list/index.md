@@ -38,6 +38,25 @@ Gets an individual <code>contact_list</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact_list</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ses:GetContactList</pre>
+
+### Update
+<pre>
+ses:UpdateContactList,
+ses:UntagResource,
+ses:TagResource</pre>
+
+### Delete
+<pre>
+ses:DeleteContactList</pre>
+
+
 ## Example
 ```sql
 SELECT

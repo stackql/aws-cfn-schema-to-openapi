@@ -91,6 +91,99 @@ components:
       x-stackql-resource-name: account
       x-stackql-primaryIdentifier:
         - AccountId
+      x-read-only-properties:
+        - AccountId
+        - Status
+        - JoinedTimestamp
+        - JoinedMethod
+        - Arn
+      x-required-permissions:
+        create:
+          - organizations:CreateAccount
+          - organizations:DescribeCreateAccountStatus
+          - organizations:MoveAccount
+          - organizations:ListParents
+          - organizations:TagResource
+          - organizations:DescribeAccount
+          - organizations:ListTagsForResource
+        read:
+          - organizations:DescribeAccount
+          - organizations:ListParents
+          - organizations:ListTagsForResource
+        update:
+          - organizations:MoveAccount
+          - organizations:TagResource
+          - organizations:UntagResource
+          - organizations:ListRoots
+          - organizations:DescribeAccount
+          - organizations:ListParents
+          - organizations:ListTagsForResource
+        delete:
+          - organizations:CloseAccount
+        list:
+          - organizations:ListAccounts
+    Organization:
+      type: object
+      properties:
+        Id:
+          description: The unique identifier (ID) of an organization.
+          type: string
+          pattern: ^o-[a-z0-9]{10,32}$
+        Arn:
+          description: The Amazon Resource Name (ARN) of an organization.
+          type: string
+          pattern: ^arn:aws.*:organizations::\d{12}:organization\/o-[a-z0-9]{10,32}
+        FeatureSet:
+          description: Specifies the feature set supported by the new organization. Each feature set supports different levels of functionality.
+          type: string
+          enum:
+            - ALL
+            - CONSOLIDATED_BILLING
+          default: ALL
+        ManagementAccountArn:
+          description: The Amazon Resource Name (ARN) of the account that is designated as the management account for the organization.
+          type: string
+          pattern: ^arn:aws.*:organizations::\d{12}:account\/o-[a-z0-9]{10,32}\/\d{12}
+        ManagementAccountId:
+          description: The unique identifier (ID) of the management account of an organization.
+          type: string
+          pattern: ^\d{12}$
+        ManagementAccountEmail:
+          description: The email address that is associated with the AWS account that is designated as the management account for the organization.
+          type: string
+          pattern: '[^\s@]+@[^\s@]+\.[^\s@]+'
+          minLength: 6
+          maxLength: 64
+        RootId:
+          description: The unique identifier (ID) for the root.
+          type: string
+          pattern: ^r-[0-9a-z]{4,32}$
+          maxLength: 64
+      x-stackql-resource-name: organization
+      x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+        - ManagementAccountArn
+        - ManagementAccountId
+        - ManagementAccountEmail
+        - RootId
+      x-required-permissions:
+        create:
+          - organizations:CreateOrganization
+          - organizations:DescribeOrganization
+          - iam:CreateServiceLinkedRole
+          - organizations:ListRoots
+        read:
+          - organizations:DescribeOrganization
+          - organizations:ListRoots
+        delete:
+          - organizations:DeleteOrganization
+          - organizations:DescribeOrganization
+        list:
+          - organizations:DescribeOrganization
+        update: []
     OrganizationalUnit:
       type: object
       properties:
@@ -127,6 +220,33 @@ components:
       x-stackql-resource-name: organizational_unit
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ParentId
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - organizations:CreateOrganizationalUnit
+          - organizations:DescribeOrganizationalUnit
+          - organizations:ListParents
+          - organizations:ListTagsForResource
+          - organizations:TagResource
+        read:
+          - organizations:DescribeOrganizationalUnit
+          - organizations:ListParents
+          - organizations:ListTagsForResource
+        update:
+          - organizations:DescribeOrganizationalUnit
+          - organizations:ListParents
+          - organizations:ListTagsForResource
+          - organizations:TagResource
+          - organizations:UntagResource
+          - organizations:UpdateOrganizationalUnit
+        delete:
+          - organizations:DeleteOrganizationalUnit
+        list:
+          - organizations:ListOrganizationalUnitsForParent
     Policy:
       type: object
       properties:
@@ -185,6 +305,38 @@ components:
       x-stackql-resource-name: policy
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Type
+      x-read-only-properties:
+        - Id
+        - Arn
+        - AwsManaged
+      x-required-permissions:
+        create:
+          - organizations:CreatePolicy
+          - organizations:DescribePolicy
+          - organizations:AttachPolicy
+          - organizations:ListTagsForResource
+          - organizations:ListTargetsForPolicy
+          - organizations:TagResource
+        read:
+          - organizations:DescribePolicy
+          - organizations:ListTargetsForPolicy
+          - organizations:ListTagsForResource
+        update:
+          - organizations:AttachPolicy
+          - organizations:DetachPolicy
+          - organizations:UpdatePolicy
+          - organizations:ListTagsForResource
+          - organizations:ListTargetsForPolicy
+          - organizations:TagResource
+          - organizations:UntagResource
+          - organizations:DescribePolicy
+        delete:
+          - organizations:DetachPolicy
+          - organizations:DeletePolicy
+        list:
+          - organizations:ListPolicies
     ResourcePolicy:
       type: object
       properties:
@@ -211,6 +363,28 @@ components:
       x-stackql-resource-name: resource_policy
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - organizations:PutResourcePolicy
+          - organizations:DescribeResourcePolicy
+          - organizations:ListTagsForResource
+          - organizations:TagResource
+        read:
+          - organizations:DescribeResourcePolicy
+          - organizations:ListTagsForResource
+        update:
+          - organizations:DescribeResourcePolicy
+          - organizations:PutResourcePolicy
+          - organizations:ListTagsForResource
+          - organizations:TagResource
+          - organizations:UntagResource
+        delete:
+          - organizations:DeleteResourcePolicy
+        list:
+          - organizations:DescribeResourcePolicy
   x-stackQL-resources:
     accounts:
       name: accounts
@@ -253,6 +427,44 @@ components:
               JSON_EXTRACT(Properties, '$.JoinedTimestamp') as joined_timestamp,
               JSON_EXTRACT(Properties, '$.Status') as status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Account'
+    organizations:
+      name: organizations
+      id: aws.organizations.organizations
+      x-cfn-schema-name: Organization
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Organization'
+    organization:
+      name: organization
+      id: aws.organizations.organization
+      x-cfn-schema-name: Organization
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.FeatureSet') as feature_set,
+              JSON_EXTRACT(Properties, '$.ManagementAccountArn') as management_account_arn,
+              JSON_EXTRACT(Properties, '$.ManagementAccountId') as management_account_id,
+              JSON_EXTRACT(Properties, '$.ManagementAccountEmail') as management_account_email,
+              JSON_EXTRACT(Properties, '$.RootId') as root_id
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Organization'
     organizational_units:
       name: organizational_units
       id: aws.organizations.organizational_units

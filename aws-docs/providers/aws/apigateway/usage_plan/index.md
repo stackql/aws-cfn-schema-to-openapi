@@ -27,19 +27,41 @@ Gets an individual <code>usage_plan</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td>The provider-assigned unique ID for this managed resource.</td></tr>
-<tr><td><code>api_stages</code></td><td><code>array</code></td><td>The API stages to associate with this usage plan.</td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td>A description of the usage plan.</td></tr>
-<tr><td><code>quota</code></td><td><code>object</code></td><td>Configures the number of requests that users can make within a given interval.</td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of arbitrary tags (key-value pairs) to associate with the usage plan.</td></tr>
-<tr><td><code>throttle</code></td><td><code>object</code></td><td>Configures the overall request rate (average requests per second) and burst capacity.</td></tr>
-<tr><td><code>usage_plan_name</code></td><td><code>string</code></td><td>A name for the usage plan.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_stages</code></td><td><code>array</code></td><td>The associated API stages of a usage plan.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>The description of a usage plan.</td></tr>
+<tr><td><code>quota</code></td><td><code>object</code></td><td>The target maximum number of permitted requests per a given unit time interval.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
+<tr><td><code>throttle</code></td><td><code>object</code></td><td>A map containing method level throttling information for API stage in a usage plan.</td></tr>
+<tr><td><code>usage_plan_name</code></td><td><code>string</code></td><td>The name of a usage plan.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>usage_plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:DELETE,
+apigateway:PATCH,
+apigateway:PUT</pre>
+
+### Delete
+<pre>
+apigateway:DELETE,
+apigateway:GET,
+apigateway:PATCH</pre>
+
 
 ## Example
 ```sql

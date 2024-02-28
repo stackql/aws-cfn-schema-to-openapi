@@ -35,6 +35,55 @@ Retrieves a list of <code>global_tables</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>global_tables</code> resource, the following permissions are required:
+
+### Create
+<pre>
+dynamodb:CreateTable,
+dynamodb:CreateTableReplica,
+dynamodb:Describe*,
+dynamodb:UpdateTimeToLive,
+dynamodb:UpdateContributorInsights,
+dynamodb:UpdateContinuousBackups,
+dynamodb:ListTagsOfResource,
+dynamodb:Query,
+dynamodb:Scan,
+dynamodb:UpdateItem,
+dynamodb:PutItem,
+dynamodb:GetItem,
+dynamodb:DeleteItem,
+dynamodb:BatchWriteItem,
+dynamodb:TagResource,
+dynamodb:EnableKinesisStreamingDestination,
+dynamodb:DisableKinesisStreamingDestination,
+dynamodb:UpdateTableReplicaAutoScaling,
+dynamodb:TagResource,
+application-autoscaling:DeleteScalingPolicy,
+application-autoscaling:DeleteScheduledAction,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:Describe*,
+application-autoscaling:PutScalingPolicy,
+application-autoscaling:PutScheduledAction,
+application-autoscaling:RegisterScalableTarget,
+kinesis:ListStreams,
+kinesis:DescribeStream,
+kinesis:PutRecords,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:Decrypt,
+kms:RevokeGrant,
+cloudwatch:PutMetricData,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+dynamodb:ListTables,
+cloudwatch:PutMetricData</pre>
+
+
 ## Example
 ```sql
 SELECT

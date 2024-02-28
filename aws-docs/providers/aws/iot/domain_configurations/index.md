@@ -35,6 +35,24 @@ Retrieves a list of <code>domain_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateDomainConfiguration,
+iot:UpdateDomainConfiguration,
+iot:DescribeDomainConfiguration,
+iot:TagResource,
+iot:ListTagsForResource,
+acm:GetCertificate</pre>
+
+### List
+<pre>
+iot:ListDomainConfigurations</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -41,6 +41,38 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+resource-groups:GetGroup,
+resource-groups:GetGroupQuery,
+resource-groups:GetTags,
+resource-groups:GetGroupConfiguration,
+resource-groups:ListGroupResources</pre>
+
+### Update
+<pre>
+resource-groups:UpdateGroup,
+resource-groups:GetTags,
+resource-groups:GetGroupQuery,
+resource-groups:UpdateGroupQuery,
+resource-groups:Tag,
+resource-groups:Untag,
+resource-groups:PutGroupConfiguration,
+resource-groups:GetGroupConfiguration,
+resource-groups:ListGroupResources,
+resource-groups:GroupResources,
+resource-groups:UnGroupResources</pre>
+
+### Delete
+<pre>
+resource-groups:DeleteGroup,
+resource-groups:UnGroupResources</pre>
+
+
 ## Example
 ```sql
 SELECT

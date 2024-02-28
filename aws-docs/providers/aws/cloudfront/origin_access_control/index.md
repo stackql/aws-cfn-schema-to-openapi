@@ -27,8 +27,8 @@ Gets an individual <code>origin_access_control</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>origin_access_control_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>origin_access_control_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -36,12 +36,31 @@ Gets an individual <code>origin_access_control</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>origin_access_control</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteOriginAccessControl,
+cloudfront:GetOriginAccessControl</pre>
+
+### Read
+<pre>
+cloudfront:GetOriginAccessControl</pre>
+
+### Update
+<pre>
+cloudfront:UpdateOriginAccessControl,
+cloudfront:GetOriginAccessControl</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-origin_access_control_config,
-id
+id,
+origin_access_control_config
 FROM aws.cloudfront.origin_access_control
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

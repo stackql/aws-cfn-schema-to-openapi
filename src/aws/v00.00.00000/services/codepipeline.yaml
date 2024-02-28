@@ -128,6 +128,134 @@ components:
         - Category
         - Provider
         - Version
+      x-create-only-properties:
+        - Category
+        - ConfigurationProperties
+        - InputArtifactDetails
+        - OutputArtifactDetails
+        - Provider
+        - Settings
+        - Version
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - codepipeline:CreateCustomActionType
+          - codepipeline:TagResource
+          - codepipeline:ListActionTypes
+        read:
+          - codepipeline:ListActionTypes
+          - codepipeline:ListTagsForResource
+        update:
+          - codepipeline:ListActionTypes
+          - codepipeline:TagResource
+          - codepipeline:UntagResource
+        delete:
+          - codepipeline:DeleteCustomActionType
+          - codepipeline:ListActionTypes
+        list:
+          - codepipeline:ListActionTypes
+    BlockerDeclaration:
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          type: string
+        Name:
+          type: string
+      required:
+        - Type
+        - Name
+    GitConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Push:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/GitPushFilter'
+        SourceActionName:
+          type: string
+        PullRequest:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/GitPullRequestFilter'
+      required:
+        - SourceActionName
+    ActionTypeId:
+      type: object
+      additionalProperties: false
+      properties:
+        Owner:
+          type: string
+        Category:
+          type: string
+        Version:
+          type: string
+        Provider:
+          type: string
+      required:
+        - Owner
+        - Category
+        - Version
+        - Provider
+    ArtifactStoreMap:
+      type: object
+      additionalProperties: false
+      properties:
+        ArtifactStore:
+          $ref: '#/components/schemas/ArtifactStore'
+        Region:
+          type: string
+      required:
+        - ArtifactStore
+        - Region
+    PipelineTriggerDeclaration:
+      type: object
+      additionalProperties: false
+      properties:
+        GitConfiguration:
+          $ref: '#/components/schemas/GitConfiguration'
+        ProviderType:
+          type: string
+      required:
+        - ProviderType
+    EncryptionKey:
+      type: object
+      additionalProperties: false
+      properties:
+        Type:
+          type: string
+        Id:
+          type: string
+      required:
+        - Type
+        - Id
+    GitPullRequestFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        FilePaths:
+          $ref: '#/components/schemas/GitFilePathFilterCriteria'
+        Events:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Branches:
+          $ref: '#/components/schemas/GitBranchFilterCriteria'
+    GitPushFilter:
+      type: object
+      additionalProperties: false
+      properties:
+        FilePaths:
+          $ref: '#/components/schemas/GitFilePathFilterCriteria'
+        Branches:
+          $ref: '#/components/schemas/GitBranchFilterCriteria'
+        Tags:
+          $ref: '#/components/schemas/GitTagFilterCriteria'
     ActionDeclaration:
       type: object
       additionalProperties: false
@@ -159,34 +287,20 @@ components:
       required:
         - ActionTypeId
         - Name
-    BlockerDeclaration:
+    GitFilePathFilterCriteria:
       type: object
       additionalProperties: false
       properties:
-        Type:
-          type: string
-        Name:
-          type: string
-      required:
-        - Type
-        - Name
-    ActionTypeId:
-      type: object
-      additionalProperties: false
-      properties:
-        Owner:
-          type: string
-        Category:
-          type: string
-        Version:
-          type: string
-        Provider:
-          type: string
-      required:
-        - Owner
-        - Category
-        - Version
-        - Provider
+        Includes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Excludes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
     StageDeclaration:
       type: object
       additionalProperties: false
@@ -227,17 +341,18 @@ components:
       required:
         - Type
         - Location
-    ArtifactStoreMap:
+    VariableDeclaration:
       type: object
       additionalProperties: false
       properties:
-        ArtifactStore:
-          $ref: '#/components/schemas/ArtifactStore'
-        Region:
+        DefaultValue:
+          type: string
+        Description:
+          type: string
+        Name:
           type: string
       required:
-        - ArtifactStore
-        - Region
+        - Name
     StageTransition:
       type: object
       additionalProperties: false
@@ -249,17 +364,34 @@ components:
       required:
         - StageName
         - Reason
-    EncryptionKey:
+    GitTagFilterCriteria:
       type: object
       additionalProperties: false
       properties:
-        Type:
-          type: string
-        Id:
-          type: string
-      required:
-        - Type
-        - Id
+        Includes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Excludes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+    GitBranchFilterCriteria:
+      type: object
+      additionalProperties: false
+      properties:
+        Includes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        Excludes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
     OutputArtifact:
       type: object
       additionalProperties: false
@@ -276,10 +408,6 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/ArtifactStoreMap'
-        Version:
-          type: string
-        ArtifactStore:
-          $ref: '#/components/schemas/ArtifactStore'
         DisableInboundStageTransitions:
           type: array
           uniqueItems: true
@@ -290,25 +418,48 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/StageDeclaration'
+        ExecutionMode:
+          type: string
         RestartExecutionOnUpdate:
           type: boolean
-        Id:
-          type: string
+        Triggers:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/PipelineTriggerDeclaration'
         RoleArn:
+          type: string
+        Name:
+          type: string
+        Variables:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/VariableDeclaration'
+        Version:
+          type: string
+        ArtifactStore:
+          $ref: '#/components/schemas/ArtifactStore'
+        PipelineType:
+          type: string
+        Id:
           type: string
         Tags:
           type: array
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
-        Name:
-          type: string
       required:
         - Stages
         - RoleArn
       x-stackql-resource-name: pipeline
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Version
     WebhookFilterRule:
       type: object
       additionalProperties: false
@@ -363,6 +514,11 @@ components:
       x-stackql-resource-name: webhook
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Url
   x-stackQL-resources:
     custom_action_types:
       name: custom_action_types
@@ -441,15 +597,19 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ArtifactStores') as artifact_stores,
-              JSON_EXTRACT(Properties, '$.Version') as version,
-              JSON_EXTRACT(Properties, '$.ArtifactStore') as artifact_store,
               JSON_EXTRACT(Properties, '$.DisableInboundStageTransitions') as disable_inbound_stage_transitions,
               JSON_EXTRACT(Properties, '$.Stages') as stages,
+              JSON_EXTRACT(Properties, '$.ExecutionMode') as execution_mode,
               JSON_EXTRACT(Properties, '$.RestartExecutionOnUpdate') as restart_execution_on_update,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Triggers') as triggers,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
-              JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Variables') as variables,
+              JSON_EXTRACT(Properties, '$.Version') as version,
+              JSON_EXTRACT(Properties, '$.ArtifactStore') as artifact_store,
+              JSON_EXTRACT(Properties, '$.PipelineType') as pipeline_type,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
     webhooks:
       name: webhooks

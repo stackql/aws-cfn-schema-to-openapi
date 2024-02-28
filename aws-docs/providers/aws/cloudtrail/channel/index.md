@@ -39,6 +39,27 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+CloudTrail:GetChannel,
+CloudTrail:ListChannels</pre>
+
+### Update
+<pre>
+CloudTrail:UpdateChannel,
+CloudTrail:GetChannel,
+CloudTrail:AddTags,
+CloudTrail:RemoveTags</pre>
+
+### Delete
+<pre>
+CloudTrail:DeleteChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

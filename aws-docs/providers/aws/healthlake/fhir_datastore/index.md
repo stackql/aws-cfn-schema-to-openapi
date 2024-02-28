@@ -36,6 +36,7 @@ Gets an individual <code>fhir_datastore</code> resource
 <tr><td><code>datastore_type_version</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>preload_data_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>sse_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>identity_provider_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -43,6 +44,38 @@ Gets an individual <code>fhir_datastore</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>fhir_datastore</code> resource, the following permissions are required:
+
+### Read
+<pre>
+healthlake:DescribeFHIRDatastore,
+healthlake:ListTagsForResource</pre>
+
+### Update
+<pre>
+healthlake:TagResource,
+healthlake:UntagResource,
+healthlake:ListTagsForResource,
+healthlake:DescribeFHIRDatastore,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole</pre>
+
+### Delete
+<pre>
+healthlake:DeleteFHIRDatastore,
+healthlake:DescribeFHIRDatastore,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+ram:GetResourceShareInvitations,
+ram:AcceptResourceShareInvitation,
+glue:CreateDatabase,
+glue:DeleteDatabase</pre>
+
 
 ## Example
 ```sql
@@ -57,6 +90,7 @@ datastore_status,
 datastore_type_version,
 preload_data_config,
 sse_configuration,
+identity_provider_configuration,
 tags
 FROM aws.healthlake.fhir_datastore
 WHERE region = 'us-east-1'

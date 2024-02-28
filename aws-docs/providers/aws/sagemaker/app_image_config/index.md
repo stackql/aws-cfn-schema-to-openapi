@@ -30,6 +30,7 @@ Gets an individual <code>app_image_config</code> resource
 <tr><td><code>app_image_config_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AppImageConfig.</td></tr>
 <tr><td><code>app_image_config_name</code></td><td><code>string</code></td><td>The Name of the AppImageConfig.</td></tr>
 <tr><td><code>kernel_gateway_image_config</code></td><td><code>object</code></td><td>The KernelGatewayImageConfig.</td></tr>
+<tr><td><code>jupyter_lab_app_image_config</code></td><td><code>object</code></td><td>The JupyterLabAppImageConfig.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>A list of tags to apply to the AppImageConfig.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -38,6 +39,25 @@ Gets an individual <code>app_image_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>app_image_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeAppImageConfig</pre>
+
+### Update
+<pre>
+sagemaker:UpdateAppImageConfig,
+sagemaker:DescribeAppImageConfig</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteAppImageConfig,
+sagemaker:DescribeAppImageConfig</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -45,6 +65,7 @@ region,
 app_image_config_arn,
 app_image_config_name,
 kernel_gateway_image_config,
+jupyter_lab_app_image_config,
 tags
 FROM aws.sagemaker.app_image_config
 WHERE region = 'us-east-1'

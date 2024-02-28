@@ -40,6 +40,26 @@ Gets an individual <code>identity_provider_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>identity_provider_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+eks:DescribeIdentityProviderConfig</pre>
+
+### Update
+<pre>
+eks:DescribeIdentityProviderConfig,
+eks:TagResource,
+eks:UntagResource</pre>
+
+### Delete
+<pre>
+eks:DisassociateIdentityProviderConfig,
+eks:DescribeIdentityProviderConfig</pre>
+
+
 ## Example
 ```sql
 SELECT

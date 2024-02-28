@@ -35,6 +35,22 @@ Retrieves a list of <code>topic_rule_destinations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>topic_rule_destinations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+iot:CreateTopicRuleDestination,
+iot:GetTopicRuleDestination,
+iot:UpdateTopicRuleDestination</pre>
+
+### List
+<pre>
+iot:ListTopicRuleDestinations</pre>
+
+
 ## Example
 ```sql
 SELECT

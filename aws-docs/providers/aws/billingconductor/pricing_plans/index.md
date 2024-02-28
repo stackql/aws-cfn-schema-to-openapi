@@ -35,6 +35,25 @@ Retrieves a list of <code>pricing_plans</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pricing_plans</code> resource, the following permissions are required:
+
+### Create
+<pre>
+billingconductor:CreatePricingPlan,
+billingconductor:AssociatePricingRules,
+billingconductor:ListPricingPlans,
+billingconductor:TagResource,
+billingconductor:ListTagsForResource</pre>
+
+### List
+<pre>
+billingconductor:ListPricingPlans,
+billingconductor:ListPricingRulesAssociatedToPricingPlan,
+billingconductor:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

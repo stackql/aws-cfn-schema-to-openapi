@@ -35,6 +35,22 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>clusters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53-recovery-control-config:CreateCluster,
+route53-recovery-control-config:DescribeCluster,
+route53-recovery-control-config:ListTagsForResource,
+route53-recovery-control-config:TagResource</pre>
+
+### List
+<pre>
+route53-recovery-control-config:ListClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

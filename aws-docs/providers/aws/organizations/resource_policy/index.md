@@ -38,6 +38,28 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+organizations:DescribeResourcePolicy,
+organizations:ListTagsForResource</pre>
+
+### Update
+<pre>
+organizations:DescribeResourcePolicy,
+organizations:PutResourcePolicy,
+organizations:ListTagsForResource,
+organizations:TagResource,
+organizations:UntagResource</pre>
+
+### Delete
+<pre>
+organizations:DeleteResourcePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

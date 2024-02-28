@@ -31,12 +31,14 @@ Gets an individual <code>server</code> resource
 <tr><td><code>protocols</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>identity_provider_details</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>endpoint_details</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>structured_log_destinations</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>pre_authentication_login_banner</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>server_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>post_authentication_login_banner</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>endpoint_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>security_policy_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>protocol_details</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>s3_storage_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>workflow_details</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>domain</code></td><td><code>string</code></td><td></td></tr>
@@ -50,6 +52,10 @@ Gets an individual <code>server</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
@@ -58,12 +64,14 @@ logging_role,
 protocols,
 identity_provider_details,
 endpoint_details,
+structured_log_destinations,
 pre_authentication_login_banner,
 server_id,
 post_authentication_login_banner,
 endpoint_type,
 security_policy_name,
 protocol_details,
+s3_storage_options,
 workflow_details,
 arn,
 domain,

@@ -52,87 +52,205 @@ components:
       x-stackql-primaryIdentifier:
         - AuthorizedAccountId
         - AuthorizedAwsRegion
+      x-create-only-properties:
+        - AuthorizedAccountId
+        - AuthorizedAwsRegion
+      x-read-only-properties:
+        - AggregationAuthorizationArn
+      x-required-permissions:
+        create:
+          - config:DescribeAggregationAuthorizations
+          - config:PutAggregationAuthorization
+          - config:TagResource
+        update:
+          - config:DescribeAggregationAuthorizations
+          - config:TagResource
+          - config:UntagResource
+          - config:ListTagsForResource
+        read:
+          - config:DescribeAggregationAuthorizations
+          - config:ListTagsForResource
+        delete:
+          - config:DescribeAggregationAuthorizations
+          - config:DeleteAggregationAuthorization
+          - config:UntagResource
+        list:
+          - config:DescribeAggregationAuthorizations
     Scope:
       type: object
+      description: Defines which resources trigger an evaluation for an CC rule. The scope can include one or more resource types, a combination of a tag key and value, or a combination of one resource type and one resource ID. Specify a scope to constrain which resources trigger an evaluation for a rule. Otherwise, evaluations for the rule are triggered when any resource in your recording group changes in configuration.
       additionalProperties: false
       properties:
         TagKey:
           type: string
+          description: The tag key that is applied to only those AWS resources that you want to trigger an evaluation for the rule.
         ComplianceResourceTypes:
           type: array
+          description: The resource types of only those AWS resources that you want to trigger an evaluation for the rule. You can only specify one type if you also specify a resource ID for ``ComplianceResourceId``.
           uniqueItems: true
           items:
             type: string
         TagValue:
           type: string
+          description: The tag value applied to only those AWS resources that you want to trigger an evaluation for the rule. If you specify a value for ``TagValue``, you must also specify a value for ``TagKey``.
         ComplianceResourceId:
           type: string
+          description: The ID of the only AWS resource that you want to trigger an evaluation for the rule. If you specify a resource ID, you must specify one resource type for ``ComplianceResourceTypes``.
     CustomPolicyDetails:
       type: object
+      description: Provides the CustomPolicyDetails, the rule owner (```` for managed rules, ``CUSTOM_POLICY`` for Custom Policy rules, and ``CUSTOM_LAMBDA`` for Custom Lambda rules), the rule identifier, and the events that cause the evaluation of your AWS resources.
       additionalProperties: false
       properties:
         EnableDebugLogDelivery:
           type: boolean
+          description: The boolean expression for enabling debug logging for your CC Custom Policy rule. The default value is ``false``.
         PolicyText:
           type: string
+          description: The policy definition containing the logic for your CC Custom Policy rule.
         PolicyRuntime:
           type: string
+          description: The runtime system for your CC Custom Policy rule. Guard is a policy-as-code language that allows you to write policies that are enforced by CC Custom Policy rules. For more information about Guard, see the [Guard GitHub Repository](https://docs.aws.amazon.com/https://github.com/aws-cloudformation/cloudformation-guard).
     SourceDetail:
       type: object
+      description: Provides the source and the message types that trigger CC to evaluate your AWS resources against a rule. It also provides the frequency with which you want CC to run evaluations for the rule if the trigger type is periodic. You can specify the parameter values for ``SourceDetail`` only for custom rules.
       additionalProperties: false
       properties:
         EventSource:
           type: string
+          description: The source of the event, such as an AWS service, that triggers CC to evaluate your AWS resources.
         MaximumExecutionFrequency:
           type: string
+          description: |-
+            The frequency at which you want CC to run evaluations for a custom rule with a periodic trigger. If you specify a value for ``MaximumExecutionFrequency``, then ``MessageType`` must use the ``ScheduledNotification`` value.
+              By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the ``MaximumExecutionFrequency`` parameter.
+             Based on the valid value you choose, CC runs evaluations once for each valid value. For example, if you choose ``Three_Hours``, CC runs evaluations once every three hours. In this case, ``Three_Hours`` is the frequency of this rule.
         MessageType:
           type: string
+          description: |-
+            The type of notification that triggers CC to run an evaluation for a rule. You can specify the following notification types:
+              +   ``ConfigurationItemChangeNotification`` - Triggers an evaluation when CC delivers a configuration item as a result of a resource change.
+              +   ``OversizedConfigurationItemChangeNotification`` - Triggers an evaluation when CC delivers an oversized configuration item. CC may generate this notification type when a resource changes and the notification exceeds the maximum size allowed by Amazon SNS.
+              +   ``ScheduledNotification`` - Triggers a periodic evaluation at the frequency specified for ``MaximumExecutionFrequency``.
+              +   ``ConfigurationSnapshotDeliveryCompleted`` - Triggers a periodic evaluation when CC delivers a configuration snapshot.
+              
+             If you want your custom rule to be triggered by configuration changes, specify two SourceDetail objects, one for ``ConfigurationItemChangeNotification`` and one for ``OversizedConfigurationItemChangeNotification``.
       required:
         - EventSource
         - MessageType
     Source:
       type: object
+      description: Provides the CustomPolicyDetails, the rule owner (```` for managed rules, ``CUSTOM_POLICY`` for Custom Policy rules, and ``CUSTOM_LAMBDA`` for Custom Lambda rules), the rule identifier, and the events that cause the evaluation of your AWS resources.
       additionalProperties: false
       properties:
         CustomPolicyDetails:
+          description: Provides the runtime system, policy definition, and whether debug logging is enabled. Required when owner is set to ``CUSTOM_POLICY``.
           $ref: '#/components/schemas/CustomPolicyDetails'
         SourceIdentifier:
           type: string
+          description: |-
+            For CC Managed rules, a predefined identifier from a list. For example, ``IAM_PASSWORD_POLICY`` is a managed rule. To reference a managed rule, see [List of Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/managed-rules-by-aws-config.html).
+             For CC Custom Lambda rules, the identifier is the Amazon Resource Name (ARN) of the rule's LAMlong function, such as ``arn:aws:lambda:us-east-2:123456789012:function:custom_rule_name``.
+             For CC Custom Policy rules, this field will be ignored.
         Owner:
           type: string
+          description: |-
+            Indicates whether AWS or the customer owns and manages the CC rule.
+              CC Managed Rules are predefined rules owned by AWS. For more information, see [Managed Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_use-managed-rules.html) in the *developer guide*.
+              CC Custom Rules are rules that you can develop either with Guard (``CUSTOM_POLICY``) or LAMlong (``CUSTOM_LAMBDA``). For more information, see [Custom Rules](https://docs.aws.amazon.com/config/latest/developerguide/evaluate-config_develop-rules.html) in the *developer guide*.
         SourceDetails:
           type: array
+          description: |-
+            Provides the source and the message types that cause CC to evaluate your AWS resources against a rule. It also provides the frequency with which you want CC to run evaluations for the rule if the trigger type is periodic.
+             If the owner is set to ``CUSTOM_POLICY``, the only acceptable values for the CC rule trigger message type are ``ConfigurationItemChangeNotification`` and ``OversizedConfigurationItemChangeNotification``.
           uniqueItems: true
           items:
+            description: Source and message type that can trigger the rule
             $ref: '#/components/schemas/SourceDetail'
       required:
         - Owner
+    EvaluationModeConfiguration:
+      type: object
+      description: The configuration object for CC rule evaluation mode. The supported valid values are Detective or Proactive.
+      additionalProperties: false
+      properties:
+        Mode:
+          type: string
+          description: The mode of an evaluation. The valid values are Detective or Proactive.
     ConfigRule:
       type: object
       properties:
         ConfigRuleId:
           type: string
+          description: ''
         Description:
           type: string
+          description: The description that you provide for the CC rule.
         Scope:
+          description: |-
+            Defines which resources can trigger an evaluation for the rule. The scope can include one or more resource types, a combination of one resource type and one resource ID, or a combination of a tag key and value. Specify a scope to constrain the resources that can trigger an evaluation for the rule. If you do not specify a scope, evaluations are triggered when any resource in the recording group changes.
+              The scope can be empty.
           $ref: '#/components/schemas/Scope'
-        ComplianceType:
-          type: string
         ConfigRuleName:
           type: string
+          description: A name for the CC rule. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the rule name. For more information, see [Name Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-name.html).
         Arn:
           type: string
+          description: ''
+        Compliance:
+          type: object
+          description: Indicates whether an AWS resource or CC rule is compliant and provides the number of contributors that affect the compliance.
+          additionalProperties: false
+          properties:
+            Type:
+              type: string
+              description: Compliance type determined by the Config rule
         MaximumExecutionFrequency:
           type: string
+          description: |-
+            The maximum frequency with which CC runs evaluations for a rule. You can specify a value for ``MaximumExecutionFrequency`` when:
+              +  You are using an AWS managed rule that is triggered at a periodic frequency.
+              +  Your custom rule is triggered when CC delivers the configuration snapshot. For more information, see [ConfigSnapshotDeliveryProperties](https://docs.aws.amazon.com/config/latest/APIReference/API_ConfigSnapshotDeliveryProperties.html).
+              
+              By default, rules with a periodic trigger are evaluated every 24 hours. To change the frequency, specify a valid value for the ``MaximumExecutionFrequency`` parameter.
         Source:
+          description: Provides the rule owner (```` for managed rules, ``CUSTOM_POLICY`` for Custom Policy rules, and ``CUSTOM_LAMBDA`` for Custom Lambda rules), the rule identifier, and the notifications that cause the function to evaluate your AWS resources.
           $ref: '#/components/schemas/Source'
         InputParameters:
-          type: object
+          type: string
+          description: A string, in JSON format, that is passed to the CC rule Lambda function.
+        EvaluationModes:
+          type: array
+          description: The modes the CC rule can be evaluated in. The valid values are distinct objects. By default, the value is Detective evaluation mode only.
+          uniqueItems: false
+          items:
+            description: Mode of evaluation of AWS Config rule
+            $ref: '#/components/schemas/EvaluationModeConfiguration'
       required:
         - Source
       x-stackql-resource-name: config_rule
       x-stackql-primaryIdentifier:
+        - ConfigRuleName
+      x-create-only-properties:
+        - ConfigRuleName
+      x-read-only-properties:
         - ConfigRuleId
+        - Compliance/Type
+        - Arn
+      x-required-permissions:
+        create:
+          - config:PutConfigRule
+          - config:DescribeConfigRules
+        read:
+          - config:DescribeConfigRules
+          - config:DescribeComplianceByConfigRule
+        delete:
+          - config:DeleteConfigRule
+          - config:DescribeConfigRules
+        list:
+          - config:DescribeConfigRules
+        update:
+          - config:PutConfigRule
+          - config:DescribeConfigRules
     AccountAggregationSource:
       type: object
       additionalProperties: false
@@ -195,6 +313,70 @@ components:
       x-stackql-resource-name: configuration_aggregator
       x-stackql-primaryIdentifier:
         - ConfigurationAggregatorName
+      x-create-only-properties:
+        - ConfigurationAggregatorName
+      x-read-only-properties:
+        - ConfigurationAggregatorArn
+      x-required-permissions:
+        create:
+          - config:PutConfigurationAggregator
+          - config:DescribeConfigurationAggregators
+          - config:TagResource
+          - iam:PassRole
+          - organizations:EnableAWSServiceAccess
+          - organizations:ListDelegatedAdministrators
+        read:
+          - config:DescribeConfigurationAggregators
+          - config:ListTagsForResource
+        update:
+          - config:PutConfigurationAggregator
+          - config:DescribeConfigurationAggregators
+          - config:TagResource
+          - config:UntagResource
+          - config:ListTagsForResource
+          - iam:PassRole
+          - organizations:EnableAWSServiceAccess
+          - organizations:ListDelegatedAdministrators
+        delete:
+          - config:DeleteConfigurationAggregator
+          - config:UntagResource
+        list:
+          - config:DescribeConfigurationAggregators
+    RecordingStrategy:
+      type: object
+      additionalProperties: false
+      properties:
+        UseOnly:
+          type: string
+      required:
+        - UseOnly
+    ExclusionByResourceTypes:
+      type: object
+      additionalProperties: false
+      properties:
+        ResourceTypes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+      required:
+        - ResourceTypes
+    RecordingModeOverride:
+      type: object
+      additionalProperties: false
+      properties:
+        ResourceTypes:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        RecordingFrequency:
+          type: string
+        Description:
+          type: string
+      required:
+        - ResourceTypes
+        - RecordingFrequency
     RecordingGroup:
       type: object
       additionalProperties: false
@@ -206,8 +388,25 @@ components:
           uniqueItems: true
           items:
             type: string
+        RecordingStrategy:
+          $ref: '#/components/schemas/RecordingStrategy'
+        ExclusionByResourceTypes:
+          $ref: '#/components/schemas/ExclusionByResourceTypes'
         AllSupported:
           type: boolean
+    RecordingMode:
+      type: object
+      additionalProperties: false
+      properties:
+        RecordingModeOverrides:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/RecordingModeOverride'
+        RecordingFrequency:
+          type: string
+      required:
+        - RecordingFrequency
     ConfigurationRecorder:
       type: object
       properties:
@@ -215,6 +414,8 @@ components:
           type: string
         RecordingGroup:
           $ref: '#/components/schemas/RecordingGroup'
+        RecordingMode:
+          $ref: '#/components/schemas/RecordingMode'
         RoleARN:
           type: string
         Name:
@@ -223,6 +424,10 @@ components:
         - RoleARN
       x-stackql-resource-name: configuration_recorder
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
         - Id
     ParameterName:
       type: string
@@ -298,6 +503,31 @@ components:
       x-stackql-resource-name: conformance_pack
       x-stackql-primaryIdentifier:
         - ConformancePackName
+      x-create-only-properties:
+        - ConformancePackName
+      x-required-permissions:
+        create:
+          - config:PutConformancePack
+          - config:DescribeConformancePackStatus
+          - config:DescribeConformancePacks
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+        read:
+          - config:DescribeConformancePacks
+        update:
+          - config:PutConformancePack
+          - config:DescribeConformancePackStatus
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+        delete:
+          - config:DeleteConformancePack
+          - config:DescribeConformancePackStatus
+        list:
+          - config:DescribeConformancePacks
     ConfigSnapshotDeliveryProperties:
       type: object
       additionalProperties: false
@@ -325,6 +555,10 @@ components:
         - S3BucketName
       x-stackql-resource-name: delivery_channel
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
         - Id
     OrganizationManagedRuleMetadata:
       type: object
@@ -443,6 +677,10 @@ components:
       x-stackql-resource-name: organization_config_rule
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - OrganizationConfigRuleName
+      x-read-only-properties:
+        - Id
     AccountId:
       type: string
     OrganizationConformancePack:
@@ -494,6 +732,39 @@ components:
       x-stackql-resource-name: organization_conformance_pack
       x-stackql-primaryIdentifier:
         - OrganizationConformancePackName
+      x-create-only-properties:
+        - OrganizationConformancePackName
+      x-required-permissions:
+        create:
+          - config:PutOrganizationConformancePack
+          - config:DescribeOrganizationConformancePackStatuses
+          - config:GetOrganizationConformancePackDetailedStatus
+          - config:DescribeOrganizationConformancePacks
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - organizations:ListDelegatedAdministrators
+          - organizations:EnableAWSServiceAccess
+        read:
+          - config:DescribeOrganizationConformancePacks
+        delete:
+          - config:DeleteOrganizationConformancePack
+          - config:DescribeOrganizationConformancePackStatuses
+          - config:GetOrganizationConformancePackDetailedStatus
+          - organizations:ListDelegatedAdministrators
+        update:
+          - config:PutOrganizationConformancePack
+          - config:DescribeOrganizationConformancePackStatuses
+          - config:GetOrganizationConformancePackDetailedStatus
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - organizations:ListDelegatedAdministrators
+          - organizations:EnableAWSServiceAccess
+        list:
+          - config:DescribeOrganizationConformancePacks
     ExecutionControls:
       type: object
       additionalProperties: false
@@ -540,6 +811,10 @@ components:
       x-stackql-resource-name: remediation_configuration
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ConfigRuleName
+      x-read-only-properties:
+        - Id
     StoredQuery:
       type: object
       properties:
@@ -580,6 +855,30 @@ components:
       x-stackql-resource-name: stored_query
       x-stackql-primaryIdentifier:
         - QueryName
+      x-create-only-properties:
+        - QueryName
+      x-read-only-properties:
+        - QueryId
+        - QueryArn
+      x-required-permissions:
+        create:
+          - config:PutStoredQuery
+          - config:GetStoredQuery
+          - config:TagResource
+        read:
+          - config:GetStoredQuery
+          - config:ListTagsForResource
+        update:
+          - config:PutStoredQuery
+          - config:GetStoredQuery
+          - config:TagResource
+          - config:UntagResource
+          - config:ListTagsForResource
+        delete:
+          - config:DeleteStoredQuery
+          - config:UntagResource
+        list:
+          - config:ListStoredQueries
   x-stackQL-resources:
     aggregation_authorizations:
       name: aggregation_authorizations
@@ -625,7 +924,7 @@ components:
       x-cfn-schema-name: ConfigRule
       x-type: list
       x-identifiers:
-        - ConfigRuleId
+        - ConfigRuleName
       config:
         views:
           select:
@@ -633,7 +932,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConfigRuleId') as config_rule_id
+              JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigRule'
     config_rule:
       name: config_rule
@@ -641,7 +940,7 @@ components:
       x-cfn-schema-name: ConfigRule
       x-type: get
       x-identifiers:
-        - ConfigRuleId
+        - ConfigRuleName
       config:
         views:
           select:
@@ -652,12 +951,13 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigRuleId') as config_rule_id,
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Scope') as scope,
-              JSON_EXTRACT(Properties, '$.ComplianceType') as compliance_type,
               JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Compliance') as compliance,
               JSON_EXTRACT(Properties, '$.MaximumExecutionFrequency') as maximum_execution_frequency,
               JSON_EXTRACT(Properties, '$.Source') as source,
-              JSON_EXTRACT(Properties, '$.InputParameters') as input_parameters
+              JSON_EXTRACT(Properties, '$.InputParameters') as input_parameters,
+              JSON_EXTRACT(Properties, '$.EvaluationModes') as evaluation_modes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigRule'
     configuration_aggregators:
       name: configuration_aggregators
@@ -727,6 +1027,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RecordingGroup') as recording_group,
+              JSON_EXTRACT(Properties, '$.RecordingMode') as recording_mode,
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'

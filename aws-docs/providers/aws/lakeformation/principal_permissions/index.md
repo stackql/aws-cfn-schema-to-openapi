@@ -41,6 +41,24 @@ Gets an individual <code>principal_permissions</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>principal_permissions</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lakeformation:ListPermissions,
+glue:GetTable,
+glue:GetDatabase</pre>
+
+### Delete
+<pre>
+lakeformation:RevokePermissions,
+lakeformation:ListPermissions,
+glue:GetTable,
+glue:GetDatabase</pre>
+
+
 ## Example
 ```sql
 SELECT

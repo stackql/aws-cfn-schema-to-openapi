@@ -35,6 +35,25 @@ Retrieves a list of <code>decoder_manifests</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>decoder_manifests</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotfleetwise:CreateDecoderManifest,
+iotfleetwise:GetDecoderManifest,
+iotfleetwise:UpdateDecoderManifest,
+iotfleetwise:ListDecoderManifestSignals,
+iotfleetwise:ListDecoderManifestNetworkInterfaces,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource</pre>
+
+### List
+<pre>
+iotfleetwise:ListDecoderManifests</pre>
+
+
 ## Example
 ```sql
 SELECT

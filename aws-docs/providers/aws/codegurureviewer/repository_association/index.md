@@ -41,6 +41,26 @@ Gets an individual <code>repository_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>repository_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+codeguru-reviewer:DescribeRepositoryAssociation,
+codeguru-reviewer:ListTagsForResource</pre>
+
+### Delete
+<pre>
+codeguru-reviewer:DescribeRepositoryAssociation,
+codeguru-reviewer:DisassociateRepository,
+codecommit:UntagResource,
+events:DeleteRule,
+events:RemoveTargets,
+codestar-connections:UntagResource,
+codestar-connections:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

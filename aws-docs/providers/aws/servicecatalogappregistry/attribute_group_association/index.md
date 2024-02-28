@@ -31,13 +31,25 @@ Gets an individual <code>attribute_group_association</code> resource
 <tr><td><code>attribute_group</code></td><td><code>string</code></td><td>The name or the Id of the AttributeGroup.</td></tr>
 <tr><td><code>application_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>attribute_group_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>attribute_group_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:ListAttributeGroupsForApplication</pre>
+
+### Delete
+<pre>
+servicecatalog:DisassociateAttributeGroup</pre>
+
 
 ## Example
 ```sql
@@ -46,9 +58,9 @@ region,
 application,
 attribute_group,
 application_arn,
-attribute_group_arn,
-id
+attribute_group_arn
 FROM aws.servicecatalogappregistry.attribute_group_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;ApplicationArn&gt;'
+AND data__Identifier = '&lt;AttributeGroupArn&gt;'
 ```

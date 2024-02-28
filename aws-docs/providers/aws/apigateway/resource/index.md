@@ -27,8 +27,8 @@ Gets an individual <code>resource</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>resource_id</code></td><td><code>string</code></td><td>A unique primary identifier for a Resource</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the RestApi resource in which you want to create this resource..</td></tr>
+<tr><td><code>resource_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
 <tr><td><code>parent_id</code></td><td><code>string</code></td><td>The parent resource's identifier.</td></tr>
 <tr><td><code>path_part</code></td><td><code>string</code></td><td>The last path segment for this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -37,6 +37,24 @@ Gets an individual <code>resource</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>resource</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:PATCH</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

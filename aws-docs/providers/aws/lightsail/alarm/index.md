@@ -47,6 +47,25 @@ Gets an individual <code>alarm</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>alarm</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetAlarms</pre>
+
+### Update
+<pre>
+lightsail:PutAlarm,
+lightsail:GetAlarms</pre>
+
+### Delete
+<pre>
+lightsail:DeleteAlarm,
+lightsail:GetAlarms</pre>
+
+
 ## Example
 ```sql
 SELECT

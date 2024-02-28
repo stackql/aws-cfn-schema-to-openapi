@@ -17,6 +17,10 @@ components:
       x-stackql-resource-name: custom_resource
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ServiceToken
+      x-read-only-properties:
+        - Id
     HookDefaultVersion:
       type: object
       properties:
@@ -42,6 +46,18 @@ components:
       x-stackql-resource-name: hook_default_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - cloudformation:SetTypeDefaultVersion
+        read:
+          - cloudformation:DescribeType
+        update:
+          - cloudformation:SetTypeDefaultVersion
+        delete: []
+        list:
+          - cloudformation:ListTypes
     HookTypeConfig:
       type: object
       properties:
@@ -74,6 +90,22 @@ components:
       x-stackql-resource-name: hook_type_config
       x-stackql-primaryIdentifier:
         - ConfigurationArn
+      x-create-only-properties:
+        - ConfigurationAlias
+      x-read-only-properties:
+        - ConfigurationArn
+      x-required-permissions:
+        create:
+          - cloudformation:SetTypeConfiguration
+        read:
+          - cloudformation:BatchDescribeTypeConfigurations
+        update:
+          - cloudformation:SetTypeConfiguration
+        delete:
+          - cloudformation:SetTypeConfiguration
+        list:
+          - cloudformation:ListTypes
+          - cloudformation:BatchDescribeTypeConfigurations
     LoggingConfig:
       type: object
       properties:
@@ -148,6 +180,34 @@ components:
       x-stackql-resource-name: hook_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ExecutionRoleArn
+        - LoggingConfig
+        - SchemaHandlerPackage
+        - TypeName
+      x-read-only-properties:
+        - Arn
+        - IsDefaultVersion
+        - Visibility
+        - VersionId
+        - TypeArn
+      x-required-permissions:
+        create:
+          - cloudformation:DescribeType
+          - cloudformation:DescribeTypeRegistration
+          - cloudformation:RegisterType
+          - iam:PassRole
+          - s3:GetObject
+          - s3:ListBucket
+          - kms:Decrypt
+        read:
+          - cloudformation:DescribeType
+        delete:
+          - cloudformation:DeregisterType
+          - cloudformation:DescribeType
+        list:
+          - cloudformation:ListTypes
+          - cloudformation:ListTypeVersions
     Macro:
       type: object
       properties:
@@ -169,6 +229,10 @@ components:
       x-stackql-resource-name: macro
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
     ModuleDefaultVersion:
       type: object
       properties:
@@ -187,6 +251,19 @@ components:
       x-stackql-resource-name: module_default_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Arn
+        - ModuleName
+        - VersionId
+      x-required-permissions:
+        create:
+          - cloudformation:DescribeType
+          - cloudformation:SetTypeDefaultVersion
+        delete: []
+        read:
+          - cloudformation:DescribeType
+        list:
+          - cloudformation:ListTypes
     ModuleVersion:
       type: object
       properties:
@@ -244,6 +321,31 @@ components:
       x-stackql-resource-name: module_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ModuleName
+        - ModulePackage
+      x-read-only-properties:
+        - Arn
+        - Description
+        - DocumentationUrl
+        - IsDefaultVersion
+        - Schema
+        - TimeCreated
+        - VersionId
+        - Visibility
+      x-required-permissions:
+        create:
+          - cloudformation:DescribeType
+          - cloudformation:DescribeTypeRegistration
+          - cloudformation:ListTypeVersions
+          - cloudformation:RegisterType
+          - s3:GetObject
+          - s3:ListBucket
+        read:
+          - cloudformation:DescribeType
+        delete:
+          - cloudformation:DeregisterType
+          - cloudformation:DescribeType
     PublicTypeVersion:
       type: object
       properties:
@@ -291,6 +393,30 @@ components:
       x-stackql-resource-name: public_type_version
       x-stackql-primaryIdentifier:
         - PublicTypeArn
+      x-create-only-properties:
+        - LogDeliveryBucket
+        - PublicVersionNumber
+        - TypeName
+        - Type
+        - Arn
+      x-read-only-properties:
+        - PublicTypeArn
+        - TypeVersionArn
+        - PublisherId
+      x-required-permissions:
+        create:
+          - cloudformation:TestType
+          - cloudformation:DescribeType
+          - cloudformation:PublishType
+          - cloudformation:DescribePublisher
+          - s3:GetObject
+          - s3:PutObject
+        delete: []
+        read:
+          - cloudformation:DescribeType
+          - cloudformation:DescribePublisher
+        list:
+          - cloudformation:ListTypes
     Publisher:
       type: object
       properties:
@@ -330,31 +456,63 @@ components:
       x-stackql-resource-name: publisher
       x-stackql-primaryIdentifier:
         - PublisherId
+      x-create-only-properties:
+        - AcceptTermsAndConditions
+        - ConnectionArn
+      x-read-only-properties:
+        - PublisherId
+        - PublisherStatus
+        - PublisherProfile
+        - IdentityProvider
+      x-required-permissions:
+        create:
+          - cloudformation:RegisterPublisher
+          - cloudformation:DescribePublisher
+          - codestar-connections:GetConnection
+          - codestar-connections:UseConnection
+        read:
+          - cloudformation:DescribePublisher
+        delete: []
+        list:
+          - cloudformation:DescribePublisher
     ResourceDefaultVersion:
       type: object
       properties:
-        TypeVersionArn:
-          description: The Amazon Resource Name (ARN) of the type version.
-          pattern: ^arn:aws[A-Za-z0-9-]{0,64}:cloudformation:[A-Za-z0-9-]{1,64}:([0-9]{12})?:type/resource/.+$
+        VersionId:
+          pattern: ^[A-Za-z0-9-]{1,128}$
+          description: The ID of an existing version of the resource to set as the default.
           type: string
         TypeName:
+          pattern: ^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}$
           description: |-
             The name of the type being registered.
 
             We recommend that type names adhere to the following pattern: company_or_organization::service::type.
-          pattern: ^[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}::[A-Za-z0-9]{2,64}$
           type: string
         Arn:
-          description: The Amazon Resource Name (ARN) of the type. This is used to uniquely identify a ResourceDefaultVersion
           pattern: ^arn:aws[A-Za-z0-9-]{0,64}:cloudformation:[A-Za-z0-9-]{1,64}:([0-9]{12})?:type/resource/.+$
+          description: The Amazon Resource Name (ARN) of the type. This is used to uniquely identify a ResourceDefaultVersion
           type: string
-        VersionId:
-          description: The ID of an existing version of the resource to set as the default.
-          pattern: ^[A-Za-z0-9-]{1,128}$
+        TypeVersionArn:
+          pattern: ^arn:aws[A-Za-z0-9-]{0,64}:cloudformation:[A-Za-z0-9-]{1,64}:([0-9]{12})?:type/resource/.+$
+          description: The Amazon Resource Name (ARN) of the type version.
           type: string
       x-stackql-resource-name: resource_default_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        read:
+          - cloudformation:DescribeType
+        create:
+          - cloudformation:SetTypeDefaultVersion
+        update:
+          - cloudformation:SetTypeDefaultVersion
+        list:
+          - cloudformation:ListTypeVersions
+        delete:
+          - ''
     ResourceVersion:
       type: object
       properties:
@@ -418,6 +576,36 @@ components:
       x-stackql-resource-name: resource_version
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ExecutionRoleArn
+        - LoggingConfig
+        - SchemaHandlerPackage
+        - TypeName
+      x-read-only-properties:
+        - Arn
+        - IsDefaultVersion
+        - ProvisioningType
+        - Visibility
+        - VersionId
+        - TypeArn
+      x-required-permissions:
+        create:
+          - cloudformation:DescribeTypeRegistration
+          - cloudformation:RegisterType
+          - iam:PassRole
+          - s3:GetObject
+          - s3:ListBucket
+          - kms:Decrypt
+          - cloudformation:ListTypeVersions
+          - cloudformation:DeregisterType
+          - cloudformation:DescribeType
+        read:
+          - cloudformation:DescribeType
+        delete:
+          - cloudformation:DeregisterType
+          - cloudformation:DescribeType
+        list:
+          - cloudformation:ListTypes
     Tag:
       description: Tag type enables you to specify a key-value pair that can be used to store information about an AWS CloudFormation StackSet.
       type: object
@@ -437,35 +625,155 @@ components:
         - Key
         - Value
       additionalProperties: false
+    Output:
+      type: object
+      additionalProperties: false
+      properties:
+        Description:
+          type: string
+        ExportName:
+          type: string
+        OutputKey:
+          type: string
+        OutputValue:
+          type: string
     Stack:
       type: object
       properties:
-        Id:
-          type: string
-        NotificationARNs:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
-        Parameters:
-          type: object
-          x-patternProperties:
-            '[a-zA-Z0-9]+':
-              type: string
-        Tags:
+        Capabilities:
           type: array
           uniqueItems: false
           items:
+            type: string
+            enum:
+              - CAPABILITY_IAM
+              - CAPABILITY_NAMED_IAM
+              - CAPABILITY_AUTO_EXPAND
+        RoleARN:
+          type: string
+        Outputs:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Output'
+        Description:
+          type: string
+          minLength: 1
+          maxLength: 1024
+        DisableRollback:
+          type: boolean
+        EnableTerminationProtection:
+          type: boolean
+        NotificationARNs:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+          maxItems: 5
+        Parameters:
+          type: object
+          additionalProperties: false
+          x-patternProperties:
+            '[a-zA-Z0-9]+':
+              type: string
+        ParentId:
+          type: string
+        RootId:
+          type: string
+        ChangeSetId:
+          type: string
+        StackName:
+          type: string
+        StackId:
+          type: string
+        StackPolicyBody:
+          type: object
+        StackPolicyURL:
+          type: string
+        StackStatus:
+          type: string
+          enum:
+            - CREATE_IN_PROGRESS
+            - CREATE_FAILED
+            - CREATE_COMPLETE
+            - ROLLBACK_IN_PROGRESS
+            - ROLLBACK_FAILED
+            - ROLLBACK_COMPLETE
+            - DELETE_IN_PROGRESS
+            - DELETE_FAILED
+            - DELETE_COMPLETE
+            - UPDATE_IN_PROGRESS
+            - UPDATE_COMPLETE_CLEANUP_IN_PROGRESS
+            - UPDATE_COMPLETE
+            - UPDATE_FAILED
+            - UPDATE_ROLLBACK_IN_PROGRESS
+            - UPDATE_ROLLBACK_FAILED
+            - UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS
+            - UPDATE_ROLLBACK_COMPLETE
+            - REVIEW_IN_PROGRESS
+            - IMPORT_IN_PROGRESS
+            - IMPORT_COMPLETE
+            - IMPORT_ROLLBACK_IN_PROGRESS
+            - IMPORT_ROLLBACK_FAILED
+            - IMPORT_ROLLBACK_COMPLETE
+        StackStatusReason:
+          type: string
+        Tags:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
             $ref: '#/components/schemas/Tag'
+          maxItems: 50
+        TemplateBody:
+          type: object
         TemplateURL:
           type: string
+          minLength: 1
+          maxLength: 1024
         TimeoutInMinutes:
           type: integer
+          minimum: 1
+        LastUpdateTime:
+          type: string
+        CreationTime:
+          type: string
       required:
-        - TemplateURL
+        - StackName
       x-stackql-resource-name: stack
       x-stackql-primaryIdentifier:
-        - Id
+        - StackId
+      x-create-only-properties:
+        - StackName
+      x-read-only-properties:
+        - StackId
+        - StackStatus
+        - CreationTime
+        - RootId
+        - ParentId
+        - ChangeSetId
+        - Outputs
+        - LastUpdateTime
+      x-required-permissions:
+        create:
+          - cloudformation:DescribeStacks
+          - cloudformation:CreateStack
+          - iam:PassRole
+        update:
+          - cloudformation:DescribeStacks
+          - cloudformation:UpdateStack
+          - cloudformation:UpdateTerminationProtection
+          - cloudformation:SetStackPolicy
+          - iam:PassRole
+        delete:
+          - cloudformation:DescribeStacks
+          - cloudformation:DeleteStack
+        read:
+          - cloudformation:DescribeStacks
+          - cloudformation:GetStackPolicy
+          - cloudformation:GetTemplate
+        list:
+          - cloudformation:ListStacks
     AutoDeployment:
       type: object
       properties:
@@ -551,6 +859,12 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Account'
+        AccountsUrl:
+          description: Returns the value of the AccountsUrl property.
+          type: string
+          minLength: 1
+          maxLength: 5120
+          pattern: (s3://|http(s?)://).+
         OrganizationalUnitIds:
           description: The organization root ID or organizational unit (OU) IDs to which StackSets deploys.
           type: array
@@ -688,6 +1002,48 @@ components:
       x-stackql-resource-name: stack_set
       x-stackql-primaryIdentifier:
         - StackSetId
+      x-create-only-properties:
+        - PermissionModel
+        - StackSetName
+      x-read-only-properties:
+        - StackSetId
+      x-required-permissions:
+        create:
+          - cloudformation:GetTemplateSummary
+          - cloudformation:CreateStackSet
+          - cloudformation:CreateStackInstances
+          - cloudformation:DescribeStackSetOperation
+          - cloudformation:ListStackSetOperationResults
+          - cloudformation:TagResource
+          - iam:PassRole
+        read:
+          - cloudformation:DescribeStackSet
+          - cloudformation:ListStackInstances
+          - cloudformation:DescribeStackInstance
+        update:
+          - cloudformation:GetTemplateSummary
+          - cloudformation:UpdateStackSet
+          - cloudformation:CreateStackInstances
+          - cloudformation:DeleteStackInstances
+          - cloudformation:UpdateStackInstances
+          - cloudformation:DescribeStackSet
+          - cloudformation:DescribeStackSetOperation
+          - cloudformation:ListStackSetOperationResults
+          - cloudformation:TagResource
+          - cloudformation:UntagResource
+          - iam:PassRole
+        delete:
+          - cloudformation:DeleteStackSet
+          - cloudformation:DeleteStackInstances
+          - cloudformation:DescribeStackSet
+          - cloudformation:DescribeStackSetOperation
+          - cloudformation:ListStackSetOperationResults
+          - cloudformation:UntagResource
+        list:
+          - cloudformation:ListStackSets
+          - cloudformation:DescribeStackSet
+          - cloudformation:ListStackInstances
+          - cloudformation:DescribeStackInstance
     TypeActivation:
       type: object
       properties:
@@ -749,6 +1105,26 @@ components:
       x-stackql-resource-name: type_activation
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - LoggingConfig
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - cloudformation:ActivateType
+          - cloudformation:DescribeType
+          - iam:PassRole
+        update:
+          - cloudformation:ActivateType
+          - cloudformation:DescribeType
+          - iam:PassRole
+        read:
+          - cloudformation:DescribeType
+        delete:
+          - cloudformation:DeactivateType
+          - cloudformation:DescribeType
+        list:
+          - cloudformation:ListTypes
     WaitCondition:
       type: object
       properties:
@@ -765,6 +1141,9 @@ components:
       x-stackql-resource-name: wait_condition
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Data
+        - Id
     WaitConditionHandle:
       type: object
       properties:
@@ -772,6 +1151,8 @@ components:
           type: string
       x-stackql-resource-name: wait_condition_handle
       x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     custom_resources:
@@ -1136,10 +1517,10 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TypeVersionArn') as type_version_arn,
+              JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.VersionId') as version_id
+              JSON_EXTRACT(Properties, '$.TypeVersionArn') as type_version_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
     resource_versions:
       name: resource_versions
@@ -1188,7 +1569,7 @@ components:
       x-cfn-schema-name: Stack
       x-type: list
       x-identifiers:
-        - Id
+        - StackId
       config:
         views:
           select:
@@ -1196,7 +1577,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.StackId') as stack_id
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Stack'
     stack:
       name: stack
@@ -1204,7 +1585,7 @@ components:
       x-cfn-schema-name: Stack
       x-type: get
       x-identifiers:
-        - Id
+        - StackId
       config:
         views:
           select:
@@ -1212,12 +1593,29 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Capabilities') as capabilities,
+              JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
+              JSON_EXTRACT(Properties, '$.Outputs') as outputs,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.DisableRollback') as disable_rollback,
+              JSON_EXTRACT(Properties, '$.EnableTerminationProtection') as enable_termination_protection,
               JSON_EXTRACT(Properties, '$.NotificationARNs') as notification_ar_ns,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
+              JSON_EXTRACT(Properties, '$.ParentId') as parent_id,
+              JSON_EXTRACT(Properties, '$.RootId') as root_id,
+              JSON_EXTRACT(Properties, '$.ChangeSetId') as change_set_id,
+              JSON_EXTRACT(Properties, '$.StackName') as stack_name,
+              JSON_EXTRACT(Properties, '$.StackId') as stack_id,
+              JSON_EXTRACT(Properties, '$.StackPolicyBody') as stack_policy_body,
+              JSON_EXTRACT(Properties, '$.StackPolicyURL') as stack_policy_ur_l,
+              JSON_EXTRACT(Properties, '$.StackStatus') as stack_status,
+              JSON_EXTRACT(Properties, '$.StackStatusReason') as stack_status_reason,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.TemplateBody') as template_body,
               JSON_EXTRACT(Properties, '$.TemplateURL') as template_ur_l,
-              JSON_EXTRACT(Properties, '$.TimeoutInMinutes') as timeout_in_minutes
+              JSON_EXTRACT(Properties, '$.TimeoutInMinutes') as timeout_in_minutes,
+              JSON_EXTRACT(Properties, '$.LastUpdateTime') as last_update_time,
+              JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Stack'
     stack_sets:
       name: stack_sets

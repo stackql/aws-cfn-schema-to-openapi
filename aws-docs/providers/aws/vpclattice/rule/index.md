@@ -43,6 +43,27 @@ Gets an individual <code>rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetRule,
+vpc-lattice:ListTagsForResource</pre>
+
+### Update
+<pre>
+vpc-lattice:UpdateRule,
+vpc-lattice:GetRule,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteRule</pre>
+
+
 ## Example
 ```sql
 SELECT

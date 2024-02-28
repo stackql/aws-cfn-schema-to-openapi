@@ -37,6 +37,25 @@ Gets an individual <code>cache_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cache_policy</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteCachePolicy,
+cloudfront:GetCachePolicy</pre>
+
+### Read
+<pre>
+cloudfront:GetCachePolicy</pre>
+
+### Update
+<pre>
+cloudfront:UpdateCachePolicy,
+cloudfront:GetCachePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

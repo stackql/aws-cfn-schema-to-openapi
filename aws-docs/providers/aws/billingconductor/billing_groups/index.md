@@ -35,6 +35,26 @@ Retrieves a list of <code>billing_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>billing_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+billingconductor:CreateBillingGroup,
+billingconductor:AssociateAccounts,
+billingconductor:ListBillingGroups,
+billingconductor:TagResource,
+billingconductor:ListTagsForResource</pre>
+
+### List
+<pre>
+billingconductor:ListBillingGroups,
+billingconductor:ListAccountAssociations,
+organizations:ListAccounts,
+billingconductor:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

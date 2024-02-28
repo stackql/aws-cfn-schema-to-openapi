@@ -44,6 +44,70 @@ Gets an individual <code>route</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>route</code> resource, the following permissions are required:
+
+### Read
+<pre>
+refactor-spaces:GetRoute,
+refactor-spaces:ListTagsForResource</pre>
+
+### Delete
+<pre>
+refactor-spaces:DeleteRoute,
+refactor-spaces:GetRoute,
+refactor-spaces:UntagResource,
+apigateway:GET,
+apigateway:PATCH,
+apigateway:POST,
+apigateway:PUT,
+apigateway:DELETE,
+apigateway:UpdateRestApiPolicy,
+lambda:GetFunctionConfiguration,
+lambda:AddPermission,
+elasticloadbalancing:DescribeListeners,
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:CreateListener,
+elasticloadbalancing:CreateTargetGroup,
+elasticloadbalancing:DeleteListener,
+elasticloadbalancing:DeleteTargetGroup,
+elasticloadbalancing:DescribeTags,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:DescribeTargetHealth,
+ec2:DescribeSubnets,
+tag:GetResources</pre>
+
+### Update
+<pre>
+refactor-spaces:UpdateRoute,
+refactor-spaces:GetRoute,
+refactor-spaces:TagResource,
+iam:CreateServiceLinkedRole,
+apigateway:GET,
+apigateway:PATCH,
+apigateway:POST,
+apigateway:PUT,
+apigateway:DELETE,
+apigateway:UpdateRestApiPolicy,
+lambda:GetFunctionConfiguration,
+lambda:AddPermission,
+elasticloadbalancing:DescribeListeners,
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:CreateListener,
+elasticloadbalancing:CreateTargetGroup,
+elasticloadbalancing:DeleteListener,
+elasticloadbalancing:DeleteTargetGroup,
+elasticloadbalancing:DescribeTags,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:DescribeTargetHealth,
+ec2:DescribeSubnets,
+ec2:DescribeSubnets,
+tag:GetResources</pre>
+
+
 ## Example
 ```sql
 SELECT

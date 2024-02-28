@@ -40,6 +40,29 @@ Gets an individual <code>execution_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>execution_plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:ListTagsForResource</pre>
+
+### Update
+<pre>
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:UpdateRescoreExecutionPlan,
+kendra-ranking:ListTagsForResource,
+kendra-ranking:TagResource,
+kendra-ranking:UntagResource</pre>
+
+### Delete
+<pre>
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:DeleteRescoreExecutionPlan</pre>
+
+
 ## Example
 ```sql
 SELECT

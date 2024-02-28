@@ -38,12 +38,37 @@ Gets an individual <code>data_source</code> resource
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>Tags for labeling the data source</td></tr>
 <tr><td><code>custom_document_enrichment_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>language_code</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>data_source</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kendra:DescribeDataSource,
+kendra:ListTagsForResource</pre>
+
+### Delete
+<pre>
+kendra:DescribeDataSource,
+kendra:DeleteDataSource</pre>
+
+### Update
+<pre>
+kendra:DescribeDataSource,
+kendra:UpdateDataSource,
+kendra:ListTagsForResource,
+kendra:TagResource,
+kendra:UntagResource,
+iam:PassRole</pre>
+
 
 ## Example
 ```sql
@@ -59,7 +84,8 @@ description,
 schedule,
 role_arn,
 tags,
-custom_document_enrichment_configuration
+custom_document_enrichment_configuration,
+language_code
 FROM aws.kendra.data_source
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

@@ -35,12 +35,32 @@ Gets an individual <code>collection</code> resource
 <tr><td><code>collection_endpoint</code></td><td><code>string</code></td><td>The endpoint for the collection.</td></tr>
 <tr><td><code>dashboard_endpoint</code></td><td><code>string</code></td><td>The OpenSearch Dashboards endpoint for the collection.</td></tr>
 <tr><td><code>type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>standby_replicas</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>collection</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+aoss:DeleteCollection,
+aoss:BatchGetCollection</pre>
+
+### Read
+<pre>
+aoss:BatchGetCollection</pre>
+
+### Update
+<pre>
+aoss:UpdateCollection,
+aoss:BatchGetCollection</pre>
+
 
 ## Example
 ```sql
@@ -53,7 +73,8 @@ tags,
 arn,
 collection_endpoint,
 dashboard_endpoint,
-type
+type,
+standby_replicas
 FROM aws.opensearchserverless.collection
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

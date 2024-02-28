@@ -37,6 +37,16 @@ Retrieves a list of <code>task_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>task_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ecs:CreateTaskSet,
+ecs:DescribeTaskSets</pre>
+
+
 ## Example
 ```sql
 SELECT

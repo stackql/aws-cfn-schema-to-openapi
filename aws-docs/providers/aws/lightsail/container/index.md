@@ -34,7 +34,9 @@ Gets an individual <code>container</code> resource
 <tr><td><code>public_domain_names</code></td><td><code>array</code></td><td>The public domain names to use with the container service, such as example.com and www.example.com.</td></tr>
 <tr><td><code>container_service_deployment</code></td><td><code>object</code></td><td>Describes a container deployment configuration of an Amazon Lightsail container service.</td></tr>
 <tr><td><code>is_disabled</code></td><td><code>boolean</code></td><td>A Boolean value to indicate whether the container service is disabled.</td></tr>
+<tr><td><code>private_registry_access</code></td><td><code>object</code></td><td>A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.</td></tr>
 <tr><td><code>url</code></td><td><code>string</code></td><td>The publicly accessible URL of the container service.</td></tr>
+<tr><td><code>principal_arn</code></td><td><code>string</code></td><td>The principal ARN of the container service.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -42,6 +44,28 @@ Gets an individual <code>container</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>container</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetContainerServices</pre>
+
+### Delete
+<pre>
+lightsail:DeleteContainerService,
+lightsail:GetContainerServices</pre>
+
+### Update
+<pre>
+lightsail:CreateContainerServiceDeployment,
+lightsail:GetContainerServices,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateContainerService</pre>
+
 
 ## Example
 ```sql
@@ -54,7 +78,9 @@ scale,
 public_domain_names,
 container_service_deployment,
 is_disabled,
+private_registry_access,
 url,
+principal_arn,
 tags
 FROM aws.lightsail.container
 WHERE region = 'us-east-1'

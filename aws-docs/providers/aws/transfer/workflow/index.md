@@ -40,6 +40,24 @@ Gets an individual <code>workflow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>workflow</code> resource, the following permissions are required:
+
+### Read
+<pre>
+transfer:DescribeWorkflow</pre>
+
+### Delete
+<pre>
+transfer:DeleteWorkflow</pre>
+
+### Update
+<pre>
+transfer:UnTagResource,
+transfer:TagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

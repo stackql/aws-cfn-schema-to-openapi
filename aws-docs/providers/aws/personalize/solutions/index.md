@@ -35,6 +35,20 @@ Retrieves a list of <code>solutions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>solutions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+personalize:CreateSolution,
+personalize:DescribeSolution</pre>
+
+### List
+<pre>
+personalize:ListSolutions</pre>
+
+
 ## Example
 ```sql
 SELECT

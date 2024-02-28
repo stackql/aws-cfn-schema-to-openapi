@@ -31,13 +31,38 @@ Gets an individual <code>analyzer</code> resource
 <tr><td><code>archive_rules</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the analyzer</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><code>type</code></td><td><code>string</code></td><td>The type of the analyzer, must be ACCOUNT or ORGANIZATION</td></tr>
+<tr><td><code>type</code></td><td><code>string</code></td><td>The type of the analyzer, must be one of ACCOUNT, ORGANIZATION, ACCOUNT_UNUSED_ACCESS or ORGANIZATION_UNUSED_ACCESS</td></tr>
+<tr><td><code>analyzer_configuration</code></td><td><code>object</code></td><td>The configuration for the analyzer</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>analyzer</code> resource, the following permissions are required:
+
+### Read
+<pre>
+access-analyzer:ListAnalyzers,
+access-analyzer:GetAnalyzer,
+access-analyzer:ListArchiveRules</pre>
+
+### Update
+<pre>
+access-analyzer:CreateArchiveRule,
+access-analyzer:DeleteArchiveRule,
+access-analyzer:ListAnalyzers,
+access-analyzer:TagResource,
+access-analyzer:UntagResource,
+access-analyzer:UpdateArchiveRule</pre>
+
+### Delete
+<pre>
+access-analyzer:DeleteAnalyzer</pre>
+
 
 ## Example
 ```sql
@@ -47,7 +72,8 @@ analyzer_name,
 archive_rules,
 arn,
 tags,
-type
+type,
+analyzer_configuration
 FROM aws.accessanalyzer.analyzer
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

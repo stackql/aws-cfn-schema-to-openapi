@@ -40,6 +40,10 @@ components:
           description: Whether the channel is authorized.
           type: boolean
           default: false
+        InsecureIngest:
+          description: Whether the channel allows insecure ingest.
+          type: boolean
+          default: false
         LatencyMode:
           description: Channel latency mode.
           type: string
@@ -53,6 +57,8 @@ components:
           enum:
             - STANDARD
             - BASIC
+            - ADVANCED_SD
+            - ADVANCED_HD
           default: STANDARD
         Tags:
           description: A list of key-value pairs that contain metadata for the asset model.
@@ -75,10 +81,39 @@ components:
           pattern: ^$|arn:aws:ivs:[a-z0-9-]+:[0-9]+:recording-configuration/[a-zA-Z0-9-]+$
           minLength: 0
           maxLength: 128
+        Preset:
+          description: Optional transcode preset for the channel. This is selectable only for ADVANCED_HD and ADVANCED_SD channel types. For those channel types, the default preset is HIGHER_BANDWIDTH_DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string ("").
+          type: string
+          enum:
+            - HIGHER_BANDWIDTH_DELIVERY
+            - CONSTRAINED_BANDWIDTH_DELIVERY
       required: []
       x-stackql-resource-name: channel
       x-stackql-primaryIdentifier:
         - Arn
+      x-read-only-properties:
+        - Arn
+        - PlaybackUrl
+        - IngestEndpoint
+      x-required-permissions:
+        create:
+          - ivs:CreateChannel
+          - ivs:TagResource
+        read:
+          - ivs:GetChannel
+          - ivs:ListTagsForResource
+        update:
+          - ivs:GetChannel
+          - ivs:UpdateChannel
+          - ivs:TagResource
+          - ivs:UnTagResource
+          - ivs:ListTagsForResource
+        delete:
+          - ivs:DeleteChannel
+          - ivs:UnTagResource
+        list:
+          - ivs:ListChannels
+          - ivs:ListTagsForResource
     PlaybackKeyPair:
       type: object
       properties:
@@ -111,6 +146,29 @@ components:
       x-stackql-resource-name: playback_key_pair
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - PublicKeyMaterial
+        - Name
+      x-read-only-properties:
+        - Arn
+        - Fingerprint
+      x-required-permissions:
+        create:
+          - ivs:ImportPlaybackKeyPair
+          - ivs:TagResource
+        read:
+          - ivs:GetPlaybackKeyPair
+        update:
+          - ivs:GetPlaybackKeyPair
+          - ivs:ListTagsForResource
+          - ivs:UntagResource
+          - ivs:TagResource
+        delete:
+          - ivs:DeletePlaybackKeyPair
+          - ivs:UntagResource
+        list:
+          - ivs:ListPlaybackKeyPairs
+          - ivs:ListTagsForResource
     DestinationConfiguration:
       description: Recording Destination Configuration.
       type: object
@@ -118,8 +176,7 @@ components:
       properties:
         S3:
           $ref: '#/components/schemas/S3DestinationConfiguration'
-      required:
-        - S3
+      required: []
     S3DestinationConfiguration:
       description: Recording S3 Destination Configuration.
       type: object
@@ -143,13 +200,62 @@ components:
           enum:
             - INTERVAL
             - DISABLED
+          default: INTERVAL
         TargetIntervalSeconds:
-          description: Thumbnail recording Target Interval Seconds defines the interval at which thumbnails are recorded. This field is required if RecordingMode is INTERVAL.
+          description: Target Interval Seconds defines the interval at which thumbnails are recorded. This field is required if RecordingMode is INTERVAL.
           type: integer
-          minimum: 5
+          minimum: 1
           maximum: 60
-      required:
-        - RecordingMode
+          default: 60
+        Resolution:
+          description: Resolution indicates the desired resolution of recorded thumbnails.
+          type: string
+          enum:
+            - FULL_HD
+            - HD
+            - SD
+            - LOWEST_RESOLUTION
+        Storage:
+          description: Storage indicates the format in which thumbnails are recorded.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 0
+          maxItems: 2
+          items:
+            type: string
+            enum:
+              - SEQUENTIAL
+              - LATEST
+      required: []
+    RenditionConfiguration:
+      description: Rendition Configuration describes which renditions should be recorded for a stream.
+      type: object
+      additionalProperties: false
+      properties:
+        RenditionSelection:
+          description: Resolution Selection indicates which set of renditions are recorded for a stream.
+          type: string
+          enum:
+            - ALL
+            - NONE
+            - CUSTOM
+          default: ALL
+        Renditions:
+          description: Renditions indicates which renditions are recorded for a stream.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 0
+          maxItems: 4
+          items:
+            type: string
+            enum:
+              - FULL_HD
+              - HD
+              - SD
+              - LOWEST_RESOLUTION
+      required: []
     RecordingConfiguration:
       type: object
       properties:
@@ -157,7 +263,7 @@ components:
           description: Recording Configuration ARN is automatically generated on creation and assigned as the unique identifier.
           type: string
           pattern: ^arn:aws[-a-z]*:ivs:[a-z0-9-]+:[0-9]+:recording-configuration/[a-zA-Z0-9-]+$
-          minLength: 1
+          minLength: 0
           maxLength: 128
         Name:
           description: Recording Configuration Name.
@@ -190,11 +296,118 @@ components:
             $ref: '#/components/schemas/Tag'
         ThumbnailConfiguration:
           $ref: '#/components/schemas/ThumbnailConfiguration'
+        RenditionConfiguration:
+          $ref: '#/components/schemas/RenditionConfiguration'
       required:
         - DestinationConfiguration
       x-stackql-resource-name: recording_configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - DestinationConfiguration
+        - DestinationConfiguration/S3
+        - DestinationConfiguration/S3/BucketName
+        - RecordingReconnectWindowSeconds
+        - ThumbnailConfiguration
+        - ThumbnailConfiguration/RecordingMode
+        - ThumbnailConfiguration/TargetIntervalSeconds
+        - ThumbnailConfiguration/Storage
+        - ThumbnailConfiguration/Resolution
+        - RenditionConfiguration
+        - RenditionConfiguration/RenditionSelection
+        - RenditionConfiguration/Renditions
+      x-read-only-properties:
+        - Arn
+        - State
+      x-required-permissions:
+        create:
+          - ivs:CreateRecordingConfiguration
+          - ivs:GetRecordingConfiguration
+          - ivs:TagResource
+          - iam:CreateServiceLinkedRole
+          - iam:PutRolePolicy
+          - iam:AttachRolePolicy
+          - s3:ListBucket
+          - s3:GetBucketLocation
+          - cloudformation:ListExports
+        read:
+          - ivs:GetRecordingConfiguration
+          - s3:GetBucketLocation
+          - ivs:ListTagsForResource
+        update:
+          - ivs:GetRecordingConfiguration
+          - sts:AssumeRole
+          - iam:CreateServiceLinkedRole
+          - iam:PutRolePolicy
+          - iam:AttachRolePolicy
+          - s3:ListBucket
+          - ivs:TagResource
+          - ivs:UntagResource
+          - ivs:ListTagsForResource
+        delete:
+          - ivs:DeleteRecordingConfiguration
+          - ivs:UntagResource
+          - iam:CreateServiceLinkedRole
+        list:
+          - ivs:ListRecordingConfigurations
+          - s3:GetBucketLocation
+          - ivs:ListTagsForResource
+    Stage:
+      type: object
+      properties:
+        Arn:
+          description: Stage ARN is automatically generated on creation and assigned as the unique identifier.
+          type: string
+          pattern: ^arn:aws[-a-z]*:ivs:[a-z0-9-]+:[0-9]+:stage/[a-zA-Z0-9-]+$
+          minLength: 0
+          maxLength: 128
+        Name:
+          description: Stage name
+          type: string
+          minLength: 0
+          maxLength: 128
+          pattern: ^[a-zA-Z0-9-_]*$
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        ActiveSessionId:
+          description: ID of the active session within the stage.
+          type: string
+          default: ''
+          minLength: 0
+          maxLength: 128
+      x-stackql-resource-name: stage
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-read-only-properties:
+        - Arn
+        - ActiveSessionId
+      x-required-permissions:
+        create:
+          - ivs:CreateStage
+          - ivs:GetStage
+          - ivs:TagResource
+          - ivs:ListTagsForResource
+        read:
+          - ivs:GetStage
+          - ivs:ListTagsForResource
+        update:
+          - ivs:GetStage
+          - ivs:UpdateStage
+          - ivs:TagResource
+          - ivs:UnTagResource
+          - ivs:ListTagsForResource
+        delete:
+          - ivs:DeleteStage
+          - ivs:UnTagResource
+        list:
+          - ivs:ListStages
+          - ivs:ListTagsForResource
     StreamKey:
       type: object
       properties:
@@ -224,6 +437,30 @@ components:
       x-stackql-resource-name: stream_key
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ChannelArn
+      x-read-only-properties:
+        - Arn
+        - Value
+      x-required-permissions:
+        create:
+          - ivs:TagResource
+          - ivs:UntagResource
+          - ivs:CreateStreamKey
+        read:
+          - ivs:GetStreamKey
+          - ivs:ListTagsForResource
+        update:
+          - ivs:GetStreamKey
+          - ivs:TagResource
+          - ivs:UntagResource
+          - ivs:ListTagsForResource
+        delete:
+          - ivs:DeleteStreamKey
+          - ivs:UntagResource
+        list:
+          - ivs:ListStreamKeys
+          - ivs:ListTagsForResource
   x-stackQL-resources:
     channels:
       name: channels
@@ -258,12 +495,14 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Authorized') as authorized,
+              JSON_EXTRACT(Properties, '$.InsecureIngest') as insecure_ingest,
               JSON_EXTRACT(Properties, '$.LatencyMode') as latency_mode,
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.PlaybackUrl') as playback_url,
               JSON_EXTRACT(Properties, '$.IngestEndpoint') as ingest_endpoint,
-              JSON_EXTRACT(Properties, '$.RecordingConfigurationArn') as recording_configuration_arn
+              JSON_EXTRACT(Properties, '$.RecordingConfigurationArn') as recording_configuration_arn,
+              JSON_EXTRACT(Properties, '$.Preset') as preset
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Channel'
     playback_key_pairs:
       name: playback_key_pairs
@@ -337,8 +576,44 @@ components:
               JSON_EXTRACT(Properties, '$.RecordingReconnectWindowSeconds') as recording_reconnect_window_seconds,
               JSON_EXTRACT(Properties, '$.DestinationConfiguration') as destination_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.ThumbnailConfiguration') as thumbnail_configuration
+              JSON_EXTRACT(Properties, '$.ThumbnailConfiguration') as thumbnail_configuration,
+              JSON_EXTRACT(Properties, '$.RenditionConfiguration') as rendition_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
+    stages:
+      name: stages
+      id: aws.ivs.stages
+      x-cfn-schema-name: Stage
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Stage'
+    stage:
+      name: stage
+      id: aws.ivs.stage
+      x-cfn-schema-name: Stage
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ActiveSessionId') as active_session_id
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Stage'
     stream_keys:
       name: stream_keys
       id: aws.ivs.stream_keys

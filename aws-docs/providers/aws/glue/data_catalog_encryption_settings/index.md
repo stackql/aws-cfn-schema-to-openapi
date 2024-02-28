@@ -27,9 +27,9 @@ Gets an individual <code>data_catalog_encryption_settings</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>data_catalog_encryption_settings</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>catalog_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_catalog_encryption_settings</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -37,13 +37,17 @@ Gets an individual <code>data_catalog_encryption_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
-id,
+catalog_id,
 data_catalog_encryption_settings,
-catalog_id
+id
 FROM aws.glue.data_catalog_encryption_settings
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

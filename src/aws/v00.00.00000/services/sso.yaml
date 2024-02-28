@@ -56,6 +56,37 @@ components:
         - PermissionSetArn
         - PrincipalType
         - PrincipalId
+      x-create-only-properties:
+        - InstanceArn
+        - TargetId
+        - TargetType
+        - PermissionSetArn
+        - PrincipalType
+        - PrincipalId
+      x-required-permissions:
+        create:
+          - sso:CreateAccountAssignment
+          - sso:DescribeAccountAssignmentCreationStatus
+          - sso:ListAccountAssignments
+          - iam:GetSAMLProvider
+          - iam:CreateSAMLProvider
+          - iam:AttachRolePolicy
+          - iam:PutRolePolicy
+          - iam:CreateRole
+          - iam:ListRolePolicies
+        read:
+          - sso:ListAccountAssignments
+          - iam:GetSAMLProvider
+          - iam:ListRolePolicies
+        delete:
+          - sso:ListAccountAssignments
+          - sso:DeleteAccountAssignment
+          - sso:DescribeAccountAssignmentDeletionStatus
+          - iam:GetSAMLProvider
+          - iam:ListRolePolicies
+        list:
+          - sso:ListAccountAssignments
+          - iam:ListRolePolicies
     AccessControlAttributeValueSource:
       type: string
       minLength: 0
@@ -120,6 +151,23 @@ components:
       x-stackql-resource-name: instance_access_control_attribute_configuration
       x-stackql-primaryIdentifier:
         - InstanceArn
+      x-create-only-properties:
+        - InstanceArn
+      x-required-permissions:
+        create:
+          - sso:CreateInstanceAccessControlAttributeConfiguration
+          - sso:UpdateApplicationProfileForAWSAccountInstance
+          - sso:DescribeInstanceAccessControlAttributeConfiguration
+        read:
+          - sso:DescribeInstanceAccessControlAttributeConfiguration
+        update:
+          - sso:UpdateInstanceAccessControlAttributeConfiguration
+          - sso:DescribeInstanceAccessControlAttributeConfiguration
+        delete:
+          - sso:DeleteInstanceAccessControlAttributeConfiguration
+          - sso:DescribeInstanceAccessControlAttributeConfiguration
+        list:
+          - sso:DescribeInstanceAccessControlAttributeConfiguration
     Tag:
       description: The metadata that you apply to the permission set to help you categorize and organize them.
       type: object
@@ -237,6 +285,56 @@ components:
       x-stackql-primaryIdentifier:
         - InstanceArn
         - PermissionSetArn
+      x-create-only-properties:
+        - InstanceArn
+        - Name
+      x-read-only-properties:
+        - PermissionSetArn
+      x-required-permissions:
+        create:
+          - sso:CreatePermissionSet
+          - sso:PutInlinePolicyToPermissionSet
+          - sso:AttachManagedPolicyToPermissionSet
+          - sso:AttachCustomerManagedPolicyReferenceToPermissionSet
+          - sso:PutPermissionsBoundaryToPermissionSet
+          - sso:TagResource
+          - sso:DescribePermissionSet
+          - sso:ListTagsForResource
+          - sso:ListManagedPoliciesInPermissionSet
+          - sso:ListCustomerManagedPolicyReferencesInPermissionSet
+          - sso:GetInlinePolicyForPermissionSet
+          - sso:GetPermissionsBoundaryForPermissionSet
+        read:
+          - sso:DescribePermissionSet
+          - sso:ListTagsForResource
+          - sso:ListManagedPoliciesInPermissionSet
+          - sso:ListCustomerManagedPolicyReferencesInPermissionSet
+          - sso:GetInlinePolicyForPermissionSet
+          - sso:GetPermissionsBoundaryForPermissionSet
+        update:
+          - sso:UpdatePermissionSet
+          - sso:TagResource
+          - sso:UntagResource
+          - sso:ListTagsForResource
+          - sso:AttachManagedPolicyToPermissionSet
+          - sso:AttachCustomerManagedPolicyReferenceToPermissionSet
+          - sso:DetachManagedPolicyFromPermissionSet
+          - sso:DetachCustomerManagedPolicyReferenceFromPermissionSet
+          - sso:ListManagedPoliciesInPermissionSet
+          - sso:ListCustomerManagedPolicyReferencesInPermissionSet
+          - sso:PutInlinePolicyToPermissionSet
+          - sso:GetPermissionsBoundaryForPermissionSet
+          - sso:DeletePermissionsBoundaryFromPermissionSet
+          - sso:PutPermissionsBoundaryToPermissionSet
+          - sso:DeleteInlinePolicyFromPermissionSet
+          - sso:ProvisionPermissionSet
+          - sso:DescribePermissionSet
+          - sso:GetInlinePolicyForPermissionSet
+          - sso:DescribePermissionSetProvisioningStatus
+        delete:
+          - sso:DeletePermissionSet
+        list:
+          - sso:DescribePermissionSet
   x-stackQL-resources:
     assignments:
       name: assignments

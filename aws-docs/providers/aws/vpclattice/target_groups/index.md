@@ -35,6 +35,33 @@ Retrieves a list of <code>target_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>target_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+vpc-lattice:CreateTargetGroup,
+vpc-lattice:GetTargetGroup,
+vpc-lattice:RegisterTargets,
+vpc-lattice:ListTargets,
+vpc-lattice:ListTagsForResource,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+ec2:DescribeVpcs,
+ec2:DescribeInstances,
+ec2:DescribeSubnets,
+ec2:DescribeAvailabilityZoneMappings,
+lambda:Invoke,
+lambda:AddPermission,
+elasticloadbalancing:DescribeLoadBalancers,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+vpc-lattice:ListTargetGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

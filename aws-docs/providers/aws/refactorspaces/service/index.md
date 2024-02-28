@@ -45,6 +45,32 @@ Gets an individual <code>service</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+<pre>
+refactor-spacess:GetService,
+refactor-spaces:ListTagsForResource</pre>
+
+### Delete
+<pre>
+refactor-spaces:DeleteService,
+refactor-spaces:GetService,
+refactor-spaces:UntagResource,
+ram:DisassociateResourceShare,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeRouteTables,
+ec2:DescribeTransitGatewayVpcAttachments,
+ec2:DescribeSecurityGroups,
+ec2:DeleteSecurityGroup,
+ec2:DeleteRoute,
+ec2:RevokeSecurityGroupIngress,
+ec2:DeleteTransitGatewayVpcAttachment,
+ec2:DeleteTags</pre>
+
+
 ## Example
 ```sql
 SELECT

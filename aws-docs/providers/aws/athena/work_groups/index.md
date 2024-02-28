@@ -35,6 +35,30 @@ Retrieves a list of <code>work_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>work_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+athena:CreateWorkGroup,
+athena:TagResource,
+iam:PassRole,
+s3:GetBucketLocation,
+s3:GetObject,
+s3:ListBucket,
+s3:ListBucketMultipartUploads,
+s3:AbortMultipartUpload,
+s3:PutObject,
+s3:ListMultipartUploadParts,
+kms:Decrypt,
+kms:GenerateDataKey</pre>
+
+### List
+<pre>
+athena:ListWorkGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

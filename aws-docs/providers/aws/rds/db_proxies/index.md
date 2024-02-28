@@ -35,6 +35,21 @@ Retrieves a list of <code>db_proxies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_proxies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+rds:CreateDBProxy,
+rds:DescribeDBProxies,
+iam:PassRole</pre>
+
+### List
+<pre>
+rds:DescribeDBProxies</pre>
+
+
 ## Example
 ```sql
 SELECT

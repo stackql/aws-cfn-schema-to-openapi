@@ -27,7 +27,8 @@ Retrieves a list of <code>event_invoke_configs</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>function_name</code></td><td><code>string</code></td><td>The name of the Lambda function.</td></tr>
+<tr><td><code>qualifier</code></td><td><code>string</code></td><td>The identifier of a version or alias.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +36,25 @@ Retrieves a list of <code>event_invoke_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_invoke_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lambda:PutFunctionEventInvokeConfig</pre>
+
+### List
+<pre>
+lambda:ListFunctionEventInvokeConfigs</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+function_name,
+qualifier
 FROM aws.lambda.event_invoke_configs
 WHERE region = 'us-east-1'
 ```

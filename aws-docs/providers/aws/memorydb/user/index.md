@@ -40,6 +40,29 @@ Gets an individual <code>user</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>user</code> resource, the following permissions are required:
+
+### Read
+<pre>
+memorydb:DescribeUsers,
+memorydb:ListTags</pre>
+
+### Update
+<pre>
+memorydb:UpdateUser,
+memorydb:DescribeUsers,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource</pre>
+
+### Delete
+<pre>
+memorydb:DeleteUser,
+memorydb:DescribeUsers</pre>
+
+
 ## Example
 ```sql
 SELECT

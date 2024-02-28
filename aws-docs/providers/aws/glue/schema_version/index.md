@@ -37,6 +37,20 @@ Gets an individual <code>schema_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schema_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+glue:GetSchemaVersion</pre>
+
+### Delete
+<pre>
+glue:DeleteSchemaVersions,
+glue:GetSchemaVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

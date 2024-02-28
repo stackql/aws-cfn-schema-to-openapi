@@ -195,6 +195,11 @@
           "type" : "string",
           "description" : "Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File.",
           "enum" : [ "Pipe", "File" ]
+        },
+        "ExcludeFeaturesAttribute" : {
+          "type" : "string",
+          "description" : "Indexes or names of the features to be excluded from analysis",
+          "maxLength" : 100
         }
       },
       "required" : [ "EndpointName", "LocalPath" ]
@@ -228,6 +233,11 @@
           "type" : "string",
           "description" : "Whether the Pipe or File is used as the input mode for transfering data for the monitoring job. Pipe mode is recommended for large datasets. File mode is useful for small files that fit in memory. Defaults to File.",
           "enum" : [ "Pipe", "File" ]
+        },
+        "ExcludeFeaturesAttribute" : {
+          "type" : "string",
+          "description" : "Indexes or names of the features to be excluded from analysis",
+          "maxLength" : 100
         }
       },
       "required" : [ "DataCapturedDestinationS3Uri", "DatasetFormat", "LocalPath" ]
@@ -478,7 +488,7 @@
   "primaryIdentifier" : [ "/properties/JobDefinitionArn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "sagemaker:CreateDataQualityJobDefinition", "sagemaker:DescribeDataQualityJobDefinition", "iam:PassRole" ]
+      "permissions" : [ "sagemaker:CreateDataQualityJobDefinition", "sagemaker:DescribeDataQualityJobDefinition", "sagemaker:AddTags", "iam:PassRole" ]
     },
     "delete" : {
       "permissions" : [ "sagemaker:DeleteDataQualityJobDefinition" ]
@@ -487,9 +497,10 @@
       "permissions" : [ "sagemaker:DescribeDataQualityJobDefinition" ]
     },
     "list" : {
-      "permissions" : [ "sagemaker:ListDataQualityJobDefinitions" ]
+      "permissions" : [ "sagemaker:ListDataQualityJobDefinitions", "sagemaker:ListTags" ]
     }
   },
   "readOnlyProperties" : [ "/properties/CreationTime", "/properties/JobDefinitionArn" ],
-  "createOnlyProperties" : [ "/properties/JobDefinitionName", "/properties/DataQualityAppSpecification", "/properties/DataQualityBaselineConfig", "/properties/DataQualityJobInput", "/properties/DataQualityJobOutputConfig", "/properties/JobResources", "/properties/NetworkConfig", "/properties/RoleArn", "/properties/StoppingCondition", "/properties/Tags" ]
+  "createOnlyProperties" : [ "/properties/JobDefinitionName", "/properties/DataQualityAppSpecification", "/properties/DataQualityBaselineConfig", "/properties/DataQualityJobInput", "/properties/DataQualityJobOutputConfig", "/properties/JobResources", "/properties/NetworkConfig", "/properties/RoleArn", "/properties/StoppingCondition", "/properties/Tags", "/properties/EndpointName" ],
+  "writeOnlyProperties" : [ "/properties/EndpointName", "/properties/Tags", "/properties/Tags/*/Key", "/properties/Tags/*/Value" ]
 }

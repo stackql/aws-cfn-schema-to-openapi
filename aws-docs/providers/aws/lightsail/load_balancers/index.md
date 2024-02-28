@@ -35,6 +35,27 @@ Retrieves a list of <code>load_balancers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>load_balancers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lightsail:CreateLoadBalancer,
+lightsail:GetLoadBalancer,
+lightsail:GetLoadBalancers,
+lightsail:GetInstance,
+lightsail:AttachInstancesToLoadBalancer,
+lightsail:DetachInstancesFromLoadBalancer,
+lightsail:UpdateLoadBalancerAttribute,
+lightsail:TagResource,
+lightsail:UntagResource</pre>
+
+### List
+<pre>
+lightsail:GetLoadBalancers</pre>
+
+
 ## Example
 ```sql
 SELECT

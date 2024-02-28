@@ -36,6 +36,24 @@ Gets an individual <code>approved_origin</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>approved_origin</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:ListApprovedOrigins</pre>
+
+### Update
+<pre>
+</pre>
+
+### Delete
+<pre>
+connect:DisassociateApprovedOrigin,
+connect:ListApprovedOrigins</pre>
+
+
 ## Example
 ```sql
 SELECT

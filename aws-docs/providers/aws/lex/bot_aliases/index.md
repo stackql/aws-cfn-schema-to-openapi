@@ -36,6 +36,20 @@ Retrieves a list of <code>bot_aliases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bot_aliases</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lex:CreateBotAlias,
+lex:DescribeBot</pre>
+
+### List
+<pre>
+lex:ListBotAliases</pre>
+
+
 ## Example
 ```sql
 SELECT

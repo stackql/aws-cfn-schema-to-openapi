@@ -27,11 +27,11 @@ Gets an individual <code>classifier</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>x_ml_classifier</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>json_classifier</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>csv_classifier</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>grok_classifier</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>json_classifier</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,15 +39,19 @@ Gets an individual <code>classifier</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
-id,
 x_ml_classifier,
-json_classifier,
 csv_classifier,
-grok_classifier
+id,
+grok_classifier,
+json_classifier
 FROM aws.glue.classifier
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

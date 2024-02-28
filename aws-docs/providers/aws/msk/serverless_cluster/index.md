@@ -39,6 +39,21 @@ Gets an individual <code>serverless_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>serverless_cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kafka:DescribeClusterV2</pre>
+
+### Delete
+<pre>
+kafka:DeleteCluster,
+kafka:DescribeClusterV2,
+ec2:DeleteVpcEndpoints</pre>
+
+
 ## Example
 ```sql
 SELECT

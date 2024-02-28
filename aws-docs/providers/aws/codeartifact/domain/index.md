@@ -41,6 +41,30 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+<pre>
+codeartifact:DescribeDomain,
+codeartifact:GetDomainPermissionsPolicy,
+codeartifact:ListTagsForResource</pre>
+
+### Update
+<pre>
+codeartifact:PutDomainPermissionsPolicy,
+codeartifact:DeleteDomainPermissionsPolicy,
+codeartifact:GetDomainPermissionsPolicy,
+codeartifact:TagResource,
+codeartifact:UntagResource</pre>
+
+### Delete
+<pre>
+codeartifact:DeleteDomain,
+codeartifact:DescribeDomain</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -5,6 +5,69 @@ info:
 paths: {}
 components:
   schemas:
+    Tag:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: string
+        Key:
+          type: string
+      required:
+        - Value
+        - Key
+    Fleet:
+      type: object
+      properties:
+        Name:
+          type: string
+          minLength: 2
+          maxLength: 128
+        BaseCapacity:
+          type: integer
+          minimum: 1
+        EnvironmentType:
+          type: string
+          enum:
+            - WINDOWS_SERVER_2019_CONTAINER
+            - WINDOWS_SERVER_2022_CONTAINER
+            - LINUX_CONTAINER
+            - LINUX_GPU_CONTAINER
+            - ARM_CONTAINER
+        ComputeType:
+          type: string
+          enum:
+            - BUILD_GENERAL1_SMALL
+            - BUILD_GENERAL1_MEDIUM
+            - BUILD_GENERAL1_LARGE
+            - BUILD_GENERAL1_2XLARGE
+        Tags:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        Arn:
+          type: string
+          minLength: 1
+      x-stackql-resource-name: fleet
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - codebuild:BatchGetFleets
+          - codebuild:CreateFleet
+        delete:
+          - codebuild:BatchGetFleets
+          - codebuild:DeleteFleet
+        read:
+          - codebuild:BatchGetFleets
+        list:
+          - codebuild:ListFleets
+        update:
+          - codebuild:BatchGetFleets
+          - codebuild:UpdateFleet
     ProjectSourceVersion:
       type: object
       additionalProperties: false
@@ -176,6 +239,8 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/EnvironmentVariable'
+        Fleet:
+          $ref: '#/components/schemas/ProjectFleet'
         PrivilegedMode:
           type: boolean
         ImagePullCredentialsType:
@@ -224,17 +289,6 @@ components:
         - Type
         - Identifier
         - Location
-    Tag:
-      type: object
-      additionalProperties: false
-      properties:
-        Value:
-          type: string
-        Key:
-          type: string
-      required:
-        - Value
-        - Key
     ProjectTriggers:
       type: object
       additionalProperties: false
@@ -276,6 +330,12 @@ components:
           type: string
       required:
         - Status
+    ProjectFleet:
+      type: object
+      additionalProperties: false
+      properties:
+        FleetArn:
+          type: string
     Project:
       type: object
       properties:
@@ -354,6 +414,11 @@ components:
       x-stackql-resource-name: project
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Arn
     S3ReportExportConfig:
       type: object
       additionalProperties: false
@@ -408,6 +473,12 @@ components:
       x-stackql-resource-name: report_group
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - Type
+      x-read-only-properties:
+        - Id
+        - Arn
     SourceCredential:
       type: object
       properties:
@@ -428,7 +499,48 @@ components:
       x-stackql-resource-name: source_credential
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ServerType
+      x-read-only-properties:
+        - Id
   x-stackQL-resources:
+    fleets:
+      name: fleets
+      id: aws.codebuild.fleets
+      x-cfn-schema-name: Fleet
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
+    fleet:
+      name: fleet
+      id: aws.codebuild.fleet
+      x-cfn-schema-name: Fleet
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.BaseCapacity') as base_capacity,
+              JSON_EXTRACT(Properties, '$.EnvironmentType') as environment_type,
+              JSON_EXTRACT(Properties, '$.ComputeType') as compute_type,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
     projects:
       name: projects
       id: aws.codebuild.projects

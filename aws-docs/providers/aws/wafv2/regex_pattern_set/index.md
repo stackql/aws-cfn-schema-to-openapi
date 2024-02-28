@@ -41,6 +41,27 @@ Gets an individual <code>regex_pattern_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>regex_pattern_set</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+wafv2:DeleteRegexPatternSet,
+wafv2:GetRegexPatternSet</pre>
+
+### Read
+<pre>
+wafv2:GetRegexPatternSet,
+wafv2:ListTagsForResource</pre>
+
+### Update
+<pre>
+wafv2:UpdateRegexPatternSet,
+wafv2:GetRegexPatternSet,
+wafv2:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

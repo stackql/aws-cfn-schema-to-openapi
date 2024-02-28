@@ -45,6 +45,31 @@ Gets an individual <code>global_replication_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>global_replication_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticache:DescribeGlobalReplicationGroups</pre>
+
+### Update
+<pre>
+elasticache:ModifyGlobalReplicationGroup,
+elasticache:FailoverGlobalReplicationGroup,
+elasticache:DescribeGlobalReplicationGroups,
+elasticache:IncreaseNodeGroupsInGlobalReplicationGroup,
+elasticache:DecreaseNodeGroupsInGlobalReplicationGroup,
+elasticache:DisassociateGlobalReplicationGroup,
+elasticache:RebalanceSlotsInGlobalReplicationGroup</pre>
+
+### Delete
+<pre>
+elasticache:DeleteGlobalReplicationGroup,
+elasticache:DisassociateGlobalReplicationGroup,
+elasticache:DescribeGlobalReplicationGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

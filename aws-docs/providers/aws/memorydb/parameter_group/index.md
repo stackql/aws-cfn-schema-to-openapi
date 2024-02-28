@@ -40,6 +40,30 @@ Gets an individual <code>parameter_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>parameter_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+memorydb:DescribeParameterGroups,
+memorydb:ListTags</pre>
+
+### Update
+<pre>
+memorydb:UpdateParameterGroup,
+memorydb:DescribeParameterGroups,
+memorydb:DescribeParameters,
+memorydb:DescribeClusters,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource</pre>
+
+### Delete
+<pre>
+memorydb:DeleteParameterGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

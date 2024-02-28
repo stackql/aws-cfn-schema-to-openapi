@@ -33,8 +33,11 @@ Gets an individual <code>feature_group</code> resource
 <tr><td><code>feature_definitions</code></td><td><code>array</code></td><td>An Array of Feature Definition</td></tr>
 <tr><td><code>online_store_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>offline_store_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>throughput_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td>Role Arn</td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td>Description about the FeatureGroup.</td></tr>
+<tr><td><code>creation_time</code></td><td><code>string</code></td><td>A timestamp of FeatureGroup creation time.</td></tr>
+<tr><td><code>feature_group_status</code></td><td><code>string</code></td><td>The status of the feature group.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pair to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -42,6 +45,29 @@ Gets an individual <code>feature_group</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>feature_group</code> resource, the following permissions are required:
+
+### Update
+<pre>
+sagemaker:UpdateFeatureGroup,
+sagemaker:DescribeFeatureGroup,
+sagemaker:AddTags,
+sagemaker:ListTags,
+sagemaker:DeleteTags</pre>
+
+### Read
+<pre>
+sagemaker:DescribeFeatureGroup,
+sagemaker:ListTags</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteFeatureGroup,
+sagemaker:DescribeFeatureGroup</pre>
+
 
 ## Example
 ```sql
@@ -53,8 +79,11 @@ event_time_feature_name,
 feature_definitions,
 online_store_config,
 offline_store_config,
+throughput_config,
 role_arn,
 description,
+creation_time,
+feature_group_status,
 tags
 FROM aws.sagemaker.feature_group
 WHERE region = 'us-east-1'

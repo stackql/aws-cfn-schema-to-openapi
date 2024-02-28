@@ -41,6 +41,25 @@ Gets an individual <code>api_destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>api_destination</code> resource, the following permissions are required:
+
+### Read
+<pre>
+events:DescribeApiDestination</pre>
+
+### Update
+<pre>
+events:UpdateApiDestination,
+events:DescribeApiDestination</pre>
+
+### Delete
+<pre>
+events:DeleteApiDestination,
+events:DescribeApiDestination</pre>
+
+
 ## Example
 ```sql
 SELECT

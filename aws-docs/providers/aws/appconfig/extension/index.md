@@ -43,6 +43,26 @@ Gets an individual <code>extension</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>extension</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appconfig:GetExtension</pre>
+
+### Update
+<pre>
+appconfig:UpdateExtension,
+appconfig:TagResource,
+appconfig:UntagResource</pre>
+
+### Delete
+<pre>
+appconfig:DeleteExtension,
+appconfig:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

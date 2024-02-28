@@ -39,6 +39,10 @@ Gets an individual <code>cluster_security_group_ingress</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

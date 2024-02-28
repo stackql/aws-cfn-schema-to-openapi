@@ -36,6 +36,20 @@ Retrieves a list of <code>spaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>spaces</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateSpace,
+sagemaker:DescribeSpace</pre>
+
+### List
+<pre>
+sagemaker:ListSpaces</pre>
+
+
 ## Example
 ```sql
 SELECT

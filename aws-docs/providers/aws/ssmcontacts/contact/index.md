@@ -39,6 +39,27 @@ Gets an individual <code>contact</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm-contacts:GetContact</pre>
+
+### Update
+<pre>
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact</pre>
+
+### Delete
+<pre>
+ssm-contacts:DeleteContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact</pre>
+
+
 ## Example
 ```sql
 SELECT

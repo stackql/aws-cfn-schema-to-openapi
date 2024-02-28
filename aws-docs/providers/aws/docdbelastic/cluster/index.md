@@ -47,6 +47,52 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+docdb-elastic:GetCluster,
+docdb-elastic:ListTagsForResource</pre>
+
+### Update
+<pre>
+docdb-elastic:UpdateCluster,
+docdb-elastic:TagResource,
+docdb-elastic:UntagResource,
+ec2:CreateVpcEndpoint,
+ec2:DescribeVpcEndpoints,
+ec2:DeleteVpcEndpoints,
+ec2:ModifyVpcEndpoint,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcAttribute,
+ec2:DescribeVpcs,
+ec2:DescribeAvailabilityZones,
+secretsmanager:ListSecrets,
+secretsmanager:ListSecretVersionIds,
+secretsmanager:DescribeSecret,
+secretsmanager:GetSecretValue,
+secretsmanager:GetResourcePolicy,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:GenerateDataKey,
+kms:Decrypt</pre>
+
+### Delete
+<pre>
+docdb-elastic:DeleteCluster,
+ec2:DescribeVpcEndpoints,
+ec2:DeleteVpcEndpoints,
+ec2:ModifyVpcEndpoint,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcAttribute,
+ec2:DescribeVpcs,
+ec2:DescribeAvailabilityZones</pre>
+
+
 ## Example
 ```sql
 SELECT

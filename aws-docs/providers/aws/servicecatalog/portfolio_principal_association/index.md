@@ -39,6 +39,10 @@ Gets an individual <code>portfolio_principal_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

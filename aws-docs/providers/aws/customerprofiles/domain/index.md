@@ -31,6 +31,9 @@ Gets an individual <code>domain</code> resource
 <tr><td><code>dead_letter_queue_url</code></td><td><code>string</code></td><td>The URL of the SQS dead letter queue</td></tr>
 <tr><td><code>default_encryption_key</code></td><td><code>string</code></td><td>The default encryption key</td></tr>
 <tr><td><code>default_expiration_days</code></td><td><code>integer</code></td><td>The default number of days until the data within the domain expires.</td></tr>
+<tr><td><code>matching</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>rule_based_matching</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>stats</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags (keys and values) associated with the domain</td></tr>
 <tr><td><code>created_at</code></td><td><code>string</code></td><td>The time of this integration got created</td></tr>
 <tr><td><code>last_updated_at</code></td><td><code>string</code></td><td>The time of this integration got last updated at</td></tr>
@@ -41,6 +44,26 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+<pre>
+profile:GetDomain</pre>
+
+### Update
+<pre>
+profile:GetDomain,
+profile:UpdateDomain,
+profile:UntagResource,
+profile:TagResource</pre>
+
+### Delete
+<pre>
+profile:DeleteDomain</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -49,6 +72,9 @@ domain_name,
 dead_letter_queue_url,
 default_encryption_key,
 default_expiration_days,
+matching,
+rule_based_matching,
+stats,
 tags,
 created_at,
 last_updated_at

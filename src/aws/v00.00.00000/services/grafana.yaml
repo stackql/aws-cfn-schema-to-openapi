@@ -205,11 +205,13 @@ components:
         - FAILED
         - UPDATING
         - UPGRADING
+        - VERSION_UPDATING
         - DELETION_FAILED
         - CREATION_FAILED
         - UPDATE_FAILED
         - UPGRADE_FAILED
         - LICENSE_REMOVAL_FAILED
+        - VERSION_UPDATE_FAILED
     SamlConfigurationStatus:
       type: string
       description: Valid SAML configuration statuses.
@@ -256,7 +258,7 @@ components:
           type: string
           maxLength: 255
           minLength: 1
-          description: Version of Grafana the workspace is currently using.
+          description: The version of Grafana to support in your workspace.
         Endpoint:
           type: string
           maxLength: 2048
@@ -311,6 +313,9 @@ components:
           maxLength: 2048
           minLength: 1
           description: IAM Role that will be used to grant the Grafana workspace access to a customers AWS resources.
+        PluginAdminEnabled:
+          type: boolean
+          description: Allow workspace admins to install plugins
       required:
         - AuthenticationProviders
         - PermissionType
@@ -318,6 +323,67 @@ components:
       x-stackql-resource-name: workspace
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ClientToken
+      x-read-only-properties:
+        - Id
+        - SsoClientId
+        - SamlConfigurationStatus
+        - Endpoint
+        - Status
+        - CreationTimestamp
+        - ModificationTimestamp
+      x-required-permissions:
+        create:
+          - grafana:CreateWorkspace
+          - grafana:DescribeWorkspace
+          - grafana:DescribeWorkspaceAuthentication
+          - grafana:DescribeWorkspaceConfiguration
+          - grafana:UpdateWorkspaceAuthentication
+          - sso:DescribeRegisteredRegions
+          - sso:CreateManagedApplicationInstance
+          - organizations:DescribeOrganization
+          - sso:GetSharedSsoConfiguration
+          - iam:PassRole
+          - ec2:GetManagedPrefixListEntries
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - iam:CreateServiceLinkedRole
+          - sso:ListApplicationInstances
+          - sso:GetApplicationInstance
+        read:
+          - grafana:DescribeWorkspace
+          - grafana:DescribeWorkspaceAuthentication
+          - grafana:DescribeWorkspaceConfiguration
+        update:
+          - grafana:DescribeWorkspace
+          - grafana:DescribeWorkspaceAuthentication
+          - grafana:DescribeWorkspaceConfiguration
+          - grafana:UpdateWorkspace
+          - grafana:UpdateWorkspaceAuthentication
+          - grafana:UpdateWorkspaceConfiguration
+          - sso:DescribeRegisteredRegions
+          - sso:CreateManagedApplicationInstance
+          - ec2:GetManagedPrefixListEntries
+          - iam:PassRole
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - iam:CreateServiceLinkedRole
+          - sso:ListApplicationInstances
+          - sso:GetApplicationInstance
+        delete:
+          - grafana:DeleteWorkspace
+          - grafana:DescribeWorkspace
+          - grafana:DescribeWorkspaceAuthentication
+          - grafana:DescribeWorkspaceConfiguration
+          - sso:DeleteManagedApplicationInstance
+          - sso:DescribeRegisteredRegions
+        list:
+          - grafana:ListWorkspaces
+          - grafana:DescribeWorkspaceAuthentication
+          - grafana:DescribeWorkspaceConfiguration
   x-stackQL-resources:
     workspaces:
       name: workspaces
@@ -371,5 +437,6 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.NotificationDestinations') as notification_destinations,
               JSON_EXTRACT(Properties, '$.OrganizationalUnits') as organizational_units,
-              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.PluginAdminEnabled') as plugin_admin_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Grafana::Workspace'

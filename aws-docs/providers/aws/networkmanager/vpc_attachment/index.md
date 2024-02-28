@@ -51,6 +51,31 @@ Gets an individual <code>vpc_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_attachment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetVpcAttachment</pre>
+
+### Update
+<pre>
+networkmanager:UpdateVpcAttachment,
+networkmanager:GetVpcAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions</pre>
+
+### Delete
+<pre>
+networkmanager:DeleteAttachment,
+networkmanager:GetVpcAttachment,
+networkmanager:UntagResource,
+ec2:DescribeRegions</pre>
+
+
 ## Example
 ```sql
 SELECT

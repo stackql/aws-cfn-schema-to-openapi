@@ -39,6 +39,27 @@ Gets an individual <code>listener</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>listener</code> resource, the following permissions are required:
+
+### Read
+<pre>
+globalaccelerator:DescribeListener</pre>
+
+### Update
+<pre>
+globalaccelerator:UpdateListener,
+globalaccelerator:DescribeListener,
+globalaccelerator:DescribeAccelerator</pre>
+
+### Delete
+<pre>
+globalaccelerator:DescribeListener,
+globalaccelerator:DeleteListener,
+globalaccelerator:DescribeAccelerator</pre>
+
+
 ## Example
 ```sql
 SELECT

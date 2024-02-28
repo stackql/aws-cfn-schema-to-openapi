@@ -36,7 +36,9 @@ Gets an individual <code>domain_configuration</code> resource
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>domain_configuration_status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>domain_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>server_certificate_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>server_certificates</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>tls_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -44,6 +46,30 @@ Gets an individual <code>domain_configuration</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>domain_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeDomainConfiguration,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iot:UpdateDomainConfiguration,
+iot:DescribeDomainConfiguration,
+iot:ListTagsForResource,
+iot:TagResource,
+iot:UntagResource</pre>
+
+### Delete
+<pre>
+iot:DescribeDomainConfiguration,
+iot:DeleteDomainConfiguration,
+iot:UpdateDomainConfiguration</pre>
+
 
 ## Example
 ```sql
@@ -58,7 +84,9 @@ validation_certificate_arn,
 arn,
 domain_configuration_status,
 domain_type,
+server_certificate_config,
 server_certificates,
+tls_config,
 tags
 FROM aws.iot.domain_configuration
 WHERE region = 'us-east-1'

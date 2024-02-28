@@ -35,6 +35,20 @@ Retrieves a list of <code>custom_metrics</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>custom_metrics</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateCustomMetric,
+iot:TagResource</pre>
+
+### List
+<pre>
+iot:ListCustomMetrics</pre>
+
+
 ## Example
 ```sql
 SELECT

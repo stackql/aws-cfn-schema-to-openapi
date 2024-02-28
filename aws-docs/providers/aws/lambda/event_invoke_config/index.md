@@ -27,12 +27,11 @@ Gets an individual <code>event_invoke_config</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>function_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>maximum_retry_attempts</code></td><td><code>integer</code></td><td></td></tr>
-<tr><td><code>qualifier</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>destination_config</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>maximum_event_age_in_seconds</code></td><td><code>integer</code></td><td></td></tr>
+<tr><td><code>function_name</code></td><td><code>string</code></td><td>The name of the Lambda function.</td></tr>
+<tr><td><code>maximum_event_age_in_seconds</code></td><td><code>integer</code></td><td>The maximum age of a request that Lambda sends to a function for processing.</td></tr>
+<tr><td><code>maximum_retry_attempts</code></td><td><code>integer</code></td><td>The maximum number of times to retry when the function returns an error.</td></tr>
+<tr><td><code>qualifier</code></td><td><code>string</code></td><td>The identifier of a version or alias.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -40,17 +39,34 @@ Gets an individual <code>event_invoke_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_invoke_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lambda:GetFunctionEventInvokeConfig</pre>
+
+### Update
+<pre>
+lambda:UpdateFunctionEventInvokeConfig</pre>
+
+### Delete
+<pre>
+lambda:DeleteFunctionEventInvokeConfig</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-function_name,
-maximum_retry_attempts,
-qualifier,
 destination_config,
-id,
-maximum_event_age_in_seconds
+function_name,
+maximum_event_age_in_seconds,
+maximum_retry_attempts,
+qualifier
 FROM aws.lambda.event_invoke_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;FunctionName&gt;'
+AND data__Identifier = '&lt;Qualifier&gt;'
 ```

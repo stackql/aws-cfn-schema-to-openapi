@@ -27,15 +27,28 @@ Gets an individual <code>topic_policy</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>policy_document</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>topics</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>The provider-assigned unique ID for this managed resource.</td></tr>
+<tr><td><code>policy_document</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>topics</code></td><td><code>array</code></td><td>The Amazon Resource Names (ARN) of the topics to which you want to add the policy. You can use the &#91;Ref&#93;(https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;AWSCloudFormation&#x2F;latest&#x2F;UserGuide&#x2F;intrinsic-function-reference-ref.html)` function to specify an &#91;AWS::SNS::Topic&#93;(https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;AWSCloudFormation&#x2F;latest&#x2F;UserGuide&#x2F;aws-properties-sns-topic.html) resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>topic_policy</code> resource, the following permissions are required:
+
+### Update
+<pre>
+sns:SetTopicAttributes</pre>
+
+### Delete
+<pre>
+sns:SetTopicAttributes</pre>
+
 
 ## Example
 ```sql

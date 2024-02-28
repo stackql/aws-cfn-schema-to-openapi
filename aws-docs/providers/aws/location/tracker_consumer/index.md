@@ -36,6 +36,20 @@ Gets an individual <code>tracker_consumer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tracker_consumer</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+geo:DisassociateTrackerConsumer,
+geo:ListTrackerConsumers</pre>
+
+### Read
+<pre>
+geo:ListTrackerConsumers</pre>
+
+
 ## Example
 ```sql
 SELECT

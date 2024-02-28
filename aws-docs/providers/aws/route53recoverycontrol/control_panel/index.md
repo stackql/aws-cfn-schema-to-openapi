@@ -41,6 +41,29 @@ Gets an individual <code>control_panel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>control_panel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53-recovery-control-config:DescribeControlPanel,
+route53-recovery-control-config:ListTagsForResource</pre>
+
+### Update
+<pre>
+route53-recovery-control-config:UpdateControlPanel,
+route53-recovery-control-config:DescribeControlPanel,
+route53-recovery-control-config:ListTagsForResource,
+route53-recovery-control-config:TagResource,
+route53-recovery-control-config:UntagResource</pre>
+
+### Delete
+<pre>
+route53-recovery-control-config:DeleteControlPanel,
+route53-recovery-control-config:DescribeControlPanel</pre>
+
+
 ## Example
 ```sql
 SELECT

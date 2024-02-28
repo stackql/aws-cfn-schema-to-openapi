@@ -42,6 +42,28 @@ Gets an individual <code>room</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>room</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ivschat:GetRoom,
+ivschat:ListTagsForResource</pre>
+
+### Update
+<pre>
+ivschat:UpdateRoom,
+ivschat:TagResource,
+ivschat:UnTagResource,
+ivschat:ListTagsForResource</pre>
+
+### Delete
+<pre>
+ivschat:DeleteRoom,
+ivschat:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

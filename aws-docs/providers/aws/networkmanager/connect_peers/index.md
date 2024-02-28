@@ -35,6 +35,22 @@ Retrieves a list of <code>connect_peers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connect_peers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:GetConnectPeer,
+networkmanager:CreateConnectPeer,
+networkmanager:TagResource,
+ec2:DescribeRegions</pre>
+
+### List
+<pre>
+networkmanager:ListConnectPeers</pre>
+
+
 ## Example
 ```sql
 SELECT

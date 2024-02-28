@@ -51,12 +51,35 @@ Gets an individual <code>environment</code> resource
 <tr><td><code>weekly_maintenance_window_start</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td>A map of tags for the environment.</td></tr>
 <tr><td><code>webserver_access_mode</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>endpoint_management</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>celery_executor_queue</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>database_vpc_endpoint_service</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>webserver_vpc_endpoint_service</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+airflow:GetEnvironment</pre>
+
+### Update
+<pre>
+airflow:UpdateEnvironment,
+airflow:TagResource,
+airflow:UntagResource</pre>
+
+### Delete
+<pre>
+airflow:DeleteEnvironment</pre>
+
 
 ## Example
 ```sql
@@ -85,7 +108,11 @@ network_configuration,
 logging_configuration,
 weekly_maintenance_window_start,
 tags,
-webserver_access_mode
+webserver_access_mode,
+endpoint_management,
+celery_executor_queue,
+database_vpc_endpoint_service,
+webserver_vpc_endpoint_service
 FROM aws.mwaa.environment
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Name&gt;'

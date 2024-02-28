@@ -28,6 +28,7 @@ Gets an individual <code>cluster</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>steps</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>placement_group_configs</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>step_concurrency_level</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>ebs_root_volume_size</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>o_srelease_label</code></td><td><code>string</code></td><td></td></tr>
@@ -47,8 +48,10 @@ Gets an individual <code>cluster</code> resource
 <tr><td><code>applications</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>auto_scaling_role</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>custom_ami_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ebs_root_volume_iops</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>instances</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>scale_down_behavior</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ebs_root_volume_throughput</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>job_flow_role</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>visible_to_all_users</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>security_configuration</code></td><td><code>string</code></td><td></td></tr>
@@ -60,11 +63,16 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 steps,
+placement_group_configs,
 step_concurrency_level,
 ebs_root_volume_size,
 o_srelease_label,
@@ -84,8 +92,10 @@ kerberos_attributes,
 applications,
 auto_scaling_role,
 custom_ami_id,
+ebs_root_volume_iops,
 instances,
 scale_down_behavior,
+ebs_root_volume_throughput,
 job_flow_role,
 visible_to_all_users,
 security_configuration,

@@ -41,6 +41,31 @@ Gets an individual <code>detector_model</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>detector_model</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotevents:DescribeDetectorModel,
+iotevents:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotevents:UpdateDetectorModel,
+iotevents:UpdateInputRouting,
+iotevents:DescribeDetectorModel,
+iotevents:ListTagsForResource,
+iotevents:UntagResource,
+iotevents:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iotevents:DeleteDetectorModel,
+iotevents:DescribeDetectorModel</pre>
+
+
 ## Example
 ```sql
 SELECT

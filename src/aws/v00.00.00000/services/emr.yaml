@@ -81,6 +81,14 @@ components:
       x-stackql-resource-name: instance_fleet_config
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - InstanceTypeConfigs
+        - LaunchSpecifications
+        - ClusterId
+        - InstanceFleetType
+      x-read-only-properties:
+        - Id
     InstanceTypeConfig:
       type: object
       additionalProperties: false
@@ -152,6 +160,16 @@ components:
           type: string
       required:
         - ScalingAdjustment
+    PlacementGroupConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        InstanceRole:
+          type: string
+        PlacementStrategy:
+          type: string
+      required:
+        - InstanceRole
     OnDemandProvisioningSpecification:
       type: object
       additionalProperties: false
@@ -212,13 +230,25 @@ components:
       x-stackql-resource-name: instance_group_config
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - InstanceRole
+        - JobFlowId
+        - Name
+        - InstanceType
+        - CustomAmiId
+        - Configurations
+        - EbsConfiguration
+        - Market
+        - BidPrice
+      x-read-only-properties:
+        - Id
     HadoopJarStepConfig:
       type: object
       additionalProperties: false
       properties:
         Args:
           type: array
-          uniqueItems: true
+          uniqueItems: false
           items:
             type: string
         Jar:
@@ -237,6 +267,8 @@ components:
       additionalProperties: false
       properties:
         SizeInGB:
+          type: integer
+        Throughput:
           type: integer
         VolumeType:
           type: string
@@ -321,6 +353,8 @@ components:
         HadoopVersion:
           type: string
         TerminationProtected:
+          type: boolean
+        UnhealthyNodeReplacement:
           type: boolean
         KeepJobFlowAliveWhenNoSteps:
           type: boolean
@@ -463,25 +497,23 @@ components:
         - MinCapacity
         - MaxCapacity
     Tag:
-      description: An arbitrary set of tags (key-value pairs) for this EMR Studio.
+      description: A key-value pair to associate with a resource.
       type: object
-      additionalProperties: false
       properties:
         Key:
           type: string
-          description: 'The key name of the tag. You can specify a value that is 1 to 127 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 1
           maxLength: 128
-          pattern: ^(?!aws:)[a-zA-Z+-=._:/]+$
         Value:
           type: string
-          description: 'The value for the tag. You can specify a value that is 0 to 255 Unicode characters in length. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -. '
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 0
           maxLength: 256
-          pattern: '[a-zA-Z+-=._:/]+$'
       required:
-        - Value
         - Key
+        - Value
+      additionalProperties: false
     Application:
       type: object
       additionalProperties: false
@@ -508,6 +540,11 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/StepConfig'
+        PlacementGroupConfigs:
+          type: array
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/PlacementGroupConfig'
         StepConcurrencyLevel:
           type: integer
         EbsRootVolumeSize:
@@ -558,10 +595,14 @@ components:
           type: string
         CustomAmiId:
           type: string
+        EbsRootVolumeIops:
+          type: integer
         Instances:
           $ref: '#/components/schemas/JobFlowInstancesConfig'
         ScaleDownBehavior:
           type: string
+        EbsRootVolumeThroughput:
+          type: integer
         JobFlowRole:
           type: string
         VisibleToAllUsers:
@@ -578,6 +619,31 @@ components:
       x-stackql-resource-name: cluster
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Steps
+        - EbsRootVolumeSize
+        - SecurityConfiguration
+        - ScaleDownBehavior
+        - Configurations
+        - ReleaseLabel
+        - BootstrapActions
+        - EbsRootVolumeIops
+        - KerberosAttributes
+        - ServiceRole
+        - LogEncryptionKmsKeyId
+        - Name
+        - EbsRootVolumeThroughput
+        - JobFlowRole
+        - AdditionalInfo
+        - LogUri
+        - CustomAmiId
+        - PlacementGroupConfigs
+        - OSReleaseLabel
+        - AutoScalingRole
+        - Applications
+      x-read-only-properties:
+        - Id
+        - MasterPublicDNS
     SecurityConfiguration:
       type: object
       properties:
@@ -591,18 +657,36 @@ components:
       x-stackql-resource-name: security_configuration
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - SecurityConfiguration
+      x-required-permissions:
+        create:
+          - elasticmapreduce:CreateSecurityConfiguration
+          - elasticmapreduce:DescribeSecurityConfiguration
+        read:
+          - elasticmapreduce:DescribeSecurityConfiguration
+        delete:
+          - elasticmapreduce:DeleteSecurityConfiguration
+        list:
+          - elasticmapreduce:ListSecurityConfigurations
     Step:
       type: object
       properties:
         Id:
+          description: ID generated by service
           type: string
         ActionOnFailure:
+          description: This specifies what action to take when the cluster step fails. Possible values are CANCEL_AND_WAIT and CONTINUE.
           type: string
         HadoopJarStep:
+          description: The HadoopJarStepConfig property type specifies a job flow step consisting of a JAR file whose main function will be executed. The main function submits a job for the cluster to execute as a step on the master node, and then waits for the job to finish or fail before executing subsequent steps.
           $ref: '#/components/schemas/HadoopJarStepConfig'
         JobFlowId:
+          description: A string that uniquely identifies the cluster (job flow).
           type: string
         Name:
+          description: The name of the cluster step.
           type: string
       required:
         - JobFlowId
@@ -612,6 +696,17 @@ components:
       x-stackql-resource-name: step
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - JobFlowId
+        - HadoopJarStep
+        - Name
+        - ActionOnFailure
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - emr:AddJobFlowSteps
+        delete: []
     SubnetId:
       description: Identifier of a subnet
       type: string
@@ -704,6 +799,23 @@ components:
           type: string
           minLength: 0
           maxLength: 256
+        TrustedIdentityPropagationEnabled:
+          description: A Boolean indicating whether to enable Trusted identity propagation for the Studio. The default value is false.
+          type: boolean
+        IdcUserAssignment:
+          description: Specifies whether IAM Identity Center user assignment is REQUIRED or OPTIONAL. If the value is set to REQUIRED, users must be explicitly assigned to the Studio application to access the Studio.
+          type: string
+          enum:
+            - REQUIRED
+            - OPTIONAL
+        IdcInstanceArn:
+          description: The ARN of the IAM Identity Center instance to create the Studio application.
+          type: string
+          minLength: 20
+          maxLength: 2048
+        EncryptionKeyArn:
+          description: The AWS KMS key identifier (ARN) used to encrypt AWS EMR Studio workspace and notebook files when backed up to AWS S3.
+          $ref: '#/components/schemas/Arn'
       required:
         - AuthMode
         - EngineSecurityGroupId
@@ -716,6 +828,43 @@ components:
       x-stackql-resource-name: studio
       x-stackql-primaryIdentifier:
         - StudioId
+      x-create-only-properties:
+        - AuthMode
+        - EngineSecurityGroupId
+        - ServiceRole
+        - UserRole
+        - VpcId
+        - WorkspaceSecurityGroupId
+        - TrustedIdentityPropagationEnabled
+        - IdcUserAssignment
+        - IdcInstanceArn
+        - EncryptionKeyArn
+      x-read-only-properties:
+        - StudioId
+        - Arn
+        - Url
+      x-required-permissions:
+        create:
+          - elasticmapreduce:CreateStudio
+          - elasticmapreduce:DescribeStudio
+          - elasticmapreduce:AddTags
+          - sso:CreateManagedApplicationInstance
+          - sso:DeleteManagedApplicationInstance
+          - iam:PassRole
+        read:
+          - elasticmapreduce:DescribeStudio
+          - sso:GetManagedApplicationInstance
+        update:
+          - elasticmapreduce:UpdateStudio
+          - elasticmapreduce:DescribeStudio
+          - elasticmapreduce:AddTags
+          - elasticmapreduce:RemoveTags
+        delete:
+          - elasticmapreduce:DeleteStudio
+          - elasticmapreduce:DescribeStudio
+          - sso:DeleteManagedApplicationInstance
+        list:
+          - elasticmapreduce:ListStudios
     IamPolicyArn:
       type: string
       pattern: ^arn:aws(-(cn|us-gov))?:iam::([0-9]{12})?:policy\/[^.]+$
@@ -750,6 +899,89 @@ components:
         - StudioId
         - IdentityType
         - IdentityName
+      x-create-only-properties:
+        - StudioId
+        - IdentityType
+        - IdentityName
+      x-required-permissions:
+        create:
+          - elasticmapreduce:CreateStudioSessionMapping
+          - sso-directory:SearchUsers
+          - sso-directory:SearchGroups
+          - sso-directory:DescribeUser
+          - sso-directory:DescribeGroup
+          - sso:ListDirectoryAssociations
+          - sso:GetProfile
+          - sso:ListProfiles
+          - sso:AssociateProfile
+        read:
+          - elasticmapreduce:GetStudioSessionMapping
+          - sso-directory:SearchUsers
+          - sso-directory:SearchGroups
+          - sso-directory:DescribeUser
+          - sso-directory:DescribeGroup
+          - sso:GetManagedApplicationInstance
+          - sso:DescribeInstance
+        update:
+          - elasticmapreduce:GetStudioSessionMapping
+          - elasticmapreduce:UpdateStudioSessionMapping
+          - sso-directory:SearchUsers
+          - sso-directory:SearchGroups
+          - sso-directory:DescribeUser
+          - sso-directory:DescribeGroup
+          - sso:GetManagedApplicationInstance
+          - sso:DescribeInstance
+        delete:
+          - elasticmapreduce:GetStudioSessionMapping
+          - elasticmapreduce:DeleteStudioSessionMapping
+          - sso-directory:SearchUsers
+          - sso-directory:SearchGroups
+          - sso-directory:DescribeUser
+          - sso-directory:DescribeGroup
+          - sso:GetManagedApplicationInstance
+          - sso:DescribeInstance
+          - sso:ListDirectoryAssociations
+          - sso:GetProfile
+          - sso:ListProfiles
+          - sso:DisassociateProfile
+        list:
+          - elasticmapreduce:ListStudioSessionMappings
+    WALWorkspace:
+      type: object
+      properties:
+        WALWorkspaceName:
+          description: The name of the emrwal container
+          type: string
+          minLength: 1
+          maxLength: 32
+          pattern: ^[a-zA-Z0-9]+$
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      x-stackql-resource-name: wal_workspace
+      x-stackql-primaryIdentifier:
+        - WALWorkspaceName
+      x-create-only-properties:
+        - WALWorkspaceName
+      x-required-permissions:
+        create:
+          - emrwal:CreateWorkspace
+          - emrwal:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - emrwal:ListTagsForResource
+        delete:
+          - emrwal:DeleteWorkspace
+        list:
+          - emrwal:ListWorkspaces
+        update:
+          - emrwal:TagResource
+          - emrwal:UntagResource
+          - emrwal:ListTagsForResource
   x-stackQL-resources:
     instance_fleet_configs:
       name: instance_fleet_configs
@@ -864,6 +1096,7 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Steps') as steps,
+              JSON_EXTRACT(Properties, '$.PlacementGroupConfigs') as placement_group_configs,
               JSON_EXTRACT(Properties, '$.StepConcurrencyLevel') as step_concurrency_level,
               JSON_EXTRACT(Properties, '$.EbsRootVolumeSize') as ebs_root_volume_size,
               JSON_EXTRACT(Properties, '$.OSReleaseLabel') as o_srelease_label,
@@ -883,8 +1116,10 @@ components:
               JSON_EXTRACT(Properties, '$.Applications') as applications,
               JSON_EXTRACT(Properties, '$.AutoScalingRole') as auto_scaling_role,
               JSON_EXTRACT(Properties, '$.CustomAmiId') as custom_ami_id,
+              JSON_EXTRACT(Properties, '$.EbsRootVolumeIops') as ebs_root_volume_iops,
               JSON_EXTRACT(Properties, '$.Instances') as instances,
               JSON_EXTRACT(Properties, '$.ScaleDownBehavior') as scale_down_behavior,
+              JSON_EXTRACT(Properties, '$.EbsRootVolumeThroughput') as ebs_root_volume_throughput,
               JSON_EXTRACT(Properties, '$.JobFlowRole') as job_flow_role,
               JSON_EXTRACT(Properties, '$.VisibleToAllUsers') as visible_to_all_users,
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration,
@@ -1004,7 +1239,11 @@ components:
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.WorkspaceSecurityGroupId') as workspace_security_group_id,
               JSON_EXTRACT(Properties, '$.IdpAuthUrl') as idp_auth_url,
-              JSON_EXTRACT(Properties, '$.IdpRelayStateParameterName') as idp_relay_state_parameter_name
+              JSON_EXTRACT(Properties, '$.IdpRelayStateParameterName') as idp_relay_state_parameter_name,
+              JSON_EXTRACT(Properties, '$.TrustedIdentityPropagationEnabled') as trusted_identity_propagation_enabled,
+              JSON_EXTRACT(Properties, '$.IdcUserAssignment') as idc_user_assignment,
+              JSON_EXTRACT(Properties, '$.IdcInstanceArn') as idc_instance_arn,
+              JSON_EXTRACT(Properties, '$.EncryptionKeyArn') as encryption_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Studio'
     studio_session_mappings:
       name: studio_session_mappings
@@ -1047,3 +1286,36 @@ components:
               JSON_EXTRACT(Properties, '$.SessionPolicyArn') as session_policy_arn,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
+    wal_workspaces:
+      name: wal_workspaces
+      id: aws.emr.wal_workspaces
+      x-cfn-schema-name: WALWorkspace
+      x-type: list
+      x-identifiers:
+        - WALWorkspaceName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WALWorkspaceName') as w_al_workspace_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::WALWorkspace'
+    wal_workspace:
+      name: wal_workspace
+      id: aws.emr.wal_workspace
+      x-cfn-schema-name: WALWorkspace
+      x-type: get
+      x-identifiers:
+        - WALWorkspaceName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.WALWorkspaceName') as w_al_workspace_name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::WALWorkspace'

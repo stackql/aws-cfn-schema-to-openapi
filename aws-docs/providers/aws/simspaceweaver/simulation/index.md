@@ -31,12 +31,36 @@ Gets an individual <code>simulation</code> resource
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td>Role ARN.</td></tr>
 <tr><td><code>schema_s3_location</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>describe_payload</code></td><td><code>string</code></td><td>Json object with all simulation details</td></tr>
+<tr><td><code>maximum_duration</code></td><td><code>string</code></td><td>The maximum running time of the simulation.</td></tr>
+<tr><td><code>snapshot_s3_location</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>simulation</code> resource, the following permissions are required:
+
+### Read
+<pre>
+simspaceweaver:DescribeSimulation</pre>
+
+### Update
+<pre>
+simspaceweaver:StartSimulation,
+simspaceweaver:StopSimulation,
+simspaceweaver:DeleteSimulation,
+simspaceweaver:DescribeSimulation</pre>
+
+### Delete
+<pre>
+simspaceweaver:StopSimulation,
+simspaceweaver:DeleteSimulation,
+simspaceweaver:DescribeSimulation</pre>
+
 
 ## Example
 ```sql
@@ -45,7 +69,9 @@ region,
 name,
 role_arn,
 schema_s3_location,
-describe_payload
+describe_payload,
+maximum_duration,
+snapshot_s3_location
 FROM aws.simspaceweaver.simulation
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Name&gt;'

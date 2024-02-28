@@ -16,6 +16,72 @@ components:
       required:
         - Value
         - Key
+    Permission:
+      type: object
+      properties:
+        Arn:
+          type: string
+        Name:
+          description: The name of the permission.
+          type: string
+        Version:
+          description: Version of the permission.
+          type: string
+        IsResourceTypeDefault:
+          description: Set to true to use this as the default permission.
+          type: boolean
+        PermissionType:
+          type: string
+        ResourceType:
+          description: The resource type this permission can be used with.
+          type: string
+        PolicyTemplate:
+          description: Policy template for the permission.
+          type: object
+        Tags:
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - Name
+        - ResourceType
+        - PolicyTemplate
+      x-stackql-resource-name: permission
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - Name
+        - ResourceType
+        - PolicyTemplate
+      x-read-only-properties:
+        - Arn
+        - Version
+        - IsResourceTypeDefault
+        - PermissionType
+      x-required-permissions:
+        create:
+          - ram:CreatePermission
+          - ram:TagResource
+        read:
+          - ram:GetPermission
+        update:
+          - ram:CreatePermissionVersion
+          - ram:DeletePermissionVersion
+          - ram:SetDefaultPermissionVersion
+          - ram:GetPermission
+          - ram:ReplacePermissionAssociations
+          - ram:ListReplacePermissionAssociationsWork
+          - ram:ListPermissionVersions
+          - ram:UntagResource
+          - ram:TagResource
+        delete:
+          - ram:DeletePermissionVersion
+          - ram:DeletePermission
+        list:
+          - ram:ListPermissions
+          - ram:ListPermissionVersions
     ResourceShare:
       type: object
       properties:
@@ -40,6 +106,11 @@ components:
           uniqueItems: false
           items:
             type: string
+        Sources:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
         Tags:
           type: array
           uniqueItems: false
@@ -52,7 +123,49 @@ components:
       x-stackql-resource-name: resource_share
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
   x-stackQL-resources:
+    permissions:
+      name: permissions
+      id: aws.ram.permissions
+      x-cfn-schema-name: Permission
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::Permission'
+    permission:
+      name: permission
+      id: aws.ram.permission
+      x-cfn-schema-name: Permission
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Version') as version,
+              JSON_EXTRACT(Properties, '$.IsResourceTypeDefault') as is_resource_type_default,
+              JSON_EXTRACT(Properties, '$.PermissionType') as permission_type,
+              JSON_EXTRACT(Properties, '$.ResourceType') as resource_type,
+              JSON_EXTRACT(Properties, '$.PolicyTemplate') as policy_template,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::Permission'
     resource_shares:
       name: resource_shares
       id: aws.ram.resource_shares
@@ -89,6 +202,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns,
+              JSON_EXTRACT(Properties, '$.Sources') as sources,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::ResourceShare'

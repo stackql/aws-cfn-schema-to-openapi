@@ -43,6 +43,25 @@ Gets an individual <code>resource_data_sync</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_data_sync</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+ssm:ListResourceDataSync,
+ssm:DeleteResourceDataSync</pre>
+
+### Update
+<pre>
+ssm:ListResourceDataSync,
+ssm:UpdateResourceDataSync</pre>
+
+### Read
+<pre>
+ssm:ListResourceDataSync</pre>
+
+
 ## Example
 ```sql
 SELECT

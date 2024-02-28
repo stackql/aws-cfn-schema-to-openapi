@@ -43,6 +43,26 @@ Gets an individual <code>extension_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>extension_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appconfig:GetExtensionAssociation</pre>
+
+### Update
+<pre>
+appconfig:UpdateExtensionAssociation,
+appconfig:TagResource,
+appconfig:UntagResource</pre>
+
+### Delete
+<pre>
+appconfig:DeleteExtensionAssociation,
+appconfig:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

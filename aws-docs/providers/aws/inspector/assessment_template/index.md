@@ -40,6 +40,19 @@ Gets an individual <code>assessment_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assessment_template</code> resource, the following permissions are required:
+
+### Read
+<pre>
+inspector:DescribeAssessmentTemplates</pre>
+
+### Delete
+<pre>
+inspector:DeleteAssessmentTemplate</pre>
+
+
 ## Example
 ```sql
 SELECT

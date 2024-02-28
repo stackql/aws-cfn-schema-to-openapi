@@ -1066,6 +1066,12 @@ components:
     Description:
       type: string
       maxLength: 1000
+    LanguageCode:
+      description: The code for a language.
+      type: string
+      minLength: 2
+      maxLength: 10
+      pattern: '[a-zA-Z-]*'
     RoleArn:
       description: Role Arn
       type: string
@@ -1220,6 +1226,8 @@ components:
           $ref: '#/components/schemas/TagList'
         CustomDocumentEnrichmentConfiguration:
           $ref: '#/components/schemas/CustomDocumentEnrichmentConfiguration'
+        LanguageCode:
+          $ref: '#/components/schemas/LanguageCode'
       required:
         - Name
         - IndexId
@@ -1228,6 +1236,33 @@ components:
       x-stackql-primaryIdentifier:
         - Id
         - IndexId
+      x-create-only-properties:
+        - Type
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - kendra:CreateDataSource
+          - kendra:DescribeDataSource
+          - kendra:ListTagsForResource
+          - iam:PassRole
+          - kendra:TagResource
+        read:
+          - kendra:DescribeDataSource
+          - kendra:ListTagsForResource
+        delete:
+          - kendra:DescribeDataSource
+          - kendra:DeleteDataSource
+        list:
+          - kendra:ListDataSources
+        update:
+          - kendra:DescribeDataSource
+          - kendra:UpdateDataSource
+          - kendra:ListTagsForResource
+          - kendra:TagResource
+          - kendra:UntagResource
+          - iam:PassRole
     FileFormat:
       description: Format of the input file
       enum:
@@ -1277,6 +1312,35 @@ components:
       x-stackql-primaryIdentifier:
         - Id
         - IndexId
+      x-create-only-properties:
+        - IndexId
+        - Name
+        - S3Path
+        - RoleArn
+        - Description
+        - FileFormat
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - kendra:CreateFaq
+          - kendra:DescribeFaq
+          - iam:PassRole
+          - kendra:ListTagsForResource
+          - kendra:TagResource
+        update:
+          - kendra:ListTagsForResource
+          - kendra:UntagResource
+          - kendra:TagResource
+        read:
+          - kendra:DescribeFaq
+          - kendra:ListTagsForResource
+        delete:
+          - kendra:DeleteFaq
+          - kendra:DescribeFaq
+        list:
+          - kendra:ListFaqs
     ServerSideEncryptionConfiguration:
       type: object
       properties:
@@ -1508,6 +1572,35 @@ components:
       x-stackql-resource-name: index
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Edition
+        - ServerSideEncryptionConfiguration
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - kendra:CreateIndex
+          - kendra:DescribeIndex
+          - kendra:UpdateIndex
+          - kendra:ListTagsForResource
+          - iam:PassRole
+          - kendra:TagResource
+        read:
+          - kendra:DescribeIndex
+          - kendra:ListTagsForResource
+        update:
+          - kendra:DescribeIndex
+          - kendra:UpdateIndex
+          - kendra:ListTagsForResource
+          - kendra:TagResource
+          - kendra:UntagResource
+          - iam:PassRole
+        delete:
+          - kendra:DescribeIndex
+          - kendra:DeleteIndex
+        list:
+          - kendra:ListIndices
   x-stackQL-resources:
     data_sources:
       name: data_sources
@@ -1552,7 +1645,8 @@ components:
               JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration') as custom_document_enrichment_configuration
+              JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration') as custom_document_enrichment_configuration,
+              JSON_EXTRACT(Properties, '$.LanguageCode') as language_code
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::DataSource'
     faqs:
       name: faqs

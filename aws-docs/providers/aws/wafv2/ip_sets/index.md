@@ -37,6 +37,21 @@ Retrieves a list of <code>ip_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>ip_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+wafv2:CreateIPSet,
+wafv2:GetIPSet,
+wafv2:ListTagsForResource</pre>
+
+### List
+<pre>
+wafv2:listIPSets</pre>
+
+
 ## Example
 ```sql
 SELECT

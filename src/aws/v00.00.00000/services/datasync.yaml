@@ -83,6 +83,143 @@ components:
       x-stackql-resource-name: agent
       x-stackql-primaryIdentifier:
         - AgentArn
+      x-create-only-properties:
+        - ActivationKey
+        - SecurityGroupArns
+        - SubnetArns
+        - VpcEndpointId
+      x-read-only-properties:
+        - AgentArn
+        - EndpointType
+      x-required-permissions:
+        create:
+          - datasync:CreateAgent
+          - datasync:TagResource
+          - datasync:DescribeAgent
+          - datasync:ListTagsForResource
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcEndpoints
+        read:
+          - datasync:DescribeAgent
+          - datasync:ListTagsForResource
+        update:
+          - datasync:UpdateAgent
+          - datasync:DescribeAgent
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteAgent
+        list:
+          - datasync:ListAgents
+    AzureBlobSasConfiguration:
+      additionalProperties: false
+      description: Specifies the shared access signature (SAS) that DataSync uses to access your Azure Blob Storage container.
+      type: object
+      properties:
+        AzureBlobSasToken:
+          description: Specifies the shared access signature (SAS) token, which indicates the permissions DataSync needs to access your Azure Blob Storage container.
+          type: string
+          pattern: (^.+$)
+          minLength: 1
+          maxLength: 255
+      required:
+        - AzureBlobSasToken
+    LocationAzureBlob:
+      type: object
+      properties:
+        AgentArns:
+          description: The Amazon Resource Names (ARNs) of agents to use for an Azure Blob Location.
+          type: array
+          items:
+            type: string
+            pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:agent/agent-[0-9a-z]{17}$
+            maxLength: 128
+          minItems: 1
+          maxItems: 4
+          x-insertionOrder: false
+        AzureBlobAuthenticationType:
+          description: The specific authentication type that you want DataSync to use to access your Azure Blob Container.
+          type: string
+          enum:
+            - SAS
+          default: SAS
+        AzureBlobSasConfiguration:
+          $ref: '#/components/schemas/AzureBlobSasConfiguration'
+        AzureBlobContainerUrl:
+          description: The URL of the Azure Blob container that was described.
+          type: string
+          pattern: ^https://[A-Za-z0-9]((.|-+)?[A-Za-z0-9]){0,252}/[a-z0-9](-?[a-z0-9]){2,62}$
+          maxLength: 325
+        AzureBlobType:
+          description: Specifies a blob type for the objects you're transferring into your Azure Blob Storage container.
+          type: string
+          enum:
+            - BLOCK
+          default: BLOCK
+        AzureAccessTier:
+          description: Specifies an access tier for the objects you're transferring into your Azure Blob Storage container.
+          type: string
+          enum:
+            - HOT
+            - COOL
+            - ARCHIVE
+          default: HOT
+        Subdirectory:
+          description: The subdirectory in the Azure Blob Container that is used to read data from the Azure Blob Source Location.
+          type: string
+          maxLength: 1024
+          pattern: ^[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}\p{C}]*$
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        LocationArn:
+          description: The Amazon Resource Name (ARN) of the Azure Blob Location that is created.
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:location/loc-[0-9a-z]{17}$
+          maxLength: 128
+        LocationUri:
+          description: The URL of the Azure Blob Location that was described.
+          type: string
+          pattern: ^(azure-blob)://[a-zA-Z0-9./\-]+$
+          maxLength: 4356
+      required:
+        - AzureBlobAuthenticationType
+        - AgentArns
+      x-stackql-resource-name: location_azure_blob
+      x-stackql-primaryIdentifier:
+        - LocationArn
+      x-create-only-properties:
+        - AzureBlobContainerUrl
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationAzureBlob
+          - datasync:DescribeLocationAzureBlob
+          - datasync:TagResource
+          - datasync:ListTagsForResource
+        read:
+          - datasync:DescribeLocationAzureBlob
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationAzureBlob
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - datasync:UpdateLocationAzureBlob
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     Ec2Config:
       additionalProperties: false
       description: The subnet and security group that DataSync uses to access target EFS file system.
@@ -160,6 +297,40 @@ components:
       x-stackql-resource-name: location_efs
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - Ec2Config
+        - EfsFilesystemArn
+        - Subdirectory
+        - FileSystemAccessRoleArn
+        - InTransitEncryption
+        - AccessPointArn
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationEfs
+          - datasync:DescribeLocationEfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - elasticfilesystem:DescribeFileSystems
+          - elasticfilesystem:DescribeMountTargets
+          - elasticfilesystem:DescribeAccessPoints
+          - iam:PassRole
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - datasync:DescribeLocationEfs
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationEfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     LocationFSxLustre:
       type: object
       properties:
@@ -207,6 +378,35 @@ components:
       x-stackql-resource-name: locationf_sx_lustre
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - FsxFilesystemArn
+        - SecurityGroupArns
+        - Subdirectory
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationFsxLustre
+          - datasync:DescribeLocationFsxLustre
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - fsx:DescribeFileSystems
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - datasync:DescribeLocationFsxLustre
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationFsxLustre
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     Protocol:
       additionalProperties: false
       description: Configuration settings for an NFS or SMB protocol, currently only support NFS
@@ -329,6 +529,38 @@ components:
       x-stackql-resource-name: locationf_sx_ontap
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - StorageVirtualMachineArn
+        - SecurityGroupArns
+        - Protocol
+        - Subdirectory
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+        - FsxFilesystemArn
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationFsxOntap
+          - datasync:DescribeLocationFsxOntap
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - fsx:DescribeStorageVirtualMachines
+          - fsx:DescribeFileSystems
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - datasync:DescribeLocationFsxOntap
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationFsxOntap
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     MountOptions:
       additionalProperties: false
       description: The mount options used by DataSync to access the SMB server.
@@ -393,6 +625,36 @@ components:
       x-stackql-resource-name: locationf_sx_open_zfs
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - FsxFilesystemArn
+        - SecurityGroupArns
+        - Protocol
+        - Subdirectory
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationFsxOpenZfs
+          - datasync:DescribeLocationFsxOpenZfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - fsx:DescribeFileSystems
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - datasync:DescribeLocationFsxOpenZfs
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationFsxOpenZfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     LocationFSxWindows:
       type: object
       properties:
@@ -453,6 +715,38 @@ components:
       x-stackql-resource-name: locationf_sx_windows
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - Domain
+        - FsxFilesystemArn
+        - Password
+        - SecurityGroupArns
+        - Subdirectory
+        - User
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationFsxWindows
+          - datasync:DescribeLocationFsxWindows
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - fsx:DescribeFileSystems
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - datasync:DescribeLocationFsxWindows
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationFsxWindows
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     NameNode:
       additionalProperties: false
       description: HDFS Name Node IP and port information.
@@ -591,6 +885,28 @@ components:
       x-stackql-resource-name: location_hdfs
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationHdfs
+          - datasync:DescribeLocationHdfs
+          - datasync:TagResource
+          - datasync:ListTagsForResource
+        read:
+          - datasync:DescribeLocationHdfs
+          - datasync:ListTagsForResource
+        update:
+          - datasync:UpdateLocationHdfs
+          - datasync:DescribeLocationHdfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     OnPremConfig:
       additionalProperties: false
       description: Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.
@@ -650,6 +966,30 @@ components:
       x-stackql-resource-name: location_nfs
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - ServerHostname
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationNfs
+          - datasync:DescribeLocationNfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+        read:
+          - datasync:DescribeLocationNfs
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationNfs
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - datasync:UpdateLocationNfs
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     LocationObjectStorage:
       type: object
       properties:
@@ -729,6 +1069,31 @@ components:
       x-stackql-resource-name: location_object_storage
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - BucketName
+        - ServerHostname
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationObjectStorage
+          - datasync:DescribeLocationObjectStorage
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+        read:
+          - datasync:DescribeLocationObjectStorage
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationObjectStorage
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - datasync:UpdateLocationObjectStorage
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     S3Config:
       additionalProperties: false
       description: The Amazon Resource Name (ARN) of the AWS IAM role that is used to access an Amazon S3 bucket.
@@ -791,6 +1156,36 @@ components:
       x-stackql-resource-name: location_s3
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - S3Config
+        - S3StorageClass
+        - Subdirectory
+        - S3BucketArn
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationS3
+          - datasync:DescribeLocationS3
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - s3:ListAllMyBuckets
+          - s3:ListBucket
+          - iam:GetRole
+          - iam:PassRole
+        read:
+          - datasync:DescribeLocationS3
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationS3
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
     LocationSMB:
       type: object
       properties:
@@ -857,6 +1252,160 @@ components:
       x-stackql-resource-name: location_smb
       x-stackql-primaryIdentifier:
         - LocationArn
+      x-create-only-properties:
+        - ServerHostname
+      x-read-only-properties:
+        - LocationArn
+        - LocationUri
+      x-required-permissions:
+        create:
+          - datasync:CreateLocationSmb
+          - datasync:DescribeLocationSmb
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+        read:
+          - datasync:DescribeLocationSmb
+          - datasync:ListTagsForResource
+        update:
+          - datasync:DescribeLocationSmb
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - datasync:UpdateLocationSmb
+        delete:
+          - datasync:DeleteLocation
+        list:
+          - datasync:ListLocations
+    ServerConfiguration:
+      additionalProperties: false
+      description: The server name and network port required to connect with the management interface of the on-premises storage system.
+      type: object
+      properties:
+        ServerHostname:
+          type: string
+          description: The domain name or IP address of the storage system's management interface.
+          pattern: ^(([a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9\-]*[A-Za-z0-9])$
+          maxLength: 255
+        ServerPort:
+          type: integer
+          description: The network port needed to access the system's management interface
+          minimum: 1
+          maximum: 65535
+      required:
+        - ServerHostname
+    ServerCredentials:
+      additionalProperties: false
+      description: The username and password for accessing your on-premises storage system's management interface.
+      type: object
+      properties:
+        Username:
+          type: string
+          description: The username for your storage system's management interface.
+          maxLength: 1024
+        Password:
+          type: string
+          description: The password for your storage system's management interface
+          maxLength: 1024
+      required:
+        - Username
+        - Password
+    StorageSystem:
+      type: object
+      properties:
+        ServerConfiguration:
+          $ref: '#/components/schemas/ServerConfiguration'
+        ServerCredentials:
+          $ref: '#/components/schemas/ServerCredentials'
+        SecretsManagerArn:
+          description: The ARN of a secret stored by AWS Secrets Manager.
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):secretsmanager:[a-z\-0-9]+:[0-9]{12}:secret:.*
+          maxLength: 2048
+        SystemType:
+          description: The type of on-premises storage system that DataSync Discovery will analyze.
+          type: string
+          enum:
+            - NetAppONTAP
+        AgentArns:
+          description: The ARN of the DataSync agent that connects to and reads from the on-premises storage system's management interface.
+          type: array
+          items:
+            type: string
+            pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:agent/agent-[0-9a-z]{17}$
+            maxLength: 128
+          minItems: 1
+          maxItems: 1
+          x-insertionOrder: false
+        CloudWatchLogGroupArn:
+          description: The ARN of the Amazon CloudWatch log group used to monitor and log discovery job events.
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):logs:[a-z\-0-9]+:[0-9]{12}:log-group:([^:\*]*)(:\*)?$
+          maxLength: 562
+        Name:
+          description: A familiar name for the on-premises storage system.
+          type: string
+          pattern: ^[a-zA-Z0-9\s+=._:@/-]+$
+          minLength: 1
+          maxLength: 256
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          maxItems: 50
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        StorageSystemArn:
+          description: The ARN of the on-premises storage system added to DataSync Discovery.
+          type: string
+          pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):datasync:[a-z\-0-9]+:[0-9]{12}:system/storage-system-[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$
+          maxLength: 128
+        ConnectivityStatus:
+          description: Indicates whether the DataSync agent can access the on-premises storage system.
+          type: string
+          enum:
+            - PASS
+            - FAIL
+            - UNKNOWN
+      required:
+        - ServerConfiguration
+        - SystemType
+        - AgentArns
+      x-stackql-resource-name: storage_system
+      x-stackql-primaryIdentifier:
+        - StorageSystemArn
+      x-read-only-properties:
+        - StorageSystemArn
+        - ConnectivityStatus
+        - SecretsManagerArn
+      x-required-permissions:
+        create:
+          - datasync:AddStorageSystem
+          - datasync:DescribeStorageSystem
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - secretsmanager:CreateSecret
+          - secretsmanager:DescribeSecret
+          - iam:CreateServiceLinkedRole
+        read:
+          - datasync:DescribeStorageSystem
+          - datasync:ListTagsForResource
+          - secretsmanager:DescribeSecret
+        update:
+          - datasync:UpdateStorageSystem
+          - datasync:DescribeStorageSystem
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - secretsmanager:DescribeSecret
+          - secretsmanager:PutSecretValue
+        delete:
+          - datasync:DescribeStorageSystem
+          - datasync:RemoveStorageSystem
+          - secretsmanager:DescribeSecret
+          - secretsmanager:DeleteSecret
+        list:
+          - datasync:ListStorageSystems
     FilterRule:
       additionalProperties: false
       description: Specifies which files folders and objects to include or exclude when transferring files from source to destination.
@@ -874,6 +1423,106 @@ components:
           type: string
           pattern: ^[^\x00]+$
           maxLength: 409600
+    TaskReportConfig:
+      additionalProperties: false
+      description: Specifies how you want to configure a task report, which provides detailed information about for your Datasync transfer.
+      type: object
+      properties:
+        Destination:
+          additionalProperties: false
+          description: Specifies where DataSync uploads your task report.
+          type: object
+          properties:
+            S3:
+              additionalProperties: false
+              description: Specifies the Amazon S3 bucket where DataSync uploads your task report.
+              type: object
+              properties:
+                Subdirectory:
+                  description: Specifies a bucket prefix for your report.
+                  type: string
+                  maxLength: 4096
+                  pattern: ^[a-zA-Z0-9_\-\+\./\(\)\p{Zs}]*$
+                BucketAccessRoleArn:
+                  description: Specifies the Amazon Resource Name (ARN) of the IAM policy that allows Datasync to upload a task report to your S3 bucket.
+                  type: string
+                  maxLength: 2048
+                  pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):iam::[0-9]{12}:role/.*$
+                S3BucketArn:
+                  description: Specifies the ARN of the S3 bucket where Datasync uploads your report.
+                  type: string
+                  maxLength: 156
+                  pattern: ^arn:(aws|aws-cn|aws-us-gov|aws-iso|aws-iso-b):(s3|s3-outposts):[a-z\-0-9]*:[0-9]*:.*$
+        OutputType:
+          description: Specifies the type of task report that you want.
+          type: string
+          enum:
+            - SUMMARY_ONLY
+            - STANDARD
+        ReportLevel:
+          description: Specifies whether you want your task report to include only what went wrong with your transfer or a list of what succeeded and didn't.
+          type: string
+          enum:
+            - ERRORS_ONLY
+            - SUCCESSES_AND_ERRORS
+        ObjectVersionIds:
+          description: Specifies whether your task report includes the new version of each object transferred into an S3 bucket, this only applies if you enable versioning on your bucket.
+          type: string
+          enum:
+            - INCLUDE
+            - NONE
+        Overrides:
+          additionalProperties: false
+          description: Customizes the reporting level for aspects of your task report. For example, your report might generally only include errors, but you could specify that you want a list of successes and errors just for the files that Datasync attempted to delete in your destination location.
+          type: object
+          properties:
+            Transferred:
+              additionalProperties: false
+              description: Specifies the level of reporting for the files, objects, and directories that Datasync attempted to transfer.
+              type: object
+              properties:
+                ReportLevel:
+                  description: Specifies whether you want your task report to include only what went wrong with your transfer or a list of what succeeded and didn't.
+                  type: string
+                  enum:
+                    - ERRORS_ONLY
+                    - SUCCESSES_AND_ERRORS
+            Verified:
+              additionalProperties: false
+              description: Specifies the level of reporting for the files, objects, and directories that Datasync attempted to verify at the end of your transfer. This only applies if you configure your task to verify data during and after the transfer (which Datasync does by default)
+              type: object
+              properties:
+                ReportLevel:
+                  description: Specifies whether you want your task report to include only what went wrong with your transfer or a list of what succeeded and didn't.
+                  type: string
+                  enum:
+                    - ERRORS_ONLY
+                    - SUCCESSES_AND_ERRORS
+            Deleted:
+              additionalProperties: false
+              description: Specifies the level of reporting for the files, objects, and directories that Datasync attempted to delete in your destination location. This only applies if you configure your task to delete data in the destination that isn't in the source.
+              type: object
+              properties:
+                ReportLevel:
+                  description: Specifies whether you want your task report to include only what went wrong with your transfer or a list of what succeeded and didn't.
+                  type: string
+                  enum:
+                    - ERRORS_ONLY
+                    - SUCCESSES_AND_ERRORS
+            Skipped:
+              additionalProperties: false
+              description: Specifies the level of reporting for the files, objects, and directories that Datasync attempted to skip during your transfer.
+              type: object
+              properties:
+                ReportLevel:
+                  description: Specifies whether you want your task report to include only what went wrong with your transfer or a list of what succeeded and didn't.
+                  type: string
+                  enum:
+                    - ERRORS_ONLY
+                    - SUCCESSES_AND_ERRORS
+      required:
+        - Destination
+        - OutputType
     TaskSchedule:
       additionalProperties: false
       description: Specifies the schedule you want your task to use for repeated executions.
@@ -1046,6 +1695,8 @@ components:
           pattern: ^[a-zA-Z0-9\s+=._:@/-]+$
         Options:
           $ref: '#/components/schemas/Options'
+        TaskReportConfig:
+          $ref: '#/components/schemas/TaskReportConfig'
         Schedule:
           $ref: '#/components/schemas/TaskSchedule'
         SourceLocationArn:
@@ -1077,6 +1728,58 @@ components:
       x-stackql-resource-name: task
       x-stackql-primaryIdentifier:
         - TaskArn
+      x-create-only-properties:
+        - DestinationLocationArn
+        - SourceLocationArn
+      x-read-only-properties:
+        - TaskArn
+        - Status
+        - SourceNetworkInterfaceArns
+        - DestinationNetworkInterfaceArns
+      x-required-permissions:
+        create:
+          - datasync:CreateTask
+          - datasync:DescribeTask
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - s3:ListAllMyBuckets
+          - s3:ListBucket
+          - ec2:DescribeNetworkInterfaces
+          - ec2:CreateNetworkInterface
+          - ec2:DeleteNetworkInterface
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:CreateNetworkInterfacePermission
+          - fsx:DescribeFileSystems
+          - elasticfilesystem:DescribeFileSystems
+          - elasticfilesystem:DescribeMountTargets
+          - logs:DescribeLogGroups
+          - iam:GetRole
+          - iam:PassRole
+          - iam:AssumeRole
+        read:
+          - datasync:DescribeTask
+          - datasync:ListTagsForResource
+        update:
+          - datasync:UpdateTask
+          - datasync:DescribeTask
+          - datasync:ListTagsForResource
+          - datasync:TagResource
+          - datasync:UntagResource
+          - logs:DescribeLogGroups
+          - iam:PassRole
+        delete:
+          - datasync:DeleteTask
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DeleteNetworkInterface
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - fsx:DescribeFileSystems
+          - elasticfilesystem:DescribeFileSystems
+          - elasticfilesystem:DescribeMountTargets
+          - iam:GetRole
+        list:
+          - datasync:ListTasks
   x-stackQL-resources:
     agents:
       name: agents
@@ -1117,6 +1820,47 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AgentArn') as agent_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Agent'
+    location_azure_blobs:
+      name: location_azure_blobs
+      id: aws.datasync.location_azure_blobs
+      x-cfn-schema-name: LocationAzureBlob
+      x-type: list
+      x-identifiers:
+        - LocationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
+    location_azure_blob:
+      name: location_azure_blob
+      id: aws.datasync.location_azure_blob
+      x-cfn-schema-name: LocationAzureBlob
+      x-type: get
+      x-identifiers:
+        - LocationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AgentArns') as agent_arns,
+              JSON_EXTRACT(Properties, '$.AzureBlobAuthenticationType') as azure_blob_authentication_type,
+              JSON_EXTRACT(Properties, '$.AzureBlobSasConfiguration') as azure_blob_sas_configuration,
+              JSON_EXTRACT(Properties, '$.AzureBlobContainerUrl') as azure_blob_container_url,
+              JSON_EXTRACT(Properties, '$.AzureBlobType') as azure_blob_type,
+              JSON_EXTRACT(Properties, '$.AzureAccessTier') as azure_access_tier,
+              JSON_EXTRACT(Properties, '$.Subdirectory') as subdirectory,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
+              JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
     location_efs:
       name: location_efs
       id: aws.datasync.location_efs
@@ -1437,6 +2181,47 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
+    storage_systems:
+      name: storage_systems
+      id: aws.datasync.storage_systems
+      x-cfn-schema-name: StorageSystem
+      x-type: list
+      x-identifiers:
+        - StorageSystemArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.StorageSystemArn') as storage_system_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
+    storage_system:
+      name: storage_system
+      id: aws.datasync.storage_system
+      x-cfn-schema-name: StorageSystem
+      x-type: get
+      x-identifiers:
+        - StorageSystemArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ServerConfiguration') as server_configuration,
+              JSON_EXTRACT(Properties, '$.ServerCredentials') as server_credentials,
+              JSON_EXTRACT(Properties, '$.SecretsManagerArn') as secrets_manager_arn,
+              JSON_EXTRACT(Properties, '$.SystemType') as system_type,
+              JSON_EXTRACT(Properties, '$.AgentArns') as agent_arns,
+              JSON_EXTRACT(Properties, '$.CloudWatchLogGroupArn') as cloud_watch_log_group_arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.StorageSystemArn') as storage_system_arn,
+              JSON_EXTRACT(Properties, '$.ConnectivityStatus') as connectivity_status
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
     tasks:
       name: tasks
       id: aws.datasync.tasks
@@ -1474,6 +2259,7 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationLocationArn') as destination_location_arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Options') as options,
+              JSON_EXTRACT(Properties, '$.TaskReportConfig') as task_report_config,
               JSON_EXTRACT(Properties, '$.Schedule') as schedule,
               JSON_EXTRACT(Properties, '$.SourceLocationArn') as source_location_arn,
               JSON_EXTRACT(Properties, '$.TaskArn') as task_arn,

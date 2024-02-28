@@ -41,6 +41,28 @@ Gets an individual <code>job_queue</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>job_queue</code> resource, the following permissions are required:
+
+### Read
+<pre>
+Batch:DescribeJobQueues</pre>
+
+### Update
+<pre>
+Batch:DescribeJobQueues,
+Batch:UpdateJobQueue,
+Batch:TagResource,
+Batch:UnTagResource</pre>
+
+### Delete
+<pre>
+Batch:UpdateJobQueue,
+Batch:DescribeJobQueues,
+Batch:DeleteJobQueue</pre>
+
+
 ## Example
 ```sql
 SELECT

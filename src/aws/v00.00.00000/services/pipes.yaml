@@ -19,7 +19,7 @@ components:
             type: string
             maxLength: 1024
             minLength: 1
-            pattern: ^subnet-[0-9a-z]*$
+            pattern: ^subnet-[0-9a-z]*|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
           maxItems: 16
           minItems: 0
         SecurityGroups:
@@ -28,7 +28,7 @@ components:
             type: string
             maxLength: 1024
             minLength: 1
-            pattern: ^sg-[0-9a-zA-Z]*$
+            pattern: ^sg-[0-9a-zA-Z]*|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
           maxItems: 5
           minItems: 0
         AssignPublicIp:
@@ -136,6 +136,15 @@ components:
       required:
         - CapacityProvider
       additionalProperties: false
+    CloudwatchLogsLogDestination:
+      type: object
+      properties:
+        LogGroupArn:
+          type: string
+          maxLength: 1600
+          minLength: 1
+          pattern: ^(^arn:aws([a-z]|\-)*:logs:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):log-group:.+)$
+      additionalProperties: false
     DeadLetterConfig:
       type: object
       properties:
@@ -143,7 +152,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)$
       additionalProperties: false
     DynamoDBStreamStartPosition:
       type: string
@@ -251,7 +260,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
         InferenceAcceleratorOverrides:
           type: array
           items:
@@ -262,7 +271,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
       additionalProperties: false
     Filter:
       type: object
@@ -282,15 +291,28 @@ components:
           maxItems: 5
           minItems: 0
       additionalProperties: false
+    FirehoseLogDestination:
+      type: object
+      properties:
+        DeliveryStreamArn:
+          type: string
+          maxLength: 1600
+          minLength: 1
+          pattern: ^(^arn:aws([a-z]|\-)*:firehose:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):deliverystream/.+)$
+      additionalProperties: false
     HeaderParametersMap:
       type: object
       x-patternProperties:
-        ^[!#$%&'*+-.^_`|~0-9a-zA-Z]+$:
+        ^[!#$%&'*+-.^_`|~0-9a-zA-Z]+|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$:
           type: string
           maxLength: 512
           minLength: 0
-          pattern: ^[ \t]*[\x20-\x7E]+([ \t]+[\x20-\x7E]+)*[ \t]*$
+          pattern: ^[ \t]*[\x20-\x7E]+([ \t]+[\x20-\x7E]+)*[ \t]*|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
       additionalProperties: false
+    IncludeExecutionDataOption:
+      type: string
+      enum:
+        - ALL
     KinesisStreamStartPosition:
       type: string
       enum:
@@ -303,6 +325,13 @@ components:
         - EC2
         - FARGATE
         - EXTERNAL
+    LogLevel:
+      type: string
+      enum:
+        - 'OFF'
+        - ERROR
+        - INFO
+        - TRACE
     MQBrokerAccessCredentials:
       oneOf:
         - type: object
@@ -312,7 +341,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - BasicAuth
@@ -326,7 +355,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - SaslScram512Auth
@@ -338,7 +367,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - ClientCertificateTlsAuth
@@ -365,9 +394,7 @@ components:
           type: array
           items:
             type: string
-            pattern: ^(?!\s*$).+$
-          maxItems: 1
-          minItems: 0
+            pattern: ^(?!\s*$).+|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
         HeaderParameters:
           $ref: '#/components/schemas/HeaderParametersMap'
         QueryStringParameters:
@@ -378,8 +405,27 @@ components:
       properties:
         InputTemplate:
           type: string
+          maxLength: 8192
+          minLength: 0
         HttpParameters:
           $ref: '#/components/schemas/PipeEnrichmentHttpParameters'
+      additionalProperties: false
+    PipeLogConfiguration:
+      type: object
+      properties:
+        S3LogDestination:
+          $ref: '#/components/schemas/S3LogDestination'
+        FirehoseLogDestination:
+          $ref: '#/components/schemas/FirehoseLogDestination'
+        CloudwatchLogsLogDestination:
+          $ref: '#/components/schemas/CloudwatchLogsLogDestination'
+        Level:
+          $ref: '#/components/schemas/LogLevel'
+        IncludeExecutionData:
+          type: array
+          items:
+            $ref: '#/components/schemas/IncludeExecutionDataOption'
+          uniqueItems: true
       additionalProperties: false
     PipeSourceActiveMQBrokerParameters:
       type: object
@@ -408,7 +454,7 @@ components:
       properties:
         BatchSize:
           type: integer
-          maximum: 1000
+          maximum: 10000
           minimum: 1
         DeadLetterConfig:
           $ref: '#/components/schemas/DeadLetterConfig'
@@ -583,7 +629,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+          pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
           description: Optional SecretManager ARN which stores the database credentials
         Vpc:
           $ref: '#/components/schemas/SelfManagedKafkaAccessConfigurationVpc'
@@ -616,6 +662,10 @@ components:
         - UPDATE_FAILED
         - START_FAILED
         - STOP_FAILED
+        - DELETE_FAILED
+        - CREATE_ROLLBACK_FAILED
+        - DELETE_ROLLBACK_FAILED
+        - UPDATE_ROLLBACK_FAILED
     PipeTargetBatchJobParameters:
       type: object
       properties:
@@ -661,7 +711,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.*)$
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
         TaskCount:
           type: integer
           minimum: 1
@@ -728,21 +778,21 @@ components:
           type: string
           maxLength: 256
           minLength: 1
-          pattern: (?=[/\.\-_A-Za-z0-9]+)((?!aws\.).*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)
+          pattern: (?=[/\.\-_A-Za-z0-9]+)((?!aws\.).*)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)
         Resources:
           type: array
           items:
             type: string
             maxLength: 1600
             minLength: 1
-            pattern: ^arn:aws([a-z]|\-)*:(.*)|^\$(\.[\w_-]+(\[(\d+|\*)\])*)*$
+            pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
           maxItems: 10
           minItems: 0
         Time:
           type: string
           maxLength: 256
           minLength: 1
-          pattern: ^\$(\.[\w_-]+(\[(\d+|\*)\])*)*$
+          pattern: ^\$(\.[\w/_-]+(\[(\d+|\*)\])*)*$
       additionalProperties: false
     PipeTargetHttpParameters:
       type: object
@@ -751,9 +801,7 @@ components:
           type: array
           items:
             type: string
-            pattern: ^(?!\s*$).+$
-          maxItems: 1
-          minItems: 0
+            pattern: ^(?!\s*$).+|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
         HeaderParameters:
           $ref: '#/components/schemas/HeaderParametersMap'
         QueryStringParameters:
@@ -785,6 +833,8 @@ components:
       properties:
         InputTemplate:
           type: string
+          maxLength: 8192
+          minLength: 0
         LambdaFunctionParameters:
           $ref: '#/components/schemas/PipeTargetLambdaFunctionParameters'
         StepFunctionStateMachineParameters:
@@ -815,7 +865,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
-          pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+          pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
           description: Optional SecretManager ARN which stores the database credentials
         Database:
           type: string
@@ -842,6 +892,7 @@ components:
             maxLength: 100000
             minLength: 1
             description: A single Redshift SQL
+          maxItems: 40
           minItems: 1
           description: A list of SQLs.
       required:
@@ -914,17 +965,35 @@ components:
     QueryStringParametersMap:
       type: object
       x-patternProperties:
-        ^[^\x00-\x1F\x7F]+$:
+        ^[^\x00-\x1F\x7F]+|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$:
           type: string
           maxLength: 512
           minLength: 0
-          pattern: ^[^\x00-\x09\x0B\x0C\x0E-\x1F\x7F]+$
+          pattern: ^[^\x00-\x09\x0B\x0C\x0E-\x1F\x7F]+|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
       additionalProperties: false
     RequestedPipeState:
       type: string
       enum:
         - RUNNING
         - STOPPED
+    S3LogDestination:
+      type: object
+      properties:
+        BucketName:
+          type: string
+        Prefix:
+          type: string
+        BucketOwner:
+          type: string
+        OutputFormat:
+          $ref: '#/components/schemas/S3OutputFormat'
+      additionalProperties: false
+    S3OutputFormat:
+      type: string
+      enum:
+        - json
+        - plain
+        - w3c
     SageMakerPipelineParameter:
       type: object
       properties:
@@ -932,7 +1001,7 @@ components:
           type: string
           maxLength: 256
           minLength: 1
-          pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*$
+          pattern: ^[a-zA-Z0-9](-*[a-zA-Z0-9])*|(\$(\.[\w/_-]+(\[(\d+|\*)\])*)*)$
         Value:
           type: string
           maxLength: 1024
@@ -950,7 +1019,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - BasicAuth
@@ -962,7 +1031,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - SaslScram512Auth
@@ -974,7 +1043,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - SaslScram256Auth
@@ -986,7 +1055,7 @@ components:
               type: string
               maxLength: 1600
               minLength: 1
-              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:[a-z0-9-.]+:.*)|(\$(\.[\w_-]+(\[(\d+|\*)\])*)*)$
+              pattern: ^(^arn:aws([a-z]|\-)*:secretsmanager:([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1}):(\d{12}):secret:.+)$
               description: Optional SecretManager ARN which stores the database credentials
           required:
             - ClientCertificateTlsAuth
@@ -1052,6 +1121,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
+          pattern: ^arn:aws([a-z]|\-)*:([a-zA-Z0-9\-]+):([a-z]|\d|\-)*:([0-9]{12})?:(.+)$
         CreationTime:
           type: string
           format: date-time
@@ -1068,11 +1138,14 @@ components:
           type: string
           maxLength: 1600
           minLength: 0
+          pattern: ^$|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)$
         EnrichmentParameters:
           $ref: '#/components/schemas/PipeEnrichmentParameters'
         LastModifiedTime:
           type: string
           format: date-time
+        LogConfiguration:
+          $ref: '#/components/schemas/PipeLogConfiguration'
         Name:
           type: string
           maxLength: 64
@@ -1082,10 +1155,12 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
+          pattern: ^arn:(aws[a-zA-Z-]*)?:iam::\d{12}:role/?[a-zA-Z0-9+=,.@\-_/]+$
         Source:
           type: string
           maxLength: 1600
           minLength: 1
+          pattern: ^smk://(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9]):[0-9]{1,5}|arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)$
         SourceParameters:
           $ref: '#/components/schemas/PipeSourceParameters'
         StateReason:
@@ -1099,6 +1174,7 @@ components:
           type: string
           maxLength: 1600
           minLength: 1
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):([a-zA-Z0-9\-]+):([a-z]{2}((-gov)|(-iso(b?)))?-[a-z]+-\d{1})?:(\d{12})?:(.+)$
         TargetParameters:
           $ref: '#/components/schemas/PipeTargetParameters'
       required:
@@ -1108,6 +1184,74 @@ components:
       x-stackql-resource-name: pipe
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - Source
+        - SourceParameters/DynamoDBStreamParameters/StartingPosition
+        - SourceParameters/KinesisStreamParameters/StartingPosition
+        - SourceParameters/KinesisStreamParameters/StartingPositionTimestamp
+        - SourceParameters/ActiveMQBrokerParameters/QueueName
+        - SourceParameters/RabbitMQBrokerParameters/QueueName
+        - SourceParameters/RabbitMQBrokerParameters/VirtualHost
+        - SourceParameters/ManagedStreamingKafkaParameters/TopicName
+        - SourceParameters/ManagedStreamingKafkaParameters/StartingPosition
+        - SourceParameters/ManagedStreamingKafkaParameters/ConsumerGroupID
+        - SourceParameters/SelfManagedApacheKafkaParameters/TopicName
+        - SourceParameters/SelfManagedApacheKafkaParameters/StartingPosition
+        - SourceParameters/SelfManagedApacheKafkaParameters/AdditionalBootstrapServers
+        - SourceParameters/SelfManagedApacheKafkaParameters/ConsumerGroupID
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - CurrentState
+        - LastModifiedTime
+        - StateReason
+      x-required-permissions:
+        create:
+          - pipes:CreatePipe
+          - pipes:DescribePipe
+          - pipes:TagResource
+          - iam:PassRole
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - iam:CreateServiceLinkedRole
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+          - s3:PutBucketPolicy
+          - s3:GetBucketPolicy
+          - firehose:TagDeliveryStream
+        read:
+          - pipes:DescribePipe
+        update:
+          - pipes:UpdatePipe
+          - pipes:TagResource
+          - pipes:UntagResource
+          - pipes:DescribePipe
+          - iam:PassRole
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - iam:CreateServiceLinkedRole
+          - logs:CreateLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+          - s3:PutBucketPolicy
+          - s3:GetBucketPolicy
+          - firehose:TagDeliveryStream
+        delete:
+          - pipes:DeletePipe
+          - pipes:DescribePipe
+          - logs:CreateLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:GetLogDelivery
+          - logs:ListLogDeliveries
+        list:
+          - pipes:ListPipes
   x-stackQL-resources:
     pipes:
       name: pipes
@@ -1147,6 +1291,7 @@ components:
               JSON_EXTRACT(Properties, '$.Enrichment') as enrichment,
               JSON_EXTRACT(Properties, '$.EnrichmentParameters') as enrichment_parameters,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
+              JSON_EXTRACT(Properties, '$.LogConfiguration') as log_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Source') as source,

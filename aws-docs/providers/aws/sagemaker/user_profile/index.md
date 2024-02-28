@@ -41,6 +41,28 @@ Gets an individual <code>user_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>user_profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeUserProfile</pre>
+
+### Update
+<pre>
+sagemaker:UpdateUserProfile,
+sagemaker:DescribeUserProfile,
+sagemaker:DescribeImage,
+sagemaker:DescribeImageVersion,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteUserProfile,
+sagemaker:DescribeUserProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,22 @@ Retrieves a list of <code>connect_attachments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connect_attachments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:GetConnectAttachment,
+networkmanager:CreateConnectAttachment,
+networkmanager:TagResource,
+ec2:DescribeRegions</pre>
+
+### List
+<pre>
+networkmanager:ListAttachments</pre>
+
+
 ## Example
 ```sql
 SELECT

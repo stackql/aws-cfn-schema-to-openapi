@@ -35,6 +35,35 @@ Retrieves a list of <code>nodegroups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>nodegroups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+eks:CreateNodegroup,
+eks:DescribeNodegroup,
+eks:TagResource,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+ec2:DescribeSecurityGroups,
+ec2:DescribeKeyPairs,
+ec2:CreateTags,
+ec2:DeleteTags,
+ec2:DescribeRouteTables,
+ec2:DescribeLaunchTemplates,
+ec2:DescribeLaunchTemplateVersions,
+ec2:RunInstances,
+iam:CreateServiceLinkedRole,
+iam:GetRole,
+iam:PassRole,
+iam:ListAttachedRolePolicies</pre>
+
+### List
+<pre>
+eks:ListNodegroups</pre>
+
+
 ## Example
 ```sql
 SELECT

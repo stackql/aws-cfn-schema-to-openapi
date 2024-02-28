@@ -35,6 +35,22 @@ Retrieves a list of <code>assistants</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assistants</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kms:CreateGrant,
+kms:DescribeKey,
+wisdom:CreateAssistant,
+wisdom:TagResource</pre>
+
+### List
+<pre>
+wisdom:ListAssistants</pre>
+
+
 ## Example
 ```sql
 SELECT

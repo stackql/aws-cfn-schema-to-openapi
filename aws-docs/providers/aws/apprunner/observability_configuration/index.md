@@ -40,6 +40,19 @@ Gets an individual <code>observability_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>observability_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apprunner:DescribeObservabilityConfiguration</pre>
+
+### Delete
+<pre>
+apprunner:DeleteObservabilityConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

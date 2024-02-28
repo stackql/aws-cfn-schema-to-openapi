@@ -52,6 +52,33 @@ Gets an individual <code>inference_experiment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>inference_experiment</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+sagemaker:DeleteInferenceExperiment,
+sagemaker:DescribeInferenceExperiment,
+sagemaker:StopInferenceExperiment,
+sagemaker:ListTags</pre>
+
+### Read
+<pre>
+sagemaker:DescribeInferenceExperiment,
+sagemaker:ListTags</pre>
+
+### Update
+<pre>
+sagemaker:UpdateInferenceExperiment,
+sagemaker:StartInferenceExperiment,
+sagemaker:StopInferenceExperiment,
+sagemaker:DescribeInferenceExperiment,
+sagemaker:AddTags,
+sagemaker:DeleteTags,
+sagemaker:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

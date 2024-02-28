@@ -35,6 +35,16 @@ Retrieves a list of <code>streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>streams</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kinesisvideo:DescribeStream,
+kinesisvideo:CreateStream</pre>
+
+
 ## Example
 ```sql
 SELECT

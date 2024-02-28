@@ -35,6 +35,22 @@ Retrieves a list of <code>location_smbs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location_smbs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+datasync:CreateLocationSmb,
+datasync:DescribeLocationSmb,
+datasync:ListTagsForResource,
+datasync:TagResource</pre>
+
+### List
+<pre>
+datasync:ListLocations</pre>
+
+
 ## Example
 ```sql
 SELECT

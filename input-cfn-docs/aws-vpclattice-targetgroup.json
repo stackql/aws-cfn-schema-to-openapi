@@ -16,7 +16,7 @@
         },
         "ProtocolVersion" : {
           "type" : "string",
-          "enum" : [ "HTTP1", "HTTP2" ]
+          "enum" : [ "HTTP1", "HTTP2", "GRPC" ]
         },
         "Port" : {
           "type" : "integer",
@@ -90,6 +90,10 @@
           "default" : "IPV4",
           "enum" : [ "IPV4", "IPV6" ]
         },
+        "LambdaEventStructureVersion" : {
+          "type" : "string",
+          "enum" : [ "V1", "V2" ]
+        },
         "VpcIdentifier" : {
           "type" : "string",
           "maxLength" : 2048,
@@ -100,7 +104,7 @@
           "$ref" : "#/definitions/HealthCheckConfig"
         }
       },
-      "required" : [ "Port", "Protocol", "VpcIdentifier" ]
+      "required" : [ ]
     },
     "Target" : {
       "type" : "object",
@@ -194,21 +198,21 @@
   },
   "required" : [ "Type" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/CreatedAt", "/properties/Id", "/properties/LastUpdatedAt", "/properties/Status" ],
-  "createOnlyProperties" : [ "/properties/Name", "/properties/Type", "/properties/Config/Port", "/properties/Config/IpAddressType", "/properties/Config/Protocol", "/properties/Config/ProtocolVersion", "/properties/Config/VpcIdentifier" ],
+  "createOnlyProperties" : [ "/properties/Name", "/properties/Type", "/properties/Config/Port", "/properties/Config/IpAddressType", "/properties/Config/Protocol", "/properties/Config/ProtocolVersion", "/properties/Config/VpcIdentifier", "/properties/Config/LambdaEventStructureVersion" ],
   "primaryIdentifier" : [ "/properties/Arn" ],
-  "additionalIdentifiers" : [ [ "/properties/Id" ] ],
+  "additionalIdentifiers" : [ [ "/properties/Id" ], [ "/properties/Name" ] ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "vpc-lattice:CreateTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:RegisterTargets", "vpc-lattice:ListTargets", "vpc-lattice:ListTagsForResource", "vpc-lattice:TagResource", "vpc-lattice:UntagResource", "ec2:DescribeVpcs", "ec2:DescribeInstances", "ec2:DescribeSubnets", "ec2:DescribeAvailabilityZoneMappings", "lambda:Invoke", "lambda:AddPermission", "elasticloadbalancing:DescribeLoadBalancers" ]
+      "permissions" : [ "vpc-lattice:CreateTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:RegisterTargets", "vpc-lattice:ListTargets", "vpc-lattice:ListTagsForResource", "vpc-lattice:TagResource", "vpc-lattice:UntagResource", "ec2:DescribeVpcs", "ec2:DescribeInstances", "ec2:DescribeSubnets", "ec2:DescribeAvailabilityZoneMappings", "lambda:Invoke", "lambda:AddPermission", "elasticloadbalancing:DescribeLoadBalancers", "iam:CreateServiceLinkedRole" ]
     },
     "read" : {
       "permissions" : [ "vpc-lattice:GetTargetGroup", "vpc-lattice:ListTargets", "vpc-lattice:ListTagsForResource" ]
     },
     "update" : {
-      "permissions" : [ "vpc-lattice:UpdateTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:ListTargets", "vpc-lattice:RegisterTargets", "vpc-lattice:DeregisterTargets", "ec2:DescribeInstances", "ec2:DescribeSubnets", "ec2:DescribeAvailabilityZoneMappings", "elasticloadbalancing:DescribeLoadBalancers", "lambda:Invoke", "lambda:RemovePermission", "lambda:AddPermission", "vpc-lattice:TagResource", "vpc-lattice:UntagResource", "vpc-lattice:ListTagsForResource" ]
+      "permissions" : [ "vpc-lattice:UpdateTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:ListTargets", "vpc-lattice:RegisterTargets", "vpc-lattice:DeregisterTargets", "ec2:DescribeVpcs", "ec2:DescribeInstances", "ec2:DescribeSubnets", "ec2:DescribeAvailabilityZoneMappings", "elasticloadbalancing:DescribeLoadBalancers", "lambda:Invoke", "lambda:RemovePermission", "lambda:AddPermission", "vpc-lattice:TagResource", "vpc-lattice:UntagResource", "vpc-lattice:ListTagsForResource" ]
     },
     "delete" : {
-      "permissions" : [ "vpc-lattice:DeleteTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:DeregisterTargets", "lambda:RemovePermission" ]
+      "permissions" : [ "vpc-lattice:DeleteTargetGroup", "vpc-lattice:GetTargetGroup", "vpc-lattice:DeregisterTargets", "vpc-lattice:ListTargets", "lambda:RemovePermission" ]
     },
     "list" : {
       "permissions" : [ "vpc-lattice:ListTargetGroups" ]

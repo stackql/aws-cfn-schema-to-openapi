@@ -35,6 +35,25 @@ Retrieves a list of <code>jobs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>jobs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+databrew:CreateProfileJob,
+databrew:CreateRecipeJob,
+databrew:TagResource,
+databrew:UntagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+databrew:ListJobs,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+
 ## Example
 ```sql
 SELECT

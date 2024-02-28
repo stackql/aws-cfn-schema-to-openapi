@@ -35,6 +35,23 @@ Retrieves a list of <code>notification_channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>notification_channels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+devops-guru:AddNotificationChannel,
+devops-guru:ListNotificationChannels,
+sns:Publish,
+sns:GetTopicAttributes,
+sns:SetTopicAttributes</pre>
+
+### List
+<pre>
+devops-guru:ListNotificationChannels</pre>
+
+
 ## Example
 ```sql
 SELECT

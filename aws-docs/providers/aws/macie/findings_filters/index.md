@@ -35,6 +35,21 @@ Retrieves a list of <code>findings_filters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>findings_filters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+macie2:GetFindingsFilter,
+macie2:CreateFindingsFilter,
+macie2:TagResource</pre>
+
+### List
+<pre>
+macie2:ListFindingsFilters</pre>
+
+
 ## Example
 ```sql
 SELECT

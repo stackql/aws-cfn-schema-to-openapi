@@ -42,6 +42,34 @@ Gets an individual <code>deployment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>deployment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+greengrass:GetDeployment,
+iot:DescribeJob,
+iot:DescribeThing,
+iot:DescribeThingGroup,
+iot:GetThingShadow</pre>
+
+### Update
+<pre>
+greengrass:GetDeployment,
+greengrass:TagResource,
+greengrass:UntagResource,
+iot:DescribeJob</pre>
+
+### Delete
+<pre>
+greengrass:DeleteDeployment,
+greengrass:CancelDeployment,
+iot:CancelJob,
+iot:DeleteJob,
+iot:DescribeJob</pre>
+
+
 ## Example
 ```sql
 SELECT

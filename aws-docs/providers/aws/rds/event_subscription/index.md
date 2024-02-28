@@ -41,6 +41,31 @@ Gets an individual <code>event_subscription</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_subscription</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeEventSubscriptions,
+rds:ListTagsForResource</pre>
+
+### Update
+<pre>
+rds:ModifyEventSubscription,
+rds:AddSourceIdentifierToSubscription,
+rds:RemoveSourceIdentifierFromSubscription,
+rds:DescribeEventSubscriptions,
+rds:ListTagsForResource,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource</pre>
+
+### Delete
+<pre>
+rds:DeleteEventSubscription,
+rds:DescribeEventSubscriptions</pre>
+
+
 ## Example
 ```sql
 SELECT

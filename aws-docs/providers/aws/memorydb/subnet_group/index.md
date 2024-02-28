@@ -39,6 +39,29 @@ Gets an individual <code>subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>subnet_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+memorydb:DescribeSubnetGroups,
+memorydb:ListTags</pre>
+
+### Update
+<pre>
+memorydb:UpdateSubnetGroup,
+memorydb:DescribeSubnetGroups,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource</pre>
+
+### Delete
+<pre>
+memorydb:DeleteSubnetGroup,
+memorydb:DescribeSubnetGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

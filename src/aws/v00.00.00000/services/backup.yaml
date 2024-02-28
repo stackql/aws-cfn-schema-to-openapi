@@ -40,6 +40,8 @@ components:
           type: number
         ScheduleExpression:
           type: string
+        ScheduleExpressionTimezone:
+          type: string
         RecoveryPointTags:
           type: object
           additionalProperties: false
@@ -88,6 +90,8 @@ components:
           type: number
         DeleteAfterDays:
           type: number
+        OptInToArchiveForSupportedResources:
+          type: boolean
     BackupPlan:
       type: object
       properties:
@@ -110,6 +114,28 @@ components:
       x-stackql-resource-name: backup_plan
       x-stackql-primaryIdentifier:
         - BackupPlanId
+      x-read-only-properties:
+        - BackupPlanId
+        - VersionId
+        - BackupPlanArn
+      x-required-permissions:
+        read:
+          - backup:GetBackupPlan
+          - backup:ListTags
+        create:
+          - backup:GetBackupPlan
+          - backup:TagResource
+          - backup:CreateBackupPlan
+        delete:
+          - backup:GetBackupPlan
+          - backup:DeleteBackupPlan
+        update:
+          - backup:UpdateBackupPlan
+          - backup:ListTags
+          - backup:TagResource
+          - backup:UntagResource
+        list:
+          - backup:ListBackupPlans
     BackupSelectionResourceType:
       type: object
       additionalProperties: false
@@ -206,6 +232,25 @@ components:
       x-stackql-resource-name: backup_selection
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - BackupSelection
+        - BackupPlanId
+      x-read-only-properties:
+        - SelectionId
+        - Id
+      x-required-permissions:
+        delete:
+          - backup:GetBackupSelection
+          - backup:DeleteBackupSelection
+        read:
+          - backup:GetBackupSelection
+        create:
+          - backup:CreateBackupSelection
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+        list:
+          - backup:ListBackupSelections
     NotificationObjectType:
       type: object
       additionalProperties: false
@@ -262,6 +307,45 @@ components:
       x-stackql-resource-name: backup_vault
       x-stackql-primaryIdentifier:
         - BackupVaultName
+      x-create-only-properties:
+        - BackupVaultName
+        - EncryptionKeyArn
+      x-read-only-properties:
+        - BackupVaultArn
+      x-required-permissions:
+        create:
+          - backup:TagResource
+          - backup:CreateBackupVault
+          - backup:PutBackupVaultAccessPolicy
+          - backup:PutBackupVaultNotifications
+          - backup:PutBackupVaultLockConfiguration
+          - backup-storage:Mount
+          - backup-storage:MountCapsule
+          - kms:CreateGrant
+          - kms:GenerateDataKey
+          - kms:Decrypt
+          - kms:RetireGrant
+          - kms:DescribeKey
+        read:
+          - backup:DescribeBackupVault
+          - backup:GetBackupVaultNotifications
+          - backup:GetBackupVaultAccessPolicy
+          - backup:ListTags
+        update:
+          - backup:DescribeBackupVault
+          - backup:DeleteBackupVaultAccessPolicy
+          - backup:DeleteBackupVaultNotifications
+          - backup:DeleteBackupVaultLockConfiguration
+          - backup:ListTags
+          - backup:TagResource
+          - backup:UntagResource
+          - backup:PutBackupVaultAccessPolicy
+          - backup:PutBackupVaultNotifications
+          - backup:PutBackupVaultLockConfiguration
+        delete:
+          - backup:DeleteBackupVault
+        list:
+          - backup:ListBackupVaults
     FrameworkControl:
       type: object
       additionalProperties: false
@@ -314,7 +398,7 @@ components:
         - ParameterValue
     Tag:
       type: object
-      description: A key-value pair to associate with a resource.
+      additionalProperties: false
       properties:
         Key:
           type: string
@@ -326,7 +410,9 @@ components:
           description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
           minLength: 0
           maxLength: 256
-      additionalProperties: false
+      required:
+        - Key
+        - Value
     Framework:
       type: object
       properties:
@@ -380,6 +466,34 @@ components:
       x-stackql-resource-name: framework
       x-stackql-primaryIdentifier:
         - FrameworkArn
+      x-create-only-properties:
+        - FrameworkName
+      x-read-only-properties:
+        - FrameworkArn
+        - CreationTime
+        - FrameworkStatus
+        - DeploymentStatus
+      x-required-permissions:
+        create:
+          - backup:CreateFramework
+          - backup:DescribeFramework
+          - backup:ListTags
+          - backup:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - backup:DescribeFramework
+          - backup:ListTags
+        update:
+          - backup:DescribeFramework
+          - backup:UpdateFramework
+          - backup:ListTags
+          - backup:TagResource
+          - backup:UntagResource
+        delete:
+          - backup:DeleteFramework
+          - backup:DescribeFramework
+        list:
+          - backup:ListFrameworks
     ReportPlan:
       type: object
       properties:
@@ -468,6 +582,202 @@ components:
       x-stackql-resource-name: report_plan
       x-stackql-primaryIdentifier:
         - ReportPlanArn
+      x-create-only-properties:
+        - ReportPlanName
+      x-read-only-properties:
+        - ReportPlanArn
+      x-required-permissions:
+        create:
+          - backup:CreateReportPlan
+          - backup:DescribeReportPlan
+          - backup:ListTags
+          - backup:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - backup:DescribeReportPlan
+          - backup:ListTags
+        update:
+          - backup:DescribeReportPlan
+          - backup:UpdateReportPlan
+          - backup:ListTags
+          - backup:UntagResource
+          - backup:TagResource
+        delete:
+          - backup:DeleteReportPlan
+          - backup:DescribeReportPlan
+        list:
+          - backup:ListReportPlans
+    RestoreTestingRecoveryPointSelection:
+      type: object
+      additionalProperties: false
+      properties:
+        Algorithm:
+          $ref: '#/components/schemas/RestoreTestingRecoveryPointSelectionAlgorithm'
+        SelectionWindowDays:
+          type: integer
+        RecoveryPointTypes:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/RestoreTestingRecoveryPointType'
+        IncludeVaults:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        ExcludeVaults:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+      required:
+        - Algorithm
+        - RecoveryPointTypes
+        - IncludeVaults
+    RestoreTestingRecoveryPointSelectionAlgorithm:
+      type: string
+      enum:
+        - LATEST_WITHIN_WINDOW
+        - RANDOM_WITHIN_WINDOW
+    RestoreTestingRecoveryPointType:
+      type: string
+      enum:
+        - SNAPSHOT
+        - CONTINUOUS
+    RestoreTestingPlan:
+      type: object
+      properties:
+        RecoveryPointSelection:
+          $ref: '#/components/schemas/RestoreTestingRecoveryPointSelection'
+        RestoreTestingPlanArn:
+          type: string
+        RestoreTestingPlanName:
+          type: string
+        ScheduleExpression:
+          type: string
+        ScheduleExpressionTimezone:
+          type: string
+        StartWindowHours:
+          type: integer
+        Tags:
+          items:
+            $ref: '#/components/schemas/Tag'
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+      required:
+        - RecoveryPointSelection
+        - ScheduleExpression
+        - RestoreTestingPlanName
+      x-stackql-resource-name: restore_testing_plan
+      x-stackql-primaryIdentifier:
+        - RestoreTestingPlanName
+      x-create-only-properties:
+        - RestoreTestingPlanName
+      x-read-only-properties:
+        - RestoreTestingPlanArn
+      x-required-permissions:
+        create:
+          - backup:CreateRestoreTestingPlan
+          - backup:TagResource
+          - backup:GetRestoreTestingPlan
+          - backup:ListTags
+        read:
+          - backup:GetRestoreTestingPlan
+          - backup:ListTags
+        update:
+          - backup:UpdateRestoreTestingPlan
+          - backup:TagResource
+          - backup:UntagResource
+          - backup:GetRestoreTestingPlan
+          - backup:ListTags
+        delete:
+          - backup:DeleteRestoreTestingPlan
+          - backup:GetRestoreTestingPlan
+        list:
+          - backup:ListRestoreTestingPlans
+    KeyValue:
+      additionalProperties: false
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+      required:
+        - Key
+        - Value
+      type: object
+    ProtectedResourceConditions:
+      additionalProperties: false
+      properties:
+        StringEquals:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/KeyValue'
+        StringNotEquals:
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/KeyValue'
+      type: object
+    SensitiveStringMap:
+      additionalProperties: false
+      x-patternProperties:
+        .+:
+          type: string
+      type: object
+    RestoreTestingSelection:
+      type: object
+      properties:
+        IamRoleArn:
+          type: string
+        ProtectedResourceArns:
+          type: array
+          x-insertionOrder: false
+          items:
+            type: string
+        ProtectedResourceConditions:
+          $ref: '#/components/schemas/ProtectedResourceConditions'
+        ProtectedResourceType:
+          type: string
+        RestoreMetadataOverrides:
+          $ref: '#/components/schemas/SensitiveStringMap'
+        RestoreTestingPlanName:
+          type: string
+        RestoreTestingSelectionName:
+          type: string
+        ValidationWindowHours:
+          type: integer
+      required:
+        - IamRoleArn
+        - ProtectedResourceType
+        - RestoreTestingPlanName
+        - RestoreTestingSelectionName
+      x-stackql-resource-name: restore_testing_selection
+      x-stackql-primaryIdentifier:
+        - RestoreTestingPlanName
+        - RestoreTestingSelectionName
+      x-create-only-properties:
+        - ProtectedResourceType
+        - RestoreTestingPlanName
+        - RestoreTestingSelectionName
+      x-required-permissions:
+        create:
+          - backup:CreateRestoreTestingSelection
+          - backup:GetRestoreTestingSelection
+          - iam:PassRole
+        read:
+          - backup:GetRestoreTestingSelection
+        update:
+          - backup:UpdateRestoreTestingSelection
+          - backup:GetRestoreTestingSelection
+          - iam:PassRole
+        delete:
+          - backup:DeleteRestoreTestingSelection
+          - backup:GetRestoreTestingSelection
+        list:
+          - backup:ListRestoreTestingSelections
   x-stackQL-resources:
     backup_plans:
       name: backup_plans
@@ -654,3 +964,83 @@ components:
               JSON_EXTRACT(Properties, '$.ReportDeliveryChannel') as report_delivery_channel,
               JSON_EXTRACT(Properties, '$.ReportSetting') as report_setting
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::ReportPlan'
+    restore_testing_plans:
+      name: restore_testing_plans
+      id: aws.backup.restore_testing_plans
+      x-cfn-schema-name: RestoreTestingPlan
+      x-type: list
+      x-identifiers:
+        - RestoreTestingPlanName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
+    restore_testing_plan:
+      name: restore_testing_plan
+      id: aws.backup.restore_testing_plan
+      x-cfn-schema-name: RestoreTestingPlan
+      x-type: get
+      x-identifiers:
+        - RestoreTestingPlanName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RecoveryPointSelection') as recovery_point_selection,
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanArn') as restore_testing_plan_arn,
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name,
+              JSON_EXTRACT(Properties, '$.ScheduleExpression') as schedule_expression,
+              JSON_EXTRACT(Properties, '$.ScheduleExpressionTimezone') as schedule_expression_timezone,
+              JSON_EXTRACT(Properties, '$.StartWindowHours') as start_window_hours,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
+    restore_testing_selections:
+      name: restore_testing_selections
+      id: aws.backup.restore_testing_selections
+      x-cfn-schema-name: RestoreTestingSelection
+      x-type: list
+      x-identifiers:
+        - RestoreTestingPlanName
+        - RestoreTestingSelectionName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name,
+              JSON_EXTRACT(Properties, '$.RestoreTestingSelectionName') as restore_testing_selection_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'
+    restore_testing_selection:
+      name: restore_testing_selection
+      id: aws.backup.restore_testing_selection
+      x-cfn-schema-name: RestoreTestingSelection
+      x-type: get
+      x-identifiers:
+        - RestoreTestingPlanName
+        - RestoreTestingSelectionName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.IamRoleArn') as iam_role_arn,
+              JSON_EXTRACT(Properties, '$.ProtectedResourceArns') as protected_resource_arns,
+              JSON_EXTRACT(Properties, '$.ProtectedResourceConditions') as protected_resource_conditions,
+              JSON_EXTRACT(Properties, '$.ProtectedResourceType') as protected_resource_type,
+              JSON_EXTRACT(Properties, '$.RestoreMetadataOverrides') as restore_metadata_overrides,
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name,
+              JSON_EXTRACT(Properties, '$.RestoreTestingSelectionName') as restore_testing_selection_name,
+              JSON_EXTRACT(Properties, '$.ValidationWindowHours') as validation_window_hours
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'

@@ -40,6 +40,29 @@ Gets an individual <code>report_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>report_plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+backup:DescribeReportPlan,
+backup:ListTags</pre>
+
+### Update
+<pre>
+backup:DescribeReportPlan,
+backup:UpdateReportPlan,
+backup:ListTags,
+backup:UntagResource,
+backup:TagResource</pre>
+
+### Delete
+<pre>
+backup:DeleteReportPlan,
+backup:DescribeReportPlan</pre>
+
+
 ## Example
 ```sql
 SELECT

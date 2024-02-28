@@ -38,6 +38,24 @@ Gets an individual <code>metric_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>metric_filter</code> resource, the following permissions are required:
+
+### Read
+<pre>
+logs:DescribeMetricFilters</pre>
+
+### Update
+<pre>
+logs:PutMetricFilter,
+logs:DescribeMetricFilters</pre>
+
+### Delete
+<pre>
+logs:DeleteMetricFilter</pre>
+
+
 ## Example
 ```sql
 SELECT

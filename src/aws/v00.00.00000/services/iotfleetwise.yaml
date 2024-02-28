@@ -11,6 +11,61 @@ components:
         - 'OFF'
         - SNAPPY
       default: 'OFF'
+    DataDestinationConfig:
+      oneOf:
+        - additionalProperties: false
+          type: object
+          title: S3Config
+          properties:
+            S3Config:
+              $ref: '#/components/schemas/S3Config'
+          required:
+            - S3Config
+        - additionalProperties: false
+          type: object
+          title: TimestreamConfig
+          properties:
+            TimestreamConfig:
+              $ref: '#/components/schemas/TimestreamConfig'
+          required:
+            - TimestreamConfig
+    S3Config:
+      additionalProperties: false
+      type: object
+      properties:
+        BucketArn:
+          maxLength: 100
+          type: string
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):s3:::.+$
+          minLength: 16
+        DataFormat:
+          $ref: '#/components/schemas/DataFormat'
+        StorageCompressionFormat:
+          $ref: '#/components/schemas/StorageCompressionFormat'
+        Prefix:
+          maxLength: 512
+          type: string
+          pattern: ^[a-zA-Z0-9-_:./!*'()]+$
+          minLength: 1
+      required:
+        - BucketArn
+    TimestreamConfig:
+      additionalProperties: false
+      type: object
+      properties:
+        TimestreamTableArn:
+          maxLength: 2048
+          type: string
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):timestream:[a-zA-Z0-9-]+:[0-9]{12}:database\/[a-zA-Z0-9_.-]+\/table\/[a-zA-Z0-9_.-]+$
+          minLength: 20
+        ExecutionRoleArn:
+          maxLength: 2048
+          type: string
+          pattern: ^arn:(aws[a-zA-Z0-9-]*):iam::(\d{12})?:(role((\u002F)|(\u002F[\u0021-\u007F]+\u002F))[\w+=,.@-]+)$
+          minLength: 20
+      required:
+        - TimestreamTableArn
+        - ExecutionRoleArn
     UpdateCampaignAction:
       type: string
       enum:
@@ -71,6 +126,16 @@ components:
       enum:
         - ALWAYS
         - RISING_EDGE
+    DataFormat:
+      type: string
+      enum:
+        - JSON
+        - PARQUET
+    StorageCompressionFormat:
+      type: string
+      enum:
+        - NONE
+        - GZIP
     CollectionScheme:
       oneOf:
         - additionalProperties: false
@@ -151,6 +216,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/SignalInformation'
+        DataDestinationConfigs:
+          minItems: 1
+          maxItems: 1
+          x-insertionOrder: false
+          type: array
+          items:
+            $ref: '#/components/schemas/DataDestinationConfig'
         StartTime:
           format: date-time
           type: string
@@ -211,6 +283,47 @@ components:
       x-stackql-resource-name: campaign
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - TargetArn
+        - SignalCatalogArn
+        - PostTriggerCollectionDuration
+        - DiagnosticsMode
+        - SpoolingMode
+        - CollectionScheme
+        - Priority
+        - Compression
+        - StartTime
+        - ExpiryTime
+      x-read-only-properties:
+        - Arn
+        - Status
+        - CreationTime
+        - LastModificationTime
+      x-required-permissions:
+        read:
+          - iotfleetwise:GetCampaign
+          - iotfleetwise:ListTagsForResource
+        create:
+          - iotfleetwise:CreateCampaign
+          - iotfleetwise:GetCampaign
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iam:PassRole
+          - timestream:DescribeEndpoints
+          - timestream:DescribeTable
+        update:
+          - iotfleetwise:GetCampaign
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:UpdateCampaign
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        list:
+          - iotfleetwise:ListCampaigns
+          - iotfleetwise:GetCampaign
+        delete:
+          - iotfleetwise:DeleteCampaign
+          - iotfleetwise:GetCampaign
     CanInterface:
       type: object
       properties:
@@ -501,6 +614,40 @@ components:
       x-stackql-resource-name: decoder_manifest
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - ModelManifestArn
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModificationTime
+      x-required-permissions:
+        create:
+          - iotfleetwise:CreateDecoderManifest
+          - iotfleetwise:GetDecoderManifest
+          - iotfleetwise:UpdateDecoderManifest
+          - iotfleetwise:ListDecoderManifestSignals
+          - iotfleetwise:ListDecoderManifestNetworkInterfaces
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+        read:
+          - iotfleetwise:GetDecoderManifest
+          - iotfleetwise:ListDecoderManifestSignals
+          - iotfleetwise:ListDecoderManifestNetworkInterfaces
+          - iotfleetwise:ListTagsForResource
+        update:
+          - iotfleetwise:UpdateDecoderManifest
+          - iotfleetwise:GetDecoderManifest
+          - iotfleetwise:ListDecoderManifestSignals
+          - iotfleetwise:ListDecoderManifestNetworkInterfaces
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        delete:
+          - iotfleetwise:DeleteDecoderManifest
+          - iotfleetwise:GetDecoderManifest
+        list:
+          - iotfleetwise:ListDecoderManifests
     Fleet:
       type: object
       properties:
@@ -538,6 +685,34 @@ components:
       x-stackql-resource-name: fleet
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Id
+        - SignalCatalogArn
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModificationTime
+      x-required-permissions:
+        create:
+          - iotfleetwise:GetFleet
+          - iotfleetwise:CreateFleet
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:ListVehiclesInFleet
+          - iotfleetwise:TagResource
+        read:
+          - iotfleetwise:GetFleet
+          - iotfleetwise:ListTagsForResource
+        update:
+          - iotfleetwise:GetFleet
+          - iotfleetwise:UpdateFleet
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        delete:
+          - iotfleetwise:GetFleet
+          - iotfleetwise:DeleteFleet
+        list:
+          - iotfleetwise:ListFleets
     ModelManifest:
       type: object
       properties:
@@ -584,6 +759,36 @@ components:
       x-stackql-resource-name: model_manifest
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModificationTime
+      x-required-permissions:
+        create:
+          - iotfleetwise:CreateModelManifest
+          - iotfleetwise:GetModelManifest
+          - iotfleetwise:UpdateModelManifest
+          - iotfleetwise:ListModelManifestNodes
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+        read:
+          - iotfleetwise:GetModelManifest
+          - iotfleetwise:ListModelManifestNodes
+          - iotfleetwise:ListTagsForResource
+        update:
+          - iotfleetwise:UpdateModelManifest
+          - iotfleetwise:GetModelManifest
+          - iotfleetwise:ListModelManifestNodes
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        delete:
+          - iotfleetwise:DeleteModelManifest
+          - iotfleetwise:GetModelManifest
+        list:
+          - iotfleetwise:ListModelManifests
     Actuator:
       type: object
       properties:
@@ -793,6 +998,40 @@ components:
       x-stackql-resource-name: signal_catalog
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModificationTime
+        - NodeCounts/TotalNodes
+        - NodeCounts/TotalBranches
+        - NodeCounts/TotalSensors
+        - NodeCounts/TotalAttributes
+        - NodeCounts/TotalActuators
+      x-required-permissions:
+        create:
+          - iotfleetwise:GetSignalCatalog
+          - iotfleetwise:CreateSignalCatalog
+          - iotfleetwise:ListSignalCatalogNodes
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+        read:
+          - iotfleetwise:GetSignalCatalog
+          - iotfleetwise:ListSignalCatalogNodes
+          - iotfleetwise:ListTagsForResource
+        update:
+          - iotfleetwise:GetSignalCatalog
+          - iotfleetwise:UpdateSignalCatalog
+          - iotfleetwise:ListSignalCatalogNodes
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        delete:
+          - iotfleetwise:GetSignalCatalog
+          - iotfleetwise:DeleteSignalCatalog
+        list:
+          - iotfleetwise:ListSignalCatalogs
     VehicleAssociationBehavior:
       type: string
       enum:
@@ -844,6 +1083,35 @@ components:
       x-stackql-resource-name: vehicle
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreationTime
+        - LastModificationTime
+      x-required-permissions:
+        create:
+          - iotfleetwise:GetVehicle
+          - iotfleetwise:CreateVehicle
+          - iot:CreateThing
+          - iot:DescribeThing
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:ListVehicles
+          - iotfleetwise:TagResource
+        read:
+          - iotfleetwise:GetVehicle
+          - iotfleetwise:ListTagsForResource
+        update:
+          - iotfleetwise:GetVehicle
+          - iotfleetwise:UpdateVehicle
+          - iotfleetwise:ListTagsForResource
+          - iotfleetwise:TagResource
+          - iotfleetwise:UntagResource
+        delete:
+          - iotfleetwise:GetVehicle
+          - iotfleetwise:DeleteVehicle
+        list:
+          - iotfleetwise:ListVehicles
   x-stackQL-resources:
     campaigns:
       name: campaigns
@@ -882,6 +1150,7 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Priority') as priority,
               JSON_EXTRACT(Properties, '$.SignalsToCollect') as signals_to_collect,
+              JSON_EXTRACT(Properties, '$.DataDestinationConfigs') as data_destination_configs,
               JSON_EXTRACT(Properties, '$.StartTime') as start_time,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ExpiryTime') as expiry_time,

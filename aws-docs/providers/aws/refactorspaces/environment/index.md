@@ -41,6 +41,29 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+refactor-spaces:GetEnvironment,
+refactor-spaces:ListTagsForResource</pre>
+
+### Delete
+<pre>
+refactor-spaces:GetEnvironment,
+refactor-spaces:DeleteEnvironment,
+refactor-spaces:UntagResource,
+ec2:DescribeTransitGateways,
+ec2:DescribeTransitGatewayVpcAttachments,
+ec2:DeleteTransitGateway,
+ec2:DeleteTransitGatewayVpcAttachment,
+ec2:DeleteTags,
+ram:GetResourceShareAssociations,
+ram:DeleteResourceShare</pre>
+
+
 ## Example
 ```sql
 SELECT

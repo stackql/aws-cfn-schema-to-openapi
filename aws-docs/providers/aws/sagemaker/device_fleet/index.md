@@ -39,6 +39,24 @@ Gets an individual <code>device_fleet</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>device_fleet</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeDeviceFleet</pre>
+
+### Update
+<pre>
+sagemaker:UpdateDeviceFleet,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteDeviceFleet</pre>
+
+
 ## Example
 ```sql
 SELECT

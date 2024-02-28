@@ -42,6 +42,27 @@ Gets an individual <code>locationf_sx_ontap</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>locationf_sx_ontap</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationFsxOntap,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationFsxOntap,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

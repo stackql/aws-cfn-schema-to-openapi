@@ -37,6 +37,7 @@ Gets an individual <code>template</code> resource
 <tr><td><code>source_entity</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>template_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>validation_strategy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>version</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>version_description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -45,6 +46,33 @@ Gets an individual <code>template</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>template</code> resource, the following permissions are required:
+
+### Read
+<pre>
+quicksight:DescribeTemplate,
+quicksight:DescribeTemplatePermissions,
+quicksight:ListTagsForResource</pre>
+
+### Update
+<pre>
+quicksight:DescribeTemplate,
+quicksight:DescribeTemplatePermissions,
+quicksight:UpdateTemplate,
+quicksight:UpdateTemplatePermissions,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource</pre>
+
+### Delete
+<pre>
+quicksight:DescribeTemplate,
+quicksight:DeleteTemplate</pre>
+
 
 ## Example
 ```sql
@@ -60,6 +88,7 @@ permissions,
 source_entity,
 tags,
 template_id,
+validation_strategy,
 version,
 version_description
 FROM aws.quicksight.template

@@ -35,6 +35,17 @@ Retrieves a list of <code>registry_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>registry_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+schemas:PutResourcePolicy,
+schemas:GetResourcePolicy,
+schemas:DescribeRegistry</pre>
+
+
 ## Example
 ```sql
 SELECT

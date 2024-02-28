@@ -35,6 +35,17 @@ Retrieves a list of <code>features</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>features</code> resource, the following permissions are required:
+
+### Create
+<pre>
+evidently:CreateFeature,
+evidently:TagResource,
+evidently:GetFeature</pre>
+
+
 ## Example
 ```sql
 SELECT

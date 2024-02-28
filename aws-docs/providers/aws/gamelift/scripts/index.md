@@ -27,13 +27,31 @@ Retrieves a list of <code>scripts</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td>A unique identifier for the Realtime script</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>scripts</code> resource, the following permissions are required:
+
+### Create
+<pre>
+gamelift:CreateScript,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:DescribeScript,
+iam:PassRole</pre>
+
+### List
+<pre>
+gamelift:ListScripts,
+gamelift:DescribeScript</pre>
+
 
 ## Example
 ```sql

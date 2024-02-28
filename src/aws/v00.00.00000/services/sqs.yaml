@@ -80,16 +80,78 @@ components:
       x-stackql-resource-name: queue
       x-stackql-primaryIdentifier:
         - QueueUrl
+      x-create-only-properties:
+        - FifoQueue
+        - QueueName
+      x-read-only-properties:
+        - QueueUrl
+        - Arn
+      x-required-permissions:
+        create:
+          - sqs:CreateQueue
+          - sqs:GetQueueUrl
+          - sqs:GetQueueAttributes
+          - sqs:ListQueueTags
+          - sqs:TagQueue
+        read:
+          - sqs:GetQueueAttributes
+          - sqs:ListQueueTags
+        update:
+          - sqs:SetQueueAttributes
+          - sqs:GetQueueAttributes
+          - sqs:ListQueueTags
+          - sqs:TagQueue
+          - sqs:UntagQueue
+        delete:
+          - sqs:DeleteQueue
+          - sqs:GetQueueAttributes
+        list:
+          - sqs:ListQueues
+    QueueInlinePolicy:
+      type: object
+      properties:
+        PolicyDocument:
+          description: A policy document that contains permissions to add to the specified SQS queue
+          type: object
+        Queue:
+          description: The URL of the SQS queue.
+          type: string
+      required:
+        - PolicyDocument
+        - Queue
+      x-stackql-resource-name: queue_inline_policy
+      x-stackql-primaryIdentifier:
+        - Queue
+      x-create-only-properties:
+        - Queue
+      x-required-permissions:
+        create:
+          - sqs:SetQueueAttributes
+          - sqs:GetQueueAttributes
+          - sqs:GetQueueUrl
+        read:
+          - sqs:GetQueueAttributes
+          - sqs:GetQueueUrl
+        delete:
+          - sqs:SetQueueAttributes
+          - sqs:GetQueueAttributes
+        update:
+          - sqs:SetQueueAttributes
+          - sqs:GetQueueAttributes
+          - sqs:GetQueueUrl
     QueuePolicy:
       type: object
       properties:
         Id:
           type: string
+          description: ''
         PolicyDocument:
-          type: object
+          type: string
         Queues:
           type: array
+          description: The URLs of the queues to which you want to add the policy. You can use the ``Ref`` function to specify an ``AWS::SQS::Queue`` resource.
           uniqueItems: false
+          x-insertionOrder: false
           items:
             type: string
       required:
@@ -98,6 +160,15 @@ components:
       x-stackql-resource-name: queue_policy
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - sqs:SetQueueAttributes
+        update:
+          - sqs:SetQueueAttributes
+        delete:
+          - sqs:SetQueueAttributes
   x-stackQL-resources:
     queues:
       name: queues
@@ -148,6 +219,39 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VisibilityTimeout') as visibility_timeout
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::Queue'
+    queue_inline_policies:
+      name: queue_inline_policies
+      id: aws.sqs.queue_inline_policies
+      x-cfn-schema-name: QueueInlinePolicy
+      x-type: list
+      x-identifiers:
+        - Queue
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Queue') as queue
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
+    queue_inline_policy:
+      name: queue_inline_policy
+      id: aws.sqs.queue_inline_policy
+      x-cfn-schema-name: QueueInlinePolicy
+      x-type: get
+      x-identifiers:
+        - Queue
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
+              JSON_EXTRACT(Properties, '$.Queue') as queue
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
     queue_policies:
       name: queue_policies
       id: aws.sqs.queue_policies

@@ -39,6 +39,35 @@ Gets an individual <code>logging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+wafv2:GetLoggingConfiguration</pre>
+
+### Update
+<pre>
+wafv2:PutLoggingConfiguration,
+wafv2:GetLoggingConfiguration,
+firehose:ListDeliveryStreams,
+iam:CreateServiceLinkedRole,
+iam:DescribeOrganization,
+logs:CreateLogDelivery,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups</pre>
+
+### Delete
+<pre>
+wafv2:DeleteLoggingConfiguration,
+wafv2:GetLoggingConfiguration,
+logs:DeleteLogDelivery</pre>
+
+
 ## Example
 ```sql
 SELECT

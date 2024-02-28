@@ -35,6 +35,24 @@ Retrieves a list of <code>containers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>containers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lightsail:CreateContainerService,
+lightsail:CreateContainerServiceDeployment,
+lightsail:GetContainerServices,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateContainerService</pre>
+
+### List
+<pre>
+lightsail:GetContainerServices</pre>
+
+
 ## Example
 ```sql
 SELECT

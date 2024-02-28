@@ -35,6 +35,23 @@ Retrieves a list of <code>event_subscriptions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_subscriptions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+redshift:CreateEventSubscription,
+redshift:CreateTags,
+redshift:DescribeTags,
+redshift:DescribeEventSubscriptions</pre>
+
+### List
+<pre>
+redshift:DescribeTags,
+redshift:DescribeEventSubscriptions</pre>
+
+
 ## Example
 ```sql
 SELECT

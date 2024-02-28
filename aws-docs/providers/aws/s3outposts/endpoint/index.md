@@ -38,12 +38,26 @@ Gets an individual <code>endpoint</code> resource
 <tr><td><code>subnet_id</code></td><td><code>string</code></td><td>The ID of the subnet in the selected VPC. The subnet must belong to the Outpost.</td></tr>
 <tr><td><code>access_type</code></td><td><code>string</code></td><td>The type of access for the on-premise network connectivity for the Outpost endpoint. To access endpoint from an on-premises network, you must specify the access type and provide the customer owned Ipv4 pool.</td></tr>
 <tr><td><code>customer_owned_ipv4_pool</code></td><td><code>string</code></td><td>The ID of the customer-owned IPv4 pool for the Endpoint. IP addresses will be allocated from this pool for the endpoint.</td></tr>
+<tr><td><code>failed_reason</code></td><td><code>object</code></td><td>The failure reason, if any, for a create or delete endpoint operation.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>endpoint</code> resource, the following permissions are required:
+
+### Read
+<pre>
+s3-outposts:ListEndpoints</pre>
+
+### Delete
+<pre>
+s3-outposts:DeleteEndpoint</pre>
+
 
 ## Example
 ```sql
@@ -59,7 +73,8 @@ security_group_id,
 status,
 subnet_id,
 access_type,
-customer_owned_ipv4_pool
+customer_owned_ipv4_pool,
+failed_reason
 FROM aws.s3outposts.endpoint
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

@@ -50,6 +50,40 @@ Gets an individual <code>stack_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stack_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cloudformation:DescribeStackSet,
+cloudformation:ListStackInstances,
+cloudformation:DescribeStackInstance</pre>
+
+### Update
+<pre>
+cloudformation:GetTemplateSummary,
+cloudformation:UpdateStackSet,
+cloudformation:CreateStackInstances,
+cloudformation:DeleteStackInstances,
+cloudformation:UpdateStackInstances,
+cloudformation:DescribeStackSet,
+cloudformation:DescribeStackSetOperation,
+cloudformation:ListStackSetOperationResults,
+cloudformation:TagResource,
+cloudformation:UntagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+cloudformation:DeleteStackSet,
+cloudformation:DeleteStackInstances,
+cloudformation:DescribeStackSet,
+cloudformation:DescribeStackSetOperation,
+cloudformation:ListStackSetOperationResults,
+cloudformation:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

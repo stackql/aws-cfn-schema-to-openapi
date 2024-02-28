@@ -35,6 +35,22 @@ Retrieves a list of <code>servers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>servers</code> resource, the following permissions are required:
+
+### Create
+<pre>
+opsworks-cm:CreateServer,
+opsworks-cm:DescribeServers,
+iam:PassRole</pre>
+
+### List
+<pre>
+opsworks-cm:DescribeServers,
+opsworks-cm:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,12 +35,34 @@ Gets an individual <code>experiment_template</code> resource
 <tr><td><code>log_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>experiment_options</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>experiment_template</code> resource, the following permissions are required:
+
+### Read
+<pre>
+fis:GetExperimentTemplate,
+fis:ListTagsForResource</pre>
+
+### Update
+<pre>
+fis:UpdateExperimentTemplate,
+fis:TagResource,
+fis:UntagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+fis:DeleteExperimentTemplate</pre>
+
 
 ## Example
 ```sql
@@ -53,7 +75,8 @@ actions,
 stop_conditions,
 log_configuration,
 role_arn,
-tags
+tags,
+experiment_options
 FROM aws.fis.experiment_template
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

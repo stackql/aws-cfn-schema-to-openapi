@@ -35,6 +35,34 @@ Retrieves a list of <code>repository_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>repository_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+codeguru-reviewer:DescribeRepositoryAssociation,
+codeguru-reviewer:AssociateRepository,
+codeguru-reviewer:TagResource,
+iam:CreateServiceLinkedRole,
+codecommit:TagResource,
+codecommit:GitPull,
+codecommit:TagResource,
+events:PutRule,
+events:PutTargets,
+codestar-connections:ListBranches,
+codestar-connections:ListRepositories,
+codestar-connections:ListTagsForResource,
+codestar-connections:PassConnection,
+codestar-connections:TagResource,
+codestar-connections:UseConnection,
+s3:ListBucket</pre>
+
+### List
+<pre>
+codeguru-reviewer:ListRepositoryAssociations</pre>
+
+
 ## Example
 ```sql
 SELECT

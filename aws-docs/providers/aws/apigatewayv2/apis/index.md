@@ -35,6 +35,22 @@ Retrieves a list of <code>apis</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>apis</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:POST,
+apigateway:PUT,
+s3:getObject</pre>
+
+### List
+<pre>
+apigateway:GET,
+s3:getObject</pre>
+
+
 ## Example
 ```sql
 SELECT

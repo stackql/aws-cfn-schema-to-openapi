@@ -35,6 +35,19 @@ Retrieves a list of <code>domain_names</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain_names</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:*</pre>
+
+### List
+<pre>
+apigateway:*</pre>
+
+
 ## Example
 ```sql
 SELECT

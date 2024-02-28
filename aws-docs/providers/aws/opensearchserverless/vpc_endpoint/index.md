@@ -39,6 +39,57 @@ Gets an individual <code>vpc_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_endpoint</code> resource, the following permissions are required:
+
+### Read
+<pre>
+aoss:BatchGetVpcEndpoint,
+ec2:DescribeVpcEndpoints</pre>
+
+### Update
+<pre>
+aoss:BatchGetVpcEndpoint,
+aoss:UpdateVpcEndpoint,
+ec2:CreateVpcEndpoint,
+ec2:DeleteVpcEndPoints,
+ec2:DescribeVpcEndpoints,
+ec2:ModifyVpcEndPoint,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups,
+ec2:CreateTags,
+route53:ChangeResourceRecordSets,
+route53:GetChange,
+route53:GetHostedZone,
+route53:ListResourceRecordSets,
+route53:ListHostedZonesByName,
+route53:CreateHostedZone,
+route53:ListHostedZonesByVPC,
+route53:AssociateVPCWithHostedZone</pre>
+
+### Delete
+<pre>
+aoss:BatchGetVpcEndpoint,
+aoss:DeleteVpcEndpoint,
+ec2:DeleteVpcEndPoints,
+ec2:DescribeVpcEndpoints,
+ec2:ModifyVpcEndPoint,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups,
+ec2:CreateTags,
+route53:ChangeResourceRecordSets,
+route53:DeleteHostedZone,
+route53:GetChange,
+route53:GetHostedZone,
+route53:ListResourceRecordSets,
+route53:ListHostedZonesByName,
+route53:ListHostedZonesByVPC,
+route53:AssociateVPCWithHostedZone</pre>
+
+
 ## Example
 ```sql
 SELECT

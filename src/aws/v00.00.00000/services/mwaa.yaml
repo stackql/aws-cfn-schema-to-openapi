@@ -23,6 +23,7 @@ components:
         - DELETED
         - UPDATE_FAILED
         - UNAVAILABLE
+        - PENDING
     UpdateStatus:
       type: string
       description: ''
@@ -268,6 +269,24 @@ components:
       enum:
         - PRIVATE_ONLY
         - PUBLIC_ONLY
+    EndpointManagement:
+      type: string
+      description: Defines whether the VPC endpoints configured for the environment are created, and managed, by the customer or by Amazon MWAA.
+      enum:
+        - CUSTOMER
+        - SERVICE
+    CeleryExecutorQueue:
+      type: string
+      description: The celery executor queue associated with the environment.
+      maxLength: 1224
+    DatabaseVpcEndpointService:
+      type: string
+      description: The database VPC endpoint service name.
+      maxLength: 1224
+    WebserverVpcEndpointService:
+      type: string
+      description: The webserver VPC endpoint service name, applicable if private webserver access mode selected.
+      maxLength: 1224
     Environment:
       type: object
       properties:
@@ -330,11 +349,48 @@ components:
           description: A map of tags for the environment.
         WebserverAccessMode:
           $ref: '#/components/schemas/WebserverAccessMode'
+        EndpointManagement:
+          $ref: '#/components/schemas/EndpointManagement'
+        CeleryExecutorQueue:
+          $ref: '#/components/schemas/CeleryExecutorQueue'
+        DatabaseVpcEndpointService:
+          $ref: '#/components/schemas/DatabaseVpcEndpointService'
+        WebserverVpcEndpointService:
+          $ref: '#/components/schemas/WebserverVpcEndpointService'
       required:
         - Name
       x-stackql-resource-name: environment
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - KmsKey
+        - NetworkConfiguration/SubnetIds
+        - EndpointManagement
+      x-read-only-properties:
+        - Arn
+        - CeleryExecutorQueue
+        - DatabaseVpcEndpointService
+        - WebserverVpcEndpointService
+        - WebserverUrl
+        - LoggingConfiguration/DagProcessingLogs/CloudWatchLogGroupArn
+        - LoggingConfiguration/SchedulerLogs/CloudWatchLogGroupArn
+        - LoggingConfiguration/WebserverLogs/CloudWatchLogGroupArn
+        - LoggingConfiguration/WorkerLogs/CloudWatchLogGroupArn
+        - LoggingConfiguration/TaskLogs/CloudWatchLogGroupArn
+      x-required-permissions:
+        create:
+          - airflow:CreateEnvironment
+        read:
+          - airflow:GetEnvironment
+        update:
+          - airflow:UpdateEnvironment
+          - airflow:TagResource
+          - airflow:UntagResource
+        delete:
+          - airflow:DeleteEnvironment
+        list:
+          - airflow:ListEnvironments
   x-stackQL-resources:
     environments:
       name: environments
@@ -389,5 +445,9 @@ components:
               JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration,
               JSON_EXTRACT(Properties, '$.WeeklyMaintenanceWindowStart') as weekly_maintenance_window_start,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.WebserverAccessMode') as webserver_access_mode
+              JSON_EXTRACT(Properties, '$.WebserverAccessMode') as webserver_access_mode,
+              JSON_EXTRACT(Properties, '$.EndpointManagement') as endpoint_management,
+              JSON_EXTRACT(Properties, '$.CeleryExecutorQueue') as celery_executor_queue,
+              JSON_EXTRACT(Properties, '$.DatabaseVpcEndpointService') as database_vpc_endpoint_service,
+              JSON_EXTRACT(Properties, '$.WebserverVpcEndpointService') as webserver_vpc_endpoint_service
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MWAA::Environment'

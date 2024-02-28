@@ -45,6 +45,24 @@ components:
       x-stackql-resource-name: api_destination
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - events:CreateApiDestination
+          - events:DescribeApiDestination
+        read:
+          - events:DescribeApiDestination
+        update:
+          - events:UpdateApiDestination
+          - events:DescribeApiDestination
+        delete:
+          - events:DeleteApiDestination
+          - events:DescribeApiDestination
+        list:
+          - events:ListApiDestinations
     Archive:
       type: object
       properties:
@@ -67,6 +85,25 @@ components:
       x-stackql-resource-name: archive
       x-stackql-primaryIdentifier:
         - ArchiveName
+      x-create-only-properties:
+        - ArchiveName
+        - SourceArn
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - events:DescribeArchive
+          - events:CreateArchive
+        delete:
+          - events:DescribeArchive
+          - events:DeleteArchive
+        list:
+          - events:ListArchives
+        update:
+          - events:DescribeArchive
+          - events:UpdateArchive
+        read:
+          - events:DescribeArchive
     AuthParameters:
       type: object
       minProperties: 1
@@ -199,12 +236,36 @@ components:
             - OAUTH_CLIENT_CREDENTIALS
         AuthParameters:
           $ref: '#/components/schemas/AuthParameters'
-      required:
-        - AuthorizationType
-        - AuthParameters
       x-stackql-resource-name: connection
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - SecretArn
+      x-required-permissions:
+        create:
+          - events:CreateConnection
+          - events:DescribeConnection
+          - secretsmanager:CreateSecret
+          - secretsmanager:GetSecretValue
+          - secretsmanager:PutSecretValue
+          - iam:CreateServiceLinkedRole
+        read:
+          - events:DescribeConnection
+        update:
+          - events:UpdateConnection
+          - events:DescribeConnection
+          - secretsmanager:CreateSecret
+          - secretsmanager:UpdateSecret
+          - secretsmanager:GetSecretValue
+          - secretsmanager:PutSecretValue
+        delete:
+          - events:DeleteConnection
+          - events:DescribeConnection
+        list:
+          - events:ListConnections
     HealthCheck:
       type: string
       minLength: 1
@@ -341,40 +402,90 @@ components:
       x-stackql-resource-name: endpoint
       x-stackql-primaryIdentifier:
         - Name
-    TagEntry:
-      type: object
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - EndpointId
+        - EndpointUrl
+        - State
+        - StateReason
+      x-required-permissions:
+        create:
+          - events:CreateEndpoint
+          - events:DescribeEndpoint
+          - route53:GetHealthCheck
+          - iam:PassRole
+        read:
+          - events:DescribeEndpoint
+        update:
+          - events:DescribeEndpoint
+          - events:UpdateEndpoint
+          - route53:GetHealthCheck
+          - iam:PassRole
+        delete:
+          - events:DeleteEndpoint
+          - events:DescribeEndpoint
+        list:
+          - events:ListEndpoints
+    Tag:
       additionalProperties: false
+      type: object
       properties:
         Value:
           type: string
         Key:
           type: string
-      required:
-        - Value
-        - Key
     EventBus:
       type: object
       properties:
-        Policy:
-          type: string
-        Id:
-          type: string
-        Arn:
-          type: string
         EventSourceName:
+          description: If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.
+          type: string
+        Name:
+          description: The name of the event bus.
           type: string
         Tags:
+          description: Any tags assigned to the event bus.
           type: array
           uniqueItems: false
           items:
-            $ref: '#/components/schemas/TagEntry'
-        Name:
+            $ref: '#/components/schemas/Tag'
+        Policy:
+          type: string
+        Arn:
+          description: The Amazon Resource Name (ARN) for the event bus.
           type: string
       required:
         - Name
       x-stackql-resource-name: event_bus
       x-stackql-primaryIdentifier:
-        - Id
+        - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - events:CreateEventBus
+          - events:DescribeEventBus
+          - events:PutPermission
+          - events:ListTagsForResource
+          - events:TagResource
+        read:
+          - events:DescribeEventBus
+          - events:ListTagsForResource
+        update:
+          - events:TagResource
+          - events:UntagResource
+          - events:PutPermission
+          - events:DescribeEventBus
+        delete:
+          - events:DescribeEventBus
+          - events:DeleteEventBus
+        list:
+          - events:ListEventBuses
+          - events:ListTagsForResource
     Condition:
       type: object
       additionalProperties: false
@@ -407,95 +518,111 @@ components:
       x-stackql-resource-name: event_bus_policy
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - EventBusName
+        - StatementId
+      x-read-only-properties:
+        - Id
     CapacityProviderStrategyItem:
-      type: object
       additionalProperties: false
+      type: object
       properties:
+        CapacityProvider:
+          type: string
         Base:
           type: integer
         Weight:
           type: integer
-        CapacityProvider:
-          type: string
       required:
         - CapacityProvider
     HttpParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         PathParameterValues:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             type: string
         HeaderParameters:
-          type: object
           x-patternProperties:
             '[a-zA-Z0-9]+':
               type: string
+          additionalProperties: false
+          type: object
         QueryStringParameters:
-          type: object
           x-patternProperties:
             '[a-zA-Z0-9]+':
               type: string
+          additionalProperties: false
+          type: object
     DeadLetterConfig:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Arn:
           type: string
     RunCommandParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         RunCommandTargets:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/RunCommandTarget'
       required:
         - RunCommandTargets
     PlacementStrategy:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Field:
           type: string
         Type:
           type: string
     InputTransformer:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        InputTemplate:
-          type: string
         InputPathsMap:
-          type: object
           x-patternProperties:
             '[a-zA-Z0-9]+':
               type: string
+          additionalProperties: false
+          type: object
+        InputTemplate:
+          type: string
       required:
         - InputTemplate
     KinesisParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         PartitionKeyPath:
           type: string
       required:
         - PartitionKeyPath
     BatchRetryStrategy:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Attempts:
           type: integer
     RedshiftDataParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         StatementName:
           type: string
+        Sqls:
+          uniqueItems: false
+          x-insertionOrder: true
+          type: array
+          items:
+            type: string
         Database:
           type: string
         SecretManagerArn:
@@ -508,10 +635,17 @@ components:
           type: boolean
       required:
         - Database
-        - Sql
-    Target:
-      type: object
+    AppSyncParameters:
       additionalProperties: false
+      type: object
+      properties:
+        GraphQLOperation:
+          type: string
+      required:
+        - GraphQLOperation
+    Target:
+      additionalProperties: false
+      type: object
       properties:
         InputPath:
           type: string
@@ -529,6 +663,8 @@ components:
           type: string
         RedshiftDataParameters:
           $ref: '#/components/schemas/RedshiftDataParameters'
+        AppSyncParameters:
+          $ref: '#/components/schemas/AppSyncParameters'
         Input:
           type: string
         SqsParameters:
@@ -549,25 +685,27 @@ components:
         - Id
         - Arn
     PlacementConstraint:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Expression:
-          type: string
         Type:
           type: string
+        Expression:
+          type: string
     AwsVpcConfiguration:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         SecurityGroups:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             type: string
         Subnets:
+          uniqueItems: false
+          x-insertionOrder: true
           type: array
-          uniqueItems: true
           items:
             type: string
         AssignPublicIp:
@@ -575,20 +713,21 @@ components:
       required:
         - Subnets
     SqsParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         MessageGroupId:
           type: string
       required:
         - MessageGroupId
     RunCommandTarget:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Values:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             type: string
         Key:
@@ -597,8 +736,8 @@ components:
         - Values
         - Key
     EcsParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         PlatformVersion:
           type: string
@@ -609,8 +748,9 @@ components:
         EnableExecuteCommand:
           type: boolean
         PlacementConstraints:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/PlacementConstraint'
         PropagateTags:
@@ -618,13 +758,15 @@ components:
         TaskCount:
           type: integer
         PlacementStrategies:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/PlacementStrategy'
         CapacityProviderStrategy:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/CapacityProviderStrategyItem'
         LaunchType:
@@ -632,8 +774,9 @@ components:
         ReferenceId:
           type: string
         TagList:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/Tag'
         NetworkConfiguration:
@@ -643,60 +786,53 @@ components:
       required:
         - TaskDefinitionArn
     BatchParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
+        ArrayProperties:
+          $ref: '#/components/schemas/BatchArrayProperties'
         JobName:
           type: string
         RetryStrategy:
           $ref: '#/components/schemas/BatchRetryStrategy'
-        ArrayProperties:
-          $ref: '#/components/schemas/BatchArrayProperties'
         JobDefinition:
           type: string
       required:
         - JobName
         - JobDefinition
     NetworkConfiguration:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         AwsVpcConfiguration:
           $ref: '#/components/schemas/AwsVpcConfiguration'
-    Tag:
-      type: object
-      additionalProperties: false
-      properties:
-        Value:
-          type: string
-        Key:
-          type: string
     SageMakerPipelineParameters:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         PipelineParameterList:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/SageMakerPipelineParameter'
     RetryPolicy:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        MaximumEventAgeInSeconds:
-          type: integer
         MaximumRetryAttempts:
           type: integer
+        MaximumEventAgeInSeconds:
+          type: integer
     BatchArrayProperties:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Size:
           type: integer
     SageMakerPipelineParameter:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Value:
           type: string
@@ -709,31 +845,73 @@ components:
       type: object
       properties:
         EventBusName:
+          description: The name or ARN of the event bus associated with the rule. If you omit this, the default event bus is used.
           type: string
         EventPattern:
-          type: object
+          description: The event pattern of the rule. For more information, see Events and Event Patterns in the Amazon EventBridge User Guide.
+          type: string
         ScheduleExpression:
+          description: The scheduling expression. For example, "cron(0 20 * * ? *)", "rate(5 minutes)". For more information, see Creating an Amazon EventBridge rule that runs on a schedule.
           type: string
         Description:
+          description: The description of the rule.
           type: string
         State:
+          description: The state of the rule.
           type: string
+          enum:
+            - DISABLED
+            - ENABLED
+            - ENABLED_WITH_ALL_CLOUDTRAIL_MANAGEMENT_EVENTS
         Targets:
-          type: array
           uniqueItems: true
+          description: |-
+            Adds the specified targets to the specified rule, or updates the targets if they are already associated with the rule.
+            Targets are the resources that are invoked when a rule is triggered.
+          x-insertionOrder: false
+          type: array
           items:
             $ref: '#/components/schemas/Target'
-        Id:
-          type: string
         Arn:
+          description: The ARN of the rule, such as arn:aws:events:us-east-2:123456789012:rule/example.
           type: string
         RoleArn:
+          description: The Amazon Resource Name (ARN) of the role that is used for target invocation.
           type: string
         Name:
+          description: The name of the rule.
           type: string
       x-stackql-resource-name: rule
       x-stackql-primaryIdentifier:
-        - Id
+        - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        read:
+          - iam:PassRole
+          - events:DescribeRule
+          - events:ListTargetsByRule
+        create:
+          - iam:PassRole
+          - events:DescribeRule
+          - events:PutRule
+          - events:PutTargets
+        update:
+          - iam:PassRole
+          - events:DescribeRule
+          - events:PutRule
+          - events:RemoveTargets
+          - events:PutTargets
+        list:
+          - events:ListRules
+        delete:
+          - iam:PassRole
+          - events:DescribeRule
+          - events:DeleteRule
+          - events:RemoveTargets
+          - events:ListTargetsByRule
   x-stackQL-resources:
     api_destinations:
       name: api_destinations
@@ -895,7 +1073,7 @@ components:
       x-cfn-schema-name: EventBus
       x-type: list
       x-identifiers:
-        - Id
+        - Name
       config:
         views:
           select:
@@ -903,7 +1081,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus'
     event_bus:
       name: event_bus
@@ -911,7 +1089,7 @@ components:
       x-cfn-schema-name: EventBus
       x-type: get
       x-identifiers:
-        - Id
+        - Name
       config:
         views:
           select:
@@ -919,12 +1097,11 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Policy') as policy,
-              JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.EventSourceName') as event_source_name,
+              JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBus'
     event_bus_policies:
       name: event_bus_policies
@@ -970,7 +1147,7 @@ components:
       x-cfn-schema-name: Rule
       x-type: list
       x-identifiers:
-        - Id
+        - Arn
       config:
         views:
           select:
@@ -978,7 +1155,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Rule'
     rule:
       name: rule
@@ -986,7 +1163,7 @@ components:
       x-cfn-schema-name: Rule
       x-type: get
       x-identifiers:
-        - Id
+        - Arn
       config:
         views:
           select:
@@ -1000,7 +1177,6 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Targets') as targets,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Name') as name

@@ -35,6 +35,29 @@ Retrieves a list of <code>components</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>components</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:CreateServiceLinkedRole,
+iam:GetRole,
+kms:GenerateDataKey*,
+kms:Encrypt,
+kms:Decrypt,
+s3:GetObject,
+s3:HeadBucket,
+s3:GetBucketLocation,
+imagebuilder:TagResource,
+imagebuilder:GetComponent,
+imagebuilder:CreateComponent</pre>
+
+### List
+<pre>
+imagebuilder:ListComponents</pre>
+
+
 ## Example
 ```sql
 SELECT

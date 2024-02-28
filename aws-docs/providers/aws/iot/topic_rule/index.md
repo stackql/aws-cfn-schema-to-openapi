@@ -38,6 +38,30 @@ Gets an individual <code>topic_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>topic_rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:GetTopicRule,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:PassRole,
+iot:GetTopicRule,
+iot:ListTagsForResource,
+iot:ReplaceTopicRule,
+iot:TagResource,
+iot:UntagResource</pre>
+
+### Delete
+<pre>
+iot:GetTopicRule,
+iot:DeleteTopicRule</pre>
+
+
 ## Example
 ```sql
 SELECT

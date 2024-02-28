@@ -41,6 +41,30 @@ Gets an individual <code>robot_application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>robot_application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+robomaker:DescribeRobotApplication</pre>
+
+### Update
+<pre>
+robomaker:TagResource,
+robomaker:UntagResource,
+robomaker:UpdateRobotApplication,
+ecr:BatchGetImage,
+ecr:GetAuthorizationToken,
+ecr:BatchCheckLayerAvailability,
+ecr-public:GetAuthorizationToken</pre>
+
+### Delete
+<pre>
+robomaker:DescribeRobotApplication,
+robomaker:DeleteRobotApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

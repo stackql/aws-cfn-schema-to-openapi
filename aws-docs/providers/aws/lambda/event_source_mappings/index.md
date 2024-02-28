@@ -35,6 +35,20 @@ Retrieves a list of <code>event_source_mappings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_source_mappings</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lambda:CreateEventSourceMapping,
+lambda:GetEventSourceMapping</pre>
+
+### List
+<pre>
+lambda:ListEventSourceMappings</pre>
+
+
 ## Example
 ```sql
 SELECT

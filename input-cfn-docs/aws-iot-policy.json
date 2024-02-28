@@ -1,7 +1,29 @@
 {
   "typeName" : "AWS::IoT::Policy",
   "description" : "Resource Type definition for AWS::IoT::Policy",
+  "definitions" : {
+    "Tag" : {
+      "type" : "object",
+      "properties" : {
+        "Key" : {
+          "type" : "string"
+        },
+        "Value" : {
+          "type" : "string"
+        }
+      },
+      "additionalProperties" : false,
+      "required" : [ "Key", "Value" ]
+    }
+  },
   "additionalProperties" : false,
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : true,
+    "cloudFormationSystemTags" : true,
+    "tagProperty" : "/properties/Tags"
+  },
   "properties" : {
     "Id" : {
       "type" : "string"
@@ -10,10 +32,19 @@
       "type" : "string"
     },
     "PolicyDocument" : {
-      "type" : "object"
+      "type" : [ "object", "string" ],
+      "minLength" : 1,
+      "maxLength" : 404600
     },
     "PolicyName" : {
       "type" : "string"
+    },
+    "Tags" : {
+      "type" : "array",
+      "insertionOrder" : true,
+      "items" : {
+        "$ref" : "#/definitions/Tag"
+      }
     }
   },
   "required" : [ "PolicyDocument" ],
@@ -22,16 +53,16 @@
   "primaryIdentifier" : [ "/properties/Id" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "iot:CreatePolicy", "iot:GetPolicy" ]
+      "permissions" : [ "iot:CreatePolicy", "iot:GetPolicy", "iot:TagResource", "iot:ListTagsForResource" ]
     },
     "read" : {
-      "permissions" : [ "iot:GetPolicy" ]
+      "permissions" : [ "iot:GetPolicy", "iot:ListTagsForResource" ]
     },
     "delete" : {
       "permissions" : [ "iot:DeletePolicy", "iot:GetPolicy", "iot:ListPolicyVersions", "iot:DeletePolicyVersion" ]
     },
     "update" : {
-      "permissions" : [ "iot:ListPolicyVersions", "iot:CreatePolicyVersion", "iot:DeletePolicyVersion", "iot:SetDefaultPolicyVersion" ]
+      "permissions" : [ "iot:GetPolicy", "iot:ListPolicyVersions", "iot:CreatePolicyVersion", "iot:DeletePolicyVersion", "iot:SetDefaultPolicyVersion", "iot:TagResource", "iot:UntagResource", "iot:ListTagsForResource" ]
     },
     "list" : {
       "permissions" : [ "iot:ListPolicies" ]

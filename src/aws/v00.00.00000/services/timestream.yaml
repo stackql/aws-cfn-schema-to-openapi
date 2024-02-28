@@ -42,6 +42,34 @@ components:
       x-stackql-resource-name: database
       x-stackql-primaryIdentifier:
         - DatabaseName
+      x-create-only-properties:
+        - DatabaseName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - timestream:CreateDatabase
+          - timestream:DescribeEndpoints
+          - timestream:TagResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:Decrypt
+        read:
+          - timestream:DescribeDatabase
+          - timestream:DescribeEndpoints
+          - timestream:ListTagsForResource
+        update:
+          - timestream:UpdateDatabase
+          - timestream:DescribeDatabase
+          - timestream:DescribeEndpoints
+          - timestream:TagResource
+          - timestream:UntagResource
+        delete:
+          - timestream:DeleteDatabase
+          - timestream:DescribeEndpoints
+        list:
+          - timestream:ListDatabases
+          - timestream:DescribeEndpoints
     Arn:
       description: Amazon Resource Name of the scheduled query that is generated upon creation.
       type: string
@@ -392,6 +420,82 @@ components:
       x-stackql-resource-name: scheduled_query
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ScheduledQueryName
+        - QueryString
+        - ScheduleConfiguration
+        - NotificationConfiguration
+        - ClientToken
+        - ScheduledQueryExecutionRoleArn
+        - TargetConfiguration
+        - ErrorReportConfiguration
+        - KmsKeyId
+      x-read-only-properties:
+        - Arn
+        - SQName
+        - SQQueryString
+        - SQScheduleConfiguration
+        - SQNotificationConfiguration
+        - SQScheduledQueryExecutionRoleArn
+        - SQTargetConfiguration
+        - SQErrorReportConfiguration
+        - SQKmsKeyId
+      x-required-permissions:
+        create:
+          - timestream:CreateScheduledQuery
+          - timestream:DescribeEndpoints
+        read:
+          - timestream:DescribeScheduledQuery
+          - timestream:ListTagsForResource
+          - timestream:DescribeEndpoints
+        update:
+          - timestream:UpdateScheduledQuery
+          - timestream:TagResource
+          - timestream:UntagResource
+          - timestream:DescribeEndpoints
+        delete:
+          - timestream:DeleteScheduledQuery
+          - timestream:DescribeEndpoints
+        list:
+          - timestream:ListScheduledQueries
+          - timestream:DescribeEndpoints
+    PartitionKeyList:
+      description: A list of partition keys defining the attributes used to partition the table data. The order of the list determines the partition hierarchy. The name and type of each partition key as well as the partition key order cannot be changed after the table is created. However, the enforcement level of each partition key can be changed.
+      type: array
+      minItems: 1
+      items:
+        $ref: '#/components/schemas/PartitionKey'
+      x-insertionOrder: true
+    PartitionKey:
+      description: 'An attribute used in partitioning data in a table. There are two types of partition keys: dimension keys and measure keys. A dimension key partitions data on a dimension name, while a measure key partitions data on the measure name.'
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/PartitionKeyType'
+        Name:
+          $ref: '#/components/schemas/SchemaName'
+        EnforcementInRecord:
+          $ref: '#/components/schemas/PartitionKeyEnforcementLevel'
+      required:
+        - Type
+      additionalProperties: false
+    PartitionKeyType:
+      description: The type of the partition key. Options are DIMENSION (dimension key) and MEASURE (measure key).
+      type: string
+      enum:
+        - DIMENSION
+        - MEASURE
+    SchemaName:
+      description: The name of the attribute used for a dimension key.
+      type: string
+      minLength: 1
+      maxLength: 2048
+    PartitionKeyEnforcementLevel:
+      description: The level of enforcement for the specification of a dimension key in ingested records. Options are REQUIRED (dimension key must be specified) and OPTIONAL (dimension key does not have to be specified).
+      type: string
+      enum:
+        - REQUIRED
+        - OPTIONAL
     Table:
       type: object
       properties:
@@ -418,6 +522,13 @@ components:
             MagneticStoreRetentionPeriodInDays:
               description: The duration for which data must be stored in the magnetic store.
               type: string
+          additionalProperties: false
+        Schema:
+          description: A Schema specifies the expected data model of the table.
+          type: object
+          properties:
+            CompositePartitionKey:
+              $ref: '#/components/schemas/PartitionKeyList'
           additionalProperties: false
         MagneticStoreWriteProperties:
           description: The properties that determine whether magnetic store writes are enabled.
@@ -467,6 +578,45 @@ components:
       x-stackql-primaryIdentifier:
         - DatabaseName
         - TableName
+      x-create-only-properties:
+        - DatabaseName
+        - TableName
+      x-read-only-properties:
+        - Arn
+        - Name
+      x-required-permissions:
+        create:
+          - timestream:CreateTable
+          - timestream:DescribeEndpoints
+          - timestream:TagResource
+          - s3:PutObject
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - kms:GenerateDataKey*
+          - kms:DescribeKey
+          - kms:Encrypt
+        read:
+          - timestream:DescribeTable
+          - timestream:DescribeEndpoints
+          - timestream:ListTagsForResource
+        update:
+          - timestream:UpdateTable
+          - timestream:DescribeEndpoints
+          - timestream:TagResource
+          - timestream:UntagResource
+          - s3:PutObject
+          - s3:GetObject
+          - s3:GetBucketAcl
+          - kms:GenerateDataKey*
+          - kms:DescribeKey
+          - kms:Encrypt
+        delete:
+          - timestream:DeleteTable
+          - timestream:DescribeEndpoints
+          - timestream:DescribeTable
+        list:
+          - timestream:ListTables
+          - timestream:DescribeEndpoints
   x-stackQL-resources:
     databases:
       name: databases
@@ -591,6 +741,7 @@ components:
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
               JSON_EXTRACT(Properties, '$.TableName') as table_name,
               JSON_EXTRACT(Properties, '$.RetentionProperties') as retention_properties,
+              JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.MagneticStoreWriteProperties') as magnetic_store_write_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Timestream::Table'

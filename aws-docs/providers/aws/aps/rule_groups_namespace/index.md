@@ -39,6 +39,29 @@ Gets an individual <code>rule_groups_namespace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rule_groups_namespace</code> resource, the following permissions are required:
+
+### Read
+<pre>
+aps:DescribeRuleGroupsNamespace,
+aps:ListTagsForResource</pre>
+
+### Update
+<pre>
+aps:PutRuleGroupsNamespace,
+aps:DescribeRuleGroupsNamespace,
+aps:TagResource,
+aps:UntagResource,
+aps:ListTagsForResource</pre>
+
+### Delete
+<pre>
+aps:DeleteRuleGroupsNamespace,
+aps:DescribeRuleGroupsNamespace</pre>
+
+
 ## Example
 ```sql
 SELECT

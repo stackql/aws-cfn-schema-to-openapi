@@ -38,6 +38,25 @@ Gets an individual <code>schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schedule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+databrew:DescribeSchedule,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+### Update
+<pre>
+databrew:UpdateSchedule</pre>
+
+### Delete
+<pre>
+databrew:DeleteSchedule</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -40,6 +40,30 @@ Gets an individual <code>image</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>image</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeImage,
+sagemaker:ListTags</pre>
+
+### Update
+<pre>
+sagemaker:UpdateImage,
+sagemaker:DescribeImage,
+sagemaker:ListTags,
+sagemaker:AddTags,
+sagemaker:DeleteTags,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteImage,
+sagemaker:DescribeImage</pre>
+
+
 ## Example
 ```sql
 SELECT

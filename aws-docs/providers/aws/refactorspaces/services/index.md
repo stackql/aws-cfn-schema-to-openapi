@@ -37,6 +37,32 @@ Retrieves a list of <code>services</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>services</code> resource, the following permissions are required:
+
+### Create
+<pre>
+refactor-spaces:CreateService,
+refactor-spaces:GetService,
+refactor-spaces:TagResource,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeRouteTables,
+ec2:CreateTags,
+ec2:CreateTransitGatewayVpcAttachment,
+ec2:DescribeTransitGatewayVpcAttachments,
+ec2:CreateSecurityGroup,
+ec2:AuthorizeSecurityGroupIngress,
+ec2:CreateRoute,
+lambda:GetFunctionConfiguration</pre>
+
+### List
+<pre>
+refactor-spaces:ListServices,
+refactor-spaces:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

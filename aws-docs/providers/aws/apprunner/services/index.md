@@ -35,6 +35,30 @@ Retrieves a list of <code>services</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>services</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apprunner:CreateService,
+apprunner:TagResource,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+logs:CreateLogGroup,
+logs:PutRetentionPolicy,
+logs:CreateLogStream,
+logs:PutLogEvents,
+logs:DescribeLogStreams,
+events:PutRule,
+events:PutTargets</pre>
+
+### List
+<pre>
+apprunner:ListServices,
+iam:PassRole</pre>
+
+
 ## Example
 ```sql
 SELECT

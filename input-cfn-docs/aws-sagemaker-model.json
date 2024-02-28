@@ -53,6 +53,16 @@
       },
       "required" : [ "RepositoryAccessMode" ]
     },
+    "ModelAccessConfig" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "AcceptEula" : {
+          "type" : "boolean"
+        }
+      },
+      "required" : [ "AcceptEula" ]
+    },
     "VpcConfig" : {
       "type" : "object",
       "additionalProperties" : false,
@@ -84,6 +94,25 @@
       },
       "required" : [ "RepositoryCredentialsProviderArn" ]
     },
+    "S3DataSource" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "ModelAccessConfig" : {
+          "$ref" : "#/definitions/ModelAccessConfig"
+        },
+        "S3DataType" : {
+          "type" : "string"
+        },
+        "CompressionType" : {
+          "type" : "string"
+        },
+        "S3Uri" : {
+          "type" : "string"
+        }
+      },
+      "required" : [ "S3Uri", "S3DataType", "CompressionType" ]
+    },
     "ContainerDefinition" : {
       "type" : "object",
       "additionalProperties" : false,
@@ -111,6 +140,9 @@
         },
         "Image" : {
           "type" : "string"
+        },
+        "ModelDataSource" : {
+          "$ref" : "#/definitions/ModelDataSource"
         },
         "MultiModelConfig" : {
           "$ref" : "#/definitions/MultiModelConfig"
@@ -140,6 +172,16 @@
       },
       "required" : [ "Value", "Key" ]
     },
+    "ModelDataSource" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "S3DataSource" : {
+          "$ref" : "#/definitions/S3DataSource"
+        }
+      },
+      "required" : [ "S3DataSource" ]
+    },
     "MultiModelConfig" : {
       "type" : "object",
       "additionalProperties" : false,
@@ -150,7 +192,6 @@
       }
     }
   },
-  "required" : [ "ExecutionRoleArn" ],
   "createOnlyProperties" : [ "/properties/ExecutionRoleArn", "/properties/EnableNetworkIsolation", "/properties/InferenceExecutionConfig", "/properties/PrimaryContainer", "/properties/ModelName", "/properties/VpcConfig", "/properties/Containers" ],
   "primaryIdentifier" : [ "/properties/Id" ],
   "readOnlyProperties" : [ "/properties/Id" ]

@@ -37,6 +37,20 @@ Gets an individual <code>application_entitlement_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application_entitlement_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+appstream:ListEntitledApplications</pre>
+
+### Delete
+<pre>
+appstream:DisassociateApplicationFromEntitlement,
+appstream:ListEntitledApplications</pre>
+
+
 ## Example
 ```sql
 SELECT

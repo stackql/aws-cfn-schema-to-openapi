@@ -46,6 +46,28 @@ Gets an individual <code>email_identity</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>email_identity</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ses:GetEmailIdentity</pre>
+
+### Update
+<pre>
+ses:PutEmailIdentityMailFromAttributes,
+ses:PutEmailIdentityFeedbackAttributes,
+ses:PutEmailIdentityConfigurationSetAttributes,
+ses:PutEmailIdentityDkimSigningAttributes,
+ses:PutEmailIdentityDkimAttributes,
+ses:GetEmailIdentity</pre>
+
+### Delete
+<pre>
+ses:DeleteEmailIdentity</pre>
+
+
 ## Example
 ```sql
 SELECT

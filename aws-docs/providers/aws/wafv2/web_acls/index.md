@@ -37,6 +37,21 @@ Retrieves a list of <code>web_acls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>web_acls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+wafv2:CreateWebACL,
+wafv2:GetWebACL,
+wafv2:ListTagsForResource</pre>
+
+### List
+<pre>
+wafv2:listWebACLs</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -32,12 +32,31 @@ Gets an individual <code>build</code> resource
 <tr><td><code>operating_system</code></td><td><code>string</code></td><td>The operating system that the game server binaries are built to run on. This value determines the type of fleet resources that you can use for this build. If your game build contains multiple executables, they all must run on the same operating system. If an operating system is not specified when creating a build, Amazon GameLift uses the default value (WINDOWS_2012). This value cannot be changed later.</td></tr>
 <tr><td><code>storage_location</code></td><td><code>object</code></td><td>Information indicating where your game build files are stored. Use this parameter only when creating a build with files stored in an Amazon S3 bucket that you own. The storage location must specify an Amazon S3 bucket name and key. The location must also specify a role ARN that you set up to allow Amazon GameLift to access your Amazon S3 bucket. The S3 bucket and your new build must be in the same Region.</td></tr>
 <tr><td><code>version</code></td><td><code>string</code></td><td>Version information that is associated with this build. Version strings do not need to be unique.</td></tr>
+<tr><td><code>server_sdk_version</code></td><td><code>string</code></td><td>A server SDK version you used when integrating your game server build with Amazon GameLift. By default Amazon GameLift sets this value to 4.0.2.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>build</code> resource, the following permissions are required:
+
+### Read
+<pre>
+gamelift:DescribeBuild</pre>
+
+### Update
+<pre>
+gamelift:UpdateBuild</pre>
+
+### Delete
+<pre>
+gamelift:DescribeBuild,
+gamelift:DeleteBuild</pre>
+
 
 ## Example
 ```sql
@@ -47,7 +66,8 @@ build_id,
 name,
 operating_system,
 storage_location,
-version
+version,
+server_sdk_version
 FROM aws.gamelift.build
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;BuildId&gt;'

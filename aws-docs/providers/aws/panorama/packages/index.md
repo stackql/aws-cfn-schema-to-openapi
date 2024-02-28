@@ -35,6 +35,29 @@ Retrieves a list of <code>packages</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>packages</code> resource, the following permissions are required:
+
+### Create
+<pre>
+panorama:CreatePackage,
+panorama:ListTagsForResource,
+panorama:TagResource,
+panorama:DescribePackage,
+s3:ListBucket,
+s3:PutObject,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+### List
+<pre>
+panorama:ListPackages,
+s3:ListBucket,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

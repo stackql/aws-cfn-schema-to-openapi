@@ -27,8 +27,9 @@ Gets an individual <code>view</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>included_properties</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>filters</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>included_properties</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>scope</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>view_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>view_name</code></td><td><code>string</code></td><td></td></tr>
@@ -39,12 +40,35 @@ Gets an individual <code>view</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>view</code> resource, the following permissions are required:
+
+### Read
+<pre>
+resource-explorer-2:GetView</pre>
+
+### Update
+<pre>
+resource-explorer-2:UpdateView,
+resource-explorer-2:TagResource,
+resource-explorer-2:UntagResource,
+resource-explorer-2:ListTagsForResource</pre>
+
+### Delete
+<pre>
+resource-explorer-2:DeleteView,
+resource-explorer-2:GetView,
+resource-explorer-2:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-included_properties,
 filters,
+included_properties,
+scope,
 tags,
 view_arn,
 view_name

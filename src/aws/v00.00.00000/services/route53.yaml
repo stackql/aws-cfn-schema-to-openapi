@@ -51,6 +51,26 @@ components:
       x-stackql-resource-name: cidr_collection
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - route53:CreateCidrCollection
+          - route53:ChangeCidrCollection
+        read:
+          - route53:ListCidrCollections
+          - route53:ListCidrBlocks
+        update:
+          - route53:ChangeCidrCollection
+        delete:
+          - route53:DeleteCidrCollection
+          - route53:ChangeCidrCollection
+        list:
+          - route53:ListCidrCollections
+          - route53:ListCidrBlocks
     DNSSEC:
       type: object
       properties:
@@ -63,6 +83,28 @@ components:
       x-stackql-resource-name: dnssec
       x-stackql-primaryIdentifier:
         - HostedZoneId
+      x-create-only-properties:
+        - HostedZoneId
+      x-required-permissions:
+        create:
+          - route53:GetDNSSEC
+          - route53:EnableHostedZoneDNSSEC
+          - kms:DescribeKey
+          - kms:GetPublicKey
+          - kms:Sign
+          - kms:CreateGrant
+        read:
+          - route53:GetDNSSEC
+        delete:
+          - route53:GetDNSSEC
+          - route53:DisableHostedZoneDNSSEC
+          - kms:DescribeKey
+          - kms:GetPublicKey
+          - kms:Sign
+          - kms:CreateGrant
+        list:
+          - route53:GetDNSSEC
+          - route53:ListHostedZones
     AlarmIdentifier:
       description: A complex type that identifies the CloudWatch alarm that you want Amazon Route 53 health checkers to use to determine whether the specified health check is healthy.
       type: object
@@ -190,6 +232,31 @@ components:
       x-stackql-resource-name: health_check
       x-stackql-primaryIdentifier:
         - HealthCheckId
+      x-create-only-properties:
+        - HealthCheckConfig/Type
+        - HealthCheckConfig/MeasureLatency
+        - HealthCheckConfig/RequestInterval
+      x-read-only-properties:
+        - HealthCheckId
+      x-required-permissions:
+        create:
+          - route53:CreateHealthCheck
+          - route53:ChangeTagsForResource
+          - cloudwatch:DescribeAlarms
+          - route53-recovery-control-config:DescribeRoutingControl
+        read:
+          - route53:GetHealthCheck
+          - route53:ListTagsForResource
+        update:
+          - route53:UpdateHealthCheck
+          - route53:ChangeTagsForResource
+          - route53:ListTagsForResource
+          - cloudwatch:DescribeAlarms
+        delete:
+          - route53:DeleteHealthCheck
+        list:
+          - route53:ListHealthChecks
+          - route53:ListTagsForResource
     HostedZoneConfig:
       description: |-
         A complex type that contains an optional comment.
@@ -283,6 +350,44 @@ components:
       x-stackql-resource-name: hosted_zone
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - NameServers
+      x-required-permissions:
+        create:
+          - route53:CreateHostedZone
+          - route53:CreateQueryLoggingConfig
+          - route53:ChangeTagsForResource
+          - route53:GetChange
+          - route53:AssociateVPCWithHostedZone
+          - ec2:DescribeVpcs
+        read:
+          - route53:GetHostedZone
+          - route53:ListTagsForResource
+          - route53:ListQueryLoggingConfigs
+        update:
+          - route53:GetChange
+          - route53:ListTagsForResource
+          - route53:UpdateHostedZoneComment
+          - route53:ChangeTagsForResource
+          - route53:AssociateVPCWithHostedZone
+          - route53:DisassociateVPCFromHostedZone
+          - route53:CreateQueryLoggingConfig
+          - route53:DeleteQueryLoggingConfig
+          - ec2:DescribeVpcs
+        delete:
+          - route53:DeleteHostedZone
+          - route53:DeleteQueryLoggingConfig
+          - route53:ListQueryLoggingConfigs
+          - route53:GetChange
+        list:
+          - route53:GetHostedZone
+          - route53:ListHostedZones
+          - route53:ListHostedZonesByName
+          - route53:ListQueryLoggingConfigs
+          - route53:ListTagsForResource
     KeySigningKey:
       type: object
       properties:
@@ -314,6 +419,37 @@ components:
       x-stackql-primaryIdentifier:
         - HostedZoneId
         - Name
+      x-create-only-properties:
+        - HostedZoneId
+        - Name
+        - KeyManagementServiceArn
+      x-required-permissions:
+        create:
+          - route53:CreateKeySigningKey
+          - kms:DescribeKey
+          - kms:GetPublicKey
+          - kms:Sign
+          - kms:CreateGrant
+        read:
+          - route53:GetDNSSEC
+        update:
+          - route53:GetDNSSEC
+          - route53:ActivateKeySigningKey
+          - route53:DeactivateKeySigningKey
+          - kms:DescribeKey
+          - kms:GetPublicKey
+          - kms:Sign
+          - kms:CreateGrant
+        delete:
+          - route53:DeactivateKeySigningKey
+          - route53:DeleteKeySigningKey
+          - kms:DescribeKey
+          - kms:GetPublicKey
+          - kms:Sign
+          - kms:CreateGrant
+        list:
+          - route53:GetDNSSEC
+          - route53:ListHostedZones
     AliasTarget:
       type: object
       additionalProperties: false
@@ -338,6 +474,29 @@ components:
       required:
         - CollectionId
         - LocationName
+    GeoProximityLocation:
+      type: object
+      additionalProperties: false
+      properties:
+        AWSRegion:
+          type: string
+        LocalZoneGroup:
+          type: string
+        Bias:
+          type: integer
+        Coordinates:
+          $ref: '#/components/schemas/Coordinates'
+    Coordinates:
+      type: object
+      additionalProperties: false
+      properties:
+        Longitude:
+          type: string
+        Latitude:
+          type: string
+      required:
+        - Latitude
+        - Longitude
     GeoLocation:
       type: object
       additionalProperties: false
@@ -379,6 +538,8 @@ components:
           $ref: '#/components/schemas/CidrRoutingConfig'
         Failover:
           type: string
+        GeoProximityLocation:
+          $ref: '#/components/schemas/GeoProximityLocation'
         Region:
           type: string
         GeoLocation:
@@ -406,6 +567,11 @@ components:
           type: string
       x-stackql-resource-name: record_set_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - HostedZoneName
+        - HostedZoneId
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     cidr_collections:

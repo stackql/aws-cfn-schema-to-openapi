@@ -35,6 +35,23 @@ Retrieves a list of <code>acls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>acls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+memorydb:CreateACL,
+memorydb:DescribeACLs,
+memorydb:TagResource,
+memorydb:ListTags</pre>
+
+### List
+<pre>
+memorydb:DescribeACLs,
+memorydb:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

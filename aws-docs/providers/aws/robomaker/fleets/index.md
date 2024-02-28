@@ -35,6 +35,19 @@ Retrieves a list of <code>fleets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fleets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+robomaker:CreateFleet</pre>
+
+### List
+<pre>
+robomaker:ListFleets</pre>
+
+
 ## Example
 ```sql
 SELECT

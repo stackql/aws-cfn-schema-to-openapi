@@ -36,12 +36,40 @@ Gets an individual <code>scene</code> resource
 <tr><td><code>tags</code></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><code>workspace_id</code></td><td><code>string</code></td><td>The ID of the scene.</td></tr>
 <tr><td><code>capabilities</code></td><td><code>array</code></td><td>A list of capabilities that the scene uses to render.</td></tr>
+<tr><td><code>scene_metadata</code></td><td><code>object</code></td><td>A key-value pair of scene metadata for the scene.</td></tr>
+<tr><td><code>generated_scene_metadata</code></td><td><code>object</code></td><td>A key-value pair of generated scene metadata for the scene.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>scene</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iottwinmaker:GetWorkspace,
+iottwinmaker:GetScene,
+iottwinmaker:ListTagsForResource</pre>
+
+### Update
+<pre>
+iottwinmaker:GetScene,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateScene</pre>
+
+### Delete
+<pre>
+iottwinmaker:DeleteScene,
+iottwinmaker:GetScene,
+iottwinmaker:GetWorkspace</pre>
+
 
 ## Example
 ```sql
@@ -55,7 +83,9 @@ creation_date_time,
 update_date_time,
 tags,
 workspace_id,
-capabilities
+capabilities,
+scene_metadata,
+generated_scene_metadata
 FROM aws.iottwinmaker.scene
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;WorkspaceId&gt;'

@@ -35,6 +35,21 @@ Retrieves a list of <code>functions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>functions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudfront:CreateFunction,
+cloudfront:PublishFunction,
+cloudfront:DescribeFunction</pre>
+
+### List
+<pre>
+cloudfront:ListFunctions</pre>
+
+
 ## Example
 ```sql
 SELECT

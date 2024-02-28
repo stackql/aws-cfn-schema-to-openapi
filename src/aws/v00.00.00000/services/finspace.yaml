@@ -32,10 +32,26 @@ components:
         FederationURN:
           description: SAML metadata URL to link with the Environment
           type: string
-          pattern: ^[A-Za-z0-9._\-:\/#\+]+{1,255}$
         AttributeMap:
           description: Attribute map for SAML configuration
-          type: object
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            type: object
+            properties:
+              Key:
+                type: string
+                description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+                minLength: 1
+                maxLength: 128
+              Value:
+                type: string
+                description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+                minLength: 0
+                maxLength: 256
+            additionalProperties: false
+      additionalProperties: false
     SuperuserParameters:
       description: Parameters of the first Superuser for the FinSpace Environment
       type: object
@@ -58,9 +74,28 @@ components:
           pattern: '[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+[.]+[A-Za-z]+'
           minLength: 1
           maxLength: 128
+      additionalProperties: false
     DataBundleArn:
       type: string
       pattern: ^arn:aws:finspace:[A-Za-z0-9_/.-]{0,63}:\d*:data-bundle/[0-9A-Za-z_-]{1,128}$
+    Tag:
+      description: A list of all tags for a resource.
+      type: object
+      properties:
+        Key:
+          type: string
+          description: 'The key name of the tag. You can specify a value that is 1 to 128 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+          minLength: 1
+          maxLength: 128
+        Value:
+          type: string
+          description: 'The value for the tag. You can specify a value that is 0 to 256 Unicode characters in length and cannot be prefixed with aws:. You can use any of the following characters: the set of Unicode letters, digits, whitespace, _, ., /, =, +, and -.'
+          minLength: 0
+          maxLength: 256
+      required:
+        - Key
+        - Value
+      additionalProperties: false
     Environment:
       type: object
       properties:
@@ -130,11 +165,47 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/DataBundleArn'
+        Tags:
+          description: An array of key-value pairs to apply to this resource.
+          type: array
+          uniqueItems: false
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
       required:
         - Name
       x-stackql-resource-name: environment
       x-stackql-primaryIdentifier:
         - EnvironmentId
+      x-create-only-properties:
+        - KmsKeyId
+        - SuperuserParameters
+        - FederationParameters
+        - DataBundles
+        - Tags
+      x-read-only-properties:
+        - EnvironmentId
+        - Status
+        - SageMakerStudioDomainUrl
+        - EnvironmentArn
+        - EnvironmentUrl
+        - AwsAccountId
+        - DedicatedServiceAccountId
+      x-required-permissions:
+        create:
+          - finspace:CreateEnvironment
+          - finspace:GetEnvironment
+          - finspace:ListEnvironments
+          - sts:AssumeRole
+        read:
+          - finspace:GetEnvironment
+        update:
+          - finspace:UpdateEnvironment
+        delete:
+          - finspace:DeleteEnvironment
+          - finspace:GetEnvironment
+        list:
+          - finspace:ListEnvironments
   x-stackQL-resources:
     environments:
       name: environments
@@ -179,5 +250,6 @@ components:
               JSON_EXTRACT(Properties, '$.FederationMode') as federation_mode,
               JSON_EXTRACT(Properties, '$.FederationParameters') as federation_parameters,
               JSON_EXTRACT(Properties, '$.SuperuserParameters') as superuser_parameters,
-              JSON_EXTRACT(Properties, '$.DataBundles') as data_bundles
+              JSON_EXTRACT(Properties, '$.DataBundles') as data_bundles,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FinSpace::Environment'

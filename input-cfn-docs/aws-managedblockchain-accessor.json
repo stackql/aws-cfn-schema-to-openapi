@@ -10,6 +10,10 @@
       "type" : "string",
       "enum" : [ "BILLING_TOKEN" ]
     },
+    "NetworkAccessorType" : {
+      "type" : "string",
+      "enum" : [ "ETHEREUM_GOERLI", "ETHEREUM_MAINNET", "ETHEREUM_MAINNET_AND_GOERLI", "POLYGON_MAINNET", "POLYGON_MUMBAI" ]
+    },
     "Tag" : {
       "description" : "A key-value pair to associate with a resource.",
       "type" : "object",
@@ -57,6 +61,9 @@
     "AccessorType" : {
       "$ref" : "#/definitions/AccessorType"
     },
+    "NetworkType" : {
+      "$ref" : "#/definitions/NetworkAccessorType"
+    },
     "Tags" : {
       "type" : "array",
       "maxItems" : 50,
@@ -76,20 +83,20 @@
   },
   "required" : [ "AccessorType" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/Id", "/properties/BillingToken", "/properties/CreationDate", "/properties/Status" ],
-  "createOnlyProperties" : [ "/properties/AccessorType" ],
+  "createOnlyProperties" : [ "/properties/AccessorType", "/properties/NetworkType" ],
   "writeOnlyProperties" : [ "/properties/Tags" ],
   "primaryIdentifier" : [ "/properties/Id" ],
   "additionalIdentifiers" : [ [ "/properties/Arn" ] ],
   "additionalProperties" : false,
   "handlers" : {
     "create" : {
-      "permissions" : [ "managedblockchain:CreateAccessor", "managedblockchain:TagResource" ]
+      "permissions" : [ "managedblockchain:CreateAccessor", "managedblockchain:TagResource", "managedblockchain:GetAccessor" ]
     },
     "read" : {
       "permissions" : [ "managedblockchain:GetAccessor" ]
     },
     "update" : {
-      "permissions" : [ "managedblockchain:CreateAccessor", "managedblockchain:TagResource", "managedblockchain:UntagResource" ]
+      "permissions" : [ "managedblockchain:GetAccessor", "managedblockchain:CreateAccessor", "managedblockchain:TagResource", "managedblockchain:UntagResource" ]
     },
     "delete" : {
       "permissions" : [ "managedblockchain:DeleteAccessor" ]

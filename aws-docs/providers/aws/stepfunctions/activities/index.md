@@ -35,6 +35,15 @@ Retrieves a list of <code>activities</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>activities</code> resource, the following permissions are required:
+
+### Create
+<pre>
+states:CreateActivity</pre>
+
+
 ## Example
 ```sql
 SELECT

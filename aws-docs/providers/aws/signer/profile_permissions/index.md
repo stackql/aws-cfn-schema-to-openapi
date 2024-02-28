@@ -36,6 +36,21 @@ Retrieves a list of <code>profile_permissions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profile_permissions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+signer:AddProfilePermission,
+signer:ListProfilePermissions</pre>
+
+### List
+<pre>
+signer:ListProfilePermissions,
+signer:GetSigningProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

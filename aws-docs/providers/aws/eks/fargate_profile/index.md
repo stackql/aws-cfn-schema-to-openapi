@@ -41,6 +41,27 @@ Gets an individual <code>fargate_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fargate_profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+eks:DescribeFargateProfile</pre>
+
+### Delete
+<pre>
+eks:DeleteFargateProfile,
+eks:DescribeFargateProfile</pre>
+
+### Update
+<pre>
+eks:DescribeFargateProfile,
+eks:ListTagsForResource,
+eks:TagResource,
+eks:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

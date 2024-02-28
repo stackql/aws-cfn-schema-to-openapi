@@ -36,6 +36,24 @@ Retrieves a list of <code>mission_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>mission_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+groundstation:CreateMissionProfile,
+groundstation:GetMissionProfile,
+groundstation:TagResource,
+iam:PassRole,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### List
+<pre>
+groundstation:ListMissionProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT

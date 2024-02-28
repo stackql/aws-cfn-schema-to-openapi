@@ -40,6 +40,45 @@ Gets an individual <code>logging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ivschat:GetLoggingConfiguration,
+ivschat:ListTagsForResource</pre>
+
+### Update
+<pre>
+ivschat:UpdateLoggingConfiguration,
+ivschat:GetLoggingConfiguration,
+ivschat:TagResource,
+ivschat:UnTagResource,
+ivschat:ListTagsForResource,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+iam:CreateServiceLinkedRole,
+firehose:TagDeliveryStream</pre>
+
+### Delete
+<pre>
+ivschat:DeleteLoggingConfiguration,
+ivschat:GetLoggingConfiguration,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+ivschat:UntagResource,
+logs:GetLogDelivery</pre>
+
+
 ## Example
 ```sql
 SELECT

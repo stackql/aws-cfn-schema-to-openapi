@@ -35,6 +35,20 @@ Retrieves a list of <code>robots</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>robots</code> resource, the following permissions are required:
+
+### Create
+<pre>
+robomaker:CreateRobot,
+robomaker:RegisterRobot</pre>
+
+### List
+<pre>
+robomaker:ListRobots</pre>
+
+
 ## Example
 ```sql
 SELECT

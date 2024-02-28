@@ -37,7 +37,7 @@ Gets an individual <code>workspace</code> resource
 <tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>creation_timestamp</code></td><td><code>string</code></td><td>Timestamp when the workspace was created.</td></tr>
 <tr><td><code>modification_timestamp</code></td><td><code>string</code></td><td>Timestamp when the workspace was last modified</td></tr>
-<tr><td><code>grafana_version</code></td><td><code>string</code></td><td>Version of Grafana the workspace is currently using.</td></tr>
+<tr><td><code>grafana_version</code></td><td><code>string</code></td><td>The version of Grafana to support in your workspace.</td></tr>
 <tr><td><code>endpoint</code></td><td><code>string</code></td><td>Endpoint for the Grafana workspace.</td></tr>
 <tr><td><code>account_access_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>organization_role_name</code></td><td><code>string</code></td><td>The name of an IAM role that already exists to use with AWS Organizations to access AWS data sources and notification channels in other accounts in an organization.</td></tr>
@@ -50,12 +50,52 @@ Gets an individual <code>workspace</code> resource
 <tr><td><code>notification_destinations</code></td><td><code>array</code></td><td>List of notification destinations on the customers service managed IAM role that the Grafana workspace can query.</td></tr>
 <tr><td><code>organizational_units</code></td><td><code>array</code></td><td>List of Organizational Units containing AWS accounts the Grafana workspace can pull data from.</td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td>IAM Role that will be used to grant the Grafana workspace access to a customers AWS resources.</td></tr>
+<tr><td><code>plugin_admin_enabled</code></td><td><code>boolean</code></td><td>Allow workspace admins to install plugins</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>workspace</code> resource, the following permissions are required:
+
+### Read
+<pre>
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration</pre>
+
+### Update
+<pre>
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration,
+grafana:UpdateWorkspace,
+grafana:UpdateWorkspaceAuthentication,
+grafana:UpdateWorkspaceConfiguration,
+sso:DescribeRegisteredRegions,
+sso:CreateManagedApplicationInstance,
+ec2:GetManagedPrefixListEntries,
+iam:PassRole,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+iam:CreateServiceLinkedRole,
+sso:ListApplicationInstances,
+sso:GetApplicationInstance</pre>
+
+### Delete
+<pre>
+grafana:DeleteWorkspace,
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration,
+sso:DeleteManagedApplicationInstance,
+sso:DescribeRegisteredRegions</pre>
+
 
 ## Example
 ```sql
@@ -83,7 +123,8 @@ id,
 name,
 notification_destinations,
 organizational_units,
-role_arn
+role_arn,
+plugin_admin_enabled
 FROM aws.grafana.workspace
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

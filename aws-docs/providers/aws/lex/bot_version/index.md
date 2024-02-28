@@ -38,6 +38,20 @@ Gets an individual <code>bot_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bot_version</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lex:DescribeBotVersion</pre>
+
+### Delete
+<pre>
+lex:DeleteBotVersion,
+lex:DescribeBotVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

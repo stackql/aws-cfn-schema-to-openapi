@@ -35,6 +35,21 @@ Retrieves a list of <code>sampling_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sampling_rules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+xray:CreateSamplingRule,
+xray:TagResource</pre>
+
+### List
+<pre>
+xray:GetSamplingRules,
+xray:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

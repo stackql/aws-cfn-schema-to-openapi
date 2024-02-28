@@ -32,13 +32,25 @@ Gets an individual <code>resource_association</code> resource
 <tr><td><code>resource_type</code></td><td><code>string</code></td><td>The type of the CFN Resource for now it's enum CFN_STACK.</td></tr>
 <tr><td><code>application_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>resource_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>resource_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:ListAssociatedResources</pre>
+
+### Delete
+<pre>
+servicecatalog:DisassociateResource</pre>
+
 
 ## Example
 ```sql
@@ -48,9 +60,10 @@ application,
 resource,
 resource_type,
 application_arn,
-resource_arn,
-id
+resource_arn
 FROM aws.servicecatalogappregistry.resource_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;ApplicationArn&gt;'
+AND data__Identifier = '&lt;ResourceArn&gt;'
+AND data__Identifier = '&lt;ResourceType&gt;'
 ```

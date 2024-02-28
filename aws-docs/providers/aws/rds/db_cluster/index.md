@@ -50,7 +50,8 @@ Gets an individual <code>db_cluster</code> resource
 <tr><td><code>domain</code></td><td><code>string</code></td><td>The Active Directory directory ID to create the DB cluster in.</td></tr>
 <tr><td><code>domain_ia_mrole_name</code></td><td><code>string</code></td><td>Specify the name of the IAM role to be used when making API calls to the Directory Service.</td></tr>
 <tr><td><code>enable_cloudwatch_logs_exports</code></td><td><code>array</code></td><td>The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see Publishing Database Logs to Amazon CloudWatch Logs in the Amazon Aurora User Guide.</td></tr>
-<tr><td><code>enable_http_endpoint</code></td><td><code>boolean</code></td><td>A value that indicates whether to enable the HTTP endpoint for an Aurora Serverless DB cluster. By default, the HTTP endpoint is disabled.</td></tr>
+<tr><td><code>enable_global_write_forwarding</code></td><td><code>boolean</code></td><td>Specifies whether to enable this DB cluster to forward write operations to the primary cluster of a global cluster (Aurora global database). By default, write operations are not allowed on Aurora DB clusters that are secondary clusters in an Aurora global database.</td></tr>
+<tr><td><code>enable_http_endpoint</code></td><td><code>boolean</code></td><td>A value that indicates whether to enable the HTTP endpoint for DB cluster. By default, the HTTP endpoint is disabled.</td></tr>
 <tr><td><code>enable_ia_mdatabase_authentication</code></td><td><code>boolean</code></td><td>A value that indicates whether to enable mapping of AWS Identity and Access Management (IAM) accounts to database accounts. By default, mapping is disabled.</td></tr>
 <tr><td><code>engine</code></td><td><code>string</code></td><td>The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora), and aurora-postgresql</td></tr>
 <tr><td><code>engine_mode</code></td><td><code>string</code></td><td>The DB engine mode of the DB cluster, either provisioned, serverless, parallelquery, global, or multimaster.</td></tr>
@@ -91,6 +92,44 @@ Gets an individual <code>db_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeDBClusters</pre>
+
+### Update
+<pre>
+ec2:DescribeSecurityGroups,
+iam:PassRole,
+rds:AddRoleToDBCluster,
+rds:AddTagsToResource,
+rds:DescribeDBClusters,
+rds:DescribeDBSubnetGroups,
+rds:DescribeEvents,
+rds:DescribeGlobalClusters,
+rds:DisableHttpEndpoint,
+rds:EnableHttpEndpoint,
+rds:ModifyDBCluster,
+rds:ModifyDBInstance,
+rds:RemoveFromGlobalCluster,
+rds:RemoveRoleFromDBCluster,
+rds:RemoveTagsFromResource,
+secretsmanager:CreateSecret,
+secretsmanager:TagResource</pre>
+
+### Delete
+<pre>
+rds:CreateDBClusterSnapshot,
+rds:DeleteDBCluster,
+rds:DeleteDBInstance,
+rds:DescribeDBClusters,
+rds:DescribeGlobalClusters,
+rds:RemoveFromGlobalCluster</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -118,6 +157,7 @@ deletion_protection,
 domain,
 domain_ia_mrole_name,
 enable_cloudwatch_logs_exports,
+enable_global_write_forwarding,
 enable_http_endpoint,
 enable_ia_mdatabase_authentication,
 engine,

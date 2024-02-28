@@ -264,6 +264,22 @@
       },
       "required" : [ "LogSchemaVersion" ]
     },
+    "ExperimentTemplateExperimentOptions" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "AccountTargeting" : {
+          "type" : "string",
+          "description" : "The account targeting setting for the experiment template.",
+          "enum" : [ "multi-account", "single-account" ]
+        },
+        "EmptyTargetResolutionMode" : {
+          "type" : "string",
+          "description" : "The target resolution failure mode for the experiment template.",
+          "enum" : [ "fail", "skip" ]
+        }
+      }
+    },
     "RoleArn" : {
       "type" : "string",
       "description" : "The Amazon Resource Name (ARN) of an IAM role that grants the AWS FIS service permission to perform service actions on your behalf.",
@@ -301,28 +317,31 @@
         }
       },
       "additionalProperties" : false
+    },
+    "ExperimentOptions" : {
+      "$ref" : "#/definitions/ExperimentTemplateExperimentOptions"
     }
   },
   "additionalProperties" : false,
   "required" : [ "Description", "StopConditions", "Targets", "RoleArn", "Tags" ],
   "readOnlyProperties" : [ "/properties/Id" ],
-  "createOnlyProperties" : [ "/properties/Tags" ],
+  "createOnlyProperties" : [ "/properties/Tags", "/properties/ExperimentOptions/properties/AccountTargeting" ],
   "primaryIdentifier" : [ "/properties/Id" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "fis:CreateExperimentTemplate" ]
+      "permissions" : [ "fis:CreateExperimentTemplate", "fis:TagResource", "iam:PassRole" ]
     },
     "read" : {
-      "permissions" : [ "fis:GetExperimentTemplate" ]
+      "permissions" : [ "fis:GetExperimentTemplate", "fis:ListTagsForResource" ]
     },
     "update" : {
-      "permissions" : [ "fis:UpdateExperimentTemplate" ]
+      "permissions" : [ "fis:UpdateExperimentTemplate", "fis:TagResource", "fis:UntagResource", "iam:PassRole" ]
     },
     "delete" : {
       "permissions" : [ "fis:DeleteExperimentTemplate" ]
     },
     "list" : {
-      "permissions" : [ "fis:ListExperimentTemplates" ]
+      "permissions" : [ "fis:ListExperimentTemplates", "fis:ListTagsForResource" ]
     }
   }
 }

@@ -20,9 +20,9 @@ The docdb service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>8</b></span><br />
-<span>total selectable resources:&nbsp;<b>8</b></span><br />
-<span>total methods:&nbsp;<b>8</b></span><br />
+<span>total resources:&nbsp;<b>10</b></span><br />
+<span>total selectable resources:&nbsp;<b>10</b></span><br />
+<span>total methods:&nbsp;<b>10</b></span><br />
 </div>
 </div>
 
@@ -34,12 +34,14 @@ The docdb service documentation.
 <a href="/providers/aws/docdb/db_cluster/">db_cluster</a><br />
 <a href="/providers/aws/docdb/db_cluster_parameter_group/">db_cluster_parameter_group</a><br />
 <a href="/providers/aws/docdb/db_cluster_parameter_groups/">db_cluster_parameter_groups</a><br />
-<a href="/providers/aws/docdb/db_clusters/">db_clusters</a>
+<a href="/providers/aws/docdb/db_clusters/">db_clusters</a><br />
+<a href="/providers/aws/docdb/db_instance/">db_instance</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/docdb/db_instance/">db_instance</a><br />
 <a href="/providers/aws/docdb/db_instances/">db_instances</a><br />
 <a href="/providers/aws/docdb/db_subnet_group/">db_subnet_group</a><br />
-<a href="/providers/aws/docdb/db_subnet_groups/">db_subnet_groups</a>
+<a href="/providers/aws/docdb/db_subnet_groups/">db_subnet_groups</a><br />
+<a href="/providers/aws/docdb/event_subscription/">event_subscription</a><br />
+<a href="/providers/aws/docdb/event_subscriptions/">event_subscriptions</a>
 </div>
 </div>

@@ -27,7 +27,7 @@ Retrieves a list of <code>config_rules</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>config_rule_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>config_rule_name</code></td><td><code>string</code></td><td>A name for the CC rule. If you don't specify a name, CFN generates a unique physical ID and uses that ID for the rule name. For more information, see &#91;Name Type&#93;(https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;AWSCloudFormation&#x2F;latest&#x2F;UserGuide&#x2F;aws-properties-name.html).</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,25 @@ Retrieves a list of <code>config_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>config_rules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+config:PutConfigRule,
+config:DescribeConfigRules</pre>
+
+### List
+<pre>
+config:DescribeConfigRules</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-config_rule_id
+config_rule_name
 FROM aws.config.config_rules
 WHERE region = 'us-east-1'
 ```

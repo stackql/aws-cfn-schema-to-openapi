@@ -35,6 +35,29 @@ Retrieves a list of <code>firewall_rule_group_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>firewall_rule_group_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53resolver:*,
+ec2:*,
+logs:*,
+iam:*,
+lambda:*,
+s3:*</pre>
+
+### List
+<pre>
+route53resolver:*,
+ec2:*,
+logs:*,
+iam:*,
+lambda:*,
+s3:*</pre>
+
+
 ## Example
 ```sql
 SELECT

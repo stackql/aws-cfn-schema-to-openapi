@@ -40,6 +40,29 @@ Gets an individual <code>connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connection</code> resource, the following permissions are required:
+
+### Read
+<pre>
+events:DescribeConnection</pre>
+
+### Update
+<pre>
+events:UpdateConnection,
+events:DescribeConnection,
+secretsmanager:CreateSecret,
+secretsmanager:UpdateSecret,
+secretsmanager:GetSecretValue,
+secretsmanager:PutSecretValue</pre>
+
+### Delete
+<pre>
+events:DeleteConnection,
+events:DescribeConnection</pre>
+
+
 ## Example
 ```sql
 SELECT

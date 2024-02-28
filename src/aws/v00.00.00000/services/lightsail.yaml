@@ -65,6 +65,27 @@ components:
       x-stackql-resource-name: alarm
       x-stackql-primaryIdentifier:
         - AlarmName
+      x-create-only-properties:
+        - AlarmName
+        - MonitoredResourceName
+        - MetricName
+      x-read-only-properties:
+        - AlarmArn
+        - State
+      x-required-permissions:
+        create:
+          - lightsail:PutAlarm
+          - lightsail:GetAlarms
+        read:
+          - lightsail:GetAlarms
+        update:
+          - lightsail:PutAlarm
+          - lightsail:GetAlarms
+        delete:
+          - lightsail:DeleteAlarm
+          - lightsail:GetAlarms
+        list:
+          - lightsail:GetAlarms
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -145,6 +166,37 @@ components:
       x-stackql-resource-name: bucket
       x-stackql-primaryIdentifier:
         - BucketName
+      x-create-only-properties:
+        - BucketName
+      x-read-only-properties:
+        - BucketArn
+        - Url
+        - AbleToUpdateBundle
+      x-required-permissions:
+        create:
+          - lightsail:CreateBucket
+          - lightsail:GetBuckets
+          - lightsail:GetInstance
+          - lightsail:UpdateBucket
+          - lightsail:UpdateBucketBundle
+          - lightsail:SetResourceAccessForBucket
+          - lightsail:TagResource
+          - lightsail:UntagResource
+        read:
+          - lightsail:GetBuckets
+        delete:
+          - lightsail:DeleteBucket
+          - lightsail:GetBuckets
+        list:
+          - lightsail:GetBuckets
+        update:
+          - lightsail:GetBuckets
+          - lightsail:GetInstance
+          - lightsail:UpdateBucket
+          - lightsail:UpdateBucketBundle
+          - lightsail:SetResourceAccessForBucket
+          - lightsail:TagResource
+          - lightsail:UntagResource
     Certificate:
       type: object
       properties:
@@ -179,6 +231,28 @@ components:
       x-stackql-resource-name: certificate
       x-stackql-primaryIdentifier:
         - CertificateName
+      x-create-only-properties:
+        - CertificateName
+        - DomainName
+        - SubjectAlternativeNames
+      x-read-only-properties:
+        - CertificateArn
+        - Status
+      x-required-permissions:
+        create:
+          - lightsail:CreateCertificate
+          - lightsail:GetCertificates
+        read:
+          - lightsail:GetCertificates
+        update:
+          - lightsail:GetCertificates
+          - lightsail:TagResource
+          - lightsail:UntagResource
+        delete:
+          - lightsail:DeleteCertificate
+          - lightsail:GetCertificates
+        list:
+          - lightsail:GetCertificates
     HealthCheckConfig:
       description: Describes the health check configuration of an Amazon Lightsail container service.
       type: object
@@ -264,8 +338,14 @@ components:
         IsDisabled:
           description: A Boolean value to indicate whether the container service is disabled.
           type: boolean
+        PrivateRegistryAccess:
+          $ref: '#/components/schemas/PrivateRegistryAccess'
+          description: A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
         Url:
           description: The publicly accessible URL of the container service.
+          type: string
+        PrincipalArn:
+          description: The principal ARN of the container service.
           type: string
         Tags:
           description: An array of key-value pairs to apply to this resource.
@@ -281,6 +361,34 @@ components:
       x-stackql-resource-name: container
       x-stackql-primaryIdentifier:
         - ServiceName
+      x-create-only-properties:
+        - ServiceName
+      x-read-only-properties:
+        - ContainerArn
+        - Url
+        - PrincipalArn
+        - PrivateRegistryAccess/EcrImagePullerRole/PrincipalArn
+      x-required-permissions:
+        create:
+          - lightsail:CreateContainerService
+          - lightsail:CreateContainerServiceDeployment
+          - lightsail:GetContainerServices
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateContainerService
+        read:
+          - lightsail:GetContainerServices
+        delete:
+          - lightsail:DeleteContainerService
+          - lightsail:GetContainerServices
+        list:
+          - lightsail:GetContainerServices
+        update:
+          - lightsail:CreateContainerServiceDeployment
+          - lightsail:GetContainerServices
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateContainerService
     ContainerServiceDeployment:
       description: Describes a container deployment configuration of an Amazon Lightsail container service.
       type: object
@@ -309,6 +417,22 @@ components:
           items:
             type: string
           description: An object that describes the configuration for the containers of the deployment.
+      additionalProperties: false
+    PrivateRegistryAccess:
+      description: An object to describe the configuration for the container service to access private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
+      type: object
+      properties:
+        EcrImagePullerRole:
+          description: An object to describe a request to activate or deactivate the role that you can use to grant an Amazon Lightsail container service access to Amazon Elastic Container Registry (Amazon ECR) private repositories.
+          type: object
+          properties:
+            IsActive:
+              type: boolean
+              description: A Boolean value that indicates whether to activate the role.
+            PrincipalArn:
+              type: string
+              description: The Amazon Resource Name (ARN) of the role, if it is activated.
+          additionalProperties: false
       additionalProperties: false
     RelationalDatabaseParameter:
       description: Describes the parameters of the database.
@@ -421,6 +545,41 @@ components:
       x-stackql-resource-name: database
       x-stackql-primaryIdentifier:
         - RelationalDatabaseName
+      x-create-only-properties:
+        - RelationalDatabaseName
+        - AvailabilityZone
+        - RelationalDatabaseBlueprintId
+        - RelationalDatabaseBundleId
+        - MasterDatabaseName
+        - MasterUsername
+      x-read-only-properties:
+        - DatabaseArn
+      x-required-permissions:
+        create:
+          - lightsail:CreateRelationalDatabase
+          - lightsail:GetRelationalDatabase
+          - lightsail:GetRelationalDatabases
+          - lightsail:GetRegions
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateRelationalDatabase
+          - lightsail:UpdateRelationalDatabaseParameters
+        read:
+          - lightsail:GetRelationalDatabase
+          - lightsail:GetRelationalDatabases
+        update:
+          - lightsail:GetRelationalDatabase
+          - lightsail:GetRelationalDatabases
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateRelationalDatabase
+          - lightsail:UpdateRelationalDatabaseParameters
+        delete:
+          - lightsail:DeleteRelationalDatabase
+          - lightsail:GetRelationalDatabase
+          - lightsail:GetRelationalDatabases
+        list:
+          - lightsail:GetRelationalDatabases
     AutoSnapshotAddOn:
       description: An object that represents additional parameters when enabling or modifying the automatic snapshot add-on
       type: object
@@ -666,6 +825,42 @@ components:
       x-stackql-resource-name: distribution
       x-stackql-primaryIdentifier:
         - DistributionName
+      x-create-only-properties:
+        - DistributionName
+        - IpAddressType
+      x-read-only-properties:
+        - DistributionArn
+        - Status
+        - AbleToUpdateBundle
+      x-required-permissions:
+        create:
+          - lightsail:AttachCertificateToDistribution
+          - lightsail:CreateDistribution
+          - lightsail:DetachCertificateFromDistribution
+          - lightsail:GetCertificates
+          - lightsail:GetCertificateDetails
+          - lightsail:GetDistributions
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateDistribution
+          - lightsail:UpdateDistributionBundle
+        read:
+          - lightsail:GetDistributions
+        update:
+          - lightsail:AttachCertificateToDistribution
+          - lightsail:DetachCertificateFromDistribution
+          - lightsail:GetCertificates
+          - lightsail:GetCertificateDetails
+          - lightsail:GetDistributions
+          - lightsail:TagResource
+          - lightsail:UntagResource
+          - lightsail:UpdateDistribution
+          - lightsail:UpdateDistributionBundle
+        delete:
+          - lightsail:DeleteDistribution
+          - lightsail:GetDistributions
+        list:
+          - lightsail:GetDistributions
     ipv6Cidrs:
       description: IPv6 Cidrs
       type: array
@@ -850,6 +1045,66 @@ components:
       x-stackql-resource-name: instance
       x-stackql-primaryIdentifier:
         - InstanceName
+      x-create-only-properties:
+        - InstanceName
+        - BlueprintId
+        - BundleId
+        - AvailabilityZone
+      x-read-only-properties:
+        - InstanceArn
+        - SshKeyName
+        - SupportCode
+        - ResourceType
+        - IsStaticIp
+        - PrivateIpAddress
+        - PublicIpAddress
+        - Location/AvailabilityZone
+        - Location/RegionName
+        - Hardware/CpuCount
+        - Hardware/RamSizeInGb
+        - State/Code
+        - State/Name
+        - UserName
+        - Networking/MonthlyTransfer/GbPerMonthAllocated
+      x-required-permissions:
+        create:
+          - lightsail:CreateInstances
+          - lightsail:GetInstances
+          - lightsail:EnableAddOn
+          - lightsail:GetInstance
+          - lightsail:DisableAddOn
+          - lightsail:PutInstancePublicPorts
+          - lightsail:AttachDisk
+          - lightsail:DetachDisk
+          - lightsail:StartInstance
+          - lightsail:StopInstance
+          - lightsail:GetDisk
+          - lightsail:GetRegions
+          - lightsail:TagResource
+          - lightsail:UntagResource
+        read:
+          - lightsail:GetInstances
+          - lightsail:GetInstance
+        delete:
+          - lightsail:GetInstances
+          - lightsail:GetInstance
+          - lightsail:DeleteInstance
+        list:
+          - lightsail:GetInstances
+        update:
+          - lightsail:GetInstances
+          - lightsail:GetInstance
+          - lightsail:DeleteInstance
+          - lightsail:EnableAddOn
+          - lightsail:DisableAddOn
+          - lightsail:PutInstancePublicPorts
+          - lightsail:AttachDisk
+          - lightsail:DetachDisk
+          - lightsail:StartInstance
+          - lightsail:StopInstance
+          - lightsail:GetDisk
+          - lightsail:TagResource
+          - lightsail:UntagResource
     LoadBalancer:
       type: object
       properties:
@@ -897,6 +1152,41 @@ components:
       x-stackql-resource-name: load_balancer
       x-stackql-primaryIdentifier:
         - LoadBalancerName
+      x-create-only-properties:
+        - LoadBalancerName
+        - InstancePort
+        - IpAddressType
+      x-read-only-properties:
+        - LoadBalancerArn
+      x-required-permissions:
+        create:
+          - lightsail:CreateLoadBalancer
+          - lightsail:GetLoadBalancer
+          - lightsail:GetLoadBalancers
+          - lightsail:GetInstance
+          - lightsail:AttachInstancesToLoadBalancer
+          - lightsail:DetachInstancesFromLoadBalancer
+          - lightsail:UpdateLoadBalancerAttribute
+          - lightsail:TagResource
+          - lightsail:UntagResource
+        read:
+          - lightsail:GetLoadBalancer
+          - lightsail:GetLoadBalancers
+        update:
+          - lightsail:GetLoadBalancer
+          - lightsail:GetLoadBalancers
+          - lightsail:GetInstance
+          - lightsail:AttachInstancesToLoadBalancer
+          - lightsail:DetachInstancesFromLoadBalancer
+          - lightsail:UpdateLoadBalancerAttribute
+          - lightsail:TagResource
+          - lightsail:UntagResource
+        delete:
+          - lightsail:DeleteLoadBalancer
+          - lightsail:GetLoadBalancer
+          - lightsail:GetLoadBalancers
+        list:
+          - lightsail:GetLoadBalancers
     LoadBalancerTlsCertificate:
       type: object
       properties:
@@ -936,6 +1226,36 @@ components:
       x-stackql-primaryIdentifier:
         - CertificateName
         - LoadBalancerName
+      x-create-only-properties:
+        - LoadBalancerName
+        - CertificateName
+        - CertificateDomainName
+        - CertificateAlternativeNames
+      x-read-only-properties:
+        - LoadBalancerTlsCertificateArn
+        - Status
+      x-required-permissions:
+        create:
+          - lightsail:CreateLoadBalancerTlsCertificate
+          - lightsail:GetLoadBalancerTlsCertificates
+          - lightsail:GetLoadBalancer
+          - lightsail:AttachLoadBalancerTlsCertificate
+          - lightsail:UpdateLoadBalancerAttribute
+        read:
+          - lightsail:GetLoadBalancerTlsCertificates
+          - lightsail:GetLoadBalancer
+        update:
+          - lightsail:AttachLoadBalancerTlsCertificate
+          - lightsail:GetLoadBalancerTlsCertificates
+          - lightsail:GetLoadBalancer
+          - lightsail:UpdateLoadBalancerAttribute
+        delete:
+          - lightsail:DeleteLoadBalancerTlsCertificate
+          - lightsail:GetLoadBalancerTlsCertificates
+          - lightsail:GetLoadBalancer
+        list:
+          - lightsail:GetLoadBalancerTlsCertificates
+          - lightsail:GetLoadBalancer
     StaticIp:
       type: object
       properties:
@@ -958,6 +1278,35 @@ components:
       x-stackql-resource-name: static_ip
       x-stackql-primaryIdentifier:
         - StaticIpName
+      x-create-only-properties:
+        - StaticIpName
+      x-read-only-properties:
+        - StaticIpArn
+        - IsAttached
+        - IpAddress
+      x-required-permissions:
+        create:
+          - lightsail:AllocateStaticIp
+          - lightsail:AttachStaticIp
+          - lightsail:DetachStaticIp
+          - lightsail:GetInstance
+          - lightsail:GetStaticIp
+          - lightsail:GetStaticIps
+        read:
+          - lightsail:GetStaticIp
+          - lightsail:GetStaticIps
+        update:
+          - lightsail:AttachStaticIp
+          - lightsail:DetachStaticIp
+          - lightsail:GetInstance
+          - lightsail:GetStaticIp
+          - lightsail:GetStaticIps
+        delete:
+          - lightsail:GetStaticIp
+          - lightsail:GetStaticIps
+          - lightsail:ReleaseStaticIp
+        list:
+          - lightsail:GetStaticIps
   x-stackQL-resources:
     alarms:
       name: alarms
@@ -1118,7 +1467,9 @@ components:
               JSON_EXTRACT(Properties, '$.PublicDomainNames') as public_domain_names,
               JSON_EXTRACT(Properties, '$.ContainerServiceDeployment') as container_service_deployment,
               JSON_EXTRACT(Properties, '$.IsDisabled') as is_disabled,
+              JSON_EXTRACT(Properties, '$.PrivateRegistryAccess') as private_registry_access,
               JSON_EXTRACT(Properties, '$.Url') as url,
+              JSON_EXTRACT(Properties, '$.PrincipalArn') as principal_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Container'
     databases:

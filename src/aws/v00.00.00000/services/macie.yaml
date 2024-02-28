@@ -95,6 +95,26 @@ components:
       x-stackql-resource-name: allow_list
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+        - Status
+      x-required-permissions:
+        create:
+          - macie2:CreateAllowList
+          - macie2:GetAllowList
+          - macie2:TagResource
+        read:
+          - macie2:GetAllowList
+        update:
+          - macie2:UpdateAllowList
+          - macie2:GetAllowList
+          - macie2:TagResource
+          - macie2:UntagResource
+        delete:
+          - macie2:DeleteAllowList
+        list:
+          - macie2:ListAllowLists
     CustomDataIdentifier:
       type: object
       properties:
@@ -126,12 +146,42 @@ components:
         Arn:
           description: Custom data identifier ARN.
           type: string
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
       required:
         - Name
         - Regex
       x-stackql-resource-name: custom_data_identifier
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - Description
+        - Regex
+        - MaximumMatchDistance
+        - Keywords
+        - IgnoreWords
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - macie2:CreateCustomDataIdentifier
+          - macie2:GetCustomDataIdentifier
+          - macie2:TagResource
+        read:
+          - macie2:GetCustomDataIdentifier
+        delete:
+          - macie2:DeleteCustomDataIdentifier
+        list:
+          - macie2:ListCustomDataIdentifiers
+        update:
+          - macie2:TagResource
+          - macie2:UntagResource
     CriterionAdditionalProperties:
       type: object
       properties:
@@ -206,12 +256,37 @@ components:
         Arn:
           description: Findings filter ARN.
           type: string
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
       required:
         - Name
         - FindingCriteria
       x-stackql-resource-name: findings_filter
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - macie2:GetFindingsFilter
+          - macie2:CreateFindingsFilter
+          - macie2:TagResource
+        read:
+          - macie2:GetFindingsFilter
+        update:
+          - macie2:GetFindingsFilter
+          - macie2:UpdateFindingsFilter
+          - macie2:TagResource
+          - macie2:UntagResource
+        delete:
+          - macie2:DeleteFindingsFilter
+        list:
+          - macie2:ListFindingsFilters
     Session:
       type: object
       properties:
@@ -239,6 +314,22 @@ components:
       x-stackql-resource-name: session
       x-stackql-primaryIdentifier:
         - AwsAccountId
+      x-read-only-properties:
+        - AwsAccountId
+        - ServiceRole
+      x-required-permissions:
+        create:
+          - macie2:GetMacieSession
+          - macie2:EnableMacie
+        read:
+          - macie2:GetMacieSession
+        list:
+          - macie2:GetMacieSession
+        update:
+          - macie2:GetMacieSession
+          - macie2:UpdateMacieSession
+        delete:
+          - macie2:DisableMacie
   x-stackQL-resources:
     allow_lists:
       name: allow_lists
@@ -315,7 +406,8 @@ components:
               JSON_EXTRACT(Properties, '$.Keywords') as keywords,
               JSON_EXTRACT(Properties, '$.IgnoreWords') as ignore_words,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
     findings_filters:
       name: findings_filters
@@ -353,7 +445,8 @@ components:
               JSON_EXTRACT(Properties, '$.Action') as action,
               JSON_EXTRACT(Properties, '$.Position') as position,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
     sessions:
       name: sessions

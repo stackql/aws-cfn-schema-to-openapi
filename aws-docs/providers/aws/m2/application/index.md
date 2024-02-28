@@ -34,6 +34,7 @@ Gets an individual <code>application</code> resource
 <tr><td><code>engine_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>kms_key_id</code></td><td><code>string</code></td><td>The ID or the Amazon Resource Name (ARN) of the customer managed KMS Key used for encrypting application-related resources.</td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -41,6 +42,34 @@ Gets an individual <code>application</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+m2:GetApplication,
+m2:ListTagsForResource</pre>
+
+### Update
+<pre>
+m2:UpdateApplication,
+m2:GetApplication,
+m2:ListTagsForResource,
+m2:TagResource,
+m2:UntagResource,
+s3:GetObject,
+s3:ListBucket</pre>
+
+### Delete
+<pre>
+elasticloadbalancing:DeleteListener,
+elasticloadbalancing:DeleteTargetGroup,
+logs:DeleteLogDelivery,
+m2:GetApplication,
+m2:DeleteApplication</pre>
+
 
 ## Example
 ```sql
@@ -53,6 +82,7 @@ description,
 engine_type,
 kms_key_id,
 name,
+role_arn,
 tags
 FROM aws.m2.application
 WHERE region = 'us-east-1'

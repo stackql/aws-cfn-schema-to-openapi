@@ -35,6 +35,19 @@ Retrieves a list of <code>pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pipelines</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotanalytics:CreatePipeline</pre>
+
+### List
+<pre>
+iotanalytics:ListPipelines</pre>
+
+
 ## Example
 ```sql
 SELECT

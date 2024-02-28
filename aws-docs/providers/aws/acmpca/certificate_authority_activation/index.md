@@ -39,6 +39,25 @@ Gets an individual <code>certificate_authority_activation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificate_authority_activation</code> resource, the following permissions are required:
+
+### Read
+<pre>
+acm-pca:GetCertificateAuthorityCertificate,
+acm-pca:DescribeCertificateAuthority</pre>
+
+### Delete
+<pre>
+acm-pca:UpdateCertificateAuthority</pre>
+
+### Update
+<pre>
+acm-pca:ImportCertificateAuthorityCertificate,
+acm-pca:UpdateCertificateAuthority</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -34,6 +34,7 @@ Gets an individual <code>campaign</code> resource
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>priority</code></td><td><code>integer</code></td><td></td></tr>
 <tr><td><code>signals_to_collect</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>data_destination_configs</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>start_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>expiry_time</code></td><td><code>string</code></td><td></td></tr>
@@ -54,6 +55,29 @@ Gets an individual <code>campaign</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>campaign</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:UpdateCampaign,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource</pre>
+
+### Delete
+<pre>
+iotfleetwise:DeleteCampaign,
+iotfleetwise:GetCampaign</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -65,6 +89,7 @@ compression,
 description,
 priority,
 signals_to_collect,
+data_destination_configs,
 start_time,
 name,
 expiry_time,

@@ -35,6 +35,24 @@ Retrieves a list of <code>certificate_authorities</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificate_authorities</code> resource, the following permissions are required:
+
+### Create
+<pre>
+acm-pca:CreateCertificateAuthority,
+acm-pca:DescribeCertificateAuthority,
+acm-pca:GetCertificateAuthorityCsr</pre>
+
+### List
+<pre>
+acm-pca:DescribeCertificateAuthority,
+acm-pca:GetCertificateAuthorityCsr,
+acm-pca:ListCertificateAuthorities,
+acm-pca:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

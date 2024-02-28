@@ -35,6 +35,23 @@ Retrieves a list of <code>transit_gateway_route_table_attachments</code> in a re
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>transit_gateway_route_table_attachments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:CreateTransitGatewayRouteTableAttachment,
+networkmanager:GetTransitGatewayRouteTableAttachment,
+networkmanager:TagResource,
+iam:CreateServiceLinkedRole,
+ec2:DescribeRegions</pre>
+
+### List
+<pre>
+networkmanager:ListAttachments</pre>
+
+
 ## Example
 ```sql
 SELECT

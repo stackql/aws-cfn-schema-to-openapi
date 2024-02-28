@@ -41,6 +41,26 @@ Gets an individual <code>connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connection</code> resource, the following permissions are required:
+
+### Read
+<pre>
+codestar-connections:GetConnection,
+codestar-connections:ListTagsForResource</pre>
+
+### Update
+<pre>
+codestar-connections:ListTagsForResource,
+codestar-connections:TagResource,
+codestar-connections:UntagResource</pre>
+
+### Delete
+<pre>
+codestar-connections:DeleteConnection</pre>
+
+
 ## Example
 ```sql
 SELECT

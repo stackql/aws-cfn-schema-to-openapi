@@ -35,6 +35,10 @@ Retrieves a list of <code>resource_update_constraints</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

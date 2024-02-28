@@ -35,6 +35,27 @@ Retrieves a list of <code>vpc_links</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_links</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:POST,
+apigateway:GET,
+apigateway:TagResource,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus</pre>
+
+### List
+<pre>
+apigateway:GET,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus</pre>
+
+
 ## Example
 ```sql
 SELECT

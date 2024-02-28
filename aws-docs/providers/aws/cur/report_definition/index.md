@@ -46,6 +46,25 @@ Gets an individual <code>report_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>report_definition</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cur:DescribeReportDefinitions</pre>
+
+### Update
+<pre>
+cur:DescribeReportDefinitions,
+cur:ModifyReportDefinition</pre>
+
+### Delete
+<pre>
+cur:DescribeReportDefinitions,
+cur:DeleteReportDefinition</pre>
+
+
 ## Example
 ```sql
 SELECT

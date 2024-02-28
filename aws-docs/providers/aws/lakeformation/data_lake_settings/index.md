@@ -30,7 +30,9 @@ Gets an individual <code>data_lake_settings</code> resource
 <tr><td><code>allow_external_data_filtering</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>external_data_filtering_allow_list</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>create_table_default_permissions</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>mutation_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>parameters</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>allow_full_table_external_data_access</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>admins</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>create_database_default_permissions</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
@@ -43,6 +45,10 @@ Gets an individual <code>data_lake_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
@@ -50,7 +56,9 @@ region,
 allow_external_data_filtering,
 external_data_filtering_allow_list,
 create_table_default_permissions,
+mutation_type,
 parameters,
+allow_full_table_external_data_access,
 admins,
 create_database_default_permissions,
 id,

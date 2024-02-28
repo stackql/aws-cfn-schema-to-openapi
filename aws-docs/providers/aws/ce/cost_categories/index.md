@@ -35,6 +35,19 @@ Retrieves a list of <code>cost_categories</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cost_categories</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ce:CreateCostCategoryDefinition</pre>
+
+### List
+<pre>
+ce:ListCostCategoryDefinitions</pre>
+
+
 ## Example
 ```sql
 SELECT

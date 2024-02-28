@@ -36,6 +36,20 @@ Retrieves a list of <code>prepared_statements</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>prepared_statements</code> resource, the following permissions are required:
+
+### Create
+<pre>
+athena:CreatePreparedStatement,
+athena:GetPreparedStatement</pre>
+
+### List
+<pre>
+athena:ListPreparedStatements</pre>
+
+
 ## Example
 ```sql
 SELECT

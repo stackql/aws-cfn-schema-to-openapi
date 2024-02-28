@@ -36,6 +36,21 @@ Retrieves a list of <code>sites</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sites</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:CreateSite,
+networkmanager:GetSites,
+networkmanager:TagResource</pre>
+
+### List
+<pre>
+networkmanager:GetSites</pre>
+
+
 ## Example
 ```sql
 SELECT

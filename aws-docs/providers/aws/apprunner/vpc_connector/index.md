@@ -40,6 +40,19 @@ Gets an individual <code>vpc_connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_connector</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apprunner:DescribeVpcConnector</pre>
+
+### Delete
+<pre>
+apprunner:DeleteVpcConnector</pre>
+
+
 ## Example
 ```sql
 SELECT

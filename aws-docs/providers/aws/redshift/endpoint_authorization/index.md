@@ -46,6 +46,33 @@ Gets an individual <code>endpoint_authorization</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>endpoint_authorization</code> resource, the following permissions are required:
+
+### Read
+<pre>
+redshift:DescribeEndpointAuthorization</pre>
+
+### Update
+<pre>
+redshift:AuthorizeEndpointAccess,
+redshift:DescribeEndpointAuthorization,
+redshift:RevokeEndpointAccess</pre>
+
+### Delete
+<pre>
+redshift:RevokeEndpointAccess,
+redshift:DeleteEndpointAccess,
+redshift:DescribeEndpointAuthorization,
+ec2:DeleteClientVpnEndpoint,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets</pre>
+
+
 ## Example
 ```sql
 SELECT

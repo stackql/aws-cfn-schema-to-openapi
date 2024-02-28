@@ -35,12 +35,31 @@ Gets an individual <code>custom_data_identifier</code> resource
 <tr><td><code>ignore_words</code></td><td><code>array</code></td><td>Words to be ignored.</td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td>Custom data identifier ID.</td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td>Custom data identifier ARN.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>custom_data_identifier</code> resource, the following permissions are required:
+
+### Read
+<pre>
+macie2:GetCustomDataIdentifier</pre>
+
+### Delete
+<pre>
+macie2:DeleteCustomDataIdentifier</pre>
+
+### Update
+<pre>
+macie2:TagResource,
+macie2:UntagResource</pre>
+
 
 ## Example
 ```sql
@@ -53,7 +72,8 @@ maximum_match_distance,
 keywords,
 ignore_words,
 id,
-arn
+arn,
+tags
 FROM aws.macie.custom_data_identifier
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

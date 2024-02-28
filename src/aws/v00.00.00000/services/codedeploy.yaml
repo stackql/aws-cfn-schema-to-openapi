@@ -35,6 +35,24 @@ components:
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
         - ApplicationName
+      x-create-only-properties:
+        - ApplicationName
+        - ComputePlatform
+      x-required-permissions:
+        create:
+          - codedeploy:CreateApplication
+          - codedeploy:TagResource
+        read:
+          - codedeploy:GetApplication
+          - codedeploy:ListTagsForResource
+        delete:
+          - codedeploy:GetApplication
+          - codedeploy:DeleteApplication
+        update:
+          - codedeploy:TagResource
+          - codedeploy:UntagResource
+        list:
+          - codedeploy:ListApplications
     TimeBasedLinear:
       type: object
       additionalProperties: false
@@ -69,6 +87,30 @@ components:
           $ref: '#/components/schemas/TimeBasedCanary'
       required:
         - Type
+    MinimumHealthyHostsPerZone:
+      type: object
+      additionalProperties: false
+      properties:
+        Value:
+          type: integer
+        Type:
+          type: string
+      required:
+        - Type
+        - Value
+    ZonalConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        FirstZoneMonitorDurationInSeconds:
+          type: integer
+          format: int64
+        MonitorDurationInSeconds:
+          type: integer
+          format: int64
+        MinimumHealthyHostsPerZone:
+          $ref: '#/components/schemas/MinimumHealthyHostsPerZone'
+      required: []
     MinimumHealthyHosts:
       type: object
       additionalProperties: false
@@ -92,12 +134,31 @@ components:
         MinimumHealthyHosts:
           description: 'The minimum number of healthy instances that should be available at any time during the deployment. There are two parameters expected in the input: type and value.'
           $ref: '#/components/schemas/MinimumHealthyHosts'
+        ZonalConfig:
+          description: The zonal deployment config that specifies how the zonal deployment behaves
+          $ref: '#/components/schemas/ZonalConfig'
         TrafficRoutingConfig:
           description: The configuration that specifies how the deployment traffic is routed.
           $ref: '#/components/schemas/TrafficRoutingConfig'
       x-stackql-resource-name: deployment_config
       x-stackql-primaryIdentifier:
         - DeploymentConfigName
+      x-create-only-properties:
+        - DeploymentConfigName
+        - MinimumHealthyHosts
+        - ComputePlatform
+        - ZonalConfig
+        - TrafficRoutingConfig
+      x-required-permissions:
+        create:
+          - codedeploy:CreateDeploymentConfig
+        read:
+          - codedeploy:GetDeploymentConfig
+        delete:
+          - codedeploy:GetDeploymentConfig
+          - codedeploy:DeleteDeploymentConfig
+        list:
+          - codedeploy:ListDeploymentConfigs
     OnPremisesTagSet:
       type: object
       additionalProperties: false
@@ -389,6 +450,8 @@ components:
           uniqueItems: true
           items:
             $ref: '#/components/schemas/EC2TagFilter'
+        TerminationHookEnabled:
+          type: boolean
         ECSServices:
           type: array
           uniqueItems: true
@@ -417,6 +480,11 @@ components:
         - ServiceRoleArn
       x-stackql-resource-name: deployment_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DeploymentGroupName
+        - ApplicationName
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     applications:
@@ -486,6 +554,7 @@ components:
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
               JSON_EXTRACT(Properties, '$.MinimumHealthyHosts') as minimum_healthy_hosts,
+              JSON_EXTRACT(Properties, '$.ZonalConfig') as zonal_config,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig') as traffic_routing_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
     deployment_groups:
@@ -531,6 +600,7 @@ components:
               JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name,
               JSON_EXTRACT(Properties, '$.AlarmConfiguration') as alarm_configuration,
               JSON_EXTRACT(Properties, '$.Ec2TagFilters') as ec2_tag_filters,
+              JSON_EXTRACT(Properties, '$.TerminationHookEnabled') as termination_hook_enabled,
               JSON_EXTRACT(Properties, '$.ECSServices') as e_cs_services,
               JSON_EXTRACT(Properties, '$.AutoRollbackConfiguration') as auto_rollback_configuration,
               JSON_EXTRACT(Properties, '$.LoadBalancerInfo') as load_balancer_info,

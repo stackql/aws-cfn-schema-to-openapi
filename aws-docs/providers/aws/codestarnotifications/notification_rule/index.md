@@ -45,6 +45,26 @@ Gets an individual <code>notification_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>notification_rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+codestar-notifications:describeNotificationRule</pre>
+
+### Delete
+<pre>
+codestar-notifications:deleteNotificationRule,
+codestar-notifications:describeNotificationRule</pre>
+
+### Update
+<pre>
+codestar-notifications:updateNotificationRule,
+codestar-notifications:TagResource,
+codestar-notifications:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

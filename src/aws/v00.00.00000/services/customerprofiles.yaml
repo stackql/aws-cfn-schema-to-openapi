@@ -5,6 +5,145 @@ info:
 paths: {}
 components:
   schemas:
+    DomainName:
+      description: The unique name of the domain.
+      type: string
+      pattern: ^[a-zA-Z0-9_-]+$
+      minLength: 1
+      maxLength: 64
+    CalculatedAttributeName:
+      description: The unique name of the calculated attribute.
+      type: string
+      pattern: ^[a-zA-Z_][a-zA-Z_0-9-]*$
+      minLength: 1
+      maxLength: 255
+    DisplayName:
+      description: The display name of the calculated attribute.
+      type: string
+      pattern: ^[a-zA-Z_][a-zA-Z_0-9-\s]*$
+      minLength: 1
+      maxLength: 255
+    Description:
+      description: The description of the calculated attribute.
+      type: string
+      minLength: 1
+      maxLength: 1000
+    AttributeName:
+      description: The name of an attribute defined in a profile object type.
+      type: string
+      pattern: ^[a-zA-Z0-9_.-]+$
+      minLength: 1
+      maxLength: 64
+    AttributeItem:
+      description: The details of a single attribute item specified in the mathematical expression.
+      type: object
+      properties:
+        Name:
+          $ref: '#/components/schemas/AttributeName'
+      required:
+        - Name
+      additionalProperties: false
+    AttributeList:
+      description: A list of attribute items specified in the mathematical expression.
+      type: array
+      items:
+        $ref: '#/components/schemas/AttributeItem'
+      x-insertionOrder: false
+      uniqueItems: true
+      minItems: 1
+      maxItems: 2
+    Expression:
+      description: Mathematical expression that is performed on attribute items provided in the attribute list. Each element in the expression should follow the structure of "{ObjectTypeName.AttributeName}".
+      type: string
+      minLength: 1
+      maxLength: 255
+    AttributeDetails:
+      description: Mathematical expression and a list of attribute items specified in that expression.
+      type: object
+      properties:
+        Attributes:
+          $ref: '#/components/schemas/AttributeList'
+        Expression:
+          $ref: '#/components/schemas/Expression'
+      required:
+        - Attributes
+        - Expression
+      additionalProperties: false
+    RangeUnit:
+      description: The unit of time.
+      type: string
+      enum:
+        - DAYS
+    RangeValue:
+      description: The amount of time of the specified unit.
+      type: integer
+      minimum: 1
+      maximum: 366
+    Range:
+      description: The relative time period over which data is included in the aggregation.
+      type: object
+      properties:
+        Value:
+          $ref: '#/components/schemas/RangeValue'
+        Unit:
+          $ref: '#/components/schemas/RangeUnit'
+      required:
+        - Value
+        - Unit
+      additionalProperties: false
+    ObjectCount:
+      description: The number of profile objects used for the calculated attribute.
+      type: integer
+      minimum: 1
+      maximum: 100
+    ThresholdValue:
+      description: The value of the threshold.
+      type: string
+      minLength: 1
+      maxLength: 255
+    ThresholdOperator:
+      description: The operator of the threshold.
+      type: string
+      enum:
+        - EQUAL_TO
+        - GREATER_THAN
+        - LESS_THAN
+        - NOT_EQUAL_TO
+    Threshold:
+      description: The threshold for the calculated attribute.
+      type: object
+      properties:
+        Value:
+          $ref: '#/components/schemas/ThresholdValue'
+        Operator:
+          $ref: '#/components/schemas/ThresholdOperator'
+      required:
+        - Value
+        - Operator
+      additionalProperties: false
+    Conditions:
+      description: The conditions including range, object count, and threshold for the calculated attribute.
+      type: object
+      properties:
+        Range:
+          $ref: '#/components/schemas/Range'
+        ObjectCount:
+          $ref: '#/components/schemas/ObjectCount'
+        Threshold:
+          $ref: '#/components/schemas/Threshold'
+      additionalProperties: false
+    Statistic:
+      description: The aggregation operation to perform for the calculated attribute.
+      type: string
+      enum:
+        - FIRST_OCCURRENCE
+        - LAST_OCCURRENCE
+        - COUNT
+        - SUM
+        - MINIMUM
+        - MAXIMUM
+        - AVERAGE
+        - MAX_OCCURRENCE
     Tag:
       type: object
       properties:
@@ -21,6 +160,312 @@ components:
       required:
         - Key
         - Value
+    Tags:
+      description: An array of key-value pairs to apply to this resource.
+      type: array
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/Tag'
+      minItems: 0
+      maxItems: 50
+    CalculatedAttributeDefinition:
+      type: object
+      properties:
+        DomainName:
+          $ref: '#/components/schemas/DomainName'
+        CalculatedAttributeName:
+          $ref: '#/components/schemas/CalculatedAttributeName'
+        DisplayName:
+          $ref: '#/components/schemas/DisplayName'
+        Description:
+          $ref: '#/components/schemas/Description'
+        AttributeDetails:
+          $ref: '#/components/schemas/AttributeDetails'
+        Conditions:
+          $ref: '#/components/schemas/Conditions'
+        Statistic:
+          $ref: '#/components/schemas/Statistic'
+        CreatedAt:
+          description: The timestamp of when the calculated attribute definition was created.
+          type: string
+        LastUpdatedAt:
+          description: The timestamp of when the calculated attribute definition was most recently edited.
+          type: string
+        Tags:
+          $ref: '#/components/schemas/Tags'
+      required:
+        - DomainName
+        - CalculatedAttributeName
+        - AttributeDetails
+        - Statistic
+      x-stackql-resource-name: calculated_attribute_definition
+      x-stackql-primaryIdentifier:
+        - DomainName
+        - CalculatedAttributeName
+      x-create-only-properties:
+        - DomainName
+        - CalculatedAttributeName
+      x-read-only-properties:
+        - CreatedAt
+        - LastUpdatedAt
+      x-required-permissions:
+        create:
+          - profile:CreateCalculatedAttributeDefinition
+          - profile:TagResource
+        read:
+          - profile:GetCalculatedAttributeDefinition
+        update:
+          - profile:GetCalculatedAttributeDefinition
+          - profile:UpdateCalculatedAttributeDefinition
+          - profile:UntagResource
+          - profile:TagResource
+        delete:
+          - profile:DeleteCalculatedAttributeDefinition
+        list:
+          - profile:ListCalculatedAttributeDefinitions
+    DomainStats:
+      type: object
+      description: Usage-specific statistics about the domain.
+      properties:
+        MeteringProfileCount:
+          description: The number of profiles that you are currently paying for in the domain. If you have more than 100 objects associated with a single profile, that profile counts as two profiles. If you have more than 200 objects, that profile counts as three, and so on.
+          type: number
+        ObjectCount:
+          description: The total number of objects in domain.
+          type: number
+        ProfileCount:
+          description: The total number of profiles currently in the domain.
+          type: number
+        TotalSize:
+          description: The total size, in bytes, of all objects in the domain.
+          type: number
+      additionalProperties: false
+    S3ExportingConfig:
+      type: object
+      description: The S3 location where Identity Resolution Jobs write result files.
+      properties:
+        S3BucketName:
+          description: The name of the S3 bucket where Identity Resolution Jobs write result files.
+          type: string
+          minLength: 3
+          maxLength: 63
+          pattern: ^[a-z0-9.-]+$
+        S3KeyName:
+          description: The S3 key name of the location where Identity Resolution Jobs write result files.
+          type: string
+          minLength: 1
+          maxLength: 800
+          pattern: .*
+      required:
+        - S3BucketName
+      additionalProperties: false
+    ExportingConfig:
+      type: object
+      description: Configuration information for exporting Identity Resolution results, for example, to an S3 bucket.
+      properties:
+        S3Exporting:
+          $ref: '#/components/schemas/S3ExportingConfig'
+      additionalProperties: false
+    JobSchedule:
+      type: object
+      description: The day and time when do you want to start the Identity Resolution Job every week.
+      properties:
+        DayOfTheWeek:
+          description: The day when the Identity Resolution Job should run every week.
+          type: string
+          enum:
+            - SUNDAY
+            - MONDAY
+            - TUESDAY
+            - WEDNESDAY
+            - THURSDAY
+            - FRIDAY
+            - SATURDAY
+        Time:
+          description: The time when the Identity Resolution Job should run every week.
+          type: string
+          minLength: 3
+          maxLength: 5
+          pattern: ^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+      required:
+        - DayOfTheWeek
+        - Time
+      additionalProperties: false
+    ConflictResolution:
+      type: object
+      description: 'How the auto-merging process should resolve conflicts between different profiles. For example, if Profile A and Profile B have the same FirstName and LastName (and that is the matching criteria), which EmailAddress should be used? '
+      properties:
+        ConflictResolvingModel:
+          description: How the auto-merging process should resolve conflicts between different profiles.
+          type: string
+          enum:
+            - RECENCY
+            - SOURCE
+        SourceName:
+          description: The ObjectType name that is used to resolve profile merging conflicts when choosing SOURCE as the ConflictResolvingModel.
+          type: string
+          minLength: 1
+          maxLength: 255
+      required:
+        - ConflictResolvingModel
+      additionalProperties: false
+    MatchingAttributes:
+      type: array
+      minItems: 1
+      maxItems: 20
+      items:
+        type: string
+        minLength: 1
+        maxLength: 255
+    Consolidation:
+      description: A list of matching attributes that represent matching criteria. If two profiles meet at least one of the requirements in the matching attributes list, they will be merged.
+      type: object
+      properties:
+        MatchingAttributesList:
+          description: A list of matching criteria.
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/MatchingAttributes'
+      required:
+        - MatchingAttributesList
+      additionalProperties: false
+    AutoMerging:
+      type: object
+      description: Configuration information about the auto-merging process.
+      properties:
+        Enabled:
+          description: The flag that enables the auto-merging of duplicate profiles.
+          type: boolean
+        ConflictResolution:
+          $ref: '#/components/schemas/ConflictResolution'
+        Consolidation:
+          $ref: '#/components/schemas/Consolidation'
+        MinAllowedConfidenceScoreForMerging:
+          description: A number between 0 and 1 that represents the minimum confidence score required for profiles within a matching group to be merged during the auto-merge process. A higher score means higher similarity required to merge profiles.
+          type: number
+          minimum: 0
+          maximum: 1
+      required:
+        - Enabled
+      additionalProperties: false
+    MatchingRuleAttributeList:
+      description: A single rule level of the MatchRules. Configures how the rule-based matching process should match profiles.
+      type: array
+      minItems: 1
+      maxItems: 15
+      items:
+        type: string
+        minLength: 1
+        maxLength: 255
+    MatchingRule:
+      description: Specifies how does the rule-based matching process should match profiles.
+      type: object
+      properties:
+        Rule:
+          $ref: '#/components/schemas/MatchingRuleAttributeList'
+      required:
+        - Rule
+      additionalProperties: false
+    AttributeTypesSelector:
+      description: Configures information about the AttributeTypesSelector where the rule-based identity resolution uses to match profiles.
+      type: object
+      properties:
+        AttributeMatchingModel:
+          description: Configures the AttributeMatchingModel, you can either choose ONE_TO_ONE or MANY_TO_MANY.
+          type: string
+          enum:
+            - ONE_TO_ONE
+            - MANY_TO_MANY
+        Address:
+          description: The Address type. You can choose from Address, BusinessAddress, MaillingAddress, and ShippingAddress. You only can use the Address type in the MatchingRule. For example, if you want to match profile based on BusinessAddress.City or MaillingAddress.City, you need to choose the BusinessAddress and the MaillingAddress to represent the Address type and specify the Address.City on the matching rule.
+          type: array
+          minItems: 1
+          maxItems: 4
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        EmailAddress:
+          description: The Email type. You can choose from EmailAddress, BusinessEmailAddress and PersonalEmailAddress. You only can use the EmailAddress type in the MatchingRule. For example, if you want to match profile based on PersonalEmailAddress or BusinessEmailAddress, you need to choose the PersonalEmailAddress and the BusinessEmailAddress to represent the EmailAddress type and only specify the EmailAddress on the matching rule.
+          type: array
+          minItems: 1
+          maxItems: 3
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+        PhoneNumber:
+          description: The PhoneNumber type. You can choose from PhoneNumber, HomePhoneNumber, and MobilePhoneNumber. You only can use the PhoneNumber type in the MatchingRule. For example, if you want to match a profile based on Phone or HomePhone, you need to choose the Phone and the HomePhone to represent the PhoneNumber type and only specify the PhoneNumber on the matching rule.
+          type: array
+          minItems: 1
+          maxItems: 4
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
+      required:
+        - AttributeMatchingModel
+      additionalProperties: false
+    Matching:
+      description: >-
+        The process of matching duplicate profiles. If Matching = true, Amazon Connect Customer Profiles starts a weekly batch process called Identity Resolution Job. If you do not specify a date and time for Identity Resolution Job to run, by default it runs every Saturday at 12AM UTC to detect duplicate profiles in your domains. After the Identity Resolution Job completes, use the GetMatches API to return and review the results. Or, if you have configured ExportingConfig in the
+        MatchingRequest, you can download the results from S3.
+      type: object
+      properties:
+        Enabled:
+          description: The flag that enables the matching process of duplicate profiles.
+          type: boolean
+        AutoMerging:
+          $ref: '#/components/schemas/AutoMerging'
+        ExportingConfig:
+          $ref: '#/components/schemas/ExportingConfig'
+        JobSchedule:
+          $ref: '#/components/schemas/JobSchedule'
+      required:
+        - Enabled
+      additionalProperties: false
+    RuleBasedMatching:
+      description: The process of matching duplicate profiles using the Rule-Based matching. If RuleBasedMatching = true, Amazon Connect Customer Profiles will start to match and merge your profiles according to your configuration in the RuleBasedMatchingRequest. You can use the ListRuleBasedMatches and GetSimilarProfiles API to return and review the results. Also, if you have configured ExportingConfig in the RuleBasedMatchingRequest, you can download the results from S3.
+      type: object
+      properties:
+        Enabled:
+          description: The flag that enables the rule-based matching process of duplicate profiles.
+          type: boolean
+        AttributeTypesSelector:
+          $ref: '#/components/schemas/AttributeTypesSelector'
+        ConflictResolution:
+          $ref: '#/components/schemas/ConflictResolution'
+        ExportingConfig:
+          $ref: '#/components/schemas/ExportingConfig'
+        MatchingRules:
+          description: Configures how the rule-based matching process should match profiles. You can have up to 15 MatchingRule in the MatchingRules.
+          type: array
+          minItems: 1
+          maxItems: 15
+          items:
+            $ref: '#/components/schemas/MatchingRule'
+        MaxAllowedRuleLevelForMatching:
+          description: Indicates the maximum allowed rule level for matching.
+          type: integer
+          minimum: 1
+          maximum: 15
+        MaxAllowedRuleLevelForMerging:
+          description: Indicates the maximum allowed rule level for merging.
+          type: integer
+          minimum: 1
+          maximum: 15
+        Status:
+          type: string
+          enum:
+            - PENDING
+            - IN_PROGRESS
+            - ACTIVE
+      required:
+        - Enabled
+      additionalProperties: false
     Domain:
       type: object
       properties:
@@ -45,6 +490,12 @@ components:
           type: integer
           minimum: 1
           maximum: 1098
+        Matching:
+          $ref: '#/components/schemas/Matching'
+        RuleBasedMatching:
+          $ref: '#/components/schemas/RuleBasedMatching'
+        Stats:
+          $ref: '#/components/schemas/DomainStats'
         Tags:
           description: The tags (keys and values) associated with the domain
           type: array
@@ -63,6 +514,127 @@ components:
       x-stackql-resource-name: domain
       x-stackql-primaryIdentifier:
         - DomainName
+      x-create-only-properties:
+        - DomainName
+      x-read-only-properties:
+        - LastUpdatedAt
+        - CreatedAt
+        - RuleBasedMatching/Status
+        - Stats
+      x-required-permissions:
+        create:
+          - profile:CreateDomain
+          - profile:TagResource
+        read:
+          - profile:GetDomain
+        update:
+          - profile:GetDomain
+          - profile:UpdateDomain
+          - profile:UntagResource
+          - profile:TagResource
+        delete:
+          - profile:DeleteDomain
+        list:
+          - profile:ListDomains
+    Uri:
+      description: The StreamARN of the destination to deliver profile events to. For example, arn:aws:kinesis:region:account-id:stream/stream-name
+      type: string
+      minLength: 1
+      maxLength: 255
+    Status:
+      description: The status of enabling the Kinesis stream as a destination for export.
+      type: string
+      enum:
+        - HEALTHY
+        - UNHEALTHY
+    EventStream:
+      type: object
+      properties:
+        DomainName:
+          description: The unique name of the domain.
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1
+          maxLength: 64
+        EventStreamName:
+          description: The name of the event stream.
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+          minLength: 1
+          maxLength: 255
+        Uri:
+          $ref: '#/components/schemas/Uri'
+        EventStreamArn:
+          description: A unique identifier for the event stream.
+          type: string
+          minLength: 1
+          maxLength: 255
+        Tags:
+          description: The tags used to organize, track, or control access for this resource.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+          minItems: 0
+          maxItems: 50
+        CreatedAt:
+          description: The timestamp of when the export was created.
+          type: string
+        State:
+          description: The operational state of destination stream for export.
+          type: string
+          enum:
+            - RUNNING
+            - STOPPED
+        DestinationDetails:
+          description: Details regarding the Kinesis stream.
+          type: object
+          properties:
+            Uri:
+              $ref: '#/components/schemas/Uri'
+            Status:
+              $ref: '#/components/schemas/Status'
+          required:
+            - Uri
+            - Status
+          additionalProperties: false
+      required:
+        - DomainName
+        - EventStreamName
+        - Uri
+      x-stackql-resource-name: event_stream
+      x-stackql-primaryIdentifier:
+        - DomainName
+        - EventStreamName
+      x-create-only-properties:
+        - DomainName
+        - EventStreamName
+        - Uri
+      x-read-only-properties:
+        - DestinationDetails
+        - CreatedAt
+        - State
+        - EventStreamArn
+      x-required-permissions:
+        create:
+          - profile:CreateEventStream
+          - iam:PutRolePolicy
+          - kinesis:DescribeStreamSummary
+          - profile:TagResource
+        read:
+          - profile:GetEventStream
+          - kinesis:DescribeStreamSummary
+        update:
+          - kinesis:DescribeStreamSummary
+          - profile:GetEventStream
+          - profile:UntagResource
+          - profile:TagResource
+        delete:
+          - profile:DeleteEventStream
+          - iam:DeleteRolePolicy
+        list:
+          - profile:ListEventStreams
     Object:
       type: string
       maxLength: 512
@@ -523,6 +1095,52 @@ components:
       x-stackql-primaryIdentifier:
         - DomainName
         - Uri
+      x-create-only-properties:
+        - DomainName
+        - Uri
+      x-read-only-properties:
+        - LastUpdatedAt
+        - CreatedAt
+      x-required-permissions:
+        create:
+          - profile:GetIntegration
+          - profile:PutIntegration
+          - appflow:CreateFlow
+          - app-integrations:CreateEventIntegrationAssociation
+          - app-integrations:GetEventIntegration
+          - events:ListTargetsByRule
+          - events:PutRule
+          - events:PutTargets
+          - events:PutEvents
+          - profile:TagResource
+        read:
+          - profile:GetIntegration
+        delete:
+          - profile:DeleteIntegration
+          - appflow:DeleteFlow
+          - app-integrations:ListEventIntegrationAssociations
+          - app-integrations:DeleteEventIntegrationAssociation
+          - events:RemoveTargets
+          - events:ListTargetsByRule
+          - events:DeleteRule
+        update:
+          - profile:PutIntegration
+          - profile:GetIntegration
+          - appflow:CreateFlow
+          - app-integrations:GetEventIntegration
+          - app-integrations:CreateEventIntegrationAssociation
+          - app-integrations:ListEventIntegrationAssociations
+          - app-integrations:DeleteEventIntegrationAssociation
+          - events:ListTargetsByRule
+          - events:RemoveTargets
+          - events:DeleteRule
+          - events:PutRule
+          - events:PutTargets
+          - events:PutEvents
+          - profile:UntagResource
+          - profile:TagResource
+        list:
+          - profile:ListIntegrations
     FieldMap:
       type: object
       properties:
@@ -597,6 +1215,9 @@ components:
               - SECONDARY
               - LOOKUP_ONLY
               - NEW_ONLY
+              - ASSET
+              - CASE
+              - ORDER
       additionalProperties: false
     ObjectType:
       type: object
@@ -649,6 +1270,11 @@ components:
         LastUpdatedAt:
           description: The time of this integration got last updated at.
           type: string
+        SourceLastUpdatedTimestampFormat:
+          description: The format of your sourceLastUpdatedTimestamp that was previously set up.
+          type: string
+          minLength: 1
+          maxLength: 255
         Tags:
           description: The tags (keys and values) associated with the integration.
           type: array
@@ -668,7 +1294,73 @@ components:
       x-stackql-primaryIdentifier:
         - DomainName
         - ObjectTypeName
+      x-create-only-properties:
+        - DomainName
+        - ObjectTypeName
+      x-read-only-properties:
+        - LastUpdatedAt
+        - CreatedAt
+      x-required-permissions:
+        create:
+          - profile:GetProfileObjectType
+          - profile:PutProfileObjectType
+          - profile:TagResource
+        read:
+          - profile:GetProfileObjectType
+        update:
+          - profile:GetProfileObjectType
+          - profile:PutProfileObjectType
+          - profile:UntagResource
+          - profile:TagResource
+        delete:
+          - profile:DeleteProfileObjectType
+        list:
+          - profile:ListProfileObjectTypes
   x-stackQL-resources:
+    calculated_attribute_definitions:
+      name: calculated_attribute_definitions
+      id: aws.customerprofiles.calculated_attribute_definitions
+      x-cfn-schema-name: CalculatedAttributeDefinition
+      x-type: list
+      x-identifiers:
+        - DomainName
+        - CalculatedAttributeName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.CalculatedAttributeName') as calculated_attribute_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::CalculatedAttributeDefinition'
+    calculated_attribute_definition:
+      name: calculated_attribute_definition
+      id: aws.customerprofiles.calculated_attribute_definition
+      x-cfn-schema-name: CalculatedAttributeDefinition
+      x-type: get
+      x-identifiers:
+        - DomainName
+        - CalculatedAttributeName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.CalculatedAttributeName') as calculated_attribute_name,
+              JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.AttributeDetails') as attribute_details,
+              JSON_EXTRACT(Properties, '$.Conditions') as conditions,
+              JSON_EXTRACT(Properties, '$.Statistic') as statistic,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::CalculatedAttributeDefinition'
     domains:
       name: domains
       id: aws.customerprofiles.domains
@@ -703,10 +1395,55 @@ components:
               JSON_EXTRACT(Properties, '$.DeadLetterQueueUrl') as dead_letter_queue_url,
               JSON_EXTRACT(Properties, '$.DefaultEncryptionKey') as default_encryption_key,
               JSON_EXTRACT(Properties, '$.DefaultExpirationDays') as default_expiration_days,
+              JSON_EXTRACT(Properties, '$.Matching') as matching,
+              JSON_EXTRACT(Properties, '$.RuleBasedMatching') as rule_based_matching,
+              JSON_EXTRACT(Properties, '$.Stats') as stats,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::Domain'
+    event_streams:
+      name: event_streams
+      id: aws.customerprofiles.event_streams
+      x-cfn-schema-name: EventStream
+      x-type: list
+      x-identifiers:
+        - DomainName
+        - EventStreamName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.EventStreamName') as event_stream_name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CustomerProfiles::EventStream'
+    event_stream:
+      name: event_stream
+      id: aws.customerprofiles.event_stream
+      x-cfn-schema-name: EventStream
+      x-type: get
+      x-identifiers:
+        - DomainName
+        - EventStreamName
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_name,
+              JSON_EXTRACT(Properties, '$.EventStreamName') as event_stream_name,
+              JSON_EXTRACT(Properties, '$.Uri') as uri,
+              JSON_EXTRACT(Properties, '$.EventStreamArn') as event_stream_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
+              JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.DestinationDetails') as destination_details
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::EventStream'
     integrations:
       name: integrations
       id: aws.customerprofiles.integrations
@@ -792,6 +1529,7 @@ components:
               JSON_EXTRACT(Properties, '$.Keys') as keys,
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
+              JSON_EXTRACT(Properties, '$.SourceLastUpdatedTimestampFormat') as source_last_updated_timestamp_format,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TemplateId') as template_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CustomerProfiles::ObjectType'

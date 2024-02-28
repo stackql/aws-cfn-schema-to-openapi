@@ -28,8 +28,6 @@ components:
           maxLength: 255
       additionalProperties: false
       required:
-        - FirstExecutionFrom
-        - Object
         - ScheduleExpression
     Tag:
       type: object
@@ -49,6 +47,53 @@ components:
       required:
         - Key
         - Value
+    FileConfiguration:
+      description: The configuration for what files should be pulled from the source.
+      type: object
+      properties:
+        Folders:
+          description: Identifiers for the source folders to pull all files from recursively.
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            type: string
+            pattern: .*\S.*
+            minLength: 1
+            maxLength: 200
+        Filters:
+          description: Restrictions for what files should be pulled from the source.
+          type: object
+          x-patternProperties:
+            ^[A-Za-z]:
+              type: array
+              minItems: 1
+              maxItems: 2048
+              items:
+                type: string
+                maxLength: 255
+                minLength: 1
+          additionalProperties: false
+      additionalProperties: false
+      required:
+        - Folders
+    ObjectConfiguration:
+      description: The configuration for what data should be pulled from the source.
+      type: object
+      x-patternProperties:
+        ^.+$:
+          type: object
+          patternProperties:
+            ^[A-Za-z]:
+              type: array
+              minItems: 1
+              maxItems: 2048
+              items:
+                type: string
+                maxLength: 255
+                minLength: 1
+          additionalProperties: false
+      additionalProperties: false
     DataIntegration:
       type: object
       properties:
@@ -87,9 +132,9 @@ components:
         SourceURI:
           description: The URI of the data source.
           type: string
-          pattern: ^\w+\:\/\/\w+\/[\w/!@#+=.-]+$
+          pattern: ^(\w+\:\/\/[\w.-]+[\w/!@#+=.-]+$)|(\w+\:\/\/[\w.-]+[\w/!@#+=.-]+[\w/!@#+=.-]+[\w/!@#+=.,-]+$)
           minLength: 1
-          maxLength: 255
+          maxLength: 1000
         Tags:
           description: The tags (keys and values) associated with the data integration.
           type: array
@@ -97,14 +142,80 @@ components:
             $ref: '#/components/schemas/Tag'
           minItems: 0
           maxItems: 200
+        FileConfiguration:
+          description: The configuration for what files should be pulled from the source.
+          $ref: '#/components/schemas/FileConfiguration'
+        ObjectConfiguration:
+          description: The configuration for what data should be pulled from the source.
+          $ref: '#/components/schemas/ObjectConfiguration'
       required:
         - Name
         - KmsKey
-        - ScheduleConfig
         - SourceURI
       x-stackql-resource-name: data_integration
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - KmsKey
+        - ScheduleConfig
+        - SourceURI
+      x-read-only-properties:
+        - Id
+        - DataIntegrationArn
+      x-required-permissions:
+        create:
+          - app-integrations:CreateDataIntegration
+          - app-integrations:TagResource
+          - appflow:DescribeConnectorProfiles
+          - appflow:CreateFlow
+          - appflow:DeleteFlow
+          - appflow:DescribeConnectorEntity
+          - appflow:UseConnectorProfile
+          - appflow:TagResource
+          - appflow:UntagResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:ListGrants
+          - kms:ListKeys
+          - s3:GetBucketNotification
+          - s3:PutBucketNotification
+          - s3:GetEncryptionConfiguration
+        read:
+          - app-integrations:GetDataIntegration
+          - app-integrations:ListTagsForResource
+        list:
+          - app-integrations:ListDataIntegrations
+        update:
+          - app-integrations:GetDataIntegration
+          - app-integrations:UpdateDataIntegration
+          - app-integrations:TagResource
+          - app-integrations:UntagResource
+          - appflow:DescribeConnectorProfiles
+          - appflow:DeleteFlow
+          - appflow:DescribeConnectorEntity
+          - appflow:UseConnectorProfile
+          - appflow:TagResource
+          - appflow:UntagResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:ListGrants
+          - kms:ListKeys
+        delete:
+          - app-integrations:DeleteDataIntegration
+          - app-integrations:UntagResource
+          - appflow:CreateFlow
+          - appflow:DeleteFlow
+          - appflow:DescribeConnectorEntity
+          - appflow:UseConnectorProfile
+          - appflow:TagResource
+          - appflow:UntagResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kms:ListAliases
+          - kms:ListGrants
+          - kms:ListKeys
     EventFilter:
       type: object
       properties:
@@ -179,6 +290,28 @@ components:
       x-stackql-resource-name: event_integration
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+        - EventBridgeBus
+        - EventFilter
+      x-read-only-properties:
+        - EventIntegrationArn
+      x-required-permissions:
+        create:
+          - app-integrations:CreateEventIntegration
+          - app-integrations:TagResource
+        read:
+          - app-integrations:GetEventIntegration
+          - app-integrations:ListTagsForResource
+        list:
+          - app-integrations:ListEventIntegrations
+        update:
+          - app-integrations:GetEventIntegration
+          - app-integrations:UpdateEventIntegration
+          - app-integrations:TagResource
+          - app-integrations:UntagResource
+        delete:
+          - app-integrations:DeleteEventIntegration
   x-stackQL-resources:
     data_integrations:
       name: data_integrations
@@ -217,7 +350,9 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKey') as kms_key,
               JSON_EXTRACT(Properties, '$.ScheduleConfig') as schedule_config,
               JSON_EXTRACT(Properties, '$.SourceURI') as source_ur_i,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.FileConfiguration') as file_configuration,
+              JSON_EXTRACT(Properties, '$.ObjectConfiguration') as object_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
     event_integrations:
       name: event_integrations

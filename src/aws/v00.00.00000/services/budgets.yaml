@@ -154,6 +154,10 @@ components:
       x-stackql-resource-name: budget
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - NotificationsWithSubscribers
+      x-read-only-properties:
+        - Id
     ActionThreshold:
       type: object
       properties:
@@ -287,6 +291,25 @@ components:
       x-stackql-primaryIdentifier:
         - ActionId
         - BudgetName
+      x-create-only-properties:
+        - ActionType
+        - BudgetName
+      x-read-only-properties:
+        - ActionId
+      x-required-permissions:
+        create:
+          - budgets:CreateBudgetAction
+          - iam:PassRole
+        read:
+          - budgets:DescribeBudgetAction
+        update:
+          - budgets:UpdateBudgetAction
+          - iam:PassRole
+        delete:
+          - budgets:DeleteBudgetAction
+        list:
+          - budgets:DescribeBudgetActionsForAccount
+          - budgets:DescribeBudgetActionsForBudget
   x-stackQL-resources:
     budgets:
       name: budgets

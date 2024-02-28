@@ -36,6 +36,20 @@ Retrieves a list of <code>approved_origins</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>approved_origins</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:AssociateApprovedOrigin,
+connect:ListApprovedOrigins</pre>
+
+### List
+<pre>
+connect:ListApprovedOrigins</pre>
+
+
 ## Example
 ```sql
 SELECT

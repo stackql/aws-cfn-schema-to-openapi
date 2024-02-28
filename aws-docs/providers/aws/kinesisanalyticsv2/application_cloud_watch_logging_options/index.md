@@ -35,6 +35,10 @@ Retrieves a list of <code>application_cloud_watch_logging_options</code> in a re
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

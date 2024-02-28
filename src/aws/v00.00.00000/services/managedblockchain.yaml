@@ -15,6 +15,14 @@ components:
       type: string
       enum:
         - BILLING_TOKEN
+    NetworkAccessorType:
+      type: string
+      enum:
+        - ETHEREUM_GOERLI
+        - ETHEREUM_MAINNET
+        - ETHEREUM_MAINNET_AND_GOERLI
+        - POLYGON_MAINNET
+        - POLYGON_MUMBAI
     Tag:
       description: A key-value pair to associate with a resource.
       type: object
@@ -55,6 +63,8 @@ components:
           $ref: '#/components/schemas/AccessorStatus'
         AccessorType:
           $ref: '#/components/schemas/AccessorType'
+        NetworkType:
+          $ref: '#/components/schemas/NetworkAccessorType'
         Tags:
           type: array
           maxItems: 50
@@ -68,6 +78,31 @@ components:
       x-stackql-resource-name: accessor
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - AccessorType
+        - NetworkType
+      x-read-only-properties:
+        - Arn
+        - Id
+        - BillingToken
+        - CreationDate
+        - Status
+      x-required-permissions:
+        create:
+          - managedblockchain:CreateAccessor
+          - managedblockchain:TagResource
+          - managedblockchain:GetAccessor
+        read:
+          - managedblockchain:GetAccessor
+        update:
+          - managedblockchain:GetAccessor
+          - managedblockchain:CreateAccessor
+          - managedblockchain:TagResource
+          - managedblockchain:UntagResource
+        delete:
+          - managedblockchain:DeleteAccessor
+        list:
+          - managedblockchain:ListAccessors
     NetworkConfiguration:
       type: object
       additionalProperties: false
@@ -166,6 +201,8 @@ components:
       x-stackql-resource-name: member
       x-stackql-primaryIdentifier:
         - MemberId
+      x-read-only-properties:
+        - MemberId
     NodeConfiguration:
       type: object
       additionalProperties: false
@@ -196,6 +233,9 @@ components:
       x-stackql-resource-name: node
       x-stackql-primaryIdentifier:
         - NodeId
+      x-read-only-properties:
+        - NodeId
+        - Arn
   x-stackQL-resources:
     accessors:
       name: accessors
@@ -233,6 +273,7 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.AccessorType') as accessor_type,
+              JSON_EXTRACT(Properties, '$.NetworkType') as network_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
     members:

@@ -35,6 +35,26 @@ Retrieves a list of <code>response_plans</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>response_plans</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ssm-incidents:CreateResponsePlan,
+ssm-incidents:GetResponsePlan,
+ssm-incidents:TagResource,
+ssm-incidents:ListTagsForResource,
+iam:PassRole,
+secretsmanager:GetSecretValue,
+kms:Decrypt,
+kms:GenerateDataKey*</pre>
+
+### List
+<pre>
+ssm-incidents:ListResponsePlans</pre>
+
+
 ## Example
 ```sql
 SELECT

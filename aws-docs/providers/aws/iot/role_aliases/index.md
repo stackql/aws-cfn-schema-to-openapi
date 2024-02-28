@@ -35,6 +35,24 @@ Retrieves a list of <code>role_aliases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>role_aliases</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:PassRole,
+iot:CreateRoleAlias,
+iot:DescribeRoleAlias,
+iot:TagResource,
+iot:ListTagsForResource</pre>
+
+### List
+<pre>
+iot:ListRoleAliases</pre>
+
+
 ## Example
 ```sql
 SELECT

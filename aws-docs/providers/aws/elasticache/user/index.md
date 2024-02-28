@@ -44,6 +44,29 @@ Gets an individual <code>user</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>user</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticache:DescribeUsers,
+elasticache:ListTagsForResource</pre>
+
+### Update
+<pre>
+elasticache:ModifyUser,
+elasticache:DescribeUsers,
+elasticache:ListTagsForResource,
+elasticache:AddTagsToResource,
+elasticache:RemoveTagsFromResource</pre>
+
+### Delete
+<pre>
+elasticache:DeleteUser,
+elasticache:DescribeUsers</pre>
+
+
 ## Example
 ```sql
 SELECT

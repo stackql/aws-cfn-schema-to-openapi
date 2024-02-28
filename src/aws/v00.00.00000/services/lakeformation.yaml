@@ -71,6 +71,24 @@ components:
         - DatabaseName
         - TableName
         - Name
+      x-create-only-properties:
+        - TableCatalogId
+        - DatabaseName
+        - TableName
+        - Name
+        - RowFilter
+        - ColumnNames
+        - ColumnWildcard
+      x-required-permissions:
+        create:
+          - lakeformation:CreateDataCellsFilter
+          - glue:GetTable
+        delete:
+          - lakeformation:DeleteDataCellsFilter
+        read:
+          - lakeformation:ListDataCellsFilter
+        list:
+          - lakeformation:ListDataCellsFilter
     ExternalDataFilteringAllowList:
       type: object
       additionalProperties: false
@@ -92,8 +110,12 @@ components:
           $ref: '#/components/schemas/ExternalDataFilteringAllowList'
         CreateTableDefaultPermissions:
           $ref: '#/components/schemas/CreateTableDefaultPermissions'
+        MutationType:
+          type: string
         Parameters:
           type: object
+        AllowFullTableExternalDataAccess:
+          type: boolean
         Admins:
           $ref: '#/components/schemas/Admins'
         CreateDatabaseDefaultPermissions:
@@ -112,6 +134,8 @@ components:
             type: string
       x-stackql-resource-name: data_lake_settings
       x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
         - Id
     DataLakePrincipal:
       type: object
@@ -212,6 +236,11 @@ components:
         - Resource
       x-stackql-resource-name: permissions
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DataLakePrincipal
+        - Resource
+      x-read-only-properties:
         - Id
     PathString:
       type: string
@@ -392,6 +421,30 @@ components:
       x-stackql-primaryIdentifier:
         - PrincipalIdentifier
         - ResourceIdentifier
+      x-create-only-properties:
+        - Catalog
+        - Principal
+        - Resource
+        - Permissions
+        - PermissionsWithGrantOption
+      x-read-only-properties:
+        - PrincipalIdentifier
+        - ResourceIdentifier
+      x-required-permissions:
+        create:
+          - lakeformation:GrantPermissions
+          - lakeformation:ListPermissions
+          - glue:GetTable
+          - glue:GetDatabase
+        read:
+          - lakeformation:ListPermissions
+          - glue:GetTable
+          - glue:GetDatabase
+        delete:
+          - lakeformation:RevokePermissions
+          - lakeformation:ListPermissions
+          - glue:GetTable
+          - glue:GetDatabase
     PrincipalPermissionsList:
       type: array
       x-insertionOrder: false
@@ -415,6 +468,20 @@ components:
       x-stackql-resource-name: tag
       x-stackql-primaryIdentifier:
         - TagKey
+      x-create-only-properties:
+        - CatalogId
+        - TagKey
+      x-required-permissions:
+        create:
+          - lakeformation:CreateLFTag
+        read:
+          - lakeformation:GetLFTag
+        update:
+          - lakeformation:UpdateLFTag
+        delete:
+          - lakeformation:DeleteLFTag
+        list:
+          - lakeformation:ListLFTags
     TagAssociation:
       type: object
       properties:
@@ -437,6 +504,25 @@ components:
       x-stackql-primaryIdentifier:
         - ResourceIdentifier
         - TagsIdentifier
+      x-create-only-properties:
+        - Resource
+        - LFTags
+      x-read-only-properties:
+        - ResourceIdentifier
+        - TagsIdentifier
+      x-required-permissions:
+        create:
+          - lakeformation:AddLFTagsToResource
+          - glue:GetDatabase
+          - glue:GetTable
+        read:
+          - lakeformation:GetResourceLFTags
+          - glue:GetDatabase
+          - glue:GetTable
+        delete:
+          - lakeformation:RemoveLFTagsFromResource
+          - glue:GetDatabase
+          - glue:GetTable
   x-stackQL-resources:
     data_cells_filters:
       name: data_cells_filters
@@ -502,7 +588,9 @@ components:
               JSON_EXTRACT(Properties, '$.AllowExternalDataFiltering') as allow_external_data_filtering,
               JSON_EXTRACT(Properties, '$.ExternalDataFilteringAllowList') as external_data_filtering_allow_list,
               JSON_EXTRACT(Properties, '$.CreateTableDefaultPermissions') as create_table_default_permissions,
+              JSON_EXTRACT(Properties, '$.MutationType') as mutation_type,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
+              JSON_EXTRACT(Properties, '$.AllowFullTableExternalDataAccess') as allow_full_table_external_data_access,
               JSON_EXTRACT(Properties, '$.Admins') as admins,
               JSON_EXTRACT(Properties, '$.CreateDatabaseDefaultPermissions') as create_database_default_permissions,
               JSON_EXTRACT(Properties, '$.Id') as id,

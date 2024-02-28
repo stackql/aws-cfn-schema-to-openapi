@@ -35,6 +35,19 @@ Retrieves a list of <code>configuration_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ses:CreateConfigurationSet</pre>
+
+### List
+<pre>
+ses:ListConfigurationSets</pre>
+
+
 ## Example
 ```sql
 SELECT

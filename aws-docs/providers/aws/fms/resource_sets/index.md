@@ -35,6 +35,22 @@ Retrieves a list of <code>resource_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+fms:PutResourceSet,
+fms:BatchAssociateResource,
+fms:ListResourceSetResources,
+fms:TagResource</pre>
+
+### List
+<pre>
+fms:ListResourceSets</pre>
+
+
 ## Example
 ```sql
 SELECT

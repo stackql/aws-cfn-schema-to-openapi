@@ -94,6 +94,12 @@
   "createOnlyProperties" : [ "/properties/Name", "/properties/Scope" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/Id" ],
   "additionalProperties" : false,
+  "tagging" : {
+    "cloudFormationSystemTags" : false,
+    "tagOnCreate" : false,
+    "tagUpdatable" : false,
+    "taggable" : false
+  },
   "handlers" : {
     "create" : {
       "permissions" : [ "wafv2:CreateIPSet", "wafv2:GetIPSet", "wafv2:ListTagsForResource" ]
@@ -108,7 +114,15 @@
       "permissions" : [ "wafv2:UpdateIPSet", "wafv2:GetIPSet", "wafv2:ListTagsForResource" ]
     },
     "list" : {
-      "permissions" : [ "wafv2:listIPSets" ]
+      "permissions" : [ "wafv2:listIPSets" ],
+      "handlerSchema" : {
+        "properties" : {
+          "Scope" : {
+            "$ref" : "resource-schema.json#/properties/Scope"
+          }
+        },
+        "required" : [ "Scope" ]
+      }
     }
   }
 }

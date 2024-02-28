@@ -36,6 +36,24 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+CloudTrail:GetResourcePolicy</pre>
+
+### Update
+<pre>
+CloudTrail:PutResourcePolicy,
+CloudTrail:GetResourcePolicy</pre>
+
+### Delete
+<pre>
+CloudTrail:DeleteResourcePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

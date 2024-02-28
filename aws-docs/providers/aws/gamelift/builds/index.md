@@ -35,6 +35,20 @@ Retrieves a list of <code>builds</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>builds</code> resource, the following permissions are required:
+
+### Create
+<pre>
+gamelift:DescribeBuild,
+gamelift:CreateBuild</pre>
+
+### List
+<pre>
+gamelift:ListBuilds</pre>
+
+
 ## Example
 ```sql
 SELECT

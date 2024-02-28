@@ -47,6 +47,38 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kafkaconnect:DescribeConnector</pre>
+
+### Delete
+<pre>
+kafkaconnect:DeleteConnector,
+kafkaconnect:DescribeConnector,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries</pre>
+
+### Update
+<pre>
+kafkaconnect:UpdateConnector,
+kafkaconnect:DescribeConnector,
+iam:CreateServiceLinkedRole,
+logs:UpdateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+firehose:TagDeliveryStream</pre>
+
+
 ## Example
 ```sql
 SELECT

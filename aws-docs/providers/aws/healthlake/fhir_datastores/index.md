@@ -35,6 +35,35 @@ Retrieves a list of <code>fhir_datastores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fhir_datastores</code> resource, the following permissions are required:
+
+### Create
+<pre>
+healthlake:CreateFHIRDatastore,
+healthlake:DescribeFHIRDatastore,
+iam:PassRole,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:GenerateDataKey,
+kms:Decrypt,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+ram:GetResourceShareInvitations,
+ram:AcceptResourceShareInvitation,
+glue:CreateDatabase,
+glue:DeleteDatabase,
+lambda:InvokeFunction,
+healthlake:TagResource,
+healthlake:UntagResource,
+healthlake:ListTagsForResource</pre>
+
+### List
+<pre>
+healthlake:ListFHIRDatastores</pre>
+
+
 ## Example
 ```sql
 SELECT

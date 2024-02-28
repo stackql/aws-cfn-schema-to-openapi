@@ -5,37 +5,6 @@ info:
 paths: {}
 components:
   schemas:
-    CsvClassifier:
-      type: object
-      additionalProperties: false
-      properties:
-        QuoteSymbol:
-          type: string
-        ContainsHeader:
-          type: string
-        Delimiter:
-          type: string
-        Header:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        AllowSingleColumn:
-          type: boolean
-        DisableValueTrimming:
-          type: boolean
-        Name:
-          type: string
-    JsonClassifier:
-      type: object
-      additionalProperties: false
-      properties:
-        JsonPath:
-          type: string
-        Name:
-          type: string
-      required:
-        - JsonPath
     XMLClassifier:
       type: object
       additionalProperties: false
@@ -49,6 +18,44 @@ components:
       required:
         - RowTag
         - Classification
+    JsonClassifier:
+      type: object
+      additionalProperties: false
+      properties:
+        JsonPath:
+          type: string
+        Name:
+          type: string
+      required:
+        - JsonPath
+    CsvClassifier:
+      type: object
+      additionalProperties: false
+      properties:
+        ContainsCustomDatatype:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        QuoteSymbol:
+          type: string
+        ContainsHeader:
+          type: string
+        Delimiter:
+          type: string
+        Header:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        AllowSingleColumn:
+          type: boolean
+        CustomDatatypeConfigured:
+          type: boolean
+        DisableValueTrimming:
+          type: boolean
+        Name:
+          type: string
     GrokClassifier:
       type: object
       additionalProperties: false
@@ -67,18 +74,20 @@ components:
     Classifier:
       type: object
       properties:
-        Id:
-          type: string
         XMLClassifier:
           $ref: '#/components/schemas/XMLClassifier'
-        JsonClassifier:
-          $ref: '#/components/schemas/JsonClassifier'
         CsvClassifier:
           $ref: '#/components/schemas/CsvClassifier'
+        Id:
+          type: string
         GrokClassifier:
           $ref: '#/components/schemas/GrokClassifier'
+        JsonClassifier:
+          $ref: '#/components/schemas/JsonClassifier'
       x-stackql-resource-name: classifier
       x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
         - Id
     ConnectionInput:
       type: object
@@ -129,6 +138,10 @@ components:
       x-stackql-resource-name: connection
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - CatalogId
+      x-read-only-properties:
+        - Id
     S3Target:
       type: object
       additionalProperties: false
@@ -156,6 +169,24 @@ components:
           type: string
         DeleteBehavior:
           type: string
+    IcebergTarget:
+      type: object
+      additionalProperties: false
+      properties:
+        ConnectionName:
+          type: string
+        Paths:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Exclusions:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        MaximumTraversalDepth:
+          type: integer
     Schedule:
       type: object
       additionalProperties: false
@@ -238,6 +269,11 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/DynamoDBTarget'
+        IcebergTargets:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/IcebergTarget'
     DynamoDBTarget:
       type: object
       additionalProperties: false
@@ -248,13 +284,19 @@ components:
       type: object
       additionalProperties: false
       properties:
+        ConnectionName:
+          type: string
         DatabaseName:
+          type: string
+        DlqEventQueueArn:
           type: string
         Tables:
           type: array
           uniqueItems: false
           items:
             type: string
+        EventQueueArn:
+          type: string
     Crawler:
       type: object
       properties:
@@ -295,11 +337,38 @@ components:
       x-stackql-resource-name: crawler
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+    CustomEntityType:
+      type: object
+      properties:
+        RegexString:
+          type: string
+        ContextWords:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Id:
+          type: string
+        Tags:
+          type: object
+        Name:
+          type: string
+      x-stackql-resource-name: custom_entity_type
+      x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
+        - Id
     DatabaseIdentifier:
       type: object
       additionalProperties: false
       properties:
         DatabaseName:
+          type: string
+        Region:
           type: string
         CatalogId:
           type: string
@@ -364,37 +433,77 @@ components:
       x-stackql-resource-name: database
       x-stackql-primaryIdentifier:
         - Id
-    DataCatalogEncryptionSettings:
-      type: object
-      properties:
-        Id:
-          type: string
-        DataCatalogEncryptionSettings:
-          $ref: '#/components/schemas/DataCatalogEncryptionSettings'
-        CatalogId:
-          type: string
-      required:
+      x-create-only-properties:
         - CatalogId
-        - DataCatalogEncryptionSettings
-      x-stackql-resource-name: data_catalog_encryption_settings
-      x-stackql-primaryIdentifier:
+      x-read-only-properties:
         - Id
+    ConnectionPasswordEncryption:
+      type: object
+      additionalProperties: false
+      properties:
+        KmsKeyId:
+          type: string
+        ReturnConnectionPasswordEncrypted:
+          type: boolean
     EncryptionAtRest:
       type: object
       additionalProperties: false
       properties:
         CatalogEncryptionMode:
           type: string
+        CatalogEncryptionServiceRole:
+          type: string
         SseAwsKmsKeyId:
           type: string
-    ConnectionPasswordEncryption:
+    DataCatalogEncryptionSettings:
+      type: object
+      properties:
+        CatalogId:
+          type: string
+        DataCatalogEncryptionSettings:
+          $ref: '#/components/schemas/DataCatalogEncryptionSettings'
+        Id:
+          type: string
+      required:
+        - DataCatalogEncryptionSettings
+        - CatalogId
+      x-stackql-resource-name: data_catalog_encryption_settings
+      x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - CatalogId
+      x-read-only-properties:
+        - Id
+    DataQualityTargetTable:
       type: object
       additionalProperties: false
       properties:
-        ReturnConnectionPasswordEncrypted:
-          type: boolean
-        KmsKeyId:
+        DatabaseName:
           type: string
+        TableName:
+          type: string
+    DataQualityRuleset:
+      type: object
+      properties:
+        Ruleset:
+          type: string
+        Description:
+          type: string
+        TargetTable:
+          $ref: '#/components/schemas/DataQualityTargetTable'
+        Id:
+          type: string
+        ClientToken:
+          type: string
+        Tags:
+          type: object
+        Name:
+          type: string
+      x-stackql-resource-name: data_quality_ruleset
+      x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
+        - Id
     DevEndpoint:
       type: object
       properties:
@@ -441,6 +550,10 @@ components:
       x-stackql-resource-name: dev_endpoint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - EndpointName
+      x-read-only-properties:
+        - Id
     NotificationProperty:
       type: object
       additionalProperties: false
@@ -451,6 +564,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        Runtime:
+          type: string
         ScriptLocation:
           type: string
         PythonVersion:
@@ -522,6 +637,10 @@ components:
         - Command
       x-stackql-resource-name: job
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
         - Id
     GlueTables:
       type: object
@@ -626,6 +745,10 @@ components:
         - InputRecordTables
       x-stackql-resource-name: ml_transform
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - InputRecordTables
+      x-read-only-properties:
         - Id
     SchemaReference:
       type: object
@@ -771,6 +894,12 @@ components:
       x-stackql-resource-name: partition
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - TableName
+        - DatabaseName
+        - CatalogId
+      x-read-only-properties:
+        - Id
     Tag:
       type: object
       properties:
@@ -800,7 +929,7 @@ components:
         Arn:
           description: Amazon Resource Name for the Registry.
           type: string
-          pattern: arn:(aws|aws-us-gov|aws-cn):glue:.*
+          pattern: arn:aws(-(cn|us-gov|iso(-[bef])?))?:glue:.*
       additionalProperties: false
     SchemaVersion:
       type: object
@@ -822,6 +951,23 @@ components:
       x-stackql-resource-name: schema_version
       x-stackql-primaryIdentifier:
         - VersionId
+      x-create-only-properties:
+        - Schema
+        - SchemaDefinition
+      x-read-only-properties:
+        - VersionId
+      x-required-permissions:
+        create:
+          - glue:RegisterSchemaVersion
+          - glue:GetSchemaVersion
+          - glue:GetSchemaByDefinition
+        read:
+          - glue:GetSchemaVersion
+        delete:
+          - glue:DeleteSchemaVersions
+          - glue:GetSchemaVersion
+        list:
+          - glue:ListSchemaVersions
     Schema:
       description: Identifier for the schema where the schema version will be created.
       type: object
@@ -867,6 +1013,19 @@ components:
         - SchemaVersionId
         - Key
         - Value
+      x-create-only-properties:
+        - SchemaVersionId
+        - Key
+        - Value
+      x-required-permissions:
+        create:
+          - glue:putSchemaVersionMetadata
+        read:
+          - glue:querySchemaVersionMetadata
+        delete:
+          - glue:removeSchemaVersionMetadata
+        list:
+          - glue:querySchemaVersionMetadata
     S3Encryptions:
       type: object
       additionalProperties: false
@@ -911,11 +1070,17 @@ components:
       x-stackql-resource-name: security_configuration
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
     TableIdentifier:
       type: object
       additionalProperties: false
       properties:
         DatabaseName:
+          type: string
+        Region:
           type: string
         CatalogId:
           type: string
@@ -950,6 +1115,23 @@ components:
           type: integer
         Name:
           type: string
+    MetadataOperation:
+      type: object
+      additionalProperties: false
+    OpenTableFormatInput:
+      type: object
+      additionalProperties: false
+      properties:
+        IcebergInput:
+          $ref: '#/components/schemas/IcebergInput'
+    IcebergInput:
+      type: object
+      additionalProperties: false
+      properties:
+        MetadataOperation:
+          $ref: '#/components/schemas/MetadataOperation'
+        Version:
+          type: string
     Table:
       type: object
       properties:
@@ -957,6 +1139,8 @@ components:
           type: string
         TableInput:
           $ref: '#/components/schemas/TableInput'
+        OpenTableFormatInput:
+          $ref: '#/components/schemas/OpenTableFormatInput'
         Id:
           type: string
         CatalogId:
@@ -967,6 +1151,53 @@ components:
         - CatalogId
       x-stackql-resource-name: table
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DatabaseName
+        - CatalogId
+      x-read-only-properties:
+        - Id
+    TableOptimizerConfiguration:
+      type: object
+      additionalProperties: false
+      properties:
+        Enabled:
+          type: boolean
+        RoleArn:
+          type: string
+      required:
+        - Enabled
+        - RoleArn
+    TableOptimizer:
+      type: object
+      properties:
+        DatabaseName:
+          type: string
+        TableName:
+          type: string
+        Type:
+          type: string
+        TableOptimizerConfiguration:
+          $ref: '#/components/schemas/TableOptimizerConfiguration'
+        Id:
+          type: string
+        CatalogId:
+          type: string
+      required:
+        - TableName
+        - Type
+        - DatabaseName
+        - TableOptimizerConfiguration
+        - CatalogId
+      x-stackql-resource-name: table_optimizer
+      x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - TableName
+        - DatabaseName
+        - Type
+        - CatalogId
+      x-read-only-properties:
         - Id
     Condition:
       type: object
@@ -1053,6 +1284,12 @@ components:
       x-stackql-resource-name: trigger
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+        - WorkflowName
+        - Type
+      x-read-only-properties:
+        - Id
     Workflow:
       type: object
       properties:
@@ -1070,6 +1307,10 @@ components:
           type: integer
       x-stackql-resource-name: workflow
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     classifiers:
@@ -1102,11 +1343,11 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.XMLClassifier') as x_ml_classifier,
-              JSON_EXTRACT(Properties, '$.JsonClassifier') as json_classifier,
               JSON_EXTRACT(Properties, '$.CsvClassifier') as csv_classifier,
-              JSON_EXTRACT(Properties, '$.GrokClassifier') as grok_classifier
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.GrokClassifier') as grok_classifier,
+              JSON_EXTRACT(Properties, '$.JsonClassifier') as json_classifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Classifier'
     connections:
       name: connections
@@ -1187,6 +1428,42 @@ components:
               JSON_EXTRACT(Properties, '$.TablePrefix') as table_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Crawler'
+    custom_entity_types:
+      name: custom_entity_types
+      id: aws.glue.custom_entity_types
+      x-cfn-schema-name: CustomEntityType
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
+    custom_entity_type:
+      name: custom_entity_type
+      id: aws.glue.custom_entity_type
+      x-cfn-schema-name: CustomEntityType
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.RegexString') as regex_string,
+              JSON_EXTRACT(Properties, '$.ContextWords') as context_words,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
     databases:
       name: databases
       id: aws.glue.databases
@@ -1235,10 +1512,48 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
               JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings') as data_catalog_encryption_settings,
-              JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
+              JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings'
+    data_quality_rulesets:
+      name: data_quality_rulesets
+      id: aws.glue.data_quality_rulesets
+      x-cfn-schema-name: DataQualityRuleset
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
+    data_quality_ruleset:
+      name: data_quality_ruleset
+      id: aws.glue.data_quality_ruleset
+      x-cfn-schema-name: DataQualityRuleset
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Ruleset') as ruleset,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.TargetTable') as target_table,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.ClientToken') as client_token,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
     dev_endpoints:
       name: dev_endpoints
       id: aws.glue.dev_endpoints
@@ -1539,9 +1854,47 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
               JSON_EXTRACT(Properties, '$.TableInput') as table_input,
+              JSON_EXTRACT(Properties, '$.OpenTableFormatInput') as open_table_format_input,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Table'
+    table_optimizers:
+      name: table_optimizers
+      id: aws.glue.table_optimizers
+      x-cfn-schema-name: TableOptimizer
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
+    table_optimizer:
+      name: table_optimizer
+      id: aws.glue.table_optimizer
+      x-cfn-schema-name: TableOptimizer
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
+              JSON_EXTRACT(Properties, '$.TableName') as table_name,
+              JSON_EXTRACT(Properties, '$.Type') as type,
+              JSON_EXTRACT(Properties, '$.TableOptimizerConfiguration') as table_optimizer_configuration,
+              JSON_EXTRACT(Properties, '$.Id') as id,
+              JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
     triggers:
       name: triggers
       id: aws.glue.triggers

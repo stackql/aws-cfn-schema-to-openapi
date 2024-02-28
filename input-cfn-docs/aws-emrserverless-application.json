@@ -22,6 +22,115 @@
       },
       "additionalProperties" : false
     },
+    "ConfigurationList" : {
+      "type" : "array",
+      "description" : "Runtime configuration for batch and interactive JobRun.",
+      "uniqueItems" : true,
+      "insertionOrder" : false,
+      "items" : {
+        "$ref" : "#/definitions/ConfigurationObject"
+      }
+    },
+    "MonitoringConfiguration" : {
+      "type" : "object",
+      "description" : "Monitoring configuration for batch and interactive JobRun.",
+      "additionalProperties" : false,
+      "properties" : {
+        "S3MonitoringConfiguration" : {
+          "description" : "S3 monitoring configurations for a JobRun.",
+          "$ref" : "#/definitions/S3MonitoringConfiguration"
+        },
+        "ManagedPersistenceMonitoringConfiguration" : {
+          "description" : "Managed log persistence configurations for a JobRun.",
+          "$ref" : "#/definitions/ManagedPersistenceMonitoringConfiguration"
+        },
+        "CloudWatchLoggingConfiguration" : {
+          "description" : "CloudWatch logging configurations for a JobRun.",
+          "$ref" : "#/definitions/CloudWatchLoggingConfiguration"
+        }
+      }
+    },
+    "S3MonitoringConfiguration" : {
+      "additionalProperties" : false,
+      "properties" : {
+        "LogUri" : {
+          "$ref" : "#/definitions/UriString"
+        },
+        "EncryptionKeyArn" : {
+          "description" : "KMS key ARN to encrypt the logs stored in given s3",
+          "$ref" : "#/definitions/EncryptionKeyArn"
+        }
+      }
+    },
+    "ManagedPersistenceMonitoringConfiguration" : {
+      "additionalProperties" : false,
+      "properties" : {
+        "Enabled" : {
+          "description" : "If set to false, managed logging will be turned off. Defaults to true.",
+          "type" : "boolean",
+          "default" : true
+        },
+        "EncryptionKeyArn" : {
+          "description" : "KMS key ARN to encrypt the logs stored in managed persistence",
+          "$ref" : "#/definitions/EncryptionKeyArn"
+        }
+      }
+    },
+    "CloudWatchLoggingConfiguration" : {
+      "additionalProperties" : false,
+      "properties" : {
+        "Enabled" : {
+          "description" : "If set to false, CloudWatch logging will be turned off. Defaults to false.",
+          "type" : "boolean",
+          "default" : false
+        },
+        "LogGroupName" : {
+          "description" : "Log-group name to produce log-streams on CloudWatch. If undefined, logs will be produced in a default log-group /aws/emr-serverless",
+          "$ref" : "#/definitions/LogGroupName"
+        },
+        "LogStreamNamePrefix" : {
+          "description" : "Log-stream name prefix by which log-stream names will start in the CloudWatch Log-group.",
+          "$ref" : "#/definitions/LogStreamNamePrefix"
+        },
+        "EncryptionKeyArn" : {
+          "description" : "KMS key ARN to encrypt the logs stored in given CloudWatch log-group.",
+          "$ref" : "#/definitions/EncryptionKeyArn"
+        },
+        "LogTypeMap" : {
+          "description" : "The specific log-streams which need to be uploaded to CloudWatch.",
+          "type" : "array",
+          "uniqueItems" : true,
+          "insertionOrder" : false,
+          "items" : {
+            "$ref" : "#/definitions/LogTypeMapKeyValuePair"
+          }
+        }
+      }
+    },
+    "LogTypeMapKeyValuePair" : {
+      "type" : "object",
+      "additionalProperties" : false,
+      "properties" : {
+        "Key" : {
+          "$ref" : "#/definitions/WorkerTypeString"
+        },
+        "Value" : {
+          "$ref" : "#/definitions/LogTypeList"
+        }
+      },
+      "required" : [ "Key", "Value" ]
+    },
+    "LogTypeList" : {
+      "description" : "List of Applicable values: [STDOUT, STDERR, HIVE_LOG, TEZ_AM, SYSTEM_LOGS]",
+      "type" : "array",
+      "insertionOrder" : false,
+      "uniqueItems" : true,
+      "minItems" : 1,
+      "maxItems" : 5,
+      "items" : {
+        "$ref" : "#/definitions/LogTypeString"
+      }
+    },
     "InitialCapacityConfigMap" : {
       "type" : "array",
       "uniqueItems" : true,
@@ -175,6 +284,48 @@
       "maxLength" : 32,
       "pattern" : "^[-0-9a-zA-Z]+"
     },
+    "UriString" : {
+      "type" : "string",
+      "maxLength" : 10280,
+      "minLength" : 1,
+      "pattern" : "[\\u0020-\\uD7FF\\uE000-\\uFFFD\\uD800\\uDBFF-\\uDC00\\uDFFF\\r\\n\\t]*"
+    },
+    "EncryptionKeyArn" : {
+      "type" : "string",
+      "maxLength" : 2048,
+      "minLength" : 20,
+      "pattern" : "^arn:(aws[a-zA-Z0-9-]*):kms:[a-zA-Z0-9\\-]*:(\\d{12})?:key\\/[a-zA-Z0-9-]+$"
+    },
+    "Classification" : {
+      "type" : "string",
+      "maxLength" : 1024,
+      "minLength" : 1,
+      "pattern" : ".*\\S.*"
+    },
+    "LogGroupName" : {
+      "type" : "string",
+      "maxLength" : 512,
+      "minLength" : 1,
+      "pattern" : "^[\\.\\-_/#A-Za-z0-9]+$"
+    },
+    "LogStreamNamePrefix" : {
+      "type" : "string",
+      "maxLength" : 512,
+      "minLength" : 1,
+      "pattern" : "^[^:*]*$"
+    },
+    "LogTypeString" : {
+      "type" : "string",
+      "maxLength" : 50,
+      "minLength" : 1,
+      "pattern" : "^[a-zA-Z]+[-_]*[a-zA-Z]+$"
+    },
+    "WorkerTypeString" : {
+      "type" : "string",
+      "maxLength" : 50,
+      "minLength" : 1,
+      "pattern" : "^[a-zA-Z]+[-_]*[a-zA-Z]+$"
+    },
     "Tag" : {
       "description" : "A key-value pair to associate with a resource.",
       "type" : "object",
@@ -196,6 +347,47 @@
         }
       },
       "required" : [ "Key", "Value" ]
+    },
+    "ConfigurationObject" : {
+      "type" : "object",
+      "description" : "Configuration for a JobRun.",
+      "additionalProperties" : false,
+      "properties" : {
+        "Classification" : {
+          "description" : "String with a maximum length of 1024.",
+          "$ref" : "#/definitions/Classification"
+        },
+        "Properties" : {
+          "type" : "object",
+          "additionalProperties" : false,
+          "patternProperties" : {
+            "^[a-zA-Z]+[-a-zA-Z0-9_.]*$" : {
+              "$ref" : "#/definitions/SensitivePropertiesMap"
+            }
+          }
+        },
+        "Configurations" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "insertionOrder" : false,
+          "items" : {
+            "$ref" : "#/definitions/ConfigurationObject"
+          }
+        }
+      },
+      "required" : [ "Classification" ]
+    },
+    "SensitivePropertiesMap" : {
+      "type" : "string",
+      "minLength" : 1,
+      "maxLength" : 1024,
+      "pattern" : ".*\\S.*"
+    },
+    "SensitivePropertiesKeyValuePair" : {
+      "type" : "string",
+      "minLength" : 1,
+      "maxLength" : 1024,
+      "pattern" : ".*\\S.*"
     },
     "CpuSize" : {
       "description" : "Per worker CPU resource. vCPU is the only supported unit and specifying vCPU is optional.",
@@ -288,6 +480,12 @@
     "ImageConfiguration" : {
       "$ref" : "#/definitions/ImageConfigurationInput"
     },
+    "MonitoringConfiguration" : {
+      "$ref" : "#/definitions/MonitoringConfiguration"
+    },
+    "RuntimeConfiguration" : {
+      "$ref" : "#/definitions/ConfigurationList"
+    },
     "NetworkConfiguration" : {
       "description" : "Network Configuration for customer VPC connectivity.",
       "$ref" : "#/definitions/NetworkConfiguration"
@@ -303,12 +501,14 @@
       "maxLength" : 64
     },
     "WorkerTypeSpecifications" : {
+      "description" : "The key-value pairs that specify worker type to WorkerTypeSpecificationInput. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include Driver and Executor for Spark applications and HiveDriver and TezTask for Hive applications. You can either set image details in this parameter for each worker type, or in imageConfiguration for all worker types.",
       "$ref" : "#/definitions/WorkerTypeSpecificationInputMap"
     }
   },
   "additionalProperties" : false,
   "required" : [ "ReleaseLabel", "Type" ],
-  "createOnlyProperties" : [ "/properties/Name", "/properties/ReleaseLabel", "/properties/Type" ],
+  "createOnlyProperties" : [ "/properties/Name", "/properties/Type" ],
+  "conditionalCreateOnlyProperties" : [ "/properties/Architecture", "/properties/ReleaseLabel", "/properties/WorkerTypeSpecifications", "/properties/MaximumCapacity", "/properties/InitialCapacity", "/properties/AutoStartConfiguration", "/properties/AutoStopConfiguration", "/properties/NetworkConfiguration", "/properties/ImageConfiguration", "/properties/MonitoringConfiguration", "/properties/RuntimeConfiguration" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/ApplicationId" ],
   "primaryIdentifier" : [ "/properties/ApplicationId" ],
   "tagging" : {
@@ -318,13 +518,13 @@
   },
   "handlers" : {
     "create" : {
-      "permissions" : [ "emr-serverless:CreateApplication", "emr-serverless:TagResource", "emr-serverless:GetApplication", "iam:CreateServiceLinkedRole" ]
+      "permissions" : [ "kms:Create*", "kms:Describe*", "kms:Enable*", "kms:List*", "kms:Put*", "kms:Update*", "kms:Revoke*", "kms:Disable*", "kms:Get*", "kms:Delete*", "kms:ScheduleKeyDeletion", "kms:CancelKeyDeletion", "kms:GenerateDataKey", "kms:TagResource", "kms:UntagResource", "kms:Decrypt", "emr-serverless:CreateApplication", "emr-serverless:TagResource", "emr-serverless:GetApplication", "iam:CreateServiceLinkedRole", "ec2:CreateNetworkInterface", "ecr:BatchGetImage", "ecr:DescribeImages", "ecr:GetDownloadUrlForLayer" ]
     },
     "read" : {
       "permissions" : [ "emr-serverless:GetApplication" ]
     },
     "update" : {
-      "permissions" : [ "emr-serverless:UpdateApplication", "emr-serverless:TagResource", "emr-serverless:UntagResource", "emr-serverless:GetApplication" ]
+      "permissions" : [ "emr-serverless:UpdateApplication", "emr-serverless:TagResource", "emr-serverless:UntagResource", "emr-serverless:GetApplication", "ec2:CreateNetworkInterface", "ecr:BatchGetImage", "ecr:DescribeImages", "ecr:GetDownloadUrlForLayer", "kms:Create*", "kms:Describe*", "kms:Enable*", "kms:List*", "kms:Put*", "kms:Update*", "kms:Revoke*", "kms:Disable*", "kms:Get*", "kms:Delete*", "kms:ScheduleKeyDeletion", "kms:CancelKeyDeletion", "kms:GenerateDataKey", "kms:TagResource", "kms:UntagResource", "kms:Decrypt" ]
     },
     "delete" : {
       "permissions" : [ "emr-serverless:DeleteApplication", "emr-serverless:GetApplication" ]

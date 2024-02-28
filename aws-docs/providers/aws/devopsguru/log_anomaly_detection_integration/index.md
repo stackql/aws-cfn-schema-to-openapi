@@ -35,6 +35,28 @@ Gets an individual <code>log_anomaly_detection_integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>log_anomaly_detection_integration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+devops-guru:DescribeServiceIntegration</pre>
+
+### Update
+<pre>
+devops-guru:UpdateServiceIntegration,
+logs:TagLogGroup,
+logs:UntagLogGroup</pre>
+
+### Delete
+<pre>
+devops-guru:DescribeServiceIntegration,
+devops-guru:UpdateServiceIntegration,
+logs:TagLogGroup,
+logs:UntagLogGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

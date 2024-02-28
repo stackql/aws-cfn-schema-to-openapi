@@ -37,6 +37,42 @@ Gets an individual <code>logging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+network-firewall:DescribeLoggingConfiguration</pre>
+
+### Update
+<pre>
+logs:CreateLogDelivery,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole,
+firehose:TagDeliveryStream,
+network-firewall:UpdateLoggingConfiguration,
+network-firewall:DescribeLoggingConfiguration</pre>
+
+### Delete
+<pre>
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:GetLogDelivery,
+network-firewall:UpdateLoggingConfiguration,
+network-firewall:DescribeLoggingConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

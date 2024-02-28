@@ -27,17 +27,35 @@ Gets an individual <code>request_validator</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>request_validator_id</code></td><td><code>string</code></td><td>ID of the request validator.</td></tr>
-<tr><td><code>name</code></td><td><code>string</code></td><td>Name of the request validator.</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The identifier of the targeted API entity.</td></tr>
-<tr><td><code>validate_request_body</code></td><td><code>boolean</code></td><td>Indicates whether to validate the request body according to the configured schema for the targeted API and method. </td></tr>
-<tr><td><code>validate_request_parameters</code></td><td><code>boolean</code></td><td>Indicates whether to validate request parameters.</td></tr>
+<tr><td><code>request_validator_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of this RequestValidator</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
+<tr><td><code>validate_request_body</code></td><td><code>boolean</code></td><td>A Boolean flag to indicate whether to validate a request body according to the configured Model schema.</td></tr>
+<tr><td><code>validate_request_parameters</code></td><td><code>boolean</code></td><td>A Boolean flag to indicate whether to validate request parameters (``true``) or not (``false``).</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>request_validator</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:PATCH,
+apigateway:GET</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
+### Read
+<pre>
+apigateway:GET</pre>
+
 
 ## Example
 ```sql

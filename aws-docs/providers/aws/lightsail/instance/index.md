@@ -54,6 +54,38 @@ Gets an individual <code>instance</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instance</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetInstances,
+lightsail:GetInstance</pre>
+
+### Delete
+<pre>
+lightsail:GetInstances,
+lightsail:GetInstance,
+lightsail:DeleteInstance</pre>
+
+### Update
+<pre>
+lightsail:GetInstances,
+lightsail:GetInstance,
+lightsail:DeleteInstance,
+lightsail:EnableAddOn,
+lightsail:DisableAddOn,
+lightsail:PutInstancePublicPorts,
+lightsail:AttachDisk,
+lightsail:DetachDisk,
+lightsail:StartInstance,
+lightsail:StopInstance,
+lightsail:GetDisk,
+lightsail:TagResource,
+lightsail:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

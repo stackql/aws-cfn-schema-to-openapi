@@ -35,6 +35,22 @@ Retrieves a list of <code>device_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>device_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotwireless:CreateDeviceProfile,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource</pre>
+
+### List
+<pre>
+iotwireless:ListDeviceProfiles,
+iotwireless:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

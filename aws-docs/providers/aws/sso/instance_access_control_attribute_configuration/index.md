@@ -37,6 +37,25 @@ Gets an individual <code>instance_access_control_attribute_configuration</code> 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instance_access_control_attribute_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
+
+### Update
+<pre>
+sso:UpdateInstanceAccessControlAttributeConfiguration,
+sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
+
+### Delete
+<pre>
+sso:DeleteInstanceAccessControlAttributeConfiguration,
+sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -36,6 +36,20 @@ Gets an individual <code>notification_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>notification_channel</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+devops-guru:RemoveNotificationChannel,
+devops-guru:ListNotificationChannels</pre>
+
+### Read
+<pre>
+devops-guru:ListNotificationChannels</pre>
+
+
 ## Example
 ```sql
 SELECT

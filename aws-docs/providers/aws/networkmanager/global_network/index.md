@@ -31,12 +31,36 @@ Gets an individual <code>global_network</code> resource
 <tr><td><code>id</code></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td>The description of the global network.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags for the global network.</td></tr>
+<tr><td><code>created_at</code></td><td><code>string</code></td><td>The date and time that the global network was created.</td></tr>
+<tr><td><code>state</code></td><td><code>string</code></td><td>The state of the global network.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>global_network</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:DescribeGlobalNetworks</pre>
+
+### Update
+<pre>
+networkmanager:UpdateGlobalNetwork,
+networkmanager:DescribeGlobalNetworks,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+networkmanager:ListTagsForResource</pre>
+
+### Delete
+<pre>
+networkmanager:DeleteGlobalNetwork,
+networkmanager:DescribeGlobalNetworks</pre>
+
 
 ## Example
 ```sql
@@ -45,7 +69,9 @@ region,
 arn,
 id,
 description,
-tags
+tags,
+created_at,
+state
 FROM aws.networkmanager.global_network
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

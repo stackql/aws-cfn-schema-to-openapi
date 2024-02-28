@@ -43,6 +43,31 @@ Gets an individual <code>alarm_model</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>alarm_model</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotevents:DescribeAlarmModel,
+iotevents:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotevents:UpdateAlarmModel,
+iotevents:UpdateInputRouting,
+iotevents:DescribeAlarmModel,
+iotevents:ListTagsForResource,
+iotevents:UntagResource,
+iotevents:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iotevents:DeleteAlarmModel,
+iotevents:DescribeAlarmModel</pre>
+
+
 ## Example
 ```sql
 SELECT

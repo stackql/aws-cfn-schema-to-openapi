@@ -30,6 +30,7 @@ Gets an individual <code>branch</code> resource
 <tr><td><code>app_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>basic_auth_config</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>backend</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>branch_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>build_spec</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
@@ -48,6 +49,49 @@ Gets an individual <code>branch</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>branch</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+amplify:GetBranch,
+amplify:DeleteBranch,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+sns:Unsubscribe,
+iam:PassRole</pre>
+
+### Read
+<pre>
+amplify:GetBranch,
+amplify:ListTagsForResource,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+s3:GetObject,
+s3:GetObjectAcl,
+iam:PassRole</pre>
+
+### Update
+<pre>
+amplify:GetBranch,
+amplify:UpdateBranch,
+amplify:ListTagsForResource,
+amplify:TagResource,
+amplify:UntagResource,
+codecommit:GetRepository,
+codecommit:PutRepositoryTriggers,
+codecommit:GetRepositoryTriggers,
+s3:GetObject,
+s3:GetObjectAcl,
+s3:PutObject,
+s3:PutObjectAcl,
+sns:CreateTopic,
+sns:Subscribe,
+sns:Unsubscribe,
+iam:PassRole</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -55,6 +99,7 @@ region,
 app_id,
 arn,
 basic_auth_config,
+backend,
 branch_name,
 build_spec,
 description,

@@ -38,6 +38,24 @@ Gets an individual <code>session</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>session</code> resource, the following permissions are required:
+
+### Read
+<pre>
+macie2:GetMacieSession</pre>
+
+### Update
+<pre>
+macie2:GetMacieSession,
+macie2:UpdateMacieSession</pre>
+
+### Delete
+<pre>
+macie2:DisableMacie</pre>
+
+
 ## Example
 ```sql
 SELECT

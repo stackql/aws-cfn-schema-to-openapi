@@ -36,12 +36,36 @@ Gets an individual <code>link</code> resource
 <tr><td><code>description</code></td><td><code>string</code></td><td>The description of the link.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags for the link.</td></tr>
 <tr><td><code>type</code></td><td><code>string</code></td><td>The type of the link.</td></tr>
+<tr><td><code>created_at</code></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
+<tr><td><code>state</code></td><td><code>string</code></td><td>The state of the link.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>link</code> resource, the following permissions are required:
+
+### Read
+<pre>
+networkmanager:GetLinks</pre>
+
+### Update
+<pre>
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:GetLinks,
+networkmanager:UntagResource,
+networkmanager:UpdateLink</pre>
+
+### Delete
+<pre>
+networkmanager:GetLinks,
+networkmanager:DeleteLink</pre>
+
 
 ## Example
 ```sql
@@ -55,7 +79,9 @@ bandwidth,
 provider,
 description,
 tags,
-type
+type,
+created_at,
+state
 FROM aws.networkmanager.link
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;GlobalNetworkId&gt;'

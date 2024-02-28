@@ -41,6 +41,20 @@ Gets an individual <code>reference_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>reference_store</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetReferenceStore,
+omics:ListTagsForResource</pre>
+
+### Delete
+<pre>
+omics:DeleteReferenceStore</pre>
+
+
 ## Example
 ```sql
 SELECT

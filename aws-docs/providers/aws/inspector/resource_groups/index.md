@@ -35,6 +35,15 @@ Retrieves a list of <code>resource_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+inspector:CreateResourceGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

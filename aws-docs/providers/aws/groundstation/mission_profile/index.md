@@ -46,6 +46,34 @@ Gets an individual <code>mission_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>mission_profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+groundstation:GetMissionProfile,
+groundstation:ListTagsForResource,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### Update
+<pre>
+groundstation:UpdateMissionProfile,
+groundstation:GetMissionProfile,
+groundstation:ListTagsForResource,
+groundstation:TagResource,
+groundstation:UntagResource,
+iam:PassRole,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### Delete
+<pre>
+groundstation:DeleteMissionProfile,
+groundstation:GetMissionProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

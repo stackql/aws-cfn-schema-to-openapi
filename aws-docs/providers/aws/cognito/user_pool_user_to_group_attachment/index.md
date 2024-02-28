@@ -27,10 +27,9 @@ Gets an individual <code>user_pool_user_to_group_attachment</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>group_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>user_pool_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>username</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>group_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -38,15 +37,30 @@ Gets an individual <code>user_pool_user_to_group_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>user_pool_user_to_group_attachment</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cognito-idp:AdminRemoveUserFromGroup,
+cognito-idp:AdminListGroupsForUser</pre>
+
+### Read
+<pre>
+cognito-idp:AdminListGroupsForUser</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id,
-group_name,
 user_pool_id,
-username
+username,
+group_name
 FROM aws.cognito.user_pool_user_to_group_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;UserPoolId&gt;'
+AND data__Identifier = '&lt;GroupName&gt;'
+AND data__Identifier = '&lt;Username&gt;'
 ```

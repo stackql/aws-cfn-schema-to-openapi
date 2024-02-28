@@ -36,6 +36,24 @@ Retrieves a list of <code>load_balancer_tls_certificates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>load_balancer_tls_certificates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+lightsail:CreateLoadBalancerTlsCertificate,
+lightsail:GetLoadBalancerTlsCertificates,
+lightsail:GetLoadBalancer,
+lightsail:AttachLoadBalancerTlsCertificate,
+lightsail:UpdateLoadBalancerAttribute</pre>
+
+### List
+<pre>
+lightsail:GetLoadBalancerTlsCertificates,
+lightsail:GetLoadBalancer</pre>
+
+
 ## Example
 ```sql
 SELECT

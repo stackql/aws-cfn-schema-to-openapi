@@ -27,13 +27,33 @@ Retrieves a list of <code>data_repository_associations</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>association_id</code></td><td><code>string</code></td><td>The system-generated, unique ID of the data repository association.</td></tr>
+<tr><td><code>association_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>data_repository_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+fsx:CreateDataRepositoryAssociation,
+fsx:DescribeDataRepositoryAssociations,
+fsx:TagResource,
+s3:ListBucket,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy</pre>
+
+### List
+<pre>
+fsx:DescribeDataRepositoryAssociations</pre>
+
 
 ## Example
 ```sql

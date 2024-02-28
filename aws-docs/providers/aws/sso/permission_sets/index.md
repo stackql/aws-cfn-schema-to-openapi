@@ -36,6 +36,30 @@ Retrieves a list of <code>permission_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>permission_sets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sso:CreatePermissionSet,
+sso:PutInlinePolicyToPermissionSet,
+sso:AttachManagedPolicyToPermissionSet,
+sso:AttachCustomerManagedPolicyReferenceToPermissionSet,
+sso:PutPermissionsBoundaryToPermissionSet,
+sso:TagResource,
+sso:DescribePermissionSet,
+sso:ListTagsForResource,
+sso:ListManagedPoliciesInPermissionSet,
+sso:ListCustomerManagedPolicyReferencesInPermissionSet,
+sso:GetInlinePolicyForPermissionSet,
+sso:GetPermissionsBoundaryForPermissionSet</pre>
+
+### List
+<pre>
+sso:DescribePermissionSet</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,20 @@ Retrieves a list of <code>module_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>module_versions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudformation:DescribeType,
+cloudformation:DescribeTypeRegistration,
+cloudformation:ListTypeVersions,
+cloudformation:RegisterType,
+s3:GetObject,
+s3:ListBucket</pre>
+
+
 ## Example
 ```sql
 SELECT

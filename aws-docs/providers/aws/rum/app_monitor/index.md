@@ -41,6 +41,66 @@ Gets an individual <code>app_monitor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>app_monitor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rum:GetAppMonitor,
+dynamodb:GetItem,
+s3:GetObject,
+s3:DoesObjectExist,
+s3:GetObjectAcl,
+rum:ListTagsForResource,
+rum:ListRumMetricsDestinations,
+rum:BatchGetRumMetricDefinitions</pre>
+
+### Update
+<pre>
+rum:UpdateAppMonitor,
+dynamodb:GetItem,
+dynamodb:PutItem,
+dynamodb:UpdateItem,
+dynamodb:Query,
+s3:GetObject,
+s3:PutObject,
+s3:GetObjectAcl,
+s3:DoesObjectExist,
+logs:CreateLogDelivery,
+logs:CreateLogGroup,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+logs:PutRetentionPolicy,
+rum:TagResource,
+rum:UntagResource,
+rum:ListTagsForResource,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+rum:PutRumMetricsDestination,
+rum:DeleteRumMetricsDestination,
+rum:ListRumMetricsDestinations,
+rum:BatchCreateRumMetricDefinitions,
+rum:BatchDeleteRumMetricDefinitions,
+rum:BatchGetRumMetricDefinitions,
+rum:UpdateRumMetricDefinition</pre>
+
+### Delete
+<pre>
+rum:DeleteAppMonitor,
+dynamodb:DeleteItem,
+dynamodb:Query,
+logs:DeleteLogDelivery,
+s3:DeleteObject,
+s3:DoesObjectExist,
+rum:UntagResource,
+rum:DeleteRumMetricsDestination,
+rum:BatchDeleteRumMetricDefinitions</pre>
+
+
 ## Example
 ```sql
 SELECT

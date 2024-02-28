@@ -29,17 +29,38 @@ Gets an individual <code>access_point</code> resource
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>access_point_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>client_token</code></td><td><code>string</code></td><td>(optional) A string of up to 64 ASCII characters that Amazon EFS uses to ensure idempotent creation.</td></tr>
-<tr><td><code>access_point_tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>file_system_id</code></td><td><code>string</code></td><td>The ID of the EFS file system that the access point provides access to.</td></tr>
-<tr><td><code>posix_user</code></td><td><code>object</code></td><td>The operating system user and group applied to all file system requests made using the access point.</td></tr>
-<tr><td><code>root_directory</code></td><td><code>object</code></td><td>Specifies the directory on the Amazon EFS file system that the access point exposes as the root directory of your file system to NFS clients using the access point. The clients using the access point can only access the root directory and below. If the RootDirectory&gt;Path specified does not exist, EFS creates it and applies the CreationInfo settings when a client connects to an access point. When specifying a RootDirectory, you need to provide the Path, and the CreationInfo is optional.</td></tr>
+<tr><td><code>client_token</code></td><td><code>string</code></td><td>The opaque string specified in the request to ensure idempotent creation.</td></tr>
+<tr><td><code>access_point_tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.&lt;br&#x2F;&gt; For more information, see &#91;Tag&#93;(https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;AWSCloudFormation&#x2F;latest&#x2F;UserGuide&#x2F;aws-properties-resource-tags.html).</td></tr>
+<tr><td><code>file_system_id</code></td><td><code>string</code></td><td>The ID of the EFS file system that the access point applies to. Accepts only the ID format for input when specifying a file system, for example ``fs-0123456789abcedf2``.</td></tr>
+<tr><td><code>posix_user</code></td><td><code>object</code></td><td>The full POSIX identity, including the user ID, group ID, and secondary group IDs on the access point that is used for all file operations by NFS clients using the access point.</td></tr>
+<tr><td><code>root_directory</code></td><td><code>object</code></td><td>The directory on the EFS file system that the access point exposes as the root directory to NFS clients using the access point.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>access_point</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticfilesystem:DescribeAccessPoints</pre>
+
+### Delete
+<pre>
+elasticfilesystem:DeleteAccessPoint,
+elasticfilesystem:DescribeAccessPoints</pre>
+
+### Update
+<pre>
+elasticfilesystem:DescribeAccessPoints,
+elasticfilesystem:ListTagsForResource,
+elasticfilesystem:TagResource,
+elasticfilesystem:UntagResource</pre>
+
 
 ## Example
 ```sql

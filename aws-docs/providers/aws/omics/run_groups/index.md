@@ -35,6 +35,20 @@ Retrieves a list of <code>run_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>run_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+omics:CreateRunGroup,
+omics:TagResource</pre>
+
+### List
+<pre>
+omics:ListRunGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

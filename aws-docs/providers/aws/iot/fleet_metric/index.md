@@ -37,8 +37,8 @@ Gets an individual <code>fleet_metric</code> resource
 <tr><td><code>unit</code></td><td><code>string</code></td><td>The unit of data points emitted by a fleet metric</td></tr>
 <tr><td><code>aggregation_type</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>metric_arn</code></td><td><code>string</code></td><td>The Amazon Resource Number (ARN) of a fleet metric metric</td></tr>
-<tr><td><code>creation_date</code></td><td><code>number</code></td><td>The creation date of a fleet metric</td></tr>
-<tr><td><code>last_modified_date</code></td><td><code>number</code></td><td>The last modified date of a fleet metric</td></tr>
+<tr><td><code>creation_date</code></td><td><code>string</code></td><td>The creation date of a fleet metric</td></tr>
+<tr><td><code>last_modified_date</code></td><td><code>string</code></td><td>The last modified date of a fleet metric</td></tr>
 <tr><td><code>version</code></td><td><code>number</code></td><td>The version of a fleet metric</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -47,6 +47,29 @@ Gets an individual <code>fleet_metric</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>fleet_metric</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeFleetMetric,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iot:UpdateFleetMetric,
+iot:DescribeFleetMetric,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource</pre>
+
+### Delete
+<pre>
+iot:DeleteFleetMetric,
+iot:DescribeFleetMetric</pre>
+
 
 ## Example
 ```sql

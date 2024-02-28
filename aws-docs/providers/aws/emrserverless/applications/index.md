@@ -35,6 +35,42 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kms:Create*,
+kms:Describe*,
+kms:Enable*,
+kms:List*,
+kms:Put*,
+kms:Update*,
+kms:Revoke*,
+kms:Disable*,
+kms:Get*,
+kms:Delete*,
+kms:ScheduleKeyDeletion,
+kms:CancelKeyDeletion,
+kms:GenerateDataKey,
+kms:TagResource,
+kms:UntagResource,
+kms:Decrypt,
+emr-serverless:CreateApplication,
+emr-serverless:TagResource,
+emr-serverless:GetApplication,
+iam:CreateServiceLinkedRole,
+ec2:CreateNetworkInterface,
+ecr:BatchGetImage,
+ecr:DescribeImages,
+ecr:GetDownloadUrlForLayer</pre>
+
+### List
+<pre>
+emr-serverless:ListApplications</pre>
+
+
 ## Example
 ```sql
 SELECT

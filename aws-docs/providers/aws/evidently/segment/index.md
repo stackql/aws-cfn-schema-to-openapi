@@ -39,6 +39,22 @@ Gets an individual <code>segment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>segment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+evidently:GetSegment,
+evidently:ListTagsForResource</pre>
+
+### Delete
+<pre>
+evidently:DeleteSegment,
+evidently:GetSegment,
+evidently:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

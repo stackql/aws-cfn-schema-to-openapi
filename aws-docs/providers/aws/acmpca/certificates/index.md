@@ -27,14 +27,24 @@ Retrieves a list of <code>certificates</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>arn</code></td><td><code>undefined</code></td><td>The ARN of the issued certificate.</td></tr>
-<tr><td><code>certificate_authority_arn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) for the private CA to issue the certificate.</td></tr>
+<tr><td><code>arn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>certificate_authority_arn</code></td><td><code>undefined</code></td><td>The Amazon Resource Name (ARN) for the private CA issues the certificate.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>certificates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+acm-pca:IssueCertificate,
+acm-pca:GetCertificate</pre>
+
 
 ## Example
 ```sql

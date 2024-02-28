@@ -36,6 +36,19 @@ Gets an individual <code>monitoring_subscription</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>monitoring_subscription</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteMonitoringSubscription</pre>
+
+### Read
+<pre>
+cloudfront:GetMonitoringSubscription</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -19,6 +19,140 @@ components:
       required:
         - CrossRegionCopy
         - Name
+    Exclusions:
+      type: object
+      additionalProperties: false
+      properties:
+        ExcludeTags:
+          $ref: '#/components/schemas/ExcludeTags'
+        ExcludeVolumeTypes:
+          $ref: '#/components/schemas/ExcludeVolumeTypesList'
+        ExcludeBootVolumes:
+          type: boolean
+    ArchiveRule:
+      type: object
+      additionalProperties: false
+      properties:
+        RetainRule:
+          $ref: '#/components/schemas/ArchiveRetainRule'
+      required:
+        - RetainRule
+    ExcludeVolumeTypesList:
+      type: object
+      additionalProperties: false
+    DeprecateRule:
+      type: object
+      additionalProperties: false
+      properties:
+        IntervalUnit:
+          type: string
+        Count:
+          type: integer
+        Interval:
+          type: integer
+    CrossRegionCopyDeprecateRule:
+      type: object
+      additionalProperties: false
+      properties:
+        IntervalUnit:
+          type: string
+        Interval:
+          type: integer
+      required:
+        - IntervalUnit
+        - Interval
+    CreateRule:
+      type: object
+      additionalProperties: false
+      properties:
+        IntervalUnit:
+          type: string
+        Scripts:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Script'
+        Times:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        CronExpression:
+          type: string
+        Interval:
+          type: integer
+        Location:
+          type: string
+    PolicyDetails:
+      type: object
+      additionalProperties: false
+      properties:
+        PolicyLanguage:
+          type: string
+        ResourceTypes:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Schedules:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Schedule'
+        PolicyType:
+          type: string
+        CreateInterval:
+          type: integer
+        Parameters:
+          $ref: '#/components/schemas/Parameters'
+        ExtendDeletion:
+          type: boolean
+        Exclusions:
+          $ref: '#/components/schemas/Exclusions'
+        Actions:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Action'
+        ResourceType:
+          type: string
+        RetainInterval:
+          type: integer
+        EventSource:
+          $ref: '#/components/schemas/EventSource'
+        CrossRegionCopyTargets:
+          $ref: '#/components/schemas/CrossRegionCopyTargets'
+        TargetTags:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/Tag'
+        ResourceLocations:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        CopyTags:
+          type: boolean
+    Script:
+      type: object
+      additionalProperties: false
+      properties:
+        ExecutionHandlerService:
+          type: string
+        ExecutionTimeout:
+          type: integer
+        Stages:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        ExecutionHandler:
+          type: string
+        MaximumRetryCount:
+          type: integer
+        ExecuteOperationOnScriptFailure:
+          type: boolean
     Parameters:
       type: object
       additionalProperties: false
@@ -73,14 +207,9 @@ components:
       required:
         - IntervalUnit
         - Interval
-    ArchiveRule:
+    ExcludeTags:
       type: object
       additionalProperties: false
-      properties:
-        RetainRule:
-          $ref: '#/components/schemas/ArchiveRetainRule'
-      required:
-        - RetainRule
     EventParameters:
       type: object
       additionalProperties: false
@@ -130,27 +259,6 @@ components:
           $ref: '#/components/schemas/EventParameters'
       required:
         - Type
-    DeprecateRule:
-      type: object
-      additionalProperties: false
-      properties:
-        IntervalUnit:
-          type: string
-        Count:
-          type: integer
-        Interval:
-          type: integer
-    CrossRegionCopyDeprecateRule:
-      type: object
-      additionalProperties: false
-      properties:
-        IntervalUnit:
-          type: string
-        Interval:
-          type: integer
-      required:
-        - IntervalUnit
-        - Interval
     ArchiveRetainRule:
       type: object
       additionalProperties: false
@@ -159,23 +267,9 @@ components:
           $ref: '#/components/schemas/RetentionArchiveTier'
       required:
         - RetentionArchiveTier
-    CreateRule:
+    CrossRegionCopyTargets:
       type: object
       additionalProperties: false
-      properties:
-        IntervalUnit:
-          type: string
-        CronExpression:
-          type: string
-        Times:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        Interval:
-          type: integer
-        Location:
-          type: string
     Schedule:
       type: object
       additionalProperties: false
@@ -229,41 +323,6 @@ components:
             type: string
         Interval:
           type: integer
-    PolicyDetails:
-      type: object
-      additionalProperties: false
-      properties:
-        ResourceTypes:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        Schedules:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Schedule'
-        PolicyType:
-          type: string
-        EventSource:
-          $ref: '#/components/schemas/EventSource'
-        Parameters:
-          $ref: '#/components/schemas/Parameters'
-        Actions:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Action'
-        TargetTags:
-          type: array
-          uniqueItems: false
-          items:
-            $ref: '#/components/schemas/Tag'
-        ResourceLocations:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
     RetentionArchiveTier:
       type: object
       additionalProperties: false
@@ -301,12 +360,24 @@ components:
     LifecyclePolicy:
       type: object
       properties:
+        CreateInterval:
+          type: integer
+        Description:
+          type: string
+        ExtendDeletion:
+          type: boolean
+        Exclusions:
+          $ref: '#/components/schemas/Exclusions'
+        RetainInterval:
+          type: integer
         ExecutionRoleArn:
           type: string
-        Description:
+        DefaultPolicy:
           type: string
         State:
           type: string
+        CrossRegionCopyTargets:
+          $ref: '#/components/schemas/CrossRegionCopyTargets'
         PolicyDetails:
           $ref: '#/components/schemas/PolicyDetails'
         Id:
@@ -318,9 +389,14 @@ components:
           uniqueItems: false
           items:
             $ref: '#/components/schemas/Tag'
+        CopyTags:
+          type: boolean
       x-stackql-resource-name: lifecycle_policy
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
   x-stackQL-resources:
     lifecycle_policies:
       name: lifecycle_policies
@@ -352,11 +428,18 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
+              JSON_EXTRACT(Properties, '$.CreateInterval') as create_interval,
               JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.ExtendDeletion') as extend_deletion,
+              JSON_EXTRACT(Properties, '$.Exclusions') as exclusions,
+              JSON_EXTRACT(Properties, '$.RetainInterval') as retain_interval,
+              JSON_EXTRACT(Properties, '$.ExecutionRoleArn') as execution_role_arn,
+              JSON_EXTRACT(Properties, '$.DefaultPolicy') as default_policy,
               JSON_EXTRACT(Properties, '$.State') as state,
+              JSON_EXTRACT(Properties, '$.CrossRegionCopyTargets') as cross_region_copy_targets,
               JSON_EXTRACT(Properties, '$.PolicyDetails') as policy_details,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.CopyTags') as copy_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'

@@ -35,6 +35,21 @@ Retrieves a list of <code>loggings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>loggings</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:SetV2LoggingOptions,
+iot:GetV2LoggingOptions,
+iam:PassRole</pre>
+
+### List
+<pre>
+iot:GetV2LoggingOptions</pre>
+
+
 ## Example
 ```sql
 SELECT

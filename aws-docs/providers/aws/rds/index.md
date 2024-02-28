@@ -20,9 +20,9 @@ The rds service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>26</b></span><br />
-<span>total selectable resources:&nbsp;<b>26</b></span><br />
-<span>total methods:&nbsp;<b>26</b></span><br />
+<span>total resources:&nbsp;<b>30</b></span><br />
+<span>total selectable resources:&nbsp;<b>30</b></span><br />
+<span>total methods:&nbsp;<b>30</b></span><br />
 </div>
 </div>
 
@@ -31,6 +31,8 @@ The rds service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
+<a href="/providers/aws/rds/customdb_engine_version/">customdb_engine_version</a><br />
+<a href="/providers/aws/rds/customdb_engine_versions/">customdb_engine_versions</a><br />
 <a href="/providers/aws/rds/db_cluster/">db_cluster</a><br />
 <a href="/providers/aws/rds/db_cluster_parameter_group/">db_cluster_parameter_group</a><br />
 <a href="/providers/aws/rds/db_cluster_parameter_groups/">db_cluster_parameter_groups</a><br />
@@ -57,6 +59,8 @@ The rds service documentation.
 <a href="/providers/aws/rds/event_subscriptions/">event_subscriptions</a><br />
 <a href="/providers/aws/rds/global_cluster/">global_cluster</a><br />
 <a href="/providers/aws/rds/global_clusters/">global_clusters</a><br />
+<a href="/providers/aws/rds/integration/">integration</a><br />
+<a href="/providers/aws/rds/integrations/">integrations</a><br />
 <a href="/providers/aws/rds/option_group/">option_group</a><br />
 <a href="/providers/aws/rds/option_groups/">option_groups</a>
 </div>

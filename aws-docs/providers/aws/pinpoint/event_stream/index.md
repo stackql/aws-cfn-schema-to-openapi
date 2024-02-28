@@ -38,6 +38,10 @@ Gets an individual <code>event_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

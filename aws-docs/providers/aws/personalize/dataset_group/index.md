@@ -39,6 +39,20 @@ Gets an individual <code>dataset_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dataset_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+personalize:DescribeDatasetGroup</pre>
+
+### Delete
+<pre>
+personalize:DescribeDatasetGroup,
+personalize:DeleteDatasetGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

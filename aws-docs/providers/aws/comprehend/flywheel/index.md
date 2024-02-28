@@ -43,6 +43,30 @@ Gets an individual <code>flywheel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flywheel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+comprehend:DescribeFlywheel,
+comprehend:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:PassRole,
+comprehend:DescribeFlywheel,
+comprehend:UpdateFlywheel,
+comprehend:ListTagsForResource,
+comprehend:TagResource,
+comprehend:UntagResource</pre>
+
+### Delete
+<pre>
+comprehend:DeleteFlywheel,
+comprehend:DescribeFlywheel</pre>
+
+
 ## Example
 ```sql
 SELECT

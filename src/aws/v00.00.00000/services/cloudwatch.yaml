@@ -72,72 +72,112 @@ components:
       type: object
       properties:
         ThresholdMetricId:
+          description: In an alarm based on an anomaly detection model, this is the ID of the ANOMALY_DETECTION_BAND function used as the threshold for the alarm.
           type: string
         EvaluateLowSampleCountPercentile:
+          description: Used only for alarms based on percentiles.
           type: string
         ExtendedStatistic:
+          description: The percentile statistic for the metric associated with the alarm. Specify a value between p0.0 and p100.
           type: string
         ComparisonOperator:
+          description: The arithmetic operation to use when comparing the specified statistic and threshold.
           type: string
         TreatMissingData:
+          description: Sets how this alarm is to handle missing data points. Valid values are breaching, notBreaching, ignore, and missing.
           type: string
         Dimensions:
+          description: The dimensions for the metric associated with the alarm. For an alarm based on a math expression, you can't specify Dimensions. Instead, you use Metrics.
           type: array
           uniqueItems: false
+          x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Dimension'
         Period:
+          description: The period in seconds, over which the statistic is applied.
           type: integer
         EvaluationPeriods:
+          description: The number of periods over which data is compared to the specified threshold.
           type: integer
         Unit:
+          description: The unit of the metric associated with the alarm.
           type: string
         Namespace:
+          description: The namespace of the metric associated with the alarm.
           type: string
         OKActions:
+          description: The actions to execute when this alarm transitions to the OK state from any other state.
           type: array
           uniqueItems: false
           items:
             type: string
         AlarmActions:
+          description: The list of actions to execute when this alarm transitions into an ALARM state from any other state.
           type: array
           uniqueItems: false
           items:
             type: string
         MetricName:
+          description: The name of the metric associated with the alarm.
           type: string
         ActionsEnabled:
+          description: Indicates whether actions should be executed during any changes to the alarm state. The default is TRUE.
           type: boolean
+          default: true
         Metrics:
+          description: An array that enables you to create an alarm based on the result of a metric math expression.
           type: array
           uniqueItems: true
           items:
             $ref: '#/components/schemas/MetricDataQuery'
         AlarmDescription:
+          description: The description of the alarm.
           type: string
         AlarmName:
+          description: The name of the alarm.
           type: string
         Statistic:
+          description: The statistic for the metric associated with the alarm, other than percentile.
           type: string
         InsufficientDataActions:
+          description: The actions to execute when this alarm transitions to the INSUFFICIENT_DATA state from any other state.
           type: array
           uniqueItems: false
           items:
             type: string
-        Id:
-          type: string
         Arn:
+          description: Amazon Resource Name is a unique name for each resource.
           type: string
         DatapointsToAlarm:
+          description: The number of datapoints that must be breaching to trigger the alarm.
           type: integer
         Threshold:
+          description: In an alarm based on an anomaly detection model, this is the ID of the ANOMALY_DETECTION_BAND function used as the threshold for the alarm.
           type: number
       required:
         - ComparisonOperator
         - EvaluationPeriods
       x-stackql-resource-name: alarm
       x-stackql-primaryIdentifier:
-        - Id
+        - AlarmName
+      x-create-only-properties:
+        - AlarmName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - cloudwatch:PutMetricAlarm
+          - cloudwatch:DescribeAlarms
+        update:
+          - cloudwatch:PutMetricAlarm
+          - cloudwatch:DescribeAlarms
+        delete:
+          - cloudwatch:DeleteAlarms
+          - cloudwatch:DescribeAlarms
+        list:
+          - cloudwatch:DescribeAlarms
+        read:
+          - cloudwatch:DescribeAlarms
     MetricMathAnomalyDetector:
       type: object
       additionalProperties: false
@@ -208,6 +248,15 @@ components:
           $ref: '#/components/schemas/SingleMetricAnomalyDetector'
       x-stackql-resource-name: anomaly_detector
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - Dimensions
+        - MetricName
+        - Namespace
+        - SingleMetricAnomalyDetector
+        - MetricMathAnomalyDetector
+        - Stat
+      x-read-only-properties:
         - Id
     CompositeAlarm:
       type: object
@@ -280,6 +329,24 @@ components:
       x-stackql-resource-name: composite_alarm
       x-stackql-primaryIdentifier:
         - AlarmName
+      x-create-only-properties:
+        - AlarmName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:PutCompositeAlarm
+        read:
+          - cloudwatch:DescribeAlarms
+        update:
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:PutCompositeAlarm
+        delete:
+          - cloudwatch:DescribeAlarms
+          - cloudwatch:DeleteAlarms
+        list:
+          - cloudwatch:DescribeAlarms
     Dashboard:
       type: object
       properties:
@@ -293,6 +360,10 @@ components:
         - DashboardBody
       x-stackql-resource-name: dashboard
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DashboardName
+      x-read-only-properties:
         - Id
     Tags:
       type: object
@@ -319,6 +390,11 @@ components:
       x-stackql-resource-name: insight_rule
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - RuleName
+      x-read-only-properties:
+        - Id
+        - Arn
     MetricStreamFilter:
       description: This structure defines the metrics that will be streamed.
       type: object
@@ -329,6 +405,14 @@ components:
           type: string
           minLength: 1
           maxLength: 255
+        MetricNames:
+          description: Only metrics with MetricNames matching these values will be streamed. Must be set together with Namespace.
+          type: array
+          maxItems: 999
+          items:
+            type: string
+            minLength: 1
+            maxLength: 255
       required:
         - Namespace
     MetricStreamStatisticsConfiguration:
@@ -382,12 +466,13 @@ components:
           minLength: 1
           maxLength: 128
         Value:
-          description: An optional string, which you can use to describe or define the tag.
+          description: String which you can use to describe or define the tag.
           type: string
           minLength: 1
           maxLength: 256
       required:
         - Key
+        - Value
     MetricStream:
       type: object
       properties:
@@ -471,6 +556,32 @@ components:
       x-stackql-resource-name: metric_stream
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreationDate
+        - LastUpdateDate
+        - State
+      x-required-permissions:
+        create:
+          - cloudwatch:PutMetricStream
+          - cloudwatch:GetMetricStream
+          - cloudwatch:TagResource
+          - iam:PassRole
+        update:
+          - cloudwatch:PutMetricStream
+          - cloudwatch:GetMetricStream
+          - cloudwatch:TagResource
+          - cloudwatch:UntagResource
+          - iam:PassRole
+        delete:
+          - cloudwatch:DeleteMetricStream
+          - cloudwatch:GetMetricStream
+        list:
+          - cloudwatch:ListMetricStreams
+        read:
+          - cloudwatch:GetMetricStream
   x-stackQL-resources:
     alarms:
       name: alarms
@@ -478,7 +589,7 @@ components:
       x-cfn-schema-name: Alarm
       x-type: list
       x-identifiers:
-        - Id
+        - AlarmName
       config:
         views:
           select:
@@ -486,7 +597,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
     alarm:
       name: alarm
@@ -494,7 +605,7 @@ components:
       x-cfn-schema-name: Alarm
       x-type: get
       x-identifiers:
-        - Id
+        - AlarmName
       config:
         views:
           select:
@@ -521,7 +632,6 @@ components:
               JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name,
               JSON_EXTRACT(Properties, '$.Statistic') as statistic,
               JSON_EXTRACT(Properties, '$.InsufficientDataActions') as insufficient_data_actions,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.DatapointsToAlarm') as datapoints_to_alarm,
               JSON_EXTRACT(Properties, '$.Threshold') as threshold

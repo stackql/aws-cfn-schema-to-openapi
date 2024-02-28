@@ -46,6 +46,23 @@ Gets an individual <code>domain_name</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain_name</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:*</pre>
+
+### Update
+<pre>
+apigateway:*</pre>
+
+### Delete
+<pre>
+apigateway:*</pre>
+
+
 ## Example
 ```sql
 SELECT

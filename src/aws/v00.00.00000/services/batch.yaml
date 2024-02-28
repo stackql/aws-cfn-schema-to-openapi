@@ -152,6 +152,39 @@ components:
       x-stackql-resource-name: compute_environment
       x-stackql-primaryIdentifier:
         - ComputeEnvironmentArn
+      x-create-only-properties:
+        - ComputeResources/SpotIamFleetRole
+        - ComputeEnvironmentName
+        - Tags
+        - Type
+        - EksConfiguration
+      x-read-only-properties:
+        - ComputeEnvironmentArn
+      x-required-permissions:
+        create:
+          - Batch:CreateComputeEnvironment
+          - Batch:TagResource
+          - Batch:DescribeComputeEnvironments
+          - iam:CreateServiceLinkedRole
+          - Iam:PassRole
+          - Eks:DescribeCluster
+        read:
+          - Batch:DescribeComputeEnvironments
+        update:
+          - Batch:UpdateComputeEnvironment
+          - Batch:DescribeComputeEnvironments
+          - Batch:TagResource
+          - Batch:UnTagResource
+          - Iam:PassRole
+          - Eks:DescribeCluster
+        delete:
+          - Batch:DeleteComputeEnvironment
+          - Batch:DescribeComputeEnvironments
+          - Batch:UpdateComputeEnvironment
+          - Iam:PassRole
+          - Eks:DescribeCluster
+        list:
+          - Batch:DescribeComputeEnvironments
     NodeRangeProperty:
       type: object
       additionalProperties: false
@@ -223,6 +256,14 @@ components:
       properties:
         SourcePath:
           type: string
+    RuntimePlatform:
+      type: object
+      additionalProperties: false
+      properties:
+        OperatingSystemFamily:
+          type: string
+        CpuArchitecture:
+          type: string
     Volumes:
       type: object
       additionalProperties: false
@@ -292,6 +333,8 @@ components:
       type: object
       additionalProperties: false
       properties:
+        RepositoryCredentials:
+          $ref: '#/components/schemas/RepositoryCredentials'
         User:
           type: string
         Secrets:
@@ -329,6 +372,8 @@ components:
             $ref: '#/components/schemas/MountPoints'
         ExecutionRoleArn:
           type: string
+        RuntimePlatform:
+          $ref: '#/components/schemas/RuntimePlatform'
         Volumes:
           type: array
           uniqueItems: false
@@ -403,6 +448,14 @@ components:
           type: boolean
       required:
         - SecretName
+    RepositoryCredentials:
+      type: object
+      additionalProperties: false
+      properties:
+        CredentialsParameter:
+          type: string
+      required:
+        - CredentialsParameter
     EvaluateOnExit:
       type: object
       additionalProperties: false
@@ -643,6 +696,11 @@ components:
       x-stackql-resource-name: job_definition
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Tags
+        - JobDefinitionName
+      x-read-only-properties:
+        - Id
     ResourceArn:
       description: ARN of the Scheduling Policy.
       type: string
@@ -696,6 +754,29 @@ components:
       x-stackql-resource-name: job_queue
       x-stackql-primaryIdentifier:
         - JobQueueArn
+      x-create-only-properties:
+        - Tags
+        - JobQueueName
+      x-read-only-properties:
+        - JobQueueArn
+      x-required-permissions:
+        create:
+          - Batch:CreateJobQueue
+          - Batch:TagResource
+          - Batch:DescribeJobQueues
+        read:
+          - Batch:DescribeJobQueues
+        update:
+          - Batch:DescribeJobQueues
+          - Batch:UpdateJobQueue
+          - Batch:TagResource
+          - Batch:UnTagResource
+        delete:
+          - Batch:UpdateJobQueue
+          - Batch:DescribeJobQueues
+          - Batch:DeleteJobQueue
+        list:
+          - Batch:DescribeJobQueues
     FairsharePolicy:
       description: Fair Share Policy for the Job Queue.
       type: object
@@ -748,6 +829,27 @@ components:
       x-stackql-resource-name: scheduling_policy
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - Batch:CreateSchedulingPolicy
+          - Batch:TagResource
+        read:
+          - Batch:DescribeSchedulingPolicies
+        update:
+          - Batch:UpdateSchedulingPolicy
+          - Batch:TagResource
+          - Batch:UnTagResource
+        delete:
+          - Batch:DescribeSchedulingPolicies
+          - Batch:DeleteSchedulingPolicy
+        list:
+          - Batch:ListSchedulingPolicies
+          - Batch:DescribeSchedulingPolicies
   x-stackQL-resources:
     compute_environments:
       name: compute_environments

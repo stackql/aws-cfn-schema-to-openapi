@@ -38,6 +38,25 @@ Gets an individual <code>refresh_schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>refresh_schedule</code> resource, the following permissions are required:
+
+### Update
+<pre>
+quicksight:UpdateRefreshSchedule,
+quicksight:DescribeRefreshSchedule</pre>
+
+### Delete
+<pre>
+quicksight:DeleteRefreshSchedule,
+quicksight:DescribeRefreshSchedule</pre>
+
+### Read
+<pre>
+quicksight:DescribeRefreshSchedule</pre>
+
+
 ## Example
 ```sql
 SELECT

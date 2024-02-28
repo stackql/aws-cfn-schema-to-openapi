@@ -45,6 +45,46 @@ Gets an individual <code>permission_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>permission_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sso:DescribePermissionSet,
+sso:ListTagsForResource,
+sso:ListManagedPoliciesInPermissionSet,
+sso:ListCustomerManagedPolicyReferencesInPermissionSet,
+sso:GetInlinePolicyForPermissionSet,
+sso:GetPermissionsBoundaryForPermissionSet</pre>
+
+### Update
+<pre>
+sso:UpdatePermissionSet,
+sso:TagResource,
+sso:UntagResource,
+sso:ListTagsForResource,
+sso:AttachManagedPolicyToPermissionSet,
+sso:AttachCustomerManagedPolicyReferenceToPermissionSet,
+sso:DetachManagedPolicyFromPermissionSet,
+sso:DetachCustomerManagedPolicyReferenceFromPermissionSet,
+sso:ListManagedPoliciesInPermissionSet,
+sso:ListCustomerManagedPolicyReferencesInPermissionSet,
+sso:PutInlinePolicyToPermissionSet,
+sso:GetPermissionsBoundaryForPermissionSet,
+sso:DeletePermissionsBoundaryFromPermissionSet,
+sso:PutPermissionsBoundaryToPermissionSet,
+sso:DeleteInlinePolicyFromPermissionSet,
+sso:ProvisionPermissionSet,
+sso:DescribePermissionSet,
+sso:GetInlinePolicyForPermissionSet,
+sso:DescribePermissionSetProvisioningStatus</pre>
+
+### Delete
+<pre>
+sso:DeletePermissionSet</pre>
+
+
 ## Example
 ```sql
 SELECT

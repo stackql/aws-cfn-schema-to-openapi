@@ -46,6 +46,26 @@ Gets an individual <code>schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schedule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+scheduler:GetSchedule</pre>
+
+### Update
+<pre>
+scheduler:UpdateSchedule,
+scheduler:GetSchedule,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+scheduler:DeleteSchedule,
+scheduler:GetSchedule</pre>
+
+
 ## Example
 ```sql
 SELECT

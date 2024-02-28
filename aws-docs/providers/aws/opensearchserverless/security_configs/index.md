@@ -35,6 +35,19 @@ Retrieves a list of <code>security_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+aoss:CreateSecurityConfig</pre>
+
+### List
+<pre>
+aoss:ListSecurityConfigs</pre>
+
+
 ## Example
 ```sql
 SELECT

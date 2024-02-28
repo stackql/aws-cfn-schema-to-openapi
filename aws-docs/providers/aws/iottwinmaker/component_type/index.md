@@ -32,9 +32,10 @@ Gets an individual <code>component_type</code> resource
 <tr><td><code>description</code></td><td><code>string</code></td><td>The description of the component type.</td></tr>
 <tr><td><code>extends_from</code></td><td><code>array</code></td><td>Specifies the parent component type to extend.</td></tr>
 <tr><td><code>functions</code></td><td><code>object</code></td><td>a Map of functions in the component type. Each function's key must be unique to this map.</td></tr>
-<tr><td><code>is_singleton</code></td><td><code>boolean</code></td><td>A Boolean value that specifies whether an entity can have more than one component of this type.&lt;br&#x2F;&gt;&lt;br&#x2F;&gt;</td></tr>
+<tr><td><code>is_singleton</code></td><td><code>boolean</code></td><td>A Boolean value that specifies whether an entity can have more than one component of this type.</td></tr>
 <tr><td><code>property_definitions</code></td><td><code>object</code></td><td>An map of the property definitions in the component type. Each property definition's key must be unique to this map.</td></tr>
 <tr><td><code>property_groups</code></td><td><code>object</code></td><td>An map of the property groups in the component type. Each property group's key must be unique to this map.</td></tr>
+<tr><td><code>composite_component_types</code></td><td><code>object</code></td><td>An map of the composite component types in the component type. Each composite component type's key must be unique to this map.</td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td>The ARN of the component type.</td></tr>
 <tr><td><code>creation_date_time</code></td><td><code>string</code></td><td>The date and time when the component type was created.</td></tr>
 <tr><td><code>update_date_time</code></td><td><code>string</code></td><td>The last date and time when the component type was updated.</td></tr>
@@ -49,6 +50,32 @@ Gets an individual <code>component_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>component_type</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource</pre>
+
+### Update
+<pre>
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateComponentType</pre>
+
+### Delete
+<pre>
+iottwinmaker:DeleteComponentType,
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -61,6 +88,7 @@ functions,
 is_singleton,
 property_definitions,
 property_groups,
+composite_component_types,
 arn,
 creation_date_time,
 update_date_time,

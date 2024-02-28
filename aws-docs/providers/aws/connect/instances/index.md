@@ -35,6 +35,34 @@ Retrieves a list of <code>instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instances</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:CreateInstance,
+connect:DescribeInstance,
+connect:UpdateInstanceAttribute,
+connect:TagResource,
+ds:CheckAlias,
+ds:CreateAlias,
+ds:AuthorizeApplication,
+ds:UnauthorizeApplication,
+ds:CreateIdentityPoolDirectory,
+ds:CreateDirectory,
+ds:DescribeDirectories,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+logs:CreateLogGroup</pre>
+
+### List
+<pre>
+connect:ListInstances,
+connect:ListInstanceAttributes,
+ds:DescribeDirectories</pre>
+
+
 ## Example
 ```sql
 SELECT

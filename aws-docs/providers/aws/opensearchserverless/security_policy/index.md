@@ -38,6 +38,28 @@ Gets an individual <code>security_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_policy</code> resource, the following permissions are required:
+
+### Update
+<pre>
+aoss:GetSecurityPolicy,
+aoss:UpdateSecurityPolicy,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### Delete
+<pre>
+aoss:GetSecurityPolicy,
+aoss:DeleteSecurityPolicy</pre>
+
+### Read
+<pre>
+aoss:GetSecurityPolicy,
+kms:DescribeKey</pre>
+
+
 ## Example
 ```sql
 SELECT

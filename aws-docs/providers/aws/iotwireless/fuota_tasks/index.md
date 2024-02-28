@@ -35,6 +35,24 @@ Retrieves a list of <code>fuota_tasks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fuota_tasks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotwireless:CreateFuotaTask,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource,
+iam:GetRole,
+iam:PassRole</pre>
+
+### List
+<pre>
+iotwireless:ListFuotaTasks,
+iotwireless:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

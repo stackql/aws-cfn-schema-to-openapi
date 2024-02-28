@@ -51,7 +51,7 @@ components:
         ResourceIdentifier:
           type: string
           maxLength: 2048
-          minLength: 21
+          minLength: 20
           pattern: ^((((sn)|(svc))-[0-9a-z]{17})|(arn(:[a-z0-9]+([.-][a-z0-9]+)*){2}(:([a-z0-9]+([.-][a-z0-9]+)*)?){2}:((servicenetwork/sn)|(service/svc))-[0-9a-z]{17}))$
         Tags:
           type: array
@@ -66,6 +66,75 @@ components:
       x-stackql-resource-name: access_log_subscription
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ResourceIdentifier
+      x-read-only-properties:
+        - Arn
+        - Id
+        - ResourceArn
+        - ResourceId
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateAccessLogSubscription
+          - vpc-lattice:TagResource
+          - vpc-lattice:GetAccessLogSubscription
+          - vpc-lattice:ListTagsForResource
+          - logs:CreateLogDelivery
+          - logs:CreateLogStream
+          - logs:PutDestination
+          - logs:PutDestinationPolicy
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - logs:GetLogDelivery
+          - s3:PutBucketLogging
+          - s3:GetBucketLogging
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - firehose:TagDeliveryStream
+          - firehose:CreateDeliveryStream
+          - firehose:DescribeDeliveryStream
+          - iam:CreateServiceLinkedRole
+        read:
+          - vpc-lattice:GetAccessLogSubscription
+          - vpc-lattice:ListTagsForResource
+          - logs:GetLogDelivery
+        update:
+          - vpc-lattice:GetAccessLogSubscription
+          - vpc-lattice:UpdateAccessLogSubscription
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - logs:UpdateLogDelivery
+          - firehose:UpdateDestination
+          - logs:CreateLogDelivery
+          - logs:CreateLogStream
+          - logs:PutDestination
+          - logs:PutDestinationPolicy
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - logs:GetLogDelivery
+          - s3:PutBucketLogging
+          - s3:GetBucketLogging
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - firehose:TagDeliveryStream
+          - firehose:CreateDeliveryStream
+          - firehose:DescribeDeliveryStream
+        delete:
+          - vpc-lattice:DeleteAccessLogSubscription
+          - vpc-lattice:UntagResource
+          - logs:DeleteLogDelivery
+          - logs:DeleteLogStream
+          - logs:GetLogDelivery
+          - logs:DeleteDestination
+          - s3:PutBucketLogging
+          - iam:GetServiceLinkedRoleDeletionStatus
+          - iam:DeleteServiceLinkedRole
+          - firehose:DeleteDeliveryStream
+          - firehose:UntagDeliveryStream
+        list:
+          - vpc-lattice:ListAccessLogSubscriptions
     AuthPolicy:
       type: object
       properties:
@@ -87,6 +156,22 @@ components:
       x-stackql-resource-name: auth_policy
       x-stackql-primaryIdentifier:
         - ResourceIdentifier
+      x-create-only-properties:
+        - ResourceIdentifier
+      x-read-only-properties:
+        - State
+      x-required-permissions:
+        create:
+          - vpc-lattice:GetAuthPolicy
+          - vpc-lattice:PutAuthPolicy
+        read:
+          - vpc-lattice:GetAuthPolicy
+        update:
+          - vpc-lattice:GetAuthPolicy
+          - vpc-lattice:PutAuthPolicy
+        delete:
+          - vpc-lattice:GetAuthPolicy
+          - vpc-lattice:DeleteAuthPolicy
     Forward:
       type: object
       properties:
@@ -192,6 +277,35 @@ components:
       x-stackql-resource-name: listener
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ServiceIdentifier
+        - Name
+        - Port
+        - Protocol
+      x-read-only-properties:
+        - Arn
+        - Id
+        - ServiceArn
+        - ServiceId
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateListener
+          - vpc-lattice:TagResource
+          - vpc-lattice:GetListener
+          - vpc-lattice:ListTagsForResource
+        read:
+          - vpc-lattice:GetListener
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:UpdateListener
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - vpc-lattice:GetListener
+          - vpc-lattice:ListTagsForResource
+        delete:
+          - vpc-lattice:DeleteListener
+        list:
+          - vpc-lattice:ListListeners
     ResourcePolicy:
       type: object
       properties:
@@ -208,6 +322,20 @@ components:
       x-stackql-resource-name: resource_policy
       x-stackql-primaryIdentifier:
         - ResourceArn
+      x-create-only-properties:
+        - ResourceArn
+      x-required-permissions:
+        create:
+          - vpc-lattice:GetResourcePolicy
+          - vpc-lattice:PutResourcePolicy
+        read:
+          - vpc-lattice:GetResourcePolicy
+        update:
+          - vpc-lattice:GetResourcePolicy
+          - vpc-lattice:PutResourcePolicy
+        delete:
+          - vpc-lattice:GetResourcePolicy
+          - vpc-lattice:DeleteResourcePolicy
     HeaderMatch:
       type: object
       properties:
@@ -358,6 +486,31 @@ components:
       x-stackql-resource-name: rule
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ListenerIdentifier
+        - ServiceIdentifier
+        - Name
+      x-read-only-properties:
+        - Arn
+        - Id
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateRule
+          - vpc-lattice:GetRule
+          - vpc-lattice:ListTagsForResource
+          - vpc-lattice:TagResource
+        read:
+          - vpc-lattice:GetRule
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:UpdateRule
+          - vpc-lattice:GetRule
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+        delete:
+          - vpc-lattice:DeleteRule
+        list:
+          - vpc-lattice:ListRules
     DnsEntry:
       type: object
       additionalProperties: false
@@ -423,6 +576,40 @@ components:
       x-stackql-resource-name: service
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - CustomDomainName
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - DnsEntry/DomainName
+        - DnsEntry/HostedZoneId
+        - Id
+        - LastUpdatedAt
+        - Status
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateService
+          - vpc-lattice:GetService
+          - vpc-lattice:ListTagsForResource
+          - vpc-lattice:TagResource
+          - acm:DescribeCertificate
+          - acm:ListCertificates
+          - iam:CreateServiceLinkedRole
+        read:
+          - vpc-lattice:GetService
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:UpdateService
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - vpc-lattice:GetService
+          - vpc-lattice:ListTagsForResource
+        delete:
+          - vpc-lattice:DeleteService
+          - vpc-lattice:GetService
+        list:
+          - vpc-lattice:ListServices
     ServiceNetwork:
       type: object
       properties:
@@ -462,6 +649,32 @@ components:
       x-stackql-resource-name: service_network
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - Id
+        - LastUpdatedAt
+      x-required-permissions:
+        create:
+          - vpc-lattice:GetServiceNetwork
+          - vpc-lattice:ListTagsForResource
+          - vpc-lattice:CreateServiceNetwork
+          - vpc-lattice:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - vpc-lattice:GetServiceNetwork
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:GetServiceNetwork
+          - vpc-lattice:UpdateServiceNetwork
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+        delete:
+          - vpc-lattice:DeleteServiceNetwork
+        list:
+          - vpc-lattice:ListServiceNetworks
     ServiceNetworkServiceAssociation:
       type: object
       properties:
@@ -538,6 +751,41 @@ components:
       x-stackql-resource-name: service_network_service_association
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ServiceNetworkIdentifier
+        - ServiceIdentifier
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - DnsEntry/DomainName
+        - DnsEntry/HostedZoneId
+        - Id
+        - ServiceNetworkArn
+        - ServiceNetworkId
+        - ServiceNetworkName
+        - ServiceArn
+        - ServiceId
+        - ServiceName
+        - Status
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateServiceNetworkServiceAssociation
+          - vpc-lattice:GetServiceNetworkServiceAssociation
+          - vpc-lattice:TagResource
+          - vpc-lattice:ListTagsForResource
+        read:
+          - vpc-lattice:GetServiceNetworkServiceAssociation
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - vpc-lattice:GetServiceNetworkServiceAssociation
+          - vpc-lattice:ListTagsForResource
+        delete:
+          - vpc-lattice:DeleteServiceNetworkServiceAssociation
+          - vpc-lattice:GetServiceNetworkServiceAssociation
+        list:
+          - vpc-lattice:ListServiceNetworkServiceAssociations
     ServiceNetworkVpcAssociation:
       type: object
       properties:
@@ -612,6 +860,42 @@ components:
       x-stackql-resource-name: service_network_vpc_association
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ServiceNetworkIdentifier
+        - VpcIdentifier
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - Id
+        - ServiceNetworkArn
+        - ServiceNetworkId
+        - ServiceNetworkName
+        - Status
+        - VpcId
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateServiceNetworkVpcAssociation
+          - vpc-lattice:GetServiceNetworkVpcAssociation
+          - vpc-lattice:ListServiceNetworkVpcAssociations
+          - vpc-lattice:ListTagsForResource
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeVpcs
+          - vpc-lattice:TagResource
+        read:
+          - vpc-lattice:GetServiceNetworkVpcAssociation
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - vpc-lattice:GetServiceNetworkVpcAssociation
+          - vpc-lattice:UpdateServiceNetworkVpcAssociation
+          - ec2:DescribeSecurityGroups
+          - vpc-lattice:ListTagsForResource
+        delete:
+          - vpc-lattice:DeleteServiceNetworkVpcAssociation
+          - vpc-lattice:GetServiceNetworkVpcAssociation
+        list:
+          - vpc-lattice:ListServiceNetworkVpcAssociations
     HealthCheckConfig:
       type: object
       additionalProperties: false
@@ -628,6 +912,7 @@ components:
           enum:
             - HTTP1
             - HTTP2
+            - GRPC
         Port:
           type: integer
           maximum: 65535
@@ -692,6 +977,11 @@ components:
           enum:
             - IPV4
             - IPV6
+        LambdaEventStructureVersion:
+          type: string
+          enum:
+            - V1
+            - V2
         VpcIdentifier:
           type: string
           maxLength: 2048
@@ -699,10 +989,7 @@ components:
           pattern: ^vpc-(([0-9a-z]{8})|([0-9a-z]{17}))$
         HealthCheck:
           $ref: '#/components/schemas/HealthCheckConfig'
-      required:
-        - Port
-        - Protocol
-        - VpcIdentifier
+      required: []
     Target:
       type: object
       additionalProperties: false
@@ -775,6 +1062,67 @@ components:
       x-stackql-resource-name: target_group
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - Type
+        - Config/Port
+        - Config/IpAddressType
+        - Config/Protocol
+        - Config/ProtocolVersion
+        - Config/VpcIdentifier
+        - Config/LambdaEventStructureVersion
+      x-read-only-properties:
+        - Arn
+        - CreatedAt
+        - Id
+        - LastUpdatedAt
+        - Status
+      x-required-permissions:
+        create:
+          - vpc-lattice:CreateTargetGroup
+          - vpc-lattice:GetTargetGroup
+          - vpc-lattice:RegisterTargets
+          - vpc-lattice:ListTargets
+          - vpc-lattice:ListTagsForResource
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - ec2:DescribeVpcs
+          - ec2:DescribeInstances
+          - ec2:DescribeSubnets
+          - ec2:DescribeAvailabilityZoneMappings
+          - lambda:Invoke
+          - lambda:AddPermission
+          - elasticloadbalancing:DescribeLoadBalancers
+          - iam:CreateServiceLinkedRole
+        read:
+          - vpc-lattice:GetTargetGroup
+          - vpc-lattice:ListTargets
+          - vpc-lattice:ListTagsForResource
+        update:
+          - vpc-lattice:UpdateTargetGroup
+          - vpc-lattice:GetTargetGroup
+          - vpc-lattice:ListTargets
+          - vpc-lattice:RegisterTargets
+          - vpc-lattice:DeregisterTargets
+          - ec2:DescribeVpcs
+          - ec2:DescribeInstances
+          - ec2:DescribeSubnets
+          - ec2:DescribeAvailabilityZoneMappings
+          - elasticloadbalancing:DescribeLoadBalancers
+          - lambda:Invoke
+          - lambda:RemovePermission
+          - lambda:AddPermission
+          - vpc-lattice:TagResource
+          - vpc-lattice:UntagResource
+          - vpc-lattice:ListTagsForResource
+        delete:
+          - vpc-lattice:DeleteTargetGroup
+          - vpc-lattice:GetTargetGroup
+          - vpc-lattice:DeregisterTargets
+          - vpc-lattice:ListTargets
+          - lambda:RemovePermission
+        list:
+          - vpc-lattice:ListTargetGroups
   x-stackQL-resources:
     access_log_subscriptions:
       name: access_log_subscriptions

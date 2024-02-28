@@ -40,6 +40,7 @@ Gets an individual <code>db_cluster</code> resource
 <tr><td><code>restore_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>engine_version</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>storage_type</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>kms_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>availability_zones</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>preferred_maintenance_window</code></td><td><code>string</code></td><td></td></tr>
@@ -61,6 +62,10 @@ Gets an individual <code>db_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
@@ -78,6 +83,7 @@ copy_tags_to_snapshot,
 restore_type,
 tags,
 engine_version,
+storage_type,
 kms_key_id,
 availability_zones,
 preferred_maintenance_window,

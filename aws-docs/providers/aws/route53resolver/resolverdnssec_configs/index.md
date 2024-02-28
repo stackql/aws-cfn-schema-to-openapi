@@ -35,6 +35,23 @@ Retrieves a list of <code>resolverdnssec_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolverdnssec_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resolverdnssec:CreateConfig,
+route53resolver:UpdateResolverDnssecConfig,
+route53resolver:GetResolverDnssecConfig,
+ec2:DescribeVpcs</pre>
+
+### List
+<pre>
+resolverdnssec:ListConfig,
+route53resolver:ListResolverDnssecConfigs</pre>
+
+
 ## Example
 ```sql
 SELECT

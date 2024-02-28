@@ -43,6 +43,28 @@ Gets an individual <code>multicast_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>multicast_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetMulticastGroup,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotwireless:UpdateMulticastGroup,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateWirelessDeviceWithMulticastGroup,
+iotwireless:DisassociateWirelessDeviceFromMulticastGroup</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteMulticastGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

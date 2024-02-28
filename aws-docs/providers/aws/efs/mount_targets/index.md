@@ -35,6 +35,21 @@ Retrieves a list of <code>mount_targets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>mount_targets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+elasticfilesystem:CreateMountTarget,
+elasticfilesystem:DescribeMountTargets</pre>
+
+### List
+<pre>
+elasticfilesystem:DescribeMountTargets,
+elasticfilesystem:DescribeMountTargetSecurityGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

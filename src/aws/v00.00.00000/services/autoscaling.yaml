@@ -6,8 +6,8 @@ paths: {}
 components:
   schemas:
     TagProperty:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         Value:
           type: string
@@ -20,20 +20,20 @@ components:
         - Key
         - PropagateAtLaunch
     LaunchTemplateSpecification:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         LaunchTemplateName:
           type: string
-        LaunchTemplateId:
-          type: string
         Version:
+          type: string
+        LaunchTemplateId:
           type: string
       required:
         - Version
     InstancesDistribution:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         OnDemandAllocationStrategy:
           type: string
@@ -48,16 +48,16 @@ components:
         SpotMaxPrice:
           type: string
     AcceleratorCountRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
           type: integer
+        Max:
+          type: integer
     LifecycleHookSpecification:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         LifecycleHookName:
           type: string
@@ -77,103 +77,123 @@ components:
         - LifecycleHookName
         - LifecycleTransition
     MemoryGiBPerVCpuRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
-          type: integer
+          type: number
+        Max:
+          type: number
     NotificationConfiguration:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         TopicARN:
-          type: string
+          type:
+            - string
+            - array
+          items:
+            type: string
         NotificationTypes:
-          type: array
           uniqueItems: false
+          x-insertionOrder: false
+          type: array
           items:
             type: string
       required:
         - TopicARN
     MetricsCollection:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Granularity:
-          type: string
         Metrics:
-          type: array
           uniqueItems: false
+          x-insertionOrder: false
+          type: array
           items:
             type: string
+        Granularity:
+          type: string
       required:
         - Granularity
     TotalLocalStorageGBRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
-          type: integer
-    MemoryMiBRequest:
-      type: object
-      additionalProperties: false
-      properties:
-        Max:
-          type: integer
-        Min:
-          type: integer
-    NetworkBandwidthGbpsRequest:
-      type: object
-      additionalProperties: false
-      properties:
+          type: number
         Max:
           type: number
+    MemoryMiBRequest:
+      additionalProperties: false
+      type: object
+      properties:
         Min:
+          type: integer
+        Max:
+          type: integer
+    InstanceMaintenancePolicy:
+      additionalProperties: false
+      type: object
+      properties:
+        MaxHealthyPercentage:
+          type: integer
+        MinHealthyPercentage:
+          type: integer
+      x-dependencies:
+        MaxHealthyPercentage:
+          - MinHealthyPercentage
+        MinHealthyPercentage:
+          - MaxHealthyPercentage
+    NetworkBandwidthGbpsRequest:
+      additionalProperties: false
+      type: object
+      properties:
+        Min:
+          type: number
+        Max:
           type: number
     BaselineEbsBandwidthMbpsRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
+          type: integer
+        Max:
           type: integer
     NetworkInterfaceCountRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
+          type: integer
+        Max:
           type: integer
     VCpuCountRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
           type: integer
+        Max:
+          type: integer
     LaunchTemplate:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         LaunchTemplateSpecification:
           $ref: '#/components/schemas/LaunchTemplateSpecification'
         Overrides:
+          uniqueItems: false
+          x-insertionOrder: true
           type: array
-          uniqueItems: true
           items:
             $ref: '#/components/schemas/LaunchTemplateOverrides'
       required:
         - LaunchTemplateSpecification
     LaunchTemplateOverrides:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         LaunchTemplateSpecification:
           $ref: '#/components/schemas/LaunchTemplateSpecification'
@@ -184,68 +204,75 @@ components:
         InstanceType:
           type: string
     AcceleratorTotalMemoryMiBRequest:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        Max:
-          type: integer
         Min:
           type: integer
+        Max:
+          type: integer
     MixedInstancesPolicy:
-      type: object
       additionalProperties: false
+      type: object
       properties:
-        LaunchTemplate:
-          $ref: '#/components/schemas/LaunchTemplate'
         InstancesDistribution:
           $ref: '#/components/schemas/InstancesDistribution'
+        LaunchTemplate:
+          $ref: '#/components/schemas/LaunchTemplate'
       required:
         - LaunchTemplate
     InstanceRequirements:
-      type: object
       additionalProperties: false
+      type: object
       properties:
         LocalStorageTypes:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         InstanceGenerations:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         NetworkInterfaceCount:
           $ref: '#/components/schemas/NetworkInterfaceCountRequest'
         AcceleratorTypes:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         MemoryGiBPerVCpu:
           $ref: '#/components/schemas/MemoryGiBPerVCpuRequest'
         AcceleratorManufacturers:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         ExcludedInstanceTypes:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             type: string
         VCpuCount:
           $ref: '#/components/schemas/VCpuCountRequest'
         AllowedInstanceTypes:
-          type: array
           uniqueItems: true
+          x-insertionOrder: true
+          type: array
           items:
             type: string
         LocalStorage:
           type: string
         CpuManufacturers:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         AcceleratorCount:
@@ -256,13 +283,16 @@ components:
           type: string
         RequireHibernateSupport:
           type: boolean
+        MaxSpotPriceAsPercentageOfOptimalOnDemandPrice:
+          type: integer
         BaselineEbsBandwidthMbps:
           $ref: '#/components/schemas/BaselineEbsBandwidthMbpsRequest'
         SpotMaxPricePercentageOverLowestPrice:
           type: integer
         AcceleratorNames:
-          type: array
           uniqueItems: true
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         AcceleratorTotalMemoryMiB:
@@ -275,17 +305,22 @@ components:
           $ref: '#/components/schemas/MemoryMiBRequest'
         TotalLocalStorageGB:
           $ref: '#/components/schemas/TotalLocalStorageGBRequest'
+      required:
+        - MemoryMiB
+        - VCpuCount
     AutoScalingGroup:
       type: object
       properties:
         LifecycleHookSpecificationList:
-          type: array
           uniqueItems: false
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/LifecycleHookSpecification'
         LoadBalancerNames:
+          uniqueItems: false
+          x-insertionOrder: true
           type: array
-          uniqueItems: true
           items:
             type: string
         LaunchConfigurationName:
@@ -293,18 +328,21 @@ components:
         ServiceLinkedRoleARN:
           type: string
         TargetGroupARNs:
+          uniqueItems: false
+          x-insertionOrder: false
           type: array
-          uniqueItems: true
           items:
             type: string
         Cooldown:
           type: string
         NotificationConfigurations:
-          type: array
           uniqueItems: false
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/NotificationConfiguration'
         DesiredCapacity:
+          pattern: ^[0-9]+$
           type: string
         HealthCheckGracePeriod:
           type: integer
@@ -317,45 +355,51 @@ components:
         MixedInstancesPolicy:
           $ref: '#/components/schemas/MixedInstancesPolicy'
         VPCZoneIdentifier:
-          type: array
           uniqueItems: false
+          x-insertionOrder: false
+          type: array
           items:
             type: string
         Tags:
+          x-insertionOrder: false
           type: array
-          uniqueItems: false
           items:
             $ref: '#/components/schemas/TagProperty'
         Context:
-          type: string
-        LaunchTemplateSpecification:
           type: string
         CapacityRebalance:
           type: boolean
         InstanceId:
           type: string
         AvailabilityZones:
-          type: array
           uniqueItems: false
+          x-insertionOrder: false
+          type: array
           items:
             type: string
+        NotificationConfiguration:
+          $ref: '#/components/schemas/NotificationConfiguration'
         MetricsCollection:
-          type: array
           uniqueItems: false
+          x-insertionOrder: true
+          type: array
           items:
             $ref: '#/components/schemas/MetricsCollection'
+        InstanceMaintenancePolicy:
+          $ref: '#/components/schemas/InstanceMaintenancePolicy'
         MaxSize:
+          pattern: ^[0-9]+$
           type: string
         MinSize:
+          pattern: ^[0-9]+$
           type: string
         TerminationPolicies:
+          uniqueItems: false
+          x-insertionOrder: true
           type: array
-          uniqueItems: true
           items:
             type: string
         AutoScalingGroupName:
-          type: string
-        Id:
           type: string
         DesiredCapacityType:
           type: string
@@ -370,7 +414,48 @@ components:
         - MaxSize
       x-stackql-resource-name: auto_scaling_group
       x-stackql-primaryIdentifier:
-        - Id
+        - AutoScalingGroupName
+      x-create-only-properties:
+        - InstanceId
+        - AutoScalingGroupName
+      x-required-permissions:
+        read:
+          - autoscaling:*
+          - managed-fleets:GetAutoScalingGroup
+        create:
+          - autoscaling:*
+          - cloudwatch:PutMetricAlarm
+          - ec2:Describe*
+          - ec2:GetInstanceTypesFromInstanceRequirements
+          - ec2:RunInstances
+          - elasticloadbalancing:DescribeLoadBalancers
+          - elasticloadbalancing:DescribeTargetGroups
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - managed-fleets:GetAutoScalingGroup
+          - managed-fleets:CreateAutoScalingGroup
+          - ssm:GetParameters
+        update:
+          - autoscaling:*
+          - cloudwatch:PutMetricAlarm
+          - ec2:Describe*
+          - ec2:GetInstanceTypesFromInstanceRequirements
+          - ec2:RunInstances
+          - elasticloadbalancing:DescribeLoadBalancers
+          - elasticloadbalancing:DescribeTargetGroups
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - managed-fleets:GetAutoScalingGroup
+          - managed-fleets:RegisterAutoScalingGroup
+          - managed-fleets:DeregisterAutoScalingGroup
+          - managed-fleets:UpdateAutoScalingGroup
+          - ssm:GetParameters
+        list:
+          - autoscaling:*
+        delete:
+          - autoscaling:*
+          - managed-fleets:GetAutoScalingGroup
+          - managed-fleets:DeleteAutoScalingGroup
     MetadataOptions:
       description: MetadataOptions is a property of AWS::AutoScaling::LaunchConfiguration that describes metadata options for the instances.
       type: object
@@ -509,6 +594,38 @@ components:
       x-stackql-resource-name: launch_configuration
       x-stackql-primaryIdentifier:
         - LaunchConfigurationName
+      x-create-only-properties:
+        - AssociatePublicIpAddress
+        - BlockDeviceMappings
+        - ClassicLinkVPCId
+        - ClassicLinkVPCSecurityGroups
+        - EbsOptimized
+        - IamInstanceProfile
+        - ImageId
+        - InstanceId
+        - InstanceMonitoring
+        - InstanceType
+        - KernelId
+        - KeyName
+        - LaunchConfigurationName
+        - MetadataOptions
+        - PlacementTenancy
+        - RamDiskId
+        - SecurityGroups
+        - SpotPrice
+        - UserData
+      x-required-permissions:
+        create:
+          - autoscaling:CreateLaunchConfiguration
+          - autoscaling:DescribeLaunchConfigurations
+          - iam:PassRole
+        read:
+          - autoscaling:DescribeLaunchConfigurations
+        delete:
+          - autoscaling:DeleteLaunchConfiguration
+          - autoscaling:DescribeLaunchConfigurations
+        list:
+          - autoscaling:DescribeLaunchConfigurations
     LifecycleHook:
       type: object
       properties:
@@ -547,6 +664,25 @@ components:
       x-stackql-primaryIdentifier:
         - AutoScalingGroupName
         - LifecycleHookName
+      x-create-only-properties:
+        - AutoScalingGroupName
+        - LifecycleHookName
+      x-required-permissions:
+        create:
+          - autoscaling:PutLifecycleHook
+          - autoscaling:DescribeLifecycleHooks
+          - iam:PassRole
+        read:
+          - autoscaling:DescribeLifecycleHooks
+        update:
+          - autoscaling:PutLifecycleHook
+          - autoscaling:DescribeLifecycleHooks
+          - iam:PassRole
+        delete:
+          - autoscaling:DeleteLifecycleHook
+          - autoscaling:DescribeLifecycleHooks
+        list:
+          - autoscaling:DescribeLifecycleHooks
     PredictiveScalingMetricSpecification:
       type: object
       additionalProperties: false
@@ -819,6 +955,27 @@ components:
       x-stackql-resource-name: scaling_policy
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - AutoScalingGroupName
+      x-read-only-properties:
+        - PolicyName
+        - Arn
+      x-required-permissions:
+        create:
+          - autoscaling:DescribePolicies
+          - autoscaling:PutScalingPolicy
+          - cloudwatch:GetMetricData
+        read:
+          - autoscaling:DescribePolicies
+        update:
+          - autoscaling:DescribePolicies
+          - autoscaling:PutScalingPolicy
+          - cloudwatch:GetMetricData
+        delete:
+          - autoscaling:DeletePolicy
+          - autoscaling:DescribePolicies
+        list:
+          - autoscaling:DescribePolicies
     ScheduledAction:
       type: object
       properties:
@@ -855,6 +1012,23 @@ components:
       x-stackql-primaryIdentifier:
         - ScheduledActionName
         - AutoScalingGroupName
+      x-create-only-properties:
+        - AutoScalingGroupName
+      x-read-only-properties:
+        - ScheduledActionName
+      x-required-permissions:
+        create:
+          - autoscaling:PutScheduledUpdateGroupAction
+          - autoscaling:DescribeScheduledActions
+        read:
+          - autoscaling:DescribeScheduledActions
+        update:
+          - autoscaling:PutScheduledUpdateGroupAction
+        delete:
+          - autoscaling:DeleteScheduledAction
+          - autoscaling:DescribeScheduledActions
+        list:
+          - autoscaling:DescribeScheduledActions
     InstanceReusePolicy:
       type: object
       additionalProperties: false
@@ -879,6 +1053,22 @@ components:
       x-stackql-resource-name: warm_pool
       x-stackql-primaryIdentifier:
         - AutoScalingGroupName
+      x-create-only-properties:
+        - AutoScalingGroupName
+      x-required-permissions:
+        create:
+          - autoscaling:PutWarmPool
+          - autoscaling:DescribeWarmPool
+          - autoscaling:DescribeAutoScalingGroups
+        delete:
+          - autoscaling:DeleteWarmPool
+          - autoscaling:DescribeWarmPool
+        read:
+          - autoscaling:DescribeWarmPool
+        update:
+          - autoscaling:PutWarmPool
+          - autoscaling:DescribeWarmPool
+          - autoscaling:DescribeAutoScalingGroups
   x-stackQL-resources:
     auto_scaling_groups:
       name: auto_scaling_groups
@@ -886,7 +1076,7 @@ components:
       x-cfn-schema-name: AutoScalingGroup
       x-type: list
       x-identifiers:
-        - Id
+        - AutoScalingGroupName
       config:
         views:
           select:
@@ -894,7 +1084,7 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AutoScaling::AutoScalingGroup'
     auto_scaling_group:
       name: auto_scaling_group
@@ -902,7 +1092,7 @@ components:
       x-cfn-schema-name: AutoScalingGroup
       x-type: get
       x-identifiers:
-        - Id
+        - AutoScalingGroupName
       config:
         views:
           select:
@@ -926,16 +1116,16 @@ components:
               JSON_EXTRACT(Properties, '$.VPCZoneIdentifier') as v_pc_zone_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Context') as context,
-              JSON_EXTRACT(Properties, '$.LaunchTemplateSpecification') as launch_template_specification,
               JSON_EXTRACT(Properties, '$.CapacityRebalance') as capacity_rebalance,
               JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
               JSON_EXTRACT(Properties, '$.AvailabilityZones') as availability_zones,
+              JSON_EXTRACT(Properties, '$.NotificationConfiguration') as notification_configuration,
               JSON_EXTRACT(Properties, '$.MetricsCollection') as metrics_collection,
+              JSON_EXTRACT(Properties, '$.InstanceMaintenancePolicy') as instance_maintenance_policy,
               JSON_EXTRACT(Properties, '$.MaxSize') as max_size,
               JSON_EXTRACT(Properties, '$.MinSize') as min_size,
               JSON_EXTRACT(Properties, '$.TerminationPolicies') as termination_policies,
               JSON_EXTRACT(Properties, '$.AutoScalingGroupName') as auto_scaling_group_name,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DesiredCapacityType') as desired_capacity_type,
               JSON_EXTRACT(Properties, '$.PlacementGroup') as placement_group,
               JSON_EXTRACT(Properties, '$.HealthCheckType') as health_check_type,

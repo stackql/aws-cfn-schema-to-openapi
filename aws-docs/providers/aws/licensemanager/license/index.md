@@ -47,6 +47,23 @@ Gets an individual <code>license</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>license</code> resource, the following permissions are required:
+
+### Read
+<pre>
+license-manager:GetLicense</pre>
+
+### Update
+<pre>
+license-manager:CreateLicenseVersion</pre>
+
+### Delete
+<pre>
+license-manager:DeleteLicense</pre>
+
+
 ## Example
 ```sql
 SELECT

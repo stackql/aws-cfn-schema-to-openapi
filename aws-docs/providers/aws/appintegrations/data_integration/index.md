@@ -35,12 +35,58 @@ Gets an individual <code>data_integration</code> resource
 <tr><td><code>schedule_config</code></td><td><code>object</code></td><td>The name of the data and how often it should be pulled from the source.</td></tr>
 <tr><td><code>source_ur_i</code></td><td><code>string</code></td><td>The URI of the data source.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags (keys and values) associated with the data integration.</td></tr>
+<tr><td><code>file_configuration</code></td><td><code>object</code></td><td>The configuration for what files should be pulled from the source.</td></tr>
+<tr><td><code>object_configuration</code></td><td><code>object</code></td><td>The configuration for what data should be pulled from the source.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>data_integration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+app-integrations:GetDataIntegration,
+app-integrations:ListTagsForResource</pre>
+
+### Update
+<pre>
+app-integrations:GetDataIntegration,
+app-integrations:UpdateDataIntegration,
+app-integrations:TagResource,
+app-integrations:UntagResource,
+appflow:DescribeConnectorProfiles,
+appflow:DeleteFlow,
+appflow:DescribeConnectorEntity,
+appflow:UseConnectorProfile,
+appflow:TagResource,
+appflow:UntagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:ListGrants,
+kms:ListKeys</pre>
+
+### Delete
+<pre>
+app-integrations:DeleteDataIntegration,
+app-integrations:UntagResource,
+appflow:CreateFlow,
+appflow:DeleteFlow,
+appflow:DescribeConnectorEntity,
+appflow:UseConnectorProfile,
+appflow:TagResource,
+appflow:UntagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:ListGrants,
+kms:ListKeys</pre>
+
 
 ## Example
 ```sql
@@ -53,7 +99,9 @@ name,
 kms_key,
 schedule_config,
 source_ur_i,
-tags
+tags,
+file_configuration,
+object_configuration
 FROM aws.appintegrations.data_integration
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

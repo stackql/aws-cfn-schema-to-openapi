@@ -35,6 +35,34 @@ Retrieves a list of <code>trails</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>trails</code> resource, the following permissions are required:
+
+### Create
+<pre>
+CloudTrail:CreateTrail,
+CloudTrail:StartLogging,
+CloudTrail:AddTags,
+CloudTrail:PutEventSelectors,
+CloudTrail:PutInsightSelectors,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+organizations:DescribeOrganization,
+organizations:ListAWSServiceAccessForOrganization</pre>
+
+### List
+<pre>
+CloudTrail:ListTrails,
+CloudTrail:GetTrail,
+CloudTrail:GetTrailStatus,
+CloudTrail:ListTags,
+CloudTrail:GetEventSelectors,
+CloudTrail:GetInsightSelectors,
+CloudTrail:DescribeTrails</pre>
+
+
 ## Example
 ```sql
 SELECT

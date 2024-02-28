@@ -27,12 +27,11 @@ Gets an individual <code>event_bus</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
+<tr><td><code>event_source_name</code></td><td><code>string</code></td><td>If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the event bus.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>Any tags assigned to the event bus.</td></tr>
 <tr><td><code>policy</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>event_source_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the event bus.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -40,17 +39,38 @@ Gets an individual <code>event_bus</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_bus</code> resource, the following permissions are required:
+
+### Read
+<pre>
+events:DescribeEventBus,
+events:ListTagsForResource</pre>
+
+### Update
+<pre>
+events:TagResource,
+events:UntagResource,
+events:PutPermission,
+events:DescribeEventBus</pre>
+
+### Delete
+<pre>
+events:DescribeEventBus,
+events:DeleteEventBus</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-policy,
-id,
-arn,
 event_source_name,
+name,
 tags,
-name
+policy,
+arn
 FROM aws.events.event_bus
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;Name&gt;'
 ```

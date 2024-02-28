@@ -35,6 +35,24 @@ Retrieves a list of <code>delivery_streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>delivery_streams</code> resource, the following permissions are required:
+
+### Create
+<pre>
+firehose:CreateDeliveryStream,
+firehose:DescribeDeliveryStream,
+iam:GetRole,
+iam:PassRole,
+kms:CreateGrant,
+kms:DescribeKey</pre>
+
+### List
+<pre>
+firehose:ListDeliveryStreams</pre>
+
+
 ## Example
 ```sql
 SELECT

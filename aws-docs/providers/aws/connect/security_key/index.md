@@ -37,6 +37,23 @@ Gets an individual <code>security_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_key</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:ListSecurityKeys</pre>
+
+### Update
+<pre>
+</pre>
+
+### Delete
+<pre>
+connect:DisassociateSecurityKey</pre>
+
+
 ## Example
 ```sql
 SELECT

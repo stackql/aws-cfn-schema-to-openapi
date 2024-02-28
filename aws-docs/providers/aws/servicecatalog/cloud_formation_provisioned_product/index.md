@@ -50,6 +50,23 @@ Gets an individual <code>cloud_formation_provisioned_product</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cloud_formation_provisioned_product</code> resource, the following permissions are required:
+
+### Read
+<pre>
+*</pre>
+
+### Update
+<pre>
+*</pre>
+
+### Delete
+<pre>
+*</pre>
+
+
 ## Example
 ```sql
 SELECT

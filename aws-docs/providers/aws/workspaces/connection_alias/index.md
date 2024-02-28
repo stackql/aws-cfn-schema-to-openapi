@@ -39,6 +39,19 @@ Gets an individual <code>connection_alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connection_alias</code> resource, the following permissions are required:
+
+### Read
+<pre>
+workspaces:DescribeConnectionAliases</pre>
+
+### Delete
+<pre>
+workspaces:DeleteConnectionAlias</pre>
+
+
 ## Example
 ```sql
 SELECT

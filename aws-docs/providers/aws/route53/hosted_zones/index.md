@@ -35,6 +35,28 @@ Retrieves a list of <code>hosted_zones</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>hosted_zones</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53:CreateHostedZone,
+route53:CreateQueryLoggingConfig,
+route53:ChangeTagsForResource,
+route53:GetChange,
+route53:AssociateVPCWithHostedZone,
+ec2:DescribeVpcs</pre>
+
+### List
+<pre>
+route53:GetHostedZone,
+route53:ListHostedZones,
+route53:ListHostedZonesByName,
+route53:ListQueryLoggingConfigs,
+route53:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

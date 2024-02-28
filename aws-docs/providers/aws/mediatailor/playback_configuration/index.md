@@ -52,6 +52,27 @@ Gets an individual <code>playback_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>playback_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+mediatailor:GetPlaybackConfiguration</pre>
+
+### Update
+<pre>
+mediatailor:PutPlaybackConfiguration,
+mediatailor:ConfigureLogsForPlaybackConfiguration,
+iam:CreateServiceLinkedRole,
+mediatailor:UntagResource,
+mediatailor:TagResource</pre>
+
+### Delete
+<pre>
+mediatailor:DeletePlaybackConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -42,6 +42,10 @@ Gets an individual <code>instance_fleet_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

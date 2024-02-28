@@ -35,6 +35,24 @@ Retrieves a list of <code>readiness_checks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>readiness_checks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53-recovery-readiness:CreateReadinessCheck,
+route53-recovery-readiness:GetResourceSet,
+route53-recovery-readiness:GetReadinessCheck,
+route53-recovery-readiness:ListTagsForResources,
+route53-recovery-readiness:TagResource</pre>
+
+### List
+<pre>
+route53-recovery-readiness:ListReadinessChecks,
+route53-recovery-readiness:GetReadinessChecks</pre>
+
+
 ## Example
 ```sql
 SELECT

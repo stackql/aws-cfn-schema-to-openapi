@@ -35,6 +35,37 @@ Retrieves a list of <code>event_data_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_data_stores</code> resource, the following permissions are required:
+
+### Create
+<pre>
+CloudTrail:CreateEventDataStore,
+CloudTrail:AddTags,
+CloudTrail:PutInsightSelectors,
+CloudTrail:EnableFederation,
+CloudTrail:GetEventDataStore,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+organizations:DescribeOrganization,
+organizations:ListAWSServiceAccessForOrganization,
+kms:GenerateDataKey,
+kms:Decrypt,
+glue:CreateDatabase,
+glue:CreateTable,
+glue:PassConnection,
+lakeformation:RegisterResource</pre>
+
+### List
+<pre>
+CloudTrail:ListEventDataStores,
+CloudTrail:GetEventDataStore,
+CloudTrail:GetInsightSelectors,
+CloudTrail:ListTags</pre>
+
+
 ## Example
 ```sql
 SELECT

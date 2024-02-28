@@ -35,6 +35,22 @@ Retrieves a list of <code>maps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>maps</code> resource, the following permissions are required:
+
+### Create
+<pre>
+geo:CreateMap,
+geo:DescribeMap,
+geo:TagResource,
+geo:UntagResource</pre>
+
+### List
+<pre>
+geo:ListMaps</pre>
+
+
 ## Example
 ```sql
 SELECT

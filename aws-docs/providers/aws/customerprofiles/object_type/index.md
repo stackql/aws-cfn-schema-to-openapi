@@ -37,6 +37,7 @@ Gets an individual <code>object_type</code> resource
 <tr><td><code>keys</code></td><td><code>array</code></td><td>A list of unique keys that can be used to map data to the profile.</td></tr>
 <tr><td><code>created_at</code></td><td><code>string</code></td><td>The time of this integration got created.</td></tr>
 <tr><td><code>last_updated_at</code></td><td><code>string</code></td><td>The time of this integration got last updated at.</td></tr>
+<tr><td><code>source_last_updated_timestamp_format</code></td><td><code>string</code></td><td>The format of your sourceLastUpdatedTimestamp that was previously set up.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>The tags (keys and values) associated with the integration.</td></tr>
 <tr><td><code>template_id</code></td><td><code>string</code></td><td>A unique identifier for the object template.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -45,6 +46,26 @@ Gets an individual <code>object_type</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>object_type</code> resource, the following permissions are required:
+
+### Read
+<pre>
+profile:GetProfileObjectType</pre>
+
+### Update
+<pre>
+profile:GetProfileObjectType,
+profile:PutProfileObjectType,
+profile:UntagResource,
+profile:TagResource</pre>
+
+### Delete
+<pre>
+profile:DeleteProfileObjectType</pre>
+
 
 ## Example
 ```sql
@@ -60,6 +81,7 @@ fields,
 keys,
 created_at,
 last_updated_at,
+source_last_updated_timestamp_format,
 tags,
 template_id
 FROM aws.customerprofiles.object_type

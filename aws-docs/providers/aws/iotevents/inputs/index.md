@@ -35,6 +35,22 @@ Retrieves a list of <code>inputs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>inputs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotevents:CreateInput,
+iotevents:TagResource,
+iotevents:DescribeInput,
+iotevents:ListTagsForResource</pre>
+
+### List
+<pre>
+iotevents:ListInputs</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -41,6 +41,24 @@ Gets an individual <code>resolver_query_logging_config_association</code> resour
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_query_logging_config_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+resolverquerylogging:GetConfigAssociation,
+route53resolver:GetResolverQueryLogConfigAssociation</pre>
+
+### Delete
+<pre>
+resolverquerylogging:DisassociateConfig,
+resolverquerylogging:ListConfigAssociation,
+route53resolver:DisassociateResolverQueryLogConfig,
+route53resolver:ListResolverQueryLogConfigAssociations,
+route53resolver:GetResolverQueryLogConfigAssociation</pre>
+
+
 ## Example
 ```sql
 SELECT

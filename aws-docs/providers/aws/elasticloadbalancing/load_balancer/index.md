@@ -56,6 +56,10 @@ Gets an individual <code>load_balancer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

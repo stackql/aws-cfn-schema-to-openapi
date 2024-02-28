@@ -35,6 +35,32 @@ Retrieves a list of <code>workspaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>workspaces</code> resource, the following permissions are required:
+
+### Create
+<pre>
+aps:CreateWorkspace,
+aps:DescribeWorkspace,
+aps:TagResource,
+aps:CreateAlertManagerDefinition,
+aps:DescribeAlertManagerDefinition,
+aps:CreateLoggingConfiguration,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+kms:CreateGrant,
+kms:Decrypt,
+kms:GenerateDataKey</pre>
+
+### List
+<pre>
+aps:ListWorkspaces,
+aps:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

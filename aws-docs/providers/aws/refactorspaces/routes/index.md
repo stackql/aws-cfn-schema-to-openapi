@@ -37,6 +37,41 @@ Retrieves a list of <code>routes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>routes</code> resource, the following permissions are required:
+
+### Create
+<pre>
+refactor-spaces:CreateRoute,
+refactor-spaces:GetRoute,
+refactor-spaces:TagResource,
+iam:CreateServiceLinkedRole,
+apigateway:GET,
+apigateway:PATCH,
+apigateway:POST,
+apigateway:PUT,
+apigateway:DELETE,
+apigateway:UpdateRestApiPolicy,
+lambda:GetFunctionConfiguration,
+lambda:AddPermission,
+elasticloadbalancing:DescribeListeners,
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:CreateListener,
+elasticloadbalancing:CreateTargetGroup,
+elasticloadbalancing:DescribeTags,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:DescribeTargetHealth,
+ec2:DescribeSubnets,
+tag:GetResources</pre>
+
+### List
+<pre>
+refactor-spaces:ListRoutes,
+refactor-spaces:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

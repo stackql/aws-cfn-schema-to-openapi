@@ -41,6 +41,55 @@ Gets an individual <code>access_log_subscription</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_log_subscription</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetAccessLogSubscription,
+vpc-lattice:ListTagsForResource,
+logs:GetLogDelivery</pre>
+
+### Update
+<pre>
+vpc-lattice:GetAccessLogSubscription,
+vpc-lattice:UpdateAccessLogSubscription,
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+logs:UpdateLogDelivery,
+firehose:UpdateDestination,
+logs:CreateLogDelivery,
+logs:CreateLogStream,
+logs:PutDestination,
+logs:PutDestinationPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+logs:GetLogDelivery,
+s3:PutBucketLogging,
+s3:GetBucketLogging,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+firehose:TagDeliveryStream,
+firehose:CreateDeliveryStream,
+firehose:DescribeDeliveryStream</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteAccessLogSubscription,
+vpc-lattice:UntagResource,
+logs:DeleteLogDelivery,
+logs:DeleteLogStream,
+logs:GetLogDelivery,
+logs:DeleteDestination,
+s3:PutBucketLogging,
+iam:GetServiceLinkedRoleDeletionStatus,
+iam:DeleteServiceLinkedRole,
+firehose:DeleteDeliveryStream,
+firehose:UntagDeliveryStream</pre>
+
+
 ## Example
 ```sql
 SELECT

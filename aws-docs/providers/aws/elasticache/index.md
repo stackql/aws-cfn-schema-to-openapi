@@ -20,9 +20,9 @@ The elasticache service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>18</b></span><br />
-<span>total selectable resources:&nbsp;<b>18</b></span><br />
-<span>total methods:&nbsp;<b>18</b></span><br />
+<span>total resources:&nbsp;<b>20</b></span><br />
+<span>total selectable resources:&nbsp;<b>20</b></span><br />
+<span>total methods:&nbsp;<b>20</b></span><br />
 </div>
 </div>
 
@@ -39,12 +39,14 @@ The elasticache service documentation.
 <a href="/providers/aws/elasticache/parameter_groups/">parameter_groups</a><br />
 <a href="/providers/aws/elasticache/replication_group/">replication_group</a><br />
 <a href="/providers/aws/elasticache/replication_groups/">replication_groups</a><br />
-<a href="/providers/aws/elasticache/security_group/">security_group</a>
+<a href="/providers/aws/elasticache/security_group/">security_group</a><br />
+<a href="/providers/aws/elasticache/security_group_ingress/">security_group_ingress</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/elasticache/security_group_ingress/">security_group_ingress</a><br />
 <a href="/providers/aws/elasticache/security_group_ingresses/">security_group_ingresses</a><br />
 <a href="/providers/aws/elasticache/security_groups/">security_groups</a><br />
+<a href="/providers/aws/elasticache/serverless_cache/">serverless_cache</a><br />
+<a href="/providers/aws/elasticache/serverless_caches/">serverless_caches</a><br />
 <a href="/providers/aws/elasticache/subnet_group/">subnet_group</a><br />
 <a href="/providers/aws/elasticache/subnet_groups/">subnet_groups</a><br />
 <a href="/providers/aws/elasticache/user/">user</a><br />

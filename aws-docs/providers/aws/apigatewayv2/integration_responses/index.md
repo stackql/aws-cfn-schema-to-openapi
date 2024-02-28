@@ -27,7 +27,9 @@ Retrieves a list of <code>integration_responses</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td>The API identifier.</td></tr>
+<tr><td><code>integration_id</code></td><td><code>string</code></td><td>The integration ID.</td></tr>
+<tr><td><code>integration_response_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +37,26 @@ Retrieves a list of <code>integration_responses</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>integration_responses</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apigateway:POST</pre>
+
+### List
+<pre>
+apigateway:GET</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+api_id,
+integration_id,
+integration_response_id
 FROM aws.apigatewayv2.integration_responses
 WHERE region = 'us-east-1'
 ```

@@ -41,6 +41,10 @@ Gets an individual <code>email_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

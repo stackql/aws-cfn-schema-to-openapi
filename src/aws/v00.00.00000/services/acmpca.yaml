@@ -6,14 +6,18 @@ paths: {}
 components:
   schemas:
     ApiPassthrough:
-      description: Structure that specifies fields to be overridden in a certificate at the time of issuance. These requires an API Passthrough template be used or they will be ignored.
+      description: |-
+        Contains X.509 certificate information to be placed in an issued certificate. An ``APIPassthrough`` or ``APICSRPassthrough`` template variant must be selected, or else this parameter is ignored. 
+         If conflicting or duplicate certificate information is supplied from other sources, AWS Private CA applies [order of operation rules](https://docs.aws.amazon.com/privateca/latest/userguide/UsingTemplates.html#template-order-of-operations) to determine what information is used.
       type: object
       additionalProperties: false
       properties:
         Extensions:
           $ref: '#/components/schemas/Extensions'
+          description: Specifies X.509 extension information for a certificate.
         Subject:
           $ref: '#/components/schemas/Subject'
+          description: Contains information about the certificate subject. The Subject field in the certificate identifies the entity that owns or controls the public key in the certificate. The entity can be a user, computer, device, or service. The Subject must contain an X.500 distinguished name (DN). A DN is a sequence of relative distinguished names (RDNs). The RDNs are separated by commas in the certificate.
     Arn:
       type: string
     CertificatePolicyList:
@@ -21,49 +25,63 @@ components:
       items:
         $ref: '#/components/schemas/PolicyInformation'
     ExtendedKeyUsage:
-      description: Structure that contains X.509 ExtendedKeyUsage information.
+      description: Specifies additional purposes for which the certified public key may be used other than basic purposes indicated in the ``KeyUsage`` extension.
       type: object
       additionalProperties: false
       properties:
         ExtendedKeyUsageType:
           type: string
+          description: Specifies a standard ``ExtendedKeyUsage`` as defined as in [RFC 5280](https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12).
         ExtendedKeyUsageObjectIdentifier:
           $ref: '#/components/schemas/CustomObjectIdentifier'
+          description: Specifies a custom ``ExtendedKeyUsage`` with an object identifier (OID).
     ExtendedKeyUsageList:
       type: array
       items:
         $ref: '#/components/schemas/ExtendedKeyUsage'
     Extensions:
-      description: Structure that contains X.500 extensions for a Certificate.
+      description: Contains X.509 extension information for a certificate.
       type: object
       additionalProperties: false
       properties:
         CertificatePolicies:
           $ref: '#/components/schemas/CertificatePolicyList'
+          description: |-
+            Contains a sequence of one or more policy information terms, each of which consists of an object identifier (OID) and optional qualifiers. For more information, see NIST's definition of [Object Identifier (OID)](https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier).
+             In an end-entity certificate, these terms indicate the policy under which the certificate was issued and the purposes for which it may be used. In a CA certificate, these terms limit the set of policies for certification paths that include this certificate.
         ExtendedKeyUsage:
           $ref: '#/components/schemas/ExtendedKeyUsageList'
+          description: Specifies additional purposes for which the certified public key may be used other than basic purposes indicated in the ``KeyUsage`` extension.
         KeyUsage:
           $ref: '#/components/schemas/KeyUsage'
+          description: Defines one or more purposes for which the key contained in the certificate can be used. Default value for each option is false.
         SubjectAlternativeNames:
           $ref: '#/components/schemas/GeneralNameList'
+          description: The subject alternative name extension allows identities to be bound to the subject of the certificate. These identities may be included in addition to or in place of the identity in the subject field of the certificate.
         CustomExtensions:
           $ref: '#/components/schemas/CustomExtensionList'
+          description: Contains a sequence of one or more X.509 extensions, each of which consists of an object identifier (OID), a base64-encoded value, and the critical flag. For more information, see the [Global OID reference database.](https://docs.aws.amazon.com/https://oidref.com/2.5.29)
     CustomExtensionList:
       description: Array of X.509 extensions for a certificate.
       type: array
       items:
         $ref: '#/components/schemas/CustomExtension'
     CustomExtension:
-      description: Structure that contains X.509 extension information for a certificate.
+      description: |-
+        Specifies the X.509 extension information for a certificate.
+         Extensions present in ``CustomExtensions`` follow the ``ApiPassthrough`` [template rules](https://docs.aws.amazon.com/privateca/latest/userguide/UsingTemplates.html#template-order-of-operations).
       type: object
       additionalProperties: false
       properties:
         Critical:
           type: boolean
+          description: Specifies the critical flag of the X.509 extension.
         ObjectIdentifier:
           $ref: '#/components/schemas/CustomObjectIdentifier'
+          description: Specifies the object identifier (OID) of the X.509 extension. For more information, see the [Global OID reference database.](https://docs.aws.amazon.com/https://oidref.com/2.5.29)
         Value:
           type: string
+          description: Specifies the base64-encoded value of the X.509 extension.
       required:
         - ObjectIdentifier
         - Value
@@ -125,25 +143,29 @@ components:
           type: boolean
           default: false
     PolicyInformation:
-      description: Structure that contains X.509 Policy information.
+      description: Defines the X.509 ``CertificatePolicies`` extension.
       type: object
       additionalProperties: false
       properties:
         CertPolicyId:
           $ref: '#/components/schemas/CustomObjectIdentifier'
+          description: Specifies the object identifier (OID) of the certificate policy under which the certificate was issued. For more information, see NIST's definition of [Object Identifier (OID)](https://docs.aws.amazon.com/https://csrc.nist.gov/glossary/term/Object_Identifier).
         PolicyQualifiers:
           $ref: '#/components/schemas/PolicyQualifierInfoList'
+          description: Modifies the given ``CertPolicyId`` with a qualifier. AWS Private CA supports the certification practice statement (CPS) qualifier.
       required:
         - CertPolicyId
     PolicyQualifierInfo:
-      description: Structure that contains X.509 Policy qualifier information.
+      description: Modifies the ``CertPolicyId`` of a ``PolicyInformation`` object with a qualifier. AWS Private CA supports the certification practice statement (CPS) qualifier.
       type: object
       additionalProperties: false
       properties:
         PolicyQualifierId:
           type: string
+          description: Identifies the qualifier modifying a ``CertPolicyId``.
         Qualifier:
           $ref: '#/components/schemas/Qualifier'
+          description: Defines the qualifier type. AWS Private CA supports the use of a URI for a CPS qualifier in this field.
       required:
         - PolicyQualifierId
         - Qualifier
@@ -152,12 +174,13 @@ components:
       items:
         $ref: '#/components/schemas/PolicyQualifierInfo'
     Qualifier:
-      description: Structure that contains a X.509 policy qualifier.
+      description: Defines a ``PolicyInformation`` qualifier. AWS Private CA supports the [certification practice statement (CPS) qualifier](https://docs.aws.amazon.com/https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.4) defined in RFC 5280.
       type: object
       additionalProperties: false
       properties:
         CpsUri:
           type: string
+          description: Contains a pointer to a certification practice statement (CPS) published by the CA.
       required:
         - CpsUri
     Subject:
@@ -213,14 +236,16 @@ components:
         - ObjectIdentifier
         - Value
     Validity:
-      description: Validity for a certificate.
+      description: Length of time for which the certificate issued by your private certificate authority (CA), or by the private CA itself, is valid in days, months, or years. You can issue a certificate by calling the ``IssueCertificate`` operation.
       type: object
       additionalProperties: false
       properties:
         Value:
           type: number
+          description: A long integer interpreted according to the value of ``Type``, below.
         Type:
           type: string
+          description: Specifies whether the ``Value`` parameter represents days, months, or years.
       required:
         - Value
         - Type
@@ -267,32 +292,39 @@ components:
       type: object
       properties:
         ApiPassthrough:
-          description: These are fields to be overridden in a certificate at the time of issuance. These requires an API_Passthrough template be used or they will be ignored.
+          description: Specifies X.509 certificate information to be included in the issued certificate. An ``APIPassthrough`` or ``APICSRPassthrough`` template variant must be selected, or else this parameter is ignored.
           $ref: '#/components/schemas/ApiPassthrough'
         CertificateAuthorityArn:
-          description: The Amazon Resource Name (ARN) for the private CA to issue the certificate.
+          description: The Amazon Resource Name (ARN) for the private CA issues the certificate.
           $ref: '#/components/schemas/Arn'
         CertificateSigningRequest:
-          description: The certificate signing request (CSR) for the Certificate.
+          description: The certificate signing request (CSR) for the certificate.
           type: string
           minLength: 1
         SigningAlgorithm:
-          description: The name of the algorithm that will be used to sign the Certificate.
+          description: |-
+            The name of the algorithm that will be used to sign the certificate to be issued. 
+             This parameter should not be confused with the ``SigningAlgorithm`` parameter used to sign a CSR in the ``CreateCertificateAuthority`` action.
+              The specified signing algorithm family (RSA or ECDSA) must match the algorithm family of the CA's secret key.
           type: string
         TemplateArn:
-          description: Specifies a custom configuration template to use when issuing a certificate. If this parameter is not provided, ACM Private CA defaults to the EndEntityCertificate/V1 template.
+          description: Specifies a custom configuration template to use when issuing a certificate. If this parameter is not provided, PCAshort defaults to the ``EndEntityCertificate/V1`` template. For more information about PCAshort templates, see [Using Templates](https://docs.aws.amazon.com/privateca/latest/userguide/UsingTemplates.html).
           $ref: '#/components/schemas/Arn'
         Validity:
-          description: The time before which the Certificate will be valid.
+          description: The period of time during which the certificate will be valid.
           $ref: '#/components/schemas/Validity'
         ValidityNotBefore:
-          description: The time after which the Certificate will be valid.
+          description: |-
+            Information describing the start of the validity period of the certificate. This parameter sets the “Not Before" date for the certificate.
+             By default, when issuing a certificate, PCAshort sets the "Not Before" date to the issuance time minus 60 minutes. This compensates for clock inconsistencies across computer systems. The ``ValidityNotBefore`` parameter can be used to customize the “Not Before” value. 
+             Unlike the ``Validity`` parameter, the ``ValidityNotBefore`` parameter is optional.
+             The ``ValidityNotBefore`` value is expressed as an explicit date and time, using the ``Validity`` type value ``ABSOLUTE``.
           $ref: '#/components/schemas/Validity'
         Certificate:
-          description: The issued certificate in base 64 PEM-encoded format.
+          description: ''
           type: string
         Arn:
-          description: The ARN of the issued certificate.
+          description: ''
           $ref: '#/components/schemas/Arn'
       required:
         - CertificateAuthorityArn
@@ -303,6 +335,26 @@ components:
       x-stackql-primaryIdentifier:
         - Arn
         - CertificateAuthorityArn
+      x-create-only-properties:
+        - ApiPassthrough
+        - CertificateAuthorityArn
+        - CertificateSigningRequest
+        - SigningAlgorithm
+        - TemplateArn
+        - Validity
+        - ValidityNotBefore
+      x-read-only-properties:
+        - Arn
+        - Certificate
+      x-required-permissions:
+        create:
+          - acm-pca:IssueCertificate
+          - acm-pca:GetCertificate
+        read:
+          - acm-pca:GetCertificate
+        delete:
+          - acm-pca:GetCertificate
+        update: []
     Tag:
       type: object
       additionalProperties: false
@@ -311,6 +363,15 @@ components:
           type: string
         Value:
           type: string
+    CrlDistributionPointExtensionConfiguration:
+      description: Configures the default behavior of the CRL Distribution Point extension for certificates issued by your certificate authority
+      type: object
+      additionalProperties: false
+      properties:
+        OmitExtension:
+          type: boolean
+      required:
+        - OmitExtension
     CrlConfiguration:
       description: Your certificate authority can create and maintain a certificate revocation list (CRL). A CRL contains information about certificates that have been revoked.
       type: object
@@ -326,6 +387,8 @@ components:
           type: string
         S3ObjectAcl:
           type: string
+        CrlDistributionPointExtensionConfiguration:
+          $ref: '#/components/schemas/CrlDistributionPointExtensionConfiguration'
     OcspConfiguration:
       description: Helps to configure online certificate status protocol (OCSP) responder for your certificate authority
       type: object
@@ -427,6 +490,39 @@ components:
       x-stackql-resource-name: certificate_authority
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Type
+        - KeyAlgorithm
+        - SigningAlgorithm
+        - Subject
+        - CsrExtensions
+        - KeyStorageSecurityStandard
+        - UsageMode
+      x-read-only-properties:
+        - Arn
+        - CertificateSigningRequest
+      x-required-permissions:
+        create:
+          - acm-pca:CreateCertificateAuthority
+          - acm-pca:DescribeCertificateAuthority
+          - acm-pca:GetCertificateAuthorityCsr
+        read:
+          - acm-pca:DescribeCertificateAuthority
+          - acm-pca:GetCertificateAuthorityCsr
+          - acm-pca:ListTags
+        update:
+          - acm-pca:ListTags
+          - acm-pca:TagCertificateAuthority
+          - acm-pca:UntagCertificateAuthority
+          - acm-pca:UpdateCertificateAuthority
+        delete:
+          - acm-pca:DeleteCertificateAuthority
+          - acm-pca:DescribeCertificateAuthority
+        list:
+          - acm-pca:DescribeCertificateAuthority
+          - acm-pca:GetCertificateAuthorityCsr
+          - acm-pca:ListCertificateAuthorities
+          - acm-pca:ListTags
     CertificateAuthorityActivation:
       type: object
       properties:
@@ -451,6 +547,22 @@ components:
       x-stackql-resource-name: certificate_authority_activation
       x-stackql-primaryIdentifier:
         - CertificateAuthorityArn
+      x-create-only-properties:
+        - CertificateAuthorityArn
+      x-read-only-properties:
+        - CompleteCertificateChain
+      x-required-permissions:
+        create:
+          - acm-pca:ImportCertificateAuthorityCertificate
+          - acm-pca:UpdateCertificateAuthority
+        read:
+          - acm-pca:GetCertificateAuthorityCertificate
+          - acm-pca:DescribeCertificateAuthority
+        delete:
+          - acm-pca:UpdateCertificateAuthority
+        update:
+          - acm-pca:ImportCertificateAuthorityCertificate
+          - acm-pca:UpdateCertificateAuthority
     Permission:
       type: object
       properties:
@@ -477,6 +589,19 @@ components:
       x-stackql-primaryIdentifier:
         - CertificateAuthorityArn
         - Principal
+      x-create-only-properties:
+        - Actions
+        - CertificateAuthorityArn
+        - Principal
+        - SourceAccount
+      x-required-permissions:
+        create:
+          - acm-pca:CreatePermission
+          - acm-pca:ListPermissions
+        read:
+          - acm-pca:ListPermissions
+        delete:
+          - acm-pca:DeletePermission
   x-stackQL-resources:
     certificates:
       name: certificates

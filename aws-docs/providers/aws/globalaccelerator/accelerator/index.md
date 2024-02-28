@@ -44,6 +44,28 @@ Gets an individual <code>accelerator</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>accelerator</code> resource, the following permissions are required:
+
+### Read
+<pre>
+globalaccelerator:DescribeAccelerator</pre>
+
+### Update
+<pre>
+globalaccelerator:UpdateAccelerator,
+globalaccelerator:TagResource,
+globalaccelerator:UntagResource,
+globalaccelerator:DescribeAccelerator</pre>
+
+### Delete
+<pre>
+globalaccelerator:UpdateAccelerator,
+globalaccelerator:DeleteAccelerator,
+globalaccelerator:DescribeAccelerator</pre>
+
+
 ## Example
 ```sql
 SELECT

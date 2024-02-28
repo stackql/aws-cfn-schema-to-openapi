@@ -37,6 +37,23 @@ Gets an individual <code>tag</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tag</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lakeformation:GetLFTag</pre>
+
+### Update
+<pre>
+lakeformation:UpdateLFTag</pre>
+
+### Delete
+<pre>
+lakeformation:DeleteLFTag</pre>
+
+
 ## Example
 ```sql
 SELECT

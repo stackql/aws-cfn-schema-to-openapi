@@ -39,6 +39,26 @@ Gets an individual <code>virtual_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>virtual_cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+emr-containers:DescribeVirtualCluster</pre>
+
+### Delete
+<pre>
+emr-containers:DeleteVirtualCluster</pre>
+
+### Update
+<pre>
+emr-containers:DescribeVirtualCluster,
+emr-containers:ListTagsForResource,
+emr-containers:TagResource,
+emr-containers:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

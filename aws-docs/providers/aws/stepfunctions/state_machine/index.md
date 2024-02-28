@@ -33,6 +33,7 @@ Gets an individual <code>state_machine</code> resource
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>state_machine_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>state_machine_type</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>state_machine_revision_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>logging_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tracing_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>definition_s3_location</code></td><td><code>object</code></td><td></td></tr>
@@ -46,6 +47,29 @@ Gets an individual <code>state_machine</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>state_machine</code> resource, the following permissions are required:
+
+### Read
+<pre>
+states:DescribeStateMachine,
+states:ListTagsForResource</pre>
+
+### Update
+<pre>
+states:UpdateStateMachine,
+states:TagResource,
+states:UntagResource,
+states:ListTagsForResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+states:DeleteStateMachine,
+states:DescribeStateMachine</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -56,6 +80,7 @@ definition_string,
 role_arn,
 state_machine_name,
 state_machine_type,
+state_machine_revision_id,
 logging_configuration,
 tracing_configuration,
 definition_s3_location,

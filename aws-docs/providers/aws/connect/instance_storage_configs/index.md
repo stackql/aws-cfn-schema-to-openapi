@@ -37,6 +37,30 @@ Retrieves a list of <code>instance_storage_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instance_storage_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:AssociateInstanceStorageConfig,
+connect:DescribeInstance,
+ds:DescribeDirectories,
+s3:GetBucketAcl,
+s3:GetBucketLocation,
+iam:PutRolePolicy,
+kinesis:DescribeStream,
+kms:DescribeKey,
+kms:CreateGrant,
+firehose:DescribeDeliveryStream</pre>
+
+### List
+<pre>
+connect:DescribeInstance,
+connect:ListInstanceStorageConfigs,
+ds:DescribeDirectories</pre>
+
+
 ## Example
 ```sql
 SELECT

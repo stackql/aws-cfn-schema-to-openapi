@@ -44,6 +44,32 @@ Gets an individual <code>document</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>document</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm:GetDocument,
+ssm:ListTagsForResource</pre>
+
+### Update
+<pre>
+ssm:UpdateDocument,
+s3:GetObject,
+ssm:AddTagsToResource,
+ssm:RemoveTagsFromResource,
+ssm:ListTagsForResource,
+iam:PassRole,
+ssm:UpdateDocumentDefaultVersion,
+ssm:DescribeDocument</pre>
+
+### Delete
+<pre>
+ssm:DeleteDocument,
+ssm:GetDocument</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,30 @@ Retrieves a list of <code>knowledge_bases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>knowledge_bases</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appflow:CreateFlow,
+appflow:DeleteFlow,
+appflow:StartFlow,
+appflow:TagResource,
+appflow:UseConnectorProfile,
+app-integrations:CreateDataIntegrationAssociation,
+app-integrations:GetDataIntegration,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:ListGrants,
+wisdom:CreateKnowledgeBase,
+wisdom:TagResource</pre>
+
+### List
+<pre>
+wisdom:ListKnowledgeBases</pre>
+
+
 ## Example
 ```sql
 SELECT

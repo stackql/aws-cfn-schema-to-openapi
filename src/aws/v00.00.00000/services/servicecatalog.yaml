@@ -19,6 +19,11 @@ components:
       x-stackql-resource-name: accepted_portfolio_share
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PortfolioId
+        - AcceptLanguage
+      x-read-only-properties:
+        - Id
     CodeStarParameters:
       type: object
       additionalProperties: false
@@ -129,6 +134,11 @@ components:
       x-stackql-resource-name: cloud_formation_product
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - ProvisioningArtifactIds
+        - Id
+        - ProvisioningArtifactNames
+        - ProductName
     ProvisioningPreferences:
       type: object
       properties:
@@ -255,6 +265,23 @@ components:
       x-stackql-resource-name: cloud_formation_provisioned_product
       x-stackql-primaryIdentifier:
         - ProvisionedProductId
+      x-create-only-properties:
+        - NotificationArns
+        - ProvisionedProductName
+      x-read-only-properties:
+        - RecordId
+        - CloudformationStackArn
+        - Outputs
+        - ProvisionedProductId
+      x-required-permissions:
+        create:
+          - '*'
+        read:
+          - '*'
+        update:
+          - '*'
+        delete:
+          - '*'
     LaunchNotificationConstraint:
       type: object
       properties:
@@ -280,6 +307,11 @@ components:
       x-stackql-resource-name: launch_notification_constraint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
+        - Id
     LaunchRoleConstraint:
       type: object
       properties:
@@ -303,6 +335,11 @@ components:
       x-stackql-resource-name: launch_role_constraint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
+        - Id
     LaunchTemplateConstraint:
       type: object
       properties:
@@ -324,6 +361,11 @@ components:
         - Rules
       x-stackql-resource-name: launch_template_constraint
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
         - Id
     Portfolio:
       type: object
@@ -351,6 +393,9 @@ components:
       x-stackql-resource-name: portfolio
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - PortfolioName
+        - Id
     PortfolioPrincipalAssociation:
       type: object
       properties:
@@ -371,6 +416,13 @@ components:
       x-stackql-resource-name: portfolio_principal_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PortfolioId
+        - AcceptLanguage
+        - PrincipalARN
+        - PrincipalType
+      x-read-only-properties:
+        - Id
     PortfolioProductAssociation:
       type: object
       properties:
@@ -390,6 +442,13 @@ components:
       x-stackql-resource-name: portfolio_product_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - SourcePortfolioId
+        - PortfolioId
+        - AcceptLanguage
+        - ProductId
+      x-read-only-properties:
+        - Id
     PortfolioShare:
       type: object
       properties:
@@ -408,6 +467,12 @@ components:
         - PortfolioId
       x-stackql-resource-name: portfolio_share
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - AcceptLanguage
+        - AccountId
+        - PortfolioId
+      x-read-only-properties:
         - Id
     ResourceUpdateConstraint:
       type: object
@@ -430,6 +495,11 @@ components:
         - ProductId
       x-stackql-resource-name: resource_update_constraint
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
         - Id
     DefinitionParameter:
       type: object
@@ -480,6 +550,23 @@ components:
       x-stackql-resource-name: service_action
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - servicecatalog:CreateServiceAction
+          - ssm:DescribeDocument
+          - iam:GetRole
+        read:
+          - servicecatalog:DescribeServiceAction
+        update:
+          - servicecatalog:UpdateServiceAction
+          - iam:GetRole
+          - ssm:DescribeDocument
+        delete:
+          - servicecatalog:DeleteServiceAction
+        list:
+          - servicecatalog:ListServiceActions
     ServiceActionAssociation:
       type: object
       properties:
@@ -507,6 +594,21 @@ components:
         - ProductId
         - ProvisioningArtifactId
         - ServiceActionId
+      x-create-only-properties:
+        - ProductId
+        - ProvisioningArtifactId
+        - ServiceActionId
+      x-required-permissions:
+        create:
+          - servicecatalog:AssociateServiceActionWithProvisioningArtifact
+          - servicecatalog:ListServiceActionsForProvisioningArtifact
+        read:
+          - servicecatalog:ListServiceActionsForProvisioningArtifact
+        delete:
+          - servicecatalog:DisassociateServiceActionFromProvisioningArtifact
+          - servicecatalog:ListServiceActionsForProvisioningArtifact
+        list:
+          - servicecatalog:ListServiceActionsForProvisioningArtifact
     StackSetConstraint:
       type: object
       properties:
@@ -548,6 +650,11 @@ components:
       x-stackql-resource-name: stack_set_constraint
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - PortfolioId
+        - ProductId
+      x-read-only-properties:
+        - Id
     TagOption:
       type: object
       properties:
@@ -565,6 +672,11 @@ components:
       x-stackql-resource-name: tag_option
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Value
+        - Key
+      x-read-only-properties:
+        - Id
     TagOptionAssociation:
       type: object
       properties:
@@ -579,6 +691,11 @@ components:
         - ResourceId
       x-stackql-resource-name: tag_option_association
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - TagOptionId
+        - ResourceId
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     accepted_portfolio_shares:

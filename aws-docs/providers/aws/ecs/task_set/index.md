@@ -45,6 +45,25 @@ Gets an individual <code>task_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>task_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecs:DescribeTaskSets</pre>
+
+### Update
+<pre>
+ecs:UpdateTaskSet,
+ecs:DescribeTaskSets</pre>
+
+### Delete
+<pre>
+ecs:DeleteTaskSet,
+ecs:DescribeTaskSets</pre>
+
+
 ## Example
 ```sql
 SELECT

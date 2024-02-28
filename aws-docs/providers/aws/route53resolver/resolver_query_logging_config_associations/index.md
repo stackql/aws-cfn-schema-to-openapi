@@ -35,6 +35,24 @@ Retrieves a list of <code>resolver_query_logging_config_associations</code> in a
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_query_logging_config_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+resolverquerylogging:AssociateConfig,
+resolverquerylogging:GetConfigAssociation,
+route53resolver:AssociateResolverQueryLogConfig,
+ec2:DescribeVpcs,
+route53resolver:GetResolverQueryLogConfigAssociation</pre>
+
+### List
+<pre>
+resolverquerylogging:ListConfigAssociations,
+route53resolver:ListResolverQueryLogConfigAssociations</pre>
+
+
 ## Example
 ```sql
 SELECT

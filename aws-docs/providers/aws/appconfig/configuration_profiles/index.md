@@ -27,7 +27,8 @@ Retrieves a list of <code>configuration_profiles</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>application_id</code></td><td><code>string</code></td><td>The application ID.</td></tr>
+<tr><td><code>configuration_profile_id</code></td><td><code>string</code></td><td>The configuration profile ID</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +36,29 @@ Retrieves a list of <code>configuration_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_profiles</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appconfig:CreateConfigurationProfile,
+appconfig:GetConfigurationProfile,
+appconfig:TagResource,
+appconfig:ListTagsForResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+appconfig:ListConfigurationProfiles</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+application_id,
+configuration_profile_id
 FROM aws.appconfig.configuration_profiles
 WHERE region = 'us-east-1'
 ```

@@ -35,6 +35,34 @@ Retrieves a list of <code>container_recipes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>container_recipes</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+imagebuilder:GetComponent,
+imagebuilder:TagResource,
+imagebuilder:GetContainerRecipe,
+imagebuilder:CreateContainerRecipe,
+imagebuilder:GetImage,
+kms:Encrypt,
+kms:Decrypt,
+kms:ReEncryptFrom,
+kms:ReEncryptTo,
+kms:GenerateDataKey*,
+s3:GetObject,
+s3:ListBucket,
+ecr:DescribeRepositories,
+ec2:DescribeImages</pre>
+
+### List
+<pre>
+imagebuilder:ListContainerRecipes</pre>
+
+
 ## Example
 ```sql
 SELECT

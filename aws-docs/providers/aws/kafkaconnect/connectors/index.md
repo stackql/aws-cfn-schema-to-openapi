@@ -35,6 +35,35 @@ Retrieves a list of <code>connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>connectors</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kafkaconnect:CreateConnector,
+kafkaconnect:DescribeConnector,
+iam:CreateServiceLinkedRole,
+iam:PassRole,
+ec2:CreateNetworkInterface,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+firehose:TagDeliveryStream</pre>
+
+### List
+<pre>
+kafkaconnect:ListConnectors</pre>
+
+
 ## Example
 ```sql
 SELECT

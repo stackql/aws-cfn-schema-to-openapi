@@ -27,11 +27,11 @@ Gets an individual <code>api_mapping</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>stage</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>api_mapping_key</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>domain_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_mapping_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>domain_name</code></td><td><code>string</code></td><td>The domain name.</td></tr>
+<tr><td><code>stage</code></td><td><code>string</code></td><td>The API stage.</td></tr>
+<tr><td><code>api_mapping_key</code></td><td><code>string</code></td><td>The API mapping key.</td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td>The identifier of the API.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,16 +39,36 @@ Gets an individual <code>api_mapping</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>api_mapping</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT</pre>
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-stage,
-id,
-api_mapping_key,
+api_mapping_id,
 domain_name,
+stage,
+api_mapping_key,
 api_id
 FROM aws.apigatewayv2.api_mapping
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '&lt;ApiMappingId&gt;'
+AND data__Identifier = '&lt;DomainName&gt;'
 ```

@@ -36,6 +36,25 @@ Gets an individual <code>default_view_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>default_view_association</code> resource, the following permissions are required:
+
+### Update
+<pre>
+resource-explorer-2:GetDefaultView,
+resource-explorer-2:AssociateDefaultView</pre>
+
+### Read
+<pre>
+resource-explorer-2:GetDefaultView</pre>
+
+### Delete
+<pre>
+resource-explorer-2:GetDefaultView,
+resource-explorer-2:DisassociateDefaultView</pre>
+
+
 ## Example
 ```sql
 SELECT

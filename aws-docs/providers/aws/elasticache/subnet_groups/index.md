@@ -35,6 +35,22 @@ Retrieves a list of <code>subnet_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>subnet_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+elasticache:CreateCacheSubnetGroup,
+elasticache:AddTagsToResource,
+elasticache:DescribeCacheSubnetGroups,
+elasticache:ListTagsForResource</pre>
+
+### List
+<pre>
+elasticache:DescribeCacheSubnetGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

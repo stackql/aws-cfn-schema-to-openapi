@@ -36,10 +36,12 @@ Gets an individual <code>delivery_stream</code> resource
 <tr><td><code>amazon_open_search_serverless_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>extended_s3_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>kinesis_stream_source_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>m_sk_source_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>redshift_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>s3_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>splunk_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>http_endpoint_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>snowflake_destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -47,6 +49,36 @@ Gets an individual <code>delivery_stream</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>delivery_stream</code> resource, the following permissions are required:
+
+### Read
+<pre>
+firehose:DescribeDeliveryStream,
+firehose:ListTagsForDeliveryStream</pre>
+
+### Update
+<pre>
+firehose:UpdateDestination,
+firehose:DescribeDeliveryStream,
+firehose:StartDeliveryStreamEncryption,
+firehose:StopDeliveryStreamEncryption,
+firehose:ListTagsForDeliveryStream,
+firehose:TagDeliveryStream,
+firehose:UntagDeliveryStream,
+kms:CreateGrant,
+kms:RevokeGrant,
+kms:DescribeKey</pre>
+
+### Delete
+<pre>
+firehose:DeleteDeliveryStream,
+firehose:DescribeDeliveryStream,
+kms:RevokeGrant,
+kms:DescribeKey</pre>
+
 
 ## Example
 ```sql
@@ -61,10 +93,12 @@ amazonopensearchservice_destination_configuration,
 amazon_open_search_serverless_destination_configuration,
 extended_s3_destination_configuration,
 kinesis_stream_source_configuration,
+m_sk_source_configuration,
 redshift_destination_configuration,
 s3_destination_configuration,
 splunk_destination_configuration,
 http_endpoint_destination_configuration,
+snowflake_destination_configuration,
 tags
 FROM aws.kinesisfirehose.delivery_stream
 WHERE region = 'us-east-1'

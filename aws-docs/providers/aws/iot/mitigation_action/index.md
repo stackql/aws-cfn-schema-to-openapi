@@ -40,6 +40,29 @@ Gets an individual <code>mitigation_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>mitigation_action</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeMitigationAction,
+iot:ListTagsForResource</pre>
+
+### Update
+<pre>
+iot:UpdateMitigationAction,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iot:DescribeMitigationAction,
+iot:DeleteMitigationAction</pre>
+
+
 ## Example
 ```sql
 SELECT

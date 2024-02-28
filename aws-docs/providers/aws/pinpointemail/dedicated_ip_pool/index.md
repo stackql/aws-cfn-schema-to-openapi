@@ -37,6 +37,10 @@ Gets an individual <code>dedicated_ip_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

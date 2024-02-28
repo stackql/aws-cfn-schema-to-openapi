@@ -43,6 +43,26 @@ Gets an individual <code>dataset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dataset</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotanalytics:DescribeDataset,
+iotanalytics:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotanalytics:UpdateDataset,
+iotanalytics:TagResource,
+iotanalytics:UntagResource</pre>
+
+### Delete
+<pre>
+iotanalytics:DeleteDataset</pre>
+
+
 ## Example
 ```sql
 SELECT

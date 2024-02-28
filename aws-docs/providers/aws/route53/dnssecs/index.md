@@ -35,6 +35,25 @@ Retrieves a list of <code>dnssecs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dnssecs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53:GetDNSSEC,
+route53:EnableHostedZoneDNSSEC,
+kms:DescribeKey,
+kms:GetPublicKey,
+kms:Sign,
+kms:CreateGrant</pre>
+
+### List
+<pre>
+route53:GetDNSSEC,
+route53:ListHostedZones</pre>
+
+
 ## Example
 ```sql
 SELECT

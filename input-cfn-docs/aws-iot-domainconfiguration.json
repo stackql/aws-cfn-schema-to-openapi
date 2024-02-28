@@ -18,6 +18,15 @@
       },
       "additionalProperties" : false
     },
+    "ServerCertificateConfig" : {
+      "type" : "object",
+      "properties" : {
+        "EnableOCSPCheck" : {
+          "type" : "boolean"
+        }
+      },
+      "additionalProperties" : false
+    },
     "ServerCertificateSummary" : {
       "type" : "object",
       "properties" : {
@@ -33,6 +42,16 @@
         },
         "ServerCertificateStatusDetail" : {
           "type" : "string"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "TlsConfig" : {
+      "type" : "object",
+      "properties" : {
+        "SecurityPolicy" : {
+          "type" : "string",
+          "maxLength" : 128
         }
       },
       "additionalProperties" : false
@@ -97,12 +116,18 @@
       "type" : "string",
       "enum" : [ "ENDPOINT", "AWS_MANAGED", "CUSTOMER_MANAGED" ]
     },
+    "ServerCertificateConfig" : {
+      "$ref" : "#/definitions/ServerCertificateConfig"
+    },
     "ServerCertificates" : {
       "type" : "array",
       "insertionOrder" : true,
       "items" : {
         "$ref" : "#/definitions/ServerCertificateSummary"
       }
+    },
+    "TlsConfig" : {
+      "$ref" : "#/definitions/TlsConfig"
     },
     "Tags" : {
       "type" : "array",
@@ -127,7 +152,7 @@
   "primaryIdentifier" : [ "/properties/DomainConfigurationName" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "iot:CreateDomainConfiguration", "iot:UpdateDomainConfiguration", "iot:DescribeDomainConfiguration", "iot:ListTagsForResource" ]
+      "permissions" : [ "iot:CreateDomainConfiguration", "iot:UpdateDomainConfiguration", "iot:DescribeDomainConfiguration", "iot:TagResource", "iot:ListTagsForResource", "acm:GetCertificate" ]
     },
     "read" : {
       "permissions" : [ "iot:DescribeDomainConfiguration", "iot:ListTagsForResource" ]
@@ -136,7 +161,7 @@
       "permissions" : [ "iot:UpdateDomainConfiguration", "iot:DescribeDomainConfiguration", "iot:ListTagsForResource", "iot:TagResource", "iot:UntagResource" ]
     },
     "delete" : {
-      "permissions" : [ "iot:DeleteDomainConfiguration", "iot:UpdateDomainConfiguration" ]
+      "permissions" : [ "iot:DescribeDomainConfiguration", "iot:DeleteDomainConfiguration", "iot:UpdateDomainConfiguration" ]
     },
     "list" : {
       "permissions" : [ "iot:ListDomainConfigurations" ]

@@ -62,6 +62,29 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Read
+<pre>
+memorydb:DescribeClusters,
+memorydb:ListTags</pre>
+
+### Update
+<pre>
+memorydb:UpdateCluster,
+memorydb:DescribeClusters,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource</pre>
+
+### Delete
+<pre>
+memorydb:DeleteCluster,
+memorydb:DescribeClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

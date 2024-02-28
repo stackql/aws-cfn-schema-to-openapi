@@ -35,6 +35,29 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+wafv2:PutLoggingConfiguration,
+wafv2:GetLoggingConfiguration,
+firehose:ListDeliveryStreams,
+iam:CreateServiceLinkedRole,
+iam:DescribeOrganization,
+logs:CreateLogDelivery,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups</pre>
+
+### List
+<pre>
+wafv2:ListLoggingConfigurations</pre>
+
+
 ## Example
 ```sql
 SELECT

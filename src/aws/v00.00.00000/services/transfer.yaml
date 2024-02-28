@@ -97,6 +97,27 @@ components:
       x-stackql-primaryIdentifier:
         - AgreementId
         - ServerId
+      x-create-only-properties:
+        - ServerId
+      x-read-only-properties:
+        - AgreementId
+        - Arn
+      x-required-permissions:
+        create:
+          - transfer:CreateAgreement
+          - transfer:TagResource
+          - iam:PassRole
+        read:
+          - transfer:DescribeAgreement
+        update:
+          - transfer:UpdateAgreement
+          - transfer:UnTagResource
+          - transfer:TagResource
+          - iam:PassRole
+        delete:
+          - transfer:DeleteAgreement
+        list:
+          - transfer:ListAgreements
     Certificate:
       type: object
       properties:
@@ -187,6 +208,37 @@ components:
       x-stackql-resource-name: certificate
       x-stackql-primaryIdentifier:
         - CertificateId
+      x-create-only-properties:
+        - Certificate
+        - CertificateChain
+        - PrivateKey
+      x-read-only-properties:
+        - Arn
+        - CertificateId
+        - Status
+        - Type
+        - Serial
+        - NotAfterDate
+        - NotBeforeDate
+      x-required-permissions:
+        create:
+          - transfer:ImportCertificate
+          - transfer:TagResource
+        read:
+          - transfer:DescribeCertificate
+        update:
+          - transfer:UpdateCertificate
+          - transfer:UnTagResource
+          - transfer:TagResource
+        delete:
+          - transfer:DeleteCertificate
+        list:
+          - transfer:ListCertificates
+    SftpConnectorTrustedHostKey:
+      description: The public host key for the external server to which you are connecting.
+      type: string
+      minLength: 1
+      maxLength: 2048
     Connector:
       type: object
       properties:
@@ -257,9 +309,32 @@ components:
               enum:
                 - SYNC
                 - NONE
+            BasicAuthSecretId:
+              type: string
+              description: ARN or name of the secret in AWS Secrets Manager which contains the credentials for Basic authentication. If empty, Basic authentication is disabled for the AS2 connector
+              minLength: 0
+              maxLength: 2048
+          additionalProperties: false
+        SftpConfig:
+          description: Configuration for an SFTP connector.
+          type: object
+          properties:
+            UserSecretId:
+              type: string
+              description: ARN or name of the secret in AWS Secrets Manager which contains the SFTP user's private keys or passwords.
+              minLength: 1
+              maxLength: 2048
+            TrustedHostKeys:
+              description: List of public host keys, for the external server to which you are connecting.
+              type: array
+              maxItems: 10
+              uniqueItems: false
+              x-insertionOrder: false
+              items:
+                $ref: '#/components/schemas/SftpConnectorTrustedHostKey'
           additionalProperties: false
         Arn:
-          description: Specifies the unique Amazon Resource Name (ARN) for the workflow.
+          description: Specifies the unique Amazon Resource Name (ARN) for the connector.
           type: string
           pattern: arn:.*
           minLength: 20
@@ -277,7 +352,7 @@ components:
           minLength: 20
           maxLength: 2048
         Tags:
-          description: Key-value pairs that can be used to group and search for workflows. Tags are metadata attached to workflows for any purpose.
+          description: Key-value pairs that can be used to group and search for connectors. Tags are metadata attached to connectors for any purpose.
           type: array
           maxItems: 50
           uniqueItems: true
@@ -290,11 +365,29 @@ components:
           maxLength: 255
       required:
         - AccessRole
-        - As2Config
         - Url
       x-stackql-resource-name: connector
       x-stackql-primaryIdentifier:
         - ConnectorId
+      x-read-only-properties:
+        - Arn
+        - ConnectorId
+      x-required-permissions:
+        create:
+          - transfer:CreateConnector
+          - transfer:TagResource
+          - iam:PassRole
+        read:
+          - transfer:DescribeConnector
+        update:
+          - transfer:UpdateConnector
+          - transfer:UnTagResource
+          - transfer:TagResource
+          - iam:PassRole
+        delete:
+          - transfer:DeleteConnector
+        list:
+          - transfer:ListConnectors
     CertificateId:
       description: A unique identifier for the certificate.
       type: string
@@ -347,6 +440,28 @@ components:
       x-stackql-resource-name: profile
       x-stackql-primaryIdentifier:
         - ProfileId
+      x-create-only-properties:
+        - ProfileType
+      x-read-only-properties:
+        - Arn
+        - ProfileId
+      x-required-permissions:
+        create:
+          - transfer:CreateProfile
+          - transfer:TagResource
+        read:
+          - transfer:DescribeProfile
+        update:
+          - transfer:UpdateProfile
+          - transfer:UnTagResource
+          - transfer:TagResource
+        delete:
+          - transfer:DeleteProfile
+        list:
+          - transfer:ListProfiles
+    StructuredLogDestination:
+      type: object
+      additionalProperties: false
     IdentityProviderDetails:
       type: object
       additionalProperties: false
@@ -358,6 +473,8 @@ components:
         Url:
           type: string
         InvocationRole:
+          type: string
+        SftpAuthenticationMethods:
           type: string
     ProtocolDetails:
       type: object
@@ -373,6 +490,12 @@ components:
         SetStatOption:
           type: string
         TlsSessionResumptionMode:
+          type: string
+    S3StorageOptions:
+      type: object
+      additionalProperties: false
+      properties:
+        DirectoryListingOptimization:
           type: string
     WorkflowDetails:
       type: object
@@ -442,6 +565,11 @@ components:
           $ref: '#/components/schemas/IdentityProviderDetails'
         EndpointDetails:
           $ref: '#/components/schemas/EndpointDetails'
+        StructuredLogDestinations:
+          type: array
+          uniqueItems: false
+          items:
+            $ref: '#/components/schemas/StructuredLogDestination'
         PreAuthenticationLoginBanner:
           type: string
         ServerId:
@@ -454,6 +582,8 @@ components:
           type: string
         ProtocolDetails:
           $ref: '#/components/schemas/ProtocolDetails'
+        S3StorageOptions:
+          $ref: '#/components/schemas/S3StorageOptions'
         WorkflowDetails:
           $ref: '#/components/schemas/WorkflowDetails'
         Arn:
@@ -472,6 +602,12 @@ components:
       x-stackql-resource-name: server
       x-stackql-primaryIdentifier:
         - ServerId
+      x-create-only-properties:
+        - IdentityProviderType
+        - Domain
+      x-read-only-properties:
+        - ServerId
+        - Arn
     SshPublicKey:
       type: object
       additionalProperties: false
@@ -498,6 +634,8 @@ components:
         Entry:
           type: string
         Target:
+          type: string
+        Type:
           type: string
       required:
         - Entry
@@ -545,6 +683,12 @@ components:
       x-stackql-resource-name: user
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - ServerId
+        - UserName
+      x-read-only-properties:
+        - Id
+        - Arn
     S3Tag:
       description: Specifies the key-value pair that are assigned to a file during the execution of a Tagging step.
       type: object
@@ -801,6 +945,26 @@ components:
       x-stackql-resource-name: workflow
       x-stackql-primaryIdentifier:
         - WorkflowId
+      x-create-only-properties:
+        - Steps
+        - OnExceptionSteps
+        - Description
+      x-read-only-properties:
+        - WorkflowId
+        - Arn
+      x-required-permissions:
+        create:
+          - transfer:CreateWorkflow
+          - transfer:TagResource
+        read:
+          - transfer:DescribeWorkflow
+        delete:
+          - transfer:DeleteWorkflow
+        list:
+          - transfer:ListWorkflows
+        update:
+          - transfer:UnTagResource
+          - transfer:TagResource
   x-stackQL-resources:
     agreements:
       name: agreements
@@ -924,6 +1088,7 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AccessRole') as access_role,
               JSON_EXTRACT(Properties, '$.As2Config') as as2_config,
+              JSON_EXTRACT(Properties, '$.SftpConfig') as sftp_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ConnectorId') as connector_id,
               JSON_EXTRACT(Properties, '$.LoggingRole') as logging_role,
@@ -1001,12 +1166,14 @@ components:
               JSON_EXTRACT(Properties, '$.Protocols') as protocols,
               JSON_EXTRACT(Properties, '$.IdentityProviderDetails') as identity_provider_details,
               JSON_EXTRACT(Properties, '$.EndpointDetails') as endpoint_details,
+              JSON_EXTRACT(Properties, '$.StructuredLogDestinations') as structured_log_destinations,
               JSON_EXTRACT(Properties, '$.PreAuthenticationLoginBanner') as pre_authentication_login_banner,
               JSON_EXTRACT(Properties, '$.ServerId') as server_id,
               JSON_EXTRACT(Properties, '$.PostAuthenticationLoginBanner') as post_authentication_login_banner,
               JSON_EXTRACT(Properties, '$.EndpointType') as endpoint_type,
               JSON_EXTRACT(Properties, '$.SecurityPolicyName') as security_policy_name,
               JSON_EXTRACT(Properties, '$.ProtocolDetails') as protocol_details,
+              JSON_EXTRACT(Properties, '$.S3StorageOptions') as s3_storage_options,
               JSON_EXTRACT(Properties, '$.WorkflowDetails') as workflow_details,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Domain') as domain,

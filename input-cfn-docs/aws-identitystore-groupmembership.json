@@ -1,5 +1,6 @@
 {
   "typeName" : "AWS::IdentityStore::GroupMembership",
+  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-resource-providers-identitystore",
   "description" : "Resource Type Definition for AWS:IdentityStore::GroupMembership",
   "definitions" : {
     "MemberId" : {
@@ -54,7 +55,7 @@
   },
   "required" : [ "IdentityStoreId", "GroupId", "MemberId" ],
   "readOnlyProperties" : [ "/properties/MembershipId" ],
-  "createOnlyProperties" : [ "/properties/IdentityStoreId" ],
+  "createOnlyProperties" : [ "/properties/IdentityStoreId", "/properties/GroupId", "/properties/MemberId" ],
   "primaryIdentifier" : [ "/properties/MembershipId", "/properties/IdentityStoreId" ],
   "handlers" : {
     "create" : {
@@ -67,7 +68,18 @@
       "permissions" : [ "identitystore:DeleteGroupMembership", "identitystore:DescribeGroupMembership" ]
     },
     "list" : {
-      "permissions" : [ "identitystore:ListGroupMemberships" ]
+      "permissions" : [ "identitystore:ListGroupMemberships" ],
+      "handlerSchema" : {
+        "properties" : {
+          "IdentityStoreId" : {
+            "$ref" : "resource-schema.json#/properties/IdentityStoreId"
+          },
+          "GroupId" : {
+            "$ref" : "resource-schema.json#/properties/GroupId"
+          }
+        },
+        "required" : [ "IdentityStoreId", "GroupId" ]
+      }
     }
   },
   "additionalProperties" : false

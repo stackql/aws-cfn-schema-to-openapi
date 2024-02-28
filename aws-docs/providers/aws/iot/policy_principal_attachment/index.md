@@ -37,6 +37,10 @@ Gets an individual <code>policy_principal_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

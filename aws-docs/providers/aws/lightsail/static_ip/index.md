@@ -39,6 +39,30 @@ Gets an individual <code>static_ip</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>static_ip</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lightsail:GetStaticIp,
+lightsail:GetStaticIps</pre>
+
+### Update
+<pre>
+lightsail:AttachStaticIp,
+lightsail:DetachStaticIp,
+lightsail:GetInstance,
+lightsail:GetStaticIp,
+lightsail:GetStaticIps</pre>
+
+### Delete
+<pre>
+lightsail:GetStaticIp,
+lightsail:GetStaticIps,
+lightsail:ReleaseStaticIp</pre>
+
+
 ## Example
 ```sql
 SELECT

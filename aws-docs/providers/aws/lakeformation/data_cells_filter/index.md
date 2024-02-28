@@ -41,6 +41,19 @@ Gets an individual <code>data_cells_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_cells_filter</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+lakeformation:DeleteDataCellsFilter</pre>
+
+### Read
+<pre>
+lakeformation:ListDataCellsFilter</pre>
+
+
 ## Example
 ```sql
 SELECT

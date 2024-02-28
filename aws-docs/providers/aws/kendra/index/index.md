@@ -46,6 +46,30 @@ Gets an individual <code>index</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>index</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kendra:DescribeIndex,
+kendra:ListTagsForResource</pre>
+
+### Update
+<pre>
+kendra:DescribeIndex,
+kendra:UpdateIndex,
+kendra:ListTagsForResource,
+kendra:TagResource,
+kendra:UntagResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+kendra:DescribeIndex,
+kendra:DeleteIndex</pre>
+
+
 ## Example
 ```sql
 SELECT

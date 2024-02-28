@@ -35,6 +35,21 @@ Retrieves a list of <code>instance_access_control_attribute_configurations</code
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>instance_access_control_attribute_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sso:CreateInstanceAccessControlAttributeConfiguration,
+sso:UpdateApplicationProfileForAWSAccountInstance,
+sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
+
+### List
+<pre>
+sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

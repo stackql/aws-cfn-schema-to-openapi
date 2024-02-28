@@ -35,6 +35,20 @@ Retrieves a list of <code>attribute_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>attribute_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+servicecatalog:CreateAttributeGroup,
+servicecatalog:TagResource</pre>
+
+### List
+<pre>
+servicecatalog:ListAttributeGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

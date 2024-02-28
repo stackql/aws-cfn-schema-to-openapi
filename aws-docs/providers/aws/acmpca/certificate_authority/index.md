@@ -45,6 +45,29 @@ Gets an individual <code>certificate_authority</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>certificate_authority</code> resource, the following permissions are required:
+
+### Read
+<pre>
+acm-pca:DescribeCertificateAuthority,
+acm-pca:GetCertificateAuthorityCsr,
+acm-pca:ListTags</pre>
+
+### Update
+<pre>
+acm-pca:ListTags,
+acm-pca:TagCertificateAuthority,
+acm-pca:UntagCertificateAuthority,
+acm-pca:UpdateCertificateAuthority</pre>
+
+### Delete
+<pre>
+acm-pca:DeleteCertificateAuthority,
+acm-pca:DescribeCertificateAuthority</pre>
+
+
 ## Example
 ```sql
 SELECT

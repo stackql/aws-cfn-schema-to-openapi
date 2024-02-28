@@ -35,6 +35,20 @@ Retrieves a list of <code>hook_type_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>hook_type_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudformation:SetTypeConfiguration</pre>
+
+### List
+<pre>
+cloudformation:ListTypes,
+cloudformation:BatchDescribeTypeConfigurations</pre>
+
+
 ## Example
 ```sql
 SELECT

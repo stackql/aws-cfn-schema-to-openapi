@@ -37,6 +37,10 @@ Gets an individual <code>application_cloud_watch_logging_option</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

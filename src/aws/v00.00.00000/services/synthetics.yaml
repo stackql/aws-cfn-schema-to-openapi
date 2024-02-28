@@ -29,6 +29,8 @@ components:
           type: string
         Handler:
           type: string
+        SourceLocationArn:
+          type: string
       required:
         - Handler
       oneOf:
@@ -204,10 +206,71 @@ components:
         - ExecutionRoleArn
         - Schedule
         - RuntimeVersion
-        - StartCanaryAfterCreation
       x-stackql-resource-name: canary
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+        - State
+        - Code/SourceLocationArn
+      x-required-permissions:
+        create:
+          - synthetics:CreateCanary
+          - synthetics:StartCanary
+          - synthetics:GetCanary
+          - synthetics:TagResource
+          - s3:CreateBucket
+          - s3:GetObject
+          - s3:GetObjectVersion
+          - s3:PutBucketEncryption
+          - s3:PutEncryptionConfiguration
+          - s3:GetBucketLocation
+          - lambda:CreateFunction
+          - lambda:AddPermission
+          - lambda:PublishVersion
+          - lambda:UpdateFunctionConfiguration
+          - lambda:GetFunctionConfiguration
+          - lambda:GetLayerVersionByArn
+          - lambda:GetLayerVersion
+          - lambda:PublishLayerVersion
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+          - iam:PassRole
+        update:
+          - synthetics:UpdateCanary
+          - synthetics:StartCanary
+          - synthetics:StopCanary
+          - synthetics:GetCanary
+          - synthetics:TagResource
+          - synthetics:UntagResource
+          - s3:GetObject
+          - s3:GetObjectVersion
+          - s3:PutBucketEncryption
+          - s3:PutEncryptionConfiguration
+          - s3:GetBucketLocation
+          - lambda:AddPermission
+          - lambda:PublishVersion
+          - lambda:UpdateFunctionConfiguration
+          - lambda:GetFunctionConfiguration
+          - lambda:GetLayerVersionByArn
+          - lambda:GetLayerVersion
+          - lambda:PublishLayerVersion
+          - iam:PassRole
+        read:
+          - synthetics:GetCanary
+          - synthetics:DescribeCanaries
+          - synthetics:ListTagsForResource
+          - iam:ListRoles
+          - s3:ListAllMyBuckets
+          - s3:GetBucketLocation
+        delete:
+          - synthetics:DeleteCanary
+          - synthetics:GetCanary
+        list:
+          - synthetics:DescribeCanaries
     ResourceArn:
       type: string
       description: Provide Canary Arn associated with the group.
@@ -239,6 +302,32 @@ components:
       x-stackql-resource-name: group
       x-stackql-primaryIdentifier:
         - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - synthetics:CreateGroup
+          - synthetics:AssociateResource
+          - synthetics:TagResource
+          - synthetics:GetGroup
+        update:
+          - synthetics:AssociateResource
+          - synthetics:DisassociateResource
+          - synthetics:TagResource
+          - synthetics:UntagResource
+          - synthetics:GetGroup
+          - synthetics:ListGroupResources
+        read:
+          - synthetics:GetGroup
+          - synthetics:ListTagsForResource
+          - synthetics:ListGroupResources
+        delete:
+          - synthetics:DeleteGroup
+          - synthetics:GetGroup
+        list:
+          - synthetics:ListGroups
   x-stackQL-resources:
     canaries:
       name: canaries

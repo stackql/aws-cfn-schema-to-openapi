@@ -39,6 +39,25 @@ Gets an individual <code>signaling_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>signaling_channel</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kinesisvideo:DescribeSignalingChannel</pre>
+
+### Update
+<pre>
+kinesisvideo:UpdateSignalingChannel,
+kinesisvideo:DescribeSignalingChannel</pre>
+
+### Delete
+<pre>
+kinesisvideo:DeleteSignalingChannel,
+kinesisvideo:DescribeSignalingChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

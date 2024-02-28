@@ -44,6 +44,27 @@ Gets an individual <code>db_proxy_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>db_proxy_endpoint</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rds:DescribeDBProxyEndpoints,
+rds:ListTagsForResource</pre>
+
+### Update
+<pre>
+rds:ModifyDBProxyEndpoint,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource</pre>
+
+### Delete
+<pre>
+rds:DescribeDBProxyEndpoints,
+rds:DeleteDBProxyEndpoint</pre>
+
+
 ## Example
 ```sql
 SELECT

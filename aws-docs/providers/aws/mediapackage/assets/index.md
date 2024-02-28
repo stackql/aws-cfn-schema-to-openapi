@@ -35,6 +35,23 @@ Retrieves a list of <code>assets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assets</code> resource, the following permissions are required:
+
+### Create
+<pre>
+mediapackage-vod:CreateAsset,
+mediapackage-vod:DescribeAsset,
+mediapackage-vod:TagResource,
+iam:PassRole</pre>
+
+### List
+<pre>
+mediapackage-vod:ListAssets,
+mediapackage-vod:DescribePackagingGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

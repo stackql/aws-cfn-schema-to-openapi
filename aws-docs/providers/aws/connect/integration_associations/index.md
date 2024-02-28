@@ -37,6 +37,49 @@ Retrieves a list of <code>integration_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>integration_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+connect:DescribeInstance,
+ds:DescribeDirectories,
+app-integrations:CreateEventIntegrationAssociation,
+mobiletargeting:GetApp,
+cases:GetDomain,
+wisdom:GetAssistant,
+wisdom:GetKnowledgeBase,
+wisdom:TagResource,
+voiceid:DescribeDomain,
+events:PutTargets,
+events:PutRule,
+connect:AssociateBot,
+connect:AssociateLambdaFunction,
+connect:CreateIntegrationAssociation,
+connect:ListBots,
+connect:ListLambdaFunctions,
+connect:ListIntegrationAssociations,
+lambda:addPermission,
+lex:GetBot,
+lex:DescribeBotAlias,
+lex:CreateResourcePolicy,
+lex:UpdateResourcePolicy,
+lex:CreateResourcePolicyStatement,
+lambda:AddPermission,
+app-integrations:GetApplication,
+iam:AttachRolePolicy,
+iam:CreateServiceLinkedRole,
+iam:GetRolePolicy,
+iam:PutRolePolicy</pre>
+
+### List
+<pre>
+connect:ListBots,
+connect:ListLambdaFunctions,
+connect:ListIntegrationAssociations</pre>
+
+
 ## Example
 ```sql
 SELECT

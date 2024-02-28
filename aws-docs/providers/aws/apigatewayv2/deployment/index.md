@@ -28,15 +28,35 @@ Gets an individual <code>deployment</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>deployment_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>stage_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>The description for the deployment resource.</td></tr>
+<tr><td><code>stage_name</code></td><td><code>string</code></td><td>The name of an existing stage to associate with the deployment.</td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td>The API identifier.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>deployment</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT</pre>
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Delete
+<pre>
+apigateway:GET,
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

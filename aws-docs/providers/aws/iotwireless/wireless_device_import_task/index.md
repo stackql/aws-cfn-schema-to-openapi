@@ -46,6 +46,27 @@ Gets an individual <code>wireless_device_import_task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>wireless_device_import_task</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetWirelessDeviceImportTask,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotwireless:UpdateWirelessDeviceImportTask,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteWirelessDeviceImportTask</pre>
+
+
 ## Example
 ```sql
 SELECT

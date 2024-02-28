@@ -40,6 +40,26 @@ Gets an individual <code>flow_vpc_interface</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flow_vpc_interface</code> resource, the following permissions are required:
+
+### Read
+<pre>
+mediaconnect:DescribeFlow</pre>
+
+### Update
+<pre>
+mediaconnect:DescribeFlow,
+mediaconnect:AddFlowVpcInterfaces,
+mediaconnect:RemoveFlowVpcInterface</pre>
+
+### Delete
+<pre>
+mediaconnect:DescribeFlow,
+mediaconnect:RemoveFlowVpcInterface</pre>
+
+
 ## Example
 ```sql
 SELECT

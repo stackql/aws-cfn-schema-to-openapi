@@ -35,6 +35,51 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>clusters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+redshift:DescribeClusters,
+redshift:CreateCluster,
+redshift:RestoreFromClusterSnapshot,
+redshift:EnableLogging,
+redshift:DescribeLoggingStatus,
+redshift:CreateTags,
+redshift:DescribeTags,
+redshift:GetResourcePolicy,
+redshift:PutResourcePolicy,
+redshift:ModifyClusterMaintenance,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeAddresses,
+ec2:AssociateAddress,
+ec2:CreateNetworkInterface,
+ec2:ModifyNetworkInterfaceAttribute,
+ec2:CreateVpcEndpoint,
+ec2:DescribeVpcEndpoints,
+ec2:ModifyVpcEndpoint,
+ec2:AllocateAddress,
+ec2:CreateSecurityGroup,
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeInternetGateways,
+ec2:DescribeSecurityGroupRules,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeNetworkAcls,
+ec2:DescribeRouteTables,
+cloudwatch:PutMetricData</pre>
+
+### List
+<pre>
+redshift:DescribeTags,
+redshift:DescribeClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -34,11 +34,51 @@ components:
           maxLength: 1024
         Tags:
           $ref: '#/components/schemas/Tags'
+        ApplicationTagKey:
+          type: string
+          description: The key of the AWS application tag, which is awsApplication. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value.
+          maxLength: 128
+          pattern: \w+
+        ApplicationTagValue:
+          type: string
+          description: 'The value of the AWS application tag, which is the identifier of an associated resource. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value. '
+          maxLength: 256
+          pattern: \[a-zA-Z0-9_-:/]+
+        ApplicationName:
+          type: string
+          description: 'The name of the application. '
+          minLength: 1
+          maxLength: 256
+          pattern: \w+
       required:
         - Name
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+        - ApplicationName
+        - ApplicationTagKey
+        - ApplicationTagValue
+      x-required-permissions:
+        create:
+          - servicecatalog:CreateApplication
+          - servicecatalog:TagResource
+          - iam:CreateServiceLinkedRole
+        read:
+          - servicecatalog:GetApplication
+        update:
+          - servicecatalog:GetApplication
+          - servicecatalog:ListTagsForResource
+          - servicecatalog:TagResource
+          - servicecatalog:UntagResource
+          - servicecatalog:UpdateApplication
+          - iam:CreateServiceLinkedRole
+        delete:
+          - servicecatalog:DeleteApplication
+        list:
+          - servicecatalog:ListApplications
     AttributeGroup:
       type: object
       properties:
@@ -68,6 +108,25 @@ components:
       x-stackql-resource-name: attribute_group
       x-stackql-primaryIdentifier:
         - Id
+      x-read-only-properties:
+        - Id
+        - Arn
+      x-required-permissions:
+        create:
+          - servicecatalog:CreateAttributeGroup
+          - servicecatalog:TagResource
+        read:
+          - servicecatalog:GetAttributeGroup
+        update:
+          - servicecatalog:GetAttributeGroup
+          - servicecatalog:UpdateAttributeGroup
+          - servicecatalog:ListTagsForResource
+          - servicecatalog:TagResource
+          - servicecatalog:UntagResource
+        delete:
+          - servicecatalog:DeleteAttributeGroup
+        list:
+          - servicecatalog:ListAttributeGroups
     AttributeGroupAssociation:
       type: object
       properties:
@@ -89,14 +148,28 @@ components:
         AttributeGroupArn:
           type: string
           pattern: arn:aws[-a-z]*:servicecatalog:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:/attribute-groups/[a-z0-9]+
-        Id:
-          type: string
       required:
         - Application
         - AttributeGroup
       x-stackql-resource-name: attribute_group_association
       x-stackql-primaryIdentifier:
-        - Id
+        - ApplicationArn
+        - AttributeGroupArn
+      x-create-only-properties:
+        - Application
+        - AttributeGroup
+      x-read-only-properties:
+        - ApplicationArn
+        - AttributeGroupArn
+      x-required-permissions:
+        create:
+          - servicecatalog:AssociateAttributeGroup
+        read:
+          - servicecatalog:ListAttributeGroupsForApplication
+        delete:
+          - servicecatalog:DisassociateAttributeGroup
+        list:
+          - servicecatalog:ListAttributeGroupsForApplication
     ResourceAssociation:
       type: object
       properties:
@@ -121,15 +194,32 @@ components:
         ResourceArn:
           type: string
           pattern: arn:aws[-a-z]*:cloudformation:[a-z]{2}(-gov)?-[a-z]+-\d:\d{12}:stack/[a-zA-Z][-A-Za-z0-9]{0,127}/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}
-        Id:
-          type: string
       required:
         - Application
         - Resource
         - ResourceType
       x-stackql-resource-name: resource_association
       x-stackql-primaryIdentifier:
-        - Id
+        - ApplicationArn
+        - ResourceArn
+        - ResourceType
+      x-create-only-properties:
+        - Application
+        - Resource
+        - ResourceType
+      x-read-only-properties:
+        - ApplicationArn
+        - ResourceArn
+      x-required-permissions:
+        create:
+          - servicecatalog:AssociateResource
+          - cloudformation:DescribeStacks
+        read:
+          - servicecatalog:ListAssociatedResources
+        delete:
+          - servicecatalog:DisassociateResource
+        list:
+          - servicecatalog:ListAssociatedResources
   x-stackQL-resources:
     applications:
       name: applications
@@ -165,7 +255,10 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.ApplicationTagKey') as application_tag_key,
+              JSON_EXTRACT(Properties, '$.ApplicationTagValue') as application_tag_value,
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::Application'
     attribute_groups:
       name: attribute_groups
@@ -210,7 +303,8 @@ components:
       x-cfn-schema-name: AttributeGroupAssociation
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationArn
+        - AttributeGroupArn
       config:
         views:
           select:
@@ -218,7 +312,8 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
+              JSON_EXTRACT(Properties, '$.AttributeGroupArn') as attribute_group_arn
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation'
     attribute_group_association:
       name: attribute_group_association
@@ -226,7 +321,8 @@ components:
       x-cfn-schema-name: AttributeGroupAssociation
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationArn
+        - AttributeGroupArn
       config:
         views:
           select:
@@ -237,8 +333,7 @@ components:
               JSON_EXTRACT(Properties, '$.Application') as application,
               JSON_EXTRACT(Properties, '$.AttributeGroup') as attribute_group,
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
-              JSON_EXTRACT(Properties, '$.AttributeGroupArn') as attribute_group_arn,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.AttributeGroupArn') as attribute_group_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::AttributeGroupAssociation'
     resource_associations:
       name: resource_associations
@@ -246,7 +341,9 @@ components:
       x-cfn-schema-name: ResourceAssociation
       x-type: list
       x-identifiers:
-        - Id
+        - ApplicationArn
+        - ResourceArn
+        - ResourceType
       config:
         views:
           select:
@@ -254,7 +351,9 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
+              JSON_EXTRACT(Properties, '$.ResourceType') as resource_type
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation'
     resource_association:
       name: resource_association
@@ -262,7 +361,9 @@ components:
       x-cfn-schema-name: ResourceAssociation
       x-type: get
       x-identifiers:
-        - Id
+        - ApplicationArn
+        - ResourceArn
+        - ResourceType
       config:
         views:
           select:
@@ -274,6 +375,5 @@ components:
               JSON_EXTRACT(Properties, '$.Resource') as resource,
               JSON_EXTRACT(Properties, '$.ResourceType') as resource_type,
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn,
-              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceCatalogAppRegistry::ResourceAssociation'

@@ -45,6 +45,26 @@ Gets an individual <code>type_activation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>type_activation</code> resource, the following permissions are required:
+
+### Update
+<pre>
+cloudformation:ActivateType,
+cloudformation:DescribeType,
+iam:PassRole</pre>
+
+### Read
+<pre>
+cloudformation:DescribeType</pre>
+
+### Delete
+<pre>
+cloudformation:DeactivateType,
+cloudformation:DescribeType</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -48,6 +48,31 @@ components:
       x-stackql-resource-name: access_point
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Bucket
+        - Name
+        - VpcConfiguration
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - s3-outposts:CreateAccessPoint
+          - s3-outposts:GetAccessPoint
+          - s3-outposts:PutAccessPointPolicy
+          - s3-outposts:GetAccessPointPolicy
+        read:
+          - s3-outposts:GetAccessPoint
+          - s3-outposts:GetAccessPointPolicy
+        update:
+          - s3-outposts:GetAccessPoint
+          - s3-outposts:PutAccessPointPolicy
+          - s3-outposts:GetAccessPointPolicy
+          - s3-outposts:DeleteAccessPointPolicy
+        delete:
+          - s3-outposts:DeleteAccessPoint
+          - s3-outposts:DeleteAccessPointPolicy
+        list:
+          - s3-outposts:ListAccessPoints
     Tag:
       type: object
       additionalProperties: false
@@ -222,6 +247,28 @@ components:
       x-stackql-resource-name: bucket
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - BucketName
+        - OutpostId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - s3-outposts:CreateBucket
+          - s3-outposts:PutBucketTagging
+          - s3-outposts:PutLifecycleConfiguration
+        read:
+          - s3-outposts:GetBucket
+          - s3-outposts:GetBucketTagging
+          - s3-outposts:GetLifecycleConfiguration
+        update:
+          - s3-outposts:PutBucketTagging
+          - s3-outposts:DeleteBucketTagging
+          - s3-outposts:PutLifecycleConfiguration
+        delete:
+          - s3-outposts:DeleteBucket
+        list:
+          - s3-outposts:ListRegionalBuckets
     BucketPolicy:
       type: object
       properties:
@@ -240,6 +287,20 @@ components:
       x-stackql-resource-name: bucket_policy
       x-stackql-primaryIdentifier:
         - Bucket
+      x-create-only-properties:
+        - Bucket
+      x-required-permissions:
+        create:
+          - s3-outposts:PutBucketPolicy
+          - s3-outposts:GetBucketPolicy
+        read:
+          - s3-outposts:GetBucketPolicy
+        update:
+          - s3-outposts:PutBucketPolicy
+          - s3-outposts:GetBucketPolicy
+        delete:
+          - s3-outposts:DeleteBucketPolicy
+          - s3-outposts:GetBucketPolicy
     NetworkInterface:
       description: The container for the network interface.
       type: object
@@ -251,6 +312,16 @@ components:
           maxLength: 100
       required:
         - NetworkInterfaceId
+    FailedReason:
+      type: object
+      additionalProperties: false
+      properties:
+        ErrorCode:
+          type: string
+          description: The failure code, if any, for a create or delete endpoint operation.
+        Message:
+          type: string
+          description: Additional error details describing the endpoint failure and recommended action.
     Endpoint:
       type: object
       properties:
@@ -297,6 +368,8 @@ components:
             - Available
             - Pending
             - Deleting
+            - Create_Failed
+            - Delete_Failed
         SubnetId:
           description: The ID of the subnet in the selected VPC. The subnet must belong to the Outpost.
           minLength: 1
@@ -314,6 +387,9 @@ components:
           description: The ID of the customer-owned IPv4 pool for the Endpoint. IP addresses will be allocated from this pool for the endpoint.
           type: string
           pattern: ^ipv4pool-coip-([0-9a-f]{17})$
+        FailedReason:
+          description: The failure reason, if any, for a create or delete endpoint operation.
+          $ref: '#/components/schemas/FailedReason'
       required:
         - OutpostId
         - SecurityGroupId
@@ -321,6 +397,28 @@ components:
       x-stackql-resource-name: endpoint
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - OutpostId
+        - SecurityGroupId
+        - SubnetId
+        - AccessType
+        - CustomerOwnedIpv4Pool
+      x-read-only-properties:
+        - Arn
+        - CidrBlock
+        - CreationTime
+        - Id
+        - NetworkInterfaces
+        - Status
+      x-required-permissions:
+        create:
+          - s3-outposts:CreateEndpoint
+        read:
+          - s3-outposts:ListEndpoints
+        delete:
+          - s3-outposts:DeleteEndpoint
+        list:
+          - s3-outposts:ListEndpoints
   x-stackQL-resources:
     access_points:
       name: access_points
@@ -467,5 +565,6 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.AccessType') as access_type,
-              JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool
+              JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool,
+              JSON_EXTRACT(Properties, '$.FailedReason') as failed_reason
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'

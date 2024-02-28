@@ -36,6 +36,25 @@ Gets an individual <code>dedicated_ip_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dedicated_ip_pool</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ses:GetDedicatedIpPool,
+ses:GetDedicatedIps</pre>
+
+### Update
+<pre>
+ses:PutDedicatedIpPoolScalingAttributes,
+ses:GetDedicatedIpPool</pre>
+
+### Delete
+<pre>
+ses:DeleteDedicatedIpPool</pre>
+
+
 ## Example
 ```sql
 SELECT

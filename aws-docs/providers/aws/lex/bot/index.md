@@ -47,6 +47,63 @@ Gets an individual <code>bot</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bot</code> resource, the following permissions are required:
+
+### Read
+<pre>
+lex:DescribeBot,
+lex:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:PassRole,
+lex:DescribeBot,
+lex:CreateUploadUrl,
+lex:StartImport,
+lex:DescribeImport,
+lex:ListTagsForResource,
+lex:TagResource,
+lex:UntagResource,
+lex:CreateBot,
+lex:CreateBotLocale,
+lex:CreateIntent,
+lex:CreateSlot,
+lex:CreateSlotType,
+lex:UpdateBot,
+lex:UpdateBotLocale,
+lex:UpdateIntent,
+lex:UpdateSlot,
+lex:UpdateSlotType,
+lex:DeleteBotLocale,
+lex:DeleteIntent,
+lex:DeleteSlot,
+lex:DeleteSlotType,
+lex:DescribeBotLocale,
+lex:BuildBotLocale,
+lex:ListBots,
+lex:ListBotLocales,
+lex:CreateCustomVocabulary,
+lex:UpdateCustomVocabulary,
+lex:DeleteCustomVocabulary,
+s3:GetObject,
+lex:UpdateBotAlias</pre>
+
+### Delete
+<pre>
+lex:DeleteBot,
+lex:DescribeBot,
+lex:DeleteBotLocale,
+lex:DeleteIntent,
+lex:DeleteSlotType,
+lex:DeleteSlot,
+lex:DeleteBotVersion,
+lex:DeleteBotChannel,
+lex:DeleteBotAlias,
+lex:DeleteCustomVocabulary</pre>
+
+
 ## Example
 ```sql
 SELECT

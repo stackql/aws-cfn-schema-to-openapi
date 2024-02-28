@@ -39,6 +39,28 @@ Gets an individual <code>backup_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>backup_plan</code> resource, the following permissions are required:
+
+### Read
+<pre>
+backup:GetBackupPlan,
+backup:ListTags</pre>
+
+### Delete
+<pre>
+backup:GetBackupPlan,
+backup:DeleteBackupPlan</pre>
+
+### Update
+<pre>
+backup:UpdateBackupPlan,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

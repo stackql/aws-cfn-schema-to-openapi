@@ -41,6 +41,27 @@ Gets an individual <code>destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>destination</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotwireless:GetDestination,
+iotwireless:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:PassRole,
+iotwireless:UpdateDestination,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource</pre>
+
+### Delete
+<pre>
+iotwireless:DeleteDestination</pre>
+
+
 ## Example
 ```sql
 SELECT

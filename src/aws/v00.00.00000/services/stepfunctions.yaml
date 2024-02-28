@@ -42,6 +42,22 @@ components:
       x-stackql-resource-name: activity
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - states:CreateActivity
+        read:
+          - states:DescribeActivity
+          - states:ListTagsForResource
+        update:
+          - states:ListTagsForResource
+          - states:TagResource
+          - states:UntagResource
+        delete:
+          - states:DeleteActivity
     CloudWatchLogsLogGroup:
       type: object
       additionalProperties: false
@@ -99,7 +115,7 @@ components:
       additionalProperties: false
       x-patternProperties:
         .*:
-          oneOf:
+          anyOf:
             - type: string
             - type: integer
             - type: boolean
@@ -135,6 +151,10 @@ components:
           enum:
             - STANDARD
             - EXPRESS
+        StateMachineRevisionId:
+          type: string
+          minLength: 1
+          maxLength: 256
         LoggingConfiguration:
           $ref: '#/components/schemas/LoggingConfiguration'
         TracingConfiguration:
@@ -156,6 +176,185 @@ components:
       x-stackql-resource-name: state_machine
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - StateMachineName
+        - StateMachineType
+      x-read-only-properties:
+        - Arn
+        - Name
+        - StateMachineRevisionId
+      x-required-permissions:
+        create:
+          - states:CreateStateMachine
+          - states:DescribeStateMachine
+          - states:TagResource
+          - iam:PassRole
+          - s3:GetObject
+        read:
+          - states:DescribeStateMachine
+          - states:ListTagsForResource
+        update:
+          - states:UpdateStateMachine
+          - states:TagResource
+          - states:UntagResource
+          - states:ListTagsForResource
+          - iam:PassRole
+        delete:
+          - states:DeleteStateMachine
+          - states:DescribeStateMachine
+        list:
+          - states:ListStateMachines
+    RoutingConfigurationVersion:
+      type: object
+      properties:
+        StateMachineVersionArn:
+          type: string
+          description: The Amazon Resource Name (ARN) that identifies one or two state machine versions defined in the routing configuration.
+          minLength: 1
+          maxLength: 2048
+        Weight:
+          type: integer
+          description: The percentage of traffic you want to route to the state machine version. The sum of the weights in the routing configuration must be equal to 100.
+          minimum: 0
+          maximum: 100
+      required:
+        - StateMachineVersionArn
+        - Weight
+      additionalProperties: false
+    RoutingConfiguration:
+      type: array
+      description: The routing configuration of the alias. One or two versions can be mapped to an alias to split StartExecution requests of the same state machine.
+      minItems: 1
+      maxItems: 2
+      uniqueItems: true
+      x-insertionOrder: false
+      items:
+        $ref: '#/components/schemas/RoutingConfigurationVersion'
+    DeploymentPreference:
+      type: object
+      description: The settings to enable gradual state machine deployments.
+      properties:
+        StateMachineVersionArn:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        Type:
+          type: string
+          description: The type of deployment to perform.
+          enum:
+            - LINEAR
+            - ALL_AT_ONCE
+            - CANARY
+        Percentage:
+          type: integer
+          description: The percentage of traffic to shift to the new version in each increment.
+          minimum: 1
+          maximum: 99
+        Interval:
+          type: integer
+          description: The time in minutes between each traffic shifting increment.
+          minimum: 1
+          maximum: 2100
+        Alarms:
+          type: array
+          description: A list of CloudWatch alarm names that will be monitored during the deployment. The deployment will fail and rollback if any alarms go into ALARM state.
+          minItems: 1
+          maxItems: 100
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            type: string
+            minLength: 1
+            maxLength: 256
+      required:
+        - StateMachineVersionArn
+        - Type
+      additionalProperties: false
+    StateMachineAlias:
+      type: object
+      properties:
+        Arn:
+          type: string
+          minLength: 1
+          maxLength: 2048
+          description: The ARN of the alias.
+        Name:
+          type: string
+          description: The alias name.
+          minLength: 1
+          maxLength: 80
+        Description:
+          type: string
+          description: An optional description of the alias.
+          minLength: 1
+          maxLength: 256
+        RoutingConfiguration:
+          $ref: '#/components/schemas/RoutingConfiguration'
+        DeploymentPreference:
+          $ref: '#/components/schemas/DeploymentPreference'
+      x-stackql-resource-name: state_machine_alias
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - states:CreateStateMachineAlias
+          - states:DescribeStateMachineAlias
+        read:
+          - states:DescribeStateMachineAlias
+        update:
+          - cloudwatch:DescribeAlarms
+          - states:UpdateStateMachineAlias
+          - states:DescribeStateMachineAlias
+        delete:
+          - states:DescribeStateMachineAlias
+          - states:DeleteStateMachineAlias
+        list:
+          - states:ListStateMachineAliases
+    StateMachineVersion:
+      type: object
+      properties:
+        Arn:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        StateMachineArn:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        StateMachineRevisionId:
+          type: string
+          minLength: 1
+          maxLength: 2048
+        Description:
+          type: string
+          minLength: 1
+          maxLength: 2048
+      required:
+        - StateMachineArn
+      x-stackql-resource-name: state_machine_version
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - StateMachineArn
+        - StateMachineRevisionId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - states:PublishStateMachineVersion
+          - states:ListStateMachineVersions
+          - states:DescribeStateMachine
+        read:
+          - states:DescribeStateMachine
+        delete:
+          - states:DeleteStateMachineVersion
+          - states:DescribeStateMachine
+        list:
+          - states:ListStateMachineVersions
   x-stackQL-resources:
     activities:
       name: activities
@@ -227,6 +426,7 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.StateMachineName') as state_machine_name,
               JSON_EXTRACT(Properties, '$.StateMachineType') as state_machine_type,
+              JSON_EXTRACT(Properties, '$.StateMachineRevisionId') as state_machine_revision_id,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration,
               JSON_EXTRACT(Properties, '$.TracingConfiguration') as tracing_configuration,
               JSON_EXTRACT(Properties, '$.DefinitionS3Location') as definition_s3_location,
@@ -234,3 +434,74 @@ components:
               JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
+    state_machine_aliases:
+      name: state_machine_aliases
+      id: aws.stepfunctions.state_machine_aliases
+      x-cfn-schema-name: StateMachineAlias
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
+    state_machine_alias:
+      name: state_machine_alias
+      id: aws.stepfunctions.state_machine_alias
+      x-cfn-schema-name: StateMachineAlias
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.RoutingConfiguration') as routing_configuration,
+              JSON_EXTRACT(Properties, '$.DeploymentPreference') as deployment_preference
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
+    state_machine_versions:
+      name: state_machine_versions
+      id: aws.stepfunctions.state_machine_versions
+      x-cfn-schema-name: StateMachineVersion
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'
+    state_machine_version:
+      name: state_machine_version
+      id: aws.stepfunctions.state_machine_version
+      x-cfn-schema-name: StateMachineVersion
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.StateMachineArn') as state_machine_arn,
+              JSON_EXTRACT(Properties, '$.StateMachineRevisionId') as state_machine_revision_id,
+              JSON_EXTRACT(Properties, '$.Description') as description
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'

@@ -35,6 +35,7 @@ Gets an individual <code>pipe</code> resource
 <tr><td><code>enrichment</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>enrichment_parameters</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>last_modified_time</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>log_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>source</code></td><td><code>string</code></td><td></td></tr>
@@ -50,6 +51,45 @@ Gets an individual <code>pipe</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pipe</code> resource, the following permissions are required:
+
+### Read
+<pre>
+pipes:DescribePipe</pre>
+
+### Update
+<pre>
+pipes:UpdatePipe,
+pipes:TagResource,
+pipes:UntagResource,
+pipes:DescribePipe,
+iam:PassRole,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole,
+logs:CreateLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+firehose:TagDeliveryStream</pre>
+
+### Delete
+<pre>
+pipes:DeletePipe,
+pipes:DescribePipe,
+logs:CreateLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -62,6 +102,7 @@ desired_state,
 enrichment,
 enrichment_parameters,
 last_modified_time,
+log_configuration,
 name,
 role_arn,
 source,

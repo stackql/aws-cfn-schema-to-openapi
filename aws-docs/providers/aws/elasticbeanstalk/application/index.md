@@ -37,6 +37,24 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+elasticbeanstalk:DescribeApplications</pre>
+
+### Update
+<pre>
+elasticbeanstalk:UpdateApplication,
+elasticbeanstalk:UpdateApplicationResourceLifecycle</pre>
+
+### Delete
+<pre>
+elasticbeanstalk:DeleteApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

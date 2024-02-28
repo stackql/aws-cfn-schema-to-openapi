@@ -34,12 +34,42 @@ Gets an individual <code>recording_configuration</code> resource
 <tr><td><code>destination_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
 <tr><td><code>thumbnail_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>rendition_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>recording_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ivs:GetRecordingConfiguration,
+s3:GetBucketLocation,
+ivs:ListTagsForResource</pre>
+
+### Update
+<pre>
+ivs:GetRecordingConfiguration,
+sts:AssumeRole,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+iam:AttachRolePolicy,
+s3:ListBucket,
+ivs:TagResource,
+ivs:UntagResource,
+ivs:ListTagsForResource</pre>
+
+### Delete
+<pre>
+ivs:DeleteRecordingConfiguration,
+ivs:UntagResource,
+iam:CreateServiceLinkedRole</pre>
+
 
 ## Example
 ```sql
@@ -51,7 +81,8 @@ state,
 recording_reconnect_window_seconds,
 destination_configuration,
 tags,
-thumbnail_configuration
+thumbnail_configuration,
+rendition_configuration
 FROM aws.ivs.recording_configuration
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

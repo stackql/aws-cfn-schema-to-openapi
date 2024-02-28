@@ -45,6 +45,8 @@ components:
       required:
         - Value
         - Key
+    PackagingType:
+      type: string
     AppBlock:
       type: object
       properties:
@@ -68,15 +70,149 @@ components:
             $ref: '#/components/schemas/Tag'
         CreatedTime:
           type: string
+        PackagingType:
+          $ref: '#/components/schemas/PackagingType'
+        PostSetupScriptDetails:
+          $ref: '#/components/schemas/ScriptDetails'
       required:
         - Name
         - SourceS3Location
-        - SetupScriptDetails
       x-stackql-resource-name: app_block
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - DisplayName
+        - Description
+        - SourceS3Location
+        - SetupScriptDetails
+        - PackagingType
+        - PostSetupScriptDetails
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+      x-required-permissions:
+        create:
+          - appstream:CreateAppBlock
+          - appstream:TagResource
+          - s3:GetObject
+          - s3:ListBucket
+          - s3:GetBucketOwnershipControls
+        read:
+          - appstream:DescribeAppBlocks
+        delete:
+          - appstream:DeleteAppBlock
     PlatformType:
       type: string
+    AccessEndpoint:
+      type: object
+      additionalProperties: false
+      properties:
+        EndpointType:
+          type: string
+        VpceId:
+          type: string
+      required:
+        - EndpointType
+        - VpceId
+    VpcConfig:
+      type: object
+      additionalProperties: false
+      properties:
+        SecurityGroupIds:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        SubnetIds:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+    AppBlockBuilder:
+      type: object
+      properties:
+        Name:
+          type: string
+        Arn:
+          $ref: '#/components/schemas/Arn'
+        Description:
+          type: string
+        DisplayName:
+          type: string
+        Platform:
+          $ref: '#/components/schemas/PlatformType'
+        AccessEndpoints:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/AccessEndpoint'
+        Tags:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Tag'
+        VpcConfig:
+          $ref: '#/components/schemas/VpcConfig'
+        EnableDefaultInternetAccess:
+          type: boolean
+        IamRoleArn:
+          type: string
+        CreatedTime:
+          type: string
+        InstanceType:
+          type: string
+        AppBlockArns:
+          type: array
+          x-insertionOrder: false
+          uniqueItems: true
+          items:
+            $ref: '#/components/schemas/Arn'
+      required:
+        - Name
+        - Platform
+        - InstanceType
+        - VpcConfig
+      x-stackql-resource-name: app_block_builder
+      x-stackql-primaryIdentifier:
+        - Name
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+      x-required-permissions:
+        create:
+          - appstream:CreateAppBlockBuilder
+          - appstream:DescribeAppBlockBuilders
+          - appstream:StartAppBlockBuilder
+          - appstream:AssociateAppBlockBuilderAppBlock
+          - appstream:DescribeAppBlockBuilderAppBlockAssociations
+          - appstream:TagResource
+          - iam:PassRole
+        read:
+          - appstream:DescribeAppBlockBuilders
+        update:
+          - appstream:UpdateAppBlockBuilder
+          - appstream:DescribeAppBlockBuilders
+          - appstream:StartAppBlockBuilder
+          - appstream:StopAppBlockBuilder
+          - appstream:AssociateAppBlockBuilderAppBlock
+          - appstream:DisassociateAppBlockBuilderAppBlock
+          - appstream:DescribeAppBlockBuilderAppBlockAssociations
+          - appstream:ListTagsForResource
+          - appstream:TagResource
+          - appstream:UntagResource
+          - iam:PassRole
+        delete:
+          - appstream:DescribeAppBlockBuilders
+          - appstream:DeleteAppBlockBuilder
+          - appstream:DisassociateAppBlockBuilderAppBlock
+          - appstream:DescribeAppBlockBuilderAppBlockAssociations
+        list:
+          - appstream:DescribeAppBlockBuilders
     ApplicationAttribute:
       type: string
     Application:
@@ -136,6 +272,25 @@ components:
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - Name
+        - InstanceFamilies
+        - Platforms
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+      x-required-permissions:
+        create:
+          - s3:GetObject
+          - appstream:CreateApplication
+          - appstream:TagResource
+        read:
+          - appstream:DescribeApplications
+        update:
+          - appstream:UpdateApplication
+          - s3:GetObject
+        delete:
+          - appstream:DeleteApplication
     ApplicationEntitlementAssociation:
       type: object
       properties:
@@ -154,6 +309,19 @@ components:
         - StackName
         - EntitlementName
         - ApplicationIdentifier
+      x-create-only-properties:
+        - StackName
+        - EntitlementName
+        - ApplicationIdentifier
+      x-required-permissions:
+        create:
+          - appstream:AssociateApplicationToEntitlement
+          - appstream:ListEntitledApplications
+        read:
+          - appstream:ListEntitledApplications
+        delete:
+          - appstream:DisassociateApplicationFromEntitlement
+          - appstream:ListEntitledApplications
     ApplicationFleetAssociation:
       type: object
       properties:
@@ -168,6 +336,18 @@ components:
       x-stackql-primaryIdentifier:
         - FleetName
         - ApplicationArn
+      x-create-only-properties:
+        - FleetName
+        - ApplicationArn
+      x-required-permissions:
+        create:
+          - appstream:AssociateApplicationFleet
+          - appstream:DescribeApplicationFleetAssociations
+        read:
+          - appstream:DescribeApplicationFleetAssociations
+        delete:
+          - appstream:DisassociateApplicationFleet
+          - appstream:DescribeApplicationFleetAssociations
     ServiceAccountCredentials:
       type: object
       additionalProperties: false
@@ -208,6 +388,49 @@ components:
       x-stackql-resource-name: directory_config
       x-stackql-primaryIdentifier:
         - DirectoryName
+      x-create-only-properties:
+        - DirectoryName
+      x-required-permissions:
+        create:
+          - appstream:CreateDirectoryConfig
+          - appstream:DeleteDirectoryConfig
+          - appstream:DescribeDirectoryConfig
+          - appstream:UpdateDirectoryConfig
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        update:
+          - appstream:CreateDirectoryConfig
+          - appstream:DeleteDirectoryConfig
+          - appstream:DescribeDirectoryConfig
+          - appstream:UpdateDirectoryConfig
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        read:
+          - appstream:CreateDirectoryConfig
+          - appstream:DeleteDirectoryConfig
+          - appstream:DescribeDirectoryConfig
+          - appstream:UpdateDirectoryConfig
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        delete:
+          - appstream:CreateDirectoryConfig
+          - appstream:DeleteDirectoryConfig
+          - appstream:DescribeDirectoryConfig
+          - appstream:UpdateDirectoryConfig
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        list:
+          - appstream:CreateDirectoryConfig
+          - appstream:DeleteDirectoryConfig
+          - appstream:DescribeDirectoryConfig
+          - appstream:UpdateDirectoryConfig
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
     Attribute:
       type: object
       properties:
@@ -249,28 +472,29 @@ components:
       x-stackql-primaryIdentifier:
         - StackName
         - Name
+      x-create-only-properties:
+        - Name
+        - StackName
+      x-read-only-properties:
+        - CreatedTime
+        - LastModifiedTime
+      x-required-permissions:
+        create:
+          - appstream:CreateEntitlement
+        read:
+          - appstream:DescribeEntitlements
+        update:
+          - appstream:UpdateEntitlement
+        delete:
+          - appstream:DeleteEntitlement
     ComputeCapacity:
       type: object
       additionalProperties: false
       properties:
         DesiredInstances:
           type: integer
-      required:
-        - DesiredInstances
-    VpcConfig:
-      type: object
-      additionalProperties: false
-      properties:
-        SecurityGroupIds:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
-        SubnetIds:
-          type: array
-          uniqueItems: false
-          items:
-            type: string
+        DesiredSessions:
+          type: integer
     DomainJoinInfo:
       type: object
       additionalProperties: false
@@ -319,6 +543,8 @@ components:
           type: string
         IamRoleArn:
           type: string
+        MaxSessionsPerInstance:
+          type: integer
         Id:
           type: string
         InstanceType:
@@ -338,17 +564,11 @@ components:
       x-stackql-resource-name: fleet
       x-stackql-primaryIdentifier:
         - Id
-    AccessEndpoint:
-      type: object
-      additionalProperties: false
-      properties:
-        EndpointType:
-          type: string
-        VpceId:
-          type: string
-      required:
-        - EndpointType
-        - VpceId
+      x-create-only-properties:
+        - Name
+        - FleetType
+      x-read-only-properties:
+        - Id
     ImageBuilder:
       type: object
       properties:
@@ -392,6 +612,53 @@ components:
       x-stackql-resource-name: image_builder
       x-stackql-primaryIdentifier:
         - Name
+      x-read-only-properties:
+        - StreamingUrl
+      x-required-permissions:
+        create:
+          - appstream:CreateImageBuilder
+          - appstream:CreateImageBuilderStreamingURL
+          - appstream:CreateStreamingURL
+          - appstream:DeleteImageBuilder
+          - appstream:DescribeImageBuilders
+          - appstream:StartImageBuilder
+          - appstream:StopImageBuilder
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        read:
+          - appstream:CreateImageBuilder
+          - appstream:CreateImageBuilderStreamingURL
+          - appstream:CreateStreamingURL
+          - appstream:DeleteImageBuilder
+          - appstream:DescribeImageBuilders
+          - appstream:StartImageBuilder
+          - appstream:StopImageBuilder
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        delete:
+          - appstream:CreateImageBuilder
+          - appstream:CreateImageBuilderStreamingURL
+          - appstream:CreateStreamingURL
+          - appstream:DeleteImageBuilder
+          - appstream:DescribeImageBuilders
+          - appstream:StartImageBuilder
+          - appstream:StopImageBuilder
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
+        list:
+          - appstream:CreateImageBuilder
+          - appstream:CreateImageBuilderStreamingURL
+          - appstream:CreateStreamingURL
+          - appstream:DeleteImageBuilder
+          - appstream:DescribeImageBuilders
+          - appstream:StartImageBuilder
+          - appstream:StopImageBuilder
+          - iam:CreateServiceLinkedRole
+          - iam:DeleteServiceLinkedRole
+          - iam:GetServiceLinkedRoleDeletionStatus
     StorageConnector:
       type: object
       additionalProperties: false
@@ -431,6 +698,8 @@ components:
           type: string
         Action:
           type: string
+        MaximumLength:
+          type: integer
       required:
         - Action
         - Permission
@@ -488,6 +757,10 @@ components:
       x-stackql-resource-name: stack
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Name
+      x-read-only-properties:
+        - Id
     StackFleetAssociation:
       type: object
       properties:
@@ -502,6 +775,8 @@ components:
         - StackName
       x-stackql-resource-name: stack_fleet_association
       x-stackql-primaryIdentifier:
+        - Id
+      x-read-only-properties:
         - Id
     StackUserAssociation:
       type: object
@@ -523,6 +798,13 @@ components:
       x-stackql-resource-name: stack_user_association
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - StackName
+        - AuthenticationType
+        - SendEmailNotification
+        - UserName
+      x-read-only-properties:
+        - Id
     User:
       type: object
       properties:
@@ -543,6 +825,14 @@ components:
         - AuthenticationType
       x-stackql-resource-name: user
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - FirstName
+        - MessageAction
+        - LastName
+        - AuthenticationType
+        - UserName
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     app_blocks:
@@ -582,8 +872,54 @@ components:
               JSON_EXTRACT(Properties, '$.SourceS3Location') as source_s3_location,
               JSON_EXTRACT(Properties, '$.SetupScriptDetails') as setup_script_details,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time
+              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
+              JSON_EXTRACT(Properties, '$.PackagingType') as packaging_type,
+              JSON_EXTRACT(Properties, '$.PostSetupScriptDetails') as post_setup_script_details
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlock'
+    app_block_builders:
+      name: app_block_builders
+      id: aws.appstream.app_block_builders
+      x-cfn-schema-name: AppBlockBuilder
+      x-type: list
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
+    app_block_builder:
+      name: app_block_builder
+      id: aws.appstream.app_block_builder
+      x-cfn-schema-name: AppBlockBuilder
+      x-type: get
+      x-identifiers:
+        - Name
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
+              JSON_EXTRACT(Properties, '$.Platform') as platform,
+              JSON_EXTRACT(Properties, '$.AccessEndpoints') as access_endpoints,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.VpcConfig') as vpc_config,
+              JSON_EXTRACT(Properties, '$.EnableDefaultInternetAccess') as enable_default_internet_access,
+              JSON_EXTRACT(Properties, '$.IamRoleArn') as iam_role_arn,
+              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
+              JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
+              JSON_EXTRACT(Properties, '$.AppBlockArns') as app_block_arns
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
     applications:
       name: applications
       id: aws.appstream.applications
@@ -828,6 +1164,7 @@ components:
               JSON_EXTRACT(Properties, '$.DisplayName') as display_name,
               JSON_EXTRACT(Properties, '$.StreamView') as stream_view,
               JSON_EXTRACT(Properties, '$.IamRoleArn') as iam_role_arn,
+              JSON_EXTRACT(Properties, '$.MaxSessionsPerInstance') as max_sessions_per_instance,
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
               JSON_EXTRACT(Properties, '$.MaxConcurrentSessions') as max_concurrent_sessions,

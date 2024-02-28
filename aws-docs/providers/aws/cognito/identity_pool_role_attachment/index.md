@@ -28,15 +28,35 @@ Gets an individual <code>identity_pool_role_attachment</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>identity_pool_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>roles</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>roles</code></td><td><code>undefined</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>role_mappings</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>role_mappings</code></td><td><code>undefined</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>identity_pool_role_attachment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cognito-identity:GetIdentityPoolRoles</pre>
+
+### Update
+<pre>
+cognito-identity:GetIdentityPoolRoles,
+cognito-identity:SetIdentityPoolRoles,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+cognito-identity:GetIdentityPoolRoles,
+cognito-identity:SetIdentityPoolRoles</pre>
+
 
 ## Example
 ```sql

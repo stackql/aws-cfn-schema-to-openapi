@@ -35,6 +35,35 @@ Retrieves a list of <code>event_types</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>event_types</code> resource, the following permissions are required:
+
+### Create
+<pre>
+frauddetector:BatchCreateVariable,
+frauddetector:BatchGetVariable,
+frauddetector:CreateVariable,
+frauddetector:GetVariables,
+frauddetector:PutLabel,
+frauddetector:PutEntityType,
+frauddetector:PutEventType,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource</pre>
+
+### List
+<pre>
+frauddetector:BatchGetVariable,
+frauddetector:GetVariables,
+frauddetector:GetEventTypes,
+frauddetector:GetLabels,
+frauddetector:GetEntityTypes,
+frauddetector:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

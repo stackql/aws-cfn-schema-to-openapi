@@ -37,6 +37,27 @@ Gets an individual <code>health_check</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>health_check</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53:GetHealthCheck,
+route53:ListTagsForResource</pre>
+
+### Update
+<pre>
+route53:UpdateHealthCheck,
+route53:ChangeTagsForResource,
+route53:ListTagsForResource,
+cloudwatch:DescribeAlarms</pre>
+
+### Delete
+<pre>
+route53:DeleteHealthCheck</pre>
+
+
 ## Example
 ```sql
 SELECT

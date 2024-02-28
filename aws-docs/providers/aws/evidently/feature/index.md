@@ -43,6 +43,30 @@ Gets an individual <code>feature</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>feature</code> resource, the following permissions are required:
+
+### Read
+<pre>
+evidently:GetFeature,
+evidently:ListTagsForResource</pre>
+
+### Update
+<pre>
+evidently:UpdateFeature,
+evidently:ListTagsForResource,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetFeature</pre>
+
+### Delete
+<pre>
+evidently:DeleteFeature,
+evidently:UntagResource,
+evidently:GetFeature</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,25 @@ Gets an individual <code>response_headers_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>response_headers_policy</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteResponseHeadersPolicy,
+cloudfront:GetResponseHeadersPolicy</pre>
+
+### Read
+<pre>
+cloudfront:GetResponseHeadersPolicy</pre>
+
+### Update
+<pre>
+cloudfront:UpdateResponseHeadersPolicy,
+cloudfront:GetResponseHeadersPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

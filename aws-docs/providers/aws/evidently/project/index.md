@@ -40,6 +40,62 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+<pre>
+evidently:GetProject,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+s3:GetBucketPolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+evidently:ListTagsForResource</pre>
+
+### Update
+<pre>
+evidently:UpdateProject,
+evidently:UpdateProjectDataDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:ListTagsForResource,
+evidently:GetProject,
+evidently:ExportProjectAsConfiguration,
+appconfig:GetEnvironment,
+appconfig:CreateConfigurationProfile,
+appconfig:CreateHostedConfigurationVersion,
+appconfig:CreateExtensionAssociation,
+appconfig:TagResource,
+iam:GetRole,
+iam:CreateServiceLinkedRole</pre>
+
+### Delete
+<pre>
+evidently:DeleteProject,
+evidently:GetProject,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+s3:GetBucketPolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+evidently:UntagResource,
+appconfig:DeleteHostedConfigurationVersion,
+appconfig:DeleteExtensionAssociation,
+appconfig:DeleteConfigurationProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

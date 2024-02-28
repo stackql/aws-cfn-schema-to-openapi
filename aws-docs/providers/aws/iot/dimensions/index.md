@@ -35,6 +35,20 @@ Retrieves a list of <code>dimensions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dimensions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iot:CreateDimension,
+iot:TagResource</pre>
+
+### List
+<pre>
+iot:ListDimensions</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,16 @@ Retrieves a list of <code>signaling_channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>signaling_channels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+kinesisvideo:CreateSignalingChannel,
+kinesisvideo:DescribeSignalingChannel</pre>
+
+
 ## Example
 ```sql
 SELECT

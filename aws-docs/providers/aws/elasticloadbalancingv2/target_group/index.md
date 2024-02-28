@@ -57,6 +57,34 @@ Gets an individual <code>target_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>target_group</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+elasticloadbalancing:DeleteTargetGroup,
+elasticloadbalancing:DescribeTargetGroups</pre>
+
+### Read
+<pre>
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:DescribeTargetGroupAttributes,
+elasticloadbalancing:DescribeTargetHealth,
+elasticloadbalancing:DescribeTags</pre>
+
+### Update
+<pre>
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:ModifyTargetGroup,
+elasticloadbalancing:ModifyTargetGroupAttributes,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:DescribeTargetHealth,
+elasticloadbalancing:DeregisterTargets,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RemoveTags</pre>
+
+
 ## Example
 ```sql
 SELECT

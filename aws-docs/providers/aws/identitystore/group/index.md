@@ -38,6 +38,25 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+identitystore:DescribeGroup</pre>
+
+### Update
+<pre>
+identitystore:DescribeGroup,
+identitystore:UpdateGroup</pre>
+
+### Delete
+<pre>
+identitystore:DescribeGroup,
+identitystore:DeleteGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

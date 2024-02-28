@@ -37,6 +37,27 @@ Gets an individual <code>collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>collection</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rekognition:DescribeCollection,
+rekognition:ListTagsForResource</pre>
+
+### Update
+<pre>
+rekognition:TagResource,
+rekognition:UntagResource,
+rekognition:DescribeCollection,
+rekognition:ListTagsForResource</pre>
+
+### Delete
+<pre>
+rekognition:DeleteCollection</pre>
+
+
 ## Example
 ```sql
 SELECT

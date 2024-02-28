@@ -38,6 +38,26 @@ Gets an individual <code>account_audit_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>account_audit_configuration</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeAccountAuditConfiguration</pre>
+
+### Update
+<pre>
+iot:UpdateAccountAuditConfiguration,
+iot:DescribeAccountAuditConfiguration,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+iot:DescribeAccountAuditConfiguration,
+iot:DeleteAccountAuditConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

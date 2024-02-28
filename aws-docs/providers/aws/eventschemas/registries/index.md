@@ -27,7 +27,7 @@ Retrieves a list of <code>registries</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>registry_arn</code></td><td><code>string</code></td><td>The ARN of the registry.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,26 @@ Retrieves a list of <code>registries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>registries</code> resource, the following permissions are required:
+
+### Create
+<pre>
+schemas:DescribeRegistry,
+schemas:CreateRegistry,
+schemas:TagResource</pre>
+
+### List
+<pre>
+schemas:ListRegistries</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+registry_arn
 FROM aws.eventschemas.registries
 WHERE region = 'us-east-1'
 ```

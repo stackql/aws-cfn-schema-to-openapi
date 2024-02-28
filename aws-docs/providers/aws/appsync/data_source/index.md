@@ -30,6 +30,7 @@ Gets an individual <code>data_source</code> resource
 <tr><td><code>open_search_service_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>service_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>metrics_config</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>data_source_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>type</code></td><td><code>string</code></td><td></td></tr>
@@ -48,6 +49,10 @@ Gets an individual <code>data_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
@@ -55,6 +60,7 @@ region,
 open_search_service_config,
 description,
 service_role_arn,
+metrics_config,
 name,
 data_source_arn,
 type,

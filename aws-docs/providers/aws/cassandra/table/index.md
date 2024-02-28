@@ -38,12 +38,73 @@ Gets an individual <code>table</code> resource
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource</td></tr>
 <tr><td><code>default_time_to_live</code></td><td><code>integer</code></td><td>Default TTL (Time To Live) in seconds, where zero is disabled. If the value is greater than zero, TTL is enabled for the entire table and an expiration timestamp is added to each column.</td></tr>
 <tr><td><code>encryption_specification</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>auto_scaling_specifications</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>replica_specifications</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>table</code> resource, the following permissions are required:
+
+### Read
+<pre>
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:PutScalingPolicy,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+cloudwatch:GetMetricData,
+cloudwatch:PutMetricAlarm</pre>
+
+### Update
+<pre>
+cassandra:Alter,
+cassandra:AlterMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+cassandra:TagResource,
+cassandra:TagMultiRegionResource,
+cassandra:UntagResource,
+cassandra:UntagMultiRegionResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:Encrypt,
+kms:Decrypt,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:PutScalingPolicy,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+cloudwatch:GetMetricData,
+cloudwatch:PutMetricAlarm</pre>
+
+### Delete
+<pre>
+cassandra:Drop,
+cassandra:DropMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeregisterScalableTarget,
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:PutScalingPolicy,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+cloudwatch:GetMetricData,
+cloudwatch:PutMetricAlarm</pre>
+
 
 ## Example
 ```sql
@@ -59,7 +120,9 @@ point_in_time_recovery_enabled,
 client_side_timestamps_enabled,
 tags,
 default_time_to_live,
-encryption_specification
+encryption_specification,
+auto_scaling_specifications,
+replica_specifications
 FROM aws.cassandra.table
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;KeyspaceName&gt;'

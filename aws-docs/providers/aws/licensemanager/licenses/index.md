@@ -35,6 +35,19 @@ Retrieves a list of <code>licenses</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>licenses</code> resource, the following permissions are required:
+
+### Create
+<pre>
+license-manager:CreateLicense</pre>
+
+### List
+<pre>
+license-manager:ListLicenses</pre>
+
+
 ## Example
 ```sql
 SELECT

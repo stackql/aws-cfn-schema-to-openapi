@@ -39,6 +39,29 @@ Gets an individual <code>cell</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cell</code> resource, the following permissions are required:
+
+### Read
+<pre>
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources</pre>
+
+### Update
+<pre>
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources,
+route53-recovery-readiness:TagResource,
+route53-recovery-readiness:UntagResource,
+route53-recovery-readiness:UpdateCell</pre>
+
+### Delete
+<pre>
+route53-recovery-readiness:DeleteCell,
+route53-recovery-readiness:GetCell</pre>
+
+
 ## Example
 ```sql
 SELECT

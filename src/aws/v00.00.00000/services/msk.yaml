@@ -22,6 +22,37 @@ components:
       x-stackql-resource-name: batch_scram_secret
       x-stackql-primaryIdentifier:
         - ClusterArn
+      x-create-only-properties:
+        - ClusterArn
+      x-required-permissions:
+        create:
+          - kafka:BatchAssociateScramSecret
+          - kafka:ListScramSecrets
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - secretsmanager:GetSecretValue
+        delete:
+          - kafka:BatchDisassociateScramSecret
+          - kafka:ListScramSecrets
+          - kms:CreateGrant
+          - kms:DescribeKey
+        list:
+          - kafka:ListScramSecrets
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - secretsmanager:GetSecretValue
+        read:
+          - kafka:ListScramSecrets
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - secretsmanager:GetSecretValue
+        update:
+          - kafka:BatchAssociateScramSecret
+          - kafka:BatchDisassociateScramSecret
+          - kafka:ListScramSecrets
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - secretsmanager:GetSecretValue
     S3:
       type: object
       additionalProperties: false
@@ -373,10 +404,133 @@ components:
       x-stackql-resource-name: cluster
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - BrokerNodeGroupInfo/BrokerAZDistribution
+        - BrokerNodeGroupInfo/ClientSubnets
+        - BrokerNodeGroupInfo/SecurityGroups
+        - EncryptionInfo/EncryptionAtRest
+        - EncryptionInfo/EncryptionInTransit/InCluster
+        - ClusterName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - iam:AttachRolePolicy
+          - iam:CreateServiceLinkedRole
+          - iam:PutRolePolicy
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kafka:CreateCluster
+          - kafka:DescribeCluster
+          - kafka:TagResource
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:ListLogDeliveries
+          - s3:GetBucketPolicy
+          - s3:PutBucketPolicy
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - firehose:TagDeliveryStream
+          - acm-pca:GetCertificateAuthorityCertificate
+        update:
+          - kafka:UpdateMonitoring
+          - kafka:UpdateClusterKafkaVersion
+          - kafka:UpdateClusterConfiguration
+          - kafka:UpdateBrokerType
+          - kafka:UpdateBrokerCount
+          - kafka:UpdateBrokerStorage
+          - kafka:UpdateStorage
+          - kafka:UpdateSecurity
+          - kafka:UpdateConnectivity
+          - kafka:DescribeCluster
+          - kafka:DescribeClusterOperation
+          - kafka:TagResource
+          - kafka:UntagResource
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - ec2:DescribeSecurityGroups
+          - iam:AttachRolePolicy
+          - iam:CreateServiceLinkedRole
+          - iam:PutRolePolicy
+          - kms:DescribeKey
+          - kms:CreateGrant
+          - logs:CreateLogDelivery
+          - logs:GetLogDelivery
+          - logs:UpdateLogDelivery
+          - logs:DeleteLogDelivery
+          - logs:ListLogDeliveries
+          - s3:GetBucketPolicy
+          - logs:PutResourcePolicy
+          - logs:DescribeResourcePolicies
+          - logs:DescribeLogGroups
+          - firehose:TagDeliveryStream
+          - acm-pca:GetCertificateAuthorityCertificate
+        delete:
+          - kafka:DeleteCluster
+          - kafka:DescribeCluster
+        list:
+          - kafka:ListClusters
+        read:
+          - kafka:DescribeCluster
+    ClusterPolicy:
+      type: object
+      properties:
+        Policy:
+          description: A policy document containing permissions to add to the specified cluster.
+          type: object
+        ClusterArn:
+          description: The arn of the cluster for the resource policy.
+          type: string
+          pattern: ^arn:[\w-]+:kafka:[\w-]+:\d+:cluster.*\Z
+        CurrentVersion:
+          description: The current version of the policy attached to the specified cluster
+          type: string
+          pattern: ^(K)([a-zA-Z0-9]+)\Z
+      required:
+        - Policy
+        - ClusterArn
+      x-stackql-resource-name: cluster_policy
+      x-stackql-primaryIdentifier:
+        - ClusterArn
+      x-create-only-properties:
+        - ClusterArn
+      x-read-only-properties:
+        - CurrentVersion
+      x-required-permissions:
+        create:
+          - kafka:PutClusterPolicy
+          - kafka:GetClusterPolicy
+        read:
+          - kafka:GetClusterPolicy
+        list:
+          - kafka:GetClusterPolicy
+        update:
+          - kafka:PutClusterPolicy
+          - kafka:GetClusterPolicy
+        delete:
+          - kafka:DeleteClusterPolicy
+          - kafka:GetClusterPolicy
     KafkaVersionsList:
       type: array
+      x-insertionOrder: false
       items:
         type: string
+    LatestRevision:
+      type: object
+      additionalProperties: false
+      properties:
+        CreationTime:
+          type: string
+        Description:
+          type: string
+        Revision:
+          type: integer
     Configuration:
       type: object
       properties:
@@ -390,12 +544,297 @@ components:
           $ref: '#/components/schemas/KafkaVersionsList'
         Arn:
           type: string
+        LatestRevision:
+          $ref: '#/components/schemas/LatestRevision'
       required:
         - ServerProperties
         - Name
       x-stackql-resource-name: configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - KafkaVersionsList
+        - Name
+      x-read-only-properties:
+        - Arn
+        - LatestRevision/CreationTime
+        - LatestRevision/Revision
+        - LatestRevision/Description
+      x-required-permissions:
+        create:
+          - kafka:CreateConfiguration
+          - Kafka:DescribeConfiguration
+        delete:
+          - kafka:DeleteConfiguration
+          - kafka:DescribeConfiguration
+        list:
+          - kafka:ListConfigurations
+        read:
+          - kafka:DescribeConfiguration
+        update:
+          - kafka:UpdateConfiguration
+          - kafka:DescribeConfiguration
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+          minLength: 1
+          maxLength: 128
+        Value:
+          type: string
+          maxLength: 256
+      required:
+        - Value
+        - Key
+      additionalProperties: false
+    TopicReplication:
+      type: object
+      additionalProperties: false
+      properties:
+        TopicsToReplicate:
+          description: List of regular expression patterns indicating the topics to copy.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 249
+        TopicsToExclude:
+          description: List of regular expression patterns indicating the topics that should not be replicated.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 249
+        CopyTopicConfigurations:
+          description: Whether to periodically configure remote topics to match their corresponding upstream topics.
+          type: boolean
+        CopyAccessControlListsForTopics:
+          description: Whether to periodically configure remote topic ACLs to match their corresponding upstream topics.
+          type: boolean
+        DetectAndCopyNewTopics:
+          description: Whether to periodically check for new topics and partitions.
+          type: boolean
+      required:
+        - TopicsToReplicate
+    ConsumerGroupReplication:
+      description: Configuration relating to consumer group replication.
+      type: object
+      additionalProperties: false
+      properties:
+        ConsumerGroupsToReplicate:
+          description: List of regular expression patterns indicating the consumer groups to copy.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 0
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 256
+        ConsumerGroupsToExclude:
+          description: List of regular expression patterns indicating the consumer groups that should not be replicated.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+            maxLength: 256
+        SynchroniseConsumerGroupOffsets:
+          description: Whether to periodically write the translated offsets to __consumer_offsets topic in target cluster.
+          type: boolean
+        DetectAndCopyNewConsumerGroups:
+          description: Whether to periodically check for new consumer groups.
+          type: boolean
+      required:
+        - ConsumerGroupsToReplicate
+    ReplicationInfo:
+      description: Specifies configuration for replication between a source and target Kafka cluster.
+      type: object
+      additionalProperties: false
+      properties:
+        SourceKafkaClusterArn:
+          description: Amazon Resource Name of the source Kafka cluster.
+          type: string
+          pattern: arn:(aws|aws-us-gov|aws-cn):kafka:.*
+        TargetKafkaClusterArn:
+          description: Amazon Resource Name of the target Kafka cluster.
+          type: string
+          pattern: arn:(aws|aws-us-gov|aws-cn):kafka:.*
+        TargetCompressionType:
+          description: The type of compression to use writing records to target Kafka cluster.
+          type: string
+          enum:
+            - NONE
+            - GZIP
+            - SNAPPY
+            - LZ4
+            - ZSTD
+        TopicReplication:
+          description: Configuration relating to topic replication.
+          $ref: '#/components/schemas/TopicReplication'
+        ConsumerGroupReplication:
+          description: Configuration relating to consumer group replication.
+          $ref: '#/components/schemas/ConsumerGroupReplication'
+      required:
+        - SourceKafkaClusterArn
+        - TargetKafkaClusterArn
+        - TopicReplication
+        - ConsumerGroupReplication
+        - TargetCompressionType
+    AmazonMskCluster:
+      description: Details of an Amazon MSK cluster.
+      type: object
+      additionalProperties: false
+      properties:
+        MskClusterArn:
+          description: The ARN of an Amazon MSK cluster.
+          type: string
+          pattern: arn:(aws|aws-us-gov|aws-cn):kafka:.*
+      required:
+        - MskClusterArn
+    KafkaClusterClientVpcConfig:
+      description: Details of an Amazon VPC which has network connectivity to the Kafka cluster.
+      type: object
+      additionalProperties: false
+      properties:
+        SecurityGroupIds:
+          description: The AWS security groups to associate with the elastic network interfaces in order to specify what the replicator has access to. If a security group is not specified, the default security group associated with the VPC is used.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 1
+          maxItems: 16
+          items:
+            type: string
+        SubnetIds:
+          description: The list of subnets to connect to in the virtual private cloud (VPC). AWS creates elastic network interfaces inside these subnets.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 2
+          maxItems: 3
+          items:
+            type: string
+      required:
+        - SubnetIds
+    KafkaCluster:
+      description: Details of a Kafka cluster for replication.
+      type: object
+      additionalProperties: false
+      properties:
+        AmazonMskCluster:
+          description: Details of an Amazon MSK cluster. Exactly one of AmazonMskCluster is required.
+          $ref: '#/components/schemas/AmazonMskCluster'
+        VpcConfig:
+          description: Details of an Amazon VPC which has network connectivity to the Apache Kafka cluster.
+          $ref: '#/components/schemas/KafkaClusterClientVpcConfig'
+      required:
+        - AmazonMskCluster
+        - VpcConfig
+    Replicator:
+      type: object
+      properties:
+        ReplicatorArn:
+          description: Amazon Resource Name for the created replicator.
+          type: string
+          pattern: arn:(aws|aws-us-gov|aws-cn):kafka:.*
+        ReplicatorName:
+          description: The name of the replicator.
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: ^[0-9A-Za-z][0-9A-Za-z-]{0,}$
+        CurrentVersion:
+          description: The current version of the MSK replicator.
+          type: string
+        Description:
+          description: A summary description of the replicator.
+          type: string
+          maxLength: 1024
+        KafkaClusters:
+          description: Specifies a list of Kafka clusters which are targets of the replicator.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 2
+          maxItems: 2
+          items:
+            $ref: '#/components/schemas/KafkaCluster'
+        ReplicationInfoList:
+          description: A list of replication configurations, where each configuration targets a given source cluster to target cluster replication flow.
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          minItems: 1
+          maxItems: 1
+          items:
+            $ref: '#/components/schemas/ReplicationInfo'
+        ServiceExecutionRoleArn:
+          description: The Amazon Resource Name (ARN) of the IAM role used by the replicator to access external resources.
+          type: string
+          pattern: arn:(aws|aws-us-gov|aws-cn):iam:.*
+        Tags:
+          description: A collection of tags associated with a resource
+          type: array
+          uniqueItems: true
+          x-insertionOrder: false
+          items:
+            $ref: '#/components/schemas/Tag'
+      required:
+        - ReplicatorName
+        - ReplicationInfoList
+        - KafkaClusters
+        - ServiceExecutionRoleArn
+      x-stackql-resource-name: replicator
+      x-stackql-primaryIdentifier:
+        - ReplicatorArn
+      x-create-only-properties:
+        - ReplicatorName
+        - Description
+        - KafkaClusters
+        - ServiceExecutionRoleArn
+      x-read-only-properties:
+        - ReplicatorArn
+      x-required-permissions:
+        create:
+          - ec2:CreateNetworkInterface
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcs
+          - iam:CreateServiceLinkedRole
+          - iam:PassRole
+          - kafka:CreateReplicator
+          - kafka:CreateReplicatorReference
+          - kafka:DescribeClusterV2
+          - kafka:DescribeReplicator
+          - kafka:GetBootstrapBrokers
+          - kafka:ListTagsForResource
+          - kafka:TagResource
+        read:
+          - kafka:DescribeReplicator
+          - kafka:ListTagsForResource
+        update:
+          - kafka:DescribeReplicator
+          - kafka:ListTagsForResource
+          - kafka:TagResource
+          - kafka:UntagResource
+          - kafka:UpdateReplicationInfo
+        delete:
+          - kafka:DeleteReplicator
+          - kafka:DescribeReplicator
+          - kafka:ListTagsForResource
+          - kafka:UntagResource
+        list:
+          - kafka:ListReplicators
     VpcConfig:
       type: object
       additionalProperties: false
@@ -445,6 +884,145 @@ components:
       x-stackql-resource-name: serverless_cluster
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - ClusterName
+        - VpcConfigs
+        - ClientAuthentication
+        - Tags
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - kafka:CreateClusterV2
+          - kafka:TagResource
+          - kafka:DescribeClusterV2
+          - ec2:CreateVpcEndpoint
+          - ec2:CreateTags
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcEndpoints
+          - ec2:DescribeVpcs
+          - ec2:DescribeSecurityGroups
+        read:
+          - kafka:DescribeClusterV2
+        delete:
+          - kafka:DeleteCluster
+          - kafka:DescribeClusterV2
+          - ec2:DeleteVpcEndpoints
+        list:
+          - kafka:ListClustersV2
+    Authentication:
+      type: string
+      description: The type of private link authentication
+      minLength: 3
+      maxLength: 10
+      enum:
+        - SASL_IAM
+        - SASL_SCRAM
+        - TLS
+    ClientSubnets:
+      type: array
+      uniqueItems: false
+      x-insertionOrder: false
+      items:
+        type: string
+        pattern: ^(subnet-)([a-z0-9]+)\Z
+    SecurityGroups:
+      type: array
+      uniqueItems: false
+      x-insertionOrder: false
+      items:
+        type: string
+        pattern: ^(sg-)([a-z0-9]+)\Z
+    Tags:
+      type: object
+      description: A key-value pair to associate with a resource.
+      x-patternProperties:
+        ^([\p{L}\p{Z}\p{N}_.:/=+\-@]*)$:
+          type: string
+      additionalProperties: false
+    VpcId:
+      type: string
+      pattern: ^(vpc-)([a-z0-9]+)\Z
+    VpcConnection:
+      type: object
+      properties:
+        Arn:
+          type: string
+        Authentication:
+          $ref: '#/components/schemas/Authentication'
+        ClientSubnets:
+          $ref: '#/components/schemas/ClientSubnets'
+        TargetClusterArn:
+          description: The Amazon Resource Name (ARN) of the target cluster
+          type: string
+          pattern: ^arn:[\w-]+:kafka:[\w-]+:\d+:cluster.*\Z
+        SecurityGroups:
+          $ref: '#/components/schemas/SecurityGroups'
+        Tags:
+          $ref: '#/components/schemas/Tags'
+        VpcId:
+          $ref: '#/components/schemas/VpcId'
+      required:
+        - Authentication
+        - ClientSubnets
+        - SecurityGroups
+        - TargetClusterArn
+        - VpcId
+      x-stackql-resource-name: vpc_connection
+      x-stackql-primaryIdentifier:
+        - Arn
+      x-create-only-properties:
+        - ClientSubnets
+        - Authentication
+        - SecurityGroups
+        - TargetClusterArn
+        - VpcId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - ec2:CreateVpcEndpoint
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcAttribute
+          - ec2:DescribeVpcs
+          - ec2:DescribeVpcEndpoints
+          - ec2:AcceptVpcEndpointConnections
+          - ec2:RejectVpcEndpointConnections
+          - ec2:DescribeVpcEndpointConnections
+          - ec2:CreateTags
+          - iam:AttachRolePolicy
+          - iam:CreateServiceLinkedRole
+          - iam:PutRolePolicy
+          - kafka:CreateVpcConnection
+          - kafka:DescribeVpcConnection
+          - kafka:TagResource
+          - kms:CreateGrant
+          - kms:DescribeKey
+        read:
+          - kafka:DescribeVpcConnection
+          - kms:CreateGrant
+          - kms:DescribeKey
+        update:
+          - kafka:DescribeVpcConnection
+          - kms:CreateGrant
+          - kms:DescribeKey
+          - kafka:TagResource
+          - kafka:UntagResource
+        delete:
+          - ec2:DeleteVpcEndpoint
+          - ec2:DeleteVpcEndpoints
+          - ec2:DescribeVpcEndpoints
+          - ec2:DescribeVpcEndpointConnections
+          - kafka:DeleteVpcConnection
+          - kafka:DescribeVpcConnection
+          - kms:CreateGrant
+          - kms:DescribeKey
+        list:
+          - kafka:ListVpcConnections
+          - kms:CreateGrant
+          - kms:DescribeKey
   x-stackQL-resources:
     batch_scram_secrets:
       name: batch_scram_secrets
@@ -524,6 +1102,40 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationInfo') as configuration_info,
               JSON_EXTRACT(Properties, '$.StorageMode') as storage_mode
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Cluster'
+    cluster_policies:
+      name: cluster_policies
+      id: aws.msk.cluster_policies
+      x-cfn-schema-name: ClusterPolicy
+      x-type: list
+      x-identifiers:
+        - ClusterArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
+    cluster_policy:
+      name: cluster_policy
+      id: aws.msk.cluster_policy
+      x-cfn-schema-name: ClusterPolicy
+      x-type: get
+      x-identifiers:
+        - ClusterArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Policy') as policy,
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
+              JSON_EXTRACT(Properties, '$.CurrentVersion') as current_version
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
     configurations:
       name: configurations
       id: aws.msk.configurations
@@ -558,8 +1170,48 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.ServerProperties') as server_properties,
               JSON_EXTRACT(Properties, '$.KafkaVersionsList') as kafka_versions_list,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.LatestRevision') as latest_revision
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Configuration'
+    replicators:
+      name: replicators
+      id: aws.msk.replicators
+      x-cfn-schema-name: Replicator
+      x-type: list
+      x-identifiers:
+        - ReplicatorArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReplicatorArn') as replicator_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Replicator'
+    replicator:
+      name: replicator
+      id: aws.msk.replicator
+      x-cfn-schema-name: Replicator
+      x-type: get
+      x-identifiers:
+        - ReplicatorArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.ReplicatorArn') as replicator_arn,
+              JSON_EXTRACT(Properties, '$.ReplicatorName') as replicator_name,
+              JSON_EXTRACT(Properties, '$.CurrentVersion') as current_version,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.KafkaClusters') as kafka_clusters,
+              JSON_EXTRACT(Properties, '$.ReplicationInfoList') as replication_info_list,
+              JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Replicator'
     serverless_clusters:
       name: serverless_clusters
       id: aws.msk.serverless_clusters
@@ -596,3 +1248,41 @@ components:
               JSON_EXTRACT(Properties, '$.ClientAuthentication') as client_authentication,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
+    vpc_connections:
+      name: vpc_connections
+      id: aws.msk.vpc_connections
+      x-cfn-schema-name: VpcConnection
+      x-type: list
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::VpcConnection'
+    vpc_connection:
+      name: vpc_connection
+      id: aws.msk.vpc_connection
+      x-cfn-schema-name: VpcConnection
+      x-type: get
+      x-identifiers:
+        - Arn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.Authentication') as authentication,
+              JSON_EXTRACT(Properties, '$.ClientSubnets') as client_subnets,
+              JSON_EXTRACT(Properties, '$.TargetClusterArn') as target_cluster_arn,
+              JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::VpcConnection'

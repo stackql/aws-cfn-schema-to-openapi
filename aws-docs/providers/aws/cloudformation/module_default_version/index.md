@@ -37,6 +37,19 @@ Gets an individual <code>module_default_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>module_default_version</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+</pre>
+
+### Read
+<pre>
+cloudformation:DescribeType</pre>
+
+
 ## Example
 ```sql
 SELECT

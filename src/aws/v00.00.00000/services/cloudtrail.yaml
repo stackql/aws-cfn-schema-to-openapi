@@ -89,6 +89,26 @@ components:
       x-stackql-resource-name: channel
       x-stackql-primaryIdentifier:
         - ChannelArn
+      x-create-only-properties:
+        - Source
+      x-read-only-properties:
+        - ChannelArn
+      x-required-permissions:
+        create:
+          - CloudTrail:CreateChannel
+          - CloudTrail:AddTags
+        read:
+          - CloudTrail:GetChannel
+          - CloudTrail:ListChannels
+        update:
+          - CloudTrail:UpdateChannel
+          - CloudTrail:GetChannel
+          - CloudTrail:AddTags
+          - CloudTrail:RemoveTags
+        delete:
+          - CloudTrail:DeleteChannel
+        list:
+          - CloudTrail:ListChannels
     AdvancedFieldSelector:
       description: A single selector statement in an advanced event selector.
       type: object
@@ -188,6 +208,14 @@ components:
             $ref: '#/components/schemas/AdvancedFieldSelector'
       required:
         - FieldSelectors
+    InsightSelector:
+      description: A string that contains insight types that are logged on a trail.
+      type: object
+      additionalProperties: false
+      properties:
+        InsightType:
+          description: The type of insight to log on a trail.
+          type: string
     EventDataStore:
       type: object
       properties:
@@ -204,6 +232,12 @@ components:
         EventDataStoreArn:
           description: The ARN of the event data store.
           type: string
+        FederationEnabled:
+          description: Indicates whether federation is enabled on an event data store.
+          type: boolean
+        FederationRoleArn:
+          description: The ARN of the role used for event data store federation.
+          type: string
         MultiRegionEnabled:
           description: Indicates whether the event data store includes events from all regions, or only from the region in which it was created.
           type: boolean
@@ -213,11 +247,14 @@ components:
         OrganizationEnabled:
           description: Indicates that an event data store is collecting logged events for an organization.
           type: boolean
+        BillingMode:
+          description: The mode that the event data store will use to charge for event storage.
+          type: string
         RetentionPeriod:
           description: The retention period, in days.
           type: integer
         Status:
-          description: The status of an event data store. Values are ENABLED and PENDING_DELETION.
+          description: The status of an event data store. Values are STARTING_INGESTION, ENABLED, STOPPING_INGESTION, STOPPED_INGESTION and PENDING_DELETION.
           type: string
         TerminationProtectionEnabled:
           description: Indicates whether the event data store is protected from termination.
@@ -234,10 +271,87 @@ components:
           x-insertionOrder: false
           items:
             $ref: '#/components/schemas/Tag'
+        InsightSelectors:
+          description: Lets you enable Insights event logging by specifying the Insights selectors that you want to enable on an existing event data store. Both InsightSelectors and InsightsDestination need to have a value in order to enable Insights events on an event data store.
+          type: array
+          items:
+            $ref: '#/components/schemas/InsightSelector'
+          uniqueItems: true
+          x-insertionOrder: false
+        InsightsDestination:
+          description: Specifies the ARN of the event data store that will collect Insights events. Both InsightSelectors and InsightsDestination need to have a value in order to enable Insights events on an event data store
+          type: string
+        IngestionEnabled:
+          description: Indicates whether the event data store is ingesting events.
+          type: boolean
       required: []
       x-stackql-resource-name: event_data_store
       x-stackql-primaryIdentifier:
         - EventDataStoreArn
+      x-read-only-properties:
+        - EventDataStoreArn
+        - CreatedTimestamp
+        - UpdatedTimestamp
+        - Status
+        - FederationStatus
+      x-required-permissions:
+        create:
+          - CloudTrail:CreateEventDataStore
+          - CloudTrail:AddTags
+          - CloudTrail:PutInsightSelectors
+          - CloudTrail:EnableFederation
+          - CloudTrail:GetEventDataStore
+          - iam:PassRole
+          - iam:GetRole
+          - iam:CreateServiceLinkedRole
+          - organizations:DescribeOrganization
+          - organizations:ListAWSServiceAccessForOrganization
+          - kms:GenerateDataKey
+          - kms:Decrypt
+          - glue:CreateDatabase
+          - glue:CreateTable
+          - glue:PassConnection
+          - lakeformation:RegisterResource
+        read:
+          - CloudTrail:GetEventDataStore
+          - CloudTrail:ListEventDataStores
+          - CloudTrail:GetInsightSelectors
+          - CloudTrail:ListTags
+        update:
+          - CloudTrail:UpdateEventDataStore
+          - CloudTrail:RestoreEventDataStore
+          - CloudTrail:AddTags
+          - CloudTrail:RemoveTags
+          - CloudTrail:StartEventDataStoreIngestion
+          - CloudTrail:StopEventDataStoreIngestion
+          - CloudTrail:GetEventDataStore
+          - CloudTrail:PutInsightSelectors
+          - CloudTrail:GetInsightSelectors
+          - CloudTrail:EnableFederation
+          - CloudTrail:DisableFederation
+          - iam:PassRole
+          - iam:GetRole
+          - iam:CreateServiceLinkedRole
+          - organizations:DescribeOrganization
+          - organizations:ListAWSServiceAccessForOrganization
+          - glue:CreateDatabase
+          - glue:CreateTable
+          - glue:PassConnection
+          - lakeformation:RegisterResource
+          - glue:DeleteTable
+          - lakeformation:DeregisterResource
+          - kms:DescribeKey
+        delete:
+          - CloudTrail:DeleteEventDataStore
+          - CloudTrail:GetEventDataStore
+          - CloudTrail:DisableFederation
+          - glue:DeleteTable
+          - lakeformation:DeregisterResource
+        list:
+          - CloudTrail:ListEventDataStores
+          - CloudTrail:GetEventDataStore
+          - CloudTrail:GetInsightSelectors
+          - CloudTrail:ListTags
     ResourcePolicy:
       type: object
       properties:
@@ -252,6 +366,19 @@ components:
       x-stackql-resource-name: resource_policy
       x-stackql-primaryIdentifier:
         - ResourceArn
+      x-create-only-properties:
+        - ResourceArn
+      x-required-permissions:
+        create:
+          - CloudTrail:PutResourcePolicy
+          - CloudTrail:GetResourcePolicy
+        read:
+          - CloudTrail:GetResourcePolicy
+        update:
+          - CloudTrail:PutResourcePolicy
+          - CloudTrail:GetResourcePolicy
+        delete:
+          - CloudTrail:DeleteResourcePolicy
     DataResource:
       description: CloudTrail supports data event logging for Amazon S3 objects and AWS Lambda functions. You can specify up to 250 resources for an individual event selector, but the total number of data resources cannot exceed 250 across all event selectors in a trail. This limit does not apply if you configure resource logging for all data events.
       type: object
@@ -297,14 +424,6 @@ components:
           x-insertionOrder: false
           items:
             type: string
-    InsightSelector:
-      description: A string that contains insight types that are logged on a trail.
-      type: object
-      additionalProperties: false
-      properties:
-        InsightType:
-          description: The type of insight to log on a trail.
-          type: string
     Trail:
       type: object
       properties:
@@ -317,6 +436,13 @@ components:
         EnableLogFileValidation:
           description: Specifies whether log file validation is enabled. The default is false.
           type: boolean
+        AdvancedEventSelectors:
+          description: The advanced event selectors that were used to select events for the data store.
+          type: array
+          items:
+            $ref: '#/components/schemas/AdvancedEventSelector'
+          uniqueItems: true
+          x-insertionOrder: false
         EventSelectors:
           description: >-
             Use event selectors to further specify the management and data event settings for your trail. By default, trails created without specific event selectors will be configured to log all read and write management events, and no data events. When an event occurs in your account, CloudTrail evaluates the event selector for all trails. For each trail, if the event matches any event selector, the trail processes and logs the event. If the event doesn't match any event selector, the trail
@@ -383,6 +509,55 @@ components:
       x-stackql-resource-name: trail
       x-stackql-primaryIdentifier:
         - TrailName
+      x-create-only-properties:
+        - TrailName
+      x-read-only-properties:
+        - Arn
+        - SnsTopicArn
+      x-required-permissions:
+        create:
+          - CloudTrail:CreateTrail
+          - CloudTrail:StartLogging
+          - CloudTrail:AddTags
+          - CloudTrail:PutEventSelectors
+          - CloudTrail:PutInsightSelectors
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - organizations:DescribeOrganization
+          - organizations:ListAWSServiceAccessForOrganization
+        read:
+          - CloudTrail:GetTrail
+          - CloudTrail:GetTrailStatus
+          - CloudTrail:ListTags
+          - CloudTrail:GetEventSelectors
+          - CloudTrail:GetInsightSelectors
+          - CloudTrail:DescribeTrails
+        update:
+          - CloudTrail:UpdateTrail
+          - CloudTrail:StartLogging
+          - CloudTrail:StopLogging
+          - CloudTrail:AddTags
+          - CloudTrail:RemoveTags
+          - CloudTrail:PutEventSelectors
+          - CloudTrail:PutInsightSelectors
+          - iam:GetRole
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - organizations:DescribeOrganization
+          - organizations:ListAWSServiceAccessForOrganization
+          - CloudTrail:GetTrail
+          - CloudTrail:DescribeTrails
+        delete:
+          - CloudTrail:DeleteTrail
+        list:
+          - CloudTrail:ListTrails
+          - CloudTrail:GetTrail
+          - CloudTrail:GetTrailStatus
+          - CloudTrail:ListTags
+          - CloudTrail:GetEventSelectors
+          - CloudTrail:GetInsightSelectors
+          - CloudTrail:DescribeTrails
   x-stackQL-resources:
     channels:
       name: channels
@@ -453,15 +628,21 @@ components:
               JSON_EXTRACT(Properties, '$.AdvancedEventSelectors') as advanced_event_selectors,
               JSON_EXTRACT(Properties, '$.CreatedTimestamp') as created_timestamp,
               JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_arn,
+              JSON_EXTRACT(Properties, '$.FederationEnabled') as federation_enabled,
+              JSON_EXTRACT(Properties, '$.FederationRoleArn') as federation_role_arn,
               JSON_EXTRACT(Properties, '$.MultiRegionEnabled') as multi_region_enabled,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.OrganizationEnabled') as organization_enabled,
+              JSON_EXTRACT(Properties, '$.BillingMode') as billing_mode,
               JSON_EXTRACT(Properties, '$.RetentionPeriod') as retention_period,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.TerminationProtectionEnabled') as termination_protection_enabled,
               JSON_EXTRACT(Properties, '$.UpdatedTimestamp') as updated_timestamp,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
-              JSON_EXTRACT(Properties, '$.Tags') as tags
+              JSON_EXTRACT(Properties, '$.Tags') as tags,
+              JSON_EXTRACT(Properties, '$.InsightSelectors') as insight_selectors,
+              JSON_EXTRACT(Properties, '$.InsightsDestination') as insights_destination,
+              JSON_EXTRACT(Properties, '$.IngestionEnabled') as ingestion_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
     resource_policies:
       name: resource_policies
@@ -529,6 +710,7 @@ components:
               JSON_EXTRACT(Properties, '$.CloudWatchLogsLogGroupArn') as cloud_watch_logs_log_group_arn,
               JSON_EXTRACT(Properties, '$.CloudWatchLogsRoleArn') as cloud_watch_logs_role_arn,
               JSON_EXTRACT(Properties, '$.EnableLogFileValidation') as enable_log_file_validation,
+              JSON_EXTRACT(Properties, '$.AdvancedEventSelectors') as advanced_event_selectors,
               JSON_EXTRACT(Properties, '$.EventSelectors') as event_selectors,
               JSON_EXTRACT(Properties, '$.IncludeGlobalServiceEvents') as include_global_service_events,
               JSON_EXTRACT(Properties, '$.IsLogging') as is_logging,

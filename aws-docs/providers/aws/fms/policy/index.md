@@ -50,6 +50,39 @@ Gets an individual <code>policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>policy</code> resource, the following permissions are required:
+
+### Update
+<pre>
+fms:PutPolicy,
+fms:GetPolicy,
+fms:TagResource,
+fms:UntagResource,
+fms:ListTagsForResource,
+waf-regional:ListRuleGroups,
+wafv2:CheckCapacity,
+wafv2:ListRuleGroups,
+wafv2:ListAvailableManagedRuleGroups,
+wafv2:ListAvailableManagedRuleGroupVersions,
+network-firewall:DescribeRuleGroup,
+network-firewall:DescribeRuleGroupMetadata,
+route53resolver:ListFirewallRuleGroups,
+ec2:DescribeAvailabilityZones,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy</pre>
+
+### Read
+<pre>
+fms:GetPolicy,
+fms:ListTagsForResource</pre>
+
+### Delete
+<pre>
+fms:DeletePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

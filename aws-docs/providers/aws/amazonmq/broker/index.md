@@ -28,6 +28,7 @@ Gets an individual <code>broker</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>security_groups</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>data_replication_primary_broker_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>authentication_strategy</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>users</code></td><td><code>array</code></td><td></td></tr>
@@ -47,6 +48,7 @@ Gets an individual <code>broker</code> resource
 <tr><td><code>auto_minor_version_upgrade</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>logs</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>configuration_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>data_replication_mode</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>broker_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>wss_endpoints</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>ip_addresses</code></td><td><code>array</code></td><td></td></tr>
@@ -62,11 +64,16 @@ Gets an individual <code>broker</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
 security_groups,
+data_replication_primary_broker_arn,
 configuration,
 authentication_strategy,
 users,
@@ -86,6 +93,7 @@ host_instance_type,
 auto_minor_version_upgrade,
 logs,
 configuration_id,
+data_replication_mode,
 broker_name,
 wss_endpoints,
 ip_addresses,

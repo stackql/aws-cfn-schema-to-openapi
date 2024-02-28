@@ -39,12 +39,47 @@ Gets an individual <code>entity</code> resource
 <tr><td><code>tags</code></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><code>workspace_id</code></td><td><code>string</code></td><td>The ID of the workspace.</td></tr>
 <tr><td><code>components</code></td><td><code>object</code></td><td>A map that sets information about a component type.</td></tr>
+<tr><td><code>composite_components</code></td><td><code>object</code></td><td>A map that sets information about a composite component.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>entity</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iottwinmaker:GetComponentType,
+iottwinmaker:GetEntity,
+iottwinmaker:ListComponents,
+iottwinmaker:ListProperties,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListEntities,
+iottwinmaker:ListTagsForResource</pre>
+
+### Update
+<pre>
+iottwinmaker:GetComponentType,
+iottwinmaker:GetEntity,
+iottwinmaker:ListComponents,
+iottwinmaker:ListProperties,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateEntity,
+iottwinmaker:UpdateComponentType</pre>
+
+### Delete
+<pre>
+iottwinmaker:GetEntity,
+iottwinmaker:GetWorkspace,
+iottwinmaker:DeleteEntity</pre>
+
 
 ## Example
 ```sql
@@ -61,7 +96,8 @@ creation_date_time,
 update_date_time,
 tags,
 workspace_id,
-components
+components,
+composite_components
 FROM aws.iottwinmaker.entity
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;WorkspaceId&gt;'

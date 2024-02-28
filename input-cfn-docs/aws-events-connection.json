@@ -161,14 +161,16 @@
     }
   },
   "additionalProperties" : false,
-  "required" : [ "AuthorizationType", "AuthParameters" ],
   "createOnlyProperties" : [ "/properties/Name" ],
   "readOnlyProperties" : [ "/properties/Arn", "/properties/SecretArn" ],
   "writeOnlyProperties" : [ "/properties/AuthParameters" ],
   "primaryIdentifier" : [ "/properties/Name" ],
+  "tagging" : {
+    "taggable" : false
+  },
   "handlers" : {
     "create" : {
-      "permissions" : [ "events:CreateConnection", "secretsmanager:CreateSecret", "secretsmanager:GetSecretValue", "secretsmanager:PutSecretValue", "iam:CreateServiceLinkedRole" ]
+      "permissions" : [ "events:CreateConnection", "events:DescribeConnection", "secretsmanager:CreateSecret", "secretsmanager:GetSecretValue", "secretsmanager:PutSecretValue", "iam:CreateServiceLinkedRole" ]
     },
     "read" : {
       "permissions" : [ "events:DescribeConnection" ]
@@ -177,7 +179,7 @@
       "permissions" : [ "events:UpdateConnection", "events:DescribeConnection", "secretsmanager:CreateSecret", "secretsmanager:UpdateSecret", "secretsmanager:GetSecretValue", "secretsmanager:PutSecretValue" ]
     },
     "delete" : {
-      "permissions" : [ "events:DeleteConnection" ]
+      "permissions" : [ "events:DeleteConnection", "events:DescribeConnection" ]
     },
     "list" : {
       "permissions" : [ "events:ListConnections" ]

@@ -40,6 +40,26 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+<pre>
+databrew:DescribeProject,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+### Update
+<pre>
+databrew:UpdateProject,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+databrew:DeleteProject</pre>
+
+
 ## Example
 ```sql
 SELECT

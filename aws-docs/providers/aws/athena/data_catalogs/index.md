@@ -35,6 +35,20 @@ Retrieves a list of <code>data_catalogs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>data_catalogs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+athena:CreateDataCatalog,
+athena:TagResource</pre>
+
+### List
+<pre>
+athena:ListDataCatalog</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -45,6 +45,28 @@ Gets an individual <code>endpoint_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>endpoint_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+globalaccelerator:DescribeEndpointGroup</pre>
+
+### Update
+<pre>
+globalaccelerator:UpdateEndpointGroup,
+globalaccelerator:DescribeEndpointGroup,
+globalaccelerator:DescribeListener,
+globalaccelerator:DescribeAccelerator</pre>
+
+### Delete
+<pre>
+globalaccelerator:DeleteEndpointGroup,
+globalaccelerator:DescribeEndpointGroup,
+globalaccelerator:DescribeAccelerator</pre>
+
+
 ## Example
 ```sql
 SELECT

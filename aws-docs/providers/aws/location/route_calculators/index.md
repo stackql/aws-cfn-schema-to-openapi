@@ -35,6 +35,22 @@ Retrieves a list of <code>route_calculators</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>route_calculators</code> resource, the following permissions are required:
+
+### Create
+<pre>
+geo:CreateRouteCalculator,
+geo:DescribeRouteCalculator,
+geo:TagResource,
+geo:UntagResource</pre>
+
+### List
+<pre>
+geo:ListRouteCalculators</pre>
+
+
 ## Example
 ```sql
 SELECT

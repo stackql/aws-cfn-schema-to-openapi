@@ -50,6 +50,27 @@ Gets an individual <code>stream_processor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>stream_processor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rekognition:DescribeStreamProcessor,
+rekognition:ListTagsForResource</pre>
+
+### Update
+<pre>
+rekognition:TagResource,
+rekognition:UntagResource,
+rekognition:ListTagsForResource,
+rekognition:DescribeStreamProcessor</pre>
+
+### Delete
+<pre>
+rekognition:DeleteStreamProcessor</pre>
+
+
 ## Example
 ```sql
 SELECT

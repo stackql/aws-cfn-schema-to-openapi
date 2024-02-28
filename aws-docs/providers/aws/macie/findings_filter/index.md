@@ -34,12 +34,33 @@ Gets an individual <code>findings_filter</code> resource
 <tr><td><code>position</code></td><td><code>integer</code></td><td>Findings filter position.</td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td>Findings filter ID.</td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td>Findings filter ARN.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>findings_filter</code> resource, the following permissions are required:
+
+### Read
+<pre>
+macie2:GetFindingsFilter</pre>
+
+### Update
+<pre>
+macie2:GetFindingsFilter,
+macie2:UpdateFindingsFilter,
+macie2:TagResource,
+macie2:UntagResource</pre>
+
+### Delete
+<pre>
+macie2:DeleteFindingsFilter</pre>
+
 
 ## Example
 ```sql
@@ -51,7 +72,8 @@ finding_criteria,
 action,
 position,
 id,
-arn
+arn,
+tags
 FROM aws.macie.findings_filter
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

@@ -35,6 +35,22 @@ Retrieves a list of <code>routing_controls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>routing_controls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53-recovery-control-config:CreateRoutingControl,
+route53-recovery-control-config:DescribeRoutingControl,
+route53-recovery-control-config:DescribeControlPanel,
+route53-recovery-control-config:DescribeCluster</pre>
+
+### List
+<pre>
+route53-recovery-control-config:ListRoutingControls</pre>
+
+
 ## Example
 ```sql
 SELECT

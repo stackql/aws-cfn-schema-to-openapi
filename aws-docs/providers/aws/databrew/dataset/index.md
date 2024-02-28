@@ -40,6 +40,27 @@ Gets an individual <code>dataset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dataset</code> resource, the following permissions are required:
+
+### Read
+<pre>
+databrew:DescribeDataset,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+### Update
+<pre>
+databrew:UpdateDataset,
+glue:GetConnection,
+glue:GetTable</pre>
+
+### Delete
+<pre>
+databrew:DeleteDataset</pre>
+
+
 ## Example
 ```sql
 SELECT

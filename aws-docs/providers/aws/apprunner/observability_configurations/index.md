@@ -35,6 +35,21 @@ Retrieves a list of <code>observability_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>observability_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+apprunner:CreateObservabilityConfiguration,
+apprunner:DescribeObservabilityConfiguration,
+apprunner:TagResource</pre>
+
+### List
+<pre>
+apprunner:ListObservabilityConfigurations</pre>
+
+
 ## Example
 ```sql
 SELECT

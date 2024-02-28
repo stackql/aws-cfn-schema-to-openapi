@@ -35,6 +35,32 @@ Retrieves a list of <code>policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+fms:PutPolicy,
+fms:TagResource,
+waf-regional:ListRuleGroups,
+wafv2:CheckCapacity,
+wafv2:ListRuleGroups,
+wafv2:ListAvailableManagedRuleGroups,
+wafv2:ListAvailableManagedRuleGroupVersions,
+network-firewall:DescribeRuleGroup,
+network-firewall:DescribeRuleGroupMetadata,
+route53resolver:ListFirewallRuleGroups,
+ec2:DescribeAvailabilityZones,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy</pre>
+
+### List
+<pre>
+fms:ListPolicies,
+fms:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

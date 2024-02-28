@@ -27,26 +27,46 @@ Gets an individual <code>stage</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>access_log_setting</code></td><td><code>object</code></td><td>Specifies settings for logging access in this stage.</td></tr>
-<tr><td><code>cache_cluster_enabled</code></td><td><code>boolean</code></td><td>Indicates whether cache clustering is enabled for the stage.</td></tr>
-<tr><td><code>cache_cluster_size</code></td><td><code>string</code></td><td>The stage's cache cluster size.</td></tr>
-<tr><td><code>canary_setting</code></td><td><code>object</code></td><td>Specifies settings for the canary deployment in this stage.</td></tr>
-<tr><td><code>client_certificate_id</code></td><td><code>string</code></td><td>The ID of the client certificate that API Gateway uses to call your integration endpoints in the stage. </td></tr>
-<tr><td><code>deployment_id</code></td><td><code>string</code></td><td>The ID of the deployment that the stage is associated with. This parameter is required to create a stage. </td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td>A description of the stage.</td></tr>
-<tr><td><code>documentation_version</code></td><td><code>string</code></td><td>The version ID of the API documentation snapshot.</td></tr>
-<tr><td><code>method_settings</code></td><td><code>array</code></td><td>Settings for all methods in the stage.</td></tr>
-<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The ID of the RestApi resource that you're deploying with this stage.</td></tr>
-<tr><td><code>stage_name</code></td><td><code>string</code></td><td>The name of the stage, which API Gateway uses as the first path segment in the invoked Uniform Resource Identifier (URI).</td></tr>
-<tr><td><code>tags</code></td><td><code>array</code></td><td>An array of arbitrary tags (key-value pairs) to associate with the stage.</td></tr>
-<tr><td><code>tracing_enabled</code></td><td><code>boolean</code></td><td>Specifies whether active X-Ray tracing is enabled for this stage.</td></tr>
-<tr><td><code>variables</code></td><td><code>object</code></td><td>A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value.</td></tr>
+<tr><td><code>access_log_setting</code></td><td><code>object</code></td><td>Access log settings, including the access log format and access log destination ARN.</td></tr>
+<tr><td><code>cache_cluster_enabled</code></td><td><code>boolean</code></td><td>Specifies whether a cache cluster is enabled for the stage.</td></tr>
+<tr><td><code>cache_cluster_size</code></td><td><code>string</code></td><td>The stage's cache capacity in GB. For more information about choosing a cache size, see &#91;Enabling API caching to enhance responsiveness&#93;(https:&#x2F;&#x2F;docs.aws.amazon.com&#x2F;apigateway&#x2F;latest&#x2F;developerguide&#x2F;api-gateway-caching.html).</td></tr>
+<tr><td><code>canary_setting</code></td><td><code>object</code></td><td>Settings for the canary deployment in this stage.</td></tr>
+<tr><td><code>client_certificate_id</code></td><td><code>string</code></td><td>The identifier of a client certificate for an API stage.</td></tr>
+<tr><td><code>deployment_id</code></td><td><code>string</code></td><td>The identifier of the Deployment that the stage points to.</td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>The stage's description.</td></tr>
+<tr><td><code>documentation_version</code></td><td><code>string</code></td><td>The version of the associated API documentation.</td></tr>
+<tr><td><code>method_settings</code></td><td><code>array</code></td><td>A map that defines the method settings for a Stage resource. Keys (designated as ``&#x2F;&#123;method_setting_key`` below) are method paths defined as ``&#123;resource_path&#125;&#x2F;&#123;http_method&#125;`` for an individual method override, or ``&#x2F;\*&#x2F;\*`` for overriding all methods in the stage.</td></tr>
+<tr><td><code>rest_api_id</code></td><td><code>string</code></td><td>The string identifier of the associated RestApi.</td></tr>
+<tr><td><code>stage_name</code></td><td><code>string</code></td><td>The name of the stage is the first path segment in the Uniform Resource Identifier (URI) of a call to API Gateway. Stage names can only contain alphanumeric characters, hyphens, and underscores. Maximum length is 128 characters.</td></tr>
+<tr><td><code>tags</code></td><td><code>array</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
+<tr><td><code>tracing_enabled</code></td><td><code>boolean</code></td><td>Specifies whether active tracing with X-ray is enabled for the Stage.</td></tr>
+<tr><td><code>variables</code></td><td><code>object</code></td><td>A map (string-to-string map) that defines the stage variables, where the variable name is the key and the variable value is the value. Variable names are limited to alphanumeric characters. Values must match the following regular expression: ``&#91;A-Za-z0-9-._~:&#x2F;?#&=,&#93;+``.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>stage</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:GET,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:DELETE</pre>
+
+### Delete
+<pre>
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

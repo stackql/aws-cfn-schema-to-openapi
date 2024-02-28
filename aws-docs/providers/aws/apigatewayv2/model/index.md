@@ -28,17 +28,37 @@ Gets an individual <code>model</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>model_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>content_type</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>schema</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>api_id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>description</code></td><td><code>string</code></td><td>The description of the model.</td></tr>
+<tr><td><code>content_type</code></td><td><code>string</code></td><td>The content-type for the model, for example, "application&#x2F;json".</td></tr>
+<tr><td><code>schema</code></td><td><code>object</code></td><td>The schema for the model. For application&#x2F;json models, this should be JSON schema draft 4 model.</td></tr>
+<tr><td><code>api_id</code></td><td><code>string</code></td><td>The API identifier.</td></tr>
+<tr><td><code>name</code></td><td><code>string</code></td><td>The name of the model.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>model</code> resource, the following permissions are required:
+
+### Update
+<pre>
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT</pre>
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Delete
+<pre>
+apigateway:GET,
+apigateway:DELETE</pre>
+
 
 ## Example
 ```sql

@@ -38,12 +38,41 @@ Gets an individual <code>user</code> resource
 <tr><td><code>security_profile_arns</code></td><td><code>array</code></td><td>One or more security profile arns for the user</td></tr>
 <tr><td><code>user_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the user.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><code>user_proficiencies</code></td><td><code>array</code></td><td>One or more predefined attributes assigned to a user, with a level that indicates how skilled they are.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>user</code> resource, the following permissions are required:
+
+### Read
+<pre>
+connect:DescribeUser,
+connect:ListUserProficiencies</pre>
+
+### Delete
+<pre>
+connect:DeleteUser,
+connect:UntagResource</pre>
+
+### Update
+<pre>
+connect:UpdateUserIdentityInfo,
+connect:UpdateUserPhoneConfig,
+connect:UpdateUserRoutingProfile,
+connect:UpdateUserSecurityProfiles,
+connect:UpdateUserHierarchy,
+connect:TagResource,
+connect:UntagResource,
+connect:AssociateUserProficiencies,
+connect:DisassociateUserProficiencies,
+connect:UpdateUserProficiencies</pre>
+
 
 ## Example
 ```sql
@@ -59,7 +88,8 @@ identity_info,
 phone_config,
 security_profile_arns,
 user_arn,
-tags
+tags,
+user_proficiencies
 FROM aws.connect.user
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;UserArn&gt;'

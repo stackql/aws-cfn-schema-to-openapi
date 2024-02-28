@@ -35,6 +35,43 @@ Retrieves a list of <code>game_server_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>game_server_groups</code> resource, the following permissions are required:
+
+### Create
+<pre>
+gamelift:CreateGameServerGroup,
+gamelift:TagResource,
+gamelift:DescribeGameServerGroup,
+iam:assumeRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeSubnets,
+ec2:RunInstances,
+ec2:CreateTags,
+ec2:DescribeLaunchTemplateVersions,
+autoscaling:CreateAutoScalingGroup,
+autoscaling:DescribeLifecycleHooks,
+autoscaling:DescribeNotificationConfigurations,
+autoscaling:CreateAutoScalingGroup,
+autoscaling:CreateOrUpdateTags,
+autoscaling:DescribeAutoScalingGroups,
+autoscaling:ExitStandby,
+autoscaling:PutLifecycleHook,
+autoscaling:PutScalingPolicy,
+autoscaling:ResumeProcesses,
+autoscaling:SetInstanceProtection,
+autoscaling:UpdateAutoScalingGroup,
+events:PutRule,
+events:PutTargets</pre>
+
+### List
+<pre>
+gamelift:ListGameServerGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

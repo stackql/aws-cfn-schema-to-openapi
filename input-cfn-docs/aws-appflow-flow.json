@@ -34,6 +34,11 @@
       "description" : "Trigger settings of the flow.",
       "$ref" : "#/definitions/TriggerConfig"
     },
+    "FlowStatus" : {
+      "description" : "Flow activation status for Scheduled- and Event-triggered flows",
+      "type" : "string",
+      "enum" : [ "Active", "Suspended", "Draft" ]
+    },
     "SourceFlowConfig" : {
       "description" : "Configurations of Source connector of the flow.",
       "$ref" : "#/definitions/SourceFlowConfig"
@@ -76,10 +81,6 @@
         "TriggerProperties" : {
           "description" : "Details required based on the type of trigger",
           "$ref" : "#/definitions/ScheduledTriggerProperties"
-        },
-        "ActivateFlowOnCreate" : {
-          "description" : "Active 'Scheduled' or 'Event' flow after creation. Without activation the default state of such flows upon creation is DRAFT.",
-          "type" : "boolean"
         }
       },
       "required" : [ "TriggerType" ],
@@ -165,8 +166,7 @@
           "type" : "array",
           "items" : {
             "$ref" : "#/definitions/TaskPropertiesObject"
-          },
-          "additionalProperties" : false
+          }
         }
       },
       "required" : [ "SourceFields", "TaskType" ],
@@ -733,6 +733,12 @@
       "properties" : {
         "ObjectPath" : {
           "$ref" : "#/definitions/Object"
+        },
+        "parallelismConfig" : {
+          "$ref" : "#/definitions/SAPODataParallelismConfig"
+        },
+        "paginationConfig" : {
+          "$ref" : "#/definitions/SAPODataPaginationConfig"
         }
       },
       "required" : [ "ObjectPath" ],
@@ -847,6 +853,22 @@
         },
         "CustomProperties" : {
           "$ref" : "#/definitions/CustomProperties"
+        },
+        "DataTransferApi" : {
+          "type" : "object",
+          "properties" : {
+            "Name" : {
+              "type" : "string",
+              "maxLength" : 64,
+              "pattern" : "[\\w/-]+"
+            },
+            "Type" : {
+              "type" : "string",
+              "enum" : [ "SYNC", "ASYNC", "AUTOMATIC" ]
+            }
+          },
+          "required" : [ "Name", "Type" ],
+          "additionalProperties" : false
         }
       },
       "required" : [ "EntityName" ],
@@ -1162,10 +1184,42 @@
     "DataTransferApi" : {
       "type" : "string",
       "enum" : [ "AUTOMATIC", "BULKV2", "REST_SYNC" ]
+    },
+    "SAPODataParallelismConfig" : {
+      "description" : "SAP Source connector parallelism factor",
+      "type" : "object",
+      "properties" : {
+        "maxParallelism" : {
+          "$ref" : "#/definitions/SAPODataMaxParallelism"
+        }
+      },
+      "required" : [ "maxParallelism" ],
+      "additionalProperties" : false
+    },
+    "SAPODataPaginationConfig" : {
+      "description" : "SAP Source connector page size",
+      "type" : "object",
+      "properties" : {
+        "maxPageSize" : {
+          "$ref" : "#/definitions/SAPODataMaxPageSize"
+        }
+      },
+      "required" : [ "maxPageSize" ],
+      "additionalProperties" : false
+    },
+    "SAPODataMaxParallelism" : {
+      "type" : "integer",
+      "minimum" : 1,
+      "maximum" : 10
+    },
+    "SAPODataMaxPageSize" : {
+      "type" : "integer",
+      "minimum" : 1,
+      "maximum" : 10000
     }
   },
   "required" : [ "FlowName", "Tasks", "SourceFlowConfig", "DestinationFlowConfigList", "TriggerConfig" ],
-  "createOnlyProperties" : [ "/properties/FlowName", "/properties/KMSArn", "/properties/TriggerConfig/ActivateFlowOnCreate" ],
+  "createOnlyProperties" : [ "/properties/FlowName", "/properties/KMSArn" ],
   "readOnlyProperties" : [ "/properties/FlowArn" ],
   "primaryIdentifier" : [ "/properties/FlowName" ],
   "handlers" : {
@@ -1176,7 +1230,7 @@
       "permissions" : [ "appflow:DescribeFlow", "appflow:ListTagsForResource" ]
     },
     "update" : {
-      "permissions" : [ "appflow:UpdateFlow", "appflow:TagResource", "appflow:UntagResource", "appflow:ListTagsForResource", "iam:PassRole", "s3:ListAllMyBuckets", "s3:GetBucketLocation", "s3:GetBucketPolicy", "kms:ListGrants", "secretsmanager:CreateSecret", "secretsmanager:PutResourcePolicy" ]
+      "permissions" : [ "appflow:UpdateFlow", "appflow:StartFlow", "appflow:StopFlow", "appflow:TagResource", "appflow:UntagResource", "appflow:ListTagsForResource", "appflow:UseConnectorProfile", "iam:PassRole", "s3:ListAllMyBuckets", "s3:GetBucketLocation", "s3:GetBucketPolicy", "kms:ListGrants", "secretsmanager:CreateSecret", "secretsmanager:PutResourcePolicy" ]
     },
     "delete" : {
       "permissions" : [ "appflow:DeleteFlow" ]
@@ -1184,5 +1238,11 @@
     "list" : {
       "permissions" : [ "appflow:ListFlows" ]
     }
+  },
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : false,
+    "cloudFormationSystemTags" : false
   }
 }

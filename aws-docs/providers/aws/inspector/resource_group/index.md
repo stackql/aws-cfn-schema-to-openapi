@@ -36,6 +36,19 @@ Gets an individual <code>resource_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resource_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+inspector:CreateResourceGroup</pre>
+
+### Delete
+<pre>
+inspector:CreateResourceGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

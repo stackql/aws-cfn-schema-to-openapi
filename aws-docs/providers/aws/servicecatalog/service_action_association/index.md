@@ -37,6 +37,20 @@ Gets an individual <code>service_action_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service_action_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
+
+### Delete
+<pre>
+servicecatalog:DisassociateServiceActionFromProvisioningArtifact,
+servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
+
+
 ## Example
 ```sql
 SELECT

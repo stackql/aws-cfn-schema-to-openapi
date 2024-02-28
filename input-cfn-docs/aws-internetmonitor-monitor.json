@@ -53,6 +53,48 @@
         }
       },
       "additionalProperties" : false
+    },
+    "HealthEventsConfig" : {
+      "type" : "object",
+      "properties" : {
+        "AvailabilityScoreThreshold" : {
+          "type" : "number",
+          "minimum" : 0.0,
+          "maximum" : 100.0
+        },
+        "PerformanceScoreThreshold" : {
+          "type" : "number",
+          "minimum" : 0.0,
+          "maximum" : 100.0
+        },
+        "AvailabilityLocalHealthEventsConfig" : {
+          "$ref" : "#/definitions/LocalHealthEventsConfig"
+        },
+        "PerformanceLocalHealthEventsConfig" : {
+          "$ref" : "#/definitions/LocalHealthEventsConfig"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "LocalHealthEventsConfig" : {
+      "type" : "object",
+      "properties" : {
+        "Status" : {
+          "type" : "string",
+          "enum" : [ "ENABLED", "DISABLED" ]
+        },
+        "HealthScoreThreshold" : {
+          "type" : "number",
+          "minimum" : 0.0,
+          "maximum" : 100.0
+        },
+        "MinTrafficImpact" : {
+          "type" : "number",
+          "minimum" : 0.0,
+          "maximum" : 100.0
+        }
+      },
+      "additionalProperties" : false
     }
   },
   "properties" : {
@@ -123,8 +165,16 @@
       "minimum" : 1,
       "maximum" : 500000
     },
+    "TrafficPercentageToMonitor" : {
+      "type" : "integer",
+      "minimum" : 1,
+      "maximum" : 100
+    },
     "InternetMeasurementsLogDelivery" : {
       "$ref" : "#/definitions/InternetMeasurementsLogDelivery"
+    },
+    "HealthEventsConfig" : {
+      "$ref" : "#/definitions/HealthEventsConfig"
     }
   },
   "readOnlyProperties" : [ "/properties/CreatedAt", "/properties/ModifiedAt", "/properties/MonitorArn", "/properties/ProcessingStatus", "/properties/ProcessingStatusInfo" ],
@@ -140,19 +190,19 @@
   },
   "handlers" : {
     "create" : {
-      "permissions" : [ "internetmonitor:CreateMonitor", "internetmonitor:TagResource", "internetmonitor:UntagResource" ]
+      "permissions" : [ "internetmonitor:CreateMonitor", "internetmonitor:GetMonitor", "internetmonitor:TagResource", "internetmonitor:UntagResource", "logs:CreateLogDelivery", "logs:GetLogDelivery", "s3:GetBucketPolicy", "s3:PutBucketPolicy", "s3:ListBucket", "iam:PassRole" ]
     },
     "read" : {
-      "permissions" : [ "internetmonitor:GetMonitor", "internetmonitor:ListTagsForResource" ]
+      "permissions" : [ "internetmonitor:GetMonitor", "internetmonitor:ListTagsForResource", "logs:GetLogDelivery" ]
     },
     "update" : {
-      "permissions" : [ "internetmonitor:CreateMonitor", "internetmonitor:UpdateMonitor", "internetmonitor:TagResource", "internetmonitor:UntagResource" ]
+      "permissions" : [ "internetmonitor:CreateMonitor", "internetmonitor:GetMonitor", "internetmonitor:UpdateMonitor", "internetmonitor:TagResource", "internetmonitor:UntagResource", "logs:CreateLogDelivery", "logs:GetLogDelivery", "logs:UpdateLogDelivery", "logs:DeleteLogDelivery", "logs:ListLogDeliveries", "s3:GetBucketPolicy", "s3:PutBucketPolicy", "s3:ListBucket", "iam:PassRole" ]
     },
     "delete" : {
-      "permissions" : [ "internetmonitor:DeleteMonitor" ]
+      "permissions" : [ "internetmonitor:UpdateMonitor", "internetmonitor:DeleteMonitor", "internetmonitor:GetMonitor", "logs:DeleteLogDelivery" ]
     },
     "list" : {
-      "permissions" : [ "internetmonitor:ListMonitors" ]
+      "permissions" : [ "internetmonitor:ListMonitors", "internetmonitor:GetMonitor", "logs:GetLogDelivery" ]
     }
   },
   "additionalProperties" : false,

@@ -35,6 +35,32 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>logging_configurations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole,
+firehose:TagDeliveryStream,
+network-firewall:UpdateLoggingConfiguration,
+network-firewall:DescribeLoggingConfiguration</pre>
+
+### List
+<pre>
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+network-firewall:DescribeLoggingConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

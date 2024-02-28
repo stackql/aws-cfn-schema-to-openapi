@@ -35,6 +35,24 @@ Retrieves a list of <code>ca_certificates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>ca_certificates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:GetRole,
+iam:PassRole,
+iot:RegisterCACertificate,
+iot:DescribeCACertificate,
+iot:TagResource,
+iot:ListTagsForResource</pre>
+
+### List
+<pre>
+iot:ListCACertificates</pre>
+
+
 ## Example
 ```sql
 SELECT

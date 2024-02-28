@@ -35,6 +35,32 @@ Retrieves a list of <code>pipes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pipes</code> resource, the following permissions are required:
+
+### Create
+<pre>
+pipes:CreatePipe,
+pipes:DescribePipe,
+pipes:TagResource,
+iam:PassRole,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+firehose:TagDeliveryStream</pre>
+
+### List
+<pre>
+pipes:ListPipes</pre>
+
+
 ## Example
 ```sql
 SELECT

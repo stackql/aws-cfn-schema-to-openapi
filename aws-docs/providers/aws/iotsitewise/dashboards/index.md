@@ -35,6 +35,24 @@ Retrieves a list of <code>dashboards</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dashboards</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iotsitewise:CreateDashboard,
+iotsitewise:DescribeDashboard,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel</pre>
+
+### List
+<pre>
+iotsitewise:ListDashboards</pre>
+
+
 ## Example
 ```sql
 SELECT

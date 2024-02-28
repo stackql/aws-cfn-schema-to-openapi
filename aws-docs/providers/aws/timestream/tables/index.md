@@ -36,6 +36,28 @@ Retrieves a list of <code>tables</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>tables</code> resource, the following permissions are required:
+
+### Create
+<pre>
+timestream:CreateTable,
+timestream:DescribeEndpoints,
+timestream:TagResource,
+s3:PutObject,
+s3:GetObject,
+s3:GetBucketAcl,
+kms:GenerateDataKey*,
+kms:DescribeKey,
+kms:Encrypt</pre>
+
+### List
+<pre>
+timestream:ListTables,
+timestream:DescribeEndpoints</pre>
+
+
 ## Example
 ```sql
 SELECT

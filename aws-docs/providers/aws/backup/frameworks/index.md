@@ -35,6 +35,23 @@ Retrieves a list of <code>frameworks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>frameworks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+backup:CreateFramework,
+backup:DescribeFramework,
+backup:ListTags,
+backup:TagResource,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+backup:ListFrameworks</pre>
+
+
 ## Example
 ```sql
 SELECT

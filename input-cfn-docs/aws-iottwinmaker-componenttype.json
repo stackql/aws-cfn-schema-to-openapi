@@ -1,7 +1,7 @@
 {
   "typeName" : "AWS::IoTTwinMaker::ComponentType",
   "description" : "Resource schema for AWS::IoTTwinMaker::ComponentType",
-  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-resource-providers-iottwinmaker",
   "definitions" : {
     "DateTimeFormat" : {
       "type" : "string",
@@ -278,6 +278,20 @@
       },
       "additionalProperties" : false
     },
+    "CompositeComponentType" : {
+      "description" : "An object that sets information about a composite component type.",
+      "type" : "object",
+      "properties" : {
+        "ComponentTypeId" : {
+          "description" : "The id of the composite component type.",
+          "type" : "string",
+          "pattern" : "[a-zA-Z_\\.\\-0-9:]+",
+          "minLength" : 1,
+          "maxLength" : 256
+        }
+      },
+      "additionalProperties" : false
+    },
     "Status" : {
       "type" : "object",
       "properties" : {
@@ -355,7 +369,7 @@
       }
     },
     "IsSingleton" : {
-      "description" : "A Boolean value that specifies whether an entity can have more than one component of this type.\n\n",
+      "description" : "A Boolean value that specifies whether an entity can have more than one component of this type.",
       "type" : "boolean"
     },
     "PropertyDefinitions" : {
@@ -374,6 +388,16 @@
       "patternProperties" : {
         "[a-zA-Z_\\-0-9]+" : {
           "$ref" : "#/definitions/PropertyGroup"
+        }
+      },
+      "additionalProperties" : false
+    },
+    "CompositeComponentTypes" : {
+      "description" : "An map of the composite component types in the component type. Each composite component type's key must be unique to this map.",
+      "type" : "object",
+      "patternProperties" : {
+        "[a-zA-Z_\\-0-9]+" : {
+          "$ref" : "#/definitions/CompositeComponentType"
         }
       },
       "additionalProperties" : false
@@ -433,7 +457,7 @@
   "primaryIdentifier" : [ "/properties/WorkspaceId", "/properties/ComponentTypeId" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "iottwinmaker:CreateComponentType", "iottwinmaker:GetComponentType", "iottwinmaker:GetWorkspace", "iottwinmaker:ListTagsForResource" ]
+      "permissions" : [ "iottwinmaker:CreateComponentType", "iottwinmaker:GetComponentType", "iottwinmaker:GetWorkspace", "iottwinmaker:ListTagsForResource", "iottwinmaker:TagResource" ]
     },
     "read" : {
       "permissions" : [ "iottwinmaker:GetComponentType", "iottwinmaker:GetWorkspace", "iottwinmaker:ListTagsForResource" ]
@@ -445,6 +469,15 @@
       "permissions" : [ "iottwinmaker:DeleteComponentType", "iottwinmaker:GetComponentType", "iottwinmaker:GetWorkspace" ]
     },
     "list" : {
+      "handlerSchema" : {
+        "properties" : {
+          "WorkspaceId" : {
+            "type" : "string",
+            "$ref" : "resource-schema.json#/properties/WorkspaceId"
+          }
+        },
+        "required" : [ "WorkspaceId" ]
+      },
       "permissions" : [ "iottwinmaker:GetComponentType", "iottwinmaker:GetWorkspace", "iottwinmaker:ListComponentTypes", "iottwinmaker:ListTagsForResource" ]
     }
   }

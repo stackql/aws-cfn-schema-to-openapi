@@ -39,6 +39,28 @@ Gets an individual <code>access_point</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_point</code> resource, the following permissions are required:
+
+### Read
+<pre>
+s3-outposts:GetAccessPoint,
+s3-outposts:GetAccessPointPolicy</pre>
+
+### Update
+<pre>
+s3-outposts:GetAccessPoint,
+s3-outposts:PutAccessPointPolicy,
+s3-outposts:GetAccessPointPolicy,
+s3-outposts:DeleteAccessPointPolicy</pre>
+
+### Delete
+<pre>
+s3-outposts:DeleteAccessPoint,
+s3-outposts:DeleteAccessPointPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

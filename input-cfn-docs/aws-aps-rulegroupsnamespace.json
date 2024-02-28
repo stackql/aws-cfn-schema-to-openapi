@@ -1,7 +1,7 @@
 {
   "typeName" : "AWS::APS::RuleGroupsNamespace",
   "description" : "RuleGroupsNamespace schema for cloudformation.",
-  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-rpdk.git",
+  "sourceUrl" : "https://github.com/aws-cloudformation/aws-cloudformation-resource-providers-aps",
   "definitions" : {
     "Tag" : {
       "description" : "A key-value pair to associate with a resource.",
@@ -57,7 +57,7 @@
   },
   "additionalProperties" : false,
   "required" : [ "Workspace", "Data", "Name" ],
-  "createOnlyProperties" : [ "/properties/Name" ],
+  "createOnlyProperties" : [ "/properties/Name", "/properties/Workspace" ],
   "readOnlyProperties" : [ "/properties/Arn" ],
   "tagging" : {
     "taggable" : true,
@@ -69,19 +69,27 @@
   "primaryIdentifier" : [ "/properties/Arn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "aps:CreateRuleGroupsNamespace", "aps:TagResource" ]
+      "permissions" : [ "aps:CreateRuleGroupsNamespace", "aps:DescribeRuleGroupsNamespace", "aps:TagResource" ]
     },
     "read" : {
       "permissions" : [ "aps:DescribeRuleGroupsNamespace", "aps:ListTagsForResource" ]
     },
     "update" : {
-      "permissions" : [ "aps:PutRuleGroupsNamespace", "aps:TagResource", "aps:UntagResource", "aps:ListTagsForResource" ]
+      "permissions" : [ "aps:PutRuleGroupsNamespace", "aps:DescribeRuleGroupsNamespace", "aps:TagResource", "aps:UntagResource", "aps:ListTagsForResource" ]
     },
     "delete" : {
-      "permissions" : [ "aps:DeleteRuleGroupsNamespace" ]
+      "permissions" : [ "aps:DeleteRuleGroupsNamespace", "aps:DescribeRuleGroupsNamespace" ]
     },
     "list" : {
-      "permissions" : [ "aps:ListRuleGroupsNamespaces", "aps:ListTagsForResource" ]
+      "permissions" : [ "aps:ListRuleGroupsNamespaces", "aps:ListTagsForResource" ],
+      "handlerSchema" : {
+        "properties" : {
+          "Arn" : {
+            "$ref" : "resource-schema.json#/properties/Workspace"
+          }
+        },
+        "required" : [ "Arn" ]
+      }
     }
   }
 }

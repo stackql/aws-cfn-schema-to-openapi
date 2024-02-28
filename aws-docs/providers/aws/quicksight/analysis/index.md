@@ -43,12 +43,42 @@ Gets an individual <code>analysis</code> resource
 <tr><td><code>status</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>theme_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>validation_strategy</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>analysis</code> resource, the following permissions are required:
+
+### Read
+<pre>
+quicksight:DescribeAnalysis,
+quicksight:DescribeAnalysisPermissions,
+quicksight:ListTagsForResource</pre>
+
+### Update
+<pre>
+quicksight:DescribeAnalysis,
+quicksight:DescribeAnalysisPermissions,
+quicksight:UpdateAnalysis,
+quicksight:UpdateAnalysisPermissions,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource</pre>
+
+### Delete
+<pre>
+quicksight:DescribeAnalysis,
+quicksight:DeleteAnalysis</pre>
+
 
 ## Example
 ```sql
@@ -69,7 +99,8 @@ sheets,
 source_entity,
 status,
 tags,
-theme_arn
+theme_arn,
+validation_strategy
 FROM aws.quicksight.analysis
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;AnalysisId&gt;'

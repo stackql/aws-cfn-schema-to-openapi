@@ -35,6 +35,35 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>clusters</code> resource, the following permissions are required:
+
+### Create
+<pre>
+eks:CreateCluster,
+eks:DescribeCluster,
+eks:TagResource,
+iam:PassRole,
+iam:GetRole,
+iam:ListAttachedRolePolicies,
+iam:CreateServiceLinkedRole,
+iam:CreateInstanceProfile,
+iam:TagInstanceProfile,
+iam:AddRoleToInstanceProfile,
+iam:GetInstanceProfile,
+iam:DeleteInstanceProfile,
+iam:RemoveRoleFromInstanceProfile,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+kms:DescribeKey,
+kms:CreateGrant</pre>
+
+### List
+<pre>
+eks:ListClusters</pre>
+
+
 ## Example
 ```sql
 SELECT

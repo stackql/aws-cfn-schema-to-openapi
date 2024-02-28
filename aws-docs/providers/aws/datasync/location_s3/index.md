@@ -41,6 +41,27 @@ Gets an individual <code>location_s3</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>location_s3</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationS3,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationS3,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

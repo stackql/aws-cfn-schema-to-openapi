@@ -38,6 +38,25 @@ Gets an individual <code>access_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>access_policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+aoss:GetAccessPolicy</pre>
+
+### Update
+<pre>
+aoss:UpdateAccessPolicy,
+aoss:GetAccessPolicy</pre>
+
+### Delete
+<pre>
+aoss:DeleteAccessPolicy,
+aoss:GetAccessPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

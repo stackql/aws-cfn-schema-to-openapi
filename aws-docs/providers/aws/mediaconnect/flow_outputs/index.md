@@ -35,6 +35,20 @@ Retrieves a list of <code>flow_outputs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flow_outputs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+mediaconnect:AddFlowOutputs</pre>
+
+### List
+<pre>
+mediaconnect:DescribeFlow</pre>
+
+
 ## Example
 ```sql
 SELECT

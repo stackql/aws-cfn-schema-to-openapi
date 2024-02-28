@@ -40,6 +40,29 @@ Gets an individual <code>detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>detector</code> resource, the following permissions are required:
+
+### Read
+<pre>
+guardduty:GetDetector</pre>
+
+### Delete
+<pre>
+guardduty:ListDetectors,
+guardduty:DeleteDetector,
+guardduty:GetDetector</pre>
+
+### Update
+<pre>
+guardduty:UpdateDetector,
+guardduty:GetDetector,
+guardduty:ListDetectors,
+iam:CreateServiceLinkedRole,
+iam:GetRole</pre>
+
+
 ## Example
 ```sql
 SELECT

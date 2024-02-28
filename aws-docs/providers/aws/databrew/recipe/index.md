@@ -38,6 +38,25 @@ Gets an individual <code>recipe</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>recipe</code> resource, the following permissions are required:
+
+### Read
+<pre>
+databrew:DescribeRecipe,
+databrew:ListTagsForResource,
+iam:ListRoles</pre>
+
+### Delete
+<pre>
+databrew:DeleteRecipeVersion</pre>
+
+### Update
+<pre>
+databrew:UpdateRecipe</pre>
+
+
 ## Example
 ```sql
 SELECT

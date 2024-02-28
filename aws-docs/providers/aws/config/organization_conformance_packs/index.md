@@ -35,6 +35,28 @@ Retrieves a list of <code>organization_conformance_packs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>organization_conformance_packs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+config:PutOrganizationConformancePack,
+config:DescribeOrganizationConformancePackStatuses,
+config:GetOrganizationConformancePackDetailedStatus,
+config:DescribeOrganizationConformancePacks,
+s3:GetObject,
+s3:GetBucketAcl,
+iam:CreateServiceLinkedRole,
+iam:PassRole,
+organizations:ListDelegatedAdministrators,
+organizations:EnableAWSServiceAccess</pre>
+
+### List
+<pre>
+config:DescribeOrganizationConformancePacks</pre>
+
+
 ## Example
 ```sql
 SELECT

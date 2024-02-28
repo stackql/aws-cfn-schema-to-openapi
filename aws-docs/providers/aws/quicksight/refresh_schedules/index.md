@@ -37,6 +37,20 @@ Retrieves a list of <code>refresh_schedules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>refresh_schedules</code> resource, the following permissions are required:
+
+### Create
+<pre>
+quicksight:CreateRefreshSchedule,
+quicksight:DescribeRefreshSchedule</pre>
+
+### List
+<pre>
+quicksight:ListRefreshSchedules</pre>
+
+
 ## Example
 ```sql
 SELECT

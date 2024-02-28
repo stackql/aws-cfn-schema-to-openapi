@@ -35,6 +35,30 @@ Retrieves a list of <code>apps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>apps</code> resource, the following permissions are required:
+
+### Create
+<pre>
+amplify:GetApp,
+amplify:CreateApp,
+amplify:TagResource,
+codecommit:GetRepository,
+codecommit:PutRepositoryTriggers,
+codecommit:GetRepositoryTriggers,
+sns:CreateTopic,
+sns:Subscribe,
+iam:PassRole</pre>
+
+### List
+<pre>
+amplify:GetApp,
+amplify:ListApps,
+amplify:ListTagsForResource,
+iam:PassRole</pre>
+
+
 ## Example
 ```sql
 SELECT

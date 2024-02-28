@@ -426,6 +426,10 @@
         },
         "OAuthProperties" : {
           "$ref" : "#/definitions/OAuthProperties"
+        },
+        "DisableSSO" : {
+          "description" : "If you set this parameter to true, Amazon AppFlow bypasses the single sign-on (SSO) settings in your SAP account when it accesses your SAP OData instance.",
+          "type" : "boolean"
         }
       }
     },
@@ -447,6 +451,14 @@
         "ClientCredentialsArn" : {
           "description" : "The client credentials to fetch access token and refresh token.",
           "$ref" : "#/definitions/ClientCredentialsArn"
+        },
+        "OAuth2GrantType" : {
+          "description" : "The grant types to fetch an access token",
+          "$ref" : "#/definitions/OAuth2GrantType"
+        },
+        "JwtToken" : {
+          "description" : "The credentials used to access your Salesforce records",
+          "$ref" : "#/definitions/JwtToken"
         }
       }
     },
@@ -508,7 +520,6 @@
     },
     "ServiceNowConnectorProfileCredentials" : {
       "type" : "object",
-      "required" : [ "Username", "Password" ],
       "properties" : {
         "Username" : {
           "description" : "The name of the user.",
@@ -517,6 +528,10 @@
         "Password" : {
           "description" : "The password that corresponds to the username.",
           "$ref" : "#/definitions/Password"
+        },
+        "OAuth2Credentials" : {
+          "description" : "The OAuth 2.0 credentials required to authenticate the user.",
+          "$ref" : "#/definitions/OAuth2Credentials"
         }
       }
     },
@@ -834,7 +849,7 @@
     },
     "OAuth2GrantType" : {
       "type" : "string",
-      "enum" : [ "CLIENT_CREDENTIALS", "AUTHORIZATION_CODE" ]
+      "enum" : [ "CLIENT_CREDENTIALS", "AUTHORIZATION_CODE", "JWT_BEARER" ]
     },
     "TokenUrlCustomProperties" : {
       "description" : "A map for properties for custom connector Token Url.",
@@ -899,7 +914,7 @@
     "AuthCode" : {
       "type" : "string",
       "pattern" : "\\S+",
-      "maxLength" : 512
+      "maxLength" : 4096
     },
     "BucketName" : {
       "type" : "string",
@@ -954,7 +969,7 @@
     "Stage" : {
       "type" : "string",
       "pattern" : "\\S+",
-      "maxLength" : 16
+      "maxLength" : 512
     },
     "PrivateLinkServiceName" : {
       "type" : "string",
@@ -966,10 +981,15 @@
       "pattern" : "\\S+",
       "maxLength" : 512
     },
+    "JwtToken" : {
+      "type" : "string",
+      "pattern" : "^[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]*$",
+      "maxLength" : 8000
+    },
     "RefreshToken" : {
       "type" : "string",
       "pattern" : "\\S+",
-      "maxLength" : 2048
+      "maxLength" : 4096
     },
     "Region" : {
       "type" : "string",
@@ -1071,9 +1091,9 @@
     }
   },
   "required" : [ "ConnectorProfileName", "ConnectionMode", "ConnectorType" ],
-  "createOnlyProperties" : [ "/properties/ConnectorProfileName", "/properties/KMSArn", "/properties/ConnectorType" ],
+  "createOnlyProperties" : [ "/properties/ConnectorProfileName", "/properties/ConnectorType", "/properties/ConnectorLabel" ],
   "readOnlyProperties" : [ "/properties/ConnectorProfileArn", "/properties/CredentialsArn" ],
-  "writeOnlyProperties" : [ "/properties/ConnectorProfileConfig" ],
+  "writeOnlyProperties" : [ "/properties/ConnectorProfileConfig", "/properties/KMSArn" ],
   "primaryIdentifier" : [ "/properties/ConnectorProfileName" ],
   "handlers" : {
     "create" : {
@@ -1091,5 +1111,11 @@
     "update" : {
       "permissions" : [ "appflow:UpdateConnectorProfile", "kms:ListKeys", "kms:DescribeKey", "kms:ListAliases", "kms:CreateGrant", "kms:ListGrants", "iam:PassRole", "secretsmanager:CreateSecret", "secretsmanager:GetSecretValue", "secretsmanager:PutResourcePolicy" ]
     }
+  },
+  "tagging" : {
+    "taggable" : false,
+    "tagOnCreate" : false,
+    "tagUpdatable" : false,
+    "cloudFormationSystemTags" : false
   }
 }

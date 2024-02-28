@@ -42,6 +42,10 @@ Gets an individual <code>anomaly_detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

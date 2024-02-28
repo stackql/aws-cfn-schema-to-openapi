@@ -35,6 +35,22 @@ Retrieves a list of <code>crls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>crls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+rolesanywhere:ImportCrl,
+rolesanywhere:TagResource,
+rolesanywhere:ListTagsForResource</pre>
+
+### List
+<pre>
+rolesanywhere:ListCrls,
+rolesanywhere:ListTagsForResource</pre>
+
+
 ## Example
 ```sql
 SELECT

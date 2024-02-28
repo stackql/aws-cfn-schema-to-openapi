@@ -35,6 +35,24 @@ Retrieves a list of <code>public_type_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>public_type_versions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudformation:TestType,
+cloudformation:DescribeType,
+cloudformation:PublishType,
+cloudformation:DescribePublisher,
+s3:GetObject,
+s3:PutObject</pre>
+
+### List
+<pre>
+cloudformation:ListTypes</pre>
+
+
 ## Example
 ```sql
 SELECT

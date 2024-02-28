@@ -40,6 +40,29 @@ Gets an individual <code>schedule_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>schedule_group</code> resource, the following permissions are required:
+
+### Read
+<pre>
+scheduler:GetScheduleGroup,
+scheduler:ListTagsForResource</pre>
+
+### Update
+<pre>
+scheduler:TagResource,
+scheduler:UntagResource,
+scheduler:ListTagsForResource,
+scheduler:GetScheduleGroup</pre>
+
+### Delete
+<pre>
+scheduler:DeleteScheduleGroup,
+scheduler:GetScheduleGroup,
+scheduler:DeleteSchedule</pre>
+
+
 ## Example
 ```sql
 SELECT

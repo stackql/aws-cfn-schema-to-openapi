@@ -38,6 +38,24 @@ Gets an individual <code>prepared_statement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>prepared_statement</code> resource, the following permissions are required:
+
+### Read
+<pre>
+athena:GetPreparedStatement</pre>
+
+### Update
+<pre>
+athena:UpdatePreparedStatement</pre>
+
+### Delete
+<pre>
+athena:DeletePreparedStatement,
+athena:GetPreparedStatement</pre>
+
+
 ## Example
 ```sql
 SELECT

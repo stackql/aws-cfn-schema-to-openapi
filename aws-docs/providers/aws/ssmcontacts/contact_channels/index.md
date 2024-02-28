@@ -35,6 +35,20 @@ Retrieves a list of <code>contact_channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>contact_channels</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ssm-contacts:CreateContactChannel,
+ssm-contacts:GetContactChannel</pre>
+
+### List
+<pre>
+ssm-contacts:ListContactChannels</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,21 @@ Retrieves a list of <code>scheduling_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>scheduling_policies</code> resource, the following permissions are required:
+
+### Create
+<pre>
+Batch:CreateSchedulingPolicy,
+Batch:TagResource</pre>
+
+### List
+<pre>
+Batch:ListSchedulingPolicies,
+Batch:DescribeSchedulingPolicies</pre>
+
+
 ## Example
 ```sql
 SELECT

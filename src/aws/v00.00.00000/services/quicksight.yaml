@@ -14,6 +14,8 @@ components:
           $ref: '#/components/schemas/CategoricalAggregationFunction'
         DateAggregationFunction:
           $ref: '#/components/schemas/DateAggregationFunction'
+        AttributeAggregationFunction:
+          $ref: '#/components/schemas/AttributeAggregationFunction'
       additionalProperties: false
     AggregationSortConfiguration:
       type: object
@@ -25,9 +27,11 @@ components:
         AggregationFunction:
           $ref: '#/components/schemas/AggregationFunction'
       required:
-        - AggregationFunction
         - Column
         - SortDirection
+      additionalProperties: false
+    AllSheetsFilterScopeConfiguration:
+      type: object
       additionalProperties: false
     AnalysisDefaults:
       type: object
@@ -56,7 +60,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CalculatedField'
-          maxItems: 100
+          maxItems: 500
           minItems: 0
         ParameterDeclarations:
           type: array
@@ -78,6 +82,8 @@ components:
           minItems: 0
         AnalysisDefaults:
           $ref: '#/components/schemas/AnalysisDefaults'
+        Options:
+          $ref: '#/components/schemas/AssetOptions'
       required:
         - DataSetIdentifierDeclarations
       additionalProperties: false
@@ -191,6 +197,22 @@ components:
         - SMALL
         - MEDIUM
         - LARGE
+    AssetOptions:
+      type: object
+      properties:
+        Timezone:
+          type: string
+        WeekStart:
+          $ref: '#/components/schemas/DayOfTheWeek'
+      additionalProperties: false
+    AttributeAggregationFunction:
+      type: object
+      properties:
+        SimpleAttributeAggregation:
+          $ref: '#/components/schemas/SimpleAttributeAggregationFunction'
+        ValueForMultipleValues:
+          type: string
+      additionalProperties: false
     AxisBinding:
       type: string
       enum:
@@ -621,7 +643,7 @@ components:
           minLength: 1
         Expression:
           type: string
-          maxLength: 4096
+          maxLength: 32000
           minLength: 1
       required:
         - DataSetIdentifier
@@ -1485,6 +1507,8 @@ components:
           pattern: ^#[A-F0-9]{6}$
         Overlap:
           $ref: '#/components/schemas/DataLabelOverlap'
+        TotalsVisibility:
+          $ref: '#/components/schemas/Visibility'
       additionalProperties: false
     DataLabelOverlap:
       type: string
@@ -1557,6 +1581,12 @@ components:
         - Direction
         - SortPaths
       additionalProperties: false
+    DataPathType:
+      type: object
+      properties:
+        PivotTableDataPathType:
+          $ref: '#/components/schemas/PivotTableDataPathType'
+      additionalProperties: false
     DataPathValue:
       type: object
       properties:
@@ -1568,9 +1598,8 @@ components:
           type: string
           maxLength: 2048
           minLength: 0
-      required:
-        - FieldId
-        - FieldValue
+        DataPathType:
+          $ref: '#/components/schemas/DataPathType'
       additionalProperties: false
     DataSetIdentifierDeclaration:
       type: object
@@ -1737,6 +1766,8 @@ components:
           type: string
           maxLength: 128
           minLength: 1
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     DateTimeValueWhenUnsetConfiguration:
       type: object
@@ -1747,6 +1778,16 @@ components:
           type: string
           format: date-time
       additionalProperties: false
+    DayOfTheWeek:
+      type: string
+      enum:
+        - SUNDAY
+        - MONDAY
+        - TUESDAY
+        - WEDNESDAY
+        - THURSDAY
+        - FRIDAY
+        - SATURDAY
     DecimalDefaultValues:
       type: object
       properties:
@@ -1878,6 +1919,8 @@ components:
           type: string
           maxLength: 512
           minLength: 1
+        SourceColumn:
+          $ref: '#/components/schemas/ColumnIdentifier'
       additionalProperties: false
     DimensionField:
       type: object
@@ -1920,6 +1963,8 @@ components:
           $ref: '#/components/schemas/ListControlSelectAllOptions'
         TitleOptions:
           $ref: '#/components/schemas/LabelOptions'
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     DynamicDefaultValue:
       type: object
@@ -2317,6 +2362,8 @@ components:
           minItems: 0
         SelectAllOptions:
           $ref: '#/components/schemas/CategoryFilterSelectAllOptions'
+        NullOption:
+          $ref: '#/components/schemas/FilterNullOption'
       required:
         - MatchOperator
       additionalProperties: false
@@ -2369,6 +2416,12 @@ components:
           minItems: 1
         SelectedFieldOptions:
           $ref: '#/components/schemas/SelectedFieldOptions'
+        SelectedColumns:
+          type: array
+          items:
+            $ref: '#/components/schemas/ColumnIdentifier'
+          maxItems: 10
+          minItems: 0
       additionalProperties: false
     FilterOperationTargetVisualsConfiguration:
       type: object
@@ -2405,6 +2458,8 @@ components:
       properties:
         SelectedSheets:
           $ref: '#/components/schemas/SelectedSheetsFilterScopeConfiguration'
+        AllSheets:
+          $ref: '#/components/schemas/AllSheetsFilterScopeConfiguration'
       additionalProperties: false
     FilterSelectableValues:
       type: object
@@ -2594,7 +2649,6 @@ components:
           minimum: 1
       required:
         - ComputationId
-        - Time
       additionalProperties: false
     ForecastComputationSeasonality:
       type: string
@@ -2966,6 +3020,31 @@ components:
         - South
         - West
       additionalProperties: false
+    GeospatialHeatmapColorScale:
+      type: object
+      properties:
+        Colors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GeospatialHeatmapDataColor'
+          maxItems: 2
+          minItems: 2
+      additionalProperties: false
+    GeospatialHeatmapConfiguration:
+      type: object
+      properties:
+        HeatmapColor:
+          $ref: '#/components/schemas/GeospatialHeatmapColorScale'
+      additionalProperties: false
+    GeospatialHeatmapDataColor:
+      type: object
+      properties:
+        Color:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+      required:
+        - Color
+      additionalProperties: false
     GeospatialMapAggregatedFieldWells:
       type: object
       properties:
@@ -3054,12 +3133,15 @@ components:
           $ref: '#/components/schemas/GeospatialSelectedPointStyle'
         ClusterMarkerConfiguration:
           $ref: '#/components/schemas/ClusterMarkerConfiguration'
+        HeatmapConfiguration:
+          $ref: '#/components/schemas/GeospatialHeatmapConfiguration'
       additionalProperties: false
     GeospatialSelectedPointStyle:
       type: string
       enum:
         - POINT
         - CLUSTER
+        - HEATMAP
     GeospatialWindowOptions:
       type: object
       properties:
@@ -3185,7 +3267,6 @@ components:
           minimum: 2
       required:
         - ComputationId
-        - Time
       additionalProperties: false
     HeaderFooterSectionConfiguration:
       type: object
@@ -3522,6 +3603,22 @@ components:
         OtherCategories:
           $ref: '#/components/schemas/OtherCategories'
       additionalProperties: false
+    KPIActualValueConditionalFormatting:
+      type: object
+      properties:
+        TextColor:
+          $ref: '#/components/schemas/ConditionalFormattingColor'
+        Icon:
+          $ref: '#/components/schemas/ConditionalFormattingIcon'
+      additionalProperties: false
+    KPIComparisonValueConditionalFormatting:
+      type: object
+      properties:
+        TextColor:
+          $ref: '#/components/schemas/ConditionalFormattingColor'
+        Icon:
+          $ref: '#/components/schemas/ConditionalFormattingIcon'
+      additionalProperties: false
     KPIConditionalFormatting:
       type: object
       properties:
@@ -3539,6 +3636,10 @@ components:
           $ref: '#/components/schemas/KPIPrimaryValueConditionalFormatting'
         ProgressBar:
           $ref: '#/components/schemas/KPIProgressBarConditionalFormatting'
+        ActualValue:
+          $ref: '#/components/schemas/KPIActualValueConditionalFormatting'
+        ComparisonValue:
+          $ref: '#/components/schemas/KPIComparisonValueConditionalFormatting'
       additionalProperties: false
     KPIConfiguration:
       type: object
@@ -3589,6 +3690,10 @@ components:
           $ref: '#/components/schemas/FontConfiguration'
         SecondaryValueFontConfiguration:
           $ref: '#/components/schemas/FontConfiguration'
+        Sparkline:
+          $ref: '#/components/schemas/KPISparklineOptions'
+        VisualLayoutOptions:
+          $ref: '#/components/schemas/KPIVisualLayoutOptions'
       additionalProperties: false
     KPIPrimaryValueConditionalFormatting:
       type: object
@@ -3614,6 +3719,26 @@ components:
           maxItems: 100
           minItems: 0
       additionalProperties: false
+    KPISparklineOptions:
+      type: object
+      properties:
+        Visibility:
+          $ref: '#/components/schemas/Visibility'
+        Type:
+          $ref: '#/components/schemas/KPISparklineType'
+        Color:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        TooltipVisibility:
+          $ref: '#/components/schemas/Visibility'
+      required:
+        - Type
+      additionalProperties: false
+    KPISparklineType:
+      type: string
+      enum:
+        - LINE
+        - AREA
     KPIVisual:
       type: object
       properties:
@@ -3645,6 +3770,25 @@ components:
       required:
         - VisualId
       additionalProperties: false
+    KPIVisualLayoutOptions:
+      type: object
+      properties:
+        StandardLayout:
+          $ref: '#/components/schemas/KPIVisualStandardLayout'
+      additionalProperties: false
+    KPIVisualStandardLayout:
+      type: object
+      properties:
+        Type:
+          $ref: '#/components/schemas/KPIVisualStandardLayoutType'
+      required:
+        - Type
+      additionalProperties: false
+    KPIVisualStandardLayoutType:
+      type: string
+      enum:
+        - CLASSIC
+        - VERTICAL
     LabelOptions:
       type: object
       properties:
@@ -3938,6 +4082,8 @@ components:
           $ref: '#/components/schemas/ListControlSelectAllOptions'
         TitleOptions:
           $ref: '#/components/schemas/LabelOptions'
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     ListControlSearchOptions:
       type: object
@@ -4025,7 +4171,6 @@ components:
           $ref: '#/components/schemas/MaximumMinimumComputationType'
       required:
         - ComputationId
-        - Time
         - Type
       additionalProperties: false
     MaximumMinimumComputationType:
@@ -4063,9 +4208,6 @@ components:
           $ref: '#/components/schemas/MeasureField'
       required:
         - ComputationId
-        - FromValue
-        - TargetValue
-        - Time
       additionalProperties: false
     MinimumLabelType:
       type: object
@@ -4699,7 +4841,6 @@ components:
           $ref: '#/components/schemas/MeasureField'
       required:
         - ComputationId
-        - Time
       additionalProperties: false
     PeriodToDateComputation:
       type: object
@@ -4719,7 +4860,6 @@ components:
           $ref: '#/components/schemas/TimeGranularity'
       required:
         - ComputationId
-        - Time
       additionalProperties: false
     PieChartAggregatedFieldWells:
       type: object
@@ -4874,6 +5014,12 @@ components:
           $ref: '#/components/schemas/TextConditionalFormat'
         Scope:
           $ref: '#/components/schemas/PivotTableConditionalFormattingScope'
+        Scopes:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotTableConditionalFormattingScope'
+          maxItems: 3
+          minItems: 0
       required:
         - FieldId
       additionalProperties: false
@@ -4936,6 +5082,40 @@ components:
       required:
         - DataPathList
       additionalProperties: false
+    PivotTableDataPathType:
+      type: string
+      enum:
+        - HIERARCHY_ROWS_LAYOUT_COLUMN
+        - MULTIPLE_ROW_METRICS_COLUMN
+        - EMPTY_COLUMN_HEADER
+        - COUNT_METRIC_COLUMN
+    PivotTableFieldCollapseState:
+      type: string
+      enum:
+        - COLLAPSED
+        - EXPANDED
+    PivotTableFieldCollapseStateOption:
+      type: object
+      properties:
+        Target:
+          $ref: '#/components/schemas/PivotTableFieldCollapseStateTarget'
+        State:
+          $ref: '#/components/schemas/PivotTableFieldCollapseState'
+      required:
+        - Target
+      additionalProperties: false
+    PivotTableFieldCollapseStateTarget:
+      type: object
+      properties:
+        FieldId:
+          type: string
+        FieldDataPathValues:
+          type: array
+          items:
+            $ref: '#/components/schemas/DataPathValue'
+          maxItems: 20
+          minItems: 0
+      additionalProperties: false
     PivotTableFieldOption:
       type: object
       properties:
@@ -4967,6 +5147,10 @@ components:
             $ref: '#/components/schemas/PivotTableDataPathOption'
           maxItems: 100
           minItems: 0
+        CollapseStateOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/PivotTableFieldCollapseStateOption'
       additionalProperties: false
     PivotTableFieldSubtotalOptions:
       type: object
@@ -5008,6 +5192,15 @@ components:
           $ref: '#/components/schemas/TableCellStyle'
         RowAlternateColorOptions:
           $ref: '#/components/schemas/RowAlternateColorOptions'
+        CollapsedRowDimensionsVisibility:
+          $ref: '#/components/schemas/Visibility'
+        RowsLayout:
+          $ref: '#/components/schemas/PivotTableRowsLayout'
+        RowsLabelOptions:
+          $ref: '#/components/schemas/PivotTableRowsLabelOptions'
+        DefaultCellWidth:
+          type: string
+          description: String based length that is composed of value and unit in px
       additionalProperties: false
     PivotTablePaginatedReportOptions:
       type: object
@@ -5017,6 +5210,21 @@ components:
         OverflowColumnHeaderVisibility:
           $ref: '#/components/schemas/Visibility'
       additionalProperties: false
+    PivotTableRowsLabelOptions:
+      type: object
+      properties:
+        Visibility:
+          $ref: '#/components/schemas/Visibility'
+        CustomLabel:
+          type: string
+          maxLength: 1024
+          minLength: 1
+      additionalProperties: false
+    PivotTableRowsLayout:
+      type: string
+      enum:
+        - TABULAR
+        - HIERARCHY
     PivotTableSortBy:
       type: object
       properties:
@@ -5097,6 +5305,12 @@ components:
           $ref: '#/components/schemas/TableCellStyle'
         MetricHeaderCellStyle:
           $ref: '#/components/schemas/TableCellStyle'
+        TotalAggregationOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TotalAggregationOption'
+          maxItems: 200
+          minItems: 0
       additionalProperties: false
     PredefinedHierarchy:
       type: object
@@ -5161,6 +5375,12 @@ components:
         Visibility:
           $ref: '#/components/schemas/Visibility'
       additionalProperties: false
+    RadarChartAxesRangeScale:
+      type: string
+      enum:
+        - AUTO
+        - INDEPENDENT
+        - SHARED
     RadarChartConfiguration:
       type: object
       properties:
@@ -5196,6 +5416,8 @@ components:
           $ref: '#/components/schemas/ChartAxisLabelOptions'
         Legend:
           $ref: '#/components/schemas/LegendOptions'
+        AxesRangeScale:
+          $ref: '#/components/schemas/RadarChartAxesRangeScale'
       additionalProperties: false
     RadarChartFieldWells:
       type: object
@@ -5301,6 +5523,8 @@ components:
           $ref: '#/components/schemas/ReferenceLineDynamicDataConfiguration'
         AxisBinding:
           $ref: '#/components/schemas/AxisBinding'
+        SeriesType:
+          $ref: '#/components/schemas/ReferenceLineSeriesType'
       additionalProperties: false
     ReferenceLineDynamicDataConfiguration:
       type: object
@@ -5314,7 +5538,6 @@ components:
       required:
         - Calculation
         - Column
-        - MeasureAggregationFunction
       additionalProperties: false
     ReferenceLineLabelConfiguration:
       type: object
@@ -5350,6 +5573,11 @@ components:
         - SOLID
         - DASHED
         - DOTTED
+    ReferenceLineSeriesType:
+      type: string
+      enum:
+        - BAR
+        - LINE
     ReferenceLineStaticDataConfiguration:
       type: object
       properties:
@@ -5390,6 +5618,8 @@ components:
           type: string
           maxLength: 128
           minLength: 1
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     RelativeDateType:
       type: string
@@ -5452,35 +5682,17 @@ components:
         - RESPONSIVE
     ResourcePermission:
       type: object
-      description: <p>Permission for the resource.</p>
       properties:
-        Actions:
-          type: array
-          items:
-            type: string
-          maxItems: 16
-          minItems: 1
-          description: <p>The IAM action to grant or revoke permissions on.</p>
         Principal:
           type: string
           maxLength: 256
           minLength: 1
-          description: |-
-            <p>The Amazon Resource Name (ARN) of the principal. This can be one of the
-                        following:</p>
-                    <ul>
-                        <li>
-                            <p>The ARN of an Amazon QuickSight user or group associated with a data source or dataset. (This is common.)</p>
-                        </li>
-                        <li>
-                            <p>The ARN of an Amazon QuickSight user, group, or namespace associated with an analysis, dashboard, template, or theme. (This is common.)</p>
-                        </li>
-                        <li>
-                            <p>The ARN of an AWS account root: This is an IAM ARN rather than a QuickSight
-                                ARN. Use this option only to share resources (templates) across AWS accounts.
-                                (This is less common.) </p>
-                        </li>
-                     </ul>
+        Actions:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+          minItems: 1
       required:
         - Actions
         - Principal
@@ -5521,6 +5733,8 @@ components:
             pattern: ^#[A-F0-9]{6}$
           maxItems: 1
           minItems: 0
+        UsePrimaryBackgroundColor:
+          $ref: '#/components/schemas/WidgetStatus'
       additionalProperties: false
     SameSheetTargetVisualConfiguration:
       type: object
@@ -5639,6 +5853,12 @@ components:
             $ref: '#/components/schemas/MeasureField'
           maxItems: 200
           minItems: 0
+        Label:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionField'
+          maxItems: 200
+          minItems: 0
       additionalProperties: false
     ScatterPlotConfiguration:
       type: object
@@ -5689,6 +5909,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/MeasureField'
+          maxItems: 200
+          minItems: 0
+        Category:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionField'
+          maxItems: 200
+          minItems: 0
+        Label:
+          type: array
+          items:
+            $ref: '#/components/schemas/DimensionField'
           maxItems: 200
           minItems: 0
       additionalProperties: false
@@ -5890,6 +6122,16 @@ components:
       enum:
         - SINGLE_VALUED
         - DATE_RANGE
+    SheetControlInfoIconLabelOptions:
+      type: object
+      properties:
+        Visibility:
+          $ref: '#/components/schemas/Visibility'
+        InfoIconText:
+          type: string
+          maxLength: 100
+          minLength: 1
+      additionalProperties: false
     SheetControlLayout:
       type: object
       properties:
@@ -6044,6 +6286,10 @@ components:
           maxLength: 1024
           minLength: 1
       additionalProperties: false
+    SimpleAttributeAggregationFunction:
+      type: string
+      enum:
+        - UNIQUE_VALUE
     SimpleClusterMarker:
       type: object
       properties:
@@ -6065,12 +6311,41 @@ components:
         - STDEV
         - STDEVP
         - MEDIAN
+    SimpleTotalAggregationFunction:
+      type: string
+      enum:
+        - DEFAULT
+        - SUM
+        - AVERAGE
+        - MIN
+        - MAX
+        - NONE
     SliderControlDisplayOptions:
       type: object
       properties:
         TitleOptions:
           $ref: '#/components/schemas/LabelOptions'
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
+    SmallMultiplesAxisPlacement:
+      type: string
+      enum:
+        - OUTSIDE
+        - INSIDE
+    SmallMultiplesAxisProperties:
+      type: object
+      properties:
+        Scale:
+          $ref: '#/components/schemas/SmallMultiplesAxisScale'
+        Placement:
+          $ref: '#/components/schemas/SmallMultiplesAxisPlacement'
+      additionalProperties: false
+    SmallMultiplesAxisScale:
+      type: string
+      enum:
+        - SHARED
+        - INDEPENDENT
     SmallMultiplesOptions:
       type: object
       properties:
@@ -6084,6 +6359,10 @@ components:
           minimum: 1
         PanelConfiguration:
           $ref: '#/components/schemas/PanelConfiguration'
+        XAxis:
+          $ref: '#/components/schemas/SmallMultiplesAxisProperties'
+        YAxis:
+          $ref: '#/components/schemas/SmallMultiplesAxisProperties'
       additionalProperties: false
     SortDirection:
       type: string
@@ -6178,6 +6457,12 @@ components:
         CustomValue:
           type: string
       additionalProperties: false
+    StyledCellType:
+      type: string
+      enum:
+        - TOTAL
+        - METRIC_HEADER
+        - VALUE
     SubtotalOptions:
       type: object
       properties:
@@ -6199,6 +6484,12 @@ components:
           $ref: '#/components/schemas/TableCellStyle'
         MetricHeaderCellStyle:
           $ref: '#/components/schemas/TableCellStyle'
+        StyleTargets:
+          type: array
+          items:
+            $ref: '#/components/schemas/TableStyleTarget'
+          maxItems: 3
+          minItems: 0
       additionalProperties: false
     TableAggregatedFieldWells:
       type: object
@@ -6402,8 +6693,10 @@ components:
             type: string
             maxLength: 512
             minLength: 1
-          maxItems: 100
+          maxItems: 200
           minItems: 0
+        PinnedFieldOptions:
+          $ref: '#/components/schemas/TablePinnedFieldOptions'
       additionalProperties: false
     TableFieldURLConfiguration:
       type: object
@@ -6452,6 +6745,18 @@ components:
         OverflowColumnHeaderVisibility:
           $ref: '#/components/schemas/Visibility'
       additionalProperties: false
+    TablePinnedFieldOptions:
+      type: object
+      properties:
+        PinnedLeftFields:
+          type: array
+          items:
+            type: string
+            maxLength: 512
+            minLength: 1
+          maxItems: 201
+          minItems: 0
+      additionalProperties: false
     TableRowConditionalFormatting:
       type: object
       properties:
@@ -6488,11 +6793,20 @@ components:
         PaginationConfiguration:
           $ref: '#/components/schemas/PaginationConfiguration'
       additionalProperties: false
+    TableStyleTarget:
+      type: object
+      properties:
+        CellType:
+          $ref: '#/components/schemas/StyledCellType'
+      required:
+        - CellType
+      additionalProperties: false
     TableTotalsPlacement:
       type: string
       enum:
         - START
         - END
+        - AUTO
     TableTotalsScrollStatus:
       type: string
       enum:
@@ -6535,24 +6849,19 @@ components:
       additionalProperties: false
     Tag:
       type: object
-      description: |-
-        <p>The key or keys of the key-value pairs for the resource tag or tags assigned to the
-                    resource.</p>
       properties:
         Value:
           type: string
           maxLength: 256
           minLength: 1
-          description: <p>Tag value.</p>
         Key:
           type: string
           maxLength: 128
           minLength: 1
-          description: <p>Tag key.</p>
+      additionalProperties: false
       required:
         - Key
         - Value
-      additionalProperties: false
     TargetVisualOptions:
       type: string
       enum:
@@ -6564,6 +6873,8 @@ components:
           $ref: '#/components/schemas/LabelOptions'
         PlaceholderOptions:
           $ref: '#/components/schemas/TextControlPlaceholderOptions'
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     TextConditionalFormat:
       type: object
@@ -6588,6 +6899,8 @@ components:
           $ref: '#/components/schemas/LabelOptions'
         PlaceholderOptions:
           $ref: '#/components/schemas/TextControlPlaceholderOptions'
+        InfoIconLabelOptions:
+          $ref: '#/components/schemas/SheetControlInfoIconLabelOptions'
       additionalProperties: false
     TextWrap:
       type: string
@@ -6648,6 +6961,8 @@ components:
           pattern: ^[a-zA-Z0-9]+$
         TimeGranularity:
           $ref: '#/components/schemas/TimeGranularity'
+        RollingDate:
+          $ref: '#/components/schemas/RollingDateConfiguration'
       required:
         - Column
         - FilterId
@@ -6813,9 +7128,7 @@ components:
         Type:
           $ref: '#/components/schemas/TopBottomComputationType'
       required:
-        - Category
         - ComputationId
-        - Time
         - Type
       additionalProperties: false
     TopBottomRankedComputation:
@@ -6840,7 +7153,6 @@ components:
         Type:
           $ref: '#/components/schemas/TopBottomComputationType'
       required:
-        - Category
         - ComputationId
         - Type
       additionalProperties: false
@@ -6863,7 +7175,25 @@ components:
           $ref: '#/components/schemas/MeasureField'
       required:
         - ComputationId
-        - Value
+      additionalProperties: false
+    TotalAggregationFunction:
+      type: object
+      properties:
+        SimpleTotalAggregationFunction:
+          $ref: '#/components/schemas/SimpleTotalAggregationFunction'
+      additionalProperties: false
+    TotalAggregationOption:
+      type: object
+      properties:
+        FieldId:
+          type: string
+          maxLength: 512
+          minLength: 1
+        TotalAggregationFunction:
+          $ref: '#/components/schemas/TotalAggregationFunction'
+      required:
+        - FieldId
+        - TotalAggregationFunction
       additionalProperties: false
     TotalOptions:
       type: object
@@ -6878,6 +7208,12 @@ components:
           type: string
         TotalCellStyle:
           $ref: '#/components/schemas/TableCellStyle'
+        TotalAggregationOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TotalAggregationOption'
+          maxItems: 200
+          minItems: 0
       additionalProperties: false
     TreeMapAggregatedFieldWells:
       type: object
@@ -7010,9 +7346,21 @@ components:
         Category:
           $ref: '#/components/schemas/DimensionField'
       required:
-        - Category
         - ComputationId
       additionalProperties: false
+    ValidationStrategy:
+      type: object
+      properties:
+        Mode:
+          $ref: '#/components/schemas/ValidationStrategyMode'
+      required:
+        - Mode
+      additionalProperties: false
+    ValidationStrategyMode:
+      type: string
+      enum:
+        - STRICT
+        - LENIENT
     ValueWhenUnsetOption:
       type: string
       enum:
@@ -7024,6 +7372,7 @@ components:
         - TOP
         - MIDDLE
         - BOTTOM
+        - AUTO
     Visibility:
       type: string
       enum:
@@ -7477,6 +7826,8 @@ components:
           minItems: 1
         ThemeArn:
           type: string
+        ValidationStrategy:
+          $ref: '#/components/schemas/ValidationStrategy'
       required:
         - AwsAccountId
         - AnalysisId
@@ -7485,6 +7836,45 @@ components:
       x-stackql-primaryIdentifier:
         - AnalysisId
         - AwsAccountId
+      x-create-only-properties:
+        - AnalysisId
+        - AwsAccountId
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+        - DataSetArns
+        - LastUpdatedTime
+      x-required-permissions:
+        create:
+          - quicksight:DescribeAnalysis
+          - quicksight:DescribeAnalysisPermissions
+          - quicksight:CreateAnalysis
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTheme
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        read:
+          - quicksight:DescribeAnalysis
+          - quicksight:DescribeAnalysisPermissions
+          - quicksight:ListTagsForResource
+        update:
+          - quicksight:DescribeAnalysis
+          - quicksight:DescribeAnalysisPermissions
+          - quicksight:UpdateAnalysis
+          - quicksight:UpdateAnalysisPermissions
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTheme
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        delete:
+          - quicksight:DescribeAnalysis
+          - quicksight:DeleteAnalysis
+        list:
+          - quicksight:ListAnalyses
     AdHocFilteringOption:
       type: object
       properties:
@@ -7633,7 +8023,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CalculatedField'
-          maxItems: 100
+          maxItems: 500
           minItems: 0
         ParameterDeclarations:
           type: array
@@ -7655,6 +8045,8 @@ components:
           minItems: 0
         AnalysisDefaults:
           $ref: '#/components/schemas/AnalysisDefaults'
+        Options:
+          $ref: '#/components/schemas/AssetOptions'
       required:
         - DataSetIdentifierDeclarations
       additionalProperties: false
@@ -7699,6 +8091,16 @@ components:
       properties:
         AvailabilityStatus:
           $ref: '#/components/schemas/DashboardBehavior'
+      additionalProperties: false
+    LinkSharingConfiguration:
+      type: object
+      properties:
+        Permissions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourcePermission'
+          maxItems: 64
+          minItems: 1
       additionalProperties: false
     SheetControlsOption:
       type: object
@@ -7752,6 +8154,8 @@ components:
         LastUpdatedTime:
           type: string
           format: date-time
+        LinkSharingConfiguration:
+          $ref: '#/components/schemas/LinkSharingConfiguration'
         Name:
           type: string
           maxLength: 2048
@@ -7774,6 +8178,8 @@ components:
           minItems: 1
         ThemeArn:
           type: string
+        ValidationStrategy:
+          $ref: '#/components/schemas/ValidationStrategy'
         Version:
           $ref: '#/components/schemas/DashboardVersion'
         VersionDescription:
@@ -7788,6 +8194,47 @@ components:
       x-stackql-primaryIdentifier:
         - AwsAccountId
         - DashboardId
+      x-create-only-properties:
+        - AwsAccountId
+        - DashboardId
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+        - LastPublishedTime
+        - LastUpdatedTime
+        - Version
+      x-required-permissions:
+        create:
+          - quicksight:DescribeDashboard
+          - quicksight:DescribeDashboardPermissions
+          - quicksight:CreateDashboard
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTheme
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        read:
+          - quicksight:DescribeDashboard
+          - quicksight:DescribeDashboardPermissions
+          - quicksight:ListTagsForResource
+        update:
+          - quicksight:DescribeDashboard
+          - quicksight:DescribeDashboardPermissions
+          - quicksight:UpdateDashboard
+          - quicksight:UpdateDashboardPermissions
+          - quicksight:UpdateDashboardPublishedVersion
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTheme
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        delete:
+          - quicksight:DescribeDashboard
+          - quicksight:DeleteDashboard
+        list:
+          - quicksight:ListDashboards
     CalculatedColumn:
       type: object
       description: <p>A calculated column for a dataset.</p>
@@ -7814,6 +8261,7 @@ components:
         - ColumnId
         - ColumnName
         - Expression
+      additionalProperties: false
     CastColumnTypeOperation:
       type: object
       description: <p>A transform operation that casts a column to a different type.</p>
@@ -7832,9 +8280,12 @@ components:
                         format supported by Amazon QuickSight to denote the source data format.</p>
         NewColumnType:
           $ref: '#/components/schemas/ColumnDataType'
+        SubType:
+          $ref: '#/components/schemas/ColumnSubDataType'
       required:
         - ColumnName
         - NewColumnType
+      additionalProperties: false
     ColumnDataType:
       type: string
       enum:
@@ -7842,6 +8293,11 @@ components:
         - INTEGER
         - DECIMAL
         - DATETIME
+    ColumnSubDataType:
+      type: string
+      enum:
+        - FIXED
+        - FLOAT
     ColumnDescription:
       type: object
       description: <p>Metadata that contains a description for a column.</p>
@@ -7851,6 +8307,7 @@ components:
           maxLength: 500
           minLength: 0
           description: <p>The text of a description for a column.</p>
+      additionalProperties: false
     ColumnGroup:
       type: object
       description: |-
@@ -7860,6 +8317,7 @@ components:
       properties:
         GeoSpatialColumnGroup:
           $ref: '#/components/schemas/GeoSpatialColumnGroup'
+      additionalProperties: false
     ColumnLevelPermissionRule:
       type: object
       properties:
@@ -7874,6 +8332,7 @@ components:
             type: string
           maxItems: 100
           minItems: 1
+      additionalProperties: false
     ColumnTag:
       type: object
       description: |-
@@ -7885,6 +8344,7 @@ components:
           $ref: '#/components/schemas/GeoSpatialDataRole'
         ColumnDescription:
           $ref: '#/components/schemas/ColumnDescription'
+      additionalProperties: false
     CreateColumnsOperation:
       type: object
       description: |-
@@ -7900,6 +8360,7 @@ components:
           description: <p>Calculated columns to create.</p>
       required:
         - Columns
+      additionalProperties: false
     CustomSql:
       type: object
       description: <p>A physical table type built from the results of the custom SQL query.</p>
@@ -7929,11 +8390,173 @@ components:
         - DataSourceArn
         - Name
         - SqlQuery
+      additionalProperties: false
     DataSetImportMode:
       type: string
       enum:
         - SPICE
         - DIRECT_QUERY
+    DatasetParameter:
+      type: object
+      description: <p>A parameter created in the dataset that could be of any one data type such as string, integer, decimal or datetime.</p>
+      properties:
+        StringDatasetParameter:
+          $ref: '#/components/schemas/StringDatasetParameter'
+        DecimalDatasetParameter:
+          $ref: '#/components/schemas/DecimalDatasetParameter'
+        IntegerDatasetParameter:
+          $ref: '#/components/schemas/IntegerDatasetParameter'
+        DateTimeDatasetParameter:
+          $ref: '#/components/schemas/DateTimeDatasetParameter'
+      additionalProperties: false
+    DatasetParameterId:
+      type: string
+      maxLength: 128
+      minLength: 1
+      pattern: ^[a-zA-Z0-9-]+$
+      description: <p>Identifier of the parameter created in the dataset.</p>
+    DatasetParameterName:
+      type: string
+      maxLength: 2048
+      minLength: 1
+      pattern: ^[a-zA-Z0-9]+$
+      description: <p>Name of the parameter created in the dataset.</p>
+    DatasetParameterValueType:
+      type: string
+      enum:
+        - MULTI_VALUED
+        - SINGLE_VALUED
+      description: <p>Every parameter value could be either a single value or multi value which helps to validate before evaluation.</p>
+    DateTimeDatasetParameter:
+      type: object
+      description: <p>A parameter created in the dataset of date time data type.</p>
+      properties:
+        Id:
+          $ref: '#/components/schemas/DatasetParameterId'
+        Name:
+          $ref: '#/components/schemas/DatasetParameterName'
+        ValueType:
+          $ref: '#/components/schemas/DatasetParameterValueType'
+        TimeGranularity:
+          $ref: '#/components/schemas/TimeGranularity'
+        DefaultValues:
+          $ref: '#/components/schemas/DateTimeDatasetParameterDefaultValues'
+      required:
+        - Id
+        - Name
+        - ValueType
+      additionalProperties: false
+    DateTimeDatasetParameterDefaultValues:
+      type: object
+      description: <p>List of default values defined for a given string date time parameter type. Currently only static values are supported.</p>
+      properties:
+        StaticValues:
+          $ref: '#/components/schemas/DateTimeDatasetParameterValueList'
+          description: <p>List of static default values defined for a given string date time parameter type.</p>
+      additionalProperties: false
+    DateTimeDatasetParameterValueList:
+      type: array
+      items:
+        type: string
+        description: <p>Default value defined for the dataset parameter of date time type.</p>
+      maxItems: 32
+      minItems: 1
+    DecimalDatasetParameter:
+      type: object
+      description: <p>A parameter created in the dataset of decimal data type.</p>
+      properties:
+        Id:
+          $ref: '#/components/schemas/DatasetParameterId'
+        Name:
+          $ref: '#/components/schemas/DatasetParameterName'
+        ValueType:
+          $ref: '#/components/schemas/DatasetParameterValueType'
+        DefaultValues:
+          $ref: '#/components/schemas/DecimalDatasetParameterDefaultValues'
+      required:
+        - Id
+        - Name
+        - ValueType
+      additionalProperties: false
+    DecimalDatasetParameterDefaultValues:
+      type: object
+      description: <p>List of default values defined for a given decimal dataset parameter type. Currently only static values are supported.</p>
+      properties:
+        StaticValues:
+          $ref: '#/components/schemas/DecimalDatasetParameterValueList'
+          description: <p>List of static default values defined for a given decimal dataset parameter type.</p>
+      additionalProperties: false
+    DecimalDatasetParameterValueList:
+      type: array
+      items:
+        type: number
+        description: <p>Default value defined for the dataset parameter of decimal type.</p>
+      maxItems: 32
+      minItems: 1
+    IntegerDatasetParameter:
+      type: object
+      description: <p>A parameter created in the dataset of integer data type.</p>
+      properties:
+        Id:
+          $ref: '#/components/schemas/DatasetParameterId'
+        Name:
+          $ref: '#/components/schemas/DatasetParameterName'
+        ValueType:
+          $ref: '#/components/schemas/DatasetParameterValueType'
+        DefaultValues:
+          $ref: '#/components/schemas/IntegerDatasetParameterDefaultValues'
+      required:
+        - Id
+        - Name
+        - ValueType
+      additionalProperties: false
+    IntegerDatasetParameterDefaultValues:
+      type: object
+      description: <p>List of default values defined for a given integer dataset parameter type. Currently only static values are supported.</p>
+      properties:
+        StaticValues:
+          $ref: '#/components/schemas/IntegerDatasetParameterValueList'
+          description: <p>List of static default values defined for a given integer dataset parameter type.</p>
+      additionalProperties: false
+    IntegerDatasetParameterValueList:
+      type: array
+      items:
+        type: number
+        description: <p>Default value defined for the dataset parameter of integer type.</p>
+      maxItems: 32
+      minItems: 1
+    StringDatasetParameter:
+      type: object
+      description: <p>A parameter created in the dataset of string data type.</p>
+      properties:
+        Id:
+          $ref: '#/components/schemas/DatasetParameterId'
+        Name:
+          $ref: '#/components/schemas/DatasetParameterName'
+        ValueType:
+          $ref: '#/components/schemas/DatasetParameterValueType'
+        DefaultValues:
+          $ref: '#/components/schemas/StringDatasetParameterDefaultValues'
+      required:
+        - Id
+        - Name
+        - ValueType
+      additionalProperties: false
+    StringDatasetParameterDefaultValues:
+      type: object
+      description: <p>List of default values defined for a given string dataset parameter type. Currently only static values are supported.</p>
+      properties:
+        StaticValues:
+          $ref: '#/components/schemas/StringDatasetParameterValueList'
+          description: <p>List of static default values defined for a given string dataset parameter type.</p>
+      additionalProperties: false
+    StringDatasetParameterValueList:
+      type: array
+      items:
+        type: string
+        description: <p>Default value defined for the dataset parameter of string type.</p>
+      maxItems: 32
+      minItems: 1
     FieldFolder:
       type: object
       properties:
@@ -7947,11 +8570,13 @@ components:
             type: string
           maxItems: 5000
           minItems: 0
+      additionalProperties: false
     FieldFolderMap:
       type: object
       x-patternProperties:
         .+:
           $ref: '#/components/schemas/FieldFolder'
+      additionalProperties: false
     FileFormat:
       type: string
       enum:
@@ -7974,6 +8599,7 @@ components:
                         evaluates to true are kept in the dataset.</p>
       required:
         - ConditionExpression
+      additionalProperties: false
     GeoSpatialColumnGroup:
       type: object
       description: <p>Geospatial column group that denotes a hierarchy.</p>
@@ -7997,6 +8623,7 @@ components:
       required:
         - Columns
         - Name
+      additionalProperties: false
     GeoSpatialCountryCode:
       type: string
       enum:
@@ -8018,6 +8645,8 @@ components:
       properties:
         Type:
           $ref: '#/components/schemas/InputColumnDataType'
+        SubType:
+          $ref: '#/components/schemas/ColumnSubDataType'
         Name:
           type: string
           maxLength: 128
@@ -8026,6 +8655,7 @@ components:
       required:
         - Name
         - Type
+      additionalProperties: false
     InputColumnDataType:
       type: string
       enum:
@@ -8036,6 +8666,39 @@ components:
         - BIT
         - BOOLEAN
         - JSON
+    RefreshConfiguration:
+      type: object
+      description: <p> Refresh Configuration.</p>
+      properties:
+        IncrementalRefresh:
+          $ref: '#/components/schemas/IncrementalRefresh'
+      additionalProperties: false
+    IncrementalRefresh:
+      type: object
+      description: <p>Incremental Refresh</p>
+      properties:
+        LookbackWindow:
+          $ref: '#/components/schemas/LookbackWindow'
+      additionalProperties: false
+    LookbackWindow:
+      type: object
+      properties:
+        ColumnName:
+          type: string
+          description: <p>Column Name</p>
+        Size:
+          type: number
+          description: <p>Size</p>
+          minimum: 1
+        SizeUnit:
+          $ref: '#/components/schemas/SizeUnit'
+      additionalProperties: false
+    SizeUnit:
+      type: string
+      enum:
+        - HOUR
+        - DAY
+        - WEEK
     JoinInstruction:
       type: object
       description: <p>Join instruction.</p>
@@ -8068,11 +8731,13 @@ components:
         - OnClause
         - RightOperand
         - Type
+      additionalProperties: false
     JoinKeyProperties:
       type: object
       properties:
         UniqueKey:
           type: boolean
+      additionalProperties: false
     JoinType:
       type: string
       enum:
@@ -8105,6 +8770,7 @@ components:
       required:
         - Alias
         - Source
+      additionalProperties: false
     LogicalTableMap:
       type: object
       maxProperties: 64
@@ -8112,6 +8778,7 @@ components:
       x-patternProperties:
         '[0-9a-zA-Z-]*':
           $ref: '#/components/schemas/LogicalTable'
+      additionalProperties: false
     LogicalTableSource:
       type: object
       description: |-
@@ -8129,12 +8796,27 @@ components:
         DataSetArn:
           type: string
           description: <p>The Amazon Resource Name (ARN) for the dataset.</p>
+      additionalProperties: false
+    NewDefaultValues:
+      type: object
+      properties:
+        StringStaticValues:
+          $ref: '#/components/schemas/StringDatasetParameterValueList'
+        DecimalStaticValues:
+          $ref: '#/components/schemas/DecimalDatasetParameterValueList'
+        DateTimeStaticValues:
+          $ref: '#/components/schemas/DateTimeDatasetParameterValueList'
+        IntegerStaticValues:
+          $ref: '#/components/schemas/IntegerDatasetParameterValueList'
+      additionalProperties: false
     OutputColumn:
       type: object
       description: <p>Output column.</p>
       properties:
         Type:
           $ref: '#/components/schemas/ColumnDataType'
+        SubType:
+          $ref: '#/components/schemas/ColumnSubDataType'
         Description:
           type: string
           maxLength: 500
@@ -8145,6 +8827,23 @@ components:
           maxLength: 128
           minLength: 1
           description: <p>A display name for the dataset.</p>
+      additionalProperties: false
+    OverrideDatasetParameterOperation:
+      type: object
+      description: <p>A transform operation that overrides the dataset parameter values defined in another dataset.</p>
+      properties:
+        ParameterName:
+          $ref: '#/components/schemas/DatasetParameterName'
+          description: <p>The name of the parameter to be overridden with different values.</p>
+        NewParameterName:
+          $ref: '#/components/schemas/DatasetParameterName'
+          description: <p>The new name for the parameter.</p>
+        NewDefaultValues:
+          $ref: '#/components/schemas/NewDefaultValues'
+          description: <p>The new default values for the parameter.</p>
+      required:
+        - ParameterName
+      additionalProperties: false
     PhysicalTable:
       type: object
       description: |-
@@ -8158,13 +8857,15 @@ components:
           $ref: '#/components/schemas/CustomSql'
         S3Source:
           $ref: '#/components/schemas/S3Source'
+      additionalProperties: false
     PhysicalTableMap:
       type: object
       maxProperties: 32
-      minProperties: 1
+      minProperties: 0
       x-patternProperties:
         '[0-9a-zA-Z-]*':
           $ref: '#/components/schemas/PhysicalTable'
+      additionalProperties: false
     ProjectOperation:
       type: object
       description: |-
@@ -8180,6 +8881,7 @@ components:
           description: <p>Projected columns.</p>
       required:
         - ProjectedColumns
+      additionalProperties: false
     RelationalTable:
       type: object
       description: <p>A physical table type for relational data sources.</p>
@@ -8213,6 +8915,7 @@ components:
         - DataSourceArn
         - InputColumns
         - Name
+      additionalProperties: false
     RenameColumnOperation:
       type: object
       description: <p>A transform operation that renames a column.</p>
@@ -8230,6 +8933,7 @@ components:
       required:
         - ColumnName
         - NewColumnName
+      additionalProperties: false
     RowLevelPermissionDataSet:
       type: object
       description: <p>The row-level security configuration for the dataset.</p>
@@ -8247,9 +8951,12 @@ components:
           $ref: '#/components/schemas/RowLevelPermissionPolicy'
         FormatVersion:
           $ref: '#/components/schemas/RowLevelPermissionFormatVersion'
+        Status:
+          $ref: '#/components/schemas/Status'
       required:
         - Arn
         - PermissionPolicy
+      additionalProperties: false
     RowLevelPermissionPolicy:
       type: string
       enum:
@@ -8260,6 +8967,67 @@ components:
       enum:
         - VERSION_1
         - VERSION_2
+    RowLevelPermissionTagConfiguration:
+      type: object
+      description: <p>The configuration of tags on a dataset to set row-level security.</p>
+      properties:
+        Status:
+          $ref: '#/components/schemas/Status'
+        TagRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/RowLevelPermissionTagRule'
+          maxItems: 50
+          minItems: 1
+          description: <p>A set of rules associated with row-level security, such as the tag names and columns that they are assigned to.</p>
+        TagRuleConfigurations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RowLevelPermissionTagRuleConfiguration'
+          maxItems: 50
+          minItems: 1
+          description: <p>A list of tag configuration rules to apply to a dataset. All tag configurations have the OR condition. Tags within each tile will be joined (AND). At least one rule in this structure must have all tag values assigned to it to apply Row-level security (RLS) to the dataset.</p>
+      required:
+        - TagRules
+      additionalProperties: false
+    Status:
+      type: string
+      enum:
+        - ENABLED
+        - DISABLED
+    RowLevelPermissionTagRule:
+      type: object
+      description: <p>Permission for the resource.</p>
+      properties:
+        ColumnName:
+          type: string
+          description: <p>The column name that a tag key is assigned to.</p>
+        TagKey:
+          type: string
+          maxLength: 128
+          minLength: 1
+          description: <p>The unique key for a tag.</p>
+        MatchAllValue:
+          type: string
+          maxLength: 256
+          minLength: 1
+          description: <p>A string that you want to use to filter by all the values in a column in the dataset and don’t want to list the values one by one. For example, you can use an asterisk as your match all value.</p>
+        TagMultiValueDelimiter:
+          type: string
+          maxLength: 10
+          description: <p>A string that you want to use to delimit the values when you pass the values at run time. For example, you can delimit the values with a comma.</p>
+      required:
+        - ColumnName
+        - TagKey
+      additionalProperties: false
+    RowLevelPermissionTagRuleConfiguration:
+      type: array
+      items:
+        type: string
+        maxLength: 128
+        minLength: 1
+      maxItems: 50
+      minItems: 1
     S3Source:
       type: object
       description: <p>A physical table type for as S3 data source.</p>
@@ -8279,6 +9047,7 @@ components:
       required:
         - DataSourceArn
         - InputColumns
+      additionalProperties: false
     TagColumnOperation:
       type: object
       description: <p>A transform operation that tags a column with additional information.</p>
@@ -8302,6 +9071,7 @@ components:
       required:
         - ColumnName
         - Tags
+      additionalProperties: false
     TextQualifier:
       type: string
       enum:
@@ -8325,6 +9095,9 @@ components:
           $ref: '#/components/schemas/RenameColumnOperation'
         ProjectOperation:
           $ref: '#/components/schemas/ProjectOperation'
+        OverrideDatasetParameterOperation:
+          $ref: '#/components/schemas/OverrideDatasetParameterOperation'
+      additionalProperties: false
     UploadSettings:
       type: object
       description: <p>Information about the format for a source file or files.</p>
@@ -8345,6 +9118,7 @@ components:
           maxLength: 1
           minLength: 1
           description: <p>The delimiter between values in the file.</p>
+      additionalProperties: false
     IngestionWaitPolicy:
       type: object
       description: <p>Wait policy to use when creating/updating dataset. Default is to wait for SPICE ingestion to finish with timeout of 36 hours.</p>
@@ -8363,6 +9137,7 @@ components:
           minimum: 1
           maximum: 36
           default: 36
+      additionalProperties: false
     DataSetUsageConfiguration:
       type: object
       description: <p>The dataset usage configuration for the dataset.</p>
@@ -8371,6 +9146,14 @@ components:
           type: boolean
         DisableUseAsImportedSource:
           type: boolean
+      additionalProperties: false
+    DataSetRefreshProperties:
+      type: object
+      description: <p>The dataset refresh properties for the dataset.</p>
+      properties:
+        RefreshConfiguration:
+          $ref: '#/components/schemas/RefreshConfiguration'
+      additionalProperties: false
     DataSet:
       type: object
       properties:
@@ -8405,6 +9188,13 @@ components:
           format: string
         DataSetId:
           type: string
+        DatasetParameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetParameter'
+          maxItems: 32
+          minItems: 1
+          description: <p>The parameters declared in the dataset.</p>
         FieldFolders:
           $ref: '#/components/schemas/FieldFolderMap'
         ImportMode:
@@ -8438,6 +9228,8 @@ components:
           $ref: '#/components/schemas/PhysicalTableMap'
         RowLevelPermissionDataSet:
           $ref: '#/components/schemas/RowLevelPermissionDataSet'
+        RowLevelPermissionTagConfiguration:
+          $ref: '#/components/schemas/RowLevelPermissionTagConfiguration'
         Tags:
           type: array
           items:
@@ -8449,10 +9241,65 @@ components:
           $ref: '#/components/schemas/IngestionWaitPolicy'
         DataSetUsageConfiguration:
           $ref: '#/components/schemas/DataSetUsageConfiguration'
+        DataSetRefreshProperties:
+          $ref: '#/components/schemas/DataSetRefreshProperties'
       x-stackql-resource-name: data_set
       x-stackql-primaryIdentifier:
         - AwsAccountId
         - DataSetId
+      x-create-only-properties:
+        - AwsAccountId
+        - DataSetId
+      x-read-only-properties:
+        - Arn
+        - ConsumedSpiceCapacityInBytes
+        - CreatedTime
+        - LastUpdatedTime
+        - OutputColumns
+      x-required-permissions:
+        create:
+          - quicksight:DescribeDataSet
+          - quicksight:DescribeDataSetPermissions
+          - quicksight:DescribeIngestion
+          - quicksight:ListIngestions
+          - quicksight:CreateDataSet
+          - quicksight:PassDataSource
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:ListTagsForResource
+          - quicksight:DescribeDataSetRefreshProperties
+          - quicksight:PutDataSetRefreshProperties
+        read:
+          - quicksight:DescribeDataSet
+          - quicksight:DescribeDataSetPermissions
+          - quicksight:ListTagsForResource
+          - quicksight:DescribeDataSetRefreshProperties
+        update:
+          - quicksight:DescribeDataSet
+          - quicksight:DescribeDataSetPermissions
+          - quicksight:PassDataSource
+          - quicksight:UpdateDataSet
+          - quicksight:UpdateDataSetPermissions
+          - quicksight:PassDataSet
+          - quicksight:DescribeIngestion
+          - quicksight:ListIngestions
+          - quicksight:CancelIngestion
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+          - quicksight:PutDataSetRefreshProperties
+          - quicksight:DescribeDataSetRefreshProperties
+          - quicksight:DeleteDataSetRefreshProperties
+        delete:
+          - quicksight:DescribeDataSet
+          - quicksight:DeleteDataSet
+          - quicksight:ListTagsForResource
+          - quicksight:DescribeIngestion
+          - quicksight:DeleteDataSetRefreshProperties
+          - quicksight:DescribeDataSetRefreshProperties
+        list:
+          - quicksight:DescribeDataSet
+          - quicksight:ListDataSets
     AmazonElasticsearchParameters:
       type: object
       description: <p>Amazon Elasticsearch Service parameters.</p>
@@ -8484,6 +9331,11 @@ components:
           maxLength: 128
           minLength: 1
           description: <p>The workgroup that Amazon Athena uses.</p>
+        RoleArn:
+          type: string
+          maxLength: 2048
+          minLength: 20
+          description: <p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific Athena data source. For example, say an account administrator has turned off all Athena access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow Athena access for the single Athena data source that is specified in the structure, even if the account-wide role forbidding Athena access is still active.</p>
     AuroraParameters:
       type: object
       description: <p>Amazon Aurora parameters.</p>
@@ -8682,6 +9534,10 @@ components:
           $ref: '#/components/schemas/S3Parameters'
         DatabricksParameters:
           $ref: '#/components/schemas/DatabricksParameters'
+        StarburstParameters:
+          $ref: '#/components/schemas/StarburstParameters'
+        TrinoParameters:
+          $ref: '#/components/schemas/TrinoParameters'
     DataSourceType:
       type: string
       enum:
@@ -8710,6 +9566,8 @@ components:
         - TERADATA
         - TWITTER
         - TIMESTREAM
+        - STARBURST
+        - TRINO
     ManifestFileLocation:
       type: object
       description: <p>Amazon S3 manifest file location.</p>
@@ -8892,6 +9750,11 @@ components:
       properties:
         ManifestFileLocation:
           $ref: '#/components/schemas/ManifestFileLocation'
+        RoleArn:
+          type: string
+          maxLength: 2048
+          minLength: 20
+          description: <p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific S3 data source. For example, say an account administrator has turned off all S3 access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow S3 access for the single S3 data source that is specified in the structure, even if the account-wide role forbidding S3 access is still active.</p>
       required:
         - ManifestFileLocation
     SnowflakeParameters:
@@ -8917,6 +9780,59 @@ components:
         - Database
         - Host
         - Warehouse
+    StarburstParameters:
+      type: object
+      description: <p>Starburst parameters.</p>
+      properties:
+        Host:
+          type: string
+          maxLength: 256
+          minLength: 1
+          description: <p>Host.</p>
+        Port:
+          type: number
+          maximum: 65535
+          minimum: 1
+          description: <p>Port.</p>
+        Catalog:
+          type: string
+          maxLength: 128
+          minLength: 0
+          description: <p>Catalog.</p>
+        ProductType:
+          $ref: '#/components/schemas/StarburstProductType'
+      required:
+        - Host
+        - Port
+        - Catalog
+    StarburstProductType:
+      type: string
+      enum:
+        - GALAXY
+        - ENTERPRISE
+    TrinoParameters:
+      type: object
+      description: <p>Trino parameters.</p>
+      properties:
+        Host:
+          type: string
+          maxLength: 256
+          minLength: 1
+          description: <p>Host.</p>
+        Port:
+          type: number
+          maximum: 65535
+          minimum: 1
+          description: <p>Port.</p>
+        Catalog:
+          type: string
+          maxLength: 128
+          minLength: 0
+          description: <p>Catalog.</p>
+      required:
+        - Host
+        - Port
+        - Catalog
     SparkParameters:
       type: object
       description: <p>Spark parameters.</p>
@@ -9072,6 +9988,42 @@ components:
       x-stackql-primaryIdentifier:
         - AwsAccountId
         - DataSourceId
+      x-create-only-properties:
+        - AwsAccountId
+        - DataSourceId
+        - Type
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+        - LastUpdatedTime
+        - Status
+      x-required-permissions:
+        create:
+          - quicksight:CreateDataSource
+          - quicksight:DescribeDataSource
+          - quicksight:DescribeDataSourcePermissions
+          - quicksight:TagResource
+          - quicksight:ListTagsForResource
+        read:
+          - quicksight:DescribeDataSource
+          - quicksight:DescribeDataSourcePermissions
+          - quicksight:ListTagsForResource
+        update:
+          - quicksight:DescribeDataSource
+          - quicksight:DescribeDataSourcePermissions
+          - quicksight:UpdateDataSource
+          - quicksight:UpdateDataSourcePermissions
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        delete:
+          - quicksight:DescribeDataSource
+          - quicksight:DescribeDataSourcePermissions
+          - quicksight:DeleteDataSource
+          - quicksight:ListTagsForResource
+        list:
+          - quicksight:DescribeDataSource
+          - quicksight:ListDataSources
     RefreshScheduleMap:
       type: object
       properties:
@@ -9159,6 +10111,26 @@ components:
         - AwsAccountId
         - DataSetId
         - Schedule/ScheduleId
+      x-create-only-properties:
+        - AwsAccountId
+        - DataSetId
+        - Schedule/ScheduleId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - quicksight:CreateRefreshSchedule
+          - quicksight:DescribeRefreshSchedule
+        update:
+          - quicksight:UpdateRefreshSchedule
+          - quicksight:DescribeRefreshSchedule
+        delete:
+          - quicksight:DeleteRefreshSchedule
+          - quicksight:DescribeRefreshSchedule
+        list:
+          - quicksight:ListRefreshSchedules
+        read:
+          - quicksight:DescribeRefreshSchedule
     ColumnGroupColumnSchema:
       type: object
       properties:
@@ -9319,7 +10291,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CalculatedField'
-          maxItems: 100
+          maxItems: 500
           minItems: 0
         ParameterDeclarations:
           type: array
@@ -9341,6 +10313,8 @@ components:
           minItems: 0
         AnalysisDefaults:
           $ref: '#/components/schemas/AnalysisDefaults'
+        Options:
+          $ref: '#/components/schemas/AssetOptions'
       required:
         - DataSetConfigurations
       additionalProperties: false
@@ -9385,6 +10359,8 @@ components:
           maxLength: 512
           minLength: 1
           pattern: '[\w\-]+'
+        ValidationStrategy:
+          $ref: '#/components/schemas/ValidationStrategy'
         Version:
           $ref: '#/components/schemas/TemplateVersion'
         VersionDescription:
@@ -9398,27 +10374,51 @@ components:
       x-stackql-primaryIdentifier:
         - AwsAccountId
         - TemplateId
+      x-create-only-properties:
+        - AwsAccountId
+        - TemplateId
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+        - LastUpdatedTime
+        - Version
+      x-required-permissions:
+        create:
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTemplatePermissions
+          - quicksight:CreateTemplate
+          - quicksight:DescribeAnalysis
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        read:
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTemplatePermissions
+          - quicksight:ListTagsForResource
+        update:
+          - quicksight:DescribeTemplate
+          - quicksight:DescribeTemplatePermissions
+          - quicksight:UpdateTemplate
+          - quicksight:UpdateTemplatePermissions
+          - quicksight:PassDataSet
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        delete:
+          - quicksight:DescribeTemplate
+          - quicksight:DeleteTemplate
+        list:
+          - quicksight:ListTemplates
     BorderStyle:
       type: object
-      description: <p>The display options for tile borders for visuals.</p>
       properties:
         Show:
           type: boolean
-          description: <p>The option to enable display of borders for visuals.</p>
+          default: null
       additionalProperties: false
     DataColorPalette:
       type: object
-      description: |-
-        <p>The theme colors that are used for data colors in charts. The colors description is a
-                    hexadecimal color code that consists of six alphanumerical characters, prefixed with
-                        <code>#</code>, for example #37BFF5. </p>
       properties:
-        EmptyFillColor:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The hexadecimal code of a color that applies to charts where a lack of data is
-                        highlighted.</p>
         Colors:
           type: array
           items:
@@ -9426,7 +10426,6 @@ components:
             pattern: ^#[A-F0-9]{6}$
           maxItems: 100
           minItems: 0
-          description: <p>The hexadecimal codes for the colors.</p>
         MinMaxGradient:
           type: array
           items:
@@ -9434,7 +10433,9 @@ components:
             pattern: ^#[A-F0-9]{6}$
           maxItems: 100
           minItems: 0
-          description: <p>The minimum and maximum hexadecimal codes that describe a color gradient. </p>
+        EmptyFillColor:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
       additionalProperties: false
     Font:
       type: object
@@ -9444,36 +10445,28 @@ components:
       additionalProperties: false
     GutterStyle:
       type: object
-      description: <p>The display options for gutter spacing between tiles on a sheet.</p>
       properties:
         Show:
           type: boolean
-          description: |-
-            <p>This Boolean value controls whether to display a gutter space between sheet tiles.
-                    </p>
+          default: null
       additionalProperties: false
     MarginStyle:
       type: object
-      description: <p>The display options for margins around the outside edge of sheets.</p>
       properties:
         Show:
           type: boolean
-          description: <p>This Boolean value controls whether to display sheet margins.</p>
+          default: null
       additionalProperties: false
     SheetStyle:
       type: object
-      description: <p>The theme display options for sheets. </p>
       properties:
-        TileLayout:
-          $ref: '#/components/schemas/TileLayoutStyle'
         Tile:
           $ref: '#/components/schemas/TileStyle'
+        TileLayout:
+          $ref: '#/components/schemas/TileLayoutStyle'
       additionalProperties: false
     ThemeConfiguration:
       type: object
-      description: |-
-        <p>The theme configuration. This configuration contains all of the display properties for
-                    a theme.</p>
       properties:
         DataColorPalette:
           $ref: '#/components/schemas/DataColorPalette'
@@ -9486,14 +10479,12 @@ components:
       additionalProperties: false
     ThemeError:
       type: object
-      description: <p>Theme error.</p>
       properties:
         Type:
           $ref: '#/components/schemas/ThemeErrorType'
         Message:
           type: string
           pattern: .*\S.*
-          description: <p>The error message.</p>
       additionalProperties: false
     ThemeErrorType:
       type: string
@@ -9507,46 +10498,36 @@ components:
         - ALL
     ThemeVersion:
       type: object
-      description: <p>A version of a theme.</p>
       properties:
-        Status:
-          $ref: '#/components/schemas/ResourceStatus'
+        VersionNumber:
+          type: number
+          minimum: 1
+        Arn:
+          type: string
+        Description:
+          type: string
+          maxLength: 512
+          minLength: 1
+        BaseThemeId:
+          type: string
+          maxLength: 512
+          minLength: 1
+          pattern: '[\w\-]+'
+        CreatedTime:
+          type: string
+          format: date-time
+        Configuration:
+          $ref: '#/components/schemas/ThemeConfiguration'
         Errors:
           type: array
           items:
             $ref: '#/components/schemas/ThemeError'
           minItems: 1
-          description: <p>Errors associated with the theme.</p>
-        Description:
-          type: string
-          maxLength: 512
-          minLength: 1
-          description: <p>The description of the theme.</p>
-        CreatedTime:
-          type: string
-          description: <p>The date and time that this theme version was created.</p>
-          format: string
-        Configuration:
-          $ref: '#/components/schemas/ThemeConfiguration'
-        BaseThemeId:
-          type: string
-          maxLength: 2048
-          minLength: 1
-          pattern: '[\w\-]+'
-          description: |-
-            <p>The Amazon QuickSight-defined ID of the theme that a custom theme inherits from. All
-                        themes initially inherit from a default QuickSight theme.</p>
-        Arn:
-          type: string
-          description: <p>The Amazon Resource Name (ARN) of the resource.</p>
-        VersionNumber:
-          type: number
-          minimum: 1
-          description: <p>The version number of the theme.</p>
+        Status:
+          $ref: '#/components/schemas/ResourceStatus'
       additionalProperties: false
     TileLayoutStyle:
       type: object
-      description: <p>The display options for the layout of tiles on a sheet.</p>
       properties:
         Gutter:
           $ref: '#/components/schemas/GutterStyle'
@@ -9555,14 +10536,12 @@ components:
       additionalProperties: false
     TileStyle:
       type: object
-      description: <p>Display options related to tiles on a sheet.</p>
       properties:
         Border:
           $ref: '#/components/schemas/BorderStyle'
       additionalProperties: false
     Typography:
       type: object
-      description: <p>The typeface for the theme.</p>
       properties:
         FontFamilies:
           type: array
@@ -9573,104 +10552,61 @@ components:
       additionalProperties: false
     UIColorPalette:
       type: object
-      description: |-
-        <p>The theme colors that apply to UI and to charts, excluding data colors. The colors
-                    description is a hexadecimal color code that consists of six alphanumerical characters,
-                    prefixed with <code>#</code>, for example #37BFF5. For more information, see <a href="https://docs.aws.amazon.com/quicksight/latest/user/themes-in-quicksight.html">Using Themes in Amazon QuickSight</a> in the <i>Amazon QuickSight User
-                        Guide.</i>
-                </p>
       properties:
-        Warning:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: <p>This color that applies to warning and informational messages.</p>
-        Accent:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: <p>This color is that applies to selected states and buttons.</p>
-        AccentForeground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        accent color.</p>
-        SecondaryBackground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: <p>The background color that applies to the sheet background and sheet controls.</p>
-        DangerForeground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        error color.</p>
-        PrimaryBackground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: <p>The background color that applies to visuals and other high emphasis UI.</p>
-        Dimension:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The color that applies to the names of fields that are identified as
-                        dimensions.</p>
-        SecondaryForeground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any sheet title, sheet control text, or UI that
-                        appears over the secondary background.</p>
-        WarningForeground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        warning color.</p>
-        DimensionForeground:
-          type: string
-          pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        dimension color.</p>
         PrimaryForeground:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The color of text and other foreground elements that appear over the primary
-                        background regions, such as grid lines, borders, table banding, icons, and so on.</p>
-        Success:
+        PrimaryBackground:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The color that applies to success messages, for example the check mark for a
-                        successful download.</p>
+        SecondaryForeground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        SecondaryBackground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        Accent:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        AccentForeground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
         Danger:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: <p>The color that applies to error messages.</p>
+        DangerForeground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        Warning:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        WarningForeground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        Success:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
         SuccessForeground:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        success color.</p>
+        Dimension:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
+        DimensionForeground:
+          type: string
+          pattern: ^#[A-F0-9]{6}$
         Measure:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: <p>The color that applies to the names of fields that are identified as measures.</p>
         MeasureForeground:
           type: string
           pattern: ^#[A-F0-9]{6}$
-          description: |-
-            <p>The foreground color that applies to any text or other elements that appear over the
-                        measure color.</p>
       additionalProperties: false
     Theme:
       type: object
       properties:
         Arn:
           type: string
-          description: <p>The Amazon Resource Name (ARN) of the theme.</p>
         AwsAccountId:
           type: string
           maxLength: 12
@@ -9678,42 +10614,36 @@ components:
           pattern: ^[0-9]{12}$
         BaseThemeId:
           type: string
-          maxLength: 2048
+          maxLength: 512
           minLength: 1
           pattern: '[\w\-]+'
-          description: "<p>The ID of the theme that a custom theme will inherit from. All themes inherit from one of\n\t\t\tthe starting themes defined by Amazon QuickSight. For a list of the starting themes, use\n\t\t\t\t<code>ListThemes</code> or choose <b>Themes</b> from\n\t\t\twithin a QuickSight analysis. </p>"
         Configuration:
           $ref: '#/components/schemas/ThemeConfiguration'
         CreatedTime:
           type: string
-          description: <p>The date and time that the theme was created.</p>
-          format: string
+          format: date-time
         LastUpdatedTime:
           type: string
-          description: <p>The date and time that the theme was last updated.</p>
-          format: string
+          format: date-time
         Name:
           type: string
           maxLength: 2048
           minLength: 1
-          description: <p>A display name for the theme.</p>
         Permissions:
           type: array
           items:
             $ref: '#/components/schemas/ResourcePermission'
           maxItems: 64
           minItems: 1
-          description: "<p>A valid grouping of resource permissions to apply to the new theme.\n\t\t\t</p>"
         Tags:
           type: array
           items:
             $ref: '#/components/schemas/Tag'
           maxItems: 200
           minItems: 1
-          description: "<p>A map of the key-value pairs for the resource tag or tags that you want to add to the\n\t\t\tresource.</p>"
         ThemeId:
           type: string
-          maxLength: 2048
+          maxLength: 512
           minLength: 1
           pattern: '[\w\-]+'
         Type:
@@ -9724,14 +10654,950 @@ components:
           type: string
           maxLength: 512
           minLength: 1
-          description: "<p>A description of the first version of the theme that you're creating. Every time\n\t\t\t\t<code>UpdateTheme</code> is called, a new version is created. Each version of the\n\t\t\ttheme has a description of the version in the <code>VersionDescription</code>\n\t\t\tfield.</p>"
       required:
         - AwsAccountId
         - ThemeId
+        - BaseThemeId
+        - Configuration
+        - Name
       x-stackql-resource-name: theme
       x-stackql-primaryIdentifier:
         - ThemeId
         - AwsAccountId
+      x-create-only-properties:
+        - ThemeId
+        - AwsAccountId
+      x-read-only-properties:
+        - CreatedTime
+        - Version
+        - LastUpdatedTime
+        - Arn
+        - Type
+      x-required-permissions:
+        read:
+          - quicksight:DescribeTheme
+          - quicksight:DescribeThemePermissions
+          - quicksight:ListTagsForResource
+        create:
+          - quicksight:DescribeTheme
+          - quicksight:DescribeThemePermissions
+          - quicksight:CreateTheme
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        list:
+          - quicksight:ListThemes
+        update:
+          - quicksight:DescribeTheme
+          - quicksight:DescribeThemePermissions
+          - quicksight:UpdateTheme
+          - quicksight:UpdateThemePermissions
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+        delete:
+          - quicksight:DescribeTheme
+          - quicksight:DeleteTheme
+    AggregationFunctionParameters:
+      type: object
+      x-patternProperties:
+        .+:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    AuthorSpecifiedAggregation:
+      type: string
+      enum:
+        - COUNT
+        - DISTINCT_COUNT
+        - MIN
+        - MAX
+        - MEDIAN
+        - SUM
+        - AVERAGE
+        - STDEV
+        - STDEVP
+        - VAR
+        - VARP
+        - PERCENTILE
+    CategoryFilterFunction:
+      type: string
+      enum:
+        - EXACT
+        - CONTAINS
+    CategoryFilterType:
+      type: string
+      enum:
+        - CUSTOM_FILTER
+        - CUSTOM_FILTER_LIST
+        - FILTER_LIST
+    CellValueSynonym:
+      type: object
+      properties:
+        CellValue:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Synonyms:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    CollectiveConstant:
+      type: object
+      properties:
+        ValueList:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    ColumnDataRole:
+      type: string
+      enum:
+        - DIMENSION
+        - MEASURE
+    ColumnOrderingType:
+      type: string
+      enum:
+        - GREATER_IS_BETTER
+        - LESSER_IS_BETTER
+        - SPECIFIED
+    ComparativeOrder:
+      type: object
+      properties:
+        UseOrdering:
+          $ref: '#/components/schemas/ColumnOrderingType'
+        SpecifedOrder:
+          type: array
+          items:
+            type: string
+        TreatUndefinedSpecifiedValues:
+          $ref: '#/components/schemas/UndefinedSpecifiedValueType'
+      additionalProperties: false
+    ConstantType:
+      type: string
+      enum:
+        - SINGULAR
+        - RANGE
+        - COLLECTIVE
+    DataAggregation:
+      type: object
+      properties:
+        DatasetRowDateGranularity:
+          $ref: '#/components/schemas/TopicTimeGranularity'
+        DefaultDateColumnName:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    DatasetMetadata:
+      type: object
+      properties:
+        DatasetArn:
+          type: string
+        DatasetName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        DatasetDescription:
+          type: string
+          maxLength: 256
+          minLength: 0
+        DataAggregation:
+          $ref: '#/components/schemas/DataAggregation'
+        Filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicFilter'
+        Columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicColumn'
+        CalculatedFields:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicCalculatedField'
+        NamedEntities:
+          type: array
+          items:
+            $ref: '#/components/schemas/TopicNamedEntity'
+      required:
+        - DatasetArn
+      additionalProperties: false
+    DefaultAggregation:
+      type: string
+      enum:
+        - SUM
+        - MAX
+        - MIN
+        - COUNT
+        - DISTINCT_COUNT
+        - AVERAGE
+        - MEDIAN
+        - STDEV
+        - STDEVP
+        - VAR
+        - VARP
+    DefaultFormatting:
+      type: object
+      properties:
+        DisplayFormat:
+          $ref: '#/components/schemas/DisplayFormat'
+        DisplayFormatOptions:
+          $ref: '#/components/schemas/DisplayFormatOptions'
+      additionalProperties: false
+    DisplayFormat:
+      type: string
+      enum:
+        - AUTO
+        - PERCENT
+        - CURRENCY
+        - NUMBER
+        - DATE
+        - STRING
+    DisplayFormatOptions:
+      type: object
+      properties:
+        UseBlankCellFormat:
+          type: boolean
+          default: false
+        BlankCellFormat:
+          type: string
+          maxLength: 256
+          minLength: 0
+        DateFormat:
+          type: string
+          maxLength: 256
+          minLength: 0
+        DecimalSeparator:
+          $ref: '#/components/schemas/TopicNumericSeparatorSymbol'
+        GroupingSeparator:
+          type: string
+          maxLength: 256
+          minLength: 0
+        UseGrouping:
+          type: boolean
+          default: false
+        FractionDigits:
+          type: number
+          default: 0
+        Prefix:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Suffix:
+          type: string
+          maxLength: 256
+          minLength: 0
+        UnitScaler:
+          $ref: '#/components/schemas/NumberScale'
+        NegativeFormat:
+          $ref: '#/components/schemas/NegativeFormat'
+        CurrencySymbol:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    FilterClass:
+      type: string
+      enum:
+        - ENFORCED_VALUE_FILTER
+        - CONDITIONAL_VALUE_FILTER
+        - NAMED_VALUE_FILTER
+    NamedEntityAggType:
+      type: string
+      enum:
+        - SUM
+        - MIN
+        - MAX
+        - COUNT
+        - AVERAGE
+        - DISTINCT_COUNT
+        - STDEV
+        - STDEVP
+        - VAR
+        - VARP
+        - PERCENTILE
+        - MEDIAN
+        - CUSTOM
+    NamedEntityDefinition:
+      type: object
+      properties:
+        FieldName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        PropertyName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        PropertyRole:
+          $ref: '#/components/schemas/PropertyRole'
+        PropertyUsage:
+          $ref: '#/components/schemas/PropertyUsage'
+        Metric:
+          $ref: '#/components/schemas/NamedEntityDefinitionMetric'
+      additionalProperties: false
+    NamedEntityDefinitionMetric:
+      type: object
+      properties:
+        Aggregation:
+          $ref: '#/components/schemas/NamedEntityAggType'
+        AggregationFunctionParameters:
+          $ref: '#/components/schemas/AggregationFunctionParameters'
+      additionalProperties: false
+    NamedFilterAggType:
+      type: string
+      enum:
+        - NO_AGGREGATION
+        - SUM
+        - AVERAGE
+        - COUNT
+        - DISTINCT_COUNT
+        - MAX
+        - MEDIAN
+        - MIN
+        - STDEV
+        - STDEVP
+        - VAR
+        - VARP
+    NamedFilterType:
+      type: string
+      enum:
+        - CATEGORY_FILTER
+        - NUMERIC_EQUALITY_FILTER
+        - NUMERIC_RANGE_FILTER
+        - DATE_RANGE_FILTER
+        - RELATIVE_DATE_FILTER
+    NegativeFormat:
+      type: object
+      properties:
+        Prefix:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Suffix:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    PropertyRole:
+      type: string
+      enum:
+        - PRIMARY
+        - ID
+    PropertyUsage:
+      type: string
+      enum:
+        - INHERIT
+        - DIMENSION
+        - MEASURE
+    RangeConstant:
+      type: object
+      properties:
+        Minimum:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Maximum:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    SemanticEntityType:
+      type: object
+      properties:
+        TypeName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        SubTypeName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        TypeParameters:
+          $ref: '#/components/schemas/TypeParameters'
+      additionalProperties: false
+    SemanticType:
+      type: object
+      properties:
+        TypeName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        SubTypeName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        TypeParameters:
+          $ref: '#/components/schemas/TypeParameters'
+        TruthyCellValue:
+          type: string
+        TruthyCellValueSynonyms:
+          type: array
+          items:
+            type: string
+        FalseyCellValue:
+          type: string
+        FalseyCellValueSynonyms:
+          type: array
+          items:
+            type: string
+      additionalProperties: false
+    TopicCalculatedField:
+      type: object
+      properties:
+        CalculatedFieldName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        CalculatedFieldDescription:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Expression:
+          type: string
+          maxLength: 4096
+          minLength: 1
+        CalculatedFieldSynonyms:
+          type: array
+          items:
+            type: string
+            maxLength: 256
+            minLength: 0
+        IsIncludedInTopic:
+          type: boolean
+          default: false
+        ColumnDataRole:
+          $ref: '#/components/schemas/ColumnDataRole'
+        TimeGranularity:
+          $ref: '#/components/schemas/TopicTimeGranularity'
+        DefaultFormatting:
+          $ref: '#/components/schemas/DefaultFormatting'
+        Aggregation:
+          $ref: '#/components/schemas/DefaultAggregation'
+        ComparativeOrder:
+          $ref: '#/components/schemas/ComparativeOrder'
+        SemanticType:
+          $ref: '#/components/schemas/SemanticType'
+        AllowedAggregations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSpecifiedAggregation'
+        NotAllowedAggregations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSpecifiedAggregation'
+        NeverAggregateInFilter:
+          type: boolean
+          default: false
+        NonAdditive:
+          type: boolean
+          default: false
+        CellValueSynonyms:
+          type: array
+          items:
+            $ref: '#/components/schemas/CellValueSynonym'
+      required:
+        - CalculatedFieldName
+        - Expression
+      additionalProperties: false
+    TopicCategoryFilter:
+      type: object
+      properties:
+        CategoryFilterFunction:
+          $ref: '#/components/schemas/CategoryFilterFunction'
+        CategoryFilterType:
+          $ref: '#/components/schemas/CategoryFilterType'
+        Constant:
+          $ref: '#/components/schemas/TopicCategoryFilterConstant'
+        Inverse:
+          type: boolean
+          default: false
+      additionalProperties: false
+    TopicCategoryFilterConstant:
+      type: object
+      properties:
+        ConstantType:
+          $ref: '#/components/schemas/ConstantType'
+        SingularConstant:
+          type: string
+          maxLength: 256
+          minLength: 0
+        CollectiveConstant:
+          $ref: '#/components/schemas/CollectiveConstant'
+      additionalProperties: false
+    TopicColumn:
+      type: object
+      properties:
+        ColumnName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        ColumnFriendlyName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        ColumnDescription:
+          type: string
+          maxLength: 256
+          minLength: 0
+        ColumnSynonyms:
+          type: array
+          items:
+            type: string
+            maxLength: 256
+            minLength: 0
+        ColumnDataRole:
+          $ref: '#/components/schemas/ColumnDataRole'
+        Aggregation:
+          $ref: '#/components/schemas/DefaultAggregation'
+        IsIncludedInTopic:
+          type: boolean
+          default: false
+        ComparativeOrder:
+          $ref: '#/components/schemas/ComparativeOrder'
+        SemanticType:
+          $ref: '#/components/schemas/SemanticType'
+        TimeGranularity:
+          $ref: '#/components/schemas/TopicTimeGranularity'
+        AllowedAggregations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSpecifiedAggregation'
+        NotAllowedAggregations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AuthorSpecifiedAggregation'
+        DefaultFormatting:
+          $ref: '#/components/schemas/DefaultFormatting'
+        NeverAggregateInFilter:
+          type: boolean
+          default: false
+        NonAdditive:
+          type: boolean
+          default: false
+        CellValueSynonyms:
+          type: array
+          items:
+            $ref: '#/components/schemas/CellValueSynonym'
+      required:
+        - ColumnName
+      additionalProperties: false
+    TopicDateRangeFilter:
+      type: object
+      properties:
+        Inclusive:
+          type: boolean
+          default: false
+        Constant:
+          $ref: '#/components/schemas/TopicRangeFilterConstant'
+      additionalProperties: false
+    TopicDetails:
+      type: object
+      properties:
+        Name:
+          type: string
+          maxLength: 128
+          minLength: 1
+        Description:
+          type: string
+          maxLength: 256
+          minLength: 0
+        DataSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetMetadata'
+        UserExperienceVersion:
+          $ref: '#/components/schemas/TopicUserExperienceVersion'
+      additionalProperties: false
+    TopicFilter:
+      type: object
+      properties:
+        FilterDescription:
+          type: string
+          maxLength: 256
+          minLength: 0
+        FilterClass:
+          $ref: '#/components/schemas/FilterClass'
+        FilterName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        FilterSynonyms:
+          type: array
+          items:
+            type: string
+            maxLength: 256
+            minLength: 0
+        OperandFieldName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        FilterType:
+          $ref: '#/components/schemas/NamedFilterType'
+        CategoryFilter:
+          $ref: '#/components/schemas/TopicCategoryFilter'
+        NumericEqualityFilter:
+          $ref: '#/components/schemas/TopicNumericEqualityFilter'
+        NumericRangeFilter:
+          $ref: '#/components/schemas/TopicNumericRangeFilter'
+        DateRangeFilter:
+          $ref: '#/components/schemas/TopicDateRangeFilter'
+        RelativeDateFilter:
+          $ref: '#/components/schemas/TopicRelativeDateFilter'
+      required:
+        - FilterName
+        - OperandFieldName
+      additionalProperties: false
+    TopicNamedEntity:
+      type: object
+      properties:
+        EntityName:
+          type: string
+          maxLength: 256
+          minLength: 0
+        EntityDescription:
+          type: string
+          maxLength: 256
+          minLength: 0
+        EntitySynonyms:
+          type: array
+          items:
+            type: string
+            maxLength: 256
+            minLength: 0
+        SemanticEntityType:
+          $ref: '#/components/schemas/SemanticEntityType'
+        Definition:
+          type: array
+          items:
+            $ref: '#/components/schemas/NamedEntityDefinition'
+      required:
+        - EntityName
+      additionalProperties: false
+    TopicNumericEqualityFilter:
+      type: object
+      properties:
+        Constant:
+          $ref: '#/components/schemas/TopicSingularFilterConstant'
+        Aggregation:
+          $ref: '#/components/schemas/NamedFilterAggType'
+      additionalProperties: false
+    TopicNumericRangeFilter:
+      type: object
+      properties:
+        Inclusive:
+          type: boolean
+          default: false
+        Constant:
+          $ref: '#/components/schemas/TopicRangeFilterConstant'
+        Aggregation:
+          $ref: '#/components/schemas/NamedFilterAggType'
+      additionalProperties: false
+    TopicNumericSeparatorSymbol:
+      type: string
+      enum:
+        - COMMA
+        - DOT
+    TopicRangeFilterConstant:
+      type: object
+      properties:
+        ConstantType:
+          $ref: '#/components/schemas/ConstantType'
+        RangeConstant:
+          $ref: '#/components/schemas/RangeConstant'
+      additionalProperties: false
+    TopicRelativeDateFilter:
+      type: object
+      properties:
+        TimeGranularity:
+          $ref: '#/components/schemas/TopicTimeGranularity'
+        RelativeDateFilterFunction:
+          $ref: '#/components/schemas/TopicRelativeDateFilterFunction'
+        Constant:
+          $ref: '#/components/schemas/TopicSingularFilterConstant'
+      additionalProperties: false
+    TopicRelativeDateFilterFunction:
+      type: string
+      enum:
+        - PREVIOUS
+        - THIS
+        - LAST
+        - NEXT
+        - NOW
+    TopicSingularFilterConstant:
+      type: object
+      properties:
+        ConstantType:
+          $ref: '#/components/schemas/ConstantType'
+        SingularConstant:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    TopicTimeGranularity:
+      type: string
+      enum:
+        - SECOND
+        - MINUTE
+        - HOUR
+        - DAY
+        - WEEK
+        - MONTH
+        - QUARTER
+        - YEAR
+    TopicUserExperienceVersion:
+      type: string
+      enum:
+        - LEGACY
+        - NEW_READER_EXPERIENCE
+    TypeParameters:
+      type: object
+      x-patternProperties:
+        .+:
+          type: string
+          maxLength: 256
+          minLength: 0
+      additionalProperties: false
+    UndefinedSpecifiedValueType:
+      type: string
+      enum:
+        - LEAST
+        - MOST
+    Topic:
+      type: object
+      properties:
+        Arn:
+          type: string
+        AwsAccountId:
+          type: string
+          maxLength: 12
+          minLength: 12
+          pattern: ^[0-9]{12}$
+        DataSets:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatasetMetadata'
+        Description:
+          type: string
+          maxLength: 256
+          minLength: 0
+        Name:
+          type: string
+          maxLength: 128
+          minLength: 1
+        TopicId:
+          type: string
+          maxLength: 256
+          minLength: 0
+          pattern: ^[A-Za-z0-9-_.\\+]*$
+        UserExperienceVersion:
+          $ref: '#/components/schemas/TopicUserExperienceVersion'
+      x-stackql-resource-name: topic
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - TopicId
+      x-create-only-properties:
+        - AwsAccountId
+        - TopicId
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - quicksight:CreateTopic
+          - quicksight:PassDataSet
+          - quicksight:DescribeTopicRefresh
+        read:
+          - quicksight:DescribeTopic
+        update:
+          - quicksight:UpdateTopic
+          - quicksight:PassDataSet
+          - quicksight:DescribeTopicRefresh
+        delete:
+          - quicksight:DeleteTopic
+        list:
+          - quicksight:ListTopics
+    Arn:
+      type: string
+    DnsResolvers:
+      type: array
+      items:
+        type: string
+      x-insertionOrder: false
+    NetworkInterfaces:
+      type: array
+      items:
+        $ref: '#/components/schemas/NetworkInterface'
+      maxItems: 15
+      x-insertionOrder: false
+    NetworkInterface:
+      type: object
+      properties:
+        SubnetId:
+          $ref: '#/components/schemas/SubnetId'
+        AvailabilityZone:
+          type: string
+        ErrorMessage:
+          type: string
+        Status:
+          type: string
+          enum:
+            - CREATING
+            - AVAILABLE
+            - CREATION_FAILED
+            - UPDATING
+            - UPDATE_FAILED
+            - DELETING
+            - DELETED
+            - DELETION_FAILED
+            - DELETION_SCHEDULED
+            - ATTACHMENT_FAILED_ROLLBACK_FAILED
+        NetworkInterfaceId:
+          $ref: '#/components/schemas/NetworkInterfaceId'
+      additionalProperties: false
+      required: []
+    NetworkInterfaceId:
+      type: string
+      pattern: ^eni-[0-9a-z]*$
+      maxLength: 255
+    RoleArn:
+      type: string
+    SecurityGroupIds:
+      type: array
+      items:
+        $ref: '#/components/schemas/SecurityGroupId'
+      maxItems: 16
+      minItems: 1
+      x-insertionOrder: false
+    SecurityGroupId:
+      type: string
+      pattern: ^sg-[0-9a-z]*$
+      maxItems: 255
+      minItems: 1
+    SubnetIds:
+      type: array
+      items:
+        $ref: '#/components/schemas/SubnetId'
+      maxItems: 15
+      minItems: 2
+      x-insertionOrder: false
+    SubnetId:
+      type: string
+      pattern: ^subnet-[0-9a-z]*$
+      maxLength: 255
+      minLength: 1
+    Tags:
+      type: array
+      items:
+        $ref: '#/components/schemas/Tag'
+      maxItems: 200
+      minItems: 1
+      x-insertionOrder: false
+    VPCConnectionId:
+      type: string
+      maxLength: 1000
+      minLength: 1
+      pattern: '[\w\-]+'
+    VPCId:
+      type: string
+    VPCConnectionResourceStatus:
+      type: string
+      enum:
+        - CREATION_IN_PROGRESS
+        - CREATION_SUCCESSFUL
+        - CREATION_FAILED
+        - UPDATE_IN_PROGRESS
+        - UPDATE_SUCCESSFUL
+        - UPDATE_FAILED
+        - DELETION_IN_PROGRESS
+        - DELETION_FAILED
+        - DELETED
+    VPCConnectionAvailabilityStatus:
+      type: string
+      enum:
+        - AVAILABLE
+        - UNAVAILABLE
+        - PARTIALLY_AVAILABLE
+    VPCConnection:
+      type: object
+      properties:
+        Arn:
+          $ref: '#/components/schemas/Arn'
+        AwsAccountId:
+          type: string
+          maxLength: 12
+          minLength: 12
+          pattern: ^[0-9]{12}$
+        Name:
+          type: string
+          maxLength: 128
+          minLength: 1
+        VPCConnectionId:
+          $ref: '#/components/schemas/VPCConnectionId'
+        VPCId:
+          $ref: '#/components/schemas/VPCId'
+        SecurityGroupIds:
+          $ref: '#/components/schemas/SecurityGroupIds'
+        SubnetIds:
+          $ref: '#/components/schemas/SubnetIds'
+        DnsResolvers:
+          $ref: '#/components/schemas/DnsResolvers'
+        Status:
+          $ref: '#/components/schemas/VPCConnectionResourceStatus'
+        AvailabilityStatus:
+          $ref: '#/components/schemas/VPCConnectionAvailabilityStatus'
+        NetworkInterfaces:
+          $ref: '#/components/schemas/NetworkInterfaces'
+        RoleArn:
+          $ref: '#/components/schemas/RoleArn'
+        CreatedTime:
+          type: string
+          format: date-time
+        LastUpdatedTime:
+          type: string
+          format: date-time
+        Tags:
+          $ref: '#/components/schemas/Tags'
+      x-stackql-resource-name: vpc_connection
+      x-stackql-primaryIdentifier:
+        - AwsAccountId
+        - VPCConnectionId
+      x-create-only-properties:
+        - AwsAccountId
+        - VPCConnectionId
+      x-read-only-properties:
+        - Arn
+        - CreatedTime
+        - LastUpdatedTime
+        - NetworkInterfaces
+        - Status
+        - VPCId
+      x-required-permissions:
+        create:
+          - quicksight:CreateVPCConnection
+          - quicksight:DescribeVPCConnection
+          - quicksight:ListTagsForResource
+          - quicksight:TagResource
+          - iam:PassRole
+        read:
+          - quicksight:DescribeVPCConnection
+          - quicksight:ListTagsForResource
+        update:
+          - quicksight:DescribeVPCConnection
+          - quicksight:UpdateVPCConnection
+          - quicksight:TagResource
+          - quicksight:UntagResource
+          - quicksight:ListTagsForResource
+          - iam:PassRole
+        delete:
+          - quicksight:DescribeVPCConnection
+          - quicksight:DeleteVPCConnection
+          - quicksight:ListTagsForResource
+          - iam:PassRole
+        list:
+          - quicksight:ListVPCConnections
   x-stackQL-resources:
     analyses:
       name: analyses
@@ -9781,7 +11647,8 @@ components:
               JSON_EXTRACT(Properties, '$.SourceEntity') as source_entity,
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
-              JSON_EXTRACT(Properties, '$.ThemeArn') as theme_arn
+              JSON_EXTRACT(Properties, '$.ThemeArn') as theme_arn,
+              JSON_EXTRACT(Properties, '$.ValidationStrategy') as validation_strategy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Analysis'
     dashboards:
       name: dashboards
@@ -9824,12 +11691,14 @@ components:
               JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.LastPublishedTime') as last_published_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
+              JSON_EXTRACT(Properties, '$.LinkSharingConfiguration') as link_sharing_configuration,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Permissions') as permissions,
               JSON_EXTRACT(Properties, '$.SourceEntity') as source_entity,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ThemeArn') as theme_arn,
+              JSON_EXTRACT(Properties, '$.ValidationStrategy') as validation_strategy,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
@@ -9873,6 +11742,7 @@ components:
               JSON_EXTRACT(Properties, '$.ConsumedSpiceCapacityInBytes') as consumed_spice_capacity_in_bytes,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id,
+              JSON_EXTRACT(Properties, '$.DatasetParameters') as dataset_parameters,
               JSON_EXTRACT(Properties, '$.FieldFolders') as field_folders,
               JSON_EXTRACT(Properties, '$.ImportMode') as import_mode,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
@@ -9882,9 +11752,11 @@ components:
               JSON_EXTRACT(Properties, '$.Permissions') as permissions,
               JSON_EXTRACT(Properties, '$.PhysicalTableMap') as physical_table_map,
               JSON_EXTRACT(Properties, '$.RowLevelPermissionDataSet') as row_level_permission_data_set,
+              JSON_EXTRACT(Properties, '$.RowLevelPermissionTagConfiguration') as row_level_permission_tag_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IngestionWaitPolicy') as ingestion_wait_policy,
-              JSON_EXTRACT(Properties, '$.DataSetUsageConfiguration') as data_set_usage_configuration
+              JSON_EXTRACT(Properties, '$.DataSetUsageConfiguration') as data_set_usage_configuration,
+              JSON_EXTRACT(Properties, '$.DataSetRefreshProperties') as data_set_refresh_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSet'
     data_sources:
       name: data_sources
@@ -10020,6 +11892,7 @@ components:
               JSON_EXTRACT(Properties, '$.SourceEntity') as source_entity,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TemplateId') as template_id,
+              JSON_EXTRACT(Properties, '$.ValidationStrategy') as validation_strategy,
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Template'
@@ -10070,3 +11943,93 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Theme'
+    topics:
+      name: topics
+      id: aws.quicksight.topics
+      x-cfn-schema-name: Topic
+      x-type: list
+      x-identifiers:
+        - AwsAccountId
+        - TopicId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.TopicId') as topic_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Topic'
+    topic:
+      name: topic
+      id: aws.quicksight.topic
+      x-cfn-schema-name: Topic
+      x-type: get
+      x-identifiers:
+        - AwsAccountId
+        - TopicId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.DataSets') as data_sets,
+              JSON_EXTRACT(Properties, '$.Description') as description,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.TopicId') as topic_id,
+              JSON_EXTRACT(Properties, '$.UserExperienceVersion') as user_experience_version
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Topic'
+    vpc_connections:
+      name: vpc_connections
+      id: aws.quicksight.vpc_connections
+      x-cfn-schema-name: VPCConnection
+      x-type: list
+      x-identifiers:
+        - AwsAccountId
+        - VPCConnectionId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.VPCConnectionId') as v_pc_connection_id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'
+    vpc_connection:
+      name: vpc_connection
+      id: aws.quicksight.vpc_connection
+      x-cfn-schema-name: VPCConnection
+      x-type: get
+      x-identifiers:
+        - AwsAccountId
+        - VPCConnectionId
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Arn') as arn,
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
+              JSON_EXTRACT(Properties, '$.Name') as name,
+              JSON_EXTRACT(Properties, '$.VPCConnectionId') as v_pc_connection_id,
+              JSON_EXTRACT(Properties, '$.VPCId') as v_pc_id,
+              JSON_EXTRACT(Properties, '$.SecurityGroupIds') as security_group_ids,
+              JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
+              JSON_EXTRACT(Properties, '$.DnsResolvers') as dns_resolvers,
+              JSON_EXTRACT(Properties, '$.Status') as status,
+              JSON_EXTRACT(Properties, '$.AvailabilityStatus') as availability_status,
+              JSON_EXTRACT(Properties, '$.NetworkInterfaces') as network_interfaces,
+              JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
+              JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
+              JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'

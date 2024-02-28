@@ -35,6 +35,30 @@ Retrieves a list of <code>image_pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>image_pipelines</code> resource, the following permissions are required:
+
+### Create
+<pre>
+ecr:BatchGetRepositoryScanningConfiguration,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+imagebuilder:TagResource,
+imagebuilder:GetImagePipeline,
+imagebuilder:GetImageRecipe,
+imagebuilder:GetInfrastructureConfiguration,
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:CreateImagePipeline,
+imagebuilder:GetWorkflow,
+inspector2:BatchGetAccountStatus</pre>
+
+### List
+<pre>
+imagebuilder:ListImagePipelines</pre>
+
+
 ## Example
 ```sql
 SELECT

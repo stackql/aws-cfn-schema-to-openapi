@@ -40,6 +40,25 @@ Gets an individual <code>archive</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>archive</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+events:DescribeArchive,
+events:DeleteArchive</pre>
+
+### Update
+<pre>
+events:DescribeArchive,
+events:UpdateArchive</pre>
+
+### Read
+<pre>
+events:DescribeArchive</pre>
+
+
 ## Example
 ```sql
 SELECT

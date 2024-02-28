@@ -39,6 +39,29 @@ Gets an individual <code>distribution_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>distribution_configuration</code> resource, the following permissions are required:
+
+### Update
+<pre>
+ec2:DescribeLaunchTemplates,
+ec2:CreateLaunchTemplateVersion,
+ec2:ModifyLaunchTemplate,
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:UpdateDistributionConfiguration</pre>
+
+### Read
+<pre>
+imagebuilder:GetDistributionConfiguration</pre>
+
+### Delete
+<pre>
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:UnTagResource,
+imagebuilder:DeleteDistributionConfiguration</pre>
+
+
 ## Example
 ```sql
 SELECT

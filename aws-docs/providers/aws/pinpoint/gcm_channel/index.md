@@ -27,9 +27,11 @@ Gets an individual <code>gcm_channel</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>api_key</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>enabled</code></td><td><code>boolean</code></td><td></td></tr>
+<tr><td><code>service_json</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>default_authentication_method</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_key</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>application_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -38,13 +40,19 @@ Gets an individual <code>gcm_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
 region,
-id,
-api_key,
 enabled,
+service_json,
+default_authentication_method,
+api_key,
+id,
 application_id
 FROM aws.pinpoint.gcm_channel
 WHERE region = 'us-east-1'

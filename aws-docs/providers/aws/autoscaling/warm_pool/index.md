@@ -39,6 +39,26 @@ Gets an individual <code>warm_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>warm_pool</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+autoscaling:DeleteWarmPool,
+autoscaling:DescribeWarmPool</pre>
+
+### Read
+<pre>
+autoscaling:DescribeWarmPool</pre>
+
+### Update
+<pre>
+autoscaling:PutWarmPool,
+autoscaling:DescribeWarmPool,
+autoscaling:DescribeAutoScalingGroups</pre>
+
+
 ## Example
 ```sql
 SELECT

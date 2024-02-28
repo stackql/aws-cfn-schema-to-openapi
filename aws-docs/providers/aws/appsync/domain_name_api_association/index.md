@@ -37,6 +37,25 @@ Gets an individual <code>domain_name_api_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>domain_name_api_association</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+appsync:DisassociateApi,
+appsync:GetApiAssociation</pre>
+
+### Update
+<pre>
+appsync:AssociateApi,
+appsync:GetApiAssociation</pre>
+
+### Read
+<pre>
+appsync:GetApiAssociation</pre>
+
+
 ## Example
 ```sql
 SELECT

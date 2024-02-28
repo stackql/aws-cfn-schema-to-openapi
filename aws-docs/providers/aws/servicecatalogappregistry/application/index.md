@@ -32,12 +32,37 @@ Gets an individual <code>application</code> resource
 <tr><td><code>name</code></td><td><code>string</code></td><td>The name of the application. </td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td>The description of the application. </td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>application_tag_key</code></td><td><code>string</code></td><td>The key of the AWS application tag, which is awsApplication. Applications created before 11&#x2F;13&#x2F;2023 or applications without the AWS application tag resource group return no value.</td></tr>
+<tr><td><code>application_tag_value</code></td><td><code>string</code></td><td>The value of the AWS application tag, which is the identifier of an associated resource. Applications created before 11&#x2F;13&#x2F;2023 or applications without the AWS application tag resource group return no value. </td></tr>
+<tr><td><code>application_name</code></td><td><code>string</code></td><td>The name of the application. </td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+servicecatalog:GetApplication</pre>
+
+### Update
+<pre>
+servicecatalog:GetApplication,
+servicecatalog:ListTagsForResource,
+servicecatalog:TagResource,
+servicecatalog:UntagResource,
+servicecatalog:UpdateApplication,
+iam:CreateServiceLinkedRole</pre>
+
+### Delete
+<pre>
+servicecatalog:DeleteApplication</pre>
+
 
 ## Example
 ```sql
@@ -47,7 +72,10 @@ id,
 arn,
 name,
 description,
-tags
+tags,
+application_tag_key,
+application_tag_value,
+application_name
 FROM aws.servicecatalogappregistry.application
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

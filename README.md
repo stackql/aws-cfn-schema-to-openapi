@@ -2,10 +2,11 @@
 Convert AWS CloudFormation Resource Specification to OpenAPI 3.0.0
 
 ## Generating OpenAPI3 Specs
-1. download and unzip AWS CloudFormation Resource Specification from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-resource-specification.html
+1. download and unzip AWS CloudFormation Resource Specification from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-type-schemas.html
 2. move the files to the `input-cfn-docs` directory
-3. run `npm install`
-4. run `node index.js`
+3. preprocess specs, search and replace `"type" : [ "string", "object" ]` with `"type" : "string"`
+4. run `npm install`
+5. run `node index.js`
 
 output openapi3 specs (`components/schemas`) are written to `src/aws/v00.00.00000/services`
 

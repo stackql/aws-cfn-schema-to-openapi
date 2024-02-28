@@ -39,6 +39,23 @@ Gets an individual <code>member_invitation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>member_invitation</code> resource, the following permissions are required:
+
+### Read
+<pre>
+detective:GetMembers</pre>
+
+### Update
+<pre>
+</pre>
+
+### Delete
+<pre>
+detective:DeleteMembers</pre>
+
+
 ## Example
 ```sql
 SELECT

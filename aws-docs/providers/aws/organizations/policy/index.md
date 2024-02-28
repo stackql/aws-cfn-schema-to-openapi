@@ -43,6 +43,33 @@ Gets an individual <code>policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>policy</code> resource, the following permissions are required:
+
+### Read
+<pre>
+organizations:DescribePolicy,
+organizations:ListTargetsForPolicy,
+organizations:ListTagsForResource</pre>
+
+### Update
+<pre>
+organizations:AttachPolicy,
+organizations:DetachPolicy,
+organizations:UpdatePolicy,
+organizations:ListTagsForResource,
+organizations:ListTargetsForPolicy,
+organizations:TagResource,
+organizations:UntagResource,
+organizations:DescribePolicy</pre>
+
+### Delete
+<pre>
+organizations:DetachPolicy,
+organizations:DeletePolicy</pre>
+
+
 ## Example
 ```sql
 SELECT

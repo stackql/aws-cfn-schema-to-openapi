@@ -136,20 +136,26 @@
     }
   },
   "additionalProperties" : false,
-  "taggable" : true,
+  "tagging" : {
+    "taggable" : true,
+    "tagOnCreate" : true,
+    "tagUpdatable" : true,
+    "cloudFormationSystemTags" : false,
+    "tagProperty" : "/properties/FrameworkTags"
+  },
   "required" : [ "FrameworkControls" ],
   "readOnlyProperties" : [ "/properties/FrameworkArn", "/properties/CreationTime", "/properties/FrameworkStatus", "/properties/DeploymentStatus" ],
   "createOnlyProperties" : [ "/properties/FrameworkName" ],
   "primaryIdentifier" : [ "/properties/FrameworkArn" ],
   "handlers" : {
     "create" : {
-      "permissions" : [ "backup:CreateFramework", "backup:DescribeFramework", "backup:TagResource", "iam:CreateServiceLinkedRole" ]
+      "permissions" : [ "backup:CreateFramework", "backup:DescribeFramework", "backup:ListTags", "backup:TagResource", "iam:CreateServiceLinkedRole" ]
     },
     "read" : {
       "permissions" : [ "backup:DescribeFramework", "backup:ListTags" ]
     },
     "update" : {
-      "permissions" : [ "backup:UpdateFramework", "backup:ListTags", "backup:TagResource", "backup:UntagResource" ]
+      "permissions" : [ "backup:DescribeFramework", "backup:UpdateFramework", "backup:ListTags", "backup:TagResource", "backup:UntagResource" ]
     },
     "delete" : {
       "permissions" : [ "backup:DeleteFramework", "backup:DescribeFramework" ]

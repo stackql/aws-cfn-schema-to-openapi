@@ -41,6 +41,31 @@ Gets an individual <code>dashboard</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dashboard</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iotsitewise:DescribeDashboard,
+iotsitewise:ListTagsForResource</pre>
+
+### Update
+<pre>
+iotsitewise:DescribeDashboard,
+iotsitewise:UpdateDashboard,
+iotsitewise:TagResource,
+iotsitewise:UntagResource,
+iotsitewise:ListTagsForResource,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel</pre>
+
+### Delete
+<pre>
+iotsitewise:DescribeDashboard,
+iotsitewise:DeleteDashboard</pre>
+
+
 ## Example
 ```sql
 SELECT

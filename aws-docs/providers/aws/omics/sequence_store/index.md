@@ -31,6 +31,7 @@ Gets an individual <code>sequence_store</code> resource
 <tr><td><code>creation_time</code></td><td><code>string</code></td><td>When the store was created.</td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td>A description for the store.</td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td>A name for the store.</td></tr>
+<tr><td><code>fallback_location</code></td><td><code>string</code></td><td>An S3 URI representing the bucket and folder to store failed read set uploads.</td></tr>
 <tr><td><code>sequence_store_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>sse_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>object</code></td><td></td></tr>
@@ -41,6 +42,20 @@ Gets an individual <code>sequence_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>sequence_store</code> resource, the following permissions are required:
+
+### Read
+<pre>
+omics:GetSequenceStore,
+omics:ListTagsForResource</pre>
+
+### Delete
+<pre>
+omics:DeleteSequenceStore</pre>
+
+
 ## Example
 ```sql
 SELECT
@@ -49,6 +64,7 @@ arn,
 creation_time,
 description,
 name,
+fallback_location,
 sequence_store_id,
 sse_config,
 tags

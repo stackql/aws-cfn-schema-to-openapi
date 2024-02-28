@@ -51,6 +51,8 @@ components:
             $ref: '#/components/schemas/Tag'
         EngineVersion:
           type: string
+        StorageType:
+          type: string
         KmsKeyId:
           type: string
         AvailabilityZones:
@@ -88,6 +90,20 @@ components:
       x-stackql-resource-name: db_cluster
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - KmsKeyId
+        - SnapshotIdentifier
+        - MasterUsername
+        - SourceDBClusterIdentifier
+        - DBClusterIdentifier
+        - AvailabilityZones
+        - DBSubnetGroupName
+        - StorageEncrypted
+      x-read-only-properties:
+        - ReadEndpoint
+        - Id
+        - Endpoint
+        - ClusterResourceId
     DBClusterParameterGroup:
       type: object
       properties:
@@ -113,11 +129,15 @@ components:
       x-stackql-resource-name: db_cluster_parameter_group
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - Family
+        - Description
+        - Name
+      x-read-only-properties:
+        - Id
     DBInstance:
       type: object
       properties:
-        Endpoint:
-          type: string
         DBInstanceClass:
           type: string
         Port:
@@ -132,9 +152,15 @@ components:
           type: boolean
         AutoMinorVersionUpgrade:
           type: boolean
-        Id:
-          type: string
         DBInstanceIdentifier:
+          type: string
+        CACertificateIdentifier:
+          type: string
+        CertificateRotationRestart:
+          type: boolean
+        Endpoint:
+          type: string
+        Id:
           type: string
         Tags:
           type: array
@@ -147,6 +173,14 @@ components:
       x-stackql-resource-name: db_instance
       x-stackql-primaryIdentifier:
         - Id
+      x-create-only-properties:
+        - DBClusterIdentifier
+        - AvailabilityZone
+        - DBInstanceIdentifier
+      x-read-only-properties:
+        - Port
+        - Id
+        - Endpoint
     DBSubnetGroup:
       type: object
       properties:
@@ -171,6 +205,43 @@ components:
         - SubnetIds
       x-stackql-resource-name: db_subnet_group
       x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - DBSubnetGroupName
+      x-read-only-properties:
+        - Id
+    EventSubscription:
+      type: object
+      properties:
+        SourceType:
+          type: string
+        Enabled:
+          type: boolean
+        EventCategories:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        SubscriptionName:
+          type: string
+        SnsTopicArn:
+          type: string
+        SourceIds:
+          type: array
+          uniqueItems: false
+          items:
+            type: string
+        Id:
+          type: string
+      required:
+        - SnsTopicArn
+      x-stackql-resource-name: event_subscription
+      x-stackql-primaryIdentifier:
+        - Id
+      x-create-only-properties:
+        - SubscriptionName
+        - SnsTopicArn
+      x-read-only-properties:
         - Id
   x-stackQL-resources:
     db_clusters:
@@ -216,6 +287,7 @@ components:
               JSON_EXTRACT(Properties, '$.RestoreType') as restore_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.EngineVersion') as engine_version,
+              JSON_EXTRACT(Properties, '$.StorageType') as storage_type,
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.AvailabilityZones') as availability_zones,
               JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as preferred_maintenance_window,
@@ -298,7 +370,6 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
               JSON_EXTRACT(Properties, '$.DBInstanceClass') as d_binstance_class,
               JSON_EXTRACT(Properties, '$.Port') as port,
               JSON_EXTRACT(Properties, '$.DBClusterIdentifier') as d_bcluster_identifier,
@@ -306,8 +377,11 @@ components:
               JSON_EXTRACT(Properties, '$.PreferredMaintenanceWindow') as preferred_maintenance_window,
               JSON_EXTRACT(Properties, '$.EnablePerformanceInsights') as enable_performance_insights,
               JSON_EXTRACT(Properties, '$.AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
-              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.DBInstanceIdentifier') as d_binstance_identifier,
+              JSON_EXTRACT(Properties, '$.CACertificateIdentifier') as c_acertificate_identifier,
+              JSON_EXTRACT(Properties, '$.CertificateRotationRestart') as certificate_rotation_restart,
+              JSON_EXTRACT(Properties, '$.Endpoint') as endpoint,
+              JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBInstance'
     db_subnet_groups:
@@ -346,3 +420,41 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
+    event_subscriptions:
+      name: event_subscriptions
+      id: aws.docdb.event_subscriptions
+      x-cfn-schema-name: EventSubscription
+      x-type: list
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::EventSubscription'
+    event_subscription:
+      name: event_subscription
+      id: aws.docdb.event_subscription
+      x-cfn-schema-name: EventSubscription
+      x-type: get
+      x-identifiers:
+        - Id
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.SourceType') as source_type,
+              JSON_EXTRACT(Properties, '$.Enabled') as enabled,
+              JSON_EXTRACT(Properties, '$.EventCategories') as event_categories,
+              JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_name,
+              JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
+              JSON_EXTRACT(Properties, '$.SourceIds') as source_ids,
+              JSON_EXTRACT(Properties, '$.Id') as id
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::EventSubscription'

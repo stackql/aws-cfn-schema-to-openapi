@@ -39,6 +39,24 @@ Gets an individual <code>security_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>security_config</code> resource, the following permissions are required:
+
+### Read
+<pre>
+aoss:GetSecurityConfig</pre>
+
+### Update
+<pre>
+aoss:GetSecurityConfig,
+aoss:UpdateSecurityConfig</pre>
+
+### Delete
+<pre>
+aoss:DeleteSecurityConfig</pre>
+
+
 ## Example
 ```sql
 SELECT

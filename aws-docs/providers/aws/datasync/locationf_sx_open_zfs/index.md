@@ -41,6 +41,27 @@ Gets an individual <code>locationf_sx_open_zfs</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>locationf_sx_open_zfs</code> resource, the following permissions are required:
+
+### Read
+<pre>
+datasync:DescribeLocationFsxOpenZfs,
+datasync:ListTagsForResource</pre>
+
+### Update
+<pre>
+datasync:DescribeLocationFsxOpenZfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource</pre>
+
+### Delete
+<pre>
+datasync:DeleteLocation</pre>
+
+
 ## Example
 ```sql
 SELECT

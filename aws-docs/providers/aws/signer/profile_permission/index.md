@@ -39,6 +39,20 @@ Gets an individual <code>profile_permission</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profile_permission</code> resource, the following permissions are required:
+
+### Read
+<pre>
+signer:ListProfilePermissions</pre>
+
+### Delete
+<pre>
+signer:RemoveProfilePermission,
+signer:ListProfilePermissions</pre>
+
+
 ## Example
 ```sql
 SELECT

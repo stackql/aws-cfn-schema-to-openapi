@@ -35,6 +35,23 @@ Retrieves a list of <code>queues</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>queues</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sqs:CreateQueue,
+sqs:GetQueueUrl,
+sqs:GetQueueAttributes,
+sqs:ListQueueTags,
+sqs:TagQueue</pre>
+
+### List
+<pre>
+sqs:ListQueues</pre>
+
+
 ## Example
 ```sql
 SELECT

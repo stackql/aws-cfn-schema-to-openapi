@@ -27,7 +27,7 @@ Retrieves a list of <code>resolver_configs</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td>Id</td></tr>
+<tr><td><code>resource_id</code></td><td><code>string</code></td><td>ResourceId</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -35,11 +35,27 @@ Retrieves a list of <code>resolver_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>resolver_configs</code> resource, the following permissions are required:
+
+### Create
+<pre>
+route53resolver:UpdateResolverConfig,
+route53resolver:GetResolverConfig,
+ec2:DescribeVpcs</pre>
+
+### List
+<pre>
+route53resolver:ListResolverConfigs,
+ec2:DescribeVpcs</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
-id
+resource_id
 FROM aws.route53resolver.resolver_configs
 WHERE region = 'us-east-1'
 ```

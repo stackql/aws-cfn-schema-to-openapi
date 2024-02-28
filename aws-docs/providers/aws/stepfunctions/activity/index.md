@@ -37,6 +37,26 @@ Gets an individual <code>activity</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>activity</code> resource, the following permissions are required:
+
+### Read
+<pre>
+states:DescribeActivity,
+states:ListTagsForResource</pre>
+
+### Update
+<pre>
+states:ListTagsForResource,
+states:TagResource,
+states:UntagResource</pre>
+
+### Delete
+<pre>
+states:DeleteActivity</pre>
+
+
 ## Example
 ```sql
 SELECT

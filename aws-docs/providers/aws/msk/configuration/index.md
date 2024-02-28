@@ -32,12 +32,32 @@ Gets an individual <code>configuration</code> resource
 <tr><td><code>server_properties</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>kafka_versions_list</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>latest_revision</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>configuration</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+kafka:DeleteConfiguration,
+kafka:DescribeConfiguration</pre>
+
+### Read
+<pre>
+kafka:DescribeConfiguration</pre>
+
+### Update
+<pre>
+kafka:UpdateConfiguration,
+kafka:DescribeConfiguration</pre>
+
 
 ## Example
 ```sql
@@ -47,7 +67,8 @@ name,
 description,
 server_properties,
 kafka_versions_list,
-arn
+arn,
+latest_revision
 FROM aws.msk.configuration
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Arn&gt;'

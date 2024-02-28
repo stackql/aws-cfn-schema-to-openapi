@@ -27,14 +27,33 @@ Gets an individual <code>account</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>id</code></td><td><code>string</code></td><td>Primary identifier which is manually generated.</td></tr>
-<tr><td><code>cloud_watch_role_arn</code></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that has write access to CloudWatch Logs in your account.</td></tr>
+<tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>cloud_watch_role_arn</code></td><td><code>string</code></td><td>The ARN of an Amazon CloudWatch role for the current Account.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>account</code> resource, the following permissions are required:
+
+### Read
+<pre>
+apigateway:GET</pre>
+
+### Update
+<pre>
+apigateway:PATCH,
+iam:GetRole,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+</pre>
+
 
 ## Example
 ```sql

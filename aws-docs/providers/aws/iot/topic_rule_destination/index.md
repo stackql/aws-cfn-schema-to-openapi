@@ -39,6 +39,26 @@ Gets an individual <code>topic_rule_destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>topic_rule_destination</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:GetTopicRuleDestination</pre>
+
+### Update
+<pre>
+iam:PassRole,
+iot:GetTopicRuleDestination,
+iot:UpdateTopicRuleDestination</pre>
+
+### Delete
+<pre>
+iot:GetTopicRuleDestination,
+iot:DeleteTopicRuleDestination</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -39,6 +39,27 @@ Gets an individual <code>bucket</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>bucket</code> resource, the following permissions are required:
+
+### Read
+<pre>
+s3-outposts:GetBucket,
+s3-outposts:GetBucketTagging,
+s3-outposts:GetLifecycleConfiguration</pre>
+
+### Update
+<pre>
+s3-outposts:PutBucketTagging,
+s3-outposts:DeleteBucketTagging,
+s3-outposts:PutLifecycleConfiguration</pre>
+
+### Delete
+<pre>
+s3-outposts:DeleteBucket</pre>
+
+
 ## Example
 ```sql
 SELECT

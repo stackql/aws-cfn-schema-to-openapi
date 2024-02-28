@@ -37,6 +37,12 @@
           "maxLength" : 128,
           "minLength" : 1,
           "description" : "<p>The workgroup that Amazon Athena uses.</p>"
+        },
+        "RoleArn" : {
+          "type" : "string",
+          "maxLength" : 2048,
+          "minLength" : 20,
+          "description" : "<p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific Athena data source. For example, say an account administrator has turned off all Athena access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow Athena access for the single Athena data source that is specified in the structure, even if the account-wide role forbidding Athena access is still active.</p>"
         }
       }
     },
@@ -251,12 +257,18 @@
         },
         "DatabricksParameters" : {
           "$ref" : "#/definitions/DatabricksParameters"
+        },
+        "StarburstParameters" : {
+          "$ref" : "#/definitions/StarburstParameters"
+        },
+        "TrinoParameters" : {
+          "$ref" : "#/definitions/TrinoParameters"
         }
       }
     },
     "DataSourceType" : {
       "type" : "string",
-      "enum" : [ "ADOBE_ANALYTICS", "AMAZON_ELASTICSEARCH", "AMAZON_OPENSEARCH", "ATHENA", "AURORA", "AURORA_POSTGRESQL", "AWS_IOT_ANALYTICS", "DATABRICKS", "GITHUB", "JIRA", "MARIADB", "MYSQL", "ORACLE", "POSTGRESQL", "PRESTO", "REDSHIFT", "S3", "SALESFORCE", "SERVICENOW", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "TWITTER", "TIMESTREAM" ]
+      "enum" : [ "ADOBE_ANALYTICS", "AMAZON_ELASTICSEARCH", "AMAZON_OPENSEARCH", "ATHENA", "AURORA", "AURORA_POSTGRESQL", "AWS_IOT_ANALYTICS", "DATABRICKS", "GITHUB", "JIRA", "MARIADB", "MYSQL", "ORACLE", "POSTGRESQL", "PRESTO", "REDSHIFT", "S3", "SALESFORCE", "SERVICENOW", "SNOWFLAKE", "SPARK", "SQLSERVER", "TERADATA", "TWITTER", "TIMESTREAM", "STARBURST", "TRINO" ]
     },
     "ManifestFileLocation" : {
       "type" : "object",
@@ -457,7 +469,7 @@
           "items" : {
             "type" : "string"
           },
-          "maxItems" : 16,
+          "maxItems" : 20,
           "minItems" : 1,
           "description" : "<p>The IAM action to grant or revoke permissions on.</p>"
         },
@@ -480,6 +492,12 @@
       "properties" : {
         "ManifestFileLocation" : {
           "$ref" : "#/definitions/ManifestFileLocation"
+        },
+        "RoleArn" : {
+          "type" : "string",
+          "maxLength" : 2048,
+          "minLength" : 20,
+          "description" : "<p>Use the <code>RoleArn</code> structure to override an account-wide role for a specific S3 data source. For example, say an account administrator has turned off all S3 access with an account-wide role. The administrator can then use <code>RoleArn</code> to bypass the account-wide role and allow S3 access for the single S3 data source that is specified in the structure, even if the account-wide role forbidding S3 access is still active.</p>"
         }
       },
       "required" : [ "ManifestFileLocation" ]
@@ -508,6 +526,63 @@
         }
       },
       "required" : [ "Database", "Host", "Warehouse" ]
+    },
+    "StarburstParameters" : {
+      "type" : "object",
+      "description" : "<p>Starburst parameters.</p>",
+      "properties" : {
+        "Host" : {
+          "type" : "string",
+          "maxLength" : 256,
+          "minLength" : 1,
+          "description" : "<p>Host.</p>"
+        },
+        "Port" : {
+          "type" : "number",
+          "maximum" : 65535,
+          "minimum" : 1,
+          "description" : "<p>Port.</p>"
+        },
+        "Catalog" : {
+          "type" : "string",
+          "maxLength" : 128,
+          "minLength" : 0,
+          "description" : "<p>Catalog.</p>"
+        },
+        "ProductType" : {
+          "$ref" : "#/definitions/StarburstProductType"
+        }
+      },
+      "required" : [ "Host", "Port", "Catalog" ]
+    },
+    "StarburstProductType" : {
+      "type" : "string",
+      "enum" : [ "GALAXY", "ENTERPRISE" ]
+    },
+    "TrinoParameters" : {
+      "type" : "object",
+      "description" : "<p>Trino parameters.</p>",
+      "properties" : {
+        "Host" : {
+          "type" : "string",
+          "maxLength" : 256,
+          "minLength" : 1,
+          "description" : "<p>Host.</p>"
+        },
+        "Port" : {
+          "type" : "number",
+          "maximum" : 65535,
+          "minimum" : 1,
+          "description" : "<p>Port.</p>"
+        },
+        "Catalog" : {
+          "type" : "string",
+          "maxLength" : 128,
+          "minLength" : 0,
+          "description" : "<p>Catalog.</p>"
+        }
+      },
+      "required" : [ "Host", "Port", "Catalog" ]
     },
     "SparkParameters" : {
       "type" : "object",

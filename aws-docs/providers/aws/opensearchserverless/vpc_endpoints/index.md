@@ -35,6 +35,37 @@ Retrieves a list of <code>vpc_endpoints</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>vpc_endpoints</code> resource, the following permissions are required:
+
+### Create
+<pre>
+aoss:BatchGetVpcEndpoint,
+aoss:CreateVpcEndpoint,
+ec2:CreateVpcEndpoint,
+ec2:DeleteVpcEndPoints,
+ec2:DescribeVpcEndpoints,
+ec2:ModifyVpcEndPoint,
+ec2:DescribeVpcs,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups,
+ec2:CreateTags,
+route53:ChangeResourceRecordSets,
+route53:GetChange,
+route53:GetHostedZone,
+route53:ListResourceRecordSets,
+route53:ListHostedZonesByName,
+route53:CreateHostedZone,
+route53:ListHostedZonesByVPC,
+route53:AssociateVPCWithHostedZone</pre>
+
+### List
+<pre>
+aoss:ListVpcEndpoints,
+ec2:DescribeVpcEndpoints</pre>
+
+
 ## Example
 ```sql
 SELECT

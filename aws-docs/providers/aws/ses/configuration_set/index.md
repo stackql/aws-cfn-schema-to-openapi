@@ -41,6 +41,29 @@ Gets an individual <code>configuration_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>configuration_set</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ses:GetConfigurationSet,
+ses:DescribeConfigurationSet</pre>
+
+### Update
+<pre>
+ses:PutConfigurationSetTrackingOptions,
+ses:PutConfigurationSetDeliveryOptions,
+ses:PutConfigurationSetReputationOptions,
+ses:PutConfigurationSetSendingOptions,
+ses:PutConfigurationSetSuppressionOptions,
+ses:PutConfigurationSetVdmOptions</pre>
+
+### Delete
+<pre>
+ses:DeleteConfigurationSet</pre>
+
+
 ## Example
 ```sql
 SELECT

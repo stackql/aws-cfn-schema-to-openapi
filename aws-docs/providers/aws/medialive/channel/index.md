@@ -31,6 +31,7 @@ Gets an individual <code>channel</code> resource
 <tr><td><code>input_specification</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>destinations</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>vpc</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>maintenance</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>log_level</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>role_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
@@ -48,6 +49,10 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT
@@ -56,6 +61,7 @@ input_attachments,
 input_specification,
 destinations,
 vpc,
+maintenance,
 log_level,
 role_arn,
 name,

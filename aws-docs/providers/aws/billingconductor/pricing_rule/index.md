@@ -49,6 +49,29 @@ Gets an individual <code>pricing_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pricing_rule</code> resource, the following permissions are required:
+
+### Read
+<pre>
+billingconductor:ListPricingRules,
+billingconductor:ListTagsForResource</pre>
+
+### Update
+<pre>
+billingconductor:UpdatePricingRule,
+billingconductor:ListPricingRules,
+billingconductor:TagResource,
+billingconductor:UntagResource</pre>
+
+### Delete
+<pre>
+billingconductor:DeletePricingRule,
+billingconductor:ListPricingRules,
+billingconductor:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

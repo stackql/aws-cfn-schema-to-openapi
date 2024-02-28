@@ -37,6 +37,23 @@ Gets an individual <code>device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>device</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeDevice</pre>
+
+### Update
+<pre>
+sagemaker:UpdateDevices</pre>
+
+### Delete
+<pre>
+sagemaker:DeregisterDevices</pre>
+
+
 ## Example
 ```sql
 SELECT

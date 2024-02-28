@@ -121,6 +121,72 @@ components:
       x-stackql-primaryIdentifier:
         - EnvironmentIdentifier
         - ApplicationIdentifier
+      x-create-only-properties:
+        - ApiGatewayProxy
+        - EnvironmentIdentifier
+        - Name
+        - ProxyType
+        - VpcId
+      x-read-only-properties:
+        - ApplicationIdentifier
+        - Arn
+        - ApiGatewayId
+        - VpcLinkId
+        - NlbArn
+        - NlbName
+        - ProxyUrl
+        - StageName
+      x-required-permissions:
+        create:
+          - refactor-spaces:GetApplication
+          - refactor-spaces:CreateApplication
+          - refactor-spaces:TagResource
+          - ec2:CreateTags
+          - ec2:CreateVpcEndpointServiceConfiguration
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeVpcEndpointServiceConfigurations
+          - ec2:DescribeAccountAttributes
+          - ec2:DescribeInternetGateways
+          - ec2:ModifyVpcEndpointServicePermissions
+          - apigateway:DELETE
+          - apigateway:GET
+          - apigateway:PATCH
+          - apigateway:POST
+          - apigateway:PUT
+          - apigateway:UpdateRestApiPolicy
+          - apigateway:Update*
+          - apigateway:Delete*
+          - apigateway:Get*
+          - apigateway:Put*
+          - elasticloadbalancing:CreateLoadBalancer
+          - elasticloadbalancing:DescribeLoadBalancers
+          - elasticloadbalancing:DescribeTags
+          - elasticloadbalancing:AddTags
+          - iam:CreateServiceLinkedRole
+        read:
+          - refactor-spaces:GetApplication
+          - refactor-spaces:ListTagsForResource
+        delete:
+          - refactor-spaces:GetApplication
+          - refactor-spaces:DeleteApplication
+          - refactor-spaces:UntagResource
+          - ec2:DescribeVpcEndpointServiceConfigurations
+          - ec2:DeleteRoute
+          - ec2:DeleteSecurityGroup
+          - ec2:DeleteTransitGateway
+          - ec2:DeleteTransitGatewayVpcAttachment
+          - ec2:DeleteVpcEndpointServiceConfigurations
+          - ec2:DeleteTags
+          - ec2:RevokeSecurityGroupIngress
+          - elasticloadbalancing:DeleteLoadBalancer
+          - apigateway:Update*
+          - apigateway:Delete*
+          - apigateway:Get*
+          - apigateway:Put*
+        list:
+          - refactor-spaces:ListApplications
+          - refactor-spaces:ListTagsForResource
     NetworkFabricType:
       type: string
       enum:
@@ -168,6 +234,60 @@ components:
       x-stackql-resource-name: environment
       x-stackql-primaryIdentifier:
         - EnvironmentIdentifier
+      x-create-only-properties:
+        - Description
+        - Name
+        - NetworkFabricType
+      x-read-only-properties:
+        - EnvironmentIdentifier
+        - Arn
+        - TransitGatewayId
+      x-required-permissions:
+        create:
+          - refactor-spaces:CreateEnvironment
+          - refactor-spaces:GetEnvironment
+          - refactor-spaces:TagResource
+          - ec2:CreateTransitGateway
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:CreateSecurityGroup
+          - ec2:CreateTags
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeRouteTables
+          - ec2:DescribeSecurityGroups
+          - ec2:DescribeSubnets
+          - ec2:DescribeTags
+          - ec2:DescribeTransitGateways
+          - ec2:DescribeTransitGatewayVpcAttachments
+          - ec2:DescribeVpcEndpointServiceConfigurations
+          - ec2:ModifyVpcEndpointServicePermissions
+          - ec2:RevokeSecurityGroupIngress
+          - ram:AssociateResourceShare
+          - ram:CreateResourceShare
+          - ram:GetResourceShareAssociations
+          - ram:GetResourceShares
+          - ram:TagResource
+          - ram:GetResourceShareInvitations
+          - ram:AcceptResourceShareInvitation
+          - ram:DisassociateResourceShare
+          - tag:GetResources
+          - iam:CreateServiceLinkedRole
+        read:
+          - refactor-spaces:GetEnvironment
+          - refactor-spaces:ListTagsForResource
+        delete:
+          - refactor-spaces:GetEnvironment
+          - refactor-spaces:DeleteEnvironment
+          - refactor-spaces:UntagResource
+          - ec2:DescribeTransitGateways
+          - ec2:DescribeTransitGatewayVpcAttachments
+          - ec2:DeleteTransitGateway
+          - ec2:DeleteTransitGatewayVpcAttachment
+          - ec2:DeleteTags
+          - ram:GetResourceShareAssociations
+          - ram:DeleteResourceShare
+        list:
+          - refactor-spaces:ListEnvironments
+          - refactor-spaces:ListTagsForResource
     RouteActivationState:
       type: string
       enum:
@@ -203,7 +323,7 @@ components:
           type: string
           maxLength: 2048
           minLength: 1
-          pattern: ^(/[a-zA-Z0-9._-]+)+$
+          pattern: ^(/([a-zA-Z0-9._:-]+|\{[a-zA-Z0-9._:-]+\}))+$
         ActivationState:
           $ref: '#/components/schemas/RouteActivationState'
         Methods:
@@ -212,6 +332,8 @@ components:
           items:
             $ref: '#/components/schemas/Method'
         IncludeChildPaths:
+          type: boolean
+        AppendSourcePath:
           type: boolean
       required:
         - ActivationState
@@ -268,6 +390,99 @@ components:
         - EnvironmentIdentifier
         - ApplicationIdentifier
         - RouteIdentifier
+      x-create-only-properties:
+        - ApplicationIdentifier
+        - EnvironmentIdentifier
+        - RouteType
+        - ServiceIdentifier
+        - UriPathRoute/SourcePath
+        - UriPathRoute/Methods
+        - UriPathRoute/IncludeChildPaths
+        - UriPathRoute/AppendSourcePath
+      x-read-only-properties:
+        - RouteIdentifier
+        - PathResourceToId
+        - Arn
+      x-required-permissions:
+        create:
+          - refactor-spaces:CreateRoute
+          - refactor-spaces:GetRoute
+          - refactor-spaces:TagResource
+          - iam:CreateServiceLinkedRole
+          - apigateway:GET
+          - apigateway:PATCH
+          - apigateway:POST
+          - apigateway:PUT
+          - apigateway:DELETE
+          - apigateway:UpdateRestApiPolicy
+          - lambda:GetFunctionConfiguration
+          - lambda:AddPermission
+          - elasticloadbalancing:DescribeListeners
+          - elasticloadbalancing:DescribeTargetGroups
+          - elasticloadbalancing:CreateListener
+          - elasticloadbalancing:CreateTargetGroup
+          - elasticloadbalancing:DescribeTags
+          - elasticloadbalancing:AddTags
+          - elasticloadbalancing:RegisterTargets
+          - elasticloadbalancing:DescribeTargetHealth
+          - ec2:DescribeSubnets
+          - tag:GetResources
+        read:
+          - refactor-spaces:GetRoute
+          - refactor-spaces:ListTagsForResource
+        delete:
+          - refactor-spaces:DeleteRoute
+          - refactor-spaces:GetRoute
+          - refactor-spaces:UntagResource
+          - apigateway:GET
+          - apigateway:PATCH
+          - apigateway:POST
+          - apigateway:PUT
+          - apigateway:DELETE
+          - apigateway:UpdateRestApiPolicy
+          - lambda:GetFunctionConfiguration
+          - lambda:AddPermission
+          - elasticloadbalancing:DescribeListeners
+          - elasticloadbalancing:DescribeTargetGroups
+          - elasticloadbalancing:CreateListener
+          - elasticloadbalancing:CreateTargetGroup
+          - elasticloadbalancing:DeleteListener
+          - elasticloadbalancing:DeleteTargetGroup
+          - elasticloadbalancing:DescribeTags
+          - elasticloadbalancing:AddTags
+          - elasticloadbalancing:RegisterTargets
+          - elasticloadbalancing:DescribeTargetHealth
+          - ec2:DescribeSubnets
+          - tag:GetResources
+        list:
+          - refactor-spaces:ListRoutes
+          - refactor-spaces:ListTagsForResource
+        update:
+          - refactor-spaces:UpdateRoute
+          - refactor-spaces:GetRoute
+          - refactor-spaces:TagResource
+          - iam:CreateServiceLinkedRole
+          - apigateway:GET
+          - apigateway:PATCH
+          - apigateway:POST
+          - apigateway:PUT
+          - apigateway:DELETE
+          - apigateway:UpdateRestApiPolicy
+          - lambda:GetFunctionConfiguration
+          - lambda:AddPermission
+          - elasticloadbalancing:DescribeListeners
+          - elasticloadbalancing:DescribeTargetGroups
+          - elasticloadbalancing:CreateListener
+          - elasticloadbalancing:CreateTargetGroup
+          - elasticloadbalancing:DeleteListener
+          - elasticloadbalancing:DeleteTargetGroup
+          - elasticloadbalancing:DescribeTags
+          - elasticloadbalancing:AddTags
+          - elasticloadbalancing:RegisterTargets
+          - elasticloadbalancing:DescribeTargetHealth
+          - ec2:DescribeSubnets
+          - ec2:DescribeSubnets
+          - tag:GetResources
     LambdaEndpointInput:
       type: object
       properties:
@@ -360,6 +575,53 @@ components:
         - EnvironmentIdentifier
         - ApplicationIdentifier
         - ServiceIdentifier
+      x-create-only-properties:
+        - Description
+        - EndpointType
+        - EnvironmentIdentifier
+        - ApplicationIdentifier
+        - LambdaEndpoint
+        - Name
+        - UrlEndpoint
+        - VpcId
+      x-read-only-properties:
+        - ServiceIdentifier
+        - Arn
+      x-required-permissions:
+        create:
+          - refactor-spaces:CreateService
+          - refactor-spaces:GetService
+          - refactor-spaces:TagResource
+          - ec2:DescribeVpcs
+          - ec2:DescribeSubnets
+          - ec2:DescribeRouteTables
+          - ec2:CreateTags
+          - ec2:CreateTransitGatewayVpcAttachment
+          - ec2:DescribeTransitGatewayVpcAttachments
+          - ec2:CreateSecurityGroup
+          - ec2:AuthorizeSecurityGroupIngress
+          - ec2:CreateRoute
+          - lambda:GetFunctionConfiguration
+        read:
+          - refactor-spacess:GetService
+          - refactor-spaces:ListTagsForResource
+        delete:
+          - refactor-spaces:DeleteService
+          - refactor-spaces:GetService
+          - refactor-spaces:UntagResource
+          - ram:DisassociateResourceShare
+          - ec2:DescribeNetworkInterfaces
+          - ec2:DescribeRouteTables
+          - ec2:DescribeTransitGatewayVpcAttachments
+          - ec2:DescribeSecurityGroups
+          - ec2:DeleteSecurityGroup
+          - ec2:DeleteRoute
+          - ec2:RevokeSecurityGroupIngress
+          - ec2:DeleteTransitGatewayVpcAttachment
+          - ec2:DeleteTags
+        list:
+          - refactor-spaces:ListServices
+          - refactor-spaces:ListTagsForResource
   x-stackQL-resources:
     applications:
       name: applications

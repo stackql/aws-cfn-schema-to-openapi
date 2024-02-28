@@ -39,6 +39,30 @@ Gets an individual <code>public_repository</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>public_repository</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ecr-public:DescribeRepositories,
+ecr-public:GetRepositoryPolicy,
+ecr-public:GetRepositoryCatalogData,
+ecr-public:ListTagsForResource</pre>
+
+### Update
+<pre>
+ecr-public:SetRepositoryPolicy,
+ecr-public:DeleteRepositoryPolicy,
+ecr-public:PutRepositoryCatalogData,
+ecr-public:TagResource,
+ecr-public:UntagResource</pre>
+
+### Delete
+<pre>
+ecr-public:DeleteRepository</pre>
+
+
 ## Example
 ```sql
 SELECT

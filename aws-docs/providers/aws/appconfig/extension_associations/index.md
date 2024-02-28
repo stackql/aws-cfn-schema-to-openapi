@@ -35,6 +35,20 @@ Retrieves a list of <code>extension_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>extension_associations</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appconfig:CreateExtensionAssociation,
+appconfig:TagResource</pre>
+
+### List
+<pre>
+appconfig:ListExtensionAssociations</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -35,6 +35,26 @@ Retrieves a list of <code>model_cards</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>model_cards</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateModelCard,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:CreateGrant,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:DescribeModelPackage,
+sagemaker:AddTags</pre>
+
+### List
+<pre>
+sagemaker:ListModelCards,
+sagemaker:ListModelCardVersions</pre>
+
+
 ## Example
 ```sql
 SELECT

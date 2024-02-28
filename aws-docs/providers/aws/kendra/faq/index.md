@@ -43,6 +43,27 @@ Gets an individual <code>faq</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>faq</code> resource, the following permissions are required:
+
+### Update
+<pre>
+kendra:ListTagsForResource,
+kendra:UntagResource,
+kendra:TagResource</pre>
+
+### Read
+<pre>
+kendra:DescribeFaq,
+kendra:ListTagsForResource</pre>
+
+### Delete
+<pre>
+kendra:DeleteFaq,
+kendra:DescribeFaq</pre>
+
+
 ## Example
 ```sql
 SELECT

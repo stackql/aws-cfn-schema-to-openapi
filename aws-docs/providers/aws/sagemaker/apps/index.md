@@ -38,6 +38,20 @@ Retrieves a list of <code>apps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>apps</code> resource, the following permissions are required:
+
+### Create
+<pre>
+sagemaker:CreateApp,
+sagemaker:DescribeApp</pre>
+
+### List
+<pre>
+sagemaker:ListApps</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,20 @@ Retrieves a list of <code>package_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>package_versions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+panorama:RegisterPackageVersion,
+panorama:DescribePackageVersion,
+s3:ListBucket,
+s3:PutObject,
+s3:GetObject,
+s3:GetObjectVersion</pre>
+
+
 ## Example
 ```sql
 SELECT

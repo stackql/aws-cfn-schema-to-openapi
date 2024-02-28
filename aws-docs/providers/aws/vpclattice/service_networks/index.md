@@ -35,6 +35,23 @@ Retrieves a list of <code>service_networks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service_networks</code> resource, the following permissions are required:
+
+### Create
+<pre>
+vpc-lattice:GetServiceNetwork,
+vpc-lattice:ListTagsForResource,
+vpc-lattice:CreateServiceNetwork,
+vpc-lattice:TagResource,
+iam:CreateServiceLinkedRole</pre>
+
+### List
+<pre>
+vpc-lattice:ListServiceNetworks</pre>
+
+
 ## Example
 ```sql
 SELECT

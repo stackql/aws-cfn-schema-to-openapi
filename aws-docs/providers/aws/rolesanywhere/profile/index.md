@@ -44,6 +44,32 @@ Gets an individual <code>profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>profile</code> resource, the following permissions are required:
+
+### Read
+<pre>
+rolesanywhere:GetProfile,
+rolesanywhere:ListTagsForResource</pre>
+
+### Update
+<pre>
+iam:GetRole,
+iam:GetPolicy,
+iam:PassRole,
+rolesanywhere:UpdateProfile,
+rolesanywhere:EnableProfile,
+rolesanywhere:DisableProfile,
+rolesanywhere:TagResource,
+rolesanywhere:UntagResource,
+rolesanywhere:ListTagsForResource</pre>
+
+### Delete
+<pre>
+rolesanywhere:DeleteProfile</pre>
+
+
 ## Example
 ```sql
 SELECT

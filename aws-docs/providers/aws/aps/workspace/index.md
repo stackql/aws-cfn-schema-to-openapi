@@ -33,6 +33,7 @@ Gets an individual <code>workspace</code> resource
 <tr><td><code>alert_manager_definition</code></td><td><code>string</code></td><td>The AMP Workspace alert manager definition data</td></tr>
 <tr><td><code>prometheus_endpoint</code></td><td><code>string</code></td><td>AMP Workspace prometheus endpoint</td></tr>
 <tr><td><code>logging_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>kms_key_arn</code></td><td><code>string</code></td><td>KMS Key ARN used to encrypt and decrypt AMP workspace data.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -40,6 +41,47 @@ Gets an individual <code>workspace</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>workspace</code> resource, the following permissions are required:
+
+### Read
+<pre>
+aps:DescribeWorkspace,
+aps:ListTagsForResource,
+aps:DescribeAlertManagerDefinition,
+aps:DescribeLoggingConfiguration</pre>
+
+### Update
+<pre>
+aps:UpdateWorkspaceAlias,
+aps:DescribeWorkspace,
+aps:TagResource,
+aps:UntagResource,
+aps:ListTagsForResource,
+aps:CreateAlertManagerDefinition,
+aps:PutAlertManagerDefinition,
+aps:DeleteAlertManagerDefinition,
+aps:CreateLoggingConfiguration,
+aps:DescribeLoggingConfiguration,
+aps:UpdateLoggingConfiguration,
+aps:DeleteLoggingConfiguration,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:ListLogDeliveries,
+logs:DeleteLogDelivery,
+logs:PutResourcePolicy</pre>
+
+### Delete
+<pre>
+aps:DeleteWorkspace,
+aps:DescribeWorkspace,
+aps:DeleteAlertManagerDefinition,
+aps:DeleteLoggingConfiguration,
+logs:DeleteLogDelivery</pre>
+
 
 ## Example
 ```sql
@@ -51,6 +93,7 @@ arn,
 alert_manager_definition,
 prometheus_endpoint,
 logging_configuration,
+kms_key_arn,
 tags
 FROM aws.aps.workspace
 WHERE region = 'us-east-1'

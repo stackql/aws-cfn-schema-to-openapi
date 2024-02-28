@@ -47,6 +47,31 @@ Gets an individual <code>experiment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>experiment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+evidently:GetExperiment,
+evidently:ListTagsForResource</pre>
+
+### Update
+<pre>
+evidently:UpdateExperiment,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetExperiment,
+evidently:StartExperiment,
+evidently:StopExperiment</pre>
+
+### Delete
+<pre>
+evidently:DeleteExperiment,
+evidently:UntagResource,
+evidently:GetExperiment</pre>
+
+
 ## Example
 ```sql
 SELECT

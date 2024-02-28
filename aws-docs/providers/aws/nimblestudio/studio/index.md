@@ -44,6 +44,43 @@ Gets an individual <code>studio</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>studio</code> resource, the following permissions are required:
+
+### Read
+<pre>
+nimble:GetStudio,
+kms:Encrypt,
+kms:Decrypt,
+kms:ListGrants,
+kms:GenerateDataKey</pre>
+
+### Update
+<pre>
+iam:PassRole,
+nimble:UpdateStudio,
+nimble:GetStudio,
+kms:Encrypt,
+kms:Decrypt,
+kms:CreateGrant,
+kms:ListGrants,
+kms:GenerateDataKey</pre>
+
+### Delete
+<pre>
+nimble:DeleteStudio,
+nimble:GetStudio,
+nimble:UntagResource,
+kms:Encrypt,
+kms:Decrypt,
+kms:ListGrants,
+kms:RetireGrant,
+kms:GenerateDataKey,
+sso:DeleteManagedApplicationInstance,
+sso:GetManagedApplicationInstance</pre>
+
+
 ## Example
 ```sql
 SELECT

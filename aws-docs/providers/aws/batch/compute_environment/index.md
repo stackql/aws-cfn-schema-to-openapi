@@ -45,6 +45,32 @@ Gets an individual <code>compute_environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>compute_environment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+Batch:DescribeComputeEnvironments</pre>
+
+### Update
+<pre>
+Batch:UpdateComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:TagResource,
+Batch:UnTagResource,
+Iam:PassRole,
+Eks:DescribeCluster</pre>
+
+### Delete
+<pre>
+Batch:DeleteComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:UpdateComputeEnvironment,
+Iam:PassRole,
+Eks:DescribeCluster</pre>
+
+
 ## Example
 ```sql
 SELECT

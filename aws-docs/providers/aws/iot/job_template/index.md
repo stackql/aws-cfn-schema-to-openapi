@@ -39,6 +39,7 @@ Gets an individual <code>job_template</code> resource
 <tr><td><code>presigned_url_config</code></td><td><code>object</code></td><td>Configuration for pre-signed S3 URLs.</td></tr>
 <tr><td><code>job_executions_retry_config</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>maintenance_windows</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>destination_package_versions</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>Metadata that can be used to manage the JobTemplate.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -46,6 +47,19 @@ Gets an individual <code>job_template</code> resource
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>job_template</code> resource, the following permissions are required:
+
+### Read
+<pre>
+iot:DescribeJobTemplate</pre>
+
+### Delete
+<pre>
+iot:DeleteJobTemplate</pre>
+
 
 ## Example
 ```sql
@@ -63,6 +77,7 @@ abort_config,
 presigned_url_config,
 job_executions_retry_config,
 maintenance_windows,
+destination_package_versions,
 tags
 FROM aws.iot.job_template
 WHERE region = 'us-east-1'

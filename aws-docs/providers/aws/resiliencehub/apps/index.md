@@ -35,6 +35,38 @@ Retrieves a list of <code>apps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>apps</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudformation:DescribeStacks,
+cloudformation:ListStackResources,
+s3:GetBucketLocation,
+s3:GetObject,
+s3:ListAllMyBuckets,
+autoscaling:DescribeAutoScalingGroups,
+apigateway:GET,
+ec2:Describe*,
+ecs:DescribeServices,
+eks:DescribeCluster,
+elasticfilesystem:DescribeFileSystems,
+elasticloadbalancing:DescribeLoadBalancers,
+lambda:GetFunction*,
+rds:Describe*,
+dynamodb:Describe*,
+sqs:GetQueueAttributes,
+sns:GetTopicAttributes,
+route53:List*,
+iam:PassRole,
+resiliencehub:*</pre>
+
+### List
+<pre>
+resiliencehub:ListApps</pre>
+
+
 ## Example
 ```sql
 SELECT

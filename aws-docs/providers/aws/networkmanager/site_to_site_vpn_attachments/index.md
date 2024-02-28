@@ -35,6 +35,22 @@ Retrieves a list of <code>site_to_site_vpn_attachments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>site_to_site_vpn_attachments</code> resource, the following permissions are required:
+
+### Create
+<pre>
+networkmanager:GetSiteToSiteVpnAttachment,
+networkmanager:CreateSiteToSiteVpnAttachment,
+ec2:DescribeRegions,
+networkmanager:TagResource</pre>
+
+### List
+<pre>
+networkmanager:ListAttachments</pre>
+
+
 ## Example
 ```sql
 SELECT

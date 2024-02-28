@@ -66,6 +66,20 @@ components:
       x-stackql-resource-name: application
       x-stackql-primaryIdentifier:
         - ApplicationName
+      x-create-only-properties:
+        - ApplicationName
+      x-required-permissions:
+        create:
+          - elasticbeanstalk:CreateApplication
+        read:
+          - elasticbeanstalk:DescribeApplications
+        update:
+          - elasticbeanstalk:UpdateApplication
+          - elasticbeanstalk:UpdateApplicationResourceLifecycle
+        delete:
+          - elasticbeanstalk:DeleteApplication
+        list:
+          - elasticbeanstalk:DescribeApplications
     SourceBundle:
       type: object
       additionalProperties: false
@@ -100,6 +114,25 @@ components:
       x-stackql-primaryIdentifier:
         - ApplicationName
         - Id
+      x-create-only-properties:
+        - SourceBundle
+        - ApplicationName
+      x-read-only-properties:
+        - Id
+      x-required-permissions:
+        create:
+          - elasticbeanstalk:CreateApplicationVersion
+          - elasticbeanstalk:DescribeApplicationVersions
+          - s3:GetObject
+          - s3:PutObject
+        read:
+          - elasticbeanstalk:DescribeApplicationVersions
+        update:
+          - elasticbeanstalk:UpdateApplicationVersion
+        delete:
+          - elasticbeanstalk:DeleteApplicationVersion
+        list:
+          - elasticbeanstalk:DescribeApplicationVersions
     SourceConfiguration:
       type: object
       additionalProperties: false
@@ -183,6 +216,26 @@ components:
       x-stackql-primaryIdentifier:
         - ApplicationName
         - TemplateName
+      x-create-only-properties:
+        - ApplicationName
+        - EnvironmentId
+        - PlatformArn
+        - SolutionStackName
+        - SourceConfiguration
+      x-read-only-properties:
+        - TemplateName
+      x-required-permissions:
+        create:
+          - elasticbeanstalk:CreateConfigurationTemplate
+        read:
+          - elasticbeanstalk:DescribeConfigurationSettings
+        update:
+          - elasticbeanstalk:UpdateConfigurationTemplate
+        delete:
+          - elasticbeanstalk:DeleteConfigurationTemplate
+          - elasticbeanstalk:DescribeConfigurationSettings
+        list:
+          - elasticbeanstalk:DescribeApplications
     Tier:
       additionalProperties: false
       type: object
@@ -282,6 +335,36 @@ components:
       x-stackql-resource-name: environment
       x-stackql-primaryIdentifier:
         - EnvironmentName
+      x-create-only-properties:
+        - CNAMEPrefix
+        - EnvironmentName
+        - ApplicationName
+        - SolutionStackName
+        - Tier/Name
+        - Tier/Type
+      x-read-only-properties:
+        - EndpointURL
+      x-required-permissions:
+        read:
+          - elasticbeanstalk:DescribeEnvironments
+          - elasticbeanstalk:DescribeConfigurationSettings
+          - elasticbeanstalk:ListTagsForResource
+        create:
+          - elasticbeanstalk:DescribeEnvironments
+          - elasticbeanstalk:CreateEnvironment
+          - iam:PassRole
+        update:
+          - elasticbeanstalk:DescribeEnvironments
+          - elasticbeanstalk:UpdateEnvironment
+          - elasticbeanstalk:UpdateTagsForResource
+          - elasticbeanstalk:AssociateEnvironmentOperationsRole
+          - elasticbeanstalk:DisassociateEnvironmentOperationsRole
+          - iam:PassRole
+        list:
+          - elasticbeanstalk:DescribeEnvironments
+        delete:
+          - elasticbeanstalk:DescribeEnvironments
+          - elasticbeanstalk:TerminateEnvironment
   x-stackQL-resources:
     applications:
       name: applications

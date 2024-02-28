@@ -38,6 +38,31 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Update
+<pre>
+synthetics:AssociateResource,
+synthetics:DisassociateResource,
+synthetics:TagResource,
+synthetics:UntagResource,
+synthetics:GetGroup,
+synthetics:ListGroupResources</pre>
+
+### Read
+<pre>
+synthetics:GetGroup,
+synthetics:ListTagsForResource,
+synthetics:ListGroupResources</pre>
+
+### Delete
+<pre>
+synthetics:DeleteGroup,
+synthetics:GetGroup</pre>
+
+
 ## Example
 ```sql
 SELECT

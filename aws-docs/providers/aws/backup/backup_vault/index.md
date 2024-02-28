@@ -41,6 +41,35 @@ Gets an individual <code>backup_vault</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>backup_vault</code> resource, the following permissions are required:
+
+### Read
+<pre>
+backup:DescribeBackupVault,
+backup:GetBackupVaultNotifications,
+backup:GetBackupVaultAccessPolicy,
+backup:ListTags</pre>
+
+### Update
+<pre>
+backup:DescribeBackupVault,
+backup:DeleteBackupVaultAccessPolicy,
+backup:DeleteBackupVaultNotifications,
+backup:DeleteBackupVaultLockConfiguration,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource,
+backup:PutBackupVaultAccessPolicy,
+backup:PutBackupVaultNotifications,
+backup:PutBackupVaultLockConfiguration</pre>
+
+### Delete
+<pre>
+backup:DeleteBackupVault</pre>
+
+
 ## Example
 ```sql
 SELECT

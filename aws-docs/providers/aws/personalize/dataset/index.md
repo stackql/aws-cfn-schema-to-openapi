@@ -40,6 +40,27 @@ Gets an individual <code>dataset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>dataset</code> resource, the following permissions are required:
+
+### Read
+<pre>
+personalize:DescribeDataset</pre>
+
+### Update
+<pre>
+personalize:DescribeDataset,
+personalize:CreateDatasetImportJob,
+personalize:DescribeDatasetImportJob,
+iam:PassRole</pre>
+
+### Delete
+<pre>
+personalize:DeleteDataset,
+personalize:DescribeDataset</pre>
+
+
 ## Example
 ```sql
 SELECT

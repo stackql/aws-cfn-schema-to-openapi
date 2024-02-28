@@ -5,6 +5,74 @@ info:
 paths: {}
 components:
   schemas:
+    Tag:
+      type: object
+      properties:
+        Key:
+          type: string
+        Value:
+          type: string
+      additionalProperties: false
+    AutoScalingConfiguration:
+      type: object
+      properties:
+        AutoScalingConfigurationArn:
+          description: The Amazon Resource Name (ARN) of this auto scaling configuration.
+          type: string
+          minLength: 1
+          maxLength: 1011
+          pattern: arn:aws(-[\w]+)*:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[0-9]{12}:(\w|/|-){1,1011}
+        AutoScalingConfigurationName:
+          description: The customer-provided auto scaling configuration name.  When you use it for the first time in an AWS Region, App Runner creates revision number 1 of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration. The auto scaling configuration name can be used in multiple revisions of a configuration.
+          type: string
+          minLength: 4
+          maxLength: 32
+          pattern: '[A-Za-z0-9][A-Za-z0-9\-_]{3,31}'
+        AutoScalingConfigurationRevision:
+          description: 'The revision of this auto scaling configuration. It''s unique among all the active configurations ("Status": "ACTIVE") that share the same AutoScalingConfigurationName.'
+          type: integer
+        MaxConcurrency:
+          description: The maximum number of concurrent requests that an instance processes. If the number of concurrent requests exceeds this limit, App Runner scales the service up to use more instances to process the requests.
+          type: integer
+        MaxSize:
+          description: The maximum number of instances that an App Runner service scales up to. At most MaxSize instances actively serve traffic for your service.
+          type: integer
+        MinSize:
+          description: The minimum number of instances that App Runner provisions for a service. The service always has at least MinSize provisioned instances. Some of them actively serve traffic. The rest of them (provisioned and inactive instances) are a cost-effective compute capacity reserve and are ready to be quickly activated. You pay for memory usage of all the provisioned instances. You pay for CPU usage of only the active subset.
+          type: integer
+        Latest:
+          description: It's set to true for the configuration with the highest Revision among all configurations that share the same AutoScalingConfigurationName. It's set to false otherwise. App Runner temporarily doubles the number of provisioned instances during deployments, to maintain the same capacity for both old and new code.
+          type: boolean
+        Tags:
+          description: A list of metadata items that you can associate with your auto scaling configuration resource. A tag is a key-value pair.
+          type: array
+          items:
+            $ref: '#/components/schemas/Tag'
+          x-insertionOrder: false
+      x-stackql-resource-name: auto_scaling_configuration
+      x-stackql-primaryIdentifier:
+        - AutoScalingConfigurationArn
+      x-create-only-properties:
+        - AutoScalingConfigurationName
+        - MaxConcurrency
+        - MaxSize
+        - MinSize
+        - Tags
+      x-read-only-properties:
+        - AutoScalingConfigurationArn
+        - AutoScalingConfigurationRevision
+        - Latest
+      x-required-permissions:
+        create:
+          - apprunner:CreateAutoScalingConfiguration
+          - apprunner:DescribeAutoScalingConfiguration
+          - apprunner:TagResource
+        read:
+          - apprunner:DescribeAutoScalingConfiguration
+        delete:
+          - apprunner:DeleteAutoScalingConfiguration
+        list:
+          - apprunner:ListAutoScalingConfiguration
     TraceConfiguration:
       description: Describes the configuration of the tracing feature within an AWS App Runner observability configuration.
       type: object
@@ -16,14 +84,6 @@ components:
             - AWSXRAY
       required:
         - Vendor
-      additionalProperties: false
-    Tag:
-      type: object
-      properties:
-        Key:
-          type: string
-        Value:
-          type: string
       additionalProperties: false
     ObservabilityConfiguration:
       type: object
@@ -58,6 +118,25 @@ components:
       x-stackql-resource-name: observability_configuration
       x-stackql-primaryIdentifier:
         - ObservabilityConfigurationArn
+      x-create-only-properties:
+        - ObservabilityConfigurationName
+        - TraceConfiguration
+        - Tags
+      x-read-only-properties:
+        - ObservabilityConfigurationArn
+        - ObservabilityConfigurationRevision
+        - Latest
+      x-required-permissions:
+        create:
+          - apprunner:CreateObservabilityConfiguration
+          - apprunner:DescribeObservabilityConfiguration
+          - apprunner:TagResource
+        read:
+          - apprunner:DescribeObservabilityConfiguration
+        delete:
+          - apprunner:DeleteObservabilityConfiguration
+        list:
+          - apprunner:ListObservabilityConfigurations
     SourceConfiguration:
       description: Source Code configuration
       type: object
@@ -83,6 +162,12 @@ components:
           $ref: '#/components/schemas/SourceCodeVersion'
         CodeConfiguration:
           $ref: '#/components/schemas/CodeConfiguration'
+        SourceDirectory:
+          type: string
+          description: Source Directory
+          minLength: 1
+          maxLength: 4096
+          pattern: '[^\x00]+'
       required:
         - RepositoryUrl
         - SourceCodeVersion
@@ -136,6 +221,8 @@ components:
             - DOTNET_6
             - PHP_81
             - RUBY_31
+            - PYTHON_311
+            - NODEJS_18
         BuildCommand:
           type: string
           description: Build Command
@@ -320,6 +407,12 @@ components:
           $ref: '#/components/schemas/EgressConfiguration'
         IngressConfiguration:
           $ref: '#/components/schemas/IngressConfiguration'
+        IpAddressType:
+          description: App Runner service endpoint IP address type
+          type: string
+          enum:
+            - IPV4
+            - DUAL_STACK
       additionalProperties: false
     ServiceObservabilityConfiguration:
       description: Service observability configuration
@@ -398,6 +491,38 @@ components:
       x-stackql-resource-name: service
       x-stackql-primaryIdentifier:
         - ServiceArn
+      x-create-only-properties:
+        - ServiceName
+        - EncryptionConfiguration
+        - Tags
+      x-read-only-properties:
+        - ServiceArn
+        - ServiceId
+        - ServiceUrl
+        - Status
+      x-required-permissions:
+        create:
+          - apprunner:CreateService
+          - apprunner:TagResource
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+          - logs:CreateLogGroup
+          - logs:PutRetentionPolicy
+          - logs:CreateLogStream
+          - logs:PutLogEvents
+          - logs:DescribeLogStreams
+          - events:PutRule
+          - events:PutTargets
+        read:
+          - apprunner:DescribeService
+        update:
+          - apprunner:UpdateService
+          - iam:PassRole
+        delete:
+          - apprunner:DeleteService
+        list:
+          - apprunner:ListServices
+          - iam:PassRole
     VpcConnector:
       type: object
       properties:
@@ -441,6 +566,28 @@ components:
       x-stackql-resource-name: vpc_connector
       x-stackql-primaryIdentifier:
         - VpcConnectorArn
+      x-create-only-properties:
+        - VpcConnectorName
+        - Subnets
+        - SecurityGroups
+        - Tags
+      x-read-only-properties:
+        - VpcConnectorArn
+        - VpcConnectorRevision
+      x-required-permissions:
+        create:
+          - iam:CreateServiceLinkedRole
+          - apprunner:CreateVpcConnector
+          - apprunner:DescribeVpcConnector
+          - apprunner:TagResource
+          - ec2:DescribeSubnets
+          - ec2:DescribeSecurityGroups
+        read:
+          - apprunner:DescribeVpcConnector
+        delete:
+          - apprunner:DeleteVpcConnector
+        list:
+          - apprunner:ListVpcConnectors
     IngressVpcConfiguration:
       description: The configuration of customer’s VPC and related VPC endpoint
       type: object
@@ -506,7 +653,70 @@ components:
       x-stackql-resource-name: vpc_ingress_connection
       x-stackql-primaryIdentifier:
         - VpcIngressConnectionArn
+      x-create-only-properties:
+        - VpcIngressConnectionName
+        - ServiceArn
+        - Tags
+      x-read-only-properties:
+        - VpcIngressConnectionArn
+        - DomainName
+        - Status
+      x-required-permissions:
+        create:
+          - apprunner:CreateVpcIngressConnection
+          - apprunner:DescribeVpcIngressConnection
+          - ec2:DescribeVpcs
+          - ec2:DescribeVpcEndpoints
+          - ec2:DescribeSubnets
+          - apprunner:TagResource
+        read:
+          - apprunner:DescribeVpcIngressConnection
+        update:
+          - apprunner:UpdateVpcIngressConnection
+        delete:
+          - apprunner:DeleteVpcIngressConnection
+        list:
+          - apprunner:ListVpcIngressConnections
   x-stackQL-resources:
+    auto_scaling_configurations:
+      name: auto_scaling_configurations
+      id: aws.apprunner.auto_scaling_configurations
+      x-cfn-schema-name: AutoScalingConfiguration
+      x-type: list
+      x-identifiers:
+        - AutoScalingConfigurationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn
+              FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
+    auto_scaling_configuration:
+      name: auto_scaling_configuration
+      id: aws.apprunner.auto_scaling_configuration
+      x-cfn-schema-name: AutoScalingConfiguration
+      x-type: get
+      x-identifiers:
+        - AutoScalingConfigurationArn
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              region,
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationName') as auto_scaling_configuration_name,
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationRevision') as auto_scaling_configuration_revision,
+              JSON_EXTRACT(Properties, '$.MaxConcurrency') as max_concurrency,
+              JSON_EXTRACT(Properties, '$.MaxSize') as max_size,
+              JSON_EXTRACT(Properties, '$.MinSize') as min_size,
+              JSON_EXTRACT(Properties, '$.Latest') as latest,
+              JSON_EXTRACT(Properties, '$.Tags') as tags
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
     observability_configurations:
       name: observability_configurations
       id: aws.apprunner.observability_configurations

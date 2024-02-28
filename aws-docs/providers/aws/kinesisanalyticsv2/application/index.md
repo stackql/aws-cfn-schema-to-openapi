@@ -43,6 +43,32 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+<pre>
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:ListTagsForResource</pre>
+
+### Update
+<pre>
+kinesisanalytics:UpdateApplication,
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:TagResource,
+kinesisanalytics:UntagResource,
+kinesisanalytics:AddApplicationVpcConfiguration,
+kinesisanalytics:DeleteApplicationVpcConfiguration,
+kinesisanalytics:UpdateApplicationMaintenanceConfiguration,
+kinesisanalytics:ListTagsForResource</pre>
+
+### Delete
+<pre>
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:DeleteApplication</pre>
+
+
 ## Example
 ```sql
 SELECT

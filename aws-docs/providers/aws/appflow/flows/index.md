@@ -35,6 +35,34 @@ Retrieves a list of <code>flows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flows</code> resource, the following permissions are required:
+
+### Create
+<pre>
+appflow:CreateFlow,
+appflow:StartFlow,
+appflow:TagResource,
+appflow:ListTagsForResource,
+appflow:UseConnectorProfile,
+iam:PassRole,
+s3:ListAllMyBuckets,
+s3:GetBucketLocation,
+s3:GetBucketPolicy,
+kms:ListGrants,
+kms:ListKeys,
+kms:DescribeKey,
+kms:ListAliases,
+kms:CreateGrant,
+secretsmanager:CreateSecret,
+secretsmanager:PutResourcePolicy</pre>
+
+### List
+<pre>
+appflow:ListFlows</pre>
+
+
 ## Example
 ```sql
 SELECT

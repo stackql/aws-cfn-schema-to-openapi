@@ -41,6 +41,30 @@ Gets an individual <code>pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>pipeline</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribePipeline,
+sagemaker:ListTags</pre>
+
+### Update
+<pre>
+iam:PassRole,
+s3:GetObject,
+sagemaker:UpdatePipeline,
+sagemaker:DescribePipeline,
+sagemaker:AddTags,
+sagemaker:DeleteTags,
+sagemaker:ListTags</pre>
+
+### Delete
+<pre>
+sagemaker:DeletePipeline</pre>
+
+
 ## Example
 ```sql
 SELECT

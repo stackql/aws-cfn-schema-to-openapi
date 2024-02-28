@@ -35,6 +35,21 @@ Retrieves a list of <code>assessment_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assessment_templates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+inspector:CreateAssessmentTemplate,
+inspector:ListAssessmentTemplates,
+inspector:DescribeAssessmentTemplates</pre>
+
+### List
+<pre>
+inspector:ListAssessmentTemplates</pre>
+
+
 ## Example
 ```sql
 SELECT

@@ -37,6 +37,24 @@ Gets an individual <code>fleet</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>fleet</code> resource, the following permissions are required:
+
+### Read
+<pre>
+robomaker:DescribeFleet</pre>
+
+### Delete
+<pre>
+robomaker:DeleteFleet</pre>
+
+### Update
+<pre>
+robomaker:TagResource,
+robomaker:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

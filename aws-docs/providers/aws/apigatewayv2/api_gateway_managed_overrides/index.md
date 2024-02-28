@@ -39,6 +39,10 @@ Gets an individual <code>api_gateway_managed_overrides</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+
+
+
+
 ## Example
 ```sql
 SELECT

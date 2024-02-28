@@ -46,6 +46,30 @@ Gets an individual <code>service_network_vpc_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>service_network_vpc_association</code> resource, the following permissions are required:
+
+### Read
+<pre>
+vpc-lattice:GetServiceNetworkVpcAssociation,
+vpc-lattice:ListTagsForResource</pre>
+
+### Update
+<pre>
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+vpc-lattice:GetServiceNetworkVpcAssociation,
+vpc-lattice:UpdateServiceNetworkVpcAssociation,
+ec2:DescribeSecurityGroups,
+vpc-lattice:ListTagsForResource</pre>
+
+### Delete
+<pre>
+vpc-lattice:DeleteServiceNetworkVpcAssociation,
+vpc-lattice:GetServiceNetworkVpcAssociation</pre>
+
+
 ## Example
 ```sql
 SELECT

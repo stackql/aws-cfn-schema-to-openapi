@@ -47,6 +47,26 @@ Gets an individual <code>assessment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>assessment</code> resource, the following permissions are required:
+
+### Read
+<pre>
+auditmanager:GetAssessment</pre>
+
+### Update
+<pre>
+auditmanager:UpdateAssessment,
+auditmanager:UpdateAssessmentStatus,
+auditmanager:BatchCreateDelegationByAssessment,
+auditmanager:BatchDeleteDelegationByAssessment</pre>
+
+### Delete
+<pre>
+auditmanager:DeleteAssessment</pre>
+
+
 ## Example
 ```sql
 SELECT

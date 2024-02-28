@@ -28,8 +28,8 @@ Gets an individual <code>continuous_deployment_policy</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>continuous_deployment_policy_config</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>last_modified_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>last_modified_time</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -37,13 +37,32 @@ Gets an individual <code>continuous_deployment_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>continuous_deployment_policy</code> resource, the following permissions are required:
+
+### Delete
+<pre>
+cloudfront:DeleteContinuousDeploymentPolicy,
+cloudfront:GetContinuousDeploymentPolicy</pre>
+
+### Read
+<pre>
+cloudfront:GetContinuousDeploymentPolicy</pre>
+
+### Update
+<pre>
+cloudfront:UpdateContinuousDeploymentPolicy,
+cloudfront:GetContinuousDeploymentPolicy</pre>
+
+
 ## Example
 ```sql
 SELECT
 region,
 continuous_deployment_policy_config,
-last_modified_time,
-id
+id,
+last_modified_time
 FROM aws.cloudfront.continuous_deployment_policy
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;Id&gt;'

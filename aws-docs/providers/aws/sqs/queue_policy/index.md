@@ -28,14 +28,27 @@ Gets an individual <code>queue_policy</code> resource
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>policy_document</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>queues</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>policy_document</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>queues</code></td><td><code>array</code></td><td>The URLs of the queues to which you want to add the policy. You can use the ``Ref`` function to specify an ``AWS::SQS::Queue`` resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>queue_policy</code> resource, the following permissions are required:
+
+### Update
+<pre>
+sqs:SetQueueAttributes</pre>
+
+### Delete
+<pre>
+sqs:SetQueueAttributes</pre>
+
 
 ## Example
 ```sql

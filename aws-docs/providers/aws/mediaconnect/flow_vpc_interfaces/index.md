@@ -36,6 +36,21 @@ Retrieves a list of <code>flow_vpc_interfaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>flow_vpc_interfaces</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+mediaconnect:DescribeFlow,
+mediaconnect:AddFlowVpcInterfaces</pre>
+
+### List
+<pre>
+mediaconnect:DescribeFlow</pre>
+
+
 ## Example
 ```sql
 SELECT

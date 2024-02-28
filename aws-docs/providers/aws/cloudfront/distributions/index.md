@@ -35,6 +35,23 @@ Retrieves a list of <code>distributions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>distributions</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudfront:CreateDistribution,
+cloudfront:CreateDistributionWithTags,
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig,
+cloudfront:TagResource</pre>
+
+### List
+<pre>
+cloudfront:ListDistributions</pre>
+
+
 ## Example
 ```sql
 SELECT

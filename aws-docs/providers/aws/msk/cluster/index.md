@@ -48,6 +48,55 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Update
+<pre>
+kafka:UpdateMonitoring,
+kafka:UpdateClusterKafkaVersion,
+kafka:UpdateClusterConfiguration,
+kafka:UpdateBrokerType,
+kafka:UpdateBrokerCount,
+kafka:UpdateBrokerStorage,
+kafka:UpdateStorage,
+kafka:UpdateSecurity,
+kafka:UpdateConnectivity,
+kafka:DescribeCluster,
+kafka:DescribeClusterOperation,
+kafka:TagResource,
+kafka:UntagResource,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+ec2:DescribeSecurityGroups,
+iam:AttachRolePolicy,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+kms:DescribeKey,
+kms:CreateGrant,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+s3:GetBucketPolicy,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+firehose:TagDeliveryStream,
+acm-pca:GetCertificateAuthorityCertificate</pre>
+
+### Delete
+<pre>
+kafka:DeleteCluster,
+kafka:DescribeCluster</pre>
+
+### Read
+<pre>
+kafka:DescribeCluster</pre>
+
+
 ## Example
 ```sql
 SELECT

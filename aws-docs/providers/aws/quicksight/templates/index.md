@@ -36,6 +36,25 @@ Retrieves a list of <code>templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>templates</code> resource, the following permissions are required:
+
+### Create
+<pre>
+quicksight:DescribeTemplate,
+quicksight:DescribeTemplatePermissions,
+quicksight:CreateTemplate,
+quicksight:DescribeAnalysis,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource</pre>
+
+### List
+<pre>
+quicksight:ListTemplates</pre>
+
+
 ## Example
 ```sql
 SELECT

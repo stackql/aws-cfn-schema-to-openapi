@@ -35,6 +35,28 @@ Retrieves a list of <code>studios</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>studios</code> resource, the following permissions are required:
+
+### Create
+<pre>
+iam:PassRole,
+nimble:CreateStudio,
+nimble:GetStudio,
+nimble:TagResource,
+sso:CreateManagedApplicationInstance,
+kms:Encrypt,
+kms:Decrypt,
+kms:CreateGrant,
+kms:ListGrants,
+kms:GenerateDataKey</pre>
+
+### List
+<pre>
+nimble:ListStudios</pre>
+
+
 ## Example
 ```sql
 SELECT

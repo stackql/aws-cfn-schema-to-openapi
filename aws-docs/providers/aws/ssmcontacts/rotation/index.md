@@ -41,6 +41,33 @@ Gets an individual <code>rotation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>rotation</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ssm-contacts:GetRotation,
+ssm-contacts:TagResource,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource</pre>
+
+### Update
+<pre>
+ssm-contacts:UpdateRotation,
+ssm-contacts:GetRotation,
+ssm-contacts:TagResource,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource</pre>
+
+### Delete
+<pre>
+ssm-contacts:DeleteRotation,
+ssm-contacts:GetRotation,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource</pre>
+
+
 ## Example
 ```sql
 SELECT

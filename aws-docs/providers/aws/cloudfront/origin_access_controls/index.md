@@ -35,6 +35,19 @@ Retrieves a list of <code>origin_access_controls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>origin_access_controls</code> resource, the following permissions are required:
+
+### Create
+<pre>
+cloudfront:CreateOriginAccessControl</pre>
+
+### List
+<pre>
+cloudfront:ListOriginAccessControls</pre>
+
+
 ## Example
 ```sql
 SELECT

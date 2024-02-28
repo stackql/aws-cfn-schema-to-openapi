@@ -32,12 +32,35 @@ Gets an individual <code>space</code> resource
 <tr><td><code>space_name</code></td><td><code>string</code></td><td>A name for the Space.</td></tr>
 <tr><td><code>space_settings</code></td><td><code>object</code></td><td>A collection of settings.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>A list of tags to apply to the space.</td></tr>
+<tr><td><code>ownership_settings</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>space_sharing_settings</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>space_display_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>url</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
+
+## Permissions
+
+To operate on the <code>space</code> resource, the following permissions are required:
+
+### Read
+<pre>
+sagemaker:DescribeSpace</pre>
+
+### Update
+<pre>
+sagemaker:UpdateSpace,
+sagemaker:DescribeSpace</pre>
+
+### Delete
+<pre>
+sagemaker:DeleteSpace,
+sagemaker:DescribeSpace</pre>
+
 
 ## Example
 ```sql
@@ -47,7 +70,11 @@ space_arn,
 domain_id,
 space_name,
 space_settings,
-tags
+tags,
+ownership_settings,
+space_sharing_settings,
+space_display_name,
+url
 FROM aws.sagemaker.space
 WHERE region = 'us-east-1'
 AND data__Identifier = '&lt;DomainId&gt;'

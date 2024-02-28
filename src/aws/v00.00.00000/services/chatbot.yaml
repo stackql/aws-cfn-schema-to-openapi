@@ -17,7 +17,7 @@ components:
         TeamsChannelId:
           description: The id of the Microsoft Teams channel
           type: string
-          pattern: ^([a-zA-Z0-9-_=+/.,])*%3a([a-zA-Z0-9-_=+/.,])*%40([a-zA-Z0-9-_=+/.,])*$
+          pattern: ^([a-zA-Z0-9-_=+/.,])*%3[aA]([a-zA-Z0-9-_=+/.,])*%40([a-zA-Z0-9-_=+/.,])*$
           minLength: 1
           maxLength: 256
         TeamsTenantId:
@@ -72,6 +72,27 @@ components:
       x-stackql-resource-name: microsoft_teams_channel_configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - TeamId
+        - TeamsTenantId
+        - ConfigurationName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - chatbot:CreateMicrosoftTeamsChannelConfiguration
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+        read:
+          - chatbot:GetMicrosoftTeamsChannelConfiguration
+        update:
+          - chatbot:UpdateMicrosoftTeamsChannelConfiguration
+          - iam:PassRole
+        delete:
+          - chatbot:GetMicrosoftTeamsChannelConfiguration
+          - chatbot:DeleteMicrosoftTeamsChannelConfiguration
+        list:
+          - chatbot:ListMicrosoftTeamsChannelConfigurations
     SlackChannelConfiguration:
       type: object
       properties:
@@ -132,6 +153,25 @@ components:
       x-stackql-resource-name: slack_channel_configuration
       x-stackql-primaryIdentifier:
         - Arn
+      x-create-only-properties:
+        - SlackWorkspaceId
+        - ConfigurationName
+      x-read-only-properties:
+        - Arn
+      x-required-permissions:
+        create:
+          - chatbot:CreateSlackChannelConfiguration
+          - iam:PassRole
+          - iam:CreateServiceLinkedRole
+        read:
+          - chatbot:DescribeSlackChannelConfigurations
+        update:
+          - chatbot:UpdateSlackChannelConfiguration
+          - iam:PassRole
+        delete:
+          - chatbot:DeleteSlackChannelConfiguration
+        list:
+          - chatbot:DescribeSlackChannelConfigurations
   x-stackQL-resources:
     microsoft_teams_channel_configurations:
       name: microsoft_teams_channel_configurations

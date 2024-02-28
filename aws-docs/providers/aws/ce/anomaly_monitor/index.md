@@ -44,6 +44,23 @@ Gets an individual <code>anomaly_monitor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Permissions
+
+To operate on the <code>anomaly_monitor</code> resource, the following permissions are required:
+
+### Read
+<pre>
+ce:GetAnomalyMonitors</pre>
+
+### Update
+<pre>
+ce:UpdateAnomalyMonitor</pre>
+
+### Delete
+<pre>
+ce:DeleteAnomalyMonitor</pre>
+
+
 ## Example
 ```sql
 SELECT
