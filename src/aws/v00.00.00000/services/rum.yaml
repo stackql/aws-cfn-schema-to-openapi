@@ -399,8 +399,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RUM::AppMonitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RUM::AppMonitor'
     app_monitor:
       name: app_monitor
       id: aws.rum.app_monitor
@@ -423,3 +430,16 @@ components:
               JSON_EXTRACT(Properties, '$.AppMonitorConfiguration') as app_monitor_configuration,
               JSON_EXTRACT(Properties, '$.CustomEvents') as custom_events
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RUM::AppMonitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'CwLogEnabled') as cw_log_enabled,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AppMonitorConfiguration') as app_monitor_configuration,
+                json_extract_path_text(Properties, 'CustomEvents') as custom_events
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RUM::AppMonitor'

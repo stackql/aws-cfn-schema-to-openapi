@@ -154,8 +154,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceGroups::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceGroups::Group'
     group:
       name: group
       id: aws.resourcegroups.group
@@ -178,3 +185,16 @@ components:
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.Resources') as resources
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceGroups::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ResourceQuery') as resource_query,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'Resources') as resources
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceGroups::Group'

@@ -386,8 +386,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn
+              JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::NotificationChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::NotificationChannel'
     notification_channel:
       name: notification_channel
       id: aws.fms.notification_channel
@@ -405,6 +412,14 @@ components:
               JSON_EXTRACT(Properties, '$.SnsRoleName') as sns_role_name,
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::NotificationChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SnsRoleName') as sns_role_name,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::NotificationChannel'
     policies:
       name: policies
       id: aws.fms.policies
@@ -419,8 +434,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::Policy'
     policy:
       name: policy
       id: aws.fms.policy
@@ -452,6 +474,28 @@ components:
               JSON_EXTRACT(Properties, '$.ResourcesCleanUp') as resources_clean_up,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExcludeMap') as exclude_map,
+                json_extract_path_text(Properties, 'ExcludeResourceTags') as exclude_resource_tags,
+                json_extract_path_text(Properties, 'IncludeMap') as include_map,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyDescription') as policy_description,
+                json_extract_path_text(Properties, 'RemediationEnabled') as remediation_enabled,
+                json_extract_path_text(Properties, 'ResourceTags') as resource_tags,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'ResourceTypeList') as resource_type_list,
+                json_extract_path_text(Properties, 'ResourceSetIds') as resource_set_ids,
+                json_extract_path_text(Properties, 'SecurityServicePolicyData') as security_service_policy_data,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DeleteAllPolicyResources') as delete_all_policy_resources,
+                json_extract_path_text(Properties, 'ResourcesCleanUp') as resources_clean_up,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::Policy'
     resource_sets:
       name: resource_sets
       id: aws.fms.resource_sets
@@ -466,8 +510,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::ResourceSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FMS::ResourceSet'
     resource_set:
       name: resource_set
       id: aws.fms.resource_set
@@ -489,3 +540,15 @@ components:
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::ResourceSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ResourceTypeList') as resource_type_list,
+                json_extract_path_text(Properties, 'Resources') as resources,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FMS::ResourceSet'

@@ -885,8 +885,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
     listener:
       name: listener
       id: aws.elasticloadbalancingv2.listener
@@ -911,6 +918,21 @@ components:
               JSON_EXTRACT(Properties, '$.AlpnPolicy') as alpn_policy,
               JSON_EXTRACT(Properties, '$.MutualAuthentication') as mutual_authentication
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SslPolicy') as ssl_policy,
+                json_extract_path_text(Properties, 'LoadBalancerArn') as load_balancer_arn,
+                json_extract_path_text(Properties, 'DefaultActions') as default_actions,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'Certificates') as certificates,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_arn,
+                json_extract_path_text(Properties, 'AlpnPolicy') as alpn_policy,
+                json_extract_path_text(Properties, 'MutualAuthentication') as mutual_authentication
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::Listener'
     listener_certificates:
       name: listener_certificates
       id: aws.elasticloadbalancingv2.listener_certificates
@@ -925,8 +947,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
     listener_certificate:
       name: listener_certificate
       id: aws.elasticloadbalancingv2.listener_certificate
@@ -945,6 +974,15 @@ components:
               JSON_EXTRACT(Properties, '$.Certificates') as certificates,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_arn,
+                json_extract_path_text(Properties, 'Certificates') as certificates,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerCertificate'
     listener_rules:
       name: listener_rules
       id: aws.elasticloadbalancingv2.listener_rules
@@ -959,8 +997,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn
+              JSON_EXTRACT(Properties, '$.RuleArn') as rule_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleArn') as rule_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
     listener_rule:
       name: listener_rule
       id: aws.elasticloadbalancingv2.listener_rule
@@ -982,6 +1027,18 @@ components:
               JSON_EXTRACT(Properties, '$.Conditions') as conditions,
               JSON_EXTRACT(Properties, '$.IsDefault') as is_default
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_arn,
+                json_extract_path_text(Properties, 'RuleArn') as rule_arn,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'Conditions') as conditions,
+                json_extract_path_text(Properties, 'IsDefault') as is_default
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::ListenerRule'
     load_balancers:
       name: load_balancers
       id: aws.elasticloadbalancingv2.load_balancers
@@ -996,8 +1053,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LoadBalancerArn') as load_balancer_arn
+              JSON_EXTRACT(Properties, '$.LoadBalancerArn') as load_balancer_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LoadBalancerArn') as load_balancer_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.elasticloadbalancingv2.load_balancer
@@ -1028,6 +1092,27 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetMappings') as subnet_mappings,
               JSON_EXTRACT(Properties, '$.EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic') as enforce_security_group_inbound_rules_on_private_link_traffic
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IpAddressType') as ip_address_type,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'LoadBalancerAttributes') as load_balancer_attributes,
+                json_extract_path_text(Properties, 'Scheme') as scheme,
+                json_extract_path_text(Properties, 'DNSName') as d_ns_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_name,
+                json_extract_path_text(Properties, 'LoadBalancerFullName') as load_balancer_full_name,
+                json_extract_path_text(Properties, 'Subnets') as subnets,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'CanonicalHostedZoneID') as canonical_hosted_zone_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LoadBalancerArn') as load_balancer_arn,
+                json_extract_path_text(Properties, 'SubnetMappings') as subnet_mappings,
+                json_extract_path_text(Properties, 'EnforceSecurityGroupInboundRulesOnPrivateLinkTraffic') as enforce_security_group_inbound_rules_on_private_link_traffic
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::LoadBalancer'
     target_groups:
       name: target_groups
       id: aws.elasticloadbalancingv2.target_groups
@@ -1042,8 +1127,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TargetGroupArn') as target_group_arn
+              JSON_EXTRACT(Properties, '$.TargetGroupArn') as target_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetGroupArn') as target_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'
     target_group:
       name: target_group
       id: aws.elasticloadbalancingv2.target_group
@@ -1082,6 +1174,35 @@ components:
               JSON_EXTRACT(Properties, '$.TargetGroupName') as target_group_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IpAddressType') as ip_address_type,
+                json_extract_path_text(Properties, 'HealthCheckIntervalSeconds') as health_check_interval_seconds,
+                json_extract_path_text(Properties, 'LoadBalancerArns') as load_balancer_arns,
+                json_extract_path_text(Properties, 'Matcher') as matcher,
+                json_extract_path_text(Properties, 'HealthCheckPath') as health_check_path,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'HealthCheckEnabled') as health_check_enabled,
+                json_extract_path_text(Properties, 'ProtocolVersion') as protocol_version,
+                json_extract_path_text(Properties, 'UnhealthyThresholdCount') as unhealthy_threshold_count,
+                json_extract_path_text(Properties, 'HealthCheckTimeoutSeconds') as health_check_timeout_seconds,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'TargetGroupFullName') as target_group_full_name,
+                json_extract_path_text(Properties, 'HealthyThresholdCount') as healthy_threshold_count,
+                json_extract_path_text(Properties, 'HealthCheckProtocol') as health_check_protocol,
+                json_extract_path_text(Properties, 'TargetGroupAttributes') as target_group_attributes,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'HealthCheckPort') as health_check_port,
+                json_extract_path_text(Properties, 'TargetGroupArn') as target_group_arn,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'TargetGroupName') as target_group_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TargetGroup'
     trust_stores:
       name: trust_stores
       id: aws.elasticloadbalancingv2.trust_stores
@@ -1096,8 +1217,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_arn
+              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStore'
     trust_store:
       name: trust_store
       id: aws.elasticloadbalancingv2.trust_store
@@ -1121,6 +1249,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'CaCertificatesBundleS3Bucket') as ca_certificates_bundle_s3_bucket,
+                json_extract_path_text(Properties, 'CaCertificatesBundleS3Key') as ca_certificates_bundle_s3_key,
+                json_extract_path_text(Properties, 'CaCertificatesBundleS3ObjectVersion') as ca_certificates_bundle_s3_object_version,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'NumberOfCaCertificates') as number_of_ca_certificates,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStore'
     trust_store_revocations:
       name: trust_store_revocations
       id: aws.elasticloadbalancingv2.trust_store_revocations
@@ -1137,8 +1279,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.RevocationId') as revocation_id,
-              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_arn
+              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStoreRevocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RevocationId') as revocation_id,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStoreRevocation'
     trust_store_revocation:
       name: trust_store_revocation
       id: aws.elasticloadbalancingv2.trust_store_revocation
@@ -1159,3 +1309,13 @@ components:
               JSON_EXTRACT(Properties, '$.RevocationId') as revocation_id,
               JSON_EXTRACT(Properties, '$.TrustStoreRevocations') as trust_store_revocations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStoreRevocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RevocationContents') as revocation_contents,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_arn,
+                json_extract_path_text(Properties, 'RevocationId') as revocation_id,
+                json_extract_path_text(Properties, 'TrustStoreRevocations') as trust_store_revocations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancingV2::TrustStoreRevocation'

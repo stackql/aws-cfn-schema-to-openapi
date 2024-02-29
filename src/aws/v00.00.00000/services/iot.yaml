@@ -3073,8 +3073,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
     account_audit_configuration:
       name: account_audit_configuration
       id: aws.iot.account_audit_configuration
@@ -3094,6 +3101,16 @@ components:
               JSON_EXTRACT(Properties, '$.AuditNotificationTargetConfigurations') as audit_notification_target_configurations,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'AuditCheckConfigurations') as audit_check_configurations,
+                json_extract_path_text(Properties, 'AuditNotificationTargetConfigurations') as audit_notification_target_configurations,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::AccountAuditConfiguration'
     authorizers:
       name: authorizers
       id: aws.iot.authorizers
@@ -3108,8 +3125,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AuthorizerName') as authorizer_name
+              JSON_EXTRACT(Properties, '$.AuthorizerName') as authorizer_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Authorizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthorizerName') as authorizer_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Authorizer'
     authorizer:
       name: authorizer
       id: aws.iot.authorizer
@@ -3134,6 +3158,21 @@ components:
               JSON_EXTRACT(Properties, '$.EnableCachingForHttp') as enable_caching_for_http,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Authorizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthorizerFunctionArn') as authorizer_function_arn,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AuthorizerName') as authorizer_name,
+                json_extract_path_text(Properties, 'SigningDisabled') as signing_disabled,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'TokenKeyName') as token_key_name,
+                json_extract_path_text(Properties, 'TokenSigningPublicKeys') as token_signing_public_keys,
+                json_extract_path_text(Properties, 'EnableCachingForHttp') as enable_caching_for_http,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Authorizer'
     billing_groups:
       name: billing_groups
       id: aws.iot.billing_groups
@@ -3148,8 +3187,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BillingGroupName') as billing_group_name
+              JSON_EXTRACT(Properties, '$.BillingGroupName') as billing_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::BillingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BillingGroupName') as billing_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::BillingGroup'
     billing_group:
       name: billing_group
       id: aws.iot.billing_group
@@ -3170,6 +3216,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.BillingGroupProperties') as billing_group_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::BillingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BillingGroupName') as billing_group_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'BillingGroupProperties') as billing_group_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::BillingGroup'
     ca_certificates:
       name: ca_certificates
       id: aws.iot.ca_certificates
@@ -3184,8 +3241,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CACertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CACertificate'
     ca_certificate:
       name: ca_certificate
       id: aws.iot.ca_certificate
@@ -3211,6 +3275,22 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CACertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CACertificatePem') as c_acertificate_pem,
+                json_extract_path_text(Properties, 'VerificationCertificatePem') as verification_certificate_pem,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'CertificateMode') as certificate_mode,
+                json_extract_path_text(Properties, 'AutoRegistrationStatus') as auto_registration_status,
+                json_extract_path_text(Properties, 'RemoveAutoRegistration') as remove_auto_registration,
+                json_extract_path_text(Properties, 'RegistrationConfig') as registration_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CACertificate'
     certificates:
       name: certificates
       id: aws.iot.certificates
@@ -3225,8 +3305,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Certificate'
     certificate:
       name: certificate
       id: aws.iot.certificate
@@ -3249,6 +3336,19 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CACertificatePem') as c_acertificate_pem,
+                json_extract_path_text(Properties, 'CertificatePem') as certificate_pem,
+                json_extract_path_text(Properties, 'CertificateSigningRequest') as certificate_signing_request,
+                json_extract_path_text(Properties, 'CertificateMode') as certificate_mode,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Certificate'
     certificate_providers:
       name: certificate_providers
       id: aws.iot.certificate_providers
@@ -3263,8 +3363,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CertificateProviderName') as certificate_provider_name
+              JSON_EXTRACT(Properties, '$.CertificateProviderName') as certificate_provider_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateProviderName') as certificate_provider_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
     certificate_provider:
       name: certificate_provider
       id: aws.iot.certificate_provider
@@ -3285,6 +3392,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateProviderName') as certificate_provider_name,
+                json_extract_path_text(Properties, 'LambdaFunctionArn') as lambda_function_arn,
+                json_extract_path_text(Properties, 'AccountDefaultForOperations') as account_default_for_operations,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CertificateProvider'
     custom_metrics:
       name: custom_metrics
       id: aws.iot.custom_metrics
@@ -3299,8 +3417,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MetricName') as metric_name
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CustomMetric'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MetricName') as metric_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::CustomMetric'
     custom_metric:
       name: custom_metric
       id: aws.iot.custom_metric
@@ -3321,6 +3446,17 @@ components:
               JSON_EXTRACT(Properties, '$.MetricArn') as metric_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CustomMetric'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'MetricType') as metric_type,
+                json_extract_path_text(Properties, 'MetricArn') as metric_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::CustomMetric'
     dimensions:
       name: dimensions
       id: aws.iot.dimensions
@@ -3335,8 +3471,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Dimension'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Dimension'
     dimension:
       name: dimension
       id: aws.iot.dimension
@@ -3357,6 +3500,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Dimension'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'StringValues') as string_values,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Dimension'
     domain_configurations:
       name: domain_configurations
       id: aws.iot.domain_configurations
@@ -3371,8 +3525,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DomainConfigurationName') as domain_configuration_name
+              JSON_EXTRACT(Properties, '$.DomainConfigurationName') as domain_configuration_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainConfigurationName') as domain_configuration_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
     domain_configuration:
       name: domain_configuration
       id: aws.iot.domain_configuration
@@ -3401,6 +3562,25 @@ components:
               JSON_EXTRACT(Properties, '$.TlsConfig') as tls_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainConfigurationName') as domain_configuration_name,
+                json_extract_path_text(Properties, 'AuthorizerConfig') as authorizer_config,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'ServerCertificateArns') as server_certificate_arns,
+                json_extract_path_text(Properties, 'ServiceType') as service_type,
+                json_extract_path_text(Properties, 'ValidationCertificateArn') as validation_certificate_arn,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DomainConfigurationStatus') as domain_configuration_status,
+                json_extract_path_text(Properties, 'DomainType') as domain_type,
+                json_extract_path_text(Properties, 'ServerCertificateConfig') as server_certificate_config,
+                json_extract_path_text(Properties, 'ServerCertificates') as server_certificates,
+                json_extract_path_text(Properties, 'TlsConfig') as tls_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::DomainConfiguration'
     fleet_metrics:
       name: fleet_metrics
       id: aws.iot.fleet_metrics
@@ -3415,8 +3595,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MetricName') as metric_name
+              JSON_EXTRACT(Properties, '$.MetricName') as metric_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::FleetMetric'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MetricName') as metric_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::FleetMetric'
     fleet_metric:
       name: fleet_metric
       id: aws.iot.fleet_metric
@@ -3446,6 +3633,26 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::FleetMetric'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'QueryString') as query_string,
+                json_extract_path_text(Properties, 'Period') as period,
+                json_extract_path_text(Properties, 'AggregationField') as aggregation_field,
+                json_extract_path_text(Properties, 'QueryVersion') as query_version,
+                json_extract_path_text(Properties, 'IndexName') as index_name,
+                json_extract_path_text(Properties, 'Unit') as unit,
+                json_extract_path_text(Properties, 'AggregationType') as aggregation_type,
+                json_extract_path_text(Properties, 'MetricArn') as metric_arn,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'LastModifiedDate') as last_modified_date,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::FleetMetric'
     job_templates:
       name: job_templates
       id: aws.iot.job_templates
@@ -3460,8 +3667,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobTemplateId') as job_template_id
+              JSON_EXTRACT(Properties, '$.JobTemplateId') as job_template_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::JobTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobTemplateId') as job_template_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::JobTemplate'
     job_template:
       name: job_template
       id: aws.iot.job_template
@@ -3491,6 +3705,26 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationPackageVersions') as destination_package_versions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::JobTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'JobArn') as job_arn,
+                json_extract_path_text(Properties, 'JobTemplateId') as job_template_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Document') as document,
+                json_extract_path_text(Properties, 'DocumentSource') as document_source,
+                json_extract_path_text(Properties, 'TimeoutConfig') as timeout_config,
+                json_extract_path_text(Properties, 'JobExecutionsRolloutConfig') as job_executions_rollout_config,
+                json_extract_path_text(Properties, 'AbortConfig') as abort_config,
+                json_extract_path_text(Properties, 'PresignedUrlConfig') as presigned_url_config,
+                json_extract_path_text(Properties, 'JobExecutionsRetryConfig') as job_executions_retry_config,
+                json_extract_path_text(Properties, 'MaintenanceWindows') as maintenance_windows,
+                json_extract_path_text(Properties, 'DestinationPackageVersions') as destination_package_versions,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::JobTemplate'
     loggings:
       name: loggings
       id: aws.iot.loggings
@@ -3505,8 +3739,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Logging'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Logging'
     logging:
       name: logging
       id: aws.iot.logging
@@ -3525,6 +3766,15 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.DefaultLogLevel') as default_log_level
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Logging'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'DefaultLogLevel') as default_log_level
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Logging'
     mitigation_actions:
       name: mitigation_actions
       id: aws.iot.mitigation_actions
@@ -3539,8 +3789,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ActionName') as action_name
+              JSON_EXTRACT(Properties, '$.ActionName') as action_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::MitigationAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ActionName') as action_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::MitigationAction'
     mitigation_action:
       name: mitigation_action
       id: aws.iot.mitigation_action
@@ -3562,6 +3819,18 @@ components:
               JSON_EXTRACT(Properties, '$.MitigationActionArn') as mitigation_action_arn,
               JSON_EXTRACT(Properties, '$.MitigationActionId') as mitigation_action_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::MitigationAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ActionName') as action_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ActionParams') as action_params,
+                json_extract_path_text(Properties, 'MitigationActionArn') as mitigation_action_arn,
+                json_extract_path_text(Properties, 'MitigationActionId') as mitigation_action_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::MitigationAction'
     policies:
       name: policies
       id: aws.iot.policies
@@ -3576,8 +3845,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Policy'
     policy:
       name: policy
       id: aws.iot.policy
@@ -3598,6 +3874,17 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Policy'
     policy_principal_attachments:
       name: policy_principal_attachments
       id: aws.iot.policy_principal_attachments
@@ -3612,8 +3899,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
     policy_principal_attachment:
       name: policy_principal_attachment
       id: aws.iot.policy_principal_attachment
@@ -3632,6 +3926,15 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.Principal') as principal
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'Principal') as principal
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::PolicyPrincipalAttachment'
     provisioning_templates:
       name: provisioning_templates
       id: aws.iot.provisioning_templates
@@ -3646,8 +3949,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TemplateName') as template_name
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TemplateName') as template_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
     provisioning_template:
       name: provisioning_template
       id: aws.iot.provisioning_template
@@ -3672,6 +3982,21 @@ components:
               JSON_EXTRACT(Properties, '$.PreProvisioningHook') as pre_provisioning_hook,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TemplateArn') as template_arn,
+                json_extract_path_text(Properties, 'TemplateName') as template_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ProvisioningRoleArn') as provisioning_role_arn,
+                json_extract_path_text(Properties, 'TemplateBody') as template_body,
+                json_extract_path_text(Properties, 'TemplateType') as template_type,
+                json_extract_path_text(Properties, 'PreProvisioningHook') as pre_provisioning_hook,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ProvisioningTemplate'
     resource_specific_loggings:
       name: resource_specific_loggings
       id: aws.iot.resource_specific_loggings
@@ -3686,8 +4011,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TargetId') as target_id
+              JSON_EXTRACT(Properties, '$.TargetId') as target_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetId') as target_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
     resource_specific_logging:
       name: resource_specific_logging
       id: aws.iot.resource_specific_logging
@@ -3707,6 +4039,16 @@ components:
               JSON_EXTRACT(Properties, '$.LogLevel') as log_level,
               JSON_EXTRACT(Properties, '$.TargetId') as target_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'TargetName') as target_name,
+                json_extract_path_text(Properties, 'LogLevel') as log_level,
+                json_extract_path_text(Properties, 'TargetId') as target_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ResourceSpecificLogging'
     role_aliases:
       name: role_aliases
       id: aws.iot.role_aliases
@@ -3721,8 +4063,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RoleAlias') as role_alias
+              JSON_EXTRACT(Properties, '$.RoleAlias') as role_ali
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::RoleAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleAlias') as role_ali
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::RoleAlias'
     role_alias:
       name: role_alias
       id: aws.iot.role_alias
@@ -3743,6 +4092,17 @@ components:
               JSON_EXTRACT(Properties, '$.CredentialDurationSeconds') as credential_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::RoleAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleAlias') as role_alias,
+                json_extract_path_text(Properties, 'RoleAliasArn') as role_alias_arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'CredentialDurationSeconds') as credential_duration_seconds,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::RoleAlias'
     scheduled_audits:
       name: scheduled_audits
       id: aws.iot.scheduled_audits
@@ -3757,8 +4117,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ScheduledAuditName') as scheduled_audit_name
+              JSON_EXTRACT(Properties, '$.ScheduledAuditName') as scheduled_audit_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScheduledAuditName') as scheduled_audit_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
     scheduled_audit:
       name: scheduled_audit
       id: aws.iot.scheduled_audit
@@ -3781,6 +4148,19 @@ components:
               JSON_EXTRACT(Properties, '$.ScheduledAuditArn') as scheduled_audit_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScheduledAuditName') as scheduled_audit_name,
+                json_extract_path_text(Properties, 'Frequency') as frequency,
+                json_extract_path_text(Properties, 'DayOfMonth') as day_of_month,
+                json_extract_path_text(Properties, 'DayOfWeek') as day_of_week,
+                json_extract_path_text(Properties, 'TargetCheckNames') as target_check_names,
+                json_extract_path_text(Properties, 'ScheduledAuditArn') as scheduled_audit_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ScheduledAudit'
     security_profiles:
       name: security_profiles
       id: aws.iot.security_profiles
@@ -3795,8 +4175,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SecurityProfileName') as security_profile_name
+              JSON_EXTRACT(Properties, '$.SecurityProfileName') as security_profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SecurityProfileName') as security_profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
     security_profile:
       name: security_profile
       id: aws.iot.security_profile
@@ -3821,6 +4208,21 @@ components:
               JSON_EXTRACT(Properties, '$.TargetArns') as target_arns,
               JSON_EXTRACT(Properties, '$.SecurityProfileArn') as security_profile_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SecurityProfileName') as security_profile_name,
+                json_extract_path_text(Properties, 'SecurityProfileDescription') as security_profile_description,
+                json_extract_path_text(Properties, 'Behaviors') as behaviors,
+                json_extract_path_text(Properties, 'AlertTargets') as alert_targets,
+                json_extract_path_text(Properties, 'AdditionalMetricsToRetainV2') as additional_metrics_to_retain_v2,
+                json_extract_path_text(Properties, 'MetricsExportConfig') as metrics_export_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TargetArns') as target_arns,
+                json_extract_path_text(Properties, 'SecurityProfileArn') as security_profile_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SecurityProfile'
     software_packages:
       name: software_packages
       id: aws.iot.software_packages
@@ -3835,8 +4237,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PackageName') as package_name
+              JSON_EXTRACT(Properties, '$.PackageName') as package_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PackageName') as package_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
     software_package:
       name: software_package
       id: aws.iot.software_package
@@ -3856,6 +4265,16 @@ components:
               JSON_EXTRACT(Properties, '$.PackageName') as package_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PackageArn') as package_arn,
+                json_extract_path_text(Properties, 'PackageName') as package_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackage'
     software_package_versions:
       name: software_package_versions
       id: aws.iot.software_package_versions
@@ -3872,8 +4291,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PackageName') as package_name,
-              JSON_EXTRACT(Properties, '$.VersionName') as version_name
+              JSON_EXTRACT(Properties, '$.VersionName') as version_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PackageName') as package_name,
+                json_extract_path_text(Properties, 'VersionName') as version_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
     software_package_version:
       name: software_package_version
       id: aws.iot.software_package_version
@@ -3898,6 +4325,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VersionName') as version_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Attributes') as attributes,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ErrorReason') as error_reason,
+                json_extract_path_text(Properties, 'PackageName') as package_name,
+                json_extract_path_text(Properties, 'PackageVersionArn') as package_version_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VersionName') as version_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::SoftwarePackageVersion'
     things:
       name: things
       id: aws.iot.things
@@ -3912,8 +4353,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ThingName') as thing_name
+              JSON_EXTRACT(Properties, '$.ThingName') as thing_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Thing'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ThingName') as thing_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::Thing'
     thing:
       name: thing
       id: aws.iot.thing
@@ -3933,6 +4381,16 @@ components:
               JSON_EXTRACT(Properties, '$.AttributePayload') as attribute_payload,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Thing'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AttributePayload') as attribute_payload,
+                json_extract_path_text(Properties, 'ThingName') as thing_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::Thing'
     thing_groups:
       name: thing_groups
       id: aws.iot.thing_groups
@@ -3947,8 +4405,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ThingGroupName') as thing_group_name
+              JSON_EXTRACT(Properties, '$.ThingGroupName') as thing_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ThingGroupName') as thing_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingGroup'
     thing_group:
       name: thing_group
       id: aws.iot.thing_group
@@ -3971,6 +4436,19 @@ components:
               JSON_EXTRACT(Properties, '$.ThingGroupProperties') as thing_group_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ThingGroupName') as thing_group_name,
+                json_extract_path_text(Properties, 'ParentGroupName') as parent_group_name,
+                json_extract_path_text(Properties, 'QueryString') as query_string,
+                json_extract_path_text(Properties, 'ThingGroupProperties') as thing_group_properties,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingGroup'
     thing_principal_attachments:
       name: thing_principal_attachments
       id: aws.iot.thing_principal_attachments
@@ -3985,8 +4463,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
     thing_principal_attachment:
       name: thing_principal_attachment
       id: aws.iot.thing_principal_attachment
@@ -4005,6 +4490,15 @@ components:
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Principal') as principal,
+                json_extract_path_text(Properties, 'ThingName') as thing_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingPrincipalAttachment'
     thing_types:
       name: thing_types
       id: aws.iot.thing_types
@@ -4019,8 +4513,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ThingTypeName') as thing_type_name
+              JSON_EXTRACT(Properties, '$.ThingTypeName') as thing_type_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ThingTypeName') as thing_type_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::ThingType'
     thing_type:
       name: thing_type
       id: aws.iot.thing_type
@@ -4042,6 +4543,18 @@ components:
               JSON_EXTRACT(Properties, '$.ThingTypeProperties') as thing_type_properties,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ThingTypeName') as thing_type_name,
+                json_extract_path_text(Properties, 'DeprecateThingType') as deprecate_thing_type,
+                json_extract_path_text(Properties, 'ThingTypeProperties') as thing_type_properties,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::ThingType'
     topic_rules:
       name: topic_rules
       id: aws.iot.topic_rules
@@ -4056,8 +4569,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RuleName') as rule_name
+              JSON_EXTRACT(Properties, '$.RuleName') as rule_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleName') as rule_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRule'
     topic_rule:
       name: topic_rule
       id: aws.iot.topic_rule
@@ -4077,6 +4597,16 @@ components:
               JSON_EXTRACT(Properties, '$.TopicRulePayload') as topic_rule_payload,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RuleName') as rule_name,
+                json_extract_path_text(Properties, 'TopicRulePayload') as topic_rule_payload,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRule'
     topic_rule_destinations:
       name: topic_rule_destinations
       id: aws.iot.topic_rule_destinations
@@ -4091,8 +4621,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'
     topic_rule_destination:
       name: topic_rule_destination
       id: aws.iot.topic_rule_destination
@@ -4113,3 +4650,14 @@ components:
               JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
               JSON_EXTRACT(Properties, '$.VpcProperties') as vpc_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'HttpUrlProperties') as http_url_properties,
+                json_extract_path_text(Properties, 'StatusReason') as status_reason,
+                json_extract_path_text(Properties, 'VpcProperties') as vpc_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT::TopicRuleDestination'

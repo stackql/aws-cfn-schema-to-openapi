@@ -130,8 +130,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
     job_template:
       name: job_template
       id: aws.mediaconvert.job_template
@@ -159,6 +166,24 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Category') as category,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AccelerationSettings') as acceleration_settings,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'StatusUpdateInterval') as status_update_interval,
+                json_extract_path_text(Properties, 'SettingsJson') as settings_json,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Queue') as queue,
+                json_extract_path_text(Properties, 'HopDestinations') as hop_destinations,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::JobTemplate'
     presets:
       name: presets
       id: aws.mediaconvert.presets
@@ -173,8 +198,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Preset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Preset'
     preset:
       name: preset
       id: aws.mediaconvert.preset
@@ -197,6 +229,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Preset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Category') as category,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SettingsJson') as settings_json,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Preset'
     queues:
       name: queues
       id: aws.mediaconvert.queues
@@ -211,8 +256,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Queue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConvert::Queue'
     queue:
       name: queue
       id: aws.mediaconvert.queue
@@ -235,3 +287,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Queue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConvert::Queue'

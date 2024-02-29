@@ -444,8 +444,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationInstanceId') as application_instance_id
+              JSON_EXTRACT(Properties, '$.ApplicationInstanceId') as application_instance_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationInstanceId') as application_instance_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
     application_instance:
       name: application_instance
       id: aws.panorama.application_instance
@@ -477,6 +484,28 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DefaultRuntimeContextDeviceName') as default_runtime_context_device_name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'DefaultRuntimeContextDevice') as default_runtime_context_device,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ApplicationInstanceIdToReplace') as application_instance_id_to_replace,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'HealthStatus') as health_status,
+                json_extract_path_text(Properties, 'ManifestOverridesPayload') as manifest_overrides_payload,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'RuntimeRoleArn') as runtime_role_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ApplicationInstanceId') as application_instance_id,
+                json_extract_path_text(Properties, 'StatusDescription') as status_description,
+                json_extract_path_text(Properties, 'ManifestPayload') as manifest_payload,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::ApplicationInstance'
     packages:
       name: packages
       id: aws.panorama.packages
@@ -491,8 +520,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PackageId') as package_id
+              JSON_EXTRACT(Properties, '$.PackageId') as package_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::Package'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PackageId') as package_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::Package'
     package:
       name: package
       id: aws.panorama.package
@@ -514,6 +550,18 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::Package'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PackageName') as package_name,
+                json_extract_path_text(Properties, 'PackageId') as package_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'StorageLocation') as storage_location,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::Package'
     package_versions:
       name: package_versions
       id: aws.panorama.package_versions
@@ -532,8 +580,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.PackageId') as package_id,
               JSON_EXTRACT(Properties, '$.PackageVersion') as package_version,
-              JSON_EXTRACT(Properties, '$.PatchVersion') as patch_version
+              JSON_EXTRACT(Properties, '$.PatchVersion') as patch_versi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::PackageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PackageId') as package_id,
+                json_extract_path_text(Properties, 'PackageVersion') as package_version,
+                json_extract_path_text(Properties, 'PatchVersion') as patch_versi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Panorama::PackageVersion'
     package_version:
       name: package_version
       id: aws.panorama.package_version
@@ -563,3 +620,21 @@ components:
               JSON_EXTRACT(Properties, '$.RegisteredTime') as registered_time,
               JSON_EXTRACT(Properties, '$.UpdatedLatestPatchVersion') as updated_latest_patch_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::PackageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OwnerAccount') as owner_account,
+                json_extract_path_text(Properties, 'PackageId') as package_id,
+                json_extract_path_text(Properties, 'PackageArn') as package_arn,
+                json_extract_path_text(Properties, 'PackageVersion') as package_version,
+                json_extract_path_text(Properties, 'PatchVersion') as patch_version,
+                json_extract_path_text(Properties, 'MarkLatest') as mark_latest,
+                json_extract_path_text(Properties, 'IsLatestPatch') as is_latest_patch,
+                json_extract_path_text(Properties, 'PackageName') as package_name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusDescription') as status_description,
+                json_extract_path_text(Properties, 'RegisteredTime') as registered_time,
+                json_extract_path_text(Properties, 'UpdatedLatestPatchVersion') as updated_latest_patch_version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Panorama::PackageVersion'

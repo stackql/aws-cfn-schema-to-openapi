@@ -597,8 +597,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
     alarm:
       name: alarm
       id: aws.cloudwatch.alarm
@@ -636,6 +643,34 @@ components:
               JSON_EXTRACT(Properties, '$.DatapointsToAlarm') as datapoints_to_alarm,
               JSON_EXTRACT(Properties, '$.Threshold') as threshold
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ThresholdMetricId') as threshold_metric_id,
+                json_extract_path_text(Properties, 'EvaluateLowSampleCountPercentile') as evaluate_low_sample_count_percentile,
+                json_extract_path_text(Properties, 'ExtendedStatistic') as extended_statistic,
+                json_extract_path_text(Properties, 'ComparisonOperator') as comparison_operator,
+                json_extract_path_text(Properties, 'TreatMissingData') as treat_missing_data,
+                json_extract_path_text(Properties, 'Dimensions') as dimensions,
+                json_extract_path_text(Properties, 'Period') as period,
+                json_extract_path_text(Properties, 'EvaluationPeriods') as evaluation_periods,
+                json_extract_path_text(Properties, 'Unit') as unit,
+                json_extract_path_text(Properties, 'Namespace') as namespace,
+                json_extract_path_text(Properties, 'OKActions') as o_kactions,
+                json_extract_path_text(Properties, 'AlarmActions') as alarm_actions,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'ActionsEnabled') as actions_enabled,
+                json_extract_path_text(Properties, 'Metrics') as metrics,
+                json_extract_path_text(Properties, 'AlarmDescription') as alarm_description,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_name,
+                json_extract_path_text(Properties, 'Statistic') as statistic,
+                json_extract_path_text(Properties, 'InsufficientDataActions') as insufficient_data_actions,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DatapointsToAlarm') as datapoints_to_alarm,
+                json_extract_path_text(Properties, 'Threshold') as threshold
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Alarm'
     anomaly_detectors:
       name: anomaly_detectors
       id: aws.cloudwatch.anomaly_detectors
@@ -650,8 +685,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
     anomaly_detector:
       name: anomaly_detector
       id: aws.cloudwatch.anomaly_detector
@@ -675,6 +717,20 @@ components:
               JSON_EXTRACT(Properties, '$.Namespace') as namespace,
               JSON_EXTRACT(Properties, '$.SingleMetricAnomalyDetector') as single_metric_anomaly_detector
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'Stat') as stat,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'MetricMathAnomalyDetector') as metric_math_anomaly_detector,
+                json_extract_path_text(Properties, 'Dimensions') as dimensions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Namespace') as namespace,
+                json_extract_path_text(Properties, 'SingleMetricAnomalyDetector') as single_metric_anomaly_detector
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::AnomalyDetector'
     composite_alarms:
       name: composite_alarms
       id: aws.cloudwatch.composite_alarms
@@ -689,8 +745,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
     composite_alarm:
       name: composite_alarm
       id: aws.cloudwatch.composite_alarm
@@ -717,6 +780,23 @@ components:
               JSON_EXTRACT(Properties, '$.ActionsSuppressorWaitPeriod') as actions_suppressor_wait_period,
               JSON_EXTRACT(Properties, '$.ActionsSuppressorExtensionPeriod') as actions_suppressor_extension_period
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_name,
+                json_extract_path_text(Properties, 'AlarmRule') as alarm_rule,
+                json_extract_path_text(Properties, 'AlarmDescription') as alarm_description,
+                json_extract_path_text(Properties, 'ActionsEnabled') as actions_enabled,
+                json_extract_path_text(Properties, 'OKActions') as o_kactions,
+                json_extract_path_text(Properties, 'AlarmActions') as alarm_actions,
+                json_extract_path_text(Properties, 'InsufficientDataActions') as insufficient_data_actions,
+                json_extract_path_text(Properties, 'ActionsSuppressor') as actions_suppressor,
+                json_extract_path_text(Properties, 'ActionsSuppressorWaitPeriod') as actions_suppressor_wait_period,
+                json_extract_path_text(Properties, 'ActionsSuppressorExtensionPeriod') as actions_suppressor_extension_period
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::CompositeAlarm'
     dashboards:
       name: dashboards
       id: aws.cloudwatch.dashboards
@@ -731,8 +811,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
     dashboard:
       name: dashboard
       id: aws.cloudwatch.dashboard
@@ -751,6 +838,15 @@ components:
               JSON_EXTRACT(Properties, '$.DashboardBody') as dashboard_body,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DashboardName') as dashboard_name,
+                json_extract_path_text(Properties, 'DashboardBody') as dashboard_body,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::Dashboard'
     insight_rules:
       name: insight_rules
       id: aws.cloudwatch.insight_rules
@@ -765,8 +861,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
     insight_rule:
       name: insight_rule
       id: aws.cloudwatch.insight_rule
@@ -788,6 +891,18 @@ components:
               JSON_EXTRACT(Properties, '$.RuleName') as rule_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleState') as rule_state,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RuleBody') as rule_body,
+                json_extract_path_text(Properties, 'RuleName') as rule_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::InsightRule'
     metric_streams:
       name: metric_streams
       id: aws.cloudwatch.metric_streams
@@ -802,8 +917,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'
     metric_stream:
       name: metric_stream
       id: aws.cloudwatch.metric_stream
@@ -832,3 +954,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IncludeLinkedAccountsMetrics') as include_linked_accounts_metrics
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'ExcludeFilters') as exclude_filters,
+                json_extract_path_text(Properties, 'FirehoseArn') as firehose_arn,
+                json_extract_path_text(Properties, 'IncludeFilters') as include_filters,
+                json_extract_path_text(Properties, 'LastUpdateDate') as last_update_date,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'OutputFormat') as output_format,
+                json_extract_path_text(Properties, 'StatisticsConfigurations') as statistics_configurations,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'IncludeLinkedAccountsMetrics') as include_linked_accounts_metrics
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudWatch::MetricStream'

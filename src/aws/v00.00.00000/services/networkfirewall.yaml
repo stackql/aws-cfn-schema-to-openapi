@@ -987,8 +987,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_arn
+              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallArn') as firewall_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
     firewall:
       name: firewall
       id: aws.networkfirewall.firewall
@@ -1016,6 +1023,24 @@ components:
               JSON_EXTRACT(Properties, '$.EndpointIds') as endpoint_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallName') as firewall_name,
+                json_extract_path_text(Properties, 'FirewallArn') as firewall_arn,
+                json_extract_path_text(Properties, 'FirewallId') as firewall_id,
+                json_extract_path_text(Properties, 'FirewallPolicyArn') as firewall_policy_arn,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'SubnetMappings') as subnet_mappings,
+                json_extract_path_text(Properties, 'DeleteProtection') as delete_protection,
+                json_extract_path_text(Properties, 'SubnetChangeProtection') as subnet_change_protection,
+                json_extract_path_text(Properties, 'FirewallPolicyChangeProtection') as firewall_policy_change_protection,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EndpointIds') as endpoint_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::Firewall'
     firewall_policies:
       name: firewall_policies
       id: aws.networkfirewall.firewall_policies
@@ -1030,8 +1055,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FirewallPolicyArn') as firewall_policy_arn
+              JSON_EXTRACT(Properties, '$.FirewallPolicyArn') as firewall_policy_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallPolicyArn') as firewall_policy_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
     firewall_policy:
       name: firewall_policy
       id: aws.networkfirewall.firewall_policy
@@ -1053,6 +1085,18 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallPolicyName') as firewall_policy_name,
+                json_extract_path_text(Properties, 'FirewallPolicyArn') as firewall_policy_arn,
+                json_extract_path_text(Properties, 'FirewallPolicy') as firewall_policy,
+                json_extract_path_text(Properties, 'FirewallPolicyId') as firewall_policy_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::FirewallPolicy'
     logging_configurations:
       name: logging_configurations
       id: aws.networkfirewall.logging_configurations
@@ -1067,8 +1111,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_arn
+              JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallArn') as firewall_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.networkfirewall.logging_configuration
@@ -1087,6 +1138,15 @@ components:
               JSON_EXTRACT(Properties, '$.FirewallArn') as firewall_arn,
               JSON_EXTRACT(Properties, '$.LoggingConfiguration') as logging_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FirewallName') as firewall_name,
+                json_extract_path_text(Properties, 'FirewallArn') as firewall_arn,
+                json_extract_path_text(Properties, 'LoggingConfiguration') as logging_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::LoggingConfiguration'
     rule_groups:
       name: rule_groups
       id: aws.networkfirewall.rule_groups
@@ -1101,8 +1161,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RuleGroupArn') as rule_group_arn
+              JSON_EXTRACT(Properties, '$.RuleGroupArn') as rule_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleGroupArn') as rule_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'
     rule_group:
       name: rule_group
       id: aws.networkfirewall.rule_group
@@ -1126,6 +1193,20 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleGroupName') as rule_group_name,
+                json_extract_path_text(Properties, 'RuleGroupArn') as rule_group_arn,
+                json_extract_path_text(Properties, 'RuleGroupId') as rule_group_id,
+                json_extract_path_text(Properties, 'RuleGroup') as rule_group,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Capacity') as capacity,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::RuleGroup'
     tls_inspection_configurations:
       name: tls_inspection_configurations
       id: aws.networkfirewall.tls_inspection_configurations
@@ -1140,8 +1221,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TLSInspectionConfigurationArn') as t_ls_inspection_configuration_arn
+              JSON_EXTRACT(Properties, '$.TLSInspectionConfigurationArn') as t_ls_inspection_configuration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::TLSInspectionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TLSInspectionConfigurationArn') as t_ls_inspection_configuration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkFirewall::TLSInspectionConfiguration'
     tls_inspection_configuration:
       name: tls_inspection_configuration
       id: aws.networkfirewall.tls_inspection_configuration
@@ -1163,3 +1251,15 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::TLSInspectionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TLSInspectionConfigurationName') as t_ls_inspection_configuration_name,
+                json_extract_path_text(Properties, 'TLSInspectionConfigurationArn') as t_ls_inspection_configuration_arn,
+                json_extract_path_text(Properties, 'TLSInspectionConfiguration') as t_ls_inspection_configuration,
+                json_extract_path_text(Properties, 'TLSInspectionConfigurationId') as t_ls_inspection_configuration_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkFirewall::TLSInspectionConfiguration'

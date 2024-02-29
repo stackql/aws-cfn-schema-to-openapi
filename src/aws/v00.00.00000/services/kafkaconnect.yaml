@@ -404,8 +404,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn
+              JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KafkaConnect::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KafkaConnect::Connector'
     connector:
       name: connector
       id: aws.kafkaconnect.connector
@@ -434,3 +441,22 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
               JSON_EXTRACT(Properties, '$.WorkerConfiguration') as worker_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KafkaConnect::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Capacity') as capacity,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'ConnectorConfiguration') as connector_configuration,
+                json_extract_path_text(Properties, 'ConnectorDescription') as connector_description,
+                json_extract_path_text(Properties, 'ConnectorName') as connector_name,
+                json_extract_path_text(Properties, 'KafkaCluster') as kafka_cluster,
+                json_extract_path_text(Properties, 'KafkaClusterClientAuthentication') as kafka_cluster_client_authentication,
+                json_extract_path_text(Properties, 'KafkaClusterEncryptionInTransit') as kafka_cluster_encryption_in_transit,
+                json_extract_path_text(Properties, 'KafkaConnectVersion') as kafka_connect_version,
+                json_extract_path_text(Properties, 'LogDelivery') as log_delivery,
+                json_extract_path_text(Properties, 'Plugins') as plugins,
+                json_extract_path_text(Properties, 'ServiceExecutionRoleArn') as service_execution_role_arn,
+                json_extract_path_text(Properties, 'WorkerConfiguration') as worker_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KafkaConnect::Connector'

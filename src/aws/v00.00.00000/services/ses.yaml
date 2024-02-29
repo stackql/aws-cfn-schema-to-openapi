@@ -770,8 +770,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ConfigurationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ConfigurationSet'
     configuration_set:
       name: configuration_set
       id: aws.ses.configuration_set
@@ -794,6 +801,19 @@ components:
               JSON_EXTRACT(Properties, '$.SuppressionOptions') as suppression_options,
               JSON_EXTRACT(Properties, '$.VdmOptions') as vdm_options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TrackingOptions') as tracking_options,
+                json_extract_path_text(Properties, 'DeliveryOptions') as delivery_options,
+                json_extract_path_text(Properties, 'ReputationOptions') as reputation_options,
+                json_extract_path_text(Properties, 'SendingOptions') as sending_options,
+                json_extract_path_text(Properties, 'SuppressionOptions') as suppression_options,
+                json_extract_path_text(Properties, 'VdmOptions') as vdm_options
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSet'
     configuration_set_event_destinations:
       name: configuration_set_event_destinations
       id: aws.ses.configuration_set_event_destinations
@@ -808,8 +828,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ConfigurationSetEventDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ConfigurationSetEventDestination'
     configuration_set_event_destination:
       name: configuration_set_event_destination
       id: aws.ses.configuration_set_event_destination
@@ -828,6 +855,15 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationSetName') as configuration_set_name,
               JSON_EXTRACT(Properties, '$.EventDestination') as event_destination
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSetEventDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ConfigurationSetName') as configuration_set_name,
+                json_extract_path_text(Properties, 'EventDestination') as event_destination
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ConfigurationSetEventDestination'
     contact_lists:
       name: contact_lists
       id: aws.ses.contact_lists
@@ -842,8 +878,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ContactListName') as contact_list_name
+              JSON_EXTRACT(Properties, '$.ContactListName') as contact_list_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ContactList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ContactListName') as contact_list_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ContactList'
     contact_list:
       name: contact_list
       id: aws.ses.contact_list
@@ -863,6 +906,16 @@ components:
               JSON_EXTRACT(Properties, '$.Topics') as topics,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ContactList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ContactListName') as contact_list_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Topics') as topics,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ContactList'
     dedicated_ip_pools:
       name: dedicated_ip_pools
       id: aws.ses.dedicated_ip_pools
@@ -877,8 +930,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PoolName') as pool_name
+              JSON_EXTRACT(Properties, '$.PoolName') as pool_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::DedicatedIpPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PoolName') as pool_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::DedicatedIpPool'
     dedicated_ip_pool:
       name: dedicated_ip_pool
       id: aws.ses.dedicated_ip_pool
@@ -896,6 +956,14 @@ components:
               JSON_EXTRACT(Properties, '$.PoolName') as pool_name,
               JSON_EXTRACT(Properties, '$.ScalingMode') as scaling_mode
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::DedicatedIpPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PoolName') as pool_name,
+                json_extract_path_text(Properties, 'ScalingMode') as scaling_mode
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::DedicatedIpPool'
     email_identities:
       name: email_identities
       id: aws.ses.email_identities
@@ -910,8 +978,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EmailIdentity') as email_identity
+              JSON_EXTRACT(Properties, '$.EmailIdentity') as email_identi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::EmailIdentity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EmailIdentity') as email_identi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::EmailIdentity'
     email_identity:
       name: email_identity
       id: aws.ses.email_identity
@@ -939,6 +1014,24 @@ components:
               JSON_EXTRACT(Properties, '$.DkimDNSTokenValue2') as dkim_dn_stoken_value2,
               JSON_EXTRACT(Properties, '$.DkimDNSTokenValue3') as dkim_dn_stoken_value3
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::EmailIdentity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EmailIdentity') as email_identity,
+                json_extract_path_text(Properties, 'ConfigurationSetAttributes') as configuration_set_attributes,
+                json_extract_path_text(Properties, 'DkimSigningAttributes') as dkim_signing_attributes,
+                json_extract_path_text(Properties, 'DkimAttributes') as dkim_attributes,
+                json_extract_path_text(Properties, 'MailFromAttributes') as mail_from_attributes,
+                json_extract_path_text(Properties, 'FeedbackAttributes') as feedback_attributes,
+                json_extract_path_text(Properties, 'DkimDNSTokenName1') as dkim_dn_stoken_name1,
+                json_extract_path_text(Properties, 'DkimDNSTokenName2') as dkim_dn_stoken_name2,
+                json_extract_path_text(Properties, 'DkimDNSTokenName3') as dkim_dn_stoken_name3,
+                json_extract_path_text(Properties, 'DkimDNSTokenValue1') as dkim_dn_stoken_value1,
+                json_extract_path_text(Properties, 'DkimDNSTokenValue2') as dkim_dn_stoken_value2,
+                json_extract_path_text(Properties, 'DkimDNSTokenValue3') as dkim_dn_stoken_value3
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::EmailIdentity'
     receipt_filters:
       name: receipt_filters
       id: aws.ses.receipt_filters
@@ -953,8 +1046,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptFilter'
     receipt_filter:
       name: receipt_filter
       id: aws.ses.receipt_filter
@@ -972,6 +1072,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Filter') as filter
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Filter') as filter
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptFilter'
     receipt_rules:
       name: receipt_rules
       id: aws.ses.receipt_rules
@@ -986,8 +1094,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptRule'
     receipt_rule:
       name: receipt_rule
       id: aws.ses.receipt_rule
@@ -1007,6 +1122,16 @@ components:
               JSON_EXTRACT(Properties, '$.Rule') as rule,
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'After') as after,
+                json_extract_path_text(Properties, 'Rule') as rule,
+                json_extract_path_text(Properties, 'RuleSetName') as rule_set_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptRule'
     receipt_rule_sets:
       name: receipt_rule_sets
       id: aws.ses.receipt_rule_sets
@@ -1021,8 +1146,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptRuleSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::ReceiptRuleSet'
     receipt_rule_set:
       name: receipt_rule_set
       id: aws.ses.receipt_rule_set
@@ -1040,6 +1172,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptRuleSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RuleSetName') as rule_set_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::ReceiptRuleSet'
     templates:
       name: templates
       id: aws.ses.templates
@@ -1054,8 +1194,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SES::Template'
     template:
       name: template
       id: aws.ses.template
@@ -1073,6 +1220,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Template') as template
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Template') as template
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::Template'
     vdm_attributes:
       name: vdm_attributes
       id: aws.ses.vdm_attributes
@@ -1091,3 +1246,12 @@ components:
               JSON_EXTRACT(Properties, '$.DashboardAttributes') as dashboard_attributes,
               JSON_EXTRACT(Properties, '$.GuardianAttributes') as guardian_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::VdmAttributes'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VdmAttributesResourceId') as vdm_attributes_resource_id,
+                json_extract_path_text(Properties, 'DashboardAttributes') as dashboard_attributes,
+                json_extract_path_text(Properties, 'GuardianAttributes') as guardian_attributes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SES::VdmAttributes'

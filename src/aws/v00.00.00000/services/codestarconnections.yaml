@@ -253,8 +253,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_arn
+              JSON_EXTRACT(Properties, '$.ConnectionArn') as connection_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'
     connection:
       name: connection
       id: aws.codestarconnections.connection
@@ -277,6 +284,19 @@ components:
               JSON_EXTRACT(Properties, '$.HostArn') as host_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'ConnectionName') as connection_name,
+                json_extract_path_text(Properties, 'ConnectionStatus') as connection_status,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'ProviderType') as provider_type,
+                json_extract_path_text(Properties, 'HostArn') as host_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::Connection'
     repository_links:
       name: repository_links
       id: aws.codestarconnections.repository_links
@@ -291,8 +311,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RepositoryLinkArn') as repository_link_arn
+              JSON_EXTRACT(Properties, '$.RepositoryLinkArn') as repository_link_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::RepositoryLink'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RepositoryLinkArn') as repository_link_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::RepositoryLink'
     repository_link:
       name: repository_link
       id: aws.codestarconnections.repository_link
@@ -316,6 +343,20 @@ components:
               JSON_EXTRACT(Properties, '$.RepositoryLinkArn') as repository_link_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::RepositoryLink'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'ProviderType') as provider_type,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'EncryptionKeyArn') as encryption_key_arn,
+                json_extract_path_text(Properties, 'RepositoryLinkId') as repository_link_id,
+                json_extract_path_text(Properties, 'RepositoryLinkArn') as repository_link_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::RepositoryLink'
     sync_configurations:
       name: sync_configurations
       id: aws.codestarconnections.sync_configurations
@@ -332,8 +373,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ResourceName') as resource_name,
-              JSON_EXTRACT(Properties, '$.SyncType') as sync_type
+              JSON_EXTRACT(Properties, '$.SyncType') as sync_ty
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::SyncConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceName') as resource_name,
+                json_extract_path_text(Properties, 'SyncType') as sync_ty
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarConnections::SyncConfiguration'
     sync_configuration:
       name: sync_configuration
       id: aws.codestarconnections.sync_configuration
@@ -359,3 +408,18 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.RepositoryLinkId') as repository_link_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::SyncConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'ResourceName') as resource_name,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'ProviderType') as provider_type,
+                json_extract_path_text(Properties, 'Branch') as branch,
+                json_extract_path_text(Properties, 'ConfigFile') as config_file,
+                json_extract_path_text(Properties, 'SyncType') as sync_type,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'RepositoryLinkId') as repository_link_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarConnections::SyncConfiguration'

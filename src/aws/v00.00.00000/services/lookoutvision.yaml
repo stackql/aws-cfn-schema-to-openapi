@@ -55,8 +55,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutVision::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProjectName') as project_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutVision::Project'
     project:
       name: project
       id: aws.lookoutvision.project
@@ -74,3 +81,11 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ProjectName') as project_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutVision::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ProjectName') as project_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutVision::Project'

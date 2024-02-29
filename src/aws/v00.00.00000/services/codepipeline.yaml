@@ -538,8 +538,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Category') as category,
               JSON_EXTRACT(Properties, '$.Provider') as provider,
-              JSON_EXTRACT(Properties, '$.Version') as version
+              JSON_EXTRACT(Properties, '$.Version') as versi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Category') as category,
+                json_extract_path_text(Properties, 'Provider') as provider,
+                json_extract_path_text(Properties, 'Version') as versi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
     custom_action_type:
       name: custom_action_type
       id: aws.codepipeline.custom_action_type
@@ -566,6 +575,21 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Category') as category,
+                json_extract_path_text(Properties, 'ConfigurationProperties') as configuration_properties,
+                json_extract_path_text(Properties, 'InputArtifactDetails') as input_artifact_details,
+                json_extract_path_text(Properties, 'OutputArtifactDetails') as output_artifact_details,
+                json_extract_path_text(Properties, 'Provider') as provider,
+                json_extract_path_text(Properties, 'Settings') as settings,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::CustomActionType'
     pipelines:
       name: pipelines
       id: aws.codepipeline.pipelines
@@ -580,8 +604,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
     pipeline:
       name: pipeline
       id: aws.codepipeline.pipeline
@@ -611,6 +642,26 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ArtifactStores') as artifact_stores,
+                json_extract_path_text(Properties, 'DisableInboundStageTransitions') as disable_inbound_stage_transitions,
+                json_extract_path_text(Properties, 'Stages') as stages,
+                json_extract_path_text(Properties, 'ExecutionMode') as execution_mode,
+                json_extract_path_text(Properties, 'RestartExecutionOnUpdate') as restart_execution_on_update,
+                json_extract_path_text(Properties, 'Triggers') as triggers,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Variables') as variables,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'ArtifactStore') as artifact_store,
+                json_extract_path_text(Properties, 'PipelineType') as pipeline_type,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Pipeline'
     webhooks:
       name: webhooks
       id: aws.codepipeline.webhooks
@@ -625,8 +676,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Webhook'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodePipeline::Webhook'
     webhook:
       name: webhook
       id: aws.codepipeline.webhook
@@ -652,3 +710,19 @@ components:
               JSON_EXTRACT(Properties, '$.TargetPipelineVersion') as target_pipeline_version,
               JSON_EXTRACT(Properties, '$.RegisterWithThirdParty') as register_with_third_party
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Webhook'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthenticationConfiguration') as authentication_configuration,
+                json_extract_path_text(Properties, 'Filters') as filters,
+                json_extract_path_text(Properties, 'Authentication') as authentication,
+                json_extract_path_text(Properties, 'TargetPipeline') as target_pipeline,
+                json_extract_path_text(Properties, 'TargetAction') as target_action,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TargetPipelineVersion') as target_pipeline_version,
+                json_extract_path_text(Properties, 'RegisterWithThirdParty') as register_with_third_party
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodePipeline::Webhook'

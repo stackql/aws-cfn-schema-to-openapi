@@ -492,8 +492,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRServerless::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMRServerless::Application'
     application:
       name: application
       id: aws.emrserverless.application
@@ -525,3 +532,25 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.WorkerTypeSpecifications') as worker_type_specifications
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMRServerless::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Architecture') as architecture,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ReleaseLabel') as release_label,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'InitialCapacity') as initial_capacity,
+                json_extract_path_text(Properties, 'MaximumCapacity') as maximum_capacity,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AutoStartConfiguration') as auto_start_configuration,
+                json_extract_path_text(Properties, 'AutoStopConfiguration') as auto_stop_configuration,
+                json_extract_path_text(Properties, 'ImageConfiguration') as image_configuration,
+                json_extract_path_text(Properties, 'MonitoringConfiguration') as monitoring_configuration,
+                json_extract_path_text(Properties, 'RuntimeConfiguration') as runtime_configuration,
+                json_extract_path_text(Properties, 'NetworkConfiguration') as network_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'WorkerTypeSpecifications') as worker_type_specifications
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMRServerless::Application'

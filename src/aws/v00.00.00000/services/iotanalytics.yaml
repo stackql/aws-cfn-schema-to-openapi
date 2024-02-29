@@ -839,8 +839,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DatasetName') as dataset_name
+              JSON_EXTRACT(Properties, '$.DatasetName') as dataset_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetName') as dataset_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
     dataset:
       name: dataset
       id: aws.iotanalytics.dataset
@@ -865,6 +872,21 @@ components:
               JSON_EXTRACT(Properties, '$.RetentionPeriod') as retention_period,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'LateDataRules') as late_data_rules,
+                json_extract_path_text(Properties, 'DatasetName') as dataset_name,
+                json_extract_path_text(Properties, 'ContentDeliveryRules') as content_delivery_rules,
+                json_extract_path_text(Properties, 'Triggers') as triggers,
+                json_extract_path_text(Properties, 'VersioningConfiguration') as versioning_configuration,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RetentionPeriod') as retention_period,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Dataset'
     pipelines:
       name: pipelines
       id: aws.iotanalytics.pipelines
@@ -879,8 +901,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_name
+              JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PipelineName') as pipeline_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'
     pipeline:
       name: pipeline
       id: aws.iotanalytics.pipeline
@@ -900,3 +929,13 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.PipelineActivities') as pipeline_activities
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PipelineName') as pipeline_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'PipelineActivities') as pipeline_activities
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTAnalytics::Pipeline'

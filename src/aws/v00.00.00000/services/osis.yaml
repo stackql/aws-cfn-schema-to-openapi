@@ -219,8 +219,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PipelineArn') as pipeline_arn
+              JSON_EXTRACT(Properties, '$.PipelineArn') as pipeline_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OSIS::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PipelineArn') as pipeline_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OSIS::Pipeline'
     pipeline:
       name: pipeline
       id: aws.osis.pipeline
@@ -248,3 +255,21 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineArn') as pipeline_arn,
               JSON_EXTRACT(Properties, '$.IngestEndpointUrls') as ingest_endpoint_urls
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OSIS::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BufferOptions') as buffer_options,
+                json_extract_path_text(Properties, 'EncryptionAtRestOptions') as encryption_at_rest_options,
+                json_extract_path_text(Properties, 'LogPublishingOptions') as log_publishing_options,
+                json_extract_path_text(Properties, 'MaxUnits') as max_units,
+                json_extract_path_text(Properties, 'MinUnits') as min_units,
+                json_extract_path_text(Properties, 'PipelineConfigurationBody') as pipeline_configuration_body,
+                json_extract_path_text(Properties, 'PipelineName') as pipeline_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcOptions') as vpc_options,
+                json_extract_path_text(Properties, 'VpcEndpoints') as vpc_endpoints,
+                json_extract_path_text(Properties, 'PipelineArn') as pipeline_arn,
+                json_extract_path_text(Properties, 'IngestEndpointUrls') as ingest_endpoint_urls
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OSIS::Pipeline'

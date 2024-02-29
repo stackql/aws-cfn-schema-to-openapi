@@ -1105,8 +1105,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Association'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationId') as association_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Association'
     association:
       name: association
       id: aws.ssm.association
@@ -1140,6 +1147,30 @@ components:
               JSON_EXTRACT(Properties, '$.CalendarNames') as calendar_names,
               JSON_EXTRACT(Properties, '$.ScheduleOffset') as schedule_offset
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Association'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationId') as association_id,
+                json_extract_path_text(Properties, 'AssociationName') as association_name,
+                json_extract_path_text(Properties, 'DocumentVersion') as document_version,
+                json_extract_path_text(Properties, 'InstanceId') as instance_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'ScheduleExpression') as schedule_expression,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'OutputLocation') as output_location,
+                json_extract_path_text(Properties, 'AutomationTargetParameterName') as automation_target_parameter_name,
+                json_extract_path_text(Properties, 'MaxErrors') as max_errors,
+                json_extract_path_text(Properties, 'MaxConcurrency') as max_concurrency,
+                json_extract_path_text(Properties, 'ComplianceSeverity') as compliance_severity,
+                json_extract_path_text(Properties, 'SyncCompliance') as sync_compliance,
+                json_extract_path_text(Properties, 'WaitForSuccessTimeoutSeconds') as wait_for_success_timeout_seconds,
+                json_extract_path_text(Properties, 'ApplyOnlyAtCronInterval') as apply_only_at_cron_interval,
+                json_extract_path_text(Properties, 'CalendarNames') as calendar_names,
+                json_extract_path_text(Properties, 'ScheduleOffset') as schedule_offset
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Association'
     documents:
       name: documents
       id: aws.ssm.documents
@@ -1154,8 +1185,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Document'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Document'
     document:
       name: document
       id: aws.ssm.document
@@ -1181,6 +1219,22 @@ components:
               JSON_EXTRACT(Properties, '$.Requires') as requires,
               JSON_EXTRACT(Properties, '$.UpdateMethod') as update_method
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Document'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'Attachments') as attachments,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'VersionName') as version_name,
+                json_extract_path_text(Properties, 'DocumentType') as document_type,
+                json_extract_path_text(Properties, 'DocumentFormat') as document_format,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Requires') as requires,
+                json_extract_path_text(Properties, 'UpdateMethod') as update_method
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Document'
     maintenance_windows:
       name: maintenance_windows
       id: aws.ssm.maintenance_windows
@@ -1195,8 +1249,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
     maintenance_window:
       name: maintenance_window
       id: aws.ssm.maintenance_window
@@ -1224,6 +1285,24 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.ScheduleTimezone') as schedule_timezone
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StartDate') as start_date,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AllowUnassociatedTargets') as allow_unassociated_targets,
+                json_extract_path_text(Properties, 'Cutoff') as cutoff,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'Duration') as duration,
+                json_extract_path_text(Properties, 'ScheduleOffset') as schedule_offset,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'EndDate') as end_date,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ScheduleTimezone') as schedule_timezone
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindow'
     maintenance_window_targets:
       name: maintenance_window_targets
       id: aws.ssm.maintenance_window_targets
@@ -1238,8 +1317,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
     maintenance_window_target:
       name: maintenance_window_target
       id: aws.ssm.maintenance_window_target
@@ -1262,6 +1348,19 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OwnerInformation') as owner_information,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'WindowId') as window_id,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTarget'
     maintenance_window_tasks:
       name: maintenance_window_tasks
       id: aws.ssm.maintenance_window_tasks
@@ -1276,8 +1375,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
     maintenance_window_task:
       name: maintenance_window_task
       id: aws.ssm.maintenance_window_task
@@ -1308,6 +1414,27 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LoggingInfo') as logging_info
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MaxErrors') as max_errors,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ServiceRoleArn') as service_role_arn,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'MaxConcurrency') as max_concurrency,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TaskArn') as task_arn,
+                json_extract_path_text(Properties, 'TaskInvocationParameters') as task_invocation_parameters,
+                json_extract_path_text(Properties, 'WindowId') as window_id,
+                json_extract_path_text(Properties, 'TaskParameters') as task_parameters,
+                json_extract_path_text(Properties, 'TaskType') as task_type,
+                json_extract_path_text(Properties, 'CutoffBehavior') as cutoff_behavior,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LoggingInfo') as logging_info
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::MaintenanceWindowTask'
     parameters:
       name: parameters
       id: aws.ssm.parameters
@@ -1322,8 +1449,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Parameter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::Parameter'
     parameter:
       name: parameter
       id: aws.ssm.parameter
@@ -1348,6 +1482,21 @@ components:
               JSON_EXTRACT(Properties, '$.DataType') as data_type,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Parameter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Value') as value,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Policies') as policies,
+                json_extract_path_text(Properties, 'AllowedPattern') as allowed_pattern,
+                json_extract_path_text(Properties, 'Tier') as tier,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'DataType') as data_type,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::Parameter'
     patch_baselines:
       name: patch_baselines
       id: aws.ssm.patch_baselines
@@ -1362,8 +1511,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
     patch_baseline:
       name: patch_baseline
       id: aws.ssm.patch_baseline
@@ -1394,6 +1550,27 @@ components:
               JSON_EXTRACT(Properties, '$.GlobalFilters') as global_filters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DefaultBaseline') as default_baseline,
+                json_extract_path_text(Properties, 'OperatingSystem') as operating_system,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ApprovalRules') as approval_rules,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RejectedPatches') as rejected_patches,
+                json_extract_path_text(Properties, 'ApprovedPatches') as approved_patches,
+                json_extract_path_text(Properties, 'RejectedPatchesAction') as rejected_patches_action,
+                json_extract_path_text(Properties, 'PatchGroups') as patch_groups,
+                json_extract_path_text(Properties, 'ApprovedPatchesComplianceLevel') as approved_patches_compliance_level,
+                json_extract_path_text(Properties, 'ApprovedPatchesEnableNonSecurity') as approved_patches_enable_non_security,
+                json_extract_path_text(Properties, 'GlobalFilters') as global_filters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::PatchBaseline'
     resource_data_syncs:
       name: resource_data_syncs
       id: aws.ssm.resource_data_syncs
@@ -1408,8 +1585,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SyncName') as sync_name
+              JSON_EXTRACT(Properties, '$.SyncName') as sync_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SyncName') as sync_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
     resource_data_sync:
       name: resource_data_sync
       id: aws.ssm.resource_data_sync
@@ -1434,6 +1618,21 @@ components:
               JSON_EXTRACT(Properties, '$.SyncType') as sync_type,
               JSON_EXTRACT(Properties, '$.BucketPrefix') as bucket_prefix
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'S3Destination') as s3_destination,
+                json_extract_path_text(Properties, 'KMSKeyArn') as k_ms_key_arn,
+                json_extract_path_text(Properties, 'SyncSource') as sync_source,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'BucketRegion') as bucket_region,
+                json_extract_path_text(Properties, 'SyncFormat') as sync_format,
+                json_extract_path_text(Properties, 'SyncName') as sync_name,
+                json_extract_path_text(Properties, 'SyncType') as sync_type,
+                json_extract_path_text(Properties, 'BucketPrefix') as bucket_prefix
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourceDataSync'
     resource_policies:
       name: resource_policies
       id: aws.ssm.resource_policies
@@ -1450,8 +1649,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyId') as policy_id,
-              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyId') as policy_id,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.ssm.resource_policy
@@ -1472,3 +1679,13 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyId') as policy_id,
               JSON_EXTRACT(Properties, '$.PolicyHash') as policy_hash
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'PolicyId') as policy_id,
+                json_extract_path_text(Properties, 'PolicyHash') as policy_hash
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSM::ResourcePolicy'

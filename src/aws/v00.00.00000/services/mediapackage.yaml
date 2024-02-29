@@ -716,8 +716,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Asset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Asset'
     asset:
       name: asset
       id: aws.mediapackage.asset
@@ -742,6 +749,21 @@ components:
               JSON_EXTRACT(Properties, '$.SourceRoleArn') as source_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Asset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'EgressEndpoints') as egress_endpoints,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PackagingGroupId') as packaging_group_id,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'SourceArn') as source_arn,
+                json_extract_path_text(Properties, 'SourceRoleArn') as source_role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Asset'
     channels:
       name: channels
       id: aws.mediapackage.channels
@@ -756,8 +778,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::Channel'
     channel:
       name: channel
       id: aws.mediapackage.channel
@@ -780,6 +809,19 @@ components:
               JSON_EXTRACT(Properties, '$.EgressAccessLogs') as egress_access_logs,
               JSON_EXTRACT(Properties, '$.IngressAccessLogs') as ingress_access_logs
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'HlsIngest') as hls_ingest,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'EgressAccessLogs') as egress_access_logs,
+                json_extract_path_text(Properties, 'IngressAccessLogs') as ingress_access_logs
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::Channel'
     origin_endpoints:
       name: origin_endpoints
       id: aws.mediapackage.origin_endpoints
@@ -794,8 +836,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
     origin_endpoint:
       name: origin_endpoint
       id: aws.mediapackage.origin_endpoint
@@ -827,6 +876,28 @@ components:
               JSON_EXTRACT(Properties, '$.CmafPackage') as cmaf_package,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ChannelId') as channel_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Whitelist') as whitelist,
+                json_extract_path_text(Properties, 'StartoverWindowSeconds') as startover_window_seconds,
+                json_extract_path_text(Properties, 'TimeDelaySeconds') as time_delay_seconds,
+                json_extract_path_text(Properties, 'ManifestName') as manifest_name,
+                json_extract_path_text(Properties, 'Origination') as origination,
+                json_extract_path_text(Properties, 'Authorization') as authorization,
+                json_extract_path_text(Properties, 'HlsPackage') as hls_package,
+                json_extract_path_text(Properties, 'DashPackage') as dash_package,
+                json_extract_path_text(Properties, 'MssPackage') as mss_package,
+                json_extract_path_text(Properties, 'CmafPackage') as cmaf_package,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::OriginEndpoint'
     packaging_configurations:
       name: packaging_configurations
       id: aws.mediapackage.packaging_configurations
@@ -841,8 +912,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
     packaging_configuration:
       name: packaging_configuration
       id: aws.mediapackage.packaging_configuration
@@ -866,6 +944,20 @@ components:
               JSON_EXTRACT(Properties, '$.MssPackage') as mss_package,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PackagingGroupId') as packaging_group_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CmafPackage') as cmaf_package,
+                json_extract_path_text(Properties, 'DashPackage') as dash_package,
+                json_extract_path_text(Properties, 'HlsPackage') as hls_package,
+                json_extract_path_text(Properties, 'MssPackage') as mss_package,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingConfiguration'
     packaging_groups:
       name: packaging_groups
       id: aws.mediapackage.packaging_groups
@@ -880,8 +972,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'
     packaging_group:
       name: packaging_group
       id: aws.mediapackage.packaging_group
@@ -903,3 +1002,15 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.EgressAccessLogs') as egress_access_logs
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Authorization') as authorization,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'EgressAccessLogs') as egress_access_logs
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackage::PackagingGroup'

@@ -293,8 +293,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
     byte_match_set:
       name: byte_match_set
       id: aws.waf.byte_match_set
@@ -313,6 +320,15 @@ components:
               JSON_EXTRACT(Properties, '$.ByteMatchTuples') as byte_match_tuples,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ByteMatchTuples') as byte_match_tuples,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::ByteMatchSet'
     ip_sets:
       name: ip_sets
       id: aws.waf.ip_sets
@@ -327,8 +343,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::IPSet'
     ip_set:
       name: ip_set
       id: aws.waf.ip_set
@@ -347,6 +370,15 @@ components:
               JSON_EXTRACT(Properties, '$.IPSetDescriptors') as i_pset_descriptors,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IPSetDescriptors') as i_pset_descriptors,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::IPSet'
     rules:
       name: rules
       id: aws.waf.rules
@@ -361,8 +393,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::Rule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::Rule'
     rule:
       name: rule
       id: aws.waf.rule
@@ -382,6 +421,16 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Predicates') as predicates
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::Rule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Predicates') as predicates
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::Rule'
     size_constraint_sets:
       name: size_constraint_sets
       id: aws.waf.size_constraint_sets
@@ -396,8 +445,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
     size_constraint_set:
       name: size_constraint_set
       id: aws.waf.size_constraint_set
@@ -416,6 +472,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SizeConstraints') as size_constraints
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SizeConstraints') as size_constraints
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SizeConstraintSet'
     sql_injection_match_sets:
       name: sql_injection_match_sets
       id: aws.waf.sql_injection_match_sets
@@ -430,8 +495,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
     sql_injection_match_set:
       name: sql_injection_match_set
       id: aws.waf.sql_injection_match_set
@@ -450,6 +522,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SqlInjectionMatchTuples') as sql_injection_match_tuples
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SqlInjectionMatchTuples') as sql_injection_match_tuples
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::SqlInjectionMatchSet'
     web_acls:
       name: web_acls
       id: aws.waf.web_acls
@@ -464,8 +545,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::WebACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::WebACL'
     web_acl:
       name: web_acl
       id: aws.waf.web_acl
@@ -486,6 +574,17 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Rules') as rules
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::WebACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DefaultAction') as default_action,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Rules') as rules
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::WebACL'
     xss_match_sets:
       name: xss_match_sets
       id: aws.waf.xss_match_sets
@@ -500,8 +599,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::XssMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAF::XssMatchSet'
     xss_match_set:
       name: xss_match_set
       id: aws.waf.xss_match_set
@@ -520,3 +626,12 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.XssMatchTuples') as xss_match_tuples
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::XssMatchSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'XssMatchTuples') as xss_match_tuples
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAF::XssMatchSet'

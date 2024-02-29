@@ -927,8 +927,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::ApiDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::ApiDestination'
     api_destination:
       name: api_destination
       id: aws.events.api_destination
@@ -951,6 +958,19 @@ components:
               JSON_EXTRACT(Properties, '$.InvocationEndpoint') as invocation_endpoint,
               JSON_EXTRACT(Properties, '$.HttpMethod') as http_method
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::ApiDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'InvocationRateLimitPerSecond') as invocation_rate_limit_per_second,
+                json_extract_path_text(Properties, 'InvocationEndpoint') as invocation_endpoint,
+                json_extract_path_text(Properties, 'HttpMethod') as http_method
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::ApiDestination'
     archives:
       name: archives
       id: aws.events.archives
@@ -965,8 +985,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ArchiveName') as archive_name
+              JSON_EXTRACT(Properties, '$.ArchiveName') as archive_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Archive'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ArchiveName') as archive_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Archive'
     archive:
       name: archive
       id: aws.events.archive
@@ -988,6 +1015,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.RetentionDays') as retention_days
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Archive'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ArchiveName') as archive_name,
+                json_extract_path_text(Properties, 'SourceArn') as source_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EventPattern') as event_pattern,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RetentionDays') as retention_days
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Archive'
     connections:
       name: connections
       id: aws.events.connections
@@ -1002,8 +1041,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Connection'
     connection:
       name: connection
       id: aws.events.connection
@@ -1025,6 +1071,18 @@ components:
               JSON_EXTRACT(Properties, '$.AuthorizationType') as authorization_type,
               JSON_EXTRACT(Properties, '$.AuthParameters') as auth_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'SecretArn') as secret_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AuthorizationType') as authorization_type,
+                json_extract_path_text(Properties, 'AuthParameters') as auth_parameters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Connection'
     endpoints:
       name: endpoints
       id: aws.events.endpoints
@@ -1039,8 +1097,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Endpoint'
     endpoint:
       name: endpoint
       id: aws.events.endpoint
@@ -1067,6 +1132,23 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.StateReason') as state_reason
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RoutingConfig') as routing_config,
+                json_extract_path_text(Properties, 'ReplicationConfig') as replication_config,
+                json_extract_path_text(Properties, 'EventBuses') as event_buses,
+                json_extract_path_text(Properties, 'EndpointId') as endpoint_id,
+                json_extract_path_text(Properties, 'EndpointUrl') as endpoint_url,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'StateReason') as state_reason
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Endpoint'
     event_buses:
       name: event_buses
       id: aws.events.event_buses
@@ -1081,8 +1163,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBus'
     event_bus:
       name: event_bus
       id: aws.events.event_bus
@@ -1103,6 +1192,17 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBus'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EventSourceName') as event_source_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBus'
     event_bus_policies:
       name: event_bus_policies
       id: aws.events.event_bus_policies
@@ -1117,8 +1217,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
     event_bus_policy:
       name: event_bus_policy
       id: aws.events.event_bus_policy
@@ -1141,6 +1248,19 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Principal') as principal
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EventBusName') as event_bus_name,
+                json_extract_path_text(Properties, 'Condition') as condition,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'StatementId') as statement_id,
+                json_extract_path_text(Properties, 'Statement') as statement,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Principal') as principal
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::EventBusPolicy'
     rules:
       name: rules
       id: aws.events.rules
@@ -1155,8 +1275,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Rule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Events::Rule'
     rule:
       name: rule
       id: aws.events.rule
@@ -1181,3 +1308,18 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Rule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EventBusName') as event_bus_name,
+                json_extract_path_text(Properties, 'EventPattern') as event_pattern,
+                json_extract_path_text(Properties, 'ScheduleExpression') as schedule_expression,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Events::Rule'

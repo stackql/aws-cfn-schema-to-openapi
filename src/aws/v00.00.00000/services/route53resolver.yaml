@@ -1073,8 +1073,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
     firewall_domain_list:
       name: firewall_domain_list
       id: aws.route53resolver.firewall_domain_list
@@ -1103,6 +1110,25 @@ components:
               JSON_EXTRACT(Properties, '$.DomainFileUrl') as domain_file_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DomainCount') as domain_count,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'ManagedOwnerName') as managed_owner_name,
+                json_extract_path_text(Properties, 'CreatorRequestId') as creator_request_id,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ModificationTime') as modification_time,
+                json_extract_path_text(Properties, 'Domains') as domains,
+                json_extract_path_text(Properties, 'DomainFileUrl') as domain_file_url,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallDomainList'
     firewall_rule_groups:
       name: firewall_rule_groups
       id: aws.route53resolver.firewall_rule_groups
@@ -1117,8 +1143,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
     firewall_rule_group:
       name: firewall_rule_group
       id: aws.route53resolver.firewall_rule_group
@@ -1147,6 +1180,25 @@ components:
               JSON_EXTRACT(Properties, '$.FirewallRules') as firewall_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RuleCount') as rule_count,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'ShareStatus') as share_status,
+                json_extract_path_text(Properties, 'CreatorRequestId') as creator_request_id,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ModificationTime') as modification_time,
+                json_extract_path_text(Properties, 'FirewallRules') as firewall_rules,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroup'
     firewall_rule_group_associations:
       name: firewall_rule_group_associations
       id: aws.route53resolver.firewall_rule_group_associations
@@ -1161,8 +1213,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
     firewall_rule_group_association:
       name: firewall_rule_group_association
       id: aws.route53resolver.firewall_rule_group_association
@@ -1192,6 +1251,26 @@ components:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'FirewallRuleGroupId') as firewall_rule_group_id,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'MutationProtection') as mutation_protection,
+                json_extract_path_text(Properties, 'ManagedOwnerName') as managed_owner_name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'CreatorRequestId') as creator_request_id,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ModificationTime') as modification_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::FirewallRuleGroupAssociation'
     outpost_resolvers:
       name: outpost_resolvers
       id: aws.route53resolver.outpost_resolvers
@@ -1206,8 +1285,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
     outpost_resolver:
       name: outpost_resolver
       id: aws.route53resolver.outpost_resolver
@@ -1235,6 +1321,24 @@ components:
               JSON_EXTRACT(Properties, '$.ModificationTime') as modification_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CreatorRequestId') as creator_request_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'OutpostArn') as outpost_arn,
+                json_extract_path_text(Properties, 'PreferredInstanceType') as preferred_instance_type,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'InstanceCount') as instance_count,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ModificationTime') as modification_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::OutpostResolver'
     resolver_configs:
       name: resolver_configs
       id: aws.route53resolver.resolver_configs
@@ -1249,8 +1353,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceId') as resource_id
+              JSON_EXTRACT(Properties, '$.ResourceId') as resource_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceId') as resource_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
     resolver_config:
       name: resolver_config
       id: aws.route53resolver.resolver_config
@@ -1271,6 +1382,17 @@ components:
               JSON_EXTRACT(Properties, '$.AutodefinedReverse') as autodefined_reverse,
               JSON_EXTRACT(Properties, '$.AutodefinedReverseFlag') as autodefined_reverse_flag
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'AutodefinedReverse') as autodefined_reverse,
+                json_extract_path_text(Properties, 'AutodefinedReverseFlag') as autodefined_reverse_flag
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverConfig'
     resolverdnssec_configs:
       name: resolverdnssec_configs
       id: aws.route53resolver.resolverdnssec_configs
@@ -1285,8 +1407,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
     resolverdnssec_config:
       name: resolverdnssec_config
       id: aws.route53resolver.resolverdnssec_config
@@ -1306,6 +1435,16 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ValidationStatus') as validation_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'ValidationStatus') as validation_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverDNSSECConfig'
     resolver_endpoints:
       name: resolver_endpoints
       id: aws.route53resolver.resolver_endpoints
@@ -1320,8 +1459,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_id
+              JSON_EXTRACT(Properties, '$.ResolverEndpointId') as resolver_endpoint_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverEndpointId') as resolver_endpoint_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
     resolver_endpoint:
       name: resolver_endpoint
       id: aws.route53resolver.resolver_endpoint
@@ -1350,6 +1496,25 @@ components:
               JSON_EXTRACT(Properties, '$.HostVPCId') as host_vp_cid,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverEndpointId') as resolver_endpoint_id,
+                json_extract_path_text(Properties, 'Protocols') as protocols,
+                json_extract_path_text(Properties, 'OutpostArn') as outpost_arn,
+                json_extract_path_text(Properties, 'ResolverEndpointType') as resolver_endpoint_type,
+                json_extract_path_text(Properties, 'Direction') as direction,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'IpAddresses') as ip_addresses,
+                json_extract_path_text(Properties, 'IpAddressCount') as ip_address_count,
+                json_extract_path_text(Properties, 'PreferredInstanceType') as preferred_instance_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'HostVPCId') as host_vp_cid,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverEndpoint'
     resolver_query_logging_configs:
       name: resolver_query_logging_configs
       id: aws.route53resolver.resolver_query_logging_configs
@@ -1364,8 +1529,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
     resolver_query_logging_config:
       name: resolver_query_logging_config
       id: aws.route53resolver.resolver_query_logging_config
@@ -1391,6 +1563,22 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationArn') as destination_arn,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'OwnerId') as owner_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'ShareStatus') as share_status,
+                json_extract_path_text(Properties, 'AssociationCount') as association_count,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'CreatorRequestId') as creator_request_id,
+                json_extract_path_text(Properties, 'DestinationArn') as destination_arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfig'
     resolver_query_logging_config_associations:
       name: resolver_query_logging_config_associations
       id: aws.route53resolver.resolver_query_logging_config_associations
@@ -1405,8 +1593,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
     resolver_query_logging_config_association:
       name: resolver_query_logging_config_association
       id: aws.route53resolver.resolver_query_logging_config_association
@@ -1429,6 +1624,19 @@ components:
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ResolverQueryLogConfigId') as resolver_query_log_config_id,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Error') as error,
+                json_extract_path_text(Properties, 'ErrorMessage') as error_message,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverQueryLoggingConfigAssociation'
     resolver_rules:
       name: resolver_rules
       id: aws.route53resolver.resolver_rules
@@ -1443,8 +1651,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id
+              JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverRuleId') as resolver_rule_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
     resolver_rule:
       name: resolver_rule
       id: aws.route53resolver.resolver_rule
@@ -1468,6 +1683,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResolverRuleId') as resolver_rule_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverEndpointId') as resolver_endpoint_id,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RuleType') as rule_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TargetIps') as target_ips,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ResolverRuleId') as resolver_rule_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRule'
     resolver_rule_associations:
       name: resolver_rule_associations
       id: aws.route53resolver.resolver_rule_associations
@@ -1482,8 +1711,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_id
+              JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverRuleAssociationId') as resolver_rule_association_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'
     resolver_rule_association:
       name: resolver_rule_association
       id: aws.route53resolver.resolver_rule_association
@@ -1503,3 +1739,13 @@ components:
               JSON_EXTRACT(Properties, '$.ResolverRuleAssociationId') as resolver_rule_association_id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VPCId') as v_pc_id,
+                json_extract_path_text(Properties, 'ResolverRuleId') as resolver_rule_id,
+                json_extract_path_text(Properties, 'ResolverRuleAssociationId') as resolver_rule_association_id,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53Resolver::ResolverRuleAssociation'

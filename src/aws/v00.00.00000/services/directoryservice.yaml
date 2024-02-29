@@ -172,8 +172,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
     microsoft_ad:
       name: microsoft_ad
       id: aws.directoryservice.microsoft_ad
@@ -199,6 +206,22 @@ components:
               JSON_EXTRACT(Properties, '$.ShortName') as short_name,
               JSON_EXTRACT(Properties, '$.VpcSettings') as vpc_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'DnsIpAddresses') as dns_ip_addresses,
+                json_extract_path_text(Properties, 'CreateAlias') as create_alias,
+                json_extract_path_text(Properties, 'Edition') as edition,
+                json_extract_path_text(Properties, 'EnableSso') as enable_sso,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'ShortName') as short_name,
+                json_extract_path_text(Properties, 'VpcSettings') as vpc_settings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::MicrosoftAD'
     simple_ads:
       name: simple_ads
       id: aws.directoryservice.simple_ads
@@ -213,8 +236,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DirectoryId') as directory_id
+              JSON_EXTRACT(Properties, '$.DirectoryId') as directory_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DirectoryId') as directory_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'
     simple_ad:
       name: simple_ad
       id: aws.directoryservice.simple_ad
@@ -241,3 +271,20 @@ components:
               JSON_EXTRACT(Properties, '$.Size') as size,
               JSON_EXTRACT(Properties, '$.VpcSettings') as vpc_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DirectoryId') as directory_id,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'DnsIpAddresses') as dns_ip_addresses,
+                json_extract_path_text(Properties, 'CreateAlias') as create_alias,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EnableSso') as enable_sso,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'ShortName') as short_name,
+                json_extract_path_text(Properties, 'Size') as size,
+                json_extract_path_text(Properties, 'VpcSettings') as vpc_settings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DirectoryService::SimpleAD'

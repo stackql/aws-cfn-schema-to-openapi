@@ -1230,8 +1230,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::Destination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::Destination'
     destination:
       name: destination
       id: aws.iotwireless.destination
@@ -1254,6 +1261,19 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::Destination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Expression') as expression,
+                json_extract_path_text(Properties, 'ExpressionType') as expression_type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::Destination'
     device_profiles:
       name: device_profiles
       id: aws.iotwireless.device_profiles
@@ -1268,8 +1288,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
     device_profile:
       name: device_profile
       id: aws.iotwireless.device_profile
@@ -1290,6 +1317,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::DeviceProfile'
     fuota_tasks:
       name: fuota_tasks
       id: aws.iotwireless.fuota_tasks
@@ -1304,8 +1342,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
     fuota_task:
       name: fuota_task
       id: aws.iotwireless.fuota_task
@@ -1334,6 +1379,25 @@ components:
               JSON_EXTRACT(Properties, '$.AssociateMulticastGroup') as associate_multicast_group,
               JSON_EXTRACT(Properties, '$.DisassociateMulticastGroup') as disassociate_multicast_group
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'FirmwareUpdateImage') as firmware_update_image,
+                json_extract_path_text(Properties, 'FirmwareUpdateRole') as firmware_update_role,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'FuotaTaskStatus') as fuota_task_status,
+                json_extract_path_text(Properties, 'AssociateWirelessDevice') as associate_wireless_device,
+                json_extract_path_text(Properties, 'DisassociateWirelessDevice') as disassociate_wireless_device,
+                json_extract_path_text(Properties, 'AssociateMulticastGroup') as associate_multicast_group,
+                json_extract_path_text(Properties, 'DisassociateMulticastGroup') as disassociate_multicast_group
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::FuotaTask'
     multicast_groups:
       name: multicast_groups
       id: aws.iotwireless.multicast_groups
@@ -1348,8 +1412,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
     multicast_group:
       name: multicast_group
       id: aws.iotwireless.multicast_group
@@ -1374,6 +1445,21 @@ components:
               JSON_EXTRACT(Properties, '$.AssociateWirelessDevice') as associate_wireless_device,
               JSON_EXTRACT(Properties, '$.DisassociateWirelessDevice') as disassociate_wireless_device
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'AssociateWirelessDevice') as associate_wireless_device,
+                json_extract_path_text(Properties, 'DisassociateWirelessDevice') as disassociate_wireless_device
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::MulticastGroup'
     network_analyzer_configurations:
       name: network_analyzer_configurations
       id: aws.iotwireless.network_analyzer_configurations
@@ -1388,8 +1474,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
     network_analyzer_configuration:
       name: network_analyzer_configuration
       id: aws.iotwireless.network_analyzer_configuration
@@ -1412,6 +1505,19 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TraceContent') as trace_content,
+                json_extract_path_text(Properties, 'WirelessDevices') as wireless_devices,
+                json_extract_path_text(Properties, 'WirelessGateways') as wireless_gateways,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::NetworkAnalyzerConfiguration'
     partner_accounts:
       name: partner_accounts
       id: aws.iotwireless.partner_accounts
@@ -1426,8 +1532,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PartnerAccountId') as partner_account_id
+              JSON_EXTRACT(Properties, '$.PartnerAccountId') as partner_account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PartnerAccountId') as partner_account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
     partner_account:
       name: partner_account
       id: aws.iotwireless.partner_account
@@ -1452,6 +1565,21 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Sidewalk') as sidewalk,
+                json_extract_path_text(Properties, 'PartnerAccountId') as partner_account_id,
+                json_extract_path_text(Properties, 'PartnerType') as partner_type,
+                json_extract_path_text(Properties, 'SidewalkResponse') as sidewalk_response,
+                json_extract_path_text(Properties, 'AccountLinked') as account_linked,
+                json_extract_path_text(Properties, 'SidewalkUpdate') as sidewalk_update,
+                json_extract_path_text(Properties, 'Fingerprint') as fingerprint,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::PartnerAccount'
     service_profiles:
       name: service_profiles
       id: aws.iotwireless.service_profiles
@@ -1466,8 +1594,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
     service_profile:
       name: service_profile
       id: aws.iotwireless.service_profile
@@ -1488,6 +1623,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::ServiceProfile'
     task_definitions:
       name: task_definitions
       id: aws.iotwireless.task_definitions
@@ -1502,8 +1648,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
     task_definition:
       name: task_definition
       id: aws.iotwireless.task_definition
@@ -1527,6 +1680,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'AutoCreateTasks') as auto_create_tasks,
+                json_extract_path_text(Properties, 'Update') as update,
+                json_extract_path_text(Properties, 'LoRaWANUpdateGatewayTaskEntry') as lo_ra_wa_nupdate_gateway_task_entry,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'TaskDefinitionType') as task_definition_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::TaskDefinition'
     wireless_devices:
       name: wireless_devices
       id: aws.iotwireless.wireless_devices
@@ -1541,8 +1708,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
     wireless_device:
       name: wireless_device
       id: aws.iotwireless.wireless_device
@@ -1569,6 +1743,23 @@ components:
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name,
               JSON_EXTRACT(Properties, '$.LastUplinkReceivedAt') as last_uplink_received_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DestinationName') as destination_name,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ThingArn') as thing_arn,
+                json_extract_path_text(Properties, 'ThingName') as thing_name,
+                json_extract_path_text(Properties, 'LastUplinkReceivedAt') as last_uplink_received_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDevice'
     wireless_device_import_tasks:
       name: wireless_device_import_tasks
       id: aws.iotwireless.wireless_device_import_tasks
@@ -1583,8 +1774,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
     wireless_device_import_task:
       name: wireless_device_import_task
       id: aws.iotwireless.wireless_device_import_task
@@ -1612,6 +1810,24 @@ components:
               JSON_EXTRACT(Properties, '$.FailedImportedDevicesCount') as failed_imported_devices_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DestinationName') as destination_name,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'Sidewalk') as sidewalk,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusReason') as status_reason,
+                json_extract_path_text(Properties, 'InitializedImportedDevicesCount') as initialized_imported_devices_count,
+                json_extract_path_text(Properties, 'PendingImportedDevicesCount') as pending_imported_devices_count,
+                json_extract_path_text(Properties, 'OnboardedImportedDevicesCount') as onboarded_imported_devices_count,
+                json_extract_path_text(Properties, 'FailedImportedDevicesCount') as failed_imported_devices_count,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessDeviceImportTask'
     wireless_gateways:
       name: wireless_gateways
       id: aws.iotwireless.wireless_gateways
@@ -1626,8 +1842,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'
     wireless_gateway:
       name: wireless_gateway
       id: aws.iotwireless.wireless_gateway
@@ -1652,3 +1875,18 @@ components:
               JSON_EXTRACT(Properties, '$.ThingName') as thing_name,
               JSON_EXTRACT(Properties, '$.LastUplinkReceivedAt') as last_uplink_received_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LoRaWAN') as lo_ra_wa_n,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ThingArn') as thing_arn,
+                json_extract_path_text(Properties, 'ThingName') as thing_name,
+                json_extract_path_text(Properties, 'LastUplinkReceivedAt') as last_uplink_received_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTWireless::WirelessGateway'

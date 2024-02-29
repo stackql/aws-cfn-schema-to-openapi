@@ -1367,8 +1367,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Alias'
     alias:
       name: alias
       id: aws.lambda.alias
@@ -1391,6 +1398,19 @@ components:
               JSON_EXTRACT(Properties, '$.RoutingConfig') as routing_config,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'ProvisionedConcurrencyConfig') as provisioned_concurrency_config,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FunctionVersion') as function_version,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RoutingConfig') as routing_config,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Alias'
     code_signing_configs:
       name: code_signing_configs
       id: aws.lambda.code_signing_configs
@@ -1405,8 +1425,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CodeSigningConfigArn') as code_signing_config_arn
+              JSON_EXTRACT(Properties, '$.CodeSigningConfigArn') as code_signing_config_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CodeSigningConfigArn') as code_signing_config_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
     code_signing_config:
       name: code_signing_config
       id: aws.lambda.code_signing_config
@@ -1427,6 +1454,17 @@ components:
               JSON_EXTRACT(Properties, '$.CodeSigningConfigId') as code_signing_config_id,
               JSON_EXTRACT(Properties, '$.CodeSigningConfigArn') as code_signing_config_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AllowedPublishers') as allowed_publishers,
+                json_extract_path_text(Properties, 'CodeSigningPolicies') as code_signing_policies,
+                json_extract_path_text(Properties, 'CodeSigningConfigId') as code_signing_config_id,
+                json_extract_path_text(Properties, 'CodeSigningConfigArn') as code_signing_config_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::CodeSigningConfig'
     event_invoke_configs:
       name: event_invoke_configs
       id: aws.lambda.event_invoke_configs
@@ -1443,8 +1481,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FunctionName') as function_name,
-              JSON_EXTRACT(Properties, '$.Qualifier') as qualifier
+              JSON_EXTRACT(Properties, '$.Qualifier') as qualifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'Qualifier') as qualifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
     event_invoke_config:
       name: event_invoke_config
       id: aws.lambda.event_invoke_config
@@ -1466,6 +1512,17 @@ components:
               JSON_EXTRACT(Properties, '$.MaximumRetryAttempts') as maximum_retry_attempts,
               JSON_EXTRACT(Properties, '$.Qualifier') as qualifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DestinationConfig') as destination_config,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'MaximumEventAgeInSeconds') as maximum_event_age_in_seconds,
+                json_extract_path_text(Properties, 'MaximumRetryAttempts') as maximum_retry_attempts,
+                json_extract_path_text(Properties, 'Qualifier') as qualifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventInvokeConfig'
     event_source_mappings:
       name: event_source_mappings
       id: aws.lambda.event_source_mappings
@@ -1480,8 +1537,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
     event_source_mapping:
       name: event_source_mapping
       id: aws.lambda.event_source_mapping
@@ -1521,6 +1585,36 @@ components:
               JSON_EXTRACT(Properties, '$.ScalingConfig') as scaling_config,
               JSON_EXTRACT(Properties, '$.DocumentDBEventSourceConfig') as document_db_event_source_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BatchSize') as batch_size,
+                json_extract_path_text(Properties, 'BisectBatchOnFunctionError') as bisect_batch_on_function_error,
+                json_extract_path_text(Properties, 'DestinationConfig') as destination_config,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'EventSourceArn') as event_source_arn,
+                json_extract_path_text(Properties, 'FilterCriteria') as filter_criteria,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'MaximumBatchingWindowInSeconds') as maximum_batching_window_in_seconds,
+                json_extract_path_text(Properties, 'MaximumRecordAgeInSeconds') as maximum_record_age_in_seconds,
+                json_extract_path_text(Properties, 'MaximumRetryAttempts') as maximum_retry_attempts,
+                json_extract_path_text(Properties, 'ParallelizationFactor') as parallelization_factor,
+                json_extract_path_text(Properties, 'StartingPosition') as starting_position,
+                json_extract_path_text(Properties, 'StartingPositionTimestamp') as starting_position_timestamp,
+                json_extract_path_text(Properties, 'Topics') as topics,
+                json_extract_path_text(Properties, 'Queues') as queues,
+                json_extract_path_text(Properties, 'SourceAccessConfigurations') as source_access_configurations,
+                json_extract_path_text(Properties, 'TumblingWindowInSeconds') as tumbling_window_in_seconds,
+                json_extract_path_text(Properties, 'FunctionResponseTypes') as function_response_types,
+                json_extract_path_text(Properties, 'SelfManagedEventSource') as self_managed_event_source,
+                json_extract_path_text(Properties, 'AmazonManagedKafkaEventSourceConfig') as amazon_managed_kafka_event_source_config,
+                json_extract_path_text(Properties, 'SelfManagedKafkaEventSourceConfig') as self_managed_kafka_event_source_config,
+                json_extract_path_text(Properties, 'ScalingConfig') as scaling_config,
+                json_extract_path_text(Properties, 'DocumentDBEventSourceConfig') as document_db_event_source_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::EventSourceMapping'
     functions:
       name: functions
       id: aws.lambda.functions
@@ -1535,8 +1629,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FunctionName') as function_name
+              JSON_EXTRACT(Properties, '$.FunctionName') as function_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Function'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionName') as function_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Function'
     function:
       name: function
       id: aws.lambda.function
@@ -1579,6 +1680,39 @@ components:
               JSON_EXTRACT(Properties, '$.EphemeralStorage') as ephemeral_storage,
               JSON_EXTRACT(Properties, '$.Architectures') as architectures
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Function'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TracingConfig') as tracing_config,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'RuntimeManagementConfig') as runtime_management_config,
+                json_extract_path_text(Properties, 'ReservedConcurrentExecutions') as reserved_concurrent_executions,
+                json_extract_path_text(Properties, 'SnapStart') as snap_start,
+                json_extract_path_text(Properties, 'FileSystemConfigs') as file_system_configs,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'Runtime') as runtime,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'PackageType') as package_type,
+                json_extract_path_text(Properties, 'CodeSigningConfigArn') as code_signing_config_arn,
+                json_extract_path_text(Properties, 'Layers') as layers,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ImageConfig') as image_config,
+                json_extract_path_text(Properties, 'MemorySize') as memory_size,
+                json_extract_path_text(Properties, 'DeadLetterConfig') as dead_letter_config,
+                json_extract_path_text(Properties, 'Timeout') as timeout,
+                json_extract_path_text(Properties, 'Handler') as handler,
+                json_extract_path_text(Properties, 'SnapStartResponse') as snap_start_response,
+                json_extract_path_text(Properties, 'Code') as code,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'LoggingConfig') as logging_config,
+                json_extract_path_text(Properties, 'Environment') as environment,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'EphemeralStorage') as ephemeral_storage,
+                json_extract_path_text(Properties, 'Architectures') as architectures
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Function'
     layer_versions:
       name: layer_versions
       id: aws.lambda.layer_versions
@@ -1593,8 +1727,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LayerVersionArn') as layer_version_arn
+              JSON_EXTRACT(Properties, '$.LayerVersionArn') as layer_version_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LayerVersionArn') as layer_version_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
     layer_version:
       name: layer_version
       id: aws.lambda.layer_version
@@ -1617,6 +1758,19 @@ components:
               JSON_EXTRACT(Properties, '$.LayerVersionArn') as layer_version_arn,
               JSON_EXTRACT(Properties, '$.CompatibleArchitectures') as compatible_architectures
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CompatibleRuntimes') as compatible_runtimes,
+                json_extract_path_text(Properties, 'LicenseInfo') as license_info,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'LayerName') as layer_name,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'LayerVersionArn') as layer_version_arn,
+                json_extract_path_text(Properties, 'CompatibleArchitectures') as compatible_architectures
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersion'
     layer_version_permissions:
       name: layer_version_permissions
       id: aws.lambda.layer_version_permissions
@@ -1631,8 +1785,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
     layer_version_permission:
       name: layer_version_permission
       id: aws.lambda.layer_version_permission
@@ -1653,6 +1814,17 @@ components:
               JSON_EXTRACT(Properties, '$.OrganizationId') as organization_id,
               JSON_EXTRACT(Properties, '$.Principal') as principal
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'LayerVersionArn') as layer_version_arn,
+                json_extract_path_text(Properties, 'OrganizationId') as organization_id,
+                json_extract_path_text(Properties, 'Principal') as principal
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::LayerVersionPermission'
     permissions:
       name: permissions
       id: aws.lambda.permissions
@@ -1669,8 +1841,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FunctionName') as function_name,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Permission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Permission'
     permission:
       name: permission
       id: aws.lambda.permission
@@ -1696,6 +1876,21 @@ components:
               JSON_EXTRACT(Properties, '$.SourceAccount') as source_account,
               JSON_EXTRACT(Properties, '$.SourceArn') as source_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Permission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'EventSourceToken') as event_source_token,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'FunctionUrlAuthType') as function_url_auth_type,
+                json_extract_path_text(Properties, 'Principal') as principal,
+                json_extract_path_text(Properties, 'PrincipalOrgID') as principal_org_id,
+                json_extract_path_text(Properties, 'SourceAccount') as source_account,
+                json_extract_path_text(Properties, 'SourceArn') as source_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Permission'
     urls:
       name: urls
       id: aws.lambda.urls
@@ -1710,8 +1905,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FunctionArn') as function_arn
+              JSON_EXTRACT(Properties, '$.FunctionArn') as function_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Url'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionArn') as function_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Url'
     url:
       name: url
       id: aws.lambda.url
@@ -1734,6 +1936,19 @@ components:
               JSON_EXTRACT(Properties, '$.FunctionUrl') as function_url,
               JSON_EXTRACT(Properties, '$.Cors') as cors
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Url'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetFunctionArn') as target_function_arn,
+                json_extract_path_text(Properties, 'Qualifier') as qualifier,
+                json_extract_path_text(Properties, 'AuthType') as auth_type,
+                json_extract_path_text(Properties, 'InvokeMode') as invoke_mode,
+                json_extract_path_text(Properties, 'FunctionArn') as function_arn,
+                json_extract_path_text(Properties, 'FunctionUrl') as function_url,
+                json_extract_path_text(Properties, 'Cors') as cors
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Url'
     versions:
       name: versions
       id: aws.lambda.versions
@@ -1748,8 +1963,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FunctionArn') as function_arn
+              JSON_EXTRACT(Properties, '$.FunctionArn') as function_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Version'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionArn') as function_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lambda::Version'
     version:
       name: version
       id: aws.lambda.version
@@ -1772,3 +1994,16 @@ components:
               JSON_EXTRACT(Properties, '$.ProvisionedConcurrencyConfig') as provisioned_concurrency_config,
               JSON_EXTRACT(Properties, '$.RuntimePolicy') as runtime_policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Version'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionArn') as function_arn,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'CodeSha256') as code_sha256,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'ProvisionedConcurrencyConfig') as provisioned_concurrency_config,
+                json_extract_path_text(Properties, 'RuntimePolicy') as runtime_policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lambda::Version'

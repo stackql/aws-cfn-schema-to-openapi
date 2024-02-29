@@ -2612,8 +2612,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Channel'
     channel:
       name: channel
       id: aws.medialive.channel
@@ -2644,6 +2651,27 @@ components:
               JSON_EXTRACT(Properties, '$.Inputs') as inputs,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InputAttachments') as input_attachments,
+                json_extract_path_text(Properties, 'InputSpecification') as input_specification,
+                json_extract_path_text(Properties, 'Destinations') as destinations,
+                json_extract_path_text(Properties, 'Vpc') as vpc,
+                json_extract_path_text(Properties, 'Maintenance') as maintenance,
+                json_extract_path_text(Properties, 'LogLevel') as log_level,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ChannelClass') as channel_class,
+                json_extract_path_text(Properties, 'EncoderSettings') as encoder_settings,
+                json_extract_path_text(Properties, 'CdiInputSpecification') as cdi_input_specification,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Inputs') as inputs,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Channel'
     inputs:
       name: inputs
       id: aws.medialive.inputs
@@ -2658,8 +2686,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Input'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Input'
     input:
       name: input
       id: aws.medialive.input
@@ -2687,6 +2722,24 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Input'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Destinations') as destinations,
+                json_extract_path_text(Properties, 'Vpc') as vpc,
+                json_extract_path_text(Properties, 'MediaConnectFlows') as media_connect_flows,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'InputSecurityGroups') as input_security_groups,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'InputDevices') as input_devices,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Input'
     input_security_groups:
       name: input_security_groups
       id: aws.medialive.input_security_groups
@@ -2701,8 +2754,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
     input_security_group:
       name: input_security_group
       id: aws.medialive.input_security_group
@@ -2722,6 +2782,16 @@ components:
               JSON_EXTRACT(Properties, '$.WhitelistRules') as whitelist_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'WhitelistRules') as whitelist_rules,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::InputSecurityGroup'
     multiplexes:
       name: multiplexes
       id: aws.medialive.multiplexes
@@ -2736,8 +2806,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
     multiplex:
       name: multiplex
       id: aws.medialive.multiplex
@@ -2763,6 +2840,22 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AvailabilityZones') as availability_zones,
+                json_extract_path_text(Properties, 'Destinations') as destinations,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'MultiplexSettings') as multiplex_settings,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PipelinesRunningCount') as pipelines_running_count,
+                json_extract_path_text(Properties, 'ProgramCount') as program_count,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplex'
     multiplexprograms:
       name: multiplexprograms
       id: aws.medialive.multiplexprograms
@@ -2779,8 +2872,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ProgramName') as program_name,
-              JSON_EXTRACT(Properties, '$.MultiplexId') as multiplex_id
+              JSON_EXTRACT(Properties, '$.MultiplexId') as multiplex_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProgramName') as program_name,
+                json_extract_path_text(Properties, 'MultiplexId') as multiplex_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'
     multiplexprogram:
       name: multiplexprogram
       id: aws.medialive.multiplexprogram
@@ -2804,3 +2905,16 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineDetails') as pipeline_details,
               JSON_EXTRACT(Properties, '$.ProgramName') as program_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelId') as channel_id,
+                json_extract_path_text(Properties, 'MultiplexId') as multiplex_id,
+                json_extract_path_text(Properties, 'MultiplexProgramSettings') as multiplex_program_settings,
+                json_extract_path_text(Properties, 'PreferredChannelPipeline') as preferred_channel_pipeline,
+                json_extract_path_text(Properties, 'PacketIdentifiersMap') as packet_identifiers_map,
+                json_extract_path_text(Properties, 'PipelineDetails') as pipeline_details,
+                json_extract_path_text(Properties, 'ProgramName') as program_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaLive::Multiplexprogram'

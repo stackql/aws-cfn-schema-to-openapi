@@ -111,8 +111,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DomainId') as domain_id
+              JSON_EXTRACT(Properties, '$.DomainId') as domain_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VoiceID::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VoiceID::Domain'
     domain:
       name: domain
       id: aws.voiceid.domain
@@ -133,3 +140,14 @@ components:
               JSON_EXTRACT(Properties, '$.ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VoiceID::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VoiceID::Domain'

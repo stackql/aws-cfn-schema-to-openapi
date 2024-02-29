@@ -360,8 +360,20 @@ components:
               JSON_EXTRACT(Properties, '$.TargetType') as target_type,
               JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn,
               JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type,
-              JSON_EXTRACT(Properties, '$.PrincipalId') as principal_id
+              JSON_EXTRACT(Properties, '$.PrincipalId') as principal_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::Assignment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn,
+                json_extract_path_text(Properties, 'TargetId') as target_id,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'PermissionSetArn') as permission_set_arn,
+                json_extract_path_text(Properties, 'PrincipalType') as principal_type,
+                json_extract_path_text(Properties, 'PrincipalId') as principal_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::Assignment'
     assignment:
       name: assignment
       id: aws.sso.assignment
@@ -388,6 +400,18 @@ components:
               JSON_EXTRACT(Properties, '$.PrincipalType') as principal_type,
               JSON_EXTRACT(Properties, '$.PrincipalId') as principal_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::Assignment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn,
+                json_extract_path_text(Properties, 'TargetId') as target_id,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'PermissionSetArn') as permission_set_arn,
+                json_extract_path_text(Properties, 'PrincipalType') as principal_type,
+                json_extract_path_text(Properties, 'PrincipalId') as principal_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::Assignment'
     instance_access_control_attribute_configurations:
       name: instance_access_control_attribute_configurations
       id: aws.sso.instance_access_control_attribute_configurations
@@ -402,8 +426,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn
+              JSON_EXTRACT(Properties, '$.InstanceArn') as instance_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
     instance_access_control_attribute_configuration:
       name: instance_access_control_attribute_configuration
       id: aws.sso.instance_access_control_attribute_configuration
@@ -422,6 +453,15 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration,
               JSON_EXTRACT(Properties, '$.AccessControlAttributes') as access_control_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn,
+                json_extract_path_text(Properties, 'InstanceAccessControlAttributeConfiguration') as instance_access_control_attribute_configuration,
+                json_extract_path_text(Properties, 'AccessControlAttributes') as access_control_attributes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::InstanceAccessControlAttributeConfiguration'
     permission_sets:
       name: permission_sets
       id: aws.sso.permission_sets
@@ -438,8 +478,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn,
-              JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_arn
+              JSON_EXTRACT(Properties, '$.PermissionSetArn') as permission_set_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::PermissionSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn,
+                json_extract_path_text(Properties, 'PermissionSetArn') as permission_set_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSO::PermissionSet'
     permission_set:
       name: permission_set
       id: aws.sso.permission_set
@@ -467,3 +515,20 @@ components:
               JSON_EXTRACT(Properties, '$.CustomerManagedPolicyReferences') as customer_managed_policy_references,
               JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::PermissionSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PermissionSetArn') as permission_set_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn,
+                json_extract_path_text(Properties, 'SessionDuration') as session_duration,
+                json_extract_path_text(Properties, 'RelayStateType') as relay_state_type,
+                json_extract_path_text(Properties, 'ManagedPolicies') as managed_policies,
+                json_extract_path_text(Properties, 'InlinePolicy') as inline_policy,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CustomerManagedPolicyReferences') as customer_managed_policy_references,
+                json_extract_path_text(Properties, 'PermissionsBoundary') as permissions_boundary
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSO::PermissionSet'

@@ -692,8 +692,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn
+              JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AutoScalingConfigurationArn') as auto_scaling_configuration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
     auto_scaling_configuration:
       name: auto_scaling_configuration
       id: aws.apprunner.auto_scaling_configuration
@@ -717,6 +724,20 @@ components:
               JSON_EXTRACT(Properties, '$.Latest') as latest,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
+                json_extract_path_text(Properties, 'AutoScalingConfigurationName') as auto_scaling_configuration_name,
+                json_extract_path_text(Properties, 'AutoScalingConfigurationRevision') as auto_scaling_configuration_revision,
+                json_extract_path_text(Properties, 'MaxConcurrency') as max_concurrency,
+                json_extract_path_text(Properties, 'MaxSize') as max_size,
+                json_extract_path_text(Properties, 'MinSize') as min_size,
+                json_extract_path_text(Properties, 'Latest') as latest,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::AutoScalingConfiguration'
     observability_configurations:
       name: observability_configurations
       id: aws.apprunner.observability_configurations
@@ -731,8 +752,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as observability_configuration_arn
+              JSON_EXTRACT(Properties, '$.ObservabilityConfigurationArn') as observability_configuration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ObservabilityConfigurationArn') as observability_configuration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
     observability_configuration:
       name: observability_configuration
       id: aws.apprunner.observability_configuration
@@ -754,6 +782,18 @@ components:
               JSON_EXTRACT(Properties, '$.TraceConfiguration') as trace_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ObservabilityConfigurationArn') as observability_configuration_arn,
+                json_extract_path_text(Properties, 'ObservabilityConfigurationName') as observability_configuration_name,
+                json_extract_path_text(Properties, 'ObservabilityConfigurationRevision') as observability_configuration_revision,
+                json_extract_path_text(Properties, 'Latest') as latest,
+                json_extract_path_text(Properties, 'TraceConfiguration') as trace_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::ObservabilityConfiguration'
     services:
       name: services
       id: aws.apprunner.services
@@ -768,8 +808,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn
+              JSON_EXTRACT(Properties, '$.ServiceArn') as service_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceArn') as service_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::Service'
     service:
       name: service
       id: aws.apprunner.service
@@ -798,6 +845,25 @@ components:
               JSON_EXTRACT(Properties, '$.AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
               JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceName') as service_name,
+                json_extract_path_text(Properties, 'ServiceId') as service_id,
+                json_extract_path_text(Properties, 'ServiceArn') as service_arn,
+                json_extract_path_text(Properties, 'ServiceUrl') as service_url,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'SourceConfiguration') as source_configuration,
+                json_extract_path_text(Properties, 'InstanceConfiguration') as instance_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'EncryptionConfiguration') as encryption_configuration,
+                json_extract_path_text(Properties, 'HealthCheckConfiguration') as health_check_configuration,
+                json_extract_path_text(Properties, 'ObservabilityConfiguration') as observability_configuration,
+                json_extract_path_text(Properties, 'AutoScalingConfigurationArn') as auto_scaling_configuration_arn,
+                json_extract_path_text(Properties, 'NetworkConfiguration') as network_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::Service'
     vpc_connectors:
       name: vpc_connectors
       id: aws.apprunner.vpc_connectors
@@ -812,8 +878,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.VpcConnectorArn') as vpc_connector_arn
+              JSON_EXTRACT(Properties, '$.VpcConnectorArn') as vpc_connector_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcConnectorArn') as vpc_connector_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
     vpc_connector:
       name: vpc_connector
       id: aws.apprunner.vpc_connector
@@ -835,6 +908,18 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcConnectorName') as vpc_connector_name,
+                json_extract_path_text(Properties, 'VpcConnectorArn') as vpc_connector_arn,
+                json_extract_path_text(Properties, 'VpcConnectorRevision') as vpc_connector_revision,
+                json_extract_path_text(Properties, 'Subnets') as subnets,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcConnector'
     vpc_ingress_connections:
       name: vpc_ingress_connections
       id: aws.apprunner.vpc_ingress_connections
@@ -849,8 +934,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as vpc_ingress_connection_arn
+              JSON_EXTRACT(Properties, '$.VpcIngressConnectionArn') as vpc_ingress_connection_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcIngressConnectionArn') as vpc_ingress_connection_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'
     vpc_ingress_connection:
       name: vpc_ingress_connection
       id: aws.apprunner.vpc_ingress_connection
@@ -873,3 +965,16 @@ components:
               JSON_EXTRACT(Properties, '$.IngressVpcConfiguration') as ingress_vpc_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcIngressConnectionArn') as vpc_ingress_connection_arn,
+                json_extract_path_text(Properties, 'VpcIngressConnectionName') as vpc_ingress_connection_name,
+                json_extract_path_text(Properties, 'ServiceArn') as service_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'IngressVpcConfiguration') as ingress_vpc_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppRunner::VpcIngressConnection'

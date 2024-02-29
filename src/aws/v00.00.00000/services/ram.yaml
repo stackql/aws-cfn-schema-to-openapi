@@ -141,8 +141,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::Permission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::Permission'
     permission:
       name: permission
       id: aws.ram.permission
@@ -166,6 +173,20 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyTemplate') as policy_template,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::Permission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'IsResourceTypeDefault') as is_resource_type_default,
+                json_extract_path_text(Properties, 'PermissionType') as permission_type,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'PolicyTemplate') as policy_template,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::Permission'
     resource_shares:
       name: resource_shares
       id: aws.ram.resource_shares
@@ -180,8 +201,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::ResourceShare'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RAM::ResourceShare'
     resource_share:
       name: resource_share
       id: aws.ram.resource_share
@@ -206,3 +234,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::ResourceShare'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PermissionArns') as permission_arns,
+                json_extract_path_text(Properties, 'Principals') as principals,
+                json_extract_path_text(Properties, 'AllowExternalPrincipals') as allow_external_principals,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ResourceArns') as resource_arns,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RAM::ResourceShare'

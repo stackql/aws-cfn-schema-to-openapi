@@ -343,8 +343,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Canary'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Canary'
     canary:
       name: canary
       id: aws.synthetics.canary
@@ -377,6 +384,29 @@ components:
               JSON_EXTRACT(Properties, '$.VisualReference') as visual_reference,
               JSON_EXTRACT(Properties, '$.DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Canary'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Code') as code,
+                json_extract_path_text(Properties, 'ArtifactS3Location') as artifact_s3_location,
+                json_extract_path_text(Properties, 'ArtifactConfig') as artifact_config,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'RuntimeVersion') as runtime_version,
+                json_extract_path_text(Properties, 'SuccessRetentionPeriod') as success_retention_period,
+                json_extract_path_text(Properties, 'FailureRetentionPeriod') as failure_retention_period,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VPCConfig') as v_pc_config,
+                json_extract_path_text(Properties, 'RunConfig') as run_config,
+                json_extract_path_text(Properties, 'StartCanaryAfterCreation') as start_canary_after_creation,
+                json_extract_path_text(Properties, 'VisualReference') as visual_reference,
+                json_extract_path_text(Properties, 'DeleteLambdaResourcesOnCanaryDeletion') as delete_lambda_resources_on_canary_deletion
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Canary'
     groups:
       name: groups
       id: aws.synthetics.groups
@@ -391,8 +421,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Synthetics::Group'
     group:
       name: group
       id: aws.synthetics.group
@@ -412,3 +449,13 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ResourceArns') as resource_arns
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ResourceArns') as resource_arns
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Synthetics::Group'

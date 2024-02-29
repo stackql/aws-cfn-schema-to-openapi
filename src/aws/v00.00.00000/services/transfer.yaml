@@ -982,8 +982,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AgreementId') as agreement_id,
-              JSON_EXTRACT(Properties, '$.ServerId') as server_id
+              JSON_EXTRACT(Properties, '$.ServerId') as server_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Agreement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AgreementId') as agreement_id,
+                json_extract_path_text(Properties, 'ServerId') as server_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Agreement'
     agreement:
       name: agreement
       id: aws.transfer.agreement
@@ -1010,6 +1018,22 @@ components:
               JSON_EXTRACT(Properties, '$.AgreementId') as agreement_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Agreement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ServerId') as server_id,
+                json_extract_path_text(Properties, 'LocalProfileId') as local_profile_id,
+                json_extract_path_text(Properties, 'PartnerProfileId') as partner_profile_id,
+                json_extract_path_text(Properties, 'BaseDirectory') as base_directory,
+                json_extract_path_text(Properties, 'AccessRole') as access_role,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AgreementId') as agreement_id,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Agreement'
     certificates:
       name: certificates
       id: aws.transfer.certificates
@@ -1024,8 +1048,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CertificateId') as certificate_id
+              JSON_EXTRACT(Properties, '$.CertificateId') as certificate_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateId') as certificate_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Certificate'
     certificate:
       name: certificate
       id: aws.transfer.certificate
@@ -1056,6 +1087,27 @@ components:
               JSON_EXTRACT(Properties, '$.NotBeforeDate') as not_before_date,
               JSON_EXTRACT(Properties, '$.NotAfterDate') as not_after_date
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Usage') as usage,
+                json_extract_path_text(Properties, 'Certificate') as certificate,
+                json_extract_path_text(Properties, 'CertificateChain') as certificate_chain,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'ActiveDate') as active_date,
+                json_extract_path_text(Properties, 'InactiveDate') as inactive_date,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CertificateId') as certificate_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Serial') as serial,
+                json_extract_path_text(Properties, 'NotBeforeDate') as not_before_date,
+                json_extract_path_text(Properties, 'NotAfterDate') as not_after_date
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Certificate'
     connectors:
       name: connectors
       id: aws.transfer.connectors
@@ -1070,8 +1122,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectorId') as connector_id
+              JSON_EXTRACT(Properties, '$.ConnectorId') as connector_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorId') as connector_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Connector'
     connector:
       name: connector
       id: aws.transfer.connector
@@ -1095,6 +1154,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Url') as url
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessRole') as access_role,
+                json_extract_path_text(Properties, 'As2Config') as as2_config,
+                json_extract_path_text(Properties, 'SftpConfig') as sftp_config,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ConnectorId') as connector_id,
+                json_extract_path_text(Properties, 'LoggingRole') as logging_role,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Url') as url
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Connector'
     profiles:
       name: profiles
       id: aws.transfer.profiles
@@ -1109,8 +1182,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
+              JSON_EXTRACT(Properties, '$.ProfileId') as profile_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfileId') as profile_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Profile'
     profile:
       name: profile
       id: aws.transfer.profile
@@ -1132,6 +1212,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'As2Id') as as2_id,
+                json_extract_path_text(Properties, 'ProfileType') as profile_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CertificateIds') as certificate_ids,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ProfileId') as profile_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Profile'
     servers:
       name: servers
       id: aws.transfer.servers
@@ -1146,8 +1238,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServerId') as server_id
+              JSON_EXTRACT(Properties, '$.ServerId') as server_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Server'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServerId') as server_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Server'
     server:
       name: server
       id: aws.transfer.server
@@ -1181,6 +1280,30 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Certificate') as certificate
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Server'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LoggingRole') as logging_role,
+                json_extract_path_text(Properties, 'Protocols') as protocols,
+                json_extract_path_text(Properties, 'IdentityProviderDetails') as identity_provider_details,
+                json_extract_path_text(Properties, 'EndpointDetails') as endpoint_details,
+                json_extract_path_text(Properties, 'StructuredLogDestinations') as structured_log_destinations,
+                json_extract_path_text(Properties, 'PreAuthenticationLoginBanner') as pre_authentication_login_banner,
+                json_extract_path_text(Properties, 'ServerId') as server_id,
+                json_extract_path_text(Properties, 'PostAuthenticationLoginBanner') as post_authentication_login_banner,
+                json_extract_path_text(Properties, 'EndpointType') as endpoint_type,
+                json_extract_path_text(Properties, 'SecurityPolicyName') as security_policy_name,
+                json_extract_path_text(Properties, 'ProtocolDetails') as protocol_details,
+                json_extract_path_text(Properties, 'S3StorageOptions') as s3_storage_options,
+                json_extract_path_text(Properties, 'WorkflowDetails') as workflow_details,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'IdentityProviderType') as identity_provider_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Certificate') as certificate
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Server'
     users:
       name: users
       id: aws.transfer.users
@@ -1195,8 +1318,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::User'
     user:
       name: user
       id: aws.transfer.user
@@ -1224,6 +1354,24 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'HomeDirectory') as home_directory,
+                json_extract_path_text(Properties, 'HomeDirectoryType') as home_directory_type,
+                json_extract_path_text(Properties, 'ServerId') as server_id,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'HomeDirectoryMappings') as home_directory_mappings,
+                json_extract_path_text(Properties, 'PosixProfile') as posix_profile,
+                json_extract_path_text(Properties, 'SshPublicKeys') as ssh_public_keys,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::User'
     workflows:
       name: workflows
       id: aws.transfer.workflows
@@ -1238,8 +1386,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WorkflowId') as workflow_id
+              JSON_EXTRACT(Properties, '$.WorkflowId') as workflow_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkflowId') as workflow_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Transfer::Workflow'
     workflow:
       name: workflow
       id: aws.transfer.workflow
@@ -1261,3 +1416,15 @@ components:
               JSON_EXTRACT(Properties, '$.WorkflowId') as workflow_id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OnExceptionSteps') as on_exception_steps,
+                json_extract_path_text(Properties, 'Steps') as steps,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'WorkflowId') as workflow_id,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Transfer::Workflow'

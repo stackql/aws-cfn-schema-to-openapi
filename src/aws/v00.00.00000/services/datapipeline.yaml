@@ -196,8 +196,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PipelineId') as pipeline_id
+              JSON_EXTRACT(Properties, '$.PipelineId') as pipeline_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PipelineId') as pipeline_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'
     pipeline:
       name: pipeline
       id: aws.datapipeline.pipeline
@@ -221,3 +228,17 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineTags') as pipeline_tags,
               JSON_EXTRACT(Properties, '$.PipelineId') as pipeline_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Activate') as activate,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ParameterObjects') as parameter_objects,
+                json_extract_path_text(Properties, 'ParameterValues') as parameter_values,
+                json_extract_path_text(Properties, 'PipelineObjects') as pipeline_objects,
+                json_extract_path_text(Properties, 'PipelineTags') as pipeline_tags,
+                json_extract_path_text(Properties, 'PipelineId') as pipeline_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataPipeline::Pipeline'

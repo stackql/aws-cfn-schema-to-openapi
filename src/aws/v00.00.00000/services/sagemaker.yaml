@@ -5763,8 +5763,18 @@ components:
               JSON_EXTRACT(Properties, '$.AppName') as app_name,
               JSON_EXTRACT(Properties, '$.AppType') as app_type,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name
+              JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AppName') as app_name,
+                json_extract_path_text(Properties, 'AppType') as app_type,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'UserProfileName') as user_profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::App'
     app:
       name: app
       id: aws.sagemaker.app
@@ -5790,6 +5800,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AppArn') as app_arn,
+                json_extract_path_text(Properties, 'AppName') as app_name,
+                json_extract_path_text(Properties, 'AppType') as app_type,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'ResourceSpec') as resource_spec,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UserProfileName') as user_profile_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::App'
     app_image_configs:
       name: app_image_configs
       id: aws.sagemaker.app_image_configs
@@ -5804,8 +5827,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AppImageConfigName') as app_image_config_name
+              JSON_EXTRACT(Properties, '$.AppImageConfigName') as app_image_config_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AppImageConfigName') as app_image_config_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
     app_image_config:
       name: app_image_config
       id: aws.sagemaker.app_image_config
@@ -5826,6 +5856,17 @@ components:
               JSON_EXTRACT(Properties, '$.JupyterLabAppImageConfig') as jupyter_lab_app_image_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AppImageConfigArn') as app_image_config_arn,
+                json_extract_path_text(Properties, 'AppImageConfigName') as app_image_config_name,
+                json_extract_path_text(Properties, 'KernelGatewayImageConfig') as kernel_gateway_image_config,
+                json_extract_path_text(Properties, 'JupyterLabAppImageConfig') as jupyter_lab_app_image_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::AppImageConfig'
     data_quality_job_definitions:
       name: data_quality_job_definitions
       id: aws.sagemaker.data_quality_job_definitions
@@ -5840,8 +5881,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition'
     data_quality_job_definition:
       name: data_quality_job_definition
       id: aws.sagemaker.data_quality_job_definition
@@ -5870,6 +5918,25 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_arn,
+                json_extract_path_text(Properties, 'JobDefinitionName') as job_definition_name,
+                json_extract_path_text(Properties, 'DataQualityBaselineConfig') as data_quality_baseline_config,
+                json_extract_path_text(Properties, 'DataQualityAppSpecification') as data_quality_app_specification,
+                json_extract_path_text(Properties, 'DataQualityJobInput') as data_quality_job_input,
+                json_extract_path_text(Properties, 'DataQualityJobOutputConfig') as data_quality_job_output_config,
+                json_extract_path_text(Properties, 'JobResources') as job_resources,
+                json_extract_path_text(Properties, 'NetworkConfig') as network_config,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'StoppingCondition') as stopping_condition,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DataQualityJobDefinition'
     devices:
       name: devices
       id: aws.sagemaker.devices
@@ -5884,8 +5951,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Device.DeviceName') as device.device_name
+              JSON_EXTRACT(Properties, '$.Device.DeviceName') as device__device_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Device', 'DeviceName') as device__device_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Device'
     device:
       name: device
       id: aws.sagemaker.device
@@ -5904,6 +5978,15 @@ components:
               JSON_EXTRACT(Properties, '$.Device') as device,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeviceFleetName') as device_fleet_name,
+                json_extract_path_text(Properties, 'Device') as device,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Device'
     device_fleets:
       name: device_fleets
       id: aws.sagemaker.device_fleets
@@ -5918,8 +6001,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_name
+              JSON_EXTRACT(Properties, '$.DeviceFleetName') as device_fleet_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::DeviceFleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeviceFleetName') as device_fleet_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::DeviceFleet'
     device_fleet:
       name: device_fleet
       id: aws.sagemaker.device_fleet
@@ -5940,6 +6030,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DeviceFleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DeviceFleetName') as device_fleet_name,
+                json_extract_path_text(Properties, 'OutputConfig') as output_config,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::DeviceFleet'
     endpoints:
       name: endpoints
       id: aws.sagemaker.endpoints
@@ -5954,8 +6055,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Endpoint'
     endpoint:
       name: endpoint
       id: aws.sagemaker.endpoint
@@ -5979,6 +6087,20 @@ components:
               JSON_EXTRACT(Properties, '$.RetainDeploymentConfig') as retain_deployment_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RetainAllVariantProperties') as retain_all_variant_properties,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'ExcludeRetainedVariantProperties') as exclude_retained_variant_properties,
+                json_extract_path_text(Properties, 'EndpointConfigName') as endpoint_config_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DeploymentConfig') as deployment_config,
+                json_extract_path_text(Properties, 'RetainDeploymentConfig') as retain_deployment_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Endpoint'
     endpoint_configs:
       name: endpoint_configs
       id: aws.sagemaker.endpoint_configs
@@ -5993,8 +6115,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::EndpointConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::EndpointConfig'
     endpoint_config:
       name: endpoint_config
       id: aws.sagemaker.endpoint_config
@@ -6022,6 +6151,24 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::EndpointConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ShadowProductionVariants') as shadow_production_variants,
+                json_extract_path_text(Properties, 'DataCaptureConfig') as data_capture_config,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'EnableNetworkIsolation') as enable_network_isolation,
+                json_extract_path_text(Properties, 'ProductionVariants') as production_variants,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'AsyncInferenceConfig') as async_inference_config,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'EndpointConfigName') as endpoint_config_name,
+                json_extract_path_text(Properties, 'ExplainerConfig') as explainer_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::EndpointConfig'
     feature_groups:
       name: feature_groups
       id: aws.sagemaker.feature_groups
@@ -6036,8 +6183,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FeatureGroupName') as feature_group_name
+              JSON_EXTRACT(Properties, '$.FeatureGroupName') as feature_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::FeatureGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FeatureGroupName') as feature_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::FeatureGroup'
     feature_group:
       name: feature_group
       id: aws.sagemaker.feature_group
@@ -6065,6 +6219,24 @@ components:
               JSON_EXTRACT(Properties, '$.FeatureGroupStatus') as feature_group_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::FeatureGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FeatureGroupName') as feature_group_name,
+                json_extract_path_text(Properties, 'RecordIdentifierFeatureName') as record_identifier_feature_name,
+                json_extract_path_text(Properties, 'EventTimeFeatureName') as event_time_feature_name,
+                json_extract_path_text(Properties, 'FeatureDefinitions') as feature_definitions,
+                json_extract_path_text(Properties, 'OnlineStoreConfig') as online_store_config,
+                json_extract_path_text(Properties, 'OfflineStoreConfig') as offline_store_config,
+                json_extract_path_text(Properties, 'ThroughputConfig') as throughput_config,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'FeatureGroupStatus') as feature_group_status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::FeatureGroup'
     images:
       name: images
       id: aws.sagemaker.images
@@ -6079,8 +6251,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ImageArn') as image_arn
+              JSON_EXTRACT(Properties, '$.ImageArn') as image_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Image'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ImageArn') as image_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Image'
     image:
       name: image
       id: aws.sagemaker.image
@@ -6102,6 +6281,18 @@ components:
               JSON_EXTRACT(Properties, '$.ImageDescription') as image_description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Image'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ImageName') as image_name,
+                json_extract_path_text(Properties, 'ImageArn') as image_arn,
+                json_extract_path_text(Properties, 'ImageRoleArn') as image_role_arn,
+                json_extract_path_text(Properties, 'ImageDisplayName') as image_display_name,
+                json_extract_path_text(Properties, 'ImageDescription') as image_description,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Image'
     image_versions:
       name: image_versions
       id: aws.sagemaker.image_versions
@@ -6116,8 +6307,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ImageVersionArn') as image_version_arn
+              JSON_EXTRACT(Properties, '$.ImageVersionArn') as image_version_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ImageVersionArn') as image_version_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
     image_version:
       name: image_version
       id: aws.sagemaker.image_version
@@ -6148,6 +6346,27 @@ components:
               JSON_EXTRACT(Properties, '$.Horovod') as horovod,
               JSON_EXTRACT(Properties, '$.ReleaseNotes') as release_notes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ImageName') as image_name,
+                json_extract_path_text(Properties, 'ImageArn') as image_arn,
+                json_extract_path_text(Properties, 'ImageVersionArn') as image_version_arn,
+                json_extract_path_text(Properties, 'BaseImage') as base_image,
+                json_extract_path_text(Properties, 'ContainerImage') as container_image,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'Aliases') as aliases,
+                json_extract_path_text(Properties, 'VendorGuidance') as vendor_guidance,
+                json_extract_path_text(Properties, 'JobType') as job_type,
+                json_extract_path_text(Properties, 'MLFramework') as m_lframework,
+                json_extract_path_text(Properties, 'ProgrammingLang') as programming_lang,
+                json_extract_path_text(Properties, 'Processor') as processor,
+                json_extract_path_text(Properties, 'Horovod') as horovod,
+                json_extract_path_text(Properties, 'ReleaseNotes') as release_notes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ImageVersion'
     inference_components:
       name: inference_components
       id: aws.sagemaker.inference_components
@@ -6162,8 +6381,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InferenceComponentArn') as inference_component_arn
+              JSON_EXTRACT(Properties, '$.InferenceComponentArn') as inference_component_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InferenceComponentArn') as inference_component_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
     inference_component:
       name: inference_component
       id: aws.sagemaker.inference_component
@@ -6191,6 +6417,24 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InferenceComponentArn') as inference_component_arn,
+                json_extract_path_text(Properties, 'InferenceComponentName') as inference_component_name,
+                json_extract_path_text(Properties, 'EndpointArn') as endpoint_arn,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'VariantName') as variant_name,
+                json_extract_path_text(Properties, 'FailureReason') as failure_reason,
+                json_extract_path_text(Properties, 'Specification') as specification,
+                json_extract_path_text(Properties, 'RuntimeConfig') as runtime_config,
+                json_extract_path_text(Properties, 'InferenceComponentStatus') as inference_component_status,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::InferenceComponent'
     inference_experiments:
       name: inference_experiments
       id: aws.sagemaker.inference_experiments
@@ -6205,8 +6449,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::InferenceExperiment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::InferenceExperiment'
     inference_experiment:
       name: inference_experiment
       id: aws.sagemaker.inference_experiment
@@ -6240,6 +6491,30 @@ components:
               JSON_EXTRACT(Properties, '$.StatusReason') as status_reason,
               JSON_EXTRACT(Properties, '$.DesiredState') as desired_state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::InferenceExperiment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'EndpointMetadata') as endpoint_metadata,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'KmsKey') as kms_key,
+                json_extract_path_text(Properties, 'DataStorageConfig') as data_storage_config,
+                json_extract_path_text(Properties, 'ModelVariants') as model_variants,
+                json_extract_path_text(Properties, 'ShadowModeConfig') as shadow_mode_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusReason') as status_reason,
+                json_extract_path_text(Properties, 'DesiredState') as desired_state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::InferenceExperiment'
     models:
       name: models
       id: aws.sagemaker.models
@@ -6254,8 +6529,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Model'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Model'
     model:
       name: model
       id: aws.sagemaker.model
@@ -6280,6 +6562,21 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Model'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'EnableNetworkIsolation') as enable_network_isolation,
+                json_extract_path_text(Properties, 'PrimaryContainer') as primary_container,
+                json_extract_path_text(Properties, 'ModelName') as model_name,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'Containers') as containers,
+                json_extract_path_text(Properties, 'InferenceExecutionConfig') as inference_execution_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Model'
     model_bias_job_definitions:
       name: model_bias_job_definitions
       id: aws.sagemaker.model_bias_job_definitions
@@ -6294,8 +6591,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition'
     model_bias_job_definition:
       name: model_bias_job_definition
       id: aws.sagemaker.model_bias_job_definition
@@ -6324,6 +6628,25 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_arn,
+                json_extract_path_text(Properties, 'JobDefinitionName') as job_definition_name,
+                json_extract_path_text(Properties, 'ModelBiasBaselineConfig') as model_bias_baseline_config,
+                json_extract_path_text(Properties, 'ModelBiasAppSpecification') as model_bias_app_specification,
+                json_extract_path_text(Properties, 'ModelBiasJobInput') as model_bias_job_input,
+                json_extract_path_text(Properties, 'ModelBiasJobOutputConfig') as model_bias_job_output_config,
+                json_extract_path_text(Properties, 'JobResources') as job_resources,
+                json_extract_path_text(Properties, 'NetworkConfig') as network_config,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'StoppingCondition') as stopping_condition,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelBiasJobDefinition'
     model_cards:
       name: model_cards
       id: aws.sagemaker.model_cards
@@ -6338,8 +6661,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ModelCardName') as model_card_name
+              JSON_EXTRACT(Properties, '$.ModelCardName') as model_card_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelCard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ModelCardName') as model_card_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelCard'
     model_card:
       name: model_card
       id: aws.sagemaker.model_card
@@ -6367,6 +6697,24 @@ components:
               JSON_EXTRACT(Properties, '$.ModelCardProcessingStatus') as model_card_processing_status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelCard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ModelCardArn') as model_card_arn,
+                json_extract_path_text(Properties, 'ModelCardVersion') as model_card_version,
+                json_extract_path_text(Properties, 'ModelCardName') as model_card_name,
+                json_extract_path_text(Properties, 'SecurityConfig') as security_config,
+                json_extract_path_text(Properties, 'ModelCardStatus') as model_card_status,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'LastModifiedBy') as last_modified_by,
+                json_extract_path_text(Properties, 'ModelCardProcessingStatus') as model_card_processing_status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelCard'
     model_explainability_job_definitions:
       name: model_explainability_job_definitions
       id: aws.sagemaker.model_explainability_job_definitions
@@ -6381,8 +6729,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition'
     model_explainability_job_definition:
       name: model_explainability_job_definition
       id: aws.sagemaker.model_explainability_job_definition
@@ -6411,6 +6766,25 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_arn,
+                json_extract_path_text(Properties, 'JobDefinitionName') as job_definition_name,
+                json_extract_path_text(Properties, 'ModelExplainabilityBaselineConfig') as model_explainability_baseline_config,
+                json_extract_path_text(Properties, 'ModelExplainabilityAppSpecification') as model_explainability_app_specification,
+                json_extract_path_text(Properties, 'ModelExplainabilityJobInput') as model_explainability_job_input,
+                json_extract_path_text(Properties, 'ModelExplainabilityJobOutputConfig') as model_explainability_job_output_config,
+                json_extract_path_text(Properties, 'JobResources') as job_resources,
+                json_extract_path_text(Properties, 'NetworkConfig') as network_config,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'StoppingCondition') as stopping_condition,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelExplainabilityJobDefinition'
     model_packages:
       name: model_packages
       id: aws.sagemaker.model_packages
@@ -6425,8 +6799,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ModelPackageArn') as model_package_arn
+              JSON_EXTRACT(Properties, '$.ModelPackageArn') as model_package_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ModelPackageArn') as model_package_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
     model_package:
       name: model_package
       id: aws.sagemaker.model_package
@@ -6469,6 +6850,39 @@ components:
               JSON_EXTRACT(Properties, '$.AdditionalInferenceSpecificationsToAdd') as additional_inference_specifications_to_add,
               JSON_EXTRACT(Properties, '$.ModelPackageStatusDetails') as model_package_status_details
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AdditionalInferenceSpecifications') as additional_inference_specifications,
+                json_extract_path_text(Properties, 'CertifyForMarketplace') as certify_for_marketplace,
+                json_extract_path_text(Properties, 'ClientToken') as client_token,
+                json_extract_path_text(Properties, 'CustomerMetadataProperties') as customer_metadata_properties,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'DriftCheckBaselines') as drift_check_baselines,
+                json_extract_path_text(Properties, 'InferenceSpecification') as inference_specification,
+                json_extract_path_text(Properties, 'MetadataProperties') as metadata_properties,
+                json_extract_path_text(Properties, 'ModelApprovalStatus') as model_approval_status,
+                json_extract_path_text(Properties, 'ModelMetrics') as model_metrics,
+                json_extract_path_text(Properties, 'ModelPackageDescription') as model_package_description,
+                json_extract_path_text(Properties, 'ModelPackageGroupName') as model_package_group_name,
+                json_extract_path_text(Properties, 'ModelPackageName') as model_package_name,
+                json_extract_path_text(Properties, 'SamplePayloadUrl') as sample_payload_url,
+                json_extract_path_text(Properties, 'SkipModelValidation') as skip_model_validation,
+                json_extract_path_text(Properties, 'SourceAlgorithmSpecification') as source_algorithm_specification,
+                json_extract_path_text(Properties, 'Task') as task,
+                json_extract_path_text(Properties, 'ValidationSpecification') as validation_specification,
+                json_extract_path_text(Properties, 'ModelPackageArn') as model_package_arn,
+                json_extract_path_text(Properties, 'ApprovalDescription') as approval_description,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'ModelPackageStatus') as model_package_status,
+                json_extract_path_text(Properties, 'ModelPackageVersion') as model_package_version,
+                json_extract_path_text(Properties, 'AdditionalInferenceSpecificationsToAdd') as additional_inference_specifications_to_add,
+                json_extract_path_text(Properties, 'ModelPackageStatusDetails') as model_package_status_details
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackage'
     model_package_groups:
       name: model_package_groups
       id: aws.sagemaker.model_package_groups
@@ -6483,8 +6897,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ModelPackageGroupArn') as model_package_group_arn
+              JSON_EXTRACT(Properties, '$.ModelPackageGroupArn') as model_package_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelPackageGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ModelPackageGroupArn') as model_package_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelPackageGroup'
     model_package_group:
       name: model_package_group
       id: aws.sagemaker.model_package_group
@@ -6507,6 +6928,19 @@ components:
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time,
               JSON_EXTRACT(Properties, '$.ModelPackageGroupStatus') as model_package_group_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackageGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ModelPackageGroupArn') as model_package_group_arn,
+                json_extract_path_text(Properties, 'ModelPackageGroupName') as model_package_group_name,
+                json_extract_path_text(Properties, 'ModelPackageGroupDescription') as model_package_group_description,
+                json_extract_path_text(Properties, 'ModelPackageGroupPolicy') as model_package_group_policy,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ModelPackageGroupStatus') as model_package_group_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelPackageGroup'
     model_quality_job_definitions:
       name: model_quality_job_definitions
       id: aws.sagemaker.model_quality_job_definitions
@@ -6521,8 +6955,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_arn
+              JSON_EXTRACT(Properties, '$.JobDefinitionArn') as job_definition_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition'
     model_quality_job_definition:
       name: model_quality_job_definition
       id: aws.sagemaker.model_quality_job_definition
@@ -6551,6 +6992,25 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobDefinitionArn') as job_definition_arn,
+                json_extract_path_text(Properties, 'JobDefinitionName') as job_definition_name,
+                json_extract_path_text(Properties, 'ModelQualityBaselineConfig') as model_quality_baseline_config,
+                json_extract_path_text(Properties, 'ModelQualityAppSpecification') as model_quality_app_specification,
+                json_extract_path_text(Properties, 'ModelQualityJobInput') as model_quality_job_input,
+                json_extract_path_text(Properties, 'ModelQualityJobOutputConfig') as model_quality_job_output_config,
+                json_extract_path_text(Properties, 'JobResources') as job_resources,
+                json_extract_path_text(Properties, 'NetworkConfig') as network_config,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'StoppingCondition') as stopping_condition,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::ModelQualityJobDefinition'
     monitoring_schedules:
       name: monitoring_schedules
       id: aws.sagemaker.monitoring_schedules
@@ -6565,8 +7025,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MonitoringScheduleArn') as monitoring_schedule_arn
+              JSON_EXTRACT(Properties, '$.MonitoringScheduleArn') as monitoring_schedule_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::MonitoringSchedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MonitoringScheduleArn') as monitoring_schedule_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::MonitoringSchedule'
     monitoring_schedule:
       name: monitoring_schedule
       id: aws.sagemaker.monitoring_schedule
@@ -6592,6 +7059,22 @@ components:
               JSON_EXTRACT(Properties, '$.LastMonitoringExecutionSummary') as last_monitoring_execution_summary,
               JSON_EXTRACT(Properties, '$.MonitoringScheduleStatus') as monitoring_schedule_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::MonitoringSchedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MonitoringScheduleArn') as monitoring_schedule_arn,
+                json_extract_path_text(Properties, 'MonitoringScheduleName') as monitoring_schedule_name,
+                json_extract_path_text(Properties, 'MonitoringScheduleConfig') as monitoring_schedule_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'FailureReason') as failure_reason,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'LastMonitoringExecutionSummary') as last_monitoring_execution_summary,
+                json_extract_path_text(Properties, 'MonitoringScheduleStatus') as monitoring_schedule_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::MonitoringSchedule'
     notebook_instances:
       name: notebook_instances
       id: aws.sagemaker.notebook_instances
@@ -6606,8 +7089,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::NotebookInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::NotebookInstance'
     notebook_instance:
       name: notebook_instance
       id: aws.sagemaker.notebook_instance
@@ -6640,6 +7130,29 @@ components:
               JSON_EXTRACT(Properties, '$.LifecycleConfigName') as lifecycle_config_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::NotebookInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'VolumeSizeInGB') as volume_size_in_gb,
+                json_extract_path_text(Properties, 'AdditionalCodeRepositories') as additional_code_repositories,
+                json_extract_path_text(Properties, 'DefaultCodeRepository') as default_code_repository,
+                json_extract_path_text(Properties, 'DirectInternetAccess') as direct_internet_access,
+                json_extract_path_text(Properties, 'PlatformIdentifier') as platform_identifier,
+                json_extract_path_text(Properties, 'AcceleratorTypes') as accelerator_types,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'InstanceMetadataServiceConfiguration') as instance_metadata_service_configuration,
+                json_extract_path_text(Properties, 'RootAccess') as root_access,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NotebookInstanceName') as notebook_instance_name,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'LifecycleConfigName') as lifecycle_config_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::NotebookInstance'
     notebook_instance_lifecycle_configs:
       name: notebook_instance_lifecycle_configs
       id: aws.sagemaker.notebook_instance_lifecycle_configs
@@ -6654,8 +7167,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig'
     notebook_instance_lifecycle_config:
       name: notebook_instance_lifecycle_config
       id: aws.sagemaker.notebook_instance_lifecycle_config
@@ -6675,6 +7195,16 @@ components:
               JSON_EXTRACT(Properties, '$.OnStart') as on_start,
               JSON_EXTRACT(Properties, '$.OnCreate') as on_create
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NotebookInstanceLifecycleConfigName') as notebook_instance_lifecycle_config_name,
+                json_extract_path_text(Properties, 'OnStart') as on_start,
+                json_extract_path_text(Properties, 'OnCreate') as on_create
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::NotebookInstanceLifecycleConfig'
     pipelines:
       name: pipelines
       id: aws.sagemaker.pipelines
@@ -6689,8 +7219,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_name
+              JSON_EXTRACT(Properties, '$.PipelineName') as pipeline_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PipelineName') as pipeline_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Pipeline'
     pipeline:
       name: pipeline
       id: aws.sagemaker.pipeline
@@ -6713,6 +7250,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ParallelismConfiguration') as parallelism_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Pipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PipelineName') as pipeline_name,
+                json_extract_path_text(Properties, 'PipelineDisplayName') as pipeline_display_name,
+                json_extract_path_text(Properties, 'PipelineDescription') as pipeline_description,
+                json_extract_path_text(Properties, 'PipelineDefinition') as pipeline_definition,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ParallelismConfiguration') as parallelism_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Pipeline'
     projects:
       name: projects
       id: aws.sagemaker.projects
@@ -6727,8 +7277,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProjectArn') as project_arn
+              JSON_EXTRACT(Properties, '$.ProjectArn') as project_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProjectArn') as project_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Project'
     project:
       name: project
       id: aws.sagemaker.project
@@ -6753,6 +7310,21 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceCatalogProvisionedProductDetails') as service_catalog_provisioned_product_details,
               JSON_EXTRACT(Properties, '$.ProjectStatus') as project_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ProjectArn') as project_arn,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'ProjectName') as project_name,
+                json_extract_path_text(Properties, 'ProjectDescription') as project_description,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'ServiceCatalogProvisioningDetails') as service_catalog_provisioning_details,
+                json_extract_path_text(Properties, 'ServiceCatalogProvisionedProductDetails') as service_catalog_provisioned_product_details,
+                json_extract_path_text(Properties, 'ProjectStatus') as project_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Project'
     spaces:
       name: spaces
       id: aws.sagemaker.spaces
@@ -6769,8 +7341,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.SpaceName') as space_name
+              JSON_EXTRACT(Properties, '$.SpaceName') as space_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Space'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'SpaceName') as space_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Space'
     space:
       name: space
       id: aws.sagemaker.space
@@ -6796,6 +7376,21 @@ components:
               JSON_EXTRACT(Properties, '$.SpaceDisplayName') as space_display_name,
               JSON_EXTRACT(Properties, '$.Url') as url
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Space'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SpaceArn') as space_arn,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'SpaceName') as space_name,
+                json_extract_path_text(Properties, 'SpaceSettings') as space_settings,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'OwnershipSettings') as ownership_settings,
+                json_extract_path_text(Properties, 'SpaceSharingSettings') as space_sharing_settings,
+                json_extract_path_text(Properties, 'SpaceDisplayName') as space_display_name,
+                json_extract_path_text(Properties, 'Url') as url
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Space'
     user_profiles:
       name: user_profiles
       id: aws.sagemaker.user_profiles
@@ -6812,8 +7407,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserProfileName') as user_profile_name,
-              JSON_EXTRACT(Properties, '$.DomainId') as domain_id
+              JSON_EXTRACT(Properties, '$.DomainId') as domain_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::UserProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserProfileName') as user_profile_name,
+                json_extract_path_text(Properties, 'DomainId') as domain_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::UserProfile'
     user_profile:
       name: user_profile
       id: aws.sagemaker.user_profile
@@ -6837,6 +7440,19 @@ components:
               JSON_EXTRACT(Properties, '$.UserSettings') as user_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::UserProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserProfileArn') as user_profile_arn,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'SingleSignOnUserIdentifier') as single_sign_on_user_identifier,
+                json_extract_path_text(Properties, 'SingleSignOnUserValue') as single_sign_on_user_value,
+                json_extract_path_text(Properties, 'UserProfileName') as user_profile_name,
+                json_extract_path_text(Properties, 'UserSettings') as user_settings,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::UserProfile'
     workteams:
       name: workteams
       id: aws.sagemaker.workteams
@@ -6851,8 +7467,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Workteam'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SageMaker::Workteam'
     workteam:
       name: workteam
       id: aws.sagemaker.workteam
@@ -6875,3 +7498,16 @@ components:
               JSON_EXTRACT(Properties, '$.WorkforceName') as workforce_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Workteam'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'NotificationConfiguration') as notification_configuration,
+                json_extract_path_text(Properties, 'WorkteamName') as workteam_name,
+                json_extract_path_text(Properties, 'MemberDefinitions') as member_definitions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'WorkforceName') as workforce_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SageMaker::Workteam'

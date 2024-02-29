@@ -244,8 +244,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
     configuration_set:
       name: configuration_set
       id: aws.pinpointemail.configuration_set
@@ -268,6 +275,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SendingOptions') as sending_options,
+                json_extract_path_text(Properties, 'TrackingOptions') as tracking_options,
+                json_extract_path_text(Properties, 'ReputationOptions') as reputation_options,
+                json_extract_path_text(Properties, 'DeliveryOptions') as delivery_options,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSet'
     configuration_set_event_destinations:
       name: configuration_set_event_destinations
       id: aws.pinpointemail.configuration_set_event_destinations
@@ -282,8 +302,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
     configuration_set_event_destination:
       name: configuration_set_event_destination
       id: aws.pinpointemail.configuration_set_event_destination
@@ -303,6 +330,16 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationSetName') as configuration_set_name,
               JSON_EXTRACT(Properties, '$.EventDestination') as event_destination
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'EventDestinationName') as event_destination_name,
+                json_extract_path_text(Properties, 'ConfigurationSetName') as configuration_set_name,
+                json_extract_path_text(Properties, 'EventDestination') as event_destination
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::ConfigurationSetEventDestination'
     dedicated_ip_pools:
       name: dedicated_ip_pools
       id: aws.pinpointemail.dedicated_ip_pools
@@ -317,8 +354,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
     dedicated_ip_pool:
       name: dedicated_ip_pool
       id: aws.pinpointemail.dedicated_ip_pool
@@ -337,6 +381,15 @@ components:
               JSON_EXTRACT(Properties, '$.PoolName') as pool_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PoolName') as pool_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::DedicatedIpPool'
     identities:
       name: identities
       id: aws.pinpointemail.identities
@@ -351,8 +404,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::Identity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PinpointEmail::Identity'
     identity:
       name: identity
       id: aws.pinpointemail.identity
@@ -380,3 +440,21 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.MailFromAttributes') as mail_from_attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::Identity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IdentityDNSRecordName3') as identity_dn_srecord_name3,
+                json_extract_path_text(Properties, 'IdentityDNSRecordName1') as identity_dn_srecord_name1,
+                json_extract_path_text(Properties, 'IdentityDNSRecordName2') as identity_dn_srecord_name2,
+                json_extract_path_text(Properties, 'IdentityDNSRecordValue3') as identity_dn_srecord_value3,
+                json_extract_path_text(Properties, 'IdentityDNSRecordValue2') as identity_dn_srecord_value2,
+                json_extract_path_text(Properties, 'IdentityDNSRecordValue1') as identity_dn_srecord_value1,
+                json_extract_path_text(Properties, 'FeedbackForwardingEnabled') as feedback_forwarding_enabled,
+                json_extract_path_text(Properties, 'DkimSigningEnabled') as dkim_signing_enabled,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'MailFromAttributes') as mail_from_attributes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PinpointEmail::Identity'

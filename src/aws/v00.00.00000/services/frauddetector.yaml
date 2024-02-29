@@ -854,8 +854,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Label'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Label'
     label:
       name: label
       id: aws.frauddetector.label
@@ -877,6 +884,18 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Label'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Label'
     outcomes:
       name: outcomes
       id: aws.frauddetector.outcomes
@@ -891,8 +910,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
     outcome:
       name: outcome
       id: aws.frauddetector.outcome
@@ -914,6 +940,18 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Outcome'
     event_types:
       name: event_types
       id: aws.frauddetector.event_types
@@ -928,8 +966,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::EventType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::EventType'
     event_type:
       name: event_type
       id: aws.frauddetector.event_type
@@ -954,6 +999,21 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::EventType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EventVariables') as event_variables,
+                json_extract_path_text(Properties, 'Labels') as labels,
+                json_extract_path_text(Properties, 'EntityTypes') as entity_types,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::EventType'
     detectors:
       name: detectors
       id: aws.frauddetector.detectors
@@ -968,8 +1028,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Detector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Detector'
     detector:
       name: detector
       id: aws.frauddetector.detector
@@ -997,6 +1064,24 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
               JSON_EXTRACT(Properties, '$.AssociatedModels') as associated_models
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Detector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'DetectorVersionStatus') as detector_version_status,
+                json_extract_path_text(Properties, 'DetectorVersionId') as detector_version_id,
+                json_extract_path_text(Properties, 'RuleExecutionMode') as rule_execution_mode,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Rules') as rules,
+                json_extract_path_text(Properties, 'EventType') as event_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'AssociatedModels') as associated_models
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Detector'
     lists:
       name: lists
       id: aws.frauddetector.lists
@@ -1011,8 +1096,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::List'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::List'
     list:
       name: list
       id: aws.frauddetector.list
@@ -1036,6 +1128,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Elements') as elements
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::List'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'VariableType') as variable_type,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Elements') as elements
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::List'
     variables:
       name: variables
       id: aws.frauddetector.variables
@@ -1050,8 +1156,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Variable'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FraudDetector::Variable'
     variable:
       name: variable
       id: aws.frauddetector.variable
@@ -1077,3 +1190,19 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Variable'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DataSource') as data_source,
+                json_extract_path_text(Properties, 'DataType') as data_type,
+                json_extract_path_text(Properties, 'DefaultValue') as default_value,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VariableType') as variable_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FraudDetector::Variable'

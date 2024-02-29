@@ -217,8 +217,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MonitorName') as monitor_name
+              JSON_EXTRACT(Properties, '$.MonitorName') as monitor_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MonitorName') as monitor_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'
     monitor:
       name: monitor
       id: aws.internetmonitor.monitor
@@ -249,3 +256,24 @@ components:
               JSON_EXTRACT(Properties, '$.InternetMeasurementsLogDelivery') as internet_measurements_log_delivery,
               JSON_EXTRACT(Properties, '$.HealthEventsConfig') as health_events_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'MonitorArn') as monitor_arn,
+                json_extract_path_text(Properties, 'MonitorName') as monitor_name,
+                json_extract_path_text(Properties, 'ProcessingStatus') as processing_status,
+                json_extract_path_text(Properties, 'ProcessingStatusInfo') as processing_status_info,
+                json_extract_path_text(Properties, 'Resources') as resources,
+                json_extract_path_text(Properties, 'ResourcesToAdd') as resources_to_add,
+                json_extract_path_text(Properties, 'ResourcesToRemove') as resources_to_remove,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'MaxCityNetworksToMonitor') as max_city_networks_to_monitor,
+                json_extract_path_text(Properties, 'TrafficPercentageToMonitor') as traffic_percentage_to_monitor,
+                json_extract_path_text(Properties, 'InternetMeasurementsLogDelivery') as internet_measurements_log_delivery,
+                json_extract_path_text(Properties, 'HealthEventsConfig') as health_events_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InternetMonitor::Monitor'

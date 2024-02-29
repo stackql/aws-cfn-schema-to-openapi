@@ -654,8 +654,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
     annotation_store:
       name: annotation_store
       id: aws.omics.annotation_store
@@ -685,6 +692,26 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Reference') as reference,
+                json_extract_path_text(Properties, 'SseConfig') as sse_config,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'StoreArn') as store_arn,
+                json_extract_path_text(Properties, 'StoreFormat') as store_format,
+                json_extract_path_text(Properties, 'StoreOptions') as store_options,
+                json_extract_path_text(Properties, 'StoreSizeBytes') as store_size_bytes,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::AnnotationStore'
     reference_stores:
       name: reference_stores
       id: aws.omics.reference_stores
@@ -699,8 +726,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReferenceStoreId') as reference_store_id
+              JSON_EXTRACT(Properties, '$.ReferenceStoreId') as reference_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReferenceStoreId') as reference_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
     reference_store:
       name: reference_store
       id: aws.omics.reference_store
@@ -723,6 +757,19 @@ components:
               JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ReferenceStoreId') as reference_store_id,
+                json_extract_path_text(Properties, 'SseConfig') as sse_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::ReferenceStore'
     run_groups:
       name: run_groups
       id: aws.omics.run_groups
@@ -737,8 +784,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::RunGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::RunGroup'
     run_group:
       name: run_group
       id: aws.omics.run_group
@@ -763,6 +817,21 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::RunGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'MaxCpus') as max_cpus,
+                json_extract_path_text(Properties, 'MaxGpus') as max_gpus,
+                json_extract_path_text(Properties, 'MaxDuration') as max_duration,
+                json_extract_path_text(Properties, 'MaxRuns') as max_runs,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::RunGroup'
     sequence_stores:
       name: sequence_stores
       id: aws.omics.sequence_stores
@@ -777,8 +846,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_id
+              JSON_EXTRACT(Properties, '$.SequenceStoreId') as sequence_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::SequenceStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SequenceStoreId') as sequence_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::SequenceStore'
     sequence_store:
       name: sequence_store
       id: aws.omics.sequence_store
@@ -802,6 +878,20 @@ components:
               JSON_EXTRACT(Properties, '$.SseConfig') as sse_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::SequenceStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'FallbackLocation') as fallback_location,
+                json_extract_path_text(Properties, 'SequenceStoreId') as sequence_store_id,
+                json_extract_path_text(Properties, 'SseConfig') as sse_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::SequenceStore'
     variant_stores:
       name: variant_stores
       id: aws.omics.variant_stores
@@ -816,8 +906,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::VariantStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::VariantStore'
     variant_store:
       name: variant_store
       id: aws.omics.variant_store
@@ -845,6 +942,24 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::VariantStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Reference') as reference,
+                json_extract_path_text(Properties, 'SseConfig') as sse_config,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'StoreArn') as store_arn,
+                json_extract_path_text(Properties, 'StoreSizeBytes') as store_size_bytes,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::VariantStore'
     workflows:
       name: workflows
       id: aws.omics.workflows
@@ -859,8 +974,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Omics::Workflow'
     workflow:
       name: workflow
       id: aws.omics.workflow
@@ -890,3 +1012,23 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'DefinitionUri') as definition_uri,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Engine') as engine,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Main') as main,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ParameterTemplate') as parameter_template,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Accelerators') as accelerators,
+                json_extract_path_text(Properties, 'StorageCapacity') as storage_capacity,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Omics::Workflow'

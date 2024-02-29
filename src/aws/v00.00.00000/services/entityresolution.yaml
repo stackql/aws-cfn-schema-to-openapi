@@ -513,8 +513,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WorkflowName') as workflow_name
+              JSON_EXTRACT(Properties, '$.WorkflowName') as workflow_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::IdMappingWorkflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkflowName') as workflow_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::IdMappingWorkflow'
     id_mapping_workflow:
       name: id_mapping_workflow
       id: aws.entityresolution.id_mapping_workflow
@@ -540,6 +547,22 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::IdMappingWorkflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkflowName') as workflow_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'InputSourceConfig') as input_source_config,
+                json_extract_path_text(Properties, 'OutputSourceConfig') as output_source_config,
+                json_extract_path_text(Properties, 'IdMappingTechniques') as id_mapping_techniques,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'WorkflowArn') as workflow_arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::IdMappingWorkflow'
     matching_workflows:
       name: matching_workflows
       id: aws.entityresolution.matching_workflows
@@ -554,8 +577,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WorkflowName') as workflow_name
+              JSON_EXTRACT(Properties, '$.WorkflowName') as workflow_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::MatchingWorkflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkflowName') as workflow_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::MatchingWorkflow'
     matching_workflow:
       name: matching_workflow
       id: aws.entityresolution.matching_workflow
@@ -581,6 +611,22 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::MatchingWorkflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkflowName') as workflow_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'InputSourceConfig') as input_source_config,
+                json_extract_path_text(Properties, 'OutputSourceConfig') as output_source_config,
+                json_extract_path_text(Properties, 'ResolutionTechniques') as resolution_techniques,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'WorkflowArn') as workflow_arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::MatchingWorkflow'
     schema_mappings:
       name: schema_mappings
       id: aws.entityresolution.schema_mappings
@@ -595,8 +641,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SchemaName') as schema_name
+              JSON_EXTRACT(Properties, '$.SchemaName') as schema_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::SchemaMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SchemaName') as schema_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EntityResolution::SchemaMapping'
     schema_mapping:
       name: schema_mapping
       id: aws.entityresolution.schema_mapping
@@ -620,3 +673,17 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.HasWorkflows') as has_workflows
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::SchemaMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SchemaName') as schema_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'MappedInputFields') as mapped_input_fields,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'HasWorkflows') as has_workflows
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EntityResolution::SchemaMapping'

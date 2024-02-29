@@ -849,8 +849,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlock'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlock'
     app_block:
       name: app_block
       id: aws.appstream.app_block
@@ -876,6 +883,22 @@ components:
               JSON_EXTRACT(Properties, '$.PackagingType') as packaging_type,
               JSON_EXTRACT(Properties, '$.PostSetupScriptDetails') as post_setup_script_details
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlock'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'SourceS3Location') as source_s3_location,
+                json_extract_path_text(Properties, 'SetupScriptDetails') as setup_script_details,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'PackagingType') as packaging_type,
+                json_extract_path_text(Properties, 'PostSetupScriptDetails') as post_setup_script_details
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlock'
     app_block_builders:
       name: app_block_builders
       id: aws.appstream.app_block_builders
@@ -890,8 +913,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
     app_block_builder:
       name: app_block_builder
       id: aws.appstream.app_block_builder
@@ -920,6 +950,25 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceType') as instance_type,
               JSON_EXTRACT(Properties, '$.AppBlockArns') as app_block_arns
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'Platform') as platform,
+                json_extract_path_text(Properties, 'AccessEndpoints') as access_endpoints,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'EnableDefaultInternetAccess') as enable_default_internet_access,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'AppBlockArns') as app_block_arns
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::AppBlockBuilder'
     applications:
       name: applications
       id: aws.appstream.applications
@@ -934,8 +983,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Application'
     application:
       name: application
       id: aws.appstream.application
@@ -965,6 +1021,26 @@ components:
               JSON_EXTRACT(Properties, '$.AttributesToDelete') as attributes_to_delete,
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'LaunchPath') as launch_path,
+                json_extract_path_text(Properties, 'LaunchParameters') as launch_parameters,
+                json_extract_path_text(Properties, 'WorkingDirectory') as working_directory,
+                json_extract_path_text(Properties, 'InstanceFamilies') as instance_families,
+                json_extract_path_text(Properties, 'IconS3Location') as icon_s3_location,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AppBlockArn') as app_block_arn,
+                json_extract_path_text(Properties, 'Platforms') as platforms,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AttributesToDelete') as attributes_to_delete,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Application'
     application_entitlement_associations:
       name: application_entitlement_associations
       id: aws.appstream.application_entitlement_associations
@@ -983,8 +1059,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.StackName') as stack_name,
               JSON_EXTRACT(Properties, '$.EntitlementName') as entitlement_name,
-              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'EntitlementName') as entitlement_name,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
     application_entitlement_association:
       name: application_entitlement_association
       id: aws.appstream.application_entitlement_association
@@ -1005,6 +1090,15 @@ components:
               JSON_EXTRACT(Properties, '$.EntitlementName') as entitlement_name,
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'EntitlementName') as entitlement_name,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationEntitlementAssociation'
     application_fleet_associations:
       name: application_fleet_associations
       id: aws.appstream.application_fleet_associations
@@ -1021,8 +1115,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FleetName') as fleet_name,
-              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FleetName') as fleet_name,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
     application_fleet_association:
       name: application_fleet_association
       id: aws.appstream.application_fleet_association
@@ -1041,6 +1143,14 @@ components:
               JSON_EXTRACT(Properties, '$.FleetName') as fleet_name,
               JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FleetName') as fleet_name,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ApplicationFleetAssociation'
     directory_configs:
       name: directory_configs
       id: aws.appstream.directory_configs
@@ -1055,8 +1165,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DirectoryName') as directory_name
+              JSON_EXTRACT(Properties, '$.DirectoryName') as directory_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DirectoryName') as directory_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
     directory_config:
       name: directory_config
       id: aws.appstream.directory_config
@@ -1076,6 +1193,16 @@ components:
               JSON_EXTRACT(Properties, '$.DirectoryName') as directory_name,
               JSON_EXTRACT(Properties, '$.CertificateBasedAuthProperties') as certificate_based_auth_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OrganizationalUnitDistinguishedNames') as organizational_unit_distinguished_names,
+                json_extract_path_text(Properties, 'ServiceAccountCredentials') as service_account_credentials,
+                json_extract_path_text(Properties, 'DirectoryName') as directory_name,
+                json_extract_path_text(Properties, 'CertificateBasedAuthProperties') as certificate_based_auth_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::DirectoryConfig'
     entitlements:
       name: entitlements
       id: aws.appstream.entitlements
@@ -1092,8 +1219,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.StackName') as stack_name,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Entitlement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Entitlement'
     entitlement:
       name: entitlement
       id: aws.appstream.entitlement
@@ -1117,6 +1252,19 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedTime') as created_time,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Entitlement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AppVisibility') as app_visibility,
+                json_extract_path_text(Properties, 'Attributes') as attributes,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Entitlement'
     fleets:
       name: fleets
       id: aws.appstream.fleets
@@ -1131,8 +1279,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Fleet'
     fleet:
       name: fleet
       id: aws.appstream.fleet
@@ -1171,6 +1326,35 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ImageArn') as image_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ComputeCapacity') as compute_capacity,
+                json_extract_path_text(Properties, 'Platform') as platform,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'FleetType') as fleet_type,
+                json_extract_path_text(Properties, 'EnableDefaultInternetAccess') as enable_default_internet_access,
+                json_extract_path_text(Properties, 'DomainJoinInfo') as domain_join_info,
+                json_extract_path_text(Properties, 'SessionScriptS3Location') as session_script_s3_location,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ImageName') as image_name,
+                json_extract_path_text(Properties, 'MaxUserDurationInSeconds') as max_user_duration_in_seconds,
+                json_extract_path_text(Properties, 'IdleDisconnectTimeoutInSeconds') as idle_disconnect_timeout_in_seconds,
+                json_extract_path_text(Properties, 'UsbDeviceFilterStrings') as usb_device_filter_strings,
+                json_extract_path_text(Properties, 'DisconnectTimeoutInSeconds') as disconnect_timeout_in_seconds,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'StreamView') as stream_view,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'MaxSessionsPerInstance') as max_sessions_per_instance,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'MaxConcurrentSessions') as max_concurrent_sessions,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ImageArn') as image_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Fleet'
     image_builders:
       name: image_builders
       id: aws.appstream.image_builders
@@ -1185,8 +1369,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
     image_builder:
       name: image_builder
       id: aws.appstream.image_builder
@@ -1216,6 +1407,26 @@ components:
               JSON_EXTRACT(Properties, '$.ImageArn') as image_arn,
               JSON_EXTRACT(Properties, '$.AccessEndpoints') as access_endpoints
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'EnableDefaultInternetAccess') as enable_default_internet_access,
+                json_extract_path_text(Properties, 'DomainJoinInfo') as domain_join_info,
+                json_extract_path_text(Properties, 'AppstreamAgentVersion') as appstream_agent_version,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ImageName') as image_name,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'StreamingUrl') as streaming_url,
+                json_extract_path_text(Properties, 'ImageArn') as image_arn,
+                json_extract_path_text(Properties, 'AccessEndpoints') as access_endpoints
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::ImageBuilder'
     stacks:
       name: stacks
       id: aws.appstream.stacks
@@ -1230,8 +1441,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Stack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::Stack'
     stack:
       name: stack
       id: aws.appstream.stack
@@ -1262,6 +1480,27 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AccessEndpoints') as access_endpoints
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Stack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'StorageConnectors') as storage_connectors,
+                json_extract_path_text(Properties, 'DeleteStorageConnectors') as delete_storage_connectors,
+                json_extract_path_text(Properties, 'EmbedHostDomains') as embed_host_domains,
+                json_extract_path_text(Properties, 'UserSettings') as user_settings,
+                json_extract_path_text(Properties, 'AttributesToDelete') as attributes_to_delete,
+                json_extract_path_text(Properties, 'RedirectURL') as redirect_ur_l,
+                json_extract_path_text(Properties, 'StreamingExperienceSettings') as streaming_experience_settings,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'FeedbackURL') as feedback_ur_l,
+                json_extract_path_text(Properties, 'ApplicationSettings') as application_settings,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AccessEndpoints') as access_endpoints
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::Stack'
     stack_fleet_associations:
       name: stack_fleet_associations
       id: aws.appstream.stack_fleet_associations
@@ -1276,8 +1515,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
     stack_fleet_association:
       name: stack_fleet_association
       id: aws.appstream.stack_fleet_association
@@ -1296,6 +1542,15 @@ components:
               JSON_EXTRACT(Properties, '$.FleetName') as fleet_name,
               JSON_EXTRACT(Properties, '$.StackName') as stack_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'FleetName') as fleet_name,
+                json_extract_path_text(Properties, 'StackName') as stack_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackFleetAssociation'
     stack_user_associations:
       name: stack_user_associations
       id: aws.appstream.stack_user_associations
@@ -1310,8 +1565,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
     stack_user_association:
       name: stack_user_association
       id: aws.appstream.stack_user_association
@@ -1332,6 +1594,17 @@ components:
               JSON_EXTRACT(Properties, '$.StackName') as stack_name,
               JSON_EXTRACT(Properties, '$.AuthenticationType') as authentication_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SendEmailNotification') as send_email_notification,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'AuthenticationType') as authentication_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::StackUserAssociation'
     users:
       name: users
       id: aws.appstream.users
@@ -1346,8 +1619,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppStream::User'
     user:
       name: user
       id: aws.appstream.user
@@ -1369,3 +1649,15 @@ components:
               JSON_EXTRACT(Properties, '$.LastName') as last_name,
               JSON_EXTRACT(Properties, '$.AuthenticationType') as authentication_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'FirstName') as first_name,
+                json_extract_path_text(Properties, 'MessageAction') as message_action,
+                json_extract_path_text(Properties, 'LastName') as last_name,
+                json_extract_path_text(Properties, 'AuthenticationType') as authentication_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppStream::User'

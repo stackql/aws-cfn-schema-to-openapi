@@ -446,8 +446,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
     replication_set:
       name: replication_set
       id: aws.ssmincidents.replication_set
@@ -467,6 +474,16 @@ components:
               JSON_EXTRACT(Properties, '$.DeletionProtected') as deletion_protected,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Regions') as regions,
+                json_extract_path_text(Properties, 'DeletionProtected') as deletion_protected,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ReplicationSet'
     response_plans:
       name: response_plans
       id: aws.ssmincidents.response_plans
@@ -481,8 +498,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'
     response_plan:
       name: response_plan
       id: aws.ssmincidents.response_plan
@@ -507,3 +531,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IncidentTemplate') as incident_template
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'ChatChannel') as chat_channel,
+                json_extract_path_text(Properties, 'Engagements') as engagements,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'Integrations') as integrations,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'IncidentTemplate') as incident_template
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SSMIncidents::ResponsePlan'

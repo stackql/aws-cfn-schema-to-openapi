@@ -154,8 +154,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
     signaling_channel:
       name: signaling_channel
       id: aws.kinesisvideo.signaling_channel
@@ -176,6 +183,17 @@ components:
               JSON_EXTRACT(Properties, '$.MessageTtlSeconds') as message_ttl_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'MessageTtlSeconds') as message_ttl_seconds,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::SignalingChannel'
     streams:
       name: streams
       id: aws.kinesisvideo.streams
@@ -190,8 +208,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::Stream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisVideo::Stream'
     stream:
       name: stream
       id: aws.kinesisvideo.stream
@@ -214,3 +239,16 @@ components:
               JSON_EXTRACT(Properties, '$.MediaType') as media_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::Stream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DataRetentionInHours') as data_retention_in_hours,
+                json_extract_path_text(Properties, 'DeviceName') as device_name,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'MediaType') as media_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisVideo::Stream'

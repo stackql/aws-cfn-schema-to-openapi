@@ -132,8 +132,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationArn') as association_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'
     repository_association:
       name: repository_association
       id: aws.codegurureviewer.repository_association
@@ -156,3 +163,16 @@ components:
               JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Owner') as owner,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'AssociationArn') as association_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruReviewer::RepositoryAssociation'

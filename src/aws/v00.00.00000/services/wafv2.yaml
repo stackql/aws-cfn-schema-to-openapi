@@ -1877,8 +1877,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Scope') as scope
+              JSON_EXTRACT(Properties, '$.Scope') as sco
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as sco
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::IPSet'
     ip_set:
       name: ip_set
       id: aws.wafv2.ip_set
@@ -1904,6 +1913,20 @@ components:
               JSON_EXTRACT(Properties, '$.Addresses') as addresses,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'IPAddressVersion') as i_paddress_version,
+                json_extract_path_text(Properties, 'Addresses') as addresses,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::IPSet'
     logging_configurations:
       name: logging_configurations
       id: aws.wafv2.logging_configurations
@@ -1918,8 +1941,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.wafv2.logging_configuration
@@ -1940,6 +1970,17 @@ components:
               JSON_EXTRACT(Properties, '$.ManagedByFirewallManager') as managed_by_firewall_manager,
               JSON_EXTRACT(Properties, '$.LoggingFilter') as logging_filter
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'LogDestinationConfigs') as log_destination_configs,
+                json_extract_path_text(Properties, 'RedactedFields') as redacted_fields,
+                json_extract_path_text(Properties, 'ManagedByFirewallManager') as managed_by_firewall_manager,
+                json_extract_path_text(Properties, 'LoggingFilter') as logging_filter
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::LoggingConfiguration'
     regex_pattern_sets:
       name: regex_pattern_sets
       id: aws.wafv2.regex_pattern_sets
@@ -1958,8 +1999,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Scope') as scope
+              JSON_EXTRACT(Properties, '$.Scope') as sco
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as sco
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
     regex_pattern_set:
       name: regex_pattern_set
       id: aws.wafv2.regex_pattern_set
@@ -1984,6 +2034,19 @@ components:
               JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RegularExpressionList') as regular_expression_list,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RegexPatternSet'
     rule_groups:
       name: rule_groups
       id: aws.wafv2.rule_groups
@@ -2002,8 +2065,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Scope') as scope
+              JSON_EXTRACT(Properties, '$.Scope') as sco
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as sco
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
     rule_group:
       name: rule_group
       id: aws.wafv2.rule_group
@@ -2034,6 +2106,25 @@ components:
               JSON_EXTRACT(Properties, '$.AvailableLabels') as available_labels,
               JSON_EXTRACT(Properties, '$.ConsumedLabels') as consumed_labels
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Capacity') as capacity,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'Rules') as rules,
+                json_extract_path_text(Properties, 'VisibilityConfig') as visibility_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LabelNamespace') as label_namespace,
+                json_extract_path_text(Properties, 'CustomResponseBodies') as custom_response_bodies,
+                json_extract_path_text(Properties, 'AvailableLabels') as available_labels,
+                json_extract_path_text(Properties, 'ConsumedLabels') as consumed_labels
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::RuleGroup'
     web_acls:
       name: web_acls
       id: aws.wafv2.web_acls
@@ -2052,8 +2143,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Scope') as scope
+              JSON_EXTRACT(Properties, '$.Scope') as sco
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as sco
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACL'
     web_acl:
       name: web_acl
       id: aws.wafv2.web_acl
@@ -2087,6 +2187,28 @@ components:
               JSON_EXTRACT(Properties, '$.TokenDomains') as token_domains,
               JSON_EXTRACT(Properties, '$.AssociationConfig') as association_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Capacity') as capacity,
+                json_extract_path_text(Properties, 'DefaultAction') as default_action,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'Rules') as rules,
+                json_extract_path_text(Properties, 'VisibilityConfig') as visibility_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LabelNamespace') as label_namespace,
+                json_extract_path_text(Properties, 'CustomResponseBodies') as custom_response_bodies,
+                json_extract_path_text(Properties, 'CaptchaConfig') as captcha_config,
+                json_extract_path_text(Properties, 'ChallengeConfig') as challenge_config,
+                json_extract_path_text(Properties, 'TokenDomains') as token_domains,
+                json_extract_path_text(Properties, 'AssociationConfig') as association_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACL'
     webacl_associations:
       name: webacl_associations
       id: aws.wafv2.webacl_associations
@@ -2103,8 +2225,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
-              JSON_EXTRACT(Properties, '$.WebACLArn') as web_ac_larn
+              JSON_EXTRACT(Properties, '$.WebACLArn') as web_ac_la
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'WebACLArn') as web_ac_la
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'
     webacl_association:
       name: webacl_association
       id: aws.wafv2.webacl_association
@@ -2123,3 +2253,11 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.WebACLArn') as web_ac_larn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'WebACLArn') as web_ac_larn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WAFv2::WebACLAssociation'

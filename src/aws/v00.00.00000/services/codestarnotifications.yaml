@@ -113,8 +113,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'
     notification_rule:
       name: notification_rule
       id: aws.codestarnotifications.notification_rule
@@ -141,3 +148,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EventTypeId') as event_type_id,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'TargetAddress') as target_address,
+                json_extract_path_text(Properties, 'EventTypeIds') as event_type_ids,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'DetailType') as detail_type,
+                json_extract_path_text(Properties, 'Resource') as resource,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStarNotifications::NotificationRule'

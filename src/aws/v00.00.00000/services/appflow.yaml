@@ -2293,8 +2293,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_label
+              JSON_EXTRACT(Properties, '$.ConnectorLabel') as connector_lab
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorLabel') as connector_lab
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Connector'
     connector:
       name: connector
       id: aws.appflow.connector
@@ -2315,6 +2322,17 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorProvisioningConfig') as connector_provisioning_config,
               JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorLabel') as connector_label,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'ConnectorProvisioningType') as connector_provisioning_type,
+                json_extract_path_text(Properties, 'ConnectorProvisioningConfig') as connector_provisioning_config,
+                json_extract_path_text(Properties, 'Description') as description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Connector'
     connector_profiles:
       name: connector_profiles
       id: aws.appflow.connector_profiles
@@ -2329,8 +2347,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectorProfileName') as connector_profile_name
+              JSON_EXTRACT(Properties, '$.ConnectorProfileName') as connector_profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorProfileName') as connector_profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile'
     connector_profile:
       name: connector_profile
       id: aws.appflow.connector_profile
@@ -2354,6 +2379,20 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorProfileConfig') as connector_profile_config,
               JSON_EXTRACT(Properties, '$.CredentialsArn') as credentials_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorProfileArn') as connector_profile_arn,
+                json_extract_path_text(Properties, 'ConnectorLabel') as connector_label,
+                json_extract_path_text(Properties, 'ConnectorProfileName') as connector_profile_name,
+                json_extract_path_text(Properties, 'KMSArn') as k_ms_arn,
+                json_extract_path_text(Properties, 'ConnectorType') as connector_type,
+                json_extract_path_text(Properties, 'ConnectionMode') as connection_mode,
+                json_extract_path_text(Properties, 'ConnectorProfileConfig') as connector_profile_config,
+                json_extract_path_text(Properties, 'CredentialsArn') as credentials_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::ConnectorProfile'
     flows:
       name: flows
       id: aws.appflow.flows
@@ -2368,8 +2407,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FlowName') as flow_name
+              JSON_EXTRACT(Properties, '$.FlowName') as flow_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Flow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowName') as flow_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppFlow::Flow'
     flow:
       name: flow
       id: aws.appflow.flow
@@ -2396,3 +2442,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MetadataCatalogConfig') as metadata_catalog_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Flow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'FlowName') as flow_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'KMSArn') as k_ms_arn,
+                json_extract_path_text(Properties, 'TriggerConfig') as trigger_config,
+                json_extract_path_text(Properties, 'FlowStatus') as flow_status,
+                json_extract_path_text(Properties, 'SourceFlowConfig') as source_flow_config,
+                json_extract_path_text(Properties, 'DestinationFlowConfigList') as destination_flow_config_list,
+                json_extract_path_text(Properties, 'Tasks') as tasks,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'MetadataCatalogConfig') as metadata_catalog_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppFlow::Flow'

@@ -662,8 +662,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ChannelName') as channel_name
+              JSON_EXTRACT(Properties, '$.ChannelName') as channel_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelName') as channel_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::Channel'
     channel:
       name: channel
       id: aws.mediatailor.channel
@@ -688,6 +695,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tier') as tier,
               JSON_EXTRACT(Properties, '$.TimeShiftConfiguration') as time_shift_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'FillerSlate') as filler_slate,
+                json_extract_path_text(Properties, 'LogConfiguration') as log_configuration,
+                json_extract_path_text(Properties, 'Outputs') as outputs,
+                json_extract_path_text(Properties, 'PlaybackMode') as playback_mode,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Tier') as tier,
+                json_extract_path_text(Properties, 'TimeShiftConfiguration') as time_shift_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::Channel'
     channel_policies:
       name: channel_policies
       id: aws.mediatailor.channel_policies
@@ -702,8 +724,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ChannelName') as channel_name
+              JSON_EXTRACT(Properties, '$.ChannelName') as channel_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::ChannelPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelName') as channel_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::ChannelPolicy'
     channel_policy:
       name: channel_policy
       id: aws.mediatailor.channel_policy
@@ -721,6 +750,14 @@ components:
               JSON_EXTRACT(Properties, '$.ChannelName') as channel_name,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::ChannelPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::ChannelPolicy'
     live_sources:
       name: live_sources
       id: aws.mediatailor.live_sources
@@ -737,8 +774,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.LiveSourceName') as live_source_name,
-              JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_name
+              JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::LiveSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LiveSourceName') as live_source_name,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::LiveSource'
     live_source:
       name: live_source
       id: aws.mediatailor.live_source
@@ -760,6 +805,17 @@ components:
               JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::LiveSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'HttpPackageConfigurations') as http_package_configurations,
+                json_extract_path_text(Properties, 'LiveSourceName') as live_source_name,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::LiveSource'
     playback_configurations:
       name: playback_configurations
       id: aws.mediatailor.playback_configurations
@@ -774,8 +830,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'
     playback_configuration:
       name: playback_configuration
       id: aws.mediatailor.playback_configuration
@@ -809,6 +872,30 @@ components:
               JSON_EXTRACT(Properties, '$.TranscodeProfileName') as transcode_profile_name,
               JSON_EXTRACT(Properties, '$.VideoContentSourceUrl') as video_content_source_url
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdDecisionServerUrl') as ad_decision_server_url,
+                json_extract_path_text(Properties, 'AvailSuppression') as avail_suppression,
+                json_extract_path_text(Properties, 'Bumper') as bumper,
+                json_extract_path_text(Properties, 'CdnConfiguration') as cdn_configuration,
+                json_extract_path_text(Properties, 'ConfigurationAliases') as configuration_aliases,
+                json_extract_path_text(Properties, 'DashConfiguration') as dash_configuration,
+                json_extract_path_text(Properties, 'LivePreRollConfiguration') as live_pre_roll_configuration,
+                json_extract_path_text(Properties, 'ManifestProcessingRules') as manifest_processing_rules,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PersonalizationThresholdSeconds') as personalization_threshold_seconds,
+                json_extract_path_text(Properties, 'SessionInitializationEndpointPrefix') as session_initialization_endpoint_prefix,
+                json_extract_path_text(Properties, 'HlsConfiguration') as hls_configuration,
+                json_extract_path_text(Properties, 'PlaybackConfigurationArn') as playback_configuration_arn,
+                json_extract_path_text(Properties, 'PlaybackEndpointPrefix') as playback_endpoint_prefix,
+                json_extract_path_text(Properties, 'SlateAdUrl') as slate_ad_url,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TranscodeProfileName') as transcode_profile_name,
+                json_extract_path_text(Properties, 'VideoContentSourceUrl') as video_content_source_url
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::PlaybackConfiguration'
     source_locations:
       name: source_locations
       id: aws.mediatailor.source_locations
@@ -823,8 +910,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_name
+              JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::SourceLocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::SourceLocation'
     source_location:
       name: source_location
       id: aws.mediatailor.source_location
@@ -847,6 +941,19 @@ components:
               JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::SourceLocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessConfiguration') as access_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DefaultSegmentDeliveryConfiguration') as default_segment_delivery_configuration,
+                json_extract_path_text(Properties, 'HttpConfiguration') as http_configuration,
+                json_extract_path_text(Properties, 'SegmentDeliveryConfigurations') as segment_delivery_configurations,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::SourceLocation'
     vod_sources:
       name: vod_sources
       id: aws.mediatailor.vod_sources
@@ -863,8 +970,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.SourceLocationName') as source_location_name,
-              JSON_EXTRACT(Properties, '$.VodSourceName') as vod_source_name
+              JSON_EXTRACT(Properties, '$.VodSourceName') as vod_source_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::VodSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_name,
+                json_extract_path_text(Properties, 'VodSourceName') as vod_source_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaTailor::VodSource'
     vod_source:
       name: vod_source
       id: aws.mediatailor.vod_source
@@ -886,3 +1001,14 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VodSourceName') as vod_source_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::VodSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'HttpPackageConfigurations') as http_package_configurations,
+                json_extract_path_text(Properties, 'SourceLocationName') as source_location_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VodSourceName') as vod_source_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaTailor::VodSource'

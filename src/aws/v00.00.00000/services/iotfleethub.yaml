@@ -133,8 +133,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetHub::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTFleetHub::Application'
     application:
       name: application
       id: aws.iotfleethub.application
@@ -162,3 +169,21 @@ components:
               JSON_EXTRACT(Properties, '$.ErrorMessage') as error_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetHub::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_arn,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'ApplicationDescription') as application_description,
+                json_extract_path_text(Properties, 'ApplicationUrl') as application_url,
+                json_extract_path_text(Properties, 'ApplicationState') as application_state,
+                json_extract_path_text(Properties, 'ApplicationCreationDate') as application_creation_date,
+                json_extract_path_text(Properties, 'ApplicationLastUpdateDate') as application_last_update_date,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'SsoClientId') as sso_client_id,
+                json_extract_path_text(Properties, 'ErrorMessage') as error_message,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTFleetHub::Application'

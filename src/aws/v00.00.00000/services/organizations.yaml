@@ -400,8 +400,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Account'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Account'
     account:
       name: account
       id: aws.organizations.account
@@ -427,6 +434,22 @@ components:
               JSON_EXTRACT(Properties, '$.JoinedTimestamp') as joined_timestamp,
               JSON_EXTRACT(Properties, '$.Status') as status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Account'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountName') as account_name,
+                json_extract_path_text(Properties, 'Email') as email,
+                json_extract_path_text(Properties, 'RoleName') as role_name,
+                json_extract_path_text(Properties, 'ParentIds') as parent_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'JoinedMethod') as joined_method,
+                json_extract_path_text(Properties, 'JoinedTimestamp') as joined_timestamp,
+                json_extract_path_text(Properties, 'Status') as status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Account'
     organizations:
       name: organizations
       id: aws.organizations.organizations
@@ -441,8 +464,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Organization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Organization'
     organization:
       name: organization
       id: aws.organizations.organization
@@ -465,6 +495,19 @@ components:
               JSON_EXTRACT(Properties, '$.ManagementAccountEmail') as management_account_email,
               JSON_EXTRACT(Properties, '$.RootId') as root_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Organization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'FeatureSet') as feature_set,
+                json_extract_path_text(Properties, 'ManagementAccountArn') as management_account_arn,
+                json_extract_path_text(Properties, 'ManagementAccountId') as management_account_id,
+                json_extract_path_text(Properties, 'ManagementAccountEmail') as management_account_email,
+                json_extract_path_text(Properties, 'RootId') as root_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Organization'
     organizational_units:
       name: organizational_units
       id: aws.organizations.organizational_units
@@ -479,8 +522,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::OrganizationalUnit'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::OrganizationalUnit'
     organizational_unit:
       name: organizational_unit
       id: aws.organizations.organizational_unit
@@ -501,6 +551,17 @@ components:
               JSON_EXTRACT(Properties, '$.ParentId') as parent_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::OrganizationalUnit'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ParentId') as parent_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::OrganizationalUnit'
     policies:
       name: policies
       id: aws.organizations.policies
@@ -515,8 +576,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::Policy'
     policy:
       name: policy
       id: aws.organizations.policy
@@ -541,6 +609,21 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.AwsManaged') as aws_managed
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TargetIds') as target_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsManaged') as aws_managed
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::Policy'
     resource_policies:
       name: resource_policies
       id: aws.organizations.resource_policies
@@ -555,8 +638,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Organizations::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.organizations.resource_policy
@@ -576,3 +666,13 @@ components:
               JSON_EXTRACT(Properties, '$.Content') as content,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Organizations::ResourcePolicy'

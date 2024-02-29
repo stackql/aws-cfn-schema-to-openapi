@@ -239,8 +239,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GraphId') as graph_id
+              JSON_EXTRACT(Properties, '$.GraphId') as graph_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NeptuneGraph::Graph'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GraphId') as graph_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NeptuneGraph::Graph'
     graph:
       name: graph
       id: aws.neptunegraph.graph
@@ -266,6 +273,22 @@ components:
               JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn,
               JSON_EXTRACT(Properties, '$.GraphId') as graph_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NeptuneGraph::Graph'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeletionProtection') as deletion_protection,
+                json_extract_path_text(Properties, 'GraphName') as graph_name,
+                json_extract_path_text(Properties, 'ProvisionedMemory') as provisioned_memory,
+                json_extract_path_text(Properties, 'PublicConnectivity') as public_connectivity,
+                json_extract_path_text(Properties, 'ReplicaCount') as replica_count,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VectorSearchConfiguration') as vector_search_configuration,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'GraphArn') as graph_arn,
+                json_extract_path_text(Properties, 'GraphId') as graph_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NeptuneGraph::Graph'
     private_graph_endpoints:
       name: private_graph_endpoints
       id: aws.neptunegraph.private_graph_endpoints
@@ -280,8 +303,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PrivateGraphEndpointIdentifier') as private_graph_endpoint_identifier
+              JSON_EXTRACT(Properties, '$.PrivateGraphEndpointIdentifier') as private_graph_endpoint_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NeptuneGraph::PrivateGraphEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PrivateGraphEndpointIdentifier') as private_graph_endpoint_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NeptuneGraph::PrivateGraphEndpoint'
     private_graph_endpoint:
       name: private_graph_endpoint
       id: aws.neptunegraph.private_graph_endpoint
@@ -303,3 +333,15 @@ components:
               JSON_EXTRACT(Properties, '$.PrivateGraphEndpointIdentifier') as private_graph_endpoint_identifier,
               JSON_EXTRACT(Properties, '$.VpcEndpointId') as vpc_endpoint_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NeptuneGraph::PrivateGraphEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GraphIdentifier') as graph_identifier,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'PrivateGraphEndpointIdentifier') as private_graph_endpoint_identifier,
+                json_extract_path_text(Properties, 'VpcEndpointId') as vpc_endpoint_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NeptuneGraph::PrivateGraphEndpoint'

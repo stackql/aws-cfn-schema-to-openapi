@@ -274,8 +274,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CrlId') as crl_id
+              JSON_EXTRACT(Properties, '$.CrlId') as crl_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CrlId') as crl_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
     crl:
       name: crl
       id: aws.rolesanywhere.crl
@@ -297,6 +304,18 @@ components:
               JSON_EXTRACT(Properties, '$.TrustAnchorArn') as trust_anchor_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CrlData') as crl_data,
+                json_extract_path_text(Properties, 'CrlId') as crl_id,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TrustAnchorArn') as trust_anchor_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::CRL'
     profiles:
       name: profiles
       id: aws.rolesanywhere.profiles
@@ -311,8 +330,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
+              JSON_EXTRACT(Properties, '$.ProfileId') as profile_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfileId') as profile_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
     profile:
       name: profile
       id: aws.rolesanywhere.profile
@@ -338,6 +364,22 @@ components:
               JSON_EXTRACT(Properties, '$.SessionPolicy') as session_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DurationSeconds') as duration_seconds,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ManagedPolicyArns') as managed_policy_arns,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProfileArn') as profile_arn,
+                json_extract_path_text(Properties, 'ProfileId') as profile_id,
+                json_extract_path_text(Properties, 'RequireInstanceProperties') as require_instance_properties,
+                json_extract_path_text(Properties, 'RoleArns') as role_arns,
+                json_extract_path_text(Properties, 'SessionPolicy') as session_policy,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::Profile'
     trust_anchors:
       name: trust_anchors
       id: aws.rolesanywhere.trust_anchors
@@ -352,8 +394,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_id
+              JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrustAnchorId') as trust_anchor_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'
     trust_anchor:
       name: trust_anchor
       id: aws.rolesanywhere.trust_anchor
@@ -376,3 +425,16 @@ components:
               JSON_EXTRACT(Properties, '$.TrustAnchorId') as trust_anchor_id,
               JSON_EXTRACT(Properties, '$.TrustAnchorArn') as trust_anchor_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'NotificationSettings') as notification_settings,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrustAnchorId') as trust_anchor_id,
+                json_extract_path_text(Properties, 'TrustAnchorArn') as trust_anchor_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RolesAnywhere::TrustAnchor'

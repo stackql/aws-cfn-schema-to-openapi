@@ -793,8 +793,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id
+              JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BackupPlanId') as backup_plan_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupPlan'
     backup_plan:
       name: backup_plan
       id: aws.backup.backup_plan
@@ -815,6 +822,17 @@ components:
               JSON_EXTRACT(Properties, '$.BackupPlanId') as backup_plan_id,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BackupPlan') as backup_plan,
+                json_extract_path_text(Properties, 'BackupPlanTags') as backup_plan_tags,
+                json_extract_path_text(Properties, 'BackupPlanArn') as backup_plan_arn,
+                json_extract_path_text(Properties, 'BackupPlanId') as backup_plan_id,
+                json_extract_path_text(Properties, 'VersionId') as version_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupPlan'
     backup_selections:
       name: backup_selections
       id: aws.backup.backup_selections
@@ -829,8 +847,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupSelection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupSelection'
     backup_selection:
       name: backup_selection
       id: aws.backup.backup_selection
@@ -850,6 +875,16 @@ components:
               JSON_EXTRACT(Properties, '$.BackupSelection') as backup_selection,
               JSON_EXTRACT(Properties, '$.SelectionId') as selection_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupSelection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BackupPlanId') as backup_plan_id,
+                json_extract_path_text(Properties, 'BackupSelection') as backup_selection,
+                json_extract_path_text(Properties, 'SelectionId') as selection_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupSelection'
     backup_vaults:
       name: backup_vaults
       id: aws.backup.backup_vaults
@@ -864,8 +899,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BackupVaultName') as backup_vault_name
+              JSON_EXTRACT(Properties, '$.BackupVaultName') as backup_vault_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupVault'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BackupVaultName') as backup_vault_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::BackupVault'
     backup_vault:
       name: backup_vault
       id: aws.backup.backup_vault
@@ -888,6 +930,19 @@ components:
               JSON_EXTRACT(Properties, '$.LockConfiguration') as lock_configuration,
               JSON_EXTRACT(Properties, '$.BackupVaultArn') as backup_vault_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupVault'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessPolicy') as access_policy,
+                json_extract_path_text(Properties, 'BackupVaultName') as backup_vault_name,
+                json_extract_path_text(Properties, 'BackupVaultTags') as backup_vault_tags,
+                json_extract_path_text(Properties, 'EncryptionKeyArn') as encryption_key_arn,
+                json_extract_path_text(Properties, 'Notifications') as notifications,
+                json_extract_path_text(Properties, 'LockConfiguration') as lock_configuration,
+                json_extract_path_text(Properties, 'BackupVaultArn') as backup_vault_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::BackupVault'
     frameworks:
       name: frameworks
       id: aws.backup.frameworks
@@ -902,8 +957,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FrameworkArn') as framework_arn
+              JSON_EXTRACT(Properties, '$.FrameworkArn') as framework_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::Framework'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FrameworkArn') as framework_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::Framework'
     framework:
       name: framework
       id: aws.backup.framework
@@ -927,6 +989,20 @@ components:
               JSON_EXTRACT(Properties, '$.FrameworkStatus') as framework_status,
               JSON_EXTRACT(Properties, '$.FrameworkTags') as framework_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::Framework'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FrameworkName') as framework_name,
+                json_extract_path_text(Properties, 'FrameworkDescription') as framework_description,
+                json_extract_path_text(Properties, 'FrameworkArn') as framework_arn,
+                json_extract_path_text(Properties, 'DeploymentStatus') as deployment_status,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'FrameworkControls') as framework_controls,
+                json_extract_path_text(Properties, 'FrameworkStatus') as framework_status,
+                json_extract_path_text(Properties, 'FrameworkTags') as framework_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::Framework'
     report_plans:
       name: report_plans
       id: aws.backup.report_plans
@@ -941,8 +1017,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReportPlanArn') as report_plan_arn
+              JSON_EXTRACT(Properties, '$.ReportPlanArn') as report_plan_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::ReportPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReportPlanArn') as report_plan_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::ReportPlan'
     report_plan:
       name: report_plan
       id: aws.backup.report_plan
@@ -964,6 +1047,18 @@ components:
               JSON_EXTRACT(Properties, '$.ReportDeliveryChannel') as report_delivery_channel,
               JSON_EXTRACT(Properties, '$.ReportSetting') as report_setting
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::ReportPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReportPlanName') as report_plan_name,
+                json_extract_path_text(Properties, 'ReportPlanArn') as report_plan_arn,
+                json_extract_path_text(Properties, 'ReportPlanDescription') as report_plan_description,
+                json_extract_path_text(Properties, 'ReportPlanTags') as report_plan_tags,
+                json_extract_path_text(Properties, 'ReportDeliveryChannel') as report_delivery_channel,
+                json_extract_path_text(Properties, 'ReportSetting') as report_setting
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::ReportPlan'
     restore_testing_plans:
       name: restore_testing_plans
       id: aws.backup.restore_testing_plans
@@ -978,8 +1073,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name
+              JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RestoreTestingPlanName') as restore_testing_plan_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
     restore_testing_plan:
       name: restore_testing_plan
       id: aws.backup.restore_testing_plan
@@ -1002,6 +1104,19 @@ components:
               JSON_EXTRACT(Properties, '$.StartWindowHours') as start_window_hours,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RecoveryPointSelection') as recovery_point_selection,
+                json_extract_path_text(Properties, 'RestoreTestingPlanArn') as restore_testing_plan_arn,
+                json_extract_path_text(Properties, 'RestoreTestingPlanName') as restore_testing_plan_name,
+                json_extract_path_text(Properties, 'ScheduleExpression') as schedule_expression,
+                json_extract_path_text(Properties, 'ScheduleExpressionTimezone') as schedule_expression_timezone,
+                json_extract_path_text(Properties, 'StartWindowHours') as start_window_hours,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingPlan'
     restore_testing_selections:
       name: restore_testing_selections
       id: aws.backup.restore_testing_selections
@@ -1018,8 +1133,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.RestoreTestingPlanName') as restore_testing_plan_name,
-              JSON_EXTRACT(Properties, '$.RestoreTestingSelectionName') as restore_testing_selection_name
+              JSON_EXTRACT(Properties, '$.RestoreTestingSelectionName') as restore_testing_selection_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RestoreTestingPlanName') as restore_testing_plan_name,
+                json_extract_path_text(Properties, 'RestoreTestingSelectionName') as restore_testing_selection_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'
     restore_testing_selection:
       name: restore_testing_selection
       id: aws.backup.restore_testing_selection
@@ -1044,3 +1167,17 @@ components:
               JSON_EXTRACT(Properties, '$.RestoreTestingSelectionName') as restore_testing_selection_name,
               JSON_EXTRACT(Properties, '$.ValidationWindowHours') as validation_window_hours
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'ProtectedResourceArns') as protected_resource_arns,
+                json_extract_path_text(Properties, 'ProtectedResourceConditions') as protected_resource_conditions,
+                json_extract_path_text(Properties, 'ProtectedResourceType') as protected_resource_type,
+                json_extract_path_text(Properties, 'RestoreMetadataOverrides') as restore_metadata_overrides,
+                json_extract_path_text(Properties, 'RestoreTestingPlanName') as restore_testing_plan_name,
+                json_extract_path_text(Properties, 'RestoreTestingSelectionName') as restore_testing_selection_name,
+                json_extract_path_text(Properties, 'ValidationWindowHours') as validation_window_hours
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Backup::RestoreTestingSelection'

@@ -1322,8 +1322,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_name
+              JSON_EXTRACT(Properties, '$.AlarmName') as alarm_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Alarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Alarm'
     alarm:
       name: alarm
       id: aws.lightsail.alarm
@@ -1352,6 +1359,25 @@ components:
               JSON_EXTRACT(Properties, '$.TreatMissingData') as treat_missing_data,
               JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Alarm'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmName') as alarm_name,
+                json_extract_path_text(Properties, 'MonitoredResourceName') as monitored_resource_name,
+                json_extract_path_text(Properties, 'MetricName') as metric_name,
+                json_extract_path_text(Properties, 'ComparisonOperator') as comparison_operator,
+                json_extract_path_text(Properties, 'ContactProtocols') as contact_protocols,
+                json_extract_path_text(Properties, 'AlarmArn') as alarm_arn,
+                json_extract_path_text(Properties, 'DatapointsToAlarm') as datapoints_to_alarm,
+                json_extract_path_text(Properties, 'EvaluationPeriods') as evaluation_periods,
+                json_extract_path_text(Properties, 'NotificationEnabled') as notification_enabled,
+                json_extract_path_text(Properties, 'NotificationTriggers') as notification_triggers,
+                json_extract_path_text(Properties, 'Threshold') as threshold,
+                json_extract_path_text(Properties, 'TreatMissingData') as treat_missing_data,
+                json_extract_path_text(Properties, 'State') as state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Alarm'
     buckets:
       name: buckets
       id: aws.lightsail.buckets
@@ -1366,8 +1392,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BucketName') as bucket_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Bucket'
     bucket:
       name: bucket
       id: aws.lightsail.bucket
@@ -1393,6 +1426,22 @@ components:
               JSON_EXTRACT(Properties, '$.Url') as url,
               JSON_EXTRACT(Properties, '$.AbleToUpdateBundle') as able_to_update_bundle
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'BucketArn') as bucket_arn,
+                json_extract_path_text(Properties, 'ObjectVersioning') as object_versioning,
+                json_extract_path_text(Properties, 'AccessRules') as access_rules,
+                json_extract_path_text(Properties, 'ResourcesReceivingAccess') as resources_receiving_access,
+                json_extract_path_text(Properties, 'ReadOnlyAccessAccounts') as read_only_access_accounts,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'AbleToUpdateBundle') as able_to_update_bundle
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Bucket'
     certificates:
       name: certificates
       id: aws.lightsail.certificates
@@ -1407,8 +1456,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name
+              JSON_EXTRACT(Properties, '$.CertificateName') as certificate_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateName') as certificate_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Certificate'
     certificate:
       name: certificate
       id: aws.lightsail.certificate
@@ -1430,6 +1486,18 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateName') as certificate_name,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'SubjectAlternativeNames') as subject_alternative_names,
+                json_extract_path_text(Properties, 'CertificateArn') as certificate_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Certificate'
     containers:
       name: containers
       id: aws.lightsail.containers
@@ -1444,8 +1512,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServiceName') as service_name
+              JSON_EXTRACT(Properties, '$.ServiceName') as service_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Container'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceName') as service_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Container'
     container:
       name: container
       id: aws.lightsail.container
@@ -1472,6 +1547,23 @@ components:
               JSON_EXTRACT(Properties, '$.PrincipalArn') as principal_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Container'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceName') as service_name,
+                json_extract_path_text(Properties, 'Power') as power,
+                json_extract_path_text(Properties, 'ContainerArn') as container_arn,
+                json_extract_path_text(Properties, 'Scale') as scale,
+                json_extract_path_text(Properties, 'PublicDomainNames') as public_domain_names,
+                json_extract_path_text(Properties, 'ContainerServiceDeployment') as container_service_deployment,
+                json_extract_path_text(Properties, 'IsDisabled') as is_disabled,
+                json_extract_path_text(Properties, 'PrivateRegistryAccess') as private_registry_access,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'PrincipalArn') as principal_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Container'
     databases:
       name: databases
       id: aws.lightsail.databases
@@ -1486,8 +1578,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RelationalDatabaseName') as relational_database_name
+              JSON_EXTRACT(Properties, '$.RelationalDatabaseName') as relational_database_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Database'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RelationalDatabaseName') as relational_database_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Database'
     database:
       name: database
       id: aws.lightsail.database
@@ -1519,6 +1618,28 @@ components:
               JSON_EXTRACT(Properties, '$.RelationalDatabaseParameters') as relational_database_parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Database'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RelationalDatabaseName') as relational_database_name,
+                json_extract_path_text(Properties, 'DatabaseArn') as database_arn,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'RelationalDatabaseBlueprintId') as relational_database_blueprint_id,
+                json_extract_path_text(Properties, 'RelationalDatabaseBundleId') as relational_database_bundle_id,
+                json_extract_path_text(Properties, 'MasterDatabaseName') as master_database_name,
+                json_extract_path_text(Properties, 'MasterUsername') as master_username,
+                json_extract_path_text(Properties, 'MasterUserPassword') as master_user_password,
+                json_extract_path_text(Properties, 'PreferredBackupWindow') as preferred_backup_window,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'CaCertificateIdentifier') as ca_certificate_identifier,
+                json_extract_path_text(Properties, 'BackupRetention') as backup_retention,
+                json_extract_path_text(Properties, 'RotateMasterUserPassword') as rotate_master_user_password,
+                json_extract_path_text(Properties, 'RelationalDatabaseParameters') as relational_database_parameters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Database'
     distributions:
       name: distributions
       id: aws.lightsail.distributions
@@ -1533,8 +1654,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DistributionName') as distribution_name
+              JSON_EXTRACT(Properties, '$.DistributionName') as distribution_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Distribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DistributionName') as distribution_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Distribution'
     distribution:
       name: distribution
       id: aws.lightsail.distribution
@@ -1563,6 +1691,25 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Distribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DistributionName') as distribution_name,
+                json_extract_path_text(Properties, 'DistributionArn') as distribution_arn,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'IpAddressType') as ip_address_type,
+                json_extract_path_text(Properties, 'CacheBehaviors') as cache_behaviors,
+                json_extract_path_text(Properties, 'CacheBehaviorSettings') as cache_behavior_settings,
+                json_extract_path_text(Properties, 'DefaultCacheBehavior') as default_cache_behavior,
+                json_extract_path_text(Properties, 'Origin') as origin,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'AbleToUpdateBundle') as able_to_update_bundle,
+                json_extract_path_text(Properties, 'IsEnabled') as is_enabled,
+                json_extract_path_text(Properties, 'CertificateName') as certificate_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Distribution'
     instances:
       name: instances
       id: aws.lightsail.instances
@@ -1577,8 +1724,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InstanceName') as instance_name
+              JSON_EXTRACT(Properties, '$.InstanceName') as instance_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Instance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceName') as instance_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::Instance'
     instance:
       name: instance
       id: aws.lightsail.instance
@@ -1614,6 +1768,32 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.InstanceArn') as instance_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Instance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SupportCode') as support_code,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'IsStaticIp') as is_static_ip,
+                json_extract_path_text(Properties, 'PrivateIpAddress') as private_ip_address,
+                json_extract_path_text(Properties, 'PublicIpAddress') as public_ip_address,
+                json_extract_path_text(Properties, 'Location') as location,
+                json_extract_path_text(Properties, 'Hardware') as hardware,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Networking') as networking,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'SshKeyName') as ssh_key_name,
+                json_extract_path_text(Properties, 'InstanceName') as instance_name,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'BlueprintId') as blueprint_id,
+                json_extract_path_text(Properties, 'AddOns') as add_ons,
+                json_extract_path_text(Properties, 'UserData') as user_data,
+                json_extract_path_text(Properties, 'KeyPairName') as key_pair_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'InstanceArn') as instance_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::Instance'
     load_balancers:
       name: load_balancers
       id: aws.lightsail.load_balancers
@@ -1628,8 +1808,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_name
+              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.lightsail.load_balancer
@@ -1655,6 +1842,22 @@ components:
               JSON_EXTRACT(Properties, '$.TlsPolicyName') as tls_policy_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_name,
+                json_extract_path_text(Properties, 'LoadBalancerArn') as load_balancer_arn,
+                json_extract_path_text(Properties, 'InstancePort') as instance_port,
+                json_extract_path_text(Properties, 'IpAddressType') as ip_address_type,
+                json_extract_path_text(Properties, 'AttachedInstances') as attached_instances,
+                json_extract_path_text(Properties, 'HealthCheckPath') as health_check_path,
+                json_extract_path_text(Properties, 'SessionStickinessEnabled') as session_stickiness_enabled,
+                json_extract_path_text(Properties, 'SessionStickinessLBCookieDurationSeconds') as session_stickiness_lb_cookie_duration_seconds,
+                json_extract_path_text(Properties, 'TlsPolicyName') as tls_policy_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancer'
     load_balancer_tls_certificates:
       name: load_balancer_tls_certificates
       id: aws.lightsail.load_balancer_tls_certificates
@@ -1671,8 +1874,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.CertificateName') as certificate_name,
-              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_name
+              JSON_EXTRACT(Properties, '$.LoadBalancerName') as load_balancer_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateName') as certificate_name,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
     load_balancer_tls_certificate:
       name: load_balancer_tls_certificate
       id: aws.lightsail.load_balancer_tls_certificate
@@ -1697,6 +1908,20 @@ components:
               JSON_EXTRACT(Properties, '$.HttpsRedirectionEnabled') as https_redirection_enabled,
               JSON_EXTRACT(Properties, '$.Status') as status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_name,
+                json_extract_path_text(Properties, 'CertificateName') as certificate_name,
+                json_extract_path_text(Properties, 'CertificateDomainName') as certificate_domain_name,
+                json_extract_path_text(Properties, 'CertificateAlternativeNames') as certificate_alternative_names,
+                json_extract_path_text(Properties, 'LoadBalancerTlsCertificateArn') as load_balancer_tls_certificate_arn,
+                json_extract_path_text(Properties, 'IsAttached') as is_attached,
+                json_extract_path_text(Properties, 'HttpsRedirectionEnabled') as https_redirection_enabled,
+                json_extract_path_text(Properties, 'Status') as status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::LoadBalancerTlsCertificate'
     static_ips:
       name: static_ips
       id: aws.lightsail.static_ips
@@ -1711,8 +1936,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StaticIpName') as static_ip_name
+              JSON_EXTRACT(Properties, '$.StaticIpName') as static_ip_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::StaticIp'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StaticIpName') as static_ip_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lightsail::StaticIp'
     static_ip:
       name: static_ip
       id: aws.lightsail.static_ip
@@ -1733,3 +1965,14 @@ components:
               JSON_EXTRACT(Properties, '$.IpAddress') as ip_address,
               JSON_EXTRACT(Properties, '$.StaticIpArn') as static_ip_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::StaticIp'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StaticIpName') as static_ip_name,
+                json_extract_path_text(Properties, 'AttachedTo') as attached_to,
+                json_extract_path_text(Properties, 'IsAttached') as is_attached,
+                json_extract_path_text(Properties, 'IpAddress') as ip_address,
+                json_extract_path_text(Properties, 'StaticIpArn') as static_ip_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lightsail::StaticIp'

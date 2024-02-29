@@ -1223,8 +1223,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
     connect_attachment:
       name: connect_attachment
       id: aws.networkmanager.connect_attachment
@@ -1256,6 +1263,28 @@ components:
               JSON_EXTRACT(Properties, '$.TransportAttachmentId') as transport_attachment_id,
               JSON_EXTRACT(Properties, '$.Options') as options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_id,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'AttachmentType') as attachment_type,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
+                json_extract_path_text(Properties, 'SegmentName') as segment_name,
+                json_extract_path_text(Properties, 'ProposedSegmentChange') as proposed_segment_change,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'TransportAttachmentId') as transport_attachment_id,
+                json_extract_path_text(Properties, 'Options') as options
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectAttachment'
     connect_peers:
       name: connect_peers
       id: aws.networkmanager.connect_peers
@@ -1270,8 +1299,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectPeerId') as connect_peer_id
+              JSON_EXTRACT(Properties, '$.ConnectPeerId') as connect_peer_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectPeerId') as connect_peer_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
     connect_peer:
       name: connect_peer
       id: aws.networkmanager.connect_peer
@@ -1300,6 +1336,25 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetArn') as subnet_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PeerAddress') as peer_address,
+                json_extract_path_text(Properties, 'CoreNetworkAddress') as core_network_address,
+                json_extract_path_text(Properties, 'BgpOptions') as bgp_options,
+                json_extract_path_text(Properties, 'InsideCidrBlocks') as inside_cidr_blocks,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'ConnectAttachmentId') as connect_attachment_id,
+                json_extract_path_text(Properties, 'ConnectPeerId') as connect_peer_id,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'SubnetArn') as subnet_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::ConnectPeer'
     core_networks:
       name: core_networks
       id: aws.networkmanager.core_networks
@@ -1314,8 +1369,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_id
+              JSON_EXTRACT(Properties, '$.CoreNetworkId') as core_network_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
     core_network:
       name: core_network
       id: aws.networkmanager.core_network
@@ -1342,6 +1404,23 @@ components:
               JSON_EXTRACT(Properties, '$.OwnerAccount') as owner_account,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Segments') as segments,
+                json_extract_path_text(Properties, 'Edges') as edges,
+                json_extract_path_text(Properties, 'OwnerAccount') as owner_account,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CoreNetwork'
     customer_gateway_associations:
       name: customer_gateway_associations
       id: aws.networkmanager.customer_gateway_associations
@@ -1358,8 +1437,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_arn
+              JSON_EXTRACT(Properties, '$.CustomerGatewayArn') as customer_gateway_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'CustomerGatewayArn') as customer_gateway_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
     customer_gateway_association:
       name: customer_gateway_association
       id: aws.networkmanager.customer_gateway_association
@@ -1380,6 +1467,16 @@ components:
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'CustomerGatewayArn') as customer_gateway_arn,
+                json_extract_path_text(Properties, 'DeviceId') as device_id,
+                json_extract_path_text(Properties, 'LinkId') as link_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::CustomerGatewayAssociation'
     devices:
       name: devices
       id: aws.networkmanager.devices
@@ -1396,8 +1493,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.DeviceId') as device_id
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'DeviceId') as device_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Device'
     device:
       name: device
       id: aws.networkmanager.device
@@ -1428,6 +1533,26 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeviceArn') as device_arn,
+                json_extract_path_text(Properties, 'DeviceId') as device_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'AWSLocation') as a_ws_location,
+                json_extract_path_text(Properties, 'Location') as location,
+                json_extract_path_text(Properties, 'Model') as model,
+                json_extract_path_text(Properties, 'SerialNumber') as serial_number,
+                json_extract_path_text(Properties, 'SiteId') as site_id,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Vendor') as vendor,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'State') as state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Device'
     global_networks:
       name: global_networks
       id: aws.networkmanager.global_networks
@@ -1442,8 +1567,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
     global_network:
       name: global_network
       id: aws.networkmanager.global_network
@@ -1465,6 +1597,18 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'State') as state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::GlobalNetwork'
     links:
       name: links
       id: aws.networkmanager.links
@@ -1481,8 +1625,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+              JSON_EXTRACT(Properties, '$.LinkId') as link_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Link'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'LinkId') as link_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Link'
     link:
       name: link
       id: aws.networkmanager.link
@@ -1510,6 +1662,23 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Link'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LinkArn') as link_arn,
+                json_extract_path_text(Properties, 'LinkId') as link_id,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'SiteId') as site_id,
+                json_extract_path_text(Properties, 'Bandwidth') as bandwidth,
+                json_extract_path_text(Properties, 'Provider') as provider,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'State') as state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Link'
     link_associations:
       name: link_associations
       id: aws.networkmanager.link_associations
@@ -1528,8 +1697,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
-              JSON_EXTRACT(Properties, '$.LinkId') as link_id
+              JSON_EXTRACT(Properties, '$.LinkId') as link_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'DeviceId') as device_id,
+                json_extract_path_text(Properties, 'LinkId') as link_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
     link_association:
       name: link_association
       id: aws.networkmanager.link_association
@@ -1550,6 +1728,15 @@ components:
               JSON_EXTRACT(Properties, '$.DeviceId') as device_id,
               JSON_EXTRACT(Properties, '$.LinkId') as link_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'DeviceId') as device_id,
+                json_extract_path_text(Properties, 'LinkId') as link_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::LinkAssociation'
     sites:
       name: sites
       id: aws.networkmanager.sites
@@ -1566,8 +1753,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.SiteId') as site_id
+              JSON_EXTRACT(Properties, '$.SiteId') as site_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Site'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'SiteId') as site_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::Site'
     site:
       name: site
       id: aws.networkmanager.site
@@ -1592,6 +1787,20 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.State') as state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Site'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SiteArn') as site_arn,
+                json_extract_path_text(Properties, 'SiteId') as site_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'Location') as location,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'State') as state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::Site'
     site_to_site_vpn_attachments:
       name: site_to_site_vpn_attachments
       id: aws.networkmanager.site_to_site_vpn_attachments
@@ -1606,8 +1815,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
     site_to_site_vpn_attachment:
       name: site_to_site_vpn_attachment
       id: aws.networkmanager.site_to_site_vpn_attachment
@@ -1638,6 +1854,27 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.VpnConnectionArn') as vpn_connection_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_id,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'AttachmentType') as attachment_type,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
+                json_extract_path_text(Properties, 'SegmentName') as segment_name,
+                json_extract_path_text(Properties, 'ProposedSegmentChange') as proposed_segment_change,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'VpnConnectionArn') as vpn_connection_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::SiteToSiteVpnAttachment'
     transit_gateway_peerings:
       name: transit_gateway_peerings
       id: aws.networkmanager.transit_gateway_peerings
@@ -1652,8 +1889,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PeeringId') as peering_id
+              JSON_EXTRACT(Properties, '$.PeeringId') as peering_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PeeringId') as peering_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
     transit_gateway_peering:
       name: transit_gateway_peering
       id: aws.networkmanager.transit_gateway_peering
@@ -1681,6 +1925,24 @@ components:
               JSON_EXTRACT(Properties, '$.CreatedAt') as created_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'TransitGatewayArn') as transit_gateway_arn,
+                json_extract_path_text(Properties, 'TransitGatewayPeeringAttachmentId') as transit_gateway_peering_attachment_id,
+                json_extract_path_text(Properties, 'PeeringId') as peering_id,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'PeeringType') as peering_type,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayPeering'
     transit_gateway_registrations:
       name: transit_gateway_registrations
       id: aws.networkmanager.transit_gateway_registrations
@@ -1697,8 +1959,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
-              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
+              JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'TransitGatewayArn') as transit_gateway_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
     transit_gateway_registration:
       name: transit_gateway_registration
       id: aws.networkmanager.transit_gateway_registration
@@ -1717,6 +1987,14 @@ components:
               JSON_EXTRACT(Properties, '$.GlobalNetworkId') as global_network_id,
               JSON_EXTRACT(Properties, '$.TransitGatewayArn') as transit_gateway_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GlobalNetworkId') as global_network_id,
+                json_extract_path_text(Properties, 'TransitGatewayArn') as transit_gateway_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRegistration'
     transit_gateway_route_table_attachments:
       name: transit_gateway_route_table_attachments
       id: aws.networkmanager.transit_gateway_route_table_attachments
@@ -1731,8 +2009,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
     transit_gateway_route_table_attachment:
       name: transit_gateway_route_table_attachment
       id: aws.networkmanager.transit_gateway_route_table_attachment
@@ -1764,6 +2049,28 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PeeringId') as peering_id,
+                json_extract_path_text(Properties, 'TransitGatewayRouteTableArn') as transit_gateway_route_table_arn,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_id,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'AttachmentType') as attachment_type,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
+                json_extract_path_text(Properties, 'SegmentName') as segment_name,
+                json_extract_path_text(Properties, 'ProposedSegmentChange') as proposed_segment_change,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::TransitGatewayRouteTableAttachment'
     vpc_attachments:
       name: vpc_attachments
       id: aws.networkmanager.vpc_attachments
@@ -1778,8 +2085,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_id
+              JSON_EXTRACT(Properties, '$.AttachmentId') as attachment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'
     vpc_attachment:
       name: vpc_attachment
       id: aws.networkmanager.vpc_attachment
@@ -1812,3 +2126,26 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetArns') as subnet_arns,
               JSON_EXTRACT(Properties, '$.Options') as options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CoreNetworkId') as core_network_id,
+                json_extract_path_text(Properties, 'CoreNetworkArn') as core_network_arn,
+                json_extract_path_text(Properties, 'AttachmentId') as attachment_id,
+                json_extract_path_text(Properties, 'OwnerAccountId') as owner_account_id,
+                json_extract_path_text(Properties, 'AttachmentType') as attachment_type,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'EdgeLocation') as edge_location,
+                json_extract_path_text(Properties, 'VpcArn') as vpc_arn,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'AttachmentPolicyRuleNumber') as attachment_policy_rule_number,
+                json_extract_path_text(Properties, 'SegmentName') as segment_name,
+                json_extract_path_text(Properties, 'ProposedSegmentChange') as proposed_segment_change,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'SubnetArns') as subnet_arns,
+                json_extract_path_text(Properties, 'Options') as options
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NetworkManager::VpcAttachment'

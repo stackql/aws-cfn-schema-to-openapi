@@ -1169,8 +1169,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
     custom_resource:
       name: custom_resource
       id: aws.cloudformation.custom_resource
@@ -1188,6 +1195,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ServiceToken') as service_token
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ServiceToken') as service_token
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::CustomResource'
     hook_default_versions:
       name: hook_default_versions
       id: aws.cloudformation.hook_default_versions
@@ -1202,8 +1217,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
     hook_default_version:
       name: hook_default_version
       id: aws.cloudformation.hook_default_version
@@ -1223,6 +1245,16 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TypeVersionArn') as type_version_arn,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'VersionId') as version_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookDefaultVersion'
     hook_type_configs:
       name: hook_type_configs
       id: aws.cloudformation.hook_type_configs
@@ -1237,8 +1269,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConfigurationArn') as configuration_arn
+              JSON_EXTRACT(Properties, '$.ConfigurationArn') as configuration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConfigurationArn') as configuration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
     hook_type_config:
       name: hook_type_config
       id: aws.cloudformation.hook_type_config
@@ -1259,6 +1298,17 @@ components:
               JSON_EXTRACT(Properties, '$.Configuration') as configuration,
               JSON_EXTRACT(Properties, '$.ConfigurationAlias') as configuration_alias
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TypeArn') as type_arn,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'ConfigurationArn') as configuration_arn,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'ConfigurationAlias') as configuration_alias
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookTypeConfig'
     hook_versions:
       name: hook_versions
       id: aws.cloudformation.hook_versions
@@ -1273,8 +1323,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
     hook_version:
       name: hook_version
       id: aws.cloudformation.hook_version
@@ -1299,6 +1356,21 @@ components:
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'TypeArn') as type_arn,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'IsDefaultVersion') as is_default_version,
+                json_extract_path_text(Properties, 'LoggingConfig') as logging_config,
+                json_extract_path_text(Properties, 'SchemaHandlerPackage') as schema_handler_package,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'VersionId') as version_id,
+                json_extract_path_text(Properties, 'Visibility') as visibility
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::HookVersion'
     macros:
       name: macros
       id: aws.cloudformation.macros
@@ -1313,8 +1385,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Macro'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Macro'
     macro:
       name: macro
       id: aws.cloudformation.macro
@@ -1336,6 +1415,18 @@ components:
               JSON_EXTRACT(Properties, '$.LogRoleARN') as log_role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Macro'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FunctionName') as function_name,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'LogRoleARN') as log_role_ar_n,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Macro'
     module_default_versions:
       name: module_default_versions
       id: aws.cloudformation.module_default_versions
@@ -1350,8 +1441,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
     module_default_version:
       name: module_default_version
       id: aws.cloudformation.module_default_version
@@ -1370,6 +1468,15 @@ components:
               JSON_EXTRACT(Properties, '$.ModuleName') as module_name,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ModuleName') as module_name,
+                json_extract_path_text(Properties, 'VersionId') as version_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleDefaultVersion'
     module_versions:
       name: module_versions
       id: aws.cloudformation.module_versions
@@ -1384,8 +1491,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
     module_version:
       name: module_version
       id: aws.cloudformation.module_version
@@ -1411,6 +1525,22 @@ components:
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DocumentationUrl') as documentation_url,
+                json_extract_path_text(Properties, 'ModuleName') as module_name,
+                json_extract_path_text(Properties, 'ModulePackage') as module_package,
+                json_extract_path_text(Properties, 'IsDefaultVersion') as is_default_version,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'TimeCreated') as time_created,
+                json_extract_path_text(Properties, 'VersionId') as version_id,
+                json_extract_path_text(Properties, 'Visibility') as visibility
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ModuleVersion'
     public_type_versions:
       name: public_type_versions
       id: aws.cloudformation.public_type_versions
@@ -1425,8 +1555,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PublicTypeArn') as public_type_arn
+              JSON_EXTRACT(Properties, '$.PublicTypeArn') as public_type_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PublicTypeArn') as public_type_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
     public_type_version:
       name: public_type_version
       id: aws.cloudformation.public_type_version
@@ -1450,6 +1587,20 @@ components:
               JSON_EXTRACT(Properties, '$.LogDeliveryBucket') as log_delivery_bucket,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'TypeVersionArn') as type_version_arn,
+                json_extract_path_text(Properties, 'PublicVersionNumber') as public_version_number,
+                json_extract_path_text(Properties, 'PublisherId') as publisher_id,
+                json_extract_path_text(Properties, 'PublicTypeArn') as public_type_arn,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'LogDeliveryBucket') as log_delivery_bucket,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::PublicTypeVersion'
     publishers:
       name: publishers
       id: aws.cloudformation.publishers
@@ -1464,8 +1615,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PublisherId') as publisher_id
+              JSON_EXTRACT(Properties, '$.PublisherId') as publisher_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PublisherId') as publisher_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
     publisher:
       name: publisher
       id: aws.cloudformation.publisher
@@ -1487,6 +1645,18 @@ components:
               JSON_EXTRACT(Properties, '$.PublisherProfile') as publisher_profile,
               JSON_EXTRACT(Properties, '$.IdentityProvider') as identity_provider
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AcceptTermsAndConditions') as accept_terms_and_conditions,
+                json_extract_path_text(Properties, 'PublisherId') as publisher_id,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'PublisherStatus') as publisher_status,
+                json_extract_path_text(Properties, 'PublisherProfile') as publisher_profile,
+                json_extract_path_text(Properties, 'IdentityProvider') as identity_provider
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Publisher'
     resource_default_versions:
       name: resource_default_versions
       id: aws.cloudformation.resource_default_versions
@@ -1501,8 +1671,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
     resource_default_version:
       name: resource_default_version
       id: aws.cloudformation.resource_default_version
@@ -1522,6 +1699,16 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.TypeVersionArn') as type_version_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VersionId') as version_id,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'TypeVersionArn') as type_version_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceDefaultVersion'
     resource_versions:
       name: resource_versions
       id: aws.cloudformation.resource_versions
@@ -1536,8 +1723,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
     resource_version:
       name: resource_version
       id: aws.cloudformation.resource_version
@@ -1563,6 +1757,22 @@ components:
               JSON_EXTRACT(Properties, '$.VersionId') as version_id,
               JSON_EXTRACT(Properties, '$.Visibility') as visibility
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'TypeArn') as type_arn,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'IsDefaultVersion') as is_default_version,
+                json_extract_path_text(Properties, 'LoggingConfig') as logging_config,
+                json_extract_path_text(Properties, 'ProvisioningType') as provisioning_type,
+                json_extract_path_text(Properties, 'SchemaHandlerPackage') as schema_handler_package,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'VersionId') as version_id,
+                json_extract_path_text(Properties, 'Visibility') as visibility
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::ResourceVersion'
     stacks:
       name: stacks
       id: aws.cloudformation.stacks
@@ -1577,8 +1787,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StackId') as stack_id
+              JSON_EXTRACT(Properties, '$.StackId') as stack_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Stack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackId') as stack_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::Stack'
     stack:
       name: stack
       id: aws.cloudformation.stack
@@ -1617,6 +1834,35 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdateTime') as last_update_time,
               JSON_EXTRACT(Properties, '$.CreationTime') as creation_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Stack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Capabilities') as capabilities,
+                json_extract_path_text(Properties, 'RoleARN') as role_ar_n,
+                json_extract_path_text(Properties, 'Outputs') as outputs,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisableRollback') as disable_rollback,
+                json_extract_path_text(Properties, 'EnableTerminationProtection') as enable_termination_protection,
+                json_extract_path_text(Properties, 'NotificationARNs') as notification_ar_ns,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'ParentId') as parent_id,
+                json_extract_path_text(Properties, 'RootId') as root_id,
+                json_extract_path_text(Properties, 'ChangeSetId') as change_set_id,
+                json_extract_path_text(Properties, 'StackName') as stack_name,
+                json_extract_path_text(Properties, 'StackId') as stack_id,
+                json_extract_path_text(Properties, 'StackPolicyBody') as stack_policy_body,
+                json_extract_path_text(Properties, 'StackPolicyURL') as stack_policy_ur_l,
+                json_extract_path_text(Properties, 'StackStatus') as stack_status,
+                json_extract_path_text(Properties, 'StackStatusReason') as stack_status_reason,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TemplateBody') as template_body,
+                json_extract_path_text(Properties, 'TemplateURL') as template_ur_l,
+                json_extract_path_text(Properties, 'TimeoutInMinutes') as timeout_in_minutes,
+                json_extract_path_text(Properties, 'LastUpdateTime') as last_update_time,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::Stack'
     stack_sets:
       name: stack_sets
       id: aws.cloudformation.stack_sets
@@ -1631,8 +1877,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StackSetId') as stack_set_id
+              JSON_EXTRACT(Properties, '$.StackSetId') as stack_set_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackSetId') as stack_set_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
     stack_set:
       name: stack_set
       id: aws.cloudformation.stack_set
@@ -1664,6 +1917,28 @@ components:
               JSON_EXTRACT(Properties, '$.CallAs') as call_as,
               JSON_EXTRACT(Properties, '$.ManagedExecution') as managed_execution
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StackSetName') as stack_set_name,
+                json_extract_path_text(Properties, 'StackSetId') as stack_set_id,
+                json_extract_path_text(Properties, 'AdministrationRoleARN') as administration_role_ar_n,
+                json_extract_path_text(Properties, 'AutoDeployment') as auto_deployment,
+                json_extract_path_text(Properties, 'Capabilities') as capabilities,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ExecutionRoleName') as execution_role_name,
+                json_extract_path_text(Properties, 'OperationPreferences') as operation_preferences,
+                json_extract_path_text(Properties, 'StackInstancesGroup') as stack_instances_group,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'PermissionModel') as permission_model,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TemplateBody') as template_body,
+                json_extract_path_text(Properties, 'TemplateURL') as template_ur_l,
+                json_extract_path_text(Properties, 'CallAs') as call_as,
+                json_extract_path_text(Properties, 'ManagedExecution') as managed_execution
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::StackSet'
     type_activations:
       name: type_activations
       id: aws.cloudformation.type_activations
@@ -1678,8 +1953,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
     type_activation:
       name: type_activation
       id: aws.cloudformation.type_activation
@@ -1706,6 +1988,23 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'PublisherId') as publisher_id,
+                json_extract_path_text(Properties, 'LoggingConfig') as logging_config,
+                json_extract_path_text(Properties, 'PublicTypeArn') as public_type_arn,
+                json_extract_path_text(Properties, 'AutoUpdate') as auto_update,
+                json_extract_path_text(Properties, 'TypeNameAlias') as type_name_alias,
+                json_extract_path_text(Properties, 'VersionBump') as version_bump,
+                json_extract_path_text(Properties, 'MajorVersion') as major_version,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::TypeActivation'
     wait_conditions:
       name: wait_conditions
       id: aws.cloudformation.wait_conditions
@@ -1720,8 +2019,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
     wait_condition:
       name: wait_condition
       id: aws.cloudformation.wait_condition
@@ -1742,6 +2048,17 @@ components:
               JSON_EXTRACT(Properties, '$.Handle') as handle,
               JSON_EXTRACT(Properties, '$.Timeout') as timeout
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Data') as data,
+                json_extract_path_text(Properties, 'Count') as count,
+                json_extract_path_text(Properties, 'Handle') as handle,
+                json_extract_path_text(Properties, 'Timeout') as timeout
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitCondition'
     wait_condition_handles:
       name: wait_condition_handles
       id: aws.cloudformation.wait_condition_handles
@@ -1756,8 +2073,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'
     wait_condition_handle:
       name: wait_condition_handle
       id: aws.cloudformation.wait_condition_handle
@@ -1774,3 +2098,10 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFormation::WaitConditionHandle'

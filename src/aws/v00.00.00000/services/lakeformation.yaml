@@ -544,8 +544,18 @@ components:
               JSON_EXTRACT(Properties, '$.TableCatalogId') as table_catalog_id,
               JSON_EXTRACT(Properties, '$.DatabaseName') as database_name,
               JSON_EXTRACT(Properties, '$.TableName') as table_name,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::DataCellsFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TableCatalogId') as table_catalog_id,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::DataCellsFilter'
     data_cells_filter:
       name: data_cells_filter
       id: aws.lakeformation.data_cells_filter
@@ -571,6 +581,19 @@ components:
               JSON_EXTRACT(Properties, '$.ColumnNames') as column_names,
               JSON_EXTRACT(Properties, '$.ColumnWildcard') as column_wildcard
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::DataCellsFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TableCatalogId') as table_catalog_id,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RowFilter') as row_filter,
+                json_extract_path_text(Properties, 'ColumnNames') as column_names,
+                json_extract_path_text(Properties, 'ColumnWildcard') as column_wildcard
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::DataCellsFilter'
     data_lake_settings:
       name: data_lake_settings
       id: aws.lakeformation.data_lake_settings
@@ -597,6 +620,23 @@ components:
               JSON_EXTRACT(Properties, '$.AuthorizedSessionTagValueList') as authorized_session_tag_value_list,
               JSON_EXTRACT(Properties, '$.TrustedResourceOwners') as trusted_resource_owners
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::DataLakeSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AllowExternalDataFiltering') as allow_external_data_filtering,
+                json_extract_path_text(Properties, 'ExternalDataFilteringAllowList') as external_data_filtering_allow_list,
+                json_extract_path_text(Properties, 'CreateTableDefaultPermissions') as create_table_default_permissions,
+                json_extract_path_text(Properties, 'MutationType') as mutation_type,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'AllowFullTableExternalDataAccess') as allow_full_table_external_data_access,
+                json_extract_path_text(Properties, 'Admins') as admins,
+                json_extract_path_text(Properties, 'CreateDatabaseDefaultPermissions') as create_database_default_permissions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'AuthorizedSessionTagValueList') as authorized_session_tag_value_list,
+                json_extract_path_text(Properties, 'TrustedResourceOwners') as trusted_resource_owners
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::DataLakeSettings'
     permissions:
       name: permissions
       id: aws.lakeformation.permissions
@@ -617,6 +657,17 @@ components:
               JSON_EXTRACT(Properties, '$.DataLakePrincipal') as data_lake_principal,
               JSON_EXTRACT(Properties, '$.PermissionsWithGrantOption') as permissions_with_grant_option
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Permissions'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Resource') as resource,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DataLakePrincipal') as data_lake_principal,
+                json_extract_path_text(Properties, 'PermissionsWithGrantOption') as permissions_with_grant_option
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Permissions'
     principal_permissions:
       name: principal_permissions
       id: aws.lakeformation.principal_permissions
@@ -640,6 +691,19 @@ components:
               JSON_EXTRACT(Properties, '$.PrincipalIdentifier') as principal_identifier,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::PrincipalPermissions'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Catalog') as catalog,
+                json_extract_path_text(Properties, 'Principal') as principal,
+                json_extract_path_text(Properties, 'Resource') as resource,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'PermissionsWithGrantOption') as permissions_with_grant_option,
+                json_extract_path_text(Properties, 'PrincipalIdentifier') as principal_identifier,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::PrincipalPermissions'
     tags:
       name: tags
       id: aws.lakeformation.tags
@@ -654,8 +718,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TagKey') as tag_key
+              JSON_EXTRACT(Properties, '$.TagKey') as tag_k
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::Tag'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TagKey') as tag_k
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::Tag'
     tag:
       name: tag
       id: aws.lakeformation.tag
@@ -674,6 +745,15 @@ components:
               JSON_EXTRACT(Properties, '$.TagKey') as tag_key,
               JSON_EXTRACT(Properties, '$.TagValues') as tag_values
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Tag'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id,
+                json_extract_path_text(Properties, 'TagKey') as tag_key,
+                json_extract_path_text(Properties, 'TagValues') as tag_values
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::Tag'
     tag_associations:
       name: tag_associations
       id: aws.lakeformation.tag_associations
@@ -690,8 +770,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
-              JSON_EXTRACT(Properties, '$.TagsIdentifier') as tags_identifier
+              JSON_EXTRACT(Properties, '$.TagsIdentifier') as tags_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::TagAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'TagsIdentifier') as tags_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LakeFormation::TagAssociation'
     tag_association:
       name: tag_association
       id: aws.lakeformation.tag_association
@@ -712,3 +800,13 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier,
               JSON_EXTRACT(Properties, '$.TagsIdentifier') as tags_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::TagAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Resource') as resource,
+                json_extract_path_text(Properties, 'LFTags') as l_ftags,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'TagsIdentifier') as tags_identifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LakeFormation::TagAssociation'

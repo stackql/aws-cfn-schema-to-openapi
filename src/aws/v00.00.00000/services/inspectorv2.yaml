@@ -428,8 +428,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::CisScanConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::CisScanConfiguration'
     cis_scan_configuration:
       name: cis_scan_configuration
       id: aws.inspectorv2.cis_scan_configuration
@@ -451,6 +458,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InspectorV2::CisScanConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScanName') as scan_name,
+                json_extract_path_text(Properties, 'SecurityLevel') as security_level,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InspectorV2::CisScanConfiguration'
     filters:
       name: filters
       id: aws.inspectorv2.filters
@@ -465,8 +484,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::Filter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::InspectorV2::Filter'
     filter:
       name: filter
       id: aws.inspectorv2.filter
@@ -487,3 +513,14 @@ components:
               JSON_EXTRACT(Properties, '$.FilterAction') as filter_action,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InspectorV2::Filter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FilterCriteria') as filter_criteria,
+                json_extract_path_text(Properties, 'FilterAction') as filter_action,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::InspectorV2::Filter'

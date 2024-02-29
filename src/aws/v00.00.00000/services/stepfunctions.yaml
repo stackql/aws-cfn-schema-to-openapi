@@ -370,8 +370,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::Activity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::Activity'
     activity:
       name: activity
       id: aws.stepfunctions.activity
@@ -390,6 +397,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::Activity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::Activity'
     state_machines:
       name: state_machines
       id: aws.stepfunctions.state_machines
@@ -404,8 +420,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
     state_machine:
       name: state_machine
       id: aws.stepfunctions.state_machine
@@ -434,6 +457,25 @@ components:
               JSON_EXTRACT(Properties, '$.Definition') as definition,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DefinitionString') as definition_string,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'StateMachineName') as state_machine_name,
+                json_extract_path_text(Properties, 'StateMachineType') as state_machine_type,
+                json_extract_path_text(Properties, 'StateMachineRevisionId') as state_machine_revision_id,
+                json_extract_path_text(Properties, 'LoggingConfiguration') as logging_configuration,
+                json_extract_path_text(Properties, 'TracingConfiguration') as tracing_configuration,
+                json_extract_path_text(Properties, 'DefinitionS3Location') as definition_s3_location,
+                json_extract_path_text(Properties, 'DefinitionSubstitutions') as definition_substitutions,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachine'
     state_machine_aliases:
       name: state_machine_aliases
       id: aws.stepfunctions.state_machine_aliases
@@ -448,8 +490,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
     state_machine_alias:
       name: state_machine_alias
       id: aws.stepfunctions.state_machine_alias
@@ -470,6 +519,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoutingConfiguration') as routing_configuration,
               JSON_EXTRACT(Properties, '$.DeploymentPreference') as deployment_preference
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RoutingConfiguration') as routing_configuration,
+                json_extract_path_text(Properties, 'DeploymentPreference') as deployment_preference
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineAlias'
     state_machine_versions:
       name: state_machine_versions
       id: aws.stepfunctions.state_machine_versions
@@ -484,8 +544,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'
     state_machine_version:
       name: state_machine_version
       id: aws.stepfunctions.state_machine_version
@@ -505,3 +572,13 @@ components:
               JSON_EXTRACT(Properties, '$.StateMachineRevisionId') as state_machine_revision_id,
               JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'StateMachineArn') as state_machine_arn,
+                json_extract_path_text(Properties, 'StateMachineRevisionId') as state_machine_revision_id,
+                json_extract_path_text(Properties, 'Description') as description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::StepFunctions::StateMachineVersion'

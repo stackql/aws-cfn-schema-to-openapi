@@ -163,8 +163,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::Graph'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::Graph'
     graph:
       name: graph
       id: aws.detective.graph
@@ -183,6 +190,15 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AutoEnableMembers') as auto_enable_members
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::Graph'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AutoEnableMembers') as auto_enable_members
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::Graph'
     member_invitations:
       name: member_invitations
       id: aws.detective.member_invitations
@@ -199,8 +215,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn,
-              JSON_EXTRACT(Properties, '$.MemberId') as member_id
+              JSON_EXTRACT(Properties, '$.MemberId') as member_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GraphArn') as graph_arn,
+                json_extract_path_text(Properties, 'MemberId') as member_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
     member_invitation:
       name: member_invitation
       id: aws.detective.member_invitation
@@ -222,6 +246,17 @@ components:
               JSON_EXTRACT(Properties, '$.DisableEmailNotification') as disable_email_notification,
               JSON_EXTRACT(Properties, '$.Message') as message
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GraphArn') as graph_arn,
+                json_extract_path_text(Properties, 'MemberId') as member_id,
+                json_extract_path_text(Properties, 'MemberEmailAddress') as member_email_address,
+                json_extract_path_text(Properties, 'DisableEmailNotification') as disable_email_notification,
+                json_extract_path_text(Properties, 'Message') as message
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::MemberInvitation'
     organization_admins:
       name: organization_admins
       id: aws.detective.organization_admins
@@ -236,8 +271,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'
     organization_admin:
       name: organization_admin
       id: aws.detective.organization_admin
@@ -255,3 +297,11 @@ components:
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.GraphArn') as graph_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'GraphArn') as graph_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Detective::OrganizationAdmin'

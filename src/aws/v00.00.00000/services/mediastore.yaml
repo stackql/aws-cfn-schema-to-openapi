@@ -118,8 +118,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaStore::Container'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaStore::Container'
     container:
       name: container
       id: aws.mediastore.container
@@ -144,3 +151,18 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaStore::Container'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'MetricPolicy') as metric_policy,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'ContainerName') as container_name,
+                json_extract_path_text(Properties, 'CorsPolicy') as cors_policy,
+                json_extract_path_text(Properties, 'LifecyclePolicy') as lifecycle_policy,
+                json_extract_path_text(Properties, 'AccessLoggingEnabled') as access_logging_enabled,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaStore::Container'

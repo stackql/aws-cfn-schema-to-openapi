@@ -153,8 +153,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AliasId') as alias_id
+              JSON_EXTRACT(Properties, '$.AliasId') as alias_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AliasId') as alias_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
     connection_alias:
       name: connection_alias
       id: aws.workspaces.connection_alias
@@ -175,6 +182,17 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectionAliasState') as connection_alias_state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Associations') as associations,
+                json_extract_path_text(Properties, 'AliasId') as alias_id,
+                json_extract_path_text(Properties, 'ConnectionString') as connection_string,
+                json_extract_path_text(Properties, 'ConnectionAliasState') as connection_alias_state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::ConnectionAlias'
     workspaces:
       name: workspaces
       id: aws.workspaces.workspaces
@@ -189,8 +207,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'
     workspace:
       name: workspace
       id: aws.workspaces.workspace
@@ -215,3 +240,18 @@ components:
               JSON_EXTRACT(Properties, '$.VolumeEncryptionKey') as volume_encryption_key,
               JSON_EXTRACT(Properties, '$.WorkspaceProperties') as workspace_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'DirectoryId') as directory_id,
+                json_extract_path_text(Properties, 'RootVolumeEncryptionEnabled') as root_volume_encryption_enabled,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'UserVolumeEncryptionEnabled') as user_volume_encryption_enabled,
+                json_extract_path_text(Properties, 'VolumeEncryptionKey') as volume_encryption_key,
+                json_extract_path_text(Properties, 'WorkspaceProperties') as workspace_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpaces::Workspace'

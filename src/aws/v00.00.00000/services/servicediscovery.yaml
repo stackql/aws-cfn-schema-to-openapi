@@ -248,8 +248,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
     http_namespace:
       name: http_namespace
       id: aws.servicediscovery.http_namespace
@@ -270,6 +277,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::HttpNamespace'
     instances:
       name: instances
       id: aws.servicediscovery.instances
@@ -284,8 +302,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InstanceId') as instance_id
+              JSON_EXTRACT(Properties, '$.InstanceId') as instance_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceId') as instance_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
     instance:
       name: instance
       id: aws.servicediscovery.instance
@@ -304,6 +329,15 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceId') as instance_id,
               JSON_EXTRACT(Properties, '$.ServiceId') as service_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceAttributes') as instance_attributes,
+                json_extract_path_text(Properties, 'InstanceId') as instance_id,
+                json_extract_path_text(Properties, 'ServiceId') as service_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Instance'
     private_dns_namespaces:
       name: private_dns_namespaces
       id: aws.servicediscovery.private_dns_namespaces
@@ -318,8 +352,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
     private_dns_namespace:
       name: private_dns_namespace
       id: aws.servicediscovery.private_dns_namespace
@@ -343,6 +384,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id,
+                json_extract_path_text(Properties, 'Vpc') as vpc,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Properties') as properties,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PrivateDnsNamespace'
     public_dns_namespaces:
       name: public_dns_namespaces
       id: aws.servicediscovery.public_dns_namespaces
@@ -357,8 +412,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
     public_dns_namespace:
       name: public_dns_namespace
       id: aws.servicediscovery.public_dns_namespace
@@ -381,6 +443,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Properties') as properties,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::PublicDnsNamespace'
     services:
       name: services
       id: aws.servicediscovery.services
@@ -395,8 +470,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'
     service:
       name: service
       id: aws.servicediscovery.service
@@ -422,3 +504,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'HealthCheckCustomConfig') as health_check_custom_config,
+                json_extract_path_text(Properties, 'DnsConfig') as dns_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NamespaceId') as namespace_id,
+                json_extract_path_text(Properties, 'HealthCheckConfig') as health_check_config,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ServiceDiscovery::Service'

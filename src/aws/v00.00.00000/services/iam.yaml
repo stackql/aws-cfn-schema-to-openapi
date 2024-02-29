@@ -946,9 +946,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::AccessKey'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::AccessKey'
+                AND region = 'us-east-1'
     access_key:
       name: access_key
       id: aws.iam.access_key
@@ -970,6 +978,18 @@ components:
               JSON_EXTRACT(Properties, '$.UserName') as user_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::AccessKey'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SecretAccessKey') as secret_access_key,
+                json_extract_path_text(Properties, 'Serial') as serial,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'UserName') as user_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::AccessKey'
+                AND region = 'us-east-1'
     groups:
       name: groups
       id: aws.iam.groups
@@ -984,9 +1004,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GroupName') as group_name
+              JSON_EXTRACT(Properties, '$.GroupName') as group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Group'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GroupName') as group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Group'
+                AND region = 'us-east-1'
     group:
       name: group
       id: aws.iam.group
@@ -1008,6 +1036,18 @@ components:
               JSON_EXTRACT(Properties, '$.Policies') as policies
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Group'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'ManagedPolicyArns') as managed_policy_arns,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'Policies') as policies
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Group'
+                AND region = 'us-east-1'
     group_policies:
       name: group_policies
       id: aws.iam.group_policies
@@ -1024,9 +1064,18 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-              JSON_EXTRACT(Properties, '$.GroupName') as group_name
+              JSON_EXTRACT(Properties, '$.GroupName') as group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::GroupPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'GroupName') as group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::GroupPolicy'
+                AND region = 'us-east-1'
     group_policy:
       name: group_policy
       id: aws.iam.group_policy
@@ -1047,6 +1096,16 @@ components:
               JSON_EXTRACT(Properties, '$.GroupName') as group_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::GroupPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'GroupName') as group_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::GroupPolicy'
+                AND region = 'us-east-1'
     instance_profiles:
       name: instance_profiles
       id: aws.iam.instance_profiles
@@ -1061,9 +1120,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InstanceProfileName') as instance_profile_name
+              JSON_EXTRACT(Properties, '$.InstanceProfileName') as instance_profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceProfileName') as instance_profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
+                AND region = 'us-east-1'
     instance_profile:
       name: instance_profile
       id: aws.iam.instance_profile
@@ -1084,6 +1151,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'Roles') as roles,
+                json_extract_path_text(Properties, 'InstanceProfileName') as instance_profile_name,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::InstanceProfile'
+                AND region = 'us-east-1'
     managed_policies:
       name: managed_policies
       id: aws.iam.managed_policies
@@ -1098,9 +1176,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn
+              JSON_EXTRACT(Properties, '$.PolicyArn') as policy_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyArn') as policy_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
+                AND region = 'us-east-1'
     managed_policy:
       name: managed_policy
       id: aws.iam.managed_policy
@@ -1132,6 +1218,28 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyId') as policy_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Groups') as groups,
+                json_extract_path_text(Properties, 'ManagedPolicyName') as managed_policy_name,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'Roles') as roles,
+                json_extract_path_text(Properties, 'Users') as users,
+                json_extract_path_text(Properties, 'PolicyArn') as policy_arn,
+                json_extract_path_text(Properties, 'AttachmentCount') as attachment_count,
+                json_extract_path_text(Properties, 'CreateDate') as create_date,
+                json_extract_path_text(Properties, 'UpdateDate') as update_date,
+                json_extract_path_text(Properties, 'DefaultVersionId') as default_version_id,
+                json_extract_path_text(Properties, 'IsAttachable') as is_attachable,
+                json_extract_path_text(Properties, 'PermissionsBoundaryUsageCount') as permissions_boundary_usage_count,
+                json_extract_path_text(Properties, 'PolicyId') as policy_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ManagedPolicy'
+                AND region = 'us-east-1'
     oidc_providers:
       name: oidc_providers
       id: aws.iam.oidc_providers
@@ -1146,9 +1254,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
+                AND region = 'us-east-1'
     oidc_provider:
       name: oidc_provider
       id: aws.iam.oidc_provider
@@ -1170,6 +1286,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClientIdList') as client_id_list,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'ThumbprintList') as thumbprint_list,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::OIDCProvider'
+                AND region = 'us-east-1'
     roles:
       name: roles
       id: aws.iam.roles
@@ -1184,9 +1312,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RoleName') as role_name
+              JSON_EXTRACT(Properties, '$.RoleName') as role_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Role'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleName') as role_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::Role'
+                AND region = 'us-east-1'
     role:
       name: role
       id: aws.iam.role
@@ -1214,6 +1350,24 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Role'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AssumeRolePolicyDocument') as assume_role_policy_document,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ManagedPolicyArns') as managed_policy_arns,
+                json_extract_path_text(Properties, 'MaxSessionDuration') as max_session_duration,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'PermissionsBoundary') as permissions_boundary,
+                json_extract_path_text(Properties, 'Policies') as policies,
+                json_extract_path_text(Properties, 'RoleId') as role_id,
+                json_extract_path_text(Properties, 'RoleName') as role_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::Role'
+                AND region = 'us-east-1'
     role_policies:
       name: role_policies
       id: aws.iam.role_policies
@@ -1230,9 +1384,18 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-              JSON_EXTRACT(Properties, '$.RoleName') as role_name
+              JSON_EXTRACT(Properties, '$.RoleName') as role_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::RolePolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'RoleName') as role_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::RolePolicy'
+                AND region = 'us-east-1'
     role_policy:
       name: role_policy
       id: aws.iam.role_policy
@@ -1253,6 +1416,16 @@ components:
               JSON_EXTRACT(Properties, '$.RoleName') as role_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::RolePolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'RoleName') as role_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::RolePolicy'
+                AND region = 'us-east-1'
     saml_providers:
       name: saml_providers
       id: aws.iam.saml_providers
@@ -1267,9 +1440,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
+                AND region = 'us-east-1'
     saml_provider:
       name: saml_provider
       id: aws.iam.saml_provider
@@ -1290,6 +1471,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SamlMetadataDocument') as saml_metadata_document,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::SAMLProvider'
+                AND region = 'us-east-1'
     server_certificates:
       name: server_certificates
       id: aws.iam.server_certificates
@@ -1304,9 +1496,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServerCertificateName') as server_certificate_name
+              JSON_EXTRACT(Properties, '$.ServerCertificateName') as server_certificate_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServerCertificateName') as server_certificate_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
+                AND region = 'us-east-1'
     server_certificate:
       name: server_certificate
       id: aws.iam.server_certificate
@@ -1330,6 +1530,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateBody') as certificate_body,
+                json_extract_path_text(Properties, 'CertificateChain') as certificate_chain,
+                json_extract_path_text(Properties, 'ServerCertificateName') as server_certificate_name,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServerCertificate'
+                AND region = 'us-east-1'
     service_linked_roles:
       name: service_linked_roles
       id: aws.iam.service_linked_roles
@@ -1344,9 +1558,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RoleName') as role_name
+              JSON_EXTRACT(Properties, '$.RoleName') as role_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleName') as role_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
+                AND region = 'us-east-1'
     service_linked_role:
       name: service_linked_role
       id: aws.iam.service_linked_role
@@ -1367,6 +1589,17 @@ components:
               JSON_EXTRACT(Properties, '$.AWSServiceName') as a_ws_service_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleName') as role_name,
+                json_extract_path_text(Properties, 'CustomSuffix') as custom_suffix,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AWSServiceName') as a_ws_service_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::ServiceLinkedRole'
+                AND region = 'us-east-1'
     users:
       name: users
       id: aws.iam.users
@@ -1381,9 +1614,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.UserName') as user_name
+              JSON_EXTRACT(Properties, '$.UserName') as user_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::User'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserName') as user_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::User'
+                AND region = 'us-east-1'
     user:
       name: user
       id: aws.iam.user
@@ -1409,6 +1650,22 @@ components:
               JSON_EXTRACT(Properties, '$.PermissionsBoundary') as permissions_boundary
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::User'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'ManagedPolicyArns') as managed_policy_arns,
+                json_extract_path_text(Properties, 'Policies') as policies,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'Groups') as groups,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'LoginProfile') as login_profile,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'PermissionsBoundary') as permissions_boundary
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::User'
+                AND region = 'us-east-1'
     user_policies:
       name: user_policies
       id: aws.iam.user_policies
@@ -1425,9 +1682,18 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
-              JSON_EXTRACT(Properties, '$.UserName') as user_name
+              JSON_EXTRACT(Properties, '$.UserName') as user_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::UserPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'UserName') as user_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::UserPolicy'
+                AND region = 'us-east-1'
     user_policy:
       name: user_policy
       id: aws.iam.user_policy
@@ -1448,6 +1714,16 @@ components:
               JSON_EXTRACT(Properties, '$.UserName') as user_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::UserPolicy'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'UserName') as user_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::UserPolicy'
+                AND region = 'us-east-1'
     user_to_group_additions:
       name: user_to_group_additions
       id: aws.iam.user_to_group_additions
@@ -1462,9 +1738,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
+                AND region = 'us-east-1'
     user_to_group_addition:
       name: user_to_group_addition
       id: aws.iam.user_to_group_addition
@@ -1484,6 +1768,16 @@ components:
               JSON_EXTRACT(Properties, '$.Users') as users
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'Users') as users
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::UserToGroupAddition'
+                AND region = 'us-east-1'
     virtualmfa_devices:
       name: virtualmfa_devices
       id: aws.iam.virtualmfa_devices
@@ -1498,9 +1792,17 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SerialNumber') as serial_number
+              JSON_EXTRACT(Properties, '$.SerialNumber') as serial_numb
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SerialNumber') as serial_numb
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
+                AND region = 'us-east-1'
     virtualmfa_device:
       name: virtualmfa_device
       id: aws.iam.virtualmfa_device
@@ -1522,3 +1824,15 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
               AND region = 'us-east-1'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VirtualMfaDeviceName') as virtual_mfa_device_name,
+                json_extract_path_text(Properties, 'Path') as path,
+                json_extract_path_text(Properties, 'SerialNumber') as serial_number,
+                json_extract_path_text(Properties, 'Users') as users,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IAM::VirtualMFADevice'
+                AND region = 'us-east-1'

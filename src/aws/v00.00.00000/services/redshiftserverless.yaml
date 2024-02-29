@@ -425,8 +425,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.NamespaceName') as namespace_name
+              JSON_EXTRACT(Properties, '$.NamespaceName') as namespace_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'NamespaceName') as namespace_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
     namespace:
       name: namespace
       id: aws.redshiftserverless.namespace
@@ -458,6 +465,28 @@ components:
               JSON_EXTRACT(Properties, '$.NamespaceResourcePolicy') as namespace_resource_policy,
               JSON_EXTRACT(Properties, '$.RedshiftIdcApplicationArn') as redshift_idc_application_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdminPasswordSecretKmsKeyId') as admin_password_secret_kms_key_id,
+                json_extract_path_text(Properties, 'AdminUserPassword') as admin_user_password,
+                json_extract_path_text(Properties, 'AdminUsername') as admin_username,
+                json_extract_path_text(Properties, 'DbName') as db_name,
+                json_extract_path_text(Properties, 'DefaultIamRoleArn') as default_iam_role_arn,
+                json_extract_path_text(Properties, 'IamRoles') as iam_roles,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'LogExports') as log_exports,
+                json_extract_path_text(Properties, 'ManageAdminPassword') as manage_admin_password,
+                json_extract_path_text(Properties, 'Namespace') as namespace,
+                json_extract_path_text(Properties, 'NamespaceName') as namespace_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'FinalSnapshotName') as final_snapshot_name,
+                json_extract_path_text(Properties, 'FinalSnapshotRetentionPeriod') as final_snapshot_retention_period,
+                json_extract_path_text(Properties, 'NamespaceResourcePolicy') as namespace_resource_policy,
+                json_extract_path_text(Properties, 'RedshiftIdcApplicationArn') as redshift_idc_application_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Namespace'
     workgroups:
       name: workgroups
       id: aws.redshiftserverless.workgroups
@@ -472,8 +501,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WorkgroupName') as workgroup_name
+              JSON_EXTRACT(Properties, '$.WorkgroupName') as workgroup_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkgroupName') as workgroup_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'
     workgroup:
       name: workgroup
       id: aws.redshiftserverless.workgroup
@@ -501,3 +537,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Workgroup') as workgroup
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkgroupName') as workgroup_name,
+                json_extract_path_text(Properties, 'NamespaceName') as namespace_name,
+                json_extract_path_text(Properties, 'BaseCapacity') as base_capacity,
+                json_extract_path_text(Properties, 'MaxCapacity') as max_capacity,
+                json_extract_path_text(Properties, 'EnhancedVpcRouting') as enhanced_vpc_routing,
+                json_extract_path_text(Properties, 'ConfigParameters') as config_parameters,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Workgroup') as workgroup
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RedshiftServerless::Workgroup'

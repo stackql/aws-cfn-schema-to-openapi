@@ -221,8 +221,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3objectlambda.access_point
@@ -245,6 +252,19 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status,
               JSON_EXTRACT(Properties, '$.ObjectLambdaConfiguration') as object_lambda_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'PublicAccessBlockConfiguration') as public_access_block_configuration,
+                json_extract_path_text(Properties, 'PolicyStatus') as policy_status,
+                json_extract_path_text(Properties, 'ObjectLambdaConfiguration') as object_lambda_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPoint'
     access_point_policies:
       name: access_point_policies
       id: aws.s3objectlambda.access_point_policies
@@ -259,8 +279,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point
+              JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_poi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ObjectLambdaAccessPoint') as object_lambda_access_poi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'
     access_point_policy:
       name: access_point_policy
       id: aws.s3objectlambda.access_point_policy
@@ -278,3 +305,11 @@ components:
               JSON_EXTRACT(Properties, '$.ObjectLambdaAccessPoint') as object_lambda_access_point,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ObjectLambdaAccessPoint') as object_lambda_access_point,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3ObjectLambda::AccessPointPolicy'

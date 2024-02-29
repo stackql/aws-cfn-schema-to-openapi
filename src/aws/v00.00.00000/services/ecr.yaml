@@ -466,8 +466,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PublicRepository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PublicRepository'
     public_repository:
       name: public_repository
       id: aws.ecr.public_repository
@@ -488,6 +495,17 @@ components:
               JSON_EXTRACT(Properties, '$.RepositoryCatalogData') as repository_catalog_data,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PublicRepository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'RepositoryPolicyText') as repository_policy_text,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RepositoryCatalogData') as repository_catalog_data,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PublicRepository'
     pull_through_cache_rules:
       name: pull_through_cache_rules
       id: aws.ecr.pull_through_cache_rules
@@ -502,8 +520,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EcrRepositoryPrefix') as ecr_repository_prefix
+              JSON_EXTRACT(Properties, '$.EcrRepositoryPrefix') as ecr_repository_pref
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EcrRepositoryPrefix') as ecr_repository_pref
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
     pull_through_cache_rule:
       name: pull_through_cache_rule
       id: aws.ecr.pull_through_cache_rule
@@ -523,6 +548,16 @@ components:
               JSON_EXTRACT(Properties, '$.CredentialArn') as credential_arn,
               JSON_EXTRACT(Properties, '$.UpstreamRegistry') as upstream_registry
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EcrRepositoryPrefix') as ecr_repository_prefix,
+                json_extract_path_text(Properties, 'UpstreamRegistryUrl') as upstream_registry_url,
+                json_extract_path_text(Properties, 'CredentialArn') as credential_arn,
+                json_extract_path_text(Properties, 'UpstreamRegistry') as upstream_registry
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::PullThroughCacheRule'
     registry_policies:
       name: registry_policies
       id: aws.ecr.registry_policies
@@ -537,8 +572,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
+              JSON_EXTRACT(Properties, '$.RegistryId') as registry_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegistryId') as registry_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
     registry_policy:
       name: registry_policy
       id: aws.ecr.registry_policy
@@ -556,6 +598,14 @@ components:
               JSON_EXTRACT(Properties, '$.RegistryId') as registry_id,
               JSON_EXTRACT(Properties, '$.PolicyText') as policy_text
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegistryId') as registry_id,
+                json_extract_path_text(Properties, 'PolicyText') as policy_text
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::RegistryPolicy'
     replication_configurations:
       name: replication_configurations
       id: aws.ecr.replication_configurations
@@ -570,8 +620,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
+              JSON_EXTRACT(Properties, '$.RegistryId') as registry_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegistryId') as registry_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
     replication_configuration:
       name: replication_configuration
       id: aws.ecr.replication_configuration
@@ -589,6 +646,14 @@ components:
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration') as replication_configuration,
               JSON_EXTRACT(Properties, '$.RegistryId') as registry_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationConfiguration') as replication_configuration,
+                json_extract_path_text(Properties, 'RegistryId') as registry_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::ReplicationConfiguration'
     repositories:
       name: repositories
       id: aws.ecr.repositories
@@ -603,8 +668,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_name
+              JSON_EXTRACT(Properties, '$.RepositoryName') as repository_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::Repository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECR::Repository'
     repository:
       name: repository
       id: aws.ecr.repository
@@ -630,3 +702,19 @@ components:
               JSON_EXTRACT(Properties, '$.ImageScanningConfiguration') as image_scanning_configuration,
               JSON_EXTRACT(Properties, '$.EncryptionConfiguration') as encryption_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::Repository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EmptyOnDelete') as empty_on_delete,
+                json_extract_path_text(Properties, 'LifecyclePolicy') as lifecycle_policy,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'RepositoryPolicyText') as repository_policy_text,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RepositoryUri') as repository_uri,
+                json_extract_path_text(Properties, 'ImageTagMutability') as image_tag_mutability,
+                json_extract_path_text(Properties, 'ImageScanningConfiguration') as image_scanning_configuration,
+                json_extract_path_text(Properties, 'EncryptionConfiguration') as encryption_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECR::Repository'

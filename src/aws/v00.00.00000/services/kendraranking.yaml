@@ -119,8 +119,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'
     execution_plan:
       name: execution_plan
       id: aws.kendraranking.execution_plan
@@ -142,3 +149,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.CapacityUnits') as capacity_units
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'CapacityUnits') as capacity_units
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KendraRanking::ExecutionPlan'

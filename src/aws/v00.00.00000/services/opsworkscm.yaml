@@ -185,8 +185,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ServerName') as server_name
+              JSON_EXTRACT(Properties, '$.ServerName') as server_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorksCM::Server'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServerName') as server_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpsWorksCM::Server'
     server:
       name: server
       id: aws.opsworkscm.server
@@ -225,3 +232,32 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Engine') as engine
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorksCM::Server'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyPair') as key_pair,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'ServiceRoleArn') as service_role_arn,
+                json_extract_path_text(Properties, 'DisableAutomatedBackup') as disable_automated_backup,
+                json_extract_path_text(Properties, 'BackupId') as backup_id,
+                json_extract_path_text(Properties, 'EngineModel') as engine_model,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'AssociatePublicIpAddress') as associate_public_ip_address,
+                json_extract_path_text(Properties, 'InstanceProfileArn') as instance_profile_arn,
+                json_extract_path_text(Properties, 'CustomCertificate') as custom_certificate,
+                json_extract_path_text(Properties, 'PreferredBackupWindow') as preferred_backup_window,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'CustomDomain') as custom_domain,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'CustomPrivateKey') as custom_private_key,
+                json_extract_path_text(Properties, 'ServerName') as server_name,
+                json_extract_path_text(Properties, 'EngineAttributes') as engine_attributes,
+                json_extract_path_text(Properties, 'BackupRetentionCount') as backup_retention_count,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Engine') as engine
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpsWorksCM::Server'

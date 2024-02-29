@@ -501,8 +501,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationName') as application_name
+              JSON_EXTRACT(Properties, '$.ApplicationName') as application_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationName') as application_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::Application'
     application:
       name: application
       id: aws.codedeploy.application
@@ -521,6 +528,15 @@ components:
               JSON_EXTRACT(Properties, '$.ComputePlatform') as compute_platform,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'ComputePlatform') as compute_platform,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::Application'
     deployment_configs:
       name: deployment_configs
       id: aws.codedeploy.deployment_configs
@@ -535,8 +551,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_name
+              JSON_EXTRACT(Properties, '$.DeploymentConfigName') as deployment_config_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeploymentConfigName') as deployment_config_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
     deployment_config:
       name: deployment_config
       id: aws.codedeploy.deployment_config
@@ -557,6 +580,17 @@ components:
               JSON_EXTRACT(Properties, '$.ZonalConfig') as zonal_config,
               JSON_EXTRACT(Properties, '$.TrafficRoutingConfig') as traffic_routing_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ComputePlatform') as compute_platform,
+                json_extract_path_text(Properties, 'DeploymentConfigName') as deployment_config_name,
+                json_extract_path_text(Properties, 'MinimumHealthyHosts') as minimum_healthy_hosts,
+                json_extract_path_text(Properties, 'ZonalConfig') as zonal_config,
+                json_extract_path_text(Properties, 'TrafficRoutingConfig') as traffic_routing_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentConfig'
     deployment_groups:
       name: deployment_groups
       id: aws.codedeploy.deployment_groups
@@ -571,8 +605,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'
     deployment_group:
       name: deployment_group
       id: aws.codedeploy.deployment_group
@@ -609,3 +650,30 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.OnPremisesInstanceTagFilters') as on_premises_instance_tag_filters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OnPremisesTagSet') as on_premises_tag_set,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'DeploymentStyle') as deployment_style,
+                json_extract_path_text(Properties, 'ServiceRoleArn') as service_role_arn,
+                json_extract_path_text(Properties, 'BlueGreenDeploymentConfiguration') as blue_green_deployment_configuration,
+                json_extract_path_text(Properties, 'AutoScalingGroups') as auto_scaling_groups,
+                json_extract_path_text(Properties, 'Ec2TagSet') as ec2_tag_set,
+                json_extract_path_text(Properties, 'OutdatedInstancesStrategy') as outdated_instances_strategy,
+                json_extract_path_text(Properties, 'TriggerConfigurations') as trigger_configurations,
+                json_extract_path_text(Properties, 'Deployment') as deployment,
+                json_extract_path_text(Properties, 'DeploymentConfigName') as deployment_config_name,
+                json_extract_path_text(Properties, 'AlarmConfiguration') as alarm_configuration,
+                json_extract_path_text(Properties, 'Ec2TagFilters') as ec2_tag_filters,
+                json_extract_path_text(Properties, 'TerminationHookEnabled') as termination_hook_enabled,
+                json_extract_path_text(Properties, 'ECSServices') as e_cs_services,
+                json_extract_path_text(Properties, 'AutoRollbackConfiguration') as auto_rollback_configuration,
+                json_extract_path_text(Properties, 'LoadBalancerInfo') as load_balancer_info,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DeploymentGroupName') as deployment_group_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'OnPremisesInstanceTagFilters') as on_premises_instance_tag_filters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeDeploy::DeploymentGroup'

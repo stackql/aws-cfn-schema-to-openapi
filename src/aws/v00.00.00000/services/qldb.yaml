@@ -141,8 +141,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Ledger'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Ledger'
     ledger:
       name: ledger
       id: aws.qldb.ledger
@@ -164,6 +171,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Ledger'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PermissionsMode') as permissions_mode,
+                json_extract_path_text(Properties, 'DeletionProtection') as deletion_protection,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'KmsKey') as kms_key,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Ledger'
     streams:
       name: streams
       id: aws.qldb.streams
@@ -180,8 +199,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.LedgerName') as ledger_name,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Stream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LedgerName') as ledger_name,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QLDB::Stream'
     stream:
       name: stream
       id: aws.qldb.stream
@@ -207,3 +234,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Stream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LedgerName') as ledger_name,
+                json_extract_path_text(Properties, 'StreamName') as stream_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'InclusiveStartTime') as inclusive_start_time,
+                json_extract_path_text(Properties, 'ExclusiveEndTime') as exclusive_end_time,
+                json_extract_path_text(Properties, 'KinesisConfiguration') as kinesis_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QLDB::Stream'

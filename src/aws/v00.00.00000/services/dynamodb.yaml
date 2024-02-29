@@ -802,8 +802,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              JSON_EXTRACT(Properties, '$.TableName') as table_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TableName') as table_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
     global_table:
       name: global_table
       id: aws.dynamodb.global_table
@@ -833,6 +840,26 @@ components:
               JSON_EXTRACT(Properties, '$.TableId') as table_id,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification') as time_to_live_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'StreamArn') as stream_arn,
+                json_extract_path_text(Properties, 'AttributeDefinitions') as attribute_definitions,
+                json_extract_path_text(Properties, 'BillingMode') as billing_mode,
+                json_extract_path_text(Properties, 'GlobalSecondaryIndexes') as global_secondary_indexes,
+                json_extract_path_text(Properties, 'KeySchema') as key_schema,
+                json_extract_path_text(Properties, 'LocalSecondaryIndexes') as local_secondary_indexes,
+                json_extract_path_text(Properties, 'WriteProvisionedThroughputSettings') as write_provisioned_throughput_settings,
+                json_extract_path_text(Properties, 'Replicas') as replicas,
+                json_extract_path_text(Properties, 'SSESpecification') as s_se_specification,
+                json_extract_path_text(Properties, 'StreamSpecification') as stream_specification,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'TableId') as table_id,
+                json_extract_path_text(Properties, 'TimeToLiveSpecification') as time_to_live_specification
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::GlobalTable'
     tables:
       name: tables
       id: aws.dynamodb.tables
@@ -847,8 +874,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              JSON_EXTRACT(Properties, '$.TableName') as table_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TableName') as table_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DynamoDB::Table'
     table:
       name: table
       id: aws.dynamodb.table
@@ -883,3 +917,28 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TimeToLiveSpecification') as time_to_live_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SSESpecification') as s_se_specification,
+                json_extract_path_text(Properties, 'KinesisStreamSpecification') as kinesis_stream_specification,
+                json_extract_path_text(Properties, 'StreamSpecification') as stream_specification,
+                json_extract_path_text(Properties, 'ContributorInsightsSpecification') as contributor_insights_specification,
+                json_extract_path_text(Properties, 'ImportSourceSpecification') as import_source_specification,
+                json_extract_path_text(Properties, 'PointInTimeRecoverySpecification') as point_in_time_recovery_specification,
+                json_extract_path_text(Properties, 'ProvisionedThroughput') as provisioned_throughput,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'AttributeDefinitions') as attribute_definitions,
+                json_extract_path_text(Properties, 'BillingMode') as billing_mode,
+                json_extract_path_text(Properties, 'GlobalSecondaryIndexes') as global_secondary_indexes,
+                json_extract_path_text(Properties, 'KeySchema') as key_schema,
+                json_extract_path_text(Properties, 'LocalSecondaryIndexes') as local_secondary_indexes,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'StreamArn') as stream_arn,
+                json_extract_path_text(Properties, 'DeletionProtectionEnabled') as deletion_protection_enabled,
+                json_extract_path_text(Properties, 'TableClass') as table_class,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TimeToLiveSpecification') as time_to_live_specification
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DynamoDB::Table'

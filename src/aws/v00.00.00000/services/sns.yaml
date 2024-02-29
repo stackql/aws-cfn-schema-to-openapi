@@ -238,8 +238,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
+              JSON_EXTRACT(Properties, '$.TopicArn') as topic_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::Topic'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TopicArn') as topic_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::Topic'
     topic:
       name: topic
       id: aws.sns.topic
@@ -268,6 +275,25 @@ components:
               JSON_EXTRACT(Properties, '$.TracingConfig') as tracing_config,
               JSON_EXTRACT(Properties, '$.DeliveryStatusLogging') as delivery_status_logging
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::Topic'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'KmsMasterKeyId') as kms_master_key_id,
+                json_extract_path_text(Properties, 'DataProtectionPolicy') as data_protection_policy,
+                json_extract_path_text(Properties, 'Subscription') as subscription,
+                json_extract_path_text(Properties, 'FifoTopic') as fifo_topic,
+                json_extract_path_text(Properties, 'ContentBasedDeduplication') as content_based_deduplication,
+                json_extract_path_text(Properties, 'ArchivePolicy') as archive_policy,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TopicName') as topic_name,
+                json_extract_path_text(Properties, 'TopicArn') as topic_arn,
+                json_extract_path_text(Properties, 'SignatureVersion') as signature_version,
+                json_extract_path_text(Properties, 'TracingConfig') as tracing_config,
+                json_extract_path_text(Properties, 'DeliveryStatusLogging') as delivery_status_logging
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::Topic'
     topic_inline_policies:
       name: topic_inline_policies
       id: aws.sns.topic_inline_policies
@@ -282,8 +308,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
+              JSON_EXTRACT(Properties, '$.TopicArn') as topic_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TopicArn') as topic_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
     topic_inline_policy:
       name: topic_inline_policy
       id: aws.sns.topic_inline_policy
@@ -301,6 +334,14 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.TopicArn') as topic_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'TopicArn') as topic_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicInlinePolicy'
     topic_policies:
       name: topic_policies
       id: aws.sns.topic_policies
@@ -315,8 +356,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SNS::TopicPolicy'
     topic_policy:
       name: topic_policy
       id: aws.sns.topic_policy
@@ -335,3 +383,12 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Topics') as topics
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'Topics') as topics
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SNS::TopicPolicy'

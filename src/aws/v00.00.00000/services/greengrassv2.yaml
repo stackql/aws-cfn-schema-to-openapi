@@ -501,8 +501,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
     component_version:
       name: component_version
       id: aws.greengrassv2.component_version
@@ -524,6 +531,18 @@ components:
               JSON_EXTRACT(Properties, '$.LambdaFunction') as lambda_function,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ComponentName') as component_name,
+                json_extract_path_text(Properties, 'ComponentVersion') as component_version,
+                json_extract_path_text(Properties, 'InlineRecipe') as inline_recipe,
+                json_extract_path_text(Properties, 'LambdaFunction') as lambda_function,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::ComponentVersion'
     deployments:
       name: deployments
       id: aws.greengrassv2.deployments
@@ -538,8 +557,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id
+              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeploymentId') as deployment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'
     deployment:
       name: deployment
       id: aws.greengrassv2.deployment
@@ -563,3 +589,17 @@ components:
               JSON_EXTRACT(Properties, '$.DeploymentPolicies') as deployment_policies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetArn') as target_arn,
+                json_extract_path_text(Properties, 'ParentTargetArn') as parent_target_arn,
+                json_extract_path_text(Properties, 'DeploymentId') as deployment_id,
+                json_extract_path_text(Properties, 'DeploymentName') as deployment_name,
+                json_extract_path_text(Properties, 'Components') as components,
+                json_extract_path_text(Properties, 'IotJobConfiguration') as iot_job_configuration,
+                json_extract_path_text(Properties, 'DeploymentPolicies') as deployment_policies,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GreengrassV2::Deployment'

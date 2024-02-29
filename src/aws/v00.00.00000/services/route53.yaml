@@ -588,8 +588,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::CidrCollection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::CidrCollection'
     cidr_collection:
       name: cidr_collection
       id: aws.route53.cidr_collection
@@ -609,6 +616,16 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Locations') as locations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::CidrCollection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Locations') as locations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::CidrCollection'
     dnssecs:
       name: dnssecs
       id: aws.route53.dnssecs
@@ -623,8 +640,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
+              JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::DNSSEC'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::DNSSEC'
     dnssec:
       name: dnssec
       id: aws.route53.dnssec
@@ -641,6 +665,13 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::DNSSEC'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::DNSSEC'
     health_checks:
       name: health_checks
       id: aws.route53.health_checks
@@ -655,8 +686,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.HealthCheckId') as health_check_id
+              JSON_EXTRACT(Properties, '$.HealthCheckId') as health_check_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HealthCheck'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HealthCheckId') as health_check_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HealthCheck'
     health_check:
       name: health_check
       id: aws.route53.health_check
@@ -675,6 +713,15 @@ components:
               JSON_EXTRACT(Properties, '$.HealthCheckConfig') as health_check_config,
               JSON_EXTRACT(Properties, '$.HealthCheckTags') as health_check_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::HealthCheck'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HealthCheckId') as health_check_id,
+                json_extract_path_text(Properties, 'HealthCheckConfig') as health_check_config,
+                json_extract_path_text(Properties, 'HealthCheckTags') as health_check_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::HealthCheck'
     hosted_zones:
       name: hosted_zones
       id: aws.route53.hosted_zones
@@ -689,8 +736,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HostedZone'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::HostedZone'
     hosted_zone:
       name: hosted_zone
       id: aws.route53.hosted_zone
@@ -713,6 +767,19 @@ components:
               JSON_EXTRACT(Properties, '$.VPCs') as v_pcs,
               JSON_EXTRACT(Properties, '$.NameServers') as name_servers
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::HostedZone'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'HostedZoneConfig') as hosted_zone_config,
+                json_extract_path_text(Properties, 'HostedZoneTags') as hosted_zone_tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'QueryLoggingConfig') as query_logging_config,
+                json_extract_path_text(Properties, 'VPCs') as v_pcs,
+                json_extract_path_text(Properties, 'NameServers') as name_servers
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::HostedZone'
     key_signing_keys:
       name: key_signing_keys
       id: aws.route53.key_signing_keys
@@ -729,8 +796,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::KeySigningKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::KeySigningKey'
     key_signing_key:
       name: key_signing_key
       id: aws.route53.key_signing_key
@@ -751,6 +826,16 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.KeyManagementServiceArn') as key_management_service_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::KeySigningKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'KeyManagementServiceArn') as key_management_service_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::KeySigningKey'
     record_set_groups:
       name: record_set_groups
       id: aws.route53.record_set_groups
@@ -765,8 +850,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::RecordSetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53::RecordSetGroup'
     record_set_group:
       name: record_set_group
       id: aws.route53.record_set_group
@@ -787,3 +879,14 @@ components:
               JSON_EXTRACT(Properties, '$.RecordSets') as record_sets,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::RecordSetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Comment') as comment,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'HostedZoneName') as hosted_zone_name,
+                json_extract_path_text(Properties, 'RecordSets') as record_sets,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53::RecordSetGroup'

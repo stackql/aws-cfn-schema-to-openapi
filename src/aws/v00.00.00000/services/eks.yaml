@@ -980,8 +980,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PrincipalArn') as principal_arn,
-              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::AccessEntry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PrincipalArn') as principal_arn,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::AccessEntry'
     access_entry:
       name: access_entry
       id: aws.eks.access_entry
@@ -1006,6 +1014,20 @@ components:
               JSON_EXTRACT(Properties, '$.AccessPolicies') as access_policies,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::AccessEntry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'PrincipalArn') as principal_arn,
+                json_extract_path_text(Properties, 'Username') as username,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AccessEntryArn') as access_entry_arn,
+                json_extract_path_text(Properties, 'KubernetesGroups') as kubernetes_groups,
+                json_extract_path_text(Properties, 'AccessPolicies') as access_policies,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::AccessEntry'
     addons:
       name: addons
       id: aws.eks.addons
@@ -1022,8 +1044,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
-              JSON_EXTRACT(Properties, '$.AddonName') as addon_name
+              JSON_EXTRACT(Properties, '$.AddonName') as addon_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Addon'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'AddonName') as addon_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Addon'
     addon:
       name: addon
       id: aws.eks.addon
@@ -1049,6 +1079,21 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Addon'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'AddonName') as addon_name,
+                json_extract_path_text(Properties, 'AddonVersion') as addon_version,
+                json_extract_path_text(Properties, 'PreserveOnDelete') as preserve_on_delete,
+                json_extract_path_text(Properties, 'ResolveConflicts') as resolve_conflicts,
+                json_extract_path_text(Properties, 'ServiceAccountRoleArn') as service_account_role_arn,
+                json_extract_path_text(Properties, 'ConfigurationValues') as configuration_values,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Addon'
     clusters:
       name: clusters
       id: aws.eks.clusters
@@ -1063,8 +1108,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Cluster'
     cluster:
       name: cluster
       id: aws.eks.cluster
@@ -1097,6 +1149,29 @@ components:
               JSON_EXTRACT(Properties, '$.EncryptionConfigKeyArn') as encryption_config_key_arn,
               JSON_EXTRACT(Properties, '$.OpenIdConnectIssuerUrl') as open_id_connect_issuer_url
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EncryptionConfig') as encryption_config,
+                json_extract_path_text(Properties, 'KubernetesNetworkConfig') as kubernetes_network_config,
+                json_extract_path_text(Properties, 'Logging') as logging,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ResourcesVpcConfig') as resources_vpc_config,
+                json_extract_path_text(Properties, 'OutpostConfig') as outpost_config,
+                json_extract_path_text(Properties, 'AccessConfig') as access_config,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'CertificateAuthorityData') as certificate_authority_data,
+                json_extract_path_text(Properties, 'ClusterSecurityGroupId') as cluster_security_group_id,
+                json_extract_path_text(Properties, 'EncryptionConfigKeyArn') as encryption_config_key_arn,
+                json_extract_path_text(Properties, 'OpenIdConnectIssuerUrl') as open_id_connect_issuer_url
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Cluster'
     fargate_profiles:
       name: fargate_profiles
       id: aws.eks.fargate_profiles
@@ -1113,8 +1188,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
-              JSON_EXTRACT(Properties, '$.FargateProfileName') as fargate_profile_name
+              JSON_EXTRACT(Properties, '$.FargateProfileName') as fargate_profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::FargateProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'FargateProfileName') as fargate_profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::FargateProfile'
     fargate_profile:
       name: fargate_profile
       id: aws.eks.fargate_profile
@@ -1138,6 +1221,19 @@ components:
               JSON_EXTRACT(Properties, '$.Selectors') as selectors,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::FargateProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'FargateProfileName') as fargate_profile_name,
+                json_extract_path_text(Properties, 'PodExecutionRoleArn') as pod_execution_role_arn,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Subnets') as subnets,
+                json_extract_path_text(Properties, 'Selectors') as selectors,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::FargateProfile'
     identity_provider_configs:
       name: identity_provider_configs
       id: aws.eks.identity_provider_configs
@@ -1156,8 +1252,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigName') as identity_provider_config_name,
               JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name,
-              JSON_EXTRACT(Properties, '$.Type') as type
+              JSON_EXTRACT(Properties, '$.Type') as ty
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityProviderConfigName') as identity_provider_config_name,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'Type') as ty
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
     identity_provider_config:
       name: identity_provider_config
       id: aws.eks.identity_provider_config
@@ -1181,6 +1286,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.IdentityProviderConfigArn') as identity_provider_config_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'IdentityProviderConfigName') as identity_provider_config_name,
+                json_extract_path_text(Properties, 'Oidc') as oidc,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'IdentityProviderConfigArn') as identity_provider_config_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::IdentityProviderConfig'
     nodegroups:
       name: nodegroups
       id: aws.eks.nodegroups
@@ -1195,8 +1312,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Nodegroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::Nodegroup'
     nodegroup:
       name: nodegroup
       id: aws.eks.nodegroup
@@ -1232,6 +1356,32 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Nodegroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AmiType') as ami_type,
+                json_extract_path_text(Properties, 'CapacityType') as capacity_type,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'DiskSize') as disk_size,
+                json_extract_path_text(Properties, 'ForceUpdateEnabled') as force_update_enabled,
+                json_extract_path_text(Properties, 'InstanceTypes') as instance_types,
+                json_extract_path_text(Properties, 'Labels') as labels,
+                json_extract_path_text(Properties, 'LaunchTemplate') as launch_template,
+                json_extract_path_text(Properties, 'NodegroupName') as nodegroup_name,
+                json_extract_path_text(Properties, 'NodeRole') as node_role,
+                json_extract_path_text(Properties, 'ReleaseVersion') as release_version,
+                json_extract_path_text(Properties, 'RemoteAccess') as remote_access,
+                json_extract_path_text(Properties, 'ScalingConfig') as scaling_config,
+                json_extract_path_text(Properties, 'Subnets') as subnets,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Taints') as taints,
+                json_extract_path_text(Properties, 'UpdateConfig') as update_config,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::Nodegroup'
     pod_identity_associations:
       name: pod_identity_associations
       id: aws.eks.pod_identity_associations
@@ -1246,8 +1396,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationArn') as association_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'
     pod_identity_association:
       name: pod_identity_association
       id: aws.eks.pod_identity_association
@@ -1270,3 +1427,16 @@ components:
               JSON_EXTRACT(Properties, '$.AssociationId') as association_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Namespace') as namespace,
+                json_extract_path_text(Properties, 'ServiceAccount') as service_account,
+                json_extract_path_text(Properties, 'AssociationArn') as association_arn,
+                json_extract_path_text(Properties, 'AssociationId') as association_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EKS::PodIdentityAssociation'

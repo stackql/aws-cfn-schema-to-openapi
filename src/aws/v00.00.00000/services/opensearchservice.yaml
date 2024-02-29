@@ -374,8 +374,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchService::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchService::Domain'
     domain:
       name: domain
       id: aws.opensearchservice.domain
@@ -416,3 +423,34 @@ components:
               JSON_EXTRACT(Properties, '$.OffPeakWindowOptions') as off_peak_window_options,
               JSON_EXTRACT(Properties, '$.SoftwareUpdateOptions') as software_update_options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchService::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterConfig') as cluster_config,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'AccessPolicies') as access_policies,
+                json_extract_path_text(Properties, 'IPAddressType') as i_paddress_type,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'AdvancedOptions') as advanced_options,
+                json_extract_path_text(Properties, 'LogPublishingOptions') as log_publishing_options,
+                json_extract_path_text(Properties, 'SnapshotOptions') as snapshot_options,
+                json_extract_path_text(Properties, 'VPCOptions') as v_pc_options,
+                json_extract_path_text(Properties, 'NodeToNodeEncryptionOptions') as node_to_node_encryption_options,
+                json_extract_path_text(Properties, 'DomainEndpointOptions') as domain_endpoint_options,
+                json_extract_path_text(Properties, 'CognitoOptions') as cognito_options,
+                json_extract_path_text(Properties, 'AdvancedSecurityOptions') as advanced_security_options,
+                json_extract_path_text(Properties, 'DomainEndpoint') as domain_endpoint,
+                json_extract_path_text(Properties, 'DomainEndpointV2') as domain_endpoint_v2,
+                json_extract_path_text(Properties, 'DomainEndpoints') as domain_endpoints,
+                json_extract_path_text(Properties, 'EBSOptions') as e_bs_options,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DomainArn') as domain_arn,
+                json_extract_path_text(Properties, 'EncryptionAtRestOptions') as encryption_at_rest_options,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ServiceSoftwareOptions') as service_software_options,
+                json_extract_path_text(Properties, 'OffPeakWindowOptions') as off_peak_window_options,
+                json_extract_path_text(Properties, 'SoftwareUpdateOptions') as software_update_options
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchService::Domain'

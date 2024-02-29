@@ -433,8 +433,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name
+              JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyspaceName') as keyspace_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
     keyspace:
       name: keyspace
       id: aws.cassandra.keyspace
@@ -453,6 +460,15 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ReplicationSpecification') as replication_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyspaceName') as keyspace_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ReplicationSpecification') as replication_specification
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Keyspace'
     tables:
       name: tables
       id: aws.cassandra.tables
@@ -469,8 +485,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.KeyspaceName') as keyspace_name,
-              JSON_EXTRACT(Properties, '$.TableName') as table_name
+              JSON_EXTRACT(Properties, '$.TableName') as table_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyspaceName') as keyspace_name,
+                json_extract_path_text(Properties, 'TableName') as table_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cassandra::Table'
     table:
       name: table
       id: aws.cassandra.table
@@ -500,3 +524,22 @@ components:
               JSON_EXTRACT(Properties, '$.AutoScalingSpecifications') as auto_scaling_specifications,
               JSON_EXTRACT(Properties, '$.ReplicaSpecifications') as replica_specifications
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyspaceName') as keyspace_name,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'RegularColumns') as regular_columns,
+                json_extract_path_text(Properties, 'PartitionKeyColumns') as partition_key_columns,
+                json_extract_path_text(Properties, 'ClusteringKeyColumns') as clustering_key_columns,
+                json_extract_path_text(Properties, 'BillingMode') as billing_mode,
+                json_extract_path_text(Properties, 'PointInTimeRecoveryEnabled') as point_in_time_recovery_enabled,
+                json_extract_path_text(Properties, 'ClientSideTimestampsEnabled') as client_side_timestamps_enabled,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'DefaultTimeToLive') as default_time_to_live,
+                json_extract_path_text(Properties, 'EncryptionSpecification') as encryption_specification,
+                json_extract_path_text(Properties, 'AutoScalingSpecifications') as auto_scaling_specifications,
+                json_extract_path_text(Properties, 'ReplicaSpecifications') as replica_specifications
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cassandra::Table'

@@ -785,8 +785,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Experiment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Experiment'
     experiment:
       name: experiment
       id: aws.evidently.experiment
@@ -815,6 +822,25 @@ components:
               JSON_EXTRACT(Properties, '$.RemoveSegment') as remove_segment,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Experiment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Project') as project,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RunningStatus') as running_status,
+                json_extract_path_text(Properties, 'RandomizationSalt') as randomization_salt,
+                json_extract_path_text(Properties, 'Treatments') as treatments,
+                json_extract_path_text(Properties, 'MetricGoals') as metric_goals,
+                json_extract_path_text(Properties, 'SamplingRate') as sampling_rate,
+                json_extract_path_text(Properties, 'OnlineAbConfig') as online_ab_config,
+                json_extract_path_text(Properties, 'Segment') as segment,
+                json_extract_path_text(Properties, 'RemoveSegment') as remove_segment,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Experiment'
     features:
       name: features
       id: aws.evidently.features
@@ -829,8 +855,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Feature'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Feature'
     feature:
       name: feature
       id: aws.evidently.feature
@@ -855,6 +888,21 @@ components:
               JSON_EXTRACT(Properties, '$.EntityOverrides') as entity_overrides,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Feature'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Project') as project,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EvaluationStrategy') as evaluation_strategy,
+                json_extract_path_text(Properties, 'Variations') as variations,
+                json_extract_path_text(Properties, 'DefaultVariation') as default_variation,
+                json_extract_path_text(Properties, 'EntityOverrides') as entity_overrides,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Feature'
     launches:
       name: launches
       id: aws.evidently.launches
@@ -869,8 +917,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Launch'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Launch'
     launch:
       name: launch
       id: aws.evidently.launch
@@ -896,6 +951,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ExecutionStatus') as execution_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Launch'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Project') as project,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RandomizationSalt') as randomization_salt,
+                json_extract_path_text(Properties, 'ScheduledSplitsConfig') as scheduled_splits_config,
+                json_extract_path_text(Properties, 'Groups') as groups,
+                json_extract_path_text(Properties, 'MetricMonitors') as metric_monitors,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ExecutionStatus') as execution_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Launch'
     projects:
       name: projects
       id: aws.evidently.projects
@@ -910,8 +981,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Project'
     project:
       name: project
       id: aws.evidently.project
@@ -933,6 +1011,18 @@ components:
               JSON_EXTRACT(Properties, '$.AppConfigResource') as app_config_resource,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DataDelivery') as data_delivery,
+                json_extract_path_text(Properties, 'AppConfigResource') as app_config_resource,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Project'
     segments:
       name: segments
       id: aws.evidently.segments
@@ -947,8 +1037,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Segment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Evidently::Segment'
     segment:
       name: segment
       id: aws.evidently.segment
@@ -969,3 +1066,14 @@ components:
               JSON_EXTRACT(Properties, '$.Pattern') as pattern,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Segment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Pattern') as pattern,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Evidently::Segment'

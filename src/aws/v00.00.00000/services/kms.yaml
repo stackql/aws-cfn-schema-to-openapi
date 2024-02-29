@@ -300,8 +300,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AliasName') as alias_name
+              JSON_EXTRACT(Properties, '$.AliasName') as alias_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AliasName') as alias_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Alias'
     alias:
       name: alias
       id: aws.kms.alias
@@ -319,6 +326,14 @@ components:
               JSON_EXTRACT(Properties, '$.TargetKeyId') as target_key_id,
               JSON_EXTRACT(Properties, '$.AliasName') as alias_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetKeyId') as target_key_id,
+                json_extract_path_text(Properties, 'AliasName') as alias_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Alias'
     keys:
       name: keys
       id: aws.kms.keys
@@ -333,8 +348,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.KeyId') as key_id
+              JSON_EXTRACT(Properties, '$.KeyId') as key_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Key'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyId') as key_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::Key'
     key:
       name: key
       id: aws.kms.key
@@ -363,6 +385,25 @@ components:
               JSON_EXTRACT(Properties, '$.KeyId') as key_id,
               JSON_EXTRACT(Properties, '$.BypassPolicyLockoutSafetyCheck') as bypass_policy_lockout_safety_check
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Key'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'EnableKeyRotation') as enable_key_rotation,
+                json_extract_path_text(Properties, 'KeyPolicy') as key_policy,
+                json_extract_path_text(Properties, 'KeyUsage') as key_usage,
+                json_extract_path_text(Properties, 'Origin') as origin,
+                json_extract_path_text(Properties, 'KeySpec') as key_spec,
+                json_extract_path_text(Properties, 'MultiRegion') as multi_region,
+                json_extract_path_text(Properties, 'PendingWindowInDays') as pending_window_in_days,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'KeyId') as key_id,
+                json_extract_path_text(Properties, 'BypassPolicyLockoutSafetyCheck') as bypass_policy_lockout_safety_check
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::Key'
     replica_keys:
       name: replica_keys
       id: aws.kms.replica_keys
@@ -377,8 +418,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.KeyId') as key_id
+              JSON_EXTRACT(Properties, '$.KeyId') as key_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::ReplicaKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyId') as key_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KMS::ReplicaKey'
     replica_key:
       name: replica_key
       id: aws.kms.replica_key
@@ -402,3 +450,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::ReplicaKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PendingWindowInDays') as pending_window_in_days,
+                json_extract_path_text(Properties, 'KeyPolicy') as key_policy,
+                json_extract_path_text(Properties, 'PrimaryKeyArn') as primary_key_arn,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'KeyId') as key_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KMS::ReplicaKey'

@@ -1267,8 +1267,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pipes::Pipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pipes::Pipe'
     pipe:
       name: pipe
       id: aws.pipes.pipe
@@ -1301,3 +1308,26 @@ components:
               JSON_EXTRACT(Properties, '$.Target') as target,
               JSON_EXTRACT(Properties, '$.TargetParameters') as target_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pipes::Pipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'CurrentState') as current_state,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DesiredState') as desired_state,
+                json_extract_path_text(Properties, 'Enrichment') as enrichment,
+                json_extract_path_text(Properties, 'EnrichmentParameters') as enrichment_parameters,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'LogConfiguration') as log_configuration,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'SourceParameters') as source_parameters,
+                json_extract_path_text(Properties, 'StateReason') as state_reason,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Target') as target,
+                json_extract_path_text(Properties, 'TargetParameters') as target_parameters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pipes::Pipe'

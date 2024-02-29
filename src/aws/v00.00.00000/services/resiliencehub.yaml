@@ -326,8 +326,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AppArn') as app_arn
+              JSON_EXTRACT(Properties, '$.AppArn') as app_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AppArn') as app_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::App'
     app:
       name: app
       id: aws.resiliencehub.app
@@ -354,6 +361,23 @@ components:
               JSON_EXTRACT(Properties, '$.EventSubscriptions') as event_subscriptions,
               JSON_EXTRACT(Properties, '$.DriftStatus') as drift_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AppArn') as app_arn,
+                json_extract_path_text(Properties, 'ResiliencyPolicyArn') as resiliency_policy_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AppTemplateBody') as app_template_body,
+                json_extract_path_text(Properties, 'ResourceMappings') as resource_mappings,
+                json_extract_path_text(Properties, 'AppAssessmentSchedule') as app_assessment_schedule,
+                json_extract_path_text(Properties, 'PermissionModel') as permission_model,
+                json_extract_path_text(Properties, 'EventSubscriptions') as event_subscriptions,
+                json_extract_path_text(Properties, 'DriftStatus') as drift_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::App'
     resiliency_policies:
       name: resiliency_policies
       id: aws.resiliencehub.resiliency_policies
@@ -368,8 +392,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn
+              JSON_EXTRACT(Properties, '$.PolicyArn') as policy_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyArn') as policy_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'
     resiliency_policy:
       name: resiliency_policy
       id: aws.resiliencehub.resiliency_policy
@@ -392,3 +423,16 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyArn') as policy_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyDescription') as policy_description,
+                json_extract_path_text(Properties, 'DataLocationConstraint') as data_location_constraint,
+                json_extract_path_text(Properties, 'Tier') as tier,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'PolicyArn') as policy_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResilienceHub::ResiliencyPolicy'

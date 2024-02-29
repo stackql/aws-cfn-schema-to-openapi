@@ -867,8 +867,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiCache'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiCache'
     api_cache:
       name: api_cache
       id: aws.appsync.api_cache
@@ -892,6 +899,20 @@ components:
               JSON_EXTRACT(Properties, '$.ApiCachingBehavior') as api_caching_behavior,
               JSON_EXTRACT(Properties, '$.Ttl') as ttl
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiCache'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'TransitEncryptionEnabled') as transit_encryption_enabled,
+                json_extract_path_text(Properties, 'HealthMetricsConfig') as health_metrics_config,
+                json_extract_path_text(Properties, 'AtRestEncryptionEnabled') as at_rest_encryption_enabled,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'ApiCachingBehavior') as api_caching_behavior,
+                json_extract_path_text(Properties, 'Ttl') as ttl
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiCache'
     api_keys:
       name: api_keys
       id: aws.appsync.api_keys
@@ -906,8 +927,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApiKeyId') as api_key_id
+              JSON_EXTRACT(Properties, '$.ApiKeyId') as api_key_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiKeyId') as api_key_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::ApiKey'
     api_key:
       name: api_key
       id: aws.appsync.api_key
@@ -929,6 +957,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiKey') as api_key,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ApiKeyId') as api_key_id,
+                json_extract_path_text(Properties, 'Expires') as expires,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApiId') as api_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::ApiKey'
     data_sources:
       name: data_sources
       id: aws.appsync.data_sources
@@ -943,8 +983,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DataSource'
     data_source:
       name: data_source
       id: aws.appsync.data_source
@@ -975,6 +1022,27 @@ components:
               JSON_EXTRACT(Properties, '$.DynamoDBConfig') as dynamo_db_config,
               JSON_EXTRACT(Properties, '$.ElasticsearchConfig') as elasticsearch_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OpenSearchServiceConfig') as open_search_service_config,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ServiceRoleArn') as service_role_arn,
+                json_extract_path_text(Properties, 'MetricsConfig') as metrics_config,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DataSourceArn') as data_source_arn,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'EventBridgeConfig') as event_bridge_config,
+                json_extract_path_text(Properties, 'HttpConfig') as http_config,
+                json_extract_path_text(Properties, 'RelationalDatabaseConfig') as relational_database_config,
+                json_extract_path_text(Properties, 'LambdaConfig') as lambda_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'DynamoDBConfig') as dynamo_db_config,
+                json_extract_path_text(Properties, 'ElasticsearchConfig') as elasticsearch_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DataSource'
     domain_names:
       name: domain_names
       id: aws.appsync.domain_names
@@ -989,8 +1057,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainName'
     domain_name:
       name: domain_name
       id: aws.appsync.domain_name
@@ -1011,6 +1086,17 @@ components:
               JSON_EXTRACT(Properties, '$.AppSyncDomainName') as app_sync_domain_name,
               JSON_EXTRACT(Properties, '$.HostedZoneId') as hosted_zone_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CertificateArn') as certificate_arn,
+                json_extract_path_text(Properties, 'AppSyncDomainName') as app_sync_domain_name,
+                json_extract_path_text(Properties, 'HostedZoneId') as hosted_zone_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainName'
     domain_name_api_associations:
       name: domain_name_api_associations
       id: aws.appsync.domain_name_api_associations
@@ -1025,8 +1111,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApiAssociationIdentifier') as api_association_identifier
+              JSON_EXTRACT(Properties, '$.ApiAssociationIdentifier') as api_association_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiAssociationIdentifier') as api_association_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
     domain_name_api_association:
       name: domain_name_api_association
       id: aws.appsync.domain_name_api_association
@@ -1045,6 +1138,15 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.ApiAssociationIdentifier') as api_association_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'ApiAssociationIdentifier') as api_association_identifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::DomainNameApiAssociation'
     function_configurations:
       name: function_configurations
       id: aws.appsync.function_configurations
@@ -1059,8 +1161,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FunctionArn') as function_arn
+              JSON_EXTRACT(Properties, '$.FunctionArn') as function_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionArn') as function_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
     function_configuration:
       name: function_configuration
       id: aws.appsync.function_configuration
@@ -1092,6 +1201,28 @@ components:
               JSON_EXTRACT(Properties, '$.Runtime') as runtime,
               JSON_EXTRACT(Properties, '$.SyncConfig') as sync_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionId') as function_id,
+                json_extract_path_text(Properties, 'FunctionArn') as function_arn,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'Code') as code,
+                json_extract_path_text(Properties, 'CodeS3Location') as code_s3_location,
+                json_extract_path_text(Properties, 'DataSourceName') as data_source_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FunctionVersion') as function_version,
+                json_extract_path_text(Properties, 'MaxBatchSize') as max_batch_size,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RequestMappingTemplate') as request_mapping_template,
+                json_extract_path_text(Properties, 'RequestMappingTemplateS3Location') as request_mapping_template_s3_location,
+                json_extract_path_text(Properties, 'ResponseMappingTemplate') as response_mapping_template,
+                json_extract_path_text(Properties, 'ResponseMappingTemplateS3Location') as response_mapping_template_s3_location,
+                json_extract_path_text(Properties, 'Runtime') as runtime,
+                json_extract_path_text(Properties, 'SyncConfig') as sync_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::FunctionConfiguration'
     graphql_apis:
       name: graphql_apis
       id: aws.appsync.graphql_apis
@@ -1106,8 +1237,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
     graphql_api:
       name: graphql_api
       id: aws.appsync.graphql_api
@@ -1149,6 +1287,38 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.LogConfig') as log_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OpenIDConnectConfig') as open_id_connect_config,
+                json_extract_path_text(Properties, 'MergedApiExecutionRoleArn') as merged_api_execution_role_arn,
+                json_extract_path_text(Properties, 'EnhancedMetricsConfig') as enhanced_metrics_config,
+                json_extract_path_text(Properties, 'RealtimeDns') as realtime_dns,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'GraphQLUrl') as graph_ql_url,
+                json_extract_path_text(Properties, 'EnvironmentVariables') as environment_variables,
+                json_extract_path_text(Properties, 'GraphQLDns') as graph_ql_dns,
+                json_extract_path_text(Properties, 'ApiType') as api_type,
+                json_extract_path_text(Properties, 'LambdaAuthorizerConfig') as lambda_authorizer_config,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'GraphQLEndpointArn') as graph_ql_endpoint_arn,
+                json_extract_path_text(Properties, 'AuthenticationType') as authentication_type,
+                json_extract_path_text(Properties, 'QueryDepthLimit') as query_depth_limit,
+                json_extract_path_text(Properties, 'IntrospectionConfig') as introspection_config,
+                json_extract_path_text(Properties, 'OwnerContact') as owner_contact,
+                json_extract_path_text(Properties, 'ResolverCountLimit') as resolver_count_limit,
+                json_extract_path_text(Properties, 'AdditionalAuthenticationProviders') as additional_authentication_providers,
+                json_extract_path_text(Properties, 'RealtimeUrl') as realtime_url,
+                json_extract_path_text(Properties, 'XrayEnabled') as xray_enabled,
+                json_extract_path_text(Properties, 'Visibility') as visibility,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'UserPoolConfig') as user_pool_config,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'LogConfig') as log_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLApi'
     graphql_schemas:
       name: graphql_schemas
       id: aws.appsync.graphql_schemas
@@ -1163,8 +1333,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
     graphql_schema:
       name: graphql_schema
       id: aws.appsync.graphql_schema
@@ -1184,6 +1361,16 @@ components:
               JSON_EXTRACT(Properties, '$.DefinitionS3Location') as definition_s3_location,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'DefinitionS3Location') as definition_s3_location,
+                json_extract_path_text(Properties, 'ApiId') as api_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::GraphQLSchema'
     resolvers:
       name: resolvers
       id: aws.appsync.resolvers
@@ -1198,8 +1385,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResolverArn') as resolver_arn
+              JSON_EXTRACT(Properties, '$.ResolverArn') as resolver_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::Resolver'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResolverArn') as resolver_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::Resolver'
     resolver:
       name: resolver
       id: aws.appsync.resolver
@@ -1233,6 +1427,30 @@ components:
               JSON_EXTRACT(Properties, '$.TypeName') as type_name,
               JSON_EXTRACT(Properties, '$.MetricsConfig') as metrics_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::Resolver'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'CachingConfig') as caching_config,
+                json_extract_path_text(Properties, 'Code') as code,
+                json_extract_path_text(Properties, 'CodeS3Location') as code_s3_location,
+                json_extract_path_text(Properties, 'DataSourceName') as data_source_name,
+                json_extract_path_text(Properties, 'FieldName') as field_name,
+                json_extract_path_text(Properties, 'Kind') as kind,
+                json_extract_path_text(Properties, 'MaxBatchSize') as max_batch_size,
+                json_extract_path_text(Properties, 'PipelineConfig') as pipeline_config,
+                json_extract_path_text(Properties, 'RequestMappingTemplate') as request_mapping_template,
+                json_extract_path_text(Properties, 'RequestMappingTemplateS3Location') as request_mapping_template_s3_location,
+                json_extract_path_text(Properties, 'ResolverArn') as resolver_arn,
+                json_extract_path_text(Properties, 'ResponseMappingTemplate') as response_mapping_template,
+                json_extract_path_text(Properties, 'ResponseMappingTemplateS3Location') as response_mapping_template_s3_location,
+                json_extract_path_text(Properties, 'Runtime') as runtime,
+                json_extract_path_text(Properties, 'SyncConfig') as sync_config,
+                json_extract_path_text(Properties, 'TypeName') as type_name,
+                json_extract_path_text(Properties, 'MetricsConfig') as metrics_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::Resolver'
     source_api_associations:
       name: source_api_associations
       id: aws.appsync.source_api_associations
@@ -1247,8 +1465,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociationArn') as association_arn
+              JSON_EXTRACT(Properties, '$.AssociationArn') as association_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::SourceApiAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationArn') as association_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppSync::SourceApiAssociation'
     source_api_association:
       name: source_api_association
       id: aws.appsync.source_api_association
@@ -1277,3 +1502,22 @@ components:
               JSON_EXTRACT(Properties, '$.SourceApiAssociationStatusDetail') as source_api_association_status_detail,
               JSON_EXTRACT(Properties, '$.LastSuccessfulMergeDate') as last_successful_merge_date
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::SourceApiAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceApiIdentifier') as source_api_identifier,
+                json_extract_path_text(Properties, 'MergedApiIdentifier') as merged_api_identifier,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SourceApiAssociationConfig') as source_api_association_config,
+                json_extract_path_text(Properties, 'AssociationId') as association_id,
+                json_extract_path_text(Properties, 'AssociationArn') as association_arn,
+                json_extract_path_text(Properties, 'SourceApiId') as source_api_id,
+                json_extract_path_text(Properties, 'SourceApiArn') as source_api_arn,
+                json_extract_path_text(Properties, 'MergedApiId') as merged_api_id,
+                json_extract_path_text(Properties, 'MergedApiArn') as merged_api_arn,
+                json_extract_path_text(Properties, 'SourceApiAssociationStatus') as source_api_association_status,
+                json_extract_path_text(Properties, 'SourceApiAssociationStatusDetail') as source_api_association_status_detail,
+                json_extract_path_text(Properties, 'LastSuccessfulMergeDate') as last_successful_merge_date
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppSync::SourceApiAssociation'

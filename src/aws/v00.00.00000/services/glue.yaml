@@ -1327,8 +1327,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Classifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Classifier'
     classifier:
       name: classifier
       id: aws.glue.classifier
@@ -1349,6 +1356,17 @@ components:
               JSON_EXTRACT(Properties, '$.GrokClassifier') as grok_classifier,
               JSON_EXTRACT(Properties, '$.JsonClassifier') as json_classifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Classifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'XMLClassifier') as x_ml_classifier,
+                json_extract_path_text(Properties, 'CsvClassifier') as csv_classifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'GrokClassifier') as grok_classifier,
+                json_extract_path_text(Properties, 'JsonClassifier') as json_classifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Classifier'
     connections:
       name: connections
       id: aws.glue.connections
@@ -1363,8 +1381,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Connection'
     connection:
       name: connection
       id: aws.glue.connection
@@ -1383,6 +1408,15 @@ components:
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Connection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectionInput') as connection_input,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Connection'
     crawlers:
       name: crawlers
       id: aws.glue.crawlers
@@ -1397,8 +1431,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Crawler'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Crawler'
     crawler:
       name: crawler
       id: aws.glue.crawler
@@ -1428,6 +1469,26 @@ components:
               JSON_EXTRACT(Properties, '$.TablePrefix') as table_prefix,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Crawler'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Classifiers') as classifiers,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SchemaChangePolicy') as schema_change_policy,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'RecrawlPolicy') as recrawl_policy,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'CrawlerSecurityConfiguration') as crawler_security_configuration,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'TablePrefix') as table_prefix,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Crawler'
     custom_entity_types:
       name: custom_entity_types
       id: aws.glue.custom_entity_types
@@ -1442,8 +1503,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
     custom_entity_type:
       name: custom_entity_type
       id: aws.glue.custom_entity_type
@@ -1464,6 +1532,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegexString') as regex_string,
+                json_extract_path_text(Properties, 'ContextWords') as context_words,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::CustomEntityType'
     databases:
       name: databases
       id: aws.glue.databases
@@ -1478,8 +1557,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Database'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Database'
     database:
       name: database
       id: aws.glue.database
@@ -1498,6 +1584,15 @@ components:
               JSON_EXTRACT(Properties, '$.DatabaseInput') as database_input,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Database'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id,
+                json_extract_path_text(Properties, 'DatabaseInput') as database_input,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Database'
     data_catalog_encryption_settings:
       name: data_catalog_encryption_settings
       id: aws.glue.data_catalog_encryption_settings
@@ -1516,6 +1611,15 @@ components:
               JSON_EXTRACT(Properties, '$.DataCatalogEncryptionSettings') as data_catalog_encryption_settings,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id,
+                json_extract_path_text(Properties, 'DataCatalogEncryptionSettings') as data_catalog_encryption_settings,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataCatalogEncryptionSettings'
     data_quality_rulesets:
       name: data_quality_rulesets
       id: aws.glue.data_quality_rulesets
@@ -1530,8 +1634,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
     data_quality_ruleset:
       name: data_quality_ruleset
       id: aws.glue.data_quality_ruleset
@@ -1554,6 +1665,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Ruleset') as ruleset,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TargetTable') as target_table,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ClientToken') as client_token,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DataQualityRuleset'
     dev_endpoints:
       name: dev_endpoints
       id: aws.glue.dev_endpoints
@@ -1568,8 +1692,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
     dev_endpoint:
       name: dev_endpoint
       id: aws.glue.dev_endpoint
@@ -1601,6 +1732,28 @@ components:
               JSON_EXTRACT(Properties, '$.NumberOfWorkers') as number_of_workers,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExtraJarsS3Path') as extra_jars_s3_path,
+                json_extract_path_text(Properties, 'PublicKey') as public_key,
+                json_extract_path_text(Properties, 'NumberOfNodes') as number_of_nodes,
+                json_extract_path_text(Properties, 'Arguments') as arguments,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'PublicKeys') as public_keys,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'WorkerType') as worker_type,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'GlueVersion') as glue_version,
+                json_extract_path_text(Properties, 'ExtraPythonLibsS3Path') as extra_python_libs_s3_path,
+                json_extract_path_text(Properties, 'SecurityConfiguration') as security_configuration,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NumberOfWorkers') as number_of_workers,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::DevEndpoint'
     jobs:
       name: jobs
       id: aws.glue.jobs
@@ -1615,8 +1768,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Job'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Job'
     job:
       name: job
       id: aws.glue.job
@@ -1653,6 +1813,33 @@ components:
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity,
               JSON_EXTRACT(Properties, '$.NonOverridableArguments') as non_overridable_arguments
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Job'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Connections') as connections,
+                json_extract_path_text(Properties, 'MaxRetries') as max_retries,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Timeout') as timeout,
+                json_extract_path_text(Properties, 'AllocatedCapacity') as allocated_capacity,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'DefaultArguments') as default_arguments,
+                json_extract_path_text(Properties, 'NotificationProperty') as notification_property,
+                json_extract_path_text(Properties, 'WorkerType') as worker_type,
+                json_extract_path_text(Properties, 'ExecutionClass') as execution_class,
+                json_extract_path_text(Properties, 'LogUri') as log_uri,
+                json_extract_path_text(Properties, 'Command') as command,
+                json_extract_path_text(Properties, 'GlueVersion') as glue_version,
+                json_extract_path_text(Properties, 'ExecutionProperty') as execution_property,
+                json_extract_path_text(Properties, 'SecurityConfiguration') as security_configuration,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NumberOfWorkers') as number_of_workers,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'MaxCapacity') as max_capacity,
+                json_extract_path_text(Properties, 'NonOverridableArguments') as non_overridable_arguments
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Job'
     ml_transforms:
       name: ml_transforms
       id: aws.glue.ml_transforms
@@ -1667,8 +1854,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::MLTransform'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::MLTransform'
     ml_transform:
       name: ml_transform
       id: aws.glue.ml_transform
@@ -1698,6 +1892,26 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.MaxCapacity') as max_capacity
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::MLTransform'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MaxRetries') as max_retries,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TransformEncryption') as transform_encryption,
+                json_extract_path_text(Properties, 'Timeout') as timeout,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'WorkerType') as worker_type,
+                json_extract_path_text(Properties, 'GlueVersion') as glue_version,
+                json_extract_path_text(Properties, 'TransformParameters') as transform_parameters,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'InputRecordTables') as input_record_tables,
+                json_extract_path_text(Properties, 'NumberOfWorkers') as number_of_workers,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'MaxCapacity') as max_capacity
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::MLTransform'
     partitions:
       name: partitions
       id: aws.glue.partitions
@@ -1712,8 +1926,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Partition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Partition'
     partition:
       name: partition
       id: aws.glue.partition
@@ -1734,6 +1955,17 @@ components:
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id,
               JSON_EXTRACT(Properties, '$.PartitionInput') as partition_input
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Partition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id,
+                json_extract_path_text(Properties, 'PartitionInput') as partition_input
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Partition'
     schema_versions:
       name: schema_versions
       id: aws.glue.schema_versions
@@ -1748,8 +1980,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.VersionId') as version_id
+              JSON_EXTRACT(Properties, '$.VersionId') as version_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VersionId') as version_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
     schema_version:
       name: schema_version
       id: aws.glue.schema_version
@@ -1768,6 +2007,15 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaDefinition') as schema_definition,
               JSON_EXTRACT(Properties, '$.VersionId') as version_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'SchemaDefinition') as schema_definition,
+                json_extract_path_text(Properties, 'VersionId') as version_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersion'
     schema_version_metadata:
       name: schema_version_metadata
       id: aws.glue.schema_version_metadata
@@ -1788,6 +2036,15 @@ components:
               JSON_EXTRACT(Properties, '$.Key') as key,
               JSON_EXTRACT(Properties, '$.Value') as value
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersionMetadata'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SchemaVersionId') as schema_version_id,
+                json_extract_path_text(Properties, 'Key') as key,
+                json_extract_path_text(Properties, 'Value') as value
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SchemaVersionMetadata'
     security_configurations:
       name: security_configurations
       id: aws.glue.security_configurations
@@ -1802,8 +2059,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
     security_configuration:
       name: security_configuration
       id: aws.glue.security_configuration
@@ -1822,6 +2086,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EncryptionConfiguration') as encryption_configuration,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::SecurityConfiguration'
     tables:
       name: tables
       id: aws.glue.tables
@@ -1836,8 +2109,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Table'
     table:
       name: table
       id: aws.glue.table
@@ -1858,6 +2138,17 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Table'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'TableInput') as table_input,
+                json_extract_path_text(Properties, 'OpenTableFormatInput') as open_table_format_input,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Table'
     table_optimizers:
       name: table_optimizers
       id: aws.glue.table_optimizers
@@ -1872,8 +2163,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
     table_optimizer:
       name: table_optimizer
       id: aws.glue.table_optimizer
@@ -1895,6 +2193,18 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.CatalogId') as catalog_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'TableName') as table_name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'TableOptimizerConfiguration') as table_optimizer_configuration,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CatalogId') as catalog_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::TableOptimizer'
     triggers:
       name: triggers
       id: aws.glue.triggers
@@ -1909,8 +2219,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Trigger'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Trigger'
     trigger:
       name: trigger
       id: aws.glue.trigger
@@ -1937,6 +2254,23 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Predicate') as predicate
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Trigger'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'StartOnCreation') as start_on_creation,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'EventBatchingCondition') as event_batching_condition,
+                json_extract_path_text(Properties, 'WorkflowName') as workflow_name,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Predicate') as predicate
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Trigger'
     workflows:
       name: workflows
       id: aws.glue.workflows
@@ -1951,8 +2285,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Glue::Workflow'
     workflow:
       name: workflow
       id: aws.glue.workflow
@@ -1974,3 +2315,15 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.MaxConcurrentRuns') as max_concurrent_runs
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'DefaultRunProperties') as default_run_properties,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'MaxConcurrentRuns') as max_concurrent_runs
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Glue::Workflow'

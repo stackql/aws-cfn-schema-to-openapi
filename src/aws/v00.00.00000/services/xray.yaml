@@ -244,8 +244,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GroupARN') as group_ar_n
+              JSON_EXTRACT(Properties, '$.GroupARN') as group_ar
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GroupARN') as group_ar
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::Group'
     group:
       name: group
       id: aws.xray.group
@@ -266,6 +273,17 @@ components:
               JSON_EXTRACT(Properties, '$.InsightsConfiguration') as insights_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FilterExpression') as filter_expression,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'GroupARN') as group_ar_n,
+                json_extract_path_text(Properties, 'InsightsConfiguration') as insights_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::Group'
     resource_policies:
       name: resource_policies
       id: aws.xray.resource_policies
@@ -280,8 +298,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.xray.resource_policy
@@ -300,6 +325,15 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.BypassPolicyLockoutCheck') as bypass_policy_lockout_check
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'BypassPolicyLockoutCheck') as bypass_policy_lockout_check
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::ResourcePolicy'
     sampling_rules:
       name: sampling_rules
       id: aws.xray.sampling_rules
@@ -314,8 +348,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RuleARN') as rule_ar_n
+              JSON_EXTRACT(Properties, '$.RuleARN') as rule_ar
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::SamplingRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleARN') as rule_ar
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::XRay::SamplingRule'
     sampling_rule:
       name: sampling_rule
       id: aws.xray.sampling_rule
@@ -337,3 +378,15 @@ components:
               JSON_EXTRACT(Properties, '$.RuleName') as rule_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::SamplingRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SamplingRule') as sampling_rule,
+                json_extract_path_text(Properties, 'SamplingRuleRecord') as sampling_rule_record,
+                json_extract_path_text(Properties, 'SamplingRuleUpdate') as sampling_rule_update,
+                json_extract_path_text(Properties, 'RuleARN') as rule_ar_n,
+                json_extract_path_text(Properties, 'RuleName') as rule_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::XRay::SamplingRule'

@@ -184,8 +184,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.QueueUrl') as queue_url
+              JSON_EXTRACT(Properties, '$.QueueUrl') as queue_u
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::Queue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'QueueUrl') as queue_u
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::Queue'
     queue:
       name: queue
       id: aws.sqs.queue
@@ -219,6 +226,30 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VisibilityTimeout') as visibility_timeout
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::Queue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'QueueUrl') as queue_url,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ContentBasedDeduplication') as content_based_deduplication,
+                json_extract_path_text(Properties, 'DeduplicationScope') as deduplication_scope,
+                json_extract_path_text(Properties, 'DelaySeconds') as delay_seconds,
+                json_extract_path_text(Properties, 'FifoQueue') as fifo_queue,
+                json_extract_path_text(Properties, 'FifoThroughputLimit') as fifo_throughput_limit,
+                json_extract_path_text(Properties, 'KmsDataKeyReusePeriodSeconds') as kms_data_key_reuse_period_seconds,
+                json_extract_path_text(Properties, 'KmsMasterKeyId') as kms_master_key_id,
+                json_extract_path_text(Properties, 'SqsManagedSseEnabled') as sqs_managed_sse_enabled,
+                json_extract_path_text(Properties, 'MaximumMessageSize') as maximum_message_size,
+                json_extract_path_text(Properties, 'MessageRetentionPeriod') as message_retention_period,
+                json_extract_path_text(Properties, 'QueueName') as queue_name,
+                json_extract_path_text(Properties, 'ReceiveMessageWaitTimeSeconds') as receive_message_wait_time_seconds,
+                json_extract_path_text(Properties, 'RedriveAllowPolicy') as redrive_allow_policy,
+                json_extract_path_text(Properties, 'RedrivePolicy') as redrive_policy,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VisibilityTimeout') as visibility_timeout
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::Queue'
     queue_inline_policies:
       name: queue_inline_policies
       id: aws.sqs.queue_inline_policies
@@ -233,8 +264,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Queue') as queue
+              JSON_EXTRACT(Properties, '$.Queue') as que
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Queue') as que
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
     queue_inline_policy:
       name: queue_inline_policy
       id: aws.sqs.queue_inline_policy
@@ -252,6 +290,14 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Queue') as queue
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'Queue') as queue
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueueInlinePolicy'
     queue_policies:
       name: queue_policies
       id: aws.sqs.queue_policies
@@ -266,8 +312,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueuePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SQS::QueuePolicy'
     queue_policy:
       name: queue_policy
       id: aws.sqs.queue_policy
@@ -286,3 +339,12 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document,
               JSON_EXTRACT(Properties, '$.Queues') as queues
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueuePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'Queues') as queues
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SQS::QueuePolicy'

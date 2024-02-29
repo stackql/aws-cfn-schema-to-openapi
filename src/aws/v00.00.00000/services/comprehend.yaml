@@ -430,8 +430,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::DocumentClassifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::DocumentClassifier'
     document_classifier:
       name: document_classifier
       id: aws.comprehend.document_classifier
@@ -460,6 +467,25 @@ components:
               JSON_EXTRACT(Properties, '$.VpcConfig') as vpc_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Comprehend::DocumentClassifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DataAccessRoleArn') as data_access_role_arn,
+                json_extract_path_text(Properties, 'InputDataConfig') as input_data_config,
+                json_extract_path_text(Properties, 'OutputDataConfig') as output_data_config,
+                json_extract_path_text(Properties, 'LanguageCode') as language_code,
+                json_extract_path_text(Properties, 'ModelKmsKeyId') as model_kms_key_id,
+                json_extract_path_text(Properties, 'ModelPolicy') as model_policy,
+                json_extract_path_text(Properties, 'DocumentClassifierName') as document_classifier_name,
+                json_extract_path_text(Properties, 'Mode') as mode,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VersionName') as version_name,
+                json_extract_path_text(Properties, 'VolumeKmsKeyId') as volume_kms_key_id,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Comprehend::DocumentClassifier'
     flywheels:
       name: flywheels
       id: aws.comprehend.flywheels
@@ -474,8 +500,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::Flywheel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Comprehend::Flywheel'
     flywheel:
       name: flywheel
       id: aws.comprehend.flywheel
@@ -500,3 +533,18 @@ components:
               JSON_EXTRACT(Properties, '$.TaskConfig') as task_config,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Comprehend::Flywheel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ActiveModelArn') as active_model_arn,
+                json_extract_path_text(Properties, 'DataAccessRoleArn') as data_access_role_arn,
+                json_extract_path_text(Properties, 'DataLakeS3Uri') as data_lake_s3_uri,
+                json_extract_path_text(Properties, 'DataSecurityConfig') as data_security_config,
+                json_extract_path_text(Properties, 'FlywheelName') as flywheel_name,
+                json_extract_path_text(Properties, 'ModelType') as model_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TaskConfig') as task_config,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Comprehend::Flywheel'

@@ -317,8 +317,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn
+              JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AcceleratorArn') as accelerator_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
     accelerator:
       name: accelerator
       id: aws.globalaccelerator.accelerator
@@ -344,6 +351,22 @@ components:
               JSON_EXTRACT(Properties, '$.AcceleratorArn') as accelerator_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'IpAddressType') as ip_address_type,
+                json_extract_path_text(Properties, 'IpAddresses') as ip_addresses,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'DnsName') as dns_name,
+                json_extract_path_text(Properties, 'Ipv4Addresses') as ipv4_addresses,
+                json_extract_path_text(Properties, 'Ipv6Addresses') as ipv6_addresses,
+                json_extract_path_text(Properties, 'DualStackDnsName') as dual_stack_dns_name,
+                json_extract_path_text(Properties, 'AcceleratorArn') as accelerator_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Accelerator'
     endpoint_groups:
       name: endpoint_groups
       id: aws.globalaccelerator.endpoint_groups
@@ -358,8 +381,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn
+              JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EndpointGroupArn') as endpoint_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
     endpoint_group:
       name: endpoint_group
       id: aws.globalaccelerator.endpoint_group
@@ -386,6 +416,23 @@ components:
               JSON_EXTRACT(Properties, '$.EndpointGroupArn') as endpoint_group_arn,
               JSON_EXTRACT(Properties, '$.PortOverrides') as port_overrides
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_arn,
+                json_extract_path_text(Properties, 'EndpointGroupRegion') as endpoint_group_region,
+                json_extract_path_text(Properties, 'EndpointConfigurations') as endpoint_configurations,
+                json_extract_path_text(Properties, 'TrafficDialPercentage') as traffic_dial_percentage,
+                json_extract_path_text(Properties, 'HealthCheckPort') as health_check_port,
+                json_extract_path_text(Properties, 'HealthCheckProtocol') as health_check_protocol,
+                json_extract_path_text(Properties, 'HealthCheckPath') as health_check_path,
+                json_extract_path_text(Properties, 'HealthCheckIntervalSeconds') as health_check_interval_seconds,
+                json_extract_path_text(Properties, 'ThresholdCount') as threshold_count,
+                json_extract_path_text(Properties, 'EndpointGroupArn') as endpoint_group_arn,
+                json_extract_path_text(Properties, 'PortOverrides') as port_overrides
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::EndpointGroup'
     listeners:
       name: listeners
       id: aws.globalaccelerator.listeners
@@ -400,8 +447,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_arn
+              JSON_EXTRACT(Properties, '$.ListenerArn') as listener_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'
     listener:
       name: listener
       id: aws.globalaccelerator.listener
@@ -422,3 +476,14 @@ components:
               JSON_EXTRACT(Properties, '$.Protocol') as protocol,
               JSON_EXTRACT(Properties, '$.ClientAffinity') as client_affinity
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ListenerArn') as listener_arn,
+                json_extract_path_text(Properties, 'AcceleratorArn') as accelerator_arn,
+                json_extract_path_text(Properties, 'PortRanges') as port_ranges,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'ClientAffinity') as client_affinity
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GlobalAccelerator::Listener'

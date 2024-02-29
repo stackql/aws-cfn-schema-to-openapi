@@ -547,8 +547,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::Schedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::Schedule'
     schedule:
       name: schedule
       id: aws.scheduler.schedule
@@ -576,6 +583,24 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Target') as target
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::Schedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EndDate') as end_date,
+                json_extract_path_text(Properties, 'FlexibleTimeWindow') as flexible_time_window,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ScheduleExpression') as schedule_expression,
+                json_extract_path_text(Properties, 'ScheduleExpressionTimezone') as schedule_expression_timezone,
+                json_extract_path_text(Properties, 'StartDate') as start_date,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Target') as target
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::Schedule'
     schedule_groups:
       name: schedule_groups
       id: aws.scheduler.schedule_groups
@@ -590,8 +615,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'
     schedule_group:
       name: schedule_group
       id: aws.scheduler.schedule_group
@@ -613,3 +645,15 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'LastModificationDate') as last_modification_date,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Scheduler::ScheduleGroup'

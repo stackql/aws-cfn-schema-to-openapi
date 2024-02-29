@@ -1104,8 +1104,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::DataSource'
     data_source:
       name: data_source
       id: aws.datazone.data_source
@@ -1144,6 +1152,34 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssetFormsInput') as asset_forms_input,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'EnableSetting') as enable_setting,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'LastRunAssetCount') as last_run_asset_count,
+                json_extract_path_text(Properties, 'LastRunAt') as last_run_at,
+                json_extract_path_text(Properties, 'LastRunStatus') as last_run_status,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'ProjectIdentifier') as project_identifier,
+                json_extract_path_text(Properties, 'PublishOnImport') as publish_on_import,
+                json_extract_path_text(Properties, 'Recommendation') as recommendation,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::DataSource'
     domains:
       name: domains
       id: aws.datazone.domains
@@ -1158,8 +1194,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Domain'
     domain:
       name: domain
       id: aws.datazone.domain
@@ -1188,6 +1231,25 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainExecutionRole') as domain_execution_role,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'KmsKeyIdentifier') as kms_key_identifier,
+                json_extract_path_text(Properties, 'LastUpdatedAt') as last_updated_at,
+                json_extract_path_text(Properties, 'ManagedAccountId') as managed_account_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PortalUrl') as portal_url,
+                json_extract_path_text(Properties, 'SingleSignOn') as single_sign_on,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Domain'
     environments:
       name: environments
       id: aws.datazone.environments
@@ -1204,8 +1266,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Environment'
     environment:
       name: environment
       id: aws.datazone.environment
@@ -1241,6 +1311,31 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.UserParameters') as user_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'AwsAccountRegion') as aws_account_region,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintId') as environment_blueprint_id,
+                json_extract_path_text(Properties, 'EnvironmentProfileId') as environment_profile_id,
+                json_extract_path_text(Properties, 'EnvironmentProfileIdentifier') as environment_profile_identifier,
+                json_extract_path_text(Properties, 'GlossaryTerms') as glossary_terms,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'ProjectIdentifier') as project_identifier,
+                json_extract_path_text(Properties, 'Provider') as provider,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'UserParameters') as user_parameters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Environment'
     environment_blueprint_configurations:
       name: environment_blueprint_configurations
       id: aws.datazone.environment_blueprint_configurations
@@ -1257,8 +1352,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.EnvironmentBlueprintId') as environment_blueprint_id
+              JSON_EXTRACT(Properties, '$.EnvironmentBlueprintId') as environment_blueprint_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::EnvironmentBlueprintConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintId') as environment_blueprint_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::EnvironmentBlueprintConfiguration'
     environment_blueprint_configuration:
       name: environment_blueprint_configuration
       id: aws.datazone.environment_blueprint_configuration
@@ -1285,6 +1388,22 @@ components:
               JSON_EXTRACT(Properties, '$.DomainIdentifier') as domain_identifier,
               JSON_EXTRACT(Properties, '$.ManageAccessRoleArn') as manage_access_role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::EnvironmentBlueprintConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegionalParameters') as regional_parameters,
+                json_extract_path_text(Properties, 'ProvisioningRoleArn') as provisioning_role_arn,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'EnabledRegions') as enabled_regions,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintIdentifier') as environment_blueprint_identifier,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintId') as environment_blueprint_id,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'ManageAccessRoleArn') as manage_access_role_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::EnvironmentBlueprintConfiguration'
     environment_profiles:
       name: environment_profiles
       id: aws.datazone.environment_profiles
@@ -1301,8 +1420,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::EnvironmentProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::EnvironmentProfile'
     environment_profile:
       name: environment_profile
       id: aws.datazone.environment_profile
@@ -1334,6 +1461,27 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.UserParameters') as user_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::EnvironmentProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'AwsAccountRegion') as aws_account_region,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintId') as environment_blueprint_id,
+                json_extract_path_text(Properties, 'EnvironmentBlueprintIdentifier') as environment_blueprint_identifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'ProjectIdentifier') as project_identifier,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'UserParameters') as user_parameters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::EnvironmentProfile'
     projects:
       name: projects
       id: aws.datazone.projects
@@ -1350,8 +1498,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::Project'
     project:
       name: project
       id: aws.datazone.project
@@ -1377,6 +1533,21 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdatedAt') as last_updated_at,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'GlossaryTerms') as glossary_terms,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LastUpdatedAt') as last_updated_at,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::Project'
     subscription_targets:
       name: subscription_targets
       id: aws.datazone.subscription_targets
@@ -1395,8 +1566,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.DomainId') as domain_id,
               JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::SubscriptionTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataZone::SubscriptionTarget'
     subscription_target:
       name: subscription_target
       id: aws.datazone.subscription_target
@@ -1431,3 +1611,26 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.UpdatedBy') as updated_by
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::SubscriptionTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicableAssetTypes') as applicable_asset_types,
+                json_extract_path_text(Properties, 'AuthorizedPrincipals') as authorized_principals,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'DomainId') as domain_id,
+                json_extract_path_text(Properties, 'DomainIdentifier') as domain_identifier,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ManageAccessRole') as manage_access_role,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'Provider') as provider,
+                json_extract_path_text(Properties, 'SubscriptionTargetConfig') as subscription_target_config,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'UpdatedBy') as updated_by
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataZone::SubscriptionTarget'

@@ -95,8 +95,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DeviceId') as device_id
+              JSON_EXTRACT(Properties, '$.DeviceId') as device_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeviceId') as device_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Device'
     device:
       name: device
       id: aws.iot1click.device
@@ -115,6 +122,15 @@ components:
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Device'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeviceId') as device_id,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Device'
     placements:
       name: placements
       id: aws.iot1click.placements
@@ -129,8 +145,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Placement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Placement'
     placement:
       name: placement
       id: aws.iot1click.placement
@@ -151,6 +174,17 @@ components:
               JSON_EXTRACT(Properties, '$.AssociatedDevices') as associated_devices,
               JSON_EXTRACT(Properties, '$.Attributes') as attributes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Placement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PlacementName') as placement_name,
+                json_extract_path_text(Properties, 'ProjectName') as project_name,
+                json_extract_path_text(Properties, 'AssociatedDevices') as associated_devices,
+                json_extract_path_text(Properties, 'Attributes') as attributes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Placement'
     projects:
       name: projects
       id: aws.iot1click.projects
@@ -165,8 +199,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoT1Click::Project'
     project:
       name: project
       id: aws.iot1click.project
@@ -187,3 +228,14 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.PlacementTemplate') as placement_template
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ProjectName') as project_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PlacementTemplate') as placement_template
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoT1Click::Project'

@@ -929,8 +929,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApiId') as api_id
+              JSON_EXTRACT(Properties, '$.ApiId') as api_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
     api:
       name: api
       id: aws.apigatewayv2.api
@@ -965,6 +972,31 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ApiKeySelectionExpression') as api_key_selection_expression
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RouteSelectionExpression') as route_selection_expression,
+                json_extract_path_text(Properties, 'BodyS3Location') as body_s3_location,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ApiEndpoint') as api_endpoint,
+                json_extract_path_text(Properties, 'BasePath') as base_path,
+                json_extract_path_text(Properties, 'FailOnWarnings') as fail_on_warnings,
+                json_extract_path_text(Properties, 'DisableExecuteApiEndpoint') as disable_execute_api_endpoint,
+                json_extract_path_text(Properties, 'DisableSchemaValidation') as disable_schema_validation,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Target') as target,
+                json_extract_path_text(Properties, 'CredentialsArn') as credentials_arn,
+                json_extract_path_text(Properties, 'CorsConfiguration') as cors_configuration,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'ProtocolType') as protocol_type,
+                json_extract_path_text(Properties, 'RouteKey') as route_key,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'Body') as body,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ApiKeySelectionExpression') as api_key_selection_expression
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Api'
     api_gateway_managed_overrides:
       name: api_gateway_managed_overrides
       id: aws.apigatewayv2.api_gateway_managed_overrides
@@ -985,6 +1017,17 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.Route') as route
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiGatewayManagedOverrides'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Stage') as stage,
+                json_extract_path_text(Properties, 'Integration') as integration,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'Route') as route
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiGatewayManagedOverrides'
     api_mappings:
       name: api_mappings
       id: aws.apigatewayv2.api_mappings
@@ -1001,8 +1044,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApiMappingId') as api_mapping_id,
-              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiMappingId') as api_mapping_id,
+                json_extract_path_text(Properties, 'DomainName') as domain_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
     api_mapping:
       name: api_mapping
       id: aws.apigatewayv2.api_mapping
@@ -1024,6 +1075,17 @@ components:
               JSON_EXTRACT(Properties, '$.ApiMappingKey') as api_mapping_key,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiMappingId') as api_mapping_id,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Stage') as stage,
+                json_extract_path_text(Properties, 'ApiMappingKey') as api_mapping_key,
+                json_extract_path_text(Properties, 'ApiId') as api_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::ApiMapping'
     authorizers:
       name: authorizers
       id: aws.apigatewayv2.authorizers
@@ -1040,8 +1102,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
-              JSON_EXTRACT(Properties, '$.ApiId') as api_id
+              JSON_EXTRACT(Properties, '$.ApiId') as api_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthorizerId') as authorizer_id,
+                json_extract_path_text(Properties, 'ApiId') as api_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
     authorizer:
       name: authorizer
       id: aws.apigatewayv2.authorizer
@@ -1070,6 +1140,24 @@ components:
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityValidationExpression') as identity_validation_expression,
+                json_extract_path_text(Properties, 'AuthorizerUri') as authorizer_uri,
+                json_extract_path_text(Properties, 'AuthorizerCredentialsArn') as authorizer_credentials_arn,
+                json_extract_path_text(Properties, 'AuthorizerType') as authorizer_type,
+                json_extract_path_text(Properties, 'JwtConfiguration') as jwt_configuration,
+                json_extract_path_text(Properties, 'AuthorizerResultTtlInSeconds') as authorizer_result_ttl_in_seconds,
+                json_extract_path_text(Properties, 'IdentitySource') as identity_source,
+                json_extract_path_text(Properties, 'AuthorizerPayloadFormatVersion') as authorizer_payload_format_version,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'EnableSimpleResponses') as enable_simple_responses,
+                json_extract_path_text(Properties, 'AuthorizerId') as authorizer_id,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Authorizer'
     deployments:
       name: deployments
       id: aws.apigatewayv2.deployments
@@ -1086,8 +1174,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
-              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_id
+              JSON_EXTRACT(Properties, '$.DeploymentId') as deployment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'DeploymentId') as deployment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
     deployment:
       name: deployment
       id: aws.apigatewayv2.deployment
@@ -1108,6 +1204,16 @@ components:
               JSON_EXTRACT(Properties, '$.StageName') as stage_name,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeploymentId') as deployment_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'StageName') as stage_name,
+                json_extract_path_text(Properties, 'ApiId') as api_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Deployment'
     domain_names:
       name: domain_names
       id: aws.apigatewayv2.domain_names
@@ -1122,8 +1228,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DomainName') as domain_name
+              JSON_EXTRACT(Properties, '$.DomainName') as domain_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
     domain_name:
       name: domain_name
       id: aws.apigatewayv2.domain_name
@@ -1145,6 +1258,18 @@ components:
               JSON_EXTRACT(Properties, '$.DomainNameConfigurations') as domain_name_configurations,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MutualTlsAuthentication') as mutual_tls_authentication,
+                json_extract_path_text(Properties, 'RegionalHostedZoneId') as regional_hosted_zone_id,
+                json_extract_path_text(Properties, 'RegionalDomainName') as regional_domain_name,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'DomainNameConfigurations') as domain_name_configurations,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::DomainName'
     integrations:
       name: integrations
       id: aws.apigatewayv2.integrations
@@ -1159,8 +1284,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
     integration:
       name: integration
       id: aws.apigatewayv2.integration
@@ -1195,6 +1327,31 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.IntegrationType') as integration_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TemplateSelectionExpression') as template_selection_expression,
+                json_extract_path_text(Properties, 'ConnectionType') as connection_type,
+                json_extract_path_text(Properties, 'ResponseParameters') as response_parameters,
+                json_extract_path_text(Properties, 'IntegrationMethod') as integration_method,
+                json_extract_path_text(Properties, 'PassthroughBehavior') as passthrough_behavior,
+                json_extract_path_text(Properties, 'RequestParameters') as request_parameters,
+                json_extract_path_text(Properties, 'ConnectionId') as connection_id,
+                json_extract_path_text(Properties, 'IntegrationUri') as integration_uri,
+                json_extract_path_text(Properties, 'PayloadFormatVersion') as payload_format_version,
+                json_extract_path_text(Properties, 'CredentialsArn') as credentials_arn,
+                json_extract_path_text(Properties, 'RequestTemplates') as request_templates,
+                json_extract_path_text(Properties, 'TimeoutInMillis') as timeout_in_millis,
+                json_extract_path_text(Properties, 'TlsConfig') as tls_config,
+                json_extract_path_text(Properties, 'ContentHandlingStrategy') as content_handling_strategy,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IntegrationSubtype') as integration_subtype,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'IntegrationType') as integration_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Integration'
     integration_responses:
       name: integration_responses
       id: aws.apigatewayv2.integration_responses
@@ -1213,8 +1370,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.IntegrationId') as integration_id,
-              JSON_EXTRACT(Properties, '$.IntegrationResponseId') as integration_response_id
+              JSON_EXTRACT(Properties, '$.IntegrationResponseId') as integration_response_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'IntegrationId') as integration_id,
+                json_extract_path_text(Properties, 'IntegrationResponseId') as integration_response_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
     integration_response:
       name: integration_response
       id: aws.apigatewayv2.integration_response
@@ -1240,6 +1406,20 @@ components:
               JSON_EXTRACT(Properties, '$.IntegrationResponseKey') as integration_response_key,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IntegrationResponseId') as integration_response_id,
+                json_extract_path_text(Properties, 'ResponseTemplates') as response_templates,
+                json_extract_path_text(Properties, 'TemplateSelectionExpression') as template_selection_expression,
+                json_extract_path_text(Properties, 'ResponseParameters') as response_parameters,
+                json_extract_path_text(Properties, 'ContentHandlingStrategy') as content_handling_strategy,
+                json_extract_path_text(Properties, 'IntegrationId') as integration_id,
+                json_extract_path_text(Properties, 'IntegrationResponseKey') as integration_response_key,
+                json_extract_path_text(Properties, 'ApiId') as api_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::IntegrationResponse'
     models:
       name: models
       id: aws.apigatewayv2.models
@@ -1256,8 +1436,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
-              JSON_EXTRACT(Properties, '$.ModelId') as model_id
+              JSON_EXTRACT(Properties, '$.ModelId') as model_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'ModelId') as model_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
     model:
       name: model
       id: aws.apigatewayv2.model
@@ -1280,6 +1468,18 @@ components:
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ModelId') as model_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ContentType') as content_type,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Model'
     routes:
       name: routes
       id: aws.apigatewayv2.routes
@@ -1296,8 +1496,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
-              JSON_EXTRACT(Properties, '$.RouteId') as route_id
+              JSON_EXTRACT(Properties, '$.RouteId') as route_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'RouteId') as route_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
     route:
       name: route
       id: aws.apigatewayv2.route
@@ -1327,6 +1535,25 @@ components:
               JSON_EXTRACT(Properties, '$.Target') as target,
               JSON_EXTRACT(Properties, '$.AuthorizerId') as authorizer_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RouteId') as route_id,
+                json_extract_path_text(Properties, 'RouteResponseSelectionExpression') as route_response_selection_expression,
+                json_extract_path_text(Properties, 'RequestModels') as request_models,
+                json_extract_path_text(Properties, 'OperationName') as operation_name,
+                json_extract_path_text(Properties, 'AuthorizationScopes') as authorization_scopes,
+                json_extract_path_text(Properties, 'ApiKeyRequired') as api_key_required,
+                json_extract_path_text(Properties, 'RouteKey') as route_key,
+                json_extract_path_text(Properties, 'AuthorizationType') as authorization_type,
+                json_extract_path_text(Properties, 'ModelSelectionExpression') as model_selection_expression,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'RequestParameters') as request_parameters,
+                json_extract_path_text(Properties, 'Target') as target,
+                json_extract_path_text(Properties, 'AuthorizerId') as authorizer_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Route'
     route_responses:
       name: route_responses
       id: aws.apigatewayv2.route_responses
@@ -1345,8 +1572,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ApiId') as api_id,
               JSON_EXTRACT(Properties, '$.RouteId') as route_id,
-              JSON_EXTRACT(Properties, '$.RouteResponseId') as route_response_id
+              JSON_EXTRACT(Properties, '$.RouteResponseId') as route_response_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'RouteId') as route_id,
+                json_extract_path_text(Properties, 'RouteResponseId') as route_response_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
     route_response:
       name: route_response
       id: aws.apigatewayv2.route_response
@@ -1371,6 +1607,19 @@ components:
               JSON_EXTRACT(Properties, '$.ResponseModels') as response_models,
               JSON_EXTRACT(Properties, '$.RouteResponseId') as route_response_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RouteResponseKey') as route_response_key,
+                json_extract_path_text(Properties, 'ResponseParameters') as response_parameters,
+                json_extract_path_text(Properties, 'RouteId') as route_id,
+                json_extract_path_text(Properties, 'ModelSelectionExpression') as model_selection_expression,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'ResponseModels') as response_models,
+                json_extract_path_text(Properties, 'RouteResponseId') as route_response_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::RouteResponse'
     stages:
       name: stages
       id: aws.apigatewayv2.stages
@@ -1385,8 +1634,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
     stage:
       name: stage
       id: aws.apigatewayv2.stage
@@ -1415,6 +1671,25 @@ components:
               JSON_EXTRACT(Properties, '$.DefaultRouteSettings') as default_route_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeploymentId') as deployment_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AutoDeploy') as auto_deploy,
+                json_extract_path_text(Properties, 'RouteSettings') as route_settings,
+                json_extract_path_text(Properties, 'StageName') as stage_name,
+                json_extract_path_text(Properties, 'StageVariables') as stage_variables,
+                json_extract_path_text(Properties, 'AccessPolicyId') as access_policy_id,
+                json_extract_path_text(Properties, 'ClientCertificateId') as client_certificate_id,
+                json_extract_path_text(Properties, 'AccessLogSettings') as access_log_settings,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApiId') as api_id,
+                json_extract_path_text(Properties, 'DefaultRouteSettings') as default_route_settings,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::Stage'
     vpc_links:
       name: vpc_links
       id: aws.apigatewayv2.vpc_links
@@ -1429,8 +1704,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.VpcLinkId') as vpc_link_id
+              JSON_EXTRACT(Properties, '$.VpcLinkId') as vpc_link_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcLinkId') as vpc_link_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'
     vpc_link:
       name: vpc_link
       id: aws.apigatewayv2.vpc_link
@@ -1451,3 +1733,14 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VpcLinkId') as vpc_link_id,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApiGatewayV2::VpcLink'

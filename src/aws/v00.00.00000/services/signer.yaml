@@ -153,8 +153,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id,
-              JSON_EXTRACT(Properties, '$.ProfileName') as profile_name
+              JSON_EXTRACT(Properties, '$.ProfileName') as profile_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StatementId') as statement_id,
+                json_extract_path_text(Properties, 'ProfileName') as profile_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
     profile_permission:
       name: profile_permission
       id: aws.signer.profile_permission
@@ -176,6 +184,17 @@ components:
               JSON_EXTRACT(Properties, '$.Principal') as principal,
               JSON_EXTRACT(Properties, '$.StatementId') as statement_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfileName') as profile_name,
+                json_extract_path_text(Properties, 'ProfileVersion') as profile_version,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'Principal') as principal,
+                json_extract_path_text(Properties, 'StatementId') as statement_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::ProfilePermission'
     signing_profiles:
       name: signing_profiles
       id: aws.signer.signing_profiles
@@ -190,8 +209,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::SigningProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Signer::SigningProfile'
     signing_profile:
       name: signing_profile
       id: aws.signer.signing_profile
@@ -214,3 +240,16 @@ components:
               JSON_EXTRACT(Properties, '$.PlatformId') as platform_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::SigningProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfileName') as profile_name,
+                json_extract_path_text(Properties, 'ProfileVersion') as profile_version,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ProfileVersionArn') as profile_version_arn,
+                json_extract_path_text(Properties, 'SignatureValidityPeriod') as signature_validity_period,
+                json_extract_path_text(Properties, 'PlatformId') as platform_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Signer::SigningProfile'

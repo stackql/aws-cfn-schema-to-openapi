@@ -125,8 +125,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.HypervisorArn') as hypervisor_arn
+              JSON_EXTRACT(Properties, '$.HypervisorArn') as hypervisor_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BackupGateway::Hypervisor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HypervisorArn') as hypervisor_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BackupGateway::Hypervisor'
     hypervisor:
       name: hypervisor
       id: aws.backupgateway.hypervisor
@@ -150,3 +157,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Username') as username
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BackupGateway::Hypervisor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Host') as host,
+                json_extract_path_text(Properties, 'HypervisorArn') as hypervisor_arn,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'LogGroupArn') as log_group_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Username') as username
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BackupGateway::Hypervisor'

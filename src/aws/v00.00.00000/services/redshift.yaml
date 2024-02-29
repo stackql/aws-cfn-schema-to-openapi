@@ -1104,8 +1104,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier
+              JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterIdentifier') as cluster_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::Cluster'
     cluster:
       name: cluster
       id: aws.redshift.cluster
@@ -1176,6 +1183,67 @@ components:
               JSON_EXTRACT(Properties, '$.MasterPasswordSecretKmsKeyId') as master_password_secret_kms_key_id,
               JSON_EXTRACT(Properties, '$.MasterPasswordSecretArn') as master_password_secret_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterIdentifier') as cluster_identifier,
+                json_extract_path_text(Properties, 'ClusterNamespaceArn') as cluster_namespace_arn,
+                json_extract_path_text(Properties, 'MasterUsername') as master_username,
+                json_extract_path_text(Properties, 'MasterUserPassword') as master_user_password,
+                json_extract_path_text(Properties, 'NodeType') as node_type,
+                json_extract_path_text(Properties, 'AllowVersionUpgrade') as allow_version_upgrade,
+                json_extract_path_text(Properties, 'AutomatedSnapshotRetentionPeriod') as automated_snapshot_retention_period,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'ClusterParameterGroupName') as cluster_parameter_group_name,
+                json_extract_path_text(Properties, 'ClusterType') as cluster_type,
+                json_extract_path_text(Properties, 'ClusterVersion') as cluster_version,
+                json_extract_path_text(Properties, 'ClusterSubnetGroupName') as cluster_subnet_group_name,
+                json_extract_path_text(Properties, 'DBName') as d_bname,
+                json_extract_path_text(Properties, 'ElasticIp') as elastic_ip,
+                json_extract_path_text(Properties, 'Encrypted') as encrypted,
+                json_extract_path_text(Properties, 'HsmClientCertificateIdentifier') as hsm_client_certificate_identifier,
+                json_extract_path_text(Properties, 'HsmConfigurationIdentifier') as hsm_configuration_identifier,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'NumberOfNodes') as number_of_nodes,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'ClusterSecurityGroups') as cluster_security_groups,
+                json_extract_path_text(Properties, 'IamRoles') as iam_roles,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids,
+                json_extract_path_text(Properties, 'SnapshotClusterIdentifier') as snapshot_cluster_identifier,
+                json_extract_path_text(Properties, 'SnapshotIdentifier') as snapshot_identifier,
+                json_extract_path_text(Properties, 'OwnerAccount') as owner_account,
+                json_extract_path_text(Properties, 'LoggingProperties') as logging_properties,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'DestinationRegion') as destination_region,
+                json_extract_path_text(Properties, 'SnapshotCopyRetentionPeriod') as snapshot_copy_retention_period,
+                json_extract_path_text(Properties, 'SnapshotCopyGrantName') as snapshot_copy_grant_name,
+                json_extract_path_text(Properties, 'ManualSnapshotRetentionPeriod') as manual_snapshot_retention_period,
+                json_extract_path_text(Properties, 'SnapshotCopyManual') as snapshot_copy_manual,
+                json_extract_path_text(Properties, 'AvailabilityZoneRelocation') as availability_zone_relocation,
+                json_extract_path_text(Properties, 'AvailabilityZoneRelocationStatus') as availability_zone_relocation_status,
+                json_extract_path_text(Properties, 'AquaConfigurationStatus') as aqua_configuration_status,
+                json_extract_path_text(Properties, 'Classic') as classic,
+                json_extract_path_text(Properties, 'EnhancedVpcRouting') as enhanced_vpc_routing,
+                json_extract_path_text(Properties, 'MaintenanceTrackName') as maintenance_track_name,
+                json_extract_path_text(Properties, 'DeferMaintenance') as defer_maintenance,
+                json_extract_path_text(Properties, 'DeferMaintenanceIdentifier') as defer_maintenance_identifier,
+                json_extract_path_text(Properties, 'DeferMaintenanceStartTime') as defer_maintenance_start_time,
+                json_extract_path_text(Properties, 'DeferMaintenanceEndTime') as defer_maintenance_end_time,
+                json_extract_path_text(Properties, 'DeferMaintenanceDuration') as defer_maintenance_duration,
+                json_extract_path_text(Properties, 'RevisionTarget') as revision_target,
+                json_extract_path_text(Properties, 'ResourceAction') as resource_action,
+                json_extract_path_text(Properties, 'RotateEncryptionKey') as rotate_encryption_key,
+                json_extract_path_text(Properties, 'MultiAZ') as multi_az,
+                json_extract_path_text(Properties, 'NamespaceResourcePolicy') as namespace_resource_policy,
+                json_extract_path_text(Properties, 'ManageMasterPassword') as manage_master_password,
+                json_extract_path_text(Properties, 'MasterPasswordSecretKmsKeyId') as master_password_secret_kms_key_id,
+                json_extract_path_text(Properties, 'MasterPasswordSecretArn') as master_password_secret_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::Cluster'
     cluster_parameter_groups:
       name: cluster_parameter_groups
       id: aws.redshift.cluster_parameter_groups
@@ -1190,8 +1258,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
+              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
     cluster_parameter_group:
       name: cluster_parameter_group
       id: aws.redshift.cluster_parameter_group
@@ -1212,6 +1287,17 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ParameterGroupFamily') as parameter_group_family,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterParameterGroup'
     cluster_security_groups:
       name: cluster_security_groups
       id: aws.redshift.cluster_security_groups
@@ -1226,8 +1312,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
     cluster_security_group:
       name: cluster_security_group
       id: aws.redshift.cluster_security_group
@@ -1246,6 +1339,15 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroup'
     cluster_security_group_ingresses:
       name: cluster_security_group_ingresses
       id: aws.redshift.cluster_security_group_ingresses
@@ -1260,8 +1362,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
     cluster_security_group_ingress:
       name: cluster_security_group_ingress
       id: aws.redshift.cluster_security_group_ingress
@@ -1282,6 +1391,17 @@ components:
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupName') as e_c2_security_group_name,
               JSON_EXTRACT(Properties, '$.EC2SecurityGroupOwnerId') as e_c2_security_group_owner_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CIDRIP') as c_id_ri_p,
+                json_extract_path_text(Properties, 'ClusterSecurityGroupName') as cluster_security_group_name,
+                json_extract_path_text(Properties, 'EC2SecurityGroupName') as e_c2_security_group_name,
+                json_extract_path_text(Properties, 'EC2SecurityGroupOwnerId') as e_c2_security_group_owner_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSecurityGroupIngress'
     cluster_subnet_groups:
       name: cluster_subnet_groups
       id: aws.redshift.cluster_subnet_groups
@@ -1296,8 +1416,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterSubnetGroupName') as cluster_subnet_group_name
+              JSON_EXTRACT(Properties, '$.ClusterSubnetGroupName') as cluster_subnet_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterSubnetGroupName') as cluster_subnet_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
     cluster_subnet_group:
       name: cluster_subnet_group
       id: aws.redshift.cluster_subnet_group
@@ -1317,6 +1444,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ClusterSubnetGroupName') as cluster_subnet_group_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ClusterSubnetGroupName') as cluster_subnet_group_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ClusterSubnetGroup'
     endpoint_accesses:
       name: endpoint_accesses
       id: aws.redshift.endpoint_accesses
@@ -1331,8 +1468,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_name
+              JSON_EXTRACT(Properties, '$.EndpointName') as endpoint_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
     endpoint_access:
       name: endpoint_access
       id: aws.redshift.endpoint_access
@@ -1359,6 +1503,23 @@ components:
               JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as vpc_security_group_ids,
               JSON_EXTRACT(Properties, '$.VpcEndpoint') as vpc_endpoint
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Address') as address,
+                json_extract_path_text(Properties, 'ClusterIdentifier') as cluster_identifier,
+                json_extract_path_text(Properties, 'VpcSecurityGroups') as vpc_security_groups,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'EndpointStatus') as endpoint_status,
+                json_extract_path_text(Properties, 'EndpointName') as endpoint_name,
+                json_extract_path_text(Properties, 'EndpointCreateTime') as endpoint_create_time,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_name,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids,
+                json_extract_path_text(Properties, 'VpcEndpoint') as vpc_endpoint
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAccess'
     endpoint_authorizations:
       name: endpoint_authorizations
       id: aws.redshift.endpoint_authorizations
@@ -1375,8 +1536,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ClusterIdentifier') as cluster_identifier,
-              JSON_EXTRACT(Properties, '$.Account') as account
+              JSON_EXTRACT(Properties, '$.Account') as accou
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterIdentifier') as cluster_identifier,
+                json_extract_path_text(Properties, 'Account') as accou
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
     endpoint_authorization:
       name: endpoint_authorization
       id: aws.redshift.endpoint_authorization
@@ -1405,6 +1574,24 @@ components:
               JSON_EXTRACT(Properties, '$.VpcIds') as vpc_ids,
               JSON_EXTRACT(Properties, '$.Force') as force
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Grantor') as grantor,
+                json_extract_path_text(Properties, 'Grantee') as grantee,
+                json_extract_path_text(Properties, 'ClusterIdentifier') as cluster_identifier,
+                json_extract_path_text(Properties, 'AuthorizeTime') as authorize_time,
+                json_extract_path_text(Properties, 'ClusterStatus') as cluster_status,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'AllowedAllVPCs') as allowed_all_vp_cs,
+                json_extract_path_text(Properties, 'AllowedVPCs') as allowed_vp_cs,
+                json_extract_path_text(Properties, 'EndpointCount') as endpoint_count,
+                json_extract_path_text(Properties, 'Account') as account,
+                json_extract_path_text(Properties, 'VpcIds') as vpc_ids,
+                json_extract_path_text(Properties, 'Force') as force
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EndpointAuthorization'
     event_subscriptions:
       name: event_subscriptions
       id: aws.redshift.event_subscriptions
@@ -1419,8 +1606,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_name
+              JSON_EXTRACT(Properties, '$.SubscriptionName') as subscription_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubscriptionName') as subscription_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
     event_subscription:
       name: event_subscription
       id: aws.redshift.event_subscription
@@ -1450,6 +1644,26 @@ components:
               JSON_EXTRACT(Properties, '$.SourceIdsList') as source_ids_list,
               JSON_EXTRACT(Properties, '$.EventCategoriesList') as event_categories_list
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubscriptionName') as subscription_name,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'SourceType') as source_type,
+                json_extract_path_text(Properties, 'SourceIds') as source_ids,
+                json_extract_path_text(Properties, 'EventCategories') as event_categories,
+                json_extract_path_text(Properties, 'Severity') as severity,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CustomerAwsId') as customer_aws_id,
+                json_extract_path_text(Properties, 'CustSubscriptionId') as cust_subscription_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'SubscriptionCreationTime') as subscription_creation_time,
+                json_extract_path_text(Properties, 'SourceIdsList') as source_ids_list,
+                json_extract_path_text(Properties, 'EventCategoriesList') as event_categories_list
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::EventSubscription'
     scheduled_actions:
       name: scheduled_actions
       id: aws.redshift.scheduled_actions
@@ -1464,8 +1678,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ScheduledActionName') as scheduled_action_name
+              JSON_EXTRACT(Properties, '$.ScheduledActionName') as scheduled_action_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScheduledActionName') as scheduled_action_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'
     scheduled_action:
       name: scheduled_action
       id: aws.redshift.scheduled_action
@@ -1491,3 +1712,19 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.NextInvocations') as next_invocations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScheduledActionName') as scheduled_action_name,
+                json_extract_path_text(Properties, 'TargetAction') as target_action,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'IamRole') as iam_role,
+                json_extract_path_text(Properties, 'ScheduledActionDescription') as scheduled_action_description,
+                json_extract_path_text(Properties, 'StartTime') as start_time,
+                json_extract_path_text(Properties, 'EndTime') as end_time,
+                json_extract_path_text(Properties, 'Enable') as enable,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'NextInvocations') as next_invocations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Redshift::ScheduledAction'

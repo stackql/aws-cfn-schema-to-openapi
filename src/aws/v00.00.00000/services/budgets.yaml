@@ -325,8 +325,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::Budget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::Budget'
     budget:
       name: budget
       id: aws.budgets.budget
@@ -345,6 +352,15 @@ components:
               JSON_EXTRACT(Properties, '$.Budget') as budget,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::Budget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'NotificationsWithSubscribers') as notifications_with_subscribers,
+                json_extract_path_text(Properties, 'Budget') as budget,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::Budget'
     budgets_actions:
       name: budgets_actions
       id: aws.budgets.budgets_actions
@@ -361,8 +377,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ActionId') as action_id,
-              JSON_EXTRACT(Properties, '$.BudgetName') as budget_name
+              JSON_EXTRACT(Properties, '$.BudgetName') as budget_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::BudgetsAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ActionId') as action_id,
+                json_extract_path_text(Properties, 'BudgetName') as budget_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Budgets::BudgetsAction'
     budgets_action:
       name: budgets_action
       id: aws.budgets.budgets_action
@@ -388,3 +412,18 @@ components:
               JSON_EXTRACT(Properties, '$.Subscribers') as subscribers,
               JSON_EXTRACT(Properties, '$.Definition') as definition
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::BudgetsAction'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ActionId') as action_id,
+                json_extract_path_text(Properties, 'BudgetName') as budget_name,
+                json_extract_path_text(Properties, 'NotificationType') as notification_type,
+                json_extract_path_text(Properties, 'ActionType') as action_type,
+                json_extract_path_text(Properties, 'ActionThreshold') as action_threshold,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'ApprovalModel') as approval_model,
+                json_extract_path_text(Properties, 'Subscribers') as subscribers,
+                json_extract_path_text(Properties, 'Definition') as definition
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Budgets::BudgetsAction'

@@ -943,8 +943,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn
+              JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::Connector'
     connector:
       name: connector
       id: aws.pcaconnectorad.connector
@@ -965,6 +972,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VpcInformation') as vpc_information
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::Connector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateAuthorityArn') as certificate_authority_arn,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'DirectoryId') as directory_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcInformation') as vpc_information
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::Connector'
     directory_registrations:
       name: directory_registrations
       id: aws.pcaconnectorad.directory_registrations
@@ -979,8 +997,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_arn
+              JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::DirectoryRegistration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DirectoryRegistrationArn') as directory_registration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::DirectoryRegistration'
     directory_registration:
       name: directory_registration
       id: aws.pcaconnectorad.directory_registration
@@ -999,6 +1024,15 @@ components:
               JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::DirectoryRegistration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DirectoryId') as directory_id,
+                json_extract_path_text(Properties, 'DirectoryRegistrationArn') as directory_registration_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::DirectoryRegistration'
     service_principal_names:
       name: service_principal_names
       id: aws.pcaconnectorad.service_principal_names
@@ -1015,8 +1049,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
-              JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_arn
+              JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::ServicePrincipalName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'DirectoryRegistrationArn') as directory_registration_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::ServicePrincipalName'
     service_principal_name:
       name: service_principal_name
       id: aws.pcaconnectorad.service_principal_name
@@ -1035,6 +1077,14 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectorArn') as connector_arn,
               JSON_EXTRACT(Properties, '$.DirectoryRegistrationArn') as directory_registration_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::ServicePrincipalName'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'DirectoryRegistrationArn') as directory_registration_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::ServicePrincipalName'
     templates:
       name: templates
       id: aws.pcaconnectorad.templates
@@ -1049,8 +1099,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TemplateArn') as template_arn
+              JSON_EXTRACT(Properties, '$.TemplateArn') as template_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TemplateArn') as template_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::Template'
     template:
       name: template
       id: aws.pcaconnectorad.template
@@ -1072,6 +1129,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TemplateArn') as template_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConnectorArn') as connector_arn,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ReenrollAllCertificateHolders') as reenroll_all_certificate_holders,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TemplateArn') as template_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::Template'
     template_group_access_control_entries:
       name: template_group_access_control_entries
       id: aws.pcaconnectorad.template_group_access_control_entries
@@ -1088,8 +1157,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GroupSecurityIdentifier') as group_security_identifier,
-              JSON_EXTRACT(Properties, '$.TemplateArn') as template_arn
+              JSON_EXTRACT(Properties, '$.TemplateArn') as template_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::TemplateGroupAccessControlEntry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GroupSecurityIdentifier') as group_security_identifier,
+                json_extract_path_text(Properties, 'TemplateArn') as template_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::PCAConnectorAD::TemplateGroupAccessControlEntry'
     template_group_access_control_entry:
       name: template_group_access_control_entry
       id: aws.pcaconnectorad.template_group_access_control_entry
@@ -1110,3 +1187,13 @@ components:
               JSON_EXTRACT(Properties, '$.GroupSecurityIdentifier') as group_security_identifier,
               JSON_EXTRACT(Properties, '$.TemplateArn') as template_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::TemplateGroupAccessControlEntry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessRights') as access_rights,
+                json_extract_path_text(Properties, 'GroupDisplayName') as group_display_name,
+                json_extract_path_text(Properties, 'GroupSecurityIdentifier') as group_security_identifier,
+                json_extract_path_text(Properties, 'TemplateArn') as template_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::PCAConnectorAD::TemplateGroupAccessControlEntry'

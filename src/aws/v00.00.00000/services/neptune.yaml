@@ -419,8 +419,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DBClusterIdentifier') as d_bcluster_identifier
+              JSON_EXTRACT(Properties, '$.DBClusterIdentifier') as d_bcluster_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DBClusterIdentifier') as d_bcluster_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBCluster'
     db_cluster:
       name: db_cluster
       id: aws.neptune.db_cluster
@@ -465,6 +472,41 @@ components:
               JSON_EXTRACT(Properties, '$.UseLatestRestorableTime') as use_latest_restorable_time,
               JSON_EXTRACT(Properties, '$.VpcSecurityGroupIds') as vpc_security_group_ids
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'ReadEndpoint') as read_endpoint,
+                json_extract_path_text(Properties, 'ClusterResourceId') as cluster_resource_id,
+                json_extract_path_text(Properties, 'AssociatedRoles') as associated_roles,
+                json_extract_path_text(Properties, 'AvailabilityZones') as availability_zones,
+                json_extract_path_text(Properties, 'BackupRetentionPeriod') as backup_retention_period,
+                json_extract_path_text(Properties, 'CopyTagsToSnapshot') as copy_tags_to_snapshot,
+                json_extract_path_text(Properties, 'DBClusterIdentifier') as d_bcluster_identifier,
+                json_extract_path_text(Properties, 'DBClusterParameterGroupName') as d_bcluster_parameter_group_name,
+                json_extract_path_text(Properties, 'DBInstanceParameterGroupName') as d_binstance_parameter_group_name,
+                json_extract_path_text(Properties, 'DBPort') as d_bport,
+                json_extract_path_text(Properties, 'DBSubnetGroupName') as d_bsubnet_group_name,
+                json_extract_path_text(Properties, 'DeletionProtection') as deletion_protection,
+                json_extract_path_text(Properties, 'EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'IamAuthEnabled') as iam_auth_enabled,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'PreferredBackupWindow') as preferred_backup_window,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'RestoreToTime') as restore_to_time,
+                json_extract_path_text(Properties, 'RestoreType') as restore_type,
+                json_extract_path_text(Properties, 'ServerlessScalingConfiguration') as serverless_scaling_configuration,
+                json_extract_path_text(Properties, 'SnapshotIdentifier') as snapshot_identifier,
+                json_extract_path_text(Properties, 'SourceDBClusterIdentifier') as source_db_cluster_identifier,
+                json_extract_path_text(Properties, 'StorageEncrypted') as storage_encrypted,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UseLatestRestorableTime') as use_latest_restorable_time,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBCluster'
     db_cluster_parameter_groups:
       name: db_cluster_parameter_groups
       id: aws.neptune.db_cluster_parameter_groups
@@ -479,8 +521,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
     db_cluster_parameter_group:
       name: db_cluster_parameter_group
       id: aws.neptune.db_cluster_parameter_group
@@ -502,6 +551,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Family') as family,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBClusterParameterGroup'
     db_instances:
       name: db_instances
       id: aws.neptune.db_instances
@@ -516,8 +577,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBInstance'
     db_instance:
       name: db_instance
       id: aws.neptune.db_instance
@@ -547,6 +615,26 @@ components:
               JSON_EXTRACT(Properties, '$.DBSnapshotIdentifier') as d_bsnapshot_identifier,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'DBParameterGroupName') as d_bparameter_group_name,
+                json_extract_path_text(Properties, 'DBInstanceClass') as d_binstance_class,
+                json_extract_path_text(Properties, 'AllowMajorVersionUpgrade') as allow_major_version_upgrade,
+                json_extract_path_text(Properties, 'DBClusterIdentifier') as d_bcluster_identifier,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
+                json_extract_path_text(Properties, 'DBSubnetGroupName') as d_bsubnet_group_name,
+                json_extract_path_text(Properties, 'DBInstanceIdentifier') as d_binstance_identifier,
+                json_extract_path_text(Properties, 'DBSnapshotIdentifier') as d_bsnapshot_identifier,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBInstance'
     db_parameter_groups:
       name: db_parameter_groups
       id: aws.neptune.db_parameter_groups
@@ -561,8 +649,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
     db_parameter_group:
       name: db_parameter_group
       id: aws.neptune.db_parameter_group
@@ -584,6 +679,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Family') as family,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBParameterGroup'
     db_subnet_groups:
       name: db_subnet_groups
       id: aws.neptune.db_subnet_groups
@@ -598,8 +705,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'
     db_subnet_group:
       name: db_subnet_group
       id: aws.neptune.db_subnet_group
@@ -620,3 +734,14 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DBSubnetGroupName') as d_bsubnet_group_name,
+                json_extract_path_text(Properties, 'DBSubnetGroupDescription') as d_bsubnet_group_description,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Neptune::DBSubnetGroup'

@@ -874,8 +874,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.BridgeArn') as bridge_arn,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::BridgeOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_arn,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::BridgeOutput'
     bridge_output:
       name: bridge_output
       id: aws.mediaconnect.bridge_output
@@ -895,6 +903,15 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkOutput') as network_output,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::BridgeOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_arn,
+                json_extract_path_text(Properties, 'NetworkOutput') as network_output,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::BridgeOutput'
     bridge_sources:
       name: bridge_sources
       id: aws.mediaconnect.bridge_sources
@@ -911,8 +928,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.BridgeArn') as bridge_arn,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::BridgeSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_arn,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::BridgeSource'
     bridge_source:
       name: bridge_source
       id: aws.mediaconnect.bridge_source
@@ -933,6 +958,16 @@ components:
               JSON_EXTRACT(Properties, '$.FlowSource') as flow_source,
               JSON_EXTRACT(Properties, '$.NetworkSource') as network_source
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::BridgeSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_arn,
+                json_extract_path_text(Properties, 'FlowSource') as flow_source,
+                json_extract_path_text(Properties, 'NetworkSource') as network_source
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::BridgeSource'
     bridges:
       name: bridges
       id: aws.mediaconnect.bridges
@@ -947,8 +982,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BridgeArn') as bridge_arn
+              JSON_EXTRACT(Properties, '$.BridgeArn') as bridge_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Bridge'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Bridge'
     bridge:
       name: bridge
       id: aws.mediaconnect.bridge
@@ -973,6 +1015,21 @@ components:
               JSON_EXTRACT(Properties, '$.IngressGatewayBridge') as ingress_gateway_bridge,
               JSON_EXTRACT(Properties, '$.EgressGatewayBridge') as egress_gateway_bridge
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Bridge'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'BridgeArn') as bridge_arn,
+                json_extract_path_text(Properties, 'PlacementArn') as placement_arn,
+                json_extract_path_text(Properties, 'BridgeState') as bridge_state,
+                json_extract_path_text(Properties, 'SourceFailoverConfig') as source_failover_config,
+                json_extract_path_text(Properties, 'Outputs') as outputs,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'IngressGatewayBridge') as ingress_gateway_bridge,
+                json_extract_path_text(Properties, 'EgressGatewayBridge') as egress_gateway_bridge
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Bridge'
     flows:
       name: flows
       id: aws.mediaconnect.flows
@@ -987,8 +1044,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn
+              JSON_EXTRACT(Properties, '$.FlowArn') as flow_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Flow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Flow'
     flow:
       name: flow
       id: aws.mediaconnect.flow
@@ -1010,6 +1074,18 @@ components:
               JSON_EXTRACT(Properties, '$.Source') as source,
               JSON_EXTRACT(Properties, '$.SourceFailoverConfig') as source_failover_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Flow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'FlowAvailabilityZone') as flow_availability_zone,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'SourceFailoverConfig') as source_failover_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Flow'
     flow_entitlements:
       name: flow_entitlements
       id: aws.mediaconnect.flow_entitlements
@@ -1024,8 +1100,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EntitlementArn') as entitlement_arn
+              JSON_EXTRACT(Properties, '$.EntitlementArn') as entitlement_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EntitlementArn') as entitlement_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
     flow_entitlement:
       name: flow_entitlement
       id: aws.mediaconnect.flow_entitlement
@@ -1049,6 +1132,20 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Subscribers') as subscribers
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'EntitlementArn') as entitlement_arn,
+                json_extract_path_text(Properties, 'DataTransferSubscriberFeePercent') as data_transfer_subscriber_fee_percent,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Encryption') as encryption,
+                json_extract_path_text(Properties, 'EntitlementStatus') as entitlement_status,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Subscribers') as subscribers
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowEntitlement'
     flow_outputs:
       name: flow_outputs
       id: aws.mediaconnect.flow_outputs
@@ -1063,8 +1160,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OutputArn') as output_arn
+              JSON_EXTRACT(Properties, '$.OutputArn') as output_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OutputArn') as output_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
     flow_output:
       name: flow_output
       id: aws.mediaconnect.flow_output
@@ -1095,6 +1199,27 @@ components:
               JSON_EXTRACT(Properties, '$.StreamId') as stream_id,
               JSON_EXTRACT(Properties, '$.VpcInterfaceAttachment') as vpc_interface_attachment
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'OutputArn') as output_arn,
+                json_extract_path_text(Properties, 'CidrAllowList') as cidr_allow_list,
+                json_extract_path_text(Properties, 'Encryption') as encryption,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Destination') as destination,
+                json_extract_path_text(Properties, 'MaxLatency') as max_latency,
+                json_extract_path_text(Properties, 'MinLatency') as min_latency,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'RemoteId') as remote_id,
+                json_extract_path_text(Properties, 'SmoothingLatency') as smoothing_latency,
+                json_extract_path_text(Properties, 'StreamId') as stream_id,
+                json_extract_path_text(Properties, 'VpcInterfaceAttachment') as vpc_interface_attachment
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowOutput'
     flow_sources:
       name: flow_sources
       id: aws.mediaconnect.flow_sources
@@ -1109,8 +1234,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SourceArn') as source_arn
+              JSON_EXTRACT(Properties, '$.SourceArn') as source_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceArn') as source_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
     flow_source:
       name: flow_source
       id: aws.mediaconnect.flow_source
@@ -1147,6 +1279,33 @@ components:
               JSON_EXTRACT(Properties, '$.VpcInterfaceName') as vpc_interface_name,
               JSON_EXTRACT(Properties, '$.WhitelistCidr') as whitelist_cidr
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'SourceArn') as source_arn,
+                json_extract_path_text(Properties, 'Decryption') as decryption,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EntitlementArn') as entitlement_arn,
+                json_extract_path_text(Properties, 'GatewayBridgeSource') as gateway_bridge_source,
+                json_extract_path_text(Properties, 'IngestIp') as ingest_ip,
+                json_extract_path_text(Properties, 'IngestPort') as ingest_port,
+                json_extract_path_text(Properties, 'MaxBitrate') as max_bitrate,
+                json_extract_path_text(Properties, 'MaxLatency') as max_latency,
+                json_extract_path_text(Properties, 'MinLatency') as min_latency,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'SenderIpAddress') as sender_ip_address,
+                json_extract_path_text(Properties, 'SenderControlPort') as sender_control_port,
+                json_extract_path_text(Properties, 'StreamId') as stream_id,
+                json_extract_path_text(Properties, 'SourceIngestPort') as source_ingest_port,
+                json_extract_path_text(Properties, 'SourceListenerAddress') as source_listener_address,
+                json_extract_path_text(Properties, 'SourceListenerPort') as source_listener_port,
+                json_extract_path_text(Properties, 'VpcInterfaceName') as vpc_interface_name,
+                json_extract_path_text(Properties, 'WhitelistCidr') as whitelist_cidr
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowSource'
     flow_vpc_interfaces:
       name: flow_vpc_interfaces
       id: aws.mediaconnect.flow_vpc_interfaces
@@ -1163,8 +1322,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FlowArn') as flow_arn,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'
     flow_vpc_interface:
       name: flow_vpc_interface
       id: aws.mediaconnect.flow_vpc_interface
@@ -1187,6 +1354,18 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id,
               JSON_EXTRACT(Properties, '$.NetworkInterfaceIds') as network_interface_ids
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FlowArn') as flow_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'NetworkInterfaceIds') as network_interface_ids
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::FlowVpcInterface'
     gateways:
       name: gateways
       id: aws.mediaconnect.gateways
@@ -1201,8 +1380,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GatewayArn') as gateway_arn
+              JSON_EXTRACT(Properties, '$.GatewayArn') as gateway_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Gateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GatewayArn') as gateway_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaConnect::Gateway'
     gateway:
       name: gateway
       id: aws.mediaconnect.gateway
@@ -1223,3 +1409,14 @@ components:
               JSON_EXTRACT(Properties, '$.EgressCidrBlocks') as egress_cidr_blocks,
               JSON_EXTRACT(Properties, '$.Networks') as networks
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Gateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'GatewayArn') as gateway_arn,
+                json_extract_path_text(Properties, 'GatewayState') as gateway_state,
+                json_extract_path_text(Properties, 'EgressCidrBlocks') as egress_cidr_blocks,
+                json_extract_path_text(Properties, 'Networks') as networks
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaConnect::Gateway'

@@ -423,8 +423,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
     fleet:
       name: fleet
       id: aws.robomaker.fleet
@@ -443,6 +450,15 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Fleet'
     robots:
       name: robots
       id: aws.robomaker.robots
@@ -457,8 +473,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Robot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::Robot'
     robot:
       name: robot
       id: aws.robomaker.robot
@@ -480,6 +503,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Robot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Fleet') as fleet,
+                json_extract_path_text(Properties, 'Architecture') as architecture,
+                json_extract_path_text(Properties, 'GreengrassGroupId') as greengrass_group_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::Robot'
     robot_applications:
       name: robot_applications
       id: aws.robomaker.robot_applications
@@ -494,8 +529,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
     robot_application:
       name: robot_application
       id: aws.robomaker.robot_application
@@ -518,6 +560,19 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'Environment') as environment,
+                json_extract_path_text(Properties, 'RobotSoftwareSuite') as robot_software_suite,
+                json_extract_path_text(Properties, 'CurrentRevisionId') as current_revision_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplication'
     robot_application_versions:
       name: robot_application_versions
       id: aws.robomaker.robot_application_versions
@@ -532,8 +587,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
     robot_application_version:
       name: robot_application_version
       id: aws.robomaker.robot_application_version
@@ -553,6 +615,16 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Application') as application,
+                json_extract_path_text(Properties, 'CurrentRevisionId') as current_revision_id,
+                json_extract_path_text(Properties, 'ApplicationVersion') as application_version,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::RobotApplicationVersion'
     simulation_applications:
       name: simulation_applications
       id: aws.robomaker.simulation_applications
@@ -567,8 +639,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
     simulation_application:
       name: simulation_application
       id: aws.robomaker.simulation_application
@@ -593,6 +672,21 @@ components:
               JSON_EXTRACT(Properties, '$.Environment') as environment,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'CurrentRevisionId') as current_revision_id,
+                json_extract_path_text(Properties, 'RenderingEngine') as rendering_engine,
+                json_extract_path_text(Properties, 'RobotSoftwareSuite') as robot_software_suite,
+                json_extract_path_text(Properties, 'SimulationSoftwareSuite') as simulation_software_suite,
+                json_extract_path_text(Properties, 'Sources') as sources,
+                json_extract_path_text(Properties, 'Environment') as environment,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplication'
     simulation_application_versions:
       name: simulation_application_versions
       id: aws.robomaker.simulation_application_versions
@@ -607,8 +701,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'
     simulation_application_version:
       name: simulation_application_version
       id: aws.robomaker.simulation_application_version
@@ -628,3 +729,13 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationVersion') as application_version,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Application') as application,
+                json_extract_path_text(Properties, 'CurrentRevisionId') as current_revision_id,
+                json_extract_path_text(Properties, 'ApplicationVersion') as application_version,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RoboMaker::SimulationApplicationVersion'

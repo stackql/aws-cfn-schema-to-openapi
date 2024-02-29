@@ -312,8 +312,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_arn
+              JSON_EXTRACT(Properties, '$.ApplicationArn') as application_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Application'
     application:
       name: application
       id: aws.m2.application
@@ -338,6 +345,21 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_arn,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EngineType') as engine_type,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Application'
     environments:
       name: environments
       id: aws.m2.environments
@@ -352,8 +374,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EnvironmentArn') as environment_arn
+              JSON_EXTRACT(Properties, '$.EnvironmentArn') as environment_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentArn') as environment_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::M2::Environment'
     environment:
       name: environment
       id: aws.m2.environment
@@ -384,3 +413,24 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EngineType') as engine_type,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'EnvironmentArn') as environment_arn,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'HighAvailabilityConfig') as high_availability_config,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'StorageConfigurations') as storage_configurations,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::M2::Environment'

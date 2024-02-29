@@ -861,8 +861,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AlarmModelName') as alarm_model_name
+              JSON_EXTRACT(Properties, '$.AlarmModelName') as alarm_model_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmModelName') as alarm_model_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
     alarm_model:
       name: alarm_model
       id: aws.iotevents.alarm_model
@@ -887,6 +894,21 @@ components:
               JSON_EXTRACT(Properties, '$.AlarmCapabilities') as alarm_capabilities,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlarmModelName') as alarm_model_name,
+                json_extract_path_text(Properties, 'AlarmModelDescription') as alarm_model_description,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Key') as key,
+                json_extract_path_text(Properties, 'Severity') as severity,
+                json_extract_path_text(Properties, 'AlarmRule') as alarm_rule,
+                json_extract_path_text(Properties, 'AlarmEventActions') as alarm_event_actions,
+                json_extract_path_text(Properties, 'AlarmCapabilities') as alarm_capabilities,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::AlarmModel'
     detector_models:
       name: detector_models
       id: aws.iotevents.detector_models
@@ -901,8 +923,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DetectorModelName') as detector_model_name
+              JSON_EXTRACT(Properties, '$.DetectorModelName') as detector_model_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorModelName') as detector_model_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
     detector_model:
       name: detector_model
       id: aws.iotevents.detector_model
@@ -925,6 +954,19 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorModelDefinition') as detector_model_definition,
+                json_extract_path_text(Properties, 'DetectorModelDescription') as detector_model_description,
+                json_extract_path_text(Properties, 'DetectorModelName') as detector_model_name,
+                json_extract_path_text(Properties, 'EvaluationMethod') as evaluation_method,
+                json_extract_path_text(Properties, 'Key') as key,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::DetectorModel'
     inputs:
       name: inputs
       id: aws.iotevents.inputs
@@ -939,8 +981,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InputName') as input_name
+              JSON_EXTRACT(Properties, '$.InputName') as input_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::Input'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InputName') as input_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTEvents::Input'
     input:
       name: input
       id: aws.iotevents.input
@@ -960,3 +1009,13 @@ components:
               JSON_EXTRACT(Properties, '$.InputName') as input_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::Input'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InputDefinition') as input_definition,
+                json_extract_path_text(Properties, 'InputDescription') as input_description,
+                json_extract_path_text(Properties, 'InputName') as input_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTEvents::Input'

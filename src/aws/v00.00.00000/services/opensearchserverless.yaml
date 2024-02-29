@@ -482,8 +482,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
     access_policy:
       name: access_policy
       id: aws.opensearchserverless.access_policy
@@ -504,6 +512,16 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::AccessPolicy'
     collections:
       name: collections
       id: aws.opensearchserverless.collections
@@ -518,8 +536,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
     collection:
       name: collection
       id: aws.opensearchserverless.collection
@@ -544,6 +569,21 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.StandbyReplicas') as standby_replicas
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CollectionEndpoint') as collection_endpoint,
+                json_extract_path_text(Properties, 'DashboardEndpoint') as dashboard_endpoint,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'StandbyReplicas') as standby_replicas
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::Collection'
     lifecycle_policies:
       name: lifecycle_policies
       id: aws.opensearchserverless.lifecycle_policies
@@ -560,8 +600,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
     lifecycle_policy:
       name: lifecycle_policy
       id: aws.opensearchserverless.lifecycle_policy
@@ -582,6 +630,16 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::LifecyclePolicy'
     security_configs:
       name: security_configs
       id: aws.opensearchserverless.security_configs
@@ -596,8 +654,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
     security_config:
       name: security_config
       id: aws.opensearchserverless.security_config
@@ -618,6 +683,17 @@ components:
               JSON_EXTRACT(Properties, '$.SamlOptions') as saml_options,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SamlOptions') as saml_options,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityConfig'
     security_policies:
       name: security_policies
       id: aws.opensearchserverless.security_policies
@@ -634,8 +710,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Type') as type,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
     security_policy:
       name: security_policy
       id: aws.opensearchserverless.security_policy
@@ -656,6 +740,16 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::SecurityPolicy'
     vpc_endpoints:
       name: vpc_endpoints
       id: aws.opensearchserverless.vpc_endpoints
@@ -670,8 +764,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'
     vpc_endpoint:
       name: vpc_endpoint
       id: aws.opensearchserverless.vpc_endpoint
@@ -692,3 +793,14 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::OpenSearchServerless::VpcEndpoint'

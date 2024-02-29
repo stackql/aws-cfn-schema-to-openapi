@@ -641,8 +641,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::Channel'
     channel:
       name: channel
       id: aws.mediapackagev2.channel
@@ -666,6 +673,20 @@ components:
               JSON_EXTRACT(Properties, '$.ModifiedAt') as modified_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'IngestEndpoints') as ingest_endpoints,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::Channel'
     channel_groups:
       name: channel_groups
       id: aws.mediapackagev2.channel_groups
@@ -680,8 +701,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelGroup'
     channel_group:
       name: channel_group
       id: aws.mediapackagev2.channel_group
@@ -704,6 +732,19 @@ components:
               JSON_EXTRACT(Properties, '$.ModifiedAt') as modified_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EgressDomain') as egress_domain,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelGroup'
     channel_policies:
       name: channel_policies
       id: aws.mediapackagev2.channel_policies
@@ -720,8 +761,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ChannelGroupName') as channel_group_name,
-              JSON_EXTRACT(Properties, '$.ChannelName') as channel_name
+              JSON_EXTRACT(Properties, '$.ChannelName') as channel_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelPolicy'
     channel_policy:
       name: channel_policy
       id: aws.mediapackagev2.channel_policy
@@ -741,6 +790,15 @@ components:
               JSON_EXTRACT(Properties, '$.ChannelName') as channel_name,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::ChannelPolicy'
     origin_endpoints:
       name: origin_endpoints
       id: aws.mediapackagev2.origin_endpoints
@@ -755,8 +813,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpoint'
     origin_endpoint:
       name: origin_endpoint
       id: aws.mediapackagev2.origin_endpoint
@@ -785,6 +850,25 @@ components:
               JSON_EXTRACT(Properties, '$.StartoverWindowSeconds') as startover_window_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'ContainerType') as container_type,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'HlsManifests') as hls_manifests,
+                json_extract_path_text(Properties, 'LowLatencyHlsManifests') as low_latency_hls_manifests,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'OriginEndpointName') as origin_endpoint_name,
+                json_extract_path_text(Properties, 'Segment') as segment,
+                json_extract_path_text(Properties, 'StartoverWindowSeconds') as startover_window_seconds,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpoint'
     origin_endpoint_policies:
       name: origin_endpoint_policies
       id: aws.mediapackagev2.origin_endpoint_policies
@@ -803,8 +887,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ChannelGroupName') as channel_group_name,
               JSON_EXTRACT(Properties, '$.ChannelName') as channel_name,
-              JSON_EXTRACT(Properties, '$.OriginEndpointName') as origin_endpoint_name
+              JSON_EXTRACT(Properties, '$.OriginEndpointName') as origin_endpoint_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'OriginEndpointName') as origin_endpoint_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpointPolicy'
     origin_endpoint_policy:
       name: origin_endpoint_policy
       id: aws.mediapackagev2.origin_endpoint_policy
@@ -826,3 +919,13 @@ components:
               JSON_EXTRACT(Properties, '$.OriginEndpointName') as origin_endpoint_name,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelGroupName') as channel_group_name,
+                json_extract_path_text(Properties, 'ChannelName') as channel_name,
+                json_extract_path_text(Properties, 'OriginEndpointName') as origin_endpoint_name,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MediaPackageV2::OriginEndpointPolicy'

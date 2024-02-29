@@ -251,8 +251,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
     accessor:
       name: accessor
       id: aws.managedblockchain.accessor
@@ -276,6 +283,20 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkType') as network_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BillingToken') as billing_token,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'AccessorType') as accessor_type,
+                json_extract_path_text(Properties, 'NetworkType') as network_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Accessor'
     members:
       name: members
       id: aws.managedblockchain.members
@@ -290,8 +311,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MemberId') as member_id
+              JSON_EXTRACT(Properties, '$.MemberId') as member_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MemberId') as member_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
     member:
       name: member
       id: aws.managedblockchain.member
@@ -312,6 +340,17 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkConfiguration') as network_configuration,
               JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MemberId') as member_id,
+                json_extract_path_text(Properties, 'NetworkId') as network_id,
+                json_extract_path_text(Properties, 'MemberConfiguration') as member_configuration,
+                json_extract_path_text(Properties, 'NetworkConfiguration') as network_configuration,
+                json_extract_path_text(Properties, 'InvitationId') as invitation_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Member'
     nodes:
       name: nodes
       id: aws.managedblockchain.nodes
@@ -326,8 +365,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.NodeId') as node_id
+              JSON_EXTRACT(Properties, '$.NodeId') as node_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'NodeId') as node_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'
     node:
       name: node
       id: aws.managedblockchain.node
@@ -348,3 +394,14 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkId') as network_id,
               JSON_EXTRACT(Properties, '$.NodeConfiguration') as node_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'NodeId') as node_id,
+                json_extract_path_text(Properties, 'MemberId') as member_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'NetworkId') as network_id,
+                json_extract_path_text(Properties, 'NodeConfiguration') as node_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ManagedBlockchain::Node'

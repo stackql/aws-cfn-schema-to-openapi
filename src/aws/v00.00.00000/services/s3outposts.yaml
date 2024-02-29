@@ -434,8 +434,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3outposts.access_point
@@ -456,6 +463,17 @@ components:
               JSON_EXTRACT(Properties, '$.VpcConfiguration') as vpc_configuration,
               JSON_EXTRACT(Properties, '$.Policy') as policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Bucket') as bucket,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'VpcConfiguration') as vpc_configuration,
+                json_extract_path_text(Properties, 'Policy') as policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::AccessPoint'
     buckets:
       name: buckets
       id: aws.s3outposts.buckets
@@ -470,8 +488,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
     bucket:
       name: bucket
       id: aws.s3outposts.bucket
@@ -492,6 +517,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.LifecycleConfiguration') as lifecycle_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'OutpostId') as outpost_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LifecycleConfiguration') as lifecycle_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Bucket'
     bucket_policies:
       name: bucket_policies
       id: aws.s3outposts.bucket_policies
@@ -506,8 +542,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Bucket') as bucket
+              JSON_EXTRACT(Properties, '$.Bucket') as buck
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as buck
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
     bucket_policy:
       name: bucket_policy
       id: aws.s3outposts.bucket_policy
@@ -525,6 +568,14 @@ components:
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as bucket,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::BucketPolicy'
     endpoints:
       name: endpoints
       id: aws.s3outposts.endpoints
@@ -539,8 +590,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'
     endpoint:
       name: endpoint
       id: aws.s3outposts.endpoint
@@ -568,3 +626,21 @@ components:
               JSON_EXTRACT(Properties, '$.CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool,
               JSON_EXTRACT(Properties, '$.FailedReason') as failed_reason
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CidrBlock') as cidr_block,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'NetworkInterfaces') as network_interfaces,
+                json_extract_path_text(Properties, 'OutpostId') as outpost_id,
+                json_extract_path_text(Properties, 'SecurityGroupId') as security_group_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'AccessType') as access_type,
+                json_extract_path_text(Properties, 'CustomerOwnedIpv4Pool') as customer_owned_ipv4_pool,
+                json_extract_path_text(Properties, 'FailedReason') as failed_reason
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Outposts::Endpoint'

@@ -187,8 +187,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration'
     microsoft_teams_channel_configuration:
       name: microsoft_teams_channel_configuration
       id: aws.chatbot.microsoft_teams_channel_configuration
@@ -214,6 +221,22 @@ components:
               JSON_EXTRACT(Properties, '$.GuardrailPolicies') as guardrail_policies,
               JSON_EXTRACT(Properties, '$.UserRoleRequired') as user_role_required
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TeamId') as team_id,
+                json_extract_path_text(Properties, 'TeamsChannelId') as teams_channel_id,
+                json_extract_path_text(Properties, 'TeamsTenantId') as teams_tenant_id,
+                json_extract_path_text(Properties, 'ConfigurationName') as configuration_name,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'SnsTopicArns') as sns_topic_arns,
+                json_extract_path_text(Properties, 'LoggingLevel') as logging_level,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'GuardrailPolicies') as guardrail_policies,
+                json_extract_path_text(Properties, 'UserRoleRequired') as user_role_required
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Chatbot::MicrosoftTeamsChannelConfiguration'
     slack_channel_configurations:
       name: slack_channel_configurations
       id: aws.chatbot.slack_channel_configurations
@@ -228,8 +251,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration'
     slack_channel_configuration:
       name: slack_channel_configuration
       id: aws.chatbot.slack_channel_configuration
@@ -254,3 +284,18 @@ components:
               JSON_EXTRACT(Properties, '$.GuardrailPolicies') as guardrail_policies,
               JSON_EXTRACT(Properties, '$.UserRoleRequired') as user_role_required
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SlackWorkspaceId') as slack_workspace_id,
+                json_extract_path_text(Properties, 'SlackChannelId') as slack_channel_id,
+                json_extract_path_text(Properties, 'ConfigurationName') as configuration_name,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'SnsTopicArns') as sns_topic_arns,
+                json_extract_path_text(Properties, 'LoggingLevel') as logging_level,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'GuardrailPolicies') as guardrail_policies,
+                json_extract_path_text(Properties, 'UserRoleRequired') as user_role_required
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Chatbot::SlackChannelConfiguration'

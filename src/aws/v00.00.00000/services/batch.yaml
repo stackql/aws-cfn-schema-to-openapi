@@ -865,8 +865,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ComputeEnvironmentArn') as compute_environment_arn
+              JSON_EXTRACT(Properties, '$.ComputeEnvironmentArn') as compute_environment_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ComputeEnvironmentArn') as compute_environment_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment'
     compute_environment:
       name: compute_environment
       id: aws.batch.compute_environment
@@ -893,6 +900,23 @@ components:
               JSON_EXTRACT(Properties, '$.UnmanagedvCpus') as unmanagedv_cpus,
               JSON_EXTRACT(Properties, '$.EksConfiguration') as eks_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ComputeEnvironmentArn') as compute_environment_arn,
+                json_extract_path_text(Properties, 'ComputeEnvironmentName') as compute_environment_name,
+                json_extract_path_text(Properties, 'ComputeResources') as compute_resources,
+                json_extract_path_text(Properties, 'ReplaceComputeEnvironment') as replace_compute_environment,
+                json_extract_path_text(Properties, 'ServiceRole') as service_role,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'UpdatePolicy') as update_policy,
+                json_extract_path_text(Properties, 'UnmanagedvCpus') as unmanagedv_cpus,
+                json_extract_path_text(Properties, 'EksConfiguration') as eks_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::ComputeEnvironment'
     job_definitions:
       name: job_definitions
       id: aws.batch.job_definitions
@@ -907,8 +931,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobDefinition'
     job_definition:
       name: job_definition
       id: aws.batch.job_definition
@@ -937,6 +968,25 @@ components:
               JSON_EXTRACT(Properties, '$.RetryStrategy') as retry_strategy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Timeout') as timeout,
+                json_extract_path_text(Properties, 'JobDefinitionName') as job_definition_name,
+                json_extract_path_text(Properties, 'PropagateTags') as propagate_tags,
+                json_extract_path_text(Properties, 'PlatformCapabilities') as platform_capabilities,
+                json_extract_path_text(Properties, 'EksProperties') as eks_properties,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'NodeProperties') as node_properties,
+                json_extract_path_text(Properties, 'SchedulingPriority') as scheduling_priority,
+                json_extract_path_text(Properties, 'ContainerProperties') as container_properties,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RetryStrategy') as retry_strategy,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobDefinition'
     job_queues:
       name: job_queues
       id: aws.batch.job_queues
@@ -951,8 +1001,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.JobQueueArn') as job_queue_arn
+              JSON_EXTRACT(Properties, '$.JobQueueArn') as job_queue_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobQueue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobQueueArn') as job_queue_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::JobQueue'
     job_queue:
       name: job_queue
       id: aws.batch.job_queue
@@ -975,6 +1032,19 @@ components:
               JSON_EXTRACT(Properties, '$.SchedulingPolicyArn') as scheduling_policy_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobQueue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobQueueName') as job_queue_name,
+                json_extract_path_text(Properties, 'JobQueueArn') as job_queue_arn,
+                json_extract_path_text(Properties, 'ComputeEnvironmentOrder') as compute_environment_order,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'SchedulingPolicyArn') as scheduling_policy_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::JobQueue'
     scheduling_policies:
       name: scheduling_policies
       id: aws.batch.scheduling_policies
@@ -989,8 +1059,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy'
     scheduling_policy:
       name: scheduling_policy
       id: aws.batch.scheduling_policy
@@ -1010,3 +1087,13 @@ components:
               JSON_EXTRACT(Properties, '$.FairsharePolicy') as fairshare_policy,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'FairsharePolicy') as fairshare_policy,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Batch::SchedulingPolicy'

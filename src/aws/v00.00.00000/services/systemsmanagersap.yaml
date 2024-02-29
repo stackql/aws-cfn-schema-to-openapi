@@ -125,8 +125,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'
     application:
       name: application
       id: aws.systemsmanagersap.application
@@ -150,3 +157,17 @@ components:
               JSON_EXTRACT(Properties, '$.Sid') as sid,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'ApplicationType') as application_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Credentials') as credentials,
+                json_extract_path_text(Properties, 'Instances') as instances,
+                json_extract_path_text(Properties, 'SapInstanceNumber') as sap_instance_number,
+                json_extract_path_text(Properties, 'Sid') as sid,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SystemsManagerSAP::Application'

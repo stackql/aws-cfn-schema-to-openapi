@@ -877,6 +877,18 @@ components:
               JSON_EXTRACT(Properties, '$.CustomerManagedKey') as customer_managed_key,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::BrowserSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdditionalEncryptionContext') as additional_encryption_context,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'BrowserPolicy') as browser_policy,
+                json_extract_path_text(Properties, 'BrowserSettingsArn') as browser_settings_arn,
+                json_extract_path_text(Properties, 'CustomerManagedKey') as customer_managed_key,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::BrowserSettings'
     identity_providers:
       name: identity_providers
       id: aws.workspacesweb.identity_providers
@@ -891,8 +903,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.IdentityProviderArn') as identity_provider_arn
+              JSON_EXTRACT(Properties, '$.IdentityProviderArn') as identity_provider_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::IdentityProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityProviderArn') as identity_provider_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::IdentityProvider'
     identity_provider:
       name: identity_provider
       id: aws.workspacesweb.identity_provider
@@ -913,6 +932,17 @@ components:
               JSON_EXTRACT(Properties, '$.IdentityProviderType') as identity_provider_type,
               JSON_EXTRACT(Properties, '$.PortalArn') as portal_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::IdentityProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityProviderArn') as identity_provider_arn,
+                json_extract_path_text(Properties, 'IdentityProviderDetails') as identity_provider_details,
+                json_extract_path_text(Properties, 'IdentityProviderName') as identity_provider_name,
+                json_extract_path_text(Properties, 'IdentityProviderType') as identity_provider_type,
+                json_extract_path_text(Properties, 'PortalArn') as portal_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::IdentityProvider'
     ip_access_settings:
       name: ip_access_settings
       id: aws.workspacesweb.ip_access_settings
@@ -937,6 +967,21 @@ components:
               JSON_EXTRACT(Properties, '$.IpRules') as ip_rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::IpAccessSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdditionalEncryptionContext') as additional_encryption_context,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'CustomerManagedKey') as customer_managed_key,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'IpAccessSettingsArn') as ip_access_settings_arn,
+                json_extract_path_text(Properties, 'IpRules') as ip_rules,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::IpAccessSettings'
     network_settings:
       name: network_settings
       id: aws.workspacesweb.network_settings
@@ -958,6 +1003,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::NetworkSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'NetworkSettingsArn') as network_settings_arn,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::NetworkSettings'
     portals:
       name: portals
       id: aws.workspacesweb.portals
@@ -972,8 +1029,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PortalArn') as portal_arn
+              JSON_EXTRACT(Properties, '$.PortalArn') as portal_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::Portal'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PortalArn') as portal_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::Portal'
     portal:
       name: portal
       id: aws.workspacesweb.portal
@@ -1008,6 +1072,31 @@ components:
               JSON_EXTRACT(Properties, '$.UserAccessLoggingSettingsArn') as user_access_logging_settings_arn,
               JSON_EXTRACT(Properties, '$.UserSettingsArn') as user_settings_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::Portal'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdditionalEncryptionContext') as additional_encryption_context,
+                json_extract_path_text(Properties, 'AuthenticationType') as authentication_type,
+                json_extract_path_text(Properties, 'BrowserSettingsArn') as browser_settings_arn,
+                json_extract_path_text(Properties, 'BrowserType') as browser_type,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'CustomerManagedKey') as customer_managed_key,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'IpAccessSettingsArn') as ip_access_settings_arn,
+                json_extract_path_text(Properties, 'NetworkSettingsArn') as network_settings_arn,
+                json_extract_path_text(Properties, 'PortalArn') as portal_arn,
+                json_extract_path_text(Properties, 'PortalEndpoint') as portal_endpoint,
+                json_extract_path_text(Properties, 'PortalStatus') as portal_status,
+                json_extract_path_text(Properties, 'RendererType') as renderer_type,
+                json_extract_path_text(Properties, 'ServiceProviderSamlMetadata') as service_provider_saml_metadata,
+                json_extract_path_text(Properties, 'StatusReason') as status_reason,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_arn,
+                json_extract_path_text(Properties, 'UserAccessLoggingSettingsArn') as user_access_logging_settings_arn,
+                json_extract_path_text(Properties, 'UserSettingsArn') as user_settings_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::Portal'
     trust_stores:
       name: trust_stores
       id: aws.workspacesweb.trust_stores
@@ -1022,8 +1111,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_arn
+              JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::TrustStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesWeb::TrustStore'
     trust_store:
       name: trust_store
       id: aws.workspacesweb.trust_store
@@ -1043,6 +1139,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TrustStoreArn') as trust_store_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::TrustStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'CertificateList') as certificate_list,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrustStoreArn') as trust_store_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::TrustStore'
     user_access_logging_settings:
       name: user_access_logging_settings
       id: aws.workspacesweb.user_access_logging_settings
@@ -1062,6 +1168,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UserAccessLoggingSettingsArn') as user_access_logging_settings_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::UserAccessLoggingSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'KinesisStreamArn') as kinesis_stream_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UserAccessLoggingSettingsArn') as user_access_logging_settings_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::UserAccessLoggingSettings'
     user_settings:
       name: user_settings
       id: aws.workspacesweb.user_settings
@@ -1090,3 +1206,22 @@ components:
               JSON_EXTRACT(Properties, '$.UploadAllowed') as upload_allowed,
               JSON_EXTRACT(Properties, '$.UserSettingsArn') as user_settings_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::UserSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdditionalEncryptionContext') as additional_encryption_context,
+                json_extract_path_text(Properties, 'AssociatedPortalArns') as associated_portal_arns,
+                json_extract_path_text(Properties, 'CookieSynchronizationConfiguration') as cookie_synchronization_configuration,
+                json_extract_path_text(Properties, 'CopyAllowed') as copy_allowed,
+                json_extract_path_text(Properties, 'CustomerManagedKey') as customer_managed_key,
+                json_extract_path_text(Properties, 'DisconnectTimeoutInMinutes') as disconnect_timeout_in_minutes,
+                json_extract_path_text(Properties, 'DownloadAllowed') as download_allowed,
+                json_extract_path_text(Properties, 'IdleDisconnectTimeoutInMinutes') as idle_disconnect_timeout_in_minutes,
+                json_extract_path_text(Properties, 'PasteAllowed') as paste_allowed,
+                json_extract_path_text(Properties, 'PrintAllowed') as print_allowed,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UploadAllowed') as upload_allowed,
+                json_extract_path_text(Properties, 'UserSettingsArn') as user_settings_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesWeb::UserSettings'

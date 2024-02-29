@@ -1816,6 +1816,15 @@ components:
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
               JSON_EXTRACT(Properties, '$.DefaultCapacityProviderStrategy') as default_capacity_provider_strategy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CapacityProviders') as capacity_providers,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'DefaultCapacityProviderStrategy') as default_capacity_provider_strategy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::ClusterCapacityProviderAssociations'
     primary_task_sets:
       name: primary_task_sets
       id: aws.ecs.primary_task_sets
@@ -1832,8 +1841,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
-              JSON_EXTRACT(Properties, '$.Service') as service
+              JSON_EXTRACT(Properties, '$.Service') as servi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'Service') as servi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
     primary_task_set:
       name: primary_task_set
       id: aws.ecs.primary_task_set
@@ -1853,6 +1870,15 @@ components:
               JSON_EXTRACT(Properties, '$.TaskSetId') as task_set_id,
               JSON_EXTRACT(Properties, '$.Service') as service
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'TaskSetId') as task_set_id,
+                json_extract_path_text(Properties, 'Service') as service
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::PrimaryTaskSet'
     services:
       name: services
       id: aws.ecs.services
@@ -1869,8 +1895,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ServiceArn') as service_arn,
-              JSON_EXTRACT(Properties, '$.Cluster') as cluster
+              JSON_EXTRACT(Properties, '$.Cluster') as clust
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceArn') as service_arn,
+                json_extract_path_text(Properties, 'Cluster') as clust
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::Service'
     service:
       name: service
       id: aws.ecs.service
@@ -1912,6 +1946,37 @@ components:
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition,
               JSON_EXTRACT(Properties, '$.VolumeConfigurations') as volume_configurations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServiceArn') as service_arn,
+                json_extract_path_text(Properties, 'CapacityProviderStrategy') as capacity_provider_strategy,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'DeploymentConfiguration') as deployment_configuration,
+                json_extract_path_text(Properties, 'DeploymentController') as deployment_controller,
+                json_extract_path_text(Properties, 'DesiredCount') as desired_count,
+                json_extract_path_text(Properties, 'EnableECSManagedTags') as enable_ec_smanaged_tags,
+                json_extract_path_text(Properties, 'EnableExecuteCommand') as enable_execute_command,
+                json_extract_path_text(Properties, 'HealthCheckGracePeriodSeconds') as health_check_grace_period_seconds,
+                json_extract_path_text(Properties, 'LaunchType') as launch_type,
+                json_extract_path_text(Properties, 'LoadBalancers') as load_balancers,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'NetworkConfiguration') as network_configuration,
+                json_extract_path_text(Properties, 'PlacementConstraints') as placement_constraints,
+                json_extract_path_text(Properties, 'PlacementStrategies') as placement_strategies,
+                json_extract_path_text(Properties, 'PlatformVersion') as platform_version,
+                json_extract_path_text(Properties, 'PropagateTags') as propagate_tags,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'SchedulingStrategy') as scheduling_strategy,
+                json_extract_path_text(Properties, 'ServiceConnectConfiguration') as service_connect_configuration,
+                json_extract_path_text(Properties, 'ServiceName') as service_name,
+                json_extract_path_text(Properties, 'ServiceRegistries') as service_registries,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TaskDefinition') as task_definition,
+                json_extract_path_text(Properties, 'VolumeConfigurations') as volume_configurations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::Service'
     task_definitions:
       name: task_definitions
       id: aws.ecs.task_definitions
@@ -1926,8 +1991,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TaskDefinitionArn') as task_definition_arn
+              JSON_EXTRACT(Properties, '$.TaskDefinitionArn') as task_definition_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TaskDefinitionArn') as task_definition_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
     task_definition:
       name: task_definition
       id: aws.ecs.task_definition
@@ -1961,6 +2033,30 @@ components:
               JSON_EXTRACT(Properties, '$.IpcMode') as ipc_mode,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TaskDefinitionArn') as task_definition_arn,
+                json_extract_path_text(Properties, 'Family') as family,
+                json_extract_path_text(Properties, 'ContainerDefinitions') as container_definitions,
+                json_extract_path_text(Properties, 'Cpu') as cpu,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'EphemeralStorage') as ephemeral_storage,
+                json_extract_path_text(Properties, 'InferenceAccelerators') as inference_accelerators,
+                json_extract_path_text(Properties, 'Memory') as memory,
+                json_extract_path_text(Properties, 'NetworkMode') as network_mode,
+                json_extract_path_text(Properties, 'PlacementConstraints') as placement_constraints,
+                json_extract_path_text(Properties, 'ProxyConfiguration') as proxy_configuration,
+                json_extract_path_text(Properties, 'RequiresCompatibilities') as requires_compatibilities,
+                json_extract_path_text(Properties, 'TaskRoleArn') as task_role_arn,
+                json_extract_path_text(Properties, 'Volumes') as volumes,
+                json_extract_path_text(Properties, 'PidMode') as pid_mode,
+                json_extract_path_text(Properties, 'RuntimePlatform') as runtime_platform,
+                json_extract_path_text(Properties, 'IpcMode') as ipc_mode,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskDefinition'
     task_sets:
       name: task_sets
       id: aws.ecs.task_sets
@@ -1979,8 +2075,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.Cluster') as cluster,
               JSON_EXTRACT(Properties, '$.Service') as service,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'Service') as service,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ECS::TaskSet'
     task_set:
       name: task_set
       id: aws.ecs.task_set
@@ -2009,3 +2114,20 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceRegistries') as service_registries,
               JSON_EXTRACT(Properties, '$.TaskDefinition') as task_definition
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Cluster') as cluster,
+                json_extract_path_text(Properties, 'ExternalId') as external_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LaunchType') as launch_type,
+                json_extract_path_text(Properties, 'LoadBalancers') as load_balancers,
+                json_extract_path_text(Properties, 'NetworkConfiguration') as network_configuration,
+                json_extract_path_text(Properties, 'PlatformVersion') as platform_version,
+                json_extract_path_text(Properties, 'Scale') as scale,
+                json_extract_path_text(Properties, 'Service') as service,
+                json_extract_path_text(Properties, 'ServiceRegistries') as service_registries,
+                json_extract_path_text(Properties, 'TaskDefinition') as task_definition
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ECS::TaskSet'

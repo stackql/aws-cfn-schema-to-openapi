@@ -258,8 +258,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesThinClient::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::WorkSpacesThinClient::Environment'
     environment:
       name: environment
       id: aws.workspacesthinclient.environment
@@ -294,3 +301,28 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesThinClient::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DesktopArn') as desktop_arn,
+                json_extract_path_text(Properties, 'DesktopEndpoint') as desktop_endpoint,
+                json_extract_path_text(Properties, 'DesktopType') as desktop_type,
+                json_extract_path_text(Properties, 'ActivationCode') as activation_code,
+                json_extract_path_text(Properties, 'RegisteredDevicesCount') as registered_devices_count,
+                json_extract_path_text(Properties, 'SoftwareSetUpdateSchedule') as software_set_update_schedule,
+                json_extract_path_text(Properties, 'MaintenanceWindow') as maintenance_window,
+                json_extract_path_text(Properties, 'SoftwareSetUpdateMode') as software_set_update_mode,
+                json_extract_path_text(Properties, 'DesiredSoftwareSetId') as desired_software_set_id,
+                json_extract_path_text(Properties, 'PendingSoftwareSetId') as pending_software_set_id,
+                json_extract_path_text(Properties, 'PendingSoftwareSetVersion') as pending_software_set_version,
+                json_extract_path_text(Properties, 'SoftwareSetComplianceStatus') as software_set_compliance_status,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::WorkSpacesThinClient::Environment'

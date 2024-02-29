@@ -241,8 +241,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::Dataset'
     dataset:
       name: dataset
       id: aws.forecast.dataset
@@ -266,6 +273,20 @@ components:
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DatasetName') as dataset_name,
+                json_extract_path_text(Properties, 'DatasetType') as dataset_type,
+                json_extract_path_text(Properties, 'DataFrequency') as data_frequency,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'EncryptionConfig') as encryption_config,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::Dataset'
     dataset_groups:
       name: dataset_groups
       id: aws.forecast.dataset_groups
@@ -280,8 +301,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
+              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'
     dataset_group:
       name: dataset_group
       id: aws.forecast.dataset_group
@@ -302,3 +330,14 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetArns') as dataset_arns,
+                json_extract_path_text(Properties, 'DatasetGroupName') as dataset_group_name,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Forecast::DatasetGroup'

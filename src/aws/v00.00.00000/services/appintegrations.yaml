@@ -327,8 +327,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
     data_integration:
       name: data_integration
       id: aws.appintegrations.data_integration
@@ -354,6 +361,22 @@ components:
               JSON_EXTRACT(Properties, '$.FileConfiguration') as file_configuration,
               JSON_EXTRACT(Properties, '$.ObjectConfiguration') as object_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DataIntegrationArn') as data_integration_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'KmsKey') as kms_key,
+                json_extract_path_text(Properties, 'ScheduleConfig') as schedule_config,
+                json_extract_path_text(Properties, 'SourceURI') as source_ur_i,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'FileConfiguration') as file_configuration,
+                json_extract_path_text(Properties, 'ObjectConfiguration') as object_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::DataIntegration'
     event_integrations:
       name: event_integrations
       id: aws.appintegrations.event_integrations
@@ -368,8 +391,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'
     event_integration:
       name: event_integration
       id: aws.appintegrations.event_integration
@@ -391,3 +421,15 @@ components:
               JSON_EXTRACT(Properties, '$.EventFilter') as event_filter,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EventIntegrationArn') as event_integration_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'EventBridgeBus') as event_bridge_bus,
+                json_extract_path_text(Properties, 'EventFilter') as event_filter,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppIntegrations::EventIntegration'

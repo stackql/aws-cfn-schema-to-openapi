@@ -285,8 +285,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::Assistant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssistantId') as assistant_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::Assistant'
     assistant:
       name: assistant
       id: aws.wisdom.assistant
@@ -309,6 +316,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::Assistant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'AssistantArn') as assistant_arn,
+                json_extract_path_text(Properties, 'AssistantId') as assistant_id,
+                json_extract_path_text(Properties, 'ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::Assistant'
     assistant_associations:
       name: assistant_associations
       id: aws.wisdom.assistant_associations
@@ -325,8 +345,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AssistantAssociationId') as assistant_association_id,
-              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_id
+              JSON_EXTRACT(Properties, '$.AssistantId') as assistant_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssistantAssociationId') as assistant_association_id,
+                json_extract_path_text(Properties, 'AssistantId') as assistant_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
     assistant_association:
       name: assistant_association
       id: aws.wisdom.assistant_association
@@ -350,6 +378,19 @@ components:
               JSON_EXTRACT(Properties, '$.AssociationType') as association_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssistantAssociationArn') as assistant_association_arn,
+                json_extract_path_text(Properties, 'AssistantArn') as assistant_arn,
+                json_extract_path_text(Properties, 'AssistantAssociationId') as assistant_association_id,
+                json_extract_path_text(Properties, 'AssistantId') as assistant_id,
+                json_extract_path_text(Properties, 'Association') as association,
+                json_extract_path_text(Properties, 'AssociationType') as association_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::AssistantAssociation'
     knowledge_bases:
       name: knowledge_bases
       id: aws.wisdom.knowledge_bases
@@ -364,8 +405,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as knowledge_base_id
+              JSON_EXTRACT(Properties, '$.KnowledgeBaseId') as knowledge_base_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KnowledgeBaseId') as knowledge_base_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'
     knowledge_base:
       name: knowledge_base
       id: aws.wisdom.knowledge_base
@@ -390,3 +438,18 @@ components:
               JSON_EXTRACT(Properties, '$.SourceConfiguration') as source_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'KnowledgeBaseArn') as knowledge_base_arn,
+                json_extract_path_text(Properties, 'KnowledgeBaseId') as knowledge_base_id,
+                json_extract_path_text(Properties, 'KnowledgeBaseType') as knowledge_base_type,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RenderingConfiguration') as rendering_configuration,
+                json_extract_path_text(Properties, 'ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
+                json_extract_path_text(Properties, 'SourceConfiguration') as source_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Wisdom::KnowledgeBase'

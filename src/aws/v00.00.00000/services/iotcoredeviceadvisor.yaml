@@ -163,8 +163,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SuiteDefinitionId') as suite_definition_id
+              JSON_EXTRACT(Properties, '$.SuiteDefinitionId') as suite_definition_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SuiteDefinitionId') as suite_definition_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'
     suite_definition:
       name: suite_definition
       id: aws.iotcoredeviceadvisor.suite_definition
@@ -185,3 +192,14 @@ components:
               JSON_EXTRACT(Properties, '$.SuiteDefinitionVersion') as suite_definition_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SuiteDefinitionConfiguration') as suite_definition_configuration,
+                json_extract_path_text(Properties, 'SuiteDefinitionId') as suite_definition_id,
+                json_extract_path_text(Properties, 'SuiteDefinitionArn') as suite_definition_arn,
+                json_extract_path_text(Properties, 'SuiteDefinitionVersion') as suite_definition_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTCoreDeviceAdvisor::SuiteDefinition'

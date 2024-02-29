@@ -242,8 +242,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'
     load_balancer:
       name: load_balancer
       id: aws.elasticloadbalancing.load_balancer
@@ -281,3 +288,31 @@ components:
               JSON_EXTRACT(Properties, '$.ConnectionSettings') as connection_settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'ConnectionDrainingPolicy') as connection_draining_policy,
+                json_extract_path_text(Properties, 'Policies') as policies,
+                json_extract_path_text(Properties, 'Scheme') as scheme,
+                json_extract_path_text(Properties, 'AvailabilityZones') as availability_zones,
+                json_extract_path_text(Properties, 'SourceSecurityGroupOwnerAlias') as source_security_group_owner_alias,
+                json_extract_path_text(Properties, 'HealthCheck') as health_check,
+                json_extract_path_text(Properties, 'CanonicalHostedZoneNameID') as canonical_hosted_zone_name_id,
+                json_extract_path_text(Properties, 'CanonicalHostedZoneName') as canonical_hosted_zone_name,
+                json_extract_path_text(Properties, 'DNSName') as d_ns_name,
+                json_extract_path_text(Properties, 'AccessLoggingPolicy') as access_logging_policy,
+                json_extract_path_text(Properties, 'Instances') as instances,
+                json_extract_path_text(Properties, 'LoadBalancerName') as load_balancer_name,
+                json_extract_path_text(Properties, 'Listeners') as listeners,
+                json_extract_path_text(Properties, 'Subnets') as subnets,
+                json_extract_path_text(Properties, 'CrossZone') as cross_zone,
+                json_extract_path_text(Properties, 'AppCookieStickinessPolicy') as app_cookie_stickiness_policy,
+                json_extract_path_text(Properties, 'LBCookieStickinessPolicy') as l_bcookie_stickiness_policy,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SourceSecurityGroupGroupName') as source_security_group_group_name,
+                json_extract_path_text(Properties, 'ConnectionSettings') as connection_settings,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ElasticLoadBalancing::LoadBalancer'

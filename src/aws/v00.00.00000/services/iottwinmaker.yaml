@@ -977,8 +977,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.ComponentTypeId') as component_type_id
+              JSON_EXTRACT(Properties, '$.ComponentTypeId') as component_type_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'ComponentTypeId') as component_type_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
     component_type:
       name: component_type
       id: aws.iottwinmaker.component_type
@@ -1011,6 +1019,28 @@ components:
               JSON_EXTRACT(Properties, '$.IsSchemaInitialized') as is_schema_initialized,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'ComponentTypeId') as component_type_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ExtendsFrom') as extends_from,
+                json_extract_path_text(Properties, 'Functions') as functions,
+                json_extract_path_text(Properties, 'IsSingleton') as is_singleton,
+                json_extract_path_text(Properties, 'PropertyDefinitions') as property_definitions,
+                json_extract_path_text(Properties, 'PropertyGroups') as property_groups,
+                json_extract_path_text(Properties, 'CompositeComponentTypes') as composite_component_types,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationDateTime') as creation_date_time,
+                json_extract_path_text(Properties, 'UpdateDateTime') as update_date_time,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'IsAbstract') as is_abstract,
+                json_extract_path_text(Properties, 'IsSchemaInitialized') as is_schema_initialized,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::ComponentType'
     entities:
       name: entities
       id: aws.iottwinmaker.entities
@@ -1027,8 +1057,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.EntityId') as entity_id
+              JSON_EXTRACT(Properties, '$.EntityId') as entity_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'EntityId') as entity_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
     entity:
       name: entity
       id: aws.iottwinmaker.entity
@@ -1058,6 +1096,25 @@ components:
               JSON_EXTRACT(Properties, '$.Components') as components,
               JSON_EXTRACT(Properties, '$.CompositeComponents') as composite_components
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EntityId') as entity_id,
+                json_extract_path_text(Properties, 'EntityName') as entity_name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'HasChildEntities') as has_child_entities,
+                json_extract_path_text(Properties, 'ParentEntityId') as parent_entity_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CreationDateTime') as creation_date_time,
+                json_extract_path_text(Properties, 'UpdateDateTime') as update_date_time,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'Components') as components,
+                json_extract_path_text(Properties, 'CompositeComponents') as composite_components
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Entity'
     scenes:
       name: scenes
       id: aws.iottwinmaker.scenes
@@ -1074,8 +1131,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.SceneId') as scene_id
+              JSON_EXTRACT(Properties, '$.SceneId') as scene_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'SceneId') as scene_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
     scene:
       name: scene
       id: aws.iottwinmaker.scene
@@ -1103,6 +1168,23 @@ components:
               JSON_EXTRACT(Properties, '$.SceneMetadata') as scene_metadata,
               JSON_EXTRACT(Properties, '$.GeneratedSceneMetadata') as generated_scene_metadata
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SceneId') as scene_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ContentLocation') as content_location,
+                json_extract_path_text(Properties, 'CreationDateTime') as creation_date_time,
+                json_extract_path_text(Properties, 'UpdateDateTime') as update_date_time,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'Capabilities') as capabilities,
+                json_extract_path_text(Properties, 'SceneMetadata') as scene_metadata,
+                json_extract_path_text(Properties, 'GeneratedSceneMetadata') as generated_scene_metadata
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Scene'
     sync_jobs:
       name: sync_jobs
       id: aws.iottwinmaker.sync_jobs
@@ -1119,8 +1201,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id,
-              JSON_EXTRACT(Properties, '$.SyncSource') as sync_source
+              JSON_EXTRACT(Properties, '$.SyncSource') as sync_sour
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'SyncSource') as sync_sour
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
     sync_job:
       name: sync_job
       id: aws.iottwinmaker.sync_job
@@ -1145,6 +1235,20 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'SyncSource') as sync_source,
+                json_extract_path_text(Properties, 'SyncRole') as sync_role,
+                json_extract_path_text(Properties, 'CreationDateTime') as creation_date_time,
+                json_extract_path_text(Properties, 'UpdateDateTime') as update_date_time,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::SyncJob'
     workspaces:
       name: workspaces
       id: aws.iottwinmaker.workspaces
@@ -1159,8 +1263,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_id
+              JSON_EXTRACT(Properties, '$.WorkspaceId') as workspace_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'
     workspace:
       name: workspace
       id: aws.iottwinmaker.workspace
@@ -1184,3 +1295,17 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateDateTime') as update_date_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WorkspaceId') as workspace_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Role') as role,
+                json_extract_path_text(Properties, 'S3Location') as s3_location,
+                json_extract_path_text(Properties, 'CreationDateTime') as creation_date_time,
+                json_extract_path_text(Properties, 'UpdateDateTime') as update_date_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTTwinMaker::Workspace'

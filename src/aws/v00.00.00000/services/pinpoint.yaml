@@ -1102,8 +1102,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::ADMChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::ADMChannel'
     adm_channel:
       name: adm_channel
       id: aws.pinpoint.adm_channel
@@ -1124,6 +1131,17 @@ components:
               JSON_EXTRACT(Properties, '$.ClientId') as client_id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::ADMChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ClientSecret') as client_secret,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ClientId') as client_id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::ADMChannel'
     apns_channels:
       name: apns_channels
       id: aws.pinpoint.apns_channels
@@ -1138,8 +1156,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSChannel'
     apns_channel:
       name: apns_channel
       id: aws.pinpoint.apns_channel
@@ -1165,6 +1190,22 @@ components:
               JSON_EXTRACT(Properties, '$.Certificate') as certificate,
               JSON_EXTRACT(Properties, '$.TokenKeyId') as token_key_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'DefaultAuthenticationMethod') as default_authentication_method,
+                json_extract_path_text(Properties, 'TokenKey') as token_key,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'TeamId') as team_id,
+                json_extract_path_text(Properties, 'Certificate') as certificate,
+                json_extract_path_text(Properties, 'TokenKeyId') as token_key_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSChannel'
     apns_sandbox_channels:
       name: apns_sandbox_channels
       id: aws.pinpoint.apns_sandbox_channels
@@ -1179,8 +1220,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSSandboxChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSSandboxChannel'
     apns_sandbox_channel:
       name: apns_sandbox_channel
       id: aws.pinpoint.apns_sandbox_channel
@@ -1206,6 +1254,22 @@ components:
               JSON_EXTRACT(Properties, '$.Certificate') as certificate,
               JSON_EXTRACT(Properties, '$.TokenKeyId') as token_key_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSSandboxChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'DefaultAuthenticationMethod') as default_authentication_method,
+                json_extract_path_text(Properties, 'TokenKey') as token_key,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'TeamId') as team_id,
+                json_extract_path_text(Properties, 'Certificate') as certificate,
+                json_extract_path_text(Properties, 'TokenKeyId') as token_key_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSSandboxChannel'
     apns_voip_channels:
       name: apns_voip_channels
       id: aws.pinpoint.apns_voip_channels
@@ -1220,8 +1284,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipChannel'
     apns_voip_channel:
       name: apns_voip_channel
       id: aws.pinpoint.apns_voip_channel
@@ -1247,6 +1318,22 @@ components:
               JSON_EXTRACT(Properties, '$.Certificate') as certificate,
               JSON_EXTRACT(Properties, '$.TokenKeyId') as token_key_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'DefaultAuthenticationMethod') as default_authentication_method,
+                json_extract_path_text(Properties, 'TokenKey') as token_key,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'TeamId') as team_id,
+                json_extract_path_text(Properties, 'Certificate') as certificate,
+                json_extract_path_text(Properties, 'TokenKeyId') as token_key_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipChannel'
     apns_voip_sandbox_channels:
       name: apns_voip_sandbox_channels
       id: aws.pinpoint.apns_voip_sandbox_channels
@@ -1261,8 +1348,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipSandboxChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipSandboxChannel'
     apns_voip_sandbox_channel:
       name: apns_voip_sandbox_channel
       id: aws.pinpoint.apns_voip_sandbox_channel
@@ -1288,6 +1382,22 @@ components:
               JSON_EXTRACT(Properties, '$.Certificate') as certificate,
               JSON_EXTRACT(Properties, '$.TokenKeyId') as token_key_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipSandboxChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'BundleId') as bundle_id,
+                json_extract_path_text(Properties, 'PrivateKey') as private_key,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'DefaultAuthenticationMethod') as default_authentication_method,
+                json_extract_path_text(Properties, 'TokenKey') as token_key,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'TeamId') as team_id,
+                json_extract_path_text(Properties, 'Certificate') as certificate,
+                json_extract_path_text(Properties, 'TokenKeyId') as token_key_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::APNSVoipSandboxChannel'
     apps:
       name: apps
       id: aws.pinpoint.apps
@@ -1302,8 +1412,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::App'
     app:
       name: app
       id: aws.pinpoint.app
@@ -1323,6 +1440,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::App'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::App'
     application_settings:
       name: application_settings
       id: aws.pinpoint.application_settings
@@ -1344,6 +1471,18 @@ components:
               JSON_EXTRACT(Properties, '$.CampaignHook') as campaign_hook,
               JSON_EXTRACT(Properties, '$.CloudWatchMetricsEnabled') as cloud_watch_metrics_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::ApplicationSettings'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'QuietTime') as quiet_time,
+                json_extract_path_text(Properties, 'Limits') as limits,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'CampaignHook') as campaign_hook,
+                json_extract_path_text(Properties, 'CloudWatchMetricsEnabled') as cloud_watch_metrics_enabled
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::ApplicationSettings'
     baidu_channels:
       name: baidu_channels
       id: aws.pinpoint.baidu_channels
@@ -1358,8 +1497,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::BaiduChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::BaiduChannel'
     baidu_channel:
       name: baidu_channel
       id: aws.pinpoint.baidu_channel
@@ -1380,6 +1526,17 @@ components:
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::BaiduChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SecretKey') as secret_key,
+                json_extract_path_text(Properties, 'ApiKey') as api_key,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::BaiduChannel'
     campaigns:
       name: campaigns
       id: aws.pinpoint.campaigns
@@ -1394,8 +1551,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CampaignId') as campaign_id
+              JSON_EXTRACT(Properties, '$.CampaignId') as campaign_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::Campaign'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CampaignId') as campaign_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::Campaign'
     campaign:
       name: campaign
       id: aws.pinpoint.campaign
@@ -1431,6 +1595,32 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TreatmentName') as treatment_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::Campaign'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SegmentId') as segment_id,
+                json_extract_path_text(Properties, 'Priority') as priority,
+                json_extract_path_text(Properties, 'TemplateConfiguration') as template_configuration,
+                json_extract_path_text(Properties, 'IsPaused') as is_paused,
+                json_extract_path_text(Properties, 'AdditionalTreatments') as additional_treatments,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SegmentVersion') as segment_version,
+                json_extract_path_text(Properties, 'TreatmentDescription') as treatment_description,
+                json_extract_path_text(Properties, 'MessageConfiguration') as message_configuration,
+                json_extract_path_text(Properties, 'Limits') as limits,
+                json_extract_path_text(Properties, 'CampaignId') as campaign_id,
+                json_extract_path_text(Properties, 'HoldoutPercent') as holdout_percent,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'CustomDeliveryConfiguration') as custom_delivery_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'CampaignHook') as campaign_hook,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TreatmentName') as treatment_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::Campaign'
     email_channels:
       name: email_channels
       id: aws.pinpoint.email_channels
@@ -1445,8 +1635,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EmailChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EmailChannel'
     email_channel:
       name: email_channel
       id: aws.pinpoint.email_channel
@@ -1469,6 +1666,19 @@ components:
               JSON_EXTRACT(Properties, '$.Identity') as identity,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EmailChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ConfigurationSet') as configuration_set,
+                json_extract_path_text(Properties, 'FromAddress') as from_address,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Identity') as identity,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EmailChannel'
     email_templates:
       name: email_templates
       id: aws.pinpoint.email_templates
@@ -1483,8 +1693,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EmailTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EmailTemplate'
     email_template:
       name: email_template
       id: aws.pinpoint.email_template
@@ -1509,6 +1726,21 @@ components:
               JSON_EXTRACT(Properties, '$.Subject') as subject,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EmailTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'HtmlPart') as html_part,
+                json_extract_path_text(Properties, 'TextPart') as text_part,
+                json_extract_path_text(Properties, 'TemplateName') as template_name,
+                json_extract_path_text(Properties, 'TemplateDescription') as template_description,
+                json_extract_path_text(Properties, 'DefaultSubstitutions') as default_substitutions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Subject') as subject,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EmailTemplate'
     event_streams:
       name: event_streams
       id: aws.pinpoint.event_streams
@@ -1523,8 +1755,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EventStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::EventStream'
     event_stream:
       name: event_stream
       id: aws.pinpoint.event_stream
@@ -1544,6 +1783,16 @@ components:
               JSON_EXTRACT(Properties, '$.DestinationStreamArn') as destination_stream_arn,
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EventStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'DestinationStreamArn') as destination_stream_arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::EventStream'
     gcm_channels:
       name: gcm_channels
       id: aws.pinpoint.gcm_channels
@@ -1558,8 +1807,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::GCMChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::GCMChannel'
     gcm_channel:
       name: gcm_channel
       id: aws.pinpoint.gcm_channel
@@ -1581,6 +1837,18 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::GCMChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ServiceJson') as service_json,
+                json_extract_path_text(Properties, 'DefaultAuthenticationMethod') as default_authentication_method,
+                json_extract_path_text(Properties, 'ApiKey') as api_key,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::GCMChannel'
     in_app_templates:
       name: in_app_templates
       id: aws.pinpoint.in_app_templates
@@ -1595,8 +1863,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TemplateName') as template_name
+              JSON_EXTRACT(Properties, '$.TemplateName') as template_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::InAppTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TemplateName') as template_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::InAppTemplate'
     in_app_template:
       name: in_app_template
       id: aws.pinpoint.in_app_template
@@ -1619,6 +1894,19 @@ components:
               JSON_EXTRACT(Properties, '$.TemplateDescription') as template_description,
               JSON_EXTRACT(Properties, '$.TemplateName') as template_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::InAppTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'CustomConfig') as custom_config,
+                json_extract_path_text(Properties, 'Layout') as layout,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TemplateDescription') as template_description,
+                json_extract_path_text(Properties, 'TemplateName') as template_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::InAppTemplate'
     push_templates:
       name: push_templates
       id: aws.pinpoint.push_templates
@@ -1633,8 +1921,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::PushTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::PushTemplate'
     push_template:
       name: push_template
       id: aws.pinpoint.push_template
@@ -1661,6 +1956,23 @@ components:
               JSON_EXTRACT(Properties, '$.Default') as default,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::PushTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GCM') as g_cm,
+                json_extract_path_text(Properties, 'Baidu') as baidu,
+                json_extract_path_text(Properties, 'TemplateName') as template_name,
+                json_extract_path_text(Properties, 'ADM') as a_dm,
+                json_extract_path_text(Properties, 'APNS') as a_pn_s,
+                json_extract_path_text(Properties, 'TemplateDescription') as template_description,
+                json_extract_path_text(Properties, 'DefaultSubstitutions') as default_substitutions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Default') as default,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::PushTemplate'
     segments:
       name: segments
       id: aws.pinpoint.segments
@@ -1675,8 +1987,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SegmentId') as segment_id
+              JSON_EXTRACT(Properties, '$.SegmentId') as segment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::Segment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SegmentId') as segment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::Segment'
     segment:
       name: segment
       id: aws.pinpoint.segment
@@ -1699,6 +2018,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::Segment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SegmentId') as segment_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'SegmentGroups') as segment_groups,
+                json_extract_path_text(Properties, 'Dimensions') as dimensions,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::Segment'
     sms_channels:
       name: sms_channels
       id: aws.pinpoint.sms_channels
@@ -1713,8 +2045,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::SMSChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::SMSChannel'
     sms_channel:
       name: sms_channel
       id: aws.pinpoint.sms_channel
@@ -1735,6 +2074,17 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.SenderId') as sender_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::SMSChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ShortCode') as short_code,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'SenderId') as sender_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::SMSChannel'
     sms_templates:
       name: sms_templates
       id: aws.pinpoint.sms_templates
@@ -1749,8 +2099,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::SmsTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::SmsTemplate'
     sms_template:
       name: sms_template
       id: aws.pinpoint.sms_template
@@ -1773,6 +2130,19 @@ components:
               JSON_EXTRACT(Properties, '$.Body') as body,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::SmsTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TemplateName') as template_name,
+                json_extract_path_text(Properties, 'TemplateDescription') as template_description,
+                json_extract_path_text(Properties, 'DefaultSubstitutions') as default_substitutions,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Body') as body,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::SmsTemplate'
     voice_channels:
       name: voice_channels
       id: aws.pinpoint.voice_channels
@@ -1787,8 +2157,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::VoiceChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Pinpoint::VoiceChannel'
     voice_channel:
       name: voice_channel
       id: aws.pinpoint.voice_channel
@@ -1807,3 +2184,12 @@ components:
               JSON_EXTRACT(Properties, '$.Enabled') as enabled,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::VoiceChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Pinpoint::VoiceChannel'

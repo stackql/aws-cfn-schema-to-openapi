@@ -345,8 +345,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::AllowList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::AllowList'
     allow_list:
       name: allow_list
       id: aws.macie.allow_list
@@ -369,6 +376,19 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::AllowList'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Criteria') as criteria,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::AllowList'
     custom_data_identifiers:
       name: custom_data_identifiers
       id: aws.macie.custom_data_identifiers
@@ -383,8 +403,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
     custom_data_identifier:
       name: custom_data_identifier
       id: aws.macie.custom_data_identifier
@@ -409,6 +436,21 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Regex') as regex,
+                json_extract_path_text(Properties, 'MaximumMatchDistance') as maximum_match_distance,
+                json_extract_path_text(Properties, 'Keywords') as keywords,
+                json_extract_path_text(Properties, 'IgnoreWords') as ignore_words,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::CustomDataIdentifier'
     findings_filters:
       name: findings_filters
       id: aws.macie.findings_filters
@@ -423,8 +465,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
     findings_filter:
       name: findings_filter
       id: aws.macie.findings_filter
@@ -448,6 +497,20 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FindingCriteria') as finding_criteria,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'Position') as position,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::FindingsFilter'
     sessions:
       name: sessions
       id: aws.macie.sessions
@@ -462,8 +525,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::Session'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Macie::Session'
     session:
       name: session
       id: aws.macie.session
@@ -483,3 +553,13 @@ components:
               JSON_EXTRACT(Properties, '$.FindingPublishingFrequency') as finding_publishing_frequency,
               JSON_EXTRACT(Properties, '$.ServiceRole') as service_role
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::Session'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'FindingPublishingFrequency') as finding_publishing_frequency,
+                json_extract_path_text(Properties, 'ServiceRole') as service_role
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Macie::Session'

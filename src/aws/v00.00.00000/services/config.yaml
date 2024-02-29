@@ -896,8 +896,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AuthorizedAccountId') as authorized_account_id,
-              JSON_EXTRACT(Properties, '$.AuthorizedAwsRegion') as authorized_aws_region
+              JSON_EXTRACT(Properties, '$.AuthorizedAwsRegion') as authorized_aws_regi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthorizedAccountId') as authorized_account_id,
+                json_extract_path_text(Properties, 'AuthorizedAwsRegion') as authorized_aws_regi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
     aggregation_authorization:
       name: aggregation_authorization
       id: aws.config.aggregation_authorization
@@ -918,6 +926,16 @@ components:
               JSON_EXTRACT(Properties, '$.AggregationAuthorizationArn') as aggregation_authorization_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthorizedAccountId') as authorized_account_id,
+                json_extract_path_text(Properties, 'AuthorizedAwsRegion') as authorized_aws_region,
+                json_extract_path_text(Properties, 'AggregationAuthorizationArn') as aggregation_authorization_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::AggregationAuthorization'
     config_rules:
       name: config_rules
       id: aws.config.config_rules
@@ -932,8 +950,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_name
+              JSON_EXTRACT(Properties, '$.ConfigRuleName') as config_rule_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConfigRuleName') as config_rule_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigRule'
     config_rule:
       name: config_rule
       id: aws.config.config_rule
@@ -959,6 +984,22 @@ components:
               JSON_EXTRACT(Properties, '$.InputParameters') as input_parameters,
               JSON_EXTRACT(Properties, '$.EvaluationModes') as evaluation_modes
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConfigRuleId') as config_rule_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'ConfigRuleName') as config_rule_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Compliance') as compliance,
+                json_extract_path_text(Properties, 'MaximumExecutionFrequency') as maximum_execution_frequency,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'InputParameters') as input_parameters,
+                json_extract_path_text(Properties, 'EvaluationModes') as evaluation_modes
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigRule'
     configuration_aggregators:
       name: configuration_aggregators
       id: aws.config.configuration_aggregators
@@ -973,8 +1014,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConfigurationAggregatorName') as configuration_aggregator_name
+              JSON_EXTRACT(Properties, '$.ConfigurationAggregatorName') as configuration_aggregator_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConfigurationAggregatorName') as configuration_aggregator_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
     configuration_aggregator:
       name: configuration_aggregator
       id: aws.config.configuration_aggregator
@@ -995,6 +1043,17 @@ components:
               JSON_EXTRACT(Properties, '$.OrganizationAggregationSource') as organization_aggregation_source,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountAggregationSources') as account_aggregation_sources,
+                json_extract_path_text(Properties, 'ConfigurationAggregatorName') as configuration_aggregator_name,
+                json_extract_path_text(Properties, 'ConfigurationAggregatorArn') as configuration_aggregator_arn,
+                json_extract_path_text(Properties, 'OrganizationAggregationSource') as organization_aggregation_source,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationAggregator'
     configuration_recorders:
       name: configuration_recorders
       id: aws.config.configuration_recorders
@@ -1009,8 +1068,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
     configuration_recorder:
       name: configuration_recorder
       id: aws.config.configuration_recorder
@@ -1031,6 +1097,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoleARN') as role_ar_n,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RecordingGroup') as recording_group,
+                json_extract_path_text(Properties, 'RecordingMode') as recording_mode,
+                json_extract_path_text(Properties, 'RoleARN') as role_ar_n,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConfigurationRecorder'
     conformance_packs:
       name: conformance_packs
       id: aws.config.conformance_packs
@@ -1045,8 +1122,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ConformancePackName') as conformance_pack_name
+              JSON_EXTRACT(Properties, '$.ConformancePackName') as conformance_pack_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConformancePack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConformancePackName') as conformance_pack_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::ConformancePack'
     conformance_pack:
       name: conformance_pack
       id: aws.config.conformance_pack
@@ -1069,6 +1153,19 @@ components:
               JSON_EXTRACT(Properties, '$.TemplateSSMDocumentDetails') as template_ss_mdocument_details,
               JSON_EXTRACT(Properties, '$.ConformancePackInputParameters') as conformance_pack_input_parameters
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConformancePack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConformancePackName') as conformance_pack_name,
+                json_extract_path_text(Properties, 'DeliveryS3Bucket') as delivery_s3_bucket,
+                json_extract_path_text(Properties, 'DeliveryS3KeyPrefix') as delivery_s3_key_prefix,
+                json_extract_path_text(Properties, 'TemplateBody') as template_body,
+                json_extract_path_text(Properties, 'TemplateS3Uri') as template_s3_uri,
+                json_extract_path_text(Properties, 'TemplateSSMDocumentDetails') as template_ss_mdocument_details,
+                json_extract_path_text(Properties, 'ConformancePackInputParameters') as conformance_pack_input_parameters
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::ConformancePack'
     delivery_channels:
       name: delivery_channels
       id: aws.config.delivery_channels
@@ -1083,8 +1180,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
     delivery_channel:
       name: delivery_channel
       id: aws.config.delivery_channel
@@ -1107,6 +1211,19 @@ components:
               JSON_EXTRACT(Properties, '$.S3KmsKeyArn') as s3_kms_key_arn,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'S3KeyPrefix') as s3_key_prefix,
+                json_extract_path_text(Properties, 'ConfigSnapshotDeliveryProperties') as config_snapshot_delivery_properties,
+                json_extract_path_text(Properties, 'S3BucketName') as s3_bucket_name,
+                json_extract_path_text(Properties, 'SnsTopicARN') as sns_topic_ar_n,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'S3KmsKeyArn') as s3_kms_key_arn,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::DeliveryChannel'
     organization_config_rules:
       name: organization_config_rules
       id: aws.config.organization_config_rules
@@ -1121,8 +1238,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
     organization_config_rule:
       name: organization_config_rule
       id: aws.config.organization_config_rule
@@ -1144,6 +1268,18 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OrganizationCustomPolicyRuleMetadata') as organization_custom_policy_rule_metadata
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OrganizationCustomRuleMetadata') as organization_custom_rule_metadata,
+                json_extract_path_text(Properties, 'OrganizationManagedRuleMetadata') as organization_managed_rule_metadata,
+                json_extract_path_text(Properties, 'ExcludedAccounts') as excluded_accounts,
+                json_extract_path_text(Properties, 'OrganizationConfigRuleName') as organization_config_rule_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'OrganizationCustomPolicyRuleMetadata') as organization_custom_policy_rule_metadata
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConfigRule'
     organization_conformance_packs:
       name: organization_conformance_packs
       id: aws.config.organization_conformance_packs
@@ -1158,8 +1294,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.OrganizationConformancePackName') as organization_conformance_pack_name
+              JSON_EXTRACT(Properties, '$.OrganizationConformancePackName') as organization_conformance_pack_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OrganizationConformancePackName') as organization_conformance_pack_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
     organization_conformance_pack:
       name: organization_conformance_pack
       id: aws.config.organization_conformance_pack
@@ -1182,6 +1325,19 @@ components:
               JSON_EXTRACT(Properties, '$.ConformancePackInputParameters') as conformance_pack_input_parameters,
               JSON_EXTRACT(Properties, '$.ExcludedAccounts') as excluded_accounts
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OrganizationConformancePackName') as organization_conformance_pack_name,
+                json_extract_path_text(Properties, 'TemplateS3Uri') as template_s3_uri,
+                json_extract_path_text(Properties, 'TemplateBody') as template_body,
+                json_extract_path_text(Properties, 'DeliveryS3Bucket') as delivery_s3_bucket,
+                json_extract_path_text(Properties, 'DeliveryS3KeyPrefix') as delivery_s3_key_prefix,
+                json_extract_path_text(Properties, 'ConformancePackInputParameters') as conformance_pack_input_parameters,
+                json_extract_path_text(Properties, 'ExcludedAccounts') as excluded_accounts
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::OrganizationConformancePack'
     remediation_configurations:
       name: remediation_configurations
       id: aws.config.remediation_configurations
@@ -1196,8 +1352,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
     remediation_configuration:
       name: remediation_configuration
       id: aws.config.remediation_configuration
@@ -1224,6 +1387,23 @@ components:
               JSON_EXTRACT(Properties, '$.TargetId') as target_id,
               JSON_EXTRACT(Properties, '$.Automatic') as automatic
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetVersion') as target_version,
+                json_extract_path_text(Properties, 'ExecutionControls') as execution_controls,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'TargetType') as target_type,
+                json_extract_path_text(Properties, 'ConfigRuleName') as config_rule_name,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'RetryAttemptSeconds') as retry_attempt_seconds,
+                json_extract_path_text(Properties, 'MaximumAutomaticAttempts') as maximum_automatic_attempts,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'TargetId') as target_id,
+                json_extract_path_text(Properties, 'Automatic') as automatic
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::RemediationConfiguration'
     stored_queries:
       name: stored_queries
       id: aws.config.stored_queries
@@ -1238,8 +1418,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.QueryName') as query_name
+              JSON_EXTRACT(Properties, '$.QueryName') as query_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::StoredQuery'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'QueryName') as query_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Config::StoredQuery'
     stored_query:
       name: stored_query
       id: aws.config.stored_query
@@ -1261,3 +1448,15 @@ components:
               JSON_EXTRACT(Properties, '$.QueryExpression') as query_expression,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::StoredQuery'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'QueryArn') as query_arn,
+                json_extract_path_text(Properties, 'QueryId') as query_id,
+                json_extract_path_text(Properties, 'QueryName') as query_name,
+                json_extract_path_text(Properties, 'QueryDescription') as query_description,
+                json_extract_path_text(Properties, 'QueryExpression') as query_expression,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Config::StoredQuery'

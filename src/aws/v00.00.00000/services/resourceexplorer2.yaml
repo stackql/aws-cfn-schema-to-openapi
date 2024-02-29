@@ -173,8 +173,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociatedAwsPrincipal') as associated_aws_principal
+              JSON_EXTRACT(Properties, '$.AssociatedAwsPrincipal') as associated_aws_princip
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::DefaultViewAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociatedAwsPrincipal') as associated_aws_princip
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::DefaultViewAssociation'
     default_view_association:
       name: default_view_association
       id: aws.resourceexplorer2.default_view_association
@@ -192,6 +199,14 @@ components:
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
               JSON_EXTRACT(Properties, '$.AssociatedAwsPrincipal') as associated_aws_principal
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::DefaultViewAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ViewArn') as view_arn,
+                json_extract_path_text(Properties, 'AssociatedAwsPrincipal') as associated_aws_principal
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::DefaultViewAssociation'
     indices:
       name: indices
       id: aws.resourceexplorer2.indices
@@ -206,8 +221,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::Index'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::Index'
     index:
       name: index
       id: aws.resourceexplorer2.index
@@ -227,6 +249,16 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.IndexState') as index_state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::Index'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'IndexState') as index_state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::Index'
     views:
       name: views
       id: aws.resourceexplorer2.views
@@ -241,8 +273,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ViewArn') as view_arn
+              JSON_EXTRACT(Properties, '$.ViewArn') as view_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::View'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ViewArn') as view_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ResourceExplorer2::View'
     view:
       name: view
       id: aws.resourceexplorer2.view
@@ -264,3 +303,15 @@ components:
               JSON_EXTRACT(Properties, '$.ViewArn') as view_arn,
               JSON_EXTRACT(Properties, '$.ViewName') as view_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::View'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Filters') as filters,
+                json_extract_path_text(Properties, 'IncludedProperties') as included_properties,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ViewArn') as view_arn,
+                json_extract_path_text(Properties, 'ViewName') as view_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ResourceExplorer2::View'

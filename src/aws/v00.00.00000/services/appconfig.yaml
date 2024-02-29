@@ -604,8 +604,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ApplicationId') as application_id
+              JSON_EXTRACT(Properties, '$.ApplicationId') as application_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Application'
     application:
       name: application
       id: aws.appconfig.application
@@ -625,6 +632,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Application'
     configuration_profiles:
       name: configuration_profiles
       id: aws.appconfig.configuration_profiles
@@ -641,8 +658,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-              JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id
+              JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'ConfigurationProfileId') as configuration_profile_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
     configuration_profile:
       name: configuration_profile
       id: aws.appconfig.configuration_profile
@@ -670,6 +695,23 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyIdentifier') as kms_key_identifier,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Validators') as validators,
+                json_extract_path_text(Properties, 'RetrievalRoleArn') as retrieval_role_arn,
+                json_extract_path_text(Properties, 'ConfigurationProfileId') as configuration_profile_id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'KmsKeyIdentifier') as kms_key_identifier,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ConfigurationProfile'
     deployments:
       name: deployments
       id: aws.appconfig.deployments
@@ -684,8 +726,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Deployment'
     deployment:
       name: deployment
       id: aws.appconfig.deployment
@@ -710,6 +759,21 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Deployment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeploymentStrategyId') as deployment_strategy_id,
+                json_extract_path_text(Properties, 'ConfigurationProfileId') as configuration_profile_id,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'KmsKeyIdentifier') as kms_key_identifier,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ConfigurationVersion') as configuration_version,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Deployment'
     deployment_strategies:
       name: deployment_strategies
       id: aws.appconfig.deployment_strategies
@@ -724,8 +788,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
     deployment_strategy:
       name: deployment_strategy
       id: aws.appconfig.deployment_strategy
@@ -750,6 +821,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicateTo') as replicate_to,
+                json_extract_path_text(Properties, 'GrowthType') as growth_type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DeploymentDurationInMinutes') as deployment_duration_in_minutes,
+                json_extract_path_text(Properties, 'GrowthFactor') as growth_factor,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'FinalBakeTimeInMinutes') as final_bake_time_in_minutes,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::DeploymentStrategy'
     environments:
       name: environments
       id: aws.appconfig.environments
@@ -766,8 +852,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
-              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Environment'
     environment:
       name: environment
       id: aws.appconfig.environment
@@ -790,6 +884,18 @@ components:
               JSON_EXTRACT(Properties, '$.Monitors') as monitors,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Monitors') as monitors,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Environment'
     extensions:
       name: extensions
       id: aws.appconfig.extensions
@@ -804,8 +910,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Extension'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::Extension'
     extension:
       name: extension
       id: aws.appconfig.extension
@@ -830,6 +943,21 @@ components:
               JSON_EXTRACT(Properties, '$.LatestVersionNumber') as latest_version_number,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Extension'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'VersionNumber') as version_number,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'LatestVersionNumber') as latest_version_number,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::Extension'
     extension_associations:
       name: extension_associations
       id: aws.appconfig.extension_associations
@@ -844,8 +972,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
     extension_association:
       name: extension_association
       id: aws.appconfig.extension_association
@@ -870,6 +1005,21 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ExtensionArn') as extension_arn,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'ExtensionIdentifier') as extension_identifier,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'ExtensionVersionNumber') as extension_version_number,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::ExtensionAssociation'
     hosted_configuration_versions:
       name: hosted_configuration_versions
       id: aws.appconfig.hosted_configuration_versions
@@ -888,8 +1038,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ApplicationId') as application_id,
               JSON_EXTRACT(Properties, '$.ConfigurationProfileId') as configuration_profile_id,
-              JSON_EXTRACT(Properties, '$.VersionNumber') as version_number
+              JSON_EXTRACT(Properties, '$.VersionNumber') as version_numb
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'ConfigurationProfileId') as configuration_profile_id,
+                json_extract_path_text(Properties, 'VersionNumber') as version_numb
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'
     hosted_configuration_version:
       name: hosted_configuration_version
       id: aws.appconfig.hosted_configuration_version
@@ -915,3 +1074,17 @@ components:
               JSON_EXTRACT(Properties, '$.LatestVersionNumber') as latest_version_number,
               JSON_EXTRACT(Properties, '$.VersionLabel') as version_label
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApplicationId') as application_id,
+                json_extract_path_text(Properties, 'ConfigurationProfileId') as configuration_profile_id,
+                json_extract_path_text(Properties, 'VersionNumber') as version_number,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'ContentType') as content_type,
+                json_extract_path_text(Properties, 'LatestVersionNumber') as latest_version_number,
+                json_extract_path_text(Properties, 'VersionLabel') as version_label
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppConfig::HostedConfigurationVersion'

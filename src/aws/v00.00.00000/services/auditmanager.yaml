@@ -283,8 +283,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssessmentId') as assessment_id
+              JSON_EXTRACT(Properties, '$.AssessmentId') as assessment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AuditManager::Assessment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssessmentId') as assessment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AuditManager::Assessment'
     assessment:
       name: assessment
       id: aws.auditmanager.assessment
@@ -313,3 +320,22 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AuditManager::Assessment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FrameworkId') as framework_id,
+                json_extract_path_text(Properties, 'AssessmentId') as assessment_id,
+                json_extract_path_text(Properties, 'AwsAccount') as aws_account,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Delegations') as delegations,
+                json_extract_path_text(Properties, 'Roles') as roles,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'AssessmentReportsDestination') as assessment_reports_destination,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AuditManager::Assessment'

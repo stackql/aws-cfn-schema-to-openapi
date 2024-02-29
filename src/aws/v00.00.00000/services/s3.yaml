@@ -2361,8 +2361,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessGrantId') as access_grant_id
+              JSON_EXTRACT(Properties, '$.AccessGrantId') as access_grant_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantId') as access_grant_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrant'
     access_grant:
       name: access_grant
       id: aws.s3.access_grant
@@ -2388,6 +2395,22 @@ components:
               JSON_EXTRACT(Properties, '$.Grantee') as grantee,
               JSON_EXTRACT(Properties, '$.AccessGrantsLocationConfiguration') as access_grants_location_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantId') as access_grant_id,
+                json_extract_path_text(Properties, 'AccessGrantsLocationId') as access_grants_location_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Permission') as permission,
+                json_extract_path_text(Properties, 'ApplicationArn') as application_arn,
+                json_extract_path_text(Properties, 'S3PrefixType') as s3_prefix_type,
+                json_extract_path_text(Properties, 'GrantScope') as grant_scope,
+                json_extract_path_text(Properties, 'AccessGrantArn') as access_grant_arn,
+                json_extract_path_text(Properties, 'Grantee') as grantee,
+                json_extract_path_text(Properties, 'AccessGrantsLocationConfiguration') as access_grants_location_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrant'
     access_grants_instances:
       name: access_grants_instances
       id: aws.s3.access_grants_instances
@@ -2402,8 +2425,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessGrantsInstanceArn') as access_grants_instance_arn
+              JSON_EXTRACT(Properties, '$.AccessGrantsInstanceArn') as access_grants_instance_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrantsInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantsInstanceArn') as access_grants_instance_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrantsInstance'
     access_grants_instance:
       name: access_grants_instance
       id: aws.s3.access_grants_instance
@@ -2423,6 +2453,16 @@ components:
               JSON_EXTRACT(Properties, '$.AccessGrantsInstanceId') as access_grants_instance_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrantsInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantsInstanceArn') as access_grants_instance_arn,
+                json_extract_path_text(Properties, 'IdentityCenterArn') as identity_center_arn,
+                json_extract_path_text(Properties, 'AccessGrantsInstanceId') as access_grants_instance_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrantsInstance'
     access_grants_locations:
       name: access_grants_locations
       id: aws.s3.access_grants_locations
@@ -2437,8 +2477,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessGrantsLocationId') as access_grants_location_id
+              JSON_EXTRACT(Properties, '$.AccessGrantsLocationId') as access_grants_location_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrantsLocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantsLocationId') as access_grants_location_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessGrantsLocation'
     access_grants_location:
       name: access_grants_location
       id: aws.s3.access_grants_location
@@ -2459,6 +2506,17 @@ components:
               JSON_EXTRACT(Properties, '$.LocationScope') as location_scope,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrantsLocation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessGrantsLocationArn') as access_grants_location_arn,
+                json_extract_path_text(Properties, 'AccessGrantsLocationId') as access_grants_location_id,
+                json_extract_path_text(Properties, 'IamRoleArn') as iam_role_arn,
+                json_extract_path_text(Properties, 'LocationScope') as location_scope,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessGrantsLocation'
     access_points:
       name: access_points
       id: aws.s3.access_points
@@ -2473,8 +2531,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::AccessPoint'
     access_point:
       name: access_point
       id: aws.s3.access_point
@@ -2499,6 +2564,21 @@ components:
               JSON_EXTRACT(Properties, '$.NetworkOrigin') as network_origin,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'Bucket') as bucket,
+                json_extract_path_text(Properties, 'BucketAccountId') as bucket_account_id,
+                json_extract_path_text(Properties, 'VpcConfiguration') as vpc_configuration,
+                json_extract_path_text(Properties, 'PublicAccessBlockConfiguration') as public_access_block_configuration,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'NetworkOrigin') as network_origin,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::AccessPoint'
     buckets:
       name: buckets
       id: aws.s3.buckets
@@ -2513,8 +2593,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BucketName') as bucket_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::Bucket'
     bucket:
       name: bucket
       id: aws.s3.bucket
@@ -2555,6 +2642,37 @@ components:
               JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
               JSON_EXTRACT(Properties, '$.WebsiteURL') as website_ur_l
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccelerateConfiguration') as accelerate_configuration,
+                json_extract_path_text(Properties, 'AccessControl') as access_control,
+                json_extract_path_text(Properties, 'AnalyticsConfigurations') as analytics_configurations,
+                json_extract_path_text(Properties, 'BucketEncryption') as bucket_encryption,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'CorsConfiguration') as cors_configuration,
+                json_extract_path_text(Properties, 'IntelligentTieringConfigurations') as intelligent_tiering_configurations,
+                json_extract_path_text(Properties, 'InventoryConfigurations') as inventory_configurations,
+                json_extract_path_text(Properties, 'LifecycleConfiguration') as lifecycle_configuration,
+                json_extract_path_text(Properties, 'LoggingConfiguration') as logging_configuration,
+                json_extract_path_text(Properties, 'MetricsConfigurations') as metrics_configurations,
+                json_extract_path_text(Properties, 'NotificationConfiguration') as notification_configuration,
+                json_extract_path_text(Properties, 'ObjectLockConfiguration') as object_lock_configuration,
+                json_extract_path_text(Properties, 'ObjectLockEnabled') as object_lock_enabled,
+                json_extract_path_text(Properties, 'OwnershipControls') as ownership_controls,
+                json_extract_path_text(Properties, 'PublicAccessBlockConfiguration') as public_access_block_configuration,
+                json_extract_path_text(Properties, 'ReplicationConfiguration') as replication_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VersioningConfiguration') as versioning_configuration,
+                json_extract_path_text(Properties, 'WebsiteConfiguration') as website_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'DualStackDomainName') as dual_stack_domain_name,
+                json_extract_path_text(Properties, 'RegionalDomainName') as regional_domain_name,
+                json_extract_path_text(Properties, 'WebsiteURL') as website_ur_l
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
     bucket_policies:
       name: bucket_policies
       id: aws.s3.bucket_policies
@@ -2569,8 +2687,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Bucket') as bucket
+              JSON_EXTRACT(Properties, '$.Bucket') as buck
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as buck
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::BucketPolicy'
     bucket_policy:
       name: bucket_policy
       id: aws.s3.bucket_policy
@@ -2588,6 +2713,14 @@ components:
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as bucket,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::BucketPolicy'
     multi_region_access_points:
       name: multi_region_access_points
       id: aws.s3.multi_region_access_points
@@ -2602,8 +2735,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
     multi_region_access_point:
       name: multi_region_access_point
       id: aws.s3.multi_region_access_point
@@ -2624,6 +2764,17 @@ components:
               JSON_EXTRACT(Properties, '$.PublicAccessBlockConfiguration') as public_access_block_configuration,
               JSON_EXTRACT(Properties, '$.Regions') as regions
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Alias') as alias,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'PublicAccessBlockConfiguration') as public_access_block_configuration,
+                json_extract_path_text(Properties, 'Regions') as regions
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPoint'
     multi_region_access_point_policies:
       name: multi_region_access_point_policies
       id: aws.s3.multi_region_access_point_policies
@@ -2638,8 +2789,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MrapName') as mrap_name
+              JSON_EXTRACT(Properties, '$.MrapName') as mrap_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MrapName') as mrap_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
     multi_region_access_point_policy:
       name: multi_region_access_point_policy
       id: aws.s3.multi_region_access_point_policy
@@ -2658,6 +2816,15 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.PolicyStatus') as policy_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MrapName') as mrap_name,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'PolicyStatus') as policy_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::MultiRegionAccessPointPolicy'
     storage_lens:
       name: storage_lens
       id: aws.s3.storage_lens
@@ -2675,6 +2842,14 @@ components:
               JSON_EXTRACT(Properties, '$.StorageLensConfiguration') as storage_lens_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLens'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageLensConfiguration') as storage_lens_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLens'
     storage_lens_groups:
       name: storage_lens_groups
       id: aws.s3.storage_lens_groups
@@ -2689,8 +2864,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::StorageLensGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3::StorageLensGroup'
     storage_lens_group:
       name: storage_lens_group
       id: aws.s3.storage_lens_group
@@ -2710,3 +2892,13 @@ components:
               JSON_EXTRACT(Properties, '$.StorageLensGroupArn') as storage_lens_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLensGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Filter') as filter,
+                json_extract_path_text(Properties, 'StorageLensGroupArn') as storage_lens_group_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::StorageLensGroup'

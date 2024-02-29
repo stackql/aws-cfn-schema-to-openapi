@@ -318,8 +318,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
     broker:
       name: broker
       id: aws.amazonmq.broker
@@ -365,6 +372,42 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'DataReplicationPrimaryBrokerArn') as data_replication_primary_broker_arn,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'AuthenticationStrategy') as authentication_strategy,
+                json_extract_path_text(Properties, 'Users') as users,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'StompEndpoints') as stomp_endpoints,
+                json_extract_path_text(Properties, 'MqttEndpoints') as mqtt_endpoints,
+                json_extract_path_text(Properties, 'AmqpEndpoints') as amqp_endpoints,
+                json_extract_path_text(Properties, 'DeploymentMode') as deployment_mode,
+                json_extract_path_text(Properties, 'EngineType') as engine_type,
+                json_extract_path_text(Properties, 'EncryptionOptions') as encryption_options,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ConfigurationRevision') as configuration_revision,
+                json_extract_path_text(Properties, 'StorageType') as storage_type,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'MaintenanceWindowStartTime') as maintenance_window_start_time,
+                json_extract_path_text(Properties, 'HostInstanceType') as host_instance_type,
+                json_extract_path_text(Properties, 'AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
+                json_extract_path_text(Properties, 'Logs') as logs,
+                json_extract_path_text(Properties, 'ConfigurationId') as configuration_id,
+                json_extract_path_text(Properties, 'DataReplicationMode') as data_replication_mode,
+                json_extract_path_text(Properties, 'BrokerName') as broker_name,
+                json_extract_path_text(Properties, 'WssEndpoints') as wss_endpoints,
+                json_extract_path_text(Properties, 'IpAddresses') as ip_addresses,
+                json_extract_path_text(Properties, 'OpenWireEndpoints') as open_wire_endpoints,
+                json_extract_path_text(Properties, 'LdapServerMetadata') as ldap_server_metadata,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Broker'
     configurations:
       name: configurations
       id: aws.amazonmq.configurations
@@ -379,8 +422,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
     configuration:
       name: configuration
       id: aws.amazonmq.configuration
@@ -406,6 +456,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Revision') as revision,
+                json_extract_path_text(Properties, 'AuthenticationStrategy') as authentication_strategy,
+                json_extract_path_text(Properties, 'EngineType') as engine_type,
+                json_extract_path_text(Properties, 'Data') as data,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::Configuration'
     configuration_associations:
       name: configuration_associations
       id: aws.amazonmq.configuration_associations
@@ -420,8 +486,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'
     configuration_association:
       name: configuration_association
       id: aws.amazonmq.configuration_association
@@ -440,3 +513,12 @@ components:
               JSON_EXTRACT(Properties, '$.Broker') as broker,
               JSON_EXTRACT(Properties, '$.Configuration') as configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Broker') as broker,
+                json_extract_path_text(Properties, 'Configuration') as configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AmazonMQ::ConfigurationAssociation'

@@ -98,8 +98,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Bucket') as bucket
+              JSON_EXTRACT(Properties, '$.Bucket') as buck
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Express::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as buck
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Express::BucketPolicy'
     bucket_policy:
       name: bucket_policy
       id: aws.s3express.bucket_policy
@@ -117,6 +124,14 @@ components:
               JSON_EXTRACT(Properties, '$.Bucket') as bucket,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Express::BucketPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Bucket') as bucket,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Express::BucketPolicy'
     directory_buckets:
       name: directory_buckets
       id: aws.s3express.directory_buckets
@@ -131,8 +146,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BucketName') as bucket_name
+              JSON_EXTRACT(Properties, '$.BucketName') as bucket_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Express::DirectoryBucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BucketName') as bucket_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::S3Express::DirectoryBucket'
     directory_bucket:
       name: directory_bucket
       id: aws.s3express.directory_bucket
@@ -152,3 +174,13 @@ components:
               JSON_EXTRACT(Properties, '$.DataRedundancy') as data_redundancy,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Express::DirectoryBucket'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'LocationName') as location_name,
+                json_extract_path_text(Properties, 'DataRedundancy') as data_redundancy,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3Express::DirectoryBucket'

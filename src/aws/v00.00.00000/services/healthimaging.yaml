@@ -128,8 +128,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DatastoreId') as datastore_id
+              JSON_EXTRACT(Properties, '$.DatastoreId') as datastore_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::HealthImaging::Datastore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatastoreId') as datastore_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::HealthImaging::Datastore'
     datastore:
       name: datastore
       id: aws.healthimaging.datastore
@@ -153,3 +160,17 @@ components:
               JSON_EXTRACT(Properties, '$.UpdatedAt') as updated_at,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::HealthImaging::Datastore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatastoreArn') as datastore_arn,
+                json_extract_path_text(Properties, 'DatastoreName') as datastore_name,
+                json_extract_path_text(Properties, 'DatastoreId') as datastore_id,
+                json_extract_path_text(Properties, 'DatastoreStatus') as datastore_status,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::HealthImaging::Datastore'

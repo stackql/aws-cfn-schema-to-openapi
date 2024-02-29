@@ -345,8 +345,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
     experiment_template:
       name: experiment_template
       id: aws.fis.experiment_template
@@ -371,6 +378,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ExperimentOptions') as experiment_options
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Targets') as targets,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'StopConditions') as stop_conditions,
+                json_extract_path_text(Properties, 'LogConfiguration') as log_configuration,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ExperimentOptions') as experiment_options
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::ExperimentTemplate'
     target_account_configurations:
       name: target_account_configurations
       id: aws.fis.target_account_configurations
@@ -387,8 +409,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ExperimentTemplateId') as experiment_template_id,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExperimentTemplateId') as experiment_template_id,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'
     target_account_configuration:
       name: target_account_configuration
       id: aws.fis.target_account_configuration
@@ -409,3 +439,13 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Description') as description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExperimentTemplateId') as experiment_template_id,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Description') as description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FIS::TargetAccountConfiguration'

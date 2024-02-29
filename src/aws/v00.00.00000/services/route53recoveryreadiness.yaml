@@ -345,8 +345,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CellName') as cell_name
+              JSON_EXTRACT(Properties, '$.CellName') as cell_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CellName') as cell_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
     cell:
       name: cell
       id: aws.route53recoveryreadiness.cell
@@ -367,6 +374,17 @@ components:
               JSON_EXTRACT(Properties, '$.ParentReadinessScopes') as parent_readiness_scopes,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CellName') as cell_name,
+                json_extract_path_text(Properties, 'CellArn') as cell_arn,
+                json_extract_path_text(Properties, 'Cells') as cells,
+                json_extract_path_text(Properties, 'ParentReadinessScopes') as parent_readiness_scopes,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::Cell'
     readiness_checks:
       name: readiness_checks
       id: aws.route53recoveryreadiness.readiness_checks
@@ -381,8 +399,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_name
+              JSON_EXTRACT(Properties, '$.ReadinessCheckName') as readiness_check_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReadinessCheckName') as readiness_check_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
     readiness_check:
       name: readiness_check
       id: aws.route53recoveryreadiness.readiness_check
@@ -402,6 +427,16 @@ components:
               JSON_EXTRACT(Properties, '$.ReadinessCheckArn') as readiness_check_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceSetName') as resource_set_name,
+                json_extract_path_text(Properties, 'ReadinessCheckName') as readiness_check_name,
+                json_extract_path_text(Properties, 'ReadinessCheckArn') as readiness_check_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ReadinessCheck'
     recovery_groups:
       name: recovery_groups
       id: aws.route53recoveryreadiness.recovery_groups
@@ -416,8 +451,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_name
+              JSON_EXTRACT(Properties, '$.RecoveryGroupName') as recovery_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RecoveryGroupName') as recovery_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
     recovery_group:
       name: recovery_group
       id: aws.route53recoveryreadiness.recovery_group
@@ -437,6 +479,16 @@ components:
               JSON_EXTRACT(Properties, '$.RecoveryGroupArn') as recovery_group_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RecoveryGroupName') as recovery_group_name,
+                json_extract_path_text(Properties, 'Cells') as cells,
+                json_extract_path_text(Properties, 'RecoveryGroupArn') as recovery_group_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::RecoveryGroup'
     resource_sets:
       name: resource_sets
       id: aws.route53recoveryreadiness.resource_sets
@@ -451,8 +503,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_name
+              JSON_EXTRACT(Properties, '$.ResourceSetName') as resource_set_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceSetName') as resource_set_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'
     resource_set:
       name: resource_set
       id: aws.route53recoveryreadiness.resource_set
@@ -473,3 +532,14 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceSetType') as resource_set_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceSetName') as resource_set_name,
+                json_extract_path_text(Properties, 'Resources') as resources,
+                json_extract_path_text(Properties, 'ResourceSetArn') as resource_set_arn,
+                json_extract_path_text(Properties, 'ResourceSetType') as resource_set_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryReadiness::ResourceSet'

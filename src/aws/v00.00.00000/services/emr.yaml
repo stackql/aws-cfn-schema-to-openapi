@@ -997,8 +997,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
     instance_fleet_config:
       name: instance_fleet_config
       id: aws.emr.instance_fleet_config
@@ -1022,6 +1029,20 @@ components:
               JSON_EXTRACT(Properties, '$.InstanceTypeConfigs') as instance_type_configs,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceFleetType') as instance_fleet_type,
+                json_extract_path_text(Properties, 'TargetOnDemandCapacity') as target_on_demand_capacity,
+                json_extract_path_text(Properties, 'ClusterId') as cluster_id,
+                json_extract_path_text(Properties, 'TargetSpotCapacity') as target_spot_capacity,
+                json_extract_path_text(Properties, 'LaunchSpecifications') as launch_specifications,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'InstanceTypeConfigs') as instance_type_configs,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceFleetConfig'
     instance_group_configs:
       name: instance_group_configs
       id: aws.emr.instance_group_configs
@@ -1036,8 +1057,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
     instance_group_config:
       name: instance_group_config
       id: aws.emr.instance_group_config
@@ -1065,6 +1093,24 @@ components:
               JSON_EXTRACT(Properties, '$.Market') as market,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobFlowId') as job_flow_id,
+                json_extract_path_text(Properties, 'AutoScalingPolicy') as auto_scaling_policy,
+                json_extract_path_text(Properties, 'BidPrice') as bid_price,
+                json_extract_path_text(Properties, 'InstanceCount') as instance_count,
+                json_extract_path_text(Properties, 'EbsConfiguration') as ebs_configuration,
+                json_extract_path_text(Properties, 'InstanceRole') as instance_role,
+                json_extract_path_text(Properties, 'CustomAmiId') as custom_ami_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Configurations') as configurations,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'Market') as market,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::InstanceGroupConfig'
     clusters:
       name: clusters
       id: aws.emr.clusters
@@ -1079,8 +1125,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Cluster'
     cluster:
       name: cluster
       id: aws.emr.cluster
@@ -1125,6 +1178,41 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Steps') as steps,
+                json_extract_path_text(Properties, 'PlacementGroupConfigs') as placement_group_configs,
+                json_extract_path_text(Properties, 'StepConcurrencyLevel') as step_concurrency_level,
+                json_extract_path_text(Properties, 'EbsRootVolumeSize') as ebs_root_volume_size,
+                json_extract_path_text(Properties, 'OSReleaseLabel') as o_srelease_label,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ServiceRole') as service_role,
+                json_extract_path_text(Properties, 'LogUri') as log_uri,
+                json_extract_path_text(Properties, 'BootstrapActions') as bootstrap_actions,
+                json_extract_path_text(Properties, 'MasterPublicDNS') as master_public_dn_s,
+                json_extract_path_text(Properties, 'Configurations') as configurations,
+                json_extract_path_text(Properties, 'ReleaseLabel') as release_label,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ManagedScalingPolicy') as managed_scaling_policy,
+                json_extract_path_text(Properties, 'LogEncryptionKmsKeyId') as log_encryption_kms_key_id,
+                json_extract_path_text(Properties, 'AdditionalInfo') as additional_info,
+                json_extract_path_text(Properties, 'AutoTerminationPolicy') as auto_termination_policy,
+                json_extract_path_text(Properties, 'KerberosAttributes') as kerberos_attributes,
+                json_extract_path_text(Properties, 'Applications') as applications,
+                json_extract_path_text(Properties, 'AutoScalingRole') as auto_scaling_role,
+                json_extract_path_text(Properties, 'CustomAmiId') as custom_ami_id,
+                json_extract_path_text(Properties, 'EbsRootVolumeIops') as ebs_root_volume_iops,
+                json_extract_path_text(Properties, 'Instances') as instances,
+                json_extract_path_text(Properties, 'ScaleDownBehavior') as scale_down_behavior,
+                json_extract_path_text(Properties, 'EbsRootVolumeThroughput') as ebs_root_volume_throughput,
+                json_extract_path_text(Properties, 'JobFlowRole') as job_flow_role,
+                json_extract_path_text(Properties, 'VisibleToAllUsers') as visible_to_all_users,
+                json_extract_path_text(Properties, 'SecurityConfiguration') as security_configuration,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Cluster'
     security_configurations:
       name: security_configurations
       id: aws.emr.security_configurations
@@ -1139,8 +1227,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
     security_configuration:
       name: security_configuration
       id: aws.emr.security_configuration
@@ -1158,6 +1253,14 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SecurityConfiguration') as security_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SecurityConfiguration') as security_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::SecurityConfiguration'
     steps:
       name: steps
       id: aws.emr.steps
@@ -1172,8 +1275,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Step'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Step'
     step:
       name: step
       id: aws.emr.step
@@ -1194,6 +1304,17 @@ components:
               JSON_EXTRACT(Properties, '$.JobFlowId') as job_flow_id,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Step'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ActionOnFailure') as action_on_failure,
+                json_extract_path_text(Properties, 'HadoopJarStep') as hadoop_jar_step,
+                json_extract_path_text(Properties, 'JobFlowId') as job_flow_id,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Step'
     studios:
       name: studios
       id: aws.emr.studios
@@ -1208,8 +1329,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Studio'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StudioId') as studio_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::Studio'
     studio:
       name: studio
       id: aws.emr.studio
@@ -1245,6 +1373,32 @@ components:
               JSON_EXTRACT(Properties, '$.IdcInstanceArn') as idc_instance_arn,
               JSON_EXTRACT(Properties, '$.EncryptionKeyArn') as encryption_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Studio'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AuthMode') as auth_mode,
+                json_extract_path_text(Properties, 'DefaultS3Location') as default_s3_location,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EngineSecurityGroupId') as engine_security_group_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ServiceRole') as service_role,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Url') as url,
+                json_extract_path_text(Properties, 'UserRole') as user_role,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'WorkspaceSecurityGroupId') as workspace_security_group_id,
+                json_extract_path_text(Properties, 'IdpAuthUrl') as idp_auth_url,
+                json_extract_path_text(Properties, 'IdpRelayStateParameterName') as idp_relay_state_parameter_name,
+                json_extract_path_text(Properties, 'TrustedIdentityPropagationEnabled') as trusted_identity_propagation_enabled,
+                json_extract_path_text(Properties, 'IdcUserAssignment') as idc_user_assignment,
+                json_extract_path_text(Properties, 'IdcInstanceArn') as idc_instance_arn,
+                json_extract_path_text(Properties, 'EncryptionKeyArn') as encryption_key_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::Studio'
     studio_session_mappings:
       name: studio_session_mappings
       id: aws.emr.studio_session_mappings
@@ -1263,8 +1417,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
               JSON_EXTRACT(Properties, '$.IdentityType') as identity_type,
-              JSON_EXTRACT(Properties, '$.IdentityName') as identity_name
+              JSON_EXTRACT(Properties, '$.IdentityName') as identity_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'IdentityType') as identity_type,
+                json_extract_path_text(Properties, 'IdentityName') as identity_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
     studio_session_mapping:
       name: studio_session_mapping
       id: aws.emr.studio_session_mapping
@@ -1286,6 +1449,16 @@ components:
               JSON_EXTRACT(Properties, '$.SessionPolicyArn') as session_policy_arn,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityName') as identity_name,
+                json_extract_path_text(Properties, 'IdentityType') as identity_type,
+                json_extract_path_text(Properties, 'SessionPolicyArn') as session_policy_arn,
+                json_extract_path_text(Properties, 'StudioId') as studio_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::StudioSessionMapping'
     wal_workspaces:
       name: wal_workspaces
       id: aws.emr.wal_workspaces
@@ -1300,8 +1473,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.WALWorkspaceName') as w_al_workspace_name
+              JSON_EXTRACT(Properties, '$.WALWorkspaceName') as w_al_workspace_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::WALWorkspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WALWorkspaceName') as w_al_workspace_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EMR::WALWorkspace'
     wal_workspace:
       name: wal_workspace
       id: aws.emr.wal_workspace
@@ -1319,3 +1499,11 @@ components:
               JSON_EXTRACT(Properties, '$.WALWorkspaceName') as w_al_workspace_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::WALWorkspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'WALWorkspaceName') as w_al_workspace_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EMR::WALWorkspace'

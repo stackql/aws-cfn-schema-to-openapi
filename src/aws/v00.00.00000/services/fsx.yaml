@@ -668,8 +668,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssociationId') as association_id
+              JSON_EXTRACT(Properties, '$.AssociationId') as association_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationId') as association_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
     data_repository_association:
       name: data_repository_association
       id: aws.fsx.data_repository_association
@@ -694,6 +701,21 @@ components:
               JSON_EXTRACT(Properties, '$.S3') as s3,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssociationId') as association_id,
+                json_extract_path_text(Properties, 'ResourceARN') as resource_ar_n,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_id,
+                json_extract_path_text(Properties, 'FileSystemPath') as file_system_path,
+                json_extract_path_text(Properties, 'DataRepositoryPath') as data_repository_path,
+                json_extract_path_text(Properties, 'BatchImportMetaDataOnCreate') as batch_import_meta_data_on_create,
+                json_extract_path_text(Properties, 'ImportedFileChunkSize') as imported_file_chunk_size,
+                json_extract_path_text(Properties, 'S3') as s3,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::DataRepositoryAssociation'
     file_systems:
       name: file_systems
       id: aws.fsx.file_systems
@@ -708,8 +730,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::FileSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::FileSystem'
     file_system:
       name: file_system
       id: aws.fsx.file_system
@@ -743,6 +772,30 @@ components:
               JSON_EXTRACT(Properties, '$.LustreMountName') as lustre_mount_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::FileSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageType') as storage_type,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'StorageCapacity') as storage_capacity,
+                json_extract_path_text(Properties, 'RootVolumeId') as root_volume_id,
+                json_extract_path_text(Properties, 'LustreConfiguration') as lustre_configuration,
+                json_extract_path_text(Properties, 'BackupId') as backup_id,
+                json_extract_path_text(Properties, 'OntapConfiguration') as ontap_configuration,
+                json_extract_path_text(Properties, 'DNSName') as d_ns_name,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'WindowsConfiguration') as windows_configuration,
+                json_extract_path_text(Properties, 'FileSystemTypeVersion') as file_system_type_version,
+                json_extract_path_text(Properties, 'OpenZFSConfiguration') as open_zf_sconfiguration,
+                json_extract_path_text(Properties, 'ResourceARN') as resource_ar_n,
+                json_extract_path_text(Properties, 'FileSystemType') as file_system_type,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LustreMountName') as lustre_mount_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::FileSystem'
     snapshots:
       name: snapshots
       id: aws.fsx.snapshots
@@ -757,8 +810,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Snapshot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Snapshot'
     snapshot:
       name: snapshot
       id: aws.fsx.snapshot
@@ -779,6 +839,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Snapshot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceARN') as resource_ar_n,
+                json_extract_path_text(Properties, 'VolumeId') as volume_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Snapshot'
     storage_virtual_machines:
       name: storage_virtual_machines
       id: aws.fsx.storage_virtual_machines
@@ -793,8 +864,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StorageVirtualMachineId') as storage_virtual_machine_id
+              JSON_EXTRACT(Properties, '$.StorageVirtualMachineId') as storage_virtual_machine_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageVirtualMachineId') as storage_virtual_machine_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
     storage_virtual_machine:
       name: storage_virtual_machine
       id: aws.fsx.storage_virtual_machine
@@ -819,6 +897,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceARN') as resource_ar_n,
+                json_extract_path_text(Properties, 'SvmAdminPassword') as svm_admin_password,
+                json_extract_path_text(Properties, 'StorageVirtualMachineId') as storage_virtual_machine_id,
+                json_extract_path_text(Properties, 'ActiveDirectoryConfiguration') as active_directory_configuration,
+                json_extract_path_text(Properties, 'RootVolumeSecurityStyle') as root_volume_security_style,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_id,
+                json_extract_path_text(Properties, 'UUID') as u_ui_d,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::StorageVirtualMachine'
     volumes:
       name: volumes
       id: aws.fsx.volumes
@@ -833,8 +926,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.VolumeId') as volume_id
+              JSON_EXTRACT(Properties, '$.VolumeId') as volume_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Volume'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'VolumeId') as volume_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FSx::Volume'
     volume:
       name: volume
       id: aws.fsx.volume
@@ -859,3 +959,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Volume'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'OpenZFSConfiguration') as open_zf_sconfiguration,
+                json_extract_path_text(Properties, 'ResourceARN') as resource_ar_n,
+                json_extract_path_text(Properties, 'VolumeId') as volume_id,
+                json_extract_path_text(Properties, 'VolumeType') as volume_type,
+                json_extract_path_text(Properties, 'BackupId') as backup_id,
+                json_extract_path_text(Properties, 'OntapConfiguration') as ontap_configuration,
+                json_extract_path_text(Properties, 'UUID') as u_ui_d,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FSx::Volume'

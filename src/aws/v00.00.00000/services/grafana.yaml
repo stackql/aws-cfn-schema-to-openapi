@@ -399,8 +399,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Grafana::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Grafana::Workspace'
     workspace:
       name: workspace
       id: aws.grafana.workspace
@@ -440,3 +447,33 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.PluginAdminEnabled') as plugin_admin_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Grafana::Workspace'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AuthenticationProviders') as authentication_providers,
+                json_extract_path_text(Properties, 'SsoClientId') as sso_client_id,
+                json_extract_path_text(Properties, 'SamlConfiguration') as saml_configuration,
+                json_extract_path_text(Properties, 'NetworkAccessControl') as network_access_control,
+                json_extract_path_text(Properties, 'VpcConfiguration') as vpc_configuration,
+                json_extract_path_text(Properties, 'SamlConfigurationStatus') as saml_configuration_status,
+                json_extract_path_text(Properties, 'ClientToken') as client_token,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'CreationTimestamp') as creation_timestamp,
+                json_extract_path_text(Properties, 'ModificationTimestamp') as modification_timestamp,
+                json_extract_path_text(Properties, 'GrafanaVersion') as grafana_version,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'AccountAccessType') as account_access_type,
+                json_extract_path_text(Properties, 'OrganizationRoleName') as organization_role_name,
+                json_extract_path_text(Properties, 'PermissionType') as permission_type,
+                json_extract_path_text(Properties, 'StackSetName') as stack_set_name,
+                json_extract_path_text(Properties, 'DataSources') as data_sources,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'NotificationDestinations') as notification_destinations,
+                json_extract_path_text(Properties, 'OrganizationalUnits') as organizational_units,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'PluginAdminEnabled') as plugin_admin_enabled
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Grafana::Workspace'

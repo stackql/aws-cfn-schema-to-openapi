@@ -573,8 +573,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn
+              JSON_EXTRACT(Properties, '$.ChannelArn') as channel_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ChannelArn') as channel_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Channel'
     channel:
       name: channel
       id: aws.cloudtrail.channel
@@ -595,6 +602,17 @@ components:
               JSON_EXTRACT(Properties, '$.ChannelArn') as channel_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'Destinations') as destinations,
+                json_extract_path_text(Properties, 'ChannelArn') as channel_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Channel'
     event_data_stores:
       name: event_data_stores
       id: aws.cloudtrail.event_data_stores
@@ -609,8 +627,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_arn
+              JSON_EXTRACT(Properties, '$.EventDataStoreArn') as event_data_store_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EventDataStoreArn') as event_data_store_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
     event_data_store:
       name: event_data_store
       id: aws.cloudtrail.event_data_store
@@ -644,6 +669,30 @@ components:
               JSON_EXTRACT(Properties, '$.InsightsDestination') as insights_destination,
               JSON_EXTRACT(Properties, '$.IngestionEnabled') as ingestion_enabled
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdvancedEventSelectors') as advanced_event_selectors,
+                json_extract_path_text(Properties, 'CreatedTimestamp') as created_timestamp,
+                json_extract_path_text(Properties, 'EventDataStoreArn') as event_data_store_arn,
+                json_extract_path_text(Properties, 'FederationEnabled') as federation_enabled,
+                json_extract_path_text(Properties, 'FederationRoleArn') as federation_role_arn,
+                json_extract_path_text(Properties, 'MultiRegionEnabled') as multi_region_enabled,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'OrganizationEnabled') as organization_enabled,
+                json_extract_path_text(Properties, 'BillingMode') as billing_mode,
+                json_extract_path_text(Properties, 'RetentionPeriod') as retention_period,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'TerminationProtectionEnabled') as termination_protection_enabled,
+                json_extract_path_text(Properties, 'UpdatedTimestamp') as updated_timestamp,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'InsightSelectors') as insight_selectors,
+                json_extract_path_text(Properties, 'InsightsDestination') as insights_destination,
+                json_extract_path_text(Properties, 'IngestionEnabled') as ingestion_enabled
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::EventDataStore'
     resource_policies:
       name: resource_policies
       id: aws.cloudtrail.resource_policies
@@ -658,8 +707,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn
+              JSON_EXTRACT(Properties, '$.ResourceArn') as resource_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.cloudtrail.resource_policy
@@ -677,6 +733,14 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceArn') as resource_arn,
               JSON_EXTRACT(Properties, '$.ResourcePolicy') as resource_policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'ResourcePolicy') as resource_policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::ResourcePolicy'
     trails:
       name: trails
       id: aws.cloudtrail.trails
@@ -691,8 +755,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TrailName') as trail_name
+              JSON_EXTRACT(Properties, '$.TrailName') as trail_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Trail'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrailName') as trail_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudTrail::Trail'
     trail:
       name: trail
       id: aws.cloudtrail.trail
@@ -726,3 +797,27 @@ components:
               JSON_EXTRACT(Properties, '$.SnsTopicArn') as sns_topic_arn,
               JSON_EXTRACT(Properties, '$.InsightSelectors') as insight_selectors
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Trail'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CloudWatchLogsLogGroupArn') as cloud_watch_logs_log_group_arn,
+                json_extract_path_text(Properties, 'CloudWatchLogsRoleArn') as cloud_watch_logs_role_arn,
+                json_extract_path_text(Properties, 'EnableLogFileValidation') as enable_log_file_validation,
+                json_extract_path_text(Properties, 'AdvancedEventSelectors') as advanced_event_selectors,
+                json_extract_path_text(Properties, 'EventSelectors') as event_selectors,
+                json_extract_path_text(Properties, 'IncludeGlobalServiceEvents') as include_global_service_events,
+                json_extract_path_text(Properties, 'IsLogging') as is_logging,
+                json_extract_path_text(Properties, 'IsMultiRegionTrail') as is_multi_region_trail,
+                json_extract_path_text(Properties, 'IsOrganizationTrail') as is_organization_trail,
+                json_extract_path_text(Properties, 'KMSKeyId') as k_ms_key_id,
+                json_extract_path_text(Properties, 'S3BucketName') as s3_bucket_name,
+                json_extract_path_text(Properties, 'S3KeyPrefix') as s3_key_prefix,
+                json_extract_path_text(Properties, 'SnsTopicName') as sns_topic_name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrailName') as trail_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'InsightSelectors') as insight_selectors
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudTrail::Trail'

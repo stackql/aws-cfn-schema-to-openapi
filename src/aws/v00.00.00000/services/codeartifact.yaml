@@ -205,8 +205,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
     domain:
       name: domain
       id: aws.codeartifact.domain
@@ -229,6 +236,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Owner') as owner,
+                json_extract_path_text(Properties, 'EncryptionKey') as encryption_key,
+                json_extract_path_text(Properties, 'PermissionsPolicyDocument') as permissions_policy_document,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Domain'
     repositories:
       name: repositories
       id: aws.codeartifact.repositories
@@ -243,8 +263,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Repository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeArtifact::Repository'
     repository:
       name: repository
       id: aws.codeartifact.repository
@@ -270,3 +297,19 @@ components:
               JSON_EXTRACT(Properties, '$.PermissionsPolicyDocument') as permissions_policy_document,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Repository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'DomainOwner') as domain_owner,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ExternalConnections') as external_connections,
+                json_extract_path_text(Properties, 'Upstreams') as upstreams,
+                json_extract_path_text(Properties, 'PermissionsPolicyDocument') as permissions_policy_document,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeArtifact::Repository'

@@ -723,8 +723,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RuleArn') as rule_arn
+              JSON_EXTRACT(Properties, '$.RuleArn') as rule_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::AutomationRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleArn') as rule_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::AutomationRule'
     automation_rule:
       name: automation_rule
       id: aws.securityhub.automation_rule
@@ -752,6 +759,24 @@ components:
               JSON_EXTRACT(Properties, '$.Criteria') as criteria,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::AutomationRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RuleArn') as rule_arn,
+                json_extract_path_text(Properties, 'RuleStatus') as rule_status,
+                json_extract_path_text(Properties, 'RuleOrder') as rule_order,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RuleName') as rule_name,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'UpdatedAt') as updated_at,
+                json_extract_path_text(Properties, 'CreatedBy') as created_by,
+                json_extract_path_text(Properties, 'IsTerminal') as is_terminal,
+                json_extract_path_text(Properties, 'Actions') as actions,
+                json_extract_path_text(Properties, 'Criteria') as criteria,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::AutomationRule'
     hubs:
       name: hubs
       id: aws.securityhub.hubs
@@ -766,8 +791,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ARN') as a_rn
+              JSON_EXTRACT(Properties, '$.ARN') as a_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Hub'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ARN') as a_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Hub'
     hub:
       name: hub
       id: aws.securityhub.hub
@@ -789,6 +821,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.SubscribedAt') as subscribed_at
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::Hub'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ARN') as a_rn,
+                json_extract_path_text(Properties, 'EnableDefaultStandards') as enable_default_standards,
+                json_extract_path_text(Properties, 'ControlFindingGenerator') as control_finding_generator,
+                json_extract_path_text(Properties, 'AutoEnableControls') as auto_enable_controls,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'SubscribedAt') as subscribed_at
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::Hub'
     standards:
       name: standards
       id: aws.securityhub.standards
@@ -803,8 +847,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StandardsSubscriptionArn') as standards_subscription_arn
+              JSON_EXTRACT(Properties, '$.StandardsSubscriptionArn') as standards_subscription_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Standard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StandardsSubscriptionArn') as standards_subscription_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SecurityHub::Standard'
     standard:
       name: standard
       id: aws.securityhub.standard
@@ -823,3 +874,12 @@ components:
               JSON_EXTRACT(Properties, '$.StandardsArn') as standards_arn,
               JSON_EXTRACT(Properties, '$.DisabledStandardsControls') as disabled_standards_controls
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::Standard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StandardsSubscriptionArn') as standards_subscription_arn,
+                json_extract_path_text(Properties, 'StandardsArn') as standards_arn,
+                json_extract_path_text(Properties, 'DisabledStandardsControls') as disabled_standards_controls
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SecurityHub::Standard'

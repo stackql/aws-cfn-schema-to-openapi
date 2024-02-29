@@ -288,8 +288,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::EnvironmentAccountConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::EnvironmentAccountConnection'
     environment_account_connection:
       name: environment_account_connection
       id: aws.proton.environment_account_connection
@@ -315,6 +322,22 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::EnvironmentAccountConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CodebuildRoleArn') as codebuild_role_arn,
+                json_extract_path_text(Properties, 'ComponentRoleArn') as component_role_arn,
+                json_extract_path_text(Properties, 'EnvironmentAccountId') as environment_account_id,
+                json_extract_path_text(Properties, 'EnvironmentName') as environment_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ManagementAccountId') as management_account_id,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::EnvironmentAccountConnection'
     environment_templates:
       name: environment_templates
       id: aws.proton.environment_templates
@@ -329,8 +352,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::EnvironmentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::EnvironmentTemplate'
     environment_template:
       name: environment_template
       id: aws.proton.environment_template
@@ -353,6 +383,19 @@ components:
               JSON_EXTRACT(Properties, '$.Provisioning') as provisioning,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::EnvironmentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'EncryptionKey') as encryption_key,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Provisioning') as provisioning,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::EnvironmentTemplate'
     service_templates:
       name: service_templates
       id: aws.proton.service_templates
@@ -367,8 +410,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::ServiceTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Proton::ServiceTemplate'
     service_template:
       name: service_template
       id: aws.proton.service_template
@@ -391,3 +441,16 @@ components:
               JSON_EXTRACT(Properties, '$.PipelineProvisioning') as pipeline_provisioning,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::ServiceTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'EncryptionKey') as encryption_key,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PipelineProvisioning') as pipeline_provisioning,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Proton::ServiceTemplate'

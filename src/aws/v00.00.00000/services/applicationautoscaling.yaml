@@ -403,8 +403,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.ResourceId') as resource_id,
               JSON_EXTRACT(Properties, '$.ScalableDimension') as scalable_dimension,
-              JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespace
+              JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespa
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'ScalableDimension') as scalable_dimension,
+                json_extract_path_text(Properties, 'ServiceNamespace') as service_namespa
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
     scalable_target:
       name: scalable_target
       id: aws.applicationautoscaling.scalable_target
@@ -431,6 +440,21 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceNamespace') as service_namespace,
               JSON_EXTRACT(Properties, '$.SuspendedState') as suspended_state
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'MaxCapacity') as max_capacity,
+                json_extract_path_text(Properties, 'MinCapacity') as min_capacity,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'RoleARN') as role_ar_n,
+                json_extract_path_text(Properties, 'ScalableDimension') as scalable_dimension,
+                json_extract_path_text(Properties, 'ScheduledActions') as scheduled_actions,
+                json_extract_path_text(Properties, 'ServiceNamespace') as service_namespace,
+                json_extract_path_text(Properties, 'SuspendedState') as suspended_state
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalableTarget'
     scaling_policies:
       name: scaling_policies
       id: aws.applicationautoscaling.scaling_policies
@@ -447,8 +471,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Arn') as arn,
-              JSON_EXTRACT(Properties, '$.ScalableDimension') as scalable_dimension
+              JSON_EXTRACT(Properties, '$.ScalableDimension') as scalable_dimensi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ScalableDimension') as scalable_dimensi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'
     scaling_policy:
       name: scaling_policy
       id: aws.applicationautoscaling.scaling_policy
@@ -474,3 +506,18 @@ components:
               JSON_EXTRACT(Properties, '$.TargetTrackingScalingPolicyConfiguration') as target_tracking_scaling_policy_configuration,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyType') as policy_type,
+                json_extract_path_text(Properties, 'ResourceId') as resource_id,
+                json_extract_path_text(Properties, 'ScalableDimension') as scalable_dimension,
+                json_extract_path_text(Properties, 'ScalingTargetId') as scaling_target_id,
+                json_extract_path_text(Properties, 'ServiceNamespace') as service_namespace,
+                json_extract_path_text(Properties, 'StepScalingPolicyConfiguration') as step_scaling_policy_configuration,
+                json_extract_path_text(Properties, 'TargetTrackingScalingPolicyConfiguration') as target_tracking_scaling_policy_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ApplicationAutoScaling::ScalingPolicy'

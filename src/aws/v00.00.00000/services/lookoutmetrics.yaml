@@ -506,8 +506,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
     alert:
       name: alert
       id: aws.lookoutmetrics.alert
@@ -529,6 +536,18 @@ components:
               JSON_EXTRACT(Properties, '$.AlertSensitivityThreshold') as alert_sensitivity_threshold,
               JSON_EXTRACT(Properties, '$.Action') as action
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlertName') as alert_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AlertDescription') as alert_description,
+                json_extract_path_text(Properties, 'AnomalyDetectorArn') as anomaly_detector_arn,
+                json_extract_path_text(Properties, 'AlertSensitivityThreshold') as alert_sensitivity_threshold,
+                json_extract_path_text(Properties, 'Action') as action
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::Alert'
     anomaly_detectors:
       name: anomaly_detectors
       id: aws.lookoutmetrics.anomaly_detectors
@@ -543,8 +562,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'
     anomaly_detector:
       name: anomaly_detector
       id: aws.lookoutmetrics.anomaly_detector
@@ -566,3 +592,15 @@ components:
               JSON_EXTRACT(Properties, '$.MetricSetList') as metric_set_list,
               JSON_EXTRACT(Properties, '$.KmsKeyArn') as kms_key_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AnomalyDetectorName') as anomaly_detector_name,
+                json_extract_path_text(Properties, 'AnomalyDetectorDescription') as anomaly_detector_description,
+                json_extract_path_text(Properties, 'AnomalyDetectorConfig') as anomaly_detector_config,
+                json_extract_path_text(Properties, 'MetricSetList') as metric_set_list,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutMetrics::AnomalyDetector'

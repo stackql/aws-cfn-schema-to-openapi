@@ -161,8 +161,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'
     analyzer:
       name: analyzer
       id: aws.accessanalyzer.analyzer
@@ -184,3 +191,15 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.AnalyzerConfiguration') as analyzer_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AnalyzerName') as analyzer_name,
+                json_extract_path_text(Properties, 'ArchiveRules') as archive_rules,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'AnalyzerConfiguration') as analyzer_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AccessAnalyzer::Analyzer'

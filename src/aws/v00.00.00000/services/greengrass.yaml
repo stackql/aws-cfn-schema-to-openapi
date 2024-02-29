@@ -707,8 +707,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
     connector_definition_version:
       name: connector_definition_version
       id: aws.greengrass.connector_definition_version
@@ -727,6 +734,15 @@ components:
               JSON_EXTRACT(Properties, '$.Connectors') as connectors,
               JSON_EXTRACT(Properties, '$.ConnectorDefinitionId') as connector_definition_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Connectors') as connectors,
+                json_extract_path_text(Properties, 'ConnectorDefinitionId') as connector_definition_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinitionVersion'
     connector_definitions:
       name: connector_definitions
       id: aws.greengrass.connector_definitions
@@ -741,8 +757,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
     connector_definition:
       name: connector_definition
       id: aws.greengrass.connector_definition
@@ -764,6 +787,18 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ConnectorDefinition'
     core_definition_versions:
       name: core_definition_versions
       id: aws.greengrass.core_definition_versions
@@ -778,8 +813,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
     core_definition_version:
       name: core_definition_version
       id: aws.greengrass.core_definition_version
@@ -798,6 +840,15 @@ components:
               JSON_EXTRACT(Properties, '$.Cores') as cores,
               JSON_EXTRACT(Properties, '$.CoreDefinitionId') as core_definition_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Cores') as cores,
+                json_extract_path_text(Properties, 'CoreDefinitionId') as core_definition_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinitionVersion'
     core_definitions:
       name: core_definitions
       id: aws.greengrass.core_definitions
@@ -812,8 +863,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
     core_definition:
       name: core_definition
       id: aws.greengrass.core_definition
@@ -835,6 +893,18 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::CoreDefinition'
     device_definition_versions:
       name: device_definition_versions
       id: aws.greengrass.device_definition_versions
@@ -849,8 +919,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
     device_definition_version:
       name: device_definition_version
       id: aws.greengrass.device_definition_version
@@ -869,6 +946,15 @@ components:
               JSON_EXTRACT(Properties, '$.DeviceDefinitionId') as device_definition_id,
               JSON_EXTRACT(Properties, '$.Devices') as devices
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DeviceDefinitionId') as device_definition_id,
+                json_extract_path_text(Properties, 'Devices') as devices
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinitionVersion'
     device_definitions:
       name: device_definitions
       id: aws.greengrass.device_definitions
@@ -883,8 +969,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
     device_definition:
       name: device_definition
       id: aws.greengrass.device_definition
@@ -906,6 +999,18 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::DeviceDefinition'
     function_definition_versions:
       name: function_definition_versions
       id: aws.greengrass.function_definition_versions
@@ -920,8 +1025,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
     function_definition_version:
       name: function_definition_version
       id: aws.greengrass.function_definition_version
@@ -941,6 +1053,16 @@ components:
               JSON_EXTRACT(Properties, '$.Functions') as functions,
               JSON_EXTRACT(Properties, '$.FunctionDefinitionId') as function_definition_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DefaultConfig') as default_config,
+                json_extract_path_text(Properties, 'Functions') as functions,
+                json_extract_path_text(Properties, 'FunctionDefinitionId') as function_definition_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinitionVersion'
     function_definitions:
       name: function_definitions
       id: aws.greengrass.function_definitions
@@ -955,8 +1077,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
     function_definition:
       name: function_definition
       id: aws.greengrass.function_definition
@@ -978,6 +1107,18 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::FunctionDefinition'
     group_versions:
       name: group_versions
       id: aws.greengrass.group_versions
@@ -992,8 +1133,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
     group_version:
       name: group_version
       id: aws.greengrass.group_version
@@ -1018,6 +1166,21 @@ components:
               JSON_EXTRACT(Properties, '$.SubscriptionDefinitionVersionArn') as subscription_definition_version_arn,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LoggerDefinitionVersionArn') as logger_definition_version_arn,
+                json_extract_path_text(Properties, 'DeviceDefinitionVersionArn') as device_definition_version_arn,
+                json_extract_path_text(Properties, 'FunctionDefinitionVersionArn') as function_definition_version_arn,
+                json_extract_path_text(Properties, 'CoreDefinitionVersionArn') as core_definition_version_arn,
+                json_extract_path_text(Properties, 'ResourceDefinitionVersionArn') as resource_definition_version_arn,
+                json_extract_path_text(Properties, 'ConnectorDefinitionVersionArn') as connector_definition_version_arn,
+                json_extract_path_text(Properties, 'SubscriptionDefinitionVersionArn') as subscription_definition_version_arn,
+                json_extract_path_text(Properties, 'GroupId') as group_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::GroupVersion'
     groups:
       name: groups
       id: aws.greengrass.groups
@@ -1032,8 +1195,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::Group'
     group:
       name: group
       id: aws.greengrass.group
@@ -1057,6 +1227,20 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoleAttachedAt') as role_attached_at,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::Group'
     logger_definition_versions:
       name: logger_definition_versions
       id: aws.greengrass.logger_definition_versions
@@ -1071,8 +1255,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
     logger_definition_version:
       name: logger_definition_version
       id: aws.greengrass.logger_definition_version
@@ -1091,6 +1282,15 @@ components:
               JSON_EXTRACT(Properties, '$.LoggerDefinitionId') as logger_definition_id,
               JSON_EXTRACT(Properties, '$.Loggers') as loggers
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LoggerDefinitionId') as logger_definition_id,
+                json_extract_path_text(Properties, 'Loggers') as loggers
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinitionVersion'
     logger_definitions:
       name: logger_definitions
       id: aws.greengrass.logger_definitions
@@ -1105,8 +1305,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
     logger_definition:
       name: logger_definition
       id: aws.greengrass.logger_definition
@@ -1128,6 +1335,18 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::LoggerDefinition'
     resource_definition_versions:
       name: resource_definition_versions
       id: aws.greengrass.resource_definition_versions
@@ -1142,8 +1361,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
     resource_definition_version:
       name: resource_definition_version
       id: aws.greengrass.resource_definition_version
@@ -1162,6 +1388,15 @@ components:
               JSON_EXTRACT(Properties, '$.Resources') as resources,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceDefinitionId') as resource_definition_id,
+                json_extract_path_text(Properties, 'Resources') as resources,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinitionVersion'
     resource_definitions:
       name: resource_definitions
       id: aws.greengrass.resource_definitions
@@ -1176,8 +1411,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
     resource_definition:
       name: resource_definition
       id: aws.greengrass.resource_definition
@@ -1199,6 +1441,18 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::ResourceDefinition'
     subscription_definition_versions:
       name: subscription_definition_versions
       id: aws.greengrass.subscription_definition_versions
@@ -1213,8 +1467,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
     subscription_definition_version:
       name: subscription_definition_version
       id: aws.greengrass.subscription_definition_version
@@ -1233,6 +1494,15 @@ components:
               JSON_EXTRACT(Properties, '$.SubscriptionDefinitionId') as subscription_definition_id,
               JSON_EXTRACT(Properties, '$.Subscriptions') as subscriptions
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SubscriptionDefinitionId') as subscription_definition_id,
+                json_extract_path_text(Properties, 'Subscriptions') as subscriptions
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinitionVersion'
     subscription_definitions:
       name: subscription_definitions
       id: aws.greengrass.subscription_definitions
@@ -1247,8 +1517,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'
     subscription_definition:
       name: subscription_definition
       id: aws.greengrass.subscription_definition
@@ -1270,3 +1547,15 @@ components:
               JSON_EXTRACT(Properties, '$.InitialVersion') as initial_version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LatestVersionArn') as latest_version_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'InitialVersion') as initial_version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Greengrass::SubscriptionDefinition'

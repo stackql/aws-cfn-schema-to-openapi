@@ -142,8 +142,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProfilingGroupName') as profiling_group_name
+              JSON_EXTRACT(Properties, '$.ProfilingGroupName') as profiling_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfilingGroupName') as profiling_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'
     profiling_group:
       name: profiling_group
       id: aws.codeguruprofiler.profiling_group
@@ -165,3 +172,15 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfilingGroupName') as profiling_group_name,
+                json_extract_path_text(Properties, 'ComputePlatform') as compute_platform,
+                json_extract_path_text(Properties, 'AgentPermissions') as agent_permissions,
+                json_extract_path_text(Properties, 'AnomalyDetectionNotificationConfiguration') as anomaly_detection_notification_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeGuruProfiler::ProfilingGroup'

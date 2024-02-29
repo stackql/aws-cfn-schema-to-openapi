@@ -1038,8 +1038,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
     batch_scram_secret:
       name: batch_scram_secret
       id: aws.msk.batch_scram_secret
@@ -1057,6 +1064,14 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.SecretArnList') as secret_arn_list
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn,
+                json_extract_path_text(Properties, 'SecretArnList') as secret_arn_list
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::BatchScramSecret'
     clusters:
       name: clusters
       id: aws.msk.clusters
@@ -1071,8 +1086,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Cluster'
     cluster:
       name: cluster
       id: aws.msk.cluster
@@ -1102,6 +1124,26 @@ components:
               JSON_EXTRACT(Properties, '$.ConfigurationInfo') as configuration_info,
               JSON_EXTRACT(Properties, '$.StorageMode') as storage_mode
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BrokerNodeGroupInfo') as broker_node_group_info,
+                json_extract_path_text(Properties, 'EnhancedMonitoring') as enhanced_monitoring,
+                json_extract_path_text(Properties, 'KafkaVersion') as kafka_version,
+                json_extract_path_text(Properties, 'NumberOfBrokerNodes') as number_of_broker_nodes,
+                json_extract_path_text(Properties, 'EncryptionInfo') as encryption_info,
+                json_extract_path_text(Properties, 'OpenMonitoring') as open_monitoring,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CurrentVersion') as current_version,
+                json_extract_path_text(Properties, 'ClientAuthentication') as client_authentication,
+                json_extract_path_text(Properties, 'LoggingInfo') as logging_info,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ConfigurationInfo') as configuration_info,
+                json_extract_path_text(Properties, 'StorageMode') as storage_mode
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Cluster'
     cluster_policies:
       name: cluster_policies
       id: aws.msk.cluster_policies
@@ -1116,8 +1158,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
     cluster_policy:
       name: cluster_policy
       id: aws.msk.cluster_policy
@@ -1136,6 +1185,15 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn,
               JSON_EXTRACT(Properties, '$.CurrentVersion') as current_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn,
+                json_extract_path_text(Properties, 'CurrentVersion') as current_version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ClusterPolicy'
     configurations:
       name: configurations
       id: aws.msk.configurations
@@ -1150,8 +1208,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Configuration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Configuration'
     configuration:
       name: configuration
       id: aws.msk.configuration
@@ -1173,6 +1238,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.LatestRevision') as latest_revision
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Configuration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ServerProperties') as server_properties,
+                json_extract_path_text(Properties, 'KafkaVersionsList') as kafka_versions_list,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'LatestRevision') as latest_revision
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Configuration'
     replicators:
       name: replicators
       id: aws.msk.replicators
@@ -1187,8 +1264,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReplicatorArn') as replicator_arn
+              JSON_EXTRACT(Properties, '$.ReplicatorArn') as replicator_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Replicator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicatorArn') as replicator_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::Replicator'
     replicator:
       name: replicator
       id: aws.msk.replicator
@@ -1212,6 +1296,20 @@ components:
               JSON_EXTRACT(Properties, '$.ServiceExecutionRoleArn') as service_execution_role_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Replicator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicatorArn') as replicator_arn,
+                json_extract_path_text(Properties, 'ReplicatorName') as replicator_name,
+                json_extract_path_text(Properties, 'CurrentVersion') as current_version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'KafkaClusters') as kafka_clusters,
+                json_extract_path_text(Properties, 'ReplicationInfoList') as replication_info_list,
+                json_extract_path_text(Properties, 'ServiceExecutionRoleArn') as service_execution_role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::Replicator'
     serverless_clusters:
       name: serverless_clusters
       id: aws.msk.serverless_clusters
@@ -1226,8 +1324,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
     serverless_cluster:
       name: serverless_cluster
       id: aws.msk.serverless_cluster
@@ -1248,6 +1353,17 @@ components:
               JSON_EXTRACT(Properties, '$.ClientAuthentication') as client_authentication,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'VpcConfigs') as vpc_configs,
+                json_extract_path_text(Properties, 'ClientAuthentication') as client_authentication,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::ServerlessCluster'
     vpc_connections:
       name: vpc_connections
       id: aws.msk.vpc_connections
@@ -1262,8 +1378,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::VpcConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MSK::VpcConnection'
     vpc_connection:
       name: vpc_connection
       id: aws.msk.vpc_connection
@@ -1286,3 +1409,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::VpcConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Authentication') as authentication,
+                json_extract_path_text(Properties, 'ClientSubnets') as client_subnets,
+                json_extract_path_text(Properties, 'TargetClusterArn') as target_cluster_arn,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MSK::VpcConnection'

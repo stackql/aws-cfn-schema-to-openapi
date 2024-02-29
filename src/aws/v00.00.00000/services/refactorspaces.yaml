@@ -639,8 +639,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
-              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier
+              JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
     application:
       name: application
       id: aws.refactorspaces.application
@@ -671,6 +679,26 @@ components:
               JSON_EXTRACT(Properties, '$.ProxyUrl') as proxy_url,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ApiGatewayProxy') as api_gateway_proxy,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApiGatewayId') as api_gateway_id,
+                json_extract_path_text(Properties, 'VpcLinkId') as vpc_link_id,
+                json_extract_path_text(Properties, 'NlbArn') as nlb_arn,
+                json_extract_path_text(Properties, 'NlbName') as nlb_name,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ProxyType') as proxy_type,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'StageName') as stage_name,
+                json_extract_path_text(Properties, 'ProxyUrl') as proxy_url,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Application'
     environments:
       name: environments
       id: aws.refactorspaces.environments
@@ -685,8 +713,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier
+              JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
     environment:
       name: environment
       id: aws.refactorspaces.environment
@@ -709,6 +744,19 @@ components:
               JSON_EXTRACT(Properties, '$.TransitGatewayId') as transit_gateway_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'NetworkFabricType') as network_fabric_type,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'TransitGatewayId') as transit_gateway_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Environment'
     routes:
       name: routes
       id: aws.refactorspaces.routes
@@ -727,8 +775,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
-              JSON_EXTRACT(Properties, '$.RouteIdentifier') as route_identifier
+              JSON_EXTRACT(Properties, '$.RouteIdentifier') as route_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier,
+                json_extract_path_text(Properties, 'RouteIdentifier') as route_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
     route:
       name: route
       id: aws.refactorspaces.route
@@ -756,6 +813,22 @@ components:
               JSON_EXTRACT(Properties, '$.UriPathRoute') as uri_path_route,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PathResourceToId') as path_resource_to_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'RouteIdentifier') as route_identifier,
+                json_extract_path_text(Properties, 'RouteType') as route_type,
+                json_extract_path_text(Properties, 'ServiceIdentifier') as service_identifier,
+                json_extract_path_text(Properties, 'DefaultRoute') as default_route,
+                json_extract_path_text(Properties, 'UriPathRoute') as uri_path_route,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Route'
     services:
       name: services
       id: aws.refactorspaces.services
@@ -774,8 +847,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.EnvironmentIdentifier') as environment_identifier,
               JSON_EXTRACT(Properties, '$.ApplicationIdentifier') as application_identifier,
-              JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifier
+              JSON_EXTRACT(Properties, '$.ServiceIdentifier') as service_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier,
+                json_extract_path_text(Properties, 'ServiceIdentifier') as service_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::RefactorSpaces::Service'
     service:
       name: service
       id: aws.refactorspaces.service
@@ -804,3 +886,20 @@ components:
               JSON_EXTRACT(Properties, '$.VpcId') as vpc_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Service'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ApplicationIdentifier') as application_identifier,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EndpointType') as endpoint_type,
+                json_extract_path_text(Properties, 'EnvironmentIdentifier') as environment_identifier,
+                json_extract_path_text(Properties, 'LambdaEndpoint') as lambda_endpoint,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ServiceIdentifier') as service_identifier,
+                json_extract_path_text(Properties, 'UrlEndpoint') as url_endpoint,
+                json_extract_path_text(Properties, 'VpcId') as vpc_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::RefactorSpaces::Service'

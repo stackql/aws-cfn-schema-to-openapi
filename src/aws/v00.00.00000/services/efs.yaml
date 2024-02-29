@@ -450,8 +450,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessPointId') as access_point_id
+              JSON_EXTRACT(Properties, '$.AccessPointId') as access_point_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessPointId') as access_point_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::AccessPoint'
     access_point:
       name: access_point
       id: aws.efs.access_point
@@ -474,6 +481,19 @@ components:
               JSON_EXTRACT(Properties, '$.PosixUser') as posix_user,
               JSON_EXTRACT(Properties, '$.RootDirectory') as root_directory
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::AccessPoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessPointId') as access_point_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ClientToken') as client_token,
+                json_extract_path_text(Properties, 'AccessPointTags') as access_point_tags,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_id,
+                json_extract_path_text(Properties, 'PosixUser') as posix_user,
+                json_extract_path_text(Properties, 'RootDirectory') as root_directory
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::AccessPoint'
     file_systems:
       name: file_systems
       id: aws.efs.file_systems
@@ -488,8 +508,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FileSystemId') as file_system_id
+              JSON_EXTRACT(Properties, '$.FileSystemId') as file_system_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::FileSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::FileSystem'
     file_system:
       name: file_system
       id: aws.efs.file_system
@@ -520,6 +547,27 @@ components:
               JSON_EXTRACT(Properties, '$.AvailabilityZoneName') as availability_zone_name,
               JSON_EXTRACT(Properties, '$.ReplicationConfiguration') as replication_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::FileSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Encrypted') as encrypted,
+                json_extract_path_text(Properties, 'FileSystemTags') as file_system_tags,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'LifecyclePolicies') as lifecycle_policies,
+                json_extract_path_text(Properties, 'FileSystemProtection') as file_system_protection,
+                json_extract_path_text(Properties, 'PerformanceMode') as performance_mode,
+                json_extract_path_text(Properties, 'ProvisionedThroughputInMibps') as provisioned_throughput_in_mibps,
+                json_extract_path_text(Properties, 'ThroughputMode') as throughput_mode,
+                json_extract_path_text(Properties, 'FileSystemPolicy') as file_system_policy,
+                json_extract_path_text(Properties, 'BypassPolicyLockoutSafetyCheck') as bypass_policy_lockout_safety_check,
+                json_extract_path_text(Properties, 'BackupPolicy') as backup_policy,
+                json_extract_path_text(Properties, 'AvailabilityZoneName') as availability_zone_name,
+                json_extract_path_text(Properties, 'ReplicationConfiguration') as replication_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::FileSystem'
     mount_targets:
       name: mount_targets
       id: aws.efs.mount_targets
@@ -534,8 +582,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::MountTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EFS::MountTarget'
     mount_target:
       name: mount_target
       id: aws.efs.mount_target
@@ -556,3 +611,14 @@ components:
               JSON_EXTRACT(Properties, '$.SecurityGroups') as security_groups,
               JSON_EXTRACT(Properties, '$.SubnetId') as subnet_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::MountTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IpAddress') as ip_address,
+                json_extract_path_text(Properties, 'FileSystemId') as file_system_id,
+                json_extract_path_text(Properties, 'SecurityGroups') as security_groups,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EFS::MountTarget'

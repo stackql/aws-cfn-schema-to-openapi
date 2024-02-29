@@ -518,8 +518,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
     fleet:
       name: fleet
       id: aws.codebuild.fleet
@@ -541,6 +548,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'BaseCapacity') as base_capacity,
+                json_extract_path_text(Properties, 'EnvironmentType') as environment_type,
+                json_extract_path_text(Properties, 'ComputeType') as compute_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::Fleet'
     projects:
       name: projects
       id: aws.codebuild.projects
@@ -555,8 +574,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::Project'
     project:
       name: project
       id: aws.codebuild.project
@@ -598,6 +624,38 @@ components:
               JSON_EXTRACT(Properties, '$.TimeoutInMinutes') as timeout_in_minutes,
               JSON_EXTRACT(Properties, '$.Cache') as cache
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ResourceAccessRole') as resource_access_role,
+                json_extract_path_text(Properties, 'VpcConfig') as vpc_config,
+                json_extract_path_text(Properties, 'SecondarySources') as secondary_sources,
+                json_extract_path_text(Properties, 'EncryptionKey') as encryption_key,
+                json_extract_path_text(Properties, 'SecondaryArtifacts') as secondary_artifacts,
+                json_extract_path_text(Properties, 'Source') as source,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'LogsConfig') as logs_config,
+                json_extract_path_text(Properties, 'ServiceRole') as service_role,
+                json_extract_path_text(Properties, 'QueuedTimeoutInMinutes') as queued_timeout_in_minutes,
+                json_extract_path_text(Properties, 'SecondarySourceVersions') as secondary_source_versions,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'SourceVersion') as source_version,
+                json_extract_path_text(Properties, 'Triggers') as triggers,
+                json_extract_path_text(Properties, 'Artifacts') as artifacts,
+                json_extract_path_text(Properties, 'BadgeEnabled') as badge_enabled,
+                json_extract_path_text(Properties, 'FileSystemLocations') as file_system_locations,
+                json_extract_path_text(Properties, 'Environment') as environment,
+                json_extract_path_text(Properties, 'ConcurrentBuildLimit') as concurrent_build_limit,
+                json_extract_path_text(Properties, 'Visibility') as visibility,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BuildBatchConfig') as build_batch_config,
+                json_extract_path_text(Properties, 'TimeoutInMinutes') as timeout_in_minutes,
+                json_extract_path_text(Properties, 'Cache') as cache
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::Project'
     report_groups:
       name: report_groups
       id: aws.codebuild.report_groups
@@ -612,8 +670,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::ReportGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::ReportGroup'
     report_group:
       name: report_group
       id: aws.codebuild.report_group
@@ -636,6 +701,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::ReportGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'ExportConfig') as export_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DeleteReports') as delete_reports,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::ReportGroup'
     source_credentials:
       name: source_credentials
       id: aws.codebuild.source_credentials
@@ -650,8 +728,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::SourceCredential'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeBuild::SourceCredential'
     source_credential:
       name: source_credential
       id: aws.codebuild.source_credential
@@ -672,3 +757,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Username') as username
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::SourceCredential'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServerType') as server_type,
+                json_extract_path_text(Properties, 'Token') as token,
+                json_extract_path_text(Properties, 'AuthType') as auth_type,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Username') as username
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeBuild::SourceCredential'

@@ -92,8 +92,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cloud9::EnvironmentEC2'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cloud9::EnvironmentEC2'
     environment_ec2:
       name: environment_ec2
       id: aws.cloud9.environment_ec2
@@ -121,3 +128,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cloud9::EnvironmentEC2'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Repositories') as repositories,
+                json_extract_path_text(Properties, 'OwnerArn') as owner_arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ConnectionType') as connection_type,
+                json_extract_path_text(Properties, 'AutomaticStopTimeMinutes') as automatic_stop_time_minutes,
+                json_extract_path_text(Properties, 'ImageId') as image_id,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'InstanceType') as instance_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cloud9::EnvironmentEC2'

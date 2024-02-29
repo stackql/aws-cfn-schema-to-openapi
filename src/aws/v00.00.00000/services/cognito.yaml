@@ -1176,8 +1176,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPool'
     identity_pool:
       name: identity_pool
       id: aws.cognito.identity_pool
@@ -1206,6 +1213,25 @@ components:
               JSON_EXTRACT(Properties, '$.OpenIdConnectProviderARNs') as open_id_connect_provider_ar_ns,
               JSON_EXTRACT(Properties, '$.AllowClassicFlow') as allow_classic_flow
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PushSync') as push_sync,
+                json_extract_path_text(Properties, 'CognitoIdentityProviders') as cognito_identity_providers,
+                json_extract_path_text(Properties, 'DeveloperProviderName') as developer_provider_name,
+                json_extract_path_text(Properties, 'CognitoStreams') as cognito_streams,
+                json_extract_path_text(Properties, 'SupportedLoginProviders') as supported_login_providers,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'CognitoEvents') as cognito_events,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IdentityPoolName') as identity_pool_name,
+                json_extract_path_text(Properties, 'AllowUnauthenticatedIdentities') as allow_unauthenticated_identities,
+                json_extract_path_text(Properties, 'SamlProviderARNs') as saml_provider_ar_ns,
+                json_extract_path_text(Properties, 'OpenIdConnectProviderARNs') as open_id_connect_provider_ar_ns,
+                json_extract_path_text(Properties, 'AllowClassicFlow') as allow_classic_flow
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPool'
     identity_pool_principal_tags:
       name: identity_pool_principal_tags
       id: aws.cognito.identity_pool_principal_tags
@@ -1222,8 +1248,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.IdentityPoolId') as identity_pool_id,
-              JSON_EXTRACT(Properties, '$.IdentityProviderName') as identity_provider_name
+              JSON_EXTRACT(Properties, '$.IdentityProviderName') as identity_provider_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPoolPrincipalTag'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityPoolId') as identity_pool_id,
+                json_extract_path_text(Properties, 'IdentityProviderName') as identity_provider_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPoolPrincipalTag'
     identity_pool_principal_tag:
       name: identity_pool_principal_tag
       id: aws.cognito.identity_pool_principal_tag
@@ -1244,6 +1278,16 @@ components:
               JSON_EXTRACT(Properties, '$.UseDefaults') as use_defaults,
               JSON_EXTRACT(Properties, '$.PrincipalTags') as principal_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPoolPrincipalTag'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityPoolId') as identity_pool_id,
+                json_extract_path_text(Properties, 'IdentityProviderName') as identity_provider_name,
+                json_extract_path_text(Properties, 'UseDefaults') as use_defaults,
+                json_extract_path_text(Properties, 'PrincipalTags') as principal_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPoolPrincipalTag'
     identity_pool_role_attachments:
       name: identity_pool_role_attachments
       id: aws.cognito.identity_pool_role_attachments
@@ -1258,8 +1302,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment'
     identity_pool_role_attachment:
       name: identity_pool_role_attachment
       id: aws.cognito.identity_pool_role_attachment
@@ -1279,6 +1330,16 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.RoleMappings') as role_mappings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentityPoolId') as identity_pool_id,
+                json_extract_path_text(Properties, 'Roles') as roles,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RoleMappings') as role_mappings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::IdentityPoolRoleAttachment'
     log_delivery_configurations:
       name: log_delivery_configurations
       id: aws.cognito.log_delivery_configurations
@@ -1293,8 +1354,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::LogDeliveryConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::LogDeliveryConfiguration'
     log_delivery_configuration:
       name: log_delivery_configuration
       id: aws.cognito.log_delivery_configuration
@@ -1313,6 +1381,15 @@ components:
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.LogConfigurations') as log_configurations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::LogDeliveryConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'LogConfigurations') as log_configurations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::LogDeliveryConfiguration'
     user_pools:
       name: user_pools
       id: aws.cognito.user_pools
@@ -1327,8 +1404,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id
+              JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPool'
     user_pool:
       name: user_pool
       id: aws.cognito.user_pool
@@ -1372,6 +1456,40 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPool'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolName') as user_pool_name,
+                json_extract_path_text(Properties, 'Policies') as policies,
+                json_extract_path_text(Properties, 'AccountRecoverySetting') as account_recovery_setting,
+                json_extract_path_text(Properties, 'AdminCreateUserConfig') as admin_create_user_config,
+                json_extract_path_text(Properties, 'AliasAttributes') as alias_attributes,
+                json_extract_path_text(Properties, 'UsernameAttributes') as username_attributes,
+                json_extract_path_text(Properties, 'AutoVerifiedAttributes') as auto_verified_attributes,
+                json_extract_path_text(Properties, 'DeviceConfiguration') as device_configuration,
+                json_extract_path_text(Properties, 'EmailConfiguration') as email_configuration,
+                json_extract_path_text(Properties, 'EmailVerificationMessage') as email_verification_message,
+                json_extract_path_text(Properties, 'EmailVerificationSubject') as email_verification_subject,
+                json_extract_path_text(Properties, 'DeletionProtection') as deletion_protection,
+                json_extract_path_text(Properties, 'LambdaConfig') as lambda_config,
+                json_extract_path_text(Properties, 'MfaConfiguration') as mfa_configuration,
+                json_extract_path_text(Properties, 'EnabledMfas') as enabled_mfas,
+                json_extract_path_text(Properties, 'SmsAuthenticationMessage') as sms_authentication_message,
+                json_extract_path_text(Properties, 'SmsConfiguration') as sms_configuration,
+                json_extract_path_text(Properties, 'SmsVerificationMessage') as sms_verification_message,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'UsernameConfiguration') as username_configuration,
+                json_extract_path_text(Properties, 'UserAttributeUpdateSettings') as user_attribute_update_settings,
+                json_extract_path_text(Properties, 'UserPoolTags') as user_pool_tags,
+                json_extract_path_text(Properties, 'VerificationMessageTemplate') as verification_message_template,
+                json_extract_path_text(Properties, 'UserPoolAddOns') as user_pool_add_ons,
+                json_extract_path_text(Properties, 'ProviderName') as provider_name,
+                json_extract_path_text(Properties, 'ProviderURL') as provider_ur_l,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPool'
     user_pool_clients:
       name: user_pool_clients
       id: aws.cognito.user_pool_clients
@@ -1388,8 +1506,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
-              JSON_EXTRACT(Properties, '$.ClientId') as client_id
+              JSON_EXTRACT(Properties, '$.ClientId') as client_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolClient'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'ClientId') as client_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolClient'
     user_pool_client:
       name: user_pool_client
       id: aws.cognito.user_pool_client
@@ -1431,6 +1557,37 @@ components:
               JSON_EXTRACT(Properties, '$.ClientSecret') as client_secret,
               JSON_EXTRACT(Properties, '$.ClientId') as client_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolClient'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClientName') as client_name,
+                json_extract_path_text(Properties, 'ExplicitAuthFlows') as explicit_auth_flows,
+                json_extract_path_text(Properties, 'GenerateSecret') as generate_secret,
+                json_extract_path_text(Properties, 'ReadAttributes') as read_attributes,
+                json_extract_path_text(Properties, 'AuthSessionValidity') as auth_session_validity,
+                json_extract_path_text(Properties, 'RefreshTokenValidity') as refresh_token_validity,
+                json_extract_path_text(Properties, 'AccessTokenValidity') as access_token_validity,
+                json_extract_path_text(Properties, 'IdTokenValidity') as id_token_validity,
+                json_extract_path_text(Properties, 'TokenValidityUnits') as token_validity_units,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'WriteAttributes') as write_attributes,
+                json_extract_path_text(Properties, 'AllowedOAuthFlows') as allowed_oauth_flows,
+                json_extract_path_text(Properties, 'AllowedOAuthFlowsUserPoolClient') as allowed_oauth_flows_user_pool_client,
+                json_extract_path_text(Properties, 'AllowedOAuthScopes') as allowed_oauth_scopes,
+                json_extract_path_text(Properties, 'CallbackURLs') as callback_ur_ls,
+                json_extract_path_text(Properties, 'DefaultRedirectURI') as default_redirect_ur_i,
+                json_extract_path_text(Properties, 'LogoutURLs') as logout_ur_ls,
+                json_extract_path_text(Properties, 'SupportedIdentityProviders') as supported_identity_providers,
+                json_extract_path_text(Properties, 'AnalyticsConfiguration') as analytics_configuration,
+                json_extract_path_text(Properties, 'PreventUserExistenceErrors') as prevent_user_existence_errors,
+                json_extract_path_text(Properties, 'EnableTokenRevocation') as enable_token_revocation,
+                json_extract_path_text(Properties, 'EnablePropagateAdditionalUserContextData') as enable_propagate_additional_user_context_data,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ClientSecret') as client_secret,
+                json_extract_path_text(Properties, 'ClientId') as client_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolClient'
     user_pool_domains:
       name: user_pool_domains
       id: aws.cognito.user_pool_domains
@@ -1445,8 +1602,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain'
     user_pool_domain:
       name: user_pool_domain
       id: aws.cognito.user_pool_domain
@@ -1467,6 +1631,17 @@ components:
               JSON_EXTRACT(Properties, '$.Domain') as domain,
               JSON_EXTRACT(Properties, '$.CustomDomainConfig') as custom_domain_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CloudFrontDistribution') as cloud_front_distribution,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'CustomDomainConfig') as custom_domain_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolDomain'
     user_pool_groups:
       name: user_pool_groups
       id: aws.cognito.user_pool_groups
@@ -1483,8 +1658,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
-              JSON_EXTRACT(Properties, '$.GroupName') as group_name
+              JSON_EXTRACT(Properties, '$.GroupName') as group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'GroupName') as group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolGroup'
     user_pool_group:
       name: user_pool_group
       id: aws.cognito.user_pool_group
@@ -1506,6 +1689,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'Precedence') as precedence,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolGroup'
     user_pool_identity_providers:
       name: user_pool_identity_providers
       id: aws.cognito.user_pool_identity_providers
@@ -1520,8 +1714,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider'
     user_pool_identity_provider:
       name: user_pool_identity_provider
       id: aws.cognito.user_pool_identity_provider
@@ -1544,6 +1745,19 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.IdpIdentifiers') as idp_identifiers
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProviderName') as provider_name,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'AttributeMapping') as attribute_mapping,
+                json_extract_path_text(Properties, 'ProviderDetails') as provider_details,
+                json_extract_path_text(Properties, 'ProviderType') as provider_type,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IdpIdentifiers') as idp_identifiers
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolIdentityProvider'
     user_pool_resource_servers:
       name: user_pool_resource_servers
       id: aws.cognito.user_pool_resource_servers
@@ -1558,8 +1772,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolResourceServer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolResourceServer'
     user_pool_resource_server:
       name: user_pool_resource_server
       id: aws.cognito.user_pool_resource_server
@@ -1580,6 +1801,17 @@ components:
               JSON_EXTRACT(Properties, '$.Scopes') as scopes,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolResourceServer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'Identifier') as identifier,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Scopes') as scopes,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolResourceServer'
     user_pool_risk_configuration_attachments:
       name: user_pool_risk_configuration_attachments
       id: aws.cognito.user_pool_risk_configuration_attachments
@@ -1596,8 +1828,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
-              JSON_EXTRACT(Properties, '$.ClientId') as client_id
+              JSON_EXTRACT(Properties, '$.ClientId') as client_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'ClientId') as client_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment'
     user_pool_risk_configuration_attachment:
       name: user_pool_risk_configuration_attachment
       id: aws.cognito.user_pool_risk_configuration_attachment
@@ -1619,6 +1859,17 @@ components:
               JSON_EXTRACT(Properties, '$.CompromisedCredentialsRiskConfiguration') as compromised_credentials_risk_configuration,
               JSON_EXTRACT(Properties, '$.AccountTakeoverRiskConfiguration') as account_takeover_risk_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'ClientId') as client_id,
+                json_extract_path_text(Properties, 'RiskExceptionConfiguration') as risk_exception_configuration,
+                json_extract_path_text(Properties, 'CompromisedCredentialsRiskConfiguration') as compromised_credentials_risk_configuration,
+                json_extract_path_text(Properties, 'AccountTakeoverRiskConfiguration') as account_takeover_risk_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolRiskConfigurationAttachment'
     user_poolui_customization_attachments:
       name: user_poolui_customization_attachments
       id: aws.cognito.user_poolui_customization_attachments
@@ -1633,8 +1884,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment'
     user_poolui_customization_attachment:
       name: user_poolui_customization_attachment
       id: aws.cognito.user_poolui_customization_attachment
@@ -1654,6 +1912,16 @@ components:
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.ClientId') as client_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CSS') as c_ss,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'ClientId') as client_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUICustomizationAttachment'
     user_pool_users:
       name: user_pool_users
       id: aws.cognito.user_pool_users
@@ -1670,8 +1938,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
-              JSON_EXTRACT(Properties, '$.Username') as username
+              JSON_EXTRACT(Properties, '$.Username') as userna
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUser'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'Username') as userna
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUser'
     user_pool_user:
       name: user_pool_user
       id: aws.cognito.user_pool_user
@@ -1696,6 +1972,20 @@ components:
               JSON_EXTRACT(Properties, '$.ValidationData') as validation_data,
               JSON_EXTRACT(Properties, '$.ClientMetadata') as client_metadata
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUser'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DesiredDeliveryMediums') as desired_delivery_mediums,
+                json_extract_path_text(Properties, 'ForceAliasCreation') as force_alias_creation,
+                json_extract_path_text(Properties, 'UserAttributes') as user_attributes,
+                json_extract_path_text(Properties, 'MessageAction') as message_action,
+                json_extract_path_text(Properties, 'Username') as username,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'ValidationData') as validation_data,
+                json_extract_path_text(Properties, 'ClientMetadata') as client_metadata
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUser'
     user_pool_user_to_group_attachments:
       name: user_pool_user_to_group_attachments
       id: aws.cognito.user_pool_user_to_group_attachments
@@ -1714,8 +2004,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.UserPoolId') as user_pool_id,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name,
-              JSON_EXTRACT(Properties, '$.Username') as username
+              JSON_EXTRACT(Properties, '$.Username') as userna
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'GroupName') as group_name,
+                json_extract_path_text(Properties, 'Username') as userna
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment'
     user_pool_user_to_group_attachment:
       name: user_pool_user_to_group_attachment
       id: aws.cognito.user_pool_user_to_group_attachment
@@ -1736,3 +2035,12 @@ components:
               JSON_EXTRACT(Properties, '$.Username') as username,
               JSON_EXTRACT(Properties, '$.GroupName') as group_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserPoolId') as user_pool_id,
+                json_extract_path_text(Properties, 'Username') as username,
+                json_extract_path_text(Properties, 'GroupName') as group_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Cognito::UserPoolUserToGroupAttachment'

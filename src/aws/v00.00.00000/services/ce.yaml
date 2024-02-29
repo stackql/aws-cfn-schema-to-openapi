@@ -278,8 +278,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_arn
+              JSON_EXTRACT(Properties, '$.MonitorArn') as monitor_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MonitorArn') as monitor_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
     anomaly_monitor:
       name: anomaly_monitor
       id: aws.ce.anomaly_monitor
@@ -305,6 +312,22 @@ components:
               JSON_EXTRACT(Properties, '$.DimensionalValueCount') as dimensional_value_count,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MonitorArn') as monitor_arn,
+                json_extract_path_text(Properties, 'MonitorType') as monitor_type,
+                json_extract_path_text(Properties, 'MonitorName') as monitor_name,
+                json_extract_path_text(Properties, 'CreationDate') as creation_date,
+                json_extract_path_text(Properties, 'LastEvaluatedDate') as last_evaluated_date,
+                json_extract_path_text(Properties, 'LastUpdatedDate') as last_updated_date,
+                json_extract_path_text(Properties, 'MonitorDimension') as monitor_dimension,
+                json_extract_path_text(Properties, 'MonitorSpecification') as monitor_specification,
+                json_extract_path_text(Properties, 'DimensionalValueCount') as dimensional_value_count,
+                json_extract_path_text(Properties, 'ResourceTags') as resource_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalyMonitor'
     anomaly_subscriptions:
       name: anomaly_subscriptions
       id: aws.ce.anomaly_subscriptions
@@ -319,8 +342,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SubscriptionArn') as subscription_arn
+              JSON_EXTRACT(Properties, '$.SubscriptionArn') as subscription_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubscriptionArn') as subscription_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
     anomaly_subscription:
       name: anomaly_subscription
       id: aws.ce.anomaly_subscription
@@ -345,6 +375,21 @@ components:
               JSON_EXTRACT(Properties, '$.Frequency') as frequency,
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubscriptionArn') as subscription_arn,
+                json_extract_path_text(Properties, 'SubscriptionName') as subscription_name,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'MonitorArnList') as monitor_arn_list,
+                json_extract_path_text(Properties, 'Subscribers') as subscribers,
+                json_extract_path_text(Properties, 'Threshold') as threshold,
+                json_extract_path_text(Properties, 'ThresholdExpression') as threshold_expression,
+                json_extract_path_text(Properties, 'Frequency') as frequency,
+                json_extract_path_text(Properties, 'ResourceTags') as resource_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::AnomalySubscription'
     cost_categories:
       name: cost_categories
       id: aws.ce.cost_categories
@@ -359,8 +404,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::CostCategory'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CE::CostCategory'
     cost_category:
       name: cost_category
       id: aws.ce.cost_category
@@ -383,3 +435,16 @@ components:
               JSON_EXTRACT(Properties, '$.SplitChargeRules') as split_charge_rules,
               JSON_EXTRACT(Properties, '$.DefaultValue') as default_value
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::CostCategory'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'EffectiveStart') as effective_start,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RuleVersion') as rule_version,
+                json_extract_path_text(Properties, 'Rules') as rules,
+                json_extract_path_text(Properties, 'SplitChargeRules') as split_charge_rules,
+                json_extract_path_text(Properties, 'DefaultValue') as default_value
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CE::CostCategory'

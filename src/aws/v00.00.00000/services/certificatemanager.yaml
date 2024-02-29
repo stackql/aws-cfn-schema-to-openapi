@@ -123,8 +123,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccountId') as account_id
+              JSON_EXTRACT(Properties, '$.AccountId') as account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Account'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Account'
     account:
       name: account
       id: aws.certificatemanager.account
@@ -142,6 +149,14 @@ components:
               JSON_EXTRACT(Properties, '$.ExpiryEventsConfiguration') as expiry_events_configuration,
               JSON_EXTRACT(Properties, '$.AccountId') as account_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CertificateManager::Account'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ExpiryEventsConfiguration') as expiry_events_configuration,
+                json_extract_path_text(Properties, 'AccountId') as account_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CertificateManager::Account'
     certificates:
       name: certificates
       id: aws.certificatemanager.certificates
@@ -156,8 +171,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CertificateManager::Certificate'
     certificate:
       name: certificate
       id: aws.certificatemanager.certificate
@@ -182,3 +204,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.KeyAlgorithm') as key_algorithm
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CertificateManager::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CertificateAuthorityArn') as certificate_authority_arn,
+                json_extract_path_text(Properties, 'DomainValidationOptions') as domain_validation_options,
+                json_extract_path_text(Properties, 'CertificateTransparencyLoggingPreference') as certificate_transparency_logging_preference,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'ValidationMethod') as validation_method,
+                json_extract_path_text(Properties, 'SubjectAlternativeNames') as subject_alternative_names,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'KeyAlgorithm') as key_algorithm
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CertificateManager::Certificate'

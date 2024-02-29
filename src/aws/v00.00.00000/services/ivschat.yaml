@@ -281,8 +281,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
     logging_configuration:
       name: logging_configuration
       id: aws.ivschat.logging_configuration
@@ -304,6 +311,18 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DestinationConfiguration') as destination_configuration,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::LoggingConfiguration'
     rooms:
       name: rooms
       id: aws.ivschat.rooms
@@ -318,8 +337,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::Room'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVSChat::Room'
     room:
       name: room
       id: aws.ivschat.room
@@ -343,3 +369,17 @@ components:
               JSON_EXTRACT(Properties, '$.MessageReviewHandler') as message_review_handler,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::Room'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'LoggingConfigurationIdentifiers') as logging_configuration_identifiers,
+                json_extract_path_text(Properties, 'MaximumMessageLength') as maximum_message_length,
+                json_extract_path_text(Properties, 'MaximumMessageRatePerSecond') as maximum_message_rate_per_second,
+                json_extract_path_text(Properties, 'MessageReviewHandler') as message_review_handler,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVSChat::Room'

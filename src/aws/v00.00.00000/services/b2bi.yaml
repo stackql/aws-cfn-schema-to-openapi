@@ -488,8 +488,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CapabilityId') as capability_id
+              JSON_EXTRACT(Properties, '$.CapabilityId') as capability_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Capability'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CapabilityId') as capability_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Capability'
     capability:
       name: capability
       id: aws.b2bi.capability
@@ -514,6 +521,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Capability'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CapabilityArn') as capability_arn,
+                json_extract_path_text(Properties, 'CapabilityId') as capability_id,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'InstructionsDocuments') as instructions_documents,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Capability'
     partnerships:
       name: partnerships
       id: aws.b2bi.partnerships
@@ -528,8 +550,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PartnershipId') as partnership_id
+              JSON_EXTRACT(Properties, '$.PartnershipId') as partnership_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Partnership'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PartnershipId') as partnership_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Partnership'
     partnership:
       name: partnership
       id: aws.b2bi.partnership
@@ -556,6 +585,23 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.TradingPartnerId') as trading_partner_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Partnership'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Capabilities') as capabilities,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Email') as email,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PartnershipArn') as partnership_arn,
+                json_extract_path_text(Properties, 'PartnershipId') as partnership_id,
+                json_extract_path_text(Properties, 'Phone') as phone,
+                json_extract_path_text(Properties, 'ProfileId') as profile_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TradingPartnerId') as trading_partner_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Partnership'
     profiles:
       name: profiles
       id: aws.b2bi.profiles
@@ -570,8 +616,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProfileId') as profile_id
+              JSON_EXTRACT(Properties, '$.ProfileId') as profile_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProfileId') as profile_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Profile'
     profile:
       name: profile
       id: aws.b2bi.profile
@@ -598,6 +651,23 @@ components:
               JSON_EXTRACT(Properties, '$.ProfileId') as profile_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Profile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BusinessName') as business_name,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'Email') as email,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'Logging') as logging,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Phone') as phone,
+                json_extract_path_text(Properties, 'ProfileArn') as profile_arn,
+                json_extract_path_text(Properties, 'ProfileId') as profile_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Profile'
     transformers:
       name: transformers
       id: aws.b2bi.transformers
@@ -612,8 +682,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TransformerId') as transformer_id
+              JSON_EXTRACT(Properties, '$.TransformerId') as transformer_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Transformer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TransformerId') as transformer_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::B2BI::Transformer'
     transformer:
       name: transformer
       id: aws.b2bi.transformer
@@ -640,3 +717,20 @@ components:
               JSON_EXTRACT(Properties, '$.TransformerArn') as transformer_arn,
               JSON_EXTRACT(Properties, '$.TransformerId') as transformer_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Transformer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreatedAt') as created_at,
+                json_extract_path_text(Properties, 'EdiType') as edi_type,
+                json_extract_path_text(Properties, 'FileFormat') as file_format,
+                json_extract_path_text(Properties, 'MappingTemplate') as mapping_template,
+                json_extract_path_text(Properties, 'ModifiedAt') as modified_at,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SampleDocument') as sample_document,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TransformerArn') as transformer_arn,
+                json_extract_path_text(Properties, 'TransformerId') as transformer_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::B2BI::Transformer'

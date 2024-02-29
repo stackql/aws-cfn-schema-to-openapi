@@ -137,8 +137,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
-              JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id
+              JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GroupId') as group_id,
+                json_extract_path_text(Properties, 'IdentityStoreId') as identity_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::Group'
     group:
       name: group
       id: aws.identitystore.group
@@ -159,6 +167,16 @@ components:
               JSON_EXTRACT(Properties, '$.GroupId') as group_id,
               JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IdentityStore::Group'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'GroupId') as group_id,
+                json_extract_path_text(Properties, 'IdentityStoreId') as identity_store_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IdentityStore::Group'
     group_memberships:
       name: group_memberships
       id: aws.identitystore.group_memberships
@@ -175,8 +193,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.MembershipId') as membership_id,
-              JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_id
+              JSON_EXTRACT(Properties, '$.IdentityStoreId') as identity_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MembershipId') as membership_id,
+                json_extract_path_text(Properties, 'IdentityStoreId') as identity_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership'
     group_membership:
       name: group_membership
       id: aws.identitystore.group_membership
@@ -197,3 +223,13 @@ components:
               JSON_EXTRACT(Properties, '$.MemberId') as member_id,
               JSON_EXTRACT(Properties, '$.MembershipId') as membership_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GroupId') as group_id,
+                json_extract_path_text(Properties, 'IdentityStoreId') as identity_store_id,
+                json_extract_path_text(Properties, 'MemberId') as member_id,
+                json_extract_path_text(Properties, 'MembershipId') as membership_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IdentityStore::GroupMembership'

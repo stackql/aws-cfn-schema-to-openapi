@@ -412,8 +412,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'
     lifecycle_policy:
       name: lifecycle_policy
       id: aws.dlm.lifecycle_policy
@@ -443,3 +450,23 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.CopyTags') as copy_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreateInterval') as create_interval,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ExtendDeletion') as extend_deletion,
+                json_extract_path_text(Properties, 'Exclusions') as exclusions,
+                json_extract_path_text(Properties, 'RetainInterval') as retain_interval,
+                json_extract_path_text(Properties, 'ExecutionRoleArn') as execution_role_arn,
+                json_extract_path_text(Properties, 'DefaultPolicy') as default_policy,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'CrossRegionCopyTargets') as cross_region_copy_targets,
+                json_extract_path_text(Properties, 'PolicyDetails') as policy_details,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CopyTags') as copy_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DLM::LifecyclePolicy'

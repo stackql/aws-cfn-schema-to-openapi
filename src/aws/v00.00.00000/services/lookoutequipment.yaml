@@ -204,8 +204,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InferenceSchedulerName') as inference_scheduler_name
+              JSON_EXTRACT(Properties, '$.InferenceSchedulerName') as inference_scheduler_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InferenceSchedulerName') as inference_scheduler_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'
     inference_scheduler:
       name: inference_scheduler
       id: aws.lookoutequipment.inference_scheduler
@@ -231,3 +238,19 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.InferenceSchedulerArn') as inference_scheduler_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DataDelayOffsetInMinutes') as data_delay_offset_in_minutes,
+                json_extract_path_text(Properties, 'DataInputConfiguration') as data_input_configuration,
+                json_extract_path_text(Properties, 'DataOutputConfiguration') as data_output_configuration,
+                json_extract_path_text(Properties, 'DataUploadFrequency') as data_upload_frequency,
+                json_extract_path_text(Properties, 'InferenceSchedulerName') as inference_scheduler_name,
+                json_extract_path_text(Properties, 'ModelName') as model_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'ServerSideKmsKeyId') as server_side_kms_key_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'InferenceSchedulerArn') as inference_scheduler_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LookoutEquipment::InferenceScheduler'

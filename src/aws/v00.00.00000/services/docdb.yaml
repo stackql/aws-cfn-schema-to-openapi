@@ -258,8 +258,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBCluster'
     db_cluster:
       name: db_cluster
       id: aws.docdb.db_cluster
@@ -303,6 +310,40 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBCluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageEncrypted') as storage_encrypted,
+                json_extract_path_text(Properties, 'RestoreToTime') as restore_to_time,
+                json_extract_path_text(Properties, 'SnapshotIdentifier') as snapshot_identifier,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'DBClusterIdentifier') as d_bcluster_identifier,
+                json_extract_path_text(Properties, 'PreferredBackupWindow') as preferred_backup_window,
+                json_extract_path_text(Properties, 'ClusterResourceId') as cluster_resource_id,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids,
+                json_extract_path_text(Properties, 'CopyTagsToSnapshot') as copy_tags_to_snapshot,
+                json_extract_path_text(Properties, 'RestoreType') as restore_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'StorageType') as storage_type,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'AvailabilityZones') as availability_zones,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'DBSubnetGroupName') as d_bsubnet_group_name,
+                json_extract_path_text(Properties, 'DeletionProtection') as deletion_protection,
+                json_extract_path_text(Properties, 'UseLatestRestorableTime') as use_latest_restorable_time,
+                json_extract_path_text(Properties, 'MasterUserPassword') as master_user_password,
+                json_extract_path_text(Properties, 'SourceDBClusterIdentifier') as source_db_cluster_identifier,
+                json_extract_path_text(Properties, 'MasterUsername') as master_username,
+                json_extract_path_text(Properties, 'ReadEndpoint') as read_endpoint,
+                json_extract_path_text(Properties, 'DBClusterParameterGroupName') as d_bcluster_parameter_group_name,
+                json_extract_path_text(Properties, 'BackupRetentionPeriod') as backup_retention_period,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'EnableCloudwatchLogsExports') as enable_cloudwatch_logs_exports
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBCluster'
     db_cluster_parameter_groups:
       name: db_cluster_parameter_groups
       id: aws.docdb.db_cluster_parameter_groups
@@ -317,8 +358,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
     db_cluster_parameter_group:
       name: db_cluster_parameter_group
       id: aws.docdb.db_cluster_parameter_group
@@ -340,6 +388,18 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Name') as name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Family') as family,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBClusterParameterGroup'
     db_instances:
       name: db_instances
       id: aws.docdb.db_instances
@@ -354,8 +414,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBInstance'
     db_instance:
       name: db_instance
       id: aws.docdb.db_instance
@@ -384,6 +451,25 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DBInstanceClass') as d_binstance_class,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'DBClusterIdentifier') as d_bcluster_identifier,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'EnablePerformanceInsights') as enable_performance_insights,
+                json_extract_path_text(Properties, 'AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
+                json_extract_path_text(Properties, 'DBInstanceIdentifier') as d_binstance_identifier,
+                json_extract_path_text(Properties, 'CACertificateIdentifier') as c_acertificate_identifier,
+                json_extract_path_text(Properties, 'CertificateRotationRestart') as certificate_rotation_restart,
+                json_extract_path_text(Properties, 'Endpoint') as endpoint,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBInstance'
     db_subnet_groups:
       name: db_subnet_groups
       id: aws.docdb.db_subnet_groups
@@ -398,8 +484,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
     db_subnet_group:
       name: db_subnet_group
       id: aws.docdb.db_subnet_group
@@ -420,6 +513,17 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DBSubnetGroupName') as d_bsubnet_group_name,
+                json_extract_path_text(Properties, 'DBSubnetGroupDescription') as d_bsubnet_group_description,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::DBSubnetGroup'
     event_subscriptions:
       name: event_subscriptions
       id: aws.docdb.event_subscriptions
@@ -434,8 +538,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDB::EventSubscription'
     event_subscription:
       name: event_subscription
       id: aws.docdb.event_subscription
@@ -458,3 +569,16 @@ components:
               JSON_EXTRACT(Properties, '$.SourceIds') as source_ids,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceType') as source_type,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'EventCategories') as event_categories,
+                json_extract_path_text(Properties, 'SubscriptionName') as subscription_name,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'SourceIds') as source_ids,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDB::EventSubscription'

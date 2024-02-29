@@ -221,8 +221,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_id
+              JSON_EXTRACT(Properties, '$.EnvironmentId') as environment_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FinSpace::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::FinSpace::Environment'
     environment:
       name: environment
       id: aws.finspace.environment
@@ -253,3 +260,24 @@ components:
               JSON_EXTRACT(Properties, '$.DataBundles') as data_bundles,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FinSpace::Environment'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnvironmentId') as environment_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'EnvironmentUrl') as environment_url,
+                json_extract_path_text(Properties, 'EnvironmentArn') as environment_arn,
+                json_extract_path_text(Properties, 'SageMakerStudioDomainUrl') as sage_maker_studio_domain_url,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'DedicatedServiceAccountId') as dedicated_service_account_id,
+                json_extract_path_text(Properties, 'FederationMode') as federation_mode,
+                json_extract_path_text(Properties, 'FederationParameters') as federation_parameters,
+                json_extract_path_text(Properties, 'SuperuserParameters') as superuser_parameters,
+                json_extract_path_text(Properties, 'DataBundles') as data_bundles,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::FinSpace::Environment'

@@ -122,8 +122,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
+              JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ARCZonalShift::ZonalAutoshiftConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ARCZonalShift::ZonalAutoshiftConfiguration'
     zonal_autoshift_configuration:
       name: zonal_autoshift_configuration
       id: aws.arczonalshift.zonal_autoshift_configuration
@@ -142,3 +149,12 @@ components:
               JSON_EXTRACT(Properties, '$.PracticeRunConfiguration') as practice_run_configuration,
               JSON_EXTRACT(Properties, '$.ResourceIdentifier') as resource_identifier
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ARCZonalShift::ZonalAutoshiftConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ZonalAutoshiftStatus') as zonal_autoshift_status,
+                json_extract_path_text(Properties, 'PracticeRunConfiguration') as practice_run_configuration,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ARCZonalShift::ZonalAutoshiftConfiguration'

@@ -1795,8 +1795,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AgentArn') as agent_arn
+              JSON_EXTRACT(Properties, '$.AgentArn') as agent_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Agent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AgentArn') as agent_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Agent'
     agent:
       name: agent
       id: aws.datasync.agent
@@ -1820,6 +1827,20 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AgentArn') as agent_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Agent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AgentName') as agent_name,
+                json_extract_path_text(Properties, 'ActivationKey') as activation_key,
+                json_extract_path_text(Properties, 'SecurityGroupArns') as security_group_arns,
+                json_extract_path_text(Properties, 'SubnetArns') as subnet_arns,
+                json_extract_path_text(Properties, 'VpcEndpointId') as vpc_endpoint_id,
+                json_extract_path_text(Properties, 'EndpointType') as endpoint_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AgentArn') as agent_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Agent'
     location_azure_blobs:
       name: location_azure_blobs
       id: aws.datasync.location_azure_blobs
@@ -1834,8 +1855,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
     location_azure_blob:
       name: location_azure_blob
       id: aws.datasync.location_azure_blob
@@ -1861,6 +1889,22 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AgentArns') as agent_arns,
+                json_extract_path_text(Properties, 'AzureBlobAuthenticationType') as azure_blob_authentication_type,
+                json_extract_path_text(Properties, 'AzureBlobSasConfiguration') as azure_blob_sas_configuration,
+                json_extract_path_text(Properties, 'AzureBlobContainerUrl') as azure_blob_container_url,
+                json_extract_path_text(Properties, 'AzureBlobType') as azure_blob_type,
+                json_extract_path_text(Properties, 'AzureAccessTier') as azure_access_tier,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationAzureBlob'
     location_efs:
       name: location_efs
       id: aws.datasync.location_efs
@@ -1885,6 +1929,21 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationEFS'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Ec2Config') as ec2_config,
+                json_extract_path_text(Properties, 'EfsFilesystemArn') as efs_filesystem_arn,
+                json_extract_path_text(Properties, 'AccessPointArn') as access_point_arn,
+                json_extract_path_text(Properties, 'FileSystemAccessRoleArn') as file_system_access_role_arn,
+                json_extract_path_text(Properties, 'InTransitEncryption') as in_transit_encryption,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationEFS'
     locationf_sx_lustres:
       name: locationf_sx_lustres
       id: aws.datasync.locationf_sx_lustres
@@ -1899,8 +1958,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
     locationf_sx_lustre:
       name: locationf_sx_lustre
       id: aws.datasync.locationf_sx_lustre
@@ -1922,6 +1988,18 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FsxFilesystemArn') as fsx_filesystem_arn,
+                json_extract_path_text(Properties, 'SecurityGroupArns') as security_group_arns,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxLustre'
     locationf_sx_ontaps:
       name: locationf_sx_ontaps
       id: aws.datasync.locationf_sx_ontaps
@@ -1936,8 +2014,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
     locationf_sx_ontap:
       name: locationf_sx_ontap
       id: aws.datasync.locationf_sx_ontap
@@ -1961,6 +2046,20 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageVirtualMachineArn') as storage_virtual_machine_arn,
+                json_extract_path_text(Properties, 'FsxFilesystemArn') as fsx_filesystem_arn,
+                json_extract_path_text(Properties, 'SecurityGroupArns') as security_group_arns,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxONTAP'
     locationf_sx_open_zfs:
       name: locationf_sx_open_zfs
       id: aws.datasync.locationf_sx_open_zfs
@@ -1983,6 +2082,19 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxOpenZFS'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FsxFilesystemArn') as fsx_filesystem_arn,
+                json_extract_path_text(Properties, 'SecurityGroupArns') as security_group_arns,
+                json_extract_path_text(Properties, 'Protocol') as protocol,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxOpenZFS'
     locationf_sx_windows:
       name: locationf_sx_windows
       id: aws.datasync.locationf_sx_windows
@@ -2007,6 +2119,21 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxWindows'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'FsxFilesystemArn') as fsx_filesystem_arn,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'SecurityGroupArns') as security_group_arns,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'User') as user,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationFSxWindows'
     location_hdfs:
       name: location_hdfs
       id: aws.datasync.location_hdfs
@@ -2037,6 +2164,27 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationHDFS'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'NameNodes') as name_nodes,
+                json_extract_path_text(Properties, 'BlockSize') as block_size,
+                json_extract_path_text(Properties, 'ReplicationFactor') as replication_factor,
+                json_extract_path_text(Properties, 'KmsKeyProviderUri') as kms_key_provider_uri,
+                json_extract_path_text(Properties, 'QopConfiguration') as qop_configuration,
+                json_extract_path_text(Properties, 'AuthenticationType') as authentication_type,
+                json_extract_path_text(Properties, 'SimpleUser') as simple_user,
+                json_extract_path_text(Properties, 'KerberosPrincipal') as kerberos_principal,
+                json_extract_path_text(Properties, 'KerberosKeytab') as kerberos_keytab,
+                json_extract_path_text(Properties, 'KerberosKrb5Conf') as kerberos_krb5_conf,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AgentArns') as agent_arns,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationHDFS'
     location_nfs:
       name: location_nfs
       id: aws.datasync.location_nfs
@@ -2059,6 +2207,19 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationNFS'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MountOptions') as mount_options,
+                json_extract_path_text(Properties, 'OnPremConfig') as on_prem_config,
+                json_extract_path_text(Properties, 'ServerHostname') as server_hostname,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationNFS'
     location_object_storages:
       name: location_object_storages
       id: aws.datasync.location_object_storages
@@ -2073,8 +2234,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
     location_object_storage:
       name: location_object_storage
       id: aws.datasync.location_object_storage
@@ -2102,6 +2270,24 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessKey') as access_key,
+                json_extract_path_text(Properties, 'AgentArns') as agent_arns,
+                json_extract_path_text(Properties, 'BucketName') as bucket_name,
+                json_extract_path_text(Properties, 'SecretKey') as secret_key,
+                json_extract_path_text(Properties, 'ServerCertificate') as server_certificate,
+                json_extract_path_text(Properties, 'ServerHostname') as server_hostname,
+                json_extract_path_text(Properties, 'ServerPort') as server_port,
+                json_extract_path_text(Properties, 'ServerProtocol') as server_protocol,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationObjectStorage'
     location_s3s:
       name: location_s3s
       id: aws.datasync.location_s3s
@@ -2116,8 +2302,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationS3'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationS3'
     location_s3:
       name: location_s3
       id: aws.datasync.location_s3
@@ -2140,6 +2333,19 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationS3'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'S3Config') as s3_config,
+                json_extract_path_text(Properties, 'S3BucketArn') as s3_bucket_arn,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'S3StorageClass') as s3_storage_class,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationS3'
     location_smbs:
       name: location_smbs
       id: aws.datasync.location_smbs
@@ -2154,8 +2360,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationArn') as location_arn
+              JSON_EXTRACT(Properties, '$.LocationArn') as location_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationArn') as location_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
     location_smb:
       name: location_smb
       id: aws.datasync.location_smb
@@ -2181,6 +2394,22 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.LocationUri') as location_uri
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AgentArns') as agent_arns,
+                json_extract_path_text(Properties, 'Domain') as domain,
+                json_extract_path_text(Properties, 'MountOptions') as mount_options,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'ServerHostname') as server_hostname,
+                json_extract_path_text(Properties, 'Subdirectory') as subdirectory,
+                json_extract_path_text(Properties, 'User') as user,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'LocationUri') as location_uri
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::LocationSMB'
     storage_systems:
       name: storage_systems
       id: aws.datasync.storage_systems
@@ -2195,8 +2424,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StorageSystemArn') as storage_system_arn
+              JSON_EXTRACT(Properties, '$.StorageSystemArn') as storage_system_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StorageSystemArn') as storage_system_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
     storage_system:
       name: storage_system
       id: aws.datasync.storage_system
@@ -2222,6 +2458,22 @@ components:
               JSON_EXTRACT(Properties, '$.StorageSystemArn') as storage_system_arn,
               JSON_EXTRACT(Properties, '$.ConnectivityStatus') as connectivity_status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ServerConfiguration') as server_configuration,
+                json_extract_path_text(Properties, 'ServerCredentials') as server_credentials,
+                json_extract_path_text(Properties, 'SecretsManagerArn') as secrets_manager_arn,
+                json_extract_path_text(Properties, 'SystemType') as system_type,
+                json_extract_path_text(Properties, 'AgentArns') as agent_arns,
+                json_extract_path_text(Properties, 'CloudWatchLogGroupArn') as cloud_watch_log_group_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'StorageSystemArn') as storage_system_arn,
+                json_extract_path_text(Properties, 'ConnectivityStatus') as connectivity_status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::StorageSystem'
     tasks:
       name: tasks
       id: aws.datasync.tasks
@@ -2236,8 +2488,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TaskArn') as task_arn
+              JSON_EXTRACT(Properties, '$.TaskArn') as task_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Task'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TaskArn') as task_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataSync::Task'
     task:
       name: task
       id: aws.datasync.task
@@ -2267,3 +2526,23 @@ components:
               JSON_EXTRACT(Properties, '$.SourceNetworkInterfaceArns') as source_network_interface_arns,
               JSON_EXTRACT(Properties, '$.DestinationNetworkInterfaceArns') as destination_network_interface_arns
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Task'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Excludes') as excludes,
+                json_extract_path_text(Properties, 'Includes') as includes,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CloudWatchLogGroupArn') as cloud_watch_log_group_arn,
+                json_extract_path_text(Properties, 'DestinationLocationArn') as destination_location_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Options') as options,
+                json_extract_path_text(Properties, 'TaskReportConfig') as task_report_config,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'SourceLocationArn') as source_location_arn,
+                json_extract_path_text(Properties, 'TaskArn') as task_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'SourceNetworkInterfaceArns') as source_network_interface_arns,
+                json_extract_path_text(Properties, 'DestinationNetworkInterfaceArns') as destination_network_interface_arns
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataSync::Task'

@@ -131,8 +131,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::Cluster'
     cluster:
       name: cluster
       id: aws.dax.cluster
@@ -166,6 +173,30 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SSESpecification') as s_se_specification,
+                json_extract_path_text(Properties, 'ClusterDiscoveryEndpointURL') as cluster_discovery_endpoint_ur_l,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ReplicationFactor') as replication_factor,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_name,
+                json_extract_path_text(Properties, 'AvailabilityZones') as availability_zones,
+                json_extract_path_text(Properties, 'IAMRoleARN') as i_am_role_ar_n,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_name,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'ClusterEndpointEncryptionType') as cluster_endpoint_encryption_type,
+                json_extract_path_text(Properties, 'NotificationTopicARN') as notification_topic_ar_n,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'NodeType') as node_type,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'ClusterDiscoveryEndpoint') as cluster_discovery_endpoint,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::Cluster'
     parameter_groups:
       name: parameter_groups
       id: aws.dax.parameter_groups
@@ -180,8 +211,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
     parameter_group:
       name: parameter_group
       id: aws.dax.parameter_group
@@ -201,6 +239,16 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ParameterNameValues') as parameter_name_values,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::ParameterGroup'
     subnet_groups:
       name: subnet_groups
       id: aws.dax.subnet_groups
@@ -215,8 +263,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::SubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DAX::SubnetGroup'
     subnet_group:
       name: subnet_group
       id: aws.dax.subnet_group
@@ -236,3 +291,13 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.SubnetGroupName') as subnet_group_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::SubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DAX::SubnetGroup'

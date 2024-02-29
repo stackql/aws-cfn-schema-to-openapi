@@ -1385,8 +1385,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Dataset'
     dataset:
       name: dataset
       id: aws.databrew.dataset
@@ -1408,6 +1415,18 @@ components:
               JSON_EXTRACT(Properties, '$.PathOptions') as path_options,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Format') as format,
+                json_extract_path_text(Properties, 'FormatOptions') as format_options,
+                json_extract_path_text(Properties, 'Input') as input,
+                json_extract_path_text(Properties, 'PathOptions') as path_options,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Dataset'
     recipes:
       name: recipes
       id: aws.databrew.recipes
@@ -1422,8 +1441,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Recipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Recipe'
     recipe:
       name: recipe
       id: aws.databrew.recipe
@@ -1443,6 +1469,16 @@ components:
               JSON_EXTRACT(Properties, '$.Steps') as steps,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Recipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Steps') as steps,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Recipe'
     jobs:
       name: jobs
       id: aws.databrew.jobs
@@ -1457,8 +1493,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Job'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Job'
     job:
       name: job
       id: aws.databrew.job
@@ -1494,6 +1537,32 @@ components:
               JSON_EXTRACT(Properties, '$.ProfileConfiguration') as profile_configuration,
               JSON_EXTRACT(Properties, '$.ValidationConfigurations') as validation_configurations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Job'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetName') as dataset_name,
+                json_extract_path_text(Properties, 'EncryptionKeyArn') as encryption_key_arn,
+                json_extract_path_text(Properties, 'EncryptionMode') as encryption_mode,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'LogSubscription') as log_subscription,
+                json_extract_path_text(Properties, 'MaxCapacity') as max_capacity,
+                json_extract_path_text(Properties, 'MaxRetries') as max_retries,
+                json_extract_path_text(Properties, 'Outputs') as outputs,
+                json_extract_path_text(Properties, 'DataCatalogOutputs') as data_catalog_outputs,
+                json_extract_path_text(Properties, 'DatabaseOutputs') as database_outputs,
+                json_extract_path_text(Properties, 'OutputLocation') as output_location,
+                json_extract_path_text(Properties, 'ProjectName') as project_name,
+                json_extract_path_text(Properties, 'Recipe') as recipe,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Timeout') as timeout,
+                json_extract_path_text(Properties, 'JobSample') as job_sample,
+                json_extract_path_text(Properties, 'ProfileConfiguration') as profile_configuration,
+                json_extract_path_text(Properties, 'ValidationConfigurations') as validation_configurations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Job'
     projects:
       name: projects
       id: aws.databrew.projects
@@ -1508,8 +1577,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Project'
     project:
       name: project
       id: aws.databrew.project
@@ -1531,6 +1607,18 @@ components:
               JSON_EXTRACT(Properties, '$.Sample') as sample,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetName') as dataset_name,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RecipeName') as recipe_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Sample') as sample,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Project'
     rulesets:
       name: rulesets
       id: aws.databrew.rulesets
@@ -1545,8 +1633,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
     ruleset:
       name: ruleset
       id: aws.databrew.ruleset
@@ -1567,6 +1662,17 @@ components:
               JSON_EXTRACT(Properties, '$.Rules') as rules,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'TargetArn') as target_arn,
+                json_extract_path_text(Properties, 'Rules') as rules,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Ruleset'
     schedules:
       name: schedules
       id: aws.databrew.schedules
@@ -1581,8 +1687,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Schedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DataBrew::Schedule'
     schedule:
       name: schedule
       id: aws.databrew.schedule
@@ -1602,3 +1715,13 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Schedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'JobNames') as job_names,
+                json_extract_path_text(Properties, 'CronExpression') as cron_expression,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DataBrew::Schedule'

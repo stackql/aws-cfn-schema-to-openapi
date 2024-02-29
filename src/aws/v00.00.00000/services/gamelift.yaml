@@ -1434,8 +1434,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AliasId') as alias_id
+              JSON_EXTRACT(Properties, '$.AliasId') as alias_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AliasId') as alias_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Alias'
     alias:
       name: alias
       id: aws.gamelift.alias
@@ -1455,6 +1462,16 @@ components:
               JSON_EXTRACT(Properties, '$.RoutingStrategy') as routing_strategy,
               JSON_EXTRACT(Properties, '$.AliasId') as alias_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Alias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoutingStrategy') as routing_strategy,
+                json_extract_path_text(Properties, 'AliasId') as alias_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Alias'
     builds:
       name: builds
       id: aws.gamelift.builds
@@ -1469,8 +1486,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.BuildId') as build_id
+              JSON_EXTRACT(Properties, '$.BuildId') as build_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Build'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BuildId') as build_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Build'
     build:
       name: build
       id: aws.gamelift.build
@@ -1492,6 +1516,18 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.ServerSdkVersion') as server_sdk_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Build'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BuildId') as build_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'OperatingSystem') as operating_system,
+                json_extract_path_text(Properties, 'StorageLocation') as storage_location,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'ServerSdkVersion') as server_sdk_version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Build'
     locations:
       name: locations
       id: aws.gamelift.locations
@@ -1506,8 +1542,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LocationName') as location_name
+              JSON_EXTRACT(Properties, '$.LocationName') as location_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Location'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationName') as location_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Location'
     location:
       name: location
       id: aws.gamelift.location
@@ -1526,6 +1569,15 @@ components:
               JSON_EXTRACT(Properties, '$.LocationArn') as location_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Location'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LocationName') as location_name,
+                json_extract_path_text(Properties, 'LocationArn') as location_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Location'
     fleets:
       name: fleets
       id: aws.gamelift.fleets
@@ -1540,8 +1592,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FleetId') as fleet_id
+              JSON_EXTRACT(Properties, '$.FleetId') as fleet_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FleetId') as fleet_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Fleet'
     fleet:
       name: fleet
       id: aws.gamelift.fleet
@@ -1585,6 +1644,40 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceCreationLimitPolicy') as resource_creation_limit_policy,
               JSON_EXTRACT(Properties, '$.EC2InstanceType') as e_c2_instance_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Fleet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ScalingPolicies') as scaling_policies,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PeerVpcId') as peer_vpc_id,
+                json_extract_path_text(Properties, 'ApplyCapacity') as apply_capacity,
+                json_extract_path_text(Properties, 'EC2InboundPermissions') as e_c2_inbound_permissions,
+                json_extract_path_text(Properties, 'ComputeType') as compute_type,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'AnywhereConfiguration') as anywhere_configuration,
+                json_extract_path_text(Properties, 'InstanceRoleARN') as instance_role_ar_n,
+                json_extract_path_text(Properties, 'FleetId') as fleet_id,
+                json_extract_path_text(Properties, 'CertificateConfiguration') as certificate_configuration,
+                json_extract_path_text(Properties, 'InstanceRoleCredentialsProvider') as instance_role_credentials_provider,
+                json_extract_path_text(Properties, 'DesiredEC2Instances') as desired_ec2_instances,
+                json_extract_path_text(Properties, 'ServerLaunchParameters') as server_launch_parameters,
+                json_extract_path_text(Properties, 'FleetType') as fleet_type,
+                json_extract_path_text(Properties, 'Locations') as locations,
+                json_extract_path_text(Properties, 'NewGameSessionProtectionPolicy') as new_game_session_protection_policy,
+                json_extract_path_text(Properties, 'ScriptId') as script_id,
+                json_extract_path_text(Properties, 'MaxSize') as max_size,
+                json_extract_path_text(Properties, 'RuntimeConfiguration') as runtime_configuration,
+                json_extract_path_text(Properties, 'LogPaths') as log_paths,
+                json_extract_path_text(Properties, 'ServerLaunchPath') as server_launch_path,
+                json_extract_path_text(Properties, 'MinSize') as min_size,
+                json_extract_path_text(Properties, 'PeerVpcAwsAccountId') as peer_vpc_aws_account_id,
+                json_extract_path_text(Properties, 'MetricGroups') as metric_groups,
+                json_extract_path_text(Properties, 'BuildId') as build_id,
+                json_extract_path_text(Properties, 'ResourceCreationLimitPolicy') as resource_creation_limit_policy,
+                json_extract_path_text(Properties, 'EC2InstanceType') as e_c2_instance_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Fleet'
     game_server_groups:
       name: game_server_groups
       id: aws.gamelift.game_server_groups
@@ -1599,8 +1692,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GameServerGroupArn') as game_server_group_arn
+              JSON_EXTRACT(Properties, '$.GameServerGroupArn') as game_server_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GameServerGroupArn') as game_server_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
     game_server_group:
       name: game_server_group
       id: aws.gamelift.game_server_group
@@ -1630,6 +1730,26 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.VpcSubnets') as vpc_subnets
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AutoScalingGroupArn') as auto_scaling_group_arn,
+                json_extract_path_text(Properties, 'AutoScalingPolicy') as auto_scaling_policy,
+                json_extract_path_text(Properties, 'BalancingStrategy') as balancing_strategy,
+                json_extract_path_text(Properties, 'DeleteOption') as delete_option,
+                json_extract_path_text(Properties, 'GameServerGroupArn') as game_server_group_arn,
+                json_extract_path_text(Properties, 'GameServerGroupName') as game_server_group_name,
+                json_extract_path_text(Properties, 'GameServerProtectionPolicy') as game_server_protection_policy,
+                json_extract_path_text(Properties, 'InstanceDefinitions') as instance_definitions,
+                json_extract_path_text(Properties, 'LaunchTemplate') as launch_template,
+                json_extract_path_text(Properties, 'MaxSize') as max_size,
+                json_extract_path_text(Properties, 'MinSize') as min_size,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'VpcSubnets') as vpc_subnets
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameServerGroup'
     game_session_queues:
       name: game_session_queues
       id: aws.gamelift.game_session_queues
@@ -1644,8 +1764,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
     game_session_queue:
       name: game_session_queue
       id: aws.gamelift.game_session_queue
@@ -1671,6 +1798,22 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TimeoutInSeconds') as timeout_in_seconds,
+                json_extract_path_text(Properties, 'Destinations') as destinations,
+                json_extract_path_text(Properties, 'PlayerLatencyPolicies') as player_latency_policies,
+                json_extract_path_text(Properties, 'CustomEventData') as custom_event_data,
+                json_extract_path_text(Properties, 'NotificationTarget') as notification_target,
+                json_extract_path_text(Properties, 'FilterConfiguration') as filter_configuration,
+                json_extract_path_text(Properties, 'PriorityConfiguration') as priority_configuration,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::GameSessionQueue'
     matchmaking_configurations:
       name: matchmaking_configurations
       id: aws.gamelift.matchmaking_configurations
@@ -1685,8 +1828,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
     matchmaking_configuration:
       name: matchmaking_configuration
       id: aws.gamelift.matchmaking_configuration
@@ -1720,6 +1870,30 @@ components:
               JSON_EXTRACT(Properties, '$.RuleSetName') as rule_set_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AcceptanceRequired') as acceptance_required,
+                json_extract_path_text(Properties, 'AcceptanceTimeoutSeconds') as acceptance_timeout_seconds,
+                json_extract_path_text(Properties, 'AdditionalPlayerCount') as additional_player_count,
+                json_extract_path_text(Properties, 'BackfillMode') as backfill_mode,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'CustomEventData') as custom_event_data,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FlexMatchMode') as flex_match_mode,
+                json_extract_path_text(Properties, 'GameProperties') as game_properties,
+                json_extract_path_text(Properties, 'GameSessionData') as game_session_data,
+                json_extract_path_text(Properties, 'GameSessionQueueArns') as game_session_queue_arns,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'NotificationTarget') as notification_target,
+                json_extract_path_text(Properties, 'RequestTimeoutSeconds') as request_timeout_seconds,
+                json_extract_path_text(Properties, 'RuleSetArn') as rule_set_arn,
+                json_extract_path_text(Properties, 'RuleSetName') as rule_set_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingConfiguration'
     matchmaking_rule_sets:
       name: matchmaking_rule_sets
       id: aws.gamelift.matchmaking_rule_sets
@@ -1734,8 +1908,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
     matchmaking_rule_set:
       name: matchmaking_rule_set
       id: aws.gamelift.matchmaking_rule_set
@@ -1756,6 +1937,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RuleSetBody') as rule_set_body,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::MatchmakingRuleSet'
     scripts:
       name: scripts
       id: aws.gamelift.scripts
@@ -1770,8 +1962,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Script'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GameLift::Script'
     script:
       name: script
       id: aws.gamelift.script
@@ -1795,3 +1994,17 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.SizeOnDisk') as size_on_disk
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Script'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'StorageLocation') as storage_location,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'SizeOnDisk') as size_on_disk
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GameLift::Script'

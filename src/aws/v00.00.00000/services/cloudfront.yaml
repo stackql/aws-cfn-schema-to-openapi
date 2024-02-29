@@ -2081,8 +2081,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
     cache_policy:
       name: cache_policy
       id: aws.cloudfront.cache_policy
@@ -2101,6 +2108,15 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CachePolicyConfig') as cache_policy_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CachePolicy'
     cloud_front_origin_access_identities:
       name: cloud_front_origin_access_identities
       id: aws.cloudfront.cloud_front_origin_access_identities
@@ -2115,8 +2131,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
     cloud_front_origin_access_identity:
       name: cloud_front_origin_access_identity
       id: aws.cloudfront.cloud_front_origin_access_identity
@@ -2135,6 +2158,15 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.S3CanonicalUserId') as s3_canonical_user_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CloudFrontOriginAccessIdentityConfig') as cloud_front_origin_access_identity_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'S3CanonicalUserId') as s3_canonical_user_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::CloudFrontOriginAccessIdentity'
     continuous_deployment_policies:
       name: continuous_deployment_policies
       id: aws.cloudfront.continuous_deployment_policies
@@ -2149,8 +2181,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
     continuous_deployment_policy:
       name: continuous_deployment_policy
       id: aws.cloudfront.continuous_deployment_policy
@@ -2169,6 +2208,15 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ContinuousDeploymentPolicyConfig') as continuous_deployment_policy_config,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ContinuousDeploymentPolicy'
     distributions:
       name: distributions
       id: aws.cloudfront.distributions
@@ -2183,8 +2231,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Distribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Distribution'
     distribution:
       name: distribution
       id: aws.cloudfront.distribution
@@ -2204,6 +2259,16 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Distribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DistributionConfig') as distribution_config,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Distribution'
     functions:
       name: functions
       id: aws.cloudfront.functions
@@ -2218,8 +2283,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.FunctionARN') as function_ar_n
+              JSON_EXTRACT(Properties, '$.FunctionARN') as function_ar
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Function'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FunctionARN') as function_ar
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::Function'
     function:
       name: function
       id: aws.cloudfront.function
@@ -2242,6 +2314,19 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Stage') as stage
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Function'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AutoPublish') as auto_publish,
+                json_extract_path_text(Properties, 'FunctionARN') as function_ar_n,
+                json_extract_path_text(Properties, 'FunctionCode') as function_code,
+                json_extract_path_text(Properties, 'FunctionConfig') as function_config,
+                json_extract_path_text(Properties, 'FunctionMetadata') as function_metadata,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Stage') as stage
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::Function'
     key_groups:
       name: key_groups
       id: aws.cloudfront.key_groups
@@ -2256,8 +2341,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
     key_group:
       name: key_group
       id: aws.cloudfront.key_group
@@ -2276,6 +2368,15 @@ components:
               JSON_EXTRACT(Properties, '$.KeyGroupConfig') as key_group_config,
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'KeyGroupConfig') as key_group_config,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyGroup'
     key_value_stores:
       name: key_value_stores
       id: aws.cloudfront.key_value_stores
@@ -2290,8 +2391,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyValueStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::KeyValueStore'
     key_value_store:
       name: key_value_store
       id: aws.cloudfront.key_value_store
@@ -2313,6 +2421,18 @@ components:
               JSON_EXTRACT(Properties, '$.Comment') as comment,
               JSON_EXTRACT(Properties, '$.ImportSource') as import_source
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyValueStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Comment') as comment,
+                json_extract_path_text(Properties, 'ImportSource') as import_source
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::KeyValueStore'
     monitoring_subscriptions:
       name: monitoring_subscriptions
       id: aws.cloudfront.monitoring_subscriptions
@@ -2327,8 +2447,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id
+              JSON_EXTRACT(Properties, '$.DistributionId') as distribution_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DistributionId') as distribution_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
     monitoring_subscription:
       name: monitoring_subscription
       id: aws.cloudfront.monitoring_subscription
@@ -2346,6 +2473,14 @@ components:
               JSON_EXTRACT(Properties, '$.DistributionId') as distribution_id,
               JSON_EXTRACT(Properties, '$.MonitoringSubscription') as monitoring_subscription
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DistributionId') as distribution_id,
+                json_extract_path_text(Properties, 'MonitoringSubscription') as monitoring_subscription
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::MonitoringSubscription'
     origin_access_controls:
       name: origin_access_controls
       id: aws.cloudfront.origin_access_controls
@@ -2360,8 +2495,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
     origin_access_control:
       name: origin_access_control
       id: aws.cloudfront.origin_access_control
@@ -2379,6 +2521,14 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.OriginAccessControlConfig') as origin_access_control_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'OriginAccessControlConfig') as origin_access_control_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginAccessControl'
     origin_request_policies:
       name: origin_request_policies
       id: aws.cloudfront.origin_request_policies
@@ -2393,8 +2543,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
     origin_request_policy:
       name: origin_request_policy
       id: aws.cloudfront.origin_request_policy
@@ -2413,6 +2570,15 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.OriginRequestPolicyConfig') as origin_request_policy_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'OriginRequestPolicyConfig') as origin_request_policy_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::OriginRequestPolicy'
     public_keys:
       name: public_keys
       id: aws.cloudfront.public_keys
@@ -2427,8 +2593,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
     public_key:
       name: public_key
       id: aws.cloudfront.public_key
@@ -2447,6 +2620,15 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.PublicKeyConfig') as public_key_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'PublicKeyConfig') as public_key_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::PublicKey'
     realtime_log_configs:
       name: realtime_log_configs
       id: aws.cloudfront.realtime_log_configs
@@ -2461,8 +2643,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
     realtime_log_config:
       name: realtime_log_config
       id: aws.cloudfront.realtime_log_config
@@ -2483,6 +2672,17 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.SamplingRate') as sampling_rate
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'EndPoints') as end_points,
+                json_extract_path_text(Properties, 'Fields') as fields,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SamplingRate') as sampling_rate
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::RealtimeLogConfig'
     response_headers_policies:
       name: response_headers_policies
       id: aws.cloudfront.response_headers_policies
@@ -2497,8 +2697,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
     response_headers_policy:
       name: response_headers_policy
       id: aws.cloudfront.response_headers_policy
@@ -2517,6 +2724,15 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.ResponseHeadersPolicyConfig') as response_headers_policy_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'ResponseHeadersPolicyConfig') as response_headers_policy_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::ResponseHeadersPolicy'
     streaming_distributions:
       name: streaming_distributions
       id: aws.cloudfront.streaming_distributions
@@ -2531,8 +2747,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'
     streaming_distribution:
       name: streaming_distribution
       id: aws.cloudfront.streaming_distribution
@@ -2552,3 +2775,13 @@ components:
               JSON_EXTRACT(Properties, '$.StreamingDistributionConfig') as streaming_distribution_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'StreamingDistributionConfig') as streaming_distribution_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CloudFront::StreamingDistribution'

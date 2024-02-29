@@ -360,8 +360,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
     cluster:
       name: cluster
       id: aws.route53recoverycontrol.cluster
@@ -382,6 +389,17 @@ components:
               JSON_EXTRACT(Properties, '$.ClusterEndpoints') as cluster_endpoints,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'ClusterEndpoints') as cluster_endpoints,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::Cluster'
     control_panels:
       name: control_panels
       id: aws.route53recoverycontrol.control_panels
@@ -396,8 +414,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_arn
+              JSON_EXTRACT(Properties, '$.ControlPanelArn') as control_panel_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ControlPanelArn') as control_panel_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
     control_panel:
       name: control_panel
       id: aws.route53recoverycontrol.control_panel
@@ -420,6 +445,19 @@ components:
               JSON_EXTRACT(Properties, '$.RoutingControlCount') as routing_control_count,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn,
+                json_extract_path_text(Properties, 'ControlPanelArn') as control_panel_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'DefaultControlPanel') as default_control_panel,
+                json_extract_path_text(Properties, 'RoutingControlCount') as routing_control_count,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::ControlPanel'
     routing_controls:
       name: routing_controls
       id: aws.route53recoverycontrol.routing_controls
@@ -434,8 +472,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_arn
+              JSON_EXTRACT(Properties, '$.RoutingControlArn') as routing_control_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoutingControlArn') as routing_control_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
     routing_control:
       name: routing_control
       id: aws.route53recoverycontrol.routing_control
@@ -456,6 +501,17 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RoutingControlArn') as routing_control_arn,
+                json_extract_path_text(Properties, 'ControlPanelArn') as control_panel_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::RoutingControl'
     safety_rules:
       name: safety_rules
       id: aws.route53recoverycontrol.safety_rules
@@ -470,8 +526,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SafetyRuleArn') as safety_rule_arn
+              JSON_EXTRACT(Properties, '$.SafetyRuleArn') as safety_rule_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SafetyRuleArn') as safety_rule_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'
     safety_rule:
       name: safety_rule
       id: aws.route53recoverycontrol.safety_rule
@@ -495,3 +558,17 @@ components:
               JSON_EXTRACT(Properties, '$.RuleConfig') as rule_config,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssertionRule') as assertion_rule,
+                json_extract_path_text(Properties, 'GatingRule') as gating_rule,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SafetyRuleArn') as safety_rule_arn,
+                json_extract_path_text(Properties, 'ControlPanelArn') as control_panel_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'RuleConfig') as rule_config,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Route53RecoveryControl::SafetyRule'

@@ -310,8 +310,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
     application:
       name: application
       id: aws.kinesisanalytics.application
@@ -332,6 +339,17 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationDescription') as application_description,
               JSON_EXTRACT(Properties, '$.ApplicationCode') as application_code
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'Inputs') as inputs,
+                json_extract_path_text(Properties, 'ApplicationDescription') as application_description,
+                json_extract_path_text(Properties, 'ApplicationCode') as application_code
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::Application'
     application_outputs:
       name: application_outputs
       id: aws.kinesisanalytics.application_outputs
@@ -346,8 +364,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
     application_output:
       name: application_output
       id: aws.kinesisanalytics.application_output
@@ -366,6 +391,15 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.Output') as output
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'Output') as output
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationOutput'
     application_reference_data_sources:
       name: application_reference_data_sources
       id: aws.kinesisanalytics.application_reference_data_sources
@@ -380,8 +414,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'
     application_reference_data_source:
       name: application_reference_data_source
       id: aws.kinesisanalytics.application_reference_data_source
@@ -400,3 +441,12 @@ components:
               JSON_EXTRACT(Properties, '$.ApplicationName') as application_name,
               JSON_EXTRACT(Properties, '$.ReferenceDataSource') as reference_data_source
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ApplicationName') as application_name,
+                json_extract_path_text(Properties, 'ReferenceDataSource') as reference_data_source
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::KinesisAnalytics::ApplicationReferenceDataSource'

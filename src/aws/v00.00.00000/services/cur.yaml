@@ -132,8 +132,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReportName') as report_name
+              JSON_EXTRACT(Properties, '$.ReportName') as report_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CUR::ReportDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReportName') as report_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CUR::ReportDefinition'
     report_definition:
       name: report_definition
       id: aws.cur.report_definition
@@ -161,3 +168,21 @@ components:
               JSON_EXTRACT(Properties, '$.ReportVersioning') as report_versioning,
               JSON_EXTRACT(Properties, '$.BillingViewArn') as billing_view_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CUR::ReportDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReportName') as report_name,
+                json_extract_path_text(Properties, 'TimeUnit') as time_unit,
+                json_extract_path_text(Properties, 'Format') as format,
+                json_extract_path_text(Properties, 'Compression') as compression,
+                json_extract_path_text(Properties, 'AdditionalSchemaElements') as additional_schema_elements,
+                json_extract_path_text(Properties, 'S3Bucket') as s3_bucket,
+                json_extract_path_text(Properties, 'S3Prefix') as s3_prefix,
+                json_extract_path_text(Properties, 'S3Region') as s3_region,
+                json_extract_path_text(Properties, 'AdditionalArtifacts') as additional_artifacts,
+                json_extract_path_text(Properties, 'RefreshClosedReports') as refresh_closed_reports,
+                json_extract_path_text(Properties, 'ReportVersioning') as report_versioning,
+                json_extract_path_text(Properties, 'BillingViewArn') as billing_view_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CUR::ReportDefinition'

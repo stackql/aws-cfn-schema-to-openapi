@@ -476,8 +476,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Channel'
     channel:
       name: channel
       id: aws.ivs.channel
@@ -504,6 +511,23 @@ components:
               JSON_EXTRACT(Properties, '$.RecordingConfigurationArn') as recording_configuration_arn,
               JSON_EXTRACT(Properties, '$.Preset') as preset
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Channel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Authorized') as authorized,
+                json_extract_path_text(Properties, 'InsecureIngest') as insecure_ingest,
+                json_extract_path_text(Properties, 'LatencyMode') as latency_mode,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'PlaybackUrl') as playback_url,
+                json_extract_path_text(Properties, 'IngestEndpoint') as ingest_endpoint,
+                json_extract_path_text(Properties, 'RecordingConfigurationArn') as recording_configuration_arn,
+                json_extract_path_text(Properties, 'Preset') as preset
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Channel'
     playback_key_pairs:
       name: playback_key_pairs
       id: aws.ivs.playback_key_pairs
@@ -518,8 +542,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
     playback_key_pair:
       name: playback_key_pair
       id: aws.ivs.playback_key_pair
@@ -540,6 +571,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PublicKeyMaterial') as public_key_material,
+                json_extract_path_text(Properties, 'Fingerprint') as fingerprint,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::PlaybackKeyPair'
     recording_configurations:
       name: recording_configurations
       id: aws.ivs.recording_configurations
@@ -554,8 +596,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
     recording_configuration:
       name: recording_configuration
       id: aws.ivs.recording_configuration
@@ -579,6 +628,20 @@ components:
               JSON_EXTRACT(Properties, '$.ThumbnailConfiguration') as thumbnail_configuration,
               JSON_EXTRACT(Properties, '$.RenditionConfiguration') as rendition_configuration
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'RecordingReconnectWindowSeconds') as recording_reconnect_window_seconds,
+                json_extract_path_text(Properties, 'DestinationConfiguration') as destination_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ThumbnailConfiguration') as thumbnail_configuration,
+                json_extract_path_text(Properties, 'RenditionConfiguration') as rendition_configuration
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::RecordingConfiguration'
     stages:
       name: stages
       id: aws.ivs.stages
@@ -593,8 +656,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Stage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::Stage'
     stage:
       name: stage
       id: aws.ivs.stage
@@ -614,6 +684,16 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ActiveSessionId') as active_session_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Stage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ActiveSessionId') as active_session_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::Stage'
     stream_keys:
       name: stream_keys
       id: aws.ivs.stream_keys
@@ -628,8 +708,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::StreamKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IVS::StreamKey'
     stream_key:
       name: stream_key
       id: aws.ivs.stream_key
@@ -649,3 +736,13 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Value') as value
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::StreamKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ChannelArn') as channel_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Value') as value
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IVS::StreamKey'

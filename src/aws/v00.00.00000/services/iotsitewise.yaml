@@ -858,8 +858,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PortalId') as portal_id
+              JSON_EXTRACT(Properties, '$.PortalId') as portal_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PortalId') as portal_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
     portal:
       name: portal
       id: aws.iotsitewise.portal
@@ -887,6 +894,24 @@ components:
               JSON_EXTRACT(Properties, '$.Alarms') as alarms,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PortalAuthMode') as portal_auth_mode,
+                json_extract_path_text(Properties, 'PortalArn') as portal_arn,
+                json_extract_path_text(Properties, 'PortalClientId') as portal_client_id,
+                json_extract_path_text(Properties, 'PortalContactEmail') as portal_contact_email,
+                json_extract_path_text(Properties, 'PortalDescription') as portal_description,
+                json_extract_path_text(Properties, 'PortalId') as portal_id,
+                json_extract_path_text(Properties, 'PortalName') as portal_name,
+                json_extract_path_text(Properties, 'PortalStartUrl') as portal_start_url,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'NotificationSenderEmail') as notification_sender_email,
+                json_extract_path_text(Properties, 'Alarms') as alarms,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Portal'
     projects:
       name: projects
       id: aws.iotsitewise.projects
@@ -901,8 +926,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProjectId') as project_id
+              JSON_EXTRACT(Properties, '$.ProjectId') as project_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProjectId') as project_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
     project:
       name: project
       id: aws.iotsitewise.project
@@ -925,6 +957,19 @@ components:
               JSON_EXTRACT(Properties, '$.AssetIds') as asset_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PortalId') as portal_id,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'ProjectName') as project_name,
+                json_extract_path_text(Properties, 'ProjectDescription') as project_description,
+                json_extract_path_text(Properties, 'ProjectArn') as project_arn,
+                json_extract_path_text(Properties, 'AssetIds') as asset_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Project'
     access_policies:
       name: access_policies
       id: aws.iotsitewise.access_policies
@@ -939,8 +984,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AccessPolicyId') as access_policy_id
+              JSON_EXTRACT(Properties, '$.AccessPolicyId') as access_policy_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessPolicyId') as access_policy_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
     access_policy:
       name: access_policy
       id: aws.iotsitewise.access_policy
@@ -961,6 +1013,17 @@ components:
               JSON_EXTRACT(Properties, '$.AccessPolicyPermission') as access_policy_permission,
               JSON_EXTRACT(Properties, '$.AccessPolicyResource') as access_policy_resource
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccessPolicyId') as access_policy_id,
+                json_extract_path_text(Properties, 'AccessPolicyArn') as access_policy_arn,
+                json_extract_path_text(Properties, 'AccessPolicyIdentity') as access_policy_identity,
+                json_extract_path_text(Properties, 'AccessPolicyPermission') as access_policy_permission,
+                json_extract_path_text(Properties, 'AccessPolicyResource') as access_policy_resource
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AccessPolicy'
     assets:
       name: assets
       id: aws.iotsitewise.assets
@@ -975,8 +1038,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssetId') as asset_id
+              JSON_EXTRACT(Properties, '$.AssetId') as asset_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssetId') as asset_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
     asset:
       name: asset
       id: aws.iotsitewise.asset
@@ -1000,6 +1070,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssetHierarchies') as asset_hierarchies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssetId') as asset_id,
+                json_extract_path_text(Properties, 'AssetModelId') as asset_model_id,
+                json_extract_path_text(Properties, 'AssetArn') as asset_arn,
+                json_extract_path_text(Properties, 'AssetName') as asset_name,
+                json_extract_path_text(Properties, 'AssetDescription') as asset_description,
+                json_extract_path_text(Properties, 'AssetProperties') as asset_properties,
+                json_extract_path_text(Properties, 'AssetHierarchies') as asset_hierarchies,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Asset'
     asset_models:
       name: asset_models
       id: aws.iotsitewise.asset_models
@@ -1014,8 +1098,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AssetModelId') as asset_model_id
+              JSON_EXTRACT(Properties, '$.AssetModelId') as asset_model_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssetModelId') as asset_model_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
     asset_model:
       name: asset_model
       id: aws.iotsitewise.asset_model
@@ -1039,6 +1130,20 @@ components:
               JSON_EXTRACT(Properties, '$.AssetModelHierarchies') as asset_model_hierarchies,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AssetModelId') as asset_model_id,
+                json_extract_path_text(Properties, 'AssetModelArn') as asset_model_arn,
+                json_extract_path_text(Properties, 'AssetModelName') as asset_model_name,
+                json_extract_path_text(Properties, 'AssetModelDescription') as asset_model_description,
+                json_extract_path_text(Properties, 'AssetModelProperties') as asset_model_properties,
+                json_extract_path_text(Properties, 'AssetModelCompositeModels') as asset_model_composite_models,
+                json_extract_path_text(Properties, 'AssetModelHierarchies') as asset_model_hierarchies,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::AssetModel'
     dashboards:
       name: dashboards
       id: aws.iotsitewise.dashboards
@@ -1053,8 +1158,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_id
+              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DashboardId') as dashboard_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
     dashboard:
       name: dashboard
       id: aws.iotsitewise.dashboard
@@ -1077,6 +1189,19 @@ components:
               JSON_EXTRACT(Properties, '$.DashboardArn') as dashboard_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProjectId') as project_id,
+                json_extract_path_text(Properties, 'DashboardId') as dashboard_id,
+                json_extract_path_text(Properties, 'DashboardName') as dashboard_name,
+                json_extract_path_text(Properties, 'DashboardDescription') as dashboard_description,
+                json_extract_path_text(Properties, 'DashboardDefinition') as dashboard_definition,
+                json_extract_path_text(Properties, 'DashboardArn') as dashboard_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Dashboard'
     gateways:
       name: gateways
       id: aws.iotsitewise.gateways
@@ -1091,8 +1216,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GatewayId') as gateway_id
+              JSON_EXTRACT(Properties, '$.GatewayId') as gateway_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GatewayId') as gateway_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'
     gateway:
       name: gateway
       id: aws.iotsitewise.gateway
@@ -1113,3 +1245,14 @@ components:
               JSON_EXTRACT(Properties, '$.GatewayId') as gateway_id,
               JSON_EXTRACT(Properties, '$.GatewayCapabilitySummaries') as gateway_capability_summaries
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GatewayName') as gateway_name,
+                json_extract_path_text(Properties, 'GatewayPlatform') as gateway_platform,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'GatewayId') as gateway_id,
+                json_extract_path_text(Properties, 'GatewayCapabilitySummaries') as gateway_capability_summaries
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::IoTSiteWise::Gateway'

@@ -158,8 +158,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_arn
+              JSON_EXTRACT(Properties, '$.ClusterArn') as cluster_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'
     cluster:
       name: cluster
       id: aws.docdbelastic.cluster
@@ -188,3 +195,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.AuthType') as auth_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'ClusterArn') as cluster_arn,
+                json_extract_path_text(Properties, 'ClusterEndpoint') as cluster_endpoint,
+                json_extract_path_text(Properties, 'AdminUserName') as admin_user_name,
+                json_extract_path_text(Properties, 'AdminUserPassword') as admin_user_password,
+                json_extract_path_text(Properties, 'ShardCapacity') as shard_capacity,
+                json_extract_path_text(Properties, 'ShardCount') as shard_count,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'AuthType') as auth_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DocDBElastic::Cluster'

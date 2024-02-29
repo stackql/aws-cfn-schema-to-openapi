@@ -839,8 +839,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.LaunchProfileId') as launch_profile_id,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LaunchProfileId') as launch_profile_id,
+                json_extract_path_text(Properties, 'StudioId') as studio_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
     launch_profile:
       name: launch_profile
       id: aws.nimblestudio.launch_profile
@@ -866,6 +874,21 @@ components:
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Ec2SubnetIds') as ec2_subnet_ids,
+                json_extract_path_text(Properties, 'LaunchProfileId') as launch_profile_id,
+                json_extract_path_text(Properties, 'LaunchProfileProtocolVersions') as launch_profile_protocol_versions,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'StreamConfiguration') as stream_configuration,
+                json_extract_path_text(Properties, 'StudioComponentIds') as studio_component_ids,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::LaunchProfile'
     streaming_images:
       name: streaming_images
       id: aws.nimblestudio.streaming_images
@@ -882,8 +905,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
-              JSON_EXTRACT(Properties, '$.StreamingImageId') as streaming_image_id
+              JSON_EXTRACT(Properties, '$.StreamingImageId') as streaming_image_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'StreamingImageId') as streaming_image_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
     streaming_image:
       name: streaming_image
       id: aws.nimblestudio.streaming_image
@@ -910,6 +941,22 @@ components:
               JSON_EXTRACT(Properties, '$.StudioId') as studio_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Ec2ImageId') as ec2_image_id,
+                json_extract_path_text(Properties, 'EncryptionConfiguration') as encryption_configuration,
+                json_extract_path_text(Properties, 'EulaIds') as eula_ids,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Owner') as owner,
+                json_extract_path_text(Properties, 'Platform') as platform,
+                json_extract_path_text(Properties, 'StreamingImageId') as streaming_image_id,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StreamingImage'
     studios:
       name: studios
       id: aws.nimblestudio.studios
@@ -924,8 +971,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StudioId') as studio_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
     studio:
       name: studio
       id: aws.nimblestudio.studio
@@ -951,6 +1005,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.UserRoleArn') as user_role_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AdminRoleArn') as admin_role_arn,
+                json_extract_path_text(Properties, 'DisplayName') as display_name,
+                json_extract_path_text(Properties, 'HomeRegion') as home_region,
+                json_extract_path_text(Properties, 'SsoClientId') as sso_client_id,
+                json_extract_path_text(Properties, 'StudioEncryptionConfiguration') as studio_encryption_configuration,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'StudioName') as studio_name,
+                json_extract_path_text(Properties, 'StudioUrl') as studio_url,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UserRoleArn') as user_role_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::Studio'
     studio_components:
       name: studio_components
       id: aws.nimblestudio.studio_components
@@ -967,8 +1037,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.StudioComponentId') as studio_component_id,
-              JSON_EXTRACT(Properties, '$.StudioId') as studio_id
+              JSON_EXTRACT(Properties, '$.StudioId') as studio_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'StudioComponentId') as studio_component_id,
+                json_extract_path_text(Properties, 'StudioId') as studio_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'
     studio_component:
       name: studio_component
       id: aws.nimblestudio.studio_component
@@ -998,3 +1076,22 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Type') as type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Ec2SecurityGroupIds') as ec2_security_group_ids,
+                json_extract_path_text(Properties, 'InitializationScripts') as initialization_scripts,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RuntimeRoleArn') as runtime_role_arn,
+                json_extract_path_text(Properties, 'ScriptParameters') as script_parameters,
+                json_extract_path_text(Properties, 'SecureInitializationRoleArn') as secure_initialization_role_arn,
+                json_extract_path_text(Properties, 'StudioComponentId') as studio_component_id,
+                json_extract_path_text(Properties, 'StudioId') as studio_id,
+                json_extract_path_text(Properties, 'Subtype') as subtype,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::NimbleStudio::StudioComponent'

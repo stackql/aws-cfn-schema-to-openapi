@@ -1402,8 +1402,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Component'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Component'
     component:
       name: component
       id: aws.imagebuilder.component
@@ -1432,6 +1439,25 @@ components:
               JSON_EXTRACT(Properties, '$.Uri') as uri,
               JSON_EXTRACT(Properties, '$.SupportedOsVersions') as supported_os_versions
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Component'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ChangeDescription') as change_description,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Platform') as platform,
+                json_extract_path_text(Properties, 'Data') as data,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Encrypted') as encrypted,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Uri') as uri,
+                json_extract_path_text(Properties, 'SupportedOsVersions') as supported_os_versions
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Component'
     container_recipes:
       name: container_recipes
       id: aws.imagebuilder.container_recipes
@@ -1446,8 +1472,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
     container_recipe:
       name: container_recipe
       id: aws.imagebuilder.container_recipe
@@ -1479,6 +1512,28 @@ components:
               JSON_EXTRACT(Properties, '$.WorkingDirectory') as working_directory,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Components') as components,
+                json_extract_path_text(Properties, 'InstanceConfiguration') as instance_configuration,
+                json_extract_path_text(Properties, 'DockerfileTemplateData') as dockerfile_template_data,
+                json_extract_path_text(Properties, 'DockerfileTemplateUri') as dockerfile_template_uri,
+                json_extract_path_text(Properties, 'PlatformOverride') as platform_override,
+                json_extract_path_text(Properties, 'ContainerType') as container_type,
+                json_extract_path_text(Properties, 'ImageOsVersionOverride') as image_os_version_override,
+                json_extract_path_text(Properties, 'TargetRepository') as target_repository,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'ParentImage') as parent_image,
+                json_extract_path_text(Properties, 'WorkingDirectory') as working_directory,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ContainerRecipe'
     distribution_configurations:
       name: distribution_configurations
       id: aws.imagebuilder.distribution_configurations
@@ -1493,8 +1548,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
     distribution_configuration:
       name: distribution_configuration
       id: aws.imagebuilder.distribution_configuration
@@ -1515,6 +1577,17 @@ components:
               JSON_EXTRACT(Properties, '$.Distributions') as distributions,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Distributions') as distributions,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::DistributionConfiguration'
     images:
       name: images
       id: aws.imagebuilder.images
@@ -1529,8 +1602,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Image'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Image'
     image:
       name: image
       id: aws.imagebuilder.image
@@ -1560,6 +1640,26 @@ components:
               JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Image'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ImageTestsConfiguration') as image_tests_configuration,
+                json_extract_path_text(Properties, 'ImageRecipeArn') as image_recipe_arn,
+                json_extract_path_text(Properties, 'ContainerRecipeArn') as container_recipe_arn,
+                json_extract_path_text(Properties, 'DistributionConfigurationArn') as distribution_configuration_arn,
+                json_extract_path_text(Properties, 'InfrastructureConfigurationArn') as infrastructure_configuration_arn,
+                json_extract_path_text(Properties, 'Workflows') as workflows,
+                json_extract_path_text(Properties, 'ImageId') as image_id,
+                json_extract_path_text(Properties, 'ImageUri') as image_uri,
+                json_extract_path_text(Properties, 'EnhancedImageMetadataEnabled') as enhanced_image_metadata_enabled,
+                json_extract_path_text(Properties, 'ImageScanningConfiguration') as image_scanning_configuration,
+                json_extract_path_text(Properties, 'ExecutionRole') as execution_role,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Image'
     image_pipelines:
       name: image_pipelines
       id: aws.imagebuilder.image_pipelines
@@ -1574,8 +1674,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
     image_pipeline:
       name: image_pipeline
       id: aws.imagebuilder.image_pipeline
@@ -1606,6 +1713,27 @@ components:
               JSON_EXTRACT(Properties, '$.ExecutionRole') as execution_role,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ImageTestsConfiguration') as image_tests_configuration,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'ImageRecipeArn') as image_recipe_arn,
+                json_extract_path_text(Properties, 'ContainerRecipeArn') as container_recipe_arn,
+                json_extract_path_text(Properties, 'DistributionConfigurationArn') as distribution_configuration_arn,
+                json_extract_path_text(Properties, 'InfrastructureConfigurationArn') as infrastructure_configuration_arn,
+                json_extract_path_text(Properties, 'Workflows') as workflows,
+                json_extract_path_text(Properties, 'EnhancedImageMetadataEnabled') as enhanced_image_metadata_enabled,
+                json_extract_path_text(Properties, 'ImageScanningConfiguration') as image_scanning_configuration,
+                json_extract_path_text(Properties, 'ExecutionRole') as execution_role,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImagePipeline'
     image_recipes:
       name: image_recipes
       id: aws.imagebuilder.image_recipes
@@ -1620,8 +1748,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
     image_recipe:
       name: image_recipe
       id: aws.imagebuilder.image_recipe
@@ -1647,6 +1782,22 @@ components:
               JSON_EXTRACT(Properties, '$.AdditionalInstanceConfiguration') as additional_instance_configuration,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Components') as components,
+                json_extract_path_text(Properties, 'BlockDeviceMappings') as block_device_mappings,
+                json_extract_path_text(Properties, 'ParentImage') as parent_image,
+                json_extract_path_text(Properties, 'WorkingDirectory') as working_directory,
+                json_extract_path_text(Properties, 'AdditionalInstanceConfiguration') as additional_instance_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::ImageRecipe'
     infrastructure_configurations:
       name: infrastructure_configurations
       id: aws.imagebuilder.infrastructure_configurations
@@ -1661,8 +1812,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
     infrastructure_configuration:
       name: infrastructure_configuration
       id: aws.imagebuilder.infrastructure_configuration
@@ -1692,6 +1850,26 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceTags') as resource_tags,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'InstanceTypes') as instance_types,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'Logging') as logging,
+                json_extract_path_text(Properties, 'SubnetId') as subnet_id,
+                json_extract_path_text(Properties, 'KeyPair') as key_pair,
+                json_extract_path_text(Properties, 'TerminateInstanceOnFailure') as terminate_instance_on_failure,
+                json_extract_path_text(Properties, 'InstanceProfileName') as instance_profile_name,
+                json_extract_path_text(Properties, 'InstanceMetadataOptions') as instance_metadata_options,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'ResourceTags') as resource_tags,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::InfrastructureConfiguration'
     lifecycle_policies:
       name: lifecycle_policies
       id: aws.imagebuilder.lifecycle_policies
@@ -1706,8 +1884,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
     lifecycle_policy:
       name: lifecycle_policy
       id: aws.imagebuilder.lifecycle_policy
@@ -1732,6 +1917,21 @@ components:
               JSON_EXTRACT(Properties, '$.ResourceSelection') as resource_selection,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'ExecutionRole') as execution_role,
+                json_extract_path_text(Properties, 'ResourceType') as resource_type,
+                json_extract_path_text(Properties, 'PolicyDetails') as policy_details,
+                json_extract_path_text(Properties, 'ResourceSelection') as resource_selection,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::LifecyclePolicy'
     workflows:
       name: workflows
       id: aws.imagebuilder.workflows
@@ -1746,8 +1946,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'
     workflow:
       name: workflow
       id: aws.imagebuilder.workflow
@@ -1773,3 +1980,19 @@ components:
               JSON_EXTRACT(Properties, '$.KmsKeyId') as kms_key_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ChangeDescription') as change_description,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Data') as data,
+                json_extract_path_text(Properties, 'Uri') as uri,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ImageBuilder::Workflow'

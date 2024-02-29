@@ -380,8 +380,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CollectionId') as collection_id
+              JSON_EXTRACT(Properties, '$.CollectionId') as collection_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Collection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CollectionId') as collection_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Collection'
     collection:
       name: collection
       id: aws.rekognition.collection
@@ -400,6 +407,15 @@ components:
               JSON_EXTRACT(Properties, '$.CollectionId') as collection_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Collection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CollectionId') as collection_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Collection'
     projects:
       name: projects
       id: aws.rekognition.projects
@@ -414,8 +430,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ProjectName') as project_name
+              JSON_EXTRACT(Properties, '$.ProjectName') as project_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProjectName') as project_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::Project'
     project:
       name: project
       id: aws.rekognition.project
@@ -433,6 +456,14 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ProjectName') as project_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Project'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ProjectName') as project_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::Project'
     stream_processors:
       name: stream_processors
       id: aws.rekognition.stream_processors
@@ -447,8 +478,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'
     stream_processor:
       name: stream_processor
       id: aws.rekognition.stream_processor
@@ -480,3 +518,25 @@ components:
               JSON_EXTRACT(Properties, '$.StatusMessage') as status_message,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'KinesisVideoStream') as kinesis_video_stream,
+                json_extract_path_text(Properties, 'FaceSearchSettings') as face_search_settings,
+                json_extract_path_text(Properties, 'ConnectedHomeSettings') as connected_home_settings,
+                json_extract_path_text(Properties, 'KinesisDataStream') as kinesis_data_stream,
+                json_extract_path_text(Properties, 'S3Destination') as s3_destination,
+                json_extract_path_text(Properties, 'NotificationChannel') as notification_channel,
+                json_extract_path_text(Properties, 'DataSharingPreference') as data_sharing_preference,
+                json_extract_path_text(Properties, 'PolygonRegionsOfInterest') as polygon_regions_of_interest,
+                json_extract_path_text(Properties, 'BoundingBoxRegionsOfInterest') as bounding_box_regions_of_interest,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusMessage') as status_message,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Rekognition::StreamProcessor'

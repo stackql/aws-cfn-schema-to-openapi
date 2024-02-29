@@ -797,8 +797,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type,
-              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'PolicyType') as policy_type,
+                json_extract_path_text(Properties, 'PolicyName') as policy_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
     account_policy:
       name: account_policy
       id: aws.logs.account_policy
@@ -822,6 +831,18 @@ components:
               JSON_EXTRACT(Properties, '$.Scope') as scope,
               JSON_EXTRACT(Properties, '$.SelectionCriteria') as selection_criteria
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document,
+                json_extract_path_text(Properties, 'PolicyType') as policy_type,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'SelectionCriteria') as selection_criteria
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::AccountPolicy'
     deliveries:
       name: deliveries
       id: aws.logs.deliveries
@@ -836,8 +857,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DeliveryId') as delivery_id
+              JSON_EXTRACT(Properties, '$.DeliveryId') as delivery_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Delivery'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeliveryId') as delivery_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Delivery'
     delivery:
       name: delivery
       id: aws.logs.delivery
@@ -859,6 +887,18 @@ components:
               JSON_EXTRACT(Properties, '$.DeliveryDestinationType') as delivery_destination_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Delivery'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DeliveryId') as delivery_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DeliverySourceName') as delivery_source_name,
+                json_extract_path_text(Properties, 'DeliveryDestinationArn') as delivery_destination_arn,
+                json_extract_path_text(Properties, 'DeliveryDestinationType') as delivery_destination_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Delivery'
     delivery_destinations:
       name: delivery_destinations
       id: aws.logs.delivery_destinations
@@ -873,8 +913,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
     delivery_destination:
       name: delivery_destination
       id: aws.logs.delivery_destination
@@ -896,6 +943,18 @@ components:
               JSON_EXTRACT(Properties, '$.DeliveryDestinationType') as delivery_destination_type,
               JSON_EXTRACT(Properties, '$.DeliveryDestinationPolicy') as delivery_destination_policy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DestinationResourceArn') as destination_resource_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'DeliveryDestinationType') as delivery_destination_type,
+                json_extract_path_text(Properties, 'DeliveryDestinationPolicy') as delivery_destination_policy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliveryDestination'
     delivery_sources:
       name: delivery_sources
       id: aws.logs.delivery_sources
@@ -910,8 +969,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliverySource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::DeliverySource'
     delivery_source:
       name: delivery_source
       id: aws.logs.delivery_source
@@ -934,6 +1000,19 @@ components:
               JSON_EXTRACT(Properties, '$.LogType') as log_type,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliverySource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ResourceArns') as resource_arns,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'Service') as service,
+                json_extract_path_text(Properties, 'LogType') as log_type,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::DeliverySource'
     destinations:
       name: destinations
       id: aws.logs.destinations
@@ -948,8 +1027,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DestinationName') as destination_name
+              JSON_EXTRACT(Properties, '$.DestinationName') as destination_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Destination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DestinationName') as destination_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::Destination'
     destination:
       name: destination
       id: aws.logs.destination
@@ -970,6 +1056,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.TargetArn') as target_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Destination'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'DestinationName') as destination_name,
+                json_extract_path_text(Properties, 'DestinationPolicy') as destination_policy,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'TargetArn') as target_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::Destination'
     log_anomaly_detectors:
       name: log_anomaly_detectors
       id: aws.logs.log_anomaly_detectors
@@ -984,8 +1081,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn
+              JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AnomalyDetectorArn') as anomaly_detector_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
     log_anomaly_detector:
       name: log_anomaly_detector
       id: aws.logs.log_anomaly_detector
@@ -1012,6 +1116,23 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTimeStamp') as last_modified_time_stamp,
               JSON_EXTRACT(Properties, '$.AnomalyDetectorArn') as anomaly_detector_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'DetectorName') as detector_name,
+                json_extract_path_text(Properties, 'LogGroupArnList') as log_group_arn_list,
+                json_extract_path_text(Properties, 'EvaluationFrequency') as evaluation_frequency,
+                json_extract_path_text(Properties, 'FilterPattern') as filter_pattern,
+                json_extract_path_text(Properties, 'AnomalyDetectorStatus') as anomaly_detector_status,
+                json_extract_path_text(Properties, 'AnomalyVisibilityTime') as anomaly_visibility_time,
+                json_extract_path_text(Properties, 'CreationTimeStamp') as creation_time_stamp,
+                json_extract_path_text(Properties, 'LastModifiedTimeStamp') as last_modified_time_stamp,
+                json_extract_path_text(Properties, 'AnomalyDetectorArn') as anomaly_detector_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogAnomalyDetector'
     log_streams:
       name: log_streams
       id: aws.logs.log_streams
@@ -1028,8 +1149,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
-              JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
+              JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'LogStreamName') as log_stream_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::LogStream'
     log_stream:
       name: log_stream
       id: aws.logs.log_stream
@@ -1048,6 +1177,14 @@ components:
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.LogStreamName') as log_stream_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogStream'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'LogStreamName') as log_stream_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::LogStream'
     metric_filters:
       name: metric_filters
       id: aws.logs.metric_filters
@@ -1064,8 +1201,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
-              JSON_EXTRACT(Properties, '$.FilterName') as filter_name
+              JSON_EXTRACT(Properties, '$.FilterName') as filter_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::MetricFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'FilterName') as filter_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::MetricFilter'
     metric_filter:
       name: metric_filter
       id: aws.logs.metric_filter
@@ -1086,6 +1231,16 @@ components:
               JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name,
               JSON_EXTRACT(Properties, '$.MetricTransformations') as metric_transformations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::MetricFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FilterName') as filter_name,
+                json_extract_path_text(Properties, 'FilterPattern') as filter_pattern,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'MetricTransformations') as metric_transformations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::MetricFilter'
     query_definitions:
       name: query_definitions
       id: aws.logs.query_definitions
@@ -1100,8 +1255,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
+              JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'QueryDefinitionId') as query_definition_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
     query_definition:
       name: query_definition
       id: aws.logs.query_definition
@@ -1121,6 +1283,16 @@ components:
               JSON_EXTRACT(Properties, '$.LogGroupNames') as log_group_names,
               JSON_EXTRACT(Properties, '$.QueryDefinitionId') as query_definition_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'QueryString') as query_string,
+                json_extract_path_text(Properties, 'LogGroupNames') as log_group_names,
+                json_extract_path_text(Properties, 'QueryDefinitionId') as query_definition_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::QueryDefinition'
     resource_policies:
       name: resource_policies
       id: aws.logs.resource_policies
@@ -1135,8 +1307,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PolicyName') as policy_name
+              JSON_EXTRACT(Properties, '$.PolicyName') as policy_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.logs.resource_policy
@@ -1154,6 +1333,14 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyName') as policy_name,
               JSON_EXTRACT(Properties, '$.PolicyDocument') as policy_document
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyName') as policy_name,
+                json_extract_path_text(Properties, 'PolicyDocument') as policy_document
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::ResourcePolicy'
     subscription_filters:
       name: subscription_filters
       id: aws.logs.subscription_filters
@@ -1170,8 +1357,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.FilterName') as filter_name,
-              JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_name
+              JSON_EXTRACT(Properties, '$.LogGroupName') as log_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FilterName') as filter_name,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'
     subscription_filter:
       name: subscription_filter
       id: aws.logs.subscription_filter
@@ -1194,3 +1389,15 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Distribution') as distribution
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FilterName') as filter_name,
+                json_extract_path_text(Properties, 'DestinationArn') as destination_arn,
+                json_extract_path_text(Properties, 'FilterPattern') as filter_pattern,
+                json_extract_path_text(Properties, 'LogGroupName') as log_group_name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Distribution') as distribution
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Logs::SubscriptionFilter'

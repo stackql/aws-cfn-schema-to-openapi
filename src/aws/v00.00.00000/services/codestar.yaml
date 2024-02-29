@@ -70,8 +70,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'
     git_hub_repository:
       name: git_hub_repository
       id: aws.codestar.git_hub_repository
@@ -96,3 +103,18 @@ components:
               JSON_EXTRACT(Properties, '$.Code') as code,
               JSON_EXTRACT(Properties, '$.RepositoryDescription') as repository_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnableIssues') as enable_issues,
+                json_extract_path_text(Properties, 'ConnectionArn') as connection_arn,
+                json_extract_path_text(Properties, 'RepositoryName') as repository_name,
+                json_extract_path_text(Properties, 'RepositoryAccessToken') as repository_access_token,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'RepositoryOwner') as repository_owner,
+                json_extract_path_text(Properties, 'IsPrivate') as is_private,
+                json_extract_path_text(Properties, 'Code') as code,
+                json_extract_path_text(Properties, 'RepositoryDescription') as repository_description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::CodeStar::GitHubRepository'

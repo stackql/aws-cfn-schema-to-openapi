@@ -95,8 +95,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'
     simulation:
       name: simulation
       id: aws.simspaceweaver.simulation
@@ -118,3 +125,15 @@ components:
               JSON_EXTRACT(Properties, '$.MaximumDuration') as maximum_duration,
               JSON_EXTRACT(Properties, '$.SnapshotS3Location') as snapshot_s3_location
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'SchemaS3Location') as schema_s3_location,
+                json_extract_path_text(Properties, 'DescribePayload') as describe_payload,
+                json_extract_path_text(Properties, 'MaximumDuration') as maximum_duration,
+                json_extract_path_text(Properties, 'SnapshotS3Location') as snapshot_s3_location
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::SimSpaceWeaver::Simulation'

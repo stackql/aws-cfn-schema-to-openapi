@@ -459,8 +459,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Detector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Detector'
     detector:
       name: detector
       id: aws.guardduty.detector
@@ -482,6 +489,18 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Detector'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'FindingPublishingFrequency') as finding_publishing_frequency,
+                json_extract_path_text(Properties, 'Enable') as enable,
+                json_extract_path_text(Properties, 'DataSources') as data_sources,
+                json_extract_path_text(Properties, 'Features') as features,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Detector'
     filters:
       name: filters
       id: aws.guardduty.filters
@@ -498,8 +517,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
-              JSON_EXTRACT(Properties, '$.Name') as name
+              JSON_EXTRACT(Properties, '$.Name') as na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Filter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'Name') as na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Filter'
     filter:
       name: filter
       id: aws.guardduty.filter
@@ -523,6 +550,19 @@ components:
               JSON_EXTRACT(Properties, '$.Name') as name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Filter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Action') as action,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'FindingCriteria') as finding_criteria,
+                json_extract_path_text(Properties, 'Rank') as rank,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Filter'
     ip_sets:
       name: ip_sets
       id: aws.guardduty.ip_sets
@@ -539,8 +579,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DetectorId') as detector_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
     ip_set:
       name: ip_set
       id: aws.guardduty.ip_set
@@ -564,6 +612,19 @@ components:
               JSON_EXTRACT(Properties, '$.Location') as location,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Format') as format,
+                json_extract_path_text(Properties, 'Activate') as activate,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Location') as location,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::IPSet'
     masters:
       name: masters
       id: aws.guardduty.masters
@@ -580,8 +641,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
-              JSON_EXTRACT(Properties, '$.MasterId') as master_id
+              JSON_EXTRACT(Properties, '$.MasterId') as master_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Master'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'MasterId') as master_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Master'
     master:
       name: master
       id: aws.guardduty.master
@@ -601,6 +670,15 @@ components:
               JSON_EXTRACT(Properties, '$.InvitationId') as invitation_id,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Master'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MasterId') as master_id,
+                json_extract_path_text(Properties, 'InvitationId') as invitation_id,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Master'
     members:
       name: members
       id: aws.guardduty.members
@@ -617,8 +695,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id,
-              JSON_EXTRACT(Properties, '$.MemberId') as member_id
+              JSON_EXTRACT(Properties, '$.MemberId') as member_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Member'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'MemberId') as member_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::Member'
     member:
       name: member
       id: aws.guardduty.member
@@ -641,6 +727,18 @@ components:
               JSON_EXTRACT(Properties, '$.DisableEmailNotification') as disable_email_notification,
               JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Member'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'MemberId') as member_id,
+                json_extract_path_text(Properties, 'Email') as email,
+                json_extract_path_text(Properties, 'Message') as message,
+                json_extract_path_text(Properties, 'DisableEmailNotification') as disable_email_notification,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::Member'
     threat_intel_sets:
       name: threat_intel_sets
       id: aws.guardduty.threat_intel_sets
@@ -657,8 +755,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.DetectorId') as detector_id
+              JSON_EXTRACT(Properties, '$.DetectorId') as detector_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'DetectorId') as detector_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'
     threat_intel_set:
       name: threat_intel_set
       id: aws.guardduty.threat_intel_set
@@ -682,3 +788,16 @@ components:
               JSON_EXTRACT(Properties, '$.Location') as location,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Format') as format,
+                json_extract_path_text(Properties, 'Activate') as activate,
+                json_extract_path_text(Properties, 'DetectorId') as detector_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Location') as location,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GuardDuty::ThreatIntelSet'

@@ -11615,8 +11615,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AnalysisId') as analysis_id,
-              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Analysis'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AnalysisId') as analysis_id,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Analysis'
     analysis:
       name: analysis
       id: aws.quicksight.analysis
@@ -11650,6 +11658,29 @@ components:
               JSON_EXTRACT(Properties, '$.ThemeArn') as theme_arn,
               JSON_EXTRACT(Properties, '$.ValidationStrategy') as validation_strategy
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Analysis'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AnalysisId') as analysis_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'DataSetArns') as data_set_arns,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'Errors') as errors,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'Sheets') as sheets,
+                json_extract_path_text(Properties, 'SourceEntity') as source_entity,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ThemeArn') as theme_arn,
+                json_extract_path_text(Properties, 'ValidationStrategy') as validation_strategy
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Analysis'
     dashboards:
       name: dashboards
       id: aws.quicksight.dashboards
@@ -11666,8 +11697,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_id
+              JSON_EXTRACT(Properties, '$.DashboardId') as dashboard_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DashboardId') as dashboard_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
     dashboard:
       name: dashboard
       id: aws.quicksight.dashboard
@@ -11702,6 +11741,30 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'DashboardId') as dashboard_id,
+                json_extract_path_text(Properties, 'DashboardPublishOptions') as dashboard_publish_options,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'LastPublishedTime') as last_published_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'LinkSharingConfiguration') as link_sharing_configuration,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'SourceEntity') as source_entity,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ThemeArn') as theme_arn,
+                json_extract_path_text(Properties, 'ValidationStrategy') as validation_strategy,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'VersionDescription') as version_description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Dashboard'
     data_sets:
       name: data_sets
       id: aws.quicksight.data_sets
@@ -11718,8 +11781,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id
+              JSON_EXTRACT(Properties, '$.DataSetId') as data_set_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DataSetId') as data_set_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSet'
     data_set:
       name: data_set
       id: aws.quicksight.data_set
@@ -11758,6 +11829,34 @@ components:
               JSON_EXTRACT(Properties, '$.DataSetUsageConfiguration') as data_set_usage_configuration,
               JSON_EXTRACT(Properties, '$.DataSetRefreshProperties') as data_set_refresh_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSet'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'ColumnGroups') as column_groups,
+                json_extract_path_text(Properties, 'ColumnLevelPermissionRules') as column_level_permission_rules,
+                json_extract_path_text(Properties, 'ConsumedSpiceCapacityInBytes') as consumed_spice_capacity_in_bytes,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'DataSetId') as data_set_id,
+                json_extract_path_text(Properties, 'DatasetParameters') as dataset_parameters,
+                json_extract_path_text(Properties, 'FieldFolders') as field_folders,
+                json_extract_path_text(Properties, 'ImportMode') as import_mode,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'LogicalTableMap') as logical_table_map,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'OutputColumns') as output_columns,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'PhysicalTableMap') as physical_table_map,
+                json_extract_path_text(Properties, 'RowLevelPermissionDataSet') as row_level_permission_data_set,
+                json_extract_path_text(Properties, 'RowLevelPermissionTagConfiguration') as row_level_permission_tag_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'IngestionWaitPolicy') as ingestion_wait_policy,
+                json_extract_path_text(Properties, 'DataSetUsageConfiguration') as data_set_usage_configuration,
+                json_extract_path_text(Properties, 'DataSetRefreshProperties') as data_set_refresh_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSet'
     data_sources:
       name: data_sources
       id: aws.quicksight.data_sources
@@ -11774,8 +11873,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.DataSourceId') as data_source_id
+              JSON_EXTRACT(Properties, '$.DataSourceId') as data_source_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DataSourceId') as data_source_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::DataSource'
     data_source:
       name: data_source
       id: aws.quicksight.data_source
@@ -11808,6 +11915,28 @@ components:
               JSON_EXTRACT(Properties, '$.Type') as type,
               JSON_EXTRACT(Properties, '$.VpcConnectionProperties') as vpc_connection_properties
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AlternateDataSourceParameters') as alternate_data_source_parameters,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'Credentials') as credentials,
+                json_extract_path_text(Properties, 'DataSourceId') as data_source_id,
+                json_extract_path_text(Properties, 'DataSourceParameters') as data_source_parameters,
+                json_extract_path_text(Properties, 'ErrorInfo') as error_info,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'SslProperties') as ssl_properties,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'VpcConnectionProperties') as vpc_connection_properties
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::DataSource'
     refresh_schedules:
       name: refresh_schedules
       id: aws.quicksight.refresh_schedules
@@ -11826,8 +11955,17 @@ components:
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
               JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id,
-              JSON_EXTRACT(Properties, '$.Schedule.ScheduleId') as schedule.schedule_id
+              JSON_EXTRACT(Properties, '$.Schedule.ScheduleId') as schedule__schedule_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DataSetId') as data_set_id,
+                json_extract_path_text(Properties, 'Schedule', 'ScheduleId') as schedule__schedule_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
     refresh_schedule:
       name: refresh_schedule
       id: aws.quicksight.refresh_schedule
@@ -11849,6 +11987,16 @@ components:
               JSON_EXTRACT(Properties, '$.DataSetId') as data_set_id,
               JSON_EXTRACT(Properties, '$.Schedule') as schedule
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DataSetId') as data_set_id,
+                json_extract_path_text(Properties, 'Schedule') as schedule
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::RefreshSchedule'
     templates:
       name: templates
       id: aws.quicksight.templates
@@ -11865,8 +12013,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.TemplateId') as template_id
+              JSON_EXTRACT(Properties, '$.TemplateId') as template_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'TemplateId') as template_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Template'
     template:
       name: template
       id: aws.quicksight.template
@@ -11896,6 +12052,25 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Template'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'SourceEntity') as source_entity,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TemplateId') as template_id,
+                json_extract_path_text(Properties, 'ValidationStrategy') as validation_strategy,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'VersionDescription') as version_description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Template'
     themes:
       name: themes
       id: aws.quicksight.themes
@@ -11912,8 +12087,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.ThemeId') as theme_id,
-              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id
+              JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Theme'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ThemeId') as theme_id,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Theme'
     theme:
       name: theme
       id: aws.quicksight.theme
@@ -11943,6 +12126,25 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.VersionDescription') as version_description
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Theme'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'BaseThemeId') as base_theme_id,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Permissions') as permissions,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ThemeId') as theme_id,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'VersionDescription') as version_description
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Theme'
     topics:
       name: topics
       id: aws.quicksight.topics
@@ -11959,8 +12161,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.TopicId') as topic_id
+              JSON_EXTRACT(Properties, '$.TopicId') as topic_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Topic'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'TopicId') as topic_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::Topic'
     topic:
       name: topic
       id: aws.quicksight.topic
@@ -11984,6 +12194,19 @@ components:
               JSON_EXTRACT(Properties, '$.TopicId') as topic_id,
               JSON_EXTRACT(Properties, '$.UserExperienceVersion') as user_experience_version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Topic'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'DataSets') as data_sets,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'TopicId') as topic_id,
+                json_extract_path_text(Properties, 'UserExperienceVersion') as user_experience_version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::Topic'
     vpc_connections:
       name: vpc_connections
       id: aws.quicksight.vpc_connections
@@ -12000,8 +12223,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.AwsAccountId') as aws_account_id,
-              JSON_EXTRACT(Properties, '$.VPCConnectionId') as v_pc_connection_id
+              JSON_EXTRACT(Properties, '$.VPCConnectionId') as v_pc_connection_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'VPCConnectionId') as v_pc_connection_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'
     vpc_connection:
       name: vpc_connection
       id: aws.quicksight.vpc_connection
@@ -12033,3 +12264,24 @@ components:
               JSON_EXTRACT(Properties, '$.LastUpdatedTime') as last_updated_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AwsAccountId') as aws_account_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'VPCConnectionId') as v_pc_connection_id,
+                json_extract_path_text(Properties, 'VPCId') as v_pc_id,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'DnsResolvers') as dns_resolvers,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'AvailabilityStatus') as availability_status,
+                json_extract_path_text(Properties, 'NetworkInterfaces') as network_interfaces,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'CreatedTime') as created_time,
+                json_extract_path_text(Properties, 'LastUpdatedTime') as last_updated_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::QuickSight::VPCConnection'

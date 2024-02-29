@@ -1949,8 +1949,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::Bot'
     bot:
       name: bot
       id: aws.lex.bot
@@ -1979,6 +1986,25 @@ components:
               JSON_EXTRACT(Properties, '$.AutoBuildBotLocales') as auto_build_bot_locales,
               JSON_EXTRACT(Properties, '$.TestBotAliasSettings') as test_bot_alias_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'DataPrivacy') as data_privacy,
+                json_extract_path_text(Properties, 'IdleSessionTTLInSeconds') as idle_session_tt_lin_seconds,
+                json_extract_path_text(Properties, 'BotLocales') as bot_locales,
+                json_extract_path_text(Properties, 'BotFileS3Location') as bot_file_s3_location,
+                json_extract_path_text(Properties, 'BotTags') as bot_tags,
+                json_extract_path_text(Properties, 'TestBotAliasTags') as test_bot_alias_tags,
+                json_extract_path_text(Properties, 'AutoBuildBotLocales') as auto_build_bot_locales,
+                json_extract_path_text(Properties, 'TestBotAliasSettings') as test_bot_alias_settings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::Bot'
     bot_versions:
       name: bot_versions
       id: aws.lex.bot_versions
@@ -1995,8 +2021,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.BotId') as bot_id,
-              JSON_EXTRACT(Properties, '$.BotVersion') as bot_version
+              JSON_EXTRACT(Properties, '$.BotVersion') as bot_versi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'BotVersion') as bot_versi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotVersion'
     bot_version:
       name: bot_version
       id: aws.lex.bot_version
@@ -2017,6 +2051,16 @@ components:
               JSON_EXTRACT(Properties, '$.Description') as description,
               JSON_EXTRACT(Properties, '$.BotVersionLocaleSpecification') as bot_version_locale_specification
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'BotVersion') as bot_version,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'BotVersionLocaleSpecification') as bot_version_locale_specification
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotVersion'
     bot_aliases:
       name: bot_aliases
       id: aws.lex.bot_aliases
@@ -2033,8 +2077,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.BotAliasId') as bot_alias_id,
-              JSON_EXTRACT(Properties, '$.BotId') as bot_id
+              JSON_EXTRACT(Properties, '$.BotId') as bot_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotAliasId') as bot_alias_id,
+                json_extract_path_text(Properties, 'BotId') as bot_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::BotAlias'
     bot_alias:
       name: bot_alias
       id: aws.lex.bot_alias
@@ -2062,6 +2114,23 @@ components:
               JSON_EXTRACT(Properties, '$.SentimentAnalysisSettings') as sentiment_analysis_settings,
               JSON_EXTRACT(Properties, '$.BotAliasTags') as bot_alias_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BotAliasId') as bot_alias_id,
+                json_extract_path_text(Properties, 'BotId') as bot_id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'BotAliasStatus') as bot_alias_status,
+                json_extract_path_text(Properties, 'BotAliasLocaleSettings') as bot_alias_locale_settings,
+                json_extract_path_text(Properties, 'BotAliasName') as bot_alias_name,
+                json_extract_path_text(Properties, 'BotVersion') as bot_version,
+                json_extract_path_text(Properties, 'ConversationLogSettings') as conversation_log_settings,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SentimentAnalysisSettings') as sentiment_analysis_settings,
+                json_extract_path_text(Properties, 'BotAliasTags') as bot_alias_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::BotAlias'
     resource_policies:
       name: resource_policies
       id: aws.lex.resource_policies
@@ -2076,8 +2145,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
     resource_policy:
       name: resource_policy
       id: aws.lex.resource_policy
@@ -2097,3 +2173,13 @@ components:
               JSON_EXTRACT(Properties, '$.Policy') as policy,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ResourceArn') as resource_arn,
+                json_extract_path_text(Properties, 'RevisionId') as revision_id,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Lex::ResourcePolicy'

@@ -516,8 +516,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::Config'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::Config'
     config:
       name: config
       id: aws.groundstation.config
@@ -539,6 +546,18 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Id') as id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::Config'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'ConfigData') as config_data,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Id') as id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::Config'
     dataflow_endpoint_groups:
       name: dataflow_endpoint_groups
       id: aws.groundstation.dataflow_endpoint_groups
@@ -553,8 +572,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
     dataflow_endpoint_group:
       name: dataflow_endpoint_group
       id: aws.groundstation.dataflow_endpoint_group
@@ -576,6 +602,18 @@ components:
               JSON_EXTRACT(Properties, '$.ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'EndpointDetails') as endpoint_details,
+                json_extract_path_text(Properties, 'ContactPrePassDurationSeconds') as contact_pre_pass_duration_seconds,
+                json_extract_path_text(Properties, 'ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::DataflowEndpointGroup'
     mission_profiles:
       name: mission_profiles
       id: aws.groundstation.mission_profiles
@@ -592,8 +630,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'
     mission_profile:
       name: mission_profile
       id: aws.groundstation.mission_profile
@@ -622,3 +668,21 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Region') as region
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'ContactPrePassDurationSeconds') as contact_pre_pass_duration_seconds,
+                json_extract_path_text(Properties, 'ContactPostPassDurationSeconds') as contact_post_pass_duration_seconds,
+                json_extract_path_text(Properties, 'MinimumViableContactDurationSeconds') as minimum_viable_contact_duration_seconds,
+                json_extract_path_text(Properties, 'StreamsKmsKey') as streams_kms_key,
+                json_extract_path_text(Properties, 'StreamsKmsRole') as streams_kms_role,
+                json_extract_path_text(Properties, 'DataflowEdges') as dataflow_edges,
+                json_extract_path_text(Properties, 'TrackingConfigArn') as tracking_config_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Region') as region
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::GroundStation::MissionProfile'

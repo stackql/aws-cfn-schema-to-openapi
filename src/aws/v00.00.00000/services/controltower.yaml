@@ -442,8 +442,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.EnabledBaselineIdentifier') as enabled_baseline_identifier
+              JSON_EXTRACT(Properties, '$.EnabledBaselineIdentifier') as enabled_baseline_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::EnabledBaseline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'EnabledBaselineIdentifier') as enabled_baseline_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::EnabledBaseline'
     enabled_baseline:
       name: enabled_baseline
       id: aws.controltower.enabled_baseline
@@ -465,6 +472,18 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::EnabledBaseline'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'BaselineIdentifier') as baseline_identifier,
+                json_extract_path_text(Properties, 'BaselineVersion') as baseline_version,
+                json_extract_path_text(Properties, 'EnabledBaselineIdentifier') as enabled_baseline_identifier,
+                json_extract_path_text(Properties, 'TargetIdentifier') as target_identifier,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::EnabledBaseline'
     enabled_controls:
       name: enabled_controls
       id: aws.controltower.enabled_controls
@@ -481,8 +500,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.TargetIdentifier') as target_identifier,
-              JSON_EXTRACT(Properties, '$.ControlIdentifier') as control_identifier
+              JSON_EXTRACT(Properties, '$.ControlIdentifier') as control_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::EnabledControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TargetIdentifier') as target_identifier,
+                json_extract_path_text(Properties, 'ControlIdentifier') as control_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::EnabledControl'
     enabled_control:
       name: enabled_control
       id: aws.controltower.enabled_control
@@ -503,6 +530,16 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::EnabledControl'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ControlIdentifier') as control_identifier,
+                json_extract_path_text(Properties, 'TargetIdentifier') as target_identifier,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::EnabledControl'
     landing_zones:
       name: landing_zones
       id: aws.controltower.landing_zones
@@ -517,8 +554,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LandingZoneIdentifier') as landing_zone_identifier
+              JSON_EXTRACT(Properties, '$.LandingZoneIdentifier') as landing_zone_identifi
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::LandingZone'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LandingZoneIdentifier') as landing_zone_identifi
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::ControlTower::LandingZone'
     landing_zone:
       name: landing_zone
       id: aws.controltower.landing_zone
@@ -542,3 +586,17 @@ components:
               JSON_EXTRACT(Properties, '$.Version') as version,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::LandingZone'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LandingZoneIdentifier') as landing_zone_identifier,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'LatestAvailableVersion') as latest_available_version,
+                json_extract_path_text(Properties, 'DriftStatus') as drift_status,
+                json_extract_path_text(Properties, 'Manifest') as manifest,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::ControlTower::LandingZone'

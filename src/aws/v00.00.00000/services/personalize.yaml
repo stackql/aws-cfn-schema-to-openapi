@@ -448,8 +448,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DatasetArn') as dataset_arn
+              JSON_EXTRACT(Properties, '$.DatasetArn') as dataset_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetArn') as dataset_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Dataset'
     dataset:
       name: dataset
       id: aws.personalize.dataset
@@ -471,6 +478,18 @@ components:
               JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn,
               JSON_EXTRACT(Properties, '$.DatasetImportJob') as dataset_import_job
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Dataset'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'DatasetArn') as dataset_arn,
+                json_extract_path_text(Properties, 'DatasetType') as dataset_type,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_arn,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_arn,
+                json_extract_path_text(Properties, 'DatasetImportJob') as dataset_import_job
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Dataset'
     dataset_groups:
       name: dataset_groups
       id: aws.personalize.dataset_groups
@@ -485,8 +504,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_arn
+              JSON_EXTRACT(Properties, '$.DatasetGroupArn') as dataset_group_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
     dataset_group:
       name: dataset_group
       id: aws.personalize.dataset_group
@@ -507,6 +533,17 @@ components:
               JSON_EXTRACT(Properties, '$.RoleArn') as role_arn,
               JSON_EXTRACT(Properties, '$.Domain') as domain
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Domain') as domain
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::DatasetGroup'
     schemata:
       name: schemata
       id: aws.personalize.schemata
@@ -521,8 +558,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn
+              JSON_EXTRACT(Properties, '$.SchemaArn') as schema_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Schema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Schema'
     schema:
       name: schema
       id: aws.personalize.schema
@@ -542,6 +586,16 @@ components:
               JSON_EXTRACT(Properties, '$.Schema') as schema,
               JSON_EXTRACT(Properties, '$.Domain') as domain
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Schema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_arn,
+                json_extract_path_text(Properties, 'Schema') as schema,
+                json_extract_path_text(Properties, 'Domain') as domain
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Schema'
     solutions:
       name: solutions
       id: aws.personalize.solutions
@@ -556,8 +610,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SolutionArn') as solution_arn
+              JSON_EXTRACT(Properties, '$.SolutionArn') as solution_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Solution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SolutionArn') as solution_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Personalize::Solution'
     solution:
       name: solution
       id: aws.personalize.solution
@@ -581,3 +642,17 @@ components:
               JSON_EXTRACT(Properties, '$.RecipeArn') as recipe_arn,
               JSON_EXTRACT(Properties, '$.SolutionConfig') as solution_config
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Solution'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'SolutionArn') as solution_arn,
+                json_extract_path_text(Properties, 'EventType') as event_type,
+                json_extract_path_text(Properties, 'DatasetGroupArn') as dataset_group_arn,
+                json_extract_path_text(Properties, 'PerformAutoML') as perform_auto_ml,
+                json_extract_path_text(Properties, 'PerformHPO') as perform_hp_o,
+                json_extract_path_text(Properties, 'RecipeArn') as recipe_arn,
+                json_extract_path_text(Properties, 'SolutionConfig') as solution_config
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Personalize::Solution'

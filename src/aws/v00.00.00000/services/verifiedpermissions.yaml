@@ -422,8 +422,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.IdentitySourceId') as identity_source_id,
-              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id
+              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::IdentitySource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IdentitySourceId') as identity_source_id,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::IdentitySource'
     identity_source:
       name: identity_source
       id: aws.verifiedpermissions.identity_source
@@ -445,6 +453,17 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id,
               JSON_EXTRACT(Properties, '$.PrincipalEntityType') as principal_entity_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::IdentitySource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'Details') as details,
+                json_extract_path_text(Properties, 'IdentitySourceId') as identity_source_id,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_id,
+                json_extract_path_text(Properties, 'PrincipalEntityType') as principal_entity_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::IdentitySource'
     policies:
       name: policies
       id: aws.verifiedpermissions.policies
@@ -461,8 +480,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyId') as policy_id,
-              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id
+              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyId') as policy_id,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::Policy'
     policy:
       name: policy
       id: aws.verifiedpermissions.policy
@@ -483,6 +510,16 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id,
               JSON_EXTRACT(Properties, '$.PolicyType') as policy_type
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::Policy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Definition') as definition,
+                json_extract_path_text(Properties, 'PolicyId') as policy_id,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_id,
+                json_extract_path_text(Properties, 'PolicyType') as policy_type
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::Policy'
     policy_stores:
       name: policy_stores
       id: aws.verifiedpermissions.policy_stores
@@ -497,8 +534,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id
+              JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyStore'
     policy_store:
       name: policy_store
       id: aws.verifiedpermissions.policy_store
@@ -519,6 +563,17 @@ components:
               JSON_EXTRACT(Properties, '$.ValidationSettings') as validation_settings,
               JSON_EXTRACT(Properties, '$.Schema') as schema
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyStore'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_id,
+                json_extract_path_text(Properties, 'ValidationSettings') as validation_settings,
+                json_extract_path_text(Properties, 'Schema') as schema
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyStore'
     policy_templates:
       name: policy_templates
       id: aws.verifiedpermissions.policy_templates
@@ -535,8 +590,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.PolicyStoreId') as policy_store_id,
-              JSON_EXTRACT(Properties, '$.PolicyTemplateId') as policy_template_id
+              JSON_EXTRACT(Properties, '$.PolicyTemplateId') as policy_template_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_id,
+                json_extract_path_text(Properties, 'PolicyTemplateId') as policy_template_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyTemplate'
     policy_template:
       name: policy_template
       id: aws.verifiedpermissions.policy_template
@@ -557,3 +620,13 @@ components:
               JSON_EXTRACT(Properties, '$.PolicyTemplateId') as policy_template_id,
               JSON_EXTRACT(Properties, '$.Statement') as statement
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PolicyStoreId') as policy_store_id,
+                json_extract_path_text(Properties, 'PolicyTemplateId') as policy_template_id,
+                json_extract_path_text(Properties, 'Statement') as statement
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::VerifiedPermissions::PolicyTemplate'

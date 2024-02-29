@@ -457,8 +457,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ACLName') as a_cl_name
+              JSON_EXTRACT(Properties, '$.ACLName') as a_cl_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ACLName') as a_cl_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ACL'
     acl:
       name: acl
       id: aws.memorydb.acl
@@ -479,6 +486,17 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ACL'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'ACLName') as a_cl_name,
+                json_extract_path_text(Properties, 'UserNames') as user_names,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ACL'
     clusters:
       name: clusters
       id: aws.memorydb.clusters
@@ -493,8 +511,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_name
+              JSON_EXTRACT(Properties, '$.ClusterName') as cluster_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
     cluster:
       name: cluster
       id: aws.memorydb.cluster
@@ -538,6 +563,40 @@ components:
               JSON_EXTRACT(Properties, '$.AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ClusterName') as cluster_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'NodeType') as node_type,
+                json_extract_path_text(Properties, 'NumShards') as num_shards,
+                json_extract_path_text(Properties, 'NumReplicasPerShard') as num_replicas_per_shard,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_name,
+                json_extract_path_text(Properties, 'SecurityGroupIds') as security_group_ids,
+                json_extract_path_text(Properties, 'MaintenanceWindow') as maintenance_window,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_name,
+                json_extract_path_text(Properties, 'ParameterGroupStatus') as parameter_group_status,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'SnapshotRetentionLimit') as snapshot_retention_limit,
+                json_extract_path_text(Properties, 'SnapshotWindow') as snapshot_window,
+                json_extract_path_text(Properties, 'ACLName') as a_cl_name,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'SnsTopicStatus') as sns_topic_status,
+                json_extract_path_text(Properties, 'TLSEnabled') as t_ls_enabled,
+                json_extract_path_text(Properties, 'DataTiering') as data_tiering,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'SnapshotArns') as snapshot_arns,
+                json_extract_path_text(Properties, 'SnapshotName') as snapshot_name,
+                json_extract_path_text(Properties, 'FinalSnapshotName') as final_snapshot_name,
+                json_extract_path_text(Properties, 'ARN') as a_rn,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'ClusterEndpoint') as cluster_endpoint,
+                json_extract_path_text(Properties, 'AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::Cluster'
     parameter_groups:
       name: parameter_groups
       id: aws.memorydb.parameter_groups
@@ -552,8 +611,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_name
+              JSON_EXTRACT(Properties, '$.ParameterGroupName') as parameter_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
     parameter_group:
       name: parameter_group
       id: aws.memorydb.parameter_group
@@ -575,6 +641,18 @@ components:
               JSON_EXTRACT(Properties, '$.Parameters') as parameters,
               JSON_EXTRACT(Properties, '$.ARN') as a_rn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ParameterGroupName') as parameter_group_name,
+                json_extract_path_text(Properties, 'Family') as family,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Parameters') as parameters,
+                json_extract_path_text(Properties, 'ARN') as a_rn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::ParameterGroup'
     subnet_groups:
       name: subnet_groups
       id: aws.memorydb.subnet_groups
@@ -589,8 +667,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SubnetGroupName') as subnet_group_name
+              JSON_EXTRACT(Properties, '$.SubnetGroupName') as subnet_group_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
     subnet_group:
       name: subnet_group
       id: aws.memorydb.subnet_group
@@ -611,6 +696,17 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.ARN') as a_rn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SubnetGroupName') as subnet_group_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'ARN') as a_rn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::SubnetGroup'
     users:
       name: users
       id: aws.memorydb.users
@@ -625,8 +721,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.UserName') as user_name
+              JSON_EXTRACT(Properties, '$.UserName') as user_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'UserName') as user_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::MemoryDB::User'
     user:
       name: user
       id: aws.memorydb.user
@@ -648,3 +751,15 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::User'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'UserName') as user_name,
+                json_extract_path_text(Properties, 'AccessString') as access_string,
+                json_extract_path_text(Properties, 'AuthenticationMode') as authentication_mode,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::MemoryDB::User'

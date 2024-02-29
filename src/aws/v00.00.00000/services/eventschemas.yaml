@@ -244,8 +244,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DiscovererArn') as discoverer_arn
+              JSON_EXTRACT(Properties, '$.DiscovererArn') as discoverer_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DiscovererArn') as discoverer_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
     discoverer:
       name: discoverer
       id: aws.eventschemas.discoverer
@@ -268,6 +275,19 @@ components:
               JSON_EXTRACT(Properties, '$.State') as state,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DiscovererArn') as discoverer_arn,
+                json_extract_path_text(Properties, 'DiscovererId') as discoverer_id,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SourceArn') as source_arn,
+                json_extract_path_text(Properties, 'CrossAccount') as cross_account,
+                json_extract_path_text(Properties, 'State') as state,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Discoverer'
     registries:
       name: registries
       id: aws.eventschemas.registries
@@ -282,8 +302,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.RegistryArn') as registry_arn
+              JSON_EXTRACT(Properties, '$.RegistryArn') as registry_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Registry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegistryArn') as registry_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Registry'
     registry:
       name: registry
       id: aws.eventschemas.registry
@@ -303,6 +330,16 @@ components:
               JSON_EXTRACT(Properties, '$.RegistryArn') as registry_arn,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Registry'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'RegistryName') as registry_name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'RegistryArn') as registry_arn,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Registry'
     registry_policies:
       name: registry_policies
       id: aws.eventschemas.registry_policies
@@ -317,8 +354,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
     registry_policy:
       name: registry_policy
       id: aws.eventschemas.registry_policy
@@ -338,6 +382,16 @@ components:
               JSON_EXTRACT(Properties, '$.RegistryName') as registry_name,
               JSON_EXTRACT(Properties, '$.RevisionId') as revision_id
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Policy') as policy,
+                json_extract_path_text(Properties, 'RegistryName') as registry_name,
+                json_extract_path_text(Properties, 'RevisionId') as revision_id
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::RegistryPolicy'
     schemata:
       name: schemata
       id: aws.eventschemas.schemata
@@ -352,8 +406,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.SchemaArn') as schema_arn
+              JSON_EXTRACT(Properties, '$.SchemaArn') as schema_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Schema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::EventSchemas::Schema'
     schema:
       name: schema
       id: aws.eventschemas.schema
@@ -379,3 +440,19 @@ components:
               JSON_EXTRACT(Properties, '$.VersionCreatedDate') as version_created_date,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Schema'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SchemaVersion') as schema_version,
+                json_extract_path_text(Properties, 'Content') as content,
+                json_extract_path_text(Properties, 'RegistryName') as registry_name,
+                json_extract_path_text(Properties, 'SchemaArn') as schema_arn,
+                json_extract_path_text(Properties, 'SchemaName') as schema_name,
+                json_extract_path_text(Properties, 'LastModified') as last_modified,
+                json_extract_path_text(Properties, 'VersionCreatedDate') as version_created_date,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::EventSchemas::Schema'

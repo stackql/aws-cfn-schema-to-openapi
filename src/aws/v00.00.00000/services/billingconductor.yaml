@@ -556,8 +556,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
     billing_group:
       name: billing_group
       id: aws.billingconductor.billing_group
@@ -585,6 +592,24 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PrimaryAccountId') as primary_account_id,
+                json_extract_path_text(Properties, 'ComputationPreference') as computation_preference,
+                json_extract_path_text(Properties, 'AccountGrouping') as account_grouping,
+                json_extract_path_text(Properties, 'Size') as size,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'StatusReason') as status_reason,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::BillingGroup'
     custom_line_items:
       name: custom_line_items
       id: aws.billingconductor.custom_line_items
@@ -599,8 +624,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
     custom_line_item:
       name: custom_line_item
       id: aws.billingconductor.custom_line_item
@@ -629,6 +661,25 @@ components:
               JSON_EXTRACT(Properties, '$.AccountId') as account_id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CustomLineItemChargeDetails') as custom_line_item_charge_details,
+                json_extract_path_text(Properties, 'BillingGroupArn') as billing_group_arn,
+                json_extract_path_text(Properties, 'BillingPeriodRange') as billing_period_range,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'AssociationSize') as association_size,
+                json_extract_path_text(Properties, 'ProductCode') as product_code,
+                json_extract_path_text(Properties, 'CurrencyCode') as currency_code,
+                json_extract_path_text(Properties, 'AccountId') as account_id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::CustomLineItem'
     pricing_plans:
       name: pricing_plans
       id: aws.billingconductor.pricing_plans
@@ -643,8 +694,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
     pricing_plan:
       name: pricing_plan
       id: aws.billingconductor.pricing_plan
@@ -668,6 +726,20 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'PricingRuleArns') as pricing_rule_arns,
+                json_extract_path_text(Properties, 'Size') as size,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingPlan'
     pricing_rules:
       name: pricing_rules
       id: aws.billingconductor.pricing_rules
@@ -682,8 +754,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'
     pricing_rule:
       name: pricing_rule
       id: aws.billingconductor.pricing_rule
@@ -714,3 +793,24 @@ components:
               JSON_EXTRACT(Properties, '$.LastModifiedTime') as last_modified_time,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Scope') as scope,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'ModifierPercentage') as modifier_percentage,
+                json_extract_path_text(Properties, 'Service') as service,
+                json_extract_path_text(Properties, 'BillingEntity') as billing_entity,
+                json_extract_path_text(Properties, 'Tiering') as tiering,
+                json_extract_path_text(Properties, 'UsageType') as usage_type,
+                json_extract_path_text(Properties, 'Operation') as operation,
+                json_extract_path_text(Properties, 'AssociatedPricingPlanCount') as associated_pricing_plan_count,
+                json_extract_path_text(Properties, 'CreationTime') as creation_time,
+                json_extract_path_text(Properties, 'LastModifiedTime') as last_modified_time,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::BillingConductor::PricingRule'

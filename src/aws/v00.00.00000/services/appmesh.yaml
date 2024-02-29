@@ -1610,8 +1610,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
     gateway_route:
       name: gateway_route
       id: aws.appmesh.gateway_route
@@ -1637,6 +1644,22 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'VirtualGatewayName') as virtual_gateway_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'GatewayRouteName') as gateway_route_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::GatewayRoute'
     meshes:
       name: meshes
       id: aws.appmesh.meshes
@@ -1651,8 +1674,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Mesh'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Mesh'
     mesh:
       name: mesh
       id: aws.appmesh.mesh
@@ -1676,6 +1706,20 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Mesh'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Mesh'
     routes:
       name: routes
       id: aws.appmesh.routes
@@ -1690,8 +1734,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::Route'
     route:
       name: route
       id: aws.appmesh.route
@@ -1717,6 +1768,22 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Route'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'VirtualRouterName') as virtual_router_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'RouteName') as route_name,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::Route'
     virtual_gateways:
       name: virtual_gateways
       id: aws.appmesh.virtual_gateways
@@ -1731,8 +1798,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
     virtual_gateway:
       name: virtual_gateway
       id: aws.appmesh.virtual_gateway
@@ -1757,6 +1831,21 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'VirtualGatewayName') as virtual_gateway_name,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualGateway'
     virtual_nodes:
       name: virtual_nodes
       id: aws.appmesh.virtual_nodes
@@ -1771,8 +1860,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
     virtual_node:
       name: virtual_node
       id: aws.appmesh.virtual_node
@@ -1797,6 +1893,21 @@ components:
               JSON_EXTRACT(Properties, '$.VirtualNodeName') as virtual_node_name,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'VirtualNodeName') as virtual_node_name,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualNode'
     virtual_routers:
       name: virtual_routers
       id: aws.appmesh.virtual_routers
@@ -1811,8 +1922,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
     virtual_router:
       name: virtual_router
       id: aws.appmesh.virtual_router
@@ -1837,6 +1955,21 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'VirtualRouterName') as virtual_router_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualRouter'
     virtual_services:
       name: virtual_services
       id: aws.appmesh.virtual_services
@@ -1851,8 +1984,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualService'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::AppMesh::VirtualService'
     virtual_service:
       name: virtual_service
       id: aws.appmesh.virtual_service
@@ -1877,3 +2017,18 @@ components:
               JSON_EXTRACT(Properties, '$.Spec') as spec,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualService'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Uid') as uid,
+                json_extract_path_text(Properties, 'MeshName') as mesh_name,
+                json_extract_path_text(Properties, 'MeshOwner') as mesh_owner,
+                json_extract_path_text(Properties, 'ResourceOwner') as resource_owner,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'VirtualServiceName') as virtual_service_name,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Spec') as spec,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::AppMesh::VirtualService'

@@ -231,8 +231,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Elasticsearch::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Elasticsearch::Domain'
     domain:
       name: domain
       id: aws.elasticsearch.domain
@@ -267,3 +274,28 @@ components:
               JSON_EXTRACT(Properties, '$.EncryptionAtRestOptions') as encryption_at_rest_options,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Elasticsearch::Domain'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ElasticsearchClusterConfig') as elasticsearch_cluster_config,
+                json_extract_path_text(Properties, 'DomainName') as domain_name,
+                json_extract_path_text(Properties, 'ElasticsearchVersion') as elasticsearch_version,
+                json_extract_path_text(Properties, 'LogPublishingOptions') as log_publishing_options,
+                json_extract_path_text(Properties, 'SnapshotOptions') as snapshot_options,
+                json_extract_path_text(Properties, 'VPCOptions') as v_pc_options,
+                json_extract_path_text(Properties, 'NodeToNodeEncryptionOptions') as node_to_node_encryption_options,
+                json_extract_path_text(Properties, 'AccessPolicies') as access_policies,
+                json_extract_path_text(Properties, 'DomainEndpointOptions') as domain_endpoint_options,
+                json_extract_path_text(Properties, 'DomainArn') as domain_arn,
+                json_extract_path_text(Properties, 'CognitoOptions') as cognito_options,
+                json_extract_path_text(Properties, 'AdvancedOptions') as advanced_options,
+                json_extract_path_text(Properties, 'AdvancedSecurityOptions') as advanced_security_options,
+                json_extract_path_text(Properties, 'DomainEndpoint') as domain_endpoint,
+                json_extract_path_text(Properties, 'EBSOptions') as e_bs_options,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'EncryptionAtRestOptions') as encryption_at_rest_options,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Elasticsearch::Domain'

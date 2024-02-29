@@ -134,8 +134,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
     assessment_target:
       name: assessment_target
       id: aws.inspector.assessment_target
@@ -154,6 +161,15 @@ components:
               JSON_EXTRACT(Properties, '$.AssessmentTargetName') as assessment_target_name,
               JSON_EXTRACT(Properties, '$.ResourceGroupArn') as resource_group_arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AssessmentTargetName') as assessment_target_name,
+                json_extract_path_text(Properties, 'ResourceGroupArn') as resource_group_arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTarget'
     assessment_templates:
       name: assessment_templates
       id: aws.inspector.assessment_templates
@@ -168,8 +184,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
     assessment_template:
       name: assessment_template
       id: aws.inspector.assessment_template
@@ -191,6 +214,18 @@ components:
               JSON_EXTRACT(Properties, '$.RulesPackageArns') as rules_package_arns,
               JSON_EXTRACT(Properties, '$.UserAttributesForFindings') as user_attributes_for_findings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'AssessmentTargetArn') as assessment_target_arn,
+                json_extract_path_text(Properties, 'DurationInSeconds') as duration_in_seconds,
+                json_extract_path_text(Properties, 'AssessmentTemplateName') as assessment_template_name,
+                json_extract_path_text(Properties, 'RulesPackageArns') as rules_package_arns,
+                json_extract_path_text(Properties, 'UserAttributesForFindings') as user_attributes_for_findings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::AssessmentTemplate'
     resource_groups:
       name: resource_groups
       id: aws.inspector.resource_groups
@@ -205,8 +240,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Arn') as arn
+              JSON_EXTRACT(Properties, '$.Arn') as a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'
     resource_group:
       name: resource_group
       id: aws.inspector.resource_group
@@ -224,3 +266,11 @@ components:
               JSON_EXTRACT(Properties, '$.Arn') as arn,
               JSON_EXTRACT(Properties, '$.ResourceGroupTags') as resource_group_tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'ResourceGroupTags') as resource_group_tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Inspector::ResourceGroup'

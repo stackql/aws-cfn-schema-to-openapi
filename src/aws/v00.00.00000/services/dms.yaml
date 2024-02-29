@@ -1349,8 +1349,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Certificate'
     certificate:
       name: certificate
       id: aws.dms.certificate
@@ -1370,6 +1377,16 @@ components:
               JSON_EXTRACT(Properties, '$.CertificatePem') as certificate_pem,
               JSON_EXTRACT(Properties, '$.CertificateWallet') as certificate_wallet
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Certificate'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'CertificateIdentifier') as certificate_identifier,
+                json_extract_path_text(Properties, 'CertificatePem') as certificate_pem,
+                json_extract_path_text(Properties, 'CertificateWallet') as certificate_wallet
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Certificate'
     data_providers:
       name: data_providers
       id: aws.dms.data_providers
@@ -1384,8 +1401,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.DataProviderArn') as data_provider_arn
+              JSON_EXTRACT(Properties, '$.DataProviderArn') as data_provider_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::DataProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DataProviderArn') as data_provider_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::DataProvider'
     data_provider:
       name: data_provider
       id: aws.dms.data_provider
@@ -1410,6 +1434,21 @@ components:
               JSON_EXTRACT(Properties, '$.Settings') as settings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::DataProvider'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'DataProviderName') as data_provider_name,
+                json_extract_path_text(Properties, 'DataProviderIdentifier') as data_provider_identifier,
+                json_extract_path_text(Properties, 'DataProviderArn') as data_provider_arn,
+                json_extract_path_text(Properties, 'DataProviderCreationTime') as data_provider_creation_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Engine') as engine,
+                json_extract_path_text(Properties, 'ExactSettings') as exact_settings,
+                json_extract_path_text(Properties, 'Settings') as settings,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::DataProvider'
     endpoints:
       name: endpoints
       id: aws.dms.endpoints
@@ -1424,8 +1463,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::Endpoint'
     endpoint:
       name: endpoint
       id: aws.dms.endpoint
@@ -1474,6 +1520,45 @@ components:
               JSON_EXTRACT(Properties, '$.CertificateArn') as certificate_arn,
               JSON_EXTRACT(Properties, '$.PostgreSqlSettings') as postgre_sql_settings
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Endpoint'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SybaseSettings') as sybase_settings,
+                json_extract_path_text(Properties, 'RedisSettings') as redis_settings,
+                json_extract_path_text(Properties, 'OracleSettings') as oracle_settings,
+                json_extract_path_text(Properties, 'KafkaSettings') as kafka_settings,
+                json_extract_path_text(Properties, 'Port') as port,
+                json_extract_path_text(Properties, 'MySqlSettings') as my_sql_settings,
+                json_extract_path_text(Properties, 'S3Settings') as s3_settings,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'KinesisSettings') as kinesis_settings,
+                json_extract_path_text(Properties, 'SslMode') as ssl_mode,
+                json_extract_path_text(Properties, 'RedshiftSettings') as redshift_settings,
+                json_extract_path_text(Properties, 'EndpointType') as endpoint_type,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Password') as password,
+                json_extract_path_text(Properties, 'MongoDbSettings') as mongo_db_settings,
+                json_extract_path_text(Properties, 'IbmDb2Settings') as ibm_db2_settings,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'ExternalId') as external_id,
+                json_extract_path_text(Properties, 'DatabaseName') as database_name,
+                json_extract_path_text(Properties, 'NeptuneSettings') as neptune_settings,
+                json_extract_path_text(Properties, 'ElasticsearchSettings') as elasticsearch_settings,
+                json_extract_path_text(Properties, 'EngineName') as engine_name,
+                json_extract_path_text(Properties, 'DocDbSettings') as doc_db_settings,
+                json_extract_path_text(Properties, 'DynamoDbSettings') as dynamo_db_settings,
+                json_extract_path_text(Properties, 'Username') as username,
+                json_extract_path_text(Properties, 'MicrosoftSqlServerSettings') as microsoft_sql_server_settings,
+                json_extract_path_text(Properties, 'GcpMySQLSettings') as gcp_my_sq_lsettings,
+                json_extract_path_text(Properties, 'ServerName') as server_name,
+                json_extract_path_text(Properties, 'ExtraConnectionAttributes') as extra_connection_attributes,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'EndpointIdentifier') as endpoint_identifier,
+                json_extract_path_text(Properties, 'CertificateArn') as certificate_arn,
+                json_extract_path_text(Properties, 'PostgreSqlSettings') as postgre_sql_settings
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::Endpoint'
     event_subscriptions:
       name: event_subscriptions
       id: aws.dms.event_subscriptions
@@ -1488,8 +1573,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::EventSubscription'
     event_subscription:
       name: event_subscription
       id: aws.dms.event_subscription
@@ -1513,6 +1605,20 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::EventSubscription'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'SourceType') as source_type,
+                json_extract_path_text(Properties, 'EventCategories') as event_categories,
+                json_extract_path_text(Properties, 'Enabled') as enabled,
+                json_extract_path_text(Properties, 'SubscriptionName') as subscription_name,
+                json_extract_path_text(Properties, 'SnsTopicArn') as sns_topic_arn,
+                json_extract_path_text(Properties, 'SourceIds') as source_ids,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::EventSubscription'
     instance_profiles:
       name: instance_profiles
       id: aws.dms.instance_profiles
@@ -1527,8 +1633,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.InstanceProfileArn') as instance_profile_arn
+              JSON_EXTRACT(Properties, '$.InstanceProfileArn') as instance_profile_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::InstanceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceProfileArn') as instance_profile_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::InstanceProfile'
     instance_profile:
       name: instance_profile
       id: aws.dms.instance_profile
@@ -1556,6 +1669,24 @@ components:
               JSON_EXTRACT(Properties, '$.VpcSecurityGroups') as vpc_security_groups,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::InstanceProfile'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'InstanceProfileArn') as instance_profile_arn,
+                json_extract_path_text(Properties, 'InstanceProfileIdentifier') as instance_profile_identifier,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'KmsKeyArn') as kms_key_arn,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'NetworkType') as network_type,
+                json_extract_path_text(Properties, 'InstanceProfileName') as instance_profile_name,
+                json_extract_path_text(Properties, 'InstanceProfileCreationTime') as instance_profile_creation_time,
+                json_extract_path_text(Properties, 'SubnetGroupIdentifier') as subnet_group_identifier,
+                json_extract_path_text(Properties, 'VpcSecurityGroups') as vpc_security_groups,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::InstanceProfile'
     migration_projects:
       name: migration_projects
       id: aws.dms.migration_projects
@@ -1570,8 +1701,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MigrationProjectArn') as migration_project_arn
+              JSON_EXTRACT(Properties, '$.MigrationProjectArn') as migration_project_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::MigrationProject'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MigrationProjectArn') as migration_project_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::MigrationProject'
     migration_project:
       name: migration_project
       id: aws.dms.migration_project
@@ -1600,6 +1738,25 @@ components:
               JSON_EXTRACT(Properties, '$.TargetDataProviderDescriptors') as target_data_provider_descriptors,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::MigrationProject'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MigrationProjectName') as migration_project_name,
+                json_extract_path_text(Properties, 'MigrationProjectIdentifier') as migration_project_identifier,
+                json_extract_path_text(Properties, 'MigrationProjectArn') as migration_project_arn,
+                json_extract_path_text(Properties, 'MigrationProjectCreationTime') as migration_project_creation_time,
+                json_extract_path_text(Properties, 'InstanceProfileIdentifier') as instance_profile_identifier,
+                json_extract_path_text(Properties, 'InstanceProfileName') as instance_profile_name,
+                json_extract_path_text(Properties, 'InstanceProfileArn') as instance_profile_arn,
+                json_extract_path_text(Properties, 'TransformationRules') as transformation_rules,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'SchemaConversionApplicationAttributes') as schema_conversion_application_attributes,
+                json_extract_path_text(Properties, 'SourceDataProviderDescriptors') as source_data_provider_descriptors,
+                json_extract_path_text(Properties, 'TargetDataProviderDescriptors') as target_data_provider_descriptors,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::MigrationProject'
     replication_configs:
       name: replication_configs
       id: aws.dms.replication_configs
@@ -1614,8 +1771,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.ReplicationConfigArn') as replication_config_arn
+              JSON_EXTRACT(Properties, '$.ReplicationConfigArn') as replication_config_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationConfigArn') as replication_config_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationConfig'
     replication_config:
       name: replication_config
       id: aws.dms.replication_config
@@ -1642,6 +1806,23 @@ components:
               JSON_EXTRACT(Properties, '$.TableMappings') as table_mappings,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationConfig'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationConfigIdentifier') as replication_config_identifier,
+                json_extract_path_text(Properties, 'ReplicationConfigArn') as replication_config_arn,
+                json_extract_path_text(Properties, 'SourceEndpointArn') as source_endpoint_arn,
+                json_extract_path_text(Properties, 'TargetEndpointArn') as target_endpoint_arn,
+                json_extract_path_text(Properties, 'ReplicationType') as replication_type,
+                json_extract_path_text(Properties, 'ComputeConfig') as compute_config,
+                json_extract_path_text(Properties, 'ReplicationSettings') as replication_settings,
+                json_extract_path_text(Properties, 'SupplementalSettings') as supplemental_settings,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'TableMappings') as table_mappings,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationConfig'
     replication_instances:
       name: replication_instances
       id: aws.dms.replication_instances
@@ -1656,8 +1837,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
     replication_instance:
       name: replication_instance
       id: aws.dms.replication_instance
@@ -1691,6 +1879,30 @@ components:
               JSON_EXTRACT(Properties, '$.ReplicationInstancePublicIpAddresses') as replication_instance_public_ip_addresses,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationInstanceIdentifier') as replication_instance_identifier,
+                json_extract_path_text(Properties, 'EngineVersion') as engine_version,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'AvailabilityZone') as availability_zone,
+                json_extract_path_text(Properties, 'PreferredMaintenanceWindow') as preferred_maintenance_window,
+                json_extract_path_text(Properties, 'AutoMinorVersionUpgrade') as auto_minor_version_upgrade,
+                json_extract_path_text(Properties, 'ReplicationSubnetGroupIdentifier') as replication_subnet_group_identifier,
+                json_extract_path_text(Properties, 'ReplicationInstancePrivateIpAddresses') as replication_instance_private_ip_addresses,
+                json_extract_path_text(Properties, 'AllocatedStorage') as allocated_storage,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'VpcSecurityGroupIds') as vpc_security_group_ids,
+                json_extract_path_text(Properties, 'AllowMajorVersionUpgrade') as allow_major_version_upgrade,
+                json_extract_path_text(Properties, 'ReplicationInstanceClass') as replication_instance_class,
+                json_extract_path_text(Properties, 'PubliclyAccessible') as publicly_accessible,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'MultiAZ') as multi_az,
+                json_extract_path_text(Properties, 'ReplicationInstancePublicIpAddresses') as replication_instance_public_ip_addresses,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationInstance'
     replication_subnet_groups:
       name: replication_subnet_groups
       id: aws.dms.replication_subnet_groups
@@ -1705,8 +1917,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
     replication_subnet_group:
       name: replication_subnet_group
       id: aws.dms.replication_subnet_group
@@ -1727,6 +1946,17 @@ components:
               JSON_EXTRACT(Properties, '$.SubnetIds') as subnet_ids,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationSubnetGroupDescription') as replication_subnet_group_description,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'ReplicationSubnetGroupIdentifier') as replication_subnet_group_identifier,
+                json_extract_path_text(Properties, 'SubnetIds') as subnet_ids,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationSubnetGroup'
     replication_tasks:
       name: replication_tasks
       id: aws.dms.replication_tasks
@@ -1741,8 +1971,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::DMS::ReplicationTask'
     replication_task:
       name: replication_task
       id: aws.dms.replication_task
@@ -1772,3 +2009,23 @@ components:
               JSON_EXTRACT(Properties, '$.Id') as id,
               JSON_EXTRACT(Properties, '$.Tags') as tags
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationTask'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ReplicationTaskSettings') as replication_task_settings,
+                json_extract_path_text(Properties, 'CdcStartPosition') as cdc_start_position,
+                json_extract_path_text(Properties, 'CdcStopPosition') as cdc_stop_position,
+                json_extract_path_text(Properties, 'MigrationType') as migration_type,
+                json_extract_path_text(Properties, 'TargetEndpointArn') as target_endpoint_arn,
+                json_extract_path_text(Properties, 'ReplicationInstanceArn') as replication_instance_arn,
+                json_extract_path_text(Properties, 'TaskData') as task_data,
+                json_extract_path_text(Properties, 'CdcStartTime') as cdc_start_time,
+                json_extract_path_text(Properties, 'ResourceIdentifier') as resource_identifier,
+                json_extract_path_text(Properties, 'TableMappings') as table_mappings,
+                json_extract_path_text(Properties, 'ReplicationTaskIdentifier') as replication_task_identifier,
+                json_extract_path_text(Properties, 'SourceEndpointArn') as source_endpoint_arn,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Tags') as tags
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::DMS::ReplicationTask'

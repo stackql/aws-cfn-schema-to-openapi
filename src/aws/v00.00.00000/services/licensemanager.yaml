@@ -226,8 +226,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.GrantArn') as grant_arn
+              JSON_EXTRACT(Properties, '$.GrantArn') as grant_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::Grant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GrantArn') as grant_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::Grant'
     grant:
       name: grant
       id: aws.licensemanager.grant
@@ -251,6 +258,20 @@ components:
               JSON_EXTRACT(Properties, '$.Principals') as principals,
               JSON_EXTRACT(Properties, '$.Status') as status
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::Grant'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'GrantArn') as grant_arn,
+                json_extract_path_text(Properties, 'GrantName') as grant_name,
+                json_extract_path_text(Properties, 'LicenseArn') as license_arn,
+                json_extract_path_text(Properties, 'HomeRegion') as home_region,
+                json_extract_path_text(Properties, 'Version') as version,
+                json_extract_path_text(Properties, 'AllowedOperations') as allowed_operations,
+                json_extract_path_text(Properties, 'Principals') as principals,
+                json_extract_path_text(Properties, 'Status') as status
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::Grant'
     licenses:
       name: licenses
       id: aws.licensemanager.licenses
@@ -265,8 +286,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.LicenseArn') as license_arn
+              JSON_EXTRACT(Properties, '$.LicenseArn') as license_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::License'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'LicenseArn') as license_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::LicenseManager::License'
     license:
       name: license
       id: aws.licensemanager.license
@@ -295,3 +323,22 @@ components:
               JSON_EXTRACT(Properties, '$.Status') as status,
               JSON_EXTRACT(Properties, '$.Version') as version
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::License'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ProductSKU') as product_sk_u,
+                json_extract_path_text(Properties, 'Issuer') as issuer,
+                json_extract_path_text(Properties, 'LicenseName') as license_name,
+                json_extract_path_text(Properties, 'ProductName') as product_name,
+                json_extract_path_text(Properties, 'HomeRegion') as home_region,
+                json_extract_path_text(Properties, 'Validity') as validity,
+                json_extract_path_text(Properties, 'Entitlements') as entitlements,
+                json_extract_path_text(Properties, 'Beneficiary') as beneficiary,
+                json_extract_path_text(Properties, 'ConsumptionConfiguration') as consumption_configuration,
+                json_extract_path_text(Properties, 'LicenseMetadata') as license_metadata,
+                json_extract_path_text(Properties, 'LicenseArn') as license_arn,
+                json_extract_path_text(Properties, 'Status') as status,
+                json_extract_path_text(Properties, 'Version') as version
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::LicenseManager::License'

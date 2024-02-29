@@ -636,8 +636,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.KeyName') as key_name
+              JSON_EXTRACT(Properties, '$.KeyName') as key_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::APIKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'KeyName') as key_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::APIKey'
     api_key:
       name: api_key
       id: aws.location.api_key
@@ -665,6 +672,24 @@ components:
               JSON_EXTRACT(Properties, '$.ForceDelete') as force_delete,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::APIKey'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ExpireTime') as expire_time,
+                json_extract_path_text(Properties, 'ForceUpdate') as force_update,
+                json_extract_path_text(Properties, 'KeyArn') as key_arn,
+                json_extract_path_text(Properties, 'KeyName') as key_name,
+                json_extract_path_text(Properties, 'NoExpiry') as no_expiry,
+                json_extract_path_text(Properties, 'Restrictions') as restrictions,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'ForceDelete') as force_delete,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::APIKey'
     geofence_collections:
       name: geofence_collections
       id: aws.location.geofence_collections
@@ -679,8 +704,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CollectionName') as collection_name
+              JSON_EXTRACT(Properties, '$.CollectionName') as collection_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::GeofenceCollection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CollectionName') as collection_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::GeofenceCollection'
     geofence_collection:
       name: geofence_collection
       id: aws.location.geofence_collection
@@ -706,6 +738,22 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::GeofenceCollection'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CollectionArn') as collection_arn,
+                json_extract_path_text(Properties, 'CollectionName') as collection_name,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'PricingPlanDataSource') as pricing_plan_data_source,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::GeofenceCollection'
     maps:
       name: maps
       id: aws.location.maps
@@ -720,8 +768,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.MapName') as map_name
+              JSON_EXTRACT(Properties, '$.MapName') as map_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::Map'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'MapName') as map_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::Map'
     map:
       name: map
       id: aws.location.map
@@ -746,6 +801,21 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::Map'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Configuration') as configuration,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'MapArn') as map_arn,
+                json_extract_path_text(Properties, 'MapName') as map_name,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::Map'
     place_indices:
       name: place_indices
       id: aws.location.place_indices
@@ -760,8 +830,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.IndexName') as index_name
+              JSON_EXTRACT(Properties, '$.IndexName') as index_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::PlaceIndex'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'IndexName') as index_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::PlaceIndex'
     place_index:
       name: place_index
       id: aws.location.place_index
@@ -787,6 +864,22 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::PlaceIndex'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'DataSource') as data_source,
+                json_extract_path_text(Properties, 'DataSourceConfiguration') as data_source_configuration,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'IndexArn') as index_arn,
+                json_extract_path_text(Properties, 'IndexName') as index_name,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::PlaceIndex'
     route_calculators:
       name: route_calculators
       id: aws.location.route_calculators
@@ -801,8 +894,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.CalculatorName') as calculator_name
+              JSON_EXTRACT(Properties, '$.CalculatorName') as calculator_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::RouteCalculator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CalculatorName') as calculator_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::RouteCalculator'
     route_calculator:
       name: route_calculator
       id: aws.location.route_calculator
@@ -827,6 +927,21 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::RouteCalculator'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CalculatorArn') as calculator_arn,
+                json_extract_path_text(Properties, 'CalculatorName') as calculator_name,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'DataSource') as data_source,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::RouteCalculator'
     trackers:
       name: trackers
       id: aws.location.trackers
@@ -841,8 +956,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.TrackerName') as tracker_name
+              JSON_EXTRACT(Properties, '$.TrackerName') as tracker_na
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::Tracker'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrackerName') as tracker_na
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::Tracker'
     tracker:
       name: tracker
       id: aws.location.tracker
@@ -871,6 +993,25 @@ components:
               JSON_EXTRACT(Properties, '$.UpdateTime') as update_time,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::Tracker'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'CreateTime') as create_time,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'EventBridgeEnabled') as event_bridge_enabled,
+                json_extract_path_text(Properties, 'KmsKeyEnableGeospatialQueries') as kms_key_enable_geospatial_queries,
+                json_extract_path_text(Properties, 'KmsKeyId') as kms_key_id,
+                json_extract_path_text(Properties, 'PositionFiltering') as position_filtering,
+                json_extract_path_text(Properties, 'PricingPlan') as pricing_plan,
+                json_extract_path_text(Properties, 'PricingPlanDataSource') as pricing_plan_data_source,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'TrackerArn') as tracker_arn,
+                json_extract_path_text(Properties, 'TrackerName') as tracker_name,
+                json_extract_path_text(Properties, 'UpdateTime') as update_time,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::Tracker'
     tracker_consumers:
       name: tracker_consumers
       id: aws.location.tracker_consumers
@@ -887,8 +1028,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.TrackerName') as tracker_name,
-              JSON_EXTRACT(Properties, '$.ConsumerArn') as consumer_arn
+              JSON_EXTRACT(Properties, '$.ConsumerArn') as consumer_a
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::TrackerConsumer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'TrackerName') as tracker_name,
+                json_extract_path_text(Properties, 'ConsumerArn') as consumer_a
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Location::TrackerConsumer'
     tracker_consumer:
       name: tracker_consumer
       id: aws.location.tracker_consumer
@@ -907,3 +1056,11 @@ components:
               JSON_EXTRACT(Properties, '$.ConsumerArn') as consumer_arn,
               JSON_EXTRACT(Properties, '$.TrackerName') as tracker_name
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::TrackerConsumer'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'ConsumerArn') as consumer_arn,
+                json_extract_path_text(Properties, 'TrackerName') as tracker_name
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Location::TrackerConsumer'

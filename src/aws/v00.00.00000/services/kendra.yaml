@@ -1618,8 +1618,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.IndexId') as index_id
+              JSON_EXTRACT(Properties, '$.IndexId') as index_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IndexId') as index_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::DataSource'
     data_source:
       name: data_source
       id: aws.kendra.data_source
@@ -1648,6 +1656,24 @@ components:
               JSON_EXTRACT(Properties, '$.CustomDocumentEnrichmentConfiguration') as custom_document_enrichment_configuration,
               JSON_EXTRACT(Properties, '$.LanguageCode') as language_code
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::DataSource'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'IndexId') as index_id,
+                json_extract_path_text(Properties, 'Type') as type,
+                json_extract_path_text(Properties, 'DataSourceConfiguration') as data_source_configuration,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'Schedule') as schedule,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'CustomDocumentEnrichmentConfiguration') as custom_document_enrichment_configuration,
+                json_extract_path_text(Properties, 'LanguageCode') as language_code
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::DataSource'
     faqs:
       name: faqs
       id: aws.kendra.faqs
@@ -1664,8 +1690,16 @@ components:
               SELECT
               region,
               JSON_EXTRACT(Properties, '$.Id') as id,
-              JSON_EXTRACT(Properties, '$.IndexId') as index_id
+              JSON_EXTRACT(Properties, '$.IndexId') as index_
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Faq'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IndexId') as index_
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Faq'
     faq:
       name: faq
       id: aws.kendra.faq
@@ -1691,6 +1725,21 @@ components:
               JSON_EXTRACT(Properties, '$.Tags') as tags,
               JSON_EXTRACT(Properties, '$.Arn') as arn
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Faq'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'IndexId') as index_id,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'FileFormat') as file_format,
+                json_extract_path_text(Properties, 'S3Path') as s3_path,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Arn') as arn
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Faq'
     indices:
       name: indices
       id: aws.kendra.indices
@@ -1705,8 +1754,15 @@ components:
             ddl: |-
               SELECT
               region,
-              JSON_EXTRACT(Properties, '$.Id') as id
+              JSON_EXTRACT(Properties, '$.Id') as 
               FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as 
+                FROM aws.cloud_control.resources WHERE data__TypeName = 'AWS::Kendra::Index'
     index:
       name: index
       id: aws.kendra.index
@@ -1734,3 +1790,21 @@ components:
               JSON_EXTRACT(Properties, '$.UserContextPolicy') as user_context_policy,
               JSON_EXTRACT(Properties, '$.UserTokenConfigurations') as user_token_configurations
               FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Index'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                region,
+                json_extract_path_text(Properties, 'Id') as id,
+                json_extract_path_text(Properties, 'Arn') as arn,
+                json_extract_path_text(Properties, 'Description') as description,
+                json_extract_path_text(Properties, 'ServerSideEncryptionConfiguration') as server_side_encryption_configuration,
+                json_extract_path_text(Properties, 'Tags') as tags,
+                json_extract_path_text(Properties, 'Name') as name,
+                json_extract_path_text(Properties, 'RoleArn') as role_arn,
+                json_extract_path_text(Properties, 'Edition') as edition,
+                json_extract_path_text(Properties, 'DocumentMetadataConfigurations') as document_metadata_configurations,
+                json_extract_path_text(Properties, 'CapacityUnits') as capacity_units,
+                json_extract_path_text(Properties, 'UserContextPolicy') as user_context_policy,
+                json_extract_path_text(Properties, 'UserTokenConfigurations') as user_token_configurations
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::Kendra::Index'
