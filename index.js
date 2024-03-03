@@ -4,16 +4,18 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { dump, load } from "js-yaml";
 import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
+import { resourceTypes } from './cc_supported_resources.js';
 
+const providerName = 'awscc';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const docsDir = path.join(__dirname, "input-cfn-docs");
-const outputDir = path.join(__dirname, "src/aws/v00.00.00000/services");
+const outputDir = path.join(__dirname, `src/${providerName}/v00.00.00000/services`);
 
 let providerManifest = {
-  id: 'aws',
-  name: 'aws',
+  id: providerName,
+  name: providerName,
   version: 'v00.00.00000',
   providerServices: {},
   config: {
@@ -123,6 +125,12 @@ async function processService(servicePrefix, outputFilename) {
   for (const file of files) {
     const content = await fs.promises.readFile(file);
     const jsonContent = JSON.parse(content);
+    // Check if resource type is supported, if not, skip it
+    if (!resourceTypes.includes(jsonContent.typeName)) {
+      console.log(`Skipping unsupported resource type: ${jsonContent.typeName}`);
+      continue;
+    }
+
     const componentName = jsonContent.typeName.split("::").pop();
     if (!serviceTitle) {
       serviceTitle = jsonContent.typeName?.split("::")[1];
@@ -162,7 +170,7 @@ return (
     name: service,
     preferred: true,
     service: {
-        $ref: `aws/${providerManifest.version}/services/${service}.yaml`,
+        $ref: `${providerName}/${providerManifest.version}/services/${service}.yaml`,
     },
     title: service,
     version: providerManifest.version,
@@ -172,7 +180,7 @@ return (
 }
 
 
-function main(){
+async function main(){
   clearOutputDir();
 
   const docFiles = findFilesInDocs();
@@ -182,21 +190,22 @@ function main(){
 
   const uniqueServices = [...new Set(fileFilters)];
 
-  for (const service of uniqueServices) {
+  for (let service of uniqueServices) {
     try {
-      // if (['ec2', 'iam', 's3'].includes(service)) {
-      //   continue;
-      // }
       const filePrefix = `aws-${service}-`;
-      const outputFilename = `${service}.yaml`;
-      processService(filePrefix, outputFilename);
+      let outputFilename = `${service}.yaml`;
+      // if (['ec2', 'iam', 's3'].includes(service)) {
+      //   outputFilename = `${service}_views.yaml`;
+      //   service = `${service}_views`;
+      // }
+      await processService(filePrefix, outputFilename);
       // add service to manifest
       providerManifest.providerServices[service] = {
         id: `${service}:${providerManifest.version}`,
         name: service,
         preferred: true,
         service: {
-            $ref: `aws/${providerManifest.version}/services/${service}.yaml`,
+            $ref: `${providerName}/${providerManifest.version}/services/${service}.yaml`,
         },
         title: service,
         version: providerManifest.version,
@@ -217,4 +226,4 @@ function main(){
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }
 
-main();
+await main();

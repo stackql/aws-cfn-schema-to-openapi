@@ -2,11 +2,9 @@
 Convert AWS CloudFormation Resource Specification to OpenAPI 3.0.0
 
 ## Generating OpenAPI3 Specs
-1. download and unzip AWS CloudFormation Resource Specification from https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-type-schemas.html
-2. move the files to the `input-cfn-docs` directory
-3. preprocess specs, search and replace `"type" : [ "string", "object" ]` with `"type" : "string"`
-4. run `npm install`
-5. run `node index.js`
+1. run `sh download-and-preprocess-defs.sh`
+2. run `npm install`
+3. run `node index.js`
 
 output openapi3 specs (`components/schemas`) are written to `src/aws/v00.00.00000/services`
 
@@ -24,6 +22,20 @@ REG_STR='{"url": "file://'${PROVIDER_REGISTRY_ROOT_DIR}'", "localDocRoot": "'${P
 select * from aws.s3.buckets WHERE region = 'us-east-1';
 select bucket_name, region, bucket_encryption_server_side_encryption_configuration from aws.s3.bucket WHERE region = 'us-east-1' and data__Identifier = 'stackql-trial-bucket-01';
 ```
+
+### Run Test Suite
+
+from the `stackql-provider-tests` directory:
+
+```bash
+cd ../stackql-provider-tests
+
+# azure
+sh test-provider.sh \
+aws \
+false \
+/mnt/c/LocalGitRepos/stackql/aws-cfn-schema-to-openapi \
+true
 
 ## Generate User Markdown Docs
 Use the following script to generate user docs with Docusaurus front matter for AWS view resources:
