@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Step 1: Delete all files in the `input-cfn-docs` directory
-rm -rf input-cfn-docs/*
+find input-cfn-docs -type f ! -name '.gitignore' -exec rm -f {} +
 echo "Deleted all files in input-cfn-docs directory."
 
 # Step 2: Download and unzip AWS CloudFormation Resource Specification (https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resource-type-schemas.html)

@@ -32,10 +32,11 @@ cd ../stackql-provider-tests
 
 # azure
 sh test-provider.sh \
-aws \
+awscc \
 false \
 /mnt/c/LocalGitRepos/stackql/aws-cfn-schema-to-openapi \
 true
+```
 
 ## Generate User Markdown Docs
 Use the following script to generate user docs with Docusaurus front matter for AWS view resources:

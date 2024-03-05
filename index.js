@@ -150,9 +150,14 @@ async function processService(servicePrefix, outputFilename) {
   }
   Object.assign(openAPI.components['x-stackQL-resources'], stackqlViews);
 
+  if (!Object.keys(openAPI.components['x-stackQL-resources']).length) {
+    return false;
+  }
+
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
   writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
+  return true;
 }
 
 function findFilesInDocs(filter) {
@@ -194,11 +199,17 @@ async function main(){
     try {
       const filePrefix = `aws-${service}-`;
       let outputFilename = `${service}.yaml`;
-      // if (['ec2', 'iam', 's3'].includes(service)) {
-      //   outputFilename = `${service}_views.yaml`;
-      //   service = `${service}_views`;
-      // }
-      await processService(filePrefix, outputFilename);
+      if (['ec2'].includes(service)) {
+        continue;
+      }
+
+      const validService = await processService(filePrefix, outputFilename);
+
+      if(!validService) {
+        console.log(`WARN: No stackQL views found for ${service}`);
+        continue;
+      }
+
       // add service to manifest
       providerManifest.providerServices[service] = {
         id: `${service}:${providerManifest.version}`,
