@@ -35,24 +35,6 @@ Retrieves a list of <code>event_subscriptions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_subscriptions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-rds:CreateEventSubscription,
-rds:DescribeEventSubscriptions,
-rds:ListTagsForResource,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource</pre>
-
-### List
-<pre>
-rds:DescribeEventSubscriptions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ subscription_name
 FROM awscc.rds.event_subscriptions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>event_subscriptions</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+rds:CreateEventSubscription,
+rds:DescribeEventSubscriptions,
+rds:ListTagsForResource,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource
+```
+
+### List
+```json
+rds:DescribeEventSubscriptions
+```
+

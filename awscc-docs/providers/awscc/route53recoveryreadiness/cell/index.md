@@ -39,29 +39,6 @@ Gets an individual <code>cell</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cell</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53-recovery-readiness:GetCell,
-route53-recovery-readiness:ListTagsForResources</pre>
-
-### Update
-<pre>
-route53-recovery-readiness:GetCell,
-route53-recovery-readiness:ListTagsForResources,
-route53-recovery-readiness:TagResource,
-route53-recovery-readiness:UntagResource,
-route53-recovery-readiness:UpdateCell</pre>
-
-### Delete
-<pre>
-route53-recovery-readiness:DeleteCell,
-route53-recovery-readiness:GetCell</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ parent_readiness_scopes,
 tags
 FROM awscc.route53recoveryreadiness.cell
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CellName&gt;'
+AND data__Identifier = '{CellName}';
 ```
+
+## Permissions
+
+To operate on the <code>cell</code> resource, the following permissions are required:
+
+### Read
+```json
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources
+```
+
+### Update
+```json
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources,
+route53-recovery-readiness:TagResource,
+route53-recovery-readiness:UntagResource,
+route53-recovery-readiness:UpdateCell
+```
+
+### Delete
+```json
+route53-recovery-readiness:DeleteCell,
+route53-recovery-readiness:GetCell
+```
+

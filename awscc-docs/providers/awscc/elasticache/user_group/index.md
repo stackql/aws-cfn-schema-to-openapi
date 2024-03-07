@@ -40,31 +40,6 @@ Gets an individual <code>user_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticache:DescribeUserGroups,
-elasticache:ListTagsForResource</pre>
-
-### Update
-<pre>
-elasticache:ModifyUserGroup,
-elasticache:DescribeUserGroups,
-elasticache:ListTagsForResource,
-elasticache:AddTagsToResource,
-elasticache:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-elasticache:ModifyReplicationGroup,
-elasticache:DeleteUserGroup,
-elasticache:DescribeUserGroups,
-elasticache:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +52,33 @@ arn,
 tags
 FROM awscc.elasticache.user_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserGroupId&gt;'
+AND data__Identifier = '{UserGroupId}';
 ```
+
+## Permissions
+
+To operate on the <code>user_group</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticache:DescribeUserGroups,
+elasticache:ListTagsForResource
+```
+
+### Update
+```json
+elasticache:ModifyUserGroup,
+elasticache:DescribeUserGroups,
+elasticache:ListTagsForResource,
+elasticache:AddTagsToResource,
+elasticache:RemoveTagsFromResource
+```
+
+### Delete
+```json
+elasticache:ModifyReplicationGroup,
+elasticache:DeleteUserGroup,
+elasticache:DescribeUserGroups,
+elasticache:ListTagsForResource
+```
+

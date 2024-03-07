@@ -38,29 +38,6 @@ Gets an individual <code>subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subnet_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticache:DescribeCacheSubnetGroups,
-elasticache:ListTagsForResource</pre>
-
-### Delete
-<pre>
-elasticache:DeleteCacheSubnetGroup,
-elasticache:DescribeCacheSubnetGroups,
-elasticache:ListTagsForResource</pre>
-
-### Update
-<pre>
-elasticache:ModifyCacheSubnetGroup,
-elasticache:DescribeCacheSubnetGroups,
-elasticache:AddTagsToResource,
-elasticache:RemoveTagsFromResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +48,31 @@ cache_subnet_group_name,
 tags
 FROM awscc.elasticache.subnet_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CacheSubnetGroupName&gt;'
+AND data__Identifier = '{CacheSubnetGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>subnet_group</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticache:DescribeCacheSubnetGroups,
+elasticache:ListTagsForResource
+```
+
+### Delete
+```json
+elasticache:DeleteCacheSubnetGroup,
+elasticache:DescribeCacheSubnetGroups,
+elasticache:ListTagsForResource
+```
+
+### Update
+```json
+elasticache:ModifyCacheSubnetGroup,
+elasticache:DescribeCacheSubnetGroups,
+elasticache:AddTagsToResource,
+elasticache:RemoveTagsFromResource
+```
+

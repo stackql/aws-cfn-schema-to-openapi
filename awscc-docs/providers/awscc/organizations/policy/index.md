@@ -43,33 +43,6 @@ Gets an individual <code>policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-organizations:DescribePolicy,
-organizations:ListTargetsForPolicy,
-organizations:ListTagsForResource</pre>
-
-### Update
-<pre>
-organizations:AttachPolicy,
-organizations:DetachPolicy,
-organizations:UpdatePolicy,
-organizations:ListTagsForResource,
-organizations:ListTargetsForPolicy,
-organizations:TagResource,
-organizations:UntagResource,
-organizations:DescribePolicy</pre>
-
-### Delete
-<pre>
-organizations:DetachPolicy,
-organizations:DeletePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +58,35 @@ arn,
 aws_managed
 FROM awscc.organizations.policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>policy</code> resource, the following permissions are required:
+
+### Read
+```json
+organizations:DescribePolicy,
+organizations:ListTargetsForPolicy,
+organizations:ListTagsForResource
+```
+
+### Update
+```json
+organizations:AttachPolicy,
+organizations:DetachPolicy,
+organizations:UpdatePolicy,
+organizations:ListTagsForResource,
+organizations:ListTargetsForPolicy,
+organizations:TagResource,
+organizations:UntagResource,
+organizations:DescribePolicy
+```
+
+### Delete
+```json
+organizations:DetachPolicy,
+organizations:DeletePolicy
+```
+

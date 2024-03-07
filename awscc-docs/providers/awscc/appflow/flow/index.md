@@ -45,37 +45,6 @@ Gets an individual <code>flow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appflow:DescribeFlow,
-appflow:ListTagsForResource</pre>
-
-### Update
-<pre>
-appflow:UpdateFlow,
-appflow:StartFlow,
-appflow:StopFlow,
-appflow:TagResource,
-appflow:UntagResource,
-appflow:ListTagsForResource,
-appflow:UseConnectorProfile,
-iam:PassRole,
-s3:ListAllMyBuckets,
-s3:GetBucketLocation,
-s3:GetBucketPolicy,
-kms:ListGrants,
-secretsmanager:CreateSecret,
-secretsmanager:PutResourcePolicy</pre>
-
-### Delete
-<pre>
-appflow:DeleteFlow</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +62,39 @@ tags,
 metadata_catalog_config
 FROM awscc.appflow.flow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FlowName&gt;'
+AND data__Identifier = '{FlowName}';
 ```
+
+## Permissions
+
+To operate on the <code>flow</code> resource, the following permissions are required:
+
+### Read
+```json
+appflow:DescribeFlow,
+appflow:ListTagsForResource
+```
+
+### Update
+```json
+appflow:UpdateFlow,
+appflow:StartFlow,
+appflow:StopFlow,
+appflow:TagResource,
+appflow:UntagResource,
+appflow:ListTagsForResource,
+appflow:UseConnectorProfile,
+iam:PassRole,
+s3:ListAllMyBuckets,
+s3:GetBucketLocation,
+s3:GetBucketPolicy,
+kms:ListGrants,
+secretsmanager:CreateSecret,
+secretsmanager:PutResourcePolicy
+```
+
+### Delete
+```json
+appflow:DeleteFlow
+```
+

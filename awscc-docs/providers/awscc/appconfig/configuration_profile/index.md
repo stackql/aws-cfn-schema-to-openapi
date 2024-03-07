@@ -45,27 +45,6 @@ Gets an individual <code>configuration_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appconfig:GetConfigurationProfile,
-appconfig:ListTagsForResource</pre>
-
-### Update
-<pre>
-appconfig:UpdateConfigurationProfile,
-appconfig:TagResource,
-appconfig:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-appconfig:DeleteConfigurationProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,6 +62,30 @@ kms_key_identifier,
 kms_key_arn
 FROM awscc.appconfig.configuration_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationId&gt;'
-AND data__Identifier = '&lt;ConfigurationProfileId&gt;'
+AND data__Identifier = '{ApplicationId}';
+AND data__Identifier = '{ConfigurationProfileId}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+appconfig:GetConfigurationProfile,
+appconfig:ListTagsForResource
+```
+
+### Update
+```json
+appconfig:UpdateConfigurationProfile,
+appconfig:TagResource,
+appconfig:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+appconfig:DeleteConfigurationProfile
+```
+

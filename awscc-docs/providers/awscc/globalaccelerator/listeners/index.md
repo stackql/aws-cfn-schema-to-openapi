@@ -35,21 +35,6 @@ Retrieves a list of <code>listeners</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>listeners</code> resource, the following permissions are required:
-
-### Create
-<pre>
-globalaccelerator:CreateListener,
-globalaccelerator:DescribeListener,
-globalaccelerator:DescribeAccelerator</pre>
-
-### List
-<pre>
-globalaccelerator:ListListeners</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ listener_arn
 FROM awscc.globalaccelerator.listeners
 
 ```
+
+## Permissions
+
+To operate on the <code>listeners</code> resource, the following permissions are required:
+
+### Create
+```json
+globalaccelerator:CreateListener,
+globalaccelerator:DescribeListener,
+globalaccelerator:DescribeAccelerator
+```
+
+### List
+```json
+globalaccelerator:ListListeners
+```
+

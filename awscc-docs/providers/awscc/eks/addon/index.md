@@ -43,30 +43,6 @@ Gets an individual <code>addon</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>addon</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribeAddon</pre>
-
-### Delete
-<pre>
-eks:DeleteAddon,
-eks:DescribeAddon</pre>
-
-### Update
-<pre>
-iam:PassRole,
-eks:UpdateAddon,
-eks:DescribeAddon,
-eks:DescribeUpdate,
-eks:ListTagsForResource,
-eks:TagResource,
-eks:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,6 +58,33 @@ arn,
 tags
 FROM awscc.eks.addon
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClusterName&gt;'
-AND data__Identifier = '&lt;AddonName&gt;'
+AND data__Identifier = '{ClusterName}';
+AND data__Identifier = '{AddonName}';
 ```
+
+## Permissions
+
+To operate on the <code>addon</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribeAddon
+```
+
+### Delete
+```json
+eks:DeleteAddon,
+eks:DescribeAddon
+```
+
+### Update
+```json
+iam:PassRole,
+eks:UpdateAddon,
+eks:DescribeAddon,
+eks:DescribeUpdate,
+eks:ListTagsForResource,
+eks:TagResource,
+eks:UntagResource
+```
+

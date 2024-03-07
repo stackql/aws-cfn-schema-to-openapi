@@ -36,12 +36,22 @@ Retrieves a list of <code>data_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+aws_account_id,
+data_set_id
+FROM awscc.quicksight.data_sets
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>data_sets</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 quicksight:DescribeDataSet,
 quicksight:DescribeDataSetPermissions,
 quicksight:DescribeIngestion,
@@ -52,20 +62,12 @@ quicksight:PassDataSet,
 quicksight:TagResource,
 quicksight:ListTagsForResource,
 quicksight:DescribeDataSetRefreshProperties,
-quicksight:PutDataSetRefreshProperties</pre>
+quicksight:PutDataSetRefreshProperties
+```
 
 ### List
-<pre>
+```json
 quicksight:DescribeDataSet,
-quicksight:ListDataSets</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-aws_account_id,
-data_set_id
-FROM awscc.quicksight.data_sets
-WHERE region = 'us-east-1'
+quicksight:ListDataSets
 ```
+

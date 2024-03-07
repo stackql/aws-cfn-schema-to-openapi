@@ -39,20 +39,6 @@ Gets an individual <code>layer_version_permission</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>layer_version_permission</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lambda:GetLayerVersionPolicy</pre>
-
-### Delete
-<pre>
-lambda:GetLayerVersionPolicy,
-lambda:RemoveLayerVersionPermission</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +50,21 @@ organization_id,
 principal
 FROM awscc.lambda.layer_version_permission
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>layer_version_permission</code> resource, the following permissions are required:
+
+### Read
+```json
+lambda:GetLayerVersionPolicy
+```
+
+### Delete
+```json
+lambda:GetLayerVersionPolicy,
+lambda:RemoveLayerVersionPermission
+```
+

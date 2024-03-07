@@ -35,20 +35,6 @@ Retrieves a list of <code>things</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>things</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:CreateThing,
-iot:DescribeThing</pre>
-
-### List
-<pre>
-iot:ListThings</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ thing_name
 FROM awscc.iot.things
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>things</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:CreateThing,
+iot:DescribeThing
+```
+
+### List
+```json
+iot:ListThings
+```
+

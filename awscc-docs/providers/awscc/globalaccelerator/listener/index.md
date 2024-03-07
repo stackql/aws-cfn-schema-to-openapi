@@ -39,27 +39,6 @@ Gets an individual <code>listener</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>listener</code> resource, the following permissions are required:
-
-### Read
-<pre>
-globalaccelerator:DescribeListener</pre>
-
-### Update
-<pre>
-globalaccelerator:UpdateListener,
-globalaccelerator:DescribeListener,
-globalaccelerator:DescribeAccelerator</pre>
-
-### Delete
-<pre>
-globalaccelerator:DescribeListener,
-globalaccelerator:DeleteListener,
-globalaccelerator:DescribeAccelerator</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +49,29 @@ port_ranges,
 protocol,
 client_affinity
 FROM awscc.globalaccelerator.listener
-WHERE data__Identifier = '&lt;ListenerArn&gt;'
+WHERE data__Identifier = '{ListenerArn}';
 ```
+
+## Permissions
+
+To operate on the <code>listener</code> resource, the following permissions are required:
+
+### Read
+```json
+globalaccelerator:DescribeListener
+```
+
+### Update
+```json
+globalaccelerator:UpdateListener,
+globalaccelerator:DescribeListener,
+globalaccelerator:DescribeAccelerator
+```
+
+### Delete
+```json
+globalaccelerator:DescribeListener,
+globalaccelerator:DeleteListener,
+globalaccelerator:DescribeAccelerator
+```
+

@@ -38,26 +38,6 @@ Gets an individual <code>scheduling_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduling_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-Batch:DescribeSchedulingPolicies</pre>
-
-### Update
-<pre>
-Batch:UpdateSchedulingPolicy,
-Batch:TagResource,
-Batch:UnTagResource</pre>
-
-### Delete
-<pre>
-Batch:DescribeSchedulingPolicies,
-Batch:DeleteSchedulingPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +48,28 @@ fairshare_policy,
 tags
 FROM awscc.batch.scheduling_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>scheduling_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+Batch:DescribeSchedulingPolicies
+```
+
+### Update
+```json
+Batch:UpdateSchedulingPolicy,
+Batch:TagResource,
+Batch:UnTagResource
+```
+
+### Delete
+```json
+Batch:DescribeSchedulingPolicies,
+Batch:DeleteSchedulingPolicy
+```
+

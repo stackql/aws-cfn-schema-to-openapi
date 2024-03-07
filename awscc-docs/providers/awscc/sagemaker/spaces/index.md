@@ -36,20 +36,6 @@ Retrieves a list of <code>spaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>spaces</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateSpace,
-sagemaker:DescribeSpace</pre>
-
-### List
-<pre>
-sagemaker:ListSpaces</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ space_name
 FROM awscc.sagemaker.spaces
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>spaces</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateSpace,
+sagemaker:DescribeSpace
+```
+
+### List
+```json
+sagemaker:ListSpaces
+```
+

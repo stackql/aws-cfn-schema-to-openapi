@@ -35,19 +35,6 @@ Retrieves a list of <code>cloud_front_origin_access_identities</code> in a regio
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cloud_front_origin_access_identities</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cloudfront:CreateCloudFrontOriginAccessIdentity</pre>
-
-### List
-<pre>
-cloudfront:ListCloudFrontOriginAccessIdentities</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ id
 FROM awscc.cloudfront.cloud_front_origin_access_identities
 
 ```
+
+## Permissions
+
+To operate on the <code>cloud_front_origin_access_identities</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudfront:CreateCloudFrontOriginAccessIdentity
+```
+
+### List
+```json
+cloudfront:ListCloudFrontOriginAccessIdentities
+```
+

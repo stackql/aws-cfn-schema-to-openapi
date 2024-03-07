@@ -45,21 +45,43 @@ Gets an individual <code>permission_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+name,
+permission_set_arn,
+description,
+instance_arn,
+session_duration,
+relay_state_type,
+managed_policies,
+inline_policy,
+tags,
+customer_managed_policy_references,
+permissions_boundary
+FROM awscc.sso.permission_set
+WHERE region = 'us-east-1'
+AND data__Identifier = '{InstanceArn}';
+AND data__Identifier = '{PermissionSetArn}';
+```
+
 ## Permissions
 
 To operate on the <code>permission_set</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 sso:DescribePermissionSet,
 sso:ListTagsForResource,
 sso:ListManagedPoliciesInPermissionSet,
 sso:ListCustomerManagedPolicyReferencesInPermissionSet,
 sso:GetInlinePolicyForPermissionSet,
-sso:GetPermissionsBoundaryForPermissionSet</pre>
+sso:GetPermissionsBoundaryForPermissionSet
+```
 
 ### Update
-<pre>
+```json
 sso:UpdatePermissionSet,
 sso:TagResource,
 sso:UntagResource,
@@ -78,30 +100,11 @@ sso:DeleteInlinePolicyFromPermissionSet,
 sso:ProvisionPermissionSet,
 sso:DescribePermissionSet,
 sso:GetInlinePolicyForPermissionSet,
-sso:DescribePermissionSetProvisioningStatus</pre>
+sso:DescribePermissionSetProvisioningStatus
+```
 
 ### Delete
-<pre>
-sso:DeletePermissionSet</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-name,
-permission_set_arn,
-description,
-instance_arn,
-session_duration,
-relay_state_type,
-managed_policies,
-inline_policy,
-tags,
-customer_managed_policy_references,
-permissions_boundary
-FROM awscc.sso.permission_set
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceArn&gt;'
-AND data__Identifier = '&lt;PermissionSetArn&gt;'
+```json
+sso:DeletePermissionSet
 ```
+

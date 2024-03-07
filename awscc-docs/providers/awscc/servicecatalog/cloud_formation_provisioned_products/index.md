@@ -35,15 +35,6 @@ Retrieves a list of <code>cloud_formation_provisioned_products</code> in a regio
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cloud_formation_provisioned_products</code> resource, the following permissions are required:
-
-### Create
-<pre>
-*</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -52,3 +43,13 @@ provisioned_product_id
 FROM awscc.servicecatalog.cloud_formation_provisioned_products
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>cloud_formation_provisioned_products</code> resource, the following permissions are required:
+
+### Create
+```json
+*
+```
+

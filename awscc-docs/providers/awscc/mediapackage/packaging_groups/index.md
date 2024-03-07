@@ -35,24 +35,6 @@ Retrieves a list of <code>packaging_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>packaging_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediapackage-vod:CreatePackagingGroup,
-mediapackage-vod:DescribePackagingGroup,
-mediapackage-vod:TagResource,
-mediapackage-vod:ConfigureLogs,
-iam:PassRole,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-mediapackage-vod:ListPackagingGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.mediapackage.packaging_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>packaging_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+mediapackage-vod:CreatePackagingGroup,
+mediapackage-vod:DescribePackagingGroup,
+mediapackage-vod:TagResource,
+mediapackage-vod:ConfigureLogs,
+iam:PassRole,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+mediapackage-vod:ListPackagingGroups
+```
+

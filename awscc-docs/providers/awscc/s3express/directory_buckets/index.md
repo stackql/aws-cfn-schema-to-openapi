@@ -35,20 +35,6 @@ Retrieves a list of <code>directory_buckets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>directory_buckets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3express:CreateBucket,
-s3express:ListAllMyDirectoryBuckets</pre>
-
-### List
-<pre>
-s3express:ListAllMyDirectoryBuckets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ bucket_name
 FROM awscc.s3express.directory_buckets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>directory_buckets</code> resource, the following permissions are required:
+
+### Create
+```json
+s3express:CreateBucket,
+s3express:ListAllMyDirectoryBuckets
+```
+
+### List
+```json
+s3express:ListAllMyDirectoryBuckets
+```
+

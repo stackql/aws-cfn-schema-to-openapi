@@ -35,12 +35,21 @@ Retrieves a list of <code>nodegroups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.eks.nodegroups
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>nodegroups</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 eks:CreateNodegroup,
 eks:DescribeNodegroup,
 eks:TagResource,
@@ -57,18 +66,11 @@ ec2:RunInstances,
 iam:CreateServiceLinkedRole,
 iam:GetRole,
 iam:PassRole,
-iam:ListAttachedRolePolicies</pre>
+iam:ListAttachedRolePolicies
+```
 
 ### List
-<pre>
-eks:ListNodegroups</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.eks.nodegroups
-WHERE region = 'us-east-1'
+```json
+eks:ListNodegroups
 ```
+

@@ -44,50 +44,6 @@ Gets an individual <code>data_integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_integration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-app-integrations:GetDataIntegration,
-app-integrations:ListTagsForResource</pre>
-
-### Update
-<pre>
-app-integrations:GetDataIntegration,
-app-integrations:UpdateDataIntegration,
-app-integrations:TagResource,
-app-integrations:UntagResource,
-appflow:DescribeConnectorProfiles,
-appflow:DeleteFlow,
-appflow:DescribeConnectorEntity,
-appflow:UseConnectorProfile,
-appflow:TagResource,
-appflow:UntagResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:ListAliases,
-kms:ListGrants,
-kms:ListKeys</pre>
-
-### Delete
-<pre>
-app-integrations:DeleteDataIntegration,
-app-integrations:UntagResource,
-appflow:CreateFlow,
-appflow:DeleteFlow,
-appflow:DescribeConnectorEntity,
-appflow:UseConnectorProfile,
-appflow:TagResource,
-appflow:UntagResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:ListAliases,
-kms:ListGrants,
-kms:ListKeys</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -104,5 +60,52 @@ file_configuration,
 object_configuration
 FROM awscc.appintegrations.data_integration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>data_integration</code> resource, the following permissions are required:
+
+### Read
+```json
+app-integrations:GetDataIntegration,
+app-integrations:ListTagsForResource
+```
+
+### Update
+```json
+app-integrations:GetDataIntegration,
+app-integrations:UpdateDataIntegration,
+app-integrations:TagResource,
+app-integrations:UntagResource,
+appflow:DescribeConnectorProfiles,
+appflow:DeleteFlow,
+appflow:DescribeConnectorEntity,
+appflow:UseConnectorProfile,
+appflow:TagResource,
+appflow:UntagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:ListGrants,
+kms:ListKeys
+```
+
+### Delete
+```json
+app-integrations:DeleteDataIntegration,
+app-integrations:UntagResource,
+appflow:CreateFlow,
+appflow:DeleteFlow,
+appflow:DescribeConnectorEntity,
+appflow:UseConnectorProfile,
+appflow:TagResource,
+appflow:UntagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:ListGrants,
+kms:ListKeys
+```
+

@@ -42,28 +42,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-servicecatalog:GetApplication</pre>
-
-### Update
-<pre>
-servicecatalog:GetApplication,
-servicecatalog:ListTagsForResource,
-servicecatalog:TagResource,
-servicecatalog:UntagResource,
-servicecatalog:UpdateApplication,
-iam:CreateServiceLinkedRole</pre>
-
-### Delete
-<pre>
-servicecatalog:DeleteApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +56,30 @@ application_tag_value,
 application_name
 FROM awscc.servicecatalogappregistry.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+servicecatalog:GetApplication
+```
+
+### Update
+```json
+servicecatalog:GetApplication,
+servicecatalog:ListTagsForResource,
+servicecatalog:TagResource,
+servicecatalog:UntagResource,
+servicecatalog:UpdateApplication,
+iam:CreateServiceLinkedRole
+```
+
+### Delete
+```json
+servicecatalog:DeleteApplication
+```
+

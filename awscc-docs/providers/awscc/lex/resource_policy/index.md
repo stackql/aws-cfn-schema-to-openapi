@@ -38,25 +38,6 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lex:DescribeResourcePolicy</pre>
-
-### Update
-<pre>
-lex:UpdateResourcePolicy,
-lex:DescribeResourcePolicy</pre>
-
-### Delete
-<pre>
-lex:DeleteResourcePolicy,
-lex:DescribeResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +48,27 @@ policy,
 id
 FROM awscc.lex.resource_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+lex:DescribeResourcePolicy
+```
+
+### Update
+```json
+lex:UpdateResourcePolicy,
+lex:DescribeResourcePolicy
+```
+
+### Delete
+```json
+lex:DeleteResourcePolicy,
+lex:DescribeResourcePolicy
+```
+

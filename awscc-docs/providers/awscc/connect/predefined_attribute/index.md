@@ -37,23 +37,6 @@ Gets an individual <code>predefined_attribute</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>predefined_attribute</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribePredefinedAttribute</pre>
-
-### Delete
-<pre>
-connect:DeletePredefinedAttribute</pre>
-
-### Update
-<pre>
-connect:UpdatePredefinedAttribute</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,6 +46,26 @@ name,
 values
 FROM awscc.connect.predefined_attribute
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceArn&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{InstanceArn}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>predefined_attribute</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribePredefinedAttribute
+```
+
+### Delete
+```json
+connect:DeletePredefinedAttribute
+```
+
+### Update
+```json
+connect:UpdatePredefinedAttribute
+```
+

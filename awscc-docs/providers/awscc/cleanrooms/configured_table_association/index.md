@@ -42,33 +42,6 @@ Gets an individual <code>configured_table_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configured_table_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cleanrooms:GetConfiguredTableAssociation,
-cleanrooms:ListTagsForResource</pre>
-
-### Update
-<pre>
-cleanrooms:UpdateConfiguredTableAssociation,
-cleanrooms:GetConfiguredTableAssociation,
-iam:PassRole,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:UntagResource</pre>
-
-### Delete
-<pre>
-cleanrooms:DeleteConfiguredTableAssociation,
-cleanrooms:GetConfiguredTableAssociation,
-cleanrooms:ListConfiguredTableAssociations,
-cleanrooms:ListTagsForResource,
-cleanrooms:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,6 +56,36 @@ name,
 role_arn
 FROM awscc.cleanrooms.configured_table_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConfiguredTableAssociationIdentifier&gt;'
-AND data__Identifier = '&lt;MembershipIdentifier&gt;'
+AND data__Identifier = '{ConfiguredTableAssociationIdentifier}';
+AND data__Identifier = '{MembershipIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>configured_table_association</code> resource, the following permissions are required:
+
+### Read
+```json
+cleanrooms:GetConfiguredTableAssociation,
+cleanrooms:ListTagsForResource
+```
+
+### Update
+```json
+cleanrooms:UpdateConfiguredTableAssociation,
+cleanrooms:GetConfiguredTableAssociation,
+iam:PassRole,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:UntagResource
+```
+
+### Delete
+```json
+cleanrooms:DeleteConfiguredTableAssociation,
+cleanrooms:GetConfiguredTableAssociation,
+cleanrooms:ListConfiguredTableAssociations,
+cleanrooms:ListTagsForResource,
+cleanrooms:UntagResource
+```
+

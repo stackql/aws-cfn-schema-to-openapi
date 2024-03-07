@@ -40,28 +40,6 @@ Gets an individual <code>campaign</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>campaign</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect-campaigns:DescribeCampaign</pre>
-
-### Delete
-<pre>
-connect-campaigns:DeleteCampaign</pre>
-
-### Update
-<pre>
-connect-campaigns:UpdateCampaignDialerConfig,
-connect-campaigns:UpdateCampaignName,
-connect-campaigns:UpdateCampaignOutboundCallConfig,
-connect-campaigns:TagResource,
-connect-campaigns:UntagResource,
-connect-campaigns:DescribeCampaign</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ outbound_call_config,
 tags
 FROM awscc.connectcampaigns.campaign
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>campaign</code> resource, the following permissions are required:
+
+### Read
+```json
+connect-campaigns:DescribeCampaign
+```
+
+### Delete
+```json
+connect-campaigns:DeleteCampaign
+```
+
+### Update
+```json
+connect-campaigns:UpdateCampaignDialerConfig,
+connect-campaigns:UpdateCampaignName,
+connect-campaigns:UpdateCampaignOutboundCallConfig,
+connect-campaigns:TagResource,
+connect-campaigns:UntagResource,
+connect-campaigns:DescribeCampaign
+```
+

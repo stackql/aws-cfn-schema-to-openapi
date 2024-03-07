@@ -35,24 +35,6 @@ Retrieves a list of <code>resource_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53-recovery-readiness:CreateResourceSet,
-route53-recovery-readiness:GetResourceSet,
-route53-recovery-readiness:GetRecoveryGroup,
-route53-recovery-readiness:GetCell,
-route53-recovery-readiness:ListTagsForResources,
-route53-recovery-readiness:TagResource</pre>
-
-### List
-<pre>
-route53-recovery-readiness:ListResourceSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ resource_set_name
 FROM awscc.route53recoveryreadiness.resource_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resource_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+route53-recovery-readiness:CreateResourceSet,
+route53-recovery-readiness:GetResourceSet,
+route53-recovery-readiness:GetRecoveryGroup,
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources,
+route53-recovery-readiness:TagResource
+```
+
+### List
+```json
+route53-recovery-readiness:ListResourceSets
+```
+

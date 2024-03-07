@@ -35,21 +35,6 @@ Retrieves a list of <code>domain_names</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_names</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ domain_name
 FROM awscc.apigatewayv2.domain_names
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>domain_names</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:GET,
+apigateway:PUT
+```
+
+### List
+```json
+apigateway:GET
+```
+

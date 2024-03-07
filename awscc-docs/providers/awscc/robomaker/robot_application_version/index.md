@@ -38,20 +38,6 @@ Gets an individual <code>robot_application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>robot_application_version</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-robomaker:DeleteRobotApplication,
-robomaker:DescribeRobotApplication</pre>
-
-### Read
-<pre>
-robomaker:DescribeRobotApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +48,21 @@ application_version,
 arn
 FROM awscc.robomaker.robot_application_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>robot_application_version</code> resource, the following permissions are required:
+
+### Delete
+```json
+robomaker:DeleteRobotApplication,
+robomaker:DescribeRobotApplication
+```
+
+### Read
+```json
+robomaker:DescribeRobotApplication
+```
+

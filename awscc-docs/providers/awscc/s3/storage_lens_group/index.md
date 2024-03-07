@@ -38,28 +38,6 @@ Gets an individual <code>storage_lens_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>storage_lens_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetStorageLensGroup,
-s3:ListTagsForResource</pre>
-
-### Update
-<pre>
-s3:GetStorageLensGroup,
-s3:UpdateStorageLensGroup,
-s3:TagResource,
-s3:UntagResource,
-s3:ListTagsForResource</pre>
-
-### Delete
-<pre>
-s3:DeleteStorageLensGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +48,30 @@ storage_lens_group_arn,
 tags
 FROM awscc.s3.storage_lens_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>storage_lens_group</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetStorageLensGroup,
+s3:ListTagsForResource
+```
+
+### Update
+```json
+s3:GetStorageLensGroup,
+s3:UpdateStorageLensGroup,
+s3:TagResource,
+s3:UntagResource,
+s3:ListTagsForResource
+```
+
+### Delete
+```json
+s3:DeleteStorageLensGroup
+```
+

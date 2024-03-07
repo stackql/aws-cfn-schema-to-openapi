@@ -49,41 +49,6 @@ Gets an individual <code>monitor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>monitor</code> resource, the following permissions are required:
-
-### Read
-<pre>
-internetmonitor:GetMonitor,
-internetmonitor:ListTagsForResource,
-logs:GetLogDelivery</pre>
-
-### Update
-<pre>
-internetmonitor:CreateMonitor,
-internetmonitor:GetMonitor,
-internetmonitor:UpdateMonitor,
-internetmonitor:TagResource,
-internetmonitor:UntagResource,
-logs:CreateLogDelivery,
-logs:GetLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries,
-s3:GetBucketPolicy,
-s3:PutBucketPolicy,
-s3:ListBucket,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-internetmonitor:UpdateMonitor,
-internetmonitor:DeleteMonitor,
-internetmonitor:GetMonitor,
-logs:DeleteLogDelivery</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -105,5 +70,43 @@ internet_measurements_log_delivery,
 health_events_config
 FROM awscc.internetmonitor.monitor
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MonitorName&gt;'
+AND data__Identifier = '{MonitorName}';
 ```
+
+## Permissions
+
+To operate on the <code>monitor</code> resource, the following permissions are required:
+
+### Read
+```json
+internetmonitor:GetMonitor,
+internetmonitor:ListTagsForResource,
+logs:GetLogDelivery
+```
+
+### Update
+```json
+internetmonitor:CreateMonitor,
+internetmonitor:GetMonitor,
+internetmonitor:UpdateMonitor,
+internetmonitor:TagResource,
+internetmonitor:UntagResource,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+s3:ListBucket,
+iam:PassRole
+```
+
+### Delete
+```json
+internetmonitor:UpdateMonitor,
+internetmonitor:DeleteMonitor,
+internetmonitor:GetMonitor,
+logs:DeleteLogDelivery
+```
+

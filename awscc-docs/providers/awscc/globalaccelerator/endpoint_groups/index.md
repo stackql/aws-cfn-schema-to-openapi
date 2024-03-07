@@ -35,24 +35,6 @@ Retrieves a list of <code>endpoint_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>endpoint_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-globalaccelerator:CreateEndpointGroup,
-globalaccelerator:DescribeEndpointGroup,
-globalaccelerator:DescribeAccelerator,
-globalaccelerator:DescribeListener,
-globalaccelerator:ListAccelerators,
-globalaccelerator:ListListeners</pre>
-
-### List
-<pre>
-globalaccelerator:ListEndpointGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ endpoint_group_arn
 FROM awscc.globalaccelerator.endpoint_groups
 
 ```
+
+## Permissions
+
+To operate on the <code>endpoint_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+globalaccelerator:CreateEndpointGroup,
+globalaccelerator:DescribeEndpointGroup,
+globalaccelerator:DescribeAccelerator,
+globalaccelerator:DescribeListener,
+globalaccelerator:ListAccelerators,
+globalaccelerator:ListListeners
+```
+
+### List
+```json
+globalaccelerator:ListEndpointGroups
+```
+

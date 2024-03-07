@@ -39,20 +39,6 @@ Gets an individual <code>service_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetServiceProfile,
-iotwireless:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteServiceProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +50,21 @@ arn,
 id
 FROM awscc.iotwireless.service_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>service_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetServiceProfile,
+iotwireless:ListTagsForResource
+```
+
+### Delete
+```json
+iotwireless:DeleteServiceProfile
+```
+

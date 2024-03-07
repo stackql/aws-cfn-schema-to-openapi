@@ -37,12 +37,23 @@ Retrieves a list of <code>integration_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+instance_id,
+integration_type,
+integration_arn
+FROM awscc.connect.integration_associations
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>integration_associations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 connect:DescribeInstance,
 ds:DescribeDirectories,
 app-integrations:CreateEventIntegrationAssociation,
@@ -71,22 +82,13 @@ app-integrations:GetApplication,
 iam:AttachRolePolicy,
 iam:CreateServiceLinkedRole,
 iam:GetRolePolicy,
-iam:PutRolePolicy</pre>
+iam:PutRolePolicy
+```
 
 ### List
-<pre>
+```json
 connect:ListBots,
 connect:ListLambdaFunctions,
-connect:ListIntegrationAssociations</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-instance_id,
-integration_type,
-integration_arn
-FROM awscc.connect.integration_associations
-WHERE region = 'us-east-1'
+connect:ListIntegrationAssociations
 ```
+

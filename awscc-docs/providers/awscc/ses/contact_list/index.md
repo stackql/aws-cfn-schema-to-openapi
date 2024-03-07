@@ -38,25 +38,6 @@ Gets an individual <code>contact_list</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>contact_list</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ses:GetContactList</pre>
-
-### Update
-<pre>
-ses:UpdateContactList,
-ses:UntagResource,
-ses:TagResource</pre>
-
-### Delete
-<pre>
-ses:DeleteContactList</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +48,27 @@ topics,
 tags
 FROM awscc.ses.contact_list
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ContactListName&gt;'
+AND data__Identifier = '{ContactListName}';
 ```
+
+## Permissions
+
+To operate on the <code>contact_list</code> resource, the following permissions are required:
+
+### Read
+```json
+ses:GetContactList
+```
+
+### Update
+```json
+ses:UpdateContactList,
+ses:UntagResource,
+ses:TagResource
+```
+
+### Delete
+```json
+ses:DeleteContactList
+```
+

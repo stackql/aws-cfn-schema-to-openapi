@@ -39,36 +39,6 @@ Gets an individual <code>vpc_link</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_link</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:TagResource,
-apigateway:unTagResource,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### Read
-<pre>
-apigateway:GET,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +50,38 @@ tags,
 name
 FROM awscc.apigatewayv2.vpc_link
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;VpcLinkId&gt;'
+AND data__Identifier = '{VpcLinkId}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_link</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:TagResource,
+apigateway:unTagResource,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### Read
+```json
+apigateway:GET,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+

@@ -36,20 +36,6 @@ Retrieves a list of <code>groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-identitystore:CreateGroup,
-identitystore:DescribeGroup</pre>
-
-### List
-<pre>
-identitystore:ListGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ identity_store_id
 FROM awscc.identitystore.groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>groups</code> resource, the following permissions are required:
+
+### Create
+```json
+identitystore:CreateGroup,
+identitystore:DescribeGroup
+```
+
+### List
+```json
+identitystore:ListGroups
+```
+

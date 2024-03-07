@@ -35,17 +35,6 @@ Retrieves a list of <code>plans</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>plans</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ssm-contacts:UpdateContact,
-ssm-contacts:GetContact,
-ssm-contacts:AssociateContact</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -54,3 +43,15 @@ arn
 FROM awscc.ssmcontacts.plans
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>plans</code> resource, the following permissions are required:
+
+### Create
+```json
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact
+```
+

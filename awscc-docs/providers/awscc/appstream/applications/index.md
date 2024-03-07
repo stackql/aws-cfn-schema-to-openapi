@@ -35,17 +35,6 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>applications</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3:GetObject,
-appstream:CreateApplication,
-appstream:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -54,3 +43,15 @@ arn
 FROM awscc.appstream.applications
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+```json
+s3:GetObject,
+appstream:CreateApplication,
+appstream:TagResource
+```
+

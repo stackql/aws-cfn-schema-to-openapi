@@ -41,27 +41,6 @@ Gets an individual <code>fargate_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fargate_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribeFargateProfile</pre>
-
-### Delete
-<pre>
-eks:DeleteFargateProfile,
-eks:DescribeFargateProfile</pre>
-
-### Update
-<pre>
-eks:DescribeFargateProfile,
-eks:ListTagsForResource,
-eks:TagResource,
-eks:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,6 +54,30 @@ selectors,
 tags
 FROM awscc.eks.fargate_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClusterName&gt;'
-AND data__Identifier = '&lt;FargateProfileName&gt;'
+AND data__Identifier = '{ClusterName}';
+AND data__Identifier = '{FargateProfileName}';
 ```
+
+## Permissions
+
+To operate on the <code>fargate_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribeFargateProfile
+```
+
+### Delete
+```json
+eks:DeleteFargateProfile,
+eks:DescribeFargateProfile
+```
+
+### Update
+```json
+eks:DescribeFargateProfile,
+eks:ListTagsForResource,
+eks:TagResource,
+eks:UntagResource
+```
+

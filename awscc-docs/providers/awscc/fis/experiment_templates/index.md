@@ -35,22 +35,6 @@ Retrieves a list of <code>experiment_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>experiment_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-fis:CreateExperimentTemplate,
-fis:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-fis:ListExperimentTemplates,
-fis:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ id
 FROM awscc.fis.experiment_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>experiment_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+fis:CreateExperimentTemplate,
+fis:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+fis:ListExperimentTemplates,
+fis:ListTagsForResource
+```
+

@@ -36,22 +36,6 @@ Retrieves a list of <code>deployments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>deployments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-apigateway:PATCH,
-apigateway:PUT,
-apigateway:GET</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ rest_api_id
 FROM awscc.apigateway.deployments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>deployments</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:GET
+```
+
+### List
+```json
+apigateway:GET
+```
+

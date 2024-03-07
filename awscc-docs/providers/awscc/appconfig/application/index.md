@@ -38,27 +38,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appconfig:GetApplication,
-appconfig:ListTagsForResource</pre>
-
-### Update
-<pre>
-appconfig:UpdateApplication,
-appconfig:TagResource,
-appconfig:UntagResource</pre>
-
-### Delete
-<pre>
-appconfig:GetApplication,
-appconfig:DeleteApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +48,29 @@ tags,
 name
 FROM awscc.appconfig.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationId&gt;'
+AND data__Identifier = '{ApplicationId}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+appconfig:GetApplication,
+appconfig:ListTagsForResource
+```
+
+### Update
+```json
+appconfig:UpdateApplication,
+appconfig:TagResource,
+appconfig:UntagResource
+```
+
+### Delete
+```json
+appconfig:GetApplication,
+appconfig:DeleteApplication
+```
+

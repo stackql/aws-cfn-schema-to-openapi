@@ -35,25 +35,6 @@ Retrieves a list of <code>repositories</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>repositories</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecr:CreateRepository,
-ecr:PutLifecyclePolicy,
-ecr:SetRepositoryPolicy,
-ecr:TagResource,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:RetireGrant</pre>
-
-### List
-<pre>
-ecr:DescribeRepositories</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ repository_name
 FROM awscc.ecr.repositories
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>repositories</code> resource, the following permissions are required:
+
+### Create
+```json
+ecr:CreateRepository,
+ecr:PutLifecyclePolicy,
+ecr:SetRepositoryPolicy,
+ecr:TagResource,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:RetireGrant
+```
+
+### List
+```json
+ecr:DescribeRepositories
+```
+

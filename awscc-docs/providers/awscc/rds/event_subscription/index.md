@@ -41,31 +41,6 @@ Gets an individual <code>event_subscription</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_subscription</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeEventSubscriptions,
-rds:ListTagsForResource</pre>
-
-### Update
-<pre>
-rds:ModifyEventSubscription,
-rds:AddSourceIdentifierToSubscription,
-rds:RemoveSourceIdentifierFromSubscription,
-rds:DescribeEventSubscriptions,
-rds:ListTagsForResource,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DeleteEventSubscription,
-rds:DescribeEventSubscriptions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +54,33 @@ source_ids,
 source_type
 FROM awscc.rds.event_subscription
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SubscriptionName&gt;'
+AND data__Identifier = '{SubscriptionName}';
 ```
+
+## Permissions
+
+To operate on the <code>event_subscription</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeEventSubscriptions,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:ModifyEventSubscription,
+rds:AddSourceIdentifierToSubscription,
+rds:RemoveSourceIdentifierFromSubscription,
+rds:DescribeEventSubscriptions,
+rds:ListTagsForResource,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteEventSubscription,
+rds:DescribeEventSubscriptions
+```
+

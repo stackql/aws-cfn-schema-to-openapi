@@ -37,19 +37,6 @@ Gets an individual <code>master</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>master</code> resource, the following permissions are required:
-
-### Read
-<pre>
-guardduty:GetMasterAccount</pre>
-
-### Delete
-<pre>
-guardduty:DisassociateFromMasterAccount</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,6 +46,21 @@ invitation_id,
 detector_id
 FROM awscc.guardduty.master
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DetectorId&gt;'
-AND data__Identifier = '&lt;MasterId&gt;'
+AND data__Identifier = '{DetectorId}';
+AND data__Identifier = '{MasterId}';
 ```
+
+## Permissions
+
+To operate on the <code>master</code> resource, the following permissions are required:
+
+### Read
+```json
+guardduty:GetMasterAccount
+```
+
+### Delete
+```json
+guardduty:DisassociateFromMasterAccount
+```
+

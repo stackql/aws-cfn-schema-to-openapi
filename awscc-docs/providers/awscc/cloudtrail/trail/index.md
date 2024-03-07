@@ -52,41 +52,6 @@ Gets an individual <code>trail</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trail</code> resource, the following permissions are required:
-
-### Read
-<pre>
-CloudTrail:GetTrail,
-CloudTrail:GetTrailStatus,
-CloudTrail:ListTags,
-CloudTrail:GetEventSelectors,
-CloudTrail:GetInsightSelectors,
-CloudTrail:DescribeTrails</pre>
-
-### Update
-<pre>
-CloudTrail:UpdateTrail,
-CloudTrail:StartLogging,
-CloudTrail:StopLogging,
-CloudTrail:AddTags,
-CloudTrail:RemoveTags,
-CloudTrail:PutEventSelectors,
-CloudTrail:PutInsightSelectors,
-iam:GetRole,
-iam:PassRole,
-iam:CreateServiceLinkedRole,
-organizations:DescribeOrganization,
-organizations:ListAWSServiceAccessForOrganization,
-CloudTrail:GetTrail,
-CloudTrail:DescribeTrails</pre>
-
-### Delete
-<pre>
-CloudTrail:DeleteTrail</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -111,5 +76,43 @@ sns_topic_arn,
 insight_selectors
 FROM awscc.cloudtrail.trail
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrailName&gt;'
+AND data__Identifier = '{TrailName}';
 ```
+
+## Permissions
+
+To operate on the <code>trail</code> resource, the following permissions are required:
+
+### Read
+```json
+CloudTrail:GetTrail,
+CloudTrail:GetTrailStatus,
+CloudTrail:ListTags,
+CloudTrail:GetEventSelectors,
+CloudTrail:GetInsightSelectors,
+CloudTrail:DescribeTrails
+```
+
+### Update
+```json
+CloudTrail:UpdateTrail,
+CloudTrail:StartLogging,
+CloudTrail:StopLogging,
+CloudTrail:AddTags,
+CloudTrail:RemoveTags,
+CloudTrail:PutEventSelectors,
+CloudTrail:PutInsightSelectors,
+iam:GetRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+organizations:DescribeOrganization,
+organizations:ListAWSServiceAccessForOrganization,
+CloudTrail:GetTrail,
+CloudTrail:DescribeTrails
+```
+
+### Delete
+```json
+CloudTrail:DeleteTrail
+```
+

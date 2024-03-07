@@ -35,21 +35,6 @@ Retrieves a list of <code>collections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>collections</code> resource, the following permissions are required:
-
-### Create
-<pre>
-aoss:CreateCollection,
-aoss:BatchGetCollection,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-aoss:ListCollections</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.opensearchserverless.collections
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>collections</code> resource, the following permissions are required:
+
+### Create
+```json
+aoss:CreateCollection,
+aoss:BatchGetCollection,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+aoss:ListCollections
+```
+

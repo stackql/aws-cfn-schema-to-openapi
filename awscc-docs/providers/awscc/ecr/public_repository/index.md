@@ -39,30 +39,6 @@ Gets an individual <code>public_repository</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>public_repository</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecr-public:DescribeRepositories,
-ecr-public:GetRepositoryPolicy,
-ecr-public:GetRepositoryCatalogData,
-ecr-public:ListTagsForResource</pre>
-
-### Update
-<pre>
-ecr-public:SetRepositoryPolicy,
-ecr-public:DeleteRepositoryPolicy,
-ecr-public:PutRepositoryCatalogData,
-ecr-public:TagResource,
-ecr-public:UntagResource</pre>
-
-### Delete
-<pre>
-ecr-public:DeleteRepository</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +50,32 @@ repository_catalog_data,
 tags
 FROM awscc.ecr.public_repository
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RepositoryName&gt;'
+AND data__Identifier = '{RepositoryName}';
 ```
+
+## Permissions
+
+To operate on the <code>public_repository</code> resource, the following permissions are required:
+
+### Read
+```json
+ecr-public:DescribeRepositories,
+ecr-public:GetRepositoryPolicy,
+ecr-public:GetRepositoryCatalogData,
+ecr-public:ListTagsForResource
+```
+
+### Update
+```json
+ecr-public:SetRepositoryPolicy,
+ecr-public:DeleteRepositoryPolicy,
+ecr-public:PutRepositoryCatalogData,
+ecr-public:TagResource,
+ecr-public:UntagResource
+```
+
+### Delete
+```json
+ecr-public:DeleteRepository
+```
+

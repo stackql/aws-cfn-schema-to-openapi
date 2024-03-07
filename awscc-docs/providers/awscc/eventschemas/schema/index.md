@@ -44,29 +44,6 @@ Gets an individual <code>schema</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schema</code> resource, the following permissions are required:
-
-### Read
-<pre>
-schemas:DescribeSchema</pre>
-
-### Update
-<pre>
-schemas:DescribeSchema,
-schemas:UpdateSchema,
-schemas:TagResource,
-schemas:UntagResource,
-schemas:ListTagsForResource</pre>
-
-### Delete
-<pre>
-schemas:DescribeSchema,
-schemas:DeleteSchema,
-schemas:DeleteSchemaVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +60,31 @@ version_created_date,
 tags
 FROM awscc.eventschemas.schema
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SchemaArn&gt;'
+AND data__Identifier = '{SchemaArn}';
 ```
+
+## Permissions
+
+To operate on the <code>schema</code> resource, the following permissions are required:
+
+### Read
+```json
+schemas:DescribeSchema
+```
+
+### Update
+```json
+schemas:DescribeSchema,
+schemas:UpdateSchema,
+schemas:TagResource,
+schemas:UntagResource,
+schemas:ListTagsForResource
+```
+
+### Delete
+```json
+schemas:DescribeSchema,
+schemas:DeleteSchema,
+schemas:DeleteSchemaVersion
+```
+

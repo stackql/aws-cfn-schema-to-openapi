@@ -35,12 +35,21 @@ Retrieves a list of <code>deployments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+deployment_id
+FROM awscc.greengrassv2.deployments
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>deployments</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 greengrass:CreateDeployment,
 greengrass:GetDeployment,
 greengrass:TagResource,
@@ -52,22 +61,15 @@ iot:DescribeThing,
 iot:DescribeThingGroup,
 iot:GetThingShadow,
 iot:UpdateJob,
-iot:UpdateThingShadow</pre>
+iot:UpdateThingShadow
+```
 
 ### List
-<pre>
+```json
 greengrass:ListDeployments,
 iot:DescribeJob,
 iot:DescribeThing,
 iot:DescribeThingGroup,
-iot:GetThingShadow</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-deployment_id
-FROM awscc.greengrassv2.deployments
-WHERE region = 'us-east-1'
+iot:GetThingShadow
 ```
+

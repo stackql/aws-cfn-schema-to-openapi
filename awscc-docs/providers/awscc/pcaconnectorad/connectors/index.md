@@ -35,12 +35,21 @@ Retrieves a list of <code>connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+connector_arn
+FROM awscc.pcaconnectorad.connectors
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>connectors</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 acm-pca:DescribeCertificateAuthority,
 acm-pca:GetCertificateAuthorityCertificate,
 acm-pca:GetCertificate,
@@ -50,18 +59,11 @@ ec2:CreateTags,
 ec2:CreateVpcEndpoint,
 ec2:DescribeVpcEndpoints,
 pca-connector-ad:CreateConnector,
-pca-connector-ad:GetConnector</pre>
+pca-connector-ad:GetConnector
+```
 
 ### List
-<pre>
-pca-connector-ad:ListConnectors</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-connector_arn
-FROM awscc.pcaconnectorad.connectors
-WHERE region = 'us-east-1'
+```json
+pca-connector-ad:ListConnectors
 ```
+

@@ -35,19 +35,6 @@ Retrieves a list of <code>datasets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>datasets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-forecast:CreateDataset</pre>
-
-### List
-<pre>
-forecast:ListDatasets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ arn
 FROM awscc.forecast.datasets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>datasets</code> resource, the following permissions are required:
+
+### Create
+```json
+forecast:CreateDataset
+```
+
+### List
+```json
+forecast:ListDatasets
+```
+

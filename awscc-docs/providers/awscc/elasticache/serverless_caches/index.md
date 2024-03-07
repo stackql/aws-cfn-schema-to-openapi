@@ -35,27 +35,6 @@ Retrieves a list of <code>serverless_caches</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>serverless_caches</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticache:CreateServerlessCache,
-elasticache:DescribeServerlessCaches,
-elasticache:AddTagsToResource,
-elasticache:ListTagsForResource,
-ec2:CreateTags,
-ec2:CreateVpcEndpoint,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-### List
-<pre>
-elasticache:DescribeServerlessCaches,
-elasticache:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ serverless_cache_name
 FROM awscc.elasticache.serverless_caches
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>serverless_caches</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticache:CreateServerlessCache,
+elasticache:DescribeServerlessCaches,
+elasticache:AddTagsToResource,
+elasticache:ListTagsForResource,
+ec2:CreateTags,
+ec2:CreateVpcEndpoint,
+kms:CreateGrant,
+kms:DescribeKey
+```
+
+### List
+```json
+elasticache:DescribeServerlessCaches,
+elasticache:ListTagsForResource
+```
+

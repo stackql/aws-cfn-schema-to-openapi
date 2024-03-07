@@ -36,25 +36,6 @@ Gets an individual <code>default_view_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>default_view_association</code> resource, the following permissions are required:
-
-### Update
-<pre>
-resource-explorer-2:GetDefaultView,
-resource-explorer-2:AssociateDefaultView</pre>
-
-### Read
-<pre>
-resource-explorer-2:GetDefaultView</pre>
-
-### Delete
-<pre>
-resource-explorer-2:GetDefaultView,
-resource-explorer-2:DisassociateDefaultView</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ view_arn,
 associated_aws_principal
 FROM awscc.resourceexplorer2.default_view_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssociatedAwsPrincipal&gt;'
+AND data__Identifier = '{AssociatedAwsPrincipal}';
 ```
+
+## Permissions
+
+To operate on the <code>default_view_association</code> resource, the following permissions are required:
+
+### Update
+```json
+resource-explorer-2:GetDefaultView,
+resource-explorer-2:AssociateDefaultView
+```
+
+### Read
+```json
+resource-explorer-2:GetDefaultView
+```
+
+### Delete
+```json
+resource-explorer-2:GetDefaultView,
+resource-explorer-2:DisassociateDefaultView
+```
+

@@ -41,24 +41,6 @@ Gets an individual <code>principal_permissions</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>principal_permissions</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lakeformation:ListPermissions,
-glue:GetTable,
-glue:GetDatabase</pre>
-
-### Delete
-<pre>
-lakeformation:RevokePermissions,
-lakeformation:ListPermissions,
-glue:GetTable,
-glue:GetDatabase</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,6 +54,26 @@ principal_identifier,
 resource_identifier
 FROM awscc.lakeformation.principal_permissions
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PrincipalIdentifier&gt;'
-AND data__Identifier = '&lt;ResourceIdentifier&gt;'
+AND data__Identifier = '{PrincipalIdentifier}';
+AND data__Identifier = '{ResourceIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>principal_permissions</code> resource, the following permissions are required:
+
+### Read
+```json
+lakeformation:ListPermissions,
+glue:GetTable,
+glue:GetDatabase
+```
+
+### Delete
+```json
+lakeformation:RevokePermissions,
+lakeformation:ListPermissions,
+glue:GetTable,
+glue:GetDatabase
+```
+

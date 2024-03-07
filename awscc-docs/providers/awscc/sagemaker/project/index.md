@@ -43,30 +43,6 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>project</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeProject,
-sagemaker:ListTags</pre>
-
-### Update
-<pre>
-sagemaker:DescribeProject,
-sagemaker:ListTags,
-sagemaker:AddTags,
-sagemaker:DeleteTags</pre>
-
-### Delete
-<pre>
-sagemaker:DeleteProject,
-sagemaker:DescribeProject,
-servicecatalog:TerminateProvisionedProduct,
-servicecatalog:DescribeRecord</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +58,32 @@ service_catalog_provisioned_product_details,
 project_status
 FROM awscc.sagemaker.project
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProjectArn&gt;'
+AND data__Identifier = '{ProjectArn}';
 ```
+
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeProject,
+sagemaker:ListTags
+```
+
+### Update
+```json
+sagemaker:DescribeProject,
+sagemaker:ListTags,
+sagemaker:AddTags,
+sagemaker:DeleteTags
+```
+
+### Delete
+```json
+sagemaker:DeleteProject,
+sagemaker:DescribeProject,
+servicecatalog:TerminateProvisionedProduct,
+servicecatalog:DescribeRecord
+```
+

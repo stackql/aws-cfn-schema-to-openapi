@@ -42,40 +42,6 @@ Gets an individual <code>asset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>asset</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotsitewise:DescribeAsset,
-iotsitewise:DescribeAssetModel,
-iotsitewise:ListAssociatedAssets,
-iotsitewise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotsitewise:AssociateAssets,
-iotsitewise:DescribeAsset,
-iotsitewise:DescribeAssetModel,
-iotsitewise:DisassociateAssets,
-iotsitewise:ListAssociatedAssets,
-iotsitewise:ListTagsForResource,
-iotsitewise:TagResource,
-iotsitewise:UpdateAsset,
-iotsitewise:UpdateAssetProperty,
-iotsitewise:UntagResource</pre>
-
-### Delete
-<pre>
-iotsitewise:DeleteAsset,
-iotsitewise:DescribeAsset,
-iotsitewise:DescribeAssetModel,
-iotsitewise:DisassociateAssets,
-iotsitewise:ListAssociatedAssets,
-iotsitewise:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +56,42 @@ asset_hierarchies,
 tags
 FROM awscc.iotsitewise.asset
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssetId&gt;'
+AND data__Identifier = '{AssetId}';
 ```
+
+## Permissions
+
+To operate on the <code>asset</code> resource, the following permissions are required:
+
+### Read
+```json
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource
+```
+
+### Update
+```json
+iotsitewise:AssociateAssets,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:DisassociateAssets,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:UpdateAsset,
+iotsitewise:UpdateAssetProperty,
+iotsitewise:UntagResource
+```
+
+### Delete
+```json
+iotsitewise:DeleteAsset,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:DisassociateAssets,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource
+```
+

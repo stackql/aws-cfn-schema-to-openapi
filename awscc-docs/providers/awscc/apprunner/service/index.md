@@ -47,24 +47,6 @@ Gets an individual <code>service</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apprunner:DescribeService</pre>
-
-### Update
-<pre>
-apprunner:UpdateService,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-apprunner:DeleteService</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +66,26 @@ auto_scaling_configuration_arn,
 network_configuration
 FROM awscc.apprunner.service
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ServiceArn&gt;'
+AND data__Identifier = '{ServiceArn}';
 ```
+
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+```json
+apprunner:DescribeService
+```
+
+### Update
+```json
+apprunner:UpdateService,
+iam:PassRole
+```
+
+### Delete
+```json
+apprunner:DeleteService
+```
+

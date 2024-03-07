@@ -40,43 +40,6 @@ Gets an individual <code>browser_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>browser_settings</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetBrowserSettings,
-workspaces-web:ListBrowserSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateBrowserSettings,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetBrowserSettings,
-workspaces-web:ListBrowserSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Delete
-<pre>
-workspaces-web:GetBrowserSettings,
-workspaces-web:DeleteBrowserSettings,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +52,45 @@ customer_managed_key,
 tags
 FROM awscc.workspacesweb.browser_settings
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BrowserSettingsArn&gt;'
+AND data__Identifier = '{BrowserSettingsArn}';
 ```
+
+## Permissions
+
+To operate on the <code>browser_settings</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetBrowserSettings,
+workspaces-web:ListBrowserSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Update
+```json
+workspaces-web:UpdateBrowserSettings,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetBrowserSettings,
+workspaces-web:ListBrowserSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Delete
+```json
+workspaces-web:GetBrowserSettings,
+workspaces-web:DeleteBrowserSettings,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+

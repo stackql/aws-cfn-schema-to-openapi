@@ -42,26 +42,6 @@ Gets an individual <code>accessor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>accessor</code> resource, the following permissions are required:
-
-### Read
-<pre>
-managedblockchain:GetAccessor</pre>
-
-### Update
-<pre>
-managedblockchain:GetAccessor,
-managedblockchain:CreateAccessor,
-managedblockchain:TagResource,
-managedblockchain:UntagResource</pre>
-
-### Delete
-<pre>
-managedblockchain:DeleteAccessor</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +56,28 @@ network_type,
 tags
 FROM awscc.managedblockchain.accessor
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>accessor</code> resource, the following permissions are required:
+
+### Read
+```json
+managedblockchain:GetAccessor
+```
+
+### Update
+```json
+managedblockchain:GetAccessor,
+managedblockchain:CreateAccessor,
+managedblockchain:TagResource,
+managedblockchain:UntagResource
+```
+
+### Delete
+```json
+managedblockchain:DeleteAccessor
+```
+

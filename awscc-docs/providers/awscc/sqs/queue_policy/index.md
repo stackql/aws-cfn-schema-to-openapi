@@ -37,19 +37,6 @@ Gets an individual <code>queue_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>queue_policy</code> resource, the following permissions are required:
-
-### Update
-<pre>
-sqs:SetQueueAttributes</pre>
-
-### Delete
-<pre>
-sqs:SetQueueAttributes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,5 +46,20 @@ policy_document,
 queues
 FROM awscc.sqs.queue_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>queue_policy</code> resource, the following permissions are required:
+
+### Update
+```json
+sqs:SetQueueAttributes
+```
+
+### Delete
+```json
+sqs:SetQueueAttributes
+```
+

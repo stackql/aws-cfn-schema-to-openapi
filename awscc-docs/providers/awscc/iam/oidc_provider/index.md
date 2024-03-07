@@ -39,29 +39,6 @@ Gets an individual <code>oidc_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>oidc_provider</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetOpenIDConnectProvider</pre>
-
-### Update
-<pre>
-iam:UpdateOpenIDConnectProviderThumbprint,
-iam:RemoveClientIDFromOpenIDConnectProvider,
-iam:AddClientIDToOpenIDConnectProvider,
-iam:GetOpenIDConnectProvider,
-iam:TagOpenIDConnectProvider,
-iam:UntagOpenIDConnectProvider,
-iam:ListOpenIDConnectProviderTags</pre>
-
-### Delete
-<pre>
-iam:DeleteOpenIDConnectProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +49,31 @@ thumbprint_list,
 arn,
 tags
 FROM awscc.iam.oidc_provider
-WHERE data__Identifier = '&lt;Arn&gt;'
+WHERE data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>oidc_provider</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetOpenIDConnectProvider
+```
+
+### Update
+```json
+iam:UpdateOpenIDConnectProviderThumbprint,
+iam:RemoveClientIDFromOpenIDConnectProvider,
+iam:AddClientIDToOpenIDConnectProvider,
+iam:GetOpenIDConnectProvider,
+iam:TagOpenIDConnectProvider,
+iam:UntagOpenIDConnectProvider,
+iam:ListOpenIDConnectProviderTags
+```
+
+### Delete
+```json
+iam:DeleteOpenIDConnectProvider
+```
+

@@ -49,29 +49,6 @@ Gets an individual <code>site_to_site_vpn_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>site_to_site_vpn_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetSiteToSiteVpnAttachment</pre>
-
-### Update
-<pre>
-networkmanager:GetSiteToSiteVpnAttachment,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:GetSiteToSiteVpnAttachment,
-networkmanager:DeleteAttachment,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +70,31 @@ updated_at,
 vpn_connection_arn
 FROM awscc.networkmanager.site_to_site_vpn_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AttachmentId&gt;'
+AND data__Identifier = '{AttachmentId}';
 ```
+
+## Permissions
+
+To operate on the <code>site_to_site_vpn_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetSiteToSiteVpnAttachment
+```
+
+### Update
+```json
+networkmanager:GetSiteToSiteVpnAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:GetSiteToSiteVpnAttachment,
+networkmanager:DeleteAttachment,
+ec2:DescribeRegions
+```
+

@@ -41,23 +41,6 @@ Gets an individual <code>assistant_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assistant_association</code> resource, the following permissions are required:
-
-### Update
-<pre>
-wisdom:GetAssistantAssociation</pre>
-
-### Read
-<pre>
-wisdom:GetAssistantAssociation</pre>
-
-### Delete
-<pre>
-wisdom:DeleteAssistantAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,6 +54,26 @@ association_type,
 tags
 FROM awscc.wisdom.assistant_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssistantAssociationId&gt;'
-AND data__Identifier = '&lt;AssistantId&gt;'
+AND data__Identifier = '{AssistantAssociationId}';
+AND data__Identifier = '{AssistantId}';
 ```
+
+## Permissions
+
+To operate on the <code>assistant_association</code> resource, the following permissions are required:
+
+### Update
+```json
+wisdom:GetAssistantAssociation
+```
+
+### Read
+```json
+wisdom:GetAssistantAssociation
+```
+
+### Delete
+```json
+wisdom:DeleteAssistantAssociation
+```
+

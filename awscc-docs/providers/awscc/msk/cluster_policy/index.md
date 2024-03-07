@@ -37,25 +37,6 @@ Gets an individual <code>cluster_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cluster_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kafka:GetClusterPolicy</pre>
-
-### Update
-<pre>
-kafka:PutClusterPolicy,
-kafka:GetClusterPolicy</pre>
-
-### Delete
-<pre>
-kafka:DeleteClusterPolicy,
-kafka:GetClusterPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +46,27 @@ cluster_arn,
 current_version
 FROM awscc.msk.cluster_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClusterArn&gt;'
+AND data__Identifier = '{ClusterArn}';
 ```
+
+## Permissions
+
+To operate on the <code>cluster_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+kafka:GetClusterPolicy
+```
+
+### Update
+```json
+kafka:PutClusterPolicy,
+kafka:GetClusterPolicy
+```
+
+### Delete
+```json
+kafka:DeleteClusterPolicy,
+kafka:GetClusterPolicy
+```
+

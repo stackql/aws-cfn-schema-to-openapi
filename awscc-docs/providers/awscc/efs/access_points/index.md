@@ -35,21 +35,6 @@ Retrieves a list of <code>access_points</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_points</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticfilesystem:CreateAccessPoint,
-elasticfilesystem:TagResource,
-elasticfilesystem:DescribeAccessPoints</pre>
-
-### List
-<pre>
-elasticfilesystem:DescribeAccessPoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ access_point_id
 FROM awscc.efs.access_points
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>access_points</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticfilesystem:CreateAccessPoint,
+elasticfilesystem:TagResource,
+elasticfilesystem:DescribeAccessPoints
+```
+
+### List
+```json
+elasticfilesystem:DescribeAccessPoints
+```
+

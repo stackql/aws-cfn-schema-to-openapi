@@ -36,12 +36,22 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+environment_identifier,
+application_identifier
+FROM awscc.refactorspaces.applications
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 refactor-spaces:GetApplication,
 refactor-spaces:CreateApplication,
 refactor-spaces:TagResource,
@@ -67,20 +77,12 @@ elasticloadbalancing:CreateLoadBalancer,
 elasticloadbalancing:DescribeLoadBalancers,
 elasticloadbalancing:DescribeTags,
 elasticloadbalancing:AddTags,
-iam:CreateServiceLinkedRole</pre>
+iam:CreateServiceLinkedRole
+```
 
 ### List
-<pre>
+```json
 refactor-spaces:ListApplications,
-refactor-spaces:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-environment_identifier,
-application_identifier
-FROM awscc.refactorspaces.applications
-WHERE region = 'us-east-1'
+refactor-spaces:ListTagsForResource
 ```
+

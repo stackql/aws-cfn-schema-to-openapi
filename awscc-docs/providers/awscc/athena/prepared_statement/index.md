@@ -38,24 +38,6 @@ Gets an individual <code>prepared_statement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>prepared_statement</code> resource, the following permissions are required:
-
-### Read
-<pre>
-athena:GetPreparedStatement</pre>
-
-### Update
-<pre>
-athena:UpdatePreparedStatement</pre>
-
-### Delete
-<pre>
-athena:DeletePreparedStatement,
-athena:GetPreparedStatement</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,6 +48,27 @@ description,
 query_statement
 FROM awscc.athena.prepared_statement
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StatementName&gt;'
-AND data__Identifier = '&lt;WorkGroup&gt;'
+AND data__Identifier = '{StatementName}';
+AND data__Identifier = '{WorkGroup}';
 ```
+
+## Permissions
+
+To operate on the <code>prepared_statement</code> resource, the following permissions are required:
+
+### Read
+```json
+athena:GetPreparedStatement
+```
+
+### Update
+```json
+athena:UpdatePreparedStatement
+```
+
+### Delete
+```json
+athena:DeletePreparedStatement,
+athena:GetPreparedStatement
+```
+

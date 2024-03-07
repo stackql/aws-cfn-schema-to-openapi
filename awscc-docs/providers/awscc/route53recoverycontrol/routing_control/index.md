@@ -39,26 +39,6 @@ Gets an individual <code>routing_control</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>routing_control</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53-recovery-control-config:DescribeRoutingControl</pre>
-
-### Update
-<pre>
-route53-recovery-control-config:UpdateRoutingControl,
-route53-recovery-control-config:DescribeRoutingControl,
-route53-recovery-control-config:DescribeControlPanel</pre>
-
-### Delete
-<pre>
-route53-recovery-control-config:DescribeRoutingControl,
-route53-recovery-control-config:DeleteRoutingControl</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +50,28 @@ status,
 cluster_arn
 FROM awscc.route53recoverycontrol.routing_control
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RoutingControlArn&gt;'
+AND data__Identifier = '{RoutingControlArn}';
 ```
+
+## Permissions
+
+To operate on the <code>routing_control</code> resource, the following permissions are required:
+
+### Read
+```json
+route53-recovery-control-config:DescribeRoutingControl
+```
+
+### Update
+```json
+route53-recovery-control-config:UpdateRoutingControl,
+route53-recovery-control-config:DescribeRoutingControl,
+route53-recovery-control-config:DescribeControlPanel
+```
+
+### Delete
+```json
+route53-recovery-control-config:DescribeRoutingControl,
+route53-recovery-control-config:DeleteRoutingControl
+```
+

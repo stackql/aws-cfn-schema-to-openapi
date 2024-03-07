@@ -50,34 +50,6 @@ Gets an individual <code>data_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_source</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeDataSource,
-quicksight:DescribeDataSourcePermissions,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeDataSource,
-quicksight:DescribeDataSourcePermissions,
-quicksight:UpdateDataSource,
-quicksight:UpdateDataSourcePermissions,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### Delete
-<pre>
-quicksight:DescribeDataSource,
-quicksight:DescribeDataSourcePermissions,
-quicksight:DeleteDataSource,
-quicksight:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -100,6 +72,37 @@ type,
 vpc_connection_properties
 FROM awscc.quicksight.data_source
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;DataSourceId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{DataSourceId}';
 ```
+
+## Permissions
+
+To operate on the <code>data_source</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeDataSource,
+quicksight:DescribeDataSourcePermissions,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeDataSource,
+quicksight:DescribeDataSourcePermissions,
+quicksight:UpdateDataSource,
+quicksight:UpdateDataSourcePermissions,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### Delete
+```json
+quicksight:DescribeDataSource,
+quicksight:DescribeDataSourcePermissions,
+quicksight:DeleteDataSource,
+quicksight:ListTagsForResource
+```
+

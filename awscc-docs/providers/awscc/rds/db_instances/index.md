@@ -35,12 +35,21 @@ Retrieves a list of <code>db_instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+d_binstance_identifier
+FROM awscc.rds.db_instances
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>db_instances</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ec2:DescribeAccountAttributes,
 ec2:DescribeAvailabilityZones,
 ec2:DescribeInternetGateways,
@@ -70,18 +79,11 @@ rds:RestoreDBInstanceFromDBSnapshot,
 rds:RestoreDBInstanceToPointInTime,
 rds:StartDBInstanceAutomatedBackupsReplication,
 secretsmanager:CreateSecret,
-secretsmanager:TagResource</pre>
+secretsmanager:TagResource
+```
 
 ### List
-<pre>
-rds:DescribeDBInstances</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-d_binstance_identifier
-FROM awscc.rds.db_instances
-WHERE region = 'us-east-1'
+```json
+rds:DescribeDBInstances
 ```
+

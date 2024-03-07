@@ -39,32 +39,6 @@ Gets an individual <code>configuration_aggregator</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_aggregator</code> resource, the following permissions are required:
-
-### Read
-<pre>
-config:DescribeConfigurationAggregators,
-config:ListTagsForResource</pre>
-
-### Update
-<pre>
-config:PutConfigurationAggregator,
-config:DescribeConfigurationAggregators,
-config:TagResource,
-config:UntagResource,
-config:ListTagsForResource,
-iam:PassRole,
-organizations:EnableAWSServiceAccess,
-organizations:ListDelegatedAdministrators</pre>
-
-### Delete
-<pre>
-config:DeleteConfigurationAggregator,
-config:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +50,34 @@ organization_aggregation_source,
 tags
 FROM awscc.config.configuration_aggregator
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConfigurationAggregatorName&gt;'
+AND data__Identifier = '{ConfigurationAggregatorName}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration_aggregator</code> resource, the following permissions are required:
+
+### Read
+```json
+config:DescribeConfigurationAggregators,
+config:ListTagsForResource
+```
+
+### Update
+```json
+config:PutConfigurationAggregator,
+config:DescribeConfigurationAggregators,
+config:TagResource,
+config:UntagResource,
+config:ListTagsForResource,
+iam:PassRole,
+organizations:EnableAWSServiceAccess,
+organizations:ListDelegatedAdministrators
+```
+
+### Delete
+```json
+config:DeleteConfigurationAggregator,
+config:UntagResource
+```
+

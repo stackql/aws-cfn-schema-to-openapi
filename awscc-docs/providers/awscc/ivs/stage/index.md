@@ -38,29 +38,6 @@ Gets an individual <code>stage</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stage</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ivs:GetStage,
-ivs:ListTagsForResource</pre>
-
-### Update
-<pre>
-ivs:GetStage,
-ivs:UpdateStage,
-ivs:TagResource,
-ivs:UnTagResource,
-ivs:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ivs:DeleteStage,
-ivs:UnTagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +48,31 @@ tags,
 active_session_id
 FROM awscc.ivs.stage
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>stage</code> resource, the following permissions are required:
+
+### Read
+```json
+ivs:GetStage,
+ivs:ListTagsForResource
+```
+
+### Update
+```json
+ivs:GetStage,
+ivs:UpdateStage,
+ivs:TagResource,
+ivs:UnTagResource,
+ivs:ListTagsForResource
+```
+
+### Delete
+```json
+ivs:DeleteStage,
+ivs:UnTagResource
+```
+

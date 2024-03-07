@@ -43,29 +43,6 @@ Gets an individual <code>vehicle</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vehicle</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotfleetwise:GetVehicle,
-iotfleetwise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotfleetwise:GetVehicle,
-iotfleetwise:UpdateVehicle,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource,
-iotfleetwise:UntagResource</pre>
-
-### Delete
-<pre>
-iotfleetwise:GetVehicle,
-iotfleetwise:DeleteVehicle</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +58,31 @@ model_manifest_arn,
 tags
 FROM awscc.iotfleetwise.vehicle
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>vehicle</code> resource, the following permissions are required:
+
+### Read
+```json
+iotfleetwise:GetVehicle,
+iotfleetwise:ListTagsForResource
+```
+
+### Update
+```json
+iotfleetwise:GetVehicle,
+iotfleetwise:UpdateVehicle,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource
+```
+
+### Delete
+```json
+iotfleetwise:GetVehicle,
+iotfleetwise:DeleteVehicle
+```
+

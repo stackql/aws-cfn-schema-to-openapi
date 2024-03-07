@@ -42,17 +42,35 @@ Gets an individual <code>landing_zone</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+landing_zone_identifier,
+arn,
+status,
+latest_available_version,
+drift_status,
+manifest,
+version,
+tags
+FROM awscc.controltower.landing_zone
+WHERE region = 'us-east-1'
+AND data__Identifier = '{LandingZoneIdentifier}';
+```
+
 ## Permissions
 
 To operate on the <code>landing_zone</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 controltower:GetLandingZone,
-controltower:ListTagsForResource</pre>
+controltower:ListTagsForResource
+```
 
 ### Update
-<pre>
+```json
 controltower:UpdateLandingZone,
 controltower:GetLandingZoneOperation,
 controltower:ListTagsForResource,
@@ -84,10 +102,11 @@ organizations:ListRoots,
 sso:GetPeregrineStatus,
 sso:ListDirectoryAssociations,
 sso:StartPeregrine,
-sso:RegisterRegion</pre>
+sso:RegisterRegion
+```
 
 ### Delete
-<pre>
+```json
 controltower:DeleteLandingZone,
 controltower:GetLandingZone,
 controltower:GetLandingZoneOperation,
@@ -109,22 +128,6 @@ sso:GetPeregrineStatus,
 sso:ListDirectoryAssociations,
 iam:DeleteRolePolicy,
 iam:DetachRolePolicy,
-iam:DeleteRole</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-landing_zone_identifier,
-arn,
-status,
-latest_available_version,
-drift_status,
-manifest,
-version,
-tags
-FROM awscc.controltower.landing_zone
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LandingZoneIdentifier&gt;'
+iam:DeleteRole
 ```
+

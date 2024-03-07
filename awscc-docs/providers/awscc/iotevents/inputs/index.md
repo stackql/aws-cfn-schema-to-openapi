@@ -35,22 +35,6 @@ Retrieves a list of <code>inputs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>inputs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotevents:CreateInput,
-iotevents:TagResource,
-iotevents:DescribeInput,
-iotevents:ListTagsForResource</pre>
-
-### List
-<pre>
-iotevents:ListInputs</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ input_name
 FROM awscc.iotevents.inputs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>inputs</code> resource, the following permissions are required:
+
+### Create
+```json
+iotevents:CreateInput,
+iotevents:TagResource,
+iotevents:DescribeInput,
+iotevents:ListTagsForResource
+```
+
+### List
+```json
+iotevents:ListInputs
+```
+

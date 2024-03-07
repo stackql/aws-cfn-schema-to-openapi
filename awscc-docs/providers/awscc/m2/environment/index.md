@@ -49,30 +49,6 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-m2:ListTagsForResource,
-m2:GetEnvironment</pre>
-
-### Update
-<pre>
-m2:TagResource,
-m2:UntagResource,
-m2:ListTagsForResource,
-m2:GetEnvironment,
-m2:UpdateEnvironment</pre>
-
-### Delete
-<pre>
-elasticloadbalancing:DeleteLoadBalancer,
-m2:DeleteEnvironment,
-m2:GetEnvironment</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -94,5 +70,32 @@ subnet_ids,
 tags
 FROM awscc.m2.environment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EnvironmentArn&gt;'
+AND data__Identifier = '{EnvironmentArn}';
 ```
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+```json
+m2:ListTagsForResource,
+m2:GetEnvironment
+```
+
+### Update
+```json
+m2:TagResource,
+m2:UntagResource,
+m2:ListTagsForResource,
+m2:GetEnvironment,
+m2:UpdateEnvironment
+```
+
+### Delete
+```json
+elasticloadbalancing:DeleteLoadBalancer,
+m2:DeleteEnvironment,
+m2:GetEnvironment
+```
+

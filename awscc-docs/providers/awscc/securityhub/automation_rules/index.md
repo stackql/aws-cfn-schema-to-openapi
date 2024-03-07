@@ -35,22 +35,6 @@ Retrieves a list of <code>automation_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>automation_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-securityhub:CreateAutomationRule,
-securityhub:TagResource,
-securityhub:ListTagsForResource</pre>
-
-### List
-<pre>
-securityhub:ListAutomationRules,
-securityhub:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ rule_arn
 FROM awscc.securityhub.automation_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>automation_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+securityhub:CreateAutomationRule,
+securityhub:TagResource,
+securityhub:ListTagsForResource
+```
+
+### List
+```json
+securityhub:ListAutomationRules,
+securityhub:ListTagsForResource
+```
+

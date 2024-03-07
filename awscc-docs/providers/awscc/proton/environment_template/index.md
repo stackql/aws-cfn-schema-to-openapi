@@ -41,33 +41,6 @@ Gets an individual <code>environment_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-proton:GetEnvironmentTemplate,
-proton:ListTagsForResource,
-kms:*</pre>
-
-### Update
-<pre>
-proton:CreateEnvironmentTemplate,
-proton:ListTagsForResource,
-proton:TagResource,
-proton:UntagResource,
-proton:UpdateEnvironmentTemplate,
-proton:GetEnvironmentTemplate,
-kms:*</pre>
-
-### Delete
-<pre>
-proton:DeleteEnvironmentTemplate,
-proton:GetEnvironmentTemplate,
-kms:*</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +54,35 @@ provisioning,
 tags
 FROM awscc.proton.environment_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>environment_template</code> resource, the following permissions are required:
+
+### Read
+```json
+proton:GetEnvironmentTemplate,
+proton:ListTagsForResource,
+kms:*
+```
+
+### Update
+```json
+proton:CreateEnvironmentTemplate,
+proton:ListTagsForResource,
+proton:TagResource,
+proton:UntagResource,
+proton:UpdateEnvironmentTemplate,
+proton:GetEnvironmentTemplate,
+kms:*
+```
+
+### Delete
+```json
+proton:DeleteEnvironmentTemplate,
+proton:GetEnvironmentTemplate,
+kms:*
+```
+

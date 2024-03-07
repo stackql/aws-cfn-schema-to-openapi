@@ -61,55 +61,6 @@ Gets an individual <code>function</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>function</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lambda:GetFunction,
-lambda:GetFunctionCodeSigningConfig</pre>
-
-### Update
-<pre>
-lambda:DeleteFunctionConcurrency,
-lambda:GetFunction,
-lambda:PutFunctionConcurrency,
-lambda:ListTags,
-lambda:TagResource,
-lambda:UntagResource,
-lambda:UpdateFunctionConfiguration,
-lambda:UpdateFunctionCode,
-iam:PassRole,
-s3:GetObject,
-s3:GetObjectVersion,
-ec2:DescribeSecurityGroups,
-ec2:DescribeSubnets,
-ec2:DescribeVpcs,
-elasticfilesystem:DescribeMountTargets,
-kms:CreateGrant,
-kms:Decrypt,
-kms:GenerateDataKey,
-lambda:GetRuntimeManagementConfig,
-lambda:PutRuntimeManagementConfig,
-lambda:PutFunctionCodeSigningConfig,
-lambda:DeleteFunctionCodeSigningConfig,
-lambda:GetCodeSigningConfig,
-lambda:GetFunctionCodeSigningConfig,
-lambda:GetPolicy,
-lambda:AddPermission,
-lambda:RemovePermission,
-lambda:GetResourcePolicy,
-lambda:PutResourcePolicy,
-lambda:DeleteResourcePolicy</pre>
-
-### Delete
-<pre>
-lambda:DeleteFunction,
-lambda:GetFunction,
-ec2:DescribeNetworkInterfaces</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -143,5 +94,57 @@ ephemeral_storage,
 architectures
 FROM awscc.lambda.function
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FunctionName&gt;'
+AND data__Identifier = '{FunctionName}';
 ```
+
+## Permissions
+
+To operate on the <code>function</code> resource, the following permissions are required:
+
+### Read
+```json
+lambda:GetFunction,
+lambda:GetFunctionCodeSigningConfig
+```
+
+### Update
+```json
+lambda:DeleteFunctionConcurrency,
+lambda:GetFunction,
+lambda:PutFunctionConcurrency,
+lambda:ListTags,
+lambda:TagResource,
+lambda:UntagResource,
+lambda:UpdateFunctionConfiguration,
+lambda:UpdateFunctionCode,
+iam:PassRole,
+s3:GetObject,
+s3:GetObjectVersion,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+elasticfilesystem:DescribeMountTargets,
+kms:CreateGrant,
+kms:Decrypt,
+kms:GenerateDataKey,
+lambda:GetRuntimeManagementConfig,
+lambda:PutRuntimeManagementConfig,
+lambda:PutFunctionCodeSigningConfig,
+lambda:DeleteFunctionCodeSigningConfig,
+lambda:GetCodeSigningConfig,
+lambda:GetFunctionCodeSigningConfig,
+lambda:GetPolicy,
+lambda:AddPermission,
+lambda:RemovePermission,
+lambda:GetResourcePolicy,
+lambda:PutResourcePolicy,
+lambda:DeleteResourcePolicy
+```
+
+### Delete
+```json
+lambda:DeleteFunction,
+lambda:GetFunction,
+ec2:DescribeNetworkInterfaces
+```
+

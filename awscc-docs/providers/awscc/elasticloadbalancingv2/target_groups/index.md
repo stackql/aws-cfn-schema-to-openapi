@@ -35,24 +35,6 @@ Retrieves a list of <code>target_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>target_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticloadbalancing:CreateTargetGroup,
-elasticloadbalancing:DescribeTargetGroups,
-elasticloadbalancing:RegisterTargets,
-elasticloadbalancing:ModifyTargetGroupAttributes,
-elasticloadbalancing:DescribeTargetHealth,
-elasticloadbalancing:AddTags</pre>
-
-### List
-<pre>
-elasticloadbalancing:DescribeTargetGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ target_group_arn
 FROM awscc.elasticloadbalancingv2.target_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>target_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticloadbalancing:CreateTargetGroup,
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:ModifyTargetGroupAttributes,
+elasticloadbalancing:DescribeTargetHealth,
+elasticloadbalancing:AddTags
+```
+
+### List
+```json
+elasticloadbalancing:DescribeTargetGroups
+```
+

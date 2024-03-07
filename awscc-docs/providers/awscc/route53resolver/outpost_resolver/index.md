@@ -46,31 +46,6 @@ Gets an individual <code>outpost_resolver</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>outpost_resolver</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53resolver:GetOutpostResolver,
-route53resolver:ListTagsForResource</pre>
-
-### Update
-<pre>
-route53resolver:UpdateOutpostResolver,
-route53resolver:GetOutpostResolver,
-route53resolver:UntagResource,
-route53resolver:TagResource,
-route53resolver:ListTagsForResource</pre>
-
-### Delete
-<pre>
-route53resolver:DeleteOutpostResolver,
-route53resolver:GetOutpostResolver,
-route53resolver:ListOutpostResolvers,
-route53resolver:ListResolverEndpoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +64,33 @@ modification_time,
 tags
 FROM awscc.route53resolver.outpost_resolver
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>outpost_resolver</code> resource, the following permissions are required:
+
+### Read
+```json
+route53resolver:GetOutpostResolver,
+route53resolver:ListTagsForResource
+```
+
+### Update
+```json
+route53resolver:UpdateOutpostResolver,
+route53resolver:GetOutpostResolver,
+route53resolver:UntagResource,
+route53resolver:TagResource,
+route53resolver:ListTagsForResource
+```
+
+### Delete
+```json
+route53resolver:DeleteOutpostResolver,
+route53resolver:GetOutpostResolver,
+route53resolver:ListOutpostResolvers,
+route53resolver:ListResolverEndpoints
+```
+

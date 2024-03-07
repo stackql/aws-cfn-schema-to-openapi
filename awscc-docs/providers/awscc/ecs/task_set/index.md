@@ -46,27 +46,6 @@ Gets an individual <code>task_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecs:DescribeTaskSets</pre>
-
-### Update
-<pre>
-ecs:DescribeTaskSets,
-ecs:TagResource,
-ecs:UntagResource,
-ecs:UpdateTaskSet</pre>
-
-### Delete
-<pre>
-ecs:DeleteTaskSet,
-ecs:DescribeTaskSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,7 +64,31 @@ tags,
 task_definition
 FROM awscc.ecs.task_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Cluster&gt;'
-AND data__Identifier = '&lt;Service&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Cluster}';
+AND data__Identifier = '{Service}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>task_set</code> resource, the following permissions are required:
+
+### Read
+```json
+ecs:DescribeTaskSets
+```
+
+### Update
+```json
+ecs:DescribeTaskSets,
+ecs:TagResource,
+ecs:UntagResource,
+ecs:UpdateTaskSet
+```
+
+### Delete
+```json
+ecs:DeleteTaskSet,
+ecs:DescribeTaskSets
+```
+

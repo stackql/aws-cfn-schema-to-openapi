@@ -39,20 +39,6 @@ Gets an individual <code>profile_permission</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profile_permission</code> resource, the following permissions are required:
-
-### Read
-<pre>
-signer:ListProfilePermissions</pre>
-
-### Delete
-<pre>
-signer:RemoveProfilePermission,
-signer:ListProfilePermissions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,6 +50,22 @@ principal,
 statement_id
 FROM awscc.signer.profile_permission
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StatementId&gt;'
-AND data__Identifier = '&lt;ProfileName&gt;'
+AND data__Identifier = '{StatementId}';
+AND data__Identifier = '{ProfileName}';
 ```
+
+## Permissions
+
+To operate on the <code>profile_permission</code> resource, the following permissions are required:
+
+### Read
+```json
+signer:ListProfilePermissions
+```
+
+### Delete
+```json
+signer:RemoveProfilePermission,
+signer:ListProfilePermissions
+```
+

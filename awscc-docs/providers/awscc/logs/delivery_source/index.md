@@ -41,28 +41,6 @@ Gets an individual <code>delivery_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery_source</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:GetDeliverySource,
-logs:ListTagsForResource</pre>
-
-### Update
-<pre>
-logs:PutDeliverySource,
-logs:GetDeliverySource,
-logs:ListTagsForResource,
-logs:TagResource,
-logs:UntagResource</pre>
-
-### Delete
-<pre>
-logs:DeleteDeliverySource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +54,30 @@ log_type,
 tags
 FROM awscc.logs.delivery_source
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>delivery_source</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:GetDeliverySource,
+logs:ListTagsForResource
+```
+
+### Update
+```json
+logs:PutDeliverySource,
+logs:GetDeliverySource,
+logs:ListTagsForResource,
+logs:TagResource,
+logs:UntagResource
+```
+
+### Delete
+```json
+logs:DeleteDeliverySource
+```
+

@@ -35,27 +35,6 @@ Retrieves a list of <code>locationf_sx_ontaps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>locationf_sx_ontaps</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datasync:CreateLocationFsxOntap,
-datasync:DescribeLocationFsxOntap,
-datasync:ListTagsForResource,
-datasync:TagResource,
-fsx:DescribeStorageVirtualMachines,
-fsx:DescribeFileSystems,
-ec2:DescribeNetworkInterfaces,
-ec2:DescribeSubnets,
-ec2:DescribeSecurityGroups</pre>
-
-### List
-<pre>
-datasync:ListLocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ location_arn
 FROM awscc.datasync.locationf_sx_ontaps
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>locationf_sx_ontaps</code> resource, the following permissions are required:
+
+### Create
+```json
+datasync:CreateLocationFsxOntap,
+datasync:DescribeLocationFsxOntap,
+datasync:ListTagsForResource,
+datasync:TagResource,
+fsx:DescribeStorageVirtualMachines,
+fsx:DescribeFileSystems,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups
+```
+
+### List
+```json
+datasync:ListLocations
+```
+

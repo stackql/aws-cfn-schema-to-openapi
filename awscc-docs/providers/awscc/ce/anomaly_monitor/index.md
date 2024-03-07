@@ -44,23 +44,6 @@ Gets an individual <code>anomaly_monitor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>anomaly_monitor</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ce:GetAnomalyMonitors</pre>
-
-### Update
-<pre>
-ce:UpdateAnomalyMonitor</pre>
-
-### Delete
-<pre>
-ce:DeleteAnomalyMonitor</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +60,25 @@ dimensional_value_count,
 resource_tags
 FROM awscc.ce.anomaly_monitor
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MonitorArn&gt;'
+AND data__Identifier = '{MonitorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>anomaly_monitor</code> resource, the following permissions are required:
+
+### Read
+```json
+ce:GetAnomalyMonitors
+```
+
+### Update
+```json
+ce:UpdateAnomalyMonitor
+```
+
+### Delete
+```json
+ce:DeleteAnomalyMonitor
+```
+

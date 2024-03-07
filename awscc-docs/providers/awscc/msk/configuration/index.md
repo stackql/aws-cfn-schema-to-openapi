@@ -40,25 +40,6 @@ Gets an individual <code>configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-kafka:DeleteConfiguration,
-kafka:DescribeConfiguration</pre>
-
-### Read
-<pre>
-kafka:DescribeConfiguration</pre>
-
-### Update
-<pre>
-kafka:UpdateConfiguration,
-kafka:DescribeConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +52,27 @@ arn,
 latest_revision
 FROM awscc.msk.configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration</code> resource, the following permissions are required:
+
+### Delete
+```json
+kafka:DeleteConfiguration,
+kafka:DescribeConfiguration
+```
+
+### Read
+```json
+kafka:DescribeConfiguration
+```
+
+### Update
+```json
+kafka:UpdateConfiguration,
+kafka:DescribeConfiguration
+```
+

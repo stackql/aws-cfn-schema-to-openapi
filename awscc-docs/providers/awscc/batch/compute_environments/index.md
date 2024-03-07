@@ -35,24 +35,6 @@ Retrieves a list of <code>compute_environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>compute_environments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-Batch:CreateComputeEnvironment,
-Batch:TagResource,
-Batch:DescribeComputeEnvironments,
-iam:CreateServiceLinkedRole,
-Iam:PassRole,
-Eks:DescribeCluster</pre>
-
-### List
-<pre>
-Batch:DescribeComputeEnvironments</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ compute_environment_arn
 FROM awscc.batch.compute_environments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>compute_environments</code> resource, the following permissions are required:
+
+### Create
+```json
+Batch:CreateComputeEnvironment,
+Batch:TagResource,
+Batch:DescribeComputeEnvironments,
+iam:CreateServiceLinkedRole,
+Iam:PassRole,
+Eks:DescribeCluster
+```
+
+### List
+```json
+Batch:DescribeComputeEnvironments
+```
+

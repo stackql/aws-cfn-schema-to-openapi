@@ -46,31 +46,6 @@ Gets an individual <code>inference_component</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>inference_component</code> resource, the following permissions are required:
-
-### Update
-<pre>
-sagemaker:UpdateInferenceComponent,
-sagemaker:UpdateInferenceComponentRuntimeConfig,
-sagemaker:DescribeInferenceComponent,
-sagemaker:AddTags,
-sagemaker:ListTags,
-sagemaker:DeleteTags</pre>
-
-### Delete
-<pre>
-sagemaker:DescribeInferenceComponent,
-sagemaker:DeleteInferenceComponent,
-sagemaker:DeleteTags</pre>
-
-### Read
-<pre>
-sagemaker:DescribeInferenceComponent,
-sagemaker:ListTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +64,33 @@ last_modified_time,
 tags
 FROM awscc.sagemaker.inference_component
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InferenceComponentArn&gt;'
+AND data__Identifier = '{InferenceComponentArn}';
 ```
+
+## Permissions
+
+To operate on the <code>inference_component</code> resource, the following permissions are required:
+
+### Update
+```json
+sagemaker:UpdateInferenceComponent,
+sagemaker:UpdateInferenceComponentRuntimeConfig,
+sagemaker:DescribeInferenceComponent,
+sagemaker:AddTags,
+sagemaker:ListTags,
+sagemaker:DeleteTags
+```
+
+### Delete
+```json
+sagemaker:DescribeInferenceComponent,
+sagemaker:DeleteInferenceComponent,
+sagemaker:DeleteTags
+```
+
+### Read
+```json
+sagemaker:DescribeInferenceComponent,
+sagemaker:ListTags
+```
+

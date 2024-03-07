@@ -35,21 +35,6 @@ Retrieves a list of <code>virtual_clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>virtual_clusters</code> resource, the following permissions are required:
-
-### Create
-<pre>
-emr-containers:CreateVirtualCluster,
-emr-containers:TagResource,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-emr-containers:ListVirtualClusters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.emrcontainers.virtual_clusters
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>virtual_clusters</code> resource, the following permissions are required:
+
+### Create
+```json
+emr-containers:CreateVirtualCluster,
+emr-containers:TagResource,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+emr-containers:ListVirtualClusters
+```
+

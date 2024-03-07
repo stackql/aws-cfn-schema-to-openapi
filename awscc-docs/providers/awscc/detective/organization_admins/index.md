@@ -35,26 +35,6 @@ Retrieves a list of <code>organization_admins</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>organization_admins</code> resource, the following permissions are required:
-
-### Create
-<pre>
-detective:EnableOrganizationAdminAccount,
-detective:ListOrganizationAdminAccount,
-iam:CreateServiceLinkedRole,
-organizations:RegisterDelegatedAdministrator,
-organizations:DescribeOrganization,
-organizations:EnableAWSServiceAccess,
-organizations:ListAccounts</pre>
-
-### List
-<pre>
-detective:ListOrganizationAdminAccount,
-organizations:DescribeOrganization</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ account_id
 FROM awscc.detective.organization_admins
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>organization_admins</code> resource, the following permissions are required:
+
+### Create
+```json
+detective:EnableOrganizationAdminAccount,
+detective:ListOrganizationAdminAccount,
+iam:CreateServiceLinkedRole,
+organizations:RegisterDelegatedAdministrator,
+organizations:DescribeOrganization,
+organizations:EnableAWSServiceAccess,
+organizations:ListAccounts
+```
+
+### List
+```json
+detective:ListOrganizationAdminAccount,
+organizations:DescribeOrganization
+```
+

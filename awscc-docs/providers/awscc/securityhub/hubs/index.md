@@ -35,23 +35,6 @@ Retrieves a list of <code>hubs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hubs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-securityhub:EnableSecurityHub,
-securityhub:UpdateSecurityHubConfiguration,
-securityhub:TagResource,
-securityhub:ListTagsForResource</pre>
-
-### List
-<pre>
-securityhub:DescribeHub,
-securityhub:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ a_rn
 FROM awscc.securityhub.hubs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>hubs</code> resource, the following permissions are required:
+
+### Create
+```json
+securityhub:EnableSecurityHub,
+securityhub:UpdateSecurityHubConfiguration,
+securityhub:TagResource,
+securityhub:ListTagsForResource
+```
+
+### List
+```json
+securityhub:DescribeHub,
+securityhub:ListTagsForResource
+```
+

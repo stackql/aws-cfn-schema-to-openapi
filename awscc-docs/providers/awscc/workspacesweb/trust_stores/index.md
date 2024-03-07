@@ -35,25 +35,6 @@ Retrieves a list of <code>trust_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-workspaces-web:CreateTrustStore,
-workspaces-web:GetTrustStore,
-workspaces-web:GetTrustStoreCertificate,
-workspaces-web:ListTrustStoreCertificates,
-workspaces-web:ListTagsForResource,
-workspaces-web:TagResource</pre>
-
-### List
-<pre>
-workspaces-web:ListTrustStores,
-workspaces-web:ListTrustStoreCertificates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ trust_store_arn
 FROM awscc.workspacesweb.trust_stores
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>trust_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+workspaces-web:CreateTrustStore,
+workspaces-web:GetTrustStore,
+workspaces-web:GetTrustStoreCertificate,
+workspaces-web:ListTrustStoreCertificates,
+workspaces-web:ListTagsForResource,
+workspaces-web:TagResource
+```
+
+### List
+```json
+workspaces-web:ListTrustStores,
+workspaces-web:ListTrustStoreCertificates
+```
+

@@ -35,21 +35,6 @@ Retrieves a list of <code>scheduled_queries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduled_queries</code> resource, the following permissions are required:
-
-### Create
-<pre>
-timestream:CreateScheduledQuery,
-timestream:DescribeEndpoints</pre>
-
-### List
-<pre>
-timestream:ListScheduledQueries,
-timestream:DescribeEndpoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.timestream.scheduled_queries
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>scheduled_queries</code> resource, the following permissions are required:
+
+### Create
+```json
+timestream:CreateScheduledQuery,
+timestream:DescribeEndpoints
+```
+
+### List
+```json
+timestream:ListScheduledQueries,
+timestream:DescribeEndpoints
+```
+

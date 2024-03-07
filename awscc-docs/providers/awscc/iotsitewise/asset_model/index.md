@@ -42,29 +42,6 @@ Gets an individual <code>asset_model</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>asset_model</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotsitewise:DescribeAssetModel,
-iotsitewise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotsitewise:DescribeAssetModel,
-iotsitewise:ListTagsForResource,
-iotsitewise:TagResource,
-iotsitewise:UntagResource,
-iotsitewise:UpdateAssetModel</pre>
-
-### Delete
-<pre>
-iotsitewise:DescribeAssetModel,
-iotsitewise:DeleteAssetModel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ asset_model_hierarchies,
 tags
 FROM awscc.iotsitewise.asset_model
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssetModelId&gt;'
+AND data__Identifier = '{AssetModelId}';
 ```
+
+## Permissions
+
+To operate on the <code>asset_model</code> resource, the following permissions are required:
+
+### Read
+```json
+iotsitewise:DescribeAssetModel,
+iotsitewise:ListTagsForResource
+```
+
+### Update
+```json
+iotsitewise:DescribeAssetModel,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:UntagResource,
+iotsitewise:UpdateAssetModel
+```
+
+### Delete
+```json
+iotsitewise:DescribeAssetModel,
+iotsitewise:DeleteAssetModel
+```
+

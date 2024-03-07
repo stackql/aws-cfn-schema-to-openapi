@@ -35,24 +35,6 @@ Retrieves a list of <code>studios</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>studios</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticmapreduce:CreateStudio,
-elasticmapreduce:DescribeStudio,
-elasticmapreduce:AddTags,
-sso:CreateManagedApplicationInstance,
-sso:DeleteManagedApplicationInstance,
-iam:PassRole</pre>
-
-### List
-<pre>
-elasticmapreduce:ListStudios</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ studio_id
 FROM awscc.emr.studios
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>studios</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticmapreduce:CreateStudio,
+elasticmapreduce:DescribeStudio,
+elasticmapreduce:AddTags,
+sso:CreateManagedApplicationInstance,
+sso:DeleteManagedApplicationInstance,
+iam:PassRole
+```
+
+### List
+```json
+elasticmapreduce:ListStudios
+```
+

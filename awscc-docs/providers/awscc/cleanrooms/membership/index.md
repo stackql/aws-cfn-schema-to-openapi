@@ -43,49 +43,6 @@ Gets an individual <code>membership</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>membership</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cleanrooms:GetMembership,
-cleanrooms:ListTagsForResource,
-logs:ListLogDeliveries,
-logs:DescribeLogGroups,
-logs:DescribeResourcePolicies,
-logs:GetLogDelivery</pre>
-
-### Update
-<pre>
-cleanrooms:UpdateMembership,
-cleanrooms:GetMembership,
-logs:CreateLogDelivery,
-logs:GetLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries,
-logs:DescribeLogGroups,
-logs:DescribeResourcePolicies,
-logs:PutResourcePolicy,
-logs:CreateLogGroup,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cleanrooms:DeleteMembership,
-cleanrooms:GetMembership,
-cleanrooms:ListMemberships,
-cleanrooms:ListTagsForResource,
-logs:ListLogDeliveries,
-logs:DescribeLogGroups,
-logs:DescribeResourcePolicies,
-logs:GetLogDelivery</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -101,5 +58,51 @@ default_result_configuration,
 payment_configuration
 FROM awscc.cleanrooms.membership
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MembershipIdentifier&gt;'
+AND data__Identifier = '{MembershipIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>membership</code> resource, the following permissions are required:
+
+### Read
+```json
+cleanrooms:GetMembership,
+cleanrooms:ListTagsForResource,
+logs:ListLogDeliveries,
+logs:DescribeLogGroups,
+logs:DescribeResourcePolicies,
+logs:GetLogDelivery
+```
+
+### Update
+```json
+cleanrooms:UpdateMembership,
+cleanrooms:GetMembership,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:DescribeLogGroups,
+logs:DescribeResourcePolicies,
+logs:PutResourcePolicy,
+logs:CreateLogGroup,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+cleanrooms:DeleteMembership,
+cleanrooms:GetMembership,
+cleanrooms:ListMemberships,
+cleanrooms:ListTagsForResource,
+logs:ListLogDeliveries,
+logs:DescribeLogGroups,
+logs:DescribeResourcePolicies,
+logs:GetLogDelivery
+```
+

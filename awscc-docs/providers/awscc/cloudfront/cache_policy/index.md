@@ -37,25 +37,6 @@ Gets an individual <code>cache_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cache_policy</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteCachePolicy,
-cloudfront:GetCachePolicy</pre>
-
-### Read
-<pre>
-cloudfront:GetCachePolicy</pre>
-
-### Update
-<pre>
-cloudfront:UpdateCachePolicy,
-cloudfront:GetCachePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ cache_policy_config,
 id,
 last_modified_time
 FROM awscc.cloudfront.cache_policy
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>cache_policy</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteCachePolicy,
+cloudfront:GetCachePolicy
+```
+
+### Read
+```json
+cloudfront:GetCachePolicy
+```
+
+### Update
+```json
+cloudfront:UpdateCachePolicy,
+cloudfront:GetCachePolicy
+```
+

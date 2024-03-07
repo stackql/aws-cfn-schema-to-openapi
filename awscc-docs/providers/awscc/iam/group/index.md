@@ -39,38 +39,6 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetGroup,
-iam:ListGroupPolicies,
-iam:GetGroupPolicy,
-iam:ListAttachedGroupPolicies</pre>
-
-### Update
-<pre>
-iam:GetGroup,
-iam:UpdateGroup,
-iam:DetachGroupPolicy,
-iam:AttachGroupPolicy,
-iam:DeleteGroupPolicy,
-iam:PutGroupPolicy,
-iam:GetGroupPolicy</pre>
-
-### Delete
-<pre>
-iam:GetGroup,
-iam:DeleteGroup,
-iam:ListAttachedGroupPolicies,
-iam:ListGroupPolicies,
-iam:DetachGroupPolicy,
-iam:DeleteGroupPolicy,
-iam:GetGroupPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +49,40 @@ managed_policy_arns,
 path,
 policies
 FROM awscc.iam.group
-WHERE data__Identifier = '&lt;GroupName&gt;'
+WHERE data__Identifier = '{GroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetGroup,
+iam:ListGroupPolicies,
+iam:GetGroupPolicy,
+iam:ListAttachedGroupPolicies
+```
+
+### Update
+```json
+iam:GetGroup,
+iam:UpdateGroup,
+iam:DetachGroupPolicy,
+iam:AttachGroupPolicy,
+iam:DeleteGroupPolicy,
+iam:PutGroupPolicy,
+iam:GetGroupPolicy
+```
+
+### Delete
+```json
+iam:GetGroup,
+iam:DeleteGroup,
+iam:ListAttachedGroupPolicies,
+iam:ListGroupPolicies,
+iam:DetachGroupPolicy,
+iam:DeleteGroupPolicy,
+iam:GetGroupPolicy
+```
+

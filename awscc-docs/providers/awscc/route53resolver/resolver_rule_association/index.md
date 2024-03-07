@@ -38,20 +38,6 @@ Gets an individual <code>resolver_rule_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolver_rule_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53resolver:GetResolverRuleAssociation</pre>
-
-### Delete
-<pre>
-route53resolver:DisassociateResolverRule,
-route53resolver:GetResolverRuleAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +48,21 @@ resolver_rule_association_id,
 name
 FROM awscc.route53resolver.resolver_rule_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResolverRuleAssociationId&gt;'
+AND data__Identifier = '{ResolverRuleAssociationId}';
 ```
+
+## Permissions
+
+To operate on the <code>resolver_rule_association</code> resource, the following permissions are required:
+
+### Read
+```json
+route53resolver:GetResolverRuleAssociation
+```
+
+### Delete
+```json
+route53resolver:DisassociateResolverRule,
+route53resolver:GetResolverRuleAssociation
+```
+

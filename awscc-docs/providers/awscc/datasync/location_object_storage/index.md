@@ -46,28 +46,6 @@ Gets an individual <code>location_object_storage</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_object_storage</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeLocationObjectStorage,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:DescribeLocationObjectStorage,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource,
-datasync:UpdateLocationObjectStorage</pre>
-
-### Delete
-<pre>
-datasync:DeleteLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +64,30 @@ location_arn,
 location_uri
 FROM awscc.datasync.location_object_storage
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationArn&gt;'
+AND data__Identifier = '{LocationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>location_object_storage</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeLocationObjectStorage,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:DescribeLocationObjectStorage,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+datasync:UpdateLocationObjectStorage
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+

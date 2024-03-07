@@ -35,26 +35,6 @@ Retrieves a list of <code>distribution_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>distribution_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:GetRole,
-iam:CreateServiceLinkedRole,
-ec2:DescribeLaunchTemplates,
-ec2:CreateLaunchTemplateVersion,
-ec2:ModifyLaunchTemplate,
-imagebuilder:TagResource,
-imagebuilder:GetDistributionConfiguration,
-imagebuilder:CreateDistributionConfiguration</pre>
-
-### List
-<pre>
-imagebuilder:ListDistributionConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ arn
 FROM awscc.imagebuilder.distribution_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>distribution_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+ec2:DescribeLaunchTemplates,
+ec2:CreateLaunchTemplateVersion,
+ec2:ModifyLaunchTemplate,
+imagebuilder:TagResource,
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:CreateDistributionConfiguration
+```
+
+### List
+```json
+imagebuilder:ListDistributionConfigurations
+```
+

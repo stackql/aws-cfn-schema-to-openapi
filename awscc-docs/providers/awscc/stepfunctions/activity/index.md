@@ -37,26 +37,6 @@ Gets an individual <code>activity</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>activity</code> resource, the following permissions are required:
-
-### Read
-<pre>
-states:DescribeActivity,
-states:ListTagsForResource</pre>
-
-### Update
-<pre>
-states:ListTagsForResource,
-states:TagResource,
-states:UntagResource</pre>
-
-### Delete
-<pre>
-states:DeleteActivity</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +46,28 @@ name,
 tags
 FROM awscc.stepfunctions.activity
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>activity</code> resource, the following permissions are required:
+
+### Read
+```json
+states:DescribeActivity,
+states:ListTagsForResource
+```
+
+### Update
+```json
+states:ListTagsForResource,
+states:TagResource,
+states:UntagResource
+```
+
+### Delete
+```json
+states:DeleteActivity
+```
+

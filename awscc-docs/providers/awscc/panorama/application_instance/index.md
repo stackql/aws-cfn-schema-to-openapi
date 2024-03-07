@@ -50,43 +50,6 @@ Gets an individual <code>application_instance</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_instance</code> resource, the following permissions are required:
-
-### Read
-<pre>
-panorama:DescribeApplicationInstance,
-panorama:DescribeApplicationInstanceDetails,
-panorama:ListTagsForResource,
-s3:ListObjects,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-### Update
-<pre>
-panorama:ListTagsForResource,
-panorama:TagResource,
-panorama:UntagResource,
-panorama:DescribeApplicationInstance,
-panorama:DescribeApplicationInstanceDetails,
-s3:ListObjects,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-### Delete
-<pre>
-panorama:RemoveApplicationInstance,
-panorama:DescribeApplicationInstance,
-panorama:DescribeApplicationInstanceDetails,
-s3:DeleteObject,
-s3:DeleteObjectVersion,
-s3:DeleteObjectVersionTagging,
-s3:ListObjects,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -109,5 +72,45 @@ arn,
 tags
 FROM awscc.panorama.application_instance
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationInstanceId&gt;'
+AND data__Identifier = '{ApplicationInstanceId}';
 ```
+
+## Permissions
+
+To operate on the <code>application_instance</code> resource, the following permissions are required:
+
+### Read
+```json
+panorama:DescribeApplicationInstance,
+panorama:DescribeApplicationInstanceDetails,
+panorama:ListTagsForResource,
+s3:ListObjects,
+s3:GetObject,
+s3:GetObjectVersion
+```
+
+### Update
+```json
+panorama:ListTagsForResource,
+panorama:TagResource,
+panorama:UntagResource,
+panorama:DescribeApplicationInstance,
+panorama:DescribeApplicationInstanceDetails,
+s3:ListObjects,
+s3:GetObject,
+s3:GetObjectVersion
+```
+
+### Delete
+```json
+panorama:RemoveApplicationInstance,
+panorama:DescribeApplicationInstance,
+panorama:DescribeApplicationInstanceDetails,
+s3:DeleteObject,
+s3:DeleteObjectVersion,
+s3:DeleteObjectVersionTagging,
+s3:ListObjects,
+s3:GetObject,
+s3:GetObjectVersion
+```
+

@@ -51,29 +51,6 @@ Gets an individual <code>rest_api</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rest_api</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:GET,
-apigateway:DELETE,
-apigateway:PATCH,
-apigateway:PUT,
-apigateway:UpdateRestApiPolicy,
-s3:GetObject,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -97,5 +74,31 @@ parameters,
 tags
 FROM awscc.apigateway.rest_api
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RestApiId&gt;'
+AND data__Identifier = '{RestApiId}';
 ```
+
+## Permissions
+
+To operate on the <code>rest_api</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:GET,
+apigateway:DELETE,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:UpdateRestApiPolicy,
+s3:GetObject,
+iam:PassRole
+```
+
+### Delete
+```json
+apigateway:DELETE
+```
+

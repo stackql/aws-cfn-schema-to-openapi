@@ -36,25 +36,6 @@ Retrieves a list of <code>policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-verifiedpermissions:CreatePolicy,
-verifiedpermissions:GetPolicy,
-verifiedpermissions:UpdatePolicy,
-verifiedpermissions:DeletePolicy</pre>
-
-### List
-<pre>
-verifiedpermissions:CreatePolicy,
-verifiedpermissions:GetPolicy,
-verifiedpermissions:UpdatePolicy,
-verifiedpermissions:DeletePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +45,24 @@ policy_store_id
 FROM awscc.verifiedpermissions.policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>policies</code> resource, the following permissions are required:
+
+### Create
+```json
+verifiedpermissions:CreatePolicy,
+verifiedpermissions:GetPolicy,
+verifiedpermissions:UpdatePolicy,
+verifiedpermissions:DeletePolicy
+```
+
+### List
+```json
+verifiedpermissions:CreatePolicy,
+verifiedpermissions:GetPolicy,
+verifiedpermissions:UpdatePolicy,
+verifiedpermissions:DeletePolicy
+```
+

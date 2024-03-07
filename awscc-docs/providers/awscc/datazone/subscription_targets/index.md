@@ -37,21 +37,6 @@ Retrieves a list of <code>subscription_targets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subscription_targets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datazone:CreateSubscriptionTarget,
-datazone:GetSubscriptionTarget,
-iam:PassRole</pre>
-
-### List
-<pre>
-datazone:ListSubscriptionTargets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +47,20 @@ id
 FROM awscc.datazone.subscription_targets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>subscription_targets</code> resource, the following permissions are required:
+
+### Create
+```json
+datazone:CreateSubscriptionTarget,
+datazone:GetSubscriptionTarget,
+iam:PassRole
+```
+
+### List
+```json
+datazone:ListSubscriptionTargets
+```
+

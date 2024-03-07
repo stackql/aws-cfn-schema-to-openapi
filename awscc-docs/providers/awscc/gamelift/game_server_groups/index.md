@@ -35,12 +35,21 @@ Retrieves a list of <code>game_server_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+game_server_group_arn
+FROM awscc.gamelift.game_server_groups
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>game_server_groups</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 gamelift:CreateGameServerGroup,
 gamelift:TagResource,
 gamelift:DescribeGameServerGroup,
@@ -65,18 +74,11 @@ autoscaling:ResumeProcesses,
 autoscaling:SetInstanceProtection,
 autoscaling:UpdateAutoScalingGroup,
 events:PutRule,
-events:PutTargets</pre>
+events:PutTargets
+```
 
 ### List
-<pre>
-gamelift:ListGameServerGroups</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-game_server_group_arn
-FROM awscc.gamelift.game_server_groups
-WHERE region = 'us-east-1'
+```json
+gamelift:ListGameServerGroups
 ```
+

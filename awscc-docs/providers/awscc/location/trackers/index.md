@@ -35,24 +35,6 @@ Retrieves a list of <code>trackers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trackers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-geo:CreateTracker,
-geo:DescribeTracker,
-geo:TagResource,
-geo:UntagResource,
-kms:DescribeKey,
-kms:CreateGrant</pre>
-
-### List
-<pre>
-geo:ListTrackers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ tracker_name
 FROM awscc.location.trackers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>trackers</code> resource, the following permissions are required:
+
+### Create
+```json
+geo:CreateTracker,
+geo:DescribeTracker,
+geo:TagResource,
+geo:UntagResource,
+kms:DescribeKey,
+kms:CreateGrant
+```
+
+### List
+```json
+geo:ListTrackers
+```
+

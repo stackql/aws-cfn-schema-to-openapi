@@ -48,12 +48,35 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+broker_node_group_info,
+enhanced_monitoring,
+kafka_version,
+number_of_broker_nodes,
+encryption_info,
+open_monitoring,
+cluster_name,
+arn,
+current_version,
+client_authentication,
+logging_info,
+tags,
+configuration_info,
+storage_mode
+FROM awscc.msk.cluster
+WHERE region = 'us-east-1'
+AND data__Identifier = '{Arn}';
+```
+
 ## Permissions
 
 To operate on the <code>cluster</code> resource, the following permissions are required:
 
 ### Update
-<pre>
+```json
 kafka:UpdateMonitoring,
 kafka:UpdateClusterKafkaVersion,
 kafka:UpdateClusterConfiguration,
@@ -85,37 +108,17 @@ logs:PutResourcePolicy,
 logs:DescribeResourcePolicies,
 logs:DescribeLogGroups,
 firehose:TagDeliveryStream,
-acm-pca:GetCertificateAuthorityCertificate</pre>
+acm-pca:GetCertificateAuthorityCertificate
+```
 
 ### Delete
-<pre>
+```json
 kafka:DeleteCluster,
-kafka:DescribeCluster</pre>
+kafka:DescribeCluster
+```
 
 ### Read
-<pre>
-kafka:DescribeCluster</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-broker_node_group_info,
-enhanced_monitoring,
-kafka_version,
-number_of_broker_nodes,
-encryption_info,
-open_monitoring,
-cluster_name,
-arn,
-current_version,
-client_authentication,
-logging_info,
-tags,
-configuration_info,
-storage_mode
-FROM awscc.msk.cluster
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+```json
+kafka:DescribeCluster
 ```
+

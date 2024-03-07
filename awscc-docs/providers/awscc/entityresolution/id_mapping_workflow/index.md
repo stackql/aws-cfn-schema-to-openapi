@@ -44,33 +44,6 @@ Gets an individual <code>id_mapping_workflow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>id_mapping_workflow</code> resource, the following permissions are required:
-
-### Update
-<pre>
-entityresolution:GetIdMappingWorkflow,
-entityresolution:UpdateIdMappingWorkflow,
-entityresolution:ListTagsForResource,
-entityresolution:TagResource,
-entityresolution:UntagResource,
-iam:PassRole,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-### Read
-<pre>
-entityresolution:GetIdMappingWorkflow,
-entityresolution:ListTagsForResource</pre>
-
-### Delete
-<pre>
-entityresolution:DeleteIdMappingWorkflow,
-entityresolution:GetIdMappingWorkflow,
-entityresolution:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +60,35 @@ created_at,
 updated_at
 FROM awscc.entityresolution.id_mapping_workflow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkflowName&gt;'
+AND data__Identifier = '{WorkflowName}';
 ```
+
+## Permissions
+
+To operate on the <code>id_mapping_workflow</code> resource, the following permissions are required:
+
+### Update
+```json
+entityresolution:GetIdMappingWorkflow,
+entityresolution:UpdateIdMappingWorkflow,
+entityresolution:ListTagsForResource,
+entityresolution:TagResource,
+entityresolution:UntagResource,
+iam:PassRole,
+kms:CreateGrant,
+kms:DescribeKey
+```
+
+### Read
+```json
+entityresolution:GetIdMappingWorkflow,
+entityresolution:ListTagsForResource
+```
+
+### Delete
+```json
+entityresolution:DeleteIdMappingWorkflow,
+entityresolution:GetIdMappingWorkflow,
+entityresolution:UntagResource
+```
+

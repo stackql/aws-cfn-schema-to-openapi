@@ -38,34 +38,6 @@ Gets an individual <code>trust_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetTrustStore,
-workspaces-web:GetTrustStoreCertificate,
-workspaces-web:ListTagsForResource,
-workspaces-web:ListTrustStoreCertificates</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateTrustStore,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetTrustStore,
-workspaces-web:GetTrustStoreCertificate,
-workspaces-web:ListTagsForResource,
-workspaces-web:ListTrustStoreCertificates</pre>
-
-### Delete
-<pre>
-workspaces-web:GetTrustStore,
-workspaces-web:GetTrustStoreCertificate,
-workspaces-web:DeleteTrustStore</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +48,36 @@ tags,
 trust_store_arn
 FROM awscc.workspacesweb.trust_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrustStoreArn&gt;'
+AND data__Identifier = '{TrustStoreArn}';
 ```
+
+## Permissions
+
+To operate on the <code>trust_store</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetTrustStore,
+workspaces-web:GetTrustStoreCertificate,
+workspaces-web:ListTagsForResource,
+workspaces-web:ListTrustStoreCertificates
+```
+
+### Update
+```json
+workspaces-web:UpdateTrustStore,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetTrustStore,
+workspaces-web:GetTrustStoreCertificate,
+workspaces-web:ListTagsForResource,
+workspaces-web:ListTrustStoreCertificates
+```
+
+### Delete
+```json
+workspaces-web:GetTrustStore,
+workspaces-web:GetTrustStoreCertificate,
+workspaces-web:DeleteTrustStore
+```
+

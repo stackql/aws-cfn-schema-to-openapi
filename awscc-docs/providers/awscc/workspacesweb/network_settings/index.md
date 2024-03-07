@@ -40,30 +40,6 @@ Gets an individual <code>network_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>network_settings</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetNetworkSettings,
-workspaces-web:ListTagsForResource</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateNetworkSettings,
-workspaces-web:UpdateResource,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetNetworkSettings,
-workspaces-web:ListTagsForResource</pre>
-
-### Delete
-<pre>
-workspaces-web:GetNetworkSettings,
-workspaces-web:DeleteNetworkSettings</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +52,32 @@ tags,
 vpc_id
 FROM awscc.workspacesweb.network_settings
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;NetworkSettingsArn&gt;'
+AND data__Identifier = '{NetworkSettingsArn}';
 ```
+
+## Permissions
+
+To operate on the <code>network_settings</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetNetworkSettings,
+workspaces-web:ListTagsForResource
+```
+
+### Update
+```json
+workspaces-web:UpdateNetworkSettings,
+workspaces-web:UpdateResource,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetNetworkSettings,
+workspaces-web:ListTagsForResource
+```
+
+### Delete
+```json
+workspaces-web:GetNetworkSettings,
+workspaces-web:DeleteNetworkSettings
+```
+

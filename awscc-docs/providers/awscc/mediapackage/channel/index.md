@@ -41,25 +41,6 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackage:DescribeChannel</pre>
-
-### Update
-<pre>
-mediapackage:UpdateChannel,
-mediapackage:ConfigureLogs,
-iam:CreateServiceLinkedRole</pre>
-
-### Delete
-<pre>
-mediapackage:DeleteChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +54,27 @@ egress_access_logs,
 ingress_access_logs
 FROM awscc.mediapackage.channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackage:DescribeChannel
+```
+
+### Update
+```json
+mediapackage:UpdateChannel,
+mediapackage:ConfigureLogs,
+iam:CreateServiceLinkedRole
+```
+
+### Delete
+```json
+mediapackage:DeleteChannel
+```
+

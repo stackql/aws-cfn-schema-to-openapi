@@ -46,12 +46,33 @@ Gets an individual <code>detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+detector_id,
+detector_version_status,
+detector_version_id,
+rule_execution_mode,
+tags,
+description,
+rules,
+event_type,
+arn,
+created_time,
+last_updated_time,
+associated_models
+FROM awscc.frauddetector.detector
+WHERE region = 'us-east-1'
+AND data__Identifier = '{Arn}';
+```
+
 ## Permissions
 
 To operate on the <code>detector</code> resource, the following permissions are required:
 
 ### Update
-<pre>
+```json
 frauddetector:GetDetectors,
 frauddetector:GetDetectorVersion,
 frauddetector:PutDetector,
@@ -81,10 +102,11 @@ frauddetector:DeleteLabel,
 frauddetector:DeleteEntityType,
 frauddetector:ListTagsForResource,
 frauddetector:TagResource,
-frauddetector:UntagResource</pre>
+frauddetector:UntagResource
+```
 
 ### Delete
-<pre>
+```json
 frauddetector:GetDetectors,
 frauddetector:GetDetectorVersion,
 frauddetector:DescribeDetector,
@@ -102,10 +124,11 @@ frauddetector:DeleteVariable,
 frauddetector:DeleteLabel,
 frauddetector:DeleteOutcome,
 frauddetector:DeleteEntityType,
-frauddetector:ListTagsForResource</pre>
+frauddetector:ListTagsForResource
+```
 
 ### Read
-<pre>
+```json
 frauddetector:GetDetectors,
 frauddetector:GetDetectorVersion,
 frauddetector:DescribeDetector,
@@ -117,26 +140,6 @@ frauddetector:GetModelVersion,
 frauddetector:GetLabels,
 frauddetector:GetOutcomes,
 frauddetector:GetEntityTypes,
-frauddetector:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-detector_id,
-detector_version_status,
-detector_version_id,
-rule_execution_mode,
-tags,
-description,
-rules,
-event_type,
-arn,
-created_time,
-last_updated_time,
-associated_models
-FROM awscc.frauddetector.detector
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+frauddetector:ListTagsForResource
 ```
+

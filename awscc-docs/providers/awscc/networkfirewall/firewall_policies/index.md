@@ -35,23 +35,6 @@ Retrieves a list of <code>firewall_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>firewall_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-network-firewall:CreateFirewallPolicy,
-network-firewall:DescribeFirewallPolicy,
-network-firewall:ListTLSInspectionConfigurations,
-network-firewall:TagResource,
-network-firewall:ListRuleGroups</pre>
-
-### List
-<pre>
-network-firewall:ListFirewallPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ firewall_policy_arn
 FROM awscc.networkfirewall.firewall_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>firewall_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+network-firewall:CreateFirewallPolicy,
+network-firewall:DescribeFirewallPolicy,
+network-firewall:ListTLSInspectionConfigurations,
+network-firewall:TagResource,
+network-firewall:ListRuleGroups
+```
+
+### List
+```json
+network-firewall:ListFirewallPolicies
+```
+

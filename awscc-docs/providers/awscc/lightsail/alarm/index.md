@@ -47,25 +47,6 @@ Gets an individual <code>alarm</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alarm</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetAlarms</pre>
-
-### Update
-<pre>
-lightsail:PutAlarm,
-lightsail:GetAlarms</pre>
-
-### Delete
-<pre>
-lightsail:DeleteAlarm,
-lightsail:GetAlarms</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +66,27 @@ treat_missing_data,
 state
 FROM awscc.lightsail.alarm
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AlarmName&gt;'
+AND data__Identifier = '{AlarmName}';
 ```
+
+## Permissions
+
+To operate on the <code>alarm</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetAlarms
+```
+
+### Update
+```json
+lightsail:PutAlarm,
+lightsail:GetAlarms
+```
+
+### Delete
+```json
+lightsail:DeleteAlarm,
+lightsail:GetAlarms
+```
+

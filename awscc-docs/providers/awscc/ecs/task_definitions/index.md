@@ -35,24 +35,6 @@ Retrieves a list of <code>task_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecs:RegisterTaskDefinition,
-ecs:DescribeTaskDefinition,
-ecs:TagResource,
-iam:GetRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-ecs:ListTaskDefinitions,
-ecs:DescribeTaskDefinition</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ task_definition_arn
 FROM awscc.ecs.task_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>task_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+ecs:RegisterTaskDefinition,
+ecs:DescribeTaskDefinition,
+ecs:TagResource,
+iam:GetRole,
+iam:PassRole
+```
+
+### List
+```json
+ecs:ListTaskDefinitions,
+ecs:DescribeTaskDefinition
+```
+

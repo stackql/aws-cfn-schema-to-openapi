@@ -36,20 +36,6 @@ Retrieves a list of <code>slack_channel_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>slack_channel_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-supportapp:CreateSlackChannelConfiguration,
-supportapp:ListSlackChannelConfigurations</pre>
-
-### List
-<pre>
-supportapp:ListSlackChannelConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ channel_id
 FROM awscc.supportapp.slack_channel_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>slack_channel_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+supportapp:CreateSlackChannelConfiguration,
+supportapp:ListSlackChannelConfigurations
+```
+
+### List
+```json
+supportapp:ListSlackChannelConfigurations
+```
+

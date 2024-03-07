@@ -41,29 +41,6 @@ Gets an individual <code>fleet</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fleet</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotfleetwise:GetFleet,
-iotfleetwise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotfleetwise:GetFleet,
-iotfleetwise:UpdateFleet,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource,
-iotfleetwise:UntagResource</pre>
-
-### Delete
-<pre>
-iotfleetwise:GetFleet,
-iotfleetwise:DeleteFleet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +54,31 @@ signal_catalog_arn,
 tags
 FROM awscc.iotfleetwise.fleet
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>fleet</code> resource, the following permissions are required:
+
+### Read
+```json
+iotfleetwise:GetFleet,
+iotfleetwise:ListTagsForResource
+```
+
+### Update
+```json
+iotfleetwise:GetFleet,
+iotfleetwise:UpdateFleet,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource
+```
+
+### Delete
+```json
+iotfleetwise:GetFleet,
+iotfleetwise:DeleteFleet
+```
+

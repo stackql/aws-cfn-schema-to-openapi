@@ -39,28 +39,6 @@ Gets an individual <code>backup_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>backup_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:GetBackupPlan,
-backup:ListTags</pre>
-
-### Delete
-<pre>
-backup:GetBackupPlan,
-backup:DeleteBackupPlan</pre>
-
-### Update
-<pre>
-backup:UpdateBackupPlan,
-backup:ListTags,
-backup:TagResource,
-backup:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +50,30 @@ backup_plan_id,
 version_id
 FROM awscc.backup.backup_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BackupPlanId&gt;'
+AND data__Identifier = '{BackupPlanId}';
 ```
+
+## Permissions
+
+To operate on the <code>backup_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:GetBackupPlan,
+backup:ListTags
+```
+
+### Delete
+```json
+backup:GetBackupPlan,
+backup:DeleteBackupPlan
+```
+
+### Update
+```json
+backup:UpdateBackupPlan,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource
+```
+

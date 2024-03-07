@@ -36,16 +36,6 @@ Retrieves a list of <code>group_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PutGroupPolicy,
-iam:GetGroupPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -55,3 +45,14 @@ group_name
 FROM awscc.iam.group_policies
 
 ```
+
+## Permissions
+
+To operate on the <code>group_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PutGroupPolicy,
+iam:GetGroupPolicy
+```
+

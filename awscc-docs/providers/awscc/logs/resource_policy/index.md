@@ -36,25 +36,6 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeResourcePolicies</pre>
-
-### Update
-<pre>
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies,
-logs:DeleteResourcePolicy</pre>
-
-### Delete
-<pre>
-logs:DeleteResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ policy_name,
 policy_document
 FROM awscc.logs.resource_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyName&gt;'
+AND data__Identifier = '{PolicyName}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeResourcePolicies
+```
+
+### Update
+```json
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DeleteResourcePolicy
+```
+
+### Delete
+```json
+logs:DeleteResourcePolicy
+```
+

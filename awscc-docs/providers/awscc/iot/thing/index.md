@@ -38,25 +38,6 @@ Gets an individual <code>thing</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>thing</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-iot:DeleteThing,
-iot:DescribeThing</pre>
-
-### Read
-<pre>
-iot:DescribeThing</pre>
-
-### Update
-<pre>
-iot:UpdateThing,
-iot:DescribeThing</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +48,27 @@ attribute_payload,
 thing_name
 FROM awscc.iot.thing
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ThingName&gt;'
+AND data__Identifier = '{ThingName}';
 ```
+
+## Permissions
+
+To operate on the <code>thing</code> resource, the following permissions are required:
+
+### Delete
+```json
+iot:DeleteThing,
+iot:DescribeThing
+```
+
+### Read
+```json
+iot:DescribeThing
+```
+
+### Update
+```json
+iot:UpdateThing,
+iot:DescribeThing
+```
+

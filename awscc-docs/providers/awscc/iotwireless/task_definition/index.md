@@ -42,20 +42,6 @@ Gets an individual <code>task_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_definition</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetWirelessGatewayTaskDefinition,
-iotwireless:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteWirelessGatewayTaskDefinition</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +56,21 @@ arn,
 tags
 FROM awscc.iotwireless.task_definition
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>task_definition</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetWirelessGatewayTaskDefinition,
+iotwireless:ListTagsForResource
+```
+
+### Delete
+```json
+iotwireless:DeleteWirelessGatewayTaskDefinition
+```
+

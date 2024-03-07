@@ -39,29 +39,6 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-pca-connector-ad:ListTagsForResource,
-pca-connector-ad:GetConnector</pre>
-
-### Delete
-<pre>
-pca-connector-ad:GetConnector,
-pca-connector-ad:DeleteConnector,
-ec2:DeleteVpcEndpoints,
-ec2:DescribeVpcEndpoints</pre>
-
-### Update
-<pre>
-pca-connector-ad:ListTagsForResource,
-pca-connector-ad:TagResource,
-pca-connector-ad:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ tags,
 vpc_information
 FROM awscc.pcaconnectorad.connector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectorArn&gt;'
+AND data__Identifier = '{ConnectorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+```json
+pca-connector-ad:ListTagsForResource,
+pca-connector-ad:GetConnector
+```
+
+### Delete
+```json
+pca-connector-ad:GetConnector,
+pca-connector-ad:DeleteConnector,
+ec2:DeleteVpcEndpoints,
+ec2:DescribeVpcEndpoints
+```
+
+### Update
+```json
+pca-connector-ad:ListTagsForResource,
+pca-connector-ad:TagResource,
+pca-connector-ad:UntagResource
+```
+

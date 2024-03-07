@@ -44,39 +44,6 @@ Gets an individual <code>graph</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>graph</code> resource, the following permissions are required:
-
-### Read
-<pre>
-neptune-graph:GetGraph,
-neptune-graph:ListTagsForResource,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-iam:PassRole,
-neptune-graph:GetGraph,
-neptune-graph:ListTagsForResource,
-neptune-graph:TagResource,
-neptune-graph:UntagResource,
-neptune-graph:UpdateGraph,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:Decrypt</pre>
-
-### Delete
-<pre>
-neptune-graph:DeleteGraph,
-neptune-graph:GetGraph,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +60,41 @@ graph_arn,
 graph_id
 FROM awscc.neptunegraph.graph
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GraphId&gt;'
+AND data__Identifier = '{GraphId}';
 ```
+
+## Permissions
+
+To operate on the <code>graph</code> resource, the following permissions are required:
+
+### Read
+```json
+neptune-graph:GetGraph,
+neptune-graph:ListTagsForResource,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:Decrypt
+```
+
+### Update
+```json
+iam:PassRole,
+neptune-graph:GetGraph,
+neptune-graph:ListTagsForResource,
+neptune-graph:TagResource,
+neptune-graph:UntagResource,
+neptune-graph:UpdateGraph,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:Decrypt
+```
+
+### Delete
+```json
+neptune-graph:DeleteGraph,
+neptune-graph:GetGraph,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:Decrypt
+```
+

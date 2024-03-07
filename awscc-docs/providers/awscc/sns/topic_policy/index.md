@@ -37,19 +37,6 @@ Gets an individual <code>topic_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>topic_policy</code> resource, the following permissions are required:
-
-### Update
-<pre>
-sns:SetTopicAttributes</pre>
-
-### Delete
-<pre>
-sns:SetTopicAttributes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,5 +46,20 @@ policy_document,
 topics
 FROM awscc.sns.topic_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>topic_policy</code> resource, the following permissions are required:
+
+### Update
+```json
+sns:SetTopicAttributes
+```
+
+### Delete
+```json
+sns:SetTopicAttributes
+```
+

@@ -39,29 +39,6 @@ Gets an individual <code>subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subnet_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-memorydb:DescribeSubnetGroups,
-memorydb:ListTags</pre>
-
-### Update
-<pre>
-memorydb:UpdateSubnetGroup,
-memorydb:DescribeSubnetGroups,
-memorydb:ListTags,
-memorydb:TagResource,
-memorydb:UntagResource</pre>
-
-### Delete
-<pre>
-memorydb:DeleteSubnetGroup,
-memorydb:DescribeSubnetGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ tags,
 a_rn
 FROM awscc.memorydb.subnet_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SubnetGroupName&gt;'
+AND data__Identifier = '{SubnetGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>subnet_group</code> resource, the following permissions are required:
+
+### Read
+```json
+memorydb:DescribeSubnetGroups,
+memorydb:ListTags
+```
+
+### Update
+```json
+memorydb:UpdateSubnetGroup,
+memorydb:DescribeSubnetGroups,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource
+```
+
+### Delete
+```json
+memorydb:DeleteSubnetGroup,
+memorydb:DescribeSubnetGroups
+```
+

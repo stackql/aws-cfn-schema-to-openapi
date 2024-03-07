@@ -37,24 +37,6 @@ Gets an individual <code>primary_task_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>primary_task_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-</pre>
-
-### Update
-<pre>
-ecs:DescribeTaskSets,
-ecs:UpdateServicePrimaryTaskSet</pre>
-
-### Delete
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,6 +46,17 @@ task_set_id,
 service
 FROM awscc.ecs.primary_task_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Cluster&gt;'
-AND data__Identifier = '&lt;Service&gt;'
+AND data__Identifier = '{Cluster}';
+AND data__Identifier = '{Service}';
 ```
+
+## Permissions
+
+To operate on the <code>primary_task_set</code> resource, the following permissions are required:
+
+### Update
+```json
+ecs:DescribeTaskSets,
+ecs:UpdateServicePrimaryTaskSet
+```
+

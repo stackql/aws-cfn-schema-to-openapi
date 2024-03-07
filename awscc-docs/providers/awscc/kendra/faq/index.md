@@ -43,27 +43,6 @@ Gets an individual <code>faq</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>faq</code> resource, the following permissions are required:
-
-### Update
-<pre>
-kendra:ListTagsForResource,
-kendra:UntagResource,
-kendra:TagResource</pre>
-
-### Read
-<pre>
-kendra:DescribeFaq,
-kendra:ListTagsForResource</pre>
-
-### Delete
-<pre>
-kendra:DeleteFaq,
-kendra:DescribeFaq</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,6 +58,30 @@ tags,
 arn
 FROM awscc.kendra.faq
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
-AND data__Identifier = '&lt;IndexId&gt;'
+AND data__Identifier = '{Id}';
+AND data__Identifier = '{IndexId}';
 ```
+
+## Permissions
+
+To operate on the <code>faq</code> resource, the following permissions are required:
+
+### Update
+```json
+kendra:ListTagsForResource,
+kendra:UntagResource,
+kendra:TagResource
+```
+
+### Read
+```json
+kendra:DescribeFaq,
+kendra:ListTagsForResource
+```
+
+### Delete
+```json
+kendra:DeleteFaq,
+kendra:DescribeFaq
+```
+

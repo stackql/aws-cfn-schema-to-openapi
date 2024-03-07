@@ -38,20 +38,6 @@ Gets an individual <code>backup_selection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>backup_selection</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-backup:GetBackupSelection,
-backup:DeleteBackupSelection</pre>
-
-### Read
-<pre>
-backup:GetBackupSelection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +48,21 @@ backup_selection,
 selection_id
 FROM awscc.backup.backup_selection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>backup_selection</code> resource, the following permissions are required:
+
+### Delete
+```json
+backup:GetBackupSelection,
+backup:DeleteBackupSelection
+```
+
+### Read
+```json
+backup:GetBackupSelection
+```
+

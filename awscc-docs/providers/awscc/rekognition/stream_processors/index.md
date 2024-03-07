@@ -35,23 +35,6 @@ Retrieves a list of <code>stream_processors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stream_processors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-rekognition:CreateStreamProcessor,
-iam:PassRole,
-rekognition:DescribeStreamProcessor,
-rekognition:ListTagsForResource,
-rekognition:TagResource</pre>
-
-### List
-<pre>
-rekognition:ListStreamProcessors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ name
 FROM awscc.rekognition.stream_processors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>stream_processors</code> resource, the following permissions are required:
+
+### Create
+```json
+rekognition:CreateStreamProcessor,
+iam:PassRole,
+rekognition:DescribeStreamProcessor,
+rekognition:ListTagsForResource,
+rekognition:TagResource
+```
+
+### List
+```json
+rekognition:ListStreamProcessors
+```
+

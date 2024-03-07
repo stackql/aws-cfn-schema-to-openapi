@@ -59,28 +59,6 @@ Gets an individual <code>service</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecs:DescribeServices</pre>
-
-### Update
-<pre>
-ecs:DescribeServices,
-ecs:ListTagsForResource,
-ecs:TagResource,
-ecs:UntagResource,
-ecs:UpdateService</pre>
-
-### Delete
-<pre>
-ecs:DeleteService,
-ecs:DescribeServices</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -112,6 +90,31 @@ task_definition,
 volume_configurations
 FROM awscc.ecs.service
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ServiceArn&gt;'
-AND data__Identifier = '&lt;Cluster&gt;'
+AND data__Identifier = '{ServiceArn}';
+AND data__Identifier = '{Cluster}';
 ```
+
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+```json
+ecs:DescribeServices
+```
+
+### Update
+```json
+ecs:DescribeServices,
+ecs:ListTagsForResource,
+ecs:TagResource,
+ecs:UntagResource,
+ecs:UpdateService
+```
+
+### Delete
+```json
+ecs:DeleteService,
+ecs:DescribeServices
+```
+

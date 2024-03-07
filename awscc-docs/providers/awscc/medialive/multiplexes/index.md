@@ -35,21 +35,6 @@ Retrieves a list of <code>multiplexes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multiplexes</code> resource, the following permissions are required:
-
-### Create
-<pre>
-medialive:CreateMultiplex,
-medialive:DescribeMultiplex,
-medialive:CreateTags</pre>
-
-### List
-<pre>
-medialive:ListMultiplexes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.medialive.multiplexes
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>multiplexes</code> resource, the following permissions are required:
+
+### Create
+```json
+medialive:CreateMultiplex,
+medialive:DescribeMultiplex,
+medialive:CreateTags
+```
+
+### List
+```json
+medialive:ListMultiplexes
+```
+

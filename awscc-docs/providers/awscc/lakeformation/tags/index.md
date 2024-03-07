@@ -35,19 +35,6 @@ Retrieves a list of <code>tags</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>tags</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lakeformation:CreateLFTag</pre>
-
-### List
-<pre>
-lakeformation:ListLFTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ tag_key
 FROM awscc.lakeformation.tags
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>tags</code> resource, the following permissions are required:
+
+### Create
+```json
+lakeformation:CreateLFTag
+```
+
+### List
+```json
+lakeformation:ListLFTags
+```
+

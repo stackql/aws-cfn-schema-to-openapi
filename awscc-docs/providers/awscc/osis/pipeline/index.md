@@ -46,37 +46,6 @@ Gets an individual <code>pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipeline</code> resource, the following permissions are required:
-
-### Read
-<pre>
-osis:GetPipeline,
-osis:ListTagsForResource</pre>
-
-### Update
-<pre>
-osis:UpdatePipeline,
-osis:GetPipeline,
-osis:ListTagsForResource,
-osis:TagResource,
-osis:UntagResource,
-iam:PassRole,
-logs:GetLogDelivery,
-logs:UpdateLogDelivery,
-logs:ListLogDeliveries,
-kms:DescribeKey</pre>
-
-### Delete
-<pre>
-osis:DeletePipeline,
-osis:GetPipeline,
-logs:GetLogDelivery,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -95,5 +64,39 @@ pipeline_arn,
 ingest_endpoint_urls
 FROM awscc.osis.pipeline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PipelineArn&gt;'
+AND data__Identifier = '{PipelineArn}';
 ```
+
+## Permissions
+
+To operate on the <code>pipeline</code> resource, the following permissions are required:
+
+### Read
+```json
+osis:GetPipeline,
+osis:ListTagsForResource
+```
+
+### Update
+```json
+osis:UpdatePipeline,
+osis:GetPipeline,
+osis:ListTagsForResource,
+osis:TagResource,
+osis:UntagResource,
+iam:PassRole,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:ListLogDeliveries,
+kms:DescribeKey
+```
+
+### Delete
+```json
+osis:DeletePipeline,
+osis:GetPipeline,
+logs:GetLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries
+```
+

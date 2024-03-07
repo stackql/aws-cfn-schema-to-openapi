@@ -38,23 +38,6 @@ Gets an individual <code>resource_default_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_default_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cloudformation:DescribeType</pre>
-
-### Update
-<pre>
-cloudformation:SetTypeDefaultVersion</pre>
-
-### Delete
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +48,25 @@ arn,
 type_version_arn
 FROM awscc.cloudformation.resource_default_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_default_version</code> resource, the following permissions are required:
+
+### Read
+```json
+cloudformation:DescribeType
+```
+
+### Update
+```json
+cloudformation:SetTypeDefaultVersion
+```
+
+### Delete
+```json
+
+```
+

@@ -45,29 +45,6 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ivs:GetChannel,
-ivs:ListTagsForResource</pre>
-
-### Update
-<pre>
-ivs:GetChannel,
-ivs:UpdateChannel,
-ivs:TagResource,
-ivs:UnTagResource,
-ivs:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ivs:DeleteChannel,
-ivs:UnTagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +62,31 @@ recording_configuration_arn,
 preset
 FROM awscc.ivs.channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+```json
+ivs:GetChannel,
+ivs:ListTagsForResource
+```
+
+### Update
+```json
+ivs:GetChannel,
+ivs:UpdateChannel,
+ivs:TagResource,
+ivs:UnTagResource,
+ivs:ListTagsForResource
+```
+
+### Delete
+```json
+ivs:DeleteChannel,
+ivs:UnTagResource
+```
+

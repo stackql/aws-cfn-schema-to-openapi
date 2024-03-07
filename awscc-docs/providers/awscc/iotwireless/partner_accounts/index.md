@@ -35,22 +35,6 @@ Retrieves a list of <code>partner_accounts</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>partner_accounts</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:AssociateAwsAccountWithPartnerAccount,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource</pre>
-
-### List
-<pre>
-iotwireless:ListPartnerAccounts,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ partner_account_id
 FROM awscc.iotwireless.partner_accounts
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>partner_accounts</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:AssociateAwsAccountWithPartnerAccount,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource
+```
+
+### List
+```json
+iotwireless:ListPartnerAccounts,
+iotwireless:ListTagsForResource
+```
+

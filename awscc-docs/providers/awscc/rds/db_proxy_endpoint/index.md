@@ -44,27 +44,6 @@ Gets an individual <code>db_proxy_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_proxy_endpoint</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBProxyEndpoints,
-rds:ListTagsForResource</pre>
-
-### Update
-<pre>
-rds:ModifyDBProxyEndpoint,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DescribeDBProxyEndpoints,
-rds:DeleteDBProxyEndpoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +60,29 @@ is_default,
 tags
 FROM awscc.rds.db_proxy_endpoint
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DBProxyEndpointName&gt;'
+AND data__Identifier = '{DBProxyEndpointName}';
 ```
+
+## Permissions
+
+To operate on the <code>db_proxy_endpoint</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBProxyEndpoints,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:ModifyDBProxyEndpoint,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DescribeDBProxyEndpoints,
+rds:DeleteDBProxyEndpoint
+```
+

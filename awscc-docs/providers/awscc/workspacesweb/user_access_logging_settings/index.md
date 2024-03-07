@@ -38,31 +38,6 @@ Gets an individual <code>user_access_logging_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_access_logging_settings</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetUserAccessLoggingSettings,
-workspaces-web:ListTagsForResource</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateUserAccessLoggingSettings,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetUserAccessLoggingSettings,
-workspaces-web:ListTagsForResource,
-kinesis:PutRecord,
-kinesis:PutRecords</pre>
-
-### Delete
-<pre>
-workspaces-web:GetUserAccessLoggingSettings,
-workspaces-web:DeleteUserAccessLoggingSettings</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +48,33 @@ tags,
 user_access_logging_settings_arn
 FROM awscc.workspacesweb.user_access_logging_settings
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserAccessLoggingSettingsArn&gt;'
+AND data__Identifier = '{UserAccessLoggingSettingsArn}';
 ```
+
+## Permissions
+
+To operate on the <code>user_access_logging_settings</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetUserAccessLoggingSettings,
+workspaces-web:ListTagsForResource
+```
+
+### Update
+```json
+workspaces-web:UpdateUserAccessLoggingSettings,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetUserAccessLoggingSettings,
+workspaces-web:ListTagsForResource,
+kinesis:PutRecord,
+kinesis:PutRecords
+```
+
+### Delete
+```json
+workspaces-web:GetUserAccessLoggingSettings,
+workspaces-web:DeleteUserAccessLoggingSettings
+```
+

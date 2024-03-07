@@ -39,26 +39,6 @@ Gets an individual <code>warm_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>warm_pool</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-autoscaling:DeleteWarmPool,
-autoscaling:DescribeWarmPool</pre>
-
-### Read
-<pre>
-autoscaling:DescribeWarmPool</pre>
-
-### Update
-<pre>
-autoscaling:PutWarmPool,
-autoscaling:DescribeWarmPool,
-autoscaling:DescribeAutoScalingGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +50,28 @@ pool_state,
 instance_reuse_policy
 FROM awscc.autoscaling.warm_pool
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
+AND data__Identifier = '{AutoScalingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>warm_pool</code> resource, the following permissions are required:
+
+### Delete
+```json
+autoscaling:DeleteWarmPool,
+autoscaling:DescribeWarmPool
+```
+
+### Read
+```json
+autoscaling:DescribeWarmPool
+```
+
+### Update
+```json
+autoscaling:PutWarmPool,
+autoscaling:DescribeWarmPool,
+autoscaling:DescribeAutoScalingGroups
+```
+

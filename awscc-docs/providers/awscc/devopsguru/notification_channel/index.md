@@ -36,20 +36,6 @@ Gets an individual <code>notification_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>notification_channel</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-devops-guru:RemoveNotificationChannel,
-devops-guru:ListNotificationChannels</pre>
-
-### Read
-<pre>
-devops-guru:ListNotificationChannels</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,5 +44,21 @@ config,
 id
 FROM awscc.devopsguru.notification_channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>notification_channel</code> resource, the following permissions are required:
+
+### Delete
+```json
+devops-guru:RemoveNotificationChannel,
+devops-guru:ListNotificationChannels
+```
+
+### Read
+```json
+devops-guru:ListNotificationChannels
+```
+

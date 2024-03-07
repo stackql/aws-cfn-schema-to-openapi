@@ -35,25 +35,6 @@ Retrieves a list of <code>streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>streams</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kinesis:EnableEnhancedMonitoring,
-kinesis:DescribeStreamSummary,
-kinesis:CreateStream,
-kinesis:IncreaseStreamRetentionPeriod,
-kinesis:StartStreamEncryption,
-kinesis:AddTagsToStream,
-kinesis:ListTagsForStream</pre>
-
-### List
-<pre>
-kinesis:ListStreams</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ name
 FROM awscc.kinesis.streams
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>streams</code> resource, the following permissions are required:
+
+### Create
+```json
+kinesis:EnableEnhancedMonitoring,
+kinesis:DescribeStreamSummary,
+kinesis:CreateStream,
+kinesis:IncreaseStreamRetentionPeriod,
+kinesis:StartStreamEncryption,
+kinesis:AddTagsToStream,
+kinesis:ListTagsForStream
+```
+
+### List
+```json
+kinesis:ListStreams
+```
+

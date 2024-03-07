@@ -35,16 +35,6 @@ Retrieves a list of <code>resource_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-CloudTrail:PutResourcePolicy,
-CloudTrail:GetResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -53,3 +43,14 @@ resource_arn
 FROM awscc.cloudtrail.resource_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resource_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+CloudTrail:PutResourcePolicy,
+CloudTrail:GetResourcePolicy
+```
+

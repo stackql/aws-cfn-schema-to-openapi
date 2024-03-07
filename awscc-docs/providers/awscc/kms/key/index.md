@@ -47,36 +47,6 @@ Gets an individual <code>key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kms:DescribeKey,
-kms:GetKeyPolicy,
-kms:GetKeyRotationStatus,
-kms:ListResourceTags</pre>
-
-### Update
-<pre>
-kms:DescribeKey,
-kms:DisableKey,
-kms:DisableKeyRotation,
-kms:EnableKey,
-kms:EnableKeyRotation,
-kms:PutKeyPolicy,
-kms:TagResource,
-kms:UntagResource,
-kms:UpdateKeyDescription,
-kms:ListResourceTags</pre>
-
-### Delete
-<pre>
-kms:DescribeKey,
-kms:ScheduleKeyDeletion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,5 +66,38 @@ key_id,
 bypass_policy_lockout_safety_check
 FROM awscc.kms.key
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KeyId&gt;'
+AND data__Identifier = '{KeyId}';
 ```
+
+## Permissions
+
+To operate on the <code>key</code> resource, the following permissions are required:
+
+### Read
+```json
+kms:DescribeKey,
+kms:GetKeyPolicy,
+kms:GetKeyRotationStatus,
+kms:ListResourceTags
+```
+
+### Update
+```json
+kms:DescribeKey,
+kms:DisableKey,
+kms:DisableKeyRotation,
+kms:EnableKey,
+kms:EnableKeyRotation,
+kms:PutKeyPolicy,
+kms:TagResource,
+kms:UntagResource,
+kms:UpdateKeyDescription,
+kms:ListResourceTags
+```
+
+### Delete
+```json
+kms:DescribeKey,
+kms:ScheduleKeyDeletion
+```
+

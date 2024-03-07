@@ -35,12 +35,21 @@ Retrieves a list of <code>gateways</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+gateway_id
+FROM awscc.iotsitewise.gateways
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>gateways</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iotsitewise:CreateGateway,
 iotsitewise:DescribeGateway,
 iotsitewise:DescribeGatewayCapabilityConfiguration,
@@ -50,18 +59,11 @@ iam:GetRole,
 greengrass:GetCoreDevice,
 iotsitewise:ListTagsForResource,
 iotsitewise:TagResource,
-iot:DescribeThing</pre>
+iot:DescribeThing
+```
 
 ### List
-<pre>
-iotsitewise:ListGateways</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-gateway_id
-FROM awscc.iotsitewise.gateways
-WHERE region = 'us-east-1'
+```json
+iotsitewise:ListGateways
 ```
+

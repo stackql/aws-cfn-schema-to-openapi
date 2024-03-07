@@ -38,28 +38,6 @@ Gets an individual <code>instance_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetInstanceProfile</pre>
-
-### Update
-<pre>
-iam:PassRole,
-iam:RemoveRoleFromInstanceProfile,
-iam:AddRoleToInstanceProfile,
-iam:GetInstanceProfile</pre>
-
-### Delete
-<pre>
-iam:GetInstanceProfile,
-iam:RemoveRoleFromInstanceProfile,
-iam:DeleteInstanceProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +47,30 @@ roles,
 instance_profile_name,
 arn
 FROM awscc.iam.instance_profile
-WHERE data__Identifier = '&lt;InstanceProfileName&gt;'
+WHERE data__Identifier = '{InstanceProfileName}';
 ```
+
+## Permissions
+
+To operate on the <code>instance_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetInstanceProfile
+```
+
+### Update
+```json
+iam:PassRole,
+iam:RemoveRoleFromInstanceProfile,
+iam:AddRoleToInstanceProfile,
+iam:GetInstanceProfile
+```
+
+### Delete
+```json
+iam:GetInstanceProfile,
+iam:RemoveRoleFromInstanceProfile,
+iam:DeleteInstanceProfile
+```
+

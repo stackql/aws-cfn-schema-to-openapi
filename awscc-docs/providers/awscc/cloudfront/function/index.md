@@ -41,27 +41,6 @@ Gets an individual <code>function</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>function</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteFunction,
-cloudfront:DescribeFunction</pre>
-
-### Read
-<pre>
-cloudfront:DescribeFunction,
-cloudfront:GetFunction</pre>
-
-### Update
-<pre>
-cloudfront:UpdateFunction,
-cloudfront:PublishFunction,
-cloudfront:DescribeFunction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +53,29 @@ function_metadata,
 name,
 stage
 FROM awscc.cloudfront.function
-WHERE data__Identifier = '&lt;FunctionARN&gt;'
+WHERE data__Identifier = '{FunctionARN}';
 ```
+
+## Permissions
+
+To operate on the <code>function</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteFunction,
+cloudfront:DescribeFunction
+```
+
+### Read
+```json
+cloudfront:DescribeFunction,
+cloudfront:GetFunction
+```
+
+### Update
+```json
+cloudfront:UpdateFunction,
+cloudfront:PublishFunction,
+cloudfront:DescribeFunction
+```
+

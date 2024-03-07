@@ -47,32 +47,6 @@ Gets an individual <code>theme</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>theme</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeTheme,
-quicksight:DescribeThemePermissions,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeTheme,
-quicksight:DescribeThemePermissions,
-quicksight:UpdateTheme,
-quicksight:UpdateThemePermissions,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### Delete
-<pre>
-quicksight:DescribeTheme,
-quicksight:DeleteTheme</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,6 +66,35 @@ version,
 version_description
 FROM awscc.quicksight.theme
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ThemeId&gt;'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
+AND data__Identifier = '{ThemeId}';
+AND data__Identifier = '{AwsAccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>theme</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeTheme,
+quicksight:DescribeThemePermissions,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeTheme,
+quicksight:DescribeThemePermissions,
+quicksight:UpdateTheme,
+quicksight:UpdateThemePermissions,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### Delete
+```json
+quicksight:DescribeTheme,
+quicksight:DeleteTheme
+```
+

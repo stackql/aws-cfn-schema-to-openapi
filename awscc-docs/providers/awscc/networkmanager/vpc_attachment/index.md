@@ -51,31 +51,6 @@ Gets an individual <code>vpc_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetVpcAttachment</pre>
-
-### Update
-<pre>
-networkmanager:UpdateVpcAttachment,
-networkmanager:GetVpcAttachment,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:DeleteAttachment,
-networkmanager:GetVpcAttachment,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -99,5 +74,33 @@ subnet_arns,
 options
 FROM awscc.networkmanager.vpc_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AttachmentId&gt;'
+AND data__Identifier = '{AttachmentId}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetVpcAttachment
+```
+
+### Update
+```json
+networkmanager:UpdateVpcAttachment,
+networkmanager:GetVpcAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:DeleteAttachment,
+networkmanager:GetVpcAttachment,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+

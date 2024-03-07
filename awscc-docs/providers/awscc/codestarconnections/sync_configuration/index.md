@@ -43,26 +43,6 @@ Gets an individual <code>sync_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sync_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-codestar-connections:GetSyncConfiguration</pre>
-
-### Update
-<pre>
-codestar-connections:UpdateSyncConfiguration,
-codestar-connections:PassRepository,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-codestar-connections:DeleteSyncConfiguration,
-codestar-connections:GetSyncConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,6 +58,29 @@ role_arn,
 repository_link_id
 FROM awscc.codestarconnections.sync_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceName&gt;'
-AND data__Identifier = '&lt;SyncType&gt;'
+AND data__Identifier = '{ResourceName}';
+AND data__Identifier = '{SyncType}';
 ```
+
+## Permissions
+
+To operate on the <code>sync_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+codestar-connections:GetSyncConfiguration
+```
+
+### Update
+```json
+codestar-connections:UpdateSyncConfiguration,
+codestar-connections:PassRepository,
+iam:PassRole
+```
+
+### Delete
+```json
+codestar-connections:DeleteSyncConfiguration,
+codestar-connections:GetSyncConfiguration
+```
+

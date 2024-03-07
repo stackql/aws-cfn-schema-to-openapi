@@ -40,29 +40,6 @@ Gets an individual <code>packaging_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>packaging_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackage-vod:DescribePackagingGroup</pre>
-
-### Update
-<pre>
-mediapackage-vod:DescribePackagingGroup,
-mediapackage-vod:UpdatePackagingGroup,
-mediapackage-vod:ConfigureLogs,
-mediapackage-vod:TagResource,
-iam:PassRole,
-iam:CreateServiceLinkedRole</pre>
-
-### Delete
-<pre>
-mediapackage-vod:DescribePackagingGroup,
-mediapackage-vod:DeletePackagingGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ tags,
 egress_access_logs
 FROM awscc.mediapackage.packaging_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>packaging_group</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackage-vod:DescribePackagingGroup
+```
+
+### Update
+```json
+mediapackage-vod:DescribePackagingGroup,
+mediapackage-vod:UpdatePackagingGroup,
+mediapackage-vod:ConfigureLogs,
+mediapackage-vod:TagResource,
+iam:PassRole,
+iam:CreateServiceLinkedRole
+```
+
+### Delete
+```json
+mediapackage-vod:DescribePackagingGroup,
+mediapackage-vod:DeletePackagingGroup
+```
+

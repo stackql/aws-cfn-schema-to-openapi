@@ -40,33 +40,6 @@ Gets an individual <code>delivery_destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery_destination</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:GetDeliveryDestination,
-logs:ListTagsForResource,
-logs:GetDeliveryDestinationPolicy</pre>
-
-### Update
-<pre>
-logs:PutDeliveryDestination,
-logs:GetDeliveryDestination,
-logs:ListTagsForResource,
-logs:TagResource,
-logs:UntagResource,
-logs:DeleteDeliveryDestinationPolicy,
-logs:PutDeliveryDestinationPolicy,
-logs:GetDeliveryDestinationPolicy</pre>
-
-### Delete
-<pre>
-logs:DeleteDeliveryDestination,
-logs:DeleteDeliveryDestinationPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +52,35 @@ delivery_destination_type,
 delivery_destination_policy
 FROM awscc.logs.delivery_destination
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>delivery_destination</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:GetDeliveryDestination,
+logs:ListTagsForResource,
+logs:GetDeliveryDestinationPolicy
+```
+
+### Update
+```json
+logs:PutDeliveryDestination,
+logs:GetDeliveryDestination,
+logs:ListTagsForResource,
+logs:TagResource,
+logs:UntagResource,
+logs:DeleteDeliveryDestinationPolicy,
+logs:PutDeliveryDestinationPolicy,
+logs:GetDeliveryDestinationPolicy
+```
+
+### Delete
+```json
+logs:DeleteDeliveryDestination,
+logs:DeleteDeliveryDestinationPolicy
+```
+

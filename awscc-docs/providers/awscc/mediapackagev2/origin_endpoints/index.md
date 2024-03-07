@@ -35,21 +35,6 @@ Retrieves a list of <code>origin_endpoints</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>origin_endpoints</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediapackagev2:TagResource,
-mediapackagev2:CreateOriginEndpoint,
-iam:PassRole</pre>
-
-### List
-<pre>
-mediapackagev2:ListOriginEndpoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.mediapackagev2.origin_endpoints
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>origin_endpoints</code> resource, the following permissions are required:
+
+### Create
+```json
+mediapackagev2:TagResource,
+mediapackagev2:CreateOriginEndpoint,
+iam:PassRole
+```
+
+### List
+```json
+mediapackagev2:ListOriginEndpoints
+```
+

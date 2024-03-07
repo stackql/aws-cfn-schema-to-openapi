@@ -35,21 +35,6 @@ Retrieves a list of <code>auto_scaling_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>auto_scaling_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apprunner:CreateAutoScalingConfiguration,
-apprunner:DescribeAutoScalingConfiguration,
-apprunner:TagResource</pre>
-
-### List
-<pre>
-apprunner:ListAutoScalingConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ auto_scaling_configuration_arn
 FROM awscc.apprunner.auto_scaling_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>auto_scaling_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+apprunner:CreateAutoScalingConfiguration,
+apprunner:DescribeAutoScalingConfiguration,
+apprunner:TagResource
+```
+
+### List
+```json
+apprunner:ListAutoScalingConfiguration
+```
+

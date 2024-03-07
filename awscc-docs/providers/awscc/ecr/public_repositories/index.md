@@ -35,22 +35,6 @@ Retrieves a list of <code>public_repositories</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>public_repositories</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecr-public:CreateRepository,
-ecr-public:SetRepositoryPolicy,
-ecr-public:PutRepositoryCatalogData,
-ecr-public:TagResource</pre>
-
-### List
-<pre>
-ecr-public:DescribeRepositories</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ repository_name
 FROM awscc.ecr.public_repositories
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>public_repositories</code> resource, the following permissions are required:
+
+### Create
+```json
+ecr-public:CreateRepository,
+ecr-public:SetRepositoryPolicy,
+ecr-public:PutRepositoryCatalogData,
+ecr-public:TagResource
+```
+
+### List
+```json
+ecr-public:DescribeRepositories
+```
+

@@ -46,36 +46,6 @@ Gets an individual <code>billing_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>billing_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-billingconductor:ListBillingGroups,
-billingconductor:ListAccountAssociations,
-organizations:ListAccounts,
-billingconductor:ListTagsForResource</pre>
-
-### Update
-<pre>
-billingconductor:UpdateBillingGroup,
-billingconductor:ListAccountAssociations,
-organizations:ListAccounts,
-billingconductor:AssociateAccounts,
-billingconductor:DisassociateAccounts,
-billingconductor:ListBillingGroups,
-billingconductor:TagResource,
-billingconductor:UntagResource</pre>
-
-### Delete
-<pre>
-billingconductor:DeleteBillingGroup,
-billingconductor:ListBillingGroups,
-billingconductor:UntagResource,
-billingconductor:UpdateBillingGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -94,5 +64,38 @@ last_modified_time,
 tags
 FROM awscc.billingconductor.billing_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>billing_group</code> resource, the following permissions are required:
+
+### Read
+```json
+billingconductor:ListBillingGroups,
+billingconductor:ListAccountAssociations,
+organizations:ListAccounts,
+billingconductor:ListTagsForResource
+```
+
+### Update
+```json
+billingconductor:UpdateBillingGroup,
+billingconductor:ListAccountAssociations,
+organizations:ListAccounts,
+billingconductor:AssociateAccounts,
+billingconductor:DisassociateAccounts,
+billingconductor:ListBillingGroups,
+billingconductor:TagResource,
+billingconductor:UntagResource
+```
+
+### Delete
+```json
+billingconductor:DeleteBillingGroup,
+billingconductor:ListBillingGroups,
+billingconductor:UntagResource,
+billingconductor:UpdateBillingGroup
+```
+

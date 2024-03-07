@@ -40,25 +40,6 @@ Gets an individual <code>fleet</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fleet</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-codebuild:BatchGetFleets,
-codebuild:DeleteFleet</pre>
-
-### Read
-<pre>
-codebuild:BatchGetFleets</pre>
-
-### Update
-<pre>
-codebuild:BatchGetFleets,
-codebuild:UpdateFleet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +52,27 @@ tags,
 arn
 FROM awscc.codebuild.fleet
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>fleet</code> resource, the following permissions are required:
+
+### Delete
+```json
+codebuild:BatchGetFleets,
+codebuild:DeleteFleet
+```
+
+### Read
+```json
+codebuild:BatchGetFleets
+```
+
+### Update
+```json
+codebuild:BatchGetFleets,
+codebuild:UpdateFleet
+```
+

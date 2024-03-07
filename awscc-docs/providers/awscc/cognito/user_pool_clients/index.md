@@ -36,22 +36,6 @@ Retrieves a list of <code>user_pool_clients</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_clients</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-idp:CreateUserPoolClient,
-iam:PassRole,
-iam:PutRolePolicy,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-cognito-idp:ListUserPoolClients</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ client_id
 FROM awscc.cognito.user_pool_clients
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_clients</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-idp:CreateUserPoolClient,
+iam:PassRole,
+iam:PutRolePolicy,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+cognito-idp:ListUserPoolClients
+```
+

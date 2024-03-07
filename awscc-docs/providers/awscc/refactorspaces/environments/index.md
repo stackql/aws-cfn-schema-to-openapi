@@ -35,12 +35,21 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+environment_identifier
+FROM awscc.refactorspaces.environments
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 refactor-spaces:CreateEnvironment,
 refactor-spaces:GetEnvironment,
 refactor-spaces:TagResource,
@@ -67,19 +76,12 @@ ram:GetResourceShareInvitations,
 ram:AcceptResourceShareInvitation,
 ram:DisassociateResourceShare,
 tag:GetResources,
-iam:CreateServiceLinkedRole</pre>
+iam:CreateServiceLinkedRole
+```
 
 ### List
-<pre>
+```json
 refactor-spaces:ListEnvironments,
-refactor-spaces:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-environment_identifier
-FROM awscc.refactorspaces.environments
-WHERE region = 'us-east-1'
+refactor-spaces:ListTagsForResource
 ```
+

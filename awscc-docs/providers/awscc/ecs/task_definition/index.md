@@ -52,31 +52,6 @@ Gets an individual <code>task_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_definition</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecs:DescribeTaskDefinition</pre>
-
-### Update
-<pre>
-ecs:TagResource,
-ecs:UntagResource,
-ecs:ListTagsForResource,
-ecs:DescribeTaskDefinition,
-iam:GetRole,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-ecs:DeregisterTaskDefinition,
-ecs:DescribeTaskDefinition,
-iam:GetRole,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -101,5 +76,33 @@ ipc_mode,
 tags
 FROM awscc.ecs.task_definition
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TaskDefinitionArn&gt;'
+AND data__Identifier = '{TaskDefinitionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>task_definition</code> resource, the following permissions are required:
+
+### Read
+```json
+ecs:DescribeTaskDefinition
+```
+
+### Update
+```json
+ecs:TagResource,
+ecs:UntagResource,
+ecs:ListTagsForResource,
+ecs:DescribeTaskDefinition,
+iam:GetRole,
+iam:PassRole
+```
+
+### Delete
+```json
+ecs:DeregisterTaskDefinition,
+ecs:DescribeTaskDefinition,
+iam:GetRole,
+iam:PassRole
+```
+

@@ -44,26 +44,6 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain</code> resource, the following permissions are required:
-
-### Read
-<pre>
-profile:GetDomain</pre>
-
-### Update
-<pre>
-profile:GetDomain,
-profile:UpdateDomain,
-profile:UntagResource,
-profile:TagResource</pre>
-
-### Delete
-<pre>
-profile:DeleteDomain</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +60,28 @@ created_at,
 last_updated_at
 FROM awscc.customerprofiles.domain
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainName&gt;'
+AND data__Identifier = '{DomainName}';
 ```
+
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+```json
+profile:GetDomain
+```
+
+### Update
+```json
+profile:GetDomain,
+profile:UpdateDomain,
+profile:UntagResource,
+profile:TagResource
+```
+
+### Delete
+```json
+profile:DeleteDomain
+```
+

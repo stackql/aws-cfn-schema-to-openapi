@@ -45,32 +45,6 @@ Gets an individual <code>scene</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scene</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iottwinmaker:GetWorkspace,
-iottwinmaker:GetScene,
-iottwinmaker:ListTagsForResource</pre>
-
-### Update
-<pre>
-iottwinmaker:GetScene,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource,
-iottwinmaker:UntagResource,
-iottwinmaker:UpdateScene</pre>
-
-### Delete
-<pre>
-iottwinmaker:DeleteScene,
-iottwinmaker:GetScene,
-iottwinmaker:GetWorkspace</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,6 +62,35 @@ scene_metadata,
 generated_scene_metadata
 FROM awscc.iottwinmaker.scene
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkspaceId&gt;'
-AND data__Identifier = '&lt;SceneId&gt;'
+AND data__Identifier = '{WorkspaceId}';
+AND data__Identifier = '{SceneId}';
 ```
+
+## Permissions
+
+To operate on the <code>scene</code> resource, the following permissions are required:
+
+### Read
+```json
+iottwinmaker:GetWorkspace,
+iottwinmaker:GetScene,
+iottwinmaker:ListTagsForResource
+```
+
+### Update
+```json
+iottwinmaker:GetScene,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateScene
+```
+
+### Delete
+```json
+iottwinmaker:DeleteScene,
+iottwinmaker:GetScene,
+iottwinmaker:GetWorkspace
+```
+

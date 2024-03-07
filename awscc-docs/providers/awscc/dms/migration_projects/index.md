@@ -35,26 +35,6 @@ Retrieves a list of <code>migration_projects</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>migration_projects</code> resource, the following permissions are required:
-
-### Create
-<pre>
-dms:CreateMigrationProject,
-dms:ListMigrationProjects,
-dms:DescribeMigrationProjects,
-dms:AddTagsToResource,
-dms:ListTagsForResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-dms:ListMigrationProjects,
-dms:DescribeMigrationProjects,
-dms:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ migration_project_arn
 FROM awscc.dms.migration_projects
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>migration_projects</code> resource, the following permissions are required:
+
+### Create
+```json
+dms:CreateMigrationProject,
+dms:ListMigrationProjects,
+dms:DescribeMigrationProjects,
+dms:AddTagsToResource,
+dms:ListTagsForResource,
+iam:PassRole
+```
+
+### List
+```json
+dms:ListMigrationProjects,
+dms:DescribeMigrationProjects,
+dms:ListTagsForResource
+```
+

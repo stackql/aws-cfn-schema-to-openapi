@@ -49,41 +49,6 @@ Gets an individual <code>managed_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>managed_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetPolicy,
-iam:ListEntitiesForPolicy,
-iam:GetPolicyVersion</pre>
-
-### Update
-<pre>
-iam:DetachRolePolicy,
-iam:GetPolicy,
-iam:ListPolicyVersions,
-iam:DetachGroupPolicy,
-iam:DetachUserPolicy,
-iam:CreatePolicyVersion,
-iam:DeletePolicyVersion,
-iam:AttachGroupPolicy,
-iam:AttachUserPolicy,
-iam:AttachRolePolicy</pre>
-
-### Delete
-<pre>
-iam:DetachRolePolicy,
-iam:GetPolicy,
-iam:ListPolicyVersions,
-iam:DetachGroupPolicy,
-iam:DetachUserPolicy,
-iam:DeletePolicyVersion,
-iam:DeletePolicy,
-iam:ListEntitiesForPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -104,5 +69,43 @@ is_attachable,
 permissions_boundary_usage_count,
 policy_id
 FROM awscc.iam.managed_policy
-WHERE data__Identifier = '&lt;PolicyArn&gt;'
+WHERE data__Identifier = '{PolicyArn}';
 ```
+
+## Permissions
+
+To operate on the <code>managed_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetPolicy,
+iam:ListEntitiesForPolicy,
+iam:GetPolicyVersion
+```
+
+### Update
+```json
+iam:DetachRolePolicy,
+iam:GetPolicy,
+iam:ListPolicyVersions,
+iam:DetachGroupPolicy,
+iam:DetachUserPolicy,
+iam:CreatePolicyVersion,
+iam:DeletePolicyVersion,
+iam:AttachGroupPolicy,
+iam:AttachUserPolicy,
+iam:AttachRolePolicy
+```
+
+### Delete
+```json
+iam:DetachRolePolicy,
+iam:GetPolicy,
+iam:ListPolicyVersions,
+iam:DetachGroupPolicy,
+iam:DetachUserPolicy,
+iam:DeletePolicyVersion,
+iam:DeletePolicy,
+iam:ListEntitiesForPolicy
+```
+

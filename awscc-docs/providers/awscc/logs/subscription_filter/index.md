@@ -40,25 +40,6 @@ Gets an individual <code>subscription_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subscription_filter</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeSubscriptionFilters</pre>
-
-### Update
-<pre>
-iam:PassRole,
-logs:PutSubscriptionFilter,
-logs:DescribeSubscriptionFilters</pre>
-
-### Delete
-<pre>
-logs:DeleteSubscriptionFilter</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,6 +52,28 @@ role_arn,
 distribution
 FROM awscc.logs.subscription_filter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FilterName&gt;'
-AND data__Identifier = '&lt;LogGroupName&gt;'
+AND data__Identifier = '{FilterName}';
+AND data__Identifier = '{LogGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>subscription_filter</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeSubscriptionFilters
+```
+
+### Update
+```json
+iam:PassRole,
+logs:PutSubscriptionFilter,
+logs:DescribeSubscriptionFilters
+```
+
+### Delete
+```json
+logs:DeleteSubscriptionFilter
+```
+

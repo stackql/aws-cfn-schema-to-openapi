@@ -44,26 +44,6 @@ Gets an individual <code>agreement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>agreement</code> resource, the following permissions are required:
-
-### Read
-<pre>
-transfer:DescribeAgreement</pre>
-
-### Update
-<pre>
-transfer:UpdateAgreement,
-transfer:UnTagResource,
-transfer:TagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-transfer:DeleteAgreement</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,6 +60,29 @@ agreement_id,
 arn
 FROM awscc.transfer.agreement
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AgreementId&gt;'
-AND data__Identifier = '&lt;ServerId&gt;'
+AND data__Identifier = '{AgreementId}';
+AND data__Identifier = '{ServerId}';
 ```
+
+## Permissions
+
+To operate on the <code>agreement</code> resource, the following permissions are required:
+
+### Read
+```json
+transfer:DescribeAgreement
+```
+
+### Update
+```json
+transfer:UpdateAgreement,
+transfer:UnTagResource,
+transfer:TagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+transfer:DeleteAgreement
+```
+

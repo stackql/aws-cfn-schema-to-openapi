@@ -35,24 +35,6 @@ Retrieves a list of <code>groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-resource-groups:CreateGroup,
-resource-groups:Tag,
-cloudformation:DescribeStacks,
-cloudformation:ListStackResources,
-resource-groups:ListGroupResources,
-resource-groups:GroupResources</pre>
-
-### List
-<pre>
-resource-groups:ListGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ name
 FROM awscc.resourcegroups.groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>groups</code> resource, the following permissions are required:
+
+### Create
+```json
+resource-groups:CreateGroup,
+resource-groups:Tag,
+cloudformation:DescribeStacks,
+cloudformation:ListStackResources,
+resource-groups:ListGroupResources,
+resource-groups:GroupResources
+```
+
+### List
+```json
+resource-groups:ListGroups
+```
+

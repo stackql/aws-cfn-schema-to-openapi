@@ -36,19 +36,6 @@ Retrieves a list of <code>template_group_access_control_entries</code> in a regi
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>template_group_access_control_entries</code> resource, the following permissions are required:
-
-### Create
-<pre>
-pca-connector-ad:CreateTemplateGroupAccessControlEntry</pre>
-
-### List
-<pre>
-pca-connector-ad:ListTemplateGroupAccessControlEntries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entries
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>template_group_access_control_entries</code> resource, the following permissions are required:
+
+### Create
+```json
+pca-connector-ad:CreateTemplateGroupAccessControlEntry
+```
+
+### List
+```json
+pca-connector-ad:ListTemplateGroupAccessControlEntries
+```
+

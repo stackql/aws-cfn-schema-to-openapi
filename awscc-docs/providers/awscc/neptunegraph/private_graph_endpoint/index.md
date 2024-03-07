@@ -40,34 +40,6 @@ Gets an individual <code>private_graph_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>private_graph_endpoint</code> resource, the following permissions are required:
-
-### Read
-<pre>
-neptune-graph:GetPrivateGraphEndpoint</pre>
-
-### Update
-<pre>
-iam:PassRole,
-neptune-graph:GetPrivateGraphEndpoint</pre>
-
-### Delete
-<pre>
-ec2:DeleteVpcEndpoints,
-ec2:DescribeVpcEndpoints,
-ec2:DescribeSecurityGroups,
-ec2:DescribeSubnets,
-ec2:DescribeVpcs,
-ec2:DescribeVpcAttribute,
-ec2:DescribeAvailabilityZones,
-ec2:ModifyVpcEndpoint,
-route53:DisassociateVPCFromHostedZone,
-neptune-graph:DeletePrivateGraphEndpoint,
-neptune-graph:GetPrivateGraphEndpoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +52,36 @@ private_graph_endpoint_identifier,
 vpc_endpoint_id
 FROM awscc.neptunegraph.private_graph_endpoint
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PrivateGraphEndpointIdentifier&gt;'
+AND data__Identifier = '{PrivateGraphEndpointIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>private_graph_endpoint</code> resource, the following permissions are required:
+
+### Read
+```json
+neptune-graph:GetPrivateGraphEndpoint
+```
+
+### Update
+```json
+iam:PassRole,
+neptune-graph:GetPrivateGraphEndpoint
+```
+
+### Delete
+```json
+ec2:DeleteVpcEndpoints,
+ec2:DescribeVpcEndpoints,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+ec2:DescribeVpcAttribute,
+ec2:DescribeAvailabilityZones,
+ec2:ModifyVpcEndpoint,
+route53:DisassociateVPCFromHostedZone,
+neptune-graph:DeletePrivateGraphEndpoint,
+neptune-graph:GetPrivateGraphEndpoint
+```
+

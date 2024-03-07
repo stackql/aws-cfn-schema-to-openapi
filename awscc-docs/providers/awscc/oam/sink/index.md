@@ -38,30 +38,6 @@ Gets an individual <code>sink</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sink</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-oam:DeleteSink,
-oam:GetSinkPolicy,
-oam:GetSink</pre>
-
-### Read
-<pre>
-oam:GetSinkPolicy,
-oam:GetSink</pre>
-
-### Update
-<pre>
-oam:PutSinkPolicy,
-oam:GetSinkPolicy,
-oam:GetSink,
-oam:TagResource,
-oam:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +48,32 @@ policy,
 tags
 FROM awscc.oam.sink
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>sink</code> resource, the following permissions are required:
+
+### Delete
+```json
+oam:DeleteSink,
+oam:GetSinkPolicy,
+oam:GetSink
+```
+
+### Read
+```json
+oam:GetSinkPolicy,
+oam:GetSink
+```
+
+### Update
+```json
+oam:PutSinkPolicy,
+oam:GetSinkPolicy,
+oam:GetSink,
+oam:TagResource,
+oam:UntagResource
+```
+

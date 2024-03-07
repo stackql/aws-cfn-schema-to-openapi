@@ -37,31 +37,6 @@ Gets an individual <code>proactive_engagement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>proactive_engagement</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-shield:DescribeSubscription,
-shield:DescribeEmergencyContactSettings,
-shield:UpdateEmergencyContactSettings,
-shield:DisableProactiveEngagement</pre>
-
-### Read
-<pre>
-shield:DescribeSubscription,
-shield:DescribeEmergencyContactSettings</pre>
-
-### Update
-<pre>
-shield:DescribeSubscription,
-shield:DescribeEmergencyContactSettings,
-shield:UpdateEmergencyContactSettings,
-shield:EnableProactiveEngagement,
-shield:DisableProactiveEngagement</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +45,33 @@ account_id,
 proactive_engagement_status,
 emergency_contact_list
 FROM awscc.shield.proactive_engagement
-WHERE data__Identifier = '&lt;AccountId&gt;'
+WHERE data__Identifier = '{AccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>proactive_engagement</code> resource, the following permissions are required:
+
+### Delete
+```json
+shield:DescribeSubscription,
+shield:DescribeEmergencyContactSettings,
+shield:UpdateEmergencyContactSettings,
+shield:DisableProactiveEngagement
+```
+
+### Read
+```json
+shield:DescribeSubscription,
+shield:DescribeEmergencyContactSettings
+```
+
+### Update
+```json
+shield:DescribeSubscription,
+shield:DescribeEmergencyContactSettings,
+shield:UpdateEmergencyContactSettings,
+shield:EnableProactiveEngagement,
+shield:DisableProactiveEngagement
+```
+

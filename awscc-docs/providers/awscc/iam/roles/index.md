@@ -35,25 +35,6 @@ Retrieves a list of <code>roles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>roles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateRole,
-iam:PutRolePolicy,
-iam:AttachRolePolicy,
-iam:GetRolePolicy,
-iam:TagRole,
-iam:UntagRole,
-iam:GetRole</pre>
-
-### List
-<pre>
-iam:ListRoles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ role_name
 FROM awscc.iam.roles
 
 ```
+
+## Permissions
+
+To operate on the <code>roles</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateRole,
+iam:PutRolePolicy,
+iam:AttachRolePolicy,
+iam:GetRolePolicy,
+iam:TagRole,
+iam:UntagRole,
+iam:GetRole
+```
+
+### List
+```json
+iam:ListRoles
+```
+

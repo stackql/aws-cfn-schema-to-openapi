@@ -47,38 +47,6 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kafkaconnect:DescribeConnector</pre>
-
-### Delete
-<pre>
-kafkaconnect:DeleteConnector,
-kafkaconnect:DescribeConnector,
-logs:DeleteLogDelivery,
-logs:GetLogDelivery,
-logs:ListLogDeliveries</pre>
-
-### Update
-<pre>
-kafkaconnect:UpdateConnector,
-kafkaconnect:DescribeConnector,
-iam:CreateServiceLinkedRole,
-logs:UpdateLogDelivery,
-logs:GetLogDelivery,
-logs:ListLogDeliveries,
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies,
-logs:DescribeLogGroups,
-s3:GetBucketPolicy,
-s3:PutBucketPolicy,
-firehose:TagDeliveryStream</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,5 +66,40 @@ service_execution_role_arn,
 worker_configuration
 FROM awscc.kafkaconnect.connector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectorArn&gt;'
+AND data__Identifier = '{ConnectorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+```json
+kafkaconnect:DescribeConnector
+```
+
+### Delete
+```json
+kafkaconnect:DeleteConnector,
+kafkaconnect:DescribeConnector,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries
+```
+
+### Update
+```json
+kafkaconnect:UpdateConnector,
+kafkaconnect:DescribeConnector,
+iam:CreateServiceLinkedRole,
+logs:UpdateLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+firehose:TagDeliveryStream
+```
+

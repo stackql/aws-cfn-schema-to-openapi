@@ -44,32 +44,6 @@ Gets an individual <code>scheduled_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduled_action</code> resource, the following permissions are required:
-
-### Read
-<pre>
-redshift:DescribeScheduledActions,
-redshift:DescribeTags</pre>
-
-### Update
-<pre>
-redshift:DescribeScheduledActions,
-redshift:ModifyScheduledAction,
-redshift:PauseCluster,
-redshift:ResumeCluster,
-redshift:ResizeCluster,
-redshift:DescribeTags,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-redshift:DescribeTags,
-redshift:DescribeScheduledActions,
-redshift:DeleteScheduledAction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +60,34 @@ state,
 next_invocations
 FROM awscc.redshift.scheduled_action
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ScheduledActionName&gt;'
+AND data__Identifier = '{ScheduledActionName}';
 ```
+
+## Permissions
+
+To operate on the <code>scheduled_action</code> resource, the following permissions are required:
+
+### Read
+```json
+redshift:DescribeScheduledActions,
+redshift:DescribeTags
+```
+
+### Update
+```json
+redshift:DescribeScheduledActions,
+redshift:ModifyScheduledAction,
+redshift:PauseCluster,
+redshift:ResumeCluster,
+redshift:ResizeCluster,
+redshift:DescribeTags,
+iam:PassRole
+```
+
+### Delete
+```json
+redshift:DescribeTags,
+redshift:DescribeScheduledActions,
+redshift:DeleteScheduledAction
+```
+

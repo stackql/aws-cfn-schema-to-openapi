@@ -41,23 +41,6 @@ Gets an individual <code>assistant</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assistant</code> resource, the following permissions are required:
-
-### Update
-<pre>
-wisdom:GetAssistant</pre>
-
-### Read
-<pre>
-wisdom:GetAssistant</pre>
-
-### Delete
-<pre>
-wisdom:DeleteAssistant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +54,25 @@ tags,
 name
 FROM awscc.wisdom.assistant
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssistantId&gt;'
+AND data__Identifier = '{AssistantId}';
 ```
+
+## Permissions
+
+To operate on the <code>assistant</code> resource, the following permissions are required:
+
+### Update
+```json
+wisdom:GetAssistant
+```
+
+### Read
+```json
+wisdom:GetAssistant
+```
+
+### Delete
+```json
+wisdom:DeleteAssistant
+```
+

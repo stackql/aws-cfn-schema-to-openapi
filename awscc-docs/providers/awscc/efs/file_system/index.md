@@ -49,49 +49,6 @@ Gets an individual <code>file_system</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>file_system</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticfilesystem:DescribeBackupPolicy,
-elasticfilesystem:DescribeFileSystemPolicy,
-elasticfilesystem:DescribeFileSystems,
-elasticfilesystem:DescribeLifecycleConfiguration,
-elasticfilesystem:DescribeReplicationConfigurations</pre>
-
-### Update
-<pre>
-elasticfilesystem:CreateReplicationConfiguration,
-elasticfilesystem:DeleteFileSystemPolicy,
-elasticfilesystem:DescribeBackupPolicy,
-elasticfilesystem:DescribeFileSystemPolicy,
-elasticfilesystem:DescribeFileSystems,
-elasticfilesystem:DescribeLifecycleConfiguration,
-elasticfilesystem:DescribeReplicationConfigurations,
-elasticfilesystem:DeleteTags,
-elasticfilesystem:DeleteReplicationConfiguration,
-elasticfilesystem:ListTagsForResource,
-elasticfilesystem:PutBackupPolicy,
-elasticfilesystem:PutFileSystemPolicy,
-elasticfilesystem:PutLifecycleConfiguration,
-elasticfilesystem:TagResource,
-elasticfilesystem:UntagResource,
-elasticfilesystem:UpdateFileSystem,
-elasticfilesystem:UpdateFileSystemProtection,
-kms:DescribeKey,
-kms:GenerateDataKeyWithoutPlaintext,
-kms:CreateGrant</pre>
-
-### Delete
-<pre>
-elasticfilesystem:DescribeFileSystems,
-elasticfilesystem:DeleteFileSystem,
-elasticfilesystem:DeleteReplicationConfiguration,
-elasticfilesystem:DescribeReplicationConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -113,5 +70,51 @@ availability_zone_name,
 replication_configuration
 FROM awscc.efs.file_system
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FileSystemId&gt;'
+AND data__Identifier = '{FileSystemId}';
 ```
+
+## Permissions
+
+To operate on the <code>file_system</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticfilesystem:DescribeBackupPolicy,
+elasticfilesystem:DescribeFileSystemPolicy,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeLifecycleConfiguration,
+elasticfilesystem:DescribeReplicationConfigurations
+```
+
+### Update
+```json
+elasticfilesystem:CreateReplicationConfiguration,
+elasticfilesystem:DeleteFileSystemPolicy,
+elasticfilesystem:DescribeBackupPolicy,
+elasticfilesystem:DescribeFileSystemPolicy,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeLifecycleConfiguration,
+elasticfilesystem:DescribeReplicationConfigurations,
+elasticfilesystem:DeleteTags,
+elasticfilesystem:DeleteReplicationConfiguration,
+elasticfilesystem:ListTagsForResource,
+elasticfilesystem:PutBackupPolicy,
+elasticfilesystem:PutFileSystemPolicy,
+elasticfilesystem:PutLifecycleConfiguration,
+elasticfilesystem:TagResource,
+elasticfilesystem:UntagResource,
+elasticfilesystem:UpdateFileSystem,
+elasticfilesystem:UpdateFileSystemProtection,
+kms:DescribeKey,
+kms:GenerateDataKeyWithoutPlaintext,
+kms:CreateGrant
+```
+
+### Delete
+```json
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DeleteFileSystem,
+elasticfilesystem:DeleteReplicationConfiguration,
+elasticfilesystem:DescribeReplicationConfigurations
+```
+

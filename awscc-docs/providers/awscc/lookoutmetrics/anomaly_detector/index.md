@@ -40,27 +40,6 @@ Gets an individual <code>anomaly_detector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>anomaly_detector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lookoutmetrics:DescribeAnomalyDetector,
-lookoutmetrics:DescribeMetricSet,
-lookoutmetrics:ListMetricSets</pre>
-
-### Update
-<pre>
-lookoutmetrics:UpdateAnomalyDetector,
-lookoutmetrics:UpdateMetricSet</pre>
-
-### Delete
-<pre>
-lookoutmetrics:DescribeAnomalyDetector,
-lookoutmetrics:DeleteAnomalyDetector</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ metric_set_list,
 kms_key_arn
 FROM awscc.lookoutmetrics.anomaly_detector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>anomaly_detector</code> resource, the following permissions are required:
+
+### Read
+```json
+lookoutmetrics:DescribeAnomalyDetector,
+lookoutmetrics:DescribeMetricSet,
+lookoutmetrics:ListMetricSets
+```
+
+### Update
+```json
+lookoutmetrics:UpdateAnomalyDetector,
+lookoutmetrics:UpdateMetricSet
+```
+
+### Delete
+```json
+lookoutmetrics:DescribeAnomalyDetector,
+lookoutmetrics:DeleteAnomalyDetector
+```
+

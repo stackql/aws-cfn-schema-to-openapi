@@ -40,17 +40,33 @@ Gets an individual <code>logging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn,
+id,
+destination_configuration,
+name,
+state,
+tags
+FROM awscc.ivschat.logging_configuration
+WHERE region = 'us-east-1'
+AND data__Identifier = '{Arn}';
+```
+
 ## Permissions
 
 To operate on the <code>logging_configuration</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 ivschat:GetLoggingConfiguration,
-ivschat:ListTagsForResource</pre>
+ivschat:ListTagsForResource
+```
 
 ### Update
-<pre>
+```json
 ivschat:UpdateLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
 ivschat:TagResource,
@@ -67,29 +83,16 @@ logs:DescribeLogGroups,
 s3:PutBucketPolicy,
 s3:GetBucketPolicy,
 iam:CreateServiceLinkedRole,
-firehose:TagDeliveryStream</pre>
+firehose:TagDeliveryStream
+```
 
 ### Delete
-<pre>
+```json
 ivschat:DeleteLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
 logs:DeleteLogDelivery,
 logs:ListLogDeliveries,
 ivschat:UntagResource,
-logs:GetLogDelivery</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn,
-id,
-destination_configuration,
-name,
-state,
-tags
-FROM awscc.ivschat.logging_configuration
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+logs:GetLogDelivery
 ```
+

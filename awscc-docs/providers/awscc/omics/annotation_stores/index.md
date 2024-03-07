@@ -35,26 +35,6 @@ Retrieves a list of <code>annotation_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>annotation_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-omics:CreateAnnotationStore,
-omics:TagResource,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:CreateGrant,
-ram:AcceptResourceShareInvitation,
-ram:GetResourceShareInvitations,
-omics:GetAnnotationStore</pre>
-
-### List
-<pre>
-omics:ListAnnotationStores</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ name
 FROM awscc.omics.annotation_stores
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>annotation_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+omics:CreateAnnotationStore,
+omics:TagResource,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:CreateGrant,
+ram:AcceptResourceShareInvitation,
+ram:GetResourceShareInvitations,
+omics:GetAnnotationStore
+```
+
+### List
+```json
+omics:ListAnnotationStores
+```
+

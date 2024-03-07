@@ -35,26 +35,6 @@ Retrieves a list of <code>pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipelines</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datapipeline:CreatePipeline,
-datapipeline:PutPipelineDefinition,
-datapipeline:GetPipelineDefinition,
-datapipeline:DescribePipelines,
-datapipeline:ValidatePipelineDefinition,
-datapipeline:ActivatePipeline,
-datapipeline:AddTags,
-iam:PassRole</pre>
-
-### List
-<pre>
-datapipeline:ListPipelines</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ pipeline_id
 FROM awscc.datapipeline.pipelines
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>pipelines</code> resource, the following permissions are required:
+
+### Create
+```json
+datapipeline:CreatePipeline,
+datapipeline:PutPipelineDefinition,
+datapipeline:GetPipelineDefinition,
+datapipeline:DescribePipelines,
+datapipeline:ValidatePipelineDefinition,
+datapipeline:ActivatePipeline,
+datapipeline:AddTags,
+iam:PassRole
+```
+
+### List
+```json
+datapipeline:ListPipelines
+```
+

@@ -46,27 +46,6 @@ Gets an individual <code>authorizer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>authorizer</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT,
-iam:PassRole</pre>
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,6 +64,30 @@ authorizer_id,
 name
 FROM awscc.apigatewayv2.authorizer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AuthorizerId&gt;'
-AND data__Identifier = '&lt;ApiId&gt;'
+AND data__Identifier = '{AuthorizerId}';
+AND data__Identifier = '{ApiId}';
 ```
+
+## Permissions
+
+To operate on the <code>authorizer</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT,
+iam:PassRole
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

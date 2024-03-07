@@ -37,21 +37,6 @@ Retrieves a list of <code>rule_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-wafv2:CreateRuleGroup,
-wafv2:GetRuleGroup,
-wafv2:ListTagsForResource</pre>
-
-### List
-<pre>
-wafv2:listRuleGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +47,20 @@ scope
 FROM awscc.wafv2.rule_groups
 
 ```
+
+## Permissions
+
+To operate on the <code>rule_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+wafv2:CreateRuleGroup,
+wafv2:GetRuleGroup,
+wafv2:ListTagsForResource
+```
+
+### List
+```json
+wafv2:listRuleGroups
+```
+

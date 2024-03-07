@@ -35,20 +35,6 @@ Retrieves a list of <code>resource_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies</pre>
-
-### List
-<pre>
-logs:DescribeResourcePolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ policy_name
 FROM awscc.logs.resource_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resource_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies
+```
+
+### List
+```json
+logs:DescribeResourcePolicies
+```
+

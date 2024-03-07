@@ -35,24 +35,6 @@ Retrieves a list of <code>policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-organizations:CreatePolicy,
-organizations:DescribePolicy,
-organizations:AttachPolicy,
-organizations:ListTagsForResource,
-organizations:ListTargetsForPolicy,
-organizations:TagResource</pre>
-
-### List
-<pre>
-organizations:ListPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.organizations.policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>policies</code> resource, the following permissions are required:
+
+### Create
+```json
+organizations:CreatePolicy,
+organizations:DescribePolicy,
+organizations:AttachPolicy,
+organizations:ListTagsForResource,
+organizations:ListTargetsForPolicy,
+organizations:TagResource
+```
+
+### List
+```json
+organizations:ListPolicies
+```
+

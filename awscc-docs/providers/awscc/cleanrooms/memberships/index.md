@@ -35,12 +35,21 @@ Retrieves a list of <code>memberships</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+membership_identifier
+FROM awscc.cleanrooms.memberships
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>memberships</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 cleanrooms:CreateMembership,
 logs:CreateLogDelivery,
 logs:GetLogDelivery,
@@ -55,18 +64,11 @@ cleanrooms:GetMembership,
 cleanrooms:ListTagsForResource,
 cleanrooms:TagResource,
 cleanrooms:ListMemberships,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### List
-<pre>
-cleanrooms:ListMemberships</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-membership_identifier
-FROM awscc.cleanrooms.memberships
-WHERE region = 'us-east-1'
+```json
+cleanrooms:ListMemberships
 ```
+

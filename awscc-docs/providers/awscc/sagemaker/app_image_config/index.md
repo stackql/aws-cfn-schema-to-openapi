@@ -39,25 +39,6 @@ Gets an individual <code>app_image_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>app_image_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeAppImageConfig</pre>
-
-### Update
-<pre>
-sagemaker:UpdateAppImageConfig,
-sagemaker:DescribeAppImageConfig</pre>
-
-### Delete
-<pre>
-sagemaker:DeleteAppImageConfig,
-sagemaker:DescribeAppImageConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +50,27 @@ jupyter_lab_app_image_config,
 tags
 FROM awscc.sagemaker.app_image_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AppImageConfigName&gt;'
+AND data__Identifier = '{AppImageConfigName}';
 ```
+
+## Permissions
+
+To operate on the <code>app_image_config</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeAppImageConfig
+```
+
+### Update
+```json
+sagemaker:UpdateAppImageConfig,
+sagemaker:DescribeAppImageConfig
+```
+
+### Delete
+```json
+sagemaker:DeleteAppImageConfig,
+sagemaker:DescribeAppImageConfig
+```
+

@@ -41,26 +41,6 @@ Gets an individual <code>hours_of_operation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hours_of_operation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeHoursOfOperation</pre>
-
-### Delete
-<pre>
-connect:DeleteHoursOfOperation,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateHoursOfOperation,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ hours_of_operation_arn,
 tags
 FROM awscc.connect.hours_of_operation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;HoursOfOperationArn&gt;'
+AND data__Identifier = '{HoursOfOperationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>hours_of_operation</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeHoursOfOperation
+```
+
+### Delete
+```json
+connect:DeleteHoursOfOperation,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateHoursOfOperation,
+connect:TagResource,
+connect:UntagResource
+```
+

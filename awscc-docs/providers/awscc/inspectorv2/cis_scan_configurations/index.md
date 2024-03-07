@@ -35,22 +35,6 @@ Retrieves a list of <code>cis_scan_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cis_scan_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-inspector2:CreateCisScanConfiguration,
-inspector2:ListCisScanConfigurations,
-inspector2:TagResource</pre>
-
-### List
-<pre>
-inspector2:ListCisScanConfigurations,
-inspector2:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.inspectorv2.cis_scan_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>cis_scan_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+inspector2:CreateCisScanConfiguration,
+inspector2:ListCisScanConfigurations,
+inspector2:TagResource
+```
+
+### List
+```json
+inspector2:ListCisScanConfigurations,
+inspector2:ListTagsForResource
+```
+

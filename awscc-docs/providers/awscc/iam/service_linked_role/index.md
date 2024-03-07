@@ -38,26 +38,6 @@ Gets an individual <code>service_linked_role</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_linked_role</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetRole</pre>
-
-### Update
-<pre>
-iam:UpdateRole,
-iam:GetRole</pre>
-
-### Delete
-<pre>
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus,
-iam:GetRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +47,28 @@ custom_suffix,
 description,
 a_ws_service_name
 FROM awscc.iam.service_linked_role
-WHERE data__Identifier = '&lt;RoleName&gt;'
+WHERE data__Identifier = '{RoleName}';
 ```
+
+## Permissions
+
+To operate on the <code>service_linked_role</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetRole
+```
+
+### Update
+```json
+iam:UpdateRole,
+iam:GetRole
+```
+
+### Delete
+```json
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus,
+iam:GetRole
+```
+

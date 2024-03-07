@@ -36,21 +36,6 @@ Retrieves a list of <code>aggregation_authorizations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>aggregation_authorizations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-config:DescribeAggregationAuthorizations,
-config:PutAggregationAuthorization,
-config:TagResource</pre>
-
-### List
-<pre>
-config:DescribeAggregationAuthorizations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ authorized_aws_region
 FROM awscc.config.aggregation_authorizations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>aggregation_authorizations</code> resource, the following permissions are required:
+
+### Create
+```json
+config:DescribeAggregationAuthorizations,
+config:PutAggregationAuthorization,
+config:TagResource
+```
+
+### List
+```json
+config:DescribeAggregationAuthorizations
+```
+

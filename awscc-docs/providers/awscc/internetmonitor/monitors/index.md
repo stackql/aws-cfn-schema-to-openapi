@@ -35,12 +35,21 @@ Retrieves a list of <code>monitors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+monitor_name
+FROM awscc.internetmonitor.monitors
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>monitors</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 internetmonitor:CreateMonitor,
 internetmonitor:GetMonitor,
 internetmonitor:TagResource,
@@ -50,20 +59,13 @@ logs:GetLogDelivery,
 s3:GetBucketPolicy,
 s3:PutBucketPolicy,
 s3:ListBucket,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### List
-<pre>
+```json
 internetmonitor:ListMonitors,
 internetmonitor:GetMonitor,
-logs:GetLogDelivery</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-monitor_name
-FROM awscc.internetmonitor.monitors
-WHERE region = 'us-east-1'
+logs:GetLogDelivery
 ```
+

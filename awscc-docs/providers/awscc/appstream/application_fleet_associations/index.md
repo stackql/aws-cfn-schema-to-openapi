@@ -36,16 +36,6 @@ Retrieves a list of <code>application_fleet_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_fleet_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appstream:AssociateApplicationFleet,
-appstream:DescribeApplicationFleetAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -55,3 +45,14 @@ application_arn
 FROM awscc.appstream.application_fleet_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>application_fleet_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+appstream:AssociateApplicationFleet,
+appstream:DescribeApplicationFleetAssociations
+```
+

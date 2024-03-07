@@ -35,23 +35,6 @@ Retrieves a list of <code>detectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>detectors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-guardduty:CreateDetector,
-guardduty:GetDetector,
-guardduty:TagResource,
-iam:CreateServiceLinkedRole,
-iam:GetRole</pre>
-
-### List
-<pre>
-guardduty:ListDetectors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ id
 FROM awscc.guardduty.detectors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>detectors</code> resource, the following permissions are required:
+
+### Create
+```json
+guardduty:CreateDetector,
+guardduty:GetDetector,
+guardduty:TagResource,
+iam:CreateServiceLinkedRole,
+iam:GetRole
+```
+
+### List
+```json
+guardduty:ListDetectors
+```
+

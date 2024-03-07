@@ -39,28 +39,6 @@ Gets an individual <code>data_catalog</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_catalog</code> resource, the following permissions are required:
-
-### Read
-<pre>
-athena:GetDataCatalog,
-athena:ListTagsForResource</pre>
-
-### Update
-<pre>
-athena:UpdateDataCatalog,
-athena:TagResource,
-athena:GetDataCatalog,
-athena:UntagResource,
-athena:ListTagsForResource</pre>
-
-### Delete
-<pre>
-athena:DeleteDataCatalog</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +50,30 @@ tags,
 type
 FROM awscc.athena.data_catalog
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>data_catalog</code> resource, the following permissions are required:
+
+### Read
+```json
+athena:GetDataCatalog,
+athena:ListTagsForResource
+```
+
+### Update
+```json
+athena:UpdateDataCatalog,
+athena:TagResource,
+athena:GetDataCatalog,
+athena:UntagResource,
+athena:ListTagsForResource
+```
+
+### Delete
+```json
+athena:DeleteDataCatalog
+```
+

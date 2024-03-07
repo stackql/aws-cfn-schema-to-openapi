@@ -35,27 +35,6 @@ Retrieves a list of <code>resource_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cloudformation:DescribeTypeRegistration,
-cloudformation:RegisterType,
-iam:PassRole,
-s3:GetObject,
-s3:ListBucket,
-kms:Decrypt,
-cloudformation:ListTypeVersions,
-cloudformation:DeregisterType,
-cloudformation:DescribeType</pre>
-
-### List
-<pre>
-cloudformation:ListTypes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ arn
 FROM awscc.cloudformation.resource_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resource_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudformation:DescribeTypeRegistration,
+cloudformation:RegisterType,
+iam:PassRole,
+s3:GetObject,
+s3:ListBucket,
+kms:Decrypt,
+cloudformation:ListTypeVersions,
+cloudformation:DeregisterType,
+cloudformation:DescribeType
+```
+
+### List
+```json
+cloudformation:ListTypes
+```
+

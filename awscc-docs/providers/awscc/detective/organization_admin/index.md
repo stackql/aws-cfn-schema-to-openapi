@@ -36,26 +36,6 @@ Gets an individual <code>organization_admin</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>organization_admin</code> resource, the following permissions are required:
-
-### Read
-<pre>
-detective:ListOrganizationAdminAccount,
-organizations:DescribeOrganization</pre>
-
-### Update
-<pre>
-</pre>
-
-### Delete
-<pre>
-detective:DisableOrganizationAdminAccount,
-detective:ListOrganizationAdminAccount,
-organizations:DescribeOrganization</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +44,23 @@ account_id,
 graph_arn
 FROM awscc.detective.organization_admin
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccountId&gt;'
+AND data__Identifier = '{AccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>organization_admin</code> resource, the following permissions are required:
+
+### Read
+```json
+detective:ListOrganizationAdminAccount,
+organizations:DescribeOrganization
+```
+
+### Delete
+```json
+detective:DisableOrganizationAdminAccount,
+detective:ListOrganizationAdminAccount,
+organizations:DescribeOrganization
+```
+

@@ -40,29 +40,6 @@ Gets an individual <code>outcome</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>outcome</code> resource, the following permissions are required:
-
-### Read
-<pre>
-frauddetector:GetOutcomes,
-frauddetector:ListTagsForResource</pre>
-
-### Update
-<pre>
-frauddetector:GetOutcomes,
-frauddetector:PutOutcome,
-frauddetector:ListTagsForResource,
-frauddetector:TagResource,
-frauddetector:UntagResource</pre>
-
-### Delete
-<pre>
-frauddetector:GetOutcomes,
-frauddetector:DeleteOutcome</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ created_time,
 last_updated_time
 FROM awscc.frauddetector.outcome
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>outcome</code> resource, the following permissions are required:
+
+### Read
+```json
+frauddetector:GetOutcomes,
+frauddetector:ListTagsForResource
+```
+
+### Update
+```json
+frauddetector:GetOutcomes,
+frauddetector:PutOutcome,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource
+```
+
+### Delete
+```json
+frauddetector:GetOutcomes,
+frauddetector:DeleteOutcome
+```
+

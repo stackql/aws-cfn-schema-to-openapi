@@ -35,12 +35,21 @@ Retrieves a list of <code>trails</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+trail_name
+FROM awscc.cloudtrail.trails
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>trails</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 CloudTrail:CreateTrail,
 CloudTrail:StartLogging,
 CloudTrail:AddTags,
@@ -50,24 +59,17 @@ iam:GetRole,
 iam:PassRole,
 iam:CreateServiceLinkedRole,
 organizations:DescribeOrganization,
-organizations:ListAWSServiceAccessForOrganization</pre>
+organizations:ListAWSServiceAccessForOrganization
+```
 
 ### List
-<pre>
+```json
 CloudTrail:ListTrails,
 CloudTrail:GetTrail,
 CloudTrail:GetTrailStatus,
 CloudTrail:ListTags,
 CloudTrail:GetEventSelectors,
 CloudTrail:GetInsightSelectors,
-CloudTrail:DescribeTrails</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-trail_name
-FROM awscc.cloudtrail.trails
-WHERE region = 'us-east-1'
+CloudTrail:DescribeTrails
 ```
+

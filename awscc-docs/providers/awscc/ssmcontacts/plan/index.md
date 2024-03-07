@@ -38,27 +38,6 @@ Gets an individual <code>plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-contacts:GetContact</pre>
-
-### Update
-<pre>
-ssm-contacts:UpdateContact,
-ssm-contacts:GetContact,
-ssm-contacts:AssociateContact</pre>
-
-### Delete
-<pre>
-ssm-contacts:UpdateContact,
-ssm-contacts:GetContact,
-ssm-contacts:AssociateContact</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +48,29 @@ rotation_ids,
 arn
 FROM awscc.ssmcontacts.plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>plan</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-contacts:GetContact
+```
+
+### Update
+```json
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact
+```
+
+### Delete
+```json
+ssm-contacts:UpdateContact,
+ssm-contacts:GetContact,
+ssm-contacts:AssociateContact
+```
+

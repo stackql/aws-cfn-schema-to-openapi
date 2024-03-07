@@ -43,33 +43,6 @@ Gets an individual <code>rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:PassRole,
-events:DescribeRule,
-events:ListTargetsByRule</pre>
-
-### Update
-<pre>
-iam:PassRole,
-events:DescribeRule,
-events:PutRule,
-events:RemoveTargets,
-events:PutTargets</pre>
-
-### Delete
-<pre>
-iam:PassRole,
-events:DescribeRule,
-events:DeleteRule,
-events:RemoveTargets,
-events:ListTargetsByRule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +58,35 @@ role_arn,
 name
 FROM awscc.events.rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>rule</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:PassRole,
+events:DescribeRule,
+events:ListTargetsByRule
+```
+
+### Update
+```json
+iam:PassRole,
+events:DescribeRule,
+events:PutRule,
+events:RemoveTargets,
+events:PutTargets
+```
+
+### Delete
+```json
+iam:PassRole,
+events:DescribeRule,
+events:DeleteRule,
+events:RemoveTargets,
+events:ListTargetsByRule
+```
+

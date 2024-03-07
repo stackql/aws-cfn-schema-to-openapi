@@ -47,31 +47,6 @@ Gets an individual <code>fuota_task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fuota_task</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetFuotaTask,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:PassRole,
-iotwireless:UpdateFuotaTask,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource,
-iotwireless:AssociateMulticastGroupWithFuotaTask,
-iotwireless:DisassociateMulticastGroupFromFuotaTask,
-iotwireless:AssociateWirelessDeviceWithFuotaTask,
-iotwireless:DisassociateWirelessDeviceFromFuotaTask</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteFuotaTask</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +66,33 @@ associate_multicast_group,
 disassociate_multicast_group
 FROM awscc.iotwireless.fuota_task
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>fuota_task</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetFuotaTask,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iam:PassRole,
+iotwireless:UpdateFuotaTask,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateMulticastGroupWithFuotaTask,
+iotwireless:DisassociateMulticastGroupFromFuotaTask,
+iotwireless:AssociateWirelessDeviceWithFuotaTask,
+iotwireless:DisassociateWirelessDeviceFromFuotaTask
+```
+
+### Delete
+```json
+iotwireless:DeleteFuotaTask
+```
+

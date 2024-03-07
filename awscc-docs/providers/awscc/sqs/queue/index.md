@@ -52,29 +52,6 @@ Gets an individual <code>queue</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>queue</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sqs:GetQueueAttributes,
-sqs:ListQueueTags</pre>
-
-### Update
-<pre>
-sqs:SetQueueAttributes,
-sqs:GetQueueAttributes,
-sqs:ListQueueTags,
-sqs:TagQueue,
-sqs:UntagQueue</pre>
-
-### Delete
-<pre>
-sqs:DeleteQueue,
-sqs:GetQueueAttributes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -99,5 +76,31 @@ tags,
 visibility_timeout
 FROM awscc.sqs.queue
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;QueueUrl&gt;'
+AND data__Identifier = '{QueueUrl}';
 ```
+
+## Permissions
+
+To operate on the <code>queue</code> resource, the following permissions are required:
+
+### Read
+```json
+sqs:GetQueueAttributes,
+sqs:ListQueueTags
+```
+
+### Update
+```json
+sqs:SetQueueAttributes,
+sqs:GetQueueAttributes,
+sqs:ListQueueTags,
+sqs:TagQueue,
+sqs:UntagQueue
+```
+
+### Delete
+```json
+sqs:DeleteQueue,
+sqs:GetQueueAttributes
+```
+

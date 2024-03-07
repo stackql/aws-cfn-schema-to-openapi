@@ -35,24 +35,6 @@ Retrieves a list of <code>thing_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>thing_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:DescribeThingGroup,
-iot:ListTagsForResource,
-iot:CreateThingGroup,
-iot:CreateDynamicThingGroup,
-iot:TagResource</pre>
-
-### List
-<pre>
-iot:ListThingGroups,
-iot:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ thing_group_name
 FROM awscc.iot.thing_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>thing_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:DescribeThingGroup,
+iot:ListTagsForResource,
+iot:CreateThingGroup,
+iot:CreateDynamicThingGroup,
+iot:TagResource
+```
+
+### List
+```json
+iot:ListThingGroups,
+iot:ListTagsForResource
+```
+

@@ -35,21 +35,6 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>clusters</code> resource, the following permissions are required:
-
-### Create
-<pre>
-memorydb:CreateCluster,
-memorydb:DescribeClusters,
-memorydb:ListTags</pre>
-
-### List
-<pre>
-memorydb:DescribeClusters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ cluster_name
 FROM awscc.memorydb.clusters
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>clusters</code> resource, the following permissions are required:
+
+### Create
+```json
+memorydb:CreateCluster,
+memorydb:DescribeClusters,
+memorydb:ListTags
+```
+
+### List
+```json
+memorydb:DescribeClusters
+```
+

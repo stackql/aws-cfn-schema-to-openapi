@@ -51,35 +51,6 @@ Gets an individual <code>analysis</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analysis</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeAnalysis,
-quicksight:DescribeAnalysisPermissions,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeAnalysis,
-quicksight:DescribeAnalysisPermissions,
-quicksight:UpdateAnalysis,
-quicksight:UpdateAnalysisPermissions,
-quicksight:DescribeTemplate,
-quicksight:DescribeTheme,
-quicksight:PassDataSet,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### Delete
-<pre>
-quicksight:DescribeAnalysis,
-quicksight:DeleteAnalysis</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -103,6 +74,38 @@ theme_arn,
 validation_strategy
 FROM awscc.quicksight.analysis
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AnalysisId&gt;'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
+AND data__Identifier = '{AnalysisId}';
+AND data__Identifier = '{AwsAccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>analysis</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeAnalysis,
+quicksight:DescribeAnalysisPermissions,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeAnalysis,
+quicksight:DescribeAnalysisPermissions,
+quicksight:UpdateAnalysis,
+quicksight:UpdateAnalysisPermissions,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### Delete
+```json
+quicksight:DescribeAnalysis,
+quicksight:DeleteAnalysis
+```
+

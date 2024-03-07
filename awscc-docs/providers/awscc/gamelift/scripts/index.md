@@ -35,24 +35,6 @@ Retrieves a list of <code>scripts</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scripts</code> resource, the following permissions are required:
-
-### Create
-<pre>
-gamelift:CreateScript,
-gamelift:ListTagsForResource,
-gamelift:TagResource,
-gamelift:DescribeScript,
-iam:PassRole</pre>
-
-### List
-<pre>
-gamelift:ListScripts,
-gamelift:DescribeScript</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.gamelift.scripts
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>scripts</code> resource, the following permissions are required:
+
+### Create
+```json
+gamelift:CreateScript,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:DescribeScript,
+iam:PassRole
+```
+
+### List
+```json
+gamelift:ListScripts,
+gamelift:DescribeScript
+```
+

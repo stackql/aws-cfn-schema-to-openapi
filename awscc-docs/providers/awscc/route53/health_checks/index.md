@@ -35,23 +35,6 @@ Retrieves a list of <code>health_checks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>health_checks</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53:CreateHealthCheck,
-route53:ChangeTagsForResource,
-cloudwatch:DescribeAlarms,
-route53-recovery-control-config:DescribeRoutingControl</pre>
-
-### List
-<pre>
-route53:ListHealthChecks,
-route53:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ health_check_id
 FROM awscc.route53.health_checks
 
 ```
+
+## Permissions
+
+To operate on the <code>health_checks</code> resource, the following permissions are required:
+
+### Create
+```json
+route53:CreateHealthCheck,
+route53:ChangeTagsForResource,
+cloudwatch:DescribeAlarms,
+route53-recovery-control-config:DescribeRoutingControl
+```
+
+### List
+```json
+route53:ListHealthChecks,
+route53:ListTagsForResource
+```
+

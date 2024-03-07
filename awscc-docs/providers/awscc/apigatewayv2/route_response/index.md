@@ -41,26 +41,6 @@ Gets an individual <code>route_response</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>route_response</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,7 +54,30 @@ response_models,
 route_response_id
 FROM awscc.apigatewayv2.route_response
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiId&gt;'
-AND data__Identifier = '&lt;RouteId&gt;'
-AND data__Identifier = '&lt;RouteResponseId&gt;'
+AND data__Identifier = '{ApiId}';
+AND data__Identifier = '{RouteId}';
+AND data__Identifier = '{RouteResponseId}';
 ```
+
+## Permissions
+
+To operate on the <code>route_response</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

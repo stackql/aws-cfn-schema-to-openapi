@@ -35,21 +35,6 @@ Retrieves a list of <code>dedicated_ip_pools</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dedicated_ip_pools</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ses:CreateDedicatedIpPool,
-ses:GetDedicatedIpPool,
-ses:GetDedicatedIps</pre>
-
-### List
-<pre>
-ses:ListDedicatedIpPools</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ pool_name
 FROM awscc.ses.dedicated_ip_pools
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>dedicated_ip_pools</code> resource, the following permissions are required:
+
+### Create
+```json
+ses:CreateDedicatedIpPool,
+ses:GetDedicatedIpPool,
+ses:GetDedicatedIps
+```
+
+### List
+```json
+ses:ListDedicatedIpPools
+```
+

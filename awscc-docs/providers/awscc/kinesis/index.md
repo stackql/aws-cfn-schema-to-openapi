@@ -31,7 +31,7 @@ The kinesis service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/awscc/kinesis/stream/">stream</a>
+<a href="/providers/awscc/kinesis/kinesis_stream/">kinesis_stream</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/awscc/kinesis/streams/">streams</a>

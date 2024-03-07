@@ -46,28 +46,6 @@ Gets an individual <code>wireless_device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>wireless_device</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetWirelessDevice,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdateWirelessDevice,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource,
-iotwireless:AssociateWirelessDeviceWithThing</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteWirelessDevice,
-iotwireless:DisassociateWirelessDeviceFromThing</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +64,30 @@ last_uplink_received_at,
 positioning
 FROM awscc.iotwireless.wireless_device
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>wireless_device</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetWirelessDevice,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdateWirelessDevice,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateWirelessDeviceWithThing
+```
+
+### Delete
+```json
+iotwireless:DeleteWirelessDevice,
+iotwireless:DisassociateWirelessDeviceFromThing
+```
+

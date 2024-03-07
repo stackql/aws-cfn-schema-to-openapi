@@ -35,12 +35,21 @@ Retrieves a list of <code>connector_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+connector_profile_name
+FROM awscc.appflow.connector_profiles
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>connector_profiles</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 appflow:CreateConnectorProfile,
 kms:ListKeys,
 kms:DescribeKey,
@@ -50,18 +59,11 @@ kms:ListGrants,
 iam:PassRole,
 secretsmanager:CreateSecret,
 secretsmanager:GetSecretValue,
-secretsmanager:PutResourcePolicy</pre>
+secretsmanager:PutResourcePolicy
+```
 
 ### List
-<pre>
-appflow:DescribeConnectorProfiles</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-connector_profile_name
-FROM awscc.appflow.connector_profiles
-WHERE region = 'us-east-1'
+```json
+appflow:DescribeConnectorProfiles
 ```
+

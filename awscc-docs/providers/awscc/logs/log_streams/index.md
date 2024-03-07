@@ -36,19 +36,6 @@ Retrieves a list of <code>log_streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>log_streams</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:CreateLogStream</pre>
-
-### List
-<pre>
-logs:DescribeLogStreams</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ log_stream_name
 FROM awscc.logs.log_streams
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>log_streams</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:CreateLogStream
+```
+
+### List
+```json
+logs:DescribeLogStreams
+```
+

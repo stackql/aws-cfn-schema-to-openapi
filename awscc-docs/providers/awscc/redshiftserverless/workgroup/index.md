@@ -46,49 +46,6 @@ Gets an individual <code>workgroup</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>workgroup</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ec2:DescribeVpcAttribute,
-ec2:DescribeSecurityGroups,
-ec2:DescribeAddresses,
-ec2:DescribeInternetGateways,
-ec2:DescribeSubnets,
-ec2:DescribeAccountAttributes,
-ec2:DescribeAvailabilityZones,
-redshift-serverless:GetWorkgroup</pre>
-
-### Update
-<pre>
-ec2:DescribeVpcAttribute,
-ec2:DescribeSecurityGroups,
-ec2:DescribeAddresses,
-ec2:DescribeInternetGateways,
-ec2:DescribeSubnets,
-ec2:DescribeAccountAttributes,
-ec2:DescribeAvailabilityZones,
-redshift-serverless:ListTagsForResource,
-redshift-serverless:TagResource,
-redshift-serverless:UntagResource,
-redshift-serverless:GetWorkgroup,
-redshift-serverless:UpdateWorkgroup</pre>
-
-### Delete
-<pre>
-ec2:DescribeVpcAttribute,
-ec2:DescribeSecurityGroups,
-ec2:DescribeAddresses,
-ec2:DescribeInternetGateways,
-ec2:DescribeSubnets,
-ec2:DescribeAccountAttributes,
-ec2:DescribeAvailabilityZones,
-redshift-serverless:GetWorkgroup,
-redshift-serverless:DeleteWorkgroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -107,5 +64,51 @@ tags,
 workgroup
 FROM awscc.redshiftserverless.workgroup
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkgroupName&gt;'
+AND data__Identifier = '{WorkgroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>workgroup</code> resource, the following permissions are required:
+
+### Read
+```json
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAvailabilityZones,
+redshift-serverless:GetWorkgroup
+```
+
+### Update
+```json
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAvailabilityZones,
+redshift-serverless:ListTagsForResource,
+redshift-serverless:TagResource,
+redshift-serverless:UntagResource,
+redshift-serverless:GetWorkgroup,
+redshift-serverless:UpdateWorkgroup
+```
+
+### Delete
+```json
+ec2:DescribeVpcAttribute,
+ec2:DescribeSecurityGroups,
+ec2:DescribeAddresses,
+ec2:DescribeInternetGateways,
+ec2:DescribeSubnets,
+ec2:DescribeAccountAttributes,
+ec2:DescribeAvailabilityZones,
+redshift-serverless:GetWorkgroup,
+redshift-serverless:DeleteWorkgroup
+```
+

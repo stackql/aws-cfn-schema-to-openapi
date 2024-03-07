@@ -35,20 +35,6 @@ Retrieves a list of <code>security_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticmapreduce:CreateSecurityConfiguration,
-elasticmapreduce:DescribeSecurityConfiguration</pre>
-
-### List
-<pre>
-elasticmapreduce:ListSecurityConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ name
 FROM awscc.emr.security_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>security_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticmapreduce:CreateSecurityConfiguration,
+elasticmapreduce:DescribeSecurityConfiguration
+```
+
+### List
+```json
+elasticmapreduce:ListSecurityConfigurations
+```
+

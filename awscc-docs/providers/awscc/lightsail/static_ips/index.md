@@ -35,24 +35,6 @@ Retrieves a list of <code>static_ips</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>static_ips</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lightsail:AllocateStaticIp,
-lightsail:AttachStaticIp,
-lightsail:DetachStaticIp,
-lightsail:GetInstance,
-lightsail:GetStaticIp,
-lightsail:GetStaticIps</pre>
-
-### List
-<pre>
-lightsail:GetStaticIps</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ static_ip_name
 FROM awscc.lightsail.static_ips
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>static_ips</code> resource, the following permissions are required:
+
+### Create
+```json
+lightsail:AllocateStaticIp,
+lightsail:AttachStaticIp,
+lightsail:DetachStaticIp,
+lightsail:GetInstance,
+lightsail:GetStaticIp,
+lightsail:GetStaticIps
+```
+
+### List
+```json
+lightsail:GetStaticIps
+```
+

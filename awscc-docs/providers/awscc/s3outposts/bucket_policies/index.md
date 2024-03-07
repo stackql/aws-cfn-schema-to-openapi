@@ -35,16 +35,6 @@ Retrieves a list of <code>bucket_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bucket_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3-outposts:PutBucketPolicy,
-s3-outposts:GetBucketPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -53,3 +43,14 @@ bucket
 FROM awscc.s3outposts.bucket_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>bucket_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+s3-outposts:PutBucketPolicy,
+s3-outposts:GetBucketPolicy
+```
+

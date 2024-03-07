@@ -40,27 +40,6 @@ Gets an individual <code>db_proxy_target_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_proxy_target_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBProxyTargetGroups,
-rds:DescribeDBProxyTargets</pre>
-
-### Update
-<pre>
-rds:DescribeDBProxyTargetGroups,
-rds:ModifyDBProxyTargetGroup,
-rds:RegisterDBProxyTargets,
-rds:DeregisterDBProxyTargets</pre>
-
-### Delete
-<pre>
-rds:DeregisterDBProxyTargets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ d_binstance_identifiers,
 d_bcluster_identifiers
 FROM awscc.rds.db_proxy_target_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TargetGroupArn&gt;'
+AND data__Identifier = '{TargetGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>db_proxy_target_group</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBProxyTargetGroups,
+rds:DescribeDBProxyTargets
+```
+
+### Update
+```json
+rds:DescribeDBProxyTargetGroups,
+rds:ModifyDBProxyTargetGroup,
+rds:RegisterDBProxyTargets,
+rds:DeregisterDBProxyTargets
+```
+
+### Delete
+```json
+rds:DeregisterDBProxyTargets
+```
+

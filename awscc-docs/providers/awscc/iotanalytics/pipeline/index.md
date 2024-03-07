@@ -38,26 +38,6 @@ Gets an individual <code>pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipeline</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotanalytics:DescribePipeline,
-iotanalytics:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotanalytics:UpdatePipeline,
-iotanalytics:TagResource,
-iotanalytics:UntagResource</pre>
-
-### Delete
-<pre>
-iotanalytics:DeletePipeline</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +48,28 @@ tags,
 pipeline_activities
 FROM awscc.iotanalytics.pipeline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PipelineName&gt;'
+AND data__Identifier = '{PipelineName}';
 ```
+
+## Permissions
+
+To operate on the <code>pipeline</code> resource, the following permissions are required:
+
+### Read
+```json
+iotanalytics:DescribePipeline,
+iotanalytics:ListTagsForResource
+```
+
+### Update
+```json
+iotanalytics:UpdatePipeline,
+iotanalytics:TagResource,
+iotanalytics:UntagResource
+```
+
+### Delete
+```json
+iotanalytics:DeletePipeline
+```
+

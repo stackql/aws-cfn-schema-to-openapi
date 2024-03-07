@@ -35,21 +35,6 @@ Retrieves a list of <code>users</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>users</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateUser,
-connect:TagResource,
-connect:AssociateUserProficiencies</pre>
-
-### List
-<pre>
-connect:ListUsers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ user_arn
 FROM awscc.connect.users
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>users</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateUser,
+connect:TagResource,
+connect:AssociateUserProficiencies
+```
+
+### List
+```json
+connect:ListUsers
+```
+

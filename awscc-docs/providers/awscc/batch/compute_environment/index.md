@@ -45,32 +45,6 @@ Gets an individual <code>compute_environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>compute_environment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-Batch:DescribeComputeEnvironments</pre>
-
-### Update
-<pre>
-Batch:UpdateComputeEnvironment,
-Batch:DescribeComputeEnvironments,
-Batch:TagResource,
-Batch:UnTagResource,
-Iam:PassRole,
-Eks:DescribeCluster</pre>
-
-### Delete
-<pre>
-Batch:DeleteComputeEnvironment,
-Batch:DescribeComputeEnvironments,
-Batch:UpdateComputeEnvironment,
-Iam:PassRole,
-Eks:DescribeCluster</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +62,34 @@ unmanagedv_cpus,
 eks_configuration
 FROM awscc.batch.compute_environment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ComputeEnvironmentArn&gt;'
+AND data__Identifier = '{ComputeEnvironmentArn}';
 ```
+
+## Permissions
+
+To operate on the <code>compute_environment</code> resource, the following permissions are required:
+
+### Read
+```json
+Batch:DescribeComputeEnvironments
+```
+
+### Update
+```json
+Batch:UpdateComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:TagResource,
+Batch:UnTagResource,
+Iam:PassRole,
+Eks:DescribeCluster
+```
+
+### Delete
+```json
+Batch:DeleteComputeEnvironment,
+Batch:DescribeComputeEnvironments,
+Batch:UpdateComputeEnvironment,
+Iam:PassRole,
+Eks:DescribeCluster
+```
+

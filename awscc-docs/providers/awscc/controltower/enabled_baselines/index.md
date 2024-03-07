@@ -35,12 +35,21 @@ Retrieves a list of <code>enabled_baselines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+enabled_baseline_identifier
+FROM awscc.controltower.enabled_baselines
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>enabled_baselines</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 controltower:EnableBaseline,
 controltower:TagResource,
 controltower:GetBaselineOperation,
@@ -67,18 +76,11 @@ servicecatalog:SearchProductsAsAdmin,
 servicecatalog:UpdatePortfolio,
 servicecatalog:UpdateProvisioningArtifact,
 servicecatalog:ListPrincipalsForPortfolio,
-servicecatalog:DeleteProvisioningArtifact</pre>
+servicecatalog:DeleteProvisioningArtifact
+```
 
 ### List
-<pre>
-controltower:ListEnabledBaselines</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-enabled_baseline_identifier
-FROM awscc.controltower.enabled_baselines
-WHERE region = 'us-east-1'
+```json
+controltower:ListEnabledBaselines
 ```
+

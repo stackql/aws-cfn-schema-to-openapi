@@ -35,21 +35,6 @@ Retrieves a list of <code>cidr_collections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cidr_collections</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53:CreateCidrCollection,
-route53:ChangeCidrCollection</pre>
-
-### List
-<pre>
-route53:ListCidrCollections,
-route53:ListCidrBlocks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.route53.cidr_collections
 
 ```
+
+## Permissions
+
+To operate on the <code>cidr_collections</code> resource, the following permissions are required:
+
+### Create
+```json
+route53:CreateCidrCollection,
+route53:ChangeCidrCollection
+```
+
+### List
+```json
+route53:ListCidrCollections,
+route53:ListCidrBlocks
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+resource_arn
+FROM awscc.wafv2.logging_configurations
+
+```
+
 ## Permissions
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 wafv2:PutLoggingConfiguration,
 wafv2:GetLoggingConfiguration,
 firehose:ListDeliveryStreams,
@@ -51,18 +60,11 @@ s3:PutBucketPolicy,
 s3:GetBucketPolicy,
 logs:PutResourcePolicy,
 logs:DescribeResourcePolicies,
-logs:DescribeLogGroups</pre>
+logs:DescribeLogGroups
+```
 
 ### List
-<pre>
-wafv2:ListLoggingConfigurations</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-resource_arn
-FROM awscc.wafv2.logging_configurations
-
+```json
+wafv2:ListLoggingConfigurations
 ```
+

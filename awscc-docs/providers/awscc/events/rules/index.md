@@ -35,22 +35,6 @@ Retrieves a list of <code>rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-events:DescribeRule,
-events:PutRule,
-events:PutTargets</pre>
-
-### List
-<pre>
-events:ListRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.events.rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>rules</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+events:DescribeRule,
+events:PutRule,
+events:PutTargets
+```
+
+### List
+```json
+events:ListRules
+```
+

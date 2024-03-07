@@ -37,25 +37,6 @@ Gets an individual <code>public_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>public_key</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeletePublicKey,
-cloudfront:GetPublicKey</pre>
-
-### Read
-<pre>
-cloudfront:GetPublicKey</pre>
-
-### Update
-<pre>
-cloudfront:UpdatePublicKey,
-cloudfront:GetPublicKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ created_time,
 id,
 public_key_config
 FROM awscc.cloudfront.public_key
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>public_key</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeletePublicKey,
+cloudfront:GetPublicKey
+```
+
+### Read
+```json
+cloudfront:GetPublicKey
+```
+
+### Update
+```json
+cloudfront:UpdatePublicKey,
+cloudfront:GetPublicKey
+```
+

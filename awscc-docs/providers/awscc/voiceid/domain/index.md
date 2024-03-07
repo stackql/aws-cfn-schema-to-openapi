@@ -39,34 +39,6 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain</code> resource, the following permissions are required:
-
-### Read
-<pre>
-voiceid:DescribeDomain,
-voiceid:ListTagsForResource,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-voiceid:DescribeDomain,
-voiceid:UpdateDomain,
-voiceid:TagResource,
-voiceid:UntagResource,
-voiceid:ListTagsForResource,
-kms:CreateGrant,
-kms:Decrypt,
-kms:DescribeKey</pre>
-
-### Delete
-<pre>
-voiceid:DeleteDomain,
-voiceid:DescribeDomain,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +50,36 @@ server_side_encryption_configuration,
 tags
 FROM awscc.voiceid.domain
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainId&gt;'
+AND data__Identifier = '{DomainId}';
 ```
+
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+```json
+voiceid:DescribeDomain,
+voiceid:ListTagsForResource,
+kms:Decrypt
+```
+
+### Update
+```json
+voiceid:DescribeDomain,
+voiceid:UpdateDomain,
+voiceid:TagResource,
+voiceid:UntagResource,
+voiceid:ListTagsForResource,
+kms:CreateGrant,
+kms:Decrypt,
+kms:DescribeKey
+```
+
+### Delete
+```json
+voiceid:DeleteDomain,
+voiceid:DescribeDomain,
+kms:Decrypt
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>workgroups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+workgroup_name
+FROM awscc.redshiftserverless.workgroups
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>workgroups</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ec2:DescribeVpcAttribute,
 ec2:DescribeSecurityGroups,
 ec2:DescribeAddresses,
@@ -50,10 +59,11 @@ ec2:DescribeAccountAttributes,
 ec2:DescribeAvailabilityZones,
 redshift-serverless:CreateNamespace,
 redshift-serverless:CreateWorkgroup,
-redshift-serverless:GetWorkgroup</pre>
+redshift-serverless:GetWorkgroup
+```
 
 ### List
-<pre>
+```json
 ec2:DescribeVpcAttribute,
 ec2:DescribeSecurityGroups,
 ec2:DescribeAddresses,
@@ -61,14 +71,6 @@ ec2:DescribeInternetGateways,
 ec2:DescribeSubnets,
 ec2:DescribeAccountAttributes,
 ec2:DescribeAvailabilityZones,
-redshift-serverless:ListWorkgroups</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-workgroup_name
-FROM awscc.redshiftserverless.workgroups
-WHERE region = 'us-east-1'
+redshift-serverless:ListWorkgroups
 ```
+

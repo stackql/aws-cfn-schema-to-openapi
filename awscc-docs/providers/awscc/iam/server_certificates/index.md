@@ -35,22 +35,6 @@ Retrieves a list of <code>server_certificates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>server_certificates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:UploadServerCertificate,
-iam:TagServerCertificate,
-iam:GetServerCertificate</pre>
-
-### List
-<pre>
-iam:ListServerCertificates,
-iam:GetServerCertificate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ server_certificate_name
 FROM awscc.iam.server_certificates
 
 ```
+
+## Permissions
+
+To operate on the <code>server_certificates</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:UploadServerCertificate,
+iam:TagServerCertificate,
+iam:GetServerCertificate
+```
+
+### List
+```json
+iam:ListServerCertificates,
+iam:GetServerCertificate
+```
+

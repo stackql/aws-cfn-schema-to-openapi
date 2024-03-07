@@ -38,20 +38,6 @@ Gets an individual <code>group_membership</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group_membership</code> resource, the following permissions are required:
-
-### Read
-<pre>
-identitystore:DescribeGroupMembership</pre>
-
-### Delete
-<pre>
-identitystore:DeleteGroupMembership,
-identitystore:DescribeGroupMembership</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,6 +48,22 @@ member_id,
 membership_id
 FROM awscc.identitystore.group_membership
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MembershipId&gt;'
-AND data__Identifier = '&lt;IdentityStoreId&gt;'
+AND data__Identifier = '{MembershipId}';
+AND data__Identifier = '{IdentityStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>group_membership</code> resource, the following permissions are required:
+
+### Read
+```json
+identitystore:DescribeGroupMembership
+```
+
+### Delete
+```json
+identitystore:DeleteGroupMembership,
+identitystore:DescribeGroupMembership
+```
+

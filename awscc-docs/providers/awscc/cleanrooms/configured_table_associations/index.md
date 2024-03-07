@@ -36,24 +36,6 @@ Retrieves a list of <code>configured_table_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configured_table_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cleanrooms:CreateConfiguredTableAssociation,
-iam:PassRole,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:GetConfiguredTableAssociation,
-cleanrooms:ListConfiguredTableAssociations</pre>
-
-### List
-<pre>
-cleanrooms:ListConfiguredTableAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +45,23 @@ membership_identifier
 FROM awscc.cleanrooms.configured_table_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>configured_table_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+cleanrooms:CreateConfiguredTableAssociation,
+iam:PassRole,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:GetConfiguredTableAssociation,
+cleanrooms:ListConfiguredTableAssociations
+```
+
+### List
+```json
+cleanrooms:ListConfiguredTableAssociations
+```
+

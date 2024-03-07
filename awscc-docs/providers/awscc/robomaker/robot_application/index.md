@@ -41,30 +41,6 @@ Gets an individual <code>robot_application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>robot_application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-robomaker:DescribeRobotApplication</pre>
-
-### Update
-<pre>
-robomaker:TagResource,
-robomaker:UntagResource,
-robomaker:UpdateRobotApplication,
-ecr:BatchGetImage,
-ecr:GetAuthorizationToken,
-ecr:BatchCheckLayerAvailability,
-ecr-public:GetAuthorizationToken</pre>
-
-### Delete
-<pre>
-robomaker:DescribeRobotApplication,
-robomaker:DeleteRobotApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +54,32 @@ arn,
 tags
 FROM awscc.robomaker.robot_application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>robot_application</code> resource, the following permissions are required:
+
+### Read
+```json
+robomaker:DescribeRobotApplication
+```
+
+### Update
+```json
+robomaker:TagResource,
+robomaker:UntagResource,
+robomaker:UpdateRobotApplication,
+ecr:BatchGetImage,
+ecr:GetAuthorizationToken,
+ecr:BatchCheckLayerAvailability,
+ecr-public:GetAuthorizationToken
+```
+
+### Delete
+```json
+robomaker:DescribeRobotApplication,
+robomaker:DeleteRobotApplication
+```
+

@@ -33,8 +33,8 @@ The eventschemas service documentation.
 <div class="providerDocColumn">
 <a href="/providers/awscc/eventschemas/discoverer/">discoverer</a><br />
 <a href="/providers/awscc/eventschemas/discoverers/">discoverers</a><br />
-<a href="/providers/awscc/eventschemas/registries/">registries</a><br />
-<a href="/providers/awscc/eventschemas/registry/">registry</a>
+<a href="/providers/awscc/eventschemas/eventschemas_registry/">eventschemas_registry</a><br />
+<a href="/providers/awscc/eventschemas/registries/">registries</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/awscc/eventschemas/registry_policies/">registry_policies</a><br />

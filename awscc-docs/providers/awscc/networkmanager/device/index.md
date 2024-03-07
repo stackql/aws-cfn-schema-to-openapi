@@ -48,28 +48,6 @@ Gets an individual <code>device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>device</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetDevices</pre>
-
-### Update
-<pre>
-networkmanager:UpdateDevice,
-networkmanager:ListTagsForResource,
-networkmanager:GetDevices,
-networkmanager:TagResource,
-networkmanager:UntagResource</pre>
-
-### Delete
-<pre>
-networkmanager:GetDevices,
-networkmanager:DeleteDevice</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,6 +68,31 @@ created_at,
 state
 FROM awscc.networkmanager.device
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GlobalNetworkId&gt;'
-AND data__Identifier = '&lt;DeviceId&gt;'
+AND data__Identifier = '{GlobalNetworkId}';
+AND data__Identifier = '{DeviceId}';
 ```
+
+## Permissions
+
+To operate on the <code>device</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetDevices
+```
+
+### Update
+```json
+networkmanager:UpdateDevice,
+networkmanager:ListTagsForResource,
+networkmanager:GetDevices,
+networkmanager:TagResource,
+networkmanager:UntagResource
+```
+
+### Delete
+```json
+networkmanager:GetDevices,
+networkmanager:DeleteDevice
+```
+

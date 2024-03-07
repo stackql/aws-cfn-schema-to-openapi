@@ -42,28 +42,6 @@ Gets an individual <code>site</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>site</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetSites</pre>
-
-### Update
-<pre>
-networkmanager:GetSites,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-networkmanager:UpdateSite</pre>
-
-### Delete
-<pre>
-networkmanager:GetSites,
-networkmanager:DeleteSite</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,6 +56,31 @@ created_at,
 state
 FROM awscc.networkmanager.site
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GlobalNetworkId&gt;'
-AND data__Identifier = '&lt;SiteId&gt;'
+AND data__Identifier = '{GlobalNetworkId}';
+AND data__Identifier = '{SiteId}';
 ```
+
+## Permissions
+
+To operate on the <code>site</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetSites
+```
+
+### Update
+```json
+networkmanager:GetSites,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+networkmanager:UpdateSite
+```
+
+### Delete
+```json
+networkmanager:GetSites,
+networkmanager:DeleteSite
+```
+

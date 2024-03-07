@@ -39,29 +39,6 @@ Gets an individual <code>billing_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>billing_group</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-iot:DescribeBillingGroup,
-iot:DeleteBillingGroup</pre>
-
-### Read
-<pre>
-iot:DescribeBillingGroup,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:DescribeBillingGroup,
-iot:UpdateBillingGroup,
-iot:ListTagsForResource,
-iot:TagResource,
-iot:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ tags,
 billing_group_properties
 FROM awscc.iot.billing_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BillingGroupName&gt;'
+AND data__Identifier = '{BillingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>billing_group</code> resource, the following permissions are required:
+
+### Delete
+```json
+iot:DescribeBillingGroup,
+iot:DeleteBillingGroup
+```
+
+### Read
+```json
+iot:DescribeBillingGroup,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:DescribeBillingGroup,
+iot:UpdateBillingGroup,
+iot:ListTagsForResource,
+iot:TagResource,
+iot:UntagResource
+```
+

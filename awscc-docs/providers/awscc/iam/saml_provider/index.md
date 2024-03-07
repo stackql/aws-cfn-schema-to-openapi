@@ -38,27 +38,6 @@ Gets an individual <code>saml_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>saml_provider</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetSAMLProvider</pre>
-
-### Update
-<pre>
-iam:UpdateSAMLProvider,
-iam:GetSAMLProvider,
-iam:TagSAMLProvider,
-iam:ListSAMLProviderTags,
-iam:UntagSAMLProvider</pre>
-
-### Delete
-<pre>
-iam:DeleteSAMLProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +47,29 @@ saml_metadata_document,
 arn,
 tags
 FROM awscc.iam.saml_provider
-WHERE data__Identifier = '&lt;Arn&gt;'
+WHERE data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>saml_provider</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetSAMLProvider
+```
+
+### Update
+```json
+iam:UpdateSAMLProvider,
+iam:GetSAMLProvider,
+iam:TagSAMLProvider,
+iam:ListSAMLProviderTags,
+iam:UntagSAMLProvider
+```
+
+### Delete
+```json
+iam:DeleteSAMLProvider
+```
+

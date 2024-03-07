@@ -37,12 +37,23 @@ Gets an individual <code>drt_access</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+account_id,
+log_bucket_list,
+role_arn
+FROM awscc.shield.drt_access
+WHERE data__Identifier = '{AccountId}';
+```
+
 ## Permissions
 
 To operate on the <code>drt_access</code> resource, the following permissions are required:
 
 ### Delete
-<pre>
+```json
 shield:DescribeDRTAccess,
 shield:DisassociateDRTLogBucket,
 shield:DisassociateDRTRole,
@@ -51,14 +62,16 @@ iam:GetRole,
 iam:ListAttachedRolePolicies,
 s3:GetBucketPolicy,
 s3:PutBucketPolicy,
-s3:DeleteBucketPolicy</pre>
+s3:DeleteBucketPolicy
+```
 
 ### Read
-<pre>
-shield:DescribeDRTAccess</pre>
+```json
+shield:DescribeDRTAccess
+```
 
 ### Update
-<pre>
+```json
 shield:DescribeDRTAccess,
 shield:AssociateDRTLogBucket,
 shield:AssociateDRTRole,
@@ -69,16 +82,6 @@ iam:GetRole,
 iam:ListAttachedRolePolicies,
 s3:GetBucketPolicy,
 s3:PutBucketPolicy,
-s3:DeleteBucketPolicy</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-account_id,
-log_bucket_list,
-role_arn
-FROM awscc.shield.drt_access
-WHERE data__Identifier = '&lt;AccountId&gt;'
+s3:DeleteBucketPolicy
 ```
+

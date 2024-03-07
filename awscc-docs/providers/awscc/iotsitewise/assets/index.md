@@ -35,27 +35,6 @@ Retrieves a list of <code>assets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotsitewise:AssociateAssets,
-iotsitewise:CreateAsset,
-iotsitewise:DescribeAsset,
-iotsitewise:DescribeAssetModel,
-iotsitewise:ListAssociatedAssets,
-iotsitewise:ListTagsForResource,
-iotsitewise:TagResource,
-iotsitewise:UpdateAssetProperty</pre>
-
-### List
-<pre>
-iotsitewise:ListAssetModels,
-iotsitewise:ListAssets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ asset_id
 FROM awscc.iotsitewise.assets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>assets</code> resource, the following permissions are required:
+
+### Create
+```json
+iotsitewise:AssociateAssets,
+iotsitewise:CreateAsset,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel,
+iotsitewise:ListAssociatedAssets,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:UpdateAssetProperty
+```
+
+### List
+```json
+iotsitewise:ListAssetModels,
+iotsitewise:ListAssets
+```
+

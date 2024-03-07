@@ -49,25 +49,6 @@ Gets an individual <code>flow_output</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flow_output</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediaconnect:DescribeFlow</pre>
-
-### Update
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:UpdateFlowOutput</pre>
-
-### Delete
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:RemoveFlowOutput</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +70,27 @@ stream_id,
 vpc_interface_attachment
 FROM awscc.mediaconnect.flow_output
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;OutputArn&gt;'
+AND data__Identifier = '{OutputArn}';
 ```
+
+## Permissions
+
+To operate on the <code>flow_output</code> resource, the following permissions are required:
+
+### Read
+```json
+mediaconnect:DescribeFlow
+```
+
+### Update
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:UpdateFlowOutput
+```
+
+### Delete
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:RemoveFlowOutput
+```
+

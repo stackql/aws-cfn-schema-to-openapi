@@ -40,26 +40,6 @@ Gets an individual <code>model</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,6 +52,29 @@ api_id,
 name
 FROM awscc.apigatewayv2.model
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiId&gt;'
-AND data__Identifier = '&lt;ModelId&gt;'
+AND data__Identifier = '{ApiId}';
+AND data__Identifier = '{ModelId}';
 ```
+
+## Permissions
+
+To operate on the <code>model</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

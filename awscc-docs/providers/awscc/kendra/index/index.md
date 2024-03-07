@@ -46,30 +46,6 @@ Gets an individual <code>index</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>index</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kendra:DescribeIndex,
-kendra:ListTagsForResource</pre>
-
-### Update
-<pre>
-kendra:DescribeIndex,
-kendra:UpdateIndex,
-kendra:ListTagsForResource,
-kendra:TagResource,
-kendra:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-kendra:DescribeIndex,
-kendra:DeleteIndex</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +64,32 @@ user_context_policy,
 user_token_configurations
 FROM awscc.kendra.index
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>index</code> resource, the following permissions are required:
+
+### Read
+```json
+kendra:DescribeIndex,
+kendra:ListTagsForResource
+```
+
+### Update
+```json
+kendra:DescribeIndex,
+kendra:UpdateIndex,
+kendra:ListTagsForResource,
+kendra:TagResource,
+kendra:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+kendra:DescribeIndex,
+kendra:DeleteIndex
+```
+

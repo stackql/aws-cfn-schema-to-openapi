@@ -43,24 +43,6 @@ Gets an individual <code>slack_channel_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>slack_channel_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-chatbot:DescribeSlackChannelConfigurations</pre>
-
-### Update
-<pre>
-chatbot:UpdateSlackChannelConfiguration,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-chatbot:DeleteSlackChannelConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +58,26 @@ guardrail_policies,
 user_role_required
 FROM awscc.chatbot.slack_channel_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>slack_channel_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+chatbot:DescribeSlackChannelConfigurations
+```
+
+### Update
+```json
+chatbot:UpdateSlackChannelConfiguration,
+iam:PassRole
+```
+
+### Delete
+```json
+chatbot:DeleteSlackChannelConfiguration
+```
+

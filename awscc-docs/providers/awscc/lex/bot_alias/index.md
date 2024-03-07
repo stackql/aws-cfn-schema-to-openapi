@@ -45,27 +45,6 @@ Gets an individual <code>bot_alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bot_alias</code> resource, the following permissions are required:
-
-### Update
-<pre>
-lex:UpdateBotAlias,
-lex:DescribeBotAlias,
-lex:ListTagsForResource,
-lex:TagResource,
-lex:UntagResource</pre>
-
-### Read
-<pre>
-lex:DescribeBotAlias</pre>
-
-### Delete
-<pre>
-lex:DeleteBotAlias</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,6 +62,30 @@ sentiment_analysis_settings,
 bot_alias_tags
 FROM awscc.lex.bot_alias
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BotAliasId&gt;'
-AND data__Identifier = '&lt;BotId&gt;'
+AND data__Identifier = '{BotAliasId}';
+AND data__Identifier = '{BotId}';
 ```
+
+## Permissions
+
+To operate on the <code>bot_alias</code> resource, the following permissions are required:
+
+### Update
+```json
+lex:UpdateBotAlias,
+lex:DescribeBotAlias,
+lex:ListTagsForResource,
+lex:TagResource,
+lex:UntagResource
+```
+
+### Read
+```json
+lex:DescribeBotAlias
+```
+
+### Delete
+```json
+lex:DeleteBotAlias
+```
+

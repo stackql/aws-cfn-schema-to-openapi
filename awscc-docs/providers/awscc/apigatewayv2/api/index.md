@@ -53,30 +53,6 @@ Gets an individual <code>api</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>api</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT,
-apigateway:POST,
-s3:getObject</pre>
-
-### Read
-<pre>
-apigateway:GET,
-s3:getObject</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE,
-s3:getObject</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -102,5 +78,32 @@ tags,
 api_key_selection_expression
 FROM awscc.apigatewayv2.api
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiId&gt;'
+AND data__Identifier = '{ApiId}';
 ```
+
+## Permissions
+
+To operate on the <code>api</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT,
+apigateway:POST,
+s3:getObject
+```
+
+### Read
+```json
+apigateway:GET,
+s3:getObject
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE,
+s3:getObject
+```
+

@@ -47,30 +47,6 @@ Gets an individual <code>migration_project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>migration_project</code> resource, the following permissions are required:
-
-### Read
-<pre>
-dms:DescribeMigrationProjects,
-dms:ListMigrationProjects,
-dms:ListTagsForResource</pre>
-
-### Update
-<pre>
-dms:UpdateMigrationProject,
-dms:ModifyMigrationProject,
-dms:AddTagsToResource,
-dms:RemoveTagsToResource,
-dms:ListTagsForResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-dms:DeleteMigrationProject</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +66,32 @@ target_data_provider_descriptors,
 tags
 FROM awscc.dms.migration_project
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MigrationProjectArn&gt;'
+AND data__Identifier = '{MigrationProjectArn}';
 ```
+
+## Permissions
+
+To operate on the <code>migration_project</code> resource, the following permissions are required:
+
+### Read
+```json
+dms:DescribeMigrationProjects,
+dms:ListMigrationProjects,
+dms:ListTagsForResource
+```
+
+### Update
+```json
+dms:UpdateMigrationProject,
+dms:ModifyMigrationProject,
+dms:AddTagsToResource,
+dms:RemoveTagsToResource,
+dms:ListTagsForResource,
+iam:PassRole
+```
+
+### Delete
+```json
+dms:DeleteMigrationProject
+```
+

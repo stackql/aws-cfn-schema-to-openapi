@@ -54,29 +54,6 @@ Gets an individual <code>studio</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>studio</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticmapreduce:DescribeStudio,
-sso:GetManagedApplicationInstance</pre>
-
-### Update
-<pre>
-elasticmapreduce:UpdateStudio,
-elasticmapreduce:DescribeStudio,
-elasticmapreduce:AddTags,
-elasticmapreduce:RemoveTags</pre>
-
-### Delete
-<pre>
-elasticmapreduce:DeleteStudio,
-elasticmapreduce:DescribeStudio,
-sso:DeleteManagedApplicationInstance</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -103,5 +80,31 @@ idc_instance_arn,
 encryption_key_arn
 FROM awscc.emr.studio
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StudioId&gt;'
+AND data__Identifier = '{StudioId}';
 ```
+
+## Permissions
+
+To operate on the <code>studio</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticmapreduce:DescribeStudio,
+sso:GetManagedApplicationInstance
+```
+
+### Update
+```json
+elasticmapreduce:UpdateStudio,
+elasticmapreduce:DescribeStudio,
+elasticmapreduce:AddTags,
+elasticmapreduce:RemoveTags
+```
+
+### Delete
+```json
+elasticmapreduce:DeleteStudio,
+elasticmapreduce:DescribeStudio,
+sso:DeleteManagedApplicationInstance
+```
+

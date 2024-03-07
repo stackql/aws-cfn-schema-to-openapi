@@ -40,26 +40,6 @@ Gets an individual <code>certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetCertificates</pre>
-
-### Update
-<pre>
-lightsail:GetCertificates,
-lightsail:TagResource,
-lightsail:UntagResource</pre>
-
-### Delete
-<pre>
-lightsail:DeleteCertificate,
-lightsail:GetCertificates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +52,28 @@ status,
 tags
 FROM awscc.lightsail.certificate
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CertificateName&gt;'
+AND data__Identifier = '{CertificateName}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetCertificates
+```
+
+### Update
+```json
+lightsail:GetCertificates,
+lightsail:TagResource,
+lightsail:UntagResource
+```
+
+### Delete
+```json
+lightsail:DeleteCertificate,
+lightsail:GetCertificates
+```
+

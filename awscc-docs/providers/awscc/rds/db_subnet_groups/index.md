@@ -35,24 +35,6 @@ Retrieves a list of <code>db_subnet_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_subnet_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-rds:CreateDBSubnetGroup,
-rds:DescribeDBSubnetGroups,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource,
-rds:ListTagsForResource</pre>
-
-### List
-<pre>
-rds:DescribeDBSubnetGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ d_bsubnet_group_name
 FROM awscc.rds.db_subnet_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>db_subnet_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+rds:CreateDBSubnetGroup,
+rds:DescribeDBSubnetGroups,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource,
+rds:ListTagsForResource
+```
+
+### List
+```json
+rds:DescribeDBSubnetGroups
+```
+

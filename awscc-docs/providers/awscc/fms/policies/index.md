@@ -35,12 +35,21 @@ Retrieves a list of <code>policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.fms.policies
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>policies</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 fms:PutPolicy,
 fms:TagResource,
 waf-regional:ListRuleGroups,
@@ -53,19 +62,12 @@ network-firewall:DescribeRuleGroupMetadata,
 route53resolver:ListFirewallRuleGroups,
 ec2:DescribeAvailabilityZones,
 s3:PutBucketPolicy,
-s3:GetBucketPolicy</pre>
+s3:GetBucketPolicy
+```
 
 ### List
-<pre>
+```json
 fms:ListPolicies,
-fms:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.fms.policies
-WHERE region = 'us-east-1'
+fms:ListTagsForResource
 ```
+

@@ -38,12 +38,25 @@ Gets an individual <code>cluster_subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+description,
+subnet_ids,
+tags,
+cluster_subnet_group_name
+FROM awscc.redshift.cluster_subnet_group
+WHERE region = 'us-east-1'
+AND data__Identifier = '{ClusterSubnetGroupName}';
+```
+
 ## Permissions
 
 To operate on the <code>cluster_subnet_group</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 redshift:DescribeClusterSubnetGroups,
 redshift:DescribeTags,
 ec2:AllocateAddress,
@@ -55,10 +68,11 @@ ec2:DescribeAvailabilityZones,
 ec2:DescribeInternetGateways,
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
-ec2:DescribeVpcs</pre>
+ec2:DescribeVpcs
+```
 
 ### Update
-<pre>
+```json
 redshift:ModifyClusterSubnetGroup,
 redshift:DescribeClusterSubnetGroups,
 redshift:DescribeTags,
@@ -73,10 +87,11 @@ ec2:DescribeAvailabilityZones,
 ec2:DescribeInternetGateways,
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
-ec2:DescribeVpcs</pre>
+ec2:DescribeVpcs
+```
 
 ### Delete
-<pre>
+```json
 redshift:DeleteClusterSubnetGroup,
 redshift:DescribeClusterSubnetGroups,
 redshift:DescribeTags,
@@ -89,18 +104,6 @@ ec2:DescribeAvailabilityZones,
 ec2:DescribeInternetGateways,
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
-ec2:DescribeVpcs</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-description,
-subnet_ids,
-tags,
-cluster_subnet_group_name
-FROM awscc.redshift.cluster_subnet_group
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClusterSubnetGroupName&gt;'
+ec2:DescribeVpcs
 ```
+

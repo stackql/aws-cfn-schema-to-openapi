@@ -35,12 +35,21 @@ Retrieves a list of <code>feature_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+feature_group_name
+FROM awscc.sagemaker.feature_groups
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>feature_groups</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:PassRole,
 kms:CreateGrant,
 kms:DescribeKey,
@@ -51,18 +60,11 @@ glue:GetDatabase,
 sagemaker:CreateFeatureGroup,
 sagemaker:DescribeFeatureGroup,
 sagemaker:AddTags,
-sagemaker:ListTags</pre>
+sagemaker:ListTags
+```
 
 ### List
-<pre>
-sagemaker:ListFeatureGroups</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-feature_group_name
-FROM awscc.sagemaker.feature_groups
-WHERE region = 'us-east-1'
+```json
+sagemaker:ListFeatureGroups
 ```
+

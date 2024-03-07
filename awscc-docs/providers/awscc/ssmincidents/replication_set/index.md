@@ -38,31 +38,6 @@ Gets an individual <code>replication_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replication_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-incidents:ListReplicationSets,
-ssm-incidents:GetReplicationSet,
-ssm-incidents:ListTagsForResource</pre>
-
-### Update
-<pre>
-ssm-incidents:UpdateReplicationSet,
-ssm-incidents:UpdateDeletionProtection,
-ssm-incidents:GetReplicationSet,
-ssm-incidents:TagResource,
-ssm-incidents:UntagResource,
-ssm-incidents:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ssm-incidents:DeleteReplicationSet,
-ssm-incidents:GetReplicationSet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +48,33 @@ deletion_protected,
 tags
 FROM awscc.ssmincidents.replication_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>replication_set</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-incidents:ListReplicationSets,
+ssm-incidents:GetReplicationSet,
+ssm-incidents:ListTagsForResource
+```
+
+### Update
+```json
+ssm-incidents:UpdateReplicationSet,
+ssm-incidents:UpdateDeletionProtection,
+ssm-incidents:GetReplicationSet,
+ssm-incidents:TagResource,
+ssm-incidents:UntagResource,
+ssm-incidents:ListTagsForResource
+```
+
+### Delete
+```json
+ssm-incidents:DeleteReplicationSet,
+ssm-incidents:GetReplicationSet
+```
+

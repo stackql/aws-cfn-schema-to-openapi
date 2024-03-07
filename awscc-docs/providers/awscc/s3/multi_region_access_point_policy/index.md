@@ -37,26 +37,6 @@ Gets an individual <code>multi_region_access_point_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multi_region_access_point_policy</code> resource, the following permissions are required:
-
-### Update
-<pre>
-s3:PutMultiRegionAccessPointPolicy,
-s3:DescribeMultiRegionAccessPointOperation</pre>
-
-### Read
-<pre>
-s3:GetMultiRegionAccessPointPolicy,
-s3:GetMultiRegionAccessPointPolicyStatus</pre>
-
-### Delete
-<pre>
-s3:GetMultiRegionAccessPointPolicy,
-s3:GetMultiRegionAccessPoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +46,28 @@ policy,
 policy_status
 FROM awscc.s3.multi_region_access_point_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MrapName&gt;'
+AND data__Identifier = '{MrapName}';
 ```
+
+## Permissions
+
+To operate on the <code>multi_region_access_point_policy</code> resource, the following permissions are required:
+
+### Update
+```json
+s3:PutMultiRegionAccessPointPolicy,
+s3:DescribeMultiRegionAccessPointOperation
+```
+
+### Read
+```json
+s3:GetMultiRegionAccessPointPolicy,
+s3:GetMultiRegionAccessPointPolicyStatus
+```
+
+### Delete
+```json
+s3:GetMultiRegionAccessPointPolicy,
+s3:GetMultiRegionAccessPoint
+```
+

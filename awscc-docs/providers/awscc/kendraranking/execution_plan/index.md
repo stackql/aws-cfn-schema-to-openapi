@@ -40,29 +40,6 @@ Gets an individual <code>execution_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>execution_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kendra-ranking:DescribeRescoreExecutionPlan,
-kendra-ranking:ListTagsForResource</pre>
-
-### Update
-<pre>
-kendra-ranking:DescribeRescoreExecutionPlan,
-kendra-ranking:UpdateRescoreExecutionPlan,
-kendra-ranking:ListTagsForResource,
-kendra-ranking:TagResource,
-kendra-ranking:UntagResource</pre>
-
-### Delete
-<pre>
-kendra-ranking:DescribeRescoreExecutionPlan,
-kendra-ranking:DeleteRescoreExecutionPlan</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ name,
 capacity_units
 FROM awscc.kendraranking.execution_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>execution_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:ListTagsForResource
+```
+
+### Update
+```json
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:UpdateRescoreExecutionPlan,
+kendra-ranking:ListTagsForResource,
+kendra-ranking:TagResource,
+kendra-ranking:UntagResource
+```
+
+### Delete
+```json
+kendra-ranking:DescribeRescoreExecutionPlan,
+kendra-ranking:DeleteRescoreExecutionPlan
+```
+

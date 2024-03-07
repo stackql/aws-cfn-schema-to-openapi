@@ -35,23 +35,6 @@ Retrieves a list of <code>assessments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assessments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-auditmanager:CreateAssessment,
-auditmanager:TagResource,
-auditmanager:ListTagsForResource,
-auditmanager:BatchCreateDelegationByAssessment,
-iam:PassRole</pre>
-
-### List
-<pre>
-auditmanager:ListAssessments</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ assessment_id
 FROM awscc.auditmanager.assessments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>assessments</code> resource, the following permissions are required:
+
+### Create
+```json
+auditmanager:CreateAssessment,
+auditmanager:TagResource,
+auditmanager:ListTagsForResource,
+auditmanager:BatchCreateDelegationByAssessment,
+iam:PassRole
+```
+
+### List
+```json
+auditmanager:ListAssessments
+```
+

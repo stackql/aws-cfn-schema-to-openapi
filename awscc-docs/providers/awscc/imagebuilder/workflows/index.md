@@ -35,12 +35,21 @@ Retrieves a list of <code>workflows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.imagebuilder.workflows
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>workflows</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:GetRole,
 kms:GenerateDataKey*,
 kms:Encrypt,
@@ -50,18 +59,11 @@ s3:HeadBucket,
 s3:GetBucketLocation,
 imagebuilder:TagResource,
 imagebuilder:GetWorkflow,
-imagebuilder:CreateWorkflow</pre>
+imagebuilder:CreateWorkflow
+```
 
 ### List
-<pre>
-imagebuilder:ListWorkflows</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.imagebuilder.workflows
-WHERE region = 'us-east-1'
+```json
+imagebuilder:ListWorkflows
 ```
+

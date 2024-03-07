@@ -41,30 +41,6 @@ Gets an individual <code>pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipeline</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribePipeline,
-sagemaker:ListTags</pre>
-
-### Update
-<pre>
-iam:PassRole,
-s3:GetObject,
-sagemaker:UpdatePipeline,
-sagemaker:DescribePipeline,
-sagemaker:AddTags,
-sagemaker:DeleteTags,
-sagemaker:ListTags</pre>
-
-### Delete
-<pre>
-sagemaker:DeletePipeline</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +54,32 @@ tags,
 parallelism_configuration
 FROM awscc.sagemaker.pipeline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PipelineName&gt;'
+AND data__Identifier = '{PipelineName}';
 ```
+
+## Permissions
+
+To operate on the <code>pipeline</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribePipeline,
+sagemaker:ListTags
+```
+
+### Update
+```json
+iam:PassRole,
+s3:GetObject,
+sagemaker:UpdatePipeline,
+sagemaker:DescribePipeline,
+sagemaker:AddTags,
+sagemaker:DeleteTags,
+sagemaker:ListTags
+```
+
+### Delete
+```json
+sagemaker:DeletePipeline
+```
+

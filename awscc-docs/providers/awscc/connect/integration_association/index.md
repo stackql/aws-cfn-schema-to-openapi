@@ -38,22 +38,34 @@ Gets an individual <code>integration_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+integration_association_id,
+instance_id,
+integration_arn,
+integration_type
+FROM awscc.connect.integration_association
+WHERE region = 'us-east-1'
+AND data__Identifier = '{InstanceId}';
+AND data__Identifier = '{IntegrationType}';
+AND data__Identifier = '{IntegrationArn}';
+```
+
 ## Permissions
 
 To operate on the <code>integration_association</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 connect:ListBots,
 connect:ListLambdaFunctions,
-connect:ListIntegrationAssociations</pre>
-
-### Update
-<pre>
-</pre>
+connect:ListIntegrationAssociations
+```
 
 ### Delete
-<pre>
+```json
 connect:DescribeInstance,
 ds:DescribeDirectories,
 app-integrations:DeleteEventIntegrationAssociation,
@@ -71,20 +83,6 @@ lex:DeleteResourcePolicyStatement,
 lambda:RemovePermission,
 iam:GetRolePolicy,
 iam:DeleteRolePolicy,
-iam:PutRolePolicy</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-integration_association_id,
-instance_id,
-integration_arn,
-integration_type
-FROM awscc.connect.integration_association
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceId&gt;'
-AND data__Identifier = '&lt;IntegrationType&gt;'
-AND data__Identifier = '&lt;IntegrationArn&gt;'
+iam:PutRolePolicy
 ```
+

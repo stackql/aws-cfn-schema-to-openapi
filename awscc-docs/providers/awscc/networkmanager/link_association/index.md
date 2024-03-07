@@ -37,19 +37,6 @@ Gets an individual <code>link_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>link_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetLinkAssociations</pre>
-
-### Delete
-<pre>
-networkmanager:DisassociateLink</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,7 +46,22 @@ device_id,
 link_id
 FROM awscc.networkmanager.link_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GlobalNetworkId&gt;'
-AND data__Identifier = '&lt;DeviceId&gt;'
-AND data__Identifier = '&lt;LinkId&gt;'
+AND data__Identifier = '{GlobalNetworkId}';
+AND data__Identifier = '{DeviceId}';
+AND data__Identifier = '{LinkId}';
 ```
+
+## Permissions
+
+To operate on the <code>link_association</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetLinkAssociations
+```
+
+### Delete
+```json
+networkmanager:DisassociateLink
+```
+

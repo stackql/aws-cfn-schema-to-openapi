@@ -37,26 +37,6 @@ Gets an individual <code>standard</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>standard</code> resource, the following permissions are required:
-
-### Read
-<pre>
-securityhub:GetEnabledStandards,
-securityhub:DescribeStandardsControls</pre>
-
-### Update
-<pre>
-securityhub:GetEnabledStandards,
-securityhub:UpdateStandardsControl</pre>
-
-### Delete
-<pre>
-securityhub:GetEnabledStandards,
-securityhub:BatchDisableStandards</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +46,28 @@ standards_arn,
 disabled_standards_controls
 FROM awscc.securityhub.standard
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StandardsSubscriptionArn&gt;'
+AND data__Identifier = '{StandardsSubscriptionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>standard</code> resource, the following permissions are required:
+
+### Read
+```json
+securityhub:GetEnabledStandards,
+securityhub:DescribeStandardsControls
+```
+
+### Update
+```json
+securityhub:GetEnabledStandards,
+securityhub:UpdateStandardsControl
+```
+
+### Delete
+```json
+securityhub:GetEnabledStandards,
+securityhub:BatchDisableStandards
+```
+

@@ -43,26 +43,6 @@ Gets an individual <code>partner_account</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>partner_account</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetPartnerAccount,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdatePartnerAccount,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iotwireless:DisassociateAwsAccountFromPartnerAccount</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ arn,
 tags
 FROM awscc.iotwireless.partner_account
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PartnerAccountId&gt;'
+AND data__Identifier = '{PartnerAccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>partner_account</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetPartnerAccount,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdatePartnerAccount,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource
+```
+
+### Delete
+```json
+iotwireless:DisassociateAwsAccountFromPartnerAccount
+```
+

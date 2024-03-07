@@ -35,24 +35,6 @@ Retrieves a list of <code>repositories</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>repositories</code> resource, the following permissions are required:
-
-### Create
-<pre>
-codeartifact:CreateRepository,
-codeartifact:DescribeRepository,
-codeartifact:PutRepositoryPermissionsPolicy,
-codeartifact:AssociateExternalConnection,
-codeartifact:AssociateWithDownstreamRepository,
-codeartifact:TagResource</pre>
-
-### List
-<pre>
-codeartifact:ListRepositories</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.codeartifact.repositories
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>repositories</code> resource, the following permissions are required:
+
+### Create
+```json
+codeartifact:CreateRepository,
+codeartifact:DescribeRepository,
+codeartifact:PutRepositoryPermissionsPolicy,
+codeartifact:AssociateExternalConnection,
+codeartifact:AssociateWithDownstreamRepository,
+codeartifact:TagResource
+```
+
+### List
+```json
+codeartifact:ListRepositories
+```
+

@@ -40,25 +40,6 @@ Gets an individual <code>profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-transfer:DescribeProfile</pre>
-
-### Update
-<pre>
-transfer:UpdateProfile,
-transfer:UnTagResource,
-transfer:TagResource</pre>
-
-### Delete
-<pre>
-transfer:DeleteProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +52,27 @@ arn,
 profile_id
 FROM awscc.transfer.profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProfileId&gt;'
+AND data__Identifier = '{ProfileId}';
 ```
+
+## Permissions
+
+To operate on the <code>profile</code> resource, the following permissions are required:
+
+### Read
+```json
+transfer:DescribeProfile
+```
+
+### Update
+```json
+transfer:UpdateProfile,
+transfer:UnTagResource,
+transfer:TagResource
+```
+
+### Delete
+```json
+transfer:DeleteProfile
+```
+

@@ -35,22 +35,6 @@ Retrieves a list of <code>certificates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lightsail:CreateCertificate,
-lightsail:GetCertificates,
-lightsail:TagResource,
-lightsail:UntagResource</pre>
-
-### List
-<pre>
-lightsail:GetCertificates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ certificate_name
 FROM awscc.lightsail.certificates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>certificates</code> resource, the following permissions are required:
+
+### Create
+```json
+lightsail:CreateCertificate,
+lightsail:GetCertificates,
+lightsail:TagResource,
+lightsail:UntagResource
+```
+
+### List
+```json
+lightsail:GetCertificates
+```
+

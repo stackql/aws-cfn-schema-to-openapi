@@ -35,22 +35,6 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>applications</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appconfig:CreateApplication,
-appconfig:GetApplication,
-appconfig:ListTagsForResource,
-appconfig:TagResource</pre>
-
-### List
-<pre>
-appconfig:ListApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ application_id
 FROM awscc.appconfig.applications
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>applications</code> resource, the following permissions are required:
+
+### Create
+```json
+appconfig:CreateApplication,
+appconfig:GetApplication,
+appconfig:ListTagsForResource,
+appconfig:TagResource
+```
+
+### List
+```json
+appconfig:ListApplications
+```
+

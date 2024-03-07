@@ -35,23 +35,6 @@ Retrieves a list of <code>billing_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>billing_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:DescribeBillingGroup,
-iot:ListTagsForResource,
-iot:CreateBillingGroup,
-iot:TagResource</pre>
-
-### List
-<pre>
-iot:ListBillingGroups,
-iot:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ billing_group_name
 FROM awscc.iot.billing_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>billing_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:DescribeBillingGroup,
+iot:ListTagsForResource,
+iot:CreateBillingGroup,
+iot:TagResource
+```
+
+### List
+```json
+iot:ListBillingGroups,
+iot:ListTagsForResource
+```
+

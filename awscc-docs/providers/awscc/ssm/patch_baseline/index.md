@@ -49,33 +49,6 @@ Gets an individual <code>patch_baseline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>patch_baseline</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-ssm:DeletePatchBaseline,
-ssm:GetPatchBaseline,
-ssm:DeregisterPatchBaselineForPatchGroup</pre>
-
-### Read
-<pre>
-ssm:GetDefaultPatchBaseline,
-ssm:GetPatchBaseline,
-ssm:ListTagsForResource</pre>
-
-### Update
-<pre>
-ssm:UpdatePatchBaseline,
-ssm:DeregisterPatchBaselineForPatchGroup,
-ssm:AddTagsToResource,
-ssm:RemoveTagsFromResource,
-ssm:ListTagsForResource,
-ssm:GetDefaultPatchBaseline,
-ssm:RegisterDefaultPatchBaseline</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -97,5 +70,35 @@ global_filters,
 tags
 FROM awscc.ssm.patch_baseline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>patch_baseline</code> resource, the following permissions are required:
+
+### Delete
+```json
+ssm:DeletePatchBaseline,
+ssm:GetPatchBaseline,
+ssm:DeregisterPatchBaselineForPatchGroup
+```
+
+### Read
+```json
+ssm:GetDefaultPatchBaseline,
+ssm:GetPatchBaseline,
+ssm:ListTagsForResource
+```
+
+### Update
+```json
+ssm:UpdatePatchBaseline,
+ssm:DeregisterPatchBaselineForPatchGroup,
+ssm:AddTagsToResource,
+ssm:RemoveTagsFromResource,
+ssm:ListTagsForResource,
+ssm:GetDefaultPatchBaseline,
+ssm:RegisterDefaultPatchBaseline
+```
+

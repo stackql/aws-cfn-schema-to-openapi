@@ -41,28 +41,6 @@ Gets an individual <code>scheduled_audit</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduled_audit</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeScheduledAudit,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateScheduledAudit,
-iot:ListTagsForResource,
-iot:UntagResource,
-iot:TagResource</pre>
-
-### Delete
-<pre>
-iot:DescribeScheduledAudit,
-iot:DeleteScheduledAudit</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +54,30 @@ scheduled_audit_arn,
 tags
 FROM awscc.iot.scheduled_audit
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ScheduledAuditName&gt;'
+AND data__Identifier = '{ScheduledAuditName}';
 ```
+
+## Permissions
+
+To operate on the <code>scheduled_audit</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeScheduledAudit,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateScheduledAudit,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource
+```
+
+### Delete
+```json
+iot:DescribeScheduledAudit,
+iot:DeleteScheduledAudit
+```
+

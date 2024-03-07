@@ -53,37 +53,6 @@ Gets an individual <code>dashboard</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dashboard</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeDashboard,
-quicksight:DescribeDashboardPermissions,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeDashboard,
-quicksight:DescribeDashboardPermissions,
-quicksight:UpdateDashboard,
-quicksight:UpdateDashboardLinks,
-quicksight:UpdateDashboardPermissions,
-quicksight:UpdateDashboardPublishedVersion,
-quicksight:DescribeTemplate,
-quicksight:DescribeTheme,
-quicksight:PassDataSet,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### Delete
-<pre>
-quicksight:DescribeDashboard,
-quicksight:DeleteDashboard</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -109,6 +78,40 @@ version,
 version_description
 FROM awscc.quicksight.dashboard
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;DashboardId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{DashboardId}';
 ```
+
+## Permissions
+
+To operate on the <code>dashboard</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeDashboard,
+quicksight:DescribeDashboardPermissions,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeDashboard,
+quicksight:DescribeDashboardPermissions,
+quicksight:UpdateDashboard,
+quicksight:UpdateDashboardLinks,
+quicksight:UpdateDashboardPermissions,
+quicksight:UpdateDashboardPublishedVersion,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### Delete
+```json
+quicksight:DescribeDashboard,
+quicksight:DeleteDashboard
+```
+

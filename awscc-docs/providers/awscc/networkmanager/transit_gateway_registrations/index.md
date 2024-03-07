@@ -36,20 +36,6 @@ Retrieves a list of <code>transit_gateway_registrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>transit_gateway_registrations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-networkmanager:RegisterTransitGateway,
-networkmanager:GetTransitGatewayRegistrations</pre>
-
-### List
-<pre>
-networkmanager:GetTransitGatewayRegistrations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ transit_gateway_arn
 FROM awscc.networkmanager.transit_gateway_registrations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>transit_gateway_registrations</code> resource, the following permissions are required:
+
+### Create
+```json
+networkmanager:RegisterTransitGateway,
+networkmanager:GetTransitGatewayRegistrations
+```
+
+### List
+```json
+networkmanager:GetTransitGatewayRegistrations
+```
+

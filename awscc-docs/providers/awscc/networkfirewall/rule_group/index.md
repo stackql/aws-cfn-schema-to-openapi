@@ -42,31 +42,6 @@ Gets an individual <code>rule_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-network-firewall:DescribeRuleGroup,
-network-firewall:ListTagsForResources</pre>
-
-### Update
-<pre>
-network-firewall:UpdateRuleGroup,
-network-firewall:DescribeRuleGroup,
-network-firewall:TagResource,
-network-firewall:UntagResource,
-iam:CreateServiceLinkedRole,
-ec2:GetManagedPrefixListEntries</pre>
-
-### Delete
-<pre>
-network-firewall:DeleteRuleGroup,
-network-firewall:DescribeRuleGroup,
-network-firewall:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +56,33 @@ description,
 tags
 FROM awscc.networkfirewall.rule_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RuleGroupArn&gt;'
+AND data__Identifier = '{RuleGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>rule_group</code> resource, the following permissions are required:
+
+### Read
+```json
+network-firewall:DescribeRuleGroup,
+network-firewall:ListTagsForResources
+```
+
+### Update
+```json
+network-firewall:UpdateRuleGroup,
+network-firewall:DescribeRuleGroup,
+network-firewall:TagResource,
+network-firewall:UntagResource,
+iam:CreateServiceLinkedRole,
+ec2:GetManagedPrefixListEntries
+```
+
+### Delete
+```json
+network-firewall:DeleteRuleGroup,
+network-firewall:DescribeRuleGroup,
+network-firewall:UntagResource
+```
+

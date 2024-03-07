@@ -31,11 +31,11 @@ The kinesisvideo service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/awscc/kinesisvideo/signaling_channel/">signaling_channel</a><br />
-<a href="/providers/awscc/kinesisvideo/signaling_channels/">signaling_channels</a>
+<a href="/providers/awscc/kinesisvideo/kinesisvideo_stream/">kinesisvideo_stream</a><br />
+<a href="/providers/awscc/kinesisvideo/signaling_channel/">signaling_channel</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/awscc/kinesisvideo/stream/">stream</a><br />
+<a href="/providers/awscc/kinesisvideo/signaling_channels/">signaling_channels</a><br />
 <a href="/providers/awscc/kinesisvideo/streams/">streams</a>
 </div>
 </div>

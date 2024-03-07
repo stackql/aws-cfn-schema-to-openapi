@@ -35,22 +35,6 @@ Retrieves a list of <code>restore_testing_plans</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>restore_testing_plans</code> resource, the following permissions are required:
-
-### Create
-<pre>
-backup:CreateRestoreTestingPlan,
-backup:TagResource,
-backup:GetRestoreTestingPlan,
-backup:ListTags</pre>
-
-### List
-<pre>
-backup:ListRestoreTestingPlans</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ restore_testing_plan_name
 FROM awscc.backup.restore_testing_plans
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>restore_testing_plans</code> resource, the following permissions are required:
+
+### Create
+```json
+backup:CreateRestoreTestingPlan,
+backup:TagResource,
+backup:GetRestoreTestingPlan,
+backup:ListTags
+```
+
+### List
+```json
+backup:ListRestoreTestingPlans
+```
+

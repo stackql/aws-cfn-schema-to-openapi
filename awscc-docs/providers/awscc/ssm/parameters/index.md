@@ -35,21 +35,6 @@ Retrieves a list of <code>parameters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>parameters</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ssm:PutParameter,
-ssm:AddTagsToResource,
-ssm:GetParameters</pre>
-
-### List
-<pre>
-ssm:DescribeParameters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ name
 FROM awscc.ssm.parameters
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>parameters</code> resource, the following permissions are required:
+
+### Create
+```json
+ssm:PutParameter,
+ssm:AddTagsToResource,
+ssm:GetParameters
+```
+
+### List
+```json
+ssm:DescribeParameters
+```
+

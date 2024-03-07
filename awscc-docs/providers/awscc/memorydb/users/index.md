@@ -35,23 +35,6 @@ Retrieves a list of <code>users</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>users</code> resource, the following permissions are required:
-
-### Create
-<pre>
-memorydb:CreateUser,
-memorydb:DescribeUsers,
-memorydb:TagResource,
-memorydb:ListTags</pre>
-
-### List
-<pre>
-memorydb:DescribeUsers,
-memorydb:ListTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ user_name
 FROM awscc.memorydb.users
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>users</code> resource, the following permissions are required:
+
+### Create
+```json
+memorydb:CreateUser,
+memorydb:DescribeUsers,
+memorydb:TagResource,
+memorydb:ListTags
+```
+
+### List
+```json
+memorydb:DescribeUsers,
+memorydb:ListTags
+```
+

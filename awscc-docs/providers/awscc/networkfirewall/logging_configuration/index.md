@@ -37,18 +37,31 @@ Gets an individual <code>logging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+firewall_name,
+firewall_arn,
+logging_configuration
+FROM awscc.networkfirewall.logging_configuration
+WHERE region = 'us-east-1'
+AND data__Identifier = '{FirewallArn}';
+```
+
 ## Permissions
 
 To operate on the <code>logging_configuration</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 logs:GetLogDelivery,
 logs:ListLogDeliveries,
-network-firewall:DescribeLoggingConfiguration</pre>
+network-firewall:DescribeLoggingConfiguration
+```
 
 ### Update
-<pre>
+```json
 logs:CreateLogDelivery,
 logs:DeleteLogDelivery,
 logs:GetLogDelivery,
@@ -62,25 +75,15 @@ logs:DescribeLogGroups,
 iam:CreateServiceLinkedRole,
 firehose:TagDeliveryStream,
 network-firewall:UpdateLoggingConfiguration,
-network-firewall:DescribeLoggingConfiguration</pre>
+network-firewall:DescribeLoggingConfiguration
+```
 
 ### Delete
-<pre>
+```json
 logs:DeleteLogDelivery,
 logs:ListLogDeliveries,
 logs:GetLogDelivery,
 network-firewall:UpdateLoggingConfiguration,
-network-firewall:DescribeLoggingConfiguration</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-firewall_name,
-firewall_arn,
-logging_configuration
-FROM awscc.networkfirewall.logging_configuration
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FirewallArn&gt;'
+network-firewall:DescribeLoggingConfiguration
 ```
+

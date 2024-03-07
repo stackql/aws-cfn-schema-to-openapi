@@ -35,12 +35,21 @@ Retrieves a list of <code>tasks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+task_arn
+FROM awscc.datasync.tasks
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>tasks</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 datasync:CreateTask,
 datasync:DescribeTask,
 datasync:ListTagsForResource,
@@ -59,18 +68,11 @@ elasticfilesystem:DescribeMountTargets,
 logs:DescribeLogGroups,
 iam:GetRole,
 iam:PassRole,
-iam:AssumeRole</pre>
+iam:AssumeRole
+```
 
 ### List
-<pre>
-datasync:ListTasks</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-task_arn
-FROM awscc.datasync.tasks
-WHERE region = 'us-east-1'
+```json
+datasync:ListTasks
 ```
+

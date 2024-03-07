@@ -39,30 +39,6 @@ Gets an individual <code>organizational_unit</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>organizational_unit</code> resource, the following permissions are required:
-
-### Read
-<pre>
-organizations:DescribeOrganizationalUnit,
-organizations:ListParents,
-organizations:ListTagsForResource</pre>
-
-### Update
-<pre>
-organizations:DescribeOrganizationalUnit,
-organizations:ListParents,
-organizations:ListTagsForResource,
-organizations:TagResource,
-organizations:UntagResource,
-organizations:UpdateOrganizationalUnit</pre>
-
-### Delete
-<pre>
-organizations:DeleteOrganizationalUnit</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +50,32 @@ parent_id,
 tags
 FROM awscc.organizations.organizational_unit
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>organizational_unit</code> resource, the following permissions are required:
+
+### Read
+```json
+organizations:DescribeOrganizationalUnit,
+organizations:ListParents,
+organizations:ListTagsForResource
+```
+
+### Update
+```json
+organizations:DescribeOrganizationalUnit,
+organizations:ListParents,
+organizations:ListTagsForResource,
+organizations:TagResource,
+organizations:UntagResource,
+organizations:UpdateOrganizationalUnit
+```
+
+### Delete
+```json
+organizations:DeleteOrganizationalUnit
+```
+

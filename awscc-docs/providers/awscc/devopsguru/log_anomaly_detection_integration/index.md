@@ -35,28 +35,6 @@ Gets an individual <code>log_anomaly_detection_integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>log_anomaly_detection_integration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-devops-guru:DescribeServiceIntegration</pre>
-
-### Update
-<pre>
-devops-guru:UpdateServiceIntegration,
-logs:TagLogGroup,
-logs:UntagLogGroup</pre>
-
-### Delete
-<pre>
-devops-guru:DescribeServiceIntegration,
-devops-guru:UpdateServiceIntegration,
-logs:TagLogGroup,
-logs:UntagLogGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +42,30 @@ region,
 account_id
 FROM awscc.devopsguru.log_anomaly_detection_integration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccountId&gt;'
+AND data__Identifier = '{AccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>log_anomaly_detection_integration</code> resource, the following permissions are required:
+
+### Read
+```json
+devops-guru:DescribeServiceIntegration
+```
+
+### Update
+```json
+devops-guru:UpdateServiceIntegration,
+logs:TagLogGroup,
+logs:UntagLogGroup
+```
+
+### Delete
+```json
+devops-guru:DescribeServiceIntegration,
+devops-guru:UpdateServiceIntegration,
+logs:TagLogGroup,
+logs:UntagLogGroup
+```
+

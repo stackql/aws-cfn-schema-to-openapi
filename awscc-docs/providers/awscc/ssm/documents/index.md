@@ -35,24 +35,6 @@ Retrieves a list of <code>documents</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>documents</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ssm:CreateDocument,
-ssm:GetDocument,
-ssm:AddTagsToResource,
-ssm:ListTagsForResource,
-s3:GetObject,
-iam:PassRole</pre>
-
-### List
-<pre>
-ssm:ListDocuments</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ name
 FROM awscc.ssm.documents
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>documents</code> resource, the following permissions are required:
+
+### Create
+```json
+ssm:CreateDocument,
+ssm:GetDocument,
+ssm:AddTagsToResource,
+ssm:ListTagsForResource,
+s3:GetObject,
+iam:PassRole
+```
+
+### List
+```json
+ssm:ListDocuments
+```
+

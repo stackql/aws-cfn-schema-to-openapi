@@ -43,29 +43,6 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediatailor:DescribeChannel</pre>
-
-### Update
-<pre>
-mediatailor:UpdateChannel,
-mediatailor:TagResource,
-mediatailor:UntagResource,
-iam:CreateServiceLinkedRole,
-mediatailor:ConfigureLogsForChannel,
-mediatailor:DescribeChannel</pre>
-
-### Delete
-<pre>
-mediatailor:DeleteChannel,
-mediatailor:DescribeChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +58,31 @@ tier,
 time_shift_configuration
 FROM awscc.mediatailor.channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ChannelName&gt;'
+AND data__Identifier = '{ChannelName}';
 ```
+
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+```json
+mediatailor:DescribeChannel
+```
+
+### Update
+```json
+mediatailor:UpdateChannel,
+mediatailor:TagResource,
+mediatailor:UntagResource,
+iam:CreateServiceLinkedRole,
+mediatailor:ConfigureLogsForChannel,
+mediatailor:DescribeChannel
+```
+
+### Delete
+```json
+mediatailor:DeleteChannel,
+mediatailor:DescribeChannel
+```
+

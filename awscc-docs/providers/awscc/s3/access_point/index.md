@@ -43,29 +43,6 @@ Gets an individual <code>access_point</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_point</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccessPoint,
-s3:GetAccessPointPolicy</pre>
-
-### Update
-<pre>
-s3:PutAccessPointPolicy,
-s3:PutAccessPointPublicAccessBlock,
-s3:DeleteAccessPointPolicy,
-s3:GetAccessPoint,
-s3:GetAccessPointPolicy</pre>
-
-### Delete
-<pre>
-s3:DeleteAccessPointPolicy,
-s3:DeleteAccessPoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +58,31 @@ network_origin,
 arn
 FROM awscc.s3.access_point
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>access_point</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccessPoint,
+s3:GetAccessPointPolicy
+```
+
+### Update
+```json
+s3:PutAccessPointPolicy,
+s3:PutAccessPointPublicAccessBlock,
+s3:DeleteAccessPointPolicy,
+s3:GetAccessPoint,
+s3:GetAccessPointPolicy
+```
+
+### Delete
+```json
+s3:DeleteAccessPointPolicy,
+s3:DeleteAccessPoint
+```
+

@@ -45,26 +45,6 @@ Gets an individual <code>partnership</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>partnership</code> resource, the following permissions are required:
-
-### Read
-<pre>
-b2bi:GetPartnership,
-b2bi:ListTagsForResource</pre>
-
-### Update
-<pre>
-b2bi:TagResource,
-b2bi:UntagResource,
-b2bi:UpdatePartnership</pre>
-
-### Delete
-<pre>
-b2bi:DeletePartnership</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +62,28 @@ tags,
 trading_partner_id
 FROM awscc.b2bi.partnership
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PartnershipId&gt;'
+AND data__Identifier = '{PartnershipId}';
 ```
+
+## Permissions
+
+To operate on the <code>partnership</code> resource, the following permissions are required:
+
+### Read
+```json
+b2bi:GetPartnership,
+b2bi:ListTagsForResource
+```
+
+### Update
+```json
+b2bi:TagResource,
+b2bi:UntagResource,
+b2bi:UpdatePartnership
+```
+
+### Delete
+```json
+b2bi:DeletePartnership
+```
+

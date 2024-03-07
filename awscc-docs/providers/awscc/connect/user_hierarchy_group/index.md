@@ -39,26 +39,6 @@ Gets an individual <code>user_hierarchy_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_hierarchy_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeUserHierarchyGroup</pre>
-
-### Delete
-<pre>
-connect:DeleteUserHierarchyGroup,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateUserHierarchyGroupName,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +50,28 @@ name,
 tags
 FROM awscc.connect.user_hierarchy_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserHierarchyGroupArn&gt;'
+AND data__Identifier = '{UserHierarchyGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>user_hierarchy_group</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeUserHierarchyGroup
+```
+
+### Delete
+```json
+connect:DeleteUserHierarchyGroup,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateUserHierarchyGroupName,
+connect:TagResource,
+connect:UntagResource
+```
+

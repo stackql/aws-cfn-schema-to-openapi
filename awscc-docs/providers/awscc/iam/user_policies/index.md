@@ -36,16 +36,6 @@ Retrieves a list of <code>user_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PutUserPolicy,
-iam:GetUserPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -55,3 +45,14 @@ user_name
 FROM awscc.iam.user_policies
 
 ```
+
+## Permissions
+
+To operate on the <code>user_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PutUserPolicy,
+iam:GetUserPolicy
+```
+

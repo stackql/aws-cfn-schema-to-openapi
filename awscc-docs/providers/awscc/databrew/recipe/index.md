@@ -38,25 +38,6 @@ Gets an individual <code>recipe</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>recipe</code> resource, the following permissions are required:
-
-### Read
-<pre>
-databrew:DescribeRecipe,
-databrew:ListTagsForResource,
-iam:ListRoles</pre>
-
-### Delete
-<pre>
-databrew:DeleteRecipeVersion</pre>
-
-### Update
-<pre>
-databrew:UpdateRecipe</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +48,27 @@ steps,
 tags
 FROM awscc.databrew.recipe
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>recipe</code> resource, the following permissions are required:
+
+### Read
+```json
+databrew:DescribeRecipe,
+databrew:ListTagsForResource,
+iam:ListRoles
+```
+
+### Delete
+```json
+databrew:DeleteRecipeVersion
+```
+
+### Update
+```json
+databrew:UpdateRecipe
+```
+

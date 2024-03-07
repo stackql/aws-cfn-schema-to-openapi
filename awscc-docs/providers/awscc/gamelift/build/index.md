@@ -40,24 +40,6 @@ Gets an individual <code>build</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>build</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeBuild</pre>
-
-### Update
-<pre>
-gamelift:UpdateBuild</pre>
-
-### Delete
-<pre>
-gamelift:DescribeBuild,
-gamelift:DeleteBuild</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +52,26 @@ version,
 server_sdk_version
 FROM awscc.gamelift.build
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BuildId&gt;'
+AND data__Identifier = '{BuildId}';
 ```
+
+## Permissions
+
+To operate on the <code>build</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeBuild
+```
+
+### Update
+```json
+gamelift:UpdateBuild
+```
+
+### Delete
+```json
+gamelift:DescribeBuild,
+gamelift:DeleteBuild
+```
+

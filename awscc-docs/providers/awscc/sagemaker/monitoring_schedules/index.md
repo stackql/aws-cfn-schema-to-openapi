@@ -35,21 +35,6 @@ Retrieves a list of <code>monitoring_schedules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>monitoring_schedules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateMonitoringSchedule,
-sagemaker:DescribeMonitoringSchedule,
-iam:PassRole</pre>
-
-### List
-<pre>
-sagemaker:ListMonitoringSchedule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ monitoring_schedule_arn
 FROM awscc.sagemaker.monitoring_schedules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>monitoring_schedules</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateMonitoringSchedule,
+sagemaker:DescribeMonitoringSchedule,
+iam:PassRole
+```
+
+### List
+```json
+sagemaker:ListMonitoringSchedule
+```
+

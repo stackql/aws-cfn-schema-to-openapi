@@ -40,25 +40,6 @@ Gets an individual <code>assignment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assignment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sso:ListAccountAssignments,
-iam:GetSAMLProvider,
-iam:ListRolePolicies</pre>
-
-### Delete
-<pre>
-sso:ListAccountAssignments,
-sso:DeleteAccountAssignment,
-sso:DescribeAccountAssignmentDeletionStatus,
-iam:GetSAMLProvider,
-iam:ListRolePolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,10 +52,31 @@ principal_type,
 principal_id
 FROM awscc.sso.assignment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceArn&gt;'
-AND data__Identifier = '&lt;TargetId&gt;'
-AND data__Identifier = '&lt;TargetType&gt;'
-AND data__Identifier = '&lt;PermissionSetArn&gt;'
-AND data__Identifier = '&lt;PrincipalType&gt;'
-AND data__Identifier = '&lt;PrincipalId&gt;'
+AND data__Identifier = '{InstanceArn}';
+AND data__Identifier = '{TargetId}';
+AND data__Identifier = '{TargetType}';
+AND data__Identifier = '{PermissionSetArn}';
+AND data__Identifier = '{PrincipalType}';
+AND data__Identifier = '{PrincipalId}';
 ```
+
+## Permissions
+
+To operate on the <code>assignment</code> resource, the following permissions are required:
+
+### Read
+```json
+sso:ListAccountAssignments,
+iam:GetSAMLProvider,
+iam:ListRolePolicies
+```
+
+### Delete
+```json
+sso:ListAccountAssignments,
+sso:DeleteAccountAssignment,
+sso:DescribeAccountAssignmentDeletionStatus,
+iam:GetSAMLProvider,
+iam:ListRolePolicies
+```
+

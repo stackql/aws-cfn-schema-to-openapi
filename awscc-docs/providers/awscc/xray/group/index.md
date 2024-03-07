@@ -39,27 +39,6 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-xray:GetGroup,
-xray:ListTagsForResource</pre>
-
-### Update
-<pre>
-xray:UpdateGroup,
-xray:TagResource,
-xray:UntagResource,
-xray:ListTagsForResource</pre>
-
-### Delete
-<pre>
-xray:DeleteGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +50,29 @@ insights_configuration,
 tags
 FROM awscc.xray.group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GroupARN&gt;'
+AND data__Identifier = '{GroupARN}';
 ```
+
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Read
+```json
+xray:GetGroup,
+xray:ListTagsForResource
+```
+
+### Update
+```json
+xray:UpdateGroup,
+xray:TagResource,
+xray:UntagResource,
+xray:ListTagsForResource
+```
+
+### Delete
+```json
+xray:DeleteGroup
+```
+

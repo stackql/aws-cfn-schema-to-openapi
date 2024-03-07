@@ -35,26 +35,6 @@ Retrieves a list of <code>robot_applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>robot_applications</code> resource, the following permissions are required:
-
-### Create
-<pre>
-robomaker:CreateRobotApplication,
-robomaker:TagResource,
-robomaker:UntagResource,
-ecr:BatchGetImage,
-ecr:GetAuthorizationToken,
-ecr:BatchCheckLayerAvailability,
-ecr-public:GetAuthorizationToken,
-sts:GetServiceBearerToken</pre>
-
-### List
-<pre>
-robomaker:ListRobotApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ arn
 FROM awscc.robomaker.robot_applications
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>robot_applications</code> resource, the following permissions are required:
+
+### Create
+```json
+robomaker:CreateRobotApplication,
+robomaker:TagResource,
+robomaker:UntagResource,
+ecr:BatchGetImage,
+ecr:GetAuthorizationToken,
+ecr:BatchCheckLayerAvailability,
+ecr-public:GetAuthorizationToken,
+sts:GetServiceBearerToken
+```
+
+### List
+```json
+robomaker:ListRobotApplications
+```
+

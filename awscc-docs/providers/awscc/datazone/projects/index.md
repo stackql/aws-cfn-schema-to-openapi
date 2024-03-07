@@ -36,20 +36,6 @@ Retrieves a list of <code>projects</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>projects</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datazone:CreateProject,
-datazone:GetProject</pre>
-
-### List
-<pre>
-datazone:ListProjects</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ id
 FROM awscc.datazone.projects
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>projects</code> resource, the following permissions are required:
+
+### Create
+```json
+datazone:CreateProject,
+datazone:GetProject
+```
+
+### List
+```json
+datazone:ListProjects
+```
+

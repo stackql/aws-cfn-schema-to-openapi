@@ -40,26 +40,6 @@ Gets an individual <code>domain_name</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_name</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +52,28 @@ domain_name_configurations,
 tags
 FROM awscc.apigatewayv2.domain_name
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainName&gt;'
+AND data__Identifier = '{DomainName}';
 ```
+
+## Permissions
+
+To operate on the <code>domain_name</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

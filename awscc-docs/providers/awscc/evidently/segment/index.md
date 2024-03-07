@@ -39,22 +39,6 @@ Gets an individual <code>segment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>segment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-evidently:GetSegment,
-evidently:ListTagsForResource</pre>
-
-### Delete
-<pre>
-evidently:DeleteSegment,
-evidently:GetSegment,
-evidently:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +50,23 @@ pattern,
 tags
 FROM awscc.evidently.segment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>segment</code> resource, the following permissions are required:
+
+### Read
+```json
+evidently:GetSegment,
+evidently:ListTagsForResource
+```
+
+### Delete
+```json
+evidently:DeleteSegment,
+evidently:GetSegment,
+evidently:UntagResource
+```
+

@@ -35,26 +35,6 @@ Retrieves a list of <code>databases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>databases</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lightsail:CreateRelationalDatabase,
-lightsail:GetRelationalDatabase,
-lightsail:GetRelationalDatabases,
-lightsail:GetRegions,
-lightsail:TagResource,
-lightsail:UntagResource,
-lightsail:UpdateRelationalDatabase,
-lightsail:UpdateRelationalDatabaseParameters</pre>
-
-### List
-<pre>
-lightsail:GetRelationalDatabases</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ relational_database_name
 FROM awscc.lightsail.databases
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>databases</code> resource, the following permissions are required:
+
+### Create
+```json
+lightsail:CreateRelationalDatabase,
+lightsail:GetRelationalDatabase,
+lightsail:GetRelationalDatabases,
+lightsail:GetRegions,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateRelationalDatabase,
+lightsail:UpdateRelationalDatabaseParameters
+```
+
+### List
+```json
+lightsail:GetRelationalDatabases
+```
+

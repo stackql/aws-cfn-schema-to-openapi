@@ -40,26 +40,6 @@ Gets an individual <code>flow_vpc_interface</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flow_vpc_interface</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediaconnect:DescribeFlow</pre>
-
-### Update
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:AddFlowVpcInterfaces,
-mediaconnect:RemoveFlowVpcInterface</pre>
-
-### Delete
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:RemoveFlowVpcInterface</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,6 +52,29 @@ subnet_id,
 network_interface_ids
 FROM awscc.mediaconnect.flow_vpc_interface
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FlowArn&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{FlowArn}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>flow_vpc_interface</code> resource, the following permissions are required:
+
+### Read
+```json
+mediaconnect:DescribeFlow
+```
+
+### Update
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:AddFlowVpcInterfaces,
+mediaconnect:RemoveFlowVpcInterface
+```
+
+### Delete
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:RemoveFlowVpcInterface
+```
+

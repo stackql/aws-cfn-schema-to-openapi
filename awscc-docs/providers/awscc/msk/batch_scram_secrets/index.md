@@ -35,26 +35,6 @@ Retrieves a list of <code>batch_scram_secrets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>batch_scram_secrets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kafka:BatchAssociateScramSecret,
-kafka:ListScramSecrets,
-kms:CreateGrant,
-kms:DescribeKey,
-secretsmanager:GetSecretValue</pre>
-
-### List
-<pre>
-kafka:ListScramSecrets,
-kms:CreateGrant,
-kms:DescribeKey,
-secretsmanager:GetSecretValue</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ cluster_arn
 FROM awscc.msk.batch_scram_secrets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>batch_scram_secrets</code> resource, the following permissions are required:
+
+### Create
+```json
+kafka:BatchAssociateScramSecret,
+kafka:ListScramSecrets,
+kms:CreateGrant,
+kms:DescribeKey,
+secretsmanager:GetSecretValue
+```
+
+### List
+```json
+kafka:ListScramSecrets,
+kms:CreateGrant,
+kms:DescribeKey,
+secretsmanager:GetSecretValue
+```
+

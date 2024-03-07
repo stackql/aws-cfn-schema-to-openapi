@@ -49,49 +49,6 @@ Gets an individual <code>branch</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>branch</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-amplify:GetBranch,
-amplify:DeleteBranch,
-codecommit:GetRepository,
-codecommit:GetRepositoryTriggers,
-sns:Unsubscribe,
-iam:PassRole</pre>
-
-### Read
-<pre>
-amplify:GetBranch,
-amplify:ListTagsForResource,
-codecommit:GetRepository,
-codecommit:GetRepositoryTriggers,
-s3:GetObject,
-s3:GetObjectAcl,
-iam:PassRole</pre>
-
-### Update
-<pre>
-amplify:GetBranch,
-amplify:UpdateBranch,
-amplify:ListTagsForResource,
-amplify:TagResource,
-amplify:UntagResource,
-codecommit:GetRepository,
-codecommit:PutRepositoryTriggers,
-codecommit:GetRepositoryTriggers,
-s3:GetObject,
-s3:GetObjectAcl,
-s3:PutObject,
-s3:PutObjectAcl,
-sns:CreateTopic,
-sns:Subscribe,
-sns:Unsubscribe,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -113,5 +70,51 @@ stage,
 tags
 FROM awscc.amplify.branch
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>branch</code> resource, the following permissions are required:
+
+### Delete
+```json
+amplify:GetBranch,
+amplify:DeleteBranch,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+sns:Unsubscribe,
+iam:PassRole
+```
+
+### Read
+```json
+amplify:GetBranch,
+amplify:ListTagsForResource,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+s3:GetObject,
+s3:GetObjectAcl,
+iam:PassRole
+```
+
+### Update
+```json
+amplify:GetBranch,
+amplify:UpdateBranch,
+amplify:ListTagsForResource,
+amplify:TagResource,
+amplify:UntagResource,
+codecommit:GetRepository,
+codecommit:PutRepositoryTriggers,
+codecommit:GetRepositoryTriggers,
+s3:GetObject,
+s3:GetObjectAcl,
+s3:PutObject,
+s3:PutObjectAcl,
+sns:CreateTopic,
+sns:Subscribe,
+sns:Unsubscribe,
+iam:PassRole
+```
+

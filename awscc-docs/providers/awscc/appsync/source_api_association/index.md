@@ -47,29 +47,6 @@ Gets an individual <code>source_api_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>source_api_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appsync:GetSourceApiAssociation,
-appsync:ListSourceApiAssociations</pre>
-
-### Update
-<pre>
-appsync:GetSourceApiAssociation,
-appsync:UpdateSourceApiAssociation,
-appsync:GetSourceApiAssociation</pre>
-
-### Delete
-<pre>
-appsync:GetSourceApiAssociation,
-appsync:DisassociateSourceGraphqlApi,
-appsync:DisassociateMergedGraphqlApi,
-appsync:ListSourceApiAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +66,31 @@ source_api_association_status_detail,
 last_successful_merge_date
 FROM awscc.appsync.source_api_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssociationArn&gt;'
+AND data__Identifier = '{AssociationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>source_api_association</code> resource, the following permissions are required:
+
+### Read
+```json
+appsync:GetSourceApiAssociation,
+appsync:ListSourceApiAssociations
+```
+
+### Update
+```json
+appsync:GetSourceApiAssociation,
+appsync:UpdateSourceApiAssociation,
+appsync:GetSourceApiAssociation
+```
+
+### Delete
+```json
+appsync:GetSourceApiAssociation,
+appsync:DisassociateSourceGraphqlApi,
+appsync:DisassociateMergedGraphqlApi,
+appsync:ListSourceApiAssociations
+```
+

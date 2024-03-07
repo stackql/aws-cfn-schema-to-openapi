@@ -40,27 +40,6 @@ Gets an individual <code>component_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>component_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-greengrass:DescribeComponent,
-greengrass:ListTagsForResource</pre>
-
-### Update
-<pre>
-greengrass:DescribeComponent,
-greengrass:ListTagsForResource,
-greengrass:TagResource,
-greengrass:UntagResource</pre>
-
-### Delete
-<pre>
-greengrass:DeleteComponent</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ lambda_function,
 tags
 FROM awscc.greengrassv2.component_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>component_version</code> resource, the following permissions are required:
+
+### Read
+```json
+greengrass:DescribeComponent,
+greengrass:ListTagsForResource
+```
+
+### Update
+```json
+greengrass:DescribeComponent,
+greengrass:ListTagsForResource,
+greengrass:TagResource,
+greengrass:UntagResource
+```
+
+### Delete
+```json
+greengrass:DeleteComponent
+```
+

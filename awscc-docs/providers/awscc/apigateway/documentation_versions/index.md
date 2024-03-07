@@ -36,20 +36,6 @@ Retrieves a list of <code>documentation_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>documentation_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:GET,
-apigateway:POST</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ rest_api_id
 FROM awscc.apigateway.documentation_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>documentation_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:GET,
+apigateway:POST
+```
+
+### List
+```json
+apigateway:GET
+```
+

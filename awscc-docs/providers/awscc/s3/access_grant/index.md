@@ -44,23 +44,6 @@ Gets an individual <code>access_grant</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_grant</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccessGrant</pre>
-
-### Delete
-<pre>
-s3:DeleteAccessGrant</pre>
-
-### Update
-<pre>
-s3:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +60,25 @@ grantee,
 access_grants_location_configuration
 FROM awscc.s3.access_grant
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccessGrantId&gt;'
+AND data__Identifier = '{AccessGrantId}';
 ```
+
+## Permissions
+
+To operate on the <code>access_grant</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccessGrant
+```
+
+### Delete
+```json
+s3:DeleteAccessGrant
+```
+
+### Update
+```json
+s3:TagResource
+```
+

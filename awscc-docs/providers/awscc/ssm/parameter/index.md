@@ -43,26 +43,6 @@ Gets an individual <code>parameter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>parameter</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm:GetParameters</pre>
-
-### Update
-<pre>
-ssm:PutParameter,
-ssm:AddTagsToResource,
-ssm:RemoveTagsFromResource,
-ssm:GetParameters</pre>
-
-### Delete
-<pre>
-ssm:DeleteParameter</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ data_type,
 name
 FROM awscc.ssm.parameter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>parameter</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm:GetParameters
+```
+
+### Update
+```json
+ssm:PutParameter,
+ssm:AddTagsToResource,
+ssm:RemoveTagsFromResource,
+ssm:GetParameters
+```
+
+### Delete
+```json
+ssm:DeleteParameter
+```
+

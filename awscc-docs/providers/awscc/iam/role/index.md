@@ -45,43 +45,6 @@ Gets an individual <code>role</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>role</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetRole,
-iam:ListAttachedRolePolicies,
-iam:ListRolePolicies,
-iam:GetRolePolicy</pre>
-
-### Update
-<pre>
-iam:UpdateRole,
-iam:UpdateRoleDescription,
-iam:UpdateAssumeRolePolicy,
-iam:DetachRolePolicy,
-iam:AttachRolePolicy,
-iam:DeleteRolePermissionsBoundary,
-iam:PutRolePermissionsBoundary,
-iam:DeleteRolePolicy,
-iam:PutRolePolicy,
-iam:TagRole,
-iam:UntagRole</pre>
-
-### Delete
-<pre>
-iam:DeleteRole,
-iam:DetachRolePolicy,
-iam:DeleteRolePolicy,
-iam:GetRole,
-iam:ListAttachedRolePolicies,
-iam:ListRolePolicies,
-iam:TagRole,
-iam:UntagRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,5 +61,45 @@ role_id,
 role_name,
 tags
 FROM awscc.iam.role
-WHERE data__Identifier = '&lt;RoleName&gt;'
+WHERE data__Identifier = '{RoleName}';
 ```
+
+## Permissions
+
+To operate on the <code>role</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetRole,
+iam:ListAttachedRolePolicies,
+iam:ListRolePolicies,
+iam:GetRolePolicy
+```
+
+### Update
+```json
+iam:UpdateRole,
+iam:UpdateRoleDescription,
+iam:UpdateAssumeRolePolicy,
+iam:DetachRolePolicy,
+iam:AttachRolePolicy,
+iam:DeleteRolePermissionsBoundary,
+iam:PutRolePermissionsBoundary,
+iam:DeleteRolePolicy,
+iam:PutRolePolicy,
+iam:TagRole,
+iam:UntagRole
+```
+
+### Delete
+```json
+iam:DeleteRole,
+iam:DetachRolePolicy,
+iam:DeleteRolePolicy,
+iam:GetRole,
+iam:ListAttachedRolePolicies,
+iam:ListRolePolicies,
+iam:TagRole,
+iam:UntagRole
+```
+

@@ -35,26 +35,6 @@ Retrieves a list of <code>deliveries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>deliveries</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:CreateDelivery,
-logs:GetDelivery,
-logs:DescribeDeliveries,
-logs:ListTagsForResource,
-logs:TagResource,
-logs:GetDeliverySource,
-logs:GetDeliveryDestination</pre>
-
-### List
-<pre>
-logs:DescribeDeliveries,
-logs:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ delivery_id
 FROM awscc.logs.deliveries
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>deliveries</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:CreateDelivery,
+logs:GetDelivery,
+logs:DescribeDeliveries,
+logs:ListTagsForResource,
+logs:TagResource,
+logs:GetDeliverySource,
+logs:GetDeliveryDestination
+```
+
+### List
+```json
+logs:DescribeDeliveries,
+logs:ListTagsForResource
+```
+

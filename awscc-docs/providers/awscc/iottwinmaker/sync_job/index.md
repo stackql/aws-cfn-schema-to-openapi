@@ -42,23 +42,6 @@ Gets an individual <code>sync_job</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sync_job</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iottwinmaker:GetSyncJob,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iottwinmaker:DeleteSyncJob,
-iottwinmaker:GetSyncJob,
-iottwinmaker:GetWorkspace</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,6 +56,25 @@ state,
 tags
 FROM awscc.iottwinmaker.sync_job
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkspaceId&gt;'
-AND data__Identifier = '&lt;SyncSource&gt;'
+AND data__Identifier = '{WorkspaceId}';
+AND data__Identifier = '{SyncSource}';
 ```
+
+## Permissions
+
+To operate on the <code>sync_job</code> resource, the following permissions are required:
+
+### Read
+```json
+iottwinmaker:GetSyncJob,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource
+```
+
+### Delete
+```json
+iottwinmaker:DeleteSyncJob,
+iottwinmaker:GetSyncJob,
+iottwinmaker:GetWorkspace
+```
+

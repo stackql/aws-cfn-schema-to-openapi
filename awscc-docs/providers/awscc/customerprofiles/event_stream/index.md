@@ -42,28 +42,6 @@ Gets an individual <code>event_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_stream</code> resource, the following permissions are required:
-
-### Read
-<pre>
-profile:GetEventStream,
-kinesis:DescribeStreamSummary</pre>
-
-### Update
-<pre>
-kinesis:DescribeStreamSummary,
-profile:GetEventStream,
-profile:UntagResource,
-profile:TagResource</pre>
-
-### Delete
-<pre>
-profile:DeleteEventStream,
-iam:DeleteRolePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,6 +56,31 @@ state,
 destination_details
 FROM awscc.customerprofiles.event_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainName&gt;'
-AND data__Identifier = '&lt;EventStreamName&gt;'
+AND data__Identifier = '{DomainName}';
+AND data__Identifier = '{EventStreamName}';
 ```
+
+## Permissions
+
+To operate on the <code>event_stream</code> resource, the following permissions are required:
+
+### Read
+```json
+profile:GetEventStream,
+kinesis:DescribeStreamSummary
+```
+
+### Update
+```json
+kinesis:DescribeStreamSummary,
+profile:GetEventStream,
+profile:UntagResource,
+profile:TagResource
+```
+
+### Delete
+```json
+profile:DeleteEventStream,
+iam:DeleteRolePolicy
+```
+

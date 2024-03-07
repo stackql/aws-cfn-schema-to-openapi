@@ -35,12 +35,21 @@ Retrieves a list of <code>instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+instance_name
+FROM awscc.lightsail.instances
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>instances</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 lightsail:CreateInstances,
 lightsail:GetInstances,
 lightsail:EnableAddOn,
@@ -54,18 +63,11 @@ lightsail:StopInstance,
 lightsail:GetDisk,
 lightsail:GetRegions,
 lightsail:TagResource,
-lightsail:UntagResource</pre>
+lightsail:UntagResource
+```
 
 ### List
-<pre>
-lightsail:GetInstances</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-instance_name
-FROM awscc.lightsail.instances
-WHERE region = 'us-east-1'
+```json
+lightsail:GetInstances
 ```
+

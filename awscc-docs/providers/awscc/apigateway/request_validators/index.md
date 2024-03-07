@@ -36,20 +36,6 @@ Retrieves a list of <code>request_validators</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>request_validators</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-apigateway:GET</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ request_validator_id
 FROM awscc.apigateway.request_validators
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>request_validators</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:GET
+```
+
+### List
+```json
+apigateway:GET
+```
+

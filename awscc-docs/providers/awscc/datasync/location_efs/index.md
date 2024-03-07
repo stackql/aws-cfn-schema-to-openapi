@@ -43,27 +43,6 @@ Gets an individual <code>location_efs</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_efs</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeLocationEfs,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:DescribeLocationEfs,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource</pre>
-
-### Delete
-<pre>
-datasync:DeleteLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +58,29 @@ location_arn,
 location_uri
 FROM awscc.datasync.location_efs
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationArn&gt;'
+AND data__Identifier = '{LocationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>location_efs</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeLocationEfs,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:DescribeLocationEfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+

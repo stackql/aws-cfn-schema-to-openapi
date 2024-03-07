@@ -35,21 +35,6 @@ Retrieves a list of <code>evaluation_forms</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>evaluation_forms</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateEvaluationForm,
-connect:ActivateEvaluationForm,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListEvaluationForms</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ evaluation_form_arn
 FROM awscc.connect.evaluation_forms
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>evaluation_forms</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateEvaluationForm,
+connect:ActivateEvaluationForm,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListEvaluationForms
+```
+

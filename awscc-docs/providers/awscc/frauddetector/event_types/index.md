@@ -35,12 +35,21 @@ Retrieves a list of <code>event_types</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.frauddetector.event_types
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>event_types</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 frauddetector:BatchCreateVariable,
 frauddetector:BatchGetVariable,
 frauddetector:CreateVariable,
@@ -52,23 +61,16 @@ frauddetector:GetEventTypes,
 frauddetector:GetLabels,
 frauddetector:GetEntityTypes,
 frauddetector:ListTagsForResource,
-frauddetector:TagResource</pre>
+frauddetector:TagResource
+```
 
 ### List
-<pre>
+```json
 frauddetector:BatchGetVariable,
 frauddetector:GetVariables,
 frauddetector:GetEventTypes,
 frauddetector:GetLabels,
 frauddetector:GetEntityTypes,
-frauddetector:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.frauddetector.event_types
-WHERE region = 'us-east-1'
+frauddetector:ListTagsForResource
 ```
+

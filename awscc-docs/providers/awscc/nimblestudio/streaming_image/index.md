@@ -44,37 +44,6 @@ Gets an individual <code>streaming_image</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>streaming_image</code> resource, the following permissions are required:
-
-### Read
-<pre>
-nimble:GetStreamingImage</pre>
-
-### Update
-<pre>
-nimble:UpdateStreamingImage,
-nimble:GetStreamingImage,
-kms:Encrypt,
-kms:Decrypt,
-kms:CreateGrant,
-kms:ListGrants,
-kms:GenerateDataKey</pre>
-
-### Delete
-<pre>
-nimble:DeleteStreamingImage,
-nimble:GetStreamingImage,
-nimble:UntagResource,
-ec2:ModifyInstanceAttribute,
-ec2:ModifySnapshotAttribute,
-ec2:DeregisterImage,
-ec2:DeleteSnapshot,
-kms:ListGrants,
-kms:RetireGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,6 +60,40 @@ studio_id,
 tags
 FROM awscc.nimblestudio.streaming_image
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StudioId&gt;'
-AND data__Identifier = '&lt;StreamingImageId&gt;'
+AND data__Identifier = '{StudioId}';
+AND data__Identifier = '{StreamingImageId}';
 ```
+
+## Permissions
+
+To operate on the <code>streaming_image</code> resource, the following permissions are required:
+
+### Read
+```json
+nimble:GetStreamingImage
+```
+
+### Update
+```json
+nimble:UpdateStreamingImage,
+nimble:GetStreamingImage,
+kms:Encrypt,
+kms:Decrypt,
+kms:CreateGrant,
+kms:ListGrants,
+kms:GenerateDataKey
+```
+
+### Delete
+```json
+nimble:DeleteStreamingImage,
+nimble:GetStreamingImage,
+nimble:UntagResource,
+ec2:ModifyInstanceAttribute,
+ec2:ModifySnapshotAttribute,
+ec2:DeregisterImage,
+ec2:DeleteSnapshot,
+kms:ListGrants,
+kms:RetireGrant
+```
+

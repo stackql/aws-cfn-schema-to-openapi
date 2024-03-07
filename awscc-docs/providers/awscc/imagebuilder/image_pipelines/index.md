@@ -35,12 +35,21 @@ Retrieves a list of <code>image_pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.imagebuilder.image_pipelines
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>image_pipelines</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ecr:BatchGetRepositoryScanningConfiguration,
 iam:GetRole,
 iam:PassRole,
@@ -52,18 +61,11 @@ imagebuilder:GetInfrastructureConfiguration,
 imagebuilder:GetDistributionConfiguration,
 imagebuilder:CreateImagePipeline,
 imagebuilder:GetWorkflow,
-inspector2:BatchGetAccountStatus</pre>
+inspector2:BatchGetAccountStatus
+```
 
 ### List
-<pre>
-imagebuilder:ListImagePipelines</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.imagebuilder.image_pipelines
-WHERE region = 'us-east-1'
+```json
+imagebuilder:ListImagePipelines
 ```
+

@@ -41,26 +41,6 @@ Gets an individual <code>in_app_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>in_app_template</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-mobiletargeting:DeleteInAppTemplate,
-mobiletargeting:GetInAppTemplate</pre>
-
-### Read
-<pre>
-mobiletargeting:GetInAppTemplate,
-mobiletargeting:ListTemplates</pre>
-
-### Update
-<pre>
-mobiletargeting:UpdateInAppTemplate,
-mobiletargeting:GetInAppTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ template_description,
 template_name
 FROM awscc.pinpoint.in_app_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TemplateName&gt;'
+AND data__Identifier = '{TemplateName}';
 ```
+
+## Permissions
+
+To operate on the <code>in_app_template</code> resource, the following permissions are required:
+
+### Delete
+```json
+mobiletargeting:DeleteInAppTemplate,
+mobiletargeting:GetInAppTemplate
+```
+
+### Read
+```json
+mobiletargeting:GetInAppTemplate,
+mobiletargeting:ListTemplates
+```
+
+### Update
+```json
+mobiletargeting:UpdateInAppTemplate,
+mobiletargeting:GetInAppTemplate
+```
+

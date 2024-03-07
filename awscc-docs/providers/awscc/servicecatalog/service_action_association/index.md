@@ -37,20 +37,6 @@ Gets an individual <code>service_action_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_action_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
-
-### Delete
-<pre>
-servicecatalog:DisassociateServiceActionFromProvisioningArtifact,
-servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,7 +46,23 @@ provisioning_artifact_id,
 service_action_id
 FROM awscc.servicecatalog.service_action_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProductId&gt;'
-AND data__Identifier = '&lt;ProvisioningArtifactId&gt;'
-AND data__Identifier = '&lt;ServiceActionId&gt;'
+AND data__Identifier = '{ProductId}';
+AND data__Identifier = '{ProvisioningArtifactId}';
+AND data__Identifier = '{ServiceActionId}';
 ```
+
+## Permissions
+
+To operate on the <code>service_action_association</code> resource, the following permissions are required:
+
+### Read
+```json
+servicecatalog:ListServiceActionsForProvisioningArtifact
+```
+
+### Delete
+```json
+servicecatalog:DisassociateServiceActionFromProvisioningArtifact,
+servicecatalog:ListServiceActionsForProvisioningArtifact
+```
+

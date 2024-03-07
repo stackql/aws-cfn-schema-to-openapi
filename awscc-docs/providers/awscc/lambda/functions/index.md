@@ -35,12 +35,21 @@ Retrieves a list of <code>functions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+function_name
+FROM awscc.lambda.functions
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>functions</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 lambda:CreateFunction,
 lambda:GetFunction,
 lambda:PutFunctionConcurrency,
@@ -65,18 +74,11 @@ lambda:GetPolicy,
 lambda:AddPermission,
 lambda:RemovePermission,
 lambda:GetResourcePolicy,
-lambda:PutResourcePolicy</pre>
+lambda:PutResourcePolicy
+```
 
 ### List
-<pre>
-lambda:ListFunctions</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-function_name
-FROM awscc.lambda.functions
-WHERE region = 'us-east-1'
+```json
+lambda:ListFunctions
 ```
+

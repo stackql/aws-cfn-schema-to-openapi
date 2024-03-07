@@ -35,22 +35,6 @@ Retrieves a list of <code>certificate_providers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate_providers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:CreateCertificateProvider,
-iot:DescribeCertificateProvider,
-iot:TagResource,
-iot:ListTagsForResource</pre>
-
-### List
-<pre>
-iot:ListCertificateProviders</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ certificate_provider_name
 FROM awscc.iot.certificate_providers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>certificate_providers</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:CreateCertificateProvider,
+iot:DescribeCertificateProvider,
+iot:TagResource,
+iot:ListTagsForResource
+```
+
+### List
+```json
+iot:ListCertificateProviders
+```
+

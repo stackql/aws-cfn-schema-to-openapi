@@ -40,29 +40,6 @@ Gets an individual <code>schedule_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schedule_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-scheduler:GetScheduleGroup,
-scheduler:ListTagsForResource</pre>
-
-### Update
-<pre>
-scheduler:TagResource,
-scheduler:UntagResource,
-scheduler:ListTagsForResource,
-scheduler:GetScheduleGroup</pre>
-
-### Delete
-<pre>
-scheduler:DeleteScheduleGroup,
-scheduler:GetScheduleGroup,
-scheduler:DeleteSchedule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ state,
 tags
 FROM awscc.scheduler.schedule_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>schedule_group</code> resource, the following permissions are required:
+
+### Read
+```json
+scheduler:GetScheduleGroup,
+scheduler:ListTagsForResource
+```
+
+### Update
+```json
+scheduler:TagResource,
+scheduler:UntagResource,
+scheduler:ListTagsForResource,
+scheduler:GetScheduleGroup
+```
+
+### Delete
+```json
+scheduler:DeleteScheduleGroup,
+scheduler:GetScheduleGroup,
+scheduler:DeleteSchedule
+```
+

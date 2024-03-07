@@ -40,24 +40,6 @@ Gets an individual <code>workflow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>workflow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-transfer:DescribeWorkflow</pre>
-
-### Delete
-<pre>
-transfer:DeleteWorkflow</pre>
-
-### Update
-<pre>
-transfer:UnTagResource,
-transfer:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +52,26 @@ workflow_id,
 arn
 FROM awscc.transfer.workflow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkflowId&gt;'
+AND data__Identifier = '{WorkflowId}';
 ```
+
+## Permissions
+
+To operate on the <code>workflow</code> resource, the following permissions are required:
+
+### Read
+```json
+transfer:DescribeWorkflow
+```
+
+### Delete
+```json
+transfer:DeleteWorkflow
+```
+
+### Update
+```json
+transfer:UnTagResource,
+transfer:TagResource
+```
+

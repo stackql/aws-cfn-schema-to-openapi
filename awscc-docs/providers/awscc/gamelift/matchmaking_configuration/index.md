@@ -52,29 +52,6 @@ Gets an individual <code>matchmaking_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>matchmaking_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeMatchmakingConfigurations,
-gamelift:ListTagsForResource</pre>
-
-### Delete
-<pre>
-gamelift:DescribeMatchmakingConfigurations,
-gamelift:DeleteMatchmakingConfiguration</pre>
-
-### Update
-<pre>
-gamelift:DescribeMatchmakingConfigurations,
-gamelift:UpdateMatchmakingConfiguration,
-gamelift:ListTagsForResource,
-gamelift:TagResource,
-gamelift:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -99,5 +76,31 @@ rule_set_name,
 tags
 FROM awscc.gamelift.matchmaking_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>matchmaking_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeMatchmakingConfigurations,
+gamelift:ListTagsForResource
+```
+
+### Delete
+```json
+gamelift:DescribeMatchmakingConfigurations,
+gamelift:DeleteMatchmakingConfiguration
+```
+
+### Update
+```json
+gamelift:DescribeMatchmakingConfigurations,
+gamelift:UpdateMatchmakingConfiguration,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource
+```
+

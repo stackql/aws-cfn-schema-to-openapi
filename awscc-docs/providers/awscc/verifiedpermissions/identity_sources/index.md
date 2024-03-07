@@ -36,31 +36,6 @@ Retrieves a list of <code>identity_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_sources</code> resource, the following permissions are required:
-
-### Create
-<pre>
-verifiedpermissions:CreateIdentitySource,
-verifiedpermissions:GetIdentitySource,
-verifiedpermissions:UpdateIdentitySource,
-verifiedpermissions:DeleteIdentitySource,
-verifiedpermissions:ListIdentitySources,
-cognito-idp:DescribeUserPool,
-cognito-idp:ListUserPoolClients</pre>
-
-### List
-<pre>
-verifiedpermissions:CreateIdentitySource,
-verifiedpermissions:GetIdentitySource,
-verifiedpermissions:UpdateIdentitySource,
-verifiedpermissions:DeleteIdentitySource,
-verifiedpermissions:ListIdentitySources,
-cognito-idp:DescribeUserPool,
-cognito-idp:ListUserPoolClients</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,3 +45,30 @@ policy_store_id
 FROM awscc.verifiedpermissions.identity_sources
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>identity_sources</code> resource, the following permissions are required:
+
+### Create
+```json
+verifiedpermissions:CreateIdentitySource,
+verifiedpermissions:GetIdentitySource,
+verifiedpermissions:UpdateIdentitySource,
+verifiedpermissions:DeleteIdentitySource,
+verifiedpermissions:ListIdentitySources,
+cognito-idp:DescribeUserPool,
+cognito-idp:ListUserPoolClients
+```
+
+### List
+```json
+verifiedpermissions:CreateIdentitySource,
+verifiedpermissions:GetIdentitySource,
+verifiedpermissions:UpdateIdentitySource,
+verifiedpermissions:DeleteIdentitySource,
+verifiedpermissions:ListIdentitySources,
+cognito-idp:DescribeUserPool,
+cognito-idp:ListUserPoolClients
+```
+

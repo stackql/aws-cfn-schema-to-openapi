@@ -49,31 +49,6 @@ Gets an individual <code>load_balancer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>load_balancer</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-elasticloadbalancing:DescribeLoadBalancers,
-elasticloadbalancing:DeleteLoadBalancer</pre>
-
-### Read
-<pre>
-elasticloadbalancing:DescribeLoadBalancers,
-elasticloadbalancing:DescribeLoadBalancerAttributes,
-elasticloadbalancing:DescribeTags</pre>
-
-### Update
-<pre>
-elasticloadbalancing:ModifyLoadBalancerAttributes,
-elasticloadbalancing:SetSubnets,
-elasticloadbalancing:SetIpAddressType,
-elasticloadbalancing:SetSecurityGroups,
-elasticloadbalancing:AddTags,
-elasticloadbalancing:RemoveTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -95,5 +70,33 @@ subnet_mappings,
 enforce_security_group_inbound_rules_on_private_link_traffic
 FROM awscc.elasticloadbalancingv2.load_balancer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LoadBalancerArn&gt;'
+AND data__Identifier = '{LoadBalancerArn}';
 ```
+
+## Permissions
+
+To operate on the <code>load_balancer</code> resource, the following permissions are required:
+
+### Delete
+```json
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:DeleteLoadBalancer
+```
+
+### Read
+```json
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:DescribeLoadBalancerAttributes,
+elasticloadbalancing:DescribeTags
+```
+
+### Update
+```json
+elasticloadbalancing:ModifyLoadBalancerAttributes,
+elasticloadbalancing:SetSubnets,
+elasticloadbalancing:SetIpAddressType,
+elasticloadbalancing:SetSecurityGroups,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RemoveTags
+```
+

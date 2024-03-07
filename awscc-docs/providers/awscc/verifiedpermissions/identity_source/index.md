@@ -39,41 +39,6 @@ Gets an individual <code>identity_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_source</code> resource, the following permissions are required:
-
-### Read
-<pre>
-verifiedpermissions:CreateIdentitySource,
-verifiedpermissions:GetIdentitySource,
-verifiedpermissions:UpdateIdentitySource,
-verifiedpermissions:DeleteIdentitySource,
-verifiedpermissions:ListIdentitySources,
-cognito-idp:DescribeUserPool,
-cognito-idp:ListUserPoolClients</pre>
-
-### Update
-<pre>
-verifiedpermissions:CreateIdentitySource,
-verifiedpermissions:GetIdentitySource,
-verifiedpermissions:UpdateIdentitySource,
-verifiedpermissions:DeleteIdentitySource,
-verifiedpermissions:ListIdentitySources,
-cognito-idp:DescribeUserPool,
-cognito-idp:ListUserPoolClients</pre>
-
-### Delete
-<pre>
-verifiedpermissions:CreateIdentitySource,
-verifiedpermissions:GetIdentitySource,
-verifiedpermissions:UpdateIdentitySource,
-verifiedpermissions:DeleteIdentitySource,
-verifiedpermissions:ListIdentitySources,
-cognito-idp:DescribeUserPool,
-cognito-idp:ListUserPoolClients</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,6 +50,44 @@ policy_store_id,
 principal_entity_type
 FROM awscc.verifiedpermissions.identity_source
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IdentitySourceId&gt;'
-AND data__Identifier = '&lt;PolicyStoreId&gt;'
+AND data__Identifier = '{IdentitySourceId}';
+AND data__Identifier = '{PolicyStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>identity_source</code> resource, the following permissions are required:
+
+### Read
+```json
+verifiedpermissions:CreateIdentitySource,
+verifiedpermissions:GetIdentitySource,
+verifiedpermissions:UpdateIdentitySource,
+verifiedpermissions:DeleteIdentitySource,
+verifiedpermissions:ListIdentitySources,
+cognito-idp:DescribeUserPool,
+cognito-idp:ListUserPoolClients
+```
+
+### Update
+```json
+verifiedpermissions:CreateIdentitySource,
+verifiedpermissions:GetIdentitySource,
+verifiedpermissions:UpdateIdentitySource,
+verifiedpermissions:DeleteIdentitySource,
+verifiedpermissions:ListIdentitySources,
+cognito-idp:DescribeUserPool,
+cognito-idp:ListUserPoolClients
+```
+
+### Delete
+```json
+verifiedpermissions:CreateIdentitySource,
+verifiedpermissions:GetIdentitySource,
+verifiedpermissions:UpdateIdentitySource,
+verifiedpermissions:DeleteIdentitySource,
+verifiedpermissions:ListIdentitySources,
+cognito-idp:DescribeUserPool,
+cognito-idp:ListUserPoolClients
+```
+

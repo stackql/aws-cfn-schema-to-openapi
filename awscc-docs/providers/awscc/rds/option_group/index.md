@@ -40,31 +40,6 @@ Gets an individual <code>option_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>option_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeOptionGroups,
-rds:ListTagsForResource</pre>
-
-### Update
-<pre>
-rds:AddTagsToResource,
-rds:DescribeOptionGroups,
-rds:ListTagsForResource,
-rds:ModifyOptionGroup,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DeleteOptionGroup,
-rds:DescribeOptionGroups,
-rds:ListTagsForResource,
-rds:RemoveTagsFromResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +52,33 @@ option_configurations,
 tags
 FROM awscc.rds.option_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;OptionGroupName&gt;'
+AND data__Identifier = '{OptionGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>option_group</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeOptionGroups,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:AddTagsToResource,
+rds:DescribeOptionGroups,
+rds:ListTagsForResource,
+rds:ModifyOptionGroup,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteOptionGroup,
+rds:DescribeOptionGroups,
+rds:ListTagsForResource,
+rds:RemoveTagsFromResource
+```
+

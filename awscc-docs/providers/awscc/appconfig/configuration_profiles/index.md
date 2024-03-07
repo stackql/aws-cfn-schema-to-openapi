@@ -36,23 +36,6 @@ Retrieves a list of <code>configuration_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appconfig:CreateConfigurationProfile,
-appconfig:GetConfigurationProfile,
-appconfig:TagResource,
-appconfig:ListTagsForResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-appconfig:ListConfigurationProfiles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +45,22 @@ configuration_profile_id
 FROM awscc.appconfig.configuration_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>configuration_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+appconfig:CreateConfigurationProfile,
+appconfig:GetConfigurationProfile,
+appconfig:TagResource,
+appconfig:ListTagsForResource,
+iam:PassRole
+```
+
+### List
+```json
+appconfig:ListConfigurationProfiles
+```
+

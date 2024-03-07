@@ -39,21 +39,6 @@ Gets an individual <code>multi_region_access_point</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multi_region_access_point</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetMultiRegionAccessPoint</pre>
-
-### Delete
-<pre>
-s3:DeleteMultiRegionAccessPoint,
-s3:DescribeMultiRegionAccessPointOperation,
-s3:GetMultiRegionAccessPoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +50,22 @@ public_access_block_configuration,
 regions
 FROM awscc.s3.multi_region_access_point
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>multi_region_access_point</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetMultiRegionAccessPoint
+```
+
+### Delete
+```json
+s3:DeleteMultiRegionAccessPoint,
+s3:DescribeMultiRegionAccessPointOperation,
+s3:GetMultiRegionAccessPoint
+```
+

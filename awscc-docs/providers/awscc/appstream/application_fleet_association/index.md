@@ -36,20 +36,6 @@ Gets an individual <code>application_fleet_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_fleet_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appstream:DescribeApplicationFleetAssociations</pre>
-
-### Delete
-<pre>
-appstream:DisassociateApplicationFleet,
-appstream:DescribeApplicationFleetAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,6 +44,22 @@ fleet_name,
 application_arn
 FROM awscc.appstream.application_fleet_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FleetName&gt;'
-AND data__Identifier = '&lt;ApplicationArn&gt;'
+AND data__Identifier = '{FleetName}';
+AND data__Identifier = '{ApplicationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>application_fleet_association</code> resource, the following permissions are required:
+
+### Read
+```json
+appstream:DescribeApplicationFleetAssociations
+```
+
+### Delete
+```json
+appstream:DisassociateApplicationFleet,
+appstream:DescribeApplicationFleetAssociations
+```
+

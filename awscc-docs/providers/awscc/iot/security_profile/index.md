@@ -43,33 +43,6 @@ Gets an individual <code>security_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeSecurityProfile,
-iot:ListTagsForResource,
-iot:ListTargetsForSecurityProfile</pre>
-
-### Update
-<pre>
-iot:UpdateSecurityProfile,
-iot:ListTargetsForSecurityProfile,
-iot:AttachSecurityProfile,
-iot:DetachSecurityProfile,
-iot:ListTagsForResource,
-iot:UntagResource,
-iot:TagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-iot:DescribeSecurityProfile,
-iot:DeleteSecurityProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +58,35 @@ target_arns,
 security_profile_arn
 FROM awscc.iot.security_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SecurityProfileName&gt;'
+AND data__Identifier = '{SecurityProfileName}';
 ```
+
+## Permissions
+
+To operate on the <code>security_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeSecurityProfile,
+iot:ListTagsForResource,
+iot:ListTargetsForSecurityProfile
+```
+
+### Update
+```json
+iot:UpdateSecurityProfile,
+iot:ListTargetsForSecurityProfile,
+iot:AttachSecurityProfile,
+iot:DetachSecurityProfile,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+iot:DescribeSecurityProfile,
+iot:DeleteSecurityProfile
+```
+

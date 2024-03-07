@@ -35,12 +35,21 @@ Retrieves a list of <code>replicators</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+replicator_arn
+FROM awscc.msk.replicators
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>replicators</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ec2:CreateNetworkInterface,
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
@@ -53,18 +62,11 @@ kafka:DescribeClusterV2,
 kafka:DescribeReplicator,
 kafka:GetBootstrapBrokers,
 kafka:ListTagsForResource,
-kafka:TagResource</pre>
+kafka:TagResource
+```
 
 ### List
-<pre>
-kafka:ListReplicators</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-replicator_arn
-FROM awscc.msk.replicators
-WHERE region = 'us-east-1'
+```json
+kafka:ListReplicators
 ```
+

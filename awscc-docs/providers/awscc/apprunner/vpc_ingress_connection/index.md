@@ -41,23 +41,6 @@ Gets an individual <code>vpc_ingress_connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_ingress_connection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apprunner:DescribeVpcIngressConnection</pre>
-
-### Update
-<pre>
-apprunner:UpdateVpcIngressConnection</pre>
-
-### Delete
-<pre>
-apprunner:DeleteVpcIngressConnection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +54,25 @@ ingress_vpc_configuration,
 tags
 FROM awscc.apprunner.vpc_ingress_connection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;VpcIngressConnectionArn&gt;'
+AND data__Identifier = '{VpcIngressConnectionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_ingress_connection</code> resource, the following permissions are required:
+
+### Read
+```json
+apprunner:DescribeVpcIngressConnection
+```
+
+### Update
+```json
+apprunner:UpdateVpcIngressConnection
+```
+
+### Delete
+```json
+apprunner:DeleteVpcIngressConnection
+```
+

@@ -35,20 +35,6 @@ Retrieves a list of <code>api_destinations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>api_destinations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-events:CreateApiDestination,
-events:DescribeApiDestination</pre>
-
-### List
-<pre>
-events:ListApiDestinations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ name
 FROM awscc.events.api_destinations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>api_destinations</code> resource, the following permissions are required:
+
+### Create
+```json
+events:CreateApiDestination,
+events:DescribeApiDestination
+```
+
+### List
+```json
+events:ListApiDestinations
+```
+

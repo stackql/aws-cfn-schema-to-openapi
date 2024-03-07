@@ -38,25 +38,6 @@ Gets an individual <code>access_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-aoss:GetAccessPolicy</pre>
-
-### Update
-<pre>
-aoss:UpdateAccessPolicy,
-aoss:GetAccessPolicy</pre>
-
-### Delete
-<pre>
-aoss:DeleteAccessPolicy,
-aoss:GetAccessPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,6 +48,28 @@ description,
 policy
 FROM awscc.opensearchserverless.access_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Type&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Type}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>access_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+aoss:GetAccessPolicy
+```
+
+### Update
+```json
+aoss:UpdateAccessPolicy,
+aoss:GetAccessPolicy
+```
+
+### Delete
+```json
+aoss:DeleteAccessPolicy,
+aoss:GetAccessPolicy
+```
+

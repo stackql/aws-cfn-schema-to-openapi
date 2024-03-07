@@ -36,20 +36,6 @@ Retrieves a list of <code>calculated_attribute_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>calculated_attribute_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-profile:CreateCalculatedAttributeDefinition,
-profile:TagResource</pre>
-
-### List
-<pre>
-profile:ListCalculatedAttributeDefinitions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ calculated_attribute_name
 FROM awscc.customerprofiles.calculated_attribute_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>calculated_attribute_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+profile:CreateCalculatedAttributeDefinition,
+profile:TagResource
+```
+
+### List
+```json
+profile:ListCalculatedAttributeDefinitions
+```
+

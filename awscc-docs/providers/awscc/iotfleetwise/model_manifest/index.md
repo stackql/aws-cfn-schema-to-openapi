@@ -43,31 +43,6 @@ Gets an individual <code>model_manifest</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_manifest</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotfleetwise:GetModelManifest,
-iotfleetwise:ListModelManifestNodes,
-iotfleetwise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotfleetwise:UpdateModelManifest,
-iotfleetwise:GetModelManifest,
-iotfleetwise:ListModelManifestNodes,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource,
-iotfleetwise:UntagResource</pre>
-
-### Delete
-<pre>
-iotfleetwise:DeleteModelManifest,
-iotfleetwise:GetModelManifest</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +58,33 @@ status,
 tags
 FROM awscc.iotfleetwise.model_manifest
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>model_manifest</code> resource, the following permissions are required:
+
+### Read
+```json
+iotfleetwise:GetModelManifest,
+iotfleetwise:ListModelManifestNodes,
+iotfleetwise:ListTagsForResource
+```
+
+### Update
+```json
+iotfleetwise:UpdateModelManifest,
+iotfleetwise:GetModelManifest,
+iotfleetwise:ListModelManifestNodes,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource
+```
+
+### Delete
+```json
+iotfleetwise:DeleteModelManifest,
+iotfleetwise:GetModelManifest
+```
+

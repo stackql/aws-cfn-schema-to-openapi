@@ -35,29 +35,6 @@ Retrieves a list of <code>recording_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>recording_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ivs:CreateRecordingConfiguration,
-ivs:GetRecordingConfiguration,
-ivs:TagResource,
-iam:CreateServiceLinkedRole,
-iam:PutRolePolicy,
-iam:AttachRolePolicy,
-s3:ListBucket,
-s3:GetBucketLocation,
-cloudformation:ListExports</pre>
-
-### List
-<pre>
-ivs:ListRecordingConfigurations,
-s3:GetBucketLocation,
-ivs:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,3 +43,28 @@ arn
 FROM awscc.ivs.recording_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>recording_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+ivs:CreateRecordingConfiguration,
+ivs:GetRecordingConfiguration,
+ivs:TagResource,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+iam:AttachRolePolicy,
+s3:ListBucket,
+s3:GetBucketLocation,
+cloudformation:ListExports
+```
+
+### List
+```json
+ivs:ListRecordingConfigurations,
+s3:GetBucketLocation,
+ivs:ListTagsForResource
+```
+

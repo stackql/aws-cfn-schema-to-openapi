@@ -42,32 +42,6 @@ Gets an individual <code>secret</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>secret</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-secretsmanager:DeleteSecret,
-secretsmanager:DescribeSecret,
-secretsmanager:RemoveRegionsFromReplication</pre>
-
-### Read
-<pre>
-secretsmanager:DescribeSecret,
-secretsmanager:GetSecretValue</pre>
-
-### Update
-<pre>
-secretsmanager:UpdateSecret,
-secretsmanager:TagResource,
-secretsmanager:UntagResource,
-secretsmanager:GetRandomPassword,
-secretsmanager:GetSecretValue,
-secretsmanager:ReplicateSecretToRegions,
-secretsmanager:RemoveRegionsFromReplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +56,34 @@ tags,
 name
 FROM awscc.secretsmanager.secret
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>secret</code> resource, the following permissions are required:
+
+### Delete
+```json
+secretsmanager:DeleteSecret,
+secretsmanager:DescribeSecret,
+secretsmanager:RemoveRegionsFromReplication
+```
+
+### Read
+```json
+secretsmanager:DescribeSecret,
+secretsmanager:GetSecretValue
+```
+
+### Update
+```json
+secretsmanager:UpdateSecret,
+secretsmanager:TagResource,
+secretsmanager:UntagResource,
+secretsmanager:GetRandomPassword,
+secretsmanager:GetSecretValue,
+secretsmanager:ReplicateSecretToRegions,
+secretsmanager:RemoveRegionsFromReplication
+```
+

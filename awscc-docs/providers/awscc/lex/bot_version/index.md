@@ -38,20 +38,6 @@ Gets an individual <code>bot_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bot_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lex:DescribeBotVersion</pre>
-
-### Delete
-<pre>
-lex:DeleteBotVersion,
-lex:DescribeBotVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,6 +48,22 @@ description,
 bot_version_locale_specification
 FROM awscc.lex.bot_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BotId&gt;'
-AND data__Identifier = '&lt;BotVersion&gt;'
+AND data__Identifier = '{BotId}';
+AND data__Identifier = '{BotVersion}';
 ```
+
+## Permissions
+
+To operate on the <code>bot_version</code> resource, the following permissions are required:
+
+### Read
+```json
+lex:DescribeBotVersion
+```
+
+### Delete
+```json
+lex:DeleteBotVersion,
+lex:DescribeBotVersion
+```
+

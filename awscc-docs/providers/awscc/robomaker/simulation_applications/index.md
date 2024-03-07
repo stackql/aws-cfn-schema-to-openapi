@@ -35,26 +35,6 @@ Retrieves a list of <code>simulation_applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>simulation_applications</code> resource, the following permissions are required:
-
-### Create
-<pre>
-robomaker:CreateSimulationApplication,
-robomaker:TagResource,
-robomaker:UntagResource,
-ecr:BatchGetImage,
-ecr:GetAuthorizationToken,
-ecr:BatchCheckLayerAvailability,
-ecr-public:GetAuthorizationToken,
-sts:GetServiceBearerToken</pre>
-
-### List
-<pre>
-robomaker:ListSimulationApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ arn
 FROM awscc.robomaker.simulation_applications
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>simulation_applications</code> resource, the following permissions are required:
+
+### Create
+```json
+robomaker:CreateSimulationApplication,
+robomaker:TagResource,
+robomaker:UntagResource,
+ecr:BatchGetImage,
+ecr:GetAuthorizationToken,
+ecr:BatchCheckLayerAvailability,
+ecr-public:GetAuthorizationToken,
+sts:GetServiceBearerToken
+```
+
+### List
+```json
+robomaker:ListSimulationApplications
+```
+

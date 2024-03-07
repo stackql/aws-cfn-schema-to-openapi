@@ -39,30 +39,6 @@ Gets an individual <code>acl</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>acl</code> resource, the following permissions are required:
-
-### Read
-<pre>
-memorydb:DescribeACLs,
-memorydb:ListTags</pre>
-
-### Update
-<pre>
-memorydb:UpdateACL,
-memorydb:DescribeACLs,
-memorydb:ListTags,
-memorydb:TagResource,
-memorydb:UntagResource</pre>
-
-### Delete
-<pre>
-memorydb:ModifyReplicationGroup,
-memorydb:DeleteACL,
-memorydb:DescribeACLs</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +50,32 @@ arn,
 tags
 FROM awscc.memorydb.acl
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ACLName&gt;'
+AND data__Identifier = '{ACLName}';
 ```
+
+## Permissions
+
+To operate on the <code>acl</code> resource, the following permissions are required:
+
+### Read
+```json
+memorydb:DescribeACLs,
+memorydb:ListTags
+```
+
+### Update
+```json
+memorydb:UpdateACL,
+memorydb:DescribeACLs,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource
+```
+
+### Delete
+```json
+memorydb:ModifyReplicationGroup,
+memorydb:DeleteACL,
+memorydb:DescribeACLs
+```
+

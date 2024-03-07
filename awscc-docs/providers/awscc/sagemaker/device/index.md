@@ -37,23 +37,6 @@ Gets an individual <code>device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>device</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeDevice</pre>
-
-### Update
-<pre>
-sagemaker:UpdateDevices</pre>
-
-### Delete
-<pre>
-sagemaker:DeregisterDevices</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +46,25 @@ device,
 tags
 FROM awscc.sagemaker.device
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Device/DeviceName&gt;'
+AND data__Identifier = '{Device/DeviceName}';
 ```
+
+## Permissions
+
+To operate on the <code>device</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeDevice
+```
+
+### Update
+```json
+sagemaker:UpdateDevices
+```
+
+### Delete
+```json
+sagemaker:DeregisterDevices
+```
+

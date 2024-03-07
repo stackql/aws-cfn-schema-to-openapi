@@ -35,22 +35,6 @@ Retrieves a list of <code>resolver_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolver_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53resolver:CreateResolverRule,
-route53resolver:GetResolverRule,
-route53resolver:ListTagsForResource,
-route53resolver:TagResource</pre>
-
-### List
-<pre>
-route53resolver:ListResolverRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ resolver_rule_id
 FROM awscc.route53resolver.resolver_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resolver_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+route53resolver:CreateResolverRule,
+route53resolver:GetResolverRule,
+route53resolver:ListTagsForResource,
+route53resolver:TagResource
+```
+
+### List
+```json
+route53resolver:ListResolverRules
+```
+

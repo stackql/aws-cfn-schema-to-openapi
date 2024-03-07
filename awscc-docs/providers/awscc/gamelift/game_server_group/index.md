@@ -48,48 +48,6 @@ Gets an individual <code>game_server_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>game_server_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeGameServerGroup</pre>
-
-### Update
-<pre>
-gamelift:UpdateGameServerGroup,
-iam:assumeRole,
-iam:PassRole,
-autoscaling:DescribeAutoScalingGroups,
-autoscaling:UpdateAutoScalingGroup,
-autoscaling:SetInstanceProtection</pre>
-
-### Delete
-<pre>
-gamelift:DeleteGameServerGroup,
-gamelift:DescribeGameServerGroup,
-iam:assumeRole,
-iam:PassRole,
-iam:CreateServiceLinkedRole,
-ec2:DescribeAvailabilityZones,
-ec2:DescribeSubnets,
-ec2:DescribeLaunchTemplateVersions,
-autoscaling:CreateAutoScalingGroup,
-autoscaling:DescribeLifecycleHooks,
-autoscaling:DescribeNotificationConfigurations,
-autoscaling:DescribeAutoScalingGroups,
-autoscaling:ExitStandby,
-autoscaling:PutLifecycleHook,
-autoscaling:PutScalingPolicy,
-autoscaling:ResumeProcesses,
-autoscaling:SetInstanceProtection,
-autoscaling:UpdateAutoScalingGroup,
-autoscaling:DeleteAutoScalingGroup,
-events:PutRule,
-events:PutTargets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -110,5 +68,50 @@ tags,
 vpc_subnets
 FROM awscc.gamelift.game_server_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GameServerGroupArn&gt;'
+AND data__Identifier = '{GameServerGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>game_server_group</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeGameServerGroup
+```
+
+### Update
+```json
+gamelift:UpdateGameServerGroup,
+iam:assumeRole,
+iam:PassRole,
+autoscaling:DescribeAutoScalingGroups,
+autoscaling:UpdateAutoScalingGroup,
+autoscaling:SetInstanceProtection
+```
+
+### Delete
+```json
+gamelift:DeleteGameServerGroup,
+gamelift:DescribeGameServerGroup,
+iam:assumeRole,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+ec2:DescribeAvailabilityZones,
+ec2:DescribeSubnets,
+ec2:DescribeLaunchTemplateVersions,
+autoscaling:CreateAutoScalingGroup,
+autoscaling:DescribeLifecycleHooks,
+autoscaling:DescribeNotificationConfigurations,
+autoscaling:DescribeAutoScalingGroups,
+autoscaling:ExitStandby,
+autoscaling:PutLifecycleHook,
+autoscaling:PutScalingPolicy,
+autoscaling:ResumeProcesses,
+autoscaling:SetInstanceProtection,
+autoscaling:UpdateAutoScalingGroup,
+autoscaling:DeleteAutoScalingGroup,
+events:PutRule,
+events:PutTargets
+```
+

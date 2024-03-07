@@ -35,20 +35,6 @@ Retrieves a list of <code>task_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateTaskTemplate,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListTaskTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ arn
 FROM awscc.connect.task_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>task_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateTaskTemplate,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListTaskTemplates
+```
+

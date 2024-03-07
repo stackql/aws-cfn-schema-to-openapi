@@ -35,19 +35,6 @@ Retrieves a list of <code>contact_lists</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>contact_lists</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ses:CreateContactList</pre>
-
-### List
-<pre>
-ses:ListContactLists</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ contact_list_name
 FROM awscc.ses.contact_lists
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>contact_lists</code> resource, the following permissions are required:
+
+### Create
+```json
+ses:CreateContactList
+```
+
+### List
+```json
+ses:ListContactLists
+```
+

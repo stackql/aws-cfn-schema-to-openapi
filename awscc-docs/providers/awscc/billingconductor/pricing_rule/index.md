@@ -49,29 +49,6 @@ Gets an individual <code>pricing_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pricing_rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-billingconductor:ListPricingRules,
-billingconductor:ListTagsForResource</pre>
-
-### Update
-<pre>
-billingconductor:UpdatePricingRule,
-billingconductor:ListPricingRules,
-billingconductor:TagResource,
-billingconductor:UntagResource</pre>
-
-### Delete
-<pre>
-billingconductor:DeletePricingRule,
-billingconductor:ListPricingRules,
-billingconductor:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +70,31 @@ last_modified_time,
 tags
 FROM awscc.billingconductor.pricing_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>pricing_rule</code> resource, the following permissions are required:
+
+### Read
+```json
+billingconductor:ListPricingRules,
+billingconductor:ListTagsForResource
+```
+
+### Update
+```json
+billingconductor:UpdatePricingRule,
+billingconductor:ListPricingRules,
+billingconductor:TagResource,
+billingconductor:UntagResource
+```
+
+### Delete
+```json
+billingconductor:DeletePricingRule,
+billingconductor:ListPricingRules,
+billingconductor:UntagResource
+```
+

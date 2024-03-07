@@ -41,33 +41,6 @@ Gets an individual <code>rotation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rotation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-contacts:GetRotation,
-ssm-contacts:TagResource,
-ssm-contacts:ListTagsForResource,
-ssm-contacts:UntagResource</pre>
-
-### Update
-<pre>
-ssm-contacts:UpdateRotation,
-ssm-contacts:GetRotation,
-ssm-contacts:TagResource,
-ssm-contacts:ListTagsForResource,
-ssm-contacts:UntagResource</pre>
-
-### Delete
-<pre>
-ssm-contacts:DeleteRotation,
-ssm-contacts:GetRotation,
-ssm-contacts:ListTagsForResource,
-ssm-contacts:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +54,35 @@ tags,
 arn
 FROM awscc.ssmcontacts.rotation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>rotation</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-contacts:GetRotation,
+ssm-contacts:TagResource,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource
+```
+
+### Update
+```json
+ssm-contacts:UpdateRotation,
+ssm-contacts:GetRotation,
+ssm-contacts:TagResource,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource
+```
+
+### Delete
+```json
+ssm-contacts:DeleteRotation,
+ssm-contacts:GetRotation,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource
+```
+

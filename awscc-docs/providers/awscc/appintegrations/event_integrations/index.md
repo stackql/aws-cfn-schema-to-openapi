@@ -35,20 +35,6 @@ Retrieves a list of <code>event_integrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_integrations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-app-integrations:CreateEventIntegration,
-app-integrations:TagResource</pre>
-
-### List
-<pre>
-app-integrations:ListEventIntegrations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ name
 FROM awscc.appintegrations.event_integrations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>event_integrations</code> resource, the following permissions are required:
+
+### Create
+```json
+app-integrations:CreateEventIntegration,
+app-integrations:TagResource
+```
+
+### List
+```json
+app-integrations:ListEventIntegrations
+```
+

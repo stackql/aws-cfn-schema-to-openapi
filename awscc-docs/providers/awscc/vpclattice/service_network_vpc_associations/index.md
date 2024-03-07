@@ -35,25 +35,6 @@ Retrieves a list of <code>service_network_vpc_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_network_vpc_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-vpc-lattice:CreateServiceNetworkVpcAssociation,
-vpc-lattice:GetServiceNetworkVpcAssociation,
-vpc-lattice:ListServiceNetworkVpcAssociations,
-vpc-lattice:ListTagsForResource,
-ec2:DescribeSecurityGroups,
-ec2:DescribeVpcs,
-vpc-lattice:TagResource</pre>
-
-### List
-<pre>
-vpc-lattice:ListServiceNetworkVpcAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ arn
 FROM awscc.vpclattice.service_network_vpc_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>service_network_vpc_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+vpc-lattice:CreateServiceNetworkVpcAssociation,
+vpc-lattice:GetServiceNetworkVpcAssociation,
+vpc-lattice:ListServiceNetworkVpcAssociations,
+vpc-lattice:ListTagsForResource,
+ec2:DescribeSecurityGroups,
+ec2:DescribeVpcs,
+vpc-lattice:TagResource
+```
+
+### List
+```json
+vpc-lattice:ListServiceNetworkVpcAssociations
+```
+

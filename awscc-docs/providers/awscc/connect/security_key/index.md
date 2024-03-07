@@ -37,23 +37,6 @@ Gets an individual <code>security_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:ListSecurityKeys</pre>
-
-### Update
-<pre>
-</pre>
-
-### Delete
-<pre>
-connect:DisassociateSecurityKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,6 +46,21 @@ instance_id,
 association_id
 FROM awscc.connect.security_key
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceId&gt;'
-AND data__Identifier = '&lt;AssociationId&gt;'
+AND data__Identifier = '{InstanceId}';
+AND data__Identifier = '{AssociationId}';
 ```
+
+## Permissions
+
+To operate on the <code>security_key</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:ListSecurityKeys
+```
+
+### Delete
+```json
+connect:DisassociateSecurityKey
+```
+

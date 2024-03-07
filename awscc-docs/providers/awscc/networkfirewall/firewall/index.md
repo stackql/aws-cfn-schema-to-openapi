@@ -46,41 +46,6 @@ Gets an individual <code>firewall</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>firewall</code> resource, the following permissions are required:
-
-### Read
-<pre>
-network-firewall:DescribeFirewall,
-network-firewall:ListTagsForResources</pre>
-
-### Update
-<pre>
-network-firewall:AssociateSubnets,
-network-firewall:DisassociateSubnets,
-network-firewall:UpdateFirewallDescription,
-network-firewall:UpdateFirewallDeleteProtection,
-network-firewall:UpdateSubnetChangeProtection,
-network-firewall:UpdateFirewallPolicyChangeProtection,
-network-firewall:AssociateFirewallPolicy,
-network-firewall:TagResource,
-network-firewall:UntagResource,
-network-firewall:DescribeFirewall</pre>
-
-### Delete
-<pre>
-ec2:DeleteVpcEndpoints,
-ec2:DescribeRouteTables,
-logs:DescribeLogGroups,
-logs:DescribeResourcePolicies,
-logs:GetLogDelivery,
-logs:ListLogDeliveries,
-network-firewall:DeleteFirewall,
-network-firewall:UntagResource,
-network-firewall:DescribeFirewall</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -99,5 +64,43 @@ endpoint_ids,
 tags
 FROM awscc.networkfirewall.firewall
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FirewallArn&gt;'
+AND data__Identifier = '{FirewallArn}';
 ```
+
+## Permissions
+
+To operate on the <code>firewall</code> resource, the following permissions are required:
+
+### Read
+```json
+network-firewall:DescribeFirewall,
+network-firewall:ListTagsForResources
+```
+
+### Update
+```json
+network-firewall:AssociateSubnets,
+network-firewall:DisassociateSubnets,
+network-firewall:UpdateFirewallDescription,
+network-firewall:UpdateFirewallDeleteProtection,
+network-firewall:UpdateSubnetChangeProtection,
+network-firewall:UpdateFirewallPolicyChangeProtection,
+network-firewall:AssociateFirewallPolicy,
+network-firewall:TagResource,
+network-firewall:UntagResource,
+network-firewall:DescribeFirewall
+```
+
+### Delete
+```json
+ec2:DeleteVpcEndpoints,
+ec2:DescribeRouteTables,
+logs:DescribeLogGroups,
+logs:DescribeResourcePolicies,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+network-firewall:DeleteFirewall,
+network-firewall:UntagResource,
+network-firewall:DescribeFirewall
+```
+

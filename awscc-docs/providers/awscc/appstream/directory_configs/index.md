@@ -35,31 +35,6 @@ Retrieves a list of <code>directory_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>directory_configs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appstream:CreateDirectoryConfig,
-appstream:DeleteDirectoryConfig,
-appstream:DescribeDirectoryConfig,
-appstream:UpdateDirectoryConfig,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### List
-<pre>
-appstream:CreateDirectoryConfig,
-appstream:DeleteDirectoryConfig,
-appstream:DescribeDirectoryConfig,
-appstream:UpdateDirectoryConfig,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,3 +43,30 @@ directory_name
 FROM awscc.appstream.directory_configs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>directory_configs</code> resource, the following permissions are required:
+
+### Create
+```json
+appstream:CreateDirectoryConfig,
+appstream:DeleteDirectoryConfig,
+appstream:DescribeDirectoryConfig,
+appstream:UpdateDirectoryConfig,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### List
+```json
+appstream:CreateDirectoryConfig,
+appstream:DeleteDirectoryConfig,
+appstream:DescribeDirectoryConfig,
+appstream:UpdateDirectoryConfig,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+

@@ -39,35 +39,6 @@ Gets an individual <code>policy_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-verifiedpermissions:CreatePolicyStore,
-verifiedpermissions:GetPolicyStore,
-verifiedpermissions:UpdatePolicyStore,
-verifiedpermissions:DeletePolicyStore,
-verifiedpermissions:GetSchema</pre>
-
-### Update
-<pre>
-verifiedpermissions:CreatePolicyStore,
-verifiedpermissions:GetPolicyStore,
-verifiedpermissions:UpdatePolicyStore,
-verifiedpermissions:DeletePolicyStore,
-verifiedpermissions:GetSchema,
-verifiedpermissions:PutSchema</pre>
-
-### Delete
-<pre>
-verifiedpermissions:CreatePolicyStore,
-verifiedpermissions:GetPolicyStore,
-verifiedpermissions:UpdatePolicyStore,
-verifiedpermissions:DeletePolicyStore</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +50,37 @@ validation_settings,
 schema
 FROM awscc.verifiedpermissions.policy_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyStoreId&gt;'
+AND data__Identifier = '{PolicyStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>policy_store</code> resource, the following permissions are required:
+
+### Read
+```json
+verifiedpermissions:CreatePolicyStore,
+verifiedpermissions:GetPolicyStore,
+verifiedpermissions:UpdatePolicyStore,
+verifiedpermissions:DeletePolicyStore,
+verifiedpermissions:GetSchema
+```
+
+### Update
+```json
+verifiedpermissions:CreatePolicyStore,
+verifiedpermissions:GetPolicyStore,
+verifiedpermissions:UpdatePolicyStore,
+verifiedpermissions:DeletePolicyStore,
+verifiedpermissions:GetSchema,
+verifiedpermissions:PutSchema
+```
+
+### Delete
+```json
+verifiedpermissions:CreatePolicyStore,
+verifiedpermissions:GetPolicyStore,
+verifiedpermissions:UpdatePolicyStore,
+verifiedpermissions:DeletePolicyStore
+```
+

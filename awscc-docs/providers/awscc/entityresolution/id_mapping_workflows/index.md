@@ -35,24 +35,6 @@ Retrieves a list of <code>id_mapping_workflows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>id_mapping_workflows</code> resource, the following permissions are required:
-
-### Create
-<pre>
-entityresolution:CreateIdMappingWorkflow,
-entityresolution:GetIdMappingWorkflow,
-entityresolution:TagResource,
-kms:CreateGrant,
-kms:DescribeKey,
-iam:PassRole</pre>
-
-### List
-<pre>
-entityresolution:ListIdMappingWorkflows</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ workflow_name
 FROM awscc.entityresolution.id_mapping_workflows
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>id_mapping_workflows</code> resource, the following permissions are required:
+
+### Create
+```json
+entityresolution:CreateIdMappingWorkflow,
+entityresolution:GetIdMappingWorkflow,
+entityresolution:TagResource,
+kms:CreateGrant,
+kms:DescribeKey,
+iam:PassRole
+```
+
+### List
+```json
+entityresolution:ListIdMappingWorkflows
+```
+

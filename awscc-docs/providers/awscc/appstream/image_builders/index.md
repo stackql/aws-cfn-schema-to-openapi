@@ -35,37 +35,6 @@ Retrieves a list of <code>image_builders</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>image_builders</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appstream:CreateImageBuilder,
-appstream:CreateImageBuilderStreamingURL,
-appstream:CreateStreamingURL,
-appstream:DeleteImageBuilder,
-appstream:DescribeImageBuilders,
-appstream:StartImageBuilder,
-appstream:StopImageBuilder,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### List
-<pre>
-appstream:CreateImageBuilder,
-appstream:CreateImageBuilderStreamingURL,
-appstream:CreateStreamingURL,
-appstream:DeleteImageBuilder,
-appstream:DescribeImageBuilders,
-appstream:StartImageBuilder,
-appstream:StopImageBuilder,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,3 +43,36 @@ name
 FROM awscc.appstream.image_builders
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>image_builders</code> resource, the following permissions are required:
+
+### Create
+```json
+appstream:CreateImageBuilder,
+appstream:CreateImageBuilderStreamingURL,
+appstream:CreateStreamingURL,
+appstream:DeleteImageBuilder,
+appstream:DescribeImageBuilders,
+appstream:StartImageBuilder,
+appstream:StopImageBuilder,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### List
+```json
+appstream:CreateImageBuilder,
+appstream:CreateImageBuilderStreamingURL,
+appstream:CreateStreamingURL,
+appstream:DeleteImageBuilder,
+appstream:DescribeImageBuilders,
+appstream:StartImageBuilder,
+appstream:StopImageBuilder,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+

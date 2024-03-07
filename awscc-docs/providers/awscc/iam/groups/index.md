@@ -35,23 +35,6 @@ Retrieves a list of <code>groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateGroup,
-iam:PutGroupPolicy,
-iam:AttachGroupPolicy,
-iam:GetGroupPolicy,
-iam:GetGroup</pre>
-
-### List
-<pre>
-iam:ListGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ group_name
 FROM awscc.iam.groups
 
 ```
+
+## Permissions
+
+To operate on the <code>groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateGroup,
+iam:PutGroupPolicy,
+iam:AttachGroupPolicy,
+iam:GetGroupPolicy,
+iam:GetGroup
+```
+
+### List
+```json
+iam:ListGroups
+```
+

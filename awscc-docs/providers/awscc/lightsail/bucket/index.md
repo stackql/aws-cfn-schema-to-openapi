@@ -44,30 +44,6 @@ Gets an individual <code>bucket</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bucket</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetBuckets</pre>
-
-### Delete
-<pre>
-lightsail:DeleteBucket,
-lightsail:GetBuckets</pre>
-
-### Update
-<pre>
-lightsail:GetBuckets,
-lightsail:GetInstance,
-lightsail:UpdateBucket,
-lightsail:UpdateBucketBundle,
-lightsail:SetResourceAccessForBucket,
-lightsail:TagResource,
-lightsail:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +60,32 @@ url,
 able_to_update_bundle
 FROM awscc.lightsail.bucket
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BucketName&gt;'
+AND data__Identifier = '{BucketName}';
 ```
+
+## Permissions
+
+To operate on the <code>bucket</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetBuckets
+```
+
+### Delete
+```json
+lightsail:DeleteBucket,
+lightsail:GetBuckets
+```
+
+### Update
+```json
+lightsail:GetBuckets,
+lightsail:GetInstance,
+lightsail:UpdateBucket,
+lightsail:UpdateBucketBundle,
+lightsail:SetResourceAccessForBucket,
+lightsail:TagResource,
+lightsail:UntagResource
+```
+

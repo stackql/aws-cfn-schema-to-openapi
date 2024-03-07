@@ -42,26 +42,6 @@ Gets an individual <code>restore_testing_selection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>restore_testing_selection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:GetRestoreTestingSelection</pre>
-
-### Update
-<pre>
-backup:UpdateRestoreTestingSelection,
-backup:GetRestoreTestingSelection,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-backup:DeleteRestoreTestingSelection,
-backup:GetRestoreTestingSelection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +56,29 @@ restore_testing_selection_name,
 validation_window_hours
 FROM awscc.backup.restore_testing_selection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RestoreTestingPlanName&gt;'
-AND data__Identifier = '&lt;RestoreTestingSelectionName&gt;'
+AND data__Identifier = '{RestoreTestingPlanName}';
+AND data__Identifier = '{RestoreTestingSelectionName}';
 ```
+
+## Permissions
+
+To operate on the <code>restore_testing_selection</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:GetRestoreTestingSelection
+```
+
+### Update
+```json
+backup:UpdateRestoreTestingSelection,
+backup:GetRestoreTestingSelection,
+iam:PassRole
+```
+
+### Delete
+```json
+backup:DeleteRestoreTestingSelection,
+backup:GetRestoreTestingSelection
+```
+

@@ -42,26 +42,6 @@ Gets an individual <code>datastore</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>datastore</code> resource, the following permissions are required:
-
-### Read
-<pre>
-medical-imaging:GetDatastore,
-medical-imaging:ListTagsForResource</pre>
-
-### Delete
-<pre>
-medical-imaging:DeleteDatastore,
-medical-imaging:GetDatastore,
-medical-imaging:UntagResource,
-kms:DescribeKey,
-kms:RetireGrant,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +56,27 @@ updated_at,
 tags
 FROM awscc.healthimaging.datastore
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatastoreId&gt;'
+AND data__Identifier = '{DatastoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>datastore</code> resource, the following permissions are required:
+
+### Read
+```json
+medical-imaging:GetDatastore,
+medical-imaging:ListTagsForResource
+```
+
+### Delete
+```json
+medical-imaging:DeleteDatastore,
+medical-imaging:GetDatastore,
+medical-imaging:UntagResource,
+kms:DescribeKey,
+kms:RetireGrant,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+

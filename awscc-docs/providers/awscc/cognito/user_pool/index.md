@@ -62,30 +62,6 @@ Gets an individual <code>user_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-idp:DescribeUserPool</pre>
-
-### Update
-<pre>
-cognito-idp:UpdateUserPool,
-cognito-idp:ListTagsForResource,
-cognito-idp:UntagResource,
-cognito-idp:TagResource,
-cognito-idp:SetUserPoolMfaConfig,
-cognito-idp:AddCustomAttributes,
-cognito-idp:DescribeUserPool,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cognito-idp:DeleteUserPool</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -120,5 +96,32 @@ arn,
 user_pool_id
 FROM awscc.cognito.user_pool
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserPoolId&gt;'
+AND data__Identifier = '{UserPoolId}';
 ```
+
+## Permissions
+
+To operate on the <code>user_pool</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-idp:DescribeUserPool
+```
+
+### Update
+```json
+cognito-idp:UpdateUserPool,
+cognito-idp:ListTagsForResource,
+cognito-idp:UntagResource,
+cognito-idp:TagResource,
+cognito-idp:SetUserPoolMfaConfig,
+cognito-idp:AddCustomAttributes,
+cognito-idp:DescribeUserPool,
+iam:PassRole
+```
+
+### Delete
+```json
+cognito-idp:DeleteUserPool
+```
+

@@ -38,31 +38,6 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group</code> resource, the following permissions are required:
-
-### Update
-<pre>
-synthetics:AssociateResource,
-synthetics:DisassociateResource,
-synthetics:TagResource,
-synthetics:UntagResource,
-synthetics:GetGroup,
-synthetics:ListGroupResources</pre>
-
-### Read
-<pre>
-synthetics:GetGroup,
-synthetics:ListTagsForResource,
-synthetics:ListGroupResources</pre>
-
-### Delete
-<pre>
-synthetics:DeleteGroup,
-synthetics:GetGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +48,33 @@ tags,
 resource_arns
 FROM awscc.synthetics.group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Update
+```json
+synthetics:AssociateResource,
+synthetics:DisassociateResource,
+synthetics:TagResource,
+synthetics:UntagResource,
+synthetics:GetGroup,
+synthetics:ListGroupResources
+```
+
+### Read
+```json
+synthetics:GetGroup,
+synthetics:ListTagsForResource,
+synthetics:ListGroupResources
+```
+
+### Delete
+```json
+synthetics:DeleteGroup,
+synthetics:GetGroup
+```
+

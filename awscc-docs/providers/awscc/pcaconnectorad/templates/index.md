@@ -35,19 +35,6 @@ Retrieves a list of <code>templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-pca-connector-ad:CreateTemplate</pre>
-
-### List
-<pre>
-pca-connector-ad:ListTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ template_arn
 FROM awscc.pcaconnectorad.templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>templates</code> resource, the following permissions are required:
+
+### Create
+```json
+pca-connector-ad:CreateTemplate
+```
+
+### List
+```json
+pca-connector-ad:ListTemplates
+```
+

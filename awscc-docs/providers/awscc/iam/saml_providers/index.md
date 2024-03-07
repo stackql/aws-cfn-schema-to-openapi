@@ -35,22 +35,6 @@ Retrieves a list of <code>saml_providers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>saml_providers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateSAMLProvider,
-iam:GetSAMLProvider,
-iam:TagSAMLProvider</pre>
-
-### List
-<pre>
-iam:ListSAMLProviders,
-iam:GetSAMLProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.iam.saml_providers
 
 ```
+
+## Permissions
+
+To operate on the <code>saml_providers</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateSAMLProvider,
+iam:GetSAMLProvider,
+iam:TagSAMLProvider
+```
+
+### List
+```json
+iam:ListSAMLProviders,
+iam:GetSAMLProvider
+```
+

@@ -45,36 +45,6 @@ Gets an individual <code>core_network</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>core_network</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetCoreNetwork,
-networkmanager:GetCoreNetworkPolicy</pre>
-
-### Update
-<pre>
-networkmanager:UpdateCoreNetwork,
-networkmanager:GetCoreNetwork,
-networkmanager:ListTagsForResource,
-networkmanager:PutCoreNetworkPolicy,
-networkmanager:GetCoreNetworkPolicy,
-networkmanager:ExecuteCoreNetworkChangeSet,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:DeleteCoreNetwork,
-networkmanager:UntagResource,
-networkmanager:GetCoreNetwork,
-networkmanager:GetCoreNetworkPolicy,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,5 +62,38 @@ owner_account,
 tags
 FROM awscc.networkmanager.core_network
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CoreNetworkId&gt;'
+AND data__Identifier = '{CoreNetworkId}';
 ```
+
+## Permissions
+
+To operate on the <code>core_network</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetCoreNetwork,
+networkmanager:GetCoreNetworkPolicy
+```
+
+### Update
+```json
+networkmanager:UpdateCoreNetwork,
+networkmanager:GetCoreNetwork,
+networkmanager:ListTagsForResource,
+networkmanager:PutCoreNetworkPolicy,
+networkmanager:GetCoreNetworkPolicy,
+networkmanager:ExecuteCoreNetworkChangeSet,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:DeleteCoreNetwork,
+networkmanager:UntagResource,
+networkmanager:GetCoreNetwork,
+networkmanager:GetCoreNetworkPolicy,
+ec2:DescribeRegions
+```
+

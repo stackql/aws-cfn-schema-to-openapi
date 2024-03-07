@@ -37,25 +37,6 @@ Gets an individual <code>continuous_deployment_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>continuous_deployment_policy</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteContinuousDeploymentPolicy,
-cloudfront:GetContinuousDeploymentPolicy</pre>
-
-### Read
-<pre>
-cloudfront:GetContinuousDeploymentPolicy</pre>
-
-### Update
-<pre>
-cloudfront:UpdateContinuousDeploymentPolicy,
-cloudfront:GetContinuousDeploymentPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ continuous_deployment_policy_config,
 id,
 last_modified_time
 FROM awscc.cloudfront.continuous_deployment_policy
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>continuous_deployment_policy</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteContinuousDeploymentPolicy,
+cloudfront:GetContinuousDeploymentPolicy
+```
+
+### Read
+```json
+cloudfront:GetContinuousDeploymentPolicy
+```
+
+### Update
+```json
+cloudfront:UpdateContinuousDeploymentPolicy,
+cloudfront:GetContinuousDeploymentPolicy
+```
+

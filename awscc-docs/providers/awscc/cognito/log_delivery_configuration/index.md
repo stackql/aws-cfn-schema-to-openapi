@@ -37,41 +37,6 @@ Gets an individual <code>log_delivery_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>log_delivery_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-idp:GetLogDeliveryConfiguration</pre>
-
-### Update
-<pre>
-cognito-idp:GetLogDeliveryConfiguration,
-cognito-idp:SetLogDeliveryConfiguration,
-logs:CreateLogDelivery,
-logs:GetLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries,
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies,
-logs:DescribeLogGroups</pre>
-
-### Delete
-<pre>
-cognito-idp:GetLogDeliveryConfiguration,
-cognito-idp:SetLogDeliveryConfiguration,
-logs:CreateLogDelivery,
-logs:GetLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries,
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies,
-logs:DescribeLogGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +46,43 @@ user_pool_id,
 log_configurations
 FROM awscc.cognito.log_delivery_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>log_delivery_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-idp:GetLogDeliveryConfiguration
+```
+
+### Update
+```json
+cognito-idp:GetLogDeliveryConfiguration,
+cognito-idp:SetLogDeliveryConfiguration,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups
+```
+
+### Delete
+```json
+cognito-idp:GetLogDeliveryConfiguration,
+cognito-idp:SetLogDeliveryConfiguration,
+logs:CreateLogDelivery,
+logs:GetLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups
+```
+

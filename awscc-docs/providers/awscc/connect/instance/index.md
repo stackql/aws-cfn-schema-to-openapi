@@ -44,35 +44,6 @@ Gets an individual <code>instance</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeInstance,
-connect:ListInstanceAttributes,
-ds:DescribeDirectories</pre>
-
-### Update
-<pre>
-connect:ListInstanceAttributes,
-connect:UpdateInstanceAttribute,
-iam:CreateServiceLinkedRole,
-iam:PutRolePolicy,
-connect:TagResource,
-connect:UntagResource</pre>
-
-### Delete
-<pre>
-connect:DeleteInstance,
-connect:DescribeInstance,
-connect:UntagResource,
-ds:DeleteDirectory,
-ds:UnauthorizeApplication,
-ds:DescribeDirectories</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +60,37 @@ attributes,
 tags
 FROM awscc.connect.instance
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>instance</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeInstance,
+connect:ListInstanceAttributes,
+ds:DescribeDirectories
+```
+
+### Update
+```json
+connect:ListInstanceAttributes,
+connect:UpdateInstanceAttribute,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+connect:TagResource,
+connect:UntagResource
+```
+
+### Delete
+```json
+connect:DeleteInstance,
+connect:DescribeInstance,
+connect:UntagResource,
+ds:DeleteDirectory,
+ds:UnauthorizeApplication,
+ds:DescribeDirectories
+```
+

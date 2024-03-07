@@ -39,25 +39,6 @@ Gets an individual <code>virtualmfa_device</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>virtualmfa_device</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:ListVirtualMFADevices</pre>
-
-### Update
-<pre>
-iam:TagMFADevice,
-iam:UntagMFADevice</pre>
-
-### Delete
-<pre>
-iam:DeleteVirtualMFADevice,
-iam:DeactivateMFADevice</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +49,27 @@ serial_number,
 users,
 tags
 FROM awscc.iam.virtualmfa_device
-WHERE data__Identifier = '&lt;SerialNumber&gt;'
+WHERE data__Identifier = '{SerialNumber}';
 ```
+
+## Permissions
+
+To operate on the <code>virtualmfa_device</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:ListVirtualMFADevices
+```
+
+### Update
+```json
+iam:TagMFADevice,
+iam:UntagMFADevice
+```
+
+### Delete
+```json
+iam:DeleteVirtualMFADevice,
+iam:DeactivateMFADevice
+```
+

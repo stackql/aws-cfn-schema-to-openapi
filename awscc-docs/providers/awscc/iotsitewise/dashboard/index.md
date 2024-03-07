@@ -41,31 +41,6 @@ Gets an individual <code>dashboard</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dashboard</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotsitewise:DescribeDashboard,
-iotsitewise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotsitewise:DescribeDashboard,
-iotsitewise:UpdateDashboard,
-iotsitewise:TagResource,
-iotsitewise:UntagResource,
-iotsitewise:ListTagsForResource,
-iotsitewise:DescribeAsset,
-iotsitewise:DescribeAssetModel</pre>
-
-### Delete
-<pre>
-iotsitewise:DescribeDashboard,
-iotsitewise:DeleteDashboard</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +54,33 @@ dashboard_arn,
 tags
 FROM awscc.iotsitewise.dashboard
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DashboardId&gt;'
+AND data__Identifier = '{DashboardId}';
 ```
+
+## Permissions
+
+To operate on the <code>dashboard</code> resource, the following permissions are required:
+
+### Read
+```json
+iotsitewise:DescribeDashboard,
+iotsitewise:ListTagsForResource
+```
+
+### Update
+```json
+iotsitewise:DescribeDashboard,
+iotsitewise:UpdateDashboard,
+iotsitewise:TagResource,
+iotsitewise:UntagResource,
+iotsitewise:ListTagsForResource,
+iotsitewise:DescribeAsset,
+iotsitewise:DescribeAssetModel
+```
+
+### Delete
+```json
+iotsitewise:DescribeDashboard,
+iotsitewise:DeleteDashboard
+```
+

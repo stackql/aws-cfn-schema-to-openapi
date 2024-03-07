@@ -37,26 +37,6 @@ Gets an individual <code>logging</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>logging</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:GetV2LoggingOptions</pre>
-
-### Update
-<pre>
-iot:SetV2LoggingOptions,
-iot:GetV2LoggingOptions,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-iot:SetV2LoggingOptions,
-iot:GetV2LoggingOptions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +46,28 @@ role_arn,
 default_log_level
 FROM awscc.iot.logging
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccountId&gt;'
+AND data__Identifier = '{AccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>logging</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:GetV2LoggingOptions
+```
+
+### Update
+```json
+iot:SetV2LoggingOptions,
+iot:GetV2LoggingOptions,
+iam:PassRole
+```
+
+### Delete
+```json
+iot:SetV2LoggingOptions,
+iot:GetV2LoggingOptions
+```
+

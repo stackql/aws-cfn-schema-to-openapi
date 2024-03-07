@@ -41,33 +41,6 @@ Gets an individual <code>discoverer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>discoverer</code> resource, the following permissions are required:
-
-### Read
-<pre>
-schemas:DescribeDiscoverer</pre>
-
-### Update
-<pre>
-schemas:DescribeDiscoverer,
-schemas:UpdateDiscoverer,
-schemas:TagResource,
-schemas:UntagResource,
-schemas:ListTagsForResource,
-events:PutTargets,
-events:PutRule</pre>
-
-### Delete
-<pre>
-schemas:DescribeDiscoverer,
-schemas:DeleteDiscoverer,
-events:DeleteRule,
-events:DisableRule,
-events:RemoveTargets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +54,35 @@ state,
 tags
 FROM awscc.eventschemas.discoverer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DiscovererArn&gt;'
+AND data__Identifier = '{DiscovererArn}';
 ```
+
+## Permissions
+
+To operate on the <code>discoverer</code> resource, the following permissions are required:
+
+### Read
+```json
+schemas:DescribeDiscoverer
+```
+
+### Update
+```json
+schemas:DescribeDiscoverer,
+schemas:UpdateDiscoverer,
+schemas:TagResource,
+schemas:UntagResource,
+schemas:ListTagsForResource,
+events:PutTargets,
+events:PutRule
+```
+
+### Delete
+```json
+schemas:DescribeDiscoverer,
+schemas:DeleteDiscoverer,
+events:DeleteRule,
+events:DisableRule,
+events:RemoveTargets
+```
+

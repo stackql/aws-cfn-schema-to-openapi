@@ -35,22 +35,6 @@ Retrieves a list of <code>publishers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>publishers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cloudformation:RegisterPublisher,
-cloudformation:DescribePublisher,
-codestar-connections:GetConnection,
-codestar-connections:UseConnection</pre>
-
-### List
-<pre>
-cloudformation:DescribePublisher</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ publisher_id
 FROM awscc.cloudformation.publishers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>publishers</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudformation:RegisterPublisher,
+cloudformation:DescribePublisher,
+codestar-connections:GetConnection,
+codestar-connections:UseConnection
+```
+
+### List
+```json
+cloudformation:DescribePublisher
+```
+

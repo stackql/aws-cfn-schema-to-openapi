@@ -36,22 +36,6 @@ Retrieves a list of <code>ip_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>ip_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-guardduty:CreateIPSet,
-guardduty:GetIPSet,
-guardduty:TagResource,
-iam:PutRolePolicy</pre>
-
-### List
-<pre>
-guardduty:ListIPSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ detector_id
 FROM awscc.guardduty.ip_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>ip_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+guardduty:CreateIPSet,
+guardduty:GetIPSet,
+guardduty:TagResource,
+iam:PutRolePolicy
+```
+
+### List
+```json
+guardduty:ListIPSets
+```
+

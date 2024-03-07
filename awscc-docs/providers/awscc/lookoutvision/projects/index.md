@@ -35,19 +35,6 @@ Retrieves a list of <code>projects</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>projects</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lookoutvision:CreateProject</pre>
-
-### List
-<pre>
-lookoutvision:ListProjects</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ project_name
 FROM awscc.lookoutvision.projects
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>projects</code> resource, the following permissions are required:
+
+### Create
+```json
+lookoutvision:CreateProject
+```
+
+### List
+```json
+lookoutvision:ListProjects
+```
+

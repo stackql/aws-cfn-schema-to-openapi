@@ -36,22 +36,6 @@ Retrieves a list of <code>trust_store_revocations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_store_revocations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticloadbalancing:AddTrustStoreRevocations,
-elasticloadbalancing:DescribeTrustStoreRevocations,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-### List
-<pre>
-elasticloadbalancing:DescribeTrustStoreRevocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_store_revocations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>trust_store_revocations</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticloadbalancing:AddTrustStoreRevocations,
+elasticloadbalancing:DescribeTrustStoreRevocations,
+s3:GetObject,
+s3:GetObjectVersion
+```
+
+### List
+```json
+elasticloadbalancing:DescribeTrustStoreRevocations
+```
+

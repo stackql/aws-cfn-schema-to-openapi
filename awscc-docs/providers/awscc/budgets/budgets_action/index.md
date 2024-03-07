@@ -43,24 +43,6 @@ Gets an individual <code>budgets_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>budgets_action</code> resource, the following permissions are required:
-
-### Read
-<pre>
-budgets:DescribeBudgetAction</pre>
-
-### Update
-<pre>
-budgets:UpdateBudgetAction,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-budgets:DeleteBudgetAction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +58,27 @@ subscribers,
 definition
 FROM awscc.budgets.budgets_action
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ActionId&gt;'
-AND data__Identifier = '&lt;BudgetName&gt;'
+AND data__Identifier = '{ActionId}';
+AND data__Identifier = '{BudgetName}';
 ```
+
+## Permissions
+
+To operate on the <code>budgets_action</code> resource, the following permissions are required:
+
+### Read
+```json
+budgets:DescribeBudgetAction
+```
+
+### Update
+```json
+budgets:UpdateBudgetAction,
+iam:PassRole
+```
+
+### Delete
+```json
+budgets:DeleteBudgetAction
+```
+

@@ -42,26 +42,6 @@ Gets an individual <code>integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>integration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeIntegrations</pre>
-
-### Update
-<pre>
-rds:DescribeIntegrations,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DeleteIntegration,
-rds:DescribeIntegrations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +56,28 @@ additional_encryption_context,
 create_time
 FROM awscc.rds.integration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IntegrationArn&gt;'
+AND data__Identifier = '{IntegrationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>integration</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeIntegrations
+```
+
+### Update
+```json
+rds:DescribeIntegrations,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteIntegration,
+rds:DescribeIntegrations
+```
+

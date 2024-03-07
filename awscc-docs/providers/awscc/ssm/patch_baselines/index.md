@@ -35,28 +35,6 @@ Retrieves a list of <code>patch_baselines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>patch_baselines</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ssm:CreatePatchBaseline,
-ssm:RegisterPatchBaselineForPatchGroup,
-ssm:AddTagsToResource,
-ssm:RemoveTagsFromResource,
-ssm:ListTagsForResource,
-ssm:GetDefaultPatchBaseline,
-ssm:RegisterDefaultPatchBaseline</pre>
-
-### List
-<pre>
-ssm:DescribePatchBaselines,
-ssm:GetDefaultPatchBaseline,
-ssm:GetPatchBaseline,
-ssm:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,3 +43,27 @@ id
 FROM awscc.ssm.patch_baselines
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>patch_baselines</code> resource, the following permissions are required:
+
+### Create
+```json
+ssm:CreatePatchBaseline,
+ssm:RegisterPatchBaselineForPatchGroup,
+ssm:AddTagsToResource,
+ssm:RemoveTagsFromResource,
+ssm:ListTagsForResource,
+ssm:GetDefaultPatchBaseline,
+ssm:RegisterDefaultPatchBaseline
+```
+
+### List
+```json
+ssm:DescribePatchBaselines,
+ssm:GetDefaultPatchBaseline,
+ssm:GetPatchBaseline,
+ssm:ListTagsForResource
+```
+

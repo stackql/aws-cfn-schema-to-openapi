@@ -40,28 +40,6 @@ Gets an individual <code>hub</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hub</code> resource, the following permissions are required:
-
-### Read
-<pre>
-securityhub:DescribeHub,
-securityhub:ListTagsForResource</pre>
-
-### Update
-<pre>
-securityhub:DescribeHub,
-securityhub:UpdateSecurityHubConfiguration,
-securityhub:TagResource,
-securityhub:UntagResource,
-securityhub:ListTagsForResource</pre>
-
-### Delete
-<pre>
-securityhub:DisableSecurityHub</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ tags,
 subscribed_at
 FROM awscc.securityhub.hub
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ARN&gt;'
+AND data__Identifier = '{ARN}';
 ```
+
+## Permissions
+
+To operate on the <code>hub</code> resource, the following permissions are required:
+
+### Read
+```json
+securityhub:DescribeHub,
+securityhub:ListTagsForResource
+```
+
+### Update
+```json
+securityhub:DescribeHub,
+securityhub:UpdateSecurityHubConfiguration,
+securityhub:TagResource,
+securityhub:UntagResource,
+securityhub:ListTagsForResource
+```
+
+### Delete
+```json
+securityhub:DisableSecurityHub
+```
+

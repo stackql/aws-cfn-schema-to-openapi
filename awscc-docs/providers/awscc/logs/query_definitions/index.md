@@ -35,19 +35,6 @@ Retrieves a list of <code>query_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>query_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:PutQueryDefinition</pre>
-
-### List
-<pre>
-logs:DescribeQueryDefinitions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ query_definition_id
 FROM awscc.logs.query_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>query_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:PutQueryDefinition
+```
+
+### List
+```json
+logs:DescribeQueryDefinitions
+```
+

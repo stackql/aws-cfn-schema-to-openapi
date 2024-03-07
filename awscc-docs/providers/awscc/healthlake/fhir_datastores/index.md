@@ -35,12 +35,21 @@ Retrieves a list of <code>fhir_datastores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+datastore_id
+FROM awscc.healthlake.fhir_datastores
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>fhir_datastores</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 healthlake:CreateFHIRDatastore,
 healthlake:DescribeFHIRDatastore,
 iam:PassRole,
@@ -57,18 +66,11 @@ glue:DeleteDatabase,
 lambda:InvokeFunction,
 healthlake:TagResource,
 healthlake:UntagResource,
-healthlake:ListTagsForResource</pre>
+healthlake:ListTagsForResource
+```
 
 ### List
-<pre>
-healthlake:ListFHIRDatastores</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-datastore_id
-FROM awscc.healthlake.fhir_datastores
-WHERE region = 'us-east-1'
+```json
+healthlake:ListFHIRDatastores
 ```
+

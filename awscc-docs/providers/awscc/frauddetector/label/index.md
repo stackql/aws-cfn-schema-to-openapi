@@ -40,29 +40,6 @@ Gets an individual <code>label</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>label</code> resource, the following permissions are required:
-
-### Read
-<pre>
-frauddetector:GetLabels,
-frauddetector:ListTagsForResource</pre>
-
-### Update
-<pre>
-frauddetector:GetLabels,
-frauddetector:PutLabel,
-frauddetector:ListTagsForResource,
-frauddetector:TagResource,
-frauddetector:UntagResource</pre>
-
-### Delete
-<pre>
-frauddetector:GetLabels,
-frauddetector:DeleteLabel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ created_time,
 last_updated_time
 FROM awscc.frauddetector.label
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>label</code> resource, the following permissions are required:
+
+### Read
+```json
+frauddetector:GetLabels,
+frauddetector:ListTagsForResource
+```
+
+### Update
+```json
+frauddetector:GetLabels,
+frauddetector:PutLabel,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource
+```
+
+### Delete
+```json
+frauddetector:GetLabels,
+frauddetector:DeleteLabel
+```
+

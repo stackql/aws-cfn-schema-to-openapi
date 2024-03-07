@@ -35,23 +35,6 @@ Retrieves a list of <code>outpost_resolvers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>outpost_resolvers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53resolver:CreateOutpostResolver,
-route53resolver:GetOutpostResolver,
-route53resolver:ListTagsForResource,
-outposts:GetOutpost</pre>
-
-### List
-<pre>
-route53resolver:ListOutpostResolvers,
-route53resolver:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ id
 FROM awscc.route53resolver.outpost_resolvers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>outpost_resolvers</code> resource, the following permissions are required:
+
+### Create
+```json
+route53resolver:CreateOutpostResolver,
+route53resolver:GetOutpostResolver,
+route53resolver:ListTagsForResource,
+outposts:GetOutpost
+```
+
+### List
+```json
+route53resolver:ListOutpostResolvers,
+route53resolver:ListTagsForResource
+```
+

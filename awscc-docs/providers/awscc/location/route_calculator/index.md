@@ -43,28 +43,6 @@ Gets an individual <code>route_calculator</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>route_calculator</code> resource, the following permissions are required:
-
-### Read
-<pre>
-geo:DescribeRouteCalculator</pre>
-
-### Update
-<pre>
-geo:CreateRouteCalculator,
-geo:DescribeRouteCalculator,
-geo:TagResource,
-geo:UntagResource,
-geo:UpdateRouteCalculator</pre>
-
-### Delete
-<pre>
-geo:DeleteRouteCalculator,
-geo:DescribeRouteCalculator</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +58,30 @@ update_time,
 arn
 FROM awscc.location.route_calculator
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CalculatorName&gt;'
+AND data__Identifier = '{CalculatorName}';
 ```
+
+## Permissions
+
+To operate on the <code>route_calculator</code> resource, the following permissions are required:
+
+### Read
+```json
+geo:DescribeRouteCalculator
+```
+
+### Update
+```json
+geo:CreateRouteCalculator,
+geo:DescribeRouteCalculator,
+geo:TagResource,
+geo:UntagResource,
+geo:UpdateRouteCalculator
+```
+
+### Delete
+```json
+geo:DeleteRouteCalculator,
+geo:DescribeRouteCalculator
+```
+

@@ -35,22 +35,6 @@ Retrieves a list of <code>service_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:CreateServiceProfile,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource</pre>
-
-### List
-<pre>
-iotwireless:ListServiceProfiles,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ id
 FROM awscc.iotwireless.service_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>service_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:CreateServiceProfile,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource
+```
+
+### List
+```json
+iotwireless:ListServiceProfiles,
+iotwireless:ListTagsForResource
+```
+

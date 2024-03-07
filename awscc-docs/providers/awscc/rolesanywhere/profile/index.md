@@ -44,32 +44,6 @@ Gets an individual <code>profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rolesanywhere:GetProfile,
-rolesanywhere:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:GetRole,
-iam:GetPolicy,
-iam:PassRole,
-rolesanywhere:UpdateProfile,
-rolesanywhere:EnableProfile,
-rolesanywhere:DisableProfile,
-rolesanywhere:TagResource,
-rolesanywhere:UntagResource,
-rolesanywhere:ListTagsForResource</pre>
-
-### Delete
-<pre>
-rolesanywhere:DeleteProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +60,34 @@ session_policy,
 tags
 FROM awscc.rolesanywhere.profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProfileId&gt;'
+AND data__Identifier = '{ProfileId}';
 ```
+
+## Permissions
+
+To operate on the <code>profile</code> resource, the following permissions are required:
+
+### Read
+```json
+rolesanywhere:GetProfile,
+rolesanywhere:ListTagsForResource
+```
+
+### Update
+```json
+iam:GetRole,
+iam:GetPolicy,
+iam:PassRole,
+rolesanywhere:UpdateProfile,
+rolesanywhere:EnableProfile,
+rolesanywhere:DisableProfile,
+rolesanywhere:TagResource,
+rolesanywhere:UntagResource,
+rolesanywhere:ListTagsForResource
+```
+
+### Delete
+```json
+rolesanywhere:DeleteProfile
+```
+

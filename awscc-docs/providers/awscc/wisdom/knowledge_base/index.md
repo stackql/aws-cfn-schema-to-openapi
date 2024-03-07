@@ -43,26 +43,6 @@ Gets an individual <code>knowledge_base</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>knowledge_base</code> resource, the following permissions are required:
-
-### Update
-<pre>
-wisdom:GetKnowledgeBase</pre>
-
-### Delete
-<pre>
-appflow:DeleteFlow,
-appflow:StopFlow,
-app-integrations:DeleteDataIntegrationAssociation,
-wisdom:DeleteKnowledgeBase</pre>
-
-### Read
-<pre>
-wisdom:GetKnowledgeBase</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ source_configuration,
 tags
 FROM awscc.wisdom.knowledge_base
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KnowledgeBaseId&gt;'
+AND data__Identifier = '{KnowledgeBaseId}';
 ```
+
+## Permissions
+
+To operate on the <code>knowledge_base</code> resource, the following permissions are required:
+
+### Update
+```json
+wisdom:GetKnowledgeBase
+```
+
+### Delete
+```json
+appflow:DeleteFlow,
+appflow:StopFlow,
+app-integrations:DeleteDataIntegrationAssociation,
+wisdom:DeleteKnowledgeBase
+```
+
+### Read
+```json
+wisdom:GetKnowledgeBase
+```
+

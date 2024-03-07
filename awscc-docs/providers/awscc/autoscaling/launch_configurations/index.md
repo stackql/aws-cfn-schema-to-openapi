@@ -35,21 +35,6 @@ Retrieves a list of <code>launch_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>launch_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-autoscaling:CreateLaunchConfiguration,
-autoscaling:DescribeLaunchConfigurations,
-iam:PassRole</pre>
-
-### List
-<pre>
-autoscaling:DescribeLaunchConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ launch_configuration_name
 FROM awscc.autoscaling.launch_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>launch_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+autoscaling:CreateLaunchConfiguration,
+autoscaling:DescribeLaunchConfigurations,
+iam:PassRole
+```
+
+### List
+```json
+autoscaling:DescribeLaunchConfigurations
+```
+

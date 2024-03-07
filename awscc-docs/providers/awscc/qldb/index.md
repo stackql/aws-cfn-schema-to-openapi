@@ -31,7 +31,7 @@ The qldb service documentation.
 ## Resources
 <div class="row">
 <div class="providerDocColumn">
-<a href="/providers/awscc/qldb/stream/">stream</a>
+<a href="/providers/awscc/qldb/qldb_stream/">qldb_stream</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/awscc/qldb/streams/">streams</a>

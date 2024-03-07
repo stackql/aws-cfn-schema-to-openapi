@@ -43,31 +43,6 @@ Gets an individual <code>alarm_model</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alarm_model</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotevents:DescribeAlarmModel,
-iotevents:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotevents:UpdateAlarmModel,
-iotevents:UpdateInputRouting,
-iotevents:DescribeAlarmModel,
-iotevents:ListTagsForResource,
-iotevents:UntagResource,
-iotevents:TagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-iotevents:DeleteAlarmModel,
-iotevents:DescribeAlarmModel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +58,33 @@ alarm_capabilities,
 tags
 FROM awscc.iotevents.alarm_model
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AlarmModelName&gt;'
+AND data__Identifier = '{AlarmModelName}';
 ```
+
+## Permissions
+
+To operate on the <code>alarm_model</code> resource, the following permissions are required:
+
+### Read
+```json
+iotevents:DescribeAlarmModel,
+iotevents:ListTagsForResource
+```
+
+### Update
+```json
+iotevents:UpdateAlarmModel,
+iotevents:UpdateInputRouting,
+iotevents:DescribeAlarmModel,
+iotevents:ListTagsForResource,
+iotevents:UntagResource,
+iotevents:TagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+iotevents:DeleteAlarmModel,
+iotevents:DescribeAlarmModel
+```
+

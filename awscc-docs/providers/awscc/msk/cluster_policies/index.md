@@ -35,20 +35,6 @@ Retrieves a list of <code>cluster_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cluster_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kafka:PutClusterPolicy,
-kafka:GetClusterPolicy</pre>
-
-### List
-<pre>
-kafka:GetClusterPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ cluster_arn
 FROM awscc.msk.cluster_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>cluster_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+kafka:PutClusterPolicy,
+kafka:GetClusterPolicy
+```
+
+### List
+```json
+kafka:GetClusterPolicy
+```
+

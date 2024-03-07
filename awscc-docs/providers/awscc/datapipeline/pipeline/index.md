@@ -42,37 +42,6 @@ Gets an individual <code>pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipeline</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datapipeline:GetPipelineDefinition,
-datapipeline:DescribePipelines</pre>
-
-### Update
-<pre>
-datapipeline:PutPipelineDefinition,
-datapipeline:AddTags,
-datapipeline:RemoveTags,
-datapipeline:DeactivatePipeline,
-datapipeline:GetPipelineDefinition,
-datapipeline:ActivatePipeline,
-datapipeline:ValidatePipelineDefinition,
-datapipeline:DescribePipelines,
-datapipeline:AddTags,
-datapipeline:RemoveTags,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-datapipeline:DeletePipeline,
-datapipeline:DescribePipelines,
-datapipeline:GetPipelineDefinition,
-datapipeline:RemoveTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +56,39 @@ pipeline_tags,
 pipeline_id
 FROM awscc.datapipeline.pipeline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PipelineId&gt;'
+AND data__Identifier = '{PipelineId}';
 ```
+
+## Permissions
+
+To operate on the <code>pipeline</code> resource, the following permissions are required:
+
+### Read
+```json
+datapipeline:GetPipelineDefinition,
+datapipeline:DescribePipelines
+```
+
+### Update
+```json
+datapipeline:PutPipelineDefinition,
+datapipeline:AddTags,
+datapipeline:RemoveTags,
+datapipeline:DeactivatePipeline,
+datapipeline:GetPipelineDefinition,
+datapipeline:ActivatePipeline,
+datapipeline:ValidatePipelineDefinition,
+datapipeline:DescribePipelines,
+datapipeline:AddTags,
+datapipeline:RemoveTags,
+iam:PassRole
+```
+
+### Delete
+```json
+datapipeline:DeletePipeline,
+datapipeline:DescribePipelines,
+datapipeline:GetPipelineDefinition,
+datapipeline:RemoveTags
+```
+

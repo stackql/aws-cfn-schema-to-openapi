@@ -41,20 +41,6 @@ Gets an individual <code>reference_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>reference_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetReferenceStore,
-omics:ListTagsForResource</pre>
-
-### Delete
-<pre>
-omics:DeleteReferenceStore</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +54,21 @@ sse_config,
 tags
 FROM awscc.omics.reference_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ReferenceStoreId&gt;'
+AND data__Identifier = '{ReferenceStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>reference_store</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetReferenceStore,
+omics:ListTagsForResource
+```
+
+### Delete
+```json
+omics:DeleteReferenceStore
+```
+

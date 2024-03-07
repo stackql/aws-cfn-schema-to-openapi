@@ -40,26 +40,6 @@ Gets an individual <code>flow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediaconnect:DescribeFlow</pre>
-
-### Update
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:UpdateFlow,
-mediaconnect:UpdateFlowSource</pre>
-
-### Delete
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:DeleteFlow</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +52,28 @@ source,
 source_failover_config
 FROM awscc.mediaconnect.flow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FlowArn&gt;'
+AND data__Identifier = '{FlowArn}';
 ```
+
+## Permissions
+
+To operate on the <code>flow</code> resource, the following permissions are required:
+
+### Read
+```json
+mediaconnect:DescribeFlow
+```
+
+### Update
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:UpdateFlow,
+mediaconnect:UpdateFlowSource
+```
+
+### Delete
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:DeleteFlow
+```
+

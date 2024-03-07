@@ -47,38 +47,6 @@ Gets an individual <code>topic</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>topic</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sns:GetTopicAttributes,
-sns:ListTagsForResource,
-sns:ListSubscriptionsByTopic,
-sns:GetDataProtectionPolicy</pre>
-
-### Update
-<pre>
-sns:SetTopicAttributes,
-sns:TagResource,
-sns:UntagResource,
-sns:Subscribe,
-sns:Unsubscribe,
-sns:GetTopicAttributes,
-sns:ListTagsForResource,
-sns:ListSubscriptionsByTopic,
-sns:GetDataProtectionPolicy,
-sns:PutDataProtectionPolicy,
-iam:GetRole,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-sns:GetTopicAttributes,
-sns:DeleteTopic</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,5 +66,40 @@ tracing_config,
 delivery_status_logging
 FROM awscc.sns.topic
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TopicArn&gt;'
+AND data__Identifier = '{TopicArn}';
 ```
+
+## Permissions
+
+To operate on the <code>topic</code> resource, the following permissions are required:
+
+### Read
+```json
+sns:GetTopicAttributes,
+sns:ListTagsForResource,
+sns:ListSubscriptionsByTopic,
+sns:GetDataProtectionPolicy
+```
+
+### Update
+```json
+sns:SetTopicAttributes,
+sns:TagResource,
+sns:UntagResource,
+sns:Subscribe,
+sns:Unsubscribe,
+sns:GetTopicAttributes,
+sns:ListTagsForResource,
+sns:ListSubscriptionsByTopic,
+sns:GetDataProtectionPolicy,
+sns:PutDataProtectionPolicy,
+iam:GetRole,
+iam:PassRole
+```
+
+### Delete
+```json
+sns:GetTopicAttributes,
+sns:DeleteTopic
+```
+

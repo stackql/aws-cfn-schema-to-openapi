@@ -43,28 +43,6 @@ Gets an individual <code>wireless_gateway</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>wireless_gateway</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetWirelessGateway,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdateWirelessGateway,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource,
-iotwireless:AssociateWirelessGatewayWithThing</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteWirelessGateway,
-iotwireless:DisassociateWirelessGatewayFromThing</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +58,30 @@ thing_name,
 last_uplink_received_at
 FROM awscc.iotwireless.wireless_gateway
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>wireless_gateway</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetWirelessGateway,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdateWirelessGateway,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateWirelessGatewayWithThing
+```
+
+### Delete
+```json
+iotwireless:DeleteWirelessGateway,
+iotwireless:DisassociateWirelessGatewayFromThing
+```
+

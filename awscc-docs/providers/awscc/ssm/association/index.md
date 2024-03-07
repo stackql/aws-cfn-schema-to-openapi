@@ -52,28 +52,6 @@ Gets an individual <code>association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>association</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-ssm:DeleteAssociation</pre>
-
-### Update
-<pre>
-iam:PassRole,
-ssm:UpdateAssociation,
-ssm:GetCalendarState</pre>
-
-### Read
-<pre>
-ssm:DescribeAssociation,
-resource-groups:GetGroupQuery,
-resource-groups:ListGroups,
-resource-groups:ListGroupResources</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,5 +76,30 @@ calendar_names,
 schedule_offset
 FROM awscc.ssm.association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssociationId&gt;'
+AND data__Identifier = '{AssociationId}';
 ```
+
+## Permissions
+
+To operate on the <code>association</code> resource, the following permissions are required:
+
+### Delete
+```json
+ssm:DeleteAssociation
+```
+
+### Update
+```json
+iam:PassRole,
+ssm:UpdateAssociation,
+ssm:GetCalendarState
+```
+
+### Read
+```json
+ssm:DescribeAssociation,
+resource-groups:GetGroupQuery,
+resource-groups:ListGroups,
+resource-groups:ListGroupResources
+```
+

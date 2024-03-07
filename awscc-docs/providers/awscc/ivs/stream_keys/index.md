@@ -35,22 +35,6 @@ Retrieves a list of <code>stream_keys</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stream_keys</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ivs:TagResource,
-ivs:UntagResource,
-ivs:CreateStreamKey</pre>
-
-### List
-<pre>
-ivs:ListStreamKeys,
-ivs:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.ivs.stream_keys
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>stream_keys</code> resource, the following permissions are required:
+
+### Create
+```json
+ivs:TagResource,
+ivs:UntagResource,
+ivs:CreateStreamKey
+```
+
+### List
+```json
+ivs:ListStreamKeys,
+ivs:ListTagsForResource
+```
+

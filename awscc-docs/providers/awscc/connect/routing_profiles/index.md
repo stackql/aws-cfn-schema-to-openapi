@@ -35,21 +35,6 @@ Retrieves a list of <code>routing_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>routing_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateRoutingProfile,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListRoutingProfiles,
-connect:ListRoutingProfileQueues</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ routing_profile_arn
 FROM awscc.connect.routing_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>routing_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateRoutingProfile,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListRoutingProfiles,
+connect:ListRoutingProfileQueues
+```
+

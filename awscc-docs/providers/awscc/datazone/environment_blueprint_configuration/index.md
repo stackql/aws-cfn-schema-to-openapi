@@ -44,27 +44,6 @@ Gets an individual <code>environment_blueprint_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_blueprint_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datazone:GetEnvironmentBlueprintConfiguration</pre>
-
-### Update
-<pre>
-datazone:DeleteEnvironmentBlueprintConfiguration,
-iam:PassRole,
-datazone:GetEnvironmentBlueprintConfiguration,
-datazone:PutEnvironmentBlueprintConfiguration</pre>
-
-### Delete
-<pre>
-datazone:GetEnvironmentBlueprintConfiguration,
-datazone:DeleteEnvironmentBlueprintConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,6 +60,30 @@ domain_identifier,
 manage_access_role_arn
 FROM awscc.datazone.environment_blueprint_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainId&gt;'
-AND data__Identifier = '&lt;EnvironmentBlueprintId&gt;'
+AND data__Identifier = '{DomainId}';
+AND data__Identifier = '{EnvironmentBlueprintId}';
 ```
+
+## Permissions
+
+To operate on the <code>environment_blueprint_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+datazone:GetEnvironmentBlueprintConfiguration
+```
+
+### Update
+```json
+datazone:DeleteEnvironmentBlueprintConfiguration,
+iam:PassRole,
+datazone:GetEnvironmentBlueprintConfiguration,
+datazone:PutEnvironmentBlueprintConfiguration
+```
+
+### Delete
+```json
+datazone:GetEnvironmentBlueprintConfiguration,
+datazone:DeleteEnvironmentBlueprintConfiguration
+```
+

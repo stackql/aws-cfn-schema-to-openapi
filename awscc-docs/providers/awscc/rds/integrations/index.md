@@ -35,24 +35,6 @@ Retrieves a list of <code>integrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>integrations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-rds:CreateIntegration,
-rds:DescribeIntegrations,
-rds:AddTagsToResource,
-kms:CreateGrant,
-kms:DescribeKey,
-redshift:CreateInboundIntegration</pre>
-
-### List
-<pre>
-rds:DescribeIntegrations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ integration_arn
 FROM awscc.rds.integrations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>integrations</code> resource, the following permissions are required:
+
+### Create
+```json
+rds:CreateIntegration,
+rds:DescribeIntegrations,
+rds:AddTagsToResource,
+kms:CreateGrant,
+kms:DescribeKey,
+redshift:CreateInboundIntegration
+```
+
+### List
+```json
+rds:DescribeIntegrations
+```
+

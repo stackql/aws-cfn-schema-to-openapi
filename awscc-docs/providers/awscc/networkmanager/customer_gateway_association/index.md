@@ -38,19 +38,6 @@ Gets an individual <code>customer_gateway_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>customer_gateway_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetCustomerGatewayAssociations</pre>
-
-### Delete
-<pre>
-networkmanager:DisassociateCustomerGateway</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,6 +48,21 @@ device_id,
 link_id
 FROM awscc.networkmanager.customer_gateway_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GlobalNetworkId&gt;'
-AND data__Identifier = '&lt;CustomerGatewayArn&gt;'
+AND data__Identifier = '{GlobalNetworkId}';
+AND data__Identifier = '{CustomerGatewayArn}';
 ```
+
+## Permissions
+
+To operate on the <code>customer_gateway_association</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetCustomerGatewayAssociations
+```
+
+### Delete
+```json
+networkmanager:DisassociateCustomerGateway
+```
+

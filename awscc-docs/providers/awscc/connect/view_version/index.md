@@ -39,23 +39,6 @@ Gets an individual <code>view_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>view_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeView</pre>
-
-### Update
-<pre>
-</pre>
-
-### Delete
-<pre>
-connect:DeleteViewVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +50,20 @@ view_content_sha256,
 version
 FROM awscc.connect.view_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ViewVersionArn&gt;'
+AND data__Identifier = '{ViewVersionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>view_version</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeView
+```
+
+### Delete
+```json
+connect:DeleteViewVersion
+```
+

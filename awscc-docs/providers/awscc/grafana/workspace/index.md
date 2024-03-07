@@ -58,45 +58,6 @@ Gets an individual <code>workspace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>workspace</code> resource, the following permissions are required:
-
-### Read
-<pre>
-grafana:DescribeWorkspace,
-grafana:DescribeWorkspaceAuthentication,
-grafana:DescribeWorkspaceConfiguration</pre>
-
-### Update
-<pre>
-grafana:DescribeWorkspace,
-grafana:DescribeWorkspaceAuthentication,
-grafana:DescribeWorkspaceConfiguration,
-grafana:UpdateWorkspace,
-grafana:UpdateWorkspaceAuthentication,
-grafana:UpdateWorkspaceConfiguration,
-sso:DescribeRegisteredRegions,
-sso:CreateManagedApplicationInstance,
-ec2:GetManagedPrefixListEntries,
-iam:PassRole,
-ec2:DescribeSecurityGroups,
-ec2:DescribeSubnets,
-ec2:DescribeVpcs,
-iam:CreateServiceLinkedRole,
-sso:ListApplicationInstances,
-sso:GetApplicationInstance</pre>
-
-### Delete
-<pre>
-grafana:DeleteWorkspace,
-grafana:DescribeWorkspace,
-grafana:DescribeWorkspaceAuthentication,
-grafana:DescribeWorkspaceConfiguration,
-sso:DeleteManagedApplicationInstance,
-sso:DescribeRegisteredRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -127,5 +88,47 @@ role_arn,
 plugin_admin_enabled
 FROM awscc.grafana.workspace
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>workspace</code> resource, the following permissions are required:
+
+### Read
+```json
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration
+```
+
+### Update
+```json
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration,
+grafana:UpdateWorkspace,
+grafana:UpdateWorkspaceAuthentication,
+grafana:UpdateWorkspaceConfiguration,
+sso:DescribeRegisteredRegions,
+sso:CreateManagedApplicationInstance,
+ec2:GetManagedPrefixListEntries,
+iam:PassRole,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+ec2:DescribeVpcs,
+iam:CreateServiceLinkedRole,
+sso:ListApplicationInstances,
+sso:GetApplicationInstance
+```
+
+### Delete
+```json
+grafana:DeleteWorkspace,
+grafana:DescribeWorkspace,
+grafana:DescribeWorkspaceAuthentication,
+grafana:DescribeWorkspaceConfiguration,
+sso:DeleteManagedApplicationInstance,
+sso:DescribeRegisteredRegions
+```
+

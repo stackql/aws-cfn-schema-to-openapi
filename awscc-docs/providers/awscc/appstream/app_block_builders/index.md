@@ -35,25 +35,6 @@ Retrieves a list of <code>app_block_builders</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>app_block_builders</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appstream:CreateAppBlockBuilder,
-appstream:DescribeAppBlockBuilders,
-appstream:StartAppBlockBuilder,
-appstream:AssociateAppBlockBuilderAppBlock,
-appstream:DescribeAppBlockBuilderAppBlockAssociations,
-appstream:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-appstream:DescribeAppBlockBuilders</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ name
 FROM awscc.appstream.app_block_builders
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>app_block_builders</code> resource, the following permissions are required:
+
+### Create
+```json
+appstream:CreateAppBlockBuilder,
+appstream:DescribeAppBlockBuilders,
+appstream:StartAppBlockBuilder,
+appstream:AssociateAppBlockBuilderAppBlock,
+appstream:DescribeAppBlockBuilderAppBlockAssociations,
+appstream:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+appstream:DescribeAppBlockBuilders
+```
+

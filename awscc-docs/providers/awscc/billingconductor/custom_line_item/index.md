@@ -47,36 +47,6 @@ Gets an individual <code>custom_line_item</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>custom_line_item</code> resource, the following permissions are required:
-
-### Read
-<pre>
-billingconductor:ListCustomLineItems,
-billingconductor:ListCustomLineItemVersions,
-billingconductor:ListResourcesAssociatedToCustomLineItem,
-billingconductor:ListTagsForResource</pre>
-
-### Update
-<pre>
-billingconductor:UpdateCustomLineItem,
-billingconductor:ListCustomLineItems,
-billingconductor:ListResourcesAssociatedToCustomLineItem,
-billingconductor:BatchAssociateResourcesToCustomLineItem,
-billingconductor:BatchDisassociateResourcesFromCustomLineItem,
-billingconductor:TagResource,
-billingconductor:UntagResource</pre>
-
-### Delete
-<pre>
-billingconductor:DeleteCustomLineItem,
-billingconductor:ListCustomLineItems,
-billingconductor:BatchDisassociateResourcesFromCustomLineItem,
-billingconductor:ListResourcesAssociatedToCustomLineItem,
-billingconductor:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,5 +66,38 @@ account_id,
 tags
 FROM awscc.billingconductor.custom_line_item
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>custom_line_item</code> resource, the following permissions are required:
+
+### Read
+```json
+billingconductor:ListCustomLineItems,
+billingconductor:ListCustomLineItemVersions,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:ListTagsForResource
+```
+
+### Update
+```json
+billingconductor:UpdateCustomLineItem,
+billingconductor:ListCustomLineItems,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:BatchAssociateResourcesToCustomLineItem,
+billingconductor:BatchDisassociateResourcesFromCustomLineItem,
+billingconductor:TagResource,
+billingconductor:UntagResource
+```
+
+### Delete
+```json
+billingconductor:DeleteCustomLineItem,
+billingconductor:ListCustomLineItems,
+billingconductor:BatchDisassociateResourcesFromCustomLineItem,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:UntagResource
+```
+

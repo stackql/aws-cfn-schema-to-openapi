@@ -35,22 +35,6 @@ Retrieves a list of <code>network_analyzer_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>network_analyzer_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:CreateNetworkAnalyzerConfiguration,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource</pre>
-
-### List
-<pre>
-iotwireless:ListNetworkAnalyzerConfigurations,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ name
 FROM awscc.iotwireless.network_analyzer_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>network_analyzer_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:CreateNetworkAnalyzerConfiguration,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource
+```
+
+### List
+```json
+iotwireless:ListNetworkAnalyzerConfigurations,
+iotwireless:ListTagsForResource
+```
+

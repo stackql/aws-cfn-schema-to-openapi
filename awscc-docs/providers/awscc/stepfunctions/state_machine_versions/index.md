@@ -35,21 +35,6 @@ Retrieves a list of <code>state_machine_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>state_machine_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-states:PublishStateMachineVersion,
-states:ListStateMachineVersions,
-states:DescribeStateMachine</pre>
-
-### List
-<pre>
-states:ListStateMachineVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.stepfunctions.state_machine_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>state_machine_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+states:PublishStateMachineVersion,
+states:ListStateMachineVersions,
+states:DescribeStateMachine
+```
+
+### List
+```json
+states:ListStateMachineVersions
+```
+

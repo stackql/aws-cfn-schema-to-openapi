@@ -35,22 +35,6 @@ Retrieves a list of <code>flywheels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flywheels</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-comprehend:CreateFlywheel,
-comprehend:DescribeFlywheel,
-comprehend:ListTagsForResource</pre>
-
-### List
-<pre>
-comprehend:ListFlywheels</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.comprehend.flywheels
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>flywheels</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+comprehend:CreateFlywheel,
+comprehend:DescribeFlywheel,
+comprehend:ListTagsForResource
+```
+
+### List
+```json
+comprehend:ListFlywheels
+```
+

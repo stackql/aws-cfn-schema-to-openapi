@@ -35,21 +35,6 @@ Retrieves a list of <code>job_queues</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>job_queues</code> resource, the following permissions are required:
-
-### Create
-<pre>
-Batch:CreateJobQueue,
-Batch:TagResource,
-Batch:DescribeJobQueues</pre>
-
-### List
-<pre>
-Batch:DescribeJobQueues</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ job_queue_arn
 FROM awscc.batch.job_queues
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>job_queues</code> resource, the following permissions are required:
+
+### Create
+```json
+Batch:CreateJobQueue,
+Batch:TagResource,
+Batch:DescribeJobQueues
+```
+
+### List
+```json
+Batch:DescribeJobQueues
+```
+

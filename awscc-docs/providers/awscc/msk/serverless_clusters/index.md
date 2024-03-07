@@ -35,12 +35,21 @@ Retrieves a list of <code>serverless_clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.msk.serverless_clusters
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>serverless_clusters</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 kafka:CreateClusterV2,
 kafka:TagResource,
 kafka:DescribeClusterV2,
@@ -50,18 +59,11 @@ ec2:DescribeVpcAttribute,
 ec2:DescribeSubnets,
 ec2:DescribeVpcEndpoints,
 ec2:DescribeVpcs,
-ec2:DescribeSecurityGroups</pre>
+ec2:DescribeSecurityGroups
+```
 
 ### List
-<pre>
-kafka:ListClustersV2</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.msk.serverless_clusters
-WHERE region = 'us-east-1'
+```json
+kafka:ListClustersV2
 ```
+

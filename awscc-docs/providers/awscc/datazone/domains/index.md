@@ -35,25 +35,6 @@ Retrieves a list of <code>domains</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domains</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datazone:CreateDomain,
-datazone:UpdateDomain,
-datazone:GetDomain,
-datazone:TagResource,
-sso:CreateManagedApplicationInstance,
-sso:DeleteManagedApplicationInstance,
-sso:PutApplicationAssignmentConfiguration</pre>
-
-### List
-<pre>
-datazone:ListDomains</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ id
 FROM awscc.datazone.domains
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>domains</code> resource, the following permissions are required:
+
+### Create
+```json
+datazone:CreateDomain,
+datazone:UpdateDomain,
+datazone:GetDomain,
+datazone:TagResource,
+sso:CreateManagedApplicationInstance,
+sso:DeleteManagedApplicationInstance,
+sso:PutApplicationAssignmentConfiguration
+```
+
+### List
+```json
+datazone:ListDomains
+```
+

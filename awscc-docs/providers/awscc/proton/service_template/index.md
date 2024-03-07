@@ -41,34 +41,6 @@ Gets an individual <code>service_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-proton:GetServiceTemplate,
-proton:ListTagsForResource,
-kms:*</pre>
-
-### Update
-<pre>
-proton:GetServiceTemplate,
-proton:CreateServiceTemplate,
-proton:ListTagsForResource,
-proton:TagResource,
-proton:UntagResource,
-proton:UpdateServiceTemplate,
-kms:*</pre>
-
-### Delete
-<pre>
-proton:DeleteServiceTemplate,
-proton:UntagResource,
-kms:*,
-proton:GetServiceTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +54,36 @@ pipeline_provisioning,
 tags
 FROM awscc.proton.service_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>service_template</code> resource, the following permissions are required:
+
+### Read
+```json
+proton:GetServiceTemplate,
+proton:ListTagsForResource,
+kms:*
+```
+
+### Update
+```json
+proton:GetServiceTemplate,
+proton:CreateServiceTemplate,
+proton:ListTagsForResource,
+proton:TagResource,
+proton:UntagResource,
+proton:UpdateServiceTemplate,
+kms:*
+```
+
+### Delete
+```json
+proton:DeleteServiceTemplate,
+proton:UntagResource,
+kms:*,
+proton:GetServiceTemplate
+```
+

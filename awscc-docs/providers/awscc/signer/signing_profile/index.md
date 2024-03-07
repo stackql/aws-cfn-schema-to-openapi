@@ -41,26 +41,6 @@ Gets an individual <code>signing_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>signing_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-signer:GetSigningProfile</pre>
-
-### Delete
-<pre>
-signer:CancelSigningProfile,
-signer:GetSigningProfile</pre>
-
-### Update
-<pre>
-signer:TagResource,
-signer:UntagResource,
-signer:GetSigningProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ platform_id,
 tags
 FROM awscc.signer.signing_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>signing_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+signer:GetSigningProfile
+```
+
+### Delete
+```json
+signer:CancelSigningProfile,
+signer:GetSigningProfile
+```
+
+### Update
+```json
+signer:TagResource,
+signer:UntagResource,
+signer:GetSigningProfile
+```
+

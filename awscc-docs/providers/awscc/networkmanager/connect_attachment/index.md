@@ -50,29 +50,6 @@ Gets an individual <code>connect_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connect_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetConnectAttachment</pre>
-
-### Update
-<pre>
-networkmanager:GetConnectAttachment,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:GetConnectAttachment,
-networkmanager:DeleteAttachment,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -95,5 +72,31 @@ transport_attachment_id,
 options
 FROM awscc.networkmanager.connect_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AttachmentId&gt;'
+AND data__Identifier = '{AttachmentId}';
 ```
+
+## Permissions
+
+To operate on the <code>connect_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetConnectAttachment
+```
+
+### Update
+```json
+networkmanager:GetConnectAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:GetConnectAttachment,
+networkmanager:DeleteAttachment,
+ec2:DescribeRegions
+```
+

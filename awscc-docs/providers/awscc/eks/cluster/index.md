@@ -51,30 +51,6 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cluster</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribeCluster</pre>
-
-### Update
-<pre>
-iam:PassRole,
-eks:UpdateClusterConfig,
-eks:UpdateClusterVersion,
-eks:DescribeCluster,
-eks:DescribeUpdate,
-eks:TagResource,
-eks:UntagResource</pre>
-
-### Delete
-<pre>
-eks:DeleteCluster,
-eks:DescribeCluster</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,5 +74,32 @@ encryption_config_key_arn,
 open_id_connect_issuer_url
 FROM awscc.eks.cluster
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>cluster</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribeCluster
+```
+
+### Update
+```json
+iam:PassRole,
+eks:UpdateClusterConfig,
+eks:UpdateClusterVersion,
+eks:DescribeCluster,
+eks:DescribeUpdate,
+eks:TagResource,
+eks:UntagResource
+```
+
+### Delete
+```json
+eks:DeleteCluster,
+eks:DescribeCluster
+```
+

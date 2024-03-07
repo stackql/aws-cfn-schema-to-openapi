@@ -36,21 +36,6 @@ Retrieves a list of <code>subscription_filters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subscription_filters</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-logs:PutSubscriptionFilter,
-logs:DescribeSubscriptionFilters</pre>
-
-### List
-<pre>
-logs:DescribeSubscriptionFilters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ log_group_name
 FROM awscc.logs.subscription_filters
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>subscription_filters</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+logs:PutSubscriptionFilter,
+logs:DescribeSubscriptionFilters
+```
+
+### List
+```json
+logs:DescribeSubscriptionFilters
+```
+

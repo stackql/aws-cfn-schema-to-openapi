@@ -41,36 +41,6 @@ Gets an individual <code>hosted_zone</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hosted_zone</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53:GetHostedZone,
-route53:ListTagsForResource,
-route53:ListQueryLoggingConfigs</pre>
-
-### Update
-<pre>
-route53:GetChange,
-route53:ListTagsForResource,
-route53:UpdateHostedZoneComment,
-route53:ChangeTagsForResource,
-route53:AssociateVPCWithHostedZone,
-route53:DisassociateVPCFromHostedZone,
-route53:CreateQueryLoggingConfig,
-route53:DeleteQueryLoggingConfig,
-ec2:DescribeVpcs</pre>
-
-### Delete
-<pre>
-route53:DeleteHostedZone,
-route53:DeleteQueryLoggingConfig,
-route53:ListQueryLoggingConfigs,
-route53:GetChange</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +53,38 @@ query_logging_config,
 v_pcs,
 name_servers
 FROM awscc.route53.hosted_zone
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>hosted_zone</code> resource, the following permissions are required:
+
+### Read
+```json
+route53:GetHostedZone,
+route53:ListTagsForResource,
+route53:ListQueryLoggingConfigs
+```
+
+### Update
+```json
+route53:GetChange,
+route53:ListTagsForResource,
+route53:UpdateHostedZoneComment,
+route53:ChangeTagsForResource,
+route53:AssociateVPCWithHostedZone,
+route53:DisassociateVPCFromHostedZone,
+route53:CreateQueryLoggingConfig,
+route53:DeleteQueryLoggingConfig,
+ec2:DescribeVpcs
+```
+
+### Delete
+```json
+route53:DeleteHostedZone,
+route53:DeleteQueryLoggingConfig,
+route53:ListQueryLoggingConfigs,
+route53:GetChange
+```
+

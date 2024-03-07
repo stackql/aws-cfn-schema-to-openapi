@@ -36,24 +36,6 @@ Gets an individual <code>notification_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>notification_channel</code> resource, the following permissions are required:
-
-### Update
-<pre>
-fms:PutNotificationChannel,
-iam:PassRole</pre>
-
-### Read
-<pre>
-fms:GetNotificationChannel</pre>
-
-### Delete
-<pre>
-fms:DeleteNotificationChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +44,26 @@ sns_role_name,
 sns_topic_arn
 FROM awscc.fms.notification_channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SnsTopicArn&gt;'
+AND data__Identifier = '{SnsTopicArn}';
 ```
+
+## Permissions
+
+To operate on the <code>notification_channel</code> resource, the following permissions are required:
+
+### Update
+```json
+fms:PutNotificationChannel,
+iam:PassRole
+```
+
+### Read
+```json
+fms:GetNotificationChannel
+```
+
+### Delete
+```json
+fms:DeleteNotificationChannel
+```
+

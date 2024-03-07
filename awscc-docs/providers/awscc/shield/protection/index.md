@@ -41,22 +41,39 @@ Gets an individual <code>protection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+protection_id,
+protection_arn,
+name,
+resource_arn,
+health_check_arns,
+application_layer_automatic_response_configuration,
+tags
+FROM awscc.shield.protection
+WHERE data__Identifier = '{ProtectionArn}';
+```
+
 ## Permissions
 
 To operate on the <code>protection</code> resource, the following permissions are required:
 
 ### Delete
-<pre>
+```json
 shield:DeleteProtection,
-shield:UntagResource</pre>
+shield:UntagResource
+```
 
 ### Read
-<pre>
+```json
 shield:DescribeProtection,
-shield:ListTagsForResource</pre>
+shield:ListTagsForResource
+```
 
 ### Update
-<pre>
+```json
 shield:DescribeProtection,
 shield:AssociateHealthCheck,
 shield:DisassociateHealthCheck,
@@ -70,20 +87,6 @@ route53:GetHealthCheck,
 iam:GetRole,
 iam:CreateServiceLinkedRole,
 wafv2:GetWebACLForResource,
-wafv2:GetWebACL</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-protection_id,
-protection_arn,
-name,
-resource_arn,
-health_check_arns,
-application_layer_automatic_response_configuration,
-tags
-FROM awscc.shield.protection
-WHERE data__Identifier = '&lt;ProtectionArn&gt;'
+wafv2:GetWebACL
 ```
+

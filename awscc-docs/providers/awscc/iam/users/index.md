@@ -35,25 +35,6 @@ Retrieves a list of <code>users</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>users</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateLoginProfile,
-iam:AddUserToGroup,
-iam:PutUserPolicy,
-iam:AttachUserPolicy,
-iam:CreateUser,
-iam:GetUser,
-iam:TagUser</pre>
-
-### List
-<pre>
-iam:listUsers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ user_name
 FROM awscc.iam.users
 
 ```
+
+## Permissions
+
+To operate on the <code>users</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateLoginProfile,
+iam:AddUserToGroup,
+iam:PutUserPolicy,
+iam:AttachUserPolicy,
+iam:CreateUser,
+iam:GetUser,
+iam:TagUser
+```
+
+### List
+```json
+iam:listUsers
+```
+

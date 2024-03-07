@@ -37,30 +37,6 @@ Gets an individual <code>directory_registration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>directory_registration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-pca-connector-ad:ListTagsForResource,
-pca-connector-ad:GetDirectoryRegistration</pre>
-
-### Delete
-<pre>
-pca-connector-ad:GetDirectoryRegistration,
-pca-connector-ad:DeleteDirectoryRegistration,
-ds:DescribeDirectories,
-ds:UnauthorizeApplication,
-ds:UpdateAuthorizedApplication</pre>
-
-### Update
-<pre>
-pca-connector-ad:ListTagsForResource,
-pca-connector-ad:TagResource,
-pca-connector-ad:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +46,32 @@ directory_registration_arn,
 tags
 FROM awscc.pcaconnectorad.directory_registration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DirectoryRegistrationArn&gt;'
+AND data__Identifier = '{DirectoryRegistrationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>directory_registration</code> resource, the following permissions are required:
+
+### Read
+```json
+pca-connector-ad:ListTagsForResource,
+pca-connector-ad:GetDirectoryRegistration
+```
+
+### Delete
+```json
+pca-connector-ad:GetDirectoryRegistration,
+pca-connector-ad:DeleteDirectoryRegistration,
+ds:DescribeDirectories,
+ds:UnauthorizeApplication,
+ds:UpdateAuthorizedApplication
+```
+
+### Update
+```json
+pca-connector-ad:ListTagsForResource,
+pca-connector-ad:TagResource,
+pca-connector-ad:UntagResource
+```
+

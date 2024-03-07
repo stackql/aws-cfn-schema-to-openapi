@@ -35,29 +35,31 @@ Gets an individual <code>dnssec</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dnssec</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53:GetDNSSEC</pre>
-
-### Delete
-<pre>
-route53:GetDNSSEC,
-route53:DisableHostedZoneDNSSEC,
-kms:DescribeKey,
-kms:GetPublicKey,
-kms:Sign,
-kms:CreateGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
 region,
 hosted_zone_id
 FROM awscc.route53.dnssec
-WHERE data__Identifier = '&lt;HostedZoneId&gt;'
+WHERE data__Identifier = '{HostedZoneId}';
 ```
+
+## Permissions
+
+To operate on the <code>dnssec</code> resource, the following permissions are required:
+
+### Read
+```json
+route53:GetDNSSEC
+```
+
+### Delete
+```json
+route53:GetDNSSEC,
+route53:DisableHostedZoneDNSSEC,
+kms:DescribeKey,
+kms:GetPublicKey,
+kms:Sign,
+kms:CreateGrant
+```
+

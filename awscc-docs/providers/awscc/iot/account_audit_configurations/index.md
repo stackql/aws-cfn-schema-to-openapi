@@ -35,21 +35,6 @@ Retrieves a list of <code>account_audit_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>account_audit_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:UpdateAccountAuditConfiguration,
-iot:DescribeAccountAuditConfiguration,
-iam:PassRole</pre>
-
-### List
-<pre>
-iot:DescribeAccountAuditConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ account_id
 FROM awscc.iot.account_audit_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>account_audit_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:UpdateAccountAuditConfiguration,
+iot:DescribeAccountAuditConfiguration,
+iam:PassRole
+```
+
+### List
+```json
+iot:DescribeAccountAuditConfiguration
+```
+

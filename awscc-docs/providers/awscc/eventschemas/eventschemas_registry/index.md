@@ -1,9 +1,9 @@
 ---
-title: registry
+title: eventschemas_registry
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - registry
+  - eventschemas_registry
   - eventschemas
   - aws
   - stackql
@@ -14,14 +14,14 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-Gets an individual <code>registry</code> resource
+Gets an individual <code>eventschemas_registry</code> resource
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>registry</code></td></tr>
+<tr><td><b>Name</b></td><td><code>eventschemas_registry</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>registry</td></tr>
-<tr><td><b>Id</b></td><td><code>awscc.eventschemas.registry</code></td></tr>
+<tr><td><b>Description</b></td><td>eventschemas_registry</td></tr>
+<tr><td><b>Id</b></td><td><code>awscc.eventschemas.eventschemas_registry</code></td></tr>
 </tbody></table>
 
 ## Fields
@@ -38,28 +38,6 @@ Gets an individual <code>registry</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>registry</code> resource, the following permissions are required:
-
-### Read
-<pre>
-schemas:DescribeRegistry</pre>
-
-### Update
-<pre>
-schemas:DescribeRegistry,
-schemas:UpdateRegistry,
-schemas:TagResource,
-schemas:UntagResource,
-schemas:ListTagsForResource</pre>
-
-### Delete
-<pre>
-schemas:DescribeRegistry,
-schemas:DeleteRegistry</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,7 +46,32 @@ registry_name,
 description,
 registry_arn,
 tags
-FROM awscc.eventschemas.registry
+FROM awscc.eventschemas.eventschemas_registry
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RegistryArn&gt;'
+AND data__Identifier = '{RegistryArn}';
 ```
+
+## Permissions
+
+To operate on the <code>eventschemas_registry</code> resource, the following permissions are required:
+
+### Read
+```json
+schemas:DescribeRegistry
+```
+
+### Update
+```json
+schemas:DescribeRegistry,
+schemas:UpdateRegistry,
+schemas:TagResource,
+schemas:UntagResource,
+schemas:ListTagsForResource
+```
+
+### Delete
+```json
+schemas:DescribeRegistry,
+schemas:DeleteRegistry
+```
+

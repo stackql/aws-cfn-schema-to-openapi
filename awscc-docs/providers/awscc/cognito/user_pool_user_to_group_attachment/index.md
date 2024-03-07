@@ -37,20 +37,6 @@ Gets an individual <code>user_pool_user_to_group_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_user_to_group_attachment</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cognito-idp:AdminRemoveUserFromGroup,
-cognito-idp:AdminListGroupsForUser</pre>
-
-### Read
-<pre>
-cognito-idp:AdminListGroupsForUser</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,7 +46,23 @@ username,
 group_name
 FROM awscc.cognito.user_pool_user_to_group_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserPoolId&gt;'
-AND data__Identifier = '&lt;GroupName&gt;'
-AND data__Identifier = '&lt;Username&gt;'
+AND data__Identifier = '{UserPoolId}';
+AND data__Identifier = '{GroupName}';
+AND data__Identifier = '{Username}';
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_user_to_group_attachment</code> resource, the following permissions are required:
+
+### Delete
+```json
+cognito-idp:AdminRemoveUserFromGroup,
+cognito-idp:AdminListGroupsForUser
+```
+
+### Read
+```json
+cognito-idp:AdminListGroupsForUser
+```
+

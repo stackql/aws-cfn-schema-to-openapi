@@ -38,25 +38,6 @@ Gets an individual <code>registry_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>registry_policy</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-schemas:DeleteResourcePolicy,
-schemas:GetResourcePolicy</pre>
-
-### Update
-<pre>
-schemas:PutResourcePolicy,
-schemas:GetResourcePolicy</pre>
-
-### Read
-<pre>
-schemas:GetResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +48,27 @@ registry_name,
 revision_id
 FROM awscc.eventschemas.registry_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>registry_policy</code> resource, the following permissions are required:
+
+### Delete
+```json
+schemas:DeleteResourcePolicy,
+schemas:GetResourcePolicy
+```
+
+### Update
+```json
+schemas:PutResourcePolicy,
+schemas:GetResourcePolicy
+```
+
+### Read
+```json
+schemas:GetResourcePolicy
+```
+

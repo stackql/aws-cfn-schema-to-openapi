@@ -47,30 +47,6 @@ Gets an individual <code>domain</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datazone:GetDomain</pre>
-
-### Update
-<pre>
-datazone:UpdateDomain,
-datazone:GetDomain,
-datazone:TagResource,
-datazone:UntagResource,
-sso:CreateManagedApplicationInstance,
-sso:DeleteManagedApplicationInstance,
-sso:PutApplicationAssignmentConfiguration</pre>
-
-### Delete
-<pre>
-datazone:DeleteDomain,
-datazone:GetDomain</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +66,32 @@ status,
 tags
 FROM awscc.datazone.domain
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>domain</code> resource, the following permissions are required:
+
+### Read
+```json
+datazone:GetDomain
+```
+
+### Update
+```json
+datazone:UpdateDomain,
+datazone:GetDomain,
+datazone:TagResource,
+datazone:UntagResource,
+sso:CreateManagedApplicationInstance,
+sso:DeleteManagedApplicationInstance,
+sso:PutApplicationAssignmentConfiguration
+```
+
+### Delete
+```json
+datazone:DeleteDomain,
+datazone:GetDomain
+```
+

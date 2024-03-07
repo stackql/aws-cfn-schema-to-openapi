@@ -41,26 +41,6 @@ Gets an individual <code>allow_list</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>allow_list</code> resource, the following permissions are required:
-
-### Read
-<pre>
-macie2:GetAllowList</pre>
-
-### Update
-<pre>
-macie2:UpdateAllowList,
-macie2:GetAllowList,
-macie2:TagResource,
-macie2:UntagResource</pre>
-
-### Delete
-<pre>
-macie2:DeleteAllowList</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ status,
 tags
 FROM awscc.macie.allow_list
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>allow_list</code> resource, the following permissions are required:
+
+### Read
+```json
+macie2:GetAllowList
+```
+
+### Update
+```json
+macie2:UpdateAllowList,
+macie2:GetAllowList,
+macie2:TagResource,
+macie2:UntagResource
+```
+
+### Delete
+```json
+macie2:DeleteAllowList
+```
+

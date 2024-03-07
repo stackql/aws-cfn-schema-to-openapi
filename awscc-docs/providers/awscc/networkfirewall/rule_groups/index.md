@@ -35,24 +35,6 @@ Retrieves a list of <code>rule_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-network-firewall:CreateRuleGroup,
-network-firewall:DescribeRuleGroup,
-network-firewall:TagResource,
-network-firewall:ListRuleGroups,
-iam:CreateServiceLinkedRole,
-ec2:GetManagedPrefixListEntries</pre>
-
-### List
-<pre>
-network-firewall:ListRuleGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ rule_group_arn
 FROM awscc.networkfirewall.rule_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>rule_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+network-firewall:CreateRuleGroup,
+network-firewall:DescribeRuleGroup,
+network-firewall:TagResource,
+network-firewall:ListRuleGroups,
+iam:CreateServiceLinkedRole,
+ec2:GetManagedPrefixListEntries
+```
+
+### List
+```json
+network-firewall:ListRuleGroups
+```
+

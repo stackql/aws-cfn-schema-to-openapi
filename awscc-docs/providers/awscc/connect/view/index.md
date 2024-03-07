@@ -43,27 +43,6 @@ Gets an individual <code>view</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>view</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeView</pre>
-
-### Delete
-<pre>
-connect:DeleteView,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateViewMetadata,
-connect:UpdateViewContent,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +58,29 @@ view_content_sha256,
 tags
 FROM awscc.connect.view
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ViewArn&gt;'
+AND data__Identifier = '{ViewArn}';
 ```
+
+## Permissions
+
+To operate on the <code>view</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeView
+```
+
+### Delete
+```json
+connect:DeleteView,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateViewMetadata,
+connect:UpdateViewContent,
+connect:TagResource,
+connect:UntagResource
+```
+

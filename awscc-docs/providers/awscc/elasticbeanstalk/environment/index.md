@@ -47,31 +47,6 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticbeanstalk:DescribeEnvironments,
-elasticbeanstalk:DescribeConfigurationSettings,
-elasticbeanstalk:ListTagsForResource</pre>
-
-### Update
-<pre>
-elasticbeanstalk:DescribeEnvironments,
-elasticbeanstalk:UpdateEnvironment,
-elasticbeanstalk:UpdateTagsForResource,
-elasticbeanstalk:AssociateEnvironmentOperationsRole,
-elasticbeanstalk:DisassociateEnvironmentOperationsRole,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-elasticbeanstalk:DescribeEnvironments,
-elasticbeanstalk:TerminateEnvironment</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +66,33 @@ c_na_me_prefix,
 tags
 FROM awscc.elasticbeanstalk.environment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EnvironmentName&gt;'
+AND data__Identifier = '{EnvironmentName}';
 ```
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:DescribeConfigurationSettings,
+elasticbeanstalk:ListTagsForResource
+```
+
+### Update
+```json
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:UpdateEnvironment,
+elasticbeanstalk:UpdateTagsForResource,
+elasticbeanstalk:AssociateEnvironmentOperationsRole,
+elasticbeanstalk:DisassociateEnvironmentOperationsRole,
+iam:PassRole
+```
+
+### Delete
+```json
+elasticbeanstalk:DescribeEnvironments,
+elasticbeanstalk:TerminateEnvironment
+```
+

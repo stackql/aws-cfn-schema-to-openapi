@@ -42,38 +42,6 @@ Gets an individual <code>work_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>work_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-athena:GetWorkGroup,
-athena:ListTagsForResource</pre>
-
-### Delete
-<pre>
-athena:DeleteWorkGroup,
-athena:GetWorkGroup,
-athena:UntagResource</pre>
-
-### Update
-<pre>
-athena:UpdateWorkGroup,
-athena:TagResource,
-athena:UntagResource,
-iam:PassRole,
-s3:GetBucketLocation,
-s3:GetObject,
-s3:ListBucket,
-s3:ListBucketMultipartUploads,
-s3:AbortMultipartUpload,
-s3:PutObject,
-s3:ListMultipartUploadParts,
-kms:Decrypt,
-kms:GenerateDataKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +56,40 @@ state,
 recursive_delete_option
 FROM awscc.athena.work_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>work_group</code> resource, the following permissions are required:
+
+### Read
+```json
+athena:GetWorkGroup,
+athena:ListTagsForResource
+```
+
+### Delete
+```json
+athena:DeleteWorkGroup,
+athena:GetWorkGroup,
+athena:UntagResource
+```
+
+### Update
+```json
+athena:UpdateWorkGroup,
+athena:TagResource,
+athena:UntagResource,
+iam:PassRole,
+s3:GetBucketLocation,
+s3:GetObject,
+s3:ListBucket,
+s3:ListBucketMultipartUploads,
+s3:AbortMultipartUpload,
+s3:PutObject,
+s3:ListMultipartUploadParts,
+kms:Decrypt,
+kms:GenerateDataKey
+```
+

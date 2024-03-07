@@ -42,32 +42,6 @@ Gets an individual <code>connector_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connector_profile</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-appflow:DeleteConnectorProfile</pre>
-
-### Read
-<pre>
-appflow:DescribeConnectorProfiles</pre>
-
-### Update
-<pre>
-appflow:UpdateConnectorProfile,
-kms:ListKeys,
-kms:DescribeKey,
-kms:ListAliases,
-kms:CreateGrant,
-kms:ListGrants,
-iam:PassRole,
-secretsmanager:CreateSecret,
-secretsmanager:GetSecretValue,
-secretsmanager:PutResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +56,34 @@ connector_profile_config,
 credentials_arn
 FROM awscc.appflow.connector_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectorProfileName&gt;'
+AND data__Identifier = '{ConnectorProfileName}';
 ```
+
+## Permissions
+
+To operate on the <code>connector_profile</code> resource, the following permissions are required:
+
+### Delete
+```json
+appflow:DeleteConnectorProfile
+```
+
+### Read
+```json
+appflow:DescribeConnectorProfiles
+```
+
+### Update
+```json
+appflow:UpdateConnectorProfile,
+kms:ListKeys,
+kms:DescribeKey,
+kms:ListAliases,
+kms:CreateGrant,
+kms:ListGrants,
+iam:PassRole,
+secretsmanager:CreateSecret,
+secretsmanager:GetSecretValue,
+secretsmanager:PutResourcePolicy
+```
+

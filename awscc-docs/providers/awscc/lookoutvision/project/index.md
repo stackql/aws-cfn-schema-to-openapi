@@ -36,23 +36,6 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>project</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lookoutvision:DescribeProject</pre>
-
-### Update
-<pre>
-</pre>
-
-### Delete
-<pre>
-lookoutvision:DeleteProject</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,5 +44,20 @@ arn,
 project_name
 FROM awscc.lookoutvision.project
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProjectName&gt;'
+AND data__Identifier = '{ProjectName}';
 ```
+
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+```json
+lookoutvision:DescribeProject
+```
+
+### Delete
+```json
+lookoutvision:DeleteProject
+```
+

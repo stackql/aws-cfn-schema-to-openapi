@@ -35,23 +35,6 @@ Retrieves a list of <code>model_explainability_job_definitions</code> in a regio
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_explainability_job_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateModelExplainabilityJobDefinition,
-sagemaker:DescribeModelExplainabilityJobDefinition,
-iam:PassRole,
-sagemaker:AddTags</pre>
-
-### List
-<pre>
-sagemaker:ListModelExplainabilityJobDefinitions,
-sagemaker:ListTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ job_definition_arn
 FROM awscc.sagemaker.model_explainability_job_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>model_explainability_job_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateModelExplainabilityJobDefinition,
+sagemaker:DescribeModelExplainabilityJobDefinition,
+iam:PassRole,
+sagemaker:AddTags
+```
+
+### List
+```json
+sagemaker:ListModelExplainabilityJobDefinitions,
+sagemaker:ListTags
+```
+

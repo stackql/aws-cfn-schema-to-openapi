@@ -41,28 +41,6 @@ Gets an individual <code>access_point</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_point</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccessPointForObjectLambda,
-s3:GetAccessPointPolicyStatusForObjectLambda,
-s3:GetAccessPointConfigurationForObjectLambda</pre>
-
-### Update
-<pre>
-s3:PutAccessPointConfigurationForObjectLambda,
-s3:GetAccessPointForObjectLambda,
-s3:GetAccessPointPolicyStatusForObjectLambda,
-s3:GetAccessPointConfigurationForObjectLambda</pre>
-
-### Delete
-<pre>
-s3:DeleteAccessPointForObjectLambda</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +54,30 @@ policy_status,
 object_lambda_configuration
 FROM awscc.s3objectlambda.access_point
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>access_point</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccessPointForObjectLambda,
+s3:GetAccessPointPolicyStatusForObjectLambda,
+s3:GetAccessPointConfigurationForObjectLambda
+```
+
+### Update
+```json
+s3:PutAccessPointConfigurationForObjectLambda,
+s3:GetAccessPointForObjectLambda,
+s3:GetAccessPointPolicyStatusForObjectLambda,
+s3:GetAccessPointConfigurationForObjectLambda
+```
+
+### Delete
+```json
+s3:DeleteAccessPointForObjectLambda
+```
+

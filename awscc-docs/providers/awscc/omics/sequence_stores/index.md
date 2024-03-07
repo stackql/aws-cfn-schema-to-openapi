@@ -35,20 +35,6 @@ Retrieves a list of <code>sequence_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sequence_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-omics:CreateSequenceStore,
-omics:TagResource</pre>
-
-### List
-<pre>
-omics:ListSequenceStores</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ sequence_store_id
 FROM awscc.omics.sequence_stores
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>sequence_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+omics:CreateSequenceStore,
+omics:TagResource
+```
+
+### List
+```json
+omics:ListSequenceStores
+```
+

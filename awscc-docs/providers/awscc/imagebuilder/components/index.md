@@ -35,12 +35,21 @@ Retrieves a list of <code>components</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.imagebuilder.components
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>components</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:CreateServiceLinkedRole,
 iam:GetRole,
 kms:GenerateDataKey*,
@@ -51,18 +60,11 @@ s3:HeadBucket,
 s3:GetBucketLocation,
 imagebuilder:TagResource,
 imagebuilder:GetComponent,
-imagebuilder:CreateComponent</pre>
+imagebuilder:CreateComponent
+```
 
 ### List
-<pre>
-imagebuilder:ListComponents</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.imagebuilder.components
-WHERE region = 'us-east-1'
+```json
+imagebuilder:ListComponents
 ```
+

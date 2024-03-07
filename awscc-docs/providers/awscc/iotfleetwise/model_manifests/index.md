@@ -35,24 +35,6 @@ Retrieves a list of <code>model_manifests</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_manifests</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotfleetwise:CreateModelManifest,
-iotfleetwise:GetModelManifest,
-iotfleetwise:UpdateModelManifest,
-iotfleetwise:ListModelManifestNodes,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource</pre>
-
-### List
-<pre>
-iotfleetwise:ListModelManifests</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ name
 FROM awscc.iotfleetwise.model_manifests
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>model_manifests</code> resource, the following permissions are required:
+
+### Create
+```json
+iotfleetwise:CreateModelManifest,
+iotfleetwise:GetModelManifest,
+iotfleetwise:UpdateModelManifest,
+iotfleetwise:ListModelManifestNodes,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource
+```
+
+### List
+```json
+iotfleetwise:ListModelManifests
+```
+

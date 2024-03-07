@@ -47,32 +47,6 @@ Gets an individual <code>form</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>form</code> resource, the following permissions are required:
-
-### Read
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetForm,
-amplifyuibuilder:TagResource</pre>
-
-### Update
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetForm,
-amplifyuibuilder:TagResource,
-amplifyuibuilder:UntagResource,
-amplifyuibuilder:UpdateForm</pre>
-
-### Delete
-<pre>
-amplify:GetApp,
-amplifyuibuilder:DeleteForm,
-amplifyuibuilder:TagResource,
-amplifyuibuilder:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,7 +66,36 @@ style,
 tags
 FROM awscc.amplifyuibuilder.form
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AppId&gt;'
-AND data__Identifier = '&lt;EnvironmentName&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{AppId}';
+AND data__Identifier = '{EnvironmentName}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>form</code> resource, the following permissions are required:
+
+### Read
+```json
+amplify:GetApp,
+amplifyuibuilder:GetForm,
+amplifyuibuilder:TagResource
+```
+
+### Update
+```json
+amplify:GetApp,
+amplifyuibuilder:GetForm,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource,
+amplifyuibuilder:UpdateForm
+```
+
+### Delete
+```json
+amplify:GetApp,
+amplifyuibuilder:DeleteForm,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource
+```
+

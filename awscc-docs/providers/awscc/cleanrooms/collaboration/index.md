@@ -45,35 +45,6 @@ Gets an individual <code>collaboration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>collaboration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cleanrooms:GetCollaboration,
-cleanrooms:ListMembers,
-cleanrooms:ListTagsForResource</pre>
-
-### Update
-<pre>
-cleanrooms:UpdateCollaboration,
-cleanrooms:GetCollaboration,
-cleanrooms:ListMembers,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:UntagResource</pre>
-
-### Delete
-<pre>
-cleanrooms:DeleteCollaboration,
-cleanrooms:GetCollaboration,
-cleanrooms:ListTagsForResource,
-cleanrooms:UntagResource,
-cleanrooms:ListMembers,
-cleanrooms:ListCollaborations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +62,37 @@ query_log_status,
 creator_payment_configuration
 FROM awscc.cleanrooms.collaboration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CollaborationIdentifier&gt;'
+AND data__Identifier = '{CollaborationIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>collaboration</code> resource, the following permissions are required:
+
+### Read
+```json
+cleanrooms:GetCollaboration,
+cleanrooms:ListMembers,
+cleanrooms:ListTagsForResource
+```
+
+### Update
+```json
+cleanrooms:UpdateCollaboration,
+cleanrooms:GetCollaboration,
+cleanrooms:ListMembers,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:UntagResource
+```
+
+### Delete
+```json
+cleanrooms:DeleteCollaboration,
+cleanrooms:GetCollaboration,
+cleanrooms:ListTagsForResource,
+cleanrooms:UntagResource,
+cleanrooms:ListMembers,
+cleanrooms:ListCollaborations
+```
+

@@ -38,28 +38,6 @@ Gets an individual <code>stream_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stream_key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ivs:GetStreamKey,
-ivs:ListTagsForResource</pre>
-
-### Update
-<pre>
-ivs:GetStreamKey,
-ivs:TagResource,
-ivs:UntagResource,
-ivs:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ivs:DeleteStreamKey,
-ivs:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +48,30 @@ tags,
 value
 FROM awscc.ivs.stream_key
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>stream_key</code> resource, the following permissions are required:
+
+### Read
+```json
+ivs:GetStreamKey,
+ivs:ListTagsForResource
+```
+
+### Update
+```json
+ivs:GetStreamKey,
+ivs:TagResource,
+ivs:UntagResource,
+ivs:ListTagsForResource
+```
+
+### Delete
+```json
+ivs:DeleteStreamKey,
+ivs:UntagResource
+```
+

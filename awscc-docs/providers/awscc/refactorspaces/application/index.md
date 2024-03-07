@@ -48,35 +48,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-refactor-spaces:GetApplication,
-refactor-spaces:ListTagsForResource</pre>
-
-### Delete
-<pre>
-refactor-spaces:GetApplication,
-refactor-spaces:DeleteApplication,
-refactor-spaces:UntagResource,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:DeleteRoute,
-ec2:DeleteSecurityGroup,
-ec2:DeleteTransitGateway,
-ec2:DeleteTransitGatewayVpcAttachment,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DeleteTags,
-ec2:RevokeSecurityGroupIngress,
-elasticloadbalancing:DeleteLoadBalancer,
-apigateway:Update*,
-apigateway:Delete*,
-apigateway:Get*,
-apigateway:Put*</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -97,6 +68,37 @@ proxy_url,
 tags
 FROM awscc.refactorspaces.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EnvironmentIdentifier&gt;'
-AND data__Identifier = '&lt;ApplicationIdentifier&gt;'
+AND data__Identifier = '{EnvironmentIdentifier}';
+AND data__Identifier = '{ApplicationIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+refactor-spaces:GetApplication,
+refactor-spaces:ListTagsForResource
+```
+
+### Delete
+```json
+refactor-spaces:GetApplication,
+refactor-spaces:DeleteApplication,
+refactor-spaces:UntagResource,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:DeleteRoute,
+ec2:DeleteSecurityGroup,
+ec2:DeleteTransitGateway,
+ec2:DeleteTransitGatewayVpcAttachment,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DeleteTags,
+ec2:RevokeSecurityGroupIngress,
+elasticloadbalancing:DeleteLoadBalancer,
+apigateway:Update*,
+apigateway:Delete*,
+apigateway:Get*,
+apigateway:Put*
+```
+

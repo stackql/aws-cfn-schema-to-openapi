@@ -43,30 +43,6 @@ Gets an individual <code>feature</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>feature</code> resource, the following permissions are required:
-
-### Read
-<pre>
-evidently:GetFeature,
-evidently:ListTagsForResource</pre>
-
-### Update
-<pre>
-evidently:UpdateFeature,
-evidently:ListTagsForResource,
-evidently:TagResource,
-evidently:UntagResource,
-evidently:GetFeature</pre>
-
-### Delete
-<pre>
-evidently:DeleteFeature,
-evidently:UntagResource,
-evidently:GetFeature</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +58,32 @@ entity_overrides,
 tags
 FROM awscc.evidently.feature
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>feature</code> resource, the following permissions are required:
+
+### Read
+```json
+evidently:GetFeature,
+evidently:ListTagsForResource
+```
+
+### Update
+```json
+evidently:UpdateFeature,
+evidently:ListTagsForResource,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetFeature
+```
+
+### Delete
+```json
+evidently:DeleteFeature,
+evidently:UntagResource,
+evidently:GetFeature
+```
+

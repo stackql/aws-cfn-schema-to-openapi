@@ -35,12 +35,21 @@ Retrieves a list of <code>knowledge_bases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+knowledge_base_id
+FROM awscc.wisdom.knowledge_bases
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>knowledge_bases</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 appflow:CreateFlow,
 appflow:DeleteFlow,
 appflow:StartFlow,
@@ -52,18 +61,11 @@ kms:DescribeKey,
 kms:CreateGrant,
 kms:ListGrants,
 wisdom:CreateKnowledgeBase,
-wisdom:TagResource</pre>
+wisdom:TagResource
+```
 
 ### List
-<pre>
-wisdom:ListKnowledgeBases</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-knowledge_base_id
-FROM awscc.wisdom.knowledge_bases
-WHERE region = 'us-east-1'
+```json
+wisdom:ListKnowledgeBases
 ```
+

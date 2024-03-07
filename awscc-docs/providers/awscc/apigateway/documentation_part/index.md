@@ -38,24 +38,6 @@ Gets an individual <code>documentation_part</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>documentation_part</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:GET,
-apigateway:PATCH</pre>
-
-### Delete
-<pre>
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,6 +48,27 @@ properties,
 rest_api_id
 FROM awscc.apigateway.documentation_part
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DocumentationPartId&gt;'
-AND data__Identifier = '&lt;RestApiId&gt;'
+AND data__Identifier = '{DocumentationPartId}';
+AND data__Identifier = '{RestApiId}';
 ```
+
+## Permissions
+
+To operate on the <code>documentation_part</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:GET,
+apigateway:PATCH
+```
+
+### Delete
+```json
+apigateway:DELETE
+```
+

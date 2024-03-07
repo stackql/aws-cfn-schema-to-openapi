@@ -45,26 +45,6 @@ Gets an individual <code>type_activation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>type_activation</code> resource, the following permissions are required:
-
-### Update
-<pre>
-cloudformation:ActivateType,
-cloudformation:DescribeType,
-iam:PassRole</pre>
-
-### Read
-<pre>
-cloudformation:DescribeType</pre>
-
-### Delete
-<pre>
-cloudformation:DeactivateType,
-cloudformation:DescribeType</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +62,28 @@ type_name,
 type
 FROM awscc.cloudformation.type_activation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>type_activation</code> resource, the following permissions are required:
+
+### Update
+```json
+cloudformation:ActivateType,
+cloudformation:DescribeType,
+iam:PassRole
+```
+
+### Read
+```json
+cloudformation:DescribeType
+```
+
+### Delete
+```json
+cloudformation:DeactivateType,
+cloudformation:DescribeType
+```
+

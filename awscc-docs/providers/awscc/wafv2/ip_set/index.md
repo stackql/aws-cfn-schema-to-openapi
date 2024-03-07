@@ -42,27 +42,6 @@ Gets an individual <code>ip_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>ip_set</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-wafv2:DeleteIPSet,
-wafv2:GetIPSet</pre>
-
-### Read
-<pre>
-wafv2:GetIPSet,
-wafv2:ListTagsForResource</pre>
-
-### Update
-<pre>
-wafv2:UpdateIPSet,
-wafv2:GetIPSet,
-wafv2:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,7 +55,31 @@ i_paddress_version,
 addresses,
 tags
 FROM awscc.wafv2.ip_set
-WHERE data__Identifier = '&lt;Name&gt;'
-AND data__Identifier = '&lt;Id&gt;'
-AND data__Identifier = '&lt;Scope&gt;'
+WHERE data__Identifier = '{Name}';
+AND data__Identifier = '{Id}';
+AND data__Identifier = '{Scope}';
 ```
+
+## Permissions
+
+To operate on the <code>ip_set</code> resource, the following permissions are required:
+
+### Delete
+```json
+wafv2:DeleteIPSet,
+wafv2:GetIPSet
+```
+
+### Read
+```json
+wafv2:GetIPSet,
+wafv2:ListTagsForResource
+```
+
+### Update
+```json
+wafv2:UpdateIPSet,
+wafv2:GetIPSet,
+wafv2:ListTagsForResource
+```
+

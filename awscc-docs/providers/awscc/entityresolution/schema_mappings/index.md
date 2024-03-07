@@ -35,21 +35,6 @@ Retrieves a list of <code>schema_mappings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schema_mappings</code> resource, the following permissions are required:
-
-### Create
-<pre>
-entityresolution:CreateSchemaMapping,
-entityresolution:GetSchemaMapping,
-entityresolution:TagResource</pre>
-
-### List
-<pre>
-entityresolution:ListSchemaMappings</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ schema_name
 FROM awscc.entityresolution.schema_mappings
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>schema_mappings</code> resource, the following permissions are required:
+
+### Create
+```json
+entityresolution:CreateSchemaMapping,
+entityresolution:GetSchemaMapping,
+entityresolution:TagResource
+```
+
+### List
+```json
+entityresolution:ListSchemaMappings
+```
+

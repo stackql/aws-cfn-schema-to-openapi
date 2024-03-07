@@ -48,26 +48,6 @@ Gets an individual <code>stage</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stage</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:GET,
-apigateway:PATCH,
-apigateway:PUT,
-apigateway:DELETE</pre>
-
-### Delete
-<pre>
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,6 +68,29 @@ tracing_enabled,
 variables
 FROM awscc.apigateway.stage
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RestApiId&gt;'
-AND data__Identifier = '&lt;StageName&gt;'
+AND data__Identifier = '{RestApiId}';
+AND data__Identifier = '{StageName}';
 ```
+
+## Permissions
+
+To operate on the <code>stage</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:GET,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:DELETE
+```
+
+### Delete
+```json
+apigateway:DELETE
+```
+

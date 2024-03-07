@@ -40,27 +40,6 @@ Gets an individual <code>dataset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dataset</code> resource, the following permissions are required:
-
-### Read
-<pre>
-personalize:DescribeDataset</pre>
-
-### Update
-<pre>
-personalize:DescribeDataset,
-personalize:CreateDatasetImportJob,
-personalize:DescribeDatasetImportJob,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-personalize:DeleteDataset,
-personalize:DescribeDataset</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ schema_arn,
 dataset_import_job
 FROM awscc.personalize.dataset
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatasetArn&gt;'
+AND data__Identifier = '{DatasetArn}';
 ```
+
+## Permissions
+
+To operate on the <code>dataset</code> resource, the following permissions are required:
+
+### Read
+```json
+personalize:DescribeDataset
+```
+
+### Update
+```json
+personalize:DescribeDataset,
+personalize:CreateDatasetImportJob,
+personalize:DescribeDatasetImportJob,
+iam:PassRole
+```
+
+### Delete
+```json
+personalize:DeleteDataset,
+personalize:DescribeDataset
+```
+

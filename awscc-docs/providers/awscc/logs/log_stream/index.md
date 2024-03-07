@@ -36,19 +36,6 @@ Gets an individual <code>log_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>log_stream</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeLogStreams</pre>
-
-### Delete
-<pre>
-logs:DeleteLogStream</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,6 +44,21 @@ log_group_name,
 log_stream_name
 FROM awscc.logs.log_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LogGroupName&gt;'
-AND data__Identifier = '&lt;LogStreamName&gt;'
+AND data__Identifier = '{LogGroupName}';
+AND data__Identifier = '{LogStreamName}';
 ```
+
+## Permissions
+
+To operate on the <code>log_stream</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeLogStreams
+```
+
+### Delete
+```json
+logs:DeleteLogStream
+```
+

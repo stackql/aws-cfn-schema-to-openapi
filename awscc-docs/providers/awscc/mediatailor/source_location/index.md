@@ -41,30 +41,6 @@ Gets an individual <code>source_location</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>source_location</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediatailor:DescribeSourceLocation</pre>
-
-### Update
-<pre>
-mediatailor:DescribeSourceLocation,
-mediatailor:TagResource,
-mediatailor:UntagResource,
-mediatailor:UpdateSourceLocation,
-secretsmanager:DescribeSecret,
-secretsmanager:GetSecretValue,
-kms:CreateGrant</pre>
-
-### Delete
-<pre>
-mediatailor:DeleteSourceLocation,
-mediatailor:DescribeSourceLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +54,32 @@ source_location_name,
 tags
 FROM awscc.mediatailor.source_location
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SourceLocationName&gt;'
+AND data__Identifier = '{SourceLocationName}';
 ```
+
+## Permissions
+
+To operate on the <code>source_location</code> resource, the following permissions are required:
+
+### Read
+```json
+mediatailor:DescribeSourceLocation
+```
+
+### Update
+```json
+mediatailor:DescribeSourceLocation,
+mediatailor:TagResource,
+mediatailor:UntagResource,
+mediatailor:UpdateSourceLocation,
+secretsmanager:DescribeSecret,
+secretsmanager:GetSecretValue,
+kms:CreateGrant
+```
+
+### Delete
+```json
+mediatailor:DeleteSourceLocation,
+mediatailor:DescribeSourceLocation
+```
+

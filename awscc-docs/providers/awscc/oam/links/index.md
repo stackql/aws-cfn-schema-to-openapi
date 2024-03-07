@@ -35,24 +35,6 @@ Retrieves a list of <code>links</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>links</code> resource, the following permissions are required:
-
-### Create
-<pre>
-oam:CreateLink,
-oam:GetLink,
-cloudwatch:Link,
-logs:Link,
-xray:Link,
-applicationinsights:Link</pre>
-
-### List
-<pre>
-oam:ListLinks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.oam.links
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>links</code> resource, the following permissions are required:
+
+### Create
+```json
+oam:CreateLink,
+oam:GetLink,
+cloudwatch:Link,
+logs:Link,
+xray:Link,
+applicationinsights:Link
+```
+
+### List
+```json
+oam:ListLinks
+```
+

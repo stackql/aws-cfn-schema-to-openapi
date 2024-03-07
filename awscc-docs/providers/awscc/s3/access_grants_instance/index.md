@@ -38,23 +38,6 @@ Gets an individual <code>access_grants_instance</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_grants_instance</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccessGrantsInstance</pre>
-
-### Delete
-<pre>
-s3:DeleteAccessGrantsInstance</pre>
-
-### Update
-<pre>
-s3:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +48,25 @@ access_grants_instance_id,
 tags
 FROM awscc.s3.access_grants_instance
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccessGrantsInstanceArn&gt;'
+AND data__Identifier = '{AccessGrantsInstanceArn}';
 ```
+
+## Permissions
+
+To operate on the <code>access_grants_instance</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccessGrantsInstance
+```
+
+### Delete
+```json
+s3:DeleteAccessGrantsInstance
+```
+
+### Update
+```json
+s3:TagResource
+```
+

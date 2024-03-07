@@ -42,43 +42,6 @@ Gets an individual <code>integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>integration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-profile:GetIntegration</pre>
-
-### Delete
-<pre>
-profile:DeleteIntegration,
-appflow:DeleteFlow,
-app-integrations:ListEventIntegrationAssociations,
-app-integrations:DeleteEventIntegrationAssociation,
-events:RemoveTargets,
-events:ListTargetsByRule,
-events:DeleteRule</pre>
-
-### Update
-<pre>
-profile:PutIntegration,
-profile:GetIntegration,
-appflow:CreateFlow,
-app-integrations:GetEventIntegration,
-app-integrations:CreateEventIntegrationAssociation,
-app-integrations:ListEventIntegrationAssociations,
-app-integrations:DeleteEventIntegrationAssociation,
-events:ListTargetsByRule,
-events:RemoveTargets,
-events:DeleteRule,
-events:PutRule,
-events:PutTargets,
-events:PutEvents,
-profile:UntagResource,
-profile:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,6 +56,46 @@ tags,
 object_type_names
 FROM awscc.customerprofiles.integration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainName&gt;'
-AND data__Identifier = '&lt;Uri&gt;'
+AND data__Identifier = '{DomainName}';
+AND data__Identifier = '{Uri}';
 ```
+
+## Permissions
+
+To operate on the <code>integration</code> resource, the following permissions are required:
+
+### Read
+```json
+profile:GetIntegration
+```
+
+### Delete
+```json
+profile:DeleteIntegration,
+appflow:DeleteFlow,
+app-integrations:ListEventIntegrationAssociations,
+app-integrations:DeleteEventIntegrationAssociation,
+events:RemoveTargets,
+events:ListTargetsByRule,
+events:DeleteRule
+```
+
+### Update
+```json
+profile:PutIntegration,
+profile:GetIntegration,
+appflow:CreateFlow,
+app-integrations:GetEventIntegration,
+app-integrations:CreateEventIntegrationAssociation,
+app-integrations:ListEventIntegrationAssociations,
+app-integrations:DeleteEventIntegrationAssociation,
+events:ListTargetsByRule,
+events:RemoveTargets,
+events:DeleteRule,
+events:PutRule,
+events:PutTargets,
+events:PutEvents,
+profile:UntagResource,
+profile:TagResource
+```
+

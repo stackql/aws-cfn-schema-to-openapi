@@ -56,45 +56,6 @@ Gets an individual <code>data_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeDataSet,
-quicksight:DescribeDataSetPermissions,
-quicksight:ListTagsForResource,
-quicksight:DescribeDataSetRefreshProperties</pre>
-
-### Update
-<pre>
-quicksight:DescribeDataSet,
-quicksight:DescribeDataSetPermissions,
-quicksight:PassDataSource,
-quicksight:UpdateDataSet,
-quicksight:UpdateDataSetPermissions,
-quicksight:PassDataSet,
-quicksight:DescribeIngestion,
-quicksight:ListIngestions,
-quicksight:CancelIngestion,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource,
-quicksight:PutDataSetRefreshProperties,
-quicksight:DescribeDataSetRefreshProperties,
-quicksight:DeleteDataSetRefreshProperties</pre>
-
-### Delete
-<pre>
-quicksight:DescribeDataSet,
-quicksight:DeleteDataSet,
-quicksight:ListTagsForResource,
-quicksight:DescribeIngestion,
-quicksight:DeleteDataSetRefreshProperties,
-quicksight:DescribeDataSetRefreshProperties</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -123,6 +84,48 @@ data_set_usage_configuration,
 data_set_refresh_properties
 FROM awscc.quicksight.data_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;DataSetId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{DataSetId}';
 ```
+
+## Permissions
+
+To operate on the <code>data_set</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeDataSet,
+quicksight:DescribeDataSetPermissions,
+quicksight:ListTagsForResource,
+quicksight:DescribeDataSetRefreshProperties
+```
+
+### Update
+```json
+quicksight:DescribeDataSet,
+quicksight:DescribeDataSetPermissions,
+quicksight:PassDataSource,
+quicksight:UpdateDataSet,
+quicksight:UpdateDataSetPermissions,
+quicksight:PassDataSet,
+quicksight:DescribeIngestion,
+quicksight:ListIngestions,
+quicksight:CancelIngestion,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource,
+quicksight:PutDataSetRefreshProperties,
+quicksight:DescribeDataSetRefreshProperties,
+quicksight:DeleteDataSetRefreshProperties
+```
+
+### Delete
+```json
+quicksight:DescribeDataSet,
+quicksight:DeleteDataSet,
+quicksight:ListTagsForResource,
+quicksight:DescribeIngestion,
+quicksight:DeleteDataSetRefreshProperties,
+quicksight:DescribeDataSetRefreshProperties
+```
+

@@ -40,27 +40,6 @@ Gets an individual <code>sampling_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sampling_rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-xray:GetSamplingRules,
-xray:ListTagsForResource</pre>
-
-### Update
-<pre>
-xray:UpdateSamplingRule,
-xray:TagResource,
-xray:UntagResource,
-xray:ListTagsForResource</pre>
-
-### Delete
-<pre>
-xray:DeleteSamplingRule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ rule_name,
 tags
 FROM awscc.xray.sampling_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RuleARN&gt;'
+AND data__Identifier = '{RuleARN}';
 ```
+
+## Permissions
+
+To operate on the <code>sampling_rule</code> resource, the following permissions are required:
+
+### Read
+```json
+xray:GetSamplingRules,
+xray:ListTagsForResource
+```
+
+### Update
+```json
+xray:UpdateSamplingRule,
+xray:TagResource,
+xray:UntagResource,
+xray:ListTagsForResource
+```
+
+### Delete
+```json
+xray:DeleteSamplingRule
+```
+

@@ -36,22 +36,6 @@ Retrieves a list of <code>data_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_sources</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datazone:CreateDataSource,
-iam:PassRole,
-datazone:GetDataSource,
-datazone:DeleteDataSource</pre>
-
-### List
-<pre>
-datazone:ListDataSources</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ id
 FROM awscc.datazone.data_sources
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>data_sources</code> resource, the following permissions are required:
+
+### Create
+```json
+datazone:CreateDataSource,
+iam:PassRole,
+datazone:GetDataSource,
+datazone:DeleteDataSource
+```
+
+### List
+```json
+datazone:ListDataSources
+```
+

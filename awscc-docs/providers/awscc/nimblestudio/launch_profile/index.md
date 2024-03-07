@@ -43,30 +43,6 @@ Gets an individual <code>launch_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>launch_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-nimble:GetLaunchProfile</pre>
-
-### Update
-<pre>
-nimble:UpdateLaunchProfile,
-nimble:GetLaunchProfile,
-ec2:CreateNetworkInterface,
-ec2:CreateNetworkInterfacePermission,
-ec2:DescribeSubnets,
-ec2:RunInstances</pre>
-
-### Delete
-<pre>
-nimble:DeleteLaunchProfile,
-nimble:GetLaunchProfile,
-nimble:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,6 +58,33 @@ studio_id,
 tags
 FROM awscc.nimblestudio.launch_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LaunchProfileId&gt;'
-AND data__Identifier = '&lt;StudioId&gt;'
+AND data__Identifier = '{LaunchProfileId}';
+AND data__Identifier = '{StudioId}';
 ```
+
+## Permissions
+
+To operate on the <code>launch_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+nimble:GetLaunchProfile
+```
+
+### Update
+```json
+nimble:UpdateLaunchProfile,
+nimble:GetLaunchProfile,
+ec2:CreateNetworkInterface,
+ec2:CreateNetworkInterfacePermission,
+ec2:DescribeSubnets,
+ec2:RunInstances
+```
+
+### Delete
+```json
+nimble:DeleteLaunchProfile,
+nimble:GetLaunchProfile,
+nimble:UntagResource
+```
+

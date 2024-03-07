@@ -41,25 +41,6 @@ Gets an individual <code>organization</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>organization</code> resource, the following permissions are required:
-
-### Read
-<pre>
-organizations:DescribeOrganization,
-organizations:ListRoots</pre>
-
-### Delete
-<pre>
-organizations:DeleteOrganization,
-organizations:DescribeOrganization</pre>
-
-### Update
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +54,22 @@ management_account_email,
 root_id
 FROM awscc.organizations.organization
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>organization</code> resource, the following permissions are required:
+
+### Read
+```json
+organizations:DescribeOrganization,
+organizations:ListRoots
+```
+
+### Delete
+```json
+organizations:DeleteOrganization,
+organizations:DescribeOrganization
+```
+

@@ -42,32 +42,6 @@ Gets an individual <code>replica_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replica_key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kms:DescribeKey,
-kms:GetKeyPolicy,
-kms:ListResourceTags</pre>
-
-### Update
-<pre>
-kms:DescribeKey,
-kms:DisableKey,
-kms:EnableKey,
-kms:PutKeyPolicy,
-kms:TagResource,
-kms:UntagResource,
-kms:UpdateKeyDescription</pre>
-
-### Delete
-<pre>
-kms:DescribeKey,
-kms:ScheduleKeyDeletion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +56,34 @@ arn,
 tags
 FROM awscc.kms.replica_key
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KeyId&gt;'
+AND data__Identifier = '{KeyId}';
 ```
+
+## Permissions
+
+To operate on the <code>replica_key</code> resource, the following permissions are required:
+
+### Read
+```json
+kms:DescribeKey,
+kms:GetKeyPolicy,
+kms:ListResourceTags
+```
+
+### Update
+```json
+kms:DescribeKey,
+kms:DisableKey,
+kms:EnableKey,
+kms:PutKeyPolicy,
+kms:TagResource,
+kms:UntagResource,
+kms:UpdateKeyDescription
+```
+
+### Delete
+```json
+kms:DescribeKey,
+kms:ScheduleKeyDeletion
+```
+

@@ -48,28 +48,6 @@ Gets an individual <code>service_network_service_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_network_service_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-vpc-lattice:GetServiceNetworkServiceAssociation,
-vpc-lattice:ListTagsForResource</pre>
-
-### Update
-<pre>
-vpc-lattice:TagResource,
-vpc-lattice:UntagResource,
-vpc-lattice:GetServiceNetworkServiceAssociation,
-vpc-lattice:ListTagsForResource</pre>
-
-### Delete
-<pre>
-vpc-lattice:DeleteServiceNetworkServiceAssociation,
-vpc-lattice:GetServiceNetworkServiceAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +68,30 @@ status,
 tags
 FROM awscc.vpclattice.service_network_service_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>service_network_service_association</code> resource, the following permissions are required:
+
+### Read
+```json
+vpc-lattice:GetServiceNetworkServiceAssociation,
+vpc-lattice:ListTagsForResource
+```
+
+### Update
+```json
+vpc-lattice:TagResource,
+vpc-lattice:UntagResource,
+vpc-lattice:GetServiceNetworkServiceAssociation,
+vpc-lattice:ListTagsForResource
+```
+
+### Delete
+```json
+vpc-lattice:DeleteServiceNetworkServiceAssociation,
+vpc-lattice:GetServiceNetworkServiceAssociation
+```
+

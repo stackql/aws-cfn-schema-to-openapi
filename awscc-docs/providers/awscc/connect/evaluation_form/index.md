@@ -42,30 +42,6 @@ Gets an individual <code>evaluation_form</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>evaluation_form</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeEvaluationForm,
-connect:ListEvaluationFormVersions</pre>
-
-### Update
-<pre>
-connect:UpdateEvaluationForm,
-connect:ListEvaluationFormVersions,
-connect:ActivateEvaluationForm,
-connect:DeactivateEvaluationForm,
-connect:TagResource,
-connect:UntagResource</pre>
-
-### Delete
-<pre>
-connect:DeleteEvaluationForm,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +56,32 @@ status,
 tags
 FROM awscc.connect.evaluation_form
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EvaluationFormArn&gt;'
+AND data__Identifier = '{EvaluationFormArn}';
 ```
+
+## Permissions
+
+To operate on the <code>evaluation_form</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeEvaluationForm,
+connect:ListEvaluationFormVersions
+```
+
+### Update
+```json
+connect:UpdateEvaluationForm,
+connect:ListEvaluationFormVersions,
+connect:ActivateEvaluationForm,
+connect:DeactivateEvaluationForm,
+connect:TagResource,
+connect:UntagResource
+```
+
+### Delete
+```json
+connect:DeleteEvaluationForm,
+connect:UntagResource
+```
+

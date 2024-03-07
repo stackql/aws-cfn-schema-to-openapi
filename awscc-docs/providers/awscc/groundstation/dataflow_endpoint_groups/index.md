@@ -35,25 +35,6 @@ Retrieves a list of <code>dataflow_endpoint_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dataflow_endpoint_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-groundstation:CreateDataflowEndpointGroup,
-groundstation:GetDataflowEndpointGroup,
-groundstation:TagResource,
-iam:PassRole,
-ec2:describeAddresses,
-ec2:describeNetworkInterfaces,
-iam:createServiceLinkedRole</pre>
-
-### List
-<pre>
-groundstation:ListDataflowEndpointGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ id
 FROM awscc.groundstation.dataflow_endpoint_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>dataflow_endpoint_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+groundstation:CreateDataflowEndpointGroup,
+groundstation:GetDataflowEndpointGroup,
+groundstation:TagResource,
+iam:PassRole,
+ec2:describeAddresses,
+ec2:describeNetworkInterfaces,
+iam:createServiceLinkedRole
+```
+
+### List
+```json
+groundstation:ListDataflowEndpointGroups
+```
+

@@ -1,9 +1,9 @@
 ---
-title: stream
+title: qldb_stream
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - stream
+  - qldb_stream
   - qldb
   - aws
   - stackql
@@ -14,14 +14,14 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-Gets an individual <code>stream</code> resource
+Gets an individual <code>qldb_stream</code> resource
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>stream</code></td></tr>
+<tr><td><b>Name</b></td><td><code>qldb_stream</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>stream</td></tr>
-<tr><td><b>Id</b></td><td><code>awscc.qldb.stream</code></td></tr>
+<tr><td><b>Description</b></td><td>qldb_stream</td></tr>
+<tr><td><b>Id</b></td><td><code>awscc.qldb.qldb_stream</code></td></tr>
 </tbody></table>
 
 ## Fields
@@ -43,27 +43,6 @@ Gets an individual <code>stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stream</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-qldb:CancelJournalKinesisStream,
-qldb:DescribeJournalKinesisStream</pre>
-
-### Read
-<pre>
-qldb:DescribeJournalKinesisStream,
-qldb:ListTagsForResource</pre>
-
-### Update
-<pre>
-qldb:DescribeJournalKinesisStream,
-qldb:UntagResource,
-qldb:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,8 +56,32 @@ kinesis_configuration,
 tags,
 arn,
 id
-FROM awscc.qldb.stream
+FROM awscc.qldb.qldb_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LedgerName&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{LedgerName}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>qldb_stream</code> resource, the following permissions are required:
+
+### Delete
+```json
+qldb:CancelJournalKinesisStream,
+qldb:DescribeJournalKinesisStream
+```
+
+### Read
+```json
+qldb:DescribeJournalKinesisStream,
+qldb:ListTagsForResource
+```
+
+### Update
+```json
+qldb:DescribeJournalKinesisStream,
+qldb:UntagResource,
+qldb:TagResource
+```
+

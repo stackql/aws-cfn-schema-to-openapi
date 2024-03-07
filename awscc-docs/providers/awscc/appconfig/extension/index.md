@@ -43,26 +43,6 @@ Gets an individual <code>extension</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>extension</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appconfig:GetExtension</pre>
-
-### Update
-<pre>
-appconfig:UpdateExtension,
-appconfig:TagResource,
-appconfig:UntagResource</pre>
-
-### Delete
-<pre>
-appconfig:DeleteExtension,
-appconfig:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ latest_version_number,
 tags
 FROM awscc.appconfig.extension
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>extension</code> resource, the following permissions are required:
+
+### Read
+```json
+appconfig:GetExtension
+```
+
+### Update
+```json
+appconfig:UpdateExtension,
+appconfig:TagResource,
+appconfig:UntagResource
+```
+
+### Delete
+```json
+appconfig:DeleteExtension,
+appconfig:UntagResource
+```
+

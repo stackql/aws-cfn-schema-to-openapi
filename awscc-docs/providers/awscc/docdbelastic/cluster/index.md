@@ -47,17 +47,40 @@ Gets an individual <code>cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+cluster_name,
+cluster_arn,
+cluster_endpoint,
+admin_user_name,
+admin_user_password,
+shard_capacity,
+shard_count,
+vpc_security_group_ids,
+subnet_ids,
+preferred_maintenance_window,
+kms_key_id,
+tags,
+auth_type
+FROM awscc.docdbelastic.cluster
+WHERE region = 'us-east-1'
+AND data__Identifier = '{ClusterArn}';
+```
+
 ## Permissions
 
 To operate on the <code>cluster</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 docdb-elastic:GetCluster,
-docdb-elastic:ListTagsForResource</pre>
+docdb-elastic:ListTagsForResource
+```
 
 ### Update
-<pre>
+```json
 docdb-elastic:UpdateCluster,
 docdb-elastic:TagResource,
 docdb-elastic:UntagResource,
@@ -78,10 +101,11 @@ secretsmanager:GetResourcePolicy,
 kms:DescribeKey,
 kms:CreateGrant,
 kms:GenerateDataKey,
-kms:Decrypt</pre>
+kms:Decrypt
+```
 
 ### Delete
-<pre>
+```json
 docdb-elastic:DeleteCluster,
 ec2:DescribeVpcEndpoints,
 ec2:DeleteVpcEndpoints,
@@ -90,27 +114,6 @@ ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
 ec2:DescribeVpcAttribute,
 ec2:DescribeVpcs,
-ec2:DescribeAvailabilityZones</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-cluster_name,
-cluster_arn,
-cluster_endpoint,
-admin_user_name,
-admin_user_password,
-shard_capacity,
-shard_count,
-vpc_security_group_ids,
-subnet_ids,
-preferred_maintenance_window,
-kms_key_id,
-tags,
-auth_type
-FROM awscc.docdbelastic.cluster
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClusterArn&gt;'
+ec2:DescribeAvailabilityZones
 ```
+

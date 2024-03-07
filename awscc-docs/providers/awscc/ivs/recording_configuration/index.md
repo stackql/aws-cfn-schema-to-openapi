@@ -42,35 +42,6 @@ Gets an individual <code>recording_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>recording_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ivs:GetRecordingConfiguration,
-s3:GetBucketLocation,
-ivs:ListTagsForResource</pre>
-
-### Update
-<pre>
-ivs:GetRecordingConfiguration,
-sts:AssumeRole,
-iam:CreateServiceLinkedRole,
-iam:PutRolePolicy,
-iam:AttachRolePolicy,
-s3:ListBucket,
-ivs:TagResource,
-ivs:UntagResource,
-ivs:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ivs:DeleteRecordingConfiguration,
-ivs:UntagResource,
-iam:CreateServiceLinkedRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +56,37 @@ thumbnail_configuration,
 rendition_configuration
 FROM awscc.ivs.recording_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>recording_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+ivs:GetRecordingConfiguration,
+s3:GetBucketLocation,
+ivs:ListTagsForResource
+```
+
+### Update
+```json
+ivs:GetRecordingConfiguration,
+sts:AssumeRole,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy,
+iam:AttachRolePolicy,
+s3:ListBucket,
+ivs:TagResource,
+ivs:UntagResource,
+ivs:ListTagsForResource
+```
+
+### Delete
+```json
+ivs:DeleteRecordingConfiguration,
+ivs:UntagResource,
+iam:CreateServiceLinkedRole
+```
+

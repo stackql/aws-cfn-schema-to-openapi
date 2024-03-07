@@ -35,25 +35,6 @@ Retrieves a list of <code>trust_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticloadbalancing:CreateTrustStore,
-elasticloadbalancing:DescribeTrustStores,
-elasticloadbalancing:AddTags,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-### List
-<pre>
-elasticloadbalancing:DescribeTrustStores,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_stores
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>trust_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticloadbalancing:CreateTrustStore,
+elasticloadbalancing:DescribeTrustStores,
+elasticloadbalancing:AddTags,
+s3:GetObject,
+s3:GetObjectVersion
+```
+
+### List
+```json
+elasticloadbalancing:DescribeTrustStores,
+s3:GetObject,
+s3:GetObjectVersion
+```
+

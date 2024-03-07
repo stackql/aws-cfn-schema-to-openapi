@@ -41,29 +41,6 @@ Gets an individual <code>restore_testing_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>restore_testing_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:GetRestoreTestingPlan,
-backup:ListTags</pre>
-
-### Update
-<pre>
-backup:UpdateRestoreTestingPlan,
-backup:TagResource,
-backup:UntagResource,
-backup:GetRestoreTestingPlan,
-backup:ListTags</pre>
-
-### Delete
-<pre>
-backup:DeleteRestoreTestingPlan,
-backup:GetRestoreTestingPlan</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +54,31 @@ start_window_hours,
 tags
 FROM awscc.backup.restore_testing_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RestoreTestingPlanName&gt;'
+AND data__Identifier = '{RestoreTestingPlanName}';
 ```
+
+## Permissions
+
+To operate on the <code>restore_testing_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:GetRestoreTestingPlan,
+backup:ListTags
+```
+
+### Update
+```json
+backup:UpdateRestoreTestingPlan,
+backup:TagResource,
+backup:UntagResource,
+backup:GetRestoreTestingPlan,
+backup:ListTags
+```
+
+### Delete
+```json
+backup:DeleteRestoreTestingPlan,
+backup:GetRestoreTestingPlan
+```
+

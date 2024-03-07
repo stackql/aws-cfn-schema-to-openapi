@@ -43,30 +43,6 @@ Gets an individual <code>theme</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>theme</code> resource, the following permissions are required:
-
-### Read
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetTheme</pre>
-
-### Update
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetTheme,
-amplifyuibuilder:TagResource,
-amplifyuibuilder:UntagResource,
-amplifyuibuilder:UpdateTheme</pre>
-
-### Delete
-<pre>
-amplify:GetApp,
-amplifyuibuilder:DeleteTheme,
-amplifyuibuilder:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,7 +58,34 @@ tags,
 values
 FROM awscc.amplifyuibuilder.theme
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AppId&gt;'
-AND data__Identifier = '&lt;EnvironmentName&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{AppId}';
+AND data__Identifier = '{EnvironmentName}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>theme</code> resource, the following permissions are required:
+
+### Read
+```json
+amplify:GetApp,
+amplifyuibuilder:GetTheme
+```
+
+### Update
+```json
+amplify:GetApp,
+amplifyuibuilder:GetTheme,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource,
+amplifyuibuilder:UpdateTheme
+```
+
+### Delete
+```json
+amplify:GetApp,
+amplifyuibuilder:DeleteTheme,
+amplifyuibuilder:UntagResource
+```
+

@@ -37,25 +37,6 @@ Gets an individual <code>response_headers_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>response_headers_policy</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteResponseHeadersPolicy,
-cloudfront:GetResponseHeadersPolicy</pre>
-
-### Read
-<pre>
-cloudfront:GetResponseHeadersPolicy</pre>
-
-### Update
-<pre>
-cloudfront:UpdateResponseHeadersPolicy,
-cloudfront:GetResponseHeadersPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ id,
 last_modified_time,
 response_headers_policy_config
 FROM awscc.cloudfront.response_headers_policy
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>response_headers_policy</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteResponseHeadersPolicy,
+cloudfront:GetResponseHeadersPolicy
+```
+
+### Read
+```json
+cloudfront:GetResponseHeadersPolicy
+```
+
+### Update
+```json
+cloudfront:UpdateResponseHeadersPolicy,
+cloudfront:GetResponseHeadersPolicy
+```
+

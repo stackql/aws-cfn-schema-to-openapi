@@ -35,21 +35,6 @@ Retrieves a list of <code>permissions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>permissions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ram:CreatePermission,
-ram:TagResource</pre>
-
-### List
-<pre>
-ram:ListPermissions,
-ram:ListPermissionVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.ram.permissions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>permissions</code> resource, the following permissions are required:
+
+### Create
+```json
+ram:CreatePermission,
+ram:TagResource
+```
+
+### List
+```json
+ram:ListPermissions,
+ram:ListPermissionVersions
+```
+

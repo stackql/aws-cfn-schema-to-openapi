@@ -38,24 +38,6 @@ Gets an individual <code>metric_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>metric_filter</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeMetricFilters</pre>
-
-### Update
-<pre>
-logs:PutMetricFilter,
-logs:DescribeMetricFilters</pre>
-
-### Delete
-<pre>
-logs:DeleteMetricFilter</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,6 +48,27 @@ log_group_name,
 metric_transformations
 FROM awscc.logs.metric_filter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LogGroupName&gt;'
-AND data__Identifier = '&lt;FilterName&gt;'
+AND data__Identifier = '{LogGroupName}';
+AND data__Identifier = '{FilterName}';
 ```
+
+## Permissions
+
+To operate on the <code>metric_filter</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeMetricFilters
+```
+
+### Update
+```json
+logs:PutMetricFilter,
+logs:DescribeMetricFilters
+```
+
+### Delete
+```json
+logs:DeleteMetricFilter
+```
+

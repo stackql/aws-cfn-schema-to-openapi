@@ -36,28 +36,6 @@ Gets an individual <code>template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ses:GetEmailTemplate,
-ses:GetTemplate</pre>
-
-### Delete
-<pre>
-ses:DeleteEmailTemplate,
-ses:DeleteTemplate</pre>
-
-### Update
-<pre>
-ses:GetEmailTemplate,
-ses:UpdateEmailTemplate,
-ses:GetTemplate,
-ses:UpdateTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +44,30 @@ id,
 template
 FROM awscc.ses.template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>template</code> resource, the following permissions are required:
+
+### Read
+```json
+ses:GetEmailTemplate,
+ses:GetTemplate
+```
+
+### Delete
+```json
+ses:DeleteEmailTemplate,
+ses:DeleteTemplate
+```
+
+### Update
+```json
+ses:GetEmailTemplate,
+ses:UpdateEmailTemplate,
+ses:GetTemplate,
+ses:UpdateTemplate
+```
+

@@ -43,34 +43,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-m2:GetApplication,
-m2:ListTagsForResource</pre>
-
-### Update
-<pre>
-m2:UpdateApplication,
-m2:GetApplication,
-m2:ListTagsForResource,
-m2:TagResource,
-m2:UntagResource,
-s3:GetObject,
-s3:ListBucket</pre>
-
-### Delete
-<pre>
-elasticloadbalancing:DeleteListener,
-elasticloadbalancing:DeleteTargetGroup,
-logs:DeleteLogDelivery,
-m2:GetApplication,
-m2:DeleteApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +58,36 @@ role_arn,
 tags
 FROM awscc.m2.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationArn&gt;'
+AND data__Identifier = '{ApplicationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+m2:GetApplication,
+m2:ListTagsForResource
+```
+
+### Update
+```json
+m2:UpdateApplication,
+m2:GetApplication,
+m2:ListTagsForResource,
+m2:TagResource,
+m2:UntagResource,
+s3:GetObject,
+s3:ListBucket
+```
+
+### Delete
+```json
+elasticloadbalancing:DeleteListener,
+elasticloadbalancing:DeleteTargetGroup,
+logs:DeleteLogDelivery,
+m2:GetApplication,
+m2:DeleteApplication
+```
+

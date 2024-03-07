@@ -47,26 +47,6 @@ Gets an individual <code>object_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>object_type</code> resource, the following permissions are required:
-
-### Read
-<pre>
-profile:GetProfileObjectType</pre>
-
-### Update
-<pre>
-profile:GetProfileObjectType,
-profile:PutProfileObjectType,
-profile:UntagResource,
-profile:TagResource</pre>
-
-### Delete
-<pre>
-profile:DeleteProfileObjectType</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,6 +66,29 @@ tags,
 template_id
 FROM awscc.customerprofiles.object_type
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainName&gt;'
-AND data__Identifier = '&lt;ObjectTypeName&gt;'
+AND data__Identifier = '{DomainName}';
+AND data__Identifier = '{ObjectTypeName}';
 ```
+
+## Permissions
+
+To operate on the <code>object_type</code> resource, the following permissions are required:
+
+### Read
+```json
+profile:GetProfileObjectType
+```
+
+### Update
+```json
+profile:GetProfileObjectType,
+profile:PutProfileObjectType,
+profile:UntagResource,
+profile:TagResource
+```
+
+### Delete
+```json
+profile:DeleteProfileObjectType
+```
+

@@ -37,27 +37,6 @@ Gets an individual <code>collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>collection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rekognition:DescribeCollection,
-rekognition:ListTagsForResource</pre>
-
-### Update
-<pre>
-rekognition:TagResource,
-rekognition:UntagResource,
-rekognition:DescribeCollection,
-rekognition:ListTagsForResource</pre>
-
-### Delete
-<pre>
-rekognition:DeleteCollection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +46,29 @@ collection_id,
 tags
 FROM awscc.rekognition.collection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CollectionId&gt;'
+AND data__Identifier = '{CollectionId}';
 ```
+
+## Permissions
+
+To operate on the <code>collection</code> resource, the following permissions are required:
+
+### Read
+```json
+rekognition:DescribeCollection,
+rekognition:ListTagsForResource
+```
+
+### Update
+```json
+rekognition:TagResource,
+rekognition:UntagResource,
+rekognition:DescribeCollection,
+rekognition:ListTagsForResource
+```
+
+### Delete
+```json
+rekognition:DeleteCollection
+```
+

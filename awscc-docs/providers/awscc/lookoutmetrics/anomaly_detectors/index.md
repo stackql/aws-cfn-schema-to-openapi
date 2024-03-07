@@ -35,22 +35,6 @@ Retrieves a list of <code>anomaly_detectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>anomaly_detectors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lookoutmetrics:CreateAnomalyDetector,
-lookoutmetrics:DeleteAnomalyDetector,
-lookoutmetrics:CreateMetricSet,
-iam:PassRole</pre>
-
-### List
-<pre>
-lookoutmetrics:ListAnomalyDetectors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.lookoutmetrics.anomaly_detectors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>anomaly_detectors</code> resource, the following permissions are required:
+
+### Create
+```json
+lookoutmetrics:CreateAnomalyDetector,
+lookoutmetrics:DeleteAnomalyDetector,
+lookoutmetrics:CreateMetricSet,
+iam:PassRole
+```
+
+### List
+```json
+lookoutmetrics:ListAnomalyDetectors
+```
+

@@ -39,29 +39,6 @@ Gets an individual <code>certificate_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate_provider</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeCertificateProvider,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateCertificateProvider,
-iot:DescribeCertificateProvider,
-iot:TagResource,
-iot:UntagResource,
-iot:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iot:DeleteCertificateProvider,
-iot:DescribeCertificateProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ tags,
 arn
 FROM awscc.iot.certificate_provider
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CertificateProviderName&gt;'
+AND data__Identifier = '{CertificateProviderName}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate_provider</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeCertificateProvider,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateCertificateProvider,
+iot:DescribeCertificateProvider,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource
+```
+
+### Delete
+```json
+iot:DeleteCertificateProvider,
+iot:DescribeCertificateProvider
+```
+

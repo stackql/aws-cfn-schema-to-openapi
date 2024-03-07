@@ -51,19 +51,46 @@ Gets an individual <code>namespace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+admin_password_secret_kms_key_id,
+admin_user_password,
+admin_username,
+db_name,
+default_iam_role_arn,
+iam_roles,
+kms_key_id,
+log_exports,
+manage_admin_password,
+namespace,
+namespace_name,
+tags,
+final_snapshot_name,
+final_snapshot_retention_period,
+namespace_resource_policy,
+redshift_idc_application_arn,
+snapshot_copy_configurations
+FROM awscc.redshiftserverless.namespace
+WHERE region = 'us-east-1'
+AND data__Identifier = '{NamespaceName}';
+```
+
 ## Permissions
 
 To operate on the <code>namespace</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 iam:PassRole,
 redshift-serverless:GetNamespace,
 redshift:GetResourcePolicy,
-redshift-serverless:ListSnapshotCopyConfigurations</pre>
+redshift-serverless:ListSnapshotCopyConfigurations
+```
 
 ### Update
-<pre>
+```json
 iam:PassRole,
 kms:TagResource,
 kms:UntagResource,
@@ -92,41 +119,17 @@ secretsmanager:TagResource,
 secretsmanager:RotateSecret,
 secretsmanager:DescribeSecret,
 secretsmanager:UpdateSecret,
-secretsmanager:DeleteSecret</pre>
+secretsmanager:DeleteSecret
+```
 
 ### Delete
-<pre>
+```json
 iam:PassRole,
 redshift-serverless:DeleteNamespace,
 redshift-serverless:GetNamespace,
 kms:RetireGrant,
 secretsmanager:DescribeSecret,
 secretsmanager:DeleteSecret,
-redshift:DeleteResourcePolicy</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-admin_password_secret_kms_key_id,
-admin_user_password,
-admin_username,
-db_name,
-default_iam_role_arn,
-iam_roles,
-kms_key_id,
-log_exports,
-manage_admin_password,
-namespace,
-namespace_name,
-tags,
-final_snapshot_name,
-final_snapshot_retention_period,
-namespace_resource_policy,
-redshift_idc_application_arn,
-snapshot_copy_configurations
-FROM awscc.redshiftserverless.namespace
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;NamespaceName&gt;'
+redshift:DeleteResourcePolicy
 ```
+

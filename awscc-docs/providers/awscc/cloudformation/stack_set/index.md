@@ -50,40 +50,6 @@ Gets an individual <code>stack_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stack_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cloudformation:DescribeStackSet,
-cloudformation:ListStackInstances,
-cloudformation:DescribeStackInstance</pre>
-
-### Update
-<pre>
-cloudformation:GetTemplateSummary,
-cloudformation:UpdateStackSet,
-cloudformation:CreateStackInstances,
-cloudformation:DeleteStackInstances,
-cloudformation:UpdateStackInstances,
-cloudformation:DescribeStackSet,
-cloudformation:DescribeStackSetOperation,
-cloudformation:ListStackSetOperationResults,
-cloudformation:TagResource,
-cloudformation:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cloudformation:DeleteStackSet,
-cloudformation:DeleteStackInstances,
-cloudformation:DescribeStackSet,
-cloudformation:DescribeStackSetOperation,
-cloudformation:ListStackSetOperationResults,
-cloudformation:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -106,5 +72,42 @@ call_as,
 managed_execution
 FROM awscc.cloudformation.stack_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StackSetId&gt;'
+AND data__Identifier = '{StackSetId}';
 ```
+
+## Permissions
+
+To operate on the <code>stack_set</code> resource, the following permissions are required:
+
+### Read
+```json
+cloudformation:DescribeStackSet,
+cloudformation:ListStackInstances,
+cloudformation:DescribeStackInstance
+```
+
+### Update
+```json
+cloudformation:GetTemplateSummary,
+cloudformation:UpdateStackSet,
+cloudformation:CreateStackInstances,
+cloudformation:DeleteStackInstances,
+cloudformation:UpdateStackInstances,
+cloudformation:DescribeStackSet,
+cloudformation:DescribeStackSetOperation,
+cloudformation:ListStackSetOperationResults,
+cloudformation:TagResource,
+cloudformation:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+cloudformation:DeleteStackSet,
+cloudformation:DeleteStackInstances,
+cloudformation:DescribeStackSet,
+cloudformation:DescribeStackSetOperation,
+cloudformation:ListStackSetOperationResults,
+cloudformation:UntagResource
+```
+

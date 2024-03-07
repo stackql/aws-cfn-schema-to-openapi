@@ -35,26 +35,6 @@ Retrieves a list of <code>location_s3s</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_s3s</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datasync:CreateLocationS3,
-datasync:DescribeLocationS3,
-datasync:ListTagsForResource,
-datasync:TagResource,
-s3:ListAllMyBuckets,
-s3:ListBucket,
-iam:GetRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-datasync:ListLocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ location_arn
 FROM awscc.datasync.location_s3s
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>location_s3s</code> resource, the following permissions are required:
+
+### Create
+```json
+datasync:CreateLocationS3,
+datasync:DescribeLocationS3,
+datasync:ListTagsForResource,
+datasync:TagResource,
+s3:ListAllMyBuckets,
+s3:ListBucket,
+iam:GetRole,
+iam:PassRole
+```
+
+### List
+```json
+datasync:ListLocations
+```
+

@@ -42,27 +42,6 @@ Gets an individual <code>contact_flow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>contact_flow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeContactFlow</pre>
-
-### Delete
-<pre>
-connect:DeleteContactFlow,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateContactFlowMetadata,
-connect:UpdateContactFlowContent,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +56,29 @@ type,
 tags
 FROM awscc.connect.contact_flow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ContactFlowArn&gt;'
+AND data__Identifier = '{ContactFlowArn}';
 ```
+
+## Permissions
+
+To operate on the <code>contact_flow</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeContactFlow
+```
+
+### Delete
+```json
+connect:DeleteContactFlow,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateContactFlowMetadata,
+connect:UpdateContactFlowContent,
+connect:TagResource,
+connect:UntagResource
+```
+

@@ -36,23 +36,6 @@ Retrieves a list of <code>user_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateUserProfile,
-sagemaker:DescribeUserProfile,
-sagemaker:DescribeImage,
-sagemaker:DescribeImageVersion,
-iam:PassRole</pre>
-
-### List
-<pre>
-sagemaker:ListUserProfiles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +45,22 @@ domain_id
 FROM awscc.sagemaker.user_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateUserProfile,
+sagemaker:DescribeUserProfile,
+sagemaker:DescribeImage,
+sagemaker:DescribeImageVersion,
+iam:PassRole
+```
+
+### List
+```json
+sagemaker:ListUserProfiles
+```
+

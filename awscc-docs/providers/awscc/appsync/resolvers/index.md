@@ -35,21 +35,6 @@ Retrieves a list of <code>resolvers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolvers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3:GetObject,
-appsync:CreateResolver,
-appsync:GetResolver</pre>
-
-### List
-<pre>
-appsync:ListResolvers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ resolver_arn
 FROM awscc.appsync.resolvers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>resolvers</code> resource, the following permissions are required:
+
+### Create
+```json
+s3:GetObject,
+appsync:CreateResolver,
+appsync:GetResolver
+```
+
+### List
+```json
+appsync:ListResolvers
+```
+

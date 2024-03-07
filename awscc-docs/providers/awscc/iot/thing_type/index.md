@@ -40,31 +40,6 @@ Gets an individual <code>thing_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>thing_type</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-iot:DescribeThingType,
-iot:DeleteThingType,
-iot:DeprecateThingType</pre>
-
-### Read
-<pre>
-iot:DescribeThingType,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:DescribeThingType,
-iot:UpdateThingType,
-iot:ListTagsForResource,
-iot:TagResource,
-iot:UntagResource,
-iot:DeprecateThingType</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +52,33 @@ thing_type_properties,
 tags
 FROM awscc.iot.thing_type
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ThingTypeName&gt;'
+AND data__Identifier = '{ThingTypeName}';
 ```
+
+## Permissions
+
+To operate on the <code>thing_type</code> resource, the following permissions are required:
+
+### Delete
+```json
+iot:DescribeThingType,
+iot:DeleteThingType,
+iot:DeprecateThingType
+```
+
+### Read
+```json
+iot:DescribeThingType,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:DescribeThingType,
+iot:UpdateThingType,
+iot:ListTagsForResource,
+iot:TagResource,
+iot:UntagResource,
+iot:DeprecateThingType
+```
+

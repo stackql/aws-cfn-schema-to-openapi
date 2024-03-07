@@ -37,25 +37,6 @@ Gets an individual <code>configuration_set_event_destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_set_event_destination</code> resource, the following permissions are required:
-
-### Update
-<pre>
-ses:UpdateConfigurationSetEventDestination,
-ses:GetConfigurationSetEventDestinations</pre>
-
-### Delete
-<pre>
-ses:DeleteConfigurationSetEventDestination</pre>
-
-### Read
-<pre>
-ses:GetConfigurationSetEventDestinations,
-ses:DescribeConfigurationSet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +46,27 @@ configuration_set_name,
 event_destination
 FROM awscc.ses.configuration_set_event_destination
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration_set_event_destination</code> resource, the following permissions are required:
+
+### Update
+```json
+ses:UpdateConfigurationSetEventDestination,
+ses:GetConfigurationSetEventDestinations
+```
+
+### Delete
+```json
+ses:DeleteConfigurationSetEventDestination
+```
+
+### Read
+```json
+ses:GetConfigurationSetEventDestinations,
+ses:DescribeConfigurationSet
+```
+

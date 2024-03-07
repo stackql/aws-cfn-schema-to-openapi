@@ -35,23 +35,6 @@ Retrieves a list of <code>model_bias_job_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_bias_job_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateModelBiasJobDefinition,
-sagemaker:DescribeModelBiasJobDefinition,
-iam:PassRole,
-sagemaker:AddTags</pre>
-
-### List
-<pre>
-sagemaker:ListModelBiasJobDefinitions,
-sagemaker:ListTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ job_definition_arn
 FROM awscc.sagemaker.model_bias_job_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>model_bias_job_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateModelBiasJobDefinition,
+sagemaker:DescribeModelBiasJobDefinition,
+iam:PassRole,
+sagemaker:AddTags
+```
+
+### List
+```json
+sagemaker:ListModelBiasJobDefinitions,
+sagemaker:ListTags
+```
+

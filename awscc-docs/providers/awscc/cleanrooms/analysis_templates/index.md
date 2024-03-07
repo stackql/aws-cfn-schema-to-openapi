@@ -36,23 +36,6 @@ Retrieves a list of <code>analysis_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analysis_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cleanrooms:CreateAnalysisTemplate,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:GetAnalysisTemplate,
-cleanrooms:ListAnalysisTemplates</pre>
-
-### List
-<pre>
-cleanrooms:ListAnalysisTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +45,22 @@ membership_identifier
 FROM awscc.cleanrooms.analysis_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>analysis_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+cleanrooms:CreateAnalysisTemplate,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:GetAnalysisTemplate,
+cleanrooms:ListAnalysisTemplates
+```
+
+### List
+```json
+cleanrooms:ListAnalysisTemplates
+```
+

@@ -37,24 +37,6 @@ Gets an individual <code>bridge_output</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bridge_output</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediaconnect:DescribeBridge</pre>
-
-### Update
-<pre>
-mediaconnect:DescribeBridge,
-mediaconnect:UpdateBridgeOutput</pre>
-
-### Delete
-<pre>
-mediaconnect:RemoveBridgeOutput</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,6 +46,27 @@ network_output,
 name
 FROM awscc.mediaconnect.bridge_output
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BridgeArn&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{BridgeArn}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>bridge_output</code> resource, the following permissions are required:
+
+### Read
+```json
+mediaconnect:DescribeBridge
+```
+
+### Update
+```json
+mediaconnect:DescribeBridge,
+mediaconnect:UpdateBridgeOutput
+```
+
+### Delete
+```json
+mediaconnect:RemoveBridgeOutput
+```
+

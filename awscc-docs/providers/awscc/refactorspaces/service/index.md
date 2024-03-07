@@ -45,32 +45,6 @@ Gets an individual <code>service</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service</code> resource, the following permissions are required:
-
-### Read
-<pre>
-refactor-spacess:GetService,
-refactor-spaces:ListTagsForResource</pre>
-
-### Delete
-<pre>
-refactor-spaces:DeleteService,
-refactor-spaces:GetService,
-refactor-spaces:UntagResource,
-ram:DisassociateResourceShare,
-ec2:DescribeNetworkInterfaces,
-ec2:DescribeRouteTables,
-ec2:DescribeTransitGatewayVpcAttachments,
-ec2:DescribeSecurityGroups,
-ec2:DeleteSecurityGroup,
-ec2:DeleteRoute,
-ec2:RevokeSecurityGroupIngress,
-ec2:DeleteTransitGatewayVpcAttachment,
-ec2:DeleteTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,7 +62,35 @@ vpc_id,
 tags
 FROM awscc.refactorspaces.service
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EnvironmentIdentifier&gt;'
-AND data__Identifier = '&lt;ApplicationIdentifier&gt;'
-AND data__Identifier = '&lt;ServiceIdentifier&gt;'
+AND data__Identifier = '{EnvironmentIdentifier}';
+AND data__Identifier = '{ApplicationIdentifier}';
+AND data__Identifier = '{ServiceIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>service</code> resource, the following permissions are required:
+
+### Read
+```json
+refactor-spacess:GetService,
+refactor-spaces:ListTagsForResource
+```
+
+### Delete
+```json
+refactor-spaces:DeleteService,
+refactor-spaces:GetService,
+refactor-spaces:UntagResource,
+ram:DisassociateResourceShare,
+ec2:DescribeNetworkInterfaces,
+ec2:DescribeRouteTables,
+ec2:DescribeTransitGatewayVpcAttachments,
+ec2:DescribeSecurityGroups,
+ec2:DeleteSecurityGroup,
+ec2:DeleteRoute,
+ec2:RevokeSecurityGroupIngress,
+ec2:DeleteTransitGatewayVpcAttachment,
+ec2:DeleteTags
+```
+

@@ -39,28 +39,6 @@ Gets an individual <code>event_bus</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_bus</code> resource, the following permissions are required:
-
-### Read
-<pre>
-events:DescribeEventBus,
-events:ListTagsForResource</pre>
-
-### Update
-<pre>
-events:TagResource,
-events:UntagResource,
-events:PutPermission,
-events:DescribeEventBus</pre>
-
-### Delete
-<pre>
-events:DescribeEventBus,
-events:DeleteEventBus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +50,30 @@ policy,
 arn
 FROM awscc.events.event_bus
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>event_bus</code> resource, the following permissions are required:
+
+### Read
+```json
+events:DescribeEventBus,
+events:ListTagsForResource
+```
+
+### Update
+```json
+events:TagResource,
+events:UntagResource,
+events:PutPermission,
+events:DescribeEventBus
+```
+
+### Delete
+```json
+events:DescribeEventBus,
+events:DeleteEventBus
+```
+

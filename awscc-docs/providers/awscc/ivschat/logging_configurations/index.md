@@ -35,12 +35,21 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.ivschat.logging_configurations
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ivschat:CreateLoggingConfiguration,
 ivschat:GetLoggingConfiguration,
 logs:CreateLogDelivery,
@@ -51,19 +60,12 @@ s3:PutBucketPolicy,
 s3:GetBucketPolicy,
 iam:CreateServiceLinkedRole,
 firehose:TagDeliveryStream,
-ivschat:TagResource</pre>
+ivschat:TagResource
+```
 
 ### List
-<pre>
+```json
 ivschat:ListLoggingConfigurations,
-ivschat:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.ivschat.logging_configurations
-WHERE region = 'us-east-1'
+ivschat:ListTagsForResource
 ```
+

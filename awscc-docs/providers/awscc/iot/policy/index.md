@@ -39,34 +39,6 @@ Gets an individual <code>policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:GetPolicy,
-iot:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iot:DeletePolicy,
-iot:GetPolicy,
-iot:ListPolicyVersions,
-iot:DeletePolicyVersion</pre>
-
-### Update
-<pre>
-iot:GetPolicy,
-iot:ListPolicyVersions,
-iot:CreatePolicyVersion,
-iot:DeletePolicyVersion,
-iot:SetDefaultPolicyVersion,
-iot:TagResource,
-iot:UntagResource,
-iot:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +50,36 @@ policy_name,
 tags
 FROM awscc.iot.policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>policy</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:GetPolicy,
+iot:ListTagsForResource
+```
+
+### Delete
+```json
+iot:DeletePolicy,
+iot:GetPolicy,
+iot:ListPolicyVersions,
+iot:DeletePolicyVersion
+```
+
+### Update
+```json
+iot:GetPolicy,
+iot:ListPolicyVersions,
+iot:CreatePolicyVersion,
+iot:DeletePolicyVersion,
+iot:SetDefaultPolicyVersion,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource
+```
+

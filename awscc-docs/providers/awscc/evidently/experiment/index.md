@@ -47,31 +47,6 @@ Gets an individual <code>experiment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>experiment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-evidently:GetExperiment,
-evidently:ListTagsForResource</pre>
-
-### Update
-<pre>
-evidently:UpdateExperiment,
-evidently:TagResource,
-evidently:UntagResource,
-evidently:GetExperiment,
-evidently:StartExperiment,
-evidently:StopExperiment</pre>
-
-### Delete
-<pre>
-evidently:DeleteExperiment,
-evidently:UntagResource,
-evidently:GetExperiment</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +66,33 @@ remove_segment,
 tags
 FROM awscc.evidently.experiment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>experiment</code> resource, the following permissions are required:
+
+### Read
+```json
+evidently:GetExperiment,
+evidently:ListTagsForResource
+```
+
+### Update
+```json
+evidently:UpdateExperiment,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetExperiment,
+evidently:StartExperiment,
+evidently:StopExperiment
+```
+
+### Delete
+```json
+evidently:DeleteExperiment,
+evidently:UntagResource,
+evidently:GetExperiment
+```
+

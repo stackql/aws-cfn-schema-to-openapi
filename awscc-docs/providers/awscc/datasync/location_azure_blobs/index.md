@@ -35,22 +35,6 @@ Retrieves a list of <code>location_azure_blobs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_azure_blobs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datasync:CreateLocationAzureBlob,
-datasync:DescribeLocationAzureBlob,
-datasync:TagResource,
-datasync:ListTagsForResource</pre>
-
-### List
-<pre>
-datasync:ListLocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ location_arn
 FROM awscc.datasync.location_azure_blobs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>location_azure_blobs</code> resource, the following permissions are required:
+
+### Create
+```json
+datasync:CreateLocationAzureBlob,
+datasync:DescribeLocationAzureBlob,
+datasync:TagResource,
+datasync:ListTagsForResource
+```
+
+### List
+```json
+datasync:ListLocations
+```
+

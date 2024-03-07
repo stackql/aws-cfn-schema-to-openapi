@@ -44,33 +44,6 @@ Gets an individual <code>matching_workflow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>matching_workflow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-entityresolution:GetMatchingWorkflow,
-entityresolution:ListTagsForResource</pre>
-
-### Delete
-<pre>
-entityresolution:DeleteMatchingWorkflow,
-entityresolution:GetMatchingWorkflow,
-entityresolution:UntagResource</pre>
-
-### Update
-<pre>
-entityresolution:GetMatchingWorkflow,
-entityresolution:UpdateMatchingWorkflow,
-entityresolution:ListTagsForResource,
-entityresolution:TagResource,
-entityresolution:UntagResource,
-iam:PassRole,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +60,35 @@ created_at,
 updated_at
 FROM awscc.entityresolution.matching_workflow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkflowName&gt;'
+AND data__Identifier = '{WorkflowName}';
 ```
+
+## Permissions
+
+To operate on the <code>matching_workflow</code> resource, the following permissions are required:
+
+### Read
+```json
+entityresolution:GetMatchingWorkflow,
+entityresolution:ListTagsForResource
+```
+
+### Delete
+```json
+entityresolution:DeleteMatchingWorkflow,
+entityresolution:GetMatchingWorkflow,
+entityresolution:UntagResource
+```
+
+### Update
+```json
+entityresolution:GetMatchingWorkflow,
+entityresolution:UpdateMatchingWorkflow,
+entityresolution:ListTagsForResource,
+entityresolution:TagResource,
+entityresolution:UntagResource,
+iam:PassRole,
+kms:CreateGrant,
+kms:DescribeKey
+```
+

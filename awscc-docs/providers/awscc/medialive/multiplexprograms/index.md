@@ -36,20 +36,6 @@ Retrieves a list of <code>multiplexprograms</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multiplexprograms</code> resource, the following permissions are required:
-
-### Create
-<pre>
-medialive:CreateMultiplexProgram,
-medialive:DescribeMultiplexProgram</pre>
-
-### List
-<pre>
-medialive:ListMultiplexPrograms</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ multiplex_id
 FROM awscc.medialive.multiplexprograms
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>multiplexprograms</code> resource, the following permissions are required:
+
+### Create
+```json
+medialive:CreateMultiplexProgram,
+medialive:DescribeMultiplexProgram
+```
+
+### List
+```json
+medialive:ListMultiplexPrograms
+```
+

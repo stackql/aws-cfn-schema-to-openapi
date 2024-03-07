@@ -47,28 +47,6 @@ Gets an individual <code>origin_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>origin_endpoint</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackagev2:GetOriginEndpoint</pre>
-
-### Update
-<pre>
-mediapackagev2:TagResource,
-mediapackagev2:UntagResource,
-mediapackagev2:ListTagsForResource,
-mediapackagev2:UpdateOriginEndpoint,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-mediapackagev2:GetOriginEndpoint,
-mediapackagev2:DeleteOriginEndpoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +66,30 @@ startover_window_seconds,
 tags
 FROM awscc.mediapackagev2.origin_endpoint
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>origin_endpoint</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackagev2:GetOriginEndpoint
+```
+
+### Update
+```json
+mediapackagev2:TagResource,
+mediapackagev2:UntagResource,
+mediapackagev2:ListTagsForResource,
+mediapackagev2:UpdateOriginEndpoint,
+iam:PassRole
+```
+
+### Delete
+```json
+mediapackagev2:GetOriginEndpoint,
+mediapackagev2:DeleteOriginEndpoint
+```
+

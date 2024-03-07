@@ -44,29 +44,6 @@ Gets an individual <code>user</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticache:DescribeUsers,
-elasticache:ListTagsForResource</pre>
-
-### Update
-<pre>
-elasticache:ModifyUser,
-elasticache:DescribeUsers,
-elasticache:ListTagsForResource,
-elasticache:AddTagsToResource,
-elasticache:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-elasticache:DeleteUser,
-elasticache:DescribeUsers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +60,31 @@ authentication_mode,
 tags
 FROM awscc.elasticache.user
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserId&gt;'
+AND data__Identifier = '{UserId}';
 ```
+
+## Permissions
+
+To operate on the <code>user</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticache:DescribeUsers,
+elasticache:ListTagsForResource
+```
+
+### Update
+```json
+elasticache:ModifyUser,
+elasticache:DescribeUsers,
+elasticache:ListTagsForResource,
+elasticache:AddTagsToResource,
+elasticache:RemoveTagsFromResource
+```
+
+### Delete
+```json
+elasticache:DeleteUser,
+elasticache:DescribeUsers
+```
+

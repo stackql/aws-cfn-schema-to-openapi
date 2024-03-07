@@ -35,24 +35,6 @@ Retrieves a list of <code>vpc_connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_connectors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-apprunner:CreateVpcConnector,
-apprunner:DescribeVpcConnector,
-apprunner:TagResource,
-ec2:DescribeSubnets,
-ec2:DescribeSecurityGroups</pre>
-
-### List
-<pre>
-apprunner:ListVpcConnectors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ vpc_connector_arn
 FROM awscc.apprunner.vpc_connectors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>vpc_connectors</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+apprunner:CreateVpcConnector,
+apprunner:DescribeVpcConnector,
+apprunner:TagResource,
+ec2:DescribeSubnets,
+ec2:DescribeSecurityGroups
+```
+
+### List
+```json
+apprunner:ListVpcConnectors
+```
+

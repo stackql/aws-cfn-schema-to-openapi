@@ -35,12 +35,21 @@ Retrieves a list of <code>repository_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+association_arn
+FROM awscc.codegurureviewer.repository_associations
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>repository_associations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 codeguru-reviewer:DescribeRepositoryAssociation,
 codeguru-reviewer:AssociateRepository,
 codeguru-reviewer:TagResource,
@@ -56,18 +65,11 @@ codestar-connections:ListTagsForResource,
 codestar-connections:PassConnection,
 codestar-connections:TagResource,
 codestar-connections:UseConnection,
-s3:ListBucket</pre>
+s3:ListBucket
+```
 
 ### List
-<pre>
-codeguru-reviewer:ListRepositoryAssociations</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-association_arn
-FROM awscc.codegurureviewer.repository_associations
-WHERE region = 'us-east-1'
+```json
+codeguru-reviewer:ListRepositoryAssociations
 ```
+

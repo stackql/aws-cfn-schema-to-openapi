@@ -44,39 +44,6 @@ Gets an individual <code>repository</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>repository</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecr:DescribeRepositories,
-ecr:GetLifecyclePolicy,
-ecr:GetRepositoryPolicy,
-ecr:ListTagsForResource</pre>
-
-### Update
-<pre>
-ecr:DescribeRepositories,
-ecr:PutLifecyclePolicy,
-ecr:SetRepositoryPolicy,
-ecr:ListTagsForResource,
-ecr:TagResource,
-ecr:UntagResource,
-ecr:DeleteLifecyclePolicy,
-ecr:DeleteRepositoryPolicy,
-ecr:PutImageScanningConfiguration,
-ecr:PutImageTagMutability,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:RetireGrant</pre>
-
-### Delete
-<pre>
-ecr:DeleteRepository,
-kms:RetireGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +60,41 @@ image_scanning_configuration,
 encryption_configuration
 FROM awscc.ecr.repository
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RepositoryName&gt;'
+AND data__Identifier = '{RepositoryName}';
 ```
+
+## Permissions
+
+To operate on the <code>repository</code> resource, the following permissions are required:
+
+### Read
+```json
+ecr:DescribeRepositories,
+ecr:GetLifecyclePolicy,
+ecr:GetRepositoryPolicy,
+ecr:ListTagsForResource
+```
+
+### Update
+```json
+ecr:DescribeRepositories,
+ecr:PutLifecyclePolicy,
+ecr:SetRepositoryPolicy,
+ecr:ListTagsForResource,
+ecr:TagResource,
+ecr:UntagResource,
+ecr:DeleteLifecyclePolicy,
+ecr:DeleteRepositoryPolicy,
+ecr:PutImageScanningConfiguration,
+ecr:PutImageTagMutability,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:RetireGrant
+```
+
+### Delete
+```json
+ecr:DeleteRepository,
+kms:RetireGrant
+```
+

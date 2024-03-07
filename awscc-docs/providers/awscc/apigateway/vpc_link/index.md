@@ -39,39 +39,6 @@ Gets an individual <code>vpc_link</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_link</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT,
-ec2:CreateVpcEndpointServiceConfiguration,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:ModifyVpcEndpointServicePermissions</pre>
-
-### Read
-<pre>
-apigateway:GET,
-ec2:CreateVpcEndpointServiceConfiguration,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:ModifyVpcEndpointServicePermissions</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE,
-apigateway:PUT,
-ec2:CreateVpcEndpointServiceConfiguration,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:ModifyVpcEndpointServicePermissions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +50,41 @@ target_arns,
 vpc_link_id
 FROM awscc.apigateway.vpc_link
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;VpcLinkId&gt;'
+AND data__Identifier = '{VpcLinkId}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_link</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions
+```
+
+### Read
+```json
+apigateway:GET,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE,
+apigateway:PUT,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions
+```
+

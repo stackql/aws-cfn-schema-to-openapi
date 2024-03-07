@@ -51,31 +51,6 @@ Gets an individual <code>component</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>component</code> resource, the following permissions are required:
-
-### Read
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetComponent</pre>
-
-### Update
-<pre>
-amplify:GetApp,
-amplifyuibuilder:GetComponent,
-amplifyuibuilder:TagResource,
-amplifyuibuilder:UntagResource,
-amplifyuibuilder:UpdateComponent</pre>
-
-### Delete
-<pre>
-amplify:GetApp,
-amplifyuibuilder:DeleteComponent,
-amplifyuibuilder:GetComponent,
-amplifyuibuilder:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -99,7 +74,35 @@ tags,
 variants
 FROM awscc.amplifyuibuilder.component
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AppId&gt;'
-AND data__Identifier = '&lt;EnvironmentName&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{AppId}';
+AND data__Identifier = '{EnvironmentName}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>component</code> resource, the following permissions are required:
+
+### Read
+```json
+amplify:GetApp,
+amplifyuibuilder:GetComponent
+```
+
+### Update
+```json
+amplify:GetApp,
+amplifyuibuilder:GetComponent,
+amplifyuibuilder:TagResource,
+amplifyuibuilder:UntagResource,
+amplifyuibuilder:UpdateComponent
+```
+
+### Delete
+```json
+amplify:GetApp,
+amplifyuibuilder:DeleteComponent,
+amplifyuibuilder:GetComponent,
+amplifyuibuilder:UntagResource
+```
+

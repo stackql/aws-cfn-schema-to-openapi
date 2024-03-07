@@ -36,33 +36,6 @@ Gets an individual <code>storage_lens</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>storage_lens</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetStorageLensConfiguration,
-s3:GetStorageLensConfigurationTagging</pre>
-
-### Update
-<pre>
-s3:PutStorageLensConfiguration,
-s3:PutStorageLensConfigurationTagging,
-s3:GetStorageLensConfiguration,
-s3:GetStorageLensConfigurationTagging,
-organizations:DescribeOrganization,
-organizations:ListAccounts,
-organizations:ListAWSServiceAccessForOrganization,
-organizations:ListDelegatedAdministrators,
-iam:CreateServiceLinkedRole</pre>
-
-### Delete
-<pre>
-s3:DeleteStorageLensConfiguration,
-s3:DeleteStorageLensConfigurationTagging</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +44,35 @@ storage_lens_configuration,
 tags
 FROM awscc.s3.storage_lens
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StorageLensConfiguration/Id&gt;'
+AND data__Identifier = '{StorageLensConfiguration/Id}';
 ```
+
+## Permissions
+
+To operate on the <code>storage_lens</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetStorageLensConfiguration,
+s3:GetStorageLensConfigurationTagging
+```
+
+### Update
+```json
+s3:PutStorageLensConfiguration,
+s3:PutStorageLensConfigurationTagging,
+s3:GetStorageLensConfiguration,
+s3:GetStorageLensConfigurationTagging,
+organizations:DescribeOrganization,
+organizations:ListAccounts,
+organizations:ListAWSServiceAccessForOrganization,
+organizations:ListDelegatedAdministrators,
+iam:CreateServiceLinkedRole
+```
+
+### Delete
+```json
+s3:DeleteStorageLensConfiguration,
+s3:DeleteStorageLensConfigurationTagging
+```
+

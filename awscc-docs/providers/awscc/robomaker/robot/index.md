@@ -40,26 +40,6 @@ Gets an individual <code>robot</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>robot</code> resource, the following permissions are required:
-
-### Read
-<pre>
-robomaker:DescribeRobot</pre>
-
-### Delete
-<pre>
-robomaker:DescribeRobot,
-robomaker:DeleteRobot,
-robomaker:DeregisterRobot</pre>
-
-### Update
-<pre>
-robomaker:TagResource,
-robomaker:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +52,28 @@ tags,
 name
 FROM awscc.robomaker.robot
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>robot</code> resource, the following permissions are required:
+
+### Read
+```json
+robomaker:DescribeRobot
+```
+
+### Delete
+```json
+robomaker:DescribeRobot,
+robomaker:DeleteRobot,
+robomaker:DeregisterRobot
+```
+
+### Update
+```json
+robomaker:TagResource,
+robomaker:UntagResource
+```
+

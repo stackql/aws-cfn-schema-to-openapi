@@ -35,12 +35,21 @@ Retrieves a list of <code>suite_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+suite_definition_id
+FROM awscc.iotcoredeviceadvisor.suite_definitions
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>suite_definitions</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iot:DescribeCertificate,
 iot:DescribeThing,
 iot:GetPolicy,
@@ -52,18 +61,11 @@ iot:ListThingPrincipals,
 iot:ListThings,
 iotdeviceadvisor:CreateSuiteDefinition,
 iotdeviceadvisor:TagResource,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### List
-<pre>
-iotdeviceadvisor:ListSuiteDefinitions</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-suite_definition_id
-FROM awscc.iotcoredeviceadvisor.suite_definitions
-WHERE region = 'us-east-1'
+```json
+iotdeviceadvisor:ListSuiteDefinitions
 ```
+

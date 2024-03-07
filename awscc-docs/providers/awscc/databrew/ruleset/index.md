@@ -39,25 +39,6 @@ Gets an individual <code>ruleset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>ruleset</code> resource, the following permissions are required:
-
-### Read
-<pre>
-databrew:DescribeRuleset,
-databrew:ListTagsForResource,
-iam:ListRoles</pre>
-
-### Update
-<pre>
-databrew:UpdateRuleset</pre>
-
-### Delete
-<pre>
-databrew:DeleteRuleset</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +50,27 @@ rules,
 tags
 FROM awscc.databrew.ruleset
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>ruleset</code> resource, the following permissions are required:
+
+### Read
+```json
+databrew:DescribeRuleset,
+databrew:ListTagsForResource,
+iam:ListRoles
+```
+
+### Update
+```json
+databrew:UpdateRuleset
+```
+
+### Delete
+```json
+databrew:DeleteRuleset
+```
+

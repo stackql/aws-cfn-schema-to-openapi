@@ -35,24 +35,6 @@ Retrieves a list of <code>associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ec2:DescribeInstanceStatus,
-iam:PassRole,
-iam:CreateServiceLinkedRole,
-ssm:CreateAssociation,
-ssm:DescribeAssociation,
-ssm:GetCalendarState</pre>
-
-### List
-<pre>
-ssm:ListAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ association_id
 FROM awscc.ssm.associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>associations</code> resource, the following permissions are required:
+
+### Create
+```json
+ec2:DescribeInstanceStatus,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+ssm:CreateAssociation,
+ssm:DescribeAssociation,
+ssm:GetCalendarState
+```
+
+### List
+```json
+ssm:ListAssociations
+```
+

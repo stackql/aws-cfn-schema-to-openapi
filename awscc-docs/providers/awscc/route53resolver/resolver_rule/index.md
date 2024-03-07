@@ -42,29 +42,6 @@ Gets an individual <code>resolver_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolver_rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53resolver:GetResolverRule,
-route53resolver:ListTagsForResource</pre>
-
-### Update
-<pre>
-route53resolver:UpdateResolverRule,
-route53resolver:GetResolverRule,
-route53resolver:ListTagsForResource,
-route53resolver:TagResource,
-route53resolver:UntagResource</pre>
-
-### Delete
-<pre>
-route53resolver:DeleteResolverRule,
-route53resolver:GetResolverRule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ arn,
 resolver_rule_id
 FROM awscc.route53resolver.resolver_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResolverRuleId&gt;'
+AND data__Identifier = '{ResolverRuleId}';
 ```
+
+## Permissions
+
+To operate on the <code>resolver_rule</code> resource, the following permissions are required:
+
+### Read
+```json
+route53resolver:GetResolverRule,
+route53resolver:ListTagsForResource
+```
+
+### Update
+```json
+route53resolver:UpdateResolverRule,
+route53resolver:GetResolverRule,
+route53resolver:ListTagsForResource,
+route53resolver:TagResource,
+route53resolver:UntagResource
+```
+
+### Delete
+```json
+route53resolver:DeleteResolverRule,
+route53resolver:GetResolverRule
+```
+

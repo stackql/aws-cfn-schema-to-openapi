@@ -39,26 +39,6 @@ Gets an individual <code>destination</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>destination</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeDestinations</pre>
-
-### Update
-<pre>
-logs:PutDestination,
-logs:PutDestinationPolicy,
-logs:DescribeDestinations,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-logs:DeleteDestination</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +50,28 @@ role_arn,
 target_arn
 FROM awscc.logs.destination
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DestinationName&gt;'
+AND data__Identifier = '{DestinationName}';
 ```
+
+## Permissions
+
+To operate on the <code>destination</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeDestinations
+```
+
+### Update
+```json
+logs:PutDestination,
+logs:PutDestinationPolicy,
+logs:DescribeDestinations,
+iam:PassRole
+```
+
+### Delete
+```json
+logs:DeleteDestination
+```
+

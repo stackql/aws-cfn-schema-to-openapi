@@ -44,28 +44,6 @@ Gets an individual <code>game_session_queue</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>game_session_queue</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeGameSessionQueues,
-gamelift:ListTagsForResource</pre>
-
-### Delete
-<pre>
-gamelift:DescribeGameSessionQueues,
-gamelift:DeleteGameSessionQueue</pre>
-
-### Update
-<pre>
-gamelift:UpdateGameSessionQueue,
-gamelift:ListTagsForResource,
-gamelift:TagResource,
-gamelift:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +60,30 @@ arn,
 tags
 FROM awscc.gamelift.game_session_queue
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>game_session_queue</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeGameSessionQueues,
+gamelift:ListTagsForResource
+```
+
+### Delete
+```json
+gamelift:DescribeGameSessionQueues,
+gamelift:DeleteGameSessionQueue
+```
+
+### Update
+```json
+gamelift:UpdateGameSessionQueue,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource
+```
+

@@ -47,33 +47,6 @@ Gets an individual <code>template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeTemplate,
-quicksight:DescribeTemplatePermissions,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeTemplate,
-quicksight:DescribeTemplatePermissions,
-quicksight:UpdateTemplate,
-quicksight:UpdateTemplatePermissions,
-quicksight:PassDataSet,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### Delete
-<pre>
-quicksight:DescribeTemplate,
-quicksight:DeleteTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,6 +66,36 @@ version,
 version_description
 FROM awscc.quicksight.template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;TemplateId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{TemplateId}';
 ```
+
+## Permissions
+
+To operate on the <code>template</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeTemplate,
+quicksight:DescribeTemplatePermissions,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeTemplate,
+quicksight:DescribeTemplatePermissions,
+quicksight:UpdateTemplate,
+quicksight:UpdateTemplatePermissions,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### Delete
+```json
+quicksight:DescribeTemplate,
+quicksight:DeleteTemplate
+```
+

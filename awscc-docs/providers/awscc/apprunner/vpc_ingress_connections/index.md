@@ -35,24 +35,6 @@ Retrieves a list of <code>vpc_ingress_connections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_ingress_connections</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apprunner:CreateVpcIngressConnection,
-apprunner:DescribeVpcIngressConnection,
-ec2:DescribeVpcs,
-ec2:DescribeVpcEndpoints,
-ec2:DescribeSubnets,
-apprunner:TagResource</pre>
-
-### List
-<pre>
-apprunner:ListVpcIngressConnections</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ vpc_ingress_connection_arn
 FROM awscc.apprunner.vpc_ingress_connections
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>vpc_ingress_connections</code> resource, the following permissions are required:
+
+### Create
+```json
+apprunner:CreateVpcIngressConnection,
+apprunner:DescribeVpcIngressConnection,
+ec2:DescribeVpcs,
+ec2:DescribeVpcEndpoints,
+ec2:DescribeSubnets,
+apprunner:TagResource
+```
+
+### List
+```json
+apprunner:ListVpcIngressConnections
+```
+

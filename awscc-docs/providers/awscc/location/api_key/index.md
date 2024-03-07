@@ -46,38 +46,6 @@ Gets an individual <code>api_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>api_key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-geo:DescribeKey</pre>
-
-### Update
-<pre>
-geo:CreateKey,
-geo:DescribeKey,
-geo:TagResource,
-geo:UntagResource,
-geo:GetMapTile,
-geo:GetMapStyleDescriptor,
-geo:GetMapSprites,
-geo:GetMapGlyphs,
-geo:SearchPlaceIndexForText,
-geo:SearchPlaceIndexForPosition,
-geo:SearchPlaceIndexForSuggestions,
-geo:GetPlace,
-geo:CalculateRoute,
-geo:CalculateRouteMatrix,
-geo:UpdateKey</pre>
-
-### Delete
-<pre>
-geo:DeleteKey,
-geo:DescribeKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,5 +64,40 @@ force_delete,
 arn
 FROM awscc.location.api_key
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KeyName&gt;'
+AND data__Identifier = '{KeyName}';
 ```
+
+## Permissions
+
+To operate on the <code>api_key</code> resource, the following permissions are required:
+
+### Read
+```json
+geo:DescribeKey
+```
+
+### Update
+```json
+geo:CreateKey,
+geo:DescribeKey,
+geo:TagResource,
+geo:UntagResource,
+geo:GetMapTile,
+geo:GetMapStyleDescriptor,
+geo:GetMapSprites,
+geo:GetMapGlyphs,
+geo:SearchPlaceIndexForText,
+geo:SearchPlaceIndexForPosition,
+geo:SearchPlaceIndexForSuggestions,
+geo:GetPlace,
+geo:CalculateRoute,
+geo:CalculateRouteMatrix,
+geo:UpdateKey
+```
+
+### Delete
+```json
+geo:DeleteKey,
+geo:DescribeKey
+```
+

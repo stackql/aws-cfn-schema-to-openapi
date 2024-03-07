@@ -48,21 +48,45 @@ Gets an individual <code>global_table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+table_id,
+s_se_specification,
+stream_specification,
+replicas,
+write_provisioned_throughput_settings,
+table_name,
+attribute_definitions,
+billing_mode,
+global_secondary_indexes,
+key_schema,
+local_secondary_indexes,
+arn,
+stream_arn,
+time_to_live_specification
+FROM awscc.dynamodb.global_table
+WHERE region = 'us-east-1'
+AND data__Identifier = '{TableName}';
+```
+
 ## Permissions
 
 To operate on the <code>global_table</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 dynamodb:Describe*,
 dynamodb:GetResourcePolicy,
 application-autoscaling:Describe*,
 cloudwatch:PutMetricData,
 dynamodb:ListTagsOfResource,
-kms:DescribeKey</pre>
+kms:DescribeKey
+```
 
 ### Update
-<pre>
+```json
 dynamodb:Describe*,
 dynamodb:CreateTableReplica,
 dynamodb:UpdateTable,
@@ -103,10 +127,11 @@ kms:CreateGrant,
 kms:DescribeKey,
 kms:ListAliases,
 kms:RevokeGrant,
-cloudwatch:PutMetricData</pre>
+cloudwatch:PutMetricData
+```
 
 ### Delete
-<pre>
+```json
 dynamodb:Describe*,
 dynamodb:DeleteTable,
 application-autoscaling:DeleteScalingPolicy,
@@ -115,28 +140,6 @@ application-autoscaling:DeregisterScalableTarget,
 application-autoscaling:Describe*,
 application-autoscaling:PutScalingPolicy,
 application-autoscaling:PutScheduledAction,
-application-autoscaling:RegisterScalableTarget</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-table_id,
-s_se_specification,
-stream_specification,
-replicas,
-write_provisioned_throughput_settings,
-table_name,
-attribute_definitions,
-billing_mode,
-global_secondary_indexes,
-key_schema,
-local_secondary_indexes,
-arn,
-stream_arn,
-time_to_live_specification
-FROM awscc.dynamodb.global_table
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TableName&gt;'
+application-autoscaling:RegisterScalableTarget
 ```
+

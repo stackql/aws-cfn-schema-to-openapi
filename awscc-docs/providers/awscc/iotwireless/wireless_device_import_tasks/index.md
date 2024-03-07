@@ -35,24 +35,6 @@ Retrieves a list of <code>wireless_device_import_tasks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>wireless_device_import_tasks</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:StartWirelessDeviceImportTask,
-iotwireless:StartSingleWirelessDeviceImportTask,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-iotwireless:ListWirelessDeviceImportTasks,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.iotwireless.wireless_device_import_tasks
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>wireless_device_import_tasks</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:StartWirelessDeviceImportTask,
+iotwireless:StartSingleWirelessDeviceImportTask,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource,
+iam:PassRole
+```
+
+### List
+```json
+iotwireless:ListWirelessDeviceImportTasks,
+iotwireless:ListTagsForResource
+```
+

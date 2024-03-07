@@ -48,38 +48,6 @@ Gets an individual <code>task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeTask,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:UpdateTask,
-datasync:DescribeTask,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource,
-logs:DescribeLogGroups,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-datasync:DeleteTask,
-ec2:DescribeNetworkInterfaces,
-ec2:DeleteNetworkInterface,
-ec2:DescribeSecurityGroups,
-ec2:DescribeSubnets,
-fsx:DescribeFileSystems,
-elasticfilesystem:DescribeFileSystems,
-elasticfilesystem:DescribeMountTargets,
-iam:GetRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -100,5 +68,40 @@ source_network_interface_arns,
 destination_network_interface_arns
 FROM awscc.datasync.task
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TaskArn&gt;'
+AND data__Identifier = '{TaskArn}';
 ```
+
+## Permissions
+
+To operate on the <code>task</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeTask,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:UpdateTask,
+datasync:DescribeTask,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+logs:DescribeLogGroups,
+iam:PassRole
+```
+
+### Delete
+```json
+datasync:DeleteTask,
+ec2:DescribeNetworkInterfaces,
+ec2:DeleteNetworkInterface,
+ec2:DescribeSecurityGroups,
+ec2:DescribeSubnets,
+fsx:DescribeFileSystems,
+elasticfilesystem:DescribeFileSystems,
+elasticfilesystem:DescribeMountTargets,
+iam:GetRole
+```
+

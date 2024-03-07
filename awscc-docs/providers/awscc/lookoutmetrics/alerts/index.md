@@ -35,20 +35,6 @@ Retrieves a list of <code>alerts</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alerts</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lookoutmetrics:CreateAlert,
-iam:PassRole</pre>
-
-### List
-<pre>
-lookoutmetrics:ListAlerts</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ arn
 FROM awscc.lookoutmetrics.alerts
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>alerts</code> resource, the following permissions are required:
+
+### Create
+```json
+lookoutmetrics:CreateAlert,
+iam:PassRole
+```
+
+### List
+```json
+lookoutmetrics:ListAlerts
+```
+

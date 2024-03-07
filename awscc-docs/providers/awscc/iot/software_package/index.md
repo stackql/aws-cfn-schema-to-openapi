@@ -38,37 +38,6 @@ Gets an individual <code>software_package</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>software_package</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:GetPackage,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:CreatePackage,
-iot:UpdatePackage,
-iot:GetPackage,
-iot:ListTagsForResource,
-iot:TagResource,
-iot:UntagResource,
-iot:GetIndexingConfiguration</pre>
-
-### Delete
-<pre>
-iot:DeletePackage,
-iot:DeletePackageVersion,
-iot:GetPackage,
-iot:GetPackageVersion,
-iot:UpdatePackage,
-iot:UpdatePackageVersion,
-iot:GetIndexingConfiguration,
-iot:ListPackageVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +48,39 @@ package_name,
 tags
 FROM awscc.iot.software_package
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PackageName&gt;'
+AND data__Identifier = '{PackageName}';
 ```
+
+## Permissions
+
+To operate on the <code>software_package</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:GetPackage,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:CreatePackage,
+iot:UpdatePackage,
+iot:GetPackage,
+iot:ListTagsForResource,
+iot:TagResource,
+iot:UntagResource,
+iot:GetIndexingConfiguration
+```
+
+### Delete
+```json
+iot:DeletePackage,
+iot:DeletePackageVersion,
+iot:GetPackage,
+iot:GetPackageVersion,
+iot:UpdatePackage,
+iot:UpdatePackageVersion,
+iot:GetIndexingConfiguration,
+iot:ListPackageVersions
+```
+

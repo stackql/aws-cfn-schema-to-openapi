@@ -38,23 +38,6 @@ Gets an individual <code>application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticbeanstalk:DescribeApplicationVersions</pre>
-
-### Update
-<pre>
-elasticbeanstalk:UpdateApplicationVersion</pre>
-
-### Delete
-<pre>
-elasticbeanstalk:DeleteApplicationVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,6 +48,26 @@ description,
 source_bundle
 FROM awscc.elasticbeanstalk.application_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationName&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{ApplicationName}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>application_version</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticbeanstalk:DescribeApplicationVersions
+```
+
+### Update
+```json
+elasticbeanstalk:UpdateApplicationVersion
+```
+
+### Delete
+```json
+elasticbeanstalk:DeleteApplicationVersion
+```
+

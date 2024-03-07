@@ -35,12 +35,21 @@ Retrieves a list of <code>application_instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+application_instance_id
+FROM awscc.panorama.application_instances
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>application_instances</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 panorama:CreateApplicationInstance,
 panorama:ListTagsForResource,
 panorama:TagResource,
@@ -50,21 +59,14 @@ iam:PassRole,
 s3:ListBucket,
 s3:PutObject,
 s3:GetObject,
-s3:GetObjectVersion</pre>
+s3:GetObjectVersion
+```
 
 ### List
-<pre>
+```json
 panorama:ListApplicationInstances,
 s3:ListBucket,
 s3:GetObject,
-s3:GetObjectVersion</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-application_instance_id
-FROM awscc.panorama.application_instances
-WHERE region = 'us-east-1'
+s3:GetObjectVersion
 ```
+

@@ -36,27 +36,6 @@ Retrieves a list of <code>analyses</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analyses</code> resource, the following permissions are required:
-
-### Create
-<pre>
-quicksight:DescribeAnalysis,
-quicksight:DescribeAnalysisPermissions,
-quicksight:CreateAnalysis,
-quicksight:DescribeTemplate,
-quicksight:DescribeTheme,
-quicksight:PassDataSet,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### List
-<pre>
-quicksight:ListAnalyses</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,3 +45,26 @@ aws_account_id
 FROM awscc.quicksight.analyses
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>analyses</code> resource, the following permissions are required:
+
+### Create
+```json
+quicksight:DescribeAnalysis,
+quicksight:DescribeAnalysisPermissions,
+quicksight:CreateAnalysis,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### List
+```json
+quicksight:ListAnalyses
+```
+

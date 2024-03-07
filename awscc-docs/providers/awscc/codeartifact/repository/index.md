@@ -44,34 +44,6 @@ Gets an individual <code>repository</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>repository</code> resource, the following permissions are required:
-
-### Read
-<pre>
-codeartifact:DescribeRepository,
-codeartifact:GetRepositoryPermissionsPolicy,
-codeartifact:ListTagsForResource</pre>
-
-### Update
-<pre>
-codeartifact:PutRepositoryPermissionsPolicy,
-codeartifact:DeleteRepositoryPermissionsPolicy,
-codeartifact:AssociateExternalConnection,
-codeartifact:DisassociateExternalConnection,
-codeartifact:UpdateRepository,
-codeartifact:DescribeRepository,
-codeartifact:AssociateWithDownstreamRepository,
-codeartifact:TagResource,
-codeartifact:UntagResource</pre>
-
-### Delete
-<pre>
-codeartifact:DeleteRepository,
-codeartifact:DescribeRepository</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +60,36 @@ permissions_policy_document,
 tags
 FROM awscc.codeartifact.repository
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>repository</code> resource, the following permissions are required:
+
+### Read
+```json
+codeartifact:DescribeRepository,
+codeartifact:GetRepositoryPermissionsPolicy,
+codeartifact:ListTagsForResource
+```
+
+### Update
+```json
+codeartifact:PutRepositoryPermissionsPolicy,
+codeartifact:DeleteRepositoryPermissionsPolicy,
+codeartifact:AssociateExternalConnection,
+codeartifact:DisassociateExternalConnection,
+codeartifact:UpdateRepository,
+codeartifact:DescribeRepository,
+codeartifact:AssociateWithDownstreamRepository,
+codeartifact:TagResource,
+codeartifact:UntagResource
+```
+
+### Delete
+```json
+codeartifact:DeleteRepository,
+codeartifact:DescribeRepository
+```
+

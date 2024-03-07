@@ -45,25 +45,6 @@ Gets an individual <code>composite_alarm</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>composite_alarm</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cloudwatch:DescribeAlarms</pre>
-
-### Update
-<pre>
-cloudwatch:DescribeAlarms,
-cloudwatch:PutCompositeAlarm</pre>
-
-### Delete
-<pre>
-cloudwatch:DescribeAlarms,
-cloudwatch:DeleteAlarms</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +62,27 @@ actions_suppressor_wait_period,
 actions_suppressor_extension_period
 FROM awscc.cloudwatch.composite_alarm
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AlarmName&gt;'
+AND data__Identifier = '{AlarmName}';
 ```
+
+## Permissions
+
+To operate on the <code>composite_alarm</code> resource, the following permissions are required:
+
+### Read
+```json
+cloudwatch:DescribeAlarms
+```
+
+### Update
+```json
+cloudwatch:DescribeAlarms,
+cloudwatch:PutCompositeAlarm
+```
+
+### Delete
+```json
+cloudwatch:DescribeAlarms,
+cloudwatch:DeleteAlarms
+```
+

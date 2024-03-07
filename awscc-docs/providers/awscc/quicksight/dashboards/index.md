@@ -36,27 +36,6 @@ Retrieves a list of <code>dashboards</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dashboards</code> resource, the following permissions are required:
-
-### Create
-<pre>
-quicksight:DescribeDashboard,
-quicksight:DescribeDashboardPermissions,
-quicksight:CreateDashboard,
-quicksight:DescribeTemplate,
-quicksight:DescribeTheme,
-quicksight:PassDataSet,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource</pre>
-
-### List
-<pre>
-quicksight:ListDashboards</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,3 +45,26 @@ dashboard_id
 FROM awscc.quicksight.dashboards
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>dashboards</code> resource, the following permissions are required:
+
+### Create
+```json
+quicksight:DescribeDashboard,
+quicksight:DescribeDashboardPermissions,
+quicksight:CreateDashboard,
+quicksight:DescribeTemplate,
+quicksight:DescribeTheme,
+quicksight:PassDataSet,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource
+```
+
+### List
+```json
+quicksight:ListDashboards
+```
+

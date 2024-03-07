@@ -35,27 +35,6 @@ Retrieves a list of <code>projects</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>projects</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:AddTags,
-sagemaker:CreateProject,
-sagemaker:DescribeProject,
-sagemaker:ListTags,
-servicecatalog:DescribeProduct,
-servicecatalog:DescribeProvisioningArtifact,
-servicecatalog:ProvisionProduct,
-servicecatalog:DescribeProvisionedProduct,
-servicecatalog:TerminateProvisionedProduct</pre>
-
-### List
-<pre>
-sagemaker:ListProjects</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ project_arn
 FROM awscc.sagemaker.projects
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>projects</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:AddTags,
+sagemaker:CreateProject,
+sagemaker:DescribeProject,
+sagemaker:ListTags,
+servicecatalog:DescribeProduct,
+servicecatalog:DescribeProvisioningArtifact,
+servicecatalog:ProvisionProduct,
+servicecatalog:DescribeProvisionedProduct,
+servicecatalog:TerminateProvisionedProduct
+```
+
+### List
+```json
+sagemaker:ListProjects
+```
+

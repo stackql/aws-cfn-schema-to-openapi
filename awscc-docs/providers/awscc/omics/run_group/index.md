@@ -43,28 +43,6 @@ Gets an individual <code>run_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>run_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetRunGroup</pre>
-
-### Update
-<pre>
-omics:UpdateRunGroup,
-omics:TagResource,
-omics:GetRunGroup,
-omics:ListTagsForResource,
-omics:UntagResource</pre>
-
-### Delete
-<pre>
-omics:DeleteRunGroup,
-omics:GetRunGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +58,30 @@ name,
 tags
 FROM awscc.omics.run_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>run_group</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetRunGroup
+```
+
+### Update
+```json
+omics:UpdateRunGroup,
+omics:TagResource,
+omics:GetRunGroup,
+omics:ListTagsForResource,
+omics:UntagResource
+```
+
+### Delete
+```json
+omics:DeleteRunGroup,
+omics:GetRunGroup
+```
+

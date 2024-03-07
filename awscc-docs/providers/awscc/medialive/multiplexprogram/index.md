@@ -41,25 +41,6 @@ Gets an individual <code>multiplexprogram</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multiplexprogram</code> resource, the following permissions are required:
-
-### Read
-<pre>
-medialive:DescribeMultiplexProgram</pre>
-
-### Update
-<pre>
-medialive:UpdateMultiplexProgram,
-medialive:DescribeMultiplexProgram</pre>
-
-### Delete
-<pre>
-medialive:DeleteMultiplexProgram,
-medialive:DescribeMultiplexProgram</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,6 +54,28 @@ pipeline_details,
 program_name
 FROM awscc.medialive.multiplexprogram
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProgramName&gt;'
-AND data__Identifier = '&lt;MultiplexId&gt;'
+AND data__Identifier = '{ProgramName}';
+AND data__Identifier = '{MultiplexId}';
 ```
+
+## Permissions
+
+To operate on the <code>multiplexprogram</code> resource, the following permissions are required:
+
+### Read
+```json
+medialive:DescribeMultiplexProgram
+```
+
+### Update
+```json
+medialive:UpdateMultiplexProgram,
+medialive:DescribeMultiplexProgram
+```
+
+### Delete
+```json
+medialive:DeleteMultiplexProgram,
+medialive:DescribeMultiplexProgram
+```
+

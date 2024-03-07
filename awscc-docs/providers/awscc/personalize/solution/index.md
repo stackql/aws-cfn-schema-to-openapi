@@ -42,20 +42,6 @@ Gets an individual <code>solution</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>solution</code> resource, the following permissions are required:
-
-### Read
-<pre>
-personalize:DescribeSolution</pre>
-
-### Delete
-<pre>
-personalize:DeleteSolution,
-personalize:DescribeSolution</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +56,21 @@ recipe_arn,
 solution_config
 FROM awscc.personalize.solution
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SolutionArn&gt;'
+AND data__Identifier = '{SolutionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>solution</code> resource, the following permissions are required:
+
+### Read
+```json
+personalize:DescribeSolution
+```
+
+### Delete
+```json
+personalize:DeleteSolution,
+personalize:DescribeSolution
+```
+

@@ -37,28 +37,6 @@ Gets an individual <code>zonal_autoshift_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>zonal_autoshift_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-arc-zonal-shift:GetManagedResource</pre>
-
-### Update
-<pre>
-arc-zonal-shift:GetManagedResource,
-arc-zonal-shift:UpdatePracticeRunConfiguration,
-arc-zonal-shift:UpdateZonalAutoshiftConfiguration,
-cloudwatch:DescribeAlarms</pre>
-
-### Delete
-<pre>
-arc-zonal-shift:DeletePracticeRunConfiguration,
-arc-zonal-shift:GetManagedResource,
-arc-zonal-shift:UpdateZonalAutoshiftConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +46,30 @@ practice_run_configuration,
 resource_identifier
 FROM awscc.arczonalshift.zonal_autoshift_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceIdentifier&gt;'
+AND data__Identifier = '{ResourceIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>zonal_autoshift_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+arc-zonal-shift:GetManagedResource
+```
+
+### Update
+```json
+arc-zonal-shift:GetManagedResource,
+arc-zonal-shift:UpdatePracticeRunConfiguration,
+arc-zonal-shift:UpdateZonalAutoshiftConfiguration,
+cloudwatch:DescribeAlarms
+```
+
+### Delete
+```json
+arc-zonal-shift:DeletePracticeRunConfiguration,
+arc-zonal-shift:GetManagedResource,
+arc-zonal-shift:UpdateZonalAutoshiftConfiguration
+```
+

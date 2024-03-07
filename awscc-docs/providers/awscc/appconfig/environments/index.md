@@ -36,23 +36,6 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appconfig:CreateEnvironment,
-appconfig:GetEnvironment,
-appconfig:ListTagsForResource,
-appconfig:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-appconfig:ListEnvironments</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +45,22 @@ environment_id
 FROM awscc.appconfig.environments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>environments</code> resource, the following permissions are required:
+
+### Create
+```json
+appconfig:CreateEnvironment,
+appconfig:GetEnvironment,
+appconfig:ListTagsForResource,
+appconfig:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+appconfig:ListEnvironments
+```
+

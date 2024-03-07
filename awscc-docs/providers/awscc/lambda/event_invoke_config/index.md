@@ -39,23 +39,6 @@ Gets an individual <code>event_invoke_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_invoke_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lambda:GetFunctionEventInvokeConfig</pre>
-
-### Update
-<pre>
-lambda:UpdateFunctionEventInvokeConfig</pre>
-
-### Delete
-<pre>
-lambda:DeleteFunctionEventInvokeConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,6 +50,26 @@ maximum_retry_attempts,
 qualifier
 FROM awscc.lambda.event_invoke_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FunctionName&gt;'
-AND data__Identifier = '&lt;Qualifier&gt;'
+AND data__Identifier = '{FunctionName}';
+AND data__Identifier = '{Qualifier}';
 ```
+
+## Permissions
+
+To operate on the <code>event_invoke_config</code> resource, the following permissions are required:
+
+### Read
+```json
+lambda:GetFunctionEventInvokeConfig
+```
+
+### Update
+```json
+lambda:UpdateFunctionEventInvokeConfig
+```
+
+### Delete
+```json
+lambda:DeleteFunctionEventInvokeConfig
+```
+

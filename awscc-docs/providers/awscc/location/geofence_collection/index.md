@@ -44,31 +44,6 @@ Gets an individual <code>geofence_collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>geofence_collection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-geo:DescribeGeofenceCollection,
-kms:DescribeKey</pre>
-
-### Update
-<pre>
-geo:CreateGeofenceCollection,
-geo:DescribeGeofenceCollection,
-geo:TagResource,
-geo:UntagResource,
-kms:DescribeKey,
-kms:CreateGrant,
-geo:UpdateGeofenceCollection</pre>
-
-### Delete
-<pre>
-geo:DeleteGeofenceCollection,
-geo:DescribeGeofenceCollection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +60,33 @@ update_time,
 arn
 FROM awscc.location.geofence_collection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CollectionName&gt;'
+AND data__Identifier = '{CollectionName}';
 ```
+
+## Permissions
+
+To operate on the <code>geofence_collection</code> resource, the following permissions are required:
+
+### Read
+```json
+geo:DescribeGeofenceCollection,
+kms:DescribeKey
+```
+
+### Update
+```json
+geo:CreateGeofenceCollection,
+geo:DescribeGeofenceCollection,
+geo:TagResource,
+geo:UntagResource,
+kms:DescribeKey,
+kms:CreateGrant,
+geo:UpdateGeofenceCollection
+```
+
+### Delete
+```json
+geo:DeleteGeofenceCollection,
+geo:DescribeGeofenceCollection
+```
+

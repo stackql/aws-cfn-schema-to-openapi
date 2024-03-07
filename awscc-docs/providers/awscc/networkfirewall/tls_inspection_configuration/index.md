@@ -40,29 +40,6 @@ Gets an individual <code>tls_inspection_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>tls_inspection_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-network-firewall:DescribeTLSInspectionConfiguration,
-network-firewall:ListTagsForResources</pre>
-
-### Update
-<pre>
-network-firewall:UpdateTLSInspectionConfiguration,
-network-firewall:DescribeTLSInspectionConfiguration,
-network-firewall:TagResource,
-network-firewall:UntagResource</pre>
-
-### Delete
-<pre>
-network-firewall:DeleteTLSInspectionConfiguration,
-network-firewall:DescribeTLSInspectionConfiguration,
-network-firewall:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ description,
 tags
 FROM awscc.networkfirewall.tls_inspection_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TLSInspectionConfigurationArn&gt;'
+AND data__Identifier = '{TLSInspectionConfigurationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>tls_inspection_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+network-firewall:DescribeTLSInspectionConfiguration,
+network-firewall:ListTagsForResources
+```
+
+### Update
+```json
+network-firewall:UpdateTLSInspectionConfiguration,
+network-firewall:DescribeTLSInspectionConfiguration,
+network-firewall:TagResource,
+network-firewall:UntagResource
+```
+
+### Delete
+```json
+network-firewall:DeleteTLSInspectionConfiguration,
+network-firewall:DescribeTLSInspectionConfiguration,
+network-firewall:UntagResource
+```
+

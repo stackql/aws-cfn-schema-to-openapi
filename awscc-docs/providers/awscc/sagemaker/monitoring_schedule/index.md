@@ -44,25 +44,6 @@ Gets an individual <code>monitoring_schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>monitoring_schedule</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-sagemaker:DeleteMonitoringSchedule,
-sagemaker:DescribeMonitoringSchedule</pre>
-
-### Read
-<pre>
-sagemaker:DescribeMonitoringSchedule</pre>
-
-### Update
-<pre>
-sagemaker:UpdateMonitoringSchedule,
-sagemaker:DescribeMonitoringSchedule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +60,27 @@ last_monitoring_execution_summary,
 monitoring_schedule_status
 FROM awscc.sagemaker.monitoring_schedule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MonitoringScheduleArn&gt;'
+AND data__Identifier = '{MonitoringScheduleArn}';
 ```
+
+## Permissions
+
+To operate on the <code>monitoring_schedule</code> resource, the following permissions are required:
+
+### Delete
+```json
+sagemaker:DeleteMonitoringSchedule,
+sagemaker:DescribeMonitoringSchedule
+```
+
+### Read
+```json
+sagemaker:DescribeMonitoringSchedule
+```
+
+### Update
+```json
+sagemaker:UpdateMonitoringSchedule,
+sagemaker:DescribeMonitoringSchedule
+```
+

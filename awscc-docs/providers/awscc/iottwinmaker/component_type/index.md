@@ -50,32 +50,6 @@ Gets an individual <code>component_type</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>component_type</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iottwinmaker:GetComponentType,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource</pre>
-
-### Update
-<pre>
-iottwinmaker:GetComponentType,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource,
-iottwinmaker:UntagResource,
-iottwinmaker:UpdateComponentType</pre>
-
-### Delete
-<pre>
-iottwinmaker:DeleteComponentType,
-iottwinmaker:GetComponentType,
-iottwinmaker:GetWorkspace</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -98,6 +72,35 @@ is_schema_initialized,
 tags
 FROM awscc.iottwinmaker.component_type
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkspaceId&gt;'
-AND data__Identifier = '&lt;ComponentTypeId&gt;'
+AND data__Identifier = '{WorkspaceId}';
+AND data__Identifier = '{ComponentTypeId}';
 ```
+
+## Permissions
+
+To operate on the <code>component_type</code> resource, the following permissions are required:
+
+### Read
+```json
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource
+```
+
+### Update
+```json
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateComponentType
+```
+
+### Delete
+```json
+iottwinmaker:DeleteComponentType,
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace
+```
+

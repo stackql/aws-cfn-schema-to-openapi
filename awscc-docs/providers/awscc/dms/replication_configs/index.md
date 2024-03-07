@@ -35,26 +35,6 @@ Retrieves a list of <code>replication_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replication_configs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-dms:CreateReplicationConfig,
-dms:AddTagsToResource,
-dms:ListTagsForResource,
-iam:CreateServiceLinkedRole,
-iam:AttachRolePolicy,
-iam:PutRolePolicy,
-iam:UpdateRoleDescription</pre>
-
-### List
-<pre>
-dms:DescribeReplicationConfigs,
-dms:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ replication_config_arn
 FROM awscc.dms.replication_configs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>replication_configs</code> resource, the following permissions are required:
+
+### Create
+```json
+dms:CreateReplicationConfig,
+dms:AddTagsToResource,
+dms:ListTagsForResource,
+iam:CreateServiceLinkedRole,
+iam:AttachRolePolicy,
+iam:PutRolePolicy,
+iam:UpdateRoleDescription
+```
+
+### List
+```json
+dms:DescribeReplicationConfigs,
+dms:ListTagsForResource
+```
+

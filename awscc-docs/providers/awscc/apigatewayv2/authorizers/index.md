@@ -36,20 +36,6 @@ Retrieves a list of <code>authorizers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>authorizers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-iam:PassRole</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ api_id
 FROM awscc.apigatewayv2.authorizers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>authorizers</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+iam:PassRole
+```
+
+### List
+```json
+apigateway:GET
+```
+

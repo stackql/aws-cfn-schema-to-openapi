@@ -35,20 +35,6 @@ Retrieves a list of <code>config_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>config_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-config:PutConfigRule,
-config:DescribeConfigRules</pre>
-
-### List
-<pre>
-config:DescribeConfigRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ config_rule_name
 FROM awscc.config.config_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>config_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+config:PutConfigRule,
+config:DescribeConfigRules
+```
+
+### List
+```json
+config:DescribeConfigRules
+```
+

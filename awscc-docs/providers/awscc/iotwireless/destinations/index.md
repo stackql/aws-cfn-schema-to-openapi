@@ -35,23 +35,6 @@ Retrieves a list of <code>destinations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>destinations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-iotwireless:CreateDestination,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource</pre>
-
-### List
-<pre>
-iotwireless:ListDestinations,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ name
 FROM awscc.iotwireless.destinations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>destinations</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+iotwireless:CreateDestination,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource
+```
+
+### List
+```json
+iotwireless:ListDestinations,
+iotwireless:ListTagsForResource
+```
+

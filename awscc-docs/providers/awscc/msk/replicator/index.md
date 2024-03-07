@@ -42,31 +42,6 @@ Gets an individual <code>replicator</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replicator</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kafka:DescribeReplicator,
-kafka:ListTagsForResource</pre>
-
-### Update
-<pre>
-kafka:DescribeReplicator,
-kafka:ListTagsForResource,
-kafka:TagResource,
-kafka:UntagResource,
-kafka:UpdateReplicationInfo</pre>
-
-### Delete
-<pre>
-kafka:DeleteReplicator,
-kafka:DescribeReplicator,
-kafka:ListTagsForResource,
-kafka:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +56,33 @@ service_execution_role_arn,
 tags
 FROM awscc.msk.replicator
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ReplicatorArn&gt;'
+AND data__Identifier = '{ReplicatorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>replicator</code> resource, the following permissions are required:
+
+### Read
+```json
+kafka:DescribeReplicator,
+kafka:ListTagsForResource
+```
+
+### Update
+```json
+kafka:DescribeReplicator,
+kafka:ListTagsForResource,
+kafka:TagResource,
+kafka:UntagResource,
+kafka:UpdateReplicationInfo
+```
+
+### Delete
+```json
+kafka:DeleteReplicator,
+kafka:DescribeReplicator,
+kafka:ListTagsForResource,
+kafka:UntagResource
+```
+

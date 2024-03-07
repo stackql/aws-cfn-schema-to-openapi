@@ -40,18 +40,34 @@ Gets an individual <code>enabled_baseline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+baseline_identifier,
+baseline_version,
+enabled_baseline_identifier,
+target_identifier,
+parameters,
+tags
+FROM awscc.controltower.enabled_baseline
+WHERE region = 'us-east-1'
+AND data__Identifier = '{EnabledBaselineIdentifier}';
+```
+
 ## Permissions
 
 To operate on the <code>enabled_baseline</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 controltower:GetEnabledBaseline,
 controltower:ListEnabledBaselines,
-controltower:ListTagsForResource</pre>
+controltower:ListTagsForResource
+```
 
 ### Update
-<pre>
+```json
 controltower:UpdateEnabledBaseline,
 controltower:GetBaselineOperation,
 organizations:CreateOrganizationalUnit,
@@ -78,10 +94,11 @@ servicecatalog:ListPrincipalsForPortfolio,
 servicecatalog:DeleteProvisioningArtifact,
 controltower:TagResource,
 controltower:ListTagsForResource,
-controltower:GetEnabledBaseline</pre>
+controltower:GetEnabledBaseline
+```
 
 ### Delete
-<pre>
+```json
 controltower:DisableBaseline,
 controltower:GetBaselineOperation,
 organizations:CreateOrganizationalUnit,
@@ -105,20 +122,6 @@ servicecatalog:SearchProductsAsAdmin,
 servicecatalog:UpdatePortfolio,
 servicecatalog:UpdateProvisioningArtifact,
 servicecatalog:ListPrincipalsForPortfolio,
-servicecatalog:DeleteProvisioningArtifact</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-baseline_identifier,
-baseline_version,
-enabled_baseline_identifier,
-target_identifier,
-parameters,
-tags
-FROM awscc.controltower.enabled_baseline
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EnabledBaselineIdentifier&gt;'
+servicecatalog:DeleteProvisioningArtifact
 ```
+

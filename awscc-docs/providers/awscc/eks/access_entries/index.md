@@ -36,23 +36,6 @@ Retrieves a list of <code>access_entries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_entries</code> resource, the following permissions are required:
-
-### Create
-<pre>
-eks:CreateAccessEntry,
-eks:DescribeAccessEntry,
-eks:AssociateAccessPolicy,
-eks:TagResource,
-eks:ListAssociatedAccessPolicies</pre>
-
-### List
-<pre>
-eks:ListAccessEntries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +45,22 @@ cluster_name
 FROM awscc.eks.access_entries
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>access_entries</code> resource, the following permissions are required:
+
+### Create
+```json
+eks:CreateAccessEntry,
+eks:DescribeAccessEntry,
+eks:AssociateAccessPolicy,
+eks:TagResource,
+eks:ListAssociatedAccessPolicies
+```
+
+### List
+```json
+eks:ListAccessEntries
+```
+

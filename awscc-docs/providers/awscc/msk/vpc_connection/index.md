@@ -41,36 +41,6 @@ Gets an individual <code>vpc_connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_connection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kafka:DescribeVpcConnection,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-### Update
-<pre>
-kafka:DescribeVpcConnection,
-kms:CreateGrant,
-kms:DescribeKey,
-kafka:TagResource,
-kafka:UntagResource</pre>
-
-### Delete
-<pre>
-ec2:DeleteVpcEndpoint,
-ec2:DeleteVpcEndpoints,
-ec2:DescribeVpcEndpoints,
-ec2:DescribeVpcEndpointConnections,
-kafka:DeleteVpcConnection,
-kafka:DescribeVpcConnection,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +54,38 @@ tags,
 vpc_id
 FROM awscc.msk.vpc_connection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_connection</code> resource, the following permissions are required:
+
+### Read
+```json
+kafka:DescribeVpcConnection,
+kms:CreateGrant,
+kms:DescribeKey
+```
+
+### Update
+```json
+kafka:DescribeVpcConnection,
+kms:CreateGrant,
+kms:DescribeKey,
+kafka:TagResource,
+kafka:UntagResource
+```
+
+### Delete
+```json
+ec2:DeleteVpcEndpoint,
+ec2:DeleteVpcEndpoints,
+ec2:DescribeVpcEndpoints,
+ec2:DescribeVpcEndpointConnections,
+kafka:DeleteVpcConnection,
+kafka:DescribeVpcConnection,
+kms:CreateGrant,
+kms:DescribeKey
+```
+

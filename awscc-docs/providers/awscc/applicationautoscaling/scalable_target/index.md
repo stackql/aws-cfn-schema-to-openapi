@@ -43,34 +43,6 @@ Gets an individual <code>scalable_target</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scalable_target</code> resource, the following permissions are required:
-
-### Read
-<pre>
-application-autoscaling:DescribeScalableTargets,
-application-autoscaling:DescribeScheduledActions</pre>
-
-### Update
-<pre>
-application-autoscaling:RegisterScalableTarget,
-application-autoscaling:DescribeScalableTargets,
-application-autoscaling:DescribeScheduledActions,
-application-autoscaling:DeleteScheduledAction,
-application-autoscaling:PutScheduledAction,
-cloudwatch:PutMetricAlarm,
-cloudwatch:DeleteAlarms,
-cloudwatch:DescribeAlarms,
-lambda:GetProvisionedConcurrencyConfig,
-lambda:PutProvisionedConcurrencyConfig,
-lambda:DeleteProvisionedConcurrencyConfig</pre>
-
-### Delete
-<pre>
-application-autoscaling:DeregisterScalableTarget</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,7 +58,38 @@ service_namespace,
 suspended_state
 FROM awscc.applicationautoscaling.scalable_target
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceId&gt;'
-AND data__Identifier = '&lt;ScalableDimension&gt;'
-AND data__Identifier = '&lt;ServiceNamespace&gt;'
+AND data__Identifier = '{ResourceId}';
+AND data__Identifier = '{ScalableDimension}';
+AND data__Identifier = '{ServiceNamespace}';
 ```
+
+## Permissions
+
+To operate on the <code>scalable_target</code> resource, the following permissions are required:
+
+### Read
+```json
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScheduledActions
+```
+
+### Update
+```json
+application-autoscaling:RegisterScalableTarget,
+application-autoscaling:DescribeScalableTargets,
+application-autoscaling:DescribeScheduledActions,
+application-autoscaling:DeleteScheduledAction,
+application-autoscaling:PutScheduledAction,
+cloudwatch:PutMetricAlarm,
+cloudwatch:DeleteAlarms,
+cloudwatch:DescribeAlarms,
+lambda:GetProvisionedConcurrencyConfig,
+lambda:PutProvisionedConcurrencyConfig,
+lambda:DeleteProvisionedConcurrencyConfig
+```
+
+### Delete
+```json
+application-autoscaling:DeregisterScalableTarget
+```
+

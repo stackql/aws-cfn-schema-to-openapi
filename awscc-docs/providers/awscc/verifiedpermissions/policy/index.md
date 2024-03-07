@@ -38,32 +38,6 @@ Gets an individual <code>policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-verifiedpermissions:CreatePolicy,
-verifiedpermissions:GetPolicy,
-verifiedpermissions:UpdatePolicy,
-verifiedpermissions:DeletePolicy</pre>
-
-### Update
-<pre>
-verifiedpermissions:CreatePolicy,
-verifiedpermissions:GetPolicy,
-verifiedpermissions:UpdatePolicy,
-verifiedpermissions:DeletePolicy</pre>
-
-### Delete
-<pre>
-verifiedpermissions:CreatePolicy,
-verifiedpermissions:GetPolicy,
-verifiedpermissions:UpdatePolicy,
-verifiedpermissions:DeletePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,6 +48,35 @@ policy_store_id,
 policy_type
 FROM awscc.verifiedpermissions.policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyId&gt;'
-AND data__Identifier = '&lt;PolicyStoreId&gt;'
+AND data__Identifier = '{PolicyId}';
+AND data__Identifier = '{PolicyStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>policy</code> resource, the following permissions are required:
+
+### Read
+```json
+verifiedpermissions:CreatePolicy,
+verifiedpermissions:GetPolicy,
+verifiedpermissions:UpdatePolicy,
+verifiedpermissions:DeletePolicy
+```
+
+### Update
+```json
+verifiedpermissions:CreatePolicy,
+verifiedpermissions:GetPolicy,
+verifiedpermissions:UpdatePolicy,
+verifiedpermissions:DeletePolicy
+```
+
+### Delete
+```json
+verifiedpermissions:CreatePolicy,
+verifiedpermissions:GetPolicy,
+verifiedpermissions:UpdatePolicy,
+verifiedpermissions:DeletePolicy
+```
+

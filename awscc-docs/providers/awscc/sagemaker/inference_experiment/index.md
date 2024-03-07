@@ -52,33 +52,6 @@ Gets an individual <code>inference_experiment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>inference_experiment</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-sagemaker:DeleteInferenceExperiment,
-sagemaker:DescribeInferenceExperiment,
-sagemaker:StopInferenceExperiment,
-sagemaker:ListTags</pre>
-
-### Read
-<pre>
-sagemaker:DescribeInferenceExperiment,
-sagemaker:ListTags</pre>
-
-### Update
-<pre>
-sagemaker:UpdateInferenceExperiment,
-sagemaker:StartInferenceExperiment,
-sagemaker:StopInferenceExperiment,
-sagemaker:DescribeInferenceExperiment,
-sagemaker:AddTags,
-sagemaker:DeleteTags,
-sagemaker:ListTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -103,5 +76,35 @@ status_reason,
 desired_state
 FROM awscc.sagemaker.inference_experiment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>inference_experiment</code> resource, the following permissions are required:
+
+### Delete
+```json
+sagemaker:DeleteInferenceExperiment,
+sagemaker:DescribeInferenceExperiment,
+sagemaker:StopInferenceExperiment,
+sagemaker:ListTags
+```
+
+### Read
+```json
+sagemaker:DescribeInferenceExperiment,
+sagemaker:ListTags
+```
+
+### Update
+```json
+sagemaker:UpdateInferenceExperiment,
+sagemaker:StartInferenceExperiment,
+sagemaker:StopInferenceExperiment,
+sagemaker:DescribeInferenceExperiment,
+sagemaker:AddTags,
+sagemaker:DeleteTags,
+sagemaker:ListTags
+```
+

@@ -38,30 +38,6 @@ Gets an individual <code>database</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>database</code> resource, the following permissions are required:
-
-### Read
-<pre>
-timestream:DescribeDatabase,
-timestream:DescribeEndpoints,
-timestream:ListTagsForResource</pre>
-
-### Update
-<pre>
-timestream:UpdateDatabase,
-timestream:DescribeDatabase,
-timestream:DescribeEndpoints,
-timestream:TagResource,
-timestream:UntagResource</pre>
-
-### Delete
-<pre>
-timestream:DeleteDatabase,
-timestream:DescribeEndpoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +48,32 @@ kms_key_id,
 tags
 FROM awscc.timestream.database
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatabaseName&gt;'
+AND data__Identifier = '{DatabaseName}';
 ```
+
+## Permissions
+
+To operate on the <code>database</code> resource, the following permissions are required:
+
+### Read
+```json
+timestream:DescribeDatabase,
+timestream:DescribeEndpoints,
+timestream:ListTagsForResource
+```
+
+### Update
+```json
+timestream:UpdateDatabase,
+timestream:DescribeDatabase,
+timestream:DescribeEndpoints,
+timestream:TagResource,
+timestream:UntagResource
+```
+
+### Delete
+```json
+timestream:DeleteDatabase,
+timestream:DescribeEndpoints
+```
+

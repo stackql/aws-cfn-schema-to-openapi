@@ -37,27 +37,6 @@ Gets an individual <code>health_check</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>health_check</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53:GetHealthCheck,
-route53:ListTagsForResource</pre>
-
-### Update
-<pre>
-route53:UpdateHealthCheck,
-route53:ChangeTagsForResource,
-route53:ListTagsForResource,
-cloudwatch:DescribeAlarms</pre>
-
-### Delete
-<pre>
-route53:DeleteHealthCheck</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +45,29 @@ health_check_id,
 health_check_config,
 health_check_tags
 FROM awscc.route53.health_check
-WHERE data__Identifier = '&lt;HealthCheckId&gt;'
+WHERE data__Identifier = '{HealthCheckId}';
 ```
+
+## Permissions
+
+To operate on the <code>health_check</code> resource, the following permissions are required:
+
+### Read
+```json
+route53:GetHealthCheck,
+route53:ListTagsForResource
+```
+
+### Update
+```json
+route53:UpdateHealthCheck,
+route53:ChangeTagsForResource,
+route53:ListTagsForResource,
+cloudwatch:DescribeAlarms
+```
+
+### Delete
+```json
+route53:DeleteHealthCheck
+```
+

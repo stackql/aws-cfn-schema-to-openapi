@@ -39,28 +39,6 @@ Gets an individual <code>dimension</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dimension</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeDimension,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateDimension,
-iot:ListTagsForResource,
-iot:UntagResource,
-iot:TagResource</pre>
-
-### Delete
-<pre>
-iot:DescribeDimension,
-iot:DeleteDimension</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +50,30 @@ tags,
 arn
 FROM awscc.iot.dimension
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>dimension</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeDimension,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateDimension,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource
+```
+
+### Delete
+```json
+iot:DescribeDimension,
+iot:DeleteDimension
+```
+

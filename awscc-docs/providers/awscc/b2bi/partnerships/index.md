@@ -35,21 +35,6 @@ Retrieves a list of <code>partnerships</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>partnerships</code> resource, the following permissions are required:
-
-### Create
-<pre>
-b2bi:CreatePartnership,
-b2bi:TagResource,
-s3:PutObject</pre>
-
-### List
-<pre>
-b2bi:ListPartnerships</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ partnership_id
 FROM awscc.b2bi.partnerships
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>partnerships</code> resource, the following permissions are required:
+
+### Create
+```json
+b2bi:CreatePartnership,
+b2bi:TagResource,
+s3:PutObject
+```
+
+### List
+```json
+b2bi:ListPartnerships
+```
+

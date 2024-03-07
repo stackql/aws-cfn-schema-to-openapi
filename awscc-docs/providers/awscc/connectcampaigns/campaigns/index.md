@@ -35,24 +35,6 @@ Retrieves a list of <code>campaigns</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>campaigns</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect-campaigns:CreateCampaign,
-connect-campaigns:DescribeCampaign,
-connect-campaigns:TagResource,
-connect:DescribeContactFlow,
-connect:DescribeInstance,
-connect:DescribeQueue</pre>
-
-### List
-<pre>
-connect-campaigns:ListCampaigns</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.connectcampaigns.campaigns
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>campaigns</code> resource, the following permissions are required:
+
+### Create
+```json
+connect-campaigns:CreateCampaign,
+connect-campaigns:DescribeCampaign,
+connect-campaigns:TagResource,
+connect:DescribeContactFlow,
+connect:DescribeInstance,
+connect:DescribeQueue
+```
+
+### List
+```json
+connect-campaigns:ListCampaigns
+```
+

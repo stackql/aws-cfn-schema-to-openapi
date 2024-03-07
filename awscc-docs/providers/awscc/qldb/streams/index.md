@@ -36,21 +36,6 @@ Retrieves a list of <code>streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>streams</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-qldb:StreamJournalToKinesis,
-qldb:DescribeJournalKinesisStream</pre>
-
-### List
-<pre>
-qldb:listJournalKinesisStreamsForLedger</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ id
 FROM awscc.qldb.streams
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>streams</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+qldb:StreamJournalToKinesis,
+qldb:DescribeJournalKinesisStream
+```
+
+### List
+```json
+qldb:listJournalKinesisStreamsForLedger
+```
+

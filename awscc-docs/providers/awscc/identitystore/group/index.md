@@ -38,25 +38,6 @@ Gets an individual <code>group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-identitystore:DescribeGroup</pre>
-
-### Update
-<pre>
-identitystore:DescribeGroup,
-identitystore:UpdateGroup</pre>
-
-### Delete
-<pre>
-identitystore:DescribeGroup,
-identitystore:DeleteGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,6 +48,28 @@ group_id,
 identity_store_id
 FROM awscc.identitystore.group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GroupId&gt;'
-AND data__Identifier = '&lt;IdentityStoreId&gt;'
+AND data__Identifier = '{GroupId}';
+AND data__Identifier = '{IdentityStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>group</code> resource, the following permissions are required:
+
+### Read
+```json
+identitystore:DescribeGroup
+```
+
+### Update
+```json
+identitystore:DescribeGroup,
+identitystore:UpdateGroup
+```
+
+### Delete
+```json
+identitystore:DescribeGroup,
+identitystore:DeleteGroup
+```
+

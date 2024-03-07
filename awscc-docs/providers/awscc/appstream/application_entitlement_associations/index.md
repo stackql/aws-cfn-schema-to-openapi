@@ -37,16 +37,6 @@ Retrieves a list of <code>application_entitlement_associations</code> in a regio
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_entitlement_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appstream:AssociateApplicationToEntitlement,
-appstream:ListEntitledApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +47,14 @@ application_identifier
 FROM awscc.appstream.application_entitlement_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>application_entitlement_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+appstream:AssociateApplicationToEntitlement,
+appstream:ListEntitledApplications
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>workspaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.grafana.workspaces
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>workspaces</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 grafana:CreateWorkspace,
 grafana:DescribeWorkspace,
 grafana:DescribeWorkspaceAuthentication,
@@ -57,20 +66,13 @@ ec2:DescribeSubnets,
 ec2:DescribeVpcs,
 iam:CreateServiceLinkedRole,
 sso:ListApplicationInstances,
-sso:GetApplicationInstance</pre>
+sso:GetApplicationInstance
+```
 
 ### List
-<pre>
+```json
 grafana:ListWorkspaces,
 grafana:DescribeWorkspaceAuthentication,
-grafana:DescribeWorkspaceConfiguration</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.grafana.workspaces
-WHERE region = 'us-east-1'
+grafana:DescribeWorkspaceConfiguration
 ```
+

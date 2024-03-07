@@ -36,25 +36,6 @@ Gets an individual <code>wal_workspace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>wal_workspace</code> resource, the following permissions are required:
-
-### Read
-<pre>
-emrwal:ListTagsForResource</pre>
-
-### Delete
-<pre>
-emrwal:DeleteWorkspace</pre>
-
-### Update
-<pre>
-emrwal:TagResource,
-emrwal:UntagResource,
-emrwal:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ w_al_workspace_name,
 tags
 FROM awscc.emr.wal_workspace
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WALWorkspaceName&gt;'
+AND data__Identifier = '{WALWorkspaceName}';
 ```
+
+## Permissions
+
+To operate on the <code>wal_workspace</code> resource, the following permissions are required:
+
+### Read
+```json
+emrwal:ListTagsForResource
+```
+
+### Delete
+```json
+emrwal:DeleteWorkspace
+```
+
+### Update
+```json
+emrwal:TagResource,
+emrwal:UntagResource,
+emrwal:ListTagsForResource
+```
+

@@ -35,31 +35,6 @@ Retrieves a list of <code>graphs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>graphs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-neptune-graph:CreateGraph,
-neptune-graph:GetGraph,
-neptune-graph:ListTagsForResource,
-neptune-graph:TagResource,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:Decrypt,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-neptune-graph:GetGraph,
-neptune-graph:ListGraphs,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,3 +43,30 @@ graph_id
 FROM awscc.neptunegraph.graphs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>graphs</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+neptune-graph:CreateGraph,
+neptune-graph:GetGraph,
+neptune-graph:ListTagsForResource,
+neptune-graph:TagResource,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:Decrypt,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+neptune-graph:GetGraph,
+neptune-graph:ListGraphs,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:Decrypt
+```
+

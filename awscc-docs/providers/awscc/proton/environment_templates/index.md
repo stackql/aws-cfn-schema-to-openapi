@@ -35,22 +35,6 @@ Retrieves a list of <code>environment_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-proton:CreateEnvironmentTemplate,
-proton:TagResource,
-proton:GetEnvironmentTemplate,
-kms:*</pre>
-
-### List
-<pre>
-proton:ListEnvironmentTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.proton.environment_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>environment_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+proton:CreateEnvironmentTemplate,
+proton:TagResource,
+proton:GetEnvironmentTemplate,
+kms:*
+```
+
+### List
+```json
+proton:ListEnvironmentTemplates
+```
+

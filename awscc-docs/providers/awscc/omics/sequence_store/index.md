@@ -42,20 +42,6 @@ Gets an individual <code>sequence_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>sequence_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetSequenceStore,
-omics:ListTagsForResource</pre>
-
-### Delete
-<pre>
-omics:DeleteSequenceStore</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +56,21 @@ sse_config,
 tags
 FROM awscc.omics.sequence_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SequenceStoreId&gt;'
+AND data__Identifier = '{SequenceStoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>sequence_store</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetSequenceStore,
+omics:ListTagsForResource
+```
+
+### Delete
+```json
+omics:DeleteSequenceStore
+```
+

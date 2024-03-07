@@ -35,24 +35,6 @@ Retrieves a list of <code>indices</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>indices</code> resource, the following permissions are required:
-
-### Create
-<pre>
-resource-explorer-2:CreateIndex,
-resource-explorer-2:GetIndex,
-resource-explorer-2:TagResource,
-resource-explorer-2:UpdateIndexType,
-resource-explorer-2:DeleteIndex,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-resource-explorer-2:ListIndexes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.resourceexplorer2.indices
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>indices</code> resource, the following permissions are required:
+
+### Create
+```json
+resource-explorer-2:CreateIndex,
+resource-explorer-2:GetIndex,
+resource-explorer-2:TagResource,
+resource-explorer-2:UpdateIndexType,
+resource-explorer-2:DeleteIndex,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+resource-explorer-2:ListIndexes
+```
+

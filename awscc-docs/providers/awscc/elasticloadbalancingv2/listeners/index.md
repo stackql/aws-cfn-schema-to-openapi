@@ -35,21 +35,6 @@ Retrieves a list of <code>listeners</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>listeners</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticloadbalancing:CreateListener,
-elasticloadbalancing:DescribeListeners,
-cognito-idp:DescribeUserPoolClient</pre>
-
-### List
-<pre>
-elasticloadbalancing:DescribeListeners</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ listener_arn
 FROM awscc.elasticloadbalancingv2.listeners
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>listeners</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticloadbalancing:CreateListener,
+elasticloadbalancing:DescribeListeners,
+cognito-idp:DescribeUserPoolClient
+```
+
+### List
+```json
+elasticloadbalancing:DescribeListeners
+```
+

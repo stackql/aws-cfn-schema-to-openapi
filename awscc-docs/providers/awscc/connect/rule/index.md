@@ -42,29 +42,6 @@ Gets an individual <code>rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeRule</pre>
-
-### Delete
-<pre>
-connect:DeleteRule,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateRule,
-cases:GetTemplate,
-cases:ListFields,
-cases:ListFieldOptions,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ publish_status,
 tags
 FROM awscc.connect.rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RuleArn&gt;'
+AND data__Identifier = '{RuleArn}';
 ```
+
+## Permissions
+
+To operate on the <code>rule</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeRule
+```
+
+### Delete
+```json
+connect:DeleteRule,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateRule,
+cases:GetTemplate,
+cases:ListFields,
+cases:ListFieldOptions,
+connect:TagResource,
+connect:UntagResource
+```
+

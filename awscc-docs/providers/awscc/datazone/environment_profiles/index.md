@@ -36,20 +36,6 @@ Retrieves a list of <code>environment_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datazone:CreateEnvironmentProfile,
-datazone:GetEnvironmentProfile</pre>
-
-### List
-<pre>
-datazone:ListEnvironmentProfiles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ id
 FROM awscc.datazone.environment_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>environment_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+datazone:CreateEnvironmentProfile,
+datazone:GetEnvironmentProfile
+```
+
+### List
+```json
+datazone:ListEnvironmentProfiles
+```
+

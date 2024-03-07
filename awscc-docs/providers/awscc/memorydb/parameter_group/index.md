@@ -40,30 +40,6 @@ Gets an individual <code>parameter_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>parameter_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-memorydb:DescribeParameterGroups,
-memorydb:ListTags</pre>
-
-### Update
-<pre>
-memorydb:UpdateParameterGroup,
-memorydb:DescribeParameterGroups,
-memorydb:DescribeParameters,
-memorydb:DescribeClusters,
-memorydb:ListTags,
-memorydb:TagResource,
-memorydb:UntagResource</pre>
-
-### Delete
-<pre>
-memorydb:DeleteParameterGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +52,32 @@ parameters,
 a_rn
 FROM awscc.memorydb.parameter_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ParameterGroupName&gt;'
+AND data__Identifier = '{ParameterGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>parameter_group</code> resource, the following permissions are required:
+
+### Read
+```json
+memorydb:DescribeParameterGroups,
+memorydb:ListTags
+```
+
+### Update
+```json
+memorydb:UpdateParameterGroup,
+memorydb:DescribeParameterGroups,
+memorydb:DescribeParameters,
+memorydb:DescribeClusters,
+memorydb:ListTags,
+memorydb:TagResource,
+memorydb:UntagResource
+```
+
+### Delete
+```json
+memorydb:DeleteParameterGroup
+```
+

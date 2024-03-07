@@ -36,21 +36,6 @@ Retrieves a list of <code>restore_testing_selections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>restore_testing_selections</code> resource, the following permissions are required:
-
-### Create
-<pre>
-backup:CreateRestoreTestingSelection,
-backup:GetRestoreTestingSelection,
-iam:PassRole</pre>
-
-### List
-<pre>
-backup:ListRestoreTestingSelections</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ restore_testing_selection_name
 FROM awscc.backup.restore_testing_selections
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>restore_testing_selections</code> resource, the following permissions are required:
+
+### Create
+```json
+backup:CreateRestoreTestingSelection,
+backup:GetRestoreTestingSelection,
+iam:PassRole
+```
+
+### List
+```json
+backup:ListRestoreTestingSelections
+```
+

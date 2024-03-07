@@ -49,28 +49,6 @@ Gets an individual <code>image_pipeline</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>image_pipeline</code> resource, the following permissions are required:
-
-### Update
-<pre>
-iam:PassRole,
-imagebuilder:GetImagePipeline,
-imagebuilder:UpdateImagePipeline,
-imagebuilder:GetWorkflow</pre>
-
-### Read
-<pre>
-imagebuilder:GetImagePipeline</pre>
-
-### Delete
-<pre>
-imagebuilder:UnTagResource,
-imagebuilder:GetImagePipeline,
-imagebuilder:DeleteImagePipeline</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,5 +70,30 @@ execution_role,
 tags
 FROM awscc.imagebuilder.image_pipeline
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>image_pipeline</code> resource, the following permissions are required:
+
+### Update
+```json
+iam:PassRole,
+imagebuilder:GetImagePipeline,
+imagebuilder:UpdateImagePipeline,
+imagebuilder:GetWorkflow
+```
+
+### Read
+```json
+imagebuilder:GetImagePipeline
+```
+
+### Delete
+```json
+imagebuilder:UnTagResource,
+imagebuilder:GetImagePipeline,
+imagebuilder:DeleteImagePipeline
+```
+

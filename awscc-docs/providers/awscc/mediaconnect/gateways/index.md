@@ -35,21 +35,6 @@ Retrieves a list of <code>gateways</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>gateways</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-mediaconnect:CreateGateway,
-mediaconnect:DescribeGateway</pre>
-
-### List
-<pre>
-mediaconnect:ListGateways</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ gateway_arn
 FROM awscc.mediaconnect.gateways
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>gateways</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+mediaconnect:CreateGateway,
+mediaconnect:DescribeGateway
+```
+
+### List
+```json
+mediaconnect:ListGateways
+```
+

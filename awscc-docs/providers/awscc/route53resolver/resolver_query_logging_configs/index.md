@@ -35,12 +35,21 @@ Retrieves a list of <code>resolver_query_logging_configs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.route53resolver.resolver_query_logging_configs
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>resolver_query_logging_configs</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 resolverquerylogging:CreateConfig,
 resolverquerylogging:GetConfig,
 route53resolver:CreateResolverQueryLogConfig,
@@ -53,19 +62,12 @@ logs:ListLogDeliveries,
 logs:PutResourcePolicy,
 logs:DescribeResourcePolicies,
 logs:DescribeLogGroups,
-iam:CreateServiceLinkedRole</pre>
+iam:CreateServiceLinkedRole
+```
 
 ### List
-<pre>
+```json
 resolverquerylogging:ListConfig,
-route53resolver:ListResolverQueryLogConfigs</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.route53resolver.resolver_query_logging_configs
-WHERE region = 'us-east-1'
+route53resolver:ListResolverQueryLogConfigs
 ```
+

@@ -42,25 +42,6 @@ Gets an individual <code>slack_channel_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>slack_channel_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-supportapp:ListSlackChannelConfigurations</pre>
-
-### Update
-<pre>
-supportapp:UpdateSlackChannelConfiguration,
-supportapp:ListSlackChannelConfigurations</pre>
-
-### Delete
-<pre>
-supportapp:DeleteSlackChannelConfiguration,
-supportapp:ListSlackChannelConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,6 +56,28 @@ notify_on_case_severity,
 channel_role_arn
 FROM awscc.supportapp.slack_channel_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TeamId&gt;'
-AND data__Identifier = '&lt;ChannelId&gt;'
+AND data__Identifier = '{TeamId}';
+AND data__Identifier = '{ChannelId}';
 ```
+
+## Permissions
+
+To operate on the <code>slack_channel_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+supportapp:ListSlackChannelConfigurations
+```
+
+### Update
+```json
+supportapp:UpdateSlackChannelConfiguration,
+supportapp:ListSlackChannelConfigurations
+```
+
+### Delete
+```json
+supportapp:DeleteSlackChannelConfiguration,
+supportapp:ListSlackChannelConfigurations
+```
+

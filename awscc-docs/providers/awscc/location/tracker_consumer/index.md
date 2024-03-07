@@ -36,20 +36,6 @@ Gets an individual <code>tracker_consumer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>tracker_consumer</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-geo:DisassociateTrackerConsumer,
-geo:ListTrackerConsumers</pre>
-
-### Read
-<pre>
-geo:ListTrackerConsumers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,6 +44,22 @@ consumer_arn,
 tracker_name
 FROM awscc.location.tracker_consumer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrackerName&gt;'
-AND data__Identifier = '&lt;ConsumerArn&gt;'
+AND data__Identifier = '{TrackerName}';
+AND data__Identifier = '{ConsumerArn}';
 ```
+
+## Permissions
+
+To operate on the <code>tracker_consumer</code> resource, the following permissions are required:
+
+### Delete
+```json
+geo:DisassociateTrackerConsumer,
+geo:ListTrackerConsumers
+```
+
+### Read
+```json
+geo:ListTrackerConsumers
+```
+

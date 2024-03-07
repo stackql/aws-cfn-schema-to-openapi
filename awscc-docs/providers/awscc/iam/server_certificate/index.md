@@ -41,26 +41,6 @@ Gets an individual <code>server_certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>server_certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetServerCertificate</pre>
-
-### Update
-<pre>
-iam:TagServerCertificate,
-iam:UntagServerCertificate,
-iam:ListServerCertificateTags,
-iam:GetServerCertificate</pre>
-
-### Delete
-<pre>
-iam:DeleteServerCertificate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +53,28 @@ private_key,
 arn,
 tags
 FROM awscc.iam.server_certificate
-WHERE data__Identifier = '&lt;ServerCertificateName&gt;'
+WHERE data__Identifier = '{ServerCertificateName}';
 ```
+
+## Permissions
+
+To operate on the <code>server_certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetServerCertificate
+```
+
+### Update
+```json
+iam:TagServerCertificate,
+iam:UntagServerCertificate,
+iam:ListServerCertificateTags,
+iam:GetServerCertificate
+```
+
+### Delete
+```json
+iam:DeleteServerCertificate
+```
+

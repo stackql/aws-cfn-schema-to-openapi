@@ -39,31 +39,6 @@ Gets an individual <code>identity_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_provider</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetIdentityProvider,
-workspaces-web:ListIdentityProviders,
-workspaces-web:ListTagsForResource</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateIdentityProvider,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetIdentityProvider,
-workspaces-web:ListIdentityProviders,
-workspaces-web:ListTagsForResource</pre>
-
-### Delete
-<pre>
-workspaces-web:GetIdentityProvider,
-workspaces-web:DeleteIdentityProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +50,33 @@ identity_provider_type,
 portal_arn
 FROM awscc.workspacesweb.identity_provider
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IdentityProviderArn&gt;'
+AND data__Identifier = '{IdentityProviderArn}';
 ```
+
+## Permissions
+
+To operate on the <code>identity_provider</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetIdentityProvider,
+workspaces-web:ListIdentityProviders,
+workspaces-web:ListTagsForResource
+```
+
+### Update
+```json
+workspaces-web:UpdateIdentityProvider,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetIdentityProvider,
+workspaces-web:ListIdentityProviders,
+workspaces-web:ListTagsForResource
+```
+
+### Delete
+```json
+workspaces-web:GetIdentityProvider,
+workspaces-web:DeleteIdentityProvider
+```
+

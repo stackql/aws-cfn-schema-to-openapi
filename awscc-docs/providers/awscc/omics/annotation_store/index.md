@@ -48,28 +48,6 @@ Gets an individual <code>annotation_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>annotation_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetAnnotationStore</pre>
-
-### Update
-<pre>
-omics:UpdateAnnotationStore,
-omics:TagResource,
-omics:UntagResource,
-omics:GetAnnotationStore,
-omics:ListTagsForResource</pre>
-
-### Delete
-<pre>
-omics:DeleteAnnotationStore,
-omics:ListAnnotationStores</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +68,30 @@ tags,
 update_time
 FROM awscc.omics.annotation_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>annotation_store</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetAnnotationStore
+```
+
+### Update
+```json
+omics:UpdateAnnotationStore,
+omics:TagResource,
+omics:UntagResource,
+omics:GetAnnotationStore,
+omics:ListTagsForResource
+```
+
+### Delete
+```json
+omics:DeleteAnnotationStore,
+omics:ListAnnotationStores
+```
+

@@ -38,28 +38,6 @@ Gets an individual <code>pull_through_cache_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pull_through_cache_rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ecr:DescribePullThroughCacheRules</pre>
-
-### Update
-<pre>
-ecr:DescribePullThroughCacheRules,
-ecr:CreatePullThroughCacheRule,
-ecr:DeletePullThroughCacheRule,
-iam:CreateServiceLinkedRole,
-secretsmanager:GetSecretValue</pre>
-
-### Delete
-<pre>
-ecr:DescribePullThroughCacheRules,
-ecr:DeletePullThroughCacheRule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +48,30 @@ credential_arn,
 upstream_registry
 FROM awscc.ecr.pull_through_cache_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EcrRepositoryPrefix&gt;'
+AND data__Identifier = '{EcrRepositoryPrefix}';
 ```
+
+## Permissions
+
+To operate on the <code>pull_through_cache_rule</code> resource, the following permissions are required:
+
+### Read
+```json
+ecr:DescribePullThroughCacheRules
+```
+
+### Update
+```json
+ecr:DescribePullThroughCacheRules,
+ecr:CreatePullThroughCacheRule,
+ecr:DeletePullThroughCacheRule,
+iam:CreateServiceLinkedRole,
+secretsmanager:GetSecretValue
+```
+
+### Delete
+```json
+ecr:DescribePullThroughCacheRules,
+ecr:DeletePullThroughCacheRule
+```
+

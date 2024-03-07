@@ -44,25 +44,6 @@ Gets an individual <code>microsoft_teams_channel_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>microsoft_teams_channel_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-chatbot:GetMicrosoftTeamsChannelConfiguration</pre>
-
-### Update
-<pre>
-chatbot:UpdateMicrosoftTeamsChannelConfiguration,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-chatbot:GetMicrosoftTeamsChannelConfiguration,
-chatbot:DeleteMicrosoftTeamsChannelConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +60,27 @@ guardrail_policies,
 user_role_required
 FROM awscc.chatbot.microsoft_teams_channel_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>microsoft_teams_channel_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+chatbot:GetMicrosoftTeamsChannelConfiguration
+```
+
+### Update
+```json
+chatbot:UpdateMicrosoftTeamsChannelConfiguration,
+iam:PassRole
+```
+
+### Delete
+```json
+chatbot:GetMicrosoftTeamsChannelConfiguration,
+chatbot:DeleteMicrosoftTeamsChannelConfiguration
+```
+

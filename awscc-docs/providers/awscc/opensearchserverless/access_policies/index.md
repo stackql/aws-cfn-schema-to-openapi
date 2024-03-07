@@ -36,20 +36,6 @@ Retrieves a list of <code>access_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-aoss:CreateAccessPolicy,
-aoss:GetAccessPolicy</pre>
-
-### List
-<pre>
-aoss:ListAccessPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ name
 FROM awscc.opensearchserverless.access_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>access_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+aoss:CreateAccessPolicy,
+aoss:GetAccessPolicy
+```
+
+### List
+```json
+aoss:ListAccessPolicies
+```
+

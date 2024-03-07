@@ -43,25 +43,6 @@ Gets an individual <code>space</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>space</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeSpace</pre>
-
-### Update
-<pre>
-sagemaker:UpdateSpace,
-sagemaker:DescribeSpace</pre>
-
-### Delete
-<pre>
-sagemaker:DeleteSpace,
-sagemaker:DescribeSpace</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,6 +58,28 @@ space_display_name,
 url
 FROM awscc.sagemaker.space
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainId&gt;'
-AND data__Identifier = '&lt;SpaceName&gt;'
+AND data__Identifier = '{DomainId}';
+AND data__Identifier = '{SpaceName}';
 ```
+
+## Permissions
+
+To operate on the <code>space</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeSpace
+```
+
+### Update
+```json
+sagemaker:UpdateSpace,
+sagemaker:DescribeSpace
+```
+
+### Delete
+```json
+sagemaker:DeleteSpace,
+sagemaker:DescribeSpace
+```
+

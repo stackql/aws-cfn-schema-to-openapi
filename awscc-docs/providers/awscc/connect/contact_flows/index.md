@@ -35,20 +35,6 @@ Retrieves a list of <code>contact_flows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>contact_flows</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateContactFlow,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListContactFlows</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ contact_flow_arn
 FROM awscc.connect.contact_flows
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>contact_flows</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateContactFlow,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListContactFlows
+```
+

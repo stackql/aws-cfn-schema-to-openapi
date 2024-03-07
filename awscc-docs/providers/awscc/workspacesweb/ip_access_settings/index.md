@@ -43,44 +43,6 @@ Gets an individual <code>ip_access_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>ip_access_settings</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetIpAccessSettings,
-workspaces-web:ListIpAccessSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateIpAccessSettings,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetIpAccessSettings,
-workspaces-web:ListIpAccessSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Delete
-<pre>
-workspaces-web:GetIpAccessSettings,
-workspaces-web:ListIpAccessSettings,
-workspaces-web:DeleteIpAccessSettings,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,5 +58,46 @@ ip_rules,
 tags
 FROM awscc.workspacesweb.ip_access_settings
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IpAccessSettingsArn&gt;'
+AND data__Identifier = '{IpAccessSettingsArn}';
 ```
+
+## Permissions
+
+To operate on the <code>ip_access_settings</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetIpAccessSettings,
+workspaces-web:ListIpAccessSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Update
+```json
+workspaces-web:UpdateIpAccessSettings,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetIpAccessSettings,
+workspaces-web:ListIpAccessSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Delete
+```json
+workspaces-web:GetIpAccessSettings,
+workspaces-web:ListIpAccessSettings,
+workspaces-web:DeleteIpAccessSettings,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+

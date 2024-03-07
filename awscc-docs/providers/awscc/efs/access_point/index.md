@@ -41,27 +41,6 @@ Gets an individual <code>access_point</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_point</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticfilesystem:DescribeAccessPoints</pre>
-
-### Delete
-<pre>
-elasticfilesystem:DeleteAccessPoint,
-elasticfilesystem:DescribeAccessPoints</pre>
-
-### Update
-<pre>
-elasticfilesystem:DescribeAccessPoints,
-elasticfilesystem:ListTagsForResource,
-elasticfilesystem:TagResource,
-elasticfilesystem:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +54,29 @@ posix_user,
 root_directory
 FROM awscc.efs.access_point
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccessPointId&gt;'
+AND data__Identifier = '{AccessPointId}';
 ```
+
+## Permissions
+
+To operate on the <code>access_point</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticfilesystem:DescribeAccessPoints
+```
+
+### Delete
+```json
+elasticfilesystem:DeleteAccessPoint,
+elasticfilesystem:DescribeAccessPoints
+```
+
+### Update
+```json
+elasticfilesystem:DescribeAccessPoints,
+elasticfilesystem:ListTagsForResource,
+elasticfilesystem:TagResource,
+elasticfilesystem:UntagResource
+```
+

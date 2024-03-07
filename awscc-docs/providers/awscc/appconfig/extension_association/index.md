@@ -43,26 +43,6 @@ Gets an individual <code>extension_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>extension_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appconfig:GetExtensionAssociation</pre>
-
-### Update
-<pre>
-appconfig:UpdateExtensionAssociation,
-appconfig:TagResource,
-appconfig:UntagResource</pre>
-
-### Delete
-<pre>
-appconfig:DeleteExtensionAssociation,
-appconfig:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ parameters,
 tags
 FROM awscc.appconfig.extension_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>extension_association</code> resource, the following permissions are required:
+
+### Read
+```json
+appconfig:GetExtensionAssociation
+```
+
+### Update
+```json
+appconfig:UpdateExtensionAssociation,
+appconfig:TagResource,
+appconfig:UntagResource
+```
+
+### Delete
+```json
+appconfig:DeleteExtensionAssociation,
+appconfig:UntagResource
+```
+

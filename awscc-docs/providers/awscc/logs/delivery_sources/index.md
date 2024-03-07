@@ -35,26 +35,6 @@ Retrieves a list of <code>delivery_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery_sources</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:PutDeliverySource,
-logs:GetDeliverySource,
-logs:ListTagsForResource,
-logs:TagResource,
-logs:AllowVendedLogDeliveryForResource,
-codewhisperer:AllowVendedLogDeliveryForResource,
-autoloop:AllowVendedLogDeliveryForResource,
-workmail:AllowVendedLogDeliveryForResource</pre>
-
-### List
-<pre>
-logs:DescribeDeliverySources</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ name
 FROM awscc.logs.delivery_sources
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>delivery_sources</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:PutDeliverySource,
+logs:GetDeliverySource,
+logs:ListTagsForResource,
+logs:TagResource,
+logs:AllowVendedLogDeliveryForResource,
+codewhisperer:AllowVendedLogDeliveryForResource,
+autoloop:AllowVendedLogDeliveryForResource,
+workmail:AllowVendedLogDeliveryForResource
+```
+
+### List
+```json
+logs:DescribeDeliverySources
+```
+

@@ -42,33 +42,6 @@ Gets an individual <code>repository_link</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>repository_link</code> resource, the following permissions are required:
-
-### Update
-<pre>
-codestar-connections:GetConnection,
-codestar-connections:ListTagsForResource,
-codestar-connections:PassConnection,
-codestar-connections:UseConnection,
-codestar-connections:TagResource,
-codestar-connections:UntagResource,
-codestar-connections:UpdateRepositoryLink</pre>
-
-### Read
-<pre>
-codestar-connections:GetRepositoryLink,
-codestar-connections:ListTagsForResource,
-codestar-connections:GetConnection</pre>
-
-### Delete
-<pre>
-codestar-connections:GetRepositoryLink,
-codestar-connections:DeleteRepositoryLink,
-codestar-connections:GetConnection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +56,35 @@ repository_link_arn,
 tags
 FROM awscc.codestarconnections.repository_link
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RepositoryLinkArn&gt;'
+AND data__Identifier = '{RepositoryLinkArn}';
 ```
+
+## Permissions
+
+To operate on the <code>repository_link</code> resource, the following permissions are required:
+
+### Update
+```json
+codestar-connections:GetConnection,
+codestar-connections:ListTagsForResource,
+codestar-connections:PassConnection,
+codestar-connections:UseConnection,
+codestar-connections:TagResource,
+codestar-connections:UntagResource,
+codestar-connections:UpdateRepositoryLink
+```
+
+### Read
+```json
+codestar-connections:GetRepositoryLink,
+codestar-connections:ListTagsForResource,
+codestar-connections:GetConnection
+```
+
+### Delete
+```json
+codestar-connections:GetRepositoryLink,
+codestar-connections:DeleteRepositoryLink,
+codestar-connections:GetConnection
+```
+

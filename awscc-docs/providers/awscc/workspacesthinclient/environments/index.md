@@ -35,12 +35,21 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.workspacesthinclient.environments
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 thinclient:CreateEnvironment,
 thinclient:TagResource,
 thinclient:ListTagsForResource,
@@ -51,22 +60,15 @@ workspaces-web:GetUserSettings,
 kms:DescribeKey,
 kms:Encrypt,
 kms:Decrypt,
-kms:CreateGrant</pre>
+kms:CreateGrant
+```
 
 ### List
-<pre>
+```json
 thinclient:ListEnvironment,
 thinclient:ListTagsForResource,
 kms:DescribeKey,
 kms:Encrypt,
-kms:Decrypt</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.workspacesthinclient.environments
-WHERE region = 'us-east-1'
+kms:Decrypt
 ```
+

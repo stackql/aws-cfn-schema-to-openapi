@@ -35,23 +35,6 @@ Retrieves a list of <code>capacity_reservations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>capacity_reservations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-athena:CreateCapacityReservation,
-athena:PutCapacityAssignmentConfiguration,
-athena:GetCapacityReservation,
-athena:TagResource</pre>
-
-### List
-<pre>
-athena:ListCapacityReservations,
-athena:GetCapacityReservation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ arn
 FROM awscc.athena.capacity_reservations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>capacity_reservations</code> resource, the following permissions are required:
+
+### Create
+```json
+athena:CreateCapacityReservation,
+athena:PutCapacityAssignmentConfiguration,
+athena:GetCapacityReservation,
+athena:TagResource
+```
+
+### List
+```json
+athena:ListCapacityReservations,
+athena:GetCapacityReservation
+```
+

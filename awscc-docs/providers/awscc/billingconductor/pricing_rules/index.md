@@ -35,23 +35,6 @@ Retrieves a list of <code>pricing_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pricing_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-billingconductor:CreatePricingRule,
-billingconductor:ListPricingRules,
-billingconductor:TagResource,
-billingconductor:ListTagsForResource</pre>
-
-### List
-<pre>
-billingconductor:ListPricingRules,
-billingconductor:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ arn
 FROM awscc.billingconductor.pricing_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>pricing_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+billingconductor:CreatePricingRule,
+billingconductor:ListPricingRules,
+billingconductor:TagResource,
+billingconductor:ListTagsForResource
+```
+
+### List
+```json
+billingconductor:ListPricingRules,
+billingconductor:ListTagsForResource
+```
+

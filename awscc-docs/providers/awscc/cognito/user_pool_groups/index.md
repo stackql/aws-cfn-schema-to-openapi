@@ -36,22 +36,6 @@ Retrieves a list of <code>user_pool_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-idp:CreateGroup,
-iam:PassRole,
-iam:PutRolePolicy,
-cognito-idp:GetGroup</pre>
-
-### List
-<pre>
-cognito-idp:ListGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ group_name
 FROM awscc.cognito.user_pool_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-idp:CreateGroup,
+iam:PassRole,
+iam:PutRolePolicy,
+cognito-idp:GetGroup
+```
+
+### List
+```json
+cognito-idp:ListGroups
+```
+

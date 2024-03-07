@@ -45,28 +45,6 @@ Gets an individual <code>endpoint_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>endpoint_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-globalaccelerator:DescribeEndpointGroup</pre>
-
-### Update
-<pre>
-globalaccelerator:UpdateEndpointGroup,
-globalaccelerator:DescribeEndpointGroup,
-globalaccelerator:DescribeListener,
-globalaccelerator:DescribeAccelerator</pre>
-
-### Delete
-<pre>
-globalaccelerator:DeleteEndpointGroup,
-globalaccelerator:DescribeEndpointGroup,
-globalaccelerator:DescribeAccelerator</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +61,30 @@ threshold_count,
 endpoint_group_arn,
 port_overrides
 FROM awscc.globalaccelerator.endpoint_group
-WHERE data__Identifier = '&lt;EndpointGroupArn&gt;'
+WHERE data__Identifier = '{EndpointGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>endpoint_group</code> resource, the following permissions are required:
+
+### Read
+```json
+globalaccelerator:DescribeEndpointGroup
+```
+
+### Update
+```json
+globalaccelerator:UpdateEndpointGroup,
+globalaccelerator:DescribeEndpointGroup,
+globalaccelerator:DescribeListener,
+globalaccelerator:DescribeAccelerator
+```
+
+### Delete
+```json
+globalaccelerator:DeleteEndpointGroup,
+globalaccelerator:DescribeEndpointGroup,
+globalaccelerator:DescribeAccelerator
+```
+

@@ -40,26 +40,6 @@ Gets an individual <code>listener_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>listener_rule</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-elasticloadbalancing:DeleteRule,
-elasticloadbalancing:DescribeRules</pre>
-
-### Read
-<pre>
-elasticloadbalancing:DescribeRules</pre>
-
-### Update
-<pre>
-elasticloadbalancing:ModifyRule,
-elasticloadbalancing:SetRulePriorities,
-elasticloadbalancing:DescribeRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +52,28 @@ conditions,
 is_default
 FROM awscc.elasticloadbalancingv2.listener_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RuleArn&gt;'
+AND data__Identifier = '{RuleArn}';
 ```
+
+## Permissions
+
+To operate on the <code>listener_rule</code> resource, the following permissions are required:
+
+### Delete
+```json
+elasticloadbalancing:DeleteRule,
+elasticloadbalancing:DescribeRules
+```
+
+### Read
+```json
+elasticloadbalancing:DescribeRules
+```
+
+### Update
+```json
+elasticloadbalancing:ModifyRule,
+elasticloadbalancing:SetRulePriorities,
+elasticloadbalancing:DescribeRules
+```
+

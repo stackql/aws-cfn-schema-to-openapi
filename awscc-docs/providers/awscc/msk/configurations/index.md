@@ -35,20 +35,6 @@ Retrieves a list of <code>configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kafka:CreateConfiguration,
-Kafka:DescribeConfiguration</pre>
-
-### List
-<pre>
-kafka:ListConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ arn
 FROM awscc.msk.configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+kafka:CreateConfiguration,
+Kafka:DescribeConfiguration
+```
+
+### List
+```json
+kafka:ListConfigurations
+```
+

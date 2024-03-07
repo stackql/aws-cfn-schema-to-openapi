@@ -35,24 +35,6 @@ Retrieves a list of <code>thing_types</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>thing_types</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:DescribeThingType,
-iot:ListTagsForResource,
-iot:CreateThingType,
-iot:DeprecateThingType,
-iot:TagResource</pre>
-
-### List
-<pre>
-iot:ListThingTypes,
-iot:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ thing_type_name
 FROM awscc.iot.thing_types
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>thing_types</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:DescribeThingType,
+iot:ListTagsForResource,
+iot:CreateThingType,
+iot:DeprecateThingType,
+iot:TagResource
+```
+
+### List
+```json
+iot:ListThingTypes,
+iot:ListTagsForResource
+```
+

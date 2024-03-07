@@ -43,27 +43,6 @@ Gets an individual <code>lifecycle_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>lifecycle_policy</code> resource, the following permissions are required:
-
-### Update
-<pre>
-iam:PassRole,
-imagebuilder:GetLifecyclePolicy,
-imagebuilder:UpdateLifecyclePolicy</pre>
-
-### Read
-<pre>
-imagebuilder:GetLifecyclePolicy</pre>
-
-### Delete
-<pre>
-imagebuilder:GetLifecyclePolicy,
-imagebuilder:DeleteLifecyclePolicy,
-imagebuilder:UnTagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +58,29 @@ resource_selection,
 tags
 FROM awscc.imagebuilder.lifecycle_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>lifecycle_policy</code> resource, the following permissions are required:
+
+### Update
+```json
+iam:PassRole,
+imagebuilder:GetLifecyclePolicy,
+imagebuilder:UpdateLifecyclePolicy
+```
+
+### Read
+```json
+imagebuilder:GetLifecyclePolicy
+```
+
+### Delete
+```json
+imagebuilder:GetLifecyclePolicy,
+imagebuilder:DeleteLifecyclePolicy,
+imagebuilder:UnTagResource
+```
+

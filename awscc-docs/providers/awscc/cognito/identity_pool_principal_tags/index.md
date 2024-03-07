@@ -36,20 +36,6 @@ Retrieves a list of <code>identity_pool_principal_tags</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_pool_principal_tags</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-identity:GetPrincipalTagAttributeMap,
-cognito-identity:SetPrincipalTagAttributeMap</pre>
-
-### List
-<pre>
-cognito-identity:GetPrincipalTagAttributeMap</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ identity_provider_name
 FROM awscc.cognito.identity_pool_principal_tags
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>identity_pool_principal_tags</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-identity:GetPrincipalTagAttributeMap,
+cognito-identity:SetPrincipalTagAttributeMap
+```
+
+### List
+```json
+cognito-identity:GetPrincipalTagAttributeMap
+```
+

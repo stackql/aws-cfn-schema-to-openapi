@@ -42,32 +42,6 @@ Gets an individual <code>permission</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>permission</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ram:GetPermission</pre>
-
-### Update
-<pre>
-ram:CreatePermissionVersion,
-ram:DeletePermissionVersion,
-ram:SetDefaultPermissionVersion,
-ram:GetPermission,
-ram:ReplacePermissionAssociations,
-ram:ListReplacePermissionAssociationsWork,
-ram:ListPermissionVersions,
-ram:UntagResource,
-ram:TagResource</pre>
-
-### Delete
-<pre>
-ram:DeletePermissionVersion,
-ram:DeletePermission</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +56,34 @@ policy_template,
 tags
 FROM awscc.ram.permission
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>permission</code> resource, the following permissions are required:
+
+### Read
+```json
+ram:GetPermission
+```
+
+### Update
+```json
+ram:CreatePermissionVersion,
+ram:DeletePermissionVersion,
+ram:SetDefaultPermissionVersion,
+ram:GetPermission,
+ram:ReplacePermissionAssociations,
+ram:ListReplacePermissionAssociationsWork,
+ram:ListPermissionVersions,
+ram:UntagResource,
+ram:TagResource
+```
+
+### Delete
+```json
+ram:DeletePermissionVersion,
+ram:DeletePermission
+```
+

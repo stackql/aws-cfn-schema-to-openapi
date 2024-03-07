@@ -43,31 +43,6 @@ Gets an individual <code>capacity_reservation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>capacity_reservation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-athena:GetCapacityReservation,
-athena:GetCapacityAssignmentConfiguration,
-athena:ListTagsForResource</pre>
-
-### Update
-<pre>
-athena:UpdateCapacityReservation,
-athena:PutCapacityAssignmentConfiguration,
-athena:GetCapacityReservation,
-athena:TagResource,
-athena:UntagResource</pre>
-
-### Delete
-<pre>
-athena:CancelCapacityReservation,
-athena:GetCapacityReservation,
-athena:DeleteCapacityReservation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +58,33 @@ last_successful_allocation_time,
 tags
 FROM awscc.athena.capacity_reservation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>capacity_reservation</code> resource, the following permissions are required:
+
+### Read
+```json
+athena:GetCapacityReservation,
+athena:GetCapacityAssignmentConfiguration,
+athena:ListTagsForResource
+```
+
+### Update
+```json
+athena:UpdateCapacityReservation,
+athena:PutCapacityAssignmentConfiguration,
+athena:GetCapacityReservation,
+athena:TagResource,
+athena:UntagResource
+```
+
+### Delete
+```json
+athena:CancelCapacityReservation,
+athena:GetCapacityReservation,
+athena:DeleteCapacityReservation
+```
+

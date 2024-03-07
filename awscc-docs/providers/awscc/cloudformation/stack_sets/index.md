@@ -35,28 +35,6 @@ Retrieves a list of <code>stack_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stack_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cloudformation:GetTemplateSummary,
-cloudformation:CreateStackSet,
-cloudformation:CreateStackInstances,
-cloudformation:DescribeStackSetOperation,
-cloudformation:ListStackSetOperationResults,
-cloudformation:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-cloudformation:ListStackSets,
-cloudformation:DescribeStackSet,
-cloudformation:ListStackInstances,
-cloudformation:DescribeStackInstance</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,3 +43,27 @@ stack_set_id
 FROM awscc.cloudformation.stack_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>stack_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudformation:GetTemplateSummary,
+cloudformation:CreateStackSet,
+cloudformation:CreateStackInstances,
+cloudformation:DescribeStackSetOperation,
+cloudformation:ListStackSetOperationResults,
+cloudformation:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+cloudformation:ListStackSets,
+cloudformation:DescribeStackSet,
+cloudformation:ListStackInstances,
+cloudformation:DescribeStackInstance
+```
+

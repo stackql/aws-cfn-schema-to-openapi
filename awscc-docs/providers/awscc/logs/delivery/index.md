@@ -40,29 +40,6 @@ Gets an individual <code>delivery</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:GetDelivery,
-logs:ListTagsForResource</pre>
-
-### Update
-<pre>
-logs:GetDelivery,
-logs:ListTagsForResource,
-logs:TagResource,
-logs:UntagResource</pre>
-
-### Delete
-<pre>
-logs:DeleteDelivery,
-logs:ListTagsForResource,
-logs:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ delivery_destination_type,
 tags
 FROM awscc.logs.delivery
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DeliveryId&gt;'
+AND data__Identifier = '{DeliveryId}';
 ```
+
+## Permissions
+
+To operate on the <code>delivery</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:GetDelivery,
+logs:ListTagsForResource
+```
+
+### Update
+```json
+logs:GetDelivery,
+logs:ListTagsForResource,
+logs:TagResource,
+logs:UntagResource
+```
+
+### Delete
+```json
+logs:DeleteDelivery,
+logs:ListTagsForResource,
+logs:UntagResource
+```
+

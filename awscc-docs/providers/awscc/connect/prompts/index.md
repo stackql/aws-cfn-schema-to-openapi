@@ -35,23 +35,6 @@ Retrieves a list of <code>prompts</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>prompts</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreatePrompt,
-connect:TagResource,
-s3:GetObject,
-kms:Decrypt,
-s3:GetObjectAcl</pre>
-
-### List
-<pre>
-connect:ListPrompts</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ prompt_arn
 FROM awscc.connect.prompts
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>prompts</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreatePrompt,
+connect:TagResource,
+s3:GetObject,
+kms:Decrypt,
+s3:GetObjectAcl
+```
+
+### List
+```json
+connect:ListPrompts
+```
+

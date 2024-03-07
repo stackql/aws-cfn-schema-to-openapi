@@ -35,21 +35,6 @@ Retrieves a list of <code>allow_lists</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>allow_lists</code> resource, the following permissions are required:
-
-### Create
-<pre>
-macie2:CreateAllowList,
-macie2:GetAllowList,
-macie2:TagResource</pre>
-
-### List
-<pre>
-macie2:ListAllowLists</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.macie.allow_lists
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>allow_lists</code> resource, the following permissions are required:
+
+### Create
+```json
+macie2:CreateAllowList,
+macie2:GetAllowList,
+macie2:TagResource
+```
+
+### List
+```json
+macie2:ListAllowLists
+```
+

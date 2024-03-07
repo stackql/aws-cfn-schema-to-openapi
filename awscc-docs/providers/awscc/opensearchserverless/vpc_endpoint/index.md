@@ -39,17 +39,32 @@ Gets an individual <code>vpc_endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id,
+name,
+security_group_ids,
+subnet_ids,
+vpc_id
+FROM awscc.opensearchserverless.vpc_endpoint
+WHERE region = 'us-east-1'
+AND data__Identifier = '{Id}';
+```
+
 ## Permissions
 
 To operate on the <code>vpc_endpoint</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 aoss:BatchGetVpcEndpoint,
-ec2:DescribeVpcEndpoints</pre>
+ec2:DescribeVpcEndpoints
+```
 
 ### Update
-<pre>
+```json
 aoss:BatchGetVpcEndpoint,
 aoss:UpdateVpcEndpoint,
 ec2:CreateVpcEndpoint,
@@ -67,10 +82,11 @@ route53:ListResourceRecordSets,
 route53:ListHostedZonesByName,
 route53:CreateHostedZone,
 route53:ListHostedZonesByVPC,
-route53:AssociateVPCWithHostedZone</pre>
+route53:AssociateVPCWithHostedZone
+```
 
 ### Delete
-<pre>
+```json
 aoss:BatchGetVpcEndpoint,
 aoss:DeleteVpcEndpoint,
 ec2:DeleteVpcEndPoints,
@@ -87,19 +103,6 @@ route53:GetHostedZone,
 route53:ListResourceRecordSets,
 route53:ListHostedZonesByName,
 route53:ListHostedZonesByVPC,
-route53:AssociateVPCWithHostedZone</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id,
-name,
-security_group_ids,
-subnet_ids,
-vpc_id
-FROM awscc.opensearchserverless.vpc_endpoint
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+route53:AssociateVPCWithHostedZone
 ```
+

@@ -47,41 +47,6 @@ Gets an individual <code>user_settings</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_settings</code> resource, the following permissions are required:
-
-### Read
-<pre>
-workspaces-web:GetUserSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-workspaces-web:UpdateUserSettings,
-workspaces-web:TagResource,
-workspaces-web:UntagResource,
-workspaces-web:GetUserSettings,
-workspaces-web:ListTagsForResource,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-### Delete
-<pre>
-workspaces-web:GetUserSettings,
-workspaces-web:DeleteUserSettings,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:GenerateDataKey,
-kms:Decrypt</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -101,5 +66,43 @@ upload_allowed,
 user_settings_arn
 FROM awscc.workspacesweb.user_settings
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserSettingsArn&gt;'
+AND data__Identifier = '{UserSettingsArn}';
 ```
+
+## Permissions
+
+To operate on the <code>user_settings</code> resource, the following permissions are required:
+
+### Read
+```json
+workspaces-web:GetUserSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Update
+```json
+workspaces-web:UpdateUserSettings,
+workspaces-web:TagResource,
+workspaces-web:UntagResource,
+workspaces-web:GetUserSettings,
+workspaces-web:ListTagsForResource,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+
+### Delete
+```json
+workspaces-web:GetUserSettings,
+workspaces-web:DeleteUserSettings,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:GenerateDataKey,
+kms:Decrypt
+```
+

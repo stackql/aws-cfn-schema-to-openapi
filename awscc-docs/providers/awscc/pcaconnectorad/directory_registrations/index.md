@@ -35,22 +35,6 @@ Retrieves a list of <code>directory_registrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>directory_registrations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-pca-connector-ad:GetDirectoryRegistration,
-pca-connector-ad:CreateDirectoryRegistration,
-ds:AuthorizeApplication,
-ds:DescribeDirectories</pre>
-
-### List
-<pre>
-pca-connector-ad:ListDirectoryRegistrations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ directory_registration_arn
 FROM awscc.pcaconnectorad.directory_registrations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>directory_registrations</code> resource, the following permissions are required:
+
+### Create
+```json
+pca-connector-ad:GetDirectoryRegistration,
+pca-connector-ad:CreateDirectoryRegistration,
+ds:AuthorizeApplication,
+ds:DescribeDirectories
+```
+
+### List
+```json
+pca-connector-ad:ListDirectoryRegistrations
+```
+

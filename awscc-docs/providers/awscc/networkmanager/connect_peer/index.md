@@ -47,29 +47,6 @@ Gets an individual <code>connect_peer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connect_peer</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetConnectPeer</pre>
-
-### Update
-<pre>
-networkmanager:GetConnectPeer,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:GetConnectPeer,
-networkmanager:DeleteConnectPeer,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +66,31 @@ subnet_arn,
 tags
 FROM awscc.networkmanager.connect_peer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectPeerId&gt;'
+AND data__Identifier = '{ConnectPeerId}';
 ```
+
+## Permissions
+
+To operate on the <code>connect_peer</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetConnectPeer
+```
+
+### Update
+```json
+networkmanager:GetConnectPeer,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:GetConnectPeer,
+networkmanager:DeleteConnectPeer,
+ec2:DescribeRegions
+```
+

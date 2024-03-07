@@ -52,52 +52,6 @@ Gets an individual <code>event_data_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_data_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-CloudTrail:GetEventDataStore,
-CloudTrail:ListEventDataStores,
-CloudTrail:GetInsightSelectors,
-CloudTrail:ListTags</pre>
-
-### Update
-<pre>
-CloudTrail:UpdateEventDataStore,
-CloudTrail:RestoreEventDataStore,
-CloudTrail:AddTags,
-CloudTrail:RemoveTags,
-CloudTrail:StartEventDataStoreIngestion,
-CloudTrail:StopEventDataStoreIngestion,
-CloudTrail:GetEventDataStore,
-CloudTrail:PutInsightSelectors,
-CloudTrail:GetInsightSelectors,
-CloudTrail:EnableFederation,
-CloudTrail:DisableFederation,
-iam:PassRole,
-iam:GetRole,
-iam:CreateServiceLinkedRole,
-organizations:DescribeOrganization,
-organizations:ListAWSServiceAccessForOrganization,
-glue:CreateDatabase,
-glue:CreateTable,
-glue:PassConnection,
-lakeformation:RegisterResource,
-glue:DeleteTable,
-lakeformation:DeregisterResource,
-kms:DescribeKey</pre>
-
-### Delete
-<pre>
-CloudTrail:DeleteEventDataStore,
-CloudTrail:GetEventDataStore,
-CloudTrail:DisableFederation,
-glue:DeleteTable,
-lakeformation:DeregisterResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -122,5 +76,54 @@ insights_destination,
 ingestion_enabled
 FROM awscc.cloudtrail.event_data_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EventDataStoreArn&gt;'
+AND data__Identifier = '{EventDataStoreArn}';
 ```
+
+## Permissions
+
+To operate on the <code>event_data_store</code> resource, the following permissions are required:
+
+### Read
+```json
+CloudTrail:GetEventDataStore,
+CloudTrail:ListEventDataStores,
+CloudTrail:GetInsightSelectors,
+CloudTrail:ListTags
+```
+
+### Update
+```json
+CloudTrail:UpdateEventDataStore,
+CloudTrail:RestoreEventDataStore,
+CloudTrail:AddTags,
+CloudTrail:RemoveTags,
+CloudTrail:StartEventDataStoreIngestion,
+CloudTrail:StopEventDataStoreIngestion,
+CloudTrail:GetEventDataStore,
+CloudTrail:PutInsightSelectors,
+CloudTrail:GetInsightSelectors,
+CloudTrail:EnableFederation,
+CloudTrail:DisableFederation,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+organizations:DescribeOrganization,
+organizations:ListAWSServiceAccessForOrganization,
+glue:CreateDatabase,
+glue:CreateTable,
+glue:PassConnection,
+lakeformation:RegisterResource,
+glue:DeleteTable,
+lakeformation:DeregisterResource,
+kms:DescribeKey
+```
+
+### Delete
+```json
+CloudTrail:DeleteEventDataStore,
+CloudTrail:GetEventDataStore,
+CloudTrail:DisableFederation,
+glue:DeleteTable,
+lakeformation:DeregisterResource
+```
+

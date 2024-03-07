@@ -39,23 +39,6 @@ Gets an individual <code>member_invitation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>member_invitation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-detective:GetMembers</pre>
-
-### Update
-<pre>
-</pre>
-
-### Delete
-<pre>
-detective:DeleteMembers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,6 +50,21 @@ disable_email_notification,
 message
 FROM awscc.detective.member_invitation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GraphArn&gt;'
-AND data__Identifier = '&lt;MemberId&gt;'
+AND data__Identifier = '{GraphArn}';
+AND data__Identifier = '{MemberId}';
 ```
+
+## Permissions
+
+To operate on the <code>member_invitation</code> resource, the following permissions are required:
+
+### Read
+```json
+detective:GetMembers
+```
+
+### Delete
+```json
+detective:DeleteMembers
+```
+

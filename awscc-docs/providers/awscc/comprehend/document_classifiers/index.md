@@ -35,24 +35,6 @@ Retrieves a list of <code>document_classifiers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>document_classifiers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-comprehend:CreateDocumentClassifier,
-comprehend:DescribeDocumentClassifier,
-comprehend:DescribeResourcePolicy,
-comprehend:ListTagsForResource,
-textract:DetectDocumentText</pre>
-
-### List
-<pre>
-comprehend:ListDocumentClassifiers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.comprehend.document_classifiers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>document_classifiers</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+comprehend:CreateDocumentClassifier,
+comprehend:DescribeDocumentClassifier,
+comprehend:DescribeResourcePolicy,
+comprehend:ListTagsForResource,
+textract:DetectDocumentText
+```
+
+### List
+```json
+comprehend:ListDocumentClassifiers
+```
+

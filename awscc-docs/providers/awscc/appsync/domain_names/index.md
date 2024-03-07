@@ -35,22 +35,6 @@ Retrieves a list of <code>domain_names</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_names</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appsync:CreateDomainName,
-appsync:GetDomainName,
-acm:DescribeCertificate,
-cloudfront:UpdateDistribution</pre>
-
-### List
-<pre>
-appsync:ListDomainNames</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ domain_name
 FROM awscc.appsync.domain_names
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>domain_names</code> resource, the following permissions are required:
+
+### Create
+```json
+appsync:CreateDomainName,
+appsync:GetDomainName,
+acm:DescribeCertificate,
+cloudfront:UpdateDistribution
+```
+
+### List
+```json
+appsync:ListDomainNames
+```
+

@@ -38,23 +38,6 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm:GetResourcePolicies</pre>
-
-### Update
-<pre>
-ssm:PutResourcePolicy</pre>
-
-### Delete
-<pre>
-ssm:DeleteResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,6 +48,26 @@ policy_id,
 policy_hash
 FROM awscc.ssm.resource_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyId&gt;'
-AND data__Identifier = '&lt;ResourceArn&gt;'
+AND data__Identifier = '{PolicyId}';
+AND data__Identifier = '{ResourceArn}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm:GetResourcePolicies
+```
+
+### Update
+```json
+ssm:PutResourcePolicy
+```
+
+### Delete
+```json
+ssm:DeleteResourcePolicy
+```
+

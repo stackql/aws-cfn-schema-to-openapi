@@ -42,30 +42,6 @@ Gets an individual <code>hypervisor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hypervisor</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup-gateway:GetHypervisor,
-backup-gateway:ListHypervisors</pre>
-
-### Update
-<pre>
-backup-gateway:UpdateHypervisor,
-backup-gateway:GetHypervisor,
-backup-gateway:ListHypervisors,
-backup-gateway:ImportHypervisorConfiguration,
-backup-gateway:DeleteHypervisor</pre>
-
-### Delete
-<pre>
-backup-gateway:DeleteHypervisor,
-backup-gateway:GetHypervisor,
-backup-gateway:ListHypervisors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +56,32 @@ tags,
 username
 FROM awscc.backupgateway.hypervisor
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;HypervisorArn&gt;'
+AND data__Identifier = '{HypervisorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>hypervisor</code> resource, the following permissions are required:
+
+### Read
+```json
+backup-gateway:GetHypervisor,
+backup-gateway:ListHypervisors
+```
+
+### Update
+```json
+backup-gateway:UpdateHypervisor,
+backup-gateway:GetHypervisor,
+backup-gateway:ListHypervisors,
+backup-gateway:ImportHypervisorConfiguration,
+backup-gateway:DeleteHypervisor
+```
+
+### Delete
+```json
+backup-gateway:DeleteHypervisor,
+backup-gateway:GetHypervisor,
+backup-gateway:ListHypervisors
+```
+

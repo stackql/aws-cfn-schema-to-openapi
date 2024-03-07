@@ -35,22 +35,6 @@ Retrieves a list of <code>service_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-proton:CreateServiceTemplate,
-proton:TagResource,
-kms:*,
-proton:GetServiceTemplate</pre>
-
-### List
-<pre>
-proton:ListServiceTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.proton.service_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>service_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+proton:CreateServiceTemplate,
+proton:TagResource,
+kms:*,
+proton:GetServiceTemplate
+```
+
+### List
+```json
+proton:ListServiceTemplates
+```
+

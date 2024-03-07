@@ -59,27 +59,6 @@ Gets an individual <code>user_pool_client</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_client</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-idp:DescribeUserPoolClient</pre>
-
-### Update
-<pre>
-cognito-idp:UpdateUserPoolClient,
-iam:PassRole,
-iam:PutRolePolicy</pre>
-
-### Delete
-<pre>
-cognito-idp:DeleteUserPoolClient,
-iam:PutRolePolicy,
-iam:DeleteRolePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -111,6 +90,30 @@ client_secret,
 client_id
 FROM awscc.cognito.user_pool_client
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserPoolId&gt;'
-AND data__Identifier = '&lt;ClientId&gt;'
+AND data__Identifier = '{UserPoolId}';
+AND data__Identifier = '{ClientId}';
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_client</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-idp:DescribeUserPoolClient
+```
+
+### Update
+```json
+cognito-idp:UpdateUserPoolClient,
+iam:PassRole,
+iam:PutRolePolicy
+```
+
+### Delete
+```json
+cognito-idp:DeleteUserPoolClient,
+iam:PutRolePolicy,
+iam:DeleteRolePolicy
+```
+

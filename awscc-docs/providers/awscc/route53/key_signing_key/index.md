@@ -38,34 +38,6 @@ Gets an individual <code>key_signing_key</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>key_signing_key</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53:GetDNSSEC</pre>
-
-### Update
-<pre>
-route53:GetDNSSEC,
-route53:ActivateKeySigningKey,
-route53:DeactivateKeySigningKey,
-kms:DescribeKey,
-kms:GetPublicKey,
-kms:Sign,
-kms:CreateGrant</pre>
-
-### Delete
-<pre>
-route53:DeactivateKeySigningKey,
-route53:DeleteKeySigningKey,
-kms:DescribeKey,
-kms:GetPublicKey,
-kms:Sign,
-kms:CreateGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,6 +47,37 @@ status,
 name,
 key_management_service_arn
 FROM awscc.route53.key_signing_key
-WHERE data__Identifier = '&lt;HostedZoneId&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+WHERE data__Identifier = '{HostedZoneId}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>key_signing_key</code> resource, the following permissions are required:
+
+### Read
+```json
+route53:GetDNSSEC
+```
+
+### Update
+```json
+route53:GetDNSSEC,
+route53:ActivateKeySigningKey,
+route53:DeactivateKeySigningKey,
+kms:DescribeKey,
+kms:GetPublicKey,
+kms:Sign,
+kms:CreateGrant
+```
+
+### Delete
+```json
+route53:DeactivateKeySigningKey,
+route53:DeleteKeySigningKey,
+kms:DescribeKey,
+kms:GetPublicKey,
+kms:Sign,
+kms:CreateGrant
+```
+

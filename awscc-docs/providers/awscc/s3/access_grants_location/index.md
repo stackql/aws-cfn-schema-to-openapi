@@ -39,25 +39,6 @@ Gets an individual <code>access_grants_location</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_grants_location</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccessGrantsLocation</pre>
-
-### Delete
-<pre>
-s3:DeleteAccessGrantsLocation</pre>
-
-### Update
-<pre>
-s3:UpdateAccessGrantsLocation,
-s3:TagResource,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +50,27 @@ location_scope,
 tags
 FROM awscc.s3.access_grants_location
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccessGrantsLocationId&gt;'
+AND data__Identifier = '{AccessGrantsLocationId}';
 ```
+
+## Permissions
+
+To operate on the <code>access_grants_location</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccessGrantsLocation
+```
+
+### Delete
+```json
+s3:DeleteAccessGrantsLocation
+```
+
+### Update
+```json
+s3:UpdateAccessGrantsLocation,
+s3:TagResource,
+iam:PassRole
+```
+

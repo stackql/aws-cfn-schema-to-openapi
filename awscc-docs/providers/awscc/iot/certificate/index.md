@@ -41,26 +41,6 @@ Gets an individual <code>certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeCertificate</pre>
-
-### Update
-<pre>
-iot:UpdateCertificate,
-iot:DescribeCertificate</pre>
-
-### Delete
-<pre>
-iot:DeleteCertificate,
-iot:UpdateCertificate,
-iot:DescribeCertificate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ id,
 arn
 FROM awscc.iot.certificate
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeCertificate
+```
+
+### Update
+```json
+iot:UpdateCertificate,
+iot:DescribeCertificate
+```
+
+### Delete
+```json
+iot:DeleteCertificate,
+iot:UpdateCertificate,
+iot:DescribeCertificate
+```
+

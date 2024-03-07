@@ -41,26 +41,6 @@ Gets an individual <code>traffic_distribution_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>traffic_distribution_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeTrafficDistributionGroup</pre>
-
-### Update
-<pre>
-connect:TagResource,
-connect:UntagResource</pre>
-
-### Delete
-<pre>
-connect:DeleteTrafficDistributionGroup,
-connect:DescribeTrafficDistributionGroup,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ tags,
 is_default
 FROM awscc.connect.traffic_distribution_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrafficDistributionGroupArn&gt;'
+AND data__Identifier = '{TrafficDistributionGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>traffic_distribution_group</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeTrafficDistributionGroup
+```
+
+### Update
+```json
+connect:TagResource,
+connect:UntagResource
+```
+
+### Delete
+```json
+connect:DeleteTrafficDistributionGroup,
+connect:DescribeTrafficDistributionGroup,
+connect:UntagResource
+```
+

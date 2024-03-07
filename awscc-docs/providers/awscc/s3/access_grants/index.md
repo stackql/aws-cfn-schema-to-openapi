@@ -35,20 +35,6 @@ Retrieves a list of <code>access_grants</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_grants</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3:CreateAccessGrant,
-s3:TagResource</pre>
-
-### List
-<pre>
-s3:ListAccessGrants</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ access_grant_id
 FROM awscc.s3.access_grants
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>access_grants</code> resource, the following permissions are required:
+
+### Create
+```json
+s3:CreateAccessGrant,
+s3:TagResource
+```
+
+### List
+```json
+s3:ListAccessGrants
+```
+

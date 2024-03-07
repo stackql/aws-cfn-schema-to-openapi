@@ -37,27 +37,6 @@ Retrieves a list of <code>account_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>account_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-logs:PutAccountPolicy,
-logs:PutDataProtectionPolicy,
-logs:DescribeAccountPolicies,
-logs:CreateLogDelivery,
-s3:REST.PUT.OBJECT,
-firehose:TagDeliveryStream,
-logs:PutSubscriptionFilter,
-logs:DeleteSubscriptionFilter,
-iam:PassRole</pre>
-
-### List
-<pre>
-logs:DescribeAccountPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,3 +47,26 @@ policy_name
 FROM awscc.logs.account_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>account_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+logs:PutAccountPolicy,
+logs:PutDataProtectionPolicy,
+logs:DescribeAccountPolicies,
+logs:CreateLogDelivery,
+s3:REST.PUT.OBJECT,
+firehose:TagDeliveryStream,
+logs:PutSubscriptionFilter,
+logs:DeleteSubscriptionFilter,
+iam:PassRole
+```
+
+### List
+```json
+logs:DescribeAccountPolicies
+```
+

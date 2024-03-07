@@ -41,31 +41,6 @@ Gets an individual <code>thing_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>thing_group</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-iot:DescribeThingGroup,
-iot:DeleteThingGroup,
-iot:DeleteDynamicThingGroup</pre>
-
-### Read
-<pre>
-iot:DescribeThingGroup,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:ListTagsForResource,
-iot:DescribeThingGroup,
-iot:UpdateThingGroup,
-iot:UpdateDynamicThingGroup,
-iot:TagResource,
-iot:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +54,33 @@ thing_group_properties,
 tags
 FROM awscc.iot.thing_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ThingGroupName&gt;'
+AND data__Identifier = '{ThingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>thing_group</code> resource, the following permissions are required:
+
+### Delete
+```json
+iot:DescribeThingGroup,
+iot:DeleteThingGroup,
+iot:DeleteDynamicThingGroup
+```
+
+### Read
+```json
+iot:DescribeThingGroup,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:ListTagsForResource,
+iot:DescribeThingGroup,
+iot:UpdateThingGroup,
+iot:UpdateDynamicThingGroup,
+iot:TagResource,
+iot:UntagResource
+```
+

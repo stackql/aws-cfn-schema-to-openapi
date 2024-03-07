@@ -35,12 +35,21 @@ Retrieves a list of <code>profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+profile_id
+FROM awscc.b2bi.profiles
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>profiles</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 b2bi:CreateProfile,
 b2bi:TagResource,
 logs:CreateLogDelivery,
@@ -51,18 +60,11 @@ logs:DescribeLogStreams,
 logs:DescribeResourcePolicies,
 logs:ListLogDeliveries,
 logs:PutLogEvents,
-logs:PutResourcePolicy</pre>
+logs:PutResourcePolicy
+```
 
 ### List
-<pre>
-b2bi:ListProfiles</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-profile_id
-FROM awscc.b2bi.profiles
-WHERE region = 'us-east-1'
+```json
+b2bi:ListProfiles
 ```
+

@@ -44,36 +44,6 @@ Gets an individual <code>environment_account_connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_account_connection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-proton:GetEnvironmentAccountConnection,
-proton:ListTagsForResource,
-iam:PassRole,
-proton:GetEnvironmentAccountConnection</pre>
-
-### Update
-<pre>
-proton:CreateEnvironmentAccountConnection,
-proton:ListTagsForResource,
-proton:TagResource,
-proton:UntagResource,
-proton:UpdateEnvironmentAccountConnection,
-iam:PassRole,
-proton:GetEnvironmentAccountConnection</pre>
-
-### Delete
-<pre>
-proton:DeleteEnvironmentAccountConnection,
-proton:UntagResource,
-iam:PassRole,
-proton:ListTagsForResource,
-proton:GetEnvironmentAccountConnection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +60,38 @@ status,
 tags
 FROM awscc.proton.environment_account_connection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>environment_account_connection</code> resource, the following permissions are required:
+
+### Read
+```json
+proton:GetEnvironmentAccountConnection,
+proton:ListTagsForResource,
+iam:PassRole,
+proton:GetEnvironmentAccountConnection
+```
+
+### Update
+```json
+proton:CreateEnvironmentAccountConnection,
+proton:ListTagsForResource,
+proton:TagResource,
+proton:UntagResource,
+proton:UpdateEnvironmentAccountConnection,
+iam:PassRole,
+proton:GetEnvironmentAccountConnection
+```
+
+### Delete
+```json
+proton:DeleteEnvironmentAccountConnection,
+proton:UntagResource,
+iam:PassRole,
+proton:ListTagsForResource,
+proton:GetEnvironmentAccountConnection
+```
+

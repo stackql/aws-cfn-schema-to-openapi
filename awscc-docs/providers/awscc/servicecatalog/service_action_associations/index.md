@@ -37,20 +37,6 @@ Retrieves a list of <code>service_action_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_action_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-servicecatalog:AssociateServiceActionWithProvisioningArtifact,
-servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
-
-### List
-<pre>
-servicecatalog:ListServiceActionsForProvisioningArtifact</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +47,19 @@ service_action_id
 FROM awscc.servicecatalog.service_action_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>service_action_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+servicecatalog:AssociateServiceActionWithProvisioningArtifact,
+servicecatalog:ListServiceActionsForProvisioningArtifact
+```
+
+### List
+```json
+servicecatalog:ListServiceActionsForProvisioningArtifact
+```
+

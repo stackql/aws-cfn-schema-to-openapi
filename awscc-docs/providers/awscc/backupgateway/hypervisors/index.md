@@ -35,25 +35,6 @@ Retrieves a list of <code>hypervisors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hypervisors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-backup-gateway:ImportHypervisorConfiguration,
-backup-gateway:GetHypervisor,
-backup-gateway:ListHypervisors,
-backup-gateway:TagResource,
-kms:CreateGrant,
-kms:Encrypt,
-kms:Decrypt</pre>
-
-### List
-<pre>
-backup-gateway:ListHypervisors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ hypervisor_arn
 FROM awscc.backupgateway.hypervisors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>hypervisors</code> resource, the following permissions are required:
+
+### Create
+```json
+backup-gateway:ImportHypervisorConfiguration,
+backup-gateway:GetHypervisor,
+backup-gateway:ListHypervisors,
+backup-gateway:TagResource,
+kms:CreateGrant,
+kms:Encrypt,
+kms:Decrypt
+```
+
+### List
+```json
+backup-gateway:ListHypervisors
+```
+

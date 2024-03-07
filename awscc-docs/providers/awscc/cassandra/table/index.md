@@ -47,12 +47,35 @@ Gets an individual <code>table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+keyspace_name,
+table_name,
+regular_columns,
+partition_key_columns,
+clustering_key_columns,
+billing_mode,
+point_in_time_recovery_enabled,
+client_side_timestamps_enabled,
+tags,
+default_time_to_live,
+encryption_specification,
+auto_scaling_specifications,
+replica_specifications
+FROM awscc.cassandra.table
+WHERE region = 'us-east-1'
+AND data__Identifier = '{KeyspaceName}';
+AND data__Identifier = '{TableName}';
+```
+
 ## Permissions
 
 To operate on the <code>table</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 cassandra:Select,
 cassandra:SelectMultiRegionResource,
 application-autoscaling:DescribeScalableTargets,
@@ -63,10 +86,11 @@ application-autoscaling:PutScalingPolicy,
 cloudwatch:DeleteAlarms,
 cloudwatch:DescribeAlarms,
 cloudwatch:GetMetricData,
-cloudwatch:PutMetricAlarm</pre>
+cloudwatch:PutMetricAlarm
+```
 
 ### Update
-<pre>
+```json
 cassandra:Alter,
 cassandra:AlterMultiRegionResource,
 cassandra:Select,
@@ -87,10 +111,11 @@ application-autoscaling:PutScalingPolicy,
 cloudwatch:DeleteAlarms,
 cloudwatch:DescribeAlarms,
 cloudwatch:GetMetricData,
-cloudwatch:PutMetricAlarm</pre>
+cloudwatch:PutMetricAlarm
+```
 
 ### Delete
-<pre>
+```json
 cassandra:Drop,
 cassandra:DropMultiRegionResource,
 cassandra:Select,
@@ -103,28 +128,6 @@ application-autoscaling:PutScalingPolicy,
 cloudwatch:DeleteAlarms,
 cloudwatch:DescribeAlarms,
 cloudwatch:GetMetricData,
-cloudwatch:PutMetricAlarm</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-keyspace_name,
-table_name,
-regular_columns,
-partition_key_columns,
-clustering_key_columns,
-billing_mode,
-point_in_time_recovery_enabled,
-client_side_timestamps_enabled,
-tags,
-default_time_to_live,
-encryption_specification,
-auto_scaling_specifications,
-replica_specifications
-FROM awscc.cassandra.table
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KeyspaceName&gt;'
-AND data__Identifier = '&lt;TableName&gt;'
+cloudwatch:PutMetricAlarm
 ```
+

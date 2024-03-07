@@ -45,27 +45,6 @@ Gets an individual <code>task_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:GetTaskTemplate</pre>
-
-### Update
-<pre>
-connect:UpdateTaskTemplate,
-connect:TagResource,
-connect:UntagResource</pre>
-
-### Delete
-<pre>
-connect:DeleteTaskTemplate,
-connect:UntagResource,
-connect:GetTaskTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +62,29 @@ client_token,
 tags
 FROM awscc.connect.task_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>task_template</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:GetTaskTemplate
+```
+
+### Update
+```json
+connect:UpdateTaskTemplate,
+connect:TagResource,
+connect:UntagResource
+```
+
+### Delete
+```json
+connect:DeleteTaskTemplate,
+connect:UntagResource,
+connect:GetTaskTemplate
+```
+

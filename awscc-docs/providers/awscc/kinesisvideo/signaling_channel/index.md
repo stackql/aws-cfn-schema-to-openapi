@@ -39,25 +39,6 @@ Gets an individual <code>signaling_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>signaling_channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kinesisvideo:DescribeSignalingChannel</pre>
-
-### Update
-<pre>
-kinesisvideo:UpdateSignalingChannel,
-kinesisvideo:DescribeSignalingChannel</pre>
-
-### Delete
-<pre>
-kinesisvideo:DeleteSignalingChannel,
-kinesisvideo:DescribeSignalingChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +50,27 @@ message_ttl_seconds,
 tags
 FROM awscc.kinesisvideo.signaling_channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>signaling_channel</code> resource, the following permissions are required:
+
+### Read
+```json
+kinesisvideo:DescribeSignalingChannel
+```
+
+### Update
+```json
+kinesisvideo:UpdateSignalingChannel,
+kinesisvideo:DescribeSignalingChannel
+```
+
+### Delete
+```json
+kinesisvideo:DeleteSignalingChannel,
+kinesisvideo:DescribeSignalingChannel
+```
+

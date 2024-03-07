@@ -35,22 +35,6 @@ Retrieves a list of <code>in_app_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>in_app_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mobiletargeting:CreateInAppTemplate,
-mobiletargeting:GetInAppTemplate,
-mobiletargeting:TagResource</pre>
-
-### List
-<pre>
-mobiletargeting:GetInAppTemplate,
-mobiletargeting:ListTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ template_name
 FROM awscc.pinpoint.in_app_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>in_app_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+mobiletargeting:CreateInAppTemplate,
+mobiletargeting:GetInAppTemplate,
+mobiletargeting:TagResource
+```
+
+### List
+```json
+mobiletargeting:GetInAppTemplate,
+mobiletargeting:ListTemplates
+```
+

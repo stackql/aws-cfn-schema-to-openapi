@@ -43,34 +43,6 @@ Gets an individual <code>provisioning_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>provisioning_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeProvisioningTemplate,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:GetRole,
-iam:PassRole,
-iot:UpdateProvisioningTemplate,
-iot:CreateProvisioningTemplateVersion,
-iot:ListProvisioningTemplateVersions,
-iot:DeleteProvisioningTemplateVersion,
-iot:DescribeProvisioningTemplate,
-iot:TagResource,
-iot:UntagResource,
-iot:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iot:DeleteProvisioningTemplate,
-iot:DescribeProvisioningTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +58,36 @@ pre_provisioning_hook,
 tags
 FROM awscc.iot.provisioning_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TemplateName&gt;'
+AND data__Identifier = '{TemplateName}';
 ```
+
+## Permissions
+
+To operate on the <code>provisioning_template</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeProvisioningTemplate,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iam:GetRole,
+iam:PassRole,
+iot:UpdateProvisioningTemplate,
+iot:CreateProvisioningTemplateVersion,
+iot:ListProvisioningTemplateVersions,
+iot:DeleteProvisioningTemplateVersion,
+iot:DescribeProvisioningTemplate,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource
+```
+
+### Delete
+```json
+iot:DeleteProvisioningTemplate,
+iot:DescribeProvisioningTemplate
+```
+

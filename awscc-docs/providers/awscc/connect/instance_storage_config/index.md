@@ -42,41 +42,6 @@ Gets an individual <code>instance_storage_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance_storage_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeInstanceStorageConfig,
-connect:ListInstanceStorageConfigs,
-connect:DescribeInstance,
-ds:DescribeDirectories,
-s3:GetBucketAcl,
-s3:GetBucketLocation</pre>
-
-### Update
-<pre>
-connect:UpdateInstanceStorageConfig,
-ds:DescribeDirectories,
-s3:GetBucketAcl,
-s3:GetBucketLocation,
-kinesis:DescribeStream,
-iam:PutRolePolicy,
-kms:DescribeKey,
-kms:CreateGrant,
-kms:RetireGrant,
-firehose:DescribeDeliveryStream</pre>
-
-### Delete
-<pre>
-connect:DisassociateInstanceStorageConfig,
-connect:DescribeInstance,
-s3:GetBucketAcl,
-s3:GetBucketLocation,
-kms:RetireGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,7 +56,45 @@ kinesis_stream_config,
 kinesis_firehose_config
 FROM awscc.connect.instance_storage_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceArn&gt;'
-AND data__Identifier = '&lt;AssociationId&gt;'
-AND data__Identifier = '&lt;ResourceType&gt;'
+AND data__Identifier = '{InstanceArn}';
+AND data__Identifier = '{AssociationId}';
+AND data__Identifier = '{ResourceType}';
 ```
+
+## Permissions
+
+To operate on the <code>instance_storage_config</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeInstanceStorageConfig,
+connect:ListInstanceStorageConfigs,
+connect:DescribeInstance,
+ds:DescribeDirectories,
+s3:GetBucketAcl,
+s3:GetBucketLocation
+```
+
+### Update
+```json
+connect:UpdateInstanceStorageConfig,
+ds:DescribeDirectories,
+s3:GetBucketAcl,
+s3:GetBucketLocation,
+kinesis:DescribeStream,
+iam:PutRolePolicy,
+kms:DescribeKey,
+kms:CreateGrant,
+kms:RetireGrant,
+firehose:DescribeDeliveryStream
+```
+
+### Delete
+```json
+connect:DisassociateInstanceStorageConfig,
+connect:DescribeInstance,
+s3:GetBucketAcl,
+s3:GetBucketLocation,
+kms:RetireGrant
+```
+

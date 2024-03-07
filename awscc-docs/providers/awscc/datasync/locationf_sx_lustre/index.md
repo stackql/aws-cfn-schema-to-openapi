@@ -40,27 +40,6 @@ Gets an individual <code>locationf_sx_lustre</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>locationf_sx_lustre</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeLocationFsxLustre,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:DescribeLocationFsxLustre,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource</pre>
-
-### Delete
-<pre>
-datasync:DeleteLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ location_arn,
 location_uri
 FROM awscc.datasync.locationf_sx_lustre
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationArn&gt;'
+AND data__Identifier = '{LocationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>locationf_sx_lustre</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeLocationFsxLustre,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:DescribeLocationFsxLustre,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+

@@ -39,26 +39,6 @@ Gets an individual <code>state_machine_alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>state_machine_alias</code> resource, the following permissions are required:
-
-### Read
-<pre>
-states:DescribeStateMachineAlias</pre>
-
-### Update
-<pre>
-cloudwatch:DescribeAlarms,
-states:UpdateStateMachineAlias,
-states:DescribeStateMachineAlias</pre>
-
-### Delete
-<pre>
-states:DescribeStateMachineAlias,
-states:DeleteStateMachineAlias</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +50,28 @@ routing_configuration,
 deployment_preference
 FROM awscc.stepfunctions.state_machine_alias
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>state_machine_alias</code> resource, the following permissions are required:
+
+### Read
+```json
+states:DescribeStateMachineAlias
+```
+
+### Update
+```json
+cloudwatch:DescribeAlarms,
+states:UpdateStateMachineAlias,
+states:DescribeStateMachineAlias
+```
+
+### Delete
+```json
+states:DescribeStateMachineAlias,
+states:DeleteStateMachineAlias
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>app_monitors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+name
+FROM awscc.rum.app_monitors
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>app_monitors</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 rum:CreateAppMonitor,
 dynamodb:GetItem,
 dynamodb:PutItem,
@@ -61,10 +70,11 @@ cognito-identity:DescribeIdentityPool,
 iam:GetRole,
 iam:CreateServiceLinkedRole,
 rum:PutRumMetricsDestination,
-rum:BatchCreateRumMetricDefinitions</pre>
+rum:BatchCreateRumMetricDefinitions
+```
 
 ### List
-<pre>
+```json
 rum:ListAppMonitors,
 dynamodb:DescribeTable,
 rum:GetAppMonitor,
@@ -75,14 +85,6 @@ s3:GetObject,
 s3:DoesObjectExist,
 s3:GetObjectAcl,
 logs:DescribeLogGroups,
-rum:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-name
-FROM awscc.rum.app_monitors
-WHERE region = 'us-east-1'
+rum:ListTagsForResource
 ```
+

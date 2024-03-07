@@ -38,24 +38,6 @@ Gets an individual <code>session</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>session</code> resource, the following permissions are required:
-
-### Read
-<pre>
-macie2:GetMacieSession</pre>
-
-### Update
-<pre>
-macie2:GetMacieSession,
-macie2:UpdateMacieSession</pre>
-
-### Delete
-<pre>
-macie2:DisableMacie</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +48,26 @@ finding_publishing_frequency,
 service_role
 FROM awscc.macie.session
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
+AND data__Identifier = '{AwsAccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>session</code> resource, the following permissions are required:
+
+### Read
+```json
+macie2:GetMacieSession
+```
+
+### Update
+```json
+macie2:GetMacieSession,
+macie2:UpdateMacieSession
+```
+
+### Delete
+```json
+macie2:DisableMacie
+```
+

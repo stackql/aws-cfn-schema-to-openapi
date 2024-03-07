@@ -35,21 +35,6 @@ Retrieves a list of <code>source_api_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>source_api_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appsync:AssociateSourceGraphqlApi,
-appsync:AssociateMergedGraphqlApi,
-appsync:GetSourceApiAssociation</pre>
-
-### List
-<pre>
-appsync:ListSourceApiAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ association_arn
 FROM awscc.appsync.source_api_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>source_api_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+appsync:AssociateSourceGraphqlApi,
+appsync:AssociateMergedGraphqlApi,
+appsync:GetSourceApiAssociation
+```
+
+### List
+```json
+appsync:ListSourceApiAssociations
+```
+

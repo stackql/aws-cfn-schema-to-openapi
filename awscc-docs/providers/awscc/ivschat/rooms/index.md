@@ -35,21 +35,6 @@ Retrieves a list of <code>rooms</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rooms</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ivschat:CreateRoom,
-ivschat:TagResource</pre>
-
-### List
-<pre>
-ivschat:ListRooms,
-ivschat:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.ivschat.rooms
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>rooms</code> resource, the following permissions are required:
+
+### Create
+```json
+ivschat:CreateRoom,
+ivschat:TagResource
+```
+
+### List
+```json
+ivschat:ListRooms,
+ivschat:ListTagsForResource
+```
+

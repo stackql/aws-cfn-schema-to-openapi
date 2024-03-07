@@ -35,20 +35,6 @@ Retrieves a list of <code>domains</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domains</code> resource, the following permissions are required:
-
-### Create
-<pre>
-profile:CreateDomain,
-profile:TagResource</pre>
-
-### List
-<pre>
-profile:ListDomains</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ domain_name
 FROM awscc.customerprofiles.domains
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>domains</code> resource, the following permissions are required:
+
+### Create
+```json
+profile:CreateDomain,
+profile:TagResource
+```
+
+### List
+```json
+profile:ListDomains
+```
+

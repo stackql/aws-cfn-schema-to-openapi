@@ -38,12 +38,26 @@ Gets an individual <code>enabled_control</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+control_identifier,
+target_identifier,
+parameters,
+tags
+FROM awscc.controltower.enabled_control
+WHERE region = 'us-east-1'
+AND data__Identifier = '{TargetIdentifier}';
+AND data__Identifier = '{ControlIdentifier}';
+```
+
 ## Permissions
 
 To operate on the <code>enabled_control</code> resource, the following permissions are required:
 
 ### Update
-<pre>
+```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
 controltower:GetControlOperation,
@@ -56,10 +70,11 @@ organizations:AttachPolicy,
 organizations:DetachPolicy,
 organizations:ListPoliciesForTarget,
 organizations:ListTargetsForPolicy,
-organizations:DescribePolicy</pre>
+organizations:DescribePolicy
+```
 
 ### Delete
-<pre>
+```json
 controltower:GetControlOperation,
 controltower:DisableControl,
 organizations:UpdatePolicy,
@@ -69,25 +84,13 @@ organizations:AttachPolicy,
 organizations:DetachPolicy,
 organizations:ListPoliciesForTarget,
 organizations:ListTargetsForPolicy,
-organizations:DescribePolicy</pre>
+organizations:DescribePolicy
+```
 
 ### Read
-<pre>
+```json
 controltower:ListEnabledControls,
 controltower:GetEnabledControl,
-controltower:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-control_identifier,
-target_identifier,
-parameters,
-tags
-FROM awscc.controltower.enabled_control
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TargetIdentifier&gt;'
-AND data__Identifier = '&lt;ControlIdentifier&gt;'
+controltower:ListTagsForResource
 ```
+

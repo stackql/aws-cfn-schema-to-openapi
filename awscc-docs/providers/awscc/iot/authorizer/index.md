@@ -43,30 +43,6 @@ Gets an individual <code>authorizer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>authorizer</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeAuthorizer,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateAuthorizer,
-iot:DescribeAuthorizer,
-iot:TagResource,
-iot:UntagResource,
-iot:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iot:UpdateAuthorizer,
-iot:DeleteAuthorizer,
-iot:DescribeAuthorizer</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +58,32 @@ enable_caching_for_http,
 tags
 FROM awscc.iot.authorizer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AuthorizerName&gt;'
+AND data__Identifier = '{AuthorizerName}';
 ```
+
+## Permissions
+
+To operate on the <code>authorizer</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeAuthorizer,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateAuthorizer,
+iot:DescribeAuthorizer,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource
+```
+
+### Delete
+```json
+iot:UpdateAuthorizer,
+iot:DeleteAuthorizer,
+iot:DescribeAuthorizer
+```
+

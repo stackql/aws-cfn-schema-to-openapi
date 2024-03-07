@@ -40,32 +40,6 @@ Gets an individual <code>resource_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_set</code> resource, the following permissions are required:
-
-### Update
-<pre>
-fms:PutResourceSet,
-fms:BatchAssociateResource,
-fms:BatchDisassociateResource,
-fms:GetResourceSet,
-fms:ListResourceSetResources,
-fms:TagResource,
-fms:UntagResource,
-fms:ListTagsForResource</pre>
-
-### Read
-<pre>
-fms:GetResourceSet,
-fms:ListResourceSetResources,
-fms:ListTagsForResource</pre>
-
-### Delete
-<pre>
-fms:DeleteResourceSet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +52,34 @@ resources,
 tags
 FROM awscc.fms.resource_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_set</code> resource, the following permissions are required:
+
+### Update
+```json
+fms:PutResourceSet,
+fms:BatchAssociateResource,
+fms:BatchDisassociateResource,
+fms:GetResourceSet,
+fms:ListResourceSetResources,
+fms:TagResource,
+fms:UntagResource,
+fms:ListTagsForResource
+```
+
+### Read
+```json
+fms:GetResourceSet,
+fms:ListResourceSetResources,
+fms:ListTagsForResource
+```
+
+### Delete
+```json
+fms:DeleteResourceSet
+```
+

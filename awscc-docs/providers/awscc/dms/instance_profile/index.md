@@ -46,29 +46,6 @@ Gets an individual <code>instance_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-dms:ListInstanceProfiles,
-dms:DescribeInstanceProfiles,
-dms:ListTagsForResource</pre>
-
-### Update
-<pre>
-dms:UpdateInstanceProfile,
-dms:ModifyInstanceProfile,
-dms:AddTagsToResource,
-dms:RemoveTagsToResource,
-dms:ListTagsForResource</pre>
-
-### Delete
-<pre>
-dms:DeleteInstanceProfile</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +64,31 @@ vpc_security_groups,
 tags
 FROM awscc.dms.instance_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceProfileArn&gt;'
+AND data__Identifier = '{InstanceProfileArn}';
 ```
+
+## Permissions
+
+To operate on the <code>instance_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+dms:ListInstanceProfiles,
+dms:DescribeInstanceProfiles,
+dms:ListTagsForResource
+```
+
+### Update
+```json
+dms:UpdateInstanceProfile,
+dms:ModifyInstanceProfile,
+dms:AddTagsToResource,
+dms:RemoveTagsToResource,
+dms:ListTagsForResource
+```
+
+### Delete
+```json
+dms:DeleteInstanceProfile
+```
+

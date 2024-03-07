@@ -35,22 +35,6 @@ Retrieves a list of <code>mitigation_actions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>mitigation_actions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:CreateMitigationAction,
-iot:DescribeMitigationAction,
-iot:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-iot:ListMitigationActions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ action_name
 FROM awscc.iot.mitigation_actions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>mitigation_actions</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:CreateMitigationAction,
+iot:DescribeMitigationAction,
+iot:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+iot:ListMitigationActions
+```
+

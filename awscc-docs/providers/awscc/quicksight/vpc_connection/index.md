@@ -49,32 +49,6 @@ Gets an individual <code>vpc_connection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_connection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeVPCConnection,
-quicksight:ListTagsForResource</pre>
-
-### Update
-<pre>
-quicksight:DescribeVPCConnection,
-quicksight:UpdateVPCConnection,
-quicksight:TagResource,
-quicksight:UntagResource,
-quicksight:ListTagsForResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-quicksight:DescribeVPCConnection,
-quicksight:DeleteVPCConnection,
-quicksight:ListTagsForResource,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,6 +70,35 @@ last_updated_time,
 tags
 FROM awscc.quicksight.vpc_connection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;VPCConnectionId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{VPCConnectionId}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_connection</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeVPCConnection,
+quicksight:ListTagsForResource
+```
+
+### Update
+```json
+quicksight:DescribeVPCConnection,
+quicksight:UpdateVPCConnection,
+quicksight:TagResource,
+quicksight:UntagResource,
+quicksight:ListTagsForResource,
+iam:PassRole
+```
+
+### Delete
+```json
+quicksight:DescribeVPCConnection,
+quicksight:DeleteVPCConnection,
+quicksight:ListTagsForResource,
+iam:PassRole
+```
+

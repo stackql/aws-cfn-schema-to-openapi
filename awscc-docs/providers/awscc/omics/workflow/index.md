@@ -48,28 +48,6 @@ Gets an individual <code>workflow</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>workflow</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetWorkflow</pre>
-
-### Update
-<pre>
-omics:UpdateWorkflow,
-omics:GetWorkflow,
-omics:TagResource,
-omics:ListTagsForResource,
-omics:UntagResource</pre>
-
-### Delete
-<pre>
-omics:DeleteWorkflow,
-omics:GetWorkflow</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +68,30 @@ tags,
 type
 FROM awscc.omics.workflow
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>workflow</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetWorkflow
+```
+
+### Update
+```json
+omics:UpdateWorkflow,
+omics:GetWorkflow,
+omics:TagResource,
+omics:ListTagsForResource,
+omics:UntagResource
+```
+
+### Delete
+```json
+omics:DeleteWorkflow,
+omics:GetWorkflow
+```
+

@@ -43,25 +43,6 @@ Gets an individual <code>collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>collection</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-aoss:DeleteCollection,
-aoss:BatchGetCollection</pre>
-
-### Read
-<pre>
-aoss:BatchGetCollection</pre>
-
-### Update
-<pre>
-aoss:UpdateCollection,
-aoss:BatchGetCollection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +58,27 @@ type,
 standby_replicas
 FROM awscc.opensearchserverless.collection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>collection</code> resource, the following permissions are required:
+
+### Delete
+```json
+aoss:DeleteCollection,
+aoss:BatchGetCollection
+```
+
+### Read
+```json
+aoss:BatchGetCollection
+```
+
+### Update
+```json
+aoss:UpdateCollection,
+aoss:BatchGetCollection
+```
+

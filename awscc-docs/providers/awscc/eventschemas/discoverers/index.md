@@ -35,26 +35,6 @@ Retrieves a list of <code>discoverers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>discoverers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-schemas:CreateDiscoverer,
-schemas:DescribeDiscoverer,
-schemas:TagResource,
-events:PutRule,
-events:PutTargets,
-events:EnableRule,
-events:ListTargetsByRule,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-schemas:ListDiscoverers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ discoverer_arn
 FROM awscc.eventschemas.discoverers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>discoverers</code> resource, the following permissions are required:
+
+### Create
+```json
+schemas:CreateDiscoverer,
+schemas:DescribeDiscoverer,
+schemas:TagResource,
+events:PutRule,
+events:PutTargets,
+events:EnableRule,
+events:ListTargetsByRule,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+schemas:ListDiscoverers
+```
+

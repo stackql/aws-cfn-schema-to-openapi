@@ -40,28 +40,6 @@ Gets an individual <code>global_network</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>global_network</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:DescribeGlobalNetworks</pre>
-
-### Update
-<pre>
-networkmanager:UpdateGlobalNetwork,
-networkmanager:DescribeGlobalNetworks,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-networkmanager:ListTagsForResource</pre>
-
-### Delete
-<pre>
-networkmanager:DeleteGlobalNetwork,
-networkmanager:DescribeGlobalNetworks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ created_at,
 state
 FROM awscc.networkmanager.global_network
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>global_network</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:DescribeGlobalNetworks
+```
+
+### Update
+```json
+networkmanager:UpdateGlobalNetwork,
+networkmanager:DescribeGlobalNetworks,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+networkmanager:ListTagsForResource
+```
+
+### Delete
+```json
+networkmanager:DeleteGlobalNetwork,
+networkmanager:DescribeGlobalNetworks
+```
+

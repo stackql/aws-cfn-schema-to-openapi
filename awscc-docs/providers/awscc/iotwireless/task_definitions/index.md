@@ -35,24 +35,6 @@ Retrieves a list of <code>task_definitions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_definitions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:CreateWirelessGatewayTaskDefinition,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource,
-iam:GetRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-iotwireless:ListWirelessGatewayTaskDefinitions,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.iotwireless.task_definitions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>task_definitions</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:CreateWirelessGatewayTaskDefinition,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource,
+iam:GetRole,
+iam:PassRole
+```
+
+### List
+```json
+iotwireless:ListWirelessGatewayTaskDefinitions,
+iotwireless:ListTagsForResource
+```
+

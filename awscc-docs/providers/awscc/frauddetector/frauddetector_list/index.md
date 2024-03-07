@@ -1,9 +1,9 @@
 ---
-title: list
+title: frauddetector_list
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - list
+  - frauddetector_list
   - frauddetector
   - aws
   - stackql
@@ -14,14 +14,14 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-Gets an individual <code>list</code> resource
+Gets an individual <code>frauddetector_list</code> resource
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>list</code></td></tr>
+<tr><td><b>Name</b></td><td><code>frauddetector_list</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>list</td></tr>
-<tr><td><b>Id</b></td><td><code>awscc.frauddetector.list</code></td></tr>
+<tr><td><b>Description</b></td><td>frauddetector_list</td></tr>
+<tr><td><b>Id</b></td><td><code>awscc.frauddetector.frauddetector_list</code></td></tr>
 </tbody></table>
 
 ## Fields
@@ -42,31 +42,6 @@ Gets an individual <code>list</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>list</code> resource, the following permissions are required:
-
-### Read
-<pre>
-frauddetector:GetListElements,
-frauddetector:GetListsMetadata,
-frauddetector:ListTagsForResource</pre>
-
-### Update
-<pre>
-frauddetector:GetListElements,
-frauddetector:GetListsMetadata,
-frauddetector:ListTagsForResource,
-frauddetector:UntagResource,
-frauddetector:UpdateList,
-frauddetector:TagResource</pre>
-
-### Delete
-<pre>
-frauddetector:DeleteList,
-frauddetector:GetListsMetadata</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,7 +54,35 @@ created_time,
 last_updated_time,
 tags,
 elements
-FROM awscc.frauddetector.list
+FROM awscc.frauddetector.frauddetector_list
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>frauddetector_list</code> resource, the following permissions are required:
+
+### Read
+```json
+frauddetector:GetListElements,
+frauddetector:GetListsMetadata,
+frauddetector:ListTagsForResource
+```
+
+### Update
+```json
+frauddetector:GetListElements,
+frauddetector:GetListsMetadata,
+frauddetector:ListTagsForResource,
+frauddetector:UntagResource,
+frauddetector:UpdateList,
+frauddetector:TagResource
+```
+
+### Delete
+```json
+frauddetector:DeleteList,
+frauddetector:GetListsMetadata
+```
+

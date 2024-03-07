@@ -35,17 +35,6 @@ Retrieves a list of <code>warm_pools</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>warm_pools</code> resource, the following permissions are required:
-
-### Create
-<pre>
-autoscaling:PutWarmPool,
-autoscaling:DescribeWarmPool,
-autoscaling:DescribeAutoScalingGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -54,3 +43,15 @@ auto_scaling_group_name
 FROM awscc.autoscaling.warm_pools
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>warm_pools</code> resource, the following permissions are required:
+
+### Create
+```json
+autoscaling:PutWarmPool,
+autoscaling:DescribeWarmPool,
+autoscaling:DescribeAutoScalingGroups
+```
+

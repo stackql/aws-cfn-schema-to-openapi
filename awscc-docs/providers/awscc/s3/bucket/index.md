@@ -59,70 +59,6 @@ Gets an individual <code>bucket</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bucket</code> resource, the following permissions are required:
-
-### Read
-<pre>
-s3:GetAccelerateConfiguration,
-s3:GetLifecycleConfiguration,
-s3:GetBucketPublicAccessBlock,
-s3:GetAnalyticsConfiguration,
-s3:GetBucketCORS,
-s3:GetEncryptionConfiguration,
-s3:GetInventoryConfiguration,
-s3:GetBucketLogging,
-s3:GetMetricsConfiguration,
-s3:GetBucketNotification,
-s3:GetBucketVersioning,
-s3:GetReplicationConfiguration,
-S3:GetBucketWebsite,
-s3:GetBucketPublicAccessBlock,
-s3:GetBucketObjectLockConfiguration,
-s3:GetBucketTagging,
-s3:GetBucketOwnershipControls,
-s3:GetIntelligentTieringConfiguration,
-s3:ListBucket</pre>
-
-### Update
-<pre>
-s3:PutBucketAcl,
-s3:PutBucketTagging,
-s3:PutAnalyticsConfiguration,
-s3:PutEncryptionConfiguration,
-s3:PutBucketCORS,
-s3:PutInventoryConfiguration,
-s3:PutLifecycleConfiguration,
-s3:PutMetricsConfiguration,
-s3:PutBucketNotification,
-s3:PutBucketReplication,
-s3:PutBucketWebsite,
-s3:PutAccelerateConfiguration,
-s3:PutBucketPublicAccessBlock,
-s3:PutReplicationConfiguration,
-s3:PutBucketOwnershipControls,
-s3:PutIntelligentTieringConfiguration,
-s3:DeleteBucketWebsite,
-s3:PutBucketLogging,
-s3:PutBucketVersioning,
-s3:PutObjectLockConfiguration,
-s3:PutBucketObjectLockConfiguration,
-s3:DeleteBucketAnalyticsConfiguration,
-s3:DeleteBucketCors,
-s3:DeleteBucketMetricsConfiguration,
-s3:DeleteBucketEncryption,
-s3:DeleteBucketLifecycle,
-s3:DeleteBucketReplication,
-iam:PassRole,
-s3:ListBucket</pre>
-
-### Delete
-<pre>
-s3:DeleteBucket,
-s3:ListBucket</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -154,5 +90,72 @@ regional_domain_name,
 website_ur_l
 FROM awscc.s3.bucket
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BucketName&gt;'
+AND data__Identifier = '{BucketName}';
 ```
+
+## Permissions
+
+To operate on the <code>bucket</code> resource, the following permissions are required:
+
+### Read
+```json
+s3:GetAccelerateConfiguration,
+s3:GetLifecycleConfiguration,
+s3:GetBucketPublicAccessBlock,
+s3:GetAnalyticsConfiguration,
+s3:GetBucketCORS,
+s3:GetEncryptionConfiguration,
+s3:GetInventoryConfiguration,
+s3:GetBucketLogging,
+s3:GetMetricsConfiguration,
+s3:GetBucketNotification,
+s3:GetBucketVersioning,
+s3:GetReplicationConfiguration,
+S3:GetBucketWebsite,
+s3:GetBucketPublicAccessBlock,
+s3:GetBucketObjectLockConfiguration,
+s3:GetBucketTagging,
+s3:GetBucketOwnershipControls,
+s3:GetIntelligentTieringConfiguration,
+s3:ListBucket
+```
+
+### Update
+```json
+s3:PutBucketAcl,
+s3:PutBucketTagging,
+s3:PutAnalyticsConfiguration,
+s3:PutEncryptionConfiguration,
+s3:PutBucketCORS,
+s3:PutInventoryConfiguration,
+s3:PutLifecycleConfiguration,
+s3:PutMetricsConfiguration,
+s3:PutBucketNotification,
+s3:PutBucketReplication,
+s3:PutBucketWebsite,
+s3:PutAccelerateConfiguration,
+s3:PutBucketPublicAccessBlock,
+s3:PutReplicationConfiguration,
+s3:PutBucketOwnershipControls,
+s3:PutIntelligentTieringConfiguration,
+s3:DeleteBucketWebsite,
+s3:PutBucketLogging,
+s3:PutBucketVersioning,
+s3:PutObjectLockConfiguration,
+s3:PutBucketObjectLockConfiguration,
+s3:DeleteBucketAnalyticsConfiguration,
+s3:DeleteBucketCors,
+s3:DeleteBucketMetricsConfiguration,
+s3:DeleteBucketEncryption,
+s3:DeleteBucketLifecycle,
+s3:DeleteBucketReplication,
+iam:PassRole,
+s3:ListBucket
+```
+
+### Delete
+```json
+s3:DeleteBucket,
+s3:ListBucket
+```
+

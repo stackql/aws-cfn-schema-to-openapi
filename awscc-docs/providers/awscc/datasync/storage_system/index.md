@@ -44,34 +44,6 @@ Gets an individual <code>storage_system</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>storage_system</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeStorageSystem,
-datasync:ListTagsForResource,
-secretsmanager:DescribeSecret</pre>
-
-### Update
-<pre>
-datasync:UpdateStorageSystem,
-datasync:DescribeStorageSystem,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource,
-secretsmanager:DescribeSecret,
-secretsmanager:PutSecretValue</pre>
-
-### Delete
-<pre>
-datasync:DescribeStorageSystem,
-datasync:RemoveStorageSystem,
-secretsmanager:DescribeSecret,
-secretsmanager:DeleteSecret</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +60,36 @@ storage_system_arn,
 connectivity_status
 FROM awscc.datasync.storage_system
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StorageSystemArn&gt;'
+AND data__Identifier = '{StorageSystemArn}';
 ```
+
+## Permissions
+
+To operate on the <code>storage_system</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeStorageSystem,
+datasync:ListTagsForResource,
+secretsmanager:DescribeSecret
+```
+
+### Update
+```json
+datasync:UpdateStorageSystem,
+datasync:DescribeStorageSystem,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+secretsmanager:DescribeSecret,
+secretsmanager:PutSecretValue
+```
+
+### Delete
+```json
+datasync:DescribeStorageSystem,
+datasync:RemoveStorageSystem,
+secretsmanager:DescribeSecret,
+secretsmanager:DeleteSecret
+```
+

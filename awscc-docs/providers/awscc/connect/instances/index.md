@@ -35,12 +35,21 @@ Retrieves a list of <code>instances</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.connect.instances
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>instances</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 connect:CreateInstance,
 connect:DescribeInstance,
 connect:UpdateInstanceAttribute,
@@ -54,20 +63,13 @@ ds:CreateDirectory,
 ds:DescribeDirectories,
 iam:CreateServiceLinkedRole,
 iam:PutRolePolicy,
-logs:CreateLogGroup</pre>
+logs:CreateLogGroup
+```
 
 ### List
-<pre>
+```json
 connect:ListInstances,
 connect:ListInstanceAttributes,
-ds:DescribeDirectories</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.connect.instances
-WHERE region = 'us-east-1'
+ds:DescribeDirectories
 ```
+

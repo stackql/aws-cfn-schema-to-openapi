@@ -36,20 +36,6 @@ Retrieves a list of <code>bot_aliases</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bot_aliases</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lex:CreateBotAlias,
-lex:DescribeBot</pre>
-
-### List
-<pre>
-lex:ListBotAliases</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +45,19 @@ bot_id
 FROM awscc.lex.bot_aliases
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>bot_aliases</code> resource, the following permissions are required:
+
+### Create
+```json
+lex:CreateBotAlias,
+lex:DescribeBot
+```
+
+### List
+```json
+lex:ListBotAliases
+```
+

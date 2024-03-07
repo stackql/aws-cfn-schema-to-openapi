@@ -50,29 +50,6 @@ Gets an individual <code>transit_gateway_route_table_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>transit_gateway_route_table_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-networkmanager:GetTransitGatewayRouteTableAttachment</pre>
-
-### Update
-<pre>
-networkmanager:GetTransitGatewayRouteTableAttachment,
-networkmanager:ListTagsForResource,
-networkmanager:TagResource,
-networkmanager:UntagResource,
-ec2:DescribeRegions</pre>
-
-### Delete
-<pre>
-networkmanager:GetTransitGatewayRouteTableAttachment,
-networkmanager:DeleteAttachment,
-ec2:DescribeRegions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -95,5 +72,31 @@ updated_at,
 tags
 FROM awscc.networkmanager.transit_gateway_route_table_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AttachmentId&gt;'
+AND data__Identifier = '{AttachmentId}';
 ```
+
+## Permissions
+
+To operate on the <code>transit_gateway_route_table_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+networkmanager:GetTransitGatewayRouteTableAttachment
+```
+
+### Update
+```json
+networkmanager:GetTransitGatewayRouteTableAttachment,
+networkmanager:ListTagsForResource,
+networkmanager:TagResource,
+networkmanager:UntagResource,
+ec2:DescribeRegions
+```
+
+### Delete
+```json
+networkmanager:GetTransitGatewayRouteTableAttachment,
+networkmanager:DeleteAttachment,
+ec2:DescribeRegions
+```
+

@@ -37,26 +37,6 @@ Gets an individual <code>client_certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>client_certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:GET,
-apigateway:PATCH,
-apigateway:PUT,
-apigateway:DELETE</pre>
-
-### Delete
-<pre>
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +46,28 @@ description,
 tags
 FROM awscc.apigateway.client_certificate
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ClientCertificateId&gt;'
+AND data__Identifier = '{ClientCertificateId}';
 ```
+
+## Permissions
+
+To operate on the <code>client_certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:GET,
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:DELETE
+```
+
+### Delete
+```json
+apigateway:DELETE
+```
+

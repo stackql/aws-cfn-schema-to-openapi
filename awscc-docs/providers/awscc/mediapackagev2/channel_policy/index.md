@@ -37,25 +37,6 @@ Gets an individual <code>channel_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackagev2:GetChannelPolicy</pre>
-
-### Update
-<pre>
-mediapackagev2:GetChannelPolicy,
-mediapackagev2:PutChannelPolicy</pre>
-
-### Delete
-<pre>
-mediapackagev2:GetChannelPolicy,
-mediapackagev2:DeleteChannelPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,6 +46,28 @@ channel_name,
 policy
 FROM awscc.mediapackagev2.channel_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ChannelGroupName&gt;'
-AND data__Identifier = '&lt;ChannelName&gt;'
+AND data__Identifier = '{ChannelGroupName}';
+AND data__Identifier = '{ChannelName}';
 ```
+
+## Permissions
+
+To operate on the <code>channel_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackagev2:GetChannelPolicy
+```
+
+### Update
+```json
+mediapackagev2:GetChannelPolicy,
+mediapackagev2:PutChannelPolicy
+```
+
+### Delete
+```json
+mediapackagev2:GetChannelPolicy,
+mediapackagev2:DeleteChannelPolicy
+```
+

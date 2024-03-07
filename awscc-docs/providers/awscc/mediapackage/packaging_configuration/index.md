@@ -42,20 +42,6 @@ Gets an individual <code>packaging_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>packaging_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackage-vod:DescribePackagingConfiguration</pre>
-
-### Delete
-<pre>
-mediapackage-vod:DescribePackagingConfiguration,
-mediapackage-vod:DeletePackagingConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +56,21 @@ mss_package,
 tags
 FROM awscc.mediapackage.packaging_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>packaging_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackage-vod:DescribePackagingConfiguration
+```
+
+### Delete
+```json
+mediapackage-vod:DescribePackagingConfiguration,
+mediapackage-vod:DeletePackagingConfiguration
+```
+

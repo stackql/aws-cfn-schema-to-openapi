@@ -40,29 +40,6 @@ Gets an individual <code>mitigation_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>mitigation_action</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeMitigationAction,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateMitigationAction,
-iot:ListTagsForResource,
-iot:UntagResource,
-iot:TagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-iot:DescribeMitigationAction,
-iot:DeleteMitigationAction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ mitigation_action_arn,
 mitigation_action_id
 FROM awscc.iot.mitigation_action
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ActionName&gt;'
+AND data__Identifier = '{ActionName}';
 ```
+
+## Permissions
+
+To operate on the <code>mitigation_action</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeMitigationAction,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateMitigationAction,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+iot:DescribeMitigationAction,
+iot:DeleteMitigationAction
+```
+

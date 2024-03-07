@@ -39,24 +39,6 @@ Gets an individual <code>security_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-aoss:GetSecurityConfig</pre>
-
-### Update
-<pre>
-aoss:GetSecurityConfig,
-aoss:UpdateSecurityConfig</pre>
-
-### Delete
-<pre>
-aoss:DeleteSecurityConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +50,26 @@ saml_options,
 type
 FROM awscc.opensearchserverless.security_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>security_config</code> resource, the following permissions are required:
+
+### Read
+```json
+aoss:GetSecurityConfig
+```
+
+### Update
+```json
+aoss:GetSecurityConfig,
+aoss:UpdateSecurityConfig
+```
+
+### Delete
+```json
+aoss:DeleteSecurityConfig
+```
+

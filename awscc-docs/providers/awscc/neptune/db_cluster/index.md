@@ -63,46 +63,6 @@ Gets an individual <code>db_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_cluster</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBClusters,
-rds:ListTagsForResource,
-kms:*</pre>
-
-### Update
-<pre>
-ec2:DescribeSecurityGroups,
-iam:PassRole,
-rds:AddRoleToDBCluster,
-rds:AddTagsToResource,
-rds:DescribeDBClusters,
-rds:DescribeDBInstances,
-rds:DescribeDBSubnetGroups,
-rds:DescribeGlobalClusters,
-rds:ListTagsForResource,
-rds:ModifyDBCluster,
-rds:ModifyDBInstance,
-rds:RemoveFromGlobalCluster,
-rds:RemoveRoleFromDBCluster,
-rds:RemoveTagsFromResource,
-kms:*</pre>
-
-### Delete
-<pre>
-rds:DeleteDBCluster,
-rds:DeleteDBInstance,
-rds:DescribeDBClusters,
-rds:DescribeGlobalClusters,
-rds:ListTagsForResource,
-rds:RemoveFromGlobalCluster,
-rds:CreateDBClusterSnapshot,
-kms:*</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -138,5 +98,48 @@ use_latest_restorable_time,
 vpc_security_group_ids
 FROM awscc.neptune.db_cluster
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DBClusterIdentifier&gt;'
+AND data__Identifier = '{DBClusterIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>db_cluster</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBClusters,
+rds:ListTagsForResource,
+kms:*
+```
+
+### Update
+```json
+ec2:DescribeSecurityGroups,
+iam:PassRole,
+rds:AddRoleToDBCluster,
+rds:AddTagsToResource,
+rds:DescribeDBClusters,
+rds:DescribeDBInstances,
+rds:DescribeDBSubnetGroups,
+rds:DescribeGlobalClusters,
+rds:ListTagsForResource,
+rds:ModifyDBCluster,
+rds:ModifyDBInstance,
+rds:RemoveFromGlobalCluster,
+rds:RemoveRoleFromDBCluster,
+rds:RemoveTagsFromResource,
+kms:*
+```
+
+### Delete
+```json
+rds:DeleteDBCluster,
+rds:DeleteDBInstance,
+rds:DescribeDBClusters,
+rds:DescribeGlobalClusters,
+rds:ListTagsForResource,
+rds:RemoveFromGlobalCluster,
+rds:CreateDBClusterSnapshot,
+kms:*
+```
+

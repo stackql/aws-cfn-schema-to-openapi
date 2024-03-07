@@ -35,12 +35,21 @@ Retrieves a list of <code>access_log_subscriptions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.vpclattice.access_log_subscriptions
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>access_log_subscriptions</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 vpc-lattice:CreateAccessLogSubscription,
 vpc-lattice:TagResource,
 vpc-lattice:GetAccessLogSubscription,
@@ -60,18 +69,11 @@ s3:PutBucketPolicy,
 firehose:TagDeliveryStream,
 firehose:CreateDeliveryStream,
 firehose:DescribeDeliveryStream,
-iam:CreateServiceLinkedRole</pre>
+iam:CreateServiceLinkedRole
+```
 
 ### List
-<pre>
-vpc-lattice:ListAccessLogSubscriptions</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.vpclattice.access_log_subscriptions
-WHERE region = 'us-east-1'
+```json
+vpc-lattice:ListAccessLogSubscriptions
 ```
+

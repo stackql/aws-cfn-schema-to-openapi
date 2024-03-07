@@ -42,24 +42,6 @@ Gets an individual <code>configuration_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticbeanstalk:DescribeConfigurationSettings</pre>
-
-### Update
-<pre>
-elasticbeanstalk:UpdateConfigurationTemplate</pre>
-
-### Delete
-<pre>
-elasticbeanstalk:DeleteConfigurationTemplate,
-elasticbeanstalk:DescribeConfigurationSettings</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,6 +56,27 @@ source_configuration,
 template_name
 FROM awscc.elasticbeanstalk.configuration_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationName&gt;'
-AND data__Identifier = '&lt;TemplateName&gt;'
+AND data__Identifier = '{ApplicationName}';
+AND data__Identifier = '{TemplateName}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration_template</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticbeanstalk:DescribeConfigurationSettings
+```
+
+### Update
+```json
+elasticbeanstalk:UpdateConfigurationTemplate
+```
+
+### Delete
+```json
+elasticbeanstalk:DeleteConfigurationTemplate,
+elasticbeanstalk:DescribeConfigurationSettings
+```
+

@@ -44,32 +44,6 @@ Gets an individual <code>document</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>document</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm:GetDocument,
-ssm:ListTagsForResource</pre>
-
-### Update
-<pre>
-ssm:UpdateDocument,
-s3:GetObject,
-ssm:AddTagsToResource,
-ssm:RemoveTagsFromResource,
-ssm:ListTagsForResource,
-iam:PassRole,
-ssm:UpdateDocumentDefaultVersion,
-ssm:DescribeDocument</pre>
-
-### Delete
-<pre>
-ssm:DeleteDocument,
-ssm:GetDocument</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +60,34 @@ requires,
 update_method
 FROM awscc.ssm.document
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>document</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm:GetDocument,
+ssm:ListTagsForResource
+```
+
+### Update
+```json
+ssm:UpdateDocument,
+s3:GetObject,
+ssm:AddTagsToResource,
+ssm:RemoveTagsFromResource,
+ssm:ListTagsForResource,
+iam:PassRole,
+ssm:UpdateDocumentDefaultVersion,
+ssm:DescribeDocument
+```
+
+### Delete
+```json
+ssm:DeleteDocument,
+ssm:GetDocument
+```
+

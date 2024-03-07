@@ -36,26 +36,6 @@ Retrieves a list of <code>policy_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-verifiedpermissions:CreatePolicyTemplate,
-verifiedpermissions:GetPolicyTemplate,
-verifiedpermissions:UpdatePolicyTemplate,
-verifiedpermissions:DeletePolicyTemplate</pre>
-
-### List
-<pre>
-verifiedpermissions:CreatePolicyTemplate,
-verifiedpermissions:GetPolicyTemplate,
-verifiedpermissions:UpdatePolicyTemplate,
-verifiedpermissions:DeletePolicyTemplate,
-verifiedpermissions:ListPolicyTemplates</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,3 +45,25 @@ policy_template_id
 FROM awscc.verifiedpermissions.policy_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>policy_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+verifiedpermissions:CreatePolicyTemplate,
+verifiedpermissions:GetPolicyTemplate,
+verifiedpermissions:UpdatePolicyTemplate,
+verifiedpermissions:DeletePolicyTemplate
+```
+
+### List
+```json
+verifiedpermissions:CreatePolicyTemplate,
+verifiedpermissions:GetPolicyTemplate,
+verifiedpermissions:UpdatePolicyTemplate,
+verifiedpermissions:DeletePolicyTemplate,
+verifiedpermissions:ListPolicyTemplates
+```
+

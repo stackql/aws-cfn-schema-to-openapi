@@ -42,31 +42,6 @@ Gets an individual <code>access_entry</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_entry</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribeAccessEntry,
-eks:ListAssociatedAccessPolicies</pre>
-
-### Update
-<pre>
-eks:DescribeAccessEntry,
-eks:ListAssociatedAccessPolicies,
-eks:UpdateAccessEntry,
-eks:AssociateAccessPolicy,
-eks:DisassociateAccessPolicy,
-eks:TagResource,
-eks:UntagResource</pre>
-
-### Delete
-<pre>
-eks:DeleteAccessEntry,
-eks:DescribeAccessEntry</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,6 +56,34 @@ access_policies,
 type
 FROM awscc.eks.access_entry
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PrincipalArn&gt;'
-AND data__Identifier = '&lt;ClusterName&gt;'
+AND data__Identifier = '{PrincipalArn}';
+AND data__Identifier = '{ClusterName}';
 ```
+
+## Permissions
+
+To operate on the <code>access_entry</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribeAccessEntry,
+eks:ListAssociatedAccessPolicies
+```
+
+### Update
+```json
+eks:DescribeAccessEntry,
+eks:ListAssociatedAccessPolicies,
+eks:UpdateAccessEntry,
+eks:AssociateAccessPolicy,
+eks:DisassociateAccessPolicy,
+eks:TagResource,
+eks:UntagResource
+```
+
+### Delete
+```json
+eks:DeleteAccessEntry,
+eks:DescribeAccessEntry
+```
+

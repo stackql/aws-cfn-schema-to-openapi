@@ -35,22 +35,6 @@ Retrieves a list of <code>user_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticache:CreateUserGroup,
-elasticache:DescribeUserGroups,
-elasticache:ListTagsForResource</pre>
-
-### List
-<pre>
-elasticache:DescribeUserGroups,
-elasticache:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ user_group_id
 FROM awscc.elasticache.user_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticache:CreateUserGroup,
+elasticache:DescribeUserGroups,
+elasticache:ListTagsForResource
+```
+
+### List
+```json
+elasticache:DescribeUserGroups,
+elasticache:ListTagsForResource
+```
+

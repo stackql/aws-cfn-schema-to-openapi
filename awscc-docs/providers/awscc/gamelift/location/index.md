@@ -37,27 +37,6 @@ Gets an individual <code>location</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:ListLocations,
-gamelift:ListTagsForResource</pre>
-
-### Delete
-<pre>
-gamelift:DeleteLocation</pre>
-
-### Update
-<pre>
-gamelift:ListLocations,
-gamelift:ListTagsForResource,
-gamelift:TagResource,
-gamelift:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +46,29 @@ location_arn,
 tags
 FROM awscc.gamelift.location
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationName&gt;'
+AND data__Identifier = '{LocationName}';
 ```
+
+## Permissions
+
+To operate on the <code>location</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:ListLocations,
+gamelift:ListTagsForResource
+```
+
+### Delete
+```json
+gamelift:DeleteLocation
+```
+
+### Update
+```json
+gamelift:ListLocations,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource
+```
+

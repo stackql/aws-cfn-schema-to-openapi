@@ -35,19 +35,6 @@ Retrieves a list of <code>configuration_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ses:CreateConfigurationSet</pre>
-
-### List
-<pre>
-ses:ListConfigurationSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ name
 FROM awscc.ses.configuration_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>configuration_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+ses:CreateConfigurationSet
+```
+
+### List
+```json
+ses:ListConfigurationSets
+```
+

@@ -40,37 +40,6 @@ Gets an individual <code>account_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>account_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeAccountPolicies</pre>
-
-### Update
-<pre>
-logs:PutAccountPolicy,
-logs:PutDataProtectionPolicy,
-logs:DescribeAccountPolicies,
-logs:DeleteAccountPolicy,
-logs:DeleteDataProtectionPolicy,
-logs:CreateLogDelivery,
-logs:PutSubscriptionFilter,
-logs:DeleteSubscriptionFilter,
-s3:REST.PUT.OBJECT,
-firehose:TagDeliveryStream,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-logs:DeleteAccountPolicy,
-logs:DeleteDataProtectionPolicy,
-logs:DescribeAccountPolicies,
-logs:DeleteSubscriptionFilter,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,7 +52,41 @@ scope,
 selection_criteria
 FROM awscc.logs.account_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccountId&gt;'
-AND data__Identifier = '&lt;PolicyType&gt;'
-AND data__Identifier = '&lt;PolicyName&gt;'
+AND data__Identifier = '{AccountId}';
+AND data__Identifier = '{PolicyType}';
+AND data__Identifier = '{PolicyName}';
 ```
+
+## Permissions
+
+To operate on the <code>account_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeAccountPolicies
+```
+
+### Update
+```json
+logs:PutAccountPolicy,
+logs:PutDataProtectionPolicy,
+logs:DescribeAccountPolicies,
+logs:DeleteAccountPolicy,
+logs:DeleteDataProtectionPolicy,
+logs:CreateLogDelivery,
+logs:PutSubscriptionFilter,
+logs:DeleteSubscriptionFilter,
+s3:REST.PUT.OBJECT,
+firehose:TagDeliveryStream,
+iam:PassRole
+```
+
+### Delete
+```json
+logs:DeleteAccountPolicy,
+logs:DeleteDataProtectionPolicy,
+logs:DescribeAccountPolicies,
+logs:DeleteSubscriptionFilter,
+iam:PassRole
+```
+

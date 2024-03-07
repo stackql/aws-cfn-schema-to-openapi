@@ -41,29 +41,6 @@ Gets an individual <code>resiliency_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resiliency_policy</code> resource, the following permissions are required:
-
-### Update
-<pre>
-resiliencehub:DescribeResiliencyPolicy,
-resiliencehub:UpdateResiliencyPolicy,
-resiliencehub:TagResource,
-resiliencehub:UntagResource,
-resiliencehub:ListTagsForResource</pre>
-
-### Read
-<pre>
-resiliencehub:DescribeResiliencyPolicy,
-resiliencehub:ListTagsForResource</pre>
-
-### Delete
-<pre>
-resiliencehub:DeleteResiliencyPolicy,
-resiliencehub:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +54,31 @@ policy_arn,
 tags
 FROM awscc.resiliencehub.resiliency_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyArn&gt;'
+AND data__Identifier = '{PolicyArn}';
 ```
+
+## Permissions
+
+To operate on the <code>resiliency_policy</code> resource, the following permissions are required:
+
+### Update
+```json
+resiliencehub:DescribeResiliencyPolicy,
+resiliencehub:UpdateResiliencyPolicy,
+resiliencehub:TagResource,
+resiliencehub:UntagResource,
+resiliencehub:ListTagsForResource
+```
+
+### Read
+```json
+resiliencehub:DescribeResiliencyPolicy,
+resiliencehub:ListTagsForResource
+```
+
+### Delete
+```json
+resiliencehub:DeleteResiliencyPolicy,
+resiliencehub:UntagResource
+```
+

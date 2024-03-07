@@ -35,24 +35,6 @@ Retrieves a list of <code>channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channels</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediapackage:CreateChannel,
-mediapackage:DescribeChannel,
-mediapackage:UpdateChannel,
-mediapackage:TagResource,
-mediapackage:ConfigureLogs,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-mediapackage:ListChannels</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.mediapackage.channels
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>channels</code> resource, the following permissions are required:
+
+### Create
+```json
+mediapackage:CreateChannel,
+mediapackage:DescribeChannel,
+mediapackage:UpdateChannel,
+mediapackage:TagResource,
+mediapackage:ConfigureLogs,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+mediapackage:ListChannels
+```
+

@@ -40,25 +40,6 @@ Gets an individual <code>contact_channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>contact_channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-contacts:GetContactChannel</pre>
-
-### Update
-<pre>
-ssm-contacts:UpdateContactChannel,
-ssm-contacts:GetContactChannel</pre>
-
-### Delete
-<pre>
-ssm-contacts:DeleteContactChannel,
-ssm-contacts:GetContactChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +52,27 @@ channel_address,
 arn
 FROM awscc.ssmcontacts.contact_channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>contact_channel</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-contacts:GetContactChannel
+```
+
+### Update
+```json
+ssm-contacts:UpdateContactChannel,
+ssm-contacts:GetContactChannel
+```
+
+### Delete
+```json
+ssm-contacts:DeleteContactChannel,
+ssm-contacts:GetContactChannel
+```
+

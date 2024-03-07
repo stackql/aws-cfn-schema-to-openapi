@@ -35,21 +35,6 @@ Retrieves a list of <code>assessment_targets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assessment_targets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-inspector:CreateAssessmentTarget,
-inspector:ListAssessmentTargets,
-inspector:DescribeAssessmentTargets</pre>
-
-### List
-<pre>
-inspector:ListAssessmentTargets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.inspector.assessment_targets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>assessment_targets</code> resource, the following permissions are required:
+
+### Create
+```json
+inspector:CreateAssessmentTarget,
+inspector:ListAssessmentTargets,
+inspector:DescribeAssessmentTargets
+```
+
+### List
+```json
+inspector:ListAssessmentTargets
+```
+

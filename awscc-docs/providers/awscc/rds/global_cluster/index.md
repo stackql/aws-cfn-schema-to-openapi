@@ -40,27 +40,6 @@ Gets an individual <code>global_cluster</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>global_cluster</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeGlobalClusters</pre>
-
-### Update
-<pre>
-rds:ModifyGlobalCluster,
-rds:DescribeGlobalClusters</pre>
-
-### Delete
-<pre>
-rds:DescribeGlobalClusters,
-rds:DeleteGlobalCluster,
-rds:RemoveFromGlobalCluster,
-rds:DescribeDBClusters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ source_db_cluster_identifier,
 storage_encrypted
 FROM awscc.rds.global_cluster
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GlobalClusterIdentifier&gt;'
+AND data__Identifier = '{GlobalClusterIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>global_cluster</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeGlobalClusters
+```
+
+### Update
+```json
+rds:ModifyGlobalCluster,
+rds:DescribeGlobalClusters
+```
+
+### Delete
+```json
+rds:DescribeGlobalClusters,
+rds:DeleteGlobalCluster,
+rds:RemoveFromGlobalCluster,
+rds:DescribeDBClusters
+```
+

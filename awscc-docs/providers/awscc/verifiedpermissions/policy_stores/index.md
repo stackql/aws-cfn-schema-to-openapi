@@ -35,28 +35,6 @@ Retrieves a list of <code>policy_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-verifiedpermissions:CreatePolicyStore,
-verifiedpermissions:GetPolicyStore,
-verifiedpermissions:UpdatePolicyStore,
-verifiedpermissions:DeletePolicyStore,
-verifiedpermissions:PutSchema</pre>
-
-### List
-<pre>
-verifiedpermissions:CreatePolicyStore,
-verifiedpermissions:GetPolicyStore,
-verifiedpermissions:UpdatePolicyStore,
-verifiedpermissions:DeletePolicyStore,
-verifiedpermissions:ListPolicyStores,
-verifiedpermissions:GetSchema</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,3 +43,27 @@ policy_store_id
 FROM awscc.verifiedpermissions.policy_stores
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>policy_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+verifiedpermissions:CreatePolicyStore,
+verifiedpermissions:GetPolicyStore,
+verifiedpermissions:UpdatePolicyStore,
+verifiedpermissions:DeletePolicyStore,
+verifiedpermissions:PutSchema
+```
+
+### List
+```json
+verifiedpermissions:CreatePolicyStore,
+verifiedpermissions:GetPolicyStore,
+verifiedpermissions:UpdatePolicyStore,
+verifiedpermissions:DeletePolicyStore,
+verifiedpermissions:ListPolicyStores,
+verifiedpermissions:GetSchema
+```
+

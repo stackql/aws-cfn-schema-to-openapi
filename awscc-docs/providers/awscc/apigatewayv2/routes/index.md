@@ -36,19 +36,6 @@ Retrieves a list of <code>routes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>routes</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ route_id
 FROM awscc.apigatewayv2.routes
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>routes</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST
+```
+
+### List
+```json
+apigateway:GET
+```
+

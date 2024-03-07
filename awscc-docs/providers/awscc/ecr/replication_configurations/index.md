@@ -35,21 +35,6 @@ Retrieves a list of <code>replication_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replication_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecr:DescribeRegistry,
-ecr:PutReplicationConfiguration,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-ecr:DescribeRegistry</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ registry_id
 FROM awscc.ecr.replication_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>replication_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+ecr:DescribeRegistry,
+ecr:PutReplicationConfiguration,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+ecr:DescribeRegistry
+```
+

@@ -50,36 +50,6 @@ Gets an individual <code>delivery_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery_stream</code> resource, the following permissions are required:
-
-### Read
-<pre>
-firehose:DescribeDeliveryStream,
-firehose:ListTagsForDeliveryStream</pre>
-
-### Update
-<pre>
-firehose:UpdateDestination,
-firehose:DescribeDeliveryStream,
-firehose:StartDeliveryStreamEncryption,
-firehose:StopDeliveryStreamEncryption,
-firehose:ListTagsForDeliveryStream,
-firehose:TagDeliveryStream,
-firehose:UntagDeliveryStream,
-kms:CreateGrant,
-kms:RevokeGrant,
-kms:DescribeKey</pre>
-
-### Delete
-<pre>
-firehose:DeleteDeliveryStream,
-firehose:DescribeDeliveryStream,
-kms:RevokeGrant,
-kms:DescribeKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -102,5 +72,38 @@ snowflake_destination_configuration,
 tags
 FROM awscc.kinesisfirehose.delivery_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DeliveryStreamName&gt;'
+AND data__Identifier = '{DeliveryStreamName}';
 ```
+
+## Permissions
+
+To operate on the <code>delivery_stream</code> resource, the following permissions are required:
+
+### Read
+```json
+firehose:DescribeDeliveryStream,
+firehose:ListTagsForDeliveryStream
+```
+
+### Update
+```json
+firehose:UpdateDestination,
+firehose:DescribeDeliveryStream,
+firehose:StartDeliveryStreamEncryption,
+firehose:StopDeliveryStreamEncryption,
+firehose:ListTagsForDeliveryStream,
+firehose:TagDeliveryStream,
+firehose:UntagDeliveryStream,
+kms:CreateGrant,
+kms:RevokeGrant,
+kms:DescribeKey
+```
+
+### Delete
+```json
+firehose:DeleteDeliveryStream,
+firehose:DescribeDeliveryStream,
+kms:RevokeGrant,
+kms:DescribeKey
+```
+

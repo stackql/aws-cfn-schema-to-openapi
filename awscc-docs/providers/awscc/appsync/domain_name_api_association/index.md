@@ -37,25 +37,6 @@ Gets an individual <code>domain_name_api_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_name_api_association</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-appsync:DisassociateApi,
-appsync:GetApiAssociation</pre>
-
-### Update
-<pre>
-appsync:AssociateApi,
-appsync:GetApiAssociation</pre>
-
-### Read
-<pre>
-appsync:GetApiAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +46,27 @@ api_id,
 api_association_identifier
 FROM awscc.appsync.domain_name_api_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiAssociationIdentifier&gt;'
+AND data__Identifier = '{ApiAssociationIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>domain_name_api_association</code> resource, the following permissions are required:
+
+### Delete
+```json
+appsync:DisassociateApi,
+appsync:GetApiAssociation
+```
+
+### Update
+```json
+appsync:AssociateApi,
+appsync:GetApiAssociation
+```
+
+### Read
+```json
+appsync:GetApiAssociation
+```
+

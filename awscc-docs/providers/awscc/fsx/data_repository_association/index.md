@@ -43,32 +43,6 @@ Gets an individual <code>data_repository_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_repository_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-fsx:DescribeDataRepositoryAssociations</pre>
-
-### Update
-<pre>
-fsx:DescribeDataRepositoryAssociations,
-fsx:UpdateDataRepositoryAssociation,
-fsx:TagResource,
-fsx:UntagResource,
-s3:ListBucket,
-s3:GetBucketPolicy,
-s3:PutBucketPolicy,
-iam:CreateServiceLinkedRole,
-iam:PutRolePolicy</pre>
-
-### Delete
-<pre>
-fsx:DescribeDataRepositoryAssociations,
-fsx:DeleteDataRepositoryAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +58,34 @@ s3,
 tags
 FROM awscc.fsx.data_repository_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssociationId&gt;'
+AND data__Identifier = '{AssociationId}';
 ```
+
+## Permissions
+
+To operate on the <code>data_repository_association</code> resource, the following permissions are required:
+
+### Read
+```json
+fsx:DescribeDataRepositoryAssociations
+```
+
+### Update
+```json
+fsx:DescribeDataRepositoryAssociations,
+fsx:UpdateDataRepositoryAssociation,
+fsx:TagResource,
+fsx:UntagResource,
+s3:ListBucket,
+s3:GetBucketPolicy,
+s3:PutBucketPolicy,
+iam:CreateServiceLinkedRole,
+iam:PutRolePolicy
+```
+
+### Delete
+```json
+fsx:DescribeDataRepositoryAssociations,
+fsx:DeleteDataRepositoryAssociation
+```
+

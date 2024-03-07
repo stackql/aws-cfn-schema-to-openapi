@@ -36,17 +36,6 @@ Retrieves a list of <code>user_pool_risk_configuration_attachments</code> in a r
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_risk_configuration_attachments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-idp:SetRiskConfiguration,
-cognito-idp:DescribeRiskConfiguration,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +45,15 @@ client_id
 FROM awscc.cognito.user_pool_risk_configuration_attachments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_risk_configuration_attachments</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-idp:SetRiskConfiguration,
+cognito-idp:DescribeRiskConfiguration,
+iam:PassRole
+```
+

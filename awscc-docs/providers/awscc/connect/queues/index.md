@@ -35,21 +35,6 @@ Retrieves a list of <code>queues</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>queues</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateQueue,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListQueues,
-connect:ListQueueQuickConnects</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ queue_arn
 FROM awscc.connect.queues
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>queues</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateQueue,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListQueues,
+connect:ListQueueQuickConnects
+```
+

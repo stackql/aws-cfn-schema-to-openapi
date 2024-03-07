@@ -40,31 +40,6 @@ Gets an individual <code>firewall_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>firewall_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-network-firewall:DescribeFirewallPolicy,
-network-firewall:ListTagsForResources</pre>
-
-### Update
-<pre>
-network-firewall:UpdateFirewallPolicy,
-network-firewall:DescribeFirewallPolicy,
-network-firewall:TagResource,
-network-firewall:UntagResource,
-network-firewall:ListRuleGroups,
-network-firewall:ListTLSInspectionConfigurations</pre>
-
-### Delete
-<pre>
-network-firewall:DeleteFirewallPolicy,
-network-firewall:DescribeFirewallPolicy,
-network-firewall:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +52,33 @@ description,
 tags
 FROM awscc.networkfirewall.firewall_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FirewallPolicyArn&gt;'
+AND data__Identifier = '{FirewallPolicyArn}';
 ```
+
+## Permissions
+
+To operate on the <code>firewall_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+network-firewall:DescribeFirewallPolicy,
+network-firewall:ListTagsForResources
+```
+
+### Update
+```json
+network-firewall:UpdateFirewallPolicy,
+network-firewall:DescribeFirewallPolicy,
+network-firewall:TagResource,
+network-firewall:UntagResource,
+network-firewall:ListRuleGroups,
+network-firewall:ListTLSInspectionConfigurations
+```
+
+### Delete
+```json
+network-firewall:DeleteFirewallPolicy,
+network-firewall:DescribeFirewallPolicy,
+network-firewall:UntagResource
+```
+

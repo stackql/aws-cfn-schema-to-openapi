@@ -35,25 +35,6 @@ Retrieves a list of <code>conformance_packs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>conformance_packs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-config:PutConformancePack,
-config:DescribeConformancePackStatus,
-config:DescribeConformancePacks,
-s3:GetObject,
-s3:GetBucketAcl,
-iam:CreateServiceLinkedRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-config:DescribeConformancePacks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ conformance_pack_name
 FROM awscc.config.conformance_packs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>conformance_packs</code> resource, the following permissions are required:
+
+### Create
+```json
+config:PutConformancePack,
+config:DescribeConformancePackStatus,
+config:DescribeConformancePacks,
+s3:GetObject,
+s3:GetBucketAcl,
+iam:CreateServiceLinkedRole,
+iam:PassRole
+```
+
+### List
+```json
+config:DescribeConformancePacks
+```
+

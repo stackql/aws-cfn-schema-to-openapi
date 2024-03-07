@@ -35,20 +35,6 @@ Retrieves a list of <code>user_hierarchy_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_hierarchy_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateUserHierarchyGroup,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListUserHierarchyGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ user_hierarchy_group_arn
 FROM awscc.connect.user_hierarchy_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_hierarchy_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateUserHierarchyGroup,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListUserHierarchyGroups
+```
+

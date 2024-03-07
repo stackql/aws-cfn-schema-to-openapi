@@ -40,29 +40,6 @@ Gets an individual <code>report_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>report_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:DescribeReportPlan,
-backup:ListTags</pre>
-
-### Update
-<pre>
-backup:DescribeReportPlan,
-backup:UpdateReportPlan,
-backup:ListTags,
-backup:UntagResource,
-backup:TagResource</pre>
-
-### Delete
-<pre>
-backup:DeleteReportPlan,
-backup:DescribeReportPlan</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +52,31 @@ report_delivery_channel,
 report_setting
 FROM awscc.backup.report_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ReportPlanArn&gt;'
+AND data__Identifier = '{ReportPlanArn}';
 ```
+
+## Permissions
+
+To operate on the <code>report_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:DescribeReportPlan,
+backup:ListTags
+```
+
+### Update
+```json
+backup:DescribeReportPlan,
+backup:UpdateReportPlan,
+backup:ListTags,
+backup:UntagResource,
+backup:TagResource
+```
+
+### Delete
+```json
+backup:DeleteReportPlan,
+backup:DescribeReportPlan
+```
+

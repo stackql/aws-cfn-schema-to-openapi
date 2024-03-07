@@ -35,24 +35,6 @@ Retrieves a list of <code>pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipelines</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-s3:GetObject,
-sagemaker:CreatePipeline,
-sagemaker:DescribePipeline,
-sagemaker:AddTags,
-sagemaker:ListTags</pre>
-
-### List
-<pre>
-sagemaker:ListPipelines</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ pipeline_name
 FROM awscc.sagemaker.pipelines
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>pipelines</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+s3:GetObject,
+sagemaker:CreatePipeline,
+sagemaker:DescribePipeline,
+sagemaker:AddTags,
+sagemaker:ListTags
+```
+
+### List
+```json
+sagemaker:ListPipelines
+```
+

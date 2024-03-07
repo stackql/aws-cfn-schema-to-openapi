@@ -35,12 +35,21 @@ Retrieves a list of <code>applications</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+application_id
+FROM awscc.emrserverless.applications
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>applications</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 kms:Create*,
 kms:Describe*,
 kms:Enable*,
@@ -64,18 +73,11 @@ iam:CreateServiceLinkedRole,
 ec2:CreateNetworkInterface,
 ecr:BatchGetImage,
 ecr:DescribeImages,
-ecr:GetDownloadUrlForLayer</pre>
+ecr:GetDownloadUrlForLayer
+```
 
 ### List
-<pre>
-emr-serverless:ListApplications</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-application_id
-FROM awscc.emrserverless.applications
-WHERE region = 'us-east-1'
+```json
+emr-serverless:ListApplications
 ```
+

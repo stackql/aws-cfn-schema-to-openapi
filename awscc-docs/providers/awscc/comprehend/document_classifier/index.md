@@ -47,33 +47,6 @@ Gets an individual <code>document_classifier</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>document_classifier</code> resource, the following permissions are required:
-
-### Read
-<pre>
-comprehend:DescribeDocumentClassifier,
-comprehend:DescribeResourcePolicy,
-comprehend:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:PassRole,
-comprehend:PutResourcePolicy,
-comprehend:DeleteResourcePolicy,
-comprehend:DescribeResourcePolicy,
-comprehend:DescribeDocumentClassifier,
-comprehend:ListTagsForResource,
-comprehend:TagResource,
-comprehend:UntagResource</pre>
-
-### Delete
-<pre>
-comprehend:DescribeDocumentClassifier,
-comprehend:DeleteDocumentClassifier</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -93,5 +66,35 @@ vpc_config,
 arn
 FROM awscc.comprehend.document_classifier
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>document_classifier</code> resource, the following permissions are required:
+
+### Read
+```json
+comprehend:DescribeDocumentClassifier,
+comprehend:DescribeResourcePolicy,
+comprehend:ListTagsForResource
+```
+
+### Update
+```json
+iam:PassRole,
+comprehend:PutResourcePolicy,
+comprehend:DeleteResourcePolicy,
+comprehend:DescribeResourcePolicy,
+comprehend:DescribeDocumentClassifier,
+comprehend:ListTagsForResource,
+comprehend:TagResource,
+comprehend:UntagResource
+```
+
+### Delete
+```json
+comprehend:DescribeDocumentClassifier,
+comprehend:DeleteDocumentClassifier
+```
+

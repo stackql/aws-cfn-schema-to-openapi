@@ -44,32 +44,6 @@ Gets an individual <code>launch</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>launch</code> resource, the following permissions are required:
-
-### Read
-<pre>
-evidently:GetLaunch,
-evidently:ListTagsForResource</pre>
-
-### Update
-<pre>
-evidently:UpdateLaunch,
-evidently:ListTagsForResource,
-evidently:TagResource,
-evidently:UntagResource,
-evidently:GetLaunch,
-evidently:StartLaunch,
-evidently:StopLaunch</pre>
-
-### Delete
-<pre>
-evidently:DeleteLaunch,
-evidently:UntagResource,
-evidently:GetLaunch</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +60,34 @@ tags,
 execution_status
 FROM awscc.evidently.launch
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>launch</code> resource, the following permissions are required:
+
+### Read
+```json
+evidently:GetLaunch,
+evidently:ListTagsForResource
+```
+
+### Update
+```json
+evidently:UpdateLaunch,
+evidently:ListTagsForResource,
+evidently:TagResource,
+evidently:UntagResource,
+evidently:GetLaunch,
+evidently:StartLaunch,
+evidently:StopLaunch
+```
+
+### Delete
+```json
+evidently:DeleteLaunch,
+evidently:UntagResource,
+evidently:GetLaunch
+```
+

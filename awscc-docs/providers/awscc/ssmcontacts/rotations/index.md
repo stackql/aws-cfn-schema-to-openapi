@@ -35,25 +35,6 @@ Retrieves a list of <code>rotations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rotations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ssm-contacts:CreateRotation,
-ssm-contacts:GetRotation,
-ssm-contacts:TagResource,
-ssm-contacts:ListTagsForResource,
-ssm-contacts:UntagResource</pre>
-
-### List
-<pre>
-ssm-contacts:ListRotations,
-ssm-contacts:GetRotation,
-ssm-contacts:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ arn
 FROM awscc.ssmcontacts.rotations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>rotations</code> resource, the following permissions are required:
+
+### Create
+```json
+ssm-contacts:CreateRotation,
+ssm-contacts:GetRotation,
+ssm-contacts:TagResource,
+ssm-contacts:ListTagsForResource,
+ssm-contacts:UntagResource
+```
+
+### List
+```json
+ssm-contacts:ListRotations,
+ssm-contacts:GetRotation,
+ssm-contacts:ListTagsForResource
+```
+

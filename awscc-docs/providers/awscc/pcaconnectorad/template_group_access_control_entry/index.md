@@ -38,24 +38,6 @@ Gets an individual <code>template_group_access_control_entry</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>template_group_access_control_entry</code> resource, the following permissions are required:
-
-### Read
-<pre>
-pca-connector-ad:GetTemplateGroupAccessControlEntry</pre>
-
-### Update
-<pre>
-pca-connector-ad:UpdateTemplateGroupAccessControlEntry</pre>
-
-### Delete
-<pre>
-pca-connector-ad:DeleteTemplateGroupAccessControlEntry,
-pca-connector-ad:GetTemplateGroupAccessControlEntry</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,6 +48,27 @@ group_security_identifier,
 template_arn
 FROM awscc.pcaconnectorad.template_group_access_control_entry
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GroupSecurityIdentifier&gt;'
-AND data__Identifier = '&lt;TemplateArn&gt;'
+AND data__Identifier = '{GroupSecurityIdentifier}';
+AND data__Identifier = '{TemplateArn}';
 ```
+
+## Permissions
+
+To operate on the <code>template_group_access_control_entry</code> resource, the following permissions are required:
+
+### Read
+```json
+pca-connector-ad:GetTemplateGroupAccessControlEntry
+```
+
+### Update
+```json
+pca-connector-ad:UpdateTemplateGroupAccessControlEntry
+```
+
+### Delete
+```json
+pca-connector-ad:DeleteTemplateGroupAccessControlEntry,
+pca-connector-ad:GetTemplateGroupAccessControlEntry
+```
+

@@ -36,12 +36,22 @@ Retrieves a list of <code>permission_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+instance_arn,
+permission_set_arn
+FROM awscc.sso.permission_sets
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>permission_sets</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 sso:CreatePermissionSet,
 sso:PutInlinePolicyToPermissionSet,
 sso:AttachManagedPolicyToPermissionSet,
@@ -53,19 +63,11 @@ sso:ListTagsForResource,
 sso:ListManagedPoliciesInPermissionSet,
 sso:ListCustomerManagedPolicyReferencesInPermissionSet,
 sso:GetInlinePolicyForPermissionSet,
-sso:GetPermissionsBoundaryForPermissionSet</pre>
+sso:GetPermissionsBoundaryForPermissionSet
+```
 
 ### List
-<pre>
-sso:DescribePermissionSet</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-instance_arn,
-permission_set_arn
-FROM awscc.sso.permission_sets
-WHERE region = 'us-east-1'
+```json
+sso:DescribePermissionSet
 ```
+

@@ -43,32 +43,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kinesisanalytics:DescribeApplication,
-kinesisanalytics:ListTagsForResource</pre>
-
-### Update
-<pre>
-kinesisanalytics:UpdateApplication,
-kinesisanalytics:DescribeApplication,
-kinesisanalytics:TagResource,
-kinesisanalytics:UntagResource,
-kinesisanalytics:AddApplicationVpcConfiguration,
-kinesisanalytics:DeleteApplicationVpcConfiguration,
-kinesisanalytics:UpdateApplicationMaintenanceConfiguration,
-kinesisanalytics:ListTagsForResource</pre>
-
-### Delete
-<pre>
-kinesisanalytics:DescribeApplication,
-kinesisanalytics:DeleteApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +58,34 @@ application_maintenance_configuration,
 tags
 FROM awscc.kinesisanalyticsv2.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationName&gt;'
+AND data__Identifier = '{ApplicationName}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:ListTagsForResource
+```
+
+### Update
+```json
+kinesisanalytics:UpdateApplication,
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:TagResource,
+kinesisanalytics:UntagResource,
+kinesisanalytics:AddApplicationVpcConfiguration,
+kinesisanalytics:DeleteApplicationVpcConfiguration,
+kinesisanalytics:UpdateApplicationMaintenanceConfiguration,
+kinesisanalytics:ListTagsForResource
+```
+
+### Delete
+```json
+kinesisanalytics:DescribeApplication,
+kinesisanalytics:DeleteApplication
+```
+

@@ -36,71 +36,6 @@ Gets an individual <code>webacl_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>webacl_association</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-wafv2:AssociateWebACL,
-wafv2:GetWebACLForResource,
-wafv2:GetWebACL,
-wafv2:DisassociateWebACL,
-elasticloadbalancing:SetWebACL,
-apigateway:SetWebACL,
-appsync:SetWebACL,
-cognito-idp:AssociateWebACL,
-cognito-idp:DisassociateWebACL,
-cognito-idp:GetWebACLForResource,
-apprunner:AssociateWebAcl,
-apprunner:DisassociateWebAcl,
-apprunner:DescribeWebAclForService,
-ec2:AssociateVerifiedAccessInstanceWebAcl,
-ec2:DisassociateVerifiedAccessInstanceWebAcl,
-ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
-ec2:GetVerifiedAccessInstanceWebAcl</pre>
-
-### Read
-<pre>
-wafv2:AssociateWebACL,
-wafv2:GetWebACLForResource,
-wafv2:GetWebACL,
-wafv2:DisassociateWebACL,
-elasticloadbalancing:SetWebACL,
-apigateway:SetWebACL,
-appsync:SetWebACL,
-cognito-idp:AssociateWebACL,
-cognito-idp:DisassociateWebACL,
-cognito-idp:GetWebACLForResource,
-apprunner:AssociateWebAcl,
-apprunner:DisassociateWebAcl,
-apprunner:DescribeWebAclForService,
-ec2:AssociateVerifiedAccessInstanceWebAcl,
-ec2:DisassociateVerifiedAccessInstanceWebAcl,
-ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
-ec2:GetVerifiedAccessInstanceWebAcl</pre>
-
-### Update
-<pre>
-wafv2:AssociateWebACL,
-wafv2:GetWebACLForResource,
-wafv2:GetWebACL,
-wafv2:DisassociateWebACL,
-elasticloadbalancing:SetWebACL,
-apigateway:SetWebACL,
-appsync:SetWebACL,
-cognito-idp:AssociateWebACL,
-cognito-idp:DisassociateWebACL,
-cognito-idp:GetWebACLForResource,
-apprunner:AssociateWebAcl,
-apprunner:DisassociateWebAcl,
-apprunner:DescribeWebAclForService,
-ec2:AssociateVerifiedAccessInstanceWebAcl,
-ec2:DisassociateVerifiedAccessInstanceWebAcl,
-ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
-ec2:GetVerifiedAccessInstanceWebAcl</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -108,6 +43,74 @@ region,
 resource_arn,
 web_ac_larn
 FROM awscc.wafv2.webacl_association
-WHERE data__Identifier = '&lt;ResourceArn&gt;'
-AND data__Identifier = '&lt;WebACLArn&gt;'
+WHERE data__Identifier = '{ResourceArn}';
+AND data__Identifier = '{WebACLArn}';
 ```
+
+## Permissions
+
+To operate on the <code>webacl_association</code> resource, the following permissions are required:
+
+### Delete
+```json
+wafv2:AssociateWebACL,
+wafv2:GetWebACLForResource,
+wafv2:GetWebACL,
+wafv2:DisassociateWebACL,
+elasticloadbalancing:SetWebACL,
+apigateway:SetWebACL,
+appsync:SetWebACL,
+cognito-idp:AssociateWebACL,
+cognito-idp:DisassociateWebACL,
+cognito-idp:GetWebACLForResource,
+apprunner:AssociateWebAcl,
+apprunner:DisassociateWebAcl,
+apprunner:DescribeWebAclForService,
+ec2:AssociateVerifiedAccessInstanceWebAcl,
+ec2:DisassociateVerifiedAccessInstanceWebAcl,
+ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
+ec2:GetVerifiedAccessInstanceWebAcl
+```
+
+### Read
+```json
+wafv2:AssociateWebACL,
+wafv2:GetWebACLForResource,
+wafv2:GetWebACL,
+wafv2:DisassociateWebACL,
+elasticloadbalancing:SetWebACL,
+apigateway:SetWebACL,
+appsync:SetWebACL,
+cognito-idp:AssociateWebACL,
+cognito-idp:DisassociateWebACL,
+cognito-idp:GetWebACLForResource,
+apprunner:AssociateWebAcl,
+apprunner:DisassociateWebAcl,
+apprunner:DescribeWebAclForService,
+ec2:AssociateVerifiedAccessInstanceWebAcl,
+ec2:DisassociateVerifiedAccessInstanceWebAcl,
+ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
+ec2:GetVerifiedAccessInstanceWebAcl
+```
+
+### Update
+```json
+wafv2:AssociateWebACL,
+wafv2:GetWebACLForResource,
+wafv2:GetWebACL,
+wafv2:DisassociateWebACL,
+elasticloadbalancing:SetWebACL,
+apigateway:SetWebACL,
+appsync:SetWebACL,
+cognito-idp:AssociateWebACL,
+cognito-idp:DisassociateWebACL,
+cognito-idp:GetWebACLForResource,
+apprunner:AssociateWebAcl,
+apprunner:DisassociateWebAcl,
+apprunner:DescribeWebAclForService,
+ec2:AssociateVerifiedAccessInstanceWebAcl,
+ec2:DisassociateVerifiedAccessInstanceWebAcl,
+ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
+ec2:GetVerifiedAccessInstanceWebAcl
+```
+

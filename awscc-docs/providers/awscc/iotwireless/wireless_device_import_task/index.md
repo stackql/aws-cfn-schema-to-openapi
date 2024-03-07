@@ -46,27 +46,6 @@ Gets an individual <code>wireless_device_import_task</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>wireless_device_import_task</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetWirelessDeviceImportTask,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdateWirelessDeviceImportTask,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteWirelessDeviceImportTask</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +64,29 @@ failed_imported_devices_count,
 tags
 FROM awscc.iotwireless.wireless_device_import_task
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>wireless_device_import_task</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetWirelessDeviceImportTask,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdateWirelessDeviceImportTask,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iam:PassRole
+```
+
+### Delete
+```json
+iotwireless:DeleteWirelessDeviceImportTask
+```
+

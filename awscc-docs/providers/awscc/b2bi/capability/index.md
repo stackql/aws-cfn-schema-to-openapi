@@ -43,26 +43,6 @@ Gets an individual <code>capability</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>capability</code> resource, the following permissions are required:
-
-### Read
-<pre>
-b2bi:GetCapability,
-b2bi:ListTagsForResource</pre>
-
-### Update
-<pre>
-b2bi:TagResource,
-b2bi:UntagResource,
-b2bi:UpdateCapability</pre>
-
-### Delete
-<pre>
-b2bi:DeleteCapability</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +58,28 @@ tags,
 type
 FROM awscc.b2bi.capability
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CapabilityId&gt;'
+AND data__Identifier = '{CapabilityId}';
 ```
+
+## Permissions
+
+To operate on the <code>capability</code> resource, the following permissions are required:
+
+### Read
+```json
+b2bi:GetCapability,
+b2bi:ListTagsForResource
+```
+
+### Update
+```json
+b2bi:TagResource,
+b2bi:UntagResource,
+b2bi:UpdateCapability
+```
+
+### Delete
+```json
+b2bi:DeleteCapability
+```
+

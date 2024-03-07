@@ -38,26 +38,6 @@ Gets an individual <code>deployment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>deployment</code> resource, the following permissions are required:
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,6 +48,29 @@ stage_name,
 api_id
 FROM awscc.apigatewayv2.deployment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiId&gt;'
-AND data__Identifier = '&lt;DeploymentId&gt;'
+AND data__Identifier = '{ApiId}';
+AND data__Identifier = '{DeploymentId}';
 ```
+
+## Permissions
+
+To operate on the <code>deployment</code> resource, the following permissions are required:
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:GET,
+apigateway:PUT
+```
+
+### Read
+```json
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

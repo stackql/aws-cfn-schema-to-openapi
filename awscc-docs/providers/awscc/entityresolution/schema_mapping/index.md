@@ -42,29 +42,6 @@ Gets an individual <code>schema_mapping</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schema_mapping</code> resource, the following permissions are required:
-
-### Read
-<pre>
-entityresolution:GetSchemaMapping,
-entityresolution:ListTagsForResource</pre>
-
-### Delete
-<pre>
-entityresolution:DeleteSchemaMapping,
-entityresolution:GetSchemaMapping</pre>
-
-### Update
-<pre>
-entityresolution:GetSchemaMapping,
-entityresolution:UpdateSchemaMapping,
-entityresolution:ListTagsForResource,
-entityresolution:TagResource,
-entityresolution:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ updated_at,
 has_workflows
 FROM awscc.entityresolution.schema_mapping
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SchemaName&gt;'
+AND data__Identifier = '{SchemaName}';
 ```
+
+## Permissions
+
+To operate on the <code>schema_mapping</code> resource, the following permissions are required:
+
+### Read
+```json
+entityresolution:GetSchemaMapping,
+entityresolution:ListTagsForResource
+```
+
+### Delete
+```json
+entityresolution:DeleteSchemaMapping,
+entityresolution:GetSchemaMapping
+```
+
+### Update
+```json
+entityresolution:GetSchemaMapping,
+entityresolution:UpdateSchemaMapping,
+entityresolution:ListTagsForResource,
+entityresolution:TagResource,
+entityresolution:UntagResource
+```
+

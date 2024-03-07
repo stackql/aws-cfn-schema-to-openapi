@@ -35,21 +35,6 @@ Retrieves a list of <code>accessors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>accessors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-managedblockchain:CreateAccessor,
-managedblockchain:TagResource,
-managedblockchain:GetAccessor</pre>
-
-### List
-<pre>
-managedblockchain:ListAccessors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.managedblockchain.accessors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>accessors</code> resource, the following permissions are required:
+
+### Create
+```json
+managedblockchain:CreateAccessor,
+managedblockchain:TagResource,
+managedblockchain:GetAccessor
+```
+
+### List
+```json
+managedblockchain:ListAccessors
+```
+

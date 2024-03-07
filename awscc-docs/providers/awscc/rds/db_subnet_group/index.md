@@ -38,30 +38,6 @@ Gets an individual <code>db_subnet_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_subnet_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBSubnetGroups,
-rds:ListTagsForResource</pre>
-
-### Update
-<pre>
-rds:ModifyDBSubnetGroup,
-rds:DescribeDBSubnetGroups,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource,
-rds:ListTagsForResource</pre>
-
-### Delete
-<pre>
-rds:DeleteDBSubnetGroup,
-rds:DescribeDBSubnetGroups,
-rds:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,5 +48,32 @@ subnet_ids,
 tags
 FROM awscc.rds.db_subnet_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DBSubnetGroupName&gt;'
+AND data__Identifier = '{DBSubnetGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>db_subnet_group</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBSubnetGroups,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:ModifyDBSubnetGroup,
+rds:DescribeDBSubnetGroups,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource,
+rds:ListTagsForResource
+```
+
+### Delete
+```json
+rds:DeleteDBSubnetGroup,
+rds:DescribeDBSubnetGroups,
+rds:ListTagsForResource
+```
+

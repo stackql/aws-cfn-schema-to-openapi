@@ -35,22 +35,6 @@ Retrieves a list of <code>log_anomaly_detection_integrations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>log_anomaly_detection_integrations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-devops-guru:DescribeServiceIntegration,
-devops-guru:UpdateServiceIntegration,
-logs:TagLogGroup,
-logs:UntagLogGroup</pre>
-
-### List
-<pre>
-devops-guru:DescribeServiceIntegration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ account_id
 FROM awscc.devopsguru.log_anomaly_detection_integrations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>log_anomaly_detection_integrations</code> resource, the following permissions are required:
+
+### Create
+```json
+devops-guru:DescribeServiceIntegration,
+devops-guru:UpdateServiceIntegration,
+logs:TagLogGroup,
+logs:UntagLogGroup
+```
+
+### List
+```json
+devops-guru:DescribeServiceIntegration
+```
+

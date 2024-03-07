@@ -35,21 +35,6 @@ Retrieves a list of <code>virtualmfa_devices</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>virtualmfa_devices</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateVirtualMFADevice,
-iam:EnableMFADevice,
-iam:ListVirtualMFADevices</pre>
-
-### List
-<pre>
-iam:ListVirtualMFADevices</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ serial_number
 FROM awscc.iam.virtualmfa_devices
 
 ```
+
+## Permissions
+
+To operate on the <code>virtualmfa_devices</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateVirtualMFADevice,
+iam:EnableMFADevice,
+iam:ListVirtualMFADevices
+```
+
+### List
+```json
+iam:ListVirtualMFADevices
+```
+

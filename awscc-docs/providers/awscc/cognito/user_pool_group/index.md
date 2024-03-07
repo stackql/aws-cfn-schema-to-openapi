@@ -39,27 +39,6 @@ Gets an individual <code>user_pool_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-idp:GetGroup</pre>
-
-### Update
-<pre>
-cognito-idp:UpdateGroup,
-iam:PassRole,
-iam:PutRolePolicy</pre>
-
-### Delete
-<pre>
-cognito-idp:DeleteGroup,
-cognito-idp:GetGroup,
-iam:PutRolePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,6 +50,30 @@ role_arn,
 user_pool_id
 FROM awscc.cognito.user_pool_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserPoolId&gt;'
-AND data__Identifier = '&lt;GroupName&gt;'
+AND data__Identifier = '{UserPoolId}';
+AND data__Identifier = '{GroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_group</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-idp:GetGroup
+```
+
+### Update
+```json
+cognito-idp:UpdateGroup,
+iam:PassRole,
+iam:PutRolePolicy
+```
+
+### Delete
+```json
+cognito-idp:DeleteGroup,
+cognito-idp:GetGroup,
+iam:PutRolePolicy
+```
+

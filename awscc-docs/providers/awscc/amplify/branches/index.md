@@ -35,12 +35,21 @@ Retrieves a list of <code>branches</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.amplify.branches
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>branches</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 amplify:GetBranch,
 amplify:CreateBranch,
 amplify:TagResource,
@@ -53,21 +62,14 @@ s3:PutObject,
 s3:PutObjectAcl,
 sns:CreateTopic,
 sns:Subscribe,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### List
-<pre>
+```json
 amplify:GetBranch,
 amplify:ListBranches,
 amplify:ListTagsForResource,
-iam:PassRole</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.amplify.branches
-WHERE region = 'us-east-1'
+iam:PassRole
 ```
+

@@ -40,28 +40,6 @@ Gets an individual <code>view</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>view</code> resource, the following permissions are required:
-
-### Read
-<pre>
-resource-explorer-2:GetView</pre>
-
-### Update
-<pre>
-resource-explorer-2:UpdateView,
-resource-explorer-2:TagResource,
-resource-explorer-2:UntagResource,
-resource-explorer-2:ListTagsForResource</pre>
-
-### Delete
-<pre>
-resource-explorer-2:DeleteView,
-resource-explorer-2:GetView,
-resource-explorer-2:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ view_arn,
 view_name
 FROM awscc.resourceexplorer2.view
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ViewArn&gt;'
+AND data__Identifier = '{ViewArn}';
 ```
+
+## Permissions
+
+To operate on the <code>view</code> resource, the following permissions are required:
+
+### Read
+```json
+resource-explorer-2:GetView
+```
+
+### Update
+```json
+resource-explorer-2:UpdateView,
+resource-explorer-2:TagResource,
+resource-explorer-2:UntagResource,
+resource-explorer-2:ListTagsForResource
+```
+
+### Delete
+```json
+resource-explorer-2:DeleteView,
+resource-explorer-2:GetView,
+resource-explorer-2:UntagResource
+```
+

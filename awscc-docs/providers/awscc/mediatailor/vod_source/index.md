@@ -39,27 +39,6 @@ Gets an individual <code>vod_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vod_source</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediatailor:DescribeVodSource</pre>
-
-### Update
-<pre>
-mediatailor:DescribeVodSource,
-mediatailor:TagResource,
-mediatailor:UntagResource,
-mediatailor:UpdateVodSource</pre>
-
-### Delete
-<pre>
-mediatailor:DeleteVodSource,
-mediatailor:DescribeVodSource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,6 +50,30 @@ tags,
 vod_source_name
 FROM awscc.mediatailor.vod_source
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SourceLocationName&gt;'
-AND data__Identifier = '&lt;VodSourceName&gt;'
+AND data__Identifier = '{SourceLocationName}';
+AND data__Identifier = '{VodSourceName}';
 ```
+
+## Permissions
+
+To operate on the <code>vod_source</code> resource, the following permissions are required:
+
+### Read
+```json
+mediatailor:DescribeVodSource
+```
+
+### Update
+```json
+mediatailor:DescribeVodSource,
+mediatailor:TagResource,
+mediatailor:UntagResource,
+mediatailor:UpdateVodSource
+```
+
+### Delete
+```json
+mediatailor:DeleteVodSource,
+mediatailor:DescribeVodSource
+```
+

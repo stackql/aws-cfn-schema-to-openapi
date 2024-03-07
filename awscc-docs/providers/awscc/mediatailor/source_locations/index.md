@@ -35,24 +35,6 @@ Retrieves a list of <code>source_locations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>source_locations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediatailor:CreateSourceLocation,
-mediatailor:DescribeSourceLocation,
-mediatailor:TagResource,
-secretsmanager:DescribeSecret,
-secretsmanager:GetSecretValue,
-kms:CreateGrant</pre>
-
-### List
-<pre>
-mediatailor:ListSourceLocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ source_location_name
 FROM awscc.mediatailor.source_locations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>source_locations</code> resource, the following permissions are required:
+
+### Create
+```json
+mediatailor:CreateSourceLocation,
+mediatailor:DescribeSourceLocation,
+mediatailor:TagResource,
+secretsmanager:DescribeSecret,
+secretsmanager:GetSecretValue,
+kms:CreateGrant
+```
+
+### List
+```json
+mediatailor:ListSourceLocations
+```
+

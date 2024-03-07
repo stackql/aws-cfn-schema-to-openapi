@@ -35,23 +35,6 @@ Retrieves a list of <code>datasets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>datasets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-personalize:CreateDataset,
-personalize:DescribeDataset,
-personalize:CreateDatasetImportJob,
-personalize:DescribeDatasetImportJob,
-iam:PassRole</pre>
-
-### List
-<pre>
-personalize:ListDatasets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ dataset_arn
 FROM awscc.personalize.datasets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>datasets</code> resource, the following permissions are required:
+
+### Create
+```json
+personalize:CreateDataset,
+personalize:DescribeDataset,
+personalize:CreateDatasetImportJob,
+personalize:DescribeDatasetImportJob,
+iam:PassRole
+```
+
+### List
+```json
+personalize:ListDatasets
+```
+

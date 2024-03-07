@@ -35,21 +35,6 @@ Retrieves a list of <code>loggings</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>loggings</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:SetV2LoggingOptions,
-iot:GetV2LoggingOptions,
-iam:PassRole</pre>
-
-### List
-<pre>
-iot:GetV2LoggingOptions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ account_id
 FROM awscc.iot.loggings
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>loggings</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:SetV2LoggingOptions,
+iot:GetV2LoggingOptions,
+iam:PassRole
+```
+
+### List
+```json
+iot:GetV2LoggingOptions
+```
+

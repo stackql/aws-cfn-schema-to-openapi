@@ -46,26 +46,6 @@ Gets an individual <code>schedule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schedule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-scheduler:GetSchedule</pre>
-
-### Update
-<pre>
-scheduler:UpdateSchedule,
-scheduler:GetSchedule,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-scheduler:DeleteSchedule,
-scheduler:GetSchedule</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +64,28 @@ state,
 target
 FROM awscc.scheduler.schedule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>schedule</code> resource, the following permissions are required:
+
+### Read
+```json
+scheduler:GetSchedule
+```
+
+### Update
+```json
+scheduler:UpdateSchedule,
+scheduler:GetSchedule,
+iam:PassRole
+```
+
+### Delete
+```json
+scheduler:DeleteSchedule,
+scheduler:GetSchedule
+```
+

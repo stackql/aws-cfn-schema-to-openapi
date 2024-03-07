@@ -42,36 +42,6 @@ Gets an individual <code>table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>table</code> resource, the following permissions are required:
-
-### Read
-<pre>
-timestream:DescribeTable,
-timestream:DescribeEndpoints,
-timestream:ListTagsForResource</pre>
-
-### Update
-<pre>
-timestream:UpdateTable,
-timestream:DescribeEndpoints,
-timestream:TagResource,
-timestream:UntagResource,
-s3:PutObject,
-s3:GetObject,
-s3:GetBucketAcl,
-kms:GenerateDataKey*,
-kms:DescribeKey,
-kms:Encrypt</pre>
-
-### Delete
-<pre>
-timestream:DeleteTable,
-timestream:DescribeEndpoints,
-timestream:DescribeTable</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,6 +56,39 @@ magnetic_store_write_properties,
 tags
 FROM awscc.timestream.table
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatabaseName&gt;'
-AND data__Identifier = '&lt;TableName&gt;'
+AND data__Identifier = '{DatabaseName}';
+AND data__Identifier = '{TableName}';
 ```
+
+## Permissions
+
+To operate on the <code>table</code> resource, the following permissions are required:
+
+### Read
+```json
+timestream:DescribeTable,
+timestream:DescribeEndpoints,
+timestream:ListTagsForResource
+```
+
+### Update
+```json
+timestream:UpdateTable,
+timestream:DescribeEndpoints,
+timestream:TagResource,
+timestream:UntagResource,
+s3:PutObject,
+s3:GetObject,
+s3:GetBucketAcl,
+kms:GenerateDataKey*,
+kms:DescribeKey,
+kms:Encrypt
+```
+
+### Delete
+```json
+timestream:DeleteTable,
+timestream:DescribeEndpoints,
+timestream:DescribeTable
+```
+

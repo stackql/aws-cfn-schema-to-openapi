@@ -35,23 +35,6 @@ Retrieves a list of <code>matchmaking_rule_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>matchmaking_rule_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-gamelift:CreateMatchmakingRuleSet,
-gamelift:DescribeMatchmakingRuleSets,
-gamelift:ValidateMatchmakingRuleSet,
-gamelift:ListTagsForResource,
-gamelift:TagResource</pre>
-
-### List
-<pre>
-gamelift:DescribeMatchmakingRuleSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ name
 FROM awscc.gamelift.matchmaking_rule_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>matchmaking_rule_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+gamelift:CreateMatchmakingRuleSet,
+gamelift:DescribeMatchmakingRuleSets,
+gamelift:ValidateMatchmakingRuleSet,
+gamelift:ListTagsForResource,
+gamelift:TagResource
+```
+
+### List
+```json
+gamelift:DescribeMatchmakingRuleSets
+```
+

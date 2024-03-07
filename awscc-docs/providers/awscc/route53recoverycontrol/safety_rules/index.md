@@ -35,24 +35,6 @@ Retrieves a list of <code>safety_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>safety_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-route53-recovery-control-config:CreateSafetyRule,
-route53-recovery-control-config:DescribeSafetyRule,
-route53-recovery-control-config:DescribeControlPanel,
-route53-recovery-control-config:DescribeRoutingControl,
-route53-recovery-control-config:ListTagsForResource,
-route53-recovery-control-config:TagResource</pre>
-
-### List
-<pre>
-route53-recovery-control-config:ListSafetyRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ safety_rule_arn
 FROM awscc.route53recoverycontrol.safety_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>safety_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+route53-recovery-control-config:CreateSafetyRule,
+route53-recovery-control-config:DescribeSafetyRule,
+route53-recovery-control-config:DescribeControlPanel,
+route53-recovery-control-config:DescribeRoutingControl,
+route53-recovery-control-config:ListTagsForResource,
+route53-recovery-control-config:TagResource
+```
+
+### List
+```json
+route53-recovery-control-config:ListSafetyRules
+```
+

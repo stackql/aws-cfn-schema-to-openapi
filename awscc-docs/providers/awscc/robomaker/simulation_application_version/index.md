@@ -38,20 +38,6 @@ Gets an individual <code>simulation_application_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>simulation_application_version</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-robomaker:DeleteSimulationApplication,
-robomaker:DescribeSimulationApplication</pre>
-
-### Read
-<pre>
-robomaker:DescribeSimulationApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +48,21 @@ application_version,
 arn
 FROM awscc.robomaker.simulation_application_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>simulation_application_version</code> resource, the following permissions are required:
+
+### Delete
+```json
+robomaker:DeleteSimulationApplication,
+robomaker:DescribeSimulationApplication
+```
+
+### Read
+```json
+robomaker:DescribeSimulationApplication
+```
+

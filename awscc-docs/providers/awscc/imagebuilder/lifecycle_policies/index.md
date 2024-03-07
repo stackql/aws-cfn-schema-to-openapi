@@ -35,22 +35,6 @@ Retrieves a list of <code>lifecycle_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>lifecycle_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-imagebuilder:CreateLifecyclePolicy,
-imagebuilder:GetLifecyclePolicy,
-imagebuilder:TagResource</pre>
-
-### List
-<pre>
-imagebuilder:ListLifecyclePolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ arn
 FROM awscc.imagebuilder.lifecycle_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>lifecycle_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+imagebuilder:CreateLifecyclePolicy,
+imagebuilder:GetLifecyclePolicy,
+imagebuilder:TagResource
+```
+
+### List
+```json
+imagebuilder:ListLifecyclePolicies
+```
+

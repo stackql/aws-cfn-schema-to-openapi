@@ -39,17 +39,32 @@ Gets an individual <code>suite_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+suite_definition_configuration,
+suite_definition_id,
+suite_definition_arn,
+suite_definition_version,
+tags
+FROM awscc.iotcoredeviceadvisor.suite_definition
+WHERE region = 'us-east-1'
+AND data__Identifier = '{SuiteDefinitionId}';
+```
+
 ## Permissions
 
 To operate on the <code>suite_definition</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 iotdeviceadvisor:GetSuiteDefinition,
-iotdeviceadvisor:TagResource</pre>
+iotdeviceadvisor:TagResource
+```
 
 ### Update
-<pre>
+```json
 iot:DescribeCertificate,
 iot:DescribeThing,
 iot:GetPolicy,
@@ -63,24 +78,12 @@ iotdeviceadvisor:UpdateSuiteDefinition,
 iotdeviceadvisor:GetSuiteDefinition,
 iotdeviceadvisor:UntagResource,
 iotdeviceadvisor:TagResource,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### Delete
-<pre>
+```json
 iotdeviceadvisor:GetSuiteDefinition,
-iotdeviceadvisor:DeleteSuiteDefinition</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-suite_definition_configuration,
-suite_definition_id,
-suite_definition_arn,
-suite_definition_version,
-tags
-FROM awscc.iotcoredeviceadvisor.suite_definition
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SuiteDefinitionId&gt;'
+iotdeviceadvisor:DeleteSuiteDefinition
 ```
+

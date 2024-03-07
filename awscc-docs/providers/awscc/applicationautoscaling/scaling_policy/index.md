@@ -43,25 +43,6 @@ Gets an individual <code>scaling_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scaling_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-application-autoscaling:DescribeScalingPolicies</pre>
-
-### Update
-<pre>
-application-autoscaling:DescribeScalingPolicies,
-application-autoscaling:PutScalingPolicy</pre>
-
-### Delete
-<pre>
-application-autoscaling:DescribeScalingPolicies,
-application-autoscaling:DeleteScalingPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,6 +58,28 @@ target_tracking_scaling_policy_configuration,
 arn
 FROM awscc.applicationautoscaling.scaling_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
-AND data__Identifier = '&lt;ScalableDimension&gt;'
+AND data__Identifier = '{Arn}';
+AND data__Identifier = '{ScalableDimension}';
 ```
+
+## Permissions
+
+To operate on the <code>scaling_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+application-autoscaling:DescribeScalingPolicies
+```
+
+### Update
+```json
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:PutScalingPolicy
+```
+
+### Delete
+```json
+application-autoscaling:DescribeScalingPolicies,
+application-autoscaling:DeleteScalingPolicy
+```
+

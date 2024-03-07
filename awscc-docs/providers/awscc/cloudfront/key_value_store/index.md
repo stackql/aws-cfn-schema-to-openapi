@@ -40,25 +40,6 @@ Gets an individual <code>key_value_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>key_value_store</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteKeyValueStore,
-cloudfront:DescribeKeyValueStore</pre>
-
-### Read
-<pre>
-cloudfront:DescribeKeyValueStore</pre>
-
-### Update
-<pre>
-cloudfront:UpdateKeyValueStore,
-cloudfront:DescribeKeyValueStore</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +51,27 @@ name,
 comment,
 import_source
 FROM awscc.cloudfront.key_value_store
-WHERE data__Identifier = '&lt;Name&gt;'
+WHERE data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>key_value_store</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteKeyValueStore,
+cloudfront:DescribeKeyValueStore
+```
+
+### Read
+```json
+cloudfront:DescribeKeyValueStore
+```
+
+### Update
+```json
+cloudfront:UpdateKeyValueStore,
+cloudfront:DescribeKeyValueStore
+```
+

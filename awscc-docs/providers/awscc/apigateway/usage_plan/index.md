@@ -41,28 +41,6 @@ Gets an individual <code>usage_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>usage_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:GET,
-apigateway:DELETE,
-apigateway:PATCH,
-apigateway:PUT</pre>
-
-### Delete
-<pre>
-apigateway:DELETE,
-apigateway:GET,
-apigateway:PATCH</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +54,30 @@ throttle,
 usage_plan_name
 FROM awscc.apigateway.usage_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>usage_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:GET,
+apigateway:DELETE,
+apigateway:PATCH,
+apigateway:PUT
+```
+
+### Delete
+```json
+apigateway:DELETE,
+apigateway:GET,
+apigateway:PATCH
+```
+

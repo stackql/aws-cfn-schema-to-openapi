@@ -35,26 +35,6 @@ Retrieves a list of <code>infrastructure_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>infrastructure_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-iam:GetRole,
-iam:GetInstanceProfile,
-iam:CreateServiceLinkedRole,
-sns:Publish,
-imagebuilder:TagResource,
-imagebuilder:GetInfrastructureConfiguration,
-imagebuilder:CreateInfrastructureConfiguration</pre>
-
-### List
-<pre>
-imagebuilder:ListInfrastructureConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ arn
 FROM awscc.imagebuilder.infrastructure_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>infrastructure_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+iam:GetRole,
+iam:GetInstanceProfile,
+iam:CreateServiceLinkedRole,
+sns:Publish,
+imagebuilder:TagResource,
+imagebuilder:GetInfrastructureConfiguration,
+imagebuilder:CreateInfrastructureConfiguration
+```
+
+### List
+```json
+imagebuilder:ListInfrastructureConfigurations
+```
+

@@ -36,22 +36,6 @@ Retrieves a list of <code>threat_intel_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>threat_intel_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-guardduty:CreateThreatIntelSet,
-guardduty:GetThreatIntelSet,
-guardduty:TagResource,
-iam:PutRolePolicy</pre>
-
-### List
-<pre>
-guardduty:ListThreatIntelSets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ detector_id
 FROM awscc.guardduty.threat_intel_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>threat_intel_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+guardduty:CreateThreatIntelSet,
+guardduty:GetThreatIntelSet,
+guardduty:TagResource,
+iam:PutRolePolicy
+```
+
+### List
+```json
+guardduty:ListThreatIntelSets
+```
+

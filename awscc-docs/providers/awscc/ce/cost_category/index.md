@@ -41,23 +41,6 @@ Gets an individual <code>cost_category</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cost_category</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ce:DescribeCostCategoryDefinition</pre>
-
-### Update
-<pre>
-ce:UpdateCostCategoryDefinition</pre>
-
-### Delete
-<pre>
-ce:DeleteCostCategoryDefinition</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +54,25 @@ split_charge_rules,
 default_value
 FROM awscc.ce.cost_category
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>cost_category</code> resource, the following permissions are required:
+
+### Read
+```json
+ce:DescribeCostCategoryDefinition
+```
+
+### Update
+```json
+ce:UpdateCostCategoryDefinition
+```
+
+### Delete
+```json
+ce:DeleteCostCategoryDefinition
+```
+

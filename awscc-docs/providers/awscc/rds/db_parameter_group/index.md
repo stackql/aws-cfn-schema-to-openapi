@@ -39,33 +39,6 @@ Gets an individual <code>db_parameter_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_parameter_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBParameterGroups,
-rds:DescribeDBParameters,
-rds:DescribeEngineDefaultParameters,
-rds:ListTagsForResource</pre>
-
-### Update
-<pre>
-rds:AddTagsToResource,
-rds:DescribeDBParameterGroups,
-rds:DescribeDBParameters,
-rds:DescribeEngineDefaultParameters,
-rds:ListTagsForResource,
-rds:ModifyDBParameterGroup,
-rds:ResetDBParameterGroup,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DeleteDBParameterGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +50,35 @@ parameters,
 tags
 FROM awscc.rds.db_parameter_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DBParameterGroupName&gt;'
+AND data__Identifier = '{DBParameterGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>db_parameter_group</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:DescribeEngineDefaultParameters,
+rds:ListTagsForResource
+```
+
+### Update
+```json
+rds:AddTagsToResource,
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:DescribeEngineDefaultParameters,
+rds:ListTagsForResource,
+rds:ModifyDBParameterGroup,
+rds:ResetDBParameterGroup,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteDBParameterGroup
+```
+

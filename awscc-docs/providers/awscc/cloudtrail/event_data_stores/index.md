@@ -35,12 +35,21 @@ Retrieves a list of <code>event_data_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+event_data_store_arn
+FROM awscc.cloudtrail.event_data_stores
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>event_data_stores</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 CloudTrail:CreateEventDataStore,
 CloudTrail:AddTags,
 CloudTrail:PutInsightSelectors,
@@ -56,21 +65,14 @@ kms:Decrypt,
 glue:CreateDatabase,
 glue:CreateTable,
 glue:PassConnection,
-lakeformation:RegisterResource</pre>
+lakeformation:RegisterResource
+```
 
 ### List
-<pre>
+```json
 CloudTrail:ListEventDataStores,
 CloudTrail:GetEventDataStore,
 CloudTrail:GetInsightSelectors,
-CloudTrail:ListTags</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-event_data_store_arn
-FROM awscc.cloudtrail.event_data_stores
-WHERE region = 'us-east-1'
+CloudTrail:ListTags
 ```
+

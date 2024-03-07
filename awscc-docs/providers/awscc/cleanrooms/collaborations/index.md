@@ -35,25 +35,6 @@ Retrieves a list of <code>collaborations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>collaborations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cleanrooms:CreateCollaboration,
-cleanrooms:GetCollaboration,
-cleanrooms:ListMembers,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:GetCollaboration,
-cleanrooms:ListCollaborations</pre>
-
-### List
-<pre>
-cleanrooms:ListCollaborations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ collaboration_identifier
 FROM awscc.cleanrooms.collaborations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>collaborations</code> resource, the following permissions are required:
+
+### Create
+```json
+cleanrooms:CreateCollaboration,
+cleanrooms:GetCollaboration,
+cleanrooms:ListMembers,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:GetCollaboration,
+cleanrooms:ListCollaborations
+```
+
+### List
+```json
+cleanrooms:ListCollaborations
+```
+

@@ -35,23 +35,6 @@ Retrieves a list of <code>environment_account_connections</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment_account_connections</code> resource, the following permissions are required:
-
-### Create
-<pre>
-proton:CreateEnvironmentAccountConnection,
-proton:TagResource,
-iam:PassRole,
-proton:ListTagsForResource,
-proton:GetEnvironmentAccountConnection</pre>
-
-### List
-<pre>
-proton:ListEnvironmentAccountConnections</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ arn
 FROM awscc.proton.environment_account_connections
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>environment_account_connections</code> resource, the following permissions are required:
+
+### Create
+```json
+proton:CreateEnvironmentAccountConnection,
+proton:TagResource,
+iam:PassRole,
+proton:ListTagsForResource,
+proton:GetEnvironmentAccountConnection
+```
+
+### List
+```json
+proton:ListEnvironmentAccountConnections
+```
+

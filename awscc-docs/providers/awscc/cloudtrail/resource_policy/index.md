@@ -36,24 +36,6 @@ Gets an individual <code>resource_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-CloudTrail:GetResourcePolicy</pre>
-
-### Update
-<pre>
-CloudTrail:PutResourcePolicy,
-CloudTrail:GetResourcePolicy</pre>
-
-### Delete
-<pre>
-CloudTrail:DeleteResourcePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +44,26 @@ resource_arn,
 resource_policy
 FROM awscc.cloudtrail.resource_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceArn&gt;'
+AND data__Identifier = '{ResourceArn}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+CloudTrail:GetResourcePolicy
+```
+
+### Update
+```json
+CloudTrail:PutResourcePolicy,
+CloudTrail:GetResourcePolicy
+```
+
+### Delete
+```json
+CloudTrail:DeleteResourcePolicy
+```
+

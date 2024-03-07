@@ -43,28 +43,6 @@ Gets an individual <code>map</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>map</code> resource, the following permissions are required:
-
-### Read
-<pre>
-geo:DescribeMap</pre>
-
-### Update
-<pre>
-geo:CreateMap,
-geo:DescribeMap,
-geo:TagResource,
-geo:UntagResource,
-geo:UpdateMap</pre>
-
-### Delete
-<pre>
-geo:DeleteMap,
-geo:DescribeMap</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +58,30 @@ update_time,
 arn
 FROM awscc.location.map
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MapName&gt;'
+AND data__Identifier = '{MapName}';
 ```
+
+## Permissions
+
+To operate on the <code>map</code> resource, the following permissions are required:
+
+### Read
+```json
+geo:DescribeMap
+```
+
+### Update
+```json
+geo:CreateMap,
+geo:DescribeMap,
+geo:TagResource,
+geo:UntagResource,
+geo:UpdateMap
+```
+
+### Delete
+```json
+geo:DeleteMap,
+geo:DescribeMap
+```
+

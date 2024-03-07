@@ -38,23 +38,6 @@ Gets an individual <code>tag_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>tag_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lakeformation:GetResourceLFTags,
-glue:GetDatabase,
-glue:GetTable</pre>
-
-### Delete
-<pre>
-lakeformation:RemoveLFTagsFromResource,
-glue:GetDatabase,
-glue:GetTable</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,6 +48,25 @@ resource_identifier,
 tags_identifier
 FROM awscc.lakeformation.tag_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceIdentifier&gt;'
-AND data__Identifier = '&lt;TagsIdentifier&gt;'
+AND data__Identifier = '{ResourceIdentifier}';
+AND data__Identifier = '{TagsIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>tag_association</code> resource, the following permissions are required:
+
+### Read
+```json
+lakeformation:GetResourceLFTags,
+glue:GetDatabase,
+glue:GetTable
+```
+
+### Delete
+```json
+lakeformation:RemoveLFTagsFromResource,
+glue:GetDatabase,
+glue:GetTable
+```
+

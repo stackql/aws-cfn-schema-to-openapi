@@ -35,12 +35,21 @@ Retrieves a list of <code>db_clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+d_bcluster_identifier
+FROM awscc.neptune.db_clusters
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>db_clusters</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:PassRole,
 rds:AddRoleToDBCluster,
 rds:AddTagsToResource,
@@ -51,20 +60,13 @@ rds:ListTagsForResource,
 rds:ModifyDBCluster,
 rds:RestoreDBClusterFromSnapshot,
 rds:RestoreDBClusterToPointInTime,
-kms:*</pre>
+kms:*
+```
 
 ### List
-<pre>
+```json
 rds:DescribeDBClusters,
 rds:ListTagsForResource,
-kms:*</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-d_bcluster_identifier
-FROM awscc.neptune.db_clusters
-WHERE region = 'us-east-1'
+kms:*
 ```
+

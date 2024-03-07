@@ -36,26 +36,6 @@ Retrieves a list of <code>component_types</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>component_types</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iottwinmaker:CreateComponentType,
-iottwinmaker:GetComponentType,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource</pre>
-
-### List
-<pre>
-iottwinmaker:GetComponentType,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListComponentTypes,
-iottwinmaker:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,3 +45,25 @@ component_type_id
 FROM awscc.iottwinmaker.component_types
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>component_types</code> resource, the following permissions are required:
+
+### Create
+```json
+iottwinmaker:CreateComponentType,
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource
+```
+
+### List
+```json
+iottwinmaker:GetComponentType,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListComponentTypes,
+iottwinmaker:ListTagsForResource
+```
+

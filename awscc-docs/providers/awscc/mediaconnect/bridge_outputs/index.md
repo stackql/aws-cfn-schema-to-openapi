@@ -36,16 +36,6 @@ Retrieves a list of <code>bridge_outputs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bridge_outputs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediaconnect:AddBridgeOutputs,
-mediaconnect:DescribeBridge</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -55,3 +45,14 @@ name
 FROM awscc.mediaconnect.bridge_outputs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>bridge_outputs</code> resource, the following permissions are required:
+
+### Create
+```json
+mediaconnect:AddBridgeOutputs,
+mediaconnect:DescribeBridge
+```
+

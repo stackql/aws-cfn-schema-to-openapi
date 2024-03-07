@@ -44,23 +44,6 @@ Gets an individual <code>resolver_query_logging_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolver_query_logging_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-resolverquerylogging:GetConfig,
-route53resolver:GetResolverQueryLogConfig</pre>
-
-### Delete
-<pre>
-resolverquerylogging:DeleteConfig,
-resolverquerylogging:ListConfig,
-route53resolver:DeleteResolverQueryLogConfig,
-route53resolver:ListResolverQueryLogConfigs</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +60,24 @@ destination_arn,
 creation_time
 FROM awscc.route53resolver.resolver_query_logging_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>resolver_query_logging_config</code> resource, the following permissions are required:
+
+### Read
+```json
+resolverquerylogging:GetConfig,
+route53resolver:GetResolverQueryLogConfig
+```
+
+### Delete
+```json
+resolverquerylogging:DeleteConfig,
+resolverquerylogging:ListConfig,
+route53resolver:DeleteResolverQueryLogConfig,
+route53resolver:ListResolverQueryLogConfigs
+```
+

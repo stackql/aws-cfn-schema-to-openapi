@@ -43,33 +43,6 @@ Gets an individual <code>response_plan</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>response_plan</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-incidents:GetResponsePlan,
-ssm-incidents:ListTagsForResource</pre>
-
-### Update
-<pre>
-ssm-incidents:UpdateResponsePlan,
-ssm-incidents:GetResponsePlan,
-ssm-incidents:TagResource,
-ssm-incidents:UntagResource,
-ssm-incidents:ListTagsForResource,
-iam:PassRole,
-secretsmanager:GetSecretValue,
-kms:Decrypt,
-kms:GenerateDataKey*</pre>
-
-### Delete
-<pre>
-ssm-incidents:DeleteResponsePlan,
-ssm-incidents:GetResponsePlan</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +58,35 @@ tags,
 incident_template
 FROM awscc.ssmincidents.response_plan
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>response_plan</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-incidents:GetResponsePlan,
+ssm-incidents:ListTagsForResource
+```
+
+### Update
+```json
+ssm-incidents:UpdateResponsePlan,
+ssm-incidents:GetResponsePlan,
+ssm-incidents:TagResource,
+ssm-incidents:UntagResource,
+ssm-incidents:ListTagsForResource,
+iam:PassRole,
+secretsmanager:GetSecretValue,
+kms:Decrypt,
+kms:GenerateDataKey*
+```
+
+### Delete
+```json
+ssm-incidents:DeleteResponsePlan,
+ssm-incidents:GetResponsePlan
+```
+

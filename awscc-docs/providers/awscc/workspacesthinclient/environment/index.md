@@ -53,43 +53,6 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-thinclient:GetEnvironment,
-thinclient:ListTagsForResource,
-kms:DescribeKey,
-kms:Encrypt,
-kms:Decrypt</pre>
-
-### Update
-<pre>
-appstream:DescribeStacks,
-workspaces:DescribeWorkspaceDirectories,
-workspaces-web:GetPortal,
-workspaces-web:GetUserSettings,
-thinclient:UpdateEnvironment,
-thinclient:GetEnvironment,
-thinclient:TagResource,
-thinclient:UntagResource,
-thinclient:ListTagsForResource,
-kms:DescribeKey,
-kms:Encrypt,
-kms:Decrypt,
-kms:CreateGrant,
-kms:RetireGrant</pre>
-
-### Delete
-<pre>
-thinclient:DeleteEnvironment,
-thinclient:UntagResource,
-kms:DescribeKey,
-kms:RetireGrant</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -115,5 +78,45 @@ kms_key_arn,
 tags
 FROM awscc.workspacesthinclient.environment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+```json
+thinclient:GetEnvironment,
+thinclient:ListTagsForResource,
+kms:DescribeKey,
+kms:Encrypt,
+kms:Decrypt
+```
+
+### Update
+```json
+appstream:DescribeStacks,
+workspaces:DescribeWorkspaceDirectories,
+workspaces-web:GetPortal,
+workspaces-web:GetUserSettings,
+thinclient:UpdateEnvironment,
+thinclient:GetEnvironment,
+thinclient:TagResource,
+thinclient:UntagResource,
+thinclient:ListTagsForResource,
+kms:DescribeKey,
+kms:Encrypt,
+kms:Decrypt,
+kms:CreateGrant,
+kms:RetireGrant
+```
+
+### Delete
+```json
+thinclient:DeleteEnvironment,
+thinclient:UntagResource,
+kms:DescribeKey,
+kms:RetireGrant
+```
+

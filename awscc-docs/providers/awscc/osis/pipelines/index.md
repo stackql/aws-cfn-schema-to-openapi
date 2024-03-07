@@ -35,26 +35,6 @@ Retrieves a list of <code>pipelines</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipelines</code> resource, the following permissions are required:
-
-### Create
-<pre>
-osis:CreatePipeline,
-osis:GetPipeline,
-osis:TagResource,
-osis:ListTagsForResource,
-iam:PassRole,
-iam:CreateServiceLinkedRole,
-logs:CreateLogDelivery,
-kms:DescribeKey</pre>
-
-### List
-<pre>
-osis:ListPipelines</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ pipeline_arn
 FROM awscc.osis.pipelines
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>pipelines</code> resource, the following permissions are required:
+
+### Create
+```json
+osis:CreatePipeline,
+osis:GetPipeline,
+osis:TagResource,
+osis:ListTagsForResource,
+iam:PassRole,
+iam:CreateServiceLinkedRole,
+logs:CreateLogDelivery,
+kms:DescribeKey
+```
+
+### List
+```json
+osis:ListPipelines
+```
+

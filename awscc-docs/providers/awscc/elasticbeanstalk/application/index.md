@@ -37,24 +37,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticbeanstalk:DescribeApplications</pre>
-
-### Update
-<pre>
-elasticbeanstalk:UpdateApplication,
-elasticbeanstalk:UpdateApplicationResourceLifecycle</pre>
-
-### Delete
-<pre>
-elasticbeanstalk:DeleteApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +46,26 @@ description,
 resource_lifecycle_config
 FROM awscc.elasticbeanstalk.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationName&gt;'
+AND data__Identifier = '{ApplicationName}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticbeanstalk:DescribeApplications
+```
+
+### Update
+```json
+elasticbeanstalk:UpdateApplication,
+elasticbeanstalk:UpdateApplicationResourceLifecycle
+```
+
+### Delete
+```json
+elasticbeanstalk:DeleteApplication
+```
+

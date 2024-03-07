@@ -42,26 +42,6 @@ Gets an individual <code>lifecycle_hook</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>lifecycle_hook</code> resource, the following permissions are required:
-
-### Read
-<pre>
-autoscaling:DescribeLifecycleHooks</pre>
-
-### Update
-<pre>
-autoscaling:PutLifecycleHook,
-autoscaling:DescribeLifecycleHooks,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-autoscaling:DeleteLifecycleHook,
-autoscaling:DescribeLifecycleHooks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +56,29 @@ notification_target_ar_n,
 role_ar_n
 FROM awscc.autoscaling.lifecycle_hook
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
-AND data__Identifier = '&lt;LifecycleHookName&gt;'
+AND data__Identifier = '{AutoScalingGroupName}';
+AND data__Identifier = '{LifecycleHookName}';
 ```
+
+## Permissions
+
+To operate on the <code>lifecycle_hook</code> resource, the following permissions are required:
+
+### Read
+```json
+autoscaling:DescribeLifecycleHooks
+```
+
+### Update
+```json
+autoscaling:PutLifecycleHook,
+autoscaling:DescribeLifecycleHooks,
+iam:PassRole
+```
+
+### Delete
+```json
+autoscaling:DeleteLifecycleHook,
+autoscaling:DescribeLifecycleHooks
+```
+

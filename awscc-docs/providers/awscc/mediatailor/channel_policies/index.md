@@ -35,16 +35,6 @@ Retrieves a list of <code>channel_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediatailor:PutChannelPolicy,
-mediatailor:GetChannelPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -53,3 +43,14 @@ channel_name
 FROM awscc.mediatailor.channel_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>channel_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+mediatailor:PutChannelPolicy,
+mediatailor:GetChannelPolicy
+```
+

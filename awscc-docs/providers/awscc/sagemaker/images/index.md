@@ -35,23 +35,6 @@ Retrieves a list of <code>images</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>images</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sagemaker:CreateImage,
-sagemaker:DescribeImage,
-iam:PassRole,
-sagemaker:AddTags,
-sagemaker:ListTags</pre>
-
-### List
-<pre>
-sagemaker:ListImages</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ image_arn
 FROM awscc.sagemaker.images
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>images</code> resource, the following permissions are required:
+
+### Create
+```json
+sagemaker:CreateImage,
+sagemaker:DescribeImage,
+iam:PassRole,
+sagemaker:AddTags,
+sagemaker:ListTags
+```
+
+### List
+```json
+sagemaker:ListImages
+```
+

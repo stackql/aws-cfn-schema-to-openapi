@@ -35,12 +35,21 @@ Retrieves a list of <code>bots</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.lex.bots
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>bots</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:PassRole,
 lex:DescribeBot,
 lex:CreateUploadUrl,
@@ -70,18 +79,11 @@ lex:CreateCustomVocabulary,
 lex:UpdateCustomVocabulary,
 lex:DeleteCustomVocabulary,
 s3:GetObject,
-lex:UpdateBotAlias</pre>
+lex:UpdateBotAlias
+```
 
 ### List
-<pre>
-lex:ListBots</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.lex.bots
-WHERE region = 'us-east-1'
+```json
+lex:ListBots
 ```
+

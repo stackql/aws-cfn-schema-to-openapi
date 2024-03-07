@@ -39,27 +39,6 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-CloudTrail:GetChannel,
-CloudTrail:ListChannels</pre>
-
-### Update
-<pre>
-CloudTrail:UpdateChannel,
-CloudTrail:GetChannel,
-CloudTrail:AddTags,
-CloudTrail:RemoveTags</pre>
-
-### Delete
-<pre>
-CloudTrail:DeleteChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +50,29 @@ channel_arn,
 tags
 FROM awscc.cloudtrail.channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ChannelArn&gt;'
+AND data__Identifier = '{ChannelArn}';
 ```
+
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+```json
+CloudTrail:GetChannel,
+CloudTrail:ListChannels
+```
+
+### Update
+```json
+CloudTrail:UpdateChannel,
+CloudTrail:GetChannel,
+CloudTrail:AddTags,
+CloudTrail:RemoveTags
+```
+
+### Delete
+```json
+CloudTrail:DeleteChannel
+```
+

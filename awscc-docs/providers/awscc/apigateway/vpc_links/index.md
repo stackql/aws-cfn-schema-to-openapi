@@ -35,29 +35,6 @@ Retrieves a list of <code>vpc_links</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_links</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-apigateway:PUT,
-apigateway:GET,
-ec2:CreateVpcEndpointServiceConfiguration,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:ModifyVpcEndpointServicePermissions</pre>
-
-### List
-<pre>
-apigateway:GET,
-ec2:CreateVpcEndpointServiceConfiguration,
-ec2:DeleteVpcEndpointServiceConfigurations,
-ec2:DescribeVpcEndpointServiceConfigurations,
-ec2:ModifyVpcEndpointServicePermissions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,3 +43,28 @@ vpc_link_id
 FROM awscc.apigateway.vpc_links
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>vpc_links</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:PUT,
+apigateway:GET,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions
+```
+
+### List
+```json
+apigateway:GET,
+ec2:CreateVpcEndpointServiceConfiguration,
+ec2:DeleteVpcEndpointServiceConfigurations,
+ec2:DescribeVpcEndpointServiceConfigurations,
+ec2:ModifyVpcEndpointServicePermissions
+```
+

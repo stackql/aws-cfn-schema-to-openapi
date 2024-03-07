@@ -35,20 +35,6 @@ Retrieves a list of <code>hours_of_operations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hours_of_operations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateHoursOfOperation,
-connect:TagResource</pre>
-
-### List
-<pre>
-connect:ListHoursOfOperations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ hours_of_operation_arn
 FROM awscc.connect.hours_of_operations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>hours_of_operations</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateHoursOfOperation,
+connect:TagResource
+```
+
+### List
+```json
+connect:ListHoursOfOperations
+```
+

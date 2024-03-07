@@ -35,23 +35,6 @@ Retrieves a list of <code>pull_through_cache_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pull_through_cache_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecr:DescribePullThroughCacheRules,
-ecr:CreatePullThroughCacheRule,
-ecr:DeletePullThroughCacheRule,
-iam:CreateServiceLinkedRole,
-secretsmanager:GetSecretValue</pre>
-
-### List
-<pre>
-ecr:DescribePullThroughCacheRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ ecr_repository_prefix
 FROM awscc.ecr.pull_through_cache_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>pull_through_cache_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+ecr:DescribePullThroughCacheRules,
+ecr:CreatePullThroughCacheRule,
+ecr:DeletePullThroughCacheRule,
+iam:CreateServiceLinkedRole,
+secretsmanager:GetSecretValue
+```
+
+### List
+```json
+ecr:DescribePullThroughCacheRules
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>capabilities</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+capability_id
+FROM awscc.b2bi.capabilities
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>capabilities</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 b2bi:CreateCapability,
 b2bi:TagResource,
 events:ListRules,
@@ -56,18 +65,11 @@ logs:ListLogDeliveries,
 logs:PutLogEvents,
 logs:PutResourcePolicy,
 s3:GetObject,
-s3:ListBucket</pre>
+s3:ListBucket
+```
 
 ### List
-<pre>
-b2bi:ListCapabilities</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-capability_id
-FROM awscc.b2bi.capabilities
-WHERE region = 'us-east-1'
+```json
+b2bi:ListCapabilities
 ```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>pipes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+name
+FROM awscc.pipes.pipes
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>pipes</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 pipes:CreatePipe,
 pipes:DescribePipe,
 pipes:TagResource,
@@ -54,18 +63,11 @@ logs:GetLogDelivery,
 logs:ListLogDeliveries,
 s3:PutBucketPolicy,
 s3:GetBucketPolicy,
-firehose:TagDeliveryStream</pre>
+firehose:TagDeliveryStream
+```
 
 ### List
-<pre>
-pipes:ListPipes</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-name
-FROM awscc.pipes.pipes
-WHERE region = 'us-east-1'
+```json
+pipes:ListPipes
 ```
+

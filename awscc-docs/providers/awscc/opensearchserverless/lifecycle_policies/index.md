@@ -36,19 +36,6 @@ Retrieves a list of <code>lifecycle_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>lifecycle_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-aoss:CreateLifecyclePolicy</pre>
-
-### List
-<pre>
-aoss:ListLifecyclePolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ name
 FROM awscc.opensearchserverless.lifecycle_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>lifecycle_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+aoss:CreateLifecyclePolicy
+```
+
+### List
+```json
+aoss:ListLifecyclePolicies
+```
+

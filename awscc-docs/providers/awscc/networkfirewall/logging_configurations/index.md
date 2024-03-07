@@ -35,12 +35,21 @@ Retrieves a list of <code>logging_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+firewall_arn
+FROM awscc.networkfirewall.logging_configurations
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>logging_configurations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 logs:CreateLogDelivery,
 logs:GetLogDelivery,
 logs:ListLogDeliveries,
@@ -52,20 +61,13 @@ logs:DescribeLogGroups,
 iam:CreateServiceLinkedRole,
 firehose:TagDeliveryStream,
 network-firewall:UpdateLoggingConfiguration,
-network-firewall:DescribeLoggingConfiguration</pre>
+network-firewall:DescribeLoggingConfiguration
+```
 
 ### List
-<pre>
+```json
 logs:GetLogDelivery,
 logs:ListLogDeliveries,
-network-firewall:DescribeLoggingConfiguration</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-firewall_arn
-FROM awscc.networkfirewall.logging_configurations
-WHERE region = 'us-east-1'
+network-firewall:DescribeLoggingConfiguration
 ```
+

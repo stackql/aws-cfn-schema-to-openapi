@@ -35,19 +35,6 @@ Retrieves a list of <code>access_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>access_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotsitewise:CreateAccessPolicy</pre>
-
-### List
-<pre>
-iotsitewise:ListAccessPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ access_policy_id
 FROM awscc.iotsitewise.access_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>access_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+iotsitewise:CreateAccessPolicy
+```
+
+### List
+```json
+iotsitewise:ListAccessPolicies
+```
+

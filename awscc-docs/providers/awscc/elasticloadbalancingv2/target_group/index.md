@@ -57,34 +57,6 @@ Gets an individual <code>target_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>target_group</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-elasticloadbalancing:DeleteTargetGroup,
-elasticloadbalancing:DescribeTargetGroups</pre>
-
-### Read
-<pre>
-elasticloadbalancing:DescribeTargetGroups,
-elasticloadbalancing:DescribeTargetGroupAttributes,
-elasticloadbalancing:DescribeTargetHealth,
-elasticloadbalancing:DescribeTags</pre>
-
-### Update
-<pre>
-elasticloadbalancing:DescribeTargetGroups,
-elasticloadbalancing:ModifyTargetGroup,
-elasticloadbalancing:ModifyTargetGroupAttributes,
-elasticloadbalancing:RegisterTargets,
-elasticloadbalancing:DescribeTargetHealth,
-elasticloadbalancing:DeregisterTargets,
-elasticloadbalancing:AddTags,
-elasticloadbalancing:RemoveTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -114,5 +86,36 @@ target_group_name,
 tags
 FROM awscc.elasticloadbalancingv2.target_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TargetGroupArn&gt;'
+AND data__Identifier = '{TargetGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>target_group</code> resource, the following permissions are required:
+
+### Delete
+```json
+elasticloadbalancing:DeleteTargetGroup,
+elasticloadbalancing:DescribeTargetGroups
+```
+
+### Read
+```json
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:DescribeTargetGroupAttributes,
+elasticloadbalancing:DescribeTargetHealth,
+elasticloadbalancing:DescribeTags
+```
+
+### Update
+```json
+elasticloadbalancing:DescribeTargetGroups,
+elasticloadbalancing:ModifyTargetGroup,
+elasticloadbalancing:ModifyTargetGroupAttributes,
+elasticloadbalancing:RegisterTargets,
+elasticloadbalancing:DescribeTargetHealth,
+elasticloadbalancing:DeregisterTargets,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RemoveTags
+```
+

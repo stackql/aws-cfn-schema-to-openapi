@@ -37,25 +37,6 @@ Gets an individual <code>origin_request_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>origin_request_policy</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteOriginRequestPolicy,
-cloudfront:GetOriginRequestPolicy</pre>
-
-### Read
-<pre>
-cloudfront:GetOriginRequestPolicy</pre>
-
-### Update
-<pre>
-cloudfront:UpdateOriginRequestPolicy,
-cloudfront:GetOriginRequestPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ id,
 last_modified_time,
 origin_request_policy_config
 FROM awscc.cloudfront.origin_request_policy
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>origin_request_policy</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteOriginRequestPolicy,
+cloudfront:GetOriginRequestPolicy
+```
+
+### Read
+```json
+cloudfront:GetOriginRequestPolicy
+```
+
+### Update
+```json
+cloudfront:UpdateOriginRequestPolicy,
+cloudfront:GetOriginRequestPolicy
+```
+

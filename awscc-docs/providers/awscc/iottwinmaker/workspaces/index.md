@@ -35,25 +35,6 @@ Retrieves a list of <code>workspaces</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>workspaces</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-iottwinmaker:CreateWorkspace,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource</pre>
-
-### List
-<pre>
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:ListWorkspaces</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ workspace_id
 FROM awscc.iottwinmaker.workspaces
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>workspaces</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+iottwinmaker:CreateWorkspace,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource
+```
+
+### List
+```json
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:ListWorkspaces
+```
+

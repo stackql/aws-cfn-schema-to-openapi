@@ -44,27 +44,6 @@ Gets an individual <code>multiplex</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multiplex</code> resource, the following permissions are required:
-
-### Read
-<pre>
-medialive:DescribeMultiplex</pre>
-
-### Update
-<pre>
-medialive:UpdateMultiplex,
-medialive:DescribeMultiplex,
-medialive:CreateTags,
-medialive:DeleteTags</pre>
-
-### Delete
-<pre>
-medialive:DeleteMultiplex,
-medialive:DescribeMultiplex</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +60,29 @@ state,
 tags
 FROM awscc.medialive.multiplex
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>multiplex</code> resource, the following permissions are required:
+
+### Read
+```json
+medialive:DescribeMultiplex
+```
+
+### Update
+```json
+medialive:UpdateMultiplex,
+medialive:DescribeMultiplex,
+medialive:CreateTags,
+medialive:DeleteTags
+```
+
+### Delete
+```json
+medialive:DeleteMultiplex,
+medialive:DescribeMultiplex
+```
+

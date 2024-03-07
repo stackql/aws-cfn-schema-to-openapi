@@ -41,31 +41,6 @@ Gets an individual <code>ip_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>ip_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-guardduty:GetIPSet</pre>
-
-### Delete
-<pre>
-guardduty:GetDetector,
-guardduty:ListDetectors,
-guardduty:ListIPSets,
-guardduty:GetIPSet,
-guardduty:DeleteIPSet,
-iam:DeleteRolePolicy</pre>
-
-### Update
-<pre>
-guardduty:UpdateIPSet,
-guardduty:GetIPSet,
-guardduty:ListIPSets,
-iam:PutRolePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,6 +54,34 @@ location,
 tags
 FROM awscc.guardduty.ip_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
-AND data__Identifier = '&lt;DetectorId&gt;'
+AND data__Identifier = '{Id}';
+AND data__Identifier = '{DetectorId}';
 ```
+
+## Permissions
+
+To operate on the <code>ip_set</code> resource, the following permissions are required:
+
+### Read
+```json
+guardduty:GetIPSet
+```
+
+### Delete
+```json
+guardduty:GetDetector,
+guardduty:ListDetectors,
+guardduty:ListIPSets,
+guardduty:GetIPSet,
+guardduty:DeleteIPSet,
+iam:DeleteRolePolicy
+```
+
+### Update
+```json
+guardduty:UpdateIPSet,
+guardduty:GetIPSet,
+guardduty:ListIPSets,
+iam:PutRolePolicy
+```
+

@@ -35,23 +35,6 @@ Retrieves a list of <code>channels</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channels</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediatailor:CreateChannel,
-mediatailor:TagResource,
-mediatailor:ConfigureLogsForChannel,
-iam:CreateServiceLinkedRole,
-mediatailor:DescribeChannel</pre>
-
-### List
-<pre>
-mediatailor:ListChannels</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ channel_name
 FROM awscc.mediatailor.channels
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>channels</code> resource, the following permissions are required:
+
+### Create
+```json
+mediatailor:CreateChannel,
+mediatailor:TagResource,
+mediatailor:ConfigureLogsForChannel,
+iam:CreateServiceLinkedRole,
+mediatailor:DescribeChannel
+```
+
+### List
+```json
+mediatailor:ListChannels
+```
+

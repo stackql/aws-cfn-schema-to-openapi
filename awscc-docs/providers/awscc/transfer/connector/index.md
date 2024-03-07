@@ -42,26 +42,6 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-transfer:DescribeConnector</pre>
-
-### Update
-<pre>
-transfer:UpdateConnector,
-transfer:UnTagResource,
-transfer:TagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-transfer:DeleteConnector</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +56,28 @@ tags,
 url
 FROM awscc.transfer.connector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectorId&gt;'
+AND data__Identifier = '{ConnectorId}';
 ```
+
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+```json
+transfer:DescribeConnector
+```
+
+### Update
+```json
+transfer:UpdateConnector,
+transfer:UnTagResource,
+transfer:TagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+transfer:DeleteConnector
+```
+

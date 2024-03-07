@@ -35,20 +35,6 @@ Retrieves a list of <code>protection_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>protection_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-shield:CreateProtectionGroup,
-shield:TagResource</pre>
-
-### List
-<pre>
-shield:ListProtectionGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ protection_group_arn
 FROM awscc.shield.protection_groups
 
 ```
+
+## Permissions
+
+To operate on the <code>protection_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+shield:CreateProtectionGroup,
+shield:TagResource
+```
+
+### List
+```json
+shield:ListProtectionGroups
+```
+

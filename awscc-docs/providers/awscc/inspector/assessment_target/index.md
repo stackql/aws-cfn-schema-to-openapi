@@ -37,24 +37,6 @@ Gets an individual <code>assessment_target</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assessment_target</code> resource, the following permissions are required:
-
-### Update
-<pre>
-inspector:DescribeAssessmentTargets,
-inspector:UpdateAssessmentTarget</pre>
-
-### Read
-<pre>
-inspector:DescribeAssessmentTargets</pre>
-
-### Delete
-<pre>
-inspector:DeleteAssessmentTarget</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +46,26 @@ assessment_target_name,
 resource_group_arn
 FROM awscc.inspector.assessment_target
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>assessment_target</code> resource, the following permissions are required:
+
+### Update
+```json
+inspector:DescribeAssessmentTargets,
+inspector:UpdateAssessmentTarget
+```
+
+### Read
+```json
+inspector:DescribeAssessmentTargets
+```
+
+### Delete
+```json
+inspector:DeleteAssessmentTarget
+```
+

@@ -35,22 +35,6 @@ Retrieves a list of <code>maps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>maps</code> resource, the following permissions are required:
-
-### Create
-<pre>
-geo:CreateMap,
-geo:DescribeMap,
-geo:TagResource,
-geo:UntagResource</pre>
-
-### List
-<pre>
-geo:ListMaps</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ map_name
 FROM awscc.location.maps
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>maps</code> resource, the following permissions are required:
+
+### Create
+```json
+geo:CreateMap,
+geo:DescribeMap,
+geo:TagResource,
+geo:UntagResource
+```
+
+### List
+```json
+geo:ListMaps
+```
+

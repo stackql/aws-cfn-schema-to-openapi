@@ -41,28 +41,6 @@ Gets an individual <code>filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>filter</code> resource, the following permissions are required:
-
-### Read
-<pre>
-guardduty:GetFilter</pre>
-
-### Delete
-<pre>
-guardduty:ListDetectors,
-guardduty:ListFilters,
-guardduty:GetFilter,
-guardduty:DeleteFilter</pre>
-
-### Update
-<pre>
-guardduty:UpdateFilter,
-guardduty:GetFilter,
-guardduty:ListFilters</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +54,31 @@ name,
 tags
 FROM awscc.guardduty.filter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DetectorId&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{DetectorId}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>filter</code> resource, the following permissions are required:
+
+### Read
+```json
+guardduty:GetFilter
+```
+
+### Delete
+```json
+guardduty:ListDetectors,
+guardduty:ListFilters,
+guardduty:GetFilter,
+guardduty:DeleteFilter
+```
+
+### Update
+```json
+guardduty:UpdateFilter,
+guardduty:GetFilter,
+guardduty:ListFilters
+```
+

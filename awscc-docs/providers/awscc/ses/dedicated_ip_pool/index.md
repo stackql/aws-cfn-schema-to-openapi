@@ -36,25 +36,6 @@ Gets an individual <code>dedicated_ip_pool</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dedicated_ip_pool</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ses:GetDedicatedIpPool,
-ses:GetDedicatedIps</pre>
-
-### Update
-<pre>
-ses:PutDedicatedIpPoolScalingAttributes,
-ses:GetDedicatedIpPool</pre>
-
-### Delete
-<pre>
-ses:DeleteDedicatedIpPool</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ pool_name,
 scaling_mode
 FROM awscc.ses.dedicated_ip_pool
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PoolName&gt;'
+AND data__Identifier = '{PoolName}';
 ```
+
+## Permissions
+
+To operate on the <code>dedicated_ip_pool</code> resource, the following permissions are required:
+
+### Read
+```json
+ses:GetDedicatedIpPool,
+ses:GetDedicatedIps
+```
+
+### Update
+```json
+ses:PutDedicatedIpPoolScalingAttributes,
+ses:GetDedicatedIpPool
+```
+
+### Delete
+```json
+ses:DeleteDedicatedIpPool
+```
+

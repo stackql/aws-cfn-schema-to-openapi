@@ -35,19 +35,6 @@ Retrieves a list of <code>urls</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>urls</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lambda:CreateFunctionUrlConfig</pre>
-
-### List
-<pre>
-lambda:ListFunctionUrlConfigs</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ function_arn
 FROM awscc.lambda.urls
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>urls</code> resource, the following permissions are required:
+
+### Create
+```json
+lambda:CreateFunctionUrlConfig
+```
+
+### List
+```json
+lambda:ListFunctionUrlConfigs
+```
+

@@ -47,40 +47,6 @@ Gets an individual <code>entity</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>entity</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iottwinmaker:GetComponentType,
-iottwinmaker:GetEntity,
-iottwinmaker:ListComponents,
-iottwinmaker:ListProperties,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListEntities,
-iottwinmaker:ListTagsForResource</pre>
-
-### Update
-<pre>
-iottwinmaker:GetComponentType,
-iottwinmaker:GetEntity,
-iottwinmaker:ListComponents,
-iottwinmaker:ListProperties,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource,
-iottwinmaker:UntagResource,
-iottwinmaker:UpdateEntity,
-iottwinmaker:UpdateComponentType</pre>
-
-### Delete
-<pre>
-iottwinmaker:GetEntity,
-iottwinmaker:GetWorkspace,
-iottwinmaker:DeleteEntity</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -100,6 +66,43 @@ components,
 composite_components
 FROM awscc.iottwinmaker.entity
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;WorkspaceId&gt;'
-AND data__Identifier = '&lt;EntityId&gt;'
+AND data__Identifier = '{WorkspaceId}';
+AND data__Identifier = '{EntityId}';
 ```
+
+## Permissions
+
+To operate on the <code>entity</code> resource, the following permissions are required:
+
+### Read
+```json
+iottwinmaker:GetComponentType,
+iottwinmaker:GetEntity,
+iottwinmaker:ListComponents,
+iottwinmaker:ListProperties,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListEntities,
+iottwinmaker:ListTagsForResource
+```
+
+### Update
+```json
+iottwinmaker:GetComponentType,
+iottwinmaker:GetEntity,
+iottwinmaker:ListComponents,
+iottwinmaker:ListProperties,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource,
+iottwinmaker:UntagResource,
+iottwinmaker:UpdateEntity,
+iottwinmaker:UpdateComponentType
+```
+
+### Delete
+```json
+iottwinmaker:GetEntity,
+iottwinmaker:GetWorkspace,
+iottwinmaker:DeleteEntity
+```
+

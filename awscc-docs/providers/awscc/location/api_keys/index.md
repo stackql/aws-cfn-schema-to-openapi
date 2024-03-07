@@ -35,12 +35,21 @@ Retrieves a list of <code>api_keys</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+key_name
+FROM awscc.location.api_keys
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>api_keys</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 geo:CreateKey,
 geo:DescribeKey,
 geo:TagResource,
@@ -54,18 +63,11 @@ geo:SearchPlaceIndexForPosition,
 geo:SearchPlaceIndexForSuggestions,
 geo:GetPlace,
 geo:CalculateRoute,
-geo:CalculateRouteMatrix</pre>
+geo:CalculateRouteMatrix
+```
 
 ### List
-<pre>
-geo:ListKeys</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-key_name
-FROM awscc.location.api_keys
-WHERE region = 'us-east-1'
+```json
+geo:ListKeys
 ```
+

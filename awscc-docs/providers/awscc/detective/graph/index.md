@@ -37,30 +37,6 @@ Gets an individual <code>graph</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>graph</code> resource, the following permissions are required:
-
-### Update
-<pre>
-detective:UntagResource,
-detective:TagResource,
-detective:ListTagsForResource,
-detective:UpdateOrganizationConfiguration,
-organizations:DescribeOrganization</pre>
-
-### Read
-<pre>
-detective:ListGraphs,
-detective:ListTagsForResource,
-detective:DescribeOrganizationConfiguration,
-organizations:DescribeOrganization</pre>
-
-### Delete
-<pre>
-detective:DeleteGraph</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,5 +46,32 @@ tags,
 auto_enable_members
 FROM awscc.detective.graph
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>graph</code> resource, the following permissions are required:
+
+### Update
+```json
+detective:UntagResource,
+detective:TagResource,
+detective:ListTagsForResource,
+detective:UpdateOrganizationConfiguration,
+organizations:DescribeOrganization
+```
+
+### Read
+```json
+detective:ListGraphs,
+detective:ListTagsForResource,
+detective:DescribeOrganizationConfiguration,
+organizations:DescribeOrganization
+```
+
+### Delete
+```json
+detective:DeleteGraph
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>detectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.frauddetector.detectors
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>detectors</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 frauddetector:PutDetector,
 frauddetector:CreateDetectorVersion,
 frauddetector:UpdateDetectorVersionStatus,
@@ -61,10 +70,11 @@ frauddetector:GetModelVersion,
 frauddetector:GetLabels,
 frauddetector:GetOutcomes,
 frauddetector:GetEntityTypes,
-frauddetector:ListTagsForResource</pre>
+frauddetector:ListTagsForResource
+```
 
 ### List
-<pre>
+```json
 frauddetector:GetDetectors,
 frauddetector:GetDetectorVersion,
 frauddetector:DescribeDetector,
@@ -76,14 +86,6 @@ frauddetector:GetModelVersion,
 frauddetector:GetLabels,
 frauddetector:GetOutcomes,
 frauddetector:GetEntityTypes,
-frauddetector:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.frauddetector.detectors
-WHERE region = 'us-east-1'
+frauddetector:ListTagsForResource
 ```
+

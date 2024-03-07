@@ -35,22 +35,6 @@ Retrieves a list of <code>subnet_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>subnet_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-memorydb:CreateSubnetGroup,
-memorydb:DescribeSubnetGroups,
-memorydb:TagResource,
-memorydb:ListTags</pre>
-
-### List
-<pre>
-memorydb:DescribeSubnetGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ subnet_group_name
 FROM awscc.memorydb.subnet_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>subnet_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+memorydb:CreateSubnetGroup,
+memorydb:DescribeSubnetGroups,
+memorydb:TagResource,
+memorydb:ListTags
+```
+
+### List
+```json
+memorydb:DescribeSubnetGroups
+```
+

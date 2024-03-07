@@ -41,25 +41,6 @@ Gets an individual <code>topic</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>topic</code> resource, the following permissions are required:
-
-### Read
-<pre>
-quicksight:DescribeTopic</pre>
-
-### Update
-<pre>
-quicksight:UpdateTopic,
-quicksight:PassDataSet,
-quicksight:DescribeTopicRefresh</pre>
-
-### Delete
-<pre>
-quicksight:DeleteTopic</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,6 +54,28 @@ topic_id,
 user_experience_version
 FROM awscc.quicksight.topic
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AwsAccountId&gt;'
-AND data__Identifier = '&lt;TopicId&gt;'
+AND data__Identifier = '{AwsAccountId}';
+AND data__Identifier = '{TopicId}';
 ```
+
+## Permissions
+
+To operate on the <code>topic</code> resource, the following permissions are required:
+
+### Read
+```json
+quicksight:DescribeTopic
+```
+
+### Update
+```json
+quicksight:UpdateTopic,
+quicksight:PassDataSet,
+quicksight:DescribeTopicRefresh
+```
+
+### Delete
+```json
+quicksight:DeleteTopic
+```
+

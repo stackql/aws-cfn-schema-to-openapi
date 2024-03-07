@@ -38,32 +38,6 @@ Gets an individual <code>distribution</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>distribution</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteDistribution,
-cloudfront:GetDistribution,
-cloudfront:GetDistributionConfig</pre>
-
-### Read
-<pre>
-cloudfront:GetDistribution,
-cloudfront:GetDistributionConfig</pre>
-
-### Update
-<pre>
-cloudfront:GetDistribution,
-cloudfront:GetDistributionConfig,
-cloudfront:UpdateDistribution,
-cloudfront:UpdateDistributionWithStagingConfig,
-cloudfront:ListTagsForResource,
-cloudfront:TagResource,
-cloudfront:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +47,34 @@ domain_name,
 id,
 tags
 FROM awscc.cloudfront.distribution
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>distribution</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteDistribution,
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig
+```
+
+### Read
+```json
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig
+```
+
+### Update
+```json
+cloudfront:GetDistribution,
+cloudfront:GetDistributionConfig,
+cloudfront:UpdateDistribution,
+cloudfront:UpdateDistributionWithStagingConfig,
+cloudfront:ListTagsForResource,
+cloudfront:TagResource,
+cloudfront:UntagResource
+```
+

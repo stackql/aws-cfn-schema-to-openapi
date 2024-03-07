@@ -39,31 +39,6 @@ Gets an individual <code>resource_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53-recovery-readiness:GetResourceSet,
-route53-recovery-readiness:ListTagsForResources</pre>
-
-### Update
-<pre>
-route53-recovery-readiness:UpdateResourceSet,
-route53-recovery-readiness:GetResourceSet,
-route53-recovery-readiness:GetRecoveryGroup,
-route53-recovery-readiness:GetCell,
-route53-recovery-readiness:ListTagsForResources,
-route53-recovery-readiness:TagResource,
-route53-recovery-readiness:UntagResource</pre>
-
-### Delete
-<pre>
-route53-recovery-readiness:DeleteResourceSet,
-route53-recovery-readiness:GetResourceSet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +50,33 @@ resource_set_type,
 tags
 FROM awscc.route53recoveryreadiness.resource_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceSetName&gt;'
+AND data__Identifier = '{ResourceSetName}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_set</code> resource, the following permissions are required:
+
+### Read
+```json
+route53-recovery-readiness:GetResourceSet,
+route53-recovery-readiness:ListTagsForResources
+```
+
+### Update
+```json
+route53-recovery-readiness:UpdateResourceSet,
+route53-recovery-readiness:GetResourceSet,
+route53-recovery-readiness:GetRecoveryGroup,
+route53-recovery-readiness:GetCell,
+route53-recovery-readiness:ListTagsForResources,
+route53-recovery-readiness:TagResource,
+route53-recovery-readiness:UntagResource
+```
+
+### Delete
+```json
+route53-recovery-readiness:DeleteResourceSet,
+route53-recovery-readiness:GetResourceSet
+```
+

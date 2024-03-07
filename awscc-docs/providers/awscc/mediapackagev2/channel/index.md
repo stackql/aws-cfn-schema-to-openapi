@@ -42,27 +42,6 @@ Gets an individual <code>channel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackagev2:GetChannel</pre>
-
-### Update
-<pre>
-mediapackagev2:TagResource,
-mediapackagev2:UntagResource,
-mediapackagev2:ListTagsForResource,
-mediapackagev2:UpdateChannel</pre>
-
-### Delete
-<pre>
-mediapackagev2:GetChannel,
-mediapackagev2:DeleteChannel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +56,29 @@ modified_at,
 tags
 FROM awscc.mediapackagev2.channel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>channel</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackagev2:GetChannel
+```
+
+### Update
+```json
+mediapackagev2:TagResource,
+mediapackagev2:UntagResource,
+mediapackagev2:ListTagsForResource,
+mediapackagev2:UpdateChannel
+```
+
+### Delete
+```json
+mediapackagev2:GetChannel,
+mediapackagev2:DeleteChannel
+```
+

@@ -40,28 +40,6 @@ Gets an individual <code>simulation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>simulation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-simspaceweaver:DescribeSimulation</pre>
-
-### Update
-<pre>
-simspaceweaver:StartSimulation,
-simspaceweaver:StopSimulation,
-simspaceweaver:DeleteSimulation,
-simspaceweaver:DescribeSimulation</pre>
-
-### Delete
-<pre>
-simspaceweaver:StopSimulation,
-simspaceweaver:DeleteSimulation,
-simspaceweaver:DescribeSimulation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ maximum_duration,
 snapshot_s3_location
 FROM awscc.simspaceweaver.simulation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>simulation</code> resource, the following permissions are required:
+
+### Read
+```json
+simspaceweaver:DescribeSimulation
+```
+
+### Update
+```json
+simspaceweaver:StartSimulation,
+simspaceweaver:StopSimulation,
+simspaceweaver:DeleteSimulation,
+simspaceweaver:DescribeSimulation
+```
+
+### Delete
+```json
+simspaceweaver:StopSimulation,
+simspaceweaver:DeleteSimulation,
+simspaceweaver:DescribeSimulation
+```
+

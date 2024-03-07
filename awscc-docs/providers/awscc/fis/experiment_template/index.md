@@ -43,27 +43,6 @@ Gets an individual <code>experiment_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>experiment_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-fis:GetExperimentTemplate,
-fis:ListTagsForResource</pre>
-
-### Update
-<pre>
-fis:UpdateExperimentTemplate,
-fis:TagResource,
-fis:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-fis:DeleteExperimentTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +58,29 @@ tags,
 experiment_options
 FROM awscc.fis.experiment_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>experiment_template</code> resource, the following permissions are required:
+
+### Read
+```json
+fis:GetExperimentTemplate,
+fis:ListTagsForResource
+```
+
+### Update
+```json
+fis:UpdateExperimentTemplate,
+fis:TagResource,
+fis:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+fis:DeleteExperimentTemplate
+```
+

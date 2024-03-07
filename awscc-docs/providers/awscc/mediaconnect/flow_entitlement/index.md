@@ -42,25 +42,6 @@ Gets an individual <code>flow_entitlement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flow_entitlement</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediaconnect:DescribeFlow</pre>
-
-### Update
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:UpdateFlowEntitlement</pre>
-
-### Delete
-<pre>
-mediaconnect:DescribeFlow,
-mediaconnect:RevokeFlowEntitlement</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +56,27 @@ name,
 subscribers
 FROM awscc.mediaconnect.flow_entitlement
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;EntitlementArn&gt;'
+AND data__Identifier = '{EntitlementArn}';
 ```
+
+## Permissions
+
+To operate on the <code>flow_entitlement</code> resource, the following permissions are required:
+
+### Read
+```json
+mediaconnect:DescribeFlow
+```
+
+### Update
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:UpdateFlowEntitlement
+```
+
+### Delete
+```json
+mediaconnect:DescribeFlow,
+mediaconnect:RevokeFlowEntitlement
+```
+

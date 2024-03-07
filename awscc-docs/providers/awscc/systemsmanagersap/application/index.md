@@ -42,28 +42,6 @@ Gets an individual <code>application</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ssm-sap:GetApplication,
-ssm-sap:ListTagsForResource</pre>
-
-### Update
-<pre>
-ssm-sap:TagResource,
-ssm-sap:UntagResource,
-ssm-sap:ListTagsForResource,
-ssm-sap:GetApplication</pre>
-
-### Delete
-<pre>
-ssm-sap:DeregisterApplication,
-ssm-sap:GetApplication</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +56,30 @@ sid,
 tags
 FROM awscc.systemsmanagersap.application
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>application</code> resource, the following permissions are required:
+
+### Read
+```json
+ssm-sap:GetApplication,
+ssm-sap:ListTagsForResource
+```
+
+### Update
+```json
+ssm-sap:TagResource,
+ssm-sap:UntagResource,
+ssm-sap:ListTagsForResource,
+ssm-sap:GetApplication
+```
+
+### Delete
+```json
+ssm-sap:DeregisterApplication,
+ssm-sap:GetApplication
+```
+

@@ -40,30 +40,6 @@ Gets an individual <code>analyzer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analyzer</code> resource, the following permissions are required:
-
-### Read
-<pre>
-access-analyzer:ListAnalyzers,
-access-analyzer:GetAnalyzer,
-access-analyzer:ListArchiveRules</pre>
-
-### Update
-<pre>
-access-analyzer:CreateArchiveRule,
-access-analyzer:DeleteArchiveRule,
-access-analyzer:ListAnalyzers,
-access-analyzer:TagResource,
-access-analyzer:UntagResource,
-access-analyzer:UpdateArchiveRule</pre>
-
-### Delete
-<pre>
-access-analyzer:DeleteAnalyzer</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +52,32 @@ type,
 analyzer_configuration
 FROM awscc.accessanalyzer.analyzer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>analyzer</code> resource, the following permissions are required:
+
+### Read
+```json
+access-analyzer:ListAnalyzers,
+access-analyzer:GetAnalyzer,
+access-analyzer:ListArchiveRules
+```
+
+### Update
+```json
+access-analyzer:CreateArchiveRule,
+access-analyzer:DeleteArchiveRule,
+access-analyzer:ListAnalyzers,
+access-analyzer:TagResource,
+access-analyzer:UntagResource,
+access-analyzer:UpdateArchiveRule
+```
+
+### Delete
+```json
+access-analyzer:DeleteAnalyzer
+```
+

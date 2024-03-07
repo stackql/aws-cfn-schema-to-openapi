@@ -44,28 +44,6 @@ Gets an individual <code>accelerator</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>accelerator</code> resource, the following permissions are required:
-
-### Read
-<pre>
-globalaccelerator:DescribeAccelerator</pre>
-
-### Update
-<pre>
-globalaccelerator:UpdateAccelerator,
-globalaccelerator:TagResource,
-globalaccelerator:UntagResource,
-globalaccelerator:DescribeAccelerator</pre>
-
-### Delete
-<pre>
-globalaccelerator:UpdateAccelerator,
-globalaccelerator:DeleteAccelerator,
-globalaccelerator:DescribeAccelerator</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +59,30 @@ dual_stack_dns_name,
 accelerator_arn,
 tags
 FROM awscc.globalaccelerator.accelerator
-WHERE data__Identifier = '&lt;AcceleratorArn&gt;'
+WHERE data__Identifier = '{AcceleratorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>accelerator</code> resource, the following permissions are required:
+
+### Read
+```json
+globalaccelerator:DescribeAccelerator
+```
+
+### Update
+```json
+globalaccelerator:UpdateAccelerator,
+globalaccelerator:TagResource,
+globalaccelerator:UntagResource,
+globalaccelerator:DescribeAccelerator
+```
+
+### Delete
+```json
+globalaccelerator:UpdateAccelerator,
+globalaccelerator:DeleteAccelerator,
+globalaccelerator:DescribeAccelerator
+```
+

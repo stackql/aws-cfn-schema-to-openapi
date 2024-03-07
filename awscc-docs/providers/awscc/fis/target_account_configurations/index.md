@@ -36,19 +36,6 @@ Retrieves a list of <code>target_account_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>target_account_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-fis:CreateTargetAccountConfiguration</pre>
-
-### List
-<pre>
-fis:ListTargetAccountConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ account_id
 FROM awscc.fis.target_account_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>target_account_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+fis:CreateTargetAccountConfiguration
+```
+
+### List
+```json
+fis:ListTargetAccountConfigurations
+```
+

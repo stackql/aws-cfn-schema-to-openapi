@@ -40,19 +40,6 @@ Gets an individual <code>vpc_connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>vpc_connector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apprunner:DescribeVpcConnector</pre>
-
-### Delete
-<pre>
-apprunner:DeleteVpcConnector</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +52,20 @@ security_groups,
 tags
 FROM awscc.apprunner.vpc_connector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;VpcConnectorArn&gt;'
+AND data__Identifier = '{VpcConnectorArn}';
 ```
+
+## Permissions
+
+To operate on the <code>vpc_connector</code> resource, the following permissions are required:
+
+### Read
+```json
+apprunner:DescribeVpcConnector
+```
+
+### Delete
+```json
+apprunner:DeleteVpcConnector
+```
+

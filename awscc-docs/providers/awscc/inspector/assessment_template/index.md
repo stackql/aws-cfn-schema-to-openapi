@@ -40,19 +40,6 @@ Gets an individual <code>assessment_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assessment_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-inspector:DescribeAssessmentTemplates</pre>
-
-### Delete
-<pre>
-inspector:DeleteAssessmentTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +52,20 @@ rules_package_arns,
 user_attributes_for_findings
 FROM awscc.inspector.assessment_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>assessment_template</code> resource, the following permissions are required:
+
+### Read
+```json
+inspector:DescribeAssessmentTemplates
+```
+
+### Delete
+```json
+inspector:DeleteAssessmentTemplate
+```
+

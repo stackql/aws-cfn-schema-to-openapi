@@ -35,26 +35,6 @@ Retrieves a list of <code>image_recipes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>image_recipes</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:GetRole,
-iam:CreateServiceLinkedRole,
-imagebuilder:GetComponent,
-imagebuilder:GetImage,
-imagebuilder:TagResource,
-imagebuilder:GetImageRecipe,
-imagebuilder:CreateImageRecipe,
-ec2:DescribeImages</pre>
-
-### List
-<pre>
-imagebuilder:ListImageRecipes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ arn
 FROM awscc.imagebuilder.image_recipes
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>image_recipes</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+imagebuilder:GetComponent,
+imagebuilder:GetImage,
+imagebuilder:TagResource,
+imagebuilder:GetImageRecipe,
+imagebuilder:CreateImageRecipe,
+ec2:DescribeImages
+```
+
+### List
+```json
+imagebuilder:ListImageRecipes
+```
+

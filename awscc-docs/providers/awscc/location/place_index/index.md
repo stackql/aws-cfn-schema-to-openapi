@@ -44,28 +44,6 @@ Gets an individual <code>place_index</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>place_index</code> resource, the following permissions are required:
-
-### Read
-<pre>
-geo:DescribePlaceIndex</pre>
-
-### Update
-<pre>
-geo:CreatePlaceIndex,
-geo:DescribePlaceIndex,
-geo:TagResource,
-geo:UntagResource,
-geo:UpdatePlaceIndex</pre>
-
-### Delete
-<pre>
-geo:DeletePlaceIndex,
-geo:DescribePlaceIndex</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +60,30 @@ update_time,
 arn
 FROM awscc.location.place_index
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IndexName&gt;'
+AND data__Identifier = '{IndexName}';
 ```
+
+## Permissions
+
+To operate on the <code>place_index</code> resource, the following permissions are required:
+
+### Read
+```json
+geo:DescribePlaceIndex
+```
+
+### Update
+```json
+geo:CreatePlaceIndex,
+geo:DescribePlaceIndex,
+geo:TagResource,
+geo:UntagResource,
+geo:UpdatePlaceIndex
+```
+
+### Delete
+```json
+geo:DeletePlaceIndex,
+geo:DescribePlaceIndex
+```
+

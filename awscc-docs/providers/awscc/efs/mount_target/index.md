@@ -39,27 +39,6 @@ Gets an individual <code>mount_target</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>mount_target</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticfilesystem:DescribeMountTargets,
-elasticfilesystem:DescribeMountTargetSecurityGroups</pre>
-
-### Update
-<pre>
-elasticfilesystem:DescribeMountTargets,
-elasticfilesystem:DescribeMountTargetSecurityGroups,
-elasticfilesystem:ModifyMountTargetSecurityGroups</pre>
-
-### Delete
-<pre>
-elasticfilesystem:DescribeMountTargets,
-elasticfilesystem:DeleteMountTarget</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +50,29 @@ security_groups,
 subnet_id
 FROM awscc.efs.mount_target
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>mount_target</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticfilesystem:DescribeMountTargets,
+elasticfilesystem:DescribeMountTargetSecurityGroups
+```
+
+### Update
+```json
+elasticfilesystem:DescribeMountTargets,
+elasticfilesystem:DescribeMountTargetSecurityGroups,
+elasticfilesystem:ModifyMountTargetSecurityGroups
+```
+
+### Delete
+```json
+elasticfilesystem:DescribeMountTargets,
+elasticfilesystem:DeleteMountTarget
+```
+

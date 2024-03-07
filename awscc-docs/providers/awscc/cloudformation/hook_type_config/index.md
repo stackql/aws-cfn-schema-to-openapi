@@ -39,23 +39,6 @@ Gets an individual <code>hook_type_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hook_type_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cloudformation:BatchDescribeTypeConfigurations</pre>
-
-### Update
-<pre>
-cloudformation:SetTypeConfiguration</pre>
-
-### Delete
-<pre>
-cloudformation:SetTypeConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +50,25 @@ configuration,
 configuration_alias
 FROM awscc.cloudformation.hook_type_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConfigurationArn&gt;'
+AND data__Identifier = '{ConfigurationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>hook_type_config</code> resource, the following permissions are required:
+
+### Read
+```json
+cloudformation:BatchDescribeTypeConfigurations
+```
+
+### Update
+```json
+cloudformation:SetTypeConfiguration
+```
+
+### Delete
+```json
+cloudformation:SetTypeConfiguration
+```
+

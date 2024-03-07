@@ -40,26 +40,6 @@ Gets an individual <code>identity_provider_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_provider_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribeIdentityProviderConfig</pre>
-
-### Update
-<pre>
-eks:DescribeIdentityProviderConfig,
-eks:TagResource,
-eks:UntagResource</pre>
-
-### Delete
-<pre>
-eks:DisassociateIdentityProviderConfig,
-eks:DescribeIdentityProviderConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,7 +52,30 @@ tags,
 identity_provider_config_arn
 FROM awscc.eks.identity_provider_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;IdentityProviderConfigName&gt;'
-AND data__Identifier = '&lt;ClusterName&gt;'
-AND data__Identifier = '&lt;Type&gt;'
+AND data__Identifier = '{IdentityProviderConfigName}';
+AND data__Identifier = '{ClusterName}';
+AND data__Identifier = '{Type}';
 ```
+
+## Permissions
+
+To operate on the <code>identity_provider_config</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribeIdentityProviderConfig
+```
+
+### Update
+```json
+eks:DescribeIdentityProviderConfig,
+eks:TagResource,
+eks:UntagResource
+```
+
+### Delete
+```json
+eks:DisassociateIdentityProviderConfig,
+eks:DescribeIdentityProviderConfig
+```
+

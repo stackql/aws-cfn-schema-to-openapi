@@ -35,21 +35,6 @@ Retrieves a list of <code>inference_schedulers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>inference_schedulers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:PassRole,
-lookoutequipment:CreateInferenceScheduler,
-lookoutequipment:DescribeInferenceScheduler</pre>
-
-### List
-<pre>
-lookoutequipment:ListInferenceSchedulers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ inference_scheduler_name
 FROM awscc.lookoutequipment.inference_schedulers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>inference_schedulers</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:PassRole,
+lookoutequipment:CreateInferenceScheduler,
+lookoutequipment:DescribeInferenceScheduler
+```
+
+### List
+```json
+lookoutequipment:ListInferenceSchedulers
+```
+

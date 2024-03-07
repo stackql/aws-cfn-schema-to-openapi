@@ -62,45 +62,6 @@ Gets an individual <code>fleet</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fleet</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeFleetAttributes,
-gamelift:DescribeFleetLocationAttributes,
-gamelift:DescribeFleetCapacity,
-gamelift:DescribeFleetPortSettings,
-gamelift:DescribeFleetUtilization,
-gamelift:DescribeRuntimeConfiguration,
-gamelift:DescribeEC2InstanceLimits,
-gamelift:DescribeFleetEvents,
-gamelift:DescribeScalingPolicies</pre>
-
-### Update
-<pre>
-gamelift:UpdateFleetAttributes,
-gamelift:CreateFleetLocations,
-gamelift:DeleteFleetLocations,
-gamelift:UpdateFleetCapacity,
-gamelift:UpdateFleetPortSettings,
-gamelift:UpdateRuntimeConfiguration,
-gamelift:DescribeFleetLocationCapacity,
-gamelift:DescribeFleetPortSettings,
-gamelift:DescribeFleetLocationAttributes,
-gamelift:PutScalingPolicy,
-gamelift:DescribeScalingPolicies,
-gamelift:DeleteScalingPolicy</pre>
-
-### Delete
-<pre>
-gamelift:DeleteFleet,
-gamelift:DescribeFleetLocationCapacity,
-gamelift:DescribeScalingPolicies,
-gamelift:DeleteScalingPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -135,5 +96,47 @@ resource_creation_limit_policy,
 e_c2_instance_type
 FROM awscc.gamelift.fleet
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FleetId&gt;'
+AND data__Identifier = '{FleetId}';
 ```
+
+## Permissions
+
+To operate on the <code>fleet</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeFleetAttributes,
+gamelift:DescribeFleetLocationAttributes,
+gamelift:DescribeFleetCapacity,
+gamelift:DescribeFleetPortSettings,
+gamelift:DescribeFleetUtilization,
+gamelift:DescribeRuntimeConfiguration,
+gamelift:DescribeEC2InstanceLimits,
+gamelift:DescribeFleetEvents,
+gamelift:DescribeScalingPolicies
+```
+
+### Update
+```json
+gamelift:UpdateFleetAttributes,
+gamelift:CreateFleetLocations,
+gamelift:DeleteFleetLocations,
+gamelift:UpdateFleetCapacity,
+gamelift:UpdateFleetPortSettings,
+gamelift:UpdateRuntimeConfiguration,
+gamelift:DescribeFleetLocationCapacity,
+gamelift:DescribeFleetPortSettings,
+gamelift:DescribeFleetLocationAttributes,
+gamelift:PutScalingPolicy,
+gamelift:DescribeScalingPolicies,
+gamelift:DeleteScalingPolicy
+```
+
+### Delete
+```json
+gamelift:DeleteFleet,
+gamelift:DescribeFleetLocationCapacity,
+gamelift:DescribeScalingPolicies,
+gamelift:DeleteScalingPolicy
+```
+

@@ -45,28 +45,6 @@ Gets an individual <code>container</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>container</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetContainerServices</pre>
-
-### Delete
-<pre>
-lightsail:DeleteContainerService,
-lightsail:GetContainerServices</pre>
-
-### Update
-<pre>
-lightsail:CreateContainerServiceDeployment,
-lightsail:GetContainerServices,
-lightsail:TagResource,
-lightsail:UntagResource,
-lightsail:UpdateContainerService</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +62,30 @@ principal_arn,
 tags
 FROM awscc.lightsail.container
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ServiceName&gt;'
+AND data__Identifier = '{ServiceName}';
 ```
+
+## Permissions
+
+To operate on the <code>container</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetContainerServices
+```
+
+### Delete
+```json
+lightsail:DeleteContainerService,
+lightsail:GetContainerServices
+```
+
+### Update
+```json
+lightsail:CreateContainerServiceDeployment,
+lightsail:GetContainerServices,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateContainerService
+```
+

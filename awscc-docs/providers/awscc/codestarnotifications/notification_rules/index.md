@@ -35,19 +35,6 @@ Retrieves a list of <code>notification_rules</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>notification_rules</code> resource, the following permissions are required:
-
-### Create
-<pre>
-codestar-notifications:createNotificationRule</pre>
-
-### List
-<pre>
-codestar-notifications:listNotificationRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ arn
 FROM awscc.codestarnotifications.notification_rules
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>notification_rules</code> resource, the following permissions are required:
+
+### Create
+```json
+codestar-notifications:createNotificationRule
+```
+
+### List
+```json
+codestar-notifications:listNotificationRules
+```
+

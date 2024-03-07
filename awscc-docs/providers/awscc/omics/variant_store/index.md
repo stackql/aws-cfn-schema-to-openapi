@@ -46,28 +46,6 @@ Gets an individual <code>variant_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>variant_store</code> resource, the following permissions are required:
-
-### Read
-<pre>
-omics:GetVariantStore</pre>
-
-### Update
-<pre>
-omics:UpdateVariantStore,
-omics:TagResource,
-omics:UntagResource,
-omics:ListTagsForResource,
-omics:GetVariantStore</pre>
-
-### Delete
-<pre>
-omics:DeleteVariantStore,
-omics:ListVariantStores</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +64,30 @@ tags,
 update_time
 FROM awscc.omics.variant_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>variant_store</code> resource, the following permissions are required:
+
+### Read
+```json
+omics:GetVariantStore
+```
+
+### Update
+```json
+omics:UpdateVariantStore,
+omics:TagResource,
+omics:UntagResource,
+omics:ListTagsForResource,
+omics:GetVariantStore
+```
+
+### Delete
+```json
+omics:DeleteVariantStore,
+omics:ListVariantStores
+```
+

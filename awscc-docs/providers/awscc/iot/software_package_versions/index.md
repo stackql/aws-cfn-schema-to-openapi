@@ -36,22 +36,6 @@ Retrieves a list of <code>software_package_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>software_package_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:CreatePackageVersion,
-iot:GetPackageVersion,
-iot:TagResource,
-iot:GetIndexingConfiguration</pre>
-
-### List
-<pre>
-iot:ListPackageVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ version_name
 FROM awscc.iot.software_package_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>software_package_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:CreatePackageVersion,
+iot:GetPackageVersion,
+iot:TagResource,
+iot:GetIndexingConfiguration
+```
+
+### List
+```json
+iot:ListPackageVersions
+```
+

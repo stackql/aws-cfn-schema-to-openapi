@@ -35,22 +35,6 @@ Retrieves a list of <code>load_balancers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>load_balancers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticloadbalancing:CreateLoadBalancer,
-elasticloadbalancing:DescribeLoadBalancers,
-elasticloadbalancing:ModifyLoadBalancerAttributes,
-elasticloadbalancing:AddTags</pre>
-
-### List
-<pre>
-elasticloadbalancing:DescribeLoadBalancers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ load_balancer_arn
 FROM awscc.elasticloadbalancingv2.load_balancers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>load_balancers</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticloadbalancing:CreateLoadBalancer,
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:ModifyLoadBalancerAttributes,
+elasticloadbalancing:AddTags
+```
+
+### List
+```json
+elasticloadbalancing:DescribeLoadBalancers
+```
+

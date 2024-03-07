@@ -35,21 +35,6 @@ Retrieves a list of <code>identity_pool_role_attachments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_pool_role_attachments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-identity:GetIdentityPoolRoles,
-cognito-identity:SetIdentityPoolRoles,
-iam:PassRole</pre>
-
-### List
-<pre>
-cognito-identity:GetIdentityPoolRoles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ id
 FROM awscc.cognito.identity_pool_role_attachments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>identity_pool_role_attachments</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-identity:GetIdentityPoolRoles,
+cognito-identity:SetIdentityPoolRoles,
+iam:PassRole
+```
+
+### List
+```json
+cognito-identity:GetIdentityPoolRoles
+```
+

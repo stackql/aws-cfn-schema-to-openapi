@@ -48,29 +48,6 @@ Gets an individual <code>fleet_metric</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fleet_metric</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeFleetMetric,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateFleetMetric,
-iot:DescribeFleetMetric,
-iot:ListTagsForResource,
-iot:UntagResource,
-iot:TagResource</pre>
-
-### Delete
-<pre>
-iot:DeleteFleetMetric,
-iot:DescribeFleetMetric</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +68,31 @@ version,
 tags
 FROM awscc.iot.fleet_metric
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;MetricName&gt;'
+AND data__Identifier = '{MetricName}';
 ```
+
+## Permissions
+
+To operate on the <code>fleet_metric</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeFleetMetric,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateFleetMetric,
+iot:DescribeFleetMetric,
+iot:ListTagsForResource,
+iot:UntagResource,
+iot:TagResource
+```
+
+### Delete
+```json
+iot:DeleteFleetMetric,
+iot:DescribeFleetMetric
+```
+

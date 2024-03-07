@@ -46,25 +46,6 @@ Gets an individual <code>report_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>report_definition</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cur:DescribeReportDefinitions</pre>
-
-### Update
-<pre>
-cur:DescribeReportDefinitions,
-cur:ModifyReportDefinition</pre>
-
-### Delete
-<pre>
-cur:DescribeReportDefinitions,
-cur:DeleteReportDefinition</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +64,27 @@ report_versioning,
 billing_view_arn
 FROM awscc.cur.report_definition
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ReportName&gt;'
+AND data__Identifier = '{ReportName}';
 ```
+
+## Permissions
+
+To operate on the <code>report_definition</code> resource, the following permissions are required:
+
+### Read
+```json
+cur:DescribeReportDefinitions
+```
+
+### Update
+```json
+cur:DescribeReportDefinitions,
+cur:ModifyReportDefinition
+```
+
+### Delete
+```json
+cur:DescribeReportDefinitions,
+cur:DeleteReportDefinition
+```
+

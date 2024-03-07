@@ -41,35 +41,6 @@ Gets an individual <code>backup_vault</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>backup_vault</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:DescribeBackupVault,
-backup:GetBackupVaultNotifications,
-backup:GetBackupVaultAccessPolicy,
-backup:ListTags</pre>
-
-### Update
-<pre>
-backup:DescribeBackupVault,
-backup:DeleteBackupVaultAccessPolicy,
-backup:DeleteBackupVaultNotifications,
-backup:DeleteBackupVaultLockConfiguration,
-backup:ListTags,
-backup:TagResource,
-backup:UntagResource,
-backup:PutBackupVaultAccessPolicy,
-backup:PutBackupVaultNotifications,
-backup:PutBackupVaultLockConfiguration</pre>
-
-### Delete
-<pre>
-backup:DeleteBackupVault</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +54,37 @@ lock_configuration,
 backup_vault_arn
 FROM awscc.backup.backup_vault
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;BackupVaultName&gt;'
+AND data__Identifier = '{BackupVaultName}';
 ```
+
+## Permissions
+
+To operate on the <code>backup_vault</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:DescribeBackupVault,
+backup:GetBackupVaultNotifications,
+backup:GetBackupVaultAccessPolicy,
+backup:ListTags
+```
+
+### Update
+```json
+backup:DescribeBackupVault,
+backup:DeleteBackupVaultAccessPolicy,
+backup:DeleteBackupVaultNotifications,
+backup:DeleteBackupVaultLockConfiguration,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource,
+backup:PutBackupVaultAccessPolicy,
+backup:PutBackupVaultNotifications,
+backup:PutBackupVaultLockConfiguration
+```
+
+### Delete
+```json
+backup:DeleteBackupVault
+```
+

@@ -36,23 +36,6 @@ Gets an individual <code>alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alias</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kms:ListAliases</pre>
-
-### Update
-<pre>
-kms:UpdateAlias</pre>
-
-### Delete
-<pre>
-kms:DeleteAlias</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,5 +44,25 @@ target_key_id,
 alias_name
 FROM awscc.kms.alias
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AliasName&gt;'
+AND data__Identifier = '{AliasName}';
 ```
+
+## Permissions
+
+To operate on the <code>alias</code> resource, the following permissions are required:
+
+### Read
+```json
+kms:ListAliases
+```
+
+### Update
+```json
+kms:UpdateAlias
+```
+
+### Delete
+```json
+kms:DeleteAlias
+```
+

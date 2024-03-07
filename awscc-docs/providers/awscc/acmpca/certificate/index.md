@@ -43,23 +43,6 @@ Gets an individual <code>certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-acm-pca:GetCertificate</pre>
-
-### Delete
-<pre>
-acm-pca:GetCertificate</pre>
-
-### Update
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,6 +58,21 @@ certificate,
 arn
 FROM awscc.acmpca.certificate
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
-AND data__Identifier = '&lt;CertificateAuthorityArn&gt;'
+AND data__Identifier = '{Arn}';
+AND data__Identifier = '{CertificateAuthorityArn}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+acm-pca:GetCertificate
+```
+
+### Delete
+```json
+acm-pca:GetCertificate
+```
+

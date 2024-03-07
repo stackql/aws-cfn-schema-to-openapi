@@ -35,22 +35,6 @@ Retrieves a list of <code>identity_pools</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_pools</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-identity:CreateIdentityPool,
-cognito-sync:SetIdentityPoolConfiguration,
-cognito-sync:SetCognitoEvents,
-iam:PassRole</pre>
-
-### List
-<pre>
-cognito-identity:ListIdentityPools</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ id
 FROM awscc.cognito.identity_pools
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>identity_pools</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-identity:CreateIdentityPool,
+cognito-sync:SetIdentityPoolConfiguration,
+cognito-sync:SetCognitoEvents,
+iam:PassRole
+```
+
+### List
+```json
+cognito-identity:ListIdentityPools
+```
+

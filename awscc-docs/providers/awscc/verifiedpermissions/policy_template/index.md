@@ -38,32 +38,6 @@ Gets an individual <code>policy_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>policy_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-verifiedpermissions:CreatePolicyTemplate,
-verifiedpermissions:GetPolicyTemplate,
-verifiedpermissions:UpdatePolicyTemplate,
-verifiedpermissions:DeletePolicyTemplate</pre>
-
-### Update
-<pre>
-verifiedpermissions:CreatePolicyTemplate,
-verifiedpermissions:GetPolicyTemplate,
-verifiedpermissions:UpdatePolicyTemplate,
-verifiedpermissions:DeletePolicyTemplate</pre>
-
-### Delete
-<pre>
-verifiedpermissions:CreatePolicyTemplate,
-verifiedpermissions:GetPolicyTemplate,
-verifiedpermissions:UpdatePolicyTemplate,
-verifiedpermissions:DeletePolicyTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,6 +48,35 @@ policy_template_id,
 statement
 FROM awscc.verifiedpermissions.policy_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PolicyStoreId&gt;'
-AND data__Identifier = '&lt;PolicyTemplateId&gt;'
+AND data__Identifier = '{PolicyStoreId}';
+AND data__Identifier = '{PolicyTemplateId}';
 ```
+
+## Permissions
+
+To operate on the <code>policy_template</code> resource, the following permissions are required:
+
+### Read
+```json
+verifiedpermissions:CreatePolicyTemplate,
+verifiedpermissions:GetPolicyTemplate,
+verifiedpermissions:UpdatePolicyTemplate,
+verifiedpermissions:DeletePolicyTemplate
+```
+
+### Update
+```json
+verifiedpermissions:CreatePolicyTemplate,
+verifiedpermissions:GetPolicyTemplate,
+verifiedpermissions:UpdatePolicyTemplate,
+verifiedpermissions:DeletePolicyTemplate
+```
+
+### Delete
+```json
+verifiedpermissions:CreatePolicyTemplate,
+verifiedpermissions:GetPolicyTemplate,
+verifiedpermissions:UpdatePolicyTemplate,
+verifiedpermissions:DeletePolicyTemplate
+```
+

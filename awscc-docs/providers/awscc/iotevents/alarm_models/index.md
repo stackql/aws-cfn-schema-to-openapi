@@ -35,24 +35,6 @@ Retrieves a list of <code>alarm_models</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alarm_models</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotevents:CreateAlarmModel,
-iotevents:UpdateInputRouting,
-iotevents:DescribeAlarmModel,
-iotevents:ListTagsForResource,
-iotevents:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-iotevents:ListAlarmModels</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ alarm_model_name
 FROM awscc.iotevents.alarm_models
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>alarm_models</code> resource, the following permissions are required:
+
+### Create
+```json
+iotevents:CreateAlarmModel,
+iotevents:UpdateInputRouting,
+iotevents:DescribeAlarmModel,
+iotevents:ListTagsForResource,
+iotevents:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+iotevents:ListAlarmModels
+```
+

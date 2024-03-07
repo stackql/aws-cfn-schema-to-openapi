@@ -39,33 +39,6 @@ Gets an individual <code>role_alias</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>role_alias</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iam:GetRole,
-iam:PassRole,
-iot:DescribeRoleAlias,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:GetRole,
-iam:PassRole,
-iot:UpdateRoleAlias,
-iot:DescribeRoleAlias,
-iot:TagResource,
-iot:UntagResource,
-iot:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iot:DeleteRoleAlias,
-iot:DescribeRoleAlias</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +50,35 @@ credential_duration_seconds,
 tags
 FROM awscc.iot.role_alias
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RoleAlias&gt;'
+AND data__Identifier = '{RoleAlias}';
 ```
+
+## Permissions
+
+To operate on the <code>role_alias</code> resource, the following permissions are required:
+
+### Read
+```json
+iam:GetRole,
+iam:PassRole,
+iot:DescribeRoleAlias,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iam:GetRole,
+iam:PassRole,
+iot:UpdateRoleAlias,
+iot:DescribeRoleAlias,
+iot:TagResource,
+iot:UntagResource,
+iot:ListTagsForResource
+```
+
+### Delete
+```json
+iot:DeleteRoleAlias,
+iot:DescribeRoleAlias
+```
+

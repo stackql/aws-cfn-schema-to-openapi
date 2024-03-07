@@ -47,36 +47,6 @@ Gets an individual <code>app_block_builder</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>app_block_builder</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appstream:DescribeAppBlockBuilders</pre>
-
-### Update
-<pre>
-appstream:UpdateAppBlockBuilder,
-appstream:DescribeAppBlockBuilders,
-appstream:StartAppBlockBuilder,
-appstream:StopAppBlockBuilder,
-appstream:AssociateAppBlockBuilderAppBlock,
-appstream:DisassociateAppBlockBuilderAppBlock,
-appstream:DescribeAppBlockBuilderAppBlockAssociations,
-appstream:ListTagsForResource,
-appstream:TagResource,
-appstream:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-appstream:DescribeAppBlockBuilders,
-appstream:DeleteAppBlockBuilder,
-appstream:DisassociateAppBlockBuilderAppBlock,
-appstream:DescribeAppBlockBuilderAppBlockAssociations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -96,5 +66,38 @@ instance_type,
 app_block_arns
 FROM awscc.appstream.app_block_builder
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>app_block_builder</code> resource, the following permissions are required:
+
+### Read
+```json
+appstream:DescribeAppBlockBuilders
+```
+
+### Update
+```json
+appstream:UpdateAppBlockBuilder,
+appstream:DescribeAppBlockBuilders,
+appstream:StartAppBlockBuilder,
+appstream:StopAppBlockBuilder,
+appstream:AssociateAppBlockBuilderAppBlock,
+appstream:DisassociateAppBlockBuilderAppBlock,
+appstream:DescribeAppBlockBuilderAppBlockAssociations,
+appstream:ListTagsForResource,
+appstream:TagResource,
+appstream:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+appstream:DescribeAppBlockBuilders,
+appstream:DeleteAppBlockBuilder,
+appstream:DisassociateAppBlockBuilderAppBlock,
+appstream:DescribeAppBlockBuilderAppBlockAssociations
+```
+

@@ -41,23 +41,6 @@ Gets an individual <code>entitlement</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>entitlement</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appstream:DescribeEntitlements</pre>
-
-### Update
-<pre>
-appstream:UpdateEntitlement</pre>
-
-### Delete
-<pre>
-appstream:DeleteEntitlement</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,6 +54,26 @@ created_time,
 last_modified_time
 FROM awscc.appstream.entitlement
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StackName&gt;'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{StackName}';
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>entitlement</code> resource, the following permissions are required:
+
+### Read
+```json
+appstream:DescribeEntitlements
+```
+
+### Update
+```json
+appstream:UpdateEntitlement
+```
+
+### Delete
+```json
+appstream:DeleteEntitlement
+```
+

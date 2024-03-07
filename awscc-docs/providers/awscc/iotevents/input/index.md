@@ -38,29 +38,6 @@ Gets an individual <code>input</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>input</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotevents:DescribeInput,
-iotevents:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotevents:UpdateInput,
-iotevents:DescribeInput,
-iotevents:ListTagsForResource,
-iotevents:UntagResource,
-iotevents:TagResource</pre>
-
-### Delete
-<pre>
-iotevents:DeleteInput,
-iotevents:DescribeInput</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +48,31 @@ input_name,
 tags
 FROM awscc.iotevents.input
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InputName&gt;'
+AND data__Identifier = '{InputName}';
 ```
+
+## Permissions
+
+To operate on the <code>input</code> resource, the following permissions are required:
+
+### Read
+```json
+iotevents:DescribeInput,
+iotevents:ListTagsForResource
+```
+
+### Update
+```json
+iotevents:UpdateInput,
+iotevents:DescribeInput,
+iotevents:ListTagsForResource,
+iotevents:UntagResource,
+iotevents:TagResource
+```
+
+### Delete
+```json
+iotevents:DeleteInput,
+iotevents:DescribeInput
+```
+

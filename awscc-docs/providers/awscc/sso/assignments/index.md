@@ -40,28 +40,6 @@ Retrieves a list of <code>assignments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assignments</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sso:CreateAccountAssignment,
-sso:DescribeAccountAssignmentCreationStatus,
-sso:ListAccountAssignments,
-iam:GetSAMLProvider,
-iam:CreateSAMLProvider,
-iam:AttachRolePolicy,
-iam:PutRolePolicy,
-iam:CreateRole,
-iam:ListRolePolicies</pre>
-
-### List
-<pre>
-sso:ListAccountAssignments,
-iam:ListRolePolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,3 +53,27 @@ principal_id
 FROM awscc.sso.assignments
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>assignments</code> resource, the following permissions are required:
+
+### Create
+```json
+sso:CreateAccountAssignment,
+sso:DescribeAccountAssignmentCreationStatus,
+sso:ListAccountAssignments,
+iam:GetSAMLProvider,
+iam:CreateSAMLProvider,
+iam:AttachRolePolicy,
+iam:PutRolePolicy,
+iam:CreateRole,
+iam:ListRolePolicies
+```
+
+### List
+```json
+sso:ListAccountAssignments,
+iam:ListRolePolicies
+```
+

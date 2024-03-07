@@ -39,23 +39,6 @@ Gets an individual <code>dataset_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dataset_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-forecast:DescribeDatasetGroup</pre>
-
-### Update
-<pre>
-forecast:UpdateDatasetGroup</pre>
-
-### Delete
-<pre>
-forecast:DeleteDatasetGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -67,5 +50,25 @@ tags,
 dataset_group_arn
 FROM awscc.forecast.dataset_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatasetGroupArn&gt;'
+AND data__Identifier = '{DatasetGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>dataset_group</code> resource, the following permissions are required:
+
+### Read
+```json
+forecast:DescribeDatasetGroup
+```
+
+### Update
+```json
+forecast:UpdateDatasetGroup
+```
+
+### Delete
+```json
+forecast:DeleteDatasetGroup
+```
+

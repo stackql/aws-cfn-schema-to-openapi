@@ -40,28 +40,6 @@ Gets an individual <code>environment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>environment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appconfig:GetEnvironment,
-appconfig:ListTagsForResource</pre>
-
-### Update
-<pre>
-appconfig:UpdateEnvironment,
-appconfig:TagResource,
-appconfig:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-appconfig:GetEnvironment,
-appconfig:DeleteEnvironment</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,6 +52,31 @@ monitors,
 tags
 FROM awscc.appconfig.environment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApplicationId&gt;'
-AND data__Identifier = '&lt;EnvironmentId&gt;'
+AND data__Identifier = '{ApplicationId}';
+AND data__Identifier = '{EnvironmentId}';
 ```
+
+## Permissions
+
+To operate on the <code>environment</code> resource, the following permissions are required:
+
+### Read
+```json
+appconfig:GetEnvironment,
+appconfig:ListTagsForResource
+```
+
+### Update
+```json
+appconfig:UpdateEnvironment,
+appconfig:TagResource,
+appconfig:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+appconfig:GetEnvironment,
+appconfig:DeleteEnvironment
+```
+

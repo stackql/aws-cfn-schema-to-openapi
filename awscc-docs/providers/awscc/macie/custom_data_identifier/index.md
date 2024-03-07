@@ -43,24 +43,6 @@ Gets an individual <code>custom_data_identifier</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>custom_data_identifier</code> resource, the following permissions are required:
-
-### Read
-<pre>
-macie2:GetCustomDataIdentifier</pre>
-
-### Delete
-<pre>
-macie2:DeleteCustomDataIdentifier</pre>
-
-### Update
-<pre>
-macie2:TagResource,
-macie2:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +58,26 @@ arn,
 tags
 FROM awscc.macie.custom_data_identifier
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>custom_data_identifier</code> resource, the following permissions are required:
+
+### Read
+```json
+macie2:GetCustomDataIdentifier
+```
+
+### Delete
+```json
+macie2:DeleteCustomDataIdentifier
+```
+
+### Update
+```json
+macie2:TagResource,
+macie2:UntagResource
+```
+

@@ -43,28 +43,6 @@ Gets an individual <code>multicast_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>multicast_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetMulticastGroup,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdateMulticastGroup,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource,
-iotwireless:AssociateWirelessDeviceWithMulticastGroup,
-iotwireless:DisassociateWirelessDeviceFromMulticastGroup</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteMulticastGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +58,30 @@ associate_wireless_device,
 disassociate_wireless_device
 FROM awscc.iotwireless.multicast_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>multicast_group</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetMulticastGroup,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdateMulticastGroup,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource,
+iotwireless:AssociateWirelessDeviceWithMulticastGroup,
+iotwireless:DisassociateWirelessDeviceFromMulticastGroup
+```
+
+### Delete
+```json
+iotwireless:DeleteMulticastGroup
+```
+

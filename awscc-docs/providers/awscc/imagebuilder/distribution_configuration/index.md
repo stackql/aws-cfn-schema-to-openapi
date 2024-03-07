@@ -39,29 +39,6 @@ Gets an individual <code>distribution_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>distribution_configuration</code> resource, the following permissions are required:
-
-### Update
-<pre>
-ec2:DescribeLaunchTemplates,
-ec2:CreateLaunchTemplateVersion,
-ec2:ModifyLaunchTemplate,
-imagebuilder:GetDistributionConfiguration,
-imagebuilder:UpdateDistributionConfiguration</pre>
-
-### Read
-<pre>
-imagebuilder:GetDistributionConfiguration</pre>
-
-### Delete
-<pre>
-imagebuilder:GetDistributionConfiguration,
-imagebuilder:UnTagResource,
-imagebuilder:DeleteDistributionConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ distributions,
 tags
 FROM awscc.imagebuilder.distribution_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>distribution_configuration</code> resource, the following permissions are required:
+
+### Update
+```json
+ec2:DescribeLaunchTemplates,
+ec2:CreateLaunchTemplateVersion,
+ec2:ModifyLaunchTemplate,
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:UpdateDistributionConfiguration
+```
+
+### Read
+```json
+imagebuilder:GetDistributionConfiguration
+```
+
+### Delete
+```json
+imagebuilder:GetDistributionConfiguration,
+imagebuilder:UnTagResource,
+imagebuilder:DeleteDistributionConfiguration
+```
+

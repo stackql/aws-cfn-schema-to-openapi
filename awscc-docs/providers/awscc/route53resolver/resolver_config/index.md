@@ -39,22 +39,6 @@ Gets an individual <code>resolver_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resolver_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-route53resolver:GetResolverConfig,
-ec2:DescribeVpcs</pre>
-
-### Delete
-<pre>
-route53resolver:UpdateResolverConfig,
-route53resolver:ListResolverConfigs,
-ec2:DescribeVpcs</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -66,5 +50,23 @@ autodefined_reverse,
 autodefined_reverse_flag
 FROM awscc.route53resolver.resolver_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceId&gt;'
+AND data__Identifier = '{ResourceId}';
 ```
+
+## Permissions
+
+To operate on the <code>resolver_config</code> resource, the following permissions are required:
+
+### Read
+```json
+route53resolver:GetResolverConfig,
+ec2:DescribeVpcs
+```
+
+### Delete
+```json
+route53resolver:UpdateResolverConfig,
+route53resolver:ListResolverConfigs,
+ec2:DescribeVpcs
+```
+

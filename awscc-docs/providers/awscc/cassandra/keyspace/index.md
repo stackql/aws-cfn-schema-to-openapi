@@ -37,34 +37,6 @@ Gets an individual <code>keyspace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>keyspace</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cassandra:Select,
-cassandra:SelectMultiRegionResource</pre>
-
-### Update
-<pre>
-cassandra:Alter,
-cassandra:AlterMultiRegionResource,
-cassandra:Select,
-cassandra:SelectMultiRegionResource,
-cassandra:TagResource,
-cassandra:TagMultiRegionResource,
-cassandra:UntagResource,
-cassandra:UntagMultiRegionResource</pre>
-
-### Delete
-<pre>
-cassandra:Drop,
-cassandra:DropMultiRegionResource,
-cassandra:Select,
-cassandra:SelectMultiRegionResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +46,36 @@ tags,
 replication_specification
 FROM awscc.cassandra.keyspace
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;KeyspaceName&gt;'
+AND data__Identifier = '{KeyspaceName}';
 ```
+
+## Permissions
+
+To operate on the <code>keyspace</code> resource, the following permissions are required:
+
+### Read
+```json
+cassandra:Select,
+cassandra:SelectMultiRegionResource
+```
+
+### Update
+```json
+cassandra:Alter,
+cassandra:AlterMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource,
+cassandra:TagResource,
+cassandra:TagMultiRegionResource,
+cassandra:UntagResource,
+cassandra:UntagMultiRegionResource
+```
+
+### Delete
+```json
+cassandra:Drop,
+cassandra:DropMultiRegionResource,
+cassandra:Select,
+cassandra:SelectMultiRegionResource
+```
+

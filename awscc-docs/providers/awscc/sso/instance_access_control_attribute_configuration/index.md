@@ -37,25 +37,6 @@ Gets an individual <code>instance_access_control_attribute_configuration</code> 
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance_access_control_attribute_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
-
-### Update
-<pre>
-sso:UpdateInstanceAccessControlAttributeConfiguration,
-sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
-
-### Delete
-<pre>
-sso:DeleteInstanceAccessControlAttributeConfiguration,
-sso:DescribeInstanceAccessControlAttributeConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +46,27 @@ instance_access_control_attribute_configuration,
 access_control_attributes
 FROM awscc.sso.instance_access_control_attribute_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;InstanceArn&gt;'
+AND data__Identifier = '{InstanceArn}';
 ```
+
+## Permissions
+
+To operate on the <code>instance_access_control_attribute_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+sso:DescribeInstanceAccessControlAttributeConfiguration
+```
+
+### Update
+```json
+sso:UpdateInstanceAccessControlAttributeConfiguration,
+sso:DescribeInstanceAccessControlAttributeConfiguration
+```
+
+### Delete
+```json
+sso:DeleteInstanceAccessControlAttributeConfiguration,
+sso:DescribeInstanceAccessControlAttributeConfiguration
+```
+

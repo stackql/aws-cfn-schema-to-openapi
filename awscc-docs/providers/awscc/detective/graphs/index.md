@@ -35,24 +35,6 @@ Retrieves a list of <code>graphs</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>graphs</code> resource, the following permissions are required:
-
-### Create
-<pre>
-detective:CreateGraph,
-detective:UpdateOrganizationConfiguration,
-organizations:DescribeOrganization</pre>
-
-### List
-<pre>
-detective:ListGraphs,
-detective:ListTagsForResource,
-detective:DescribeOrganizationConfiguration,
-organizations:DescribeOrganization</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ arn
 FROM awscc.detective.graphs
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>graphs</code> resource, the following permissions are required:
+
+### Create
+```json
+detective:CreateGraph,
+detective:UpdateOrganizationConfiguration,
+organizations:DescribeOrganization
+```
+
+### List
+```json
+detective:ListGraphs,
+detective:ListTagsForResource,
+detective:DescribeOrganizationConfiguration,
+organizations:DescribeOrganization
+```
+

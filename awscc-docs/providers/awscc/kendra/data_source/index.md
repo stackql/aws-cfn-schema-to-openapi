@@ -46,30 +46,6 @@ Gets an individual <code>data_source</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_source</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kendra:DescribeDataSource,
-kendra:ListTagsForResource</pre>
-
-### Delete
-<pre>
-kendra:DescribeDataSource,
-kendra:DeleteDataSource</pre>
-
-### Update
-<pre>
-kendra:DescribeDataSource,
-kendra:UpdateDataSource,
-kendra:ListTagsForResource,
-kendra:TagResource,
-kendra:UntagResource,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,6 +64,33 @@ custom_document_enrichment_configuration,
 language_code
 FROM awscc.kendra.data_source
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
-AND data__Identifier = '&lt;IndexId&gt;'
+AND data__Identifier = '{Id}';
+AND data__Identifier = '{IndexId}';
 ```
+
+## Permissions
+
+To operate on the <code>data_source</code> resource, the following permissions are required:
+
+### Read
+```json
+kendra:DescribeDataSource,
+kendra:ListTagsForResource
+```
+
+### Delete
+```json
+kendra:DescribeDataSource,
+kendra:DeleteDataSource
+```
+
+### Update
+```json
+kendra:DescribeDataSource,
+kendra:UpdateDataSource,
+kendra:ListTagsForResource,
+kendra:TagResource,
+kendra:UntagResource,
+iam:PassRole
+```
+

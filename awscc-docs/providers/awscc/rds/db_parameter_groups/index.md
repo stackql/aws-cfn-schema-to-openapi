@@ -35,27 +35,6 @@ Retrieves a list of <code>db_parameter_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_parameter_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-rds:AddTagsToResource,
-rds:CreateDBParameterGroup,
-rds:DescribeDBParameterGroups,
-rds:DescribeDBParameters,
-rds:DescribeEngineDefaultParameters,
-rds:ListTagsForResource,
-rds:ModifyDBParameterGroup,
-rds:RemoveTagsFromResource</pre>
-
-### List
-<pre>
-rds:DescribeDBParameterGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +43,26 @@ d_bparameter_group_name
 FROM awscc.rds.db_parameter_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>db_parameter_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+rds:AddTagsToResource,
+rds:CreateDBParameterGroup,
+rds:DescribeDBParameterGroups,
+rds:DescribeDBParameters,
+rds:DescribeEngineDefaultParameters,
+rds:ListTagsForResource,
+rds:ModifyDBParameterGroup,
+rds:RemoveTagsFromResource
+```
+
+### List
+```json
+rds:DescribeDBParameterGroups
+```
+

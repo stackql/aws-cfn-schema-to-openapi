@@ -64,39 +64,6 @@ Gets an individual <code>auto_scaling_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>auto_scaling_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-autoscaling:*,
-managed-fleets:GetAutoScalingGroup</pre>
-
-### Update
-<pre>
-autoscaling:*,
-cloudwatch:PutMetricAlarm,
-ec2:Describe*,
-ec2:GetInstanceTypesFromInstanceRequirements,
-ec2:RunInstances,
-elasticloadbalancing:DescribeLoadBalancers,
-elasticloadbalancing:DescribeTargetGroups,
-iam:CreateServiceLinkedRole,
-iam:PassRole,
-managed-fleets:GetAutoScalingGroup,
-managed-fleets:RegisterAutoScalingGroup,
-managed-fleets:DeregisterAutoScalingGroup,
-managed-fleets:UpdateAutoScalingGroup,
-ssm:GetParameters</pre>
-
-### Delete
-<pre>
-autoscaling:*,
-managed-fleets:GetAutoScalingGroup,
-managed-fleets:DeleteAutoScalingGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -133,5 +100,41 @@ health_check_type,
 max_instance_lifetime
 FROM awscc.autoscaling.auto_scaling_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
+AND data__Identifier = '{AutoScalingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>auto_scaling_group</code> resource, the following permissions are required:
+
+### Read
+```json
+autoscaling:*,
+managed-fleets:GetAutoScalingGroup
+```
+
+### Update
+```json
+autoscaling:*,
+cloudwatch:PutMetricAlarm,
+ec2:Describe*,
+ec2:GetInstanceTypesFromInstanceRequirements,
+ec2:RunInstances,
+elasticloadbalancing:DescribeLoadBalancers,
+elasticloadbalancing:DescribeTargetGroups,
+iam:CreateServiceLinkedRole,
+iam:PassRole,
+managed-fleets:GetAutoScalingGroup,
+managed-fleets:RegisterAutoScalingGroup,
+managed-fleets:DeregisterAutoScalingGroup,
+managed-fleets:UpdateAutoScalingGroup,
+ssm:GetParameters
+```
+
+### Delete
+```json
+autoscaling:*,
+managed-fleets:GetAutoScalingGroup,
+managed-fleets:DeleteAutoScalingGroup
+```
+

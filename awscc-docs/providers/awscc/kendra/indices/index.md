@@ -35,24 +35,6 @@ Retrieves a list of <code>indices</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>indices</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kendra:CreateIndex,
-kendra:DescribeIndex,
-kendra:UpdateIndex,
-kendra:ListTagsForResource,
-iam:PassRole,
-kendra:TagResource</pre>
-
-### List
-<pre>
-kendra:ListIndices</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.kendra.indices
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>indices</code> resource, the following permissions are required:
+
+### Create
+```json
+kendra:CreateIndex,
+kendra:DescribeIndex,
+kendra:UpdateIndex,
+kendra:ListTagsForResource,
+iam:PassRole,
+kendra:TagResource
+```
+
+### List
+```json
+kendra:ListIndices
+```
+

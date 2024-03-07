@@ -35,12 +35,21 @@ Retrieves a list of <code>db_cluster_parameter_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+d_bcluster_parameter_group_name
+FROM awscc.rds.db_cluster_parameter_groups
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>db_cluster_parameter_groups</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:CreateServiceLinkedRole,
 rds:AddTagsToResource,
 rds:CreateDBClusterParameterGroup,
@@ -50,18 +59,11 @@ rds:DescribeDBClusters,
 rds:DescribeEngineDefaultClusterParameters,
 rds:ListTagsForResource,
 rds:ModifyDBClusterParameterGroup,
-rds:RemoveTagsFromResource</pre>
+rds:RemoveTagsFromResource
+```
 
 ### List
-<pre>
-rds:DescribeDBClusterParameterGroups</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-d_bcluster_parameter_group_name
-FROM awscc.rds.db_cluster_parameter_groups
-WHERE region = 'us-east-1'
+```json
+rds:DescribeDBClusterParameterGroups
 ```
+

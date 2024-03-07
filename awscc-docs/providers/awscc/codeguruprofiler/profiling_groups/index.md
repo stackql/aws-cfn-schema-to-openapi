@@ -35,24 +35,6 @@ Retrieves a list of <code>profiling_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profiling_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sns:Publish,
-codeguru-profiler:AddNotificationChannels,
-codeguru-profiler:CreateProfilingGroup,
-codeguru-profiler:PutPermission,
-codeguru-profiler:TagResource</pre>
-
-### List
-<pre>
-codeguru-profiler:ListProfilingGroups,
-codeguru-profiler:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ profiling_group_name
 FROM awscc.codeguruprofiler.profiling_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>profiling_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+sns:Publish,
+codeguru-profiler:AddNotificationChannels,
+codeguru-profiler:CreateProfilingGroup,
+codeguru-profiler:PutPermission,
+codeguru-profiler:TagResource
+```
+
+### List
+```json
+codeguru-profiler:ListProfilingGroups,
+codeguru-profiler:ListTagsForResource
+```
+

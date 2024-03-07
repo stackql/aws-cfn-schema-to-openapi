@@ -40,28 +40,6 @@ Gets an individual <code>template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-pca-connector-ad:GetTemplate,
-pca-connector-ad:ListTagsForResource</pre>
-
-### Update
-<pre>
-pca-connector-ad:ListTagsForResource,
-pca-connector-ad:TagResource,
-pca-connector-ad:UntagResource,
-pca-connector-ad:UpdateTemplate</pre>
-
-### Delete
-<pre>
-pca-connector-ad:GetTemplate,
-pca-connector-ad:DeleteTemplate</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ tags,
 template_arn
 FROM awscc.pcaconnectorad.template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TemplateArn&gt;'
+AND data__Identifier = '{TemplateArn}';
 ```
+
+## Permissions
+
+To operate on the <code>template</code> resource, the following permissions are required:
+
+### Read
+```json
+pca-connector-ad:GetTemplate,
+pca-connector-ad:ListTagsForResource
+```
+
+### Update
+```json
+pca-connector-ad:ListTagsForResource,
+pca-connector-ad:TagResource,
+pca-connector-ad:UntagResource,
+pca-connector-ad:UpdateTemplate
+```
+
+### Delete
+```json
+pca-connector-ad:GetTemplate,
+pca-connector-ad:DeleteTemplate
+```
+

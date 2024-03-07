@@ -43,24 +43,6 @@ Gets an individual <code>scheduled_action</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduled_action</code> resource, the following permissions are required:
-
-### Read
-<pre>
-autoscaling:DescribeScheduledActions</pre>
-
-### Update
-<pre>
-autoscaling:PutScheduledUpdateGroupAction</pre>
-
-### Delete
-<pre>
-autoscaling:DeleteScheduledAction,
-autoscaling:DescribeScheduledActions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +58,27 @@ desired_capacity,
 max_size
 FROM awscc.autoscaling.scheduled_action
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ScheduledActionName&gt;'
-AND data__Identifier = '&lt;AutoScalingGroupName&gt;'
+AND data__Identifier = '{ScheduledActionName}';
+AND data__Identifier = '{AutoScalingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>scheduled_action</code> resource, the following permissions are required:
+
+### Read
+```json
+autoscaling:DescribeScheduledActions
+```
+
+### Update
+```json
+autoscaling:PutScheduledUpdateGroupAction
+```
+
+### Delete
+```json
+autoscaling:DeleteScheduledAction,
+autoscaling:DescribeScheduledActions
+```
+

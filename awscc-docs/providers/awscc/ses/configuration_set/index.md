@@ -41,29 +41,6 @@ Gets an individual <code>configuration_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ses:GetConfigurationSet,
-ses:DescribeConfigurationSet</pre>
-
-### Update
-<pre>
-ses:PutConfigurationSetTrackingOptions,
-ses:PutConfigurationSetDeliveryOptions,
-ses:PutConfigurationSetReputationOptions,
-ses:PutConfigurationSetSendingOptions,
-ses:PutConfigurationSetSuppressionOptions,
-ses:PutConfigurationSetVdmOptions</pre>
-
-### Delete
-<pre>
-ses:DeleteConfigurationSet</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +54,31 @@ suppression_options,
 vdm_options
 FROM awscc.ses.configuration_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>configuration_set</code> resource, the following permissions are required:
+
+### Read
+```json
+ses:GetConfigurationSet,
+ses:DescribeConfigurationSet
+```
+
+### Update
+```json
+ses:PutConfigurationSetTrackingOptions,
+ses:PutConfigurationSetDeliveryOptions,
+ses:PutConfigurationSetReputationOptions,
+ses:PutConfigurationSetSendingOptions,
+ses:PutConfigurationSetSuppressionOptions,
+ses:PutConfigurationSetVdmOptions
+```
+
+### Delete
+```json
+ses:DeleteConfigurationSet
+```
+

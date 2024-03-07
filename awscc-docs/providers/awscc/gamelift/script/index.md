@@ -42,30 +42,6 @@ Gets an individual <code>script</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>script</code> resource, the following permissions are required:
-
-### Read
-<pre>
-gamelift:DescribeScript,
-gamelift:ListScripts,
-gamelift:ListTagsForResource</pre>
-
-### Delete
-<pre>
-gamelift:DeleteScript</pre>
-
-### Update
-<pre>
-gamelift:DescribeScript,
-gamelift:UpdateScript,
-gamelift:ListTagsForResource,
-gamelift:TagResource,
-gamelift:UntagResource,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +56,32 @@ id,
 size_on_disk
 FROM awscc.gamelift.script
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>script</code> resource, the following permissions are required:
+
+### Read
+```json
+gamelift:DescribeScript,
+gamelift:ListScripts,
+gamelift:ListTagsForResource
+```
+
+### Delete
+```json
+gamelift:DeleteScript
+```
+
+### Update
+```json
+gamelift:DescribeScript,
+gamelift:UpdateScript,
+gamelift:ListTagsForResource,
+gamelift:TagResource,
+gamelift:UntagResource,
+iam:PassRole
+```
+

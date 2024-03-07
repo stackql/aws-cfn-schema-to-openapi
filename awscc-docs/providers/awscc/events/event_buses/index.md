@@ -35,24 +35,6 @@ Retrieves a list of <code>event_buses</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_buses</code> resource, the following permissions are required:
-
-### Create
-<pre>
-events:CreateEventBus,
-events:DescribeEventBus,
-events:PutPermission,
-events:ListTagsForResource,
-events:TagResource</pre>
-
-### List
-<pre>
-events:ListEventBuses,
-events:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ name
 FROM awscc.events.event_buses
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>event_buses</code> resource, the following permissions are required:
+
+### Create
+```json
+events:CreateEventBus,
+events:DescribeEventBus,
+events:PutPermission,
+events:ListTagsForResource,
+events:TagResource
+```
+
+### List
+```json
+events:ListEventBuses,
+events:ListTagsForResource
+```
+

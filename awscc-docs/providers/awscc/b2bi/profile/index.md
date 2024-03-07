@@ -45,28 +45,6 @@ Gets an individual <code>profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-b2bi:GetProfile,
-b2bi:ListTagsForResource</pre>
-
-### Update
-<pre>
-b2bi:TagResource,
-b2bi:UntagResource,
-b2bi:UpdateProfile</pre>
-
-### Delete
-<pre>
-b2bi:DeleteProfile,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +62,30 @@ profile_id,
 tags
 FROM awscc.b2bi.profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProfileId&gt;'
+AND data__Identifier = '{ProfileId}';
 ```
+
+## Permissions
+
+To operate on the <code>profile</code> resource, the following permissions are required:
+
+### Read
+```json
+b2bi:GetProfile,
+b2bi:ListTagsForResource
+```
+
+### Update
+```json
+b2bi:TagResource,
+b2bi:UntagResource,
+b2bi:UpdateProfile
+```
+
+### Delete
+```json
+b2bi:DeleteProfile,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries
+```
+

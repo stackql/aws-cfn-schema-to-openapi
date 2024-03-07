@@ -45,28 +45,6 @@ Gets an individual <code>transformer</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>transformer</code> resource, the following permissions are required:
-
-### Read
-<pre>
-b2bi:GetTransformer,
-b2bi:ListTagsForResource</pre>
-
-### Update
-<pre>
-b2bi:TagResource,
-b2bi:UntagResource,
-b2bi:UpdateTransformer</pre>
-
-### Delete
-<pre>
-b2bi:DeleteTransformer,
-logs:DeleteLogDelivery,
-logs:ListLogDeliveries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -84,5 +62,30 @@ transformer_arn,
 transformer_id
 FROM awscc.b2bi.transformer
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TransformerId&gt;'
+AND data__Identifier = '{TransformerId}';
 ```
+
+## Permissions
+
+To operate on the <code>transformer</code> resource, the following permissions are required:
+
+### Read
+```json
+b2bi:GetTransformer,
+b2bi:ListTagsForResource
+```
+
+### Update
+```json
+b2bi:TagResource,
+b2bi:UntagResource,
+b2bi:UpdateTransformer
+```
+
+### Delete
+```json
+b2bi:DeleteTransformer,
+logs:DeleteLogDelivery,
+logs:ListLogDeliveries
+```
+

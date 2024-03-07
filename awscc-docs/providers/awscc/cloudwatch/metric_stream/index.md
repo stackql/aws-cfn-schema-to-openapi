@@ -47,28 +47,6 @@ Gets an individual <code>metric_stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>metric_stream</code> resource, the following permissions are required:
-
-### Update
-<pre>
-cloudwatch:PutMetricStream,
-cloudwatch:GetMetricStream,
-cloudwatch:TagResource,
-cloudwatch:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cloudwatch:DeleteMetricStream,
-cloudwatch:GetMetricStream</pre>
-
-### Read
-<pre>
-cloudwatch:GetMetricStream</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -88,5 +66,30 @@ tags,
 include_linked_accounts_metrics
 FROM awscc.cloudwatch.metric_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>metric_stream</code> resource, the following permissions are required:
+
+### Update
+```json
+cloudwatch:PutMetricStream,
+cloudwatch:GetMetricStream,
+cloudwatch:TagResource,
+cloudwatch:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+cloudwatch:DeleteMetricStream,
+cloudwatch:GetMetricStream
+```
+
+### Read
+```json
+cloudwatch:GetMetricStream
+```
+

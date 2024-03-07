@@ -35,12 +35,21 @@ Retrieves a list of <code>environments</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+environment_arn
+FROM awscc.m2.environments
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>environments</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ec2:CreateNetworkInterface,
 ec2:CreateNetworkInterfacePermission,
 ec2:DescribeNetworkInterfaces,
@@ -59,18 +68,11 @@ kms:CreateGrant,
 m2:CreateEnvironment,
 m2:GetEnvironment,
 m2:ListTagsForResource,
-m2:TagResource</pre>
+m2:TagResource
+```
 
 ### List
-<pre>
-m2:ListEnvironments</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-environment_arn
-FROM awscc.m2.environments
-WHERE region = 'us-east-1'
+```json
+m2:ListEnvironments
 ```
+

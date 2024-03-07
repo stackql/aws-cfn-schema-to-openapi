@@ -42,31 +42,6 @@ Gets an individual <code>signal_catalog</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>signal_catalog</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotfleetwise:GetSignalCatalog,
-iotfleetwise:ListSignalCatalogNodes,
-iotfleetwise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotfleetwise:GetSignalCatalog,
-iotfleetwise:UpdateSignalCatalog,
-iotfleetwise:ListSignalCatalogNodes,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource,
-iotfleetwise:UntagResource</pre>
-
-### Delete
-<pre>
-iotfleetwise:GetSignalCatalog,
-iotfleetwise:DeleteSignalCatalog</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +56,33 @@ nodes,
 tags
 FROM awscc.iotfleetwise.signal_catalog
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>signal_catalog</code> resource, the following permissions are required:
+
+### Read
+```json
+iotfleetwise:GetSignalCatalog,
+iotfleetwise:ListSignalCatalogNodes,
+iotfleetwise:ListTagsForResource
+```
+
+### Update
+```json
+iotfleetwise:GetSignalCatalog,
+iotfleetwise:UpdateSignalCatalog,
+iotfleetwise:ListSignalCatalogNodes,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iotfleetwise:UntagResource
+```
+
+### Delete
+```json
+iotfleetwise:GetSignalCatalog,
+iotfleetwise:DeleteSignalCatalog
+```
+

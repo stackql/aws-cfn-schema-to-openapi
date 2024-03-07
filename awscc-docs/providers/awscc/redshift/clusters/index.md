@@ -35,12 +35,21 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+cluster_identifier
+FROM awscc.redshift.clusters
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 iam:PassRole,
 iam:CreateServiceLinkedRole,
 redshift:DescribeClusters,
@@ -72,19 +81,12 @@ ec2:DescribeSecurityGroupRules,
 ec2:DescribeAvailabilityZones,
 ec2:DescribeNetworkAcls,
 ec2:DescribeRouteTables,
-cloudwatch:PutMetricData</pre>
+cloudwatch:PutMetricData
+```
 
 ### List
-<pre>
+```json
 redshift:DescribeTags,
-redshift:DescribeClusters</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-cluster_identifier
-FROM awscc.redshift.clusters
-WHERE region = 'us-east-1'
+redshift:DescribeClusters
 ```
+

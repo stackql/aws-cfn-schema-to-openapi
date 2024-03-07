@@ -44,28 +44,6 @@ Gets an individual <code>location_azure_blob</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_azure_blob</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeLocationAzureBlob,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:DescribeLocationAzureBlob,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource,
-datasync:UpdateLocationAzureBlob</pre>
-
-### Delete
-<pre>
-datasync:DeleteLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +60,30 @@ location_arn,
 location_uri
 FROM awscc.datasync.location_azure_blob
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationArn&gt;'
+AND data__Identifier = '{LocationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>location_azure_blob</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeLocationAzureBlob,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:DescribeLocationAzureBlob,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource,
+datasync:UpdateLocationAzureBlob
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+

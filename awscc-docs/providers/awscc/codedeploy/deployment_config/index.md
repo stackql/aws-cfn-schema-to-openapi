@@ -39,20 +39,6 @@ Gets an individual <code>deployment_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>deployment_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-codedeploy:GetDeploymentConfig</pre>
-
-### Delete
-<pre>
-codedeploy:GetDeploymentConfig,
-codedeploy:DeleteDeploymentConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +50,21 @@ zonal_config,
 traffic_routing_config
 FROM awscc.codedeploy.deployment_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DeploymentConfigName&gt;'
+AND data__Identifier = '{DeploymentConfigName}';
 ```
+
+## Permissions
+
+To operate on the <code>deployment_config</code> resource, the following permissions are required:
+
+### Read
+```json
+codedeploy:GetDeploymentConfig
+```
+
+### Delete
+```json
+codedeploy:GetDeploymentConfig,
+codedeploy:DeleteDeploymentConfig
+```
+

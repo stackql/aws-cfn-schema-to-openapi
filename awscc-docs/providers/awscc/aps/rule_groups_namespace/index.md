@@ -39,29 +39,6 @@ Gets an individual <code>rule_groups_namespace</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>rule_groups_namespace</code> resource, the following permissions are required:
-
-### Read
-<pre>
-aps:DescribeRuleGroupsNamespace,
-aps:ListTagsForResource</pre>
-
-### Update
-<pre>
-aps:PutRuleGroupsNamespace,
-aps:DescribeRuleGroupsNamespace,
-aps:TagResource,
-aps:UntagResource,
-aps:ListTagsForResource</pre>
-
-### Delete
-<pre>
-aps:DeleteRuleGroupsNamespace,
-aps:DescribeRuleGroupsNamespace</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +50,31 @@ arn,
 tags
 FROM awscc.aps.rule_groups_namespace
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>rule_groups_namespace</code> resource, the following permissions are required:
+
+### Read
+```json
+aps:DescribeRuleGroupsNamespace,
+aps:ListTagsForResource
+```
+
+### Update
+```json
+aps:PutRuleGroupsNamespace,
+aps:DescribeRuleGroupsNamespace,
+aps:TagResource,
+aps:UntagResource,
+aps:ListTagsForResource
+```
+
+### Delete
+```json
+aps:DeleteRuleGroupsNamespace,
+aps:DescribeRuleGroupsNamespace
+```
+

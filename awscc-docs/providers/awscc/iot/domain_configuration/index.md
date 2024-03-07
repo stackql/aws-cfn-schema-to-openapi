@@ -47,30 +47,6 @@ Gets an individual <code>domain_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iot:DescribeDomainConfiguration,
-iot:ListTagsForResource</pre>
-
-### Update
-<pre>
-iot:UpdateDomainConfiguration,
-iot:DescribeDomainConfiguration,
-iot:ListTagsForResource,
-iot:TagResource,
-iot:UntagResource</pre>
-
-### Delete
-<pre>
-iot:DescribeDomainConfiguration,
-iot:DeleteDomainConfiguration,
-iot:UpdateDomainConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +66,32 @@ tls_config,
 tags
 FROM awscc.iot.domain_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainConfigurationName&gt;'
+AND data__Identifier = '{DomainConfigurationName}';
 ```
+
+## Permissions
+
+To operate on the <code>domain_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+iot:DescribeDomainConfiguration,
+iot:ListTagsForResource
+```
+
+### Update
+```json
+iot:UpdateDomainConfiguration,
+iot:DescribeDomainConfiguration,
+iot:ListTagsForResource,
+iot:TagResource,
+iot:UntagResource
+```
+
+### Delete
+```json
+iot:DescribeDomainConfiguration,
+iot:DeleteDomainConfiguration,
+iot:UpdateDomainConfiguration
+```
+

@@ -35,24 +35,6 @@ Retrieves a list of <code>keys</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>keys</code> resource, the following permissions are required:
-
-### Create
-<pre>
-kms:CreateKey,
-kms:EnableKeyRotation,
-kms:DisableKey,
-kms:TagResource,
-kms:PutKeyPolicy</pre>
-
-### List
-<pre>
-kms:ListKeys,
-kms:DescribeKey</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ key_id
 FROM awscc.kms.keys
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>keys</code> resource, the following permissions are required:
+
+### Create
+```json
+kms:CreateKey,
+kms:EnableKeyRotation,
+kms:DisableKey,
+kms:TagResource,
+kms:PutKeyPolicy
+```
+
+### List
+```json
+kms:ListKeys,
+kms:DescribeKey
+```
+

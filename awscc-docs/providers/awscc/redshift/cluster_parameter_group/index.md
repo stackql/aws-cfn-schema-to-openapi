@@ -39,37 +39,6 @@ Gets an individual <code>cluster_parameter_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cluster_parameter_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-redshift:DescribeClusterParameterGroups,
-initech:DescribeReport,
-redshift:DescribeClusterParameters,
-redshift:DescribeTags</pre>
-
-### Update
-<pre>
-redshift:DescribeClusterParameterGroups,
-redshift:ResetClusterParameterGroup,
-redshift:ModifyClusterParameterGroup,
-redshift:DescribeClusterParameters,
-redshift:DescribeTags,
-redshift:CreateTags,
-redshift:DeleteTags,
-initech:UpdateReport</pre>
-
-### Delete
-<pre>
-redshift:DescribeTags,
-redshift:DescribeClusterParameterGroups,
-redshift:DeleteClusterParameterGroup,
-redshift:DescribeClusterParameters,
-initech:DeleteReport</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +50,39 @@ parameters,
 tags
 FROM awscc.redshift.cluster_parameter_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ParameterGroupName&gt;'
+AND data__Identifier = '{ParameterGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>cluster_parameter_group</code> resource, the following permissions are required:
+
+### Read
+```json
+redshift:DescribeClusterParameterGroups,
+initech:DescribeReport,
+redshift:DescribeClusterParameters,
+redshift:DescribeTags
+```
+
+### Update
+```json
+redshift:DescribeClusterParameterGroups,
+redshift:ResetClusterParameterGroup,
+redshift:ModifyClusterParameterGroup,
+redshift:DescribeClusterParameters,
+redshift:DescribeTags,
+redshift:CreateTags,
+redshift:DeleteTags,
+initech:UpdateReport
+```
+
+### Delete
+```json
+redshift:DescribeTags,
+redshift:DescribeClusterParameterGroups,
+redshift:DeleteClusterParameterGroup,
+redshift:DescribeClusterParameters,
+initech:DeleteReport
+```
+

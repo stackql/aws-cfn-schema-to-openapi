@@ -36,25 +36,6 @@ Gets an individual <code>account</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>account</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:PATCH,
-iam:GetRole,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,22 @@ id,
 cloud_watch_role_arn
 FROM awscc.apigateway.account
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>account</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:PATCH,
+iam:GetRole,
+iam:PassRole
+```
+

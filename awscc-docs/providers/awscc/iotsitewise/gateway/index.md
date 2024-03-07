@@ -39,33 +39,6 @@ Gets an individual <code>gateway</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>gateway</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotsitewise:DescribeGateway,
-iotsitewise:DescribeGatewayCapabilityConfiguration,
-iotsitewise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotsitewise:UpdateGateway,
-iotsitewise:UpdateGatewayCapabilityConfiguration,
-iotsitewise:TagResource,
-iotsitewise:UntagResource,
-iotsitewise:DescribeGateway,
-iotsitewise:DescribeGatewayCapabilityConfiguration,
-iotsitewise:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iotsitewise:DescribeGateway,
-iotsitewise:DescribeGatewayCapabilityConfiguration,
-iotsitewise:DeleteGateway</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +50,35 @@ gateway_id,
 gateway_capability_summaries
 FROM awscc.iotsitewise.gateway
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;GatewayId&gt;'
+AND data__Identifier = '{GatewayId}';
 ```
+
+## Permissions
+
+To operate on the <code>gateway</code> resource, the following permissions are required:
+
+### Read
+```json
+iotsitewise:DescribeGateway,
+iotsitewise:DescribeGatewayCapabilityConfiguration,
+iotsitewise:ListTagsForResource
+```
+
+### Update
+```json
+iotsitewise:UpdateGateway,
+iotsitewise:UpdateGatewayCapabilityConfiguration,
+iotsitewise:TagResource,
+iotsitewise:UntagResource,
+iotsitewise:DescribeGateway,
+iotsitewise:DescribeGatewayCapabilityConfiguration,
+iotsitewise:ListTagsForResource
+```
+
+### Delete
+```json
+iotsitewise:DescribeGateway,
+iotsitewise:DescribeGatewayCapabilityConfiguration,
+iotsitewise:DeleteGateway
+```
+

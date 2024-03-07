@@ -35,19 +35,6 @@ Retrieves a list of <code>view_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>view_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-connect:CreateViewVersion</pre>
-
-### List
-<pre>
-connect:ListViewVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -56,3 +43,18 @@ view_version_arn
 FROM awscc.connect.view_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>view_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+connect:CreateViewVersion
+```
+
+### List
+```json
+connect:ListViewVersions
+```
+

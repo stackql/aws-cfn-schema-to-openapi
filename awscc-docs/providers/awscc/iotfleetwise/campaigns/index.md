@@ -35,26 +35,6 @@ Retrieves a list of <code>campaigns</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>campaigns</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotfleetwise:CreateCampaign,
-iotfleetwise:GetCampaign,
-iotfleetwise:ListTagsForResource,
-iotfleetwise:TagResource,
-iam:PassRole,
-timestream:DescribeEndpoints,
-timestream:DescribeTable</pre>
-
-### List
-<pre>
-iotfleetwise:ListCampaigns,
-iotfleetwise:GetCampaign</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ name
 FROM awscc.iotfleetwise.campaigns
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>campaigns</code> resource, the following permissions are required:
+
+### Create
+```json
+iotfleetwise:CreateCampaign,
+iotfleetwise:GetCampaign,
+iotfleetwise:ListTagsForResource,
+iotfleetwise:TagResource,
+iam:PassRole,
+timestream:DescribeEndpoints,
+timestream:DescribeTable
+```
+
+### List
+```json
+iotfleetwise:ListCampaigns,
+iotfleetwise:GetCampaign
+```
+

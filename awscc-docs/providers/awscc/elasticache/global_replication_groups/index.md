@@ -35,20 +35,6 @@ Retrieves a list of <code>global_replication_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>global_replication_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticache:CreateGlobalReplicationGroup,
-elasticache:DescribeGlobalReplicationGroups</pre>
-
-### List
-<pre>
-elasticache:DescribeGlobalReplicationGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ global_replication_group_id
 FROM awscc.elasticache.global_replication_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>global_replication_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticache:CreateGlobalReplicationGroup,
+elasticache:DescribeGlobalReplicationGroups
+```
+
+### List
+```json
+elasticache:DescribeGlobalReplicationGroups
+```
+

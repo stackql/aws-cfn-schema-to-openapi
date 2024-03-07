@@ -42,28 +42,6 @@ Gets an individual <code>agent</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>agent</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeAgent,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:UpdateAgent,
-datasync:DescribeAgent,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource</pre>
-
-### Delete
-<pre>
-datasync:DeleteAgent</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +56,30 @@ tags,
 agent_arn
 FROM awscc.datasync.agent
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AgentArn&gt;'
+AND data__Identifier = '{AgentArn}';
 ```
+
+## Permissions
+
+To operate on the <code>agent</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeAgent,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:UpdateAgent,
+datasync:DescribeAgent,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource
+```
+
+### Delete
+```json
+datasync:DeleteAgent
+```
+

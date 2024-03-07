@@ -41,35 +41,6 @@ Gets an individual <code>model_package_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_package_group</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-sagemaker:DeleteModelPackageGroup,
-sagemaker:DescribeModelPackageGroup,
-sagemaker:GetModelPackageGroupPolicy,
-sagemaker:DeleteModelPackageGroupPolicy</pre>
-
-### Read
-<pre>
-sagemaker:DescribeModelPackageGroup,
-sagemaker:GetModelPackageGroupPolicy,
-sagemaker:PutModelPackageGroupPolicy,
-sagemaker:ListTags</pre>
-
-### Update
-<pre>
-sagemaker:DescribeModelPackageGroup,
-sagemaker:GetModelPackageGroupPolicy,
-sagemaker:DeleteModelPackageGroupPolicy,
-sagemaker:PutModelPackageGroupPolicy,
-sagemaker:ListTags,
-sagemaker:AddTags,
-sagemaker:DeleteTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +54,37 @@ creation_time,
 model_package_group_status
 FROM awscc.sagemaker.model_package_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ModelPackageGroupArn&gt;'
+AND data__Identifier = '{ModelPackageGroupArn}';
 ```
+
+## Permissions
+
+To operate on the <code>model_package_group</code> resource, the following permissions are required:
+
+### Delete
+```json
+sagemaker:DeleteModelPackageGroup,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:GetModelPackageGroupPolicy,
+sagemaker:DeleteModelPackageGroupPolicy
+```
+
+### Read
+```json
+sagemaker:DescribeModelPackageGroup,
+sagemaker:GetModelPackageGroupPolicy,
+sagemaker:PutModelPackageGroupPolicy,
+sagemaker:ListTags
+```
+
+### Update
+```json
+sagemaker:DescribeModelPackageGroup,
+sagemaker:GetModelPackageGroupPolicy,
+sagemaker:DeleteModelPackageGroupPolicy,
+sagemaker:PutModelPackageGroupPolicy,
+sagemaker:ListTags,
+sagemaker:AddTags,
+sagemaker:DeleteTags
+```
+

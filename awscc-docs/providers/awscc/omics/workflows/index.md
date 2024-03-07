@@ -35,12 +35,21 @@ Retrieves a list of <code>workflows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+id
+FROM awscc.omics.workflows
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>workflows</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 omics:CreateWorkflow,
 omics:GetWorkflow,
 omics:TagResource,
@@ -53,18 +62,11 @@ kms:Decrypt,
 kms:GenerateDataKey,
 kms:GenerateDataKeyPair,
 kms:GenerateDataKeyPairWithoutPlaintext,
-kms:GenerateDataKeyWithoutPlaintext</pre>
+kms:GenerateDataKeyWithoutPlaintext
+```
 
 ### List
-<pre>
-omics:ListWorkflows</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-id
-FROM awscc.omics.workflows
-WHERE region = 'us-east-1'
+```json
+omics:ListWorkflows
 ```
+

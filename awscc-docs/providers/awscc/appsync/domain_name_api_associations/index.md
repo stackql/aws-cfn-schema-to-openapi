@@ -35,16 +35,6 @@ Retrieves a list of <code>domain_name_api_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>domain_name_api_associations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appsync:AssociateApi,
-appsync:GetApiAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -53,3 +43,14 @@ api_association_identifier
 FROM awscc.appsync.domain_name_api_associations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>domain_name_api_associations</code> resource, the following permissions are required:
+
+### Create
+```json
+appsync:AssociateApi,
+appsync:GetApiAssociation
+```
+

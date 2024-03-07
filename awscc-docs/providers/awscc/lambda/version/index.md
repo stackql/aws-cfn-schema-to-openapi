@@ -41,26 +41,6 @@ Gets an individual <code>version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lambda:GetFunctionConfiguration,
-lambda:GetProvisionedConcurrencyConfig,
-lambda:GetRuntimeManagementConfig</pre>
-
-### Delete
-<pre>
-lambda:GetFunctionConfiguration,
-lambda:DeleteFunction</pre>
-
-### Update
-<pre>
-</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,23 @@ provisioned_concurrency_config,
 runtime_policy
 FROM awscc.lambda.version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FunctionArn&gt;'
+AND data__Identifier = '{FunctionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>version</code> resource, the following permissions are required:
+
+### Read
+```json
+lambda:GetFunctionConfiguration,
+lambda:GetProvisionedConcurrencyConfig,
+lambda:GetRuntimeManagementConfig
+```
+
+### Delete
+```json
+lambda:GetFunctionConfiguration,
+lambda:DeleteFunction
+```
+

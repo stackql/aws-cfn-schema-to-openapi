@@ -45,33 +45,6 @@ Gets an individual <code>queue</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>queue</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeQueue,
-connect:ListQueueQuickConnects</pre>
-
-### Delete
-<pre>
-connect:DeleteQueue,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:UpdateQueueHoursOfOperation,
-connect:UpdateQueueMaxContacts,
-connect:UpdateQueueName,
-connect:UpdateQueueOutboundCallerConfig,
-connect:UpdateQueueStatus,
-connect:AssociateQueueQuickConnects,
-connect:DisassociateQueueQuickConnects,
-connect:TagResource,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -89,5 +62,35 @@ tags,
 type
 FROM awscc.connect.queue
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;QueueArn&gt;'
+AND data__Identifier = '{QueueArn}';
 ```
+
+## Permissions
+
+To operate on the <code>queue</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeQueue,
+connect:ListQueueQuickConnects
+```
+
+### Delete
+```json
+connect:DeleteQueue,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:UpdateQueueHoursOfOperation,
+connect:UpdateQueueMaxContacts,
+connect:UpdateQueueName,
+connect:UpdateQueueOutboundCallerConfig,
+connect:UpdateQueueStatus,
+connect:AssociateQueueQuickConnects,
+connect:DisassociateQueueQuickConnects,
+connect:TagResource,
+connect:UntagResource
+```
+

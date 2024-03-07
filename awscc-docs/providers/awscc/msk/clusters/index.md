@@ -35,12 +35,21 @@ Retrieves a list of <code>clusters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+arn
+FROM awscc.msk.clusters
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>clusters</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 ec2:DescribeSecurityGroups,
 ec2:DescribeSubnets,
 ec2:DescribeVpcs,
@@ -63,18 +72,11 @@ logs:PutResourcePolicy,
 logs:DescribeResourcePolicies,
 logs:DescribeLogGroups,
 firehose:TagDeliveryStream,
-acm-pca:GetCertificateAuthorityCertificate</pre>
+acm-pca:GetCertificateAuthorityCertificate
+```
 
 ### List
-<pre>
-kafka:ListClusters</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-arn
-FROM awscc.msk.clusters
-WHERE region = 'us-east-1'
+```json
+kafka:ListClusters
 ```
+

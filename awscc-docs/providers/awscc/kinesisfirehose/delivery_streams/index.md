@@ -35,24 +35,6 @@ Retrieves a list of <code>delivery_streams</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>delivery_streams</code> resource, the following permissions are required:
-
-### Create
-<pre>
-firehose:CreateDeliveryStream,
-firehose:DescribeDeliveryStream,
-iam:GetRole,
-iam:PassRole,
-kms:CreateGrant,
-kms:DescribeKey</pre>
-
-### List
-<pre>
-firehose:ListDeliveryStreams</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ delivery_stream_name
 FROM awscc.kinesisfirehose.delivery_streams
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>delivery_streams</code> resource, the following permissions are required:
+
+### Create
+```json
+firehose:CreateDeliveryStream,
+firehose:DescribeDeliveryStream,
+iam:GetRole,
+iam:PassRole,
+kms:CreateGrant,
+kms:DescribeKey
+```
+
+### List
+```json
+firehose:ListDeliveryStreams
+```
+

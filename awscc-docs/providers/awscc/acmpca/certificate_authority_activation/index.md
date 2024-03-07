@@ -39,25 +39,6 @@ Gets an individual <code>certificate_authority_activation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate_authority_activation</code> resource, the following permissions are required:
-
-### Read
-<pre>
-acm-pca:GetCertificateAuthorityCertificate,
-acm-pca:DescribeCertificateAuthority</pre>
-
-### Delete
-<pre>
-acm-pca:UpdateCertificateAuthority</pre>
-
-### Update
-<pre>
-acm-pca:ImportCertificateAuthorityCertificate,
-acm-pca:UpdateCertificateAuthority</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -69,5 +50,27 @@ status,
 complete_certificate_chain
 FROM awscc.acmpca.certificate_authority_activation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CertificateAuthorityArn&gt;'
+AND data__Identifier = '{CertificateAuthorityArn}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate_authority_activation</code> resource, the following permissions are required:
+
+### Read
+```json
+acm-pca:GetCertificateAuthorityCertificate,
+acm-pca:DescribeCertificateAuthority
+```
+
+### Delete
+```json
+acm-pca:UpdateCertificateAuthority
+```
+
+### Update
+```json
+acm-pca:ImportCertificateAuthorityCertificate,
+acm-pca:UpdateCertificateAuthority
+```
+

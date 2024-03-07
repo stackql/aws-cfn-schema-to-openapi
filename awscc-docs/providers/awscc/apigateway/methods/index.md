@@ -37,17 +37,6 @@ Retrieves a list of <code>methods</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>methods</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:PUT,
-apigateway:GET,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +47,15 @@ http_method
 FROM awscc.apigateway.methods
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>methods</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:PUT,
+apigateway:GET,
+iam:PassRole
+```
+

@@ -43,30 +43,6 @@ Gets an individual <code>flywheel</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flywheel</code> resource, the following permissions are required:
-
-### Read
-<pre>
-comprehend:DescribeFlywheel,
-comprehend:ListTagsForResource</pre>
-
-### Update
-<pre>
-iam:PassRole,
-comprehend:DescribeFlywheel,
-comprehend:UpdateFlywheel,
-comprehend:ListTagsForResource,
-comprehend:TagResource,
-comprehend:UntagResource</pre>
-
-### Delete
-<pre>
-comprehend:DeleteFlywheel,
-comprehend:DescribeFlywheel</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -82,5 +58,32 @@ task_config,
 arn
 FROM awscc.comprehend.flywheel
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>flywheel</code> resource, the following permissions are required:
+
+### Read
+```json
+comprehend:DescribeFlywheel,
+comprehend:ListTagsForResource
+```
+
+### Update
+```json
+iam:PassRole,
+comprehend:DescribeFlywheel,
+comprehend:UpdateFlywheel,
+comprehend:ListTagsForResource,
+comprehend:TagResource,
+comprehend:UntagResource
+```
+
+### Delete
+```json
+comprehend:DeleteFlywheel,
+comprehend:DescribeFlywheel
+```
+

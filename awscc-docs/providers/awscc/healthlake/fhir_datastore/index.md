@@ -45,38 +45,6 @@ Gets an individual <code>fhir_datastore</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fhir_datastore</code> resource, the following permissions are required:
-
-### Read
-<pre>
-healthlake:DescribeFHIRDatastore,
-healthlake:ListTagsForResource</pre>
-
-### Update
-<pre>
-healthlake:TagResource,
-healthlake:UntagResource,
-healthlake:ListTagsForResource,
-healthlake:DescribeFHIRDatastore,
-iam:PassRole,
-iam:GetRole,
-iam:CreateServiceLinkedRole</pre>
-
-### Delete
-<pre>
-healthlake:DeleteFHIRDatastore,
-healthlake:DescribeFHIRDatastore,
-iam:PassRole,
-iam:GetRole,
-iam:CreateServiceLinkedRole,
-ram:GetResourceShareInvitations,
-ram:AcceptResourceShareInvitation,
-glue:CreateDatabase,
-glue:DeleteDatabase</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -94,5 +62,40 @@ identity_provider_configuration,
 tags
 FROM awscc.healthlake.fhir_datastore
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DatastoreId&gt;'
+AND data__Identifier = '{DatastoreId}';
 ```
+
+## Permissions
+
+To operate on the <code>fhir_datastore</code> resource, the following permissions are required:
+
+### Read
+```json
+healthlake:DescribeFHIRDatastore,
+healthlake:ListTagsForResource
+```
+
+### Update
+```json
+healthlake:TagResource,
+healthlake:UntagResource,
+healthlake:ListTagsForResource,
+healthlake:DescribeFHIRDatastore,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole
+```
+
+### Delete
+```json
+healthlake:DeleteFHIRDatastore,
+healthlake:DescribeFHIRDatastore,
+iam:PassRole,
+iam:GetRole,
+iam:CreateServiceLinkedRole,
+ram:GetResourceShareInvitations,
+ram:AcceptResourceShareInvitation,
+glue:CreateDatabase,
+glue:DeleteDatabase
+```
+

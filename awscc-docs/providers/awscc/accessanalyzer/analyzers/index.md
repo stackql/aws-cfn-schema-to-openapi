@@ -35,23 +35,6 @@ Retrieves a list of <code>analyzers</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analyzers</code> resource, the following permissions are required:
-
-### Create
-<pre>
-access-analyzer:CreateAnalyzer,
-access-analyzer:TagResource,
-iam:CreateServiceLinkedRole,
-organizations:ListAWSServiceAccessForOrganization,
-organizations:ListDelegatedAdministrators</pre>
-
-### List
-<pre>
-access-analyzer:ListAnalyzers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ arn
 FROM awscc.accessanalyzer.analyzers
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>analyzers</code> resource, the following permissions are required:
+
+### Create
+```json
+access-analyzer:CreateAnalyzer,
+access-analyzer:TagResource,
+iam:CreateServiceLinkedRole,
+organizations:ListAWSServiceAccessForOrganization,
+organizations:ListDelegatedAdministrators
+```
+
+### List
+```json
+access-analyzer:ListAnalyzers
+```
+

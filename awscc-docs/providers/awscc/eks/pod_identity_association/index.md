@@ -41,29 +41,6 @@ Gets an individual <code>pod_identity_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pod_identity_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-eks:DescribePodIdentityAssociation</pre>
-
-### Update
-<pre>
-eks:DescribePodIdentityAssociation,
-eks:UpdatePodIdentityAssociation,
-eks:TagResource,
-eks:UntagResource,
-iam:PassRole,
-iam:GetRole</pre>
-
-### Delete
-<pre>
-eks:DeletePodIdentityAssociation,
-eks:DescribePodIdentityAssociation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +54,31 @@ association_id,
 tags
 FROM awscc.eks.pod_identity_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AssociationArn&gt;'
+AND data__Identifier = '{AssociationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>pod_identity_association</code> resource, the following permissions are required:
+
+### Read
+```json
+eks:DescribePodIdentityAssociation
+```
+
+### Update
+```json
+eks:DescribePodIdentityAssociation,
+eks:UpdatePodIdentityAssociation,
+eks:TagResource,
+eks:UntagResource,
+iam:PassRole,
+iam:GetRole
+```
+
+### Delete
+```json
+eks:DeletePodIdentityAssociation,
+eks:DescribePodIdentityAssociation
+```
+

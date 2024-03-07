@@ -35,12 +35,21 @@ Retrieves a list of <code>connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+connector_arn
+FROM awscc.kafkaconnect.connectors
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>connectors</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 kafkaconnect:CreateConnector,
 kafkaconnect:DescribeConnector,
 iam:CreateServiceLinkedRole,
@@ -57,18 +66,11 @@ logs:DescribeResourcePolicies,
 logs:DescribeLogGroups,
 s3:GetBucketPolicy,
 s3:PutBucketPolicy,
-firehose:TagDeliveryStream</pre>
+firehose:TagDeliveryStream
+```
 
 ### List
-<pre>
-kafkaconnect:ListConnectors</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-connector_arn
-FROM awscc.kafkaconnect.connectors
-WHERE region = 'us-east-1'
+```json
+kafkaconnect:ListConnectors
 ```
+

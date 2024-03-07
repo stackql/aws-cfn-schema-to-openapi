@@ -43,34 +43,6 @@ Gets an individual <code>routing_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>routing_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeRoutingProfile,
-connect:ListRoutingProfileQueues</pre>
-
-### Delete
-<pre>
-connect:DeleteRoutingProfile,
-connect:UntagResource</pre>
-
-### Update
-<pre>
-connect:AssociateRoutingProfileQueues,
-connect:DisassociateRoutingProfileQueues,
-connect:UpdateRoutingProfileConcurrency,
-connect:UpdateRoutingProfileName,
-connect:UpdateRoutingProfileDefaultOutboundQueue,
-connect:UpdateRoutingProfileQueues,
-connect:TagResource,
-connect:UntagResource,
-connect:ListRoutingProfileQueues,
-connect:UpdateRoutingProfileAgentAvailabilityTimer</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -86,5 +58,36 @@ tags,
 agent_availability_timer
 FROM awscc.connect.routing_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RoutingProfileArn&gt;'
+AND data__Identifier = '{RoutingProfileArn}';
 ```
+
+## Permissions
+
+To operate on the <code>routing_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeRoutingProfile,
+connect:ListRoutingProfileQueues
+```
+
+### Delete
+```json
+connect:DeleteRoutingProfile,
+connect:UntagResource
+```
+
+### Update
+```json
+connect:AssociateRoutingProfileQueues,
+connect:DisassociateRoutingProfileQueues,
+connect:UpdateRoutingProfileConcurrency,
+connect:UpdateRoutingProfileName,
+connect:UpdateRoutingProfileDefaultOutboundQueue,
+connect:UpdateRoutingProfileQueues,
+connect:TagResource,
+connect:UntagResource,
+connect:ListRoutingProfileQueues,
+connect:UpdateRoutingProfileAgentAvailabilityTimer
+```
+

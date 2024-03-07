@@ -36,25 +36,6 @@ Gets an individual <code>topic_inline_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>topic_inline_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sns:GetTopicAttributes</pre>
-
-### Delete
-<pre>
-sns:SetTopicAttributes,
-sns:GetTopicAttributes</pre>
-
-### Update
-<pre>
-sns:SetTopicAttributes,
-sns:GetTopicAttributes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ policy_document,
 topic_arn
 FROM awscc.sns.topic_inline_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TopicArn&gt;'
+AND data__Identifier = '{TopicArn}';
 ```
+
+## Permissions
+
+To operate on the <code>topic_inline_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+sns:GetTopicAttributes
+```
+
+### Delete
+```json
+sns:SetTopicAttributes,
+sns:GetTopicAttributes
+```
+
+### Update
+```json
+sns:SetTopicAttributes,
+sns:GetTopicAttributes
+```
+

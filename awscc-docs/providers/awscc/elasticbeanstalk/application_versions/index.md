@@ -36,22 +36,6 @@ Retrieves a list of <code>application_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticbeanstalk:CreateApplicationVersion,
-elasticbeanstalk:DescribeApplicationVersions,
-s3:GetObject,
-s3:PutObject</pre>
-
-### List
-<pre>
-elasticbeanstalk:DescribeApplicationVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +45,21 @@ id
 FROM awscc.elasticbeanstalk.application_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>application_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticbeanstalk:CreateApplicationVersion,
+elasticbeanstalk:DescribeApplicationVersions,
+s3:GetObject,
+s3:PutObject
+```
+
+### List
+```json
+elasticbeanstalk:DescribeApplicationVersions
+```
+

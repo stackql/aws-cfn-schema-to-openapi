@@ -46,33 +46,6 @@ Gets an individual <code>portal</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>portal</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotsitewise:DescribePortal,
-iotsitewise:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotsitewise:DescribePortal,
-iotsitewise:ListTagsForResource,
-iotsitewise:TagResource,
-iotsitewise:UpdatePortal,
-iotsitewise:UntagResource,
-iam:PassRole,
-sso:GetManagedApplicationInstance,
-sso:UpdateApplicationInstanceDisplayData</pre>
-
-### Delete
-<pre>
-iotsitewise:DescribePortal,
-iotsitewise:DeletePortal,
-sso:DeleteManagedApplicationInstance</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +64,35 @@ alarms,
 tags
 FROM awscc.iotsitewise.portal
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PortalId&gt;'
+AND data__Identifier = '{PortalId}';
 ```
+
+## Permissions
+
+To operate on the <code>portal</code> resource, the following permissions are required:
+
+### Read
+```json
+iotsitewise:DescribePortal,
+iotsitewise:ListTagsForResource
+```
+
+### Update
+```json
+iotsitewise:DescribePortal,
+iotsitewise:ListTagsForResource,
+iotsitewise:TagResource,
+iotsitewise:UpdatePortal,
+iotsitewise:UntagResource,
+iam:PassRole,
+sso:GetManagedApplicationInstance,
+sso:UpdateApplicationInstanceDisplayData
+```
+
+### Delete
+```json
+iotsitewise:DescribePortal,
+iotsitewise:DeletePortal,
+sso:DeleteManagedApplicationInstance
+```
+

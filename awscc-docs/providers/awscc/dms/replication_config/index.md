@@ -45,35 +45,6 @@ Gets an individual <code>replication_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>replication_config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-dms:DescribeReplicationConfigs,
-dms:ListTagsForResource</pre>
-
-### Update
-<pre>
-dms:ModifyReplicationConfig,
-dms:AddTagsToResource,
-dms:RemoveTagsToResource,
-dms:ListTagsForResource,
-iam:CreateServiceLinkedRole,
-iam:AttachRolePolicy,
-iam:PutRolePolicy,
-iam:UpdateRoleDescription</pre>
-
-### Delete
-<pre>
-dms:DescribeReplicationConfigs,
-dms:DeleteReplicationConfig,
-dms:ListTagsForResource,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -91,5 +62,37 @@ table_mappings,
 tags
 FROM awscc.dms.replication_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ReplicationConfigArn&gt;'
+AND data__Identifier = '{ReplicationConfigArn}';
 ```
+
+## Permissions
+
+To operate on the <code>replication_config</code> resource, the following permissions are required:
+
+### Read
+```json
+dms:DescribeReplicationConfigs,
+dms:ListTagsForResource
+```
+
+### Update
+```json
+dms:ModifyReplicationConfig,
+dms:AddTagsToResource,
+dms:RemoveTagsToResource,
+dms:ListTagsForResource,
+iam:CreateServiceLinkedRole,
+iam:AttachRolePolicy,
+iam:PutRolePolicy,
+iam:UpdateRoleDescription
+```
+
+### Delete
+```json
+dms:DescribeReplicationConfigs,
+dms:DeleteReplicationConfig,
+dms:ListTagsForResource,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+

@@ -35,21 +35,6 @@ Retrieves a list of <code>slack_channel_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>slack_channel_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-chatbot:CreateSlackChannelConfiguration,
-iam:PassRole,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-chatbot:DescribeSlackChannelConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ arn
 FROM awscc.chatbot.slack_channel_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>slack_channel_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+chatbot:CreateSlackChannelConfiguration,
+iam:PassRole,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+chatbot:DescribeSlackChannelConfigurations
+```
+

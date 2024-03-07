@@ -40,27 +40,6 @@ Gets an individual <code>event_integration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>event_integration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-app-integrations:GetEventIntegration,
-app-integrations:ListTagsForResource</pre>
-
-### Update
-<pre>
-app-integrations:GetEventIntegration,
-app-integrations:UpdateEventIntegration,
-app-integrations:TagResource,
-app-integrations:UntagResource</pre>
-
-### Delete
-<pre>
-app-integrations:DeleteEventIntegration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ event_filter,
 tags
 FROM awscc.appintegrations.event_integration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>event_integration</code> resource, the following permissions are required:
+
+### Read
+```json
+app-integrations:GetEventIntegration,
+app-integrations:ListTagsForResource
+```
+
+### Update
+```json
+app-integrations:GetEventIntegration,
+app-integrations:UpdateEventIntegration,
+app-integrations:TagResource,
+app-integrations:UntagResource
+```
+
+### Delete
+```json
+app-integrations:DeleteEventIntegration
+```
+

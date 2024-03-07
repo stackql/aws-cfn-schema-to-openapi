@@ -40,25 +40,6 @@ Gets an individual <code>archive</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>archive</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-events:DescribeArchive,
-events:DeleteArchive</pre>
-
-### Update
-<pre>
-events:DescribeArchive,
-events:UpdateArchive</pre>
-
-### Read
-<pre>
-events:DescribeArchive</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -71,5 +52,27 @@ arn,
 retention_days
 FROM awscc.events.archive
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ArchiveName&gt;'
+AND data__Identifier = '{ArchiveName}';
 ```
+
+## Permissions
+
+To operate on the <code>archive</code> resource, the following permissions are required:
+
+### Delete
+```json
+events:DescribeArchive,
+events:DeleteArchive
+```
+
+### Update
+```json
+events:DescribeArchive,
+events:UpdateArchive
+```
+
+### Read
+```json
+events:DescribeArchive
+```
+

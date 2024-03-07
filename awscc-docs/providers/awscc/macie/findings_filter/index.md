@@ -42,26 +42,6 @@ Gets an individual <code>findings_filter</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>findings_filter</code> resource, the following permissions are required:
-
-### Read
-<pre>
-macie2:GetFindingsFilter</pre>
-
-### Update
-<pre>
-macie2:GetFindingsFilter,
-macie2:UpdateFindingsFilter,
-macie2:TagResource,
-macie2:UntagResource</pre>
-
-### Delete
-<pre>
-macie2:DeleteFindingsFilter</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +56,28 @@ arn,
 tags
 FROM awscc.macie.findings_filter
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>findings_filter</code> resource, the following permissions are required:
+
+### Read
+```json
+macie2:GetFindingsFilter
+```
+
+### Update
+```json
+macie2:GetFindingsFilter,
+macie2:UpdateFindingsFilter,
+macie2:TagResource,
+macie2:UntagResource
+```
+
+### Delete
+```json
+macie2:DeleteFindingsFilter
+```
+

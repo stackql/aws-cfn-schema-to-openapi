@@ -44,27 +44,6 @@ Gets an individual <code>customdb_engine_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>customdb_engine_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBEngineVersions</pre>
-
-### Update
-<pre>
-rds:AddTagsToResource,
-rds:DescribeDBEngineVersions,
-rds:ModifyCustomDBEngineVersion,
-rds:RemoveTagsFromResource</pre>
-
-### Delete
-<pre>
-rds:DeleteCustomDBEngineVersion,
-rds:DescribeDBEngineVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,6 +60,30 @@ status,
 tags
 FROM awscc.rds.customdb_engine_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Engine&gt;'
-AND data__Identifier = '&lt;EngineVersion&gt;'
+AND data__Identifier = '{Engine}';
+AND data__Identifier = '{EngineVersion}';
 ```
+
+## Permissions
+
+To operate on the <code>customdb_engine_version</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBEngineVersions
+```
+
+### Update
+```json
+rds:AddTagsToResource,
+rds:DescribeDBEngineVersions,
+rds:ModifyCustomDBEngineVersion,
+rds:RemoveTagsFromResource
+```
+
+### Delete
+```json
+rds:DeleteCustomDBEngineVersion,
+rds:DescribeDBEngineVersions
+```
+

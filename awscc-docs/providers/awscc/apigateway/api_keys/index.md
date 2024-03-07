@@ -35,21 +35,6 @@ Retrieves a list of <code>api_keys</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>api_keys</code> resource, the following permissions are required:
-
-### Create
-<pre>
-apigateway:POST,
-apigateway:GET,
-apigateway:PUT</pre>
-
-### List
-<pre>
-apigateway:GET</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ a_pi_key_id
 FROM awscc.apigateway.api_keys
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>api_keys</code> resource, the following permissions are required:
+
+### Create
+```json
+apigateway:POST,
+apigateway:GET,
+apigateway:PUT
+```
+
+### List
+```json
+apigateway:GET
+```
+

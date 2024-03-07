@@ -35,24 +35,6 @@ Retrieves a list of <code>projects</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>projects</code> resource, the following permissions are required:
-
-### Create
-<pre>
-databrew:CreateProject,
-databrew:TagResource,
-databrew:UntagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-databrew:ListProjects,
-databrew:ListTagsForResource,
-iam:ListRoles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ name
 FROM awscc.databrew.projects
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>projects</code> resource, the following permissions are required:
+
+### Create
+```json
+databrew:CreateProject,
+databrew:TagResource,
+databrew:UntagResource,
+iam:PassRole
+```
+
+### List
+```json
+databrew:ListProjects,
+databrew:ListTagsForResource,
+iam:ListRoles
+```
+

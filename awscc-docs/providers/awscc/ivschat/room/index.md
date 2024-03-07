@@ -42,28 +42,6 @@ Gets an individual <code>room</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>room</code> resource, the following permissions are required:
-
-### Read
-<pre>
-ivschat:GetRoom,
-ivschat:ListTagsForResource</pre>
-
-### Update
-<pre>
-ivschat:UpdateRoom,
-ivschat:TagResource,
-ivschat:UnTagResource,
-ivschat:ListTagsForResource</pre>
-
-### Delete
-<pre>
-ivschat:DeleteRoom,
-ivschat:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,5 +56,30 @@ message_review_handler,
 tags
 FROM awscc.ivschat.room
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>room</code> resource, the following permissions are required:
+
+### Read
+```json
+ivschat:GetRoom,
+ivschat:ListTagsForResource
+```
+
+### Update
+```json
+ivschat:UpdateRoom,
+ivschat:TagResource,
+ivschat:UnTagResource,
+ivschat:ListTagsForResource
+```
+
+### Delete
+```json
+ivschat:DeleteRoom,
+ivschat:UntagResource
+```
+

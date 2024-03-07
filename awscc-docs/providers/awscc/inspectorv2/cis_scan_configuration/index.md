@@ -40,30 +40,6 @@ Gets an individual <code>cis_scan_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>cis_scan_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-inspector2:ListCisScanConfigurations,
-inspector2:ListTagsForResource</pre>
-
-### Update
-<pre>
-inspector2:ListCisScanConfigurations,
-inspector2:UpdateCisScanConfiguration,
-inspector2:TagResource,
-inspector2:UntagResource,
-inspector2:ListTagsForResource</pre>
-
-### Delete
-<pre>
-inspector2:ListCisScanConfigurations,
-inspector2:DeleteCisScanConfiguration,
-inspector2:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,5 +52,32 @@ arn,
 tags
 FROM awscc.inspectorv2.cis_scan_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>cis_scan_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+inspector2:ListCisScanConfigurations,
+inspector2:ListTagsForResource
+```
+
+### Update
+```json
+inspector2:ListCisScanConfigurations,
+inspector2:UpdateCisScanConfiguration,
+inspector2:TagResource,
+inspector2:UntagResource,
+inspector2:ListTagsForResource
+```
+
+### Delete
+```json
+inspector2:ListCisScanConfigurations,
+inspector2:DeleteCisScanConfiguration,
+inspector2:UntagResource
+```
+

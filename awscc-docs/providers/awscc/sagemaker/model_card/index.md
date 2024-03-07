@@ -46,42 +46,6 @@ Gets an individual <code>model_card</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>model_card</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeModelCard,
-sagemaker:DescribeModelPackageGroup,
-sagemaker:DescribeModelPackage,
-kms:Decrypt,
-sagemaker:ListTags</pre>
-
-### Update
-<pre>
-sagemaker:UpdateModelCard,
-sagemaker:DescribeModelCard,
-kms:GenerateDataKey,
-kms:Decrypt,
-sagemaker:DescribeModelPackageGroup,
-sagemaker:DescribeModelPackage,
-sagemaker:ListTags,
-sagemaker:AddTags,
-sagemaker:DeleteTags</pre>
-
-### Delete
-<pre>
-sagemaker:DescribeModelCard,
-sagemaker:DeleteModelCard,
-sagemaker:DescribeModelPackageGroup,
-sagemaker:DescribeModelPackage,
-kms:RetireGrant,
-kms:Decrypt,
-sagemaker:ListTags,
-sagemaker:DeleteTags</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -100,5 +64,44 @@ model_card_processing_status,
 tags
 FROM awscc.sagemaker.model_card
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ModelCardName&gt;'
+AND data__Identifier = '{ModelCardName}';
 ```
+
+## Permissions
+
+To operate on the <code>model_card</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeModelCard,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:DescribeModelPackage,
+kms:Decrypt,
+sagemaker:ListTags
+```
+
+### Update
+```json
+sagemaker:UpdateModelCard,
+sagemaker:DescribeModelCard,
+kms:GenerateDataKey,
+kms:Decrypt,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:DescribeModelPackage,
+sagemaker:ListTags,
+sagemaker:AddTags,
+sagemaker:DeleteTags
+```
+
+### Delete
+```json
+sagemaker:DescribeModelCard,
+sagemaker:DeleteModelCard,
+sagemaker:DescribeModelPackageGroup,
+sagemaker:DescribeModelPackage,
+kms:RetireGrant,
+kms:Decrypt,
+sagemaker:ListTags,
+sagemaker:DeleteTags
+```
+

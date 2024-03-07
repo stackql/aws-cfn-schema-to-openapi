@@ -35,26 +35,6 @@ Retrieves a list of <code>buckets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>buckets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lightsail:CreateBucket,
-lightsail:GetBuckets,
-lightsail:GetInstance,
-lightsail:UpdateBucket,
-lightsail:UpdateBucketBundle,
-lightsail:SetResourceAccessForBucket,
-lightsail:TagResource,
-lightsail:UntagResource</pre>
-
-### List
-<pre>
-lightsail:GetBuckets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,3 +43,25 @@ bucket_name
 FROM awscc.lightsail.buckets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>buckets</code> resource, the following permissions are required:
+
+### Create
+```json
+lightsail:CreateBucket,
+lightsail:GetBuckets,
+lightsail:GetInstance,
+lightsail:UpdateBucket,
+lightsail:UpdateBucketBundle,
+lightsail:SetResourceAccessForBucket,
+lightsail:TagResource,
+lightsail:UntagResource
+```
+
+### List
+```json
+lightsail:GetBuckets
+```
+

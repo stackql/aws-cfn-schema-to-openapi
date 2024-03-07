@@ -35,23 +35,6 @@ Retrieves a list of <code>core_networks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>core_networks</code> resource, the following permissions are required:
-
-### Create
-<pre>
-networkmanager:CreateCoreNetwork,
-networkmanager:GetCoreNetwork,
-networkmanager:GetCoreNetworkPolicy,
-networkmanager:TagResource,
-ec2:DescribeRegions</pre>
-
-### List
-<pre>
-networkmanager:ListCoreNetworks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ core_network_id
 FROM awscc.networkmanager.core_networks
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>core_networks</code> resource, the following permissions are required:
+
+### Create
+```json
+networkmanager:CreateCoreNetwork,
+networkmanager:GetCoreNetwork,
+networkmanager:GetCoreNetworkPolicy,
+networkmanager:TagResource,
+ec2:DescribeRegions
+```
+
+### List
+```json
+networkmanager:ListCoreNetworks
+```
+

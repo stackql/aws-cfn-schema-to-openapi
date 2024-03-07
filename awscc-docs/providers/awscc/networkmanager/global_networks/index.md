@@ -35,22 +35,6 @@ Retrieves a list of <code>global_networks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>global_networks</code> resource, the following permissions are required:
-
-### Create
-<pre>
-networkmanager:CreateGlobalNetwork,
-networkmanager:DescribeGlobalNetworks,
-networkmanager:TagResource,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-networkmanager:DescribeGlobalNetworks</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ id
 FROM awscc.networkmanager.global_networks
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>global_networks</code> resource, the following permissions are required:
+
+### Create
+```json
+networkmanager:CreateGlobalNetwork,
+networkmanager:DescribeGlobalNetworks,
+networkmanager:TagResource,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+networkmanager:DescribeGlobalNetworks
+```
+

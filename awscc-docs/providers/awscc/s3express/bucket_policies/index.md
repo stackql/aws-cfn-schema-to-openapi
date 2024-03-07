@@ -35,21 +35,6 @@ Retrieves a list of <code>bucket_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>bucket_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3express:GetBucketPolicy,
-s3express:PutBucketPolicy</pre>
-
-### List
-<pre>
-s3express:GetBucketPolicy,
-s3express:ListAllMyDirectoryBuckets</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ bucket
 FROM awscc.s3express.bucket_policies
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>bucket_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+s3express:GetBucketPolicy,
+s3express:PutBucketPolicy
+```
+
+### List
+```json
+s3express:GetBucketPolicy,
+s3express:ListAllMyDirectoryBuckets
+```
+

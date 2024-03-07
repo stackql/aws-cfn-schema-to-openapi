@@ -47,32 +47,6 @@ Gets an individual <code>distribution</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>distribution</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetDistributions</pre>
-
-### Update
-<pre>
-lightsail:AttachCertificateToDistribution,
-lightsail:DetachCertificateFromDistribution,
-lightsail:GetCertificates,
-lightsail:GetCertificateDetails,
-lightsail:GetDistributions,
-lightsail:TagResource,
-lightsail:UntagResource,
-lightsail:UpdateDistribution,
-lightsail:UpdateDistributionBundle</pre>
-
-### Delete
-<pre>
-lightsail:DeleteDistribution,
-lightsail:GetDistributions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,5 +66,34 @@ certificate_name,
 tags
 FROM awscc.lightsail.distribution
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DistributionName&gt;'
+AND data__Identifier = '{DistributionName}';
 ```
+
+## Permissions
+
+To operate on the <code>distribution</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetDistributions
+```
+
+### Update
+```json
+lightsail:AttachCertificateToDistribution,
+lightsail:DetachCertificateFromDistribution,
+lightsail:GetCertificates,
+lightsail:GetCertificateDetails,
+lightsail:GetDistributions,
+lightsail:TagResource,
+lightsail:UntagResource,
+lightsail:UpdateDistribution,
+lightsail:UpdateDistributionBundle
+```
+
+### Delete
+```json
+lightsail:DeleteDistribution,
+lightsail:GetDistributions
+```
+

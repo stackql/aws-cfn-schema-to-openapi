@@ -38,23 +38,6 @@ Gets an individual <code>query_definition</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>query_definition</code> resource, the following permissions are required:
-
-### Read
-<pre>
-logs:DescribeQueryDefinitions</pre>
-
-### Update
-<pre>
-logs:PutQueryDefinition</pre>
-
-### Delete
-<pre>
-logs:DeleteQueryDefinition</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +48,25 @@ log_group_names,
 query_definition_id
 FROM awscc.logs.query_definition
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;QueryDefinitionId&gt;'
+AND data__Identifier = '{QueryDefinitionId}';
 ```
+
+## Permissions
+
+To operate on the <code>query_definition</code> resource, the following permissions are required:
+
+### Read
+```json
+logs:DescribeQueryDefinitions
+```
+
+### Update
+```json
+logs:PutQueryDefinition
+```
+
+### Delete
+```json
+logs:DeleteQueryDefinition
+```
+

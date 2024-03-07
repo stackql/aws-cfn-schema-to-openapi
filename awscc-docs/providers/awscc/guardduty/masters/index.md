@@ -36,21 +36,6 @@ Retrieves a list of <code>masters</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>masters</code> resource, the following permissions are required:
-
-### Create
-<pre>
-guardduty:ListInvitations,
-guardduty:AcceptInvitation,
-guardduty:GetMasterAccount</pre>
-
-### List
-<pre>
-guardduty:GetMasterAccount</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ master_id
 FROM awscc.guardduty.masters
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>masters</code> resource, the following permissions are required:
+
+### Create
+```json
+guardduty:ListInvitations,
+guardduty:AcceptInvitation,
+guardduty:GetMasterAccount
+```
+
+### List
+```json
+guardduty:GetMasterAccount
+```
+

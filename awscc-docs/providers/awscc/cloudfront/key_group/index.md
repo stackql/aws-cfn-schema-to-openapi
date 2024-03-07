@@ -37,25 +37,6 @@ Gets an individual <code>key_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>key_group</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteKeyGroup,
-cloudfront:GetKeyGroup</pre>
-
-### Read
-<pre>
-cloudfront:GetKeyGroup</pre>
-
-### Update
-<pre>
-cloudfront:UpdateKeyGroup,
-cloudfront:GetKeyGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,5 +45,27 @@ id,
 key_group_config,
 last_modified_time
 FROM awscc.cloudfront.key_group
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>key_group</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteKeyGroup,
+cloudfront:GetKeyGroup
+```
+
+### Read
+```json
+cloudfront:GetKeyGroup
+```
+
+### Update
+```json
+cloudfront:UpdateKeyGroup,
+cloudfront:GetKeyGroup
+```
+

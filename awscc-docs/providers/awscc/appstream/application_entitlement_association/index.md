@@ -37,20 +37,6 @@ Gets an individual <code>application_entitlement_association</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>application_entitlement_association</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appstream:ListEntitledApplications</pre>
-
-### Delete
-<pre>
-appstream:DisassociateApplicationFromEntitlement,
-appstream:ListEntitledApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,7 +46,23 @@ entitlement_name,
 application_identifier
 FROM awscc.appstream.application_entitlement_association
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;StackName&gt;'
-AND data__Identifier = '&lt;EntitlementName&gt;'
-AND data__Identifier = '&lt;ApplicationIdentifier&gt;'
+AND data__Identifier = '{StackName}';
+AND data__Identifier = '{EntitlementName}';
+AND data__Identifier = '{ApplicationIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>application_entitlement_association</code> resource, the following permissions are required:
+
+### Read
+```json
+appstream:ListEntitledApplications
+```
+
+### Delete
+```json
+appstream:DisassociateApplicationFromEntitlement,
+appstream:ListEntitledApplications
+```
+

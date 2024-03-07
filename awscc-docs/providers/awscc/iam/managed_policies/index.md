@@ -35,22 +35,6 @@ Retrieves a list of <code>managed_policies</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>managed_policies</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreatePolicy,
-iam:AttachGroupPolicy,
-iam:AttachUserPolicy,
-iam:AttachRolePolicy</pre>
-
-### List
-<pre>
-iam:ListPolicies</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ policy_arn
 FROM awscc.iam.managed_policies
 
 ```
+
+## Permissions
+
+To operate on the <code>managed_policies</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreatePolicy,
+iam:AttachGroupPolicy,
+iam:AttachUserPolicy,
+iam:AttachRolePolicy
+```
+
+### List
+```json
+iam:ListPolicies
+```
+

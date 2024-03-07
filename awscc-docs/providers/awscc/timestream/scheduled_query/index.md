@@ -53,29 +53,6 @@ Gets an individual <code>scheduled_query</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scheduled_query</code> resource, the following permissions are required:
-
-### Read
-<pre>
-timestream:DescribeScheduledQuery,
-timestream:ListTagsForResource,
-timestream:DescribeEndpoints</pre>
-
-### Update
-<pre>
-timestream:UpdateScheduledQuery,
-timestream:TagResource,
-timestream:UntagResource,
-timestream:DescribeEndpoints</pre>
-
-### Delete
-<pre>
-timestream:DeleteScheduledQuery,
-timestream:DescribeEndpoints</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -101,5 +78,31 @@ s_qkms_key_id,
 tags
 FROM awscc.timestream.scheduled_query
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>scheduled_query</code> resource, the following permissions are required:
+
+### Read
+```json
+timestream:DescribeScheduledQuery,
+timestream:ListTagsForResource,
+timestream:DescribeEndpoints
+```
+
+### Update
+```json
+timestream:UpdateScheduledQuery,
+timestream:TagResource,
+timestream:UntagResource,
+timestream:DescribeEndpoints
+```
+
+### Delete
+```json
+timestream:DeleteScheduledQuery,
+timestream:DescribeEndpoints
+```
+

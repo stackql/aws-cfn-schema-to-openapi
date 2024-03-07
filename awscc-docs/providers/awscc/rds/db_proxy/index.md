@@ -47,27 +47,6 @@ Gets an individual <code>db_proxy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>db_proxy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rds:DescribeDBProxies</pre>
-
-### Update
-<pre>
-rds:ModifyDBProxy,
-rds:AddTagsToResource,
-rds:RemoveTagsFromResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-rds:DescribeDBProxies,
-rds:DeleteDBProxy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +66,29 @@ vpc_security_group_ids,
 vpc_subnet_ids
 FROM awscc.rds.db_proxy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DBProxyName&gt;'
+AND data__Identifier = '{DBProxyName}';
 ```
+
+## Permissions
+
+To operate on the <code>db_proxy</code> resource, the following permissions are required:
+
+### Read
+```json
+rds:DescribeDBProxies
+```
+
+### Update
+```json
+rds:ModifyDBProxy,
+rds:AddTagsToResource,
+rds:RemoveTagsFromResource,
+iam:PassRole
+```
+
+### Delete
+```json
+rds:DescribeDBProxies,
+rds:DeleteDBProxy
+```
+

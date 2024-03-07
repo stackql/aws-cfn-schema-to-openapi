@@ -35,20 +35,6 @@ Retrieves a list of <code>custom_metrics</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>custom_metrics</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iot:CreateCustomMetric,
-iot:TagResource</pre>
-
-### List
-<pre>
-iot:ListCustomMetrics</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ metric_name
 FROM awscc.iot.custom_metrics
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>custom_metrics</code> resource, the following permissions are required:
+
+### Create
+```json
+iot:CreateCustomMetric,
+iot:TagResource
+```
+
+### List
+```json
+iot:ListCustomMetrics
+```
+

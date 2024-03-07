@@ -53,44 +53,6 @@ Gets an individual <code>app</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>app</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-amplify:GetApp,
-amplify:DeleteApp,
-codecommit:GetRepository,
-codecommit:GetRepositoryTriggers,
-codecommit:PutRepositoryTriggers,
-sns:Unsubscribe,
-iam:PassRole</pre>
-
-### Read
-<pre>
-amplify:GetApp,
-amplify:ListTagsForResource,
-codecommit:GetRepository,
-codecommit:GetRepositoryTriggers,
-iam:PassRole</pre>
-
-### Update
-<pre>
-amplify:GetApp,
-amplify:UpdateApp,
-amplify:ListTagsForResource,
-amplify:TagResource,
-amplify:UntagResource,
-codecommit:GetRepository,
-codecommit:PutRepositoryTriggers,
-codecommit:GetRepositoryTriggers,
-sns:CreateTopic,
-sns:Subscribe,
-sns:Unsubscribe,
-iam:PassRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -116,5 +78,46 @@ repository,
 tags
 FROM awscc.amplify.app
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>app</code> resource, the following permissions are required:
+
+### Delete
+```json
+amplify:GetApp,
+amplify:DeleteApp,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+codecommit:PutRepositoryTriggers,
+sns:Unsubscribe,
+iam:PassRole
+```
+
+### Read
+```json
+amplify:GetApp,
+amplify:ListTagsForResource,
+codecommit:GetRepository,
+codecommit:GetRepositoryTriggers,
+iam:PassRole
+```
+
+### Update
+```json
+amplify:GetApp,
+amplify:UpdateApp,
+amplify:ListTagsForResource,
+amplify:TagResource,
+amplify:UntagResource,
+codecommit:GetRepository,
+codecommit:PutRepositoryTriggers,
+codecommit:GetRepositoryTriggers,
+sns:CreateTopic,
+sns:Subscribe,
+sns:Unsubscribe,
+iam:PassRole
+```
+

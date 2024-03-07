@@ -53,53 +53,6 @@ Gets an individual <code>table</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>table</code> resource, the following permissions are required:
-
-### Read
-<pre>
-dynamodb:DescribeTable,
-dynamodb:DescribeContinuousBackups,
-dynamodb:DescribeContributorInsights,
-dynamodb:DescribeKinesisStreamingDestination,
-dynamodb:ListTagsOfResource,
-dynamodb:GetResourcePolicy</pre>
-
-### Update
-<pre>
-dynamodb:UpdateTable,
-dynamodb:DescribeTable,
-dynamodb:DescribeTimeToLive,
-dynamodb:UpdateTimeToLive,
-dynamodb:UpdateContinuousBackups,
-dynamodb:UpdateContributorInsights,
-dynamodb:UpdateKinesisStreamingDestination,
-dynamodb:DescribeContinuousBackups,
-dynamodb:DescribeKinesisStreamingDestination,
-dynamodb:ListTagsOfResource,
-dynamodb:TagResource,
-dynamodb:UntagResource,
-dynamodb:DescribeContributorInsights,
-dynamodb:EnableKinesisStreamingDestination,
-dynamodb:DisableKinesisStreamingDestination,
-dynamodb:GetResourcePolicy,
-dynamodb:PutResourcePolicy,
-dynamodb:DeleteResourcePolicy,
-kinesis:DescribeStream,
-kinesis:PutRecords,
-iam:CreateServiceLinkedRole,
-kms:CreateGrant,
-kms:DescribeKey,
-kms:ListAliases,
-kms:RevokeGrant</pre>
-
-### Delete
-<pre>
-dynamodb:DeleteTable,
-dynamodb:DescribeTable</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -125,5 +78,55 @@ tags,
 time_to_live_specification
 FROM awscc.dynamodb.table
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TableName&gt;'
+AND data__Identifier = '{TableName}';
 ```
+
+## Permissions
+
+To operate on the <code>table</code> resource, the following permissions are required:
+
+### Read
+```json
+dynamodb:DescribeTable,
+dynamodb:DescribeContinuousBackups,
+dynamodb:DescribeContributorInsights,
+dynamodb:DescribeKinesisStreamingDestination,
+dynamodb:ListTagsOfResource,
+dynamodb:GetResourcePolicy
+```
+
+### Update
+```json
+dynamodb:UpdateTable,
+dynamodb:DescribeTable,
+dynamodb:DescribeTimeToLive,
+dynamodb:UpdateTimeToLive,
+dynamodb:UpdateContinuousBackups,
+dynamodb:UpdateContributorInsights,
+dynamodb:UpdateKinesisStreamingDestination,
+dynamodb:DescribeContinuousBackups,
+dynamodb:DescribeKinesisStreamingDestination,
+dynamodb:ListTagsOfResource,
+dynamodb:TagResource,
+dynamodb:UntagResource,
+dynamodb:DescribeContributorInsights,
+dynamodb:EnableKinesisStreamingDestination,
+dynamodb:DisableKinesisStreamingDestination,
+dynamodb:GetResourcePolicy,
+dynamodb:PutResourcePolicy,
+dynamodb:DeleteResourcePolicy,
+kinesis:DescribeStream,
+kinesis:PutRecords,
+iam:CreateServiceLinkedRole,
+kms:CreateGrant,
+kms:DescribeKey,
+kms:ListAliases,
+kms:RevokeGrant
+```
+
+### Delete
+```json
+dynamodb:DeleteTable,
+dynamodb:DescribeTable
+```
+

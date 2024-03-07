@@ -35,25 +35,6 @@ Retrieves a list of <code>custom_line_items</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>custom_line_items</code> resource, the following permissions are required:
-
-### Create
-<pre>
-billingconductor:CreateCustomLineItem,
-billingconductor:BatchAssociateResourcesToCustomLineItem,
-billingconductor:ListCustomLineItems,
-billingconductor:TagResource,
-billingconductor:ListTagsForResource</pre>
-
-### List
-<pre>
-billingconductor:ListCustomLineItems,
-billingconductor:ListResourcesAssociatedToCustomLineItem,
-billingconductor:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ arn
 FROM awscc.billingconductor.custom_line_items
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>custom_line_items</code> resource, the following permissions are required:
+
+### Create
+```json
+billingconductor:CreateCustomLineItem,
+billingconductor:BatchAssociateResourcesToCustomLineItem,
+billingconductor:ListCustomLineItems,
+billingconductor:TagResource,
+billingconductor:ListTagsForResource
+```
+
+### List
+```json
+billingconductor:ListCustomLineItems,
+billingconductor:ListResourcesAssociatedToCustomLineItem,
+billingconductor:ListTagsForResource
+```
+

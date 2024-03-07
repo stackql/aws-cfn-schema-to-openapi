@@ -44,29 +44,6 @@ Gets an individual <code>variable</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>variable</code> resource, the following permissions are required:
-
-### Read
-<pre>
-frauddetector:GetVariables,
-frauddetector:ListTagsForResource</pre>
-
-### Update
-<pre>
-frauddetector:GetVariables,
-frauddetector:UpdateVariable,
-frauddetector:ListTagsForResource,
-frauddetector:TagResource,
-frauddetector:UntagResource</pre>
-
-### Delete
-<pre>
-frauddetector:GetVariables,
-frauddetector:DeleteVariable</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +60,31 @@ created_time,
 last_updated_time
 FROM awscc.frauddetector.variable
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>variable</code> resource, the following permissions are required:
+
+### Read
+```json
+frauddetector:GetVariables,
+frauddetector:ListTagsForResource
+```
+
+### Update
+```json
+frauddetector:GetVariables,
+frauddetector:UpdateVariable,
+frauddetector:ListTagsForResource,
+frauddetector:TagResource,
+frauddetector:UntagResource
+```
+
+### Delete
+```json
+frauddetector:GetVariables,
+frauddetector:DeleteVariable
+```
+

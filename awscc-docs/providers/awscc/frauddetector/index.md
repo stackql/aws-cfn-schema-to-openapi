@@ -35,11 +35,11 @@ The frauddetector service documentation.
 <a href="/providers/awscc/frauddetector/detectors/">detectors</a><br />
 <a href="/providers/awscc/frauddetector/event_type/">event_type</a><br />
 <a href="/providers/awscc/frauddetector/event_types/">event_types</a><br />
-<a href="/providers/awscc/frauddetector/label/">label</a><br />
-<a href="/providers/awscc/frauddetector/labels/">labels</a>
+<a href="/providers/awscc/frauddetector/frauddetector_list/">frauddetector_list</a><br />
+<a href="/providers/awscc/frauddetector/label/">label</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/awscc/frauddetector/list/">list</a><br />
+<a href="/providers/awscc/frauddetector/labels/">labels</a><br />
 <a href="/providers/awscc/frauddetector/lists/">lists</a><br />
 <a href="/providers/awscc/frauddetector/outcome/">outcome</a><br />
 <a href="/providers/awscc/frauddetector/outcomes/">outcomes</a><br />

@@ -43,29 +43,6 @@ Gets an individual <code>data_provider</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>data_provider</code> resource, the following permissions are required:
-
-### Read
-<pre>
-dms:ListDataProviders,
-dms:DescribeDataProviders,
-dms:ListTagsForResource</pre>
-
-### Update
-<pre>
-dms:UpdateDataProvider,
-dms:ModifyDataProvider,
-dms:AddTagsToResource,
-dms:RemoveTagsToResource,
-dms:ListTagsForResource</pre>
-
-### Delete
-<pre>
-dms:DeleteDataProvider</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +58,31 @@ settings,
 tags
 FROM awscc.dms.data_provider
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DataProviderArn&gt;'
+AND data__Identifier = '{DataProviderArn}';
 ```
+
+## Permissions
+
+To operate on the <code>data_provider</code> resource, the following permissions are required:
+
+### Read
+```json
+dms:ListDataProviders,
+dms:DescribeDataProviders,
+dms:ListTagsForResource
+```
+
+### Update
+```json
+dms:UpdateDataProvider,
+dms:ModifyDataProvider,
+dms:AddTagsToResource,
+dms:RemoveTagsToResource,
+dms:ListTagsForResource
+```
+
+### Delete
+```json
+dms:DeleteDataProvider
+```
+

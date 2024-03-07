@@ -36,25 +36,6 @@ Retrieves a list of <code>scenes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>scenes</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iottwinmaker:CreateScene,
-iottwinmaker:GetScene,
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:TagResource</pre>
-
-### List
-<pre>
-iottwinmaker:GetWorkspace,
-iottwinmaker:ListTagsForResource,
-iottwinmaker:ListScenes</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +45,24 @@ scene_id
 FROM awscc.iottwinmaker.scenes
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>scenes</code> resource, the following permissions are required:
+
+### Create
+```json
+iottwinmaker:CreateScene,
+iottwinmaker:GetScene,
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:TagResource
+```
+
+### List
+```json
+iottwinmaker:GetWorkspace,
+iottwinmaker:ListTagsForResource,
+iottwinmaker:ListScenes
+```
+

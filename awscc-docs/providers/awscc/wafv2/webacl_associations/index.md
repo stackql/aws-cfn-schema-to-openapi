@@ -36,12 +36,22 @@ Retrieves a list of <code>webacl_associations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+resource_arn,
+web_ac_larn
+FROM awscc.wafv2.webacl_associations
+
+```
+
 ## Permissions
 
 To operate on the <code>webacl_associations</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 wafv2:AssociateWebACL,
 wafv2:GetWebACLForResource,
 wafv2:GetWebACL,
@@ -58,15 +68,6 @@ apprunner:DescribeWebAclForService,
 ec2:AssociateVerifiedAccessInstanceWebAcl,
 ec2:DisassociateVerifiedAccessInstanceWebAcl,
 ec2:DescribeVerifiedAccessInstanceWebAclAssociations,
-ec2:GetVerifiedAccessInstanceWebAcl</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-resource_arn,
-web_ac_larn
-FROM awscc.wafv2.webacl_associations
-
+ec2:GetVerifiedAccessInstanceWebAcl
 ```
+

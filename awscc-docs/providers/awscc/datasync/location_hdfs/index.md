@@ -49,28 +49,6 @@ Gets an individual <code>location_hdfs</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>location_hdfs</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datasync:DescribeLocationHdfs,
-datasync:ListTagsForResource</pre>
-
-### Update
-<pre>
-datasync:UpdateLocationHdfs,
-datasync:DescribeLocationHdfs,
-datasync:ListTagsForResource,
-datasync:TagResource,
-datasync:UntagResource</pre>
-
-### Delete
-<pre>
-datasync:DeleteLocation</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,5 +70,30 @@ location_arn,
 location_uri
 FROM awscc.datasync.location_hdfs
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;LocationArn&gt;'
+AND data__Identifier = '{LocationArn}';
 ```
+
+## Permissions
+
+To operate on the <code>location_hdfs</code> resource, the following permissions are required:
+
+### Read
+```json
+datasync:DescribeLocationHdfs,
+datasync:ListTagsForResource
+```
+
+### Update
+```json
+datasync:UpdateLocationHdfs,
+datasync:DescribeLocationHdfs,
+datasync:ListTagsForResource,
+datasync:TagResource,
+datasync:UntagResource
+```
+
+### Delete
+```json
+datasync:DeleteLocation
+```
+

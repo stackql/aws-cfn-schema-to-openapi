@@ -36,21 +36,6 @@ Retrieves a list of <code>live_sources</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>live_sources</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediatailor:CreateLiveSource,
-mediatailor:DescribeLiveSource,
-mediatailor:TagResource</pre>
-
-### List
-<pre>
-mediatailor:ListLiveSources</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +45,20 @@ source_location_name
 FROM awscc.mediatailor.live_sources
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>live_sources</code> resource, the following permissions are required:
+
+### Create
+```json
+mediatailor:CreateLiveSource,
+mediatailor:DescribeLiveSource,
+mediatailor:TagResource
+```
+
+### List
+```json
+mediatailor:ListLiveSources
+```
+

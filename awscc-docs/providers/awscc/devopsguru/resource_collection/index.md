@@ -36,25 +36,6 @@ Gets an individual <code>resource_collection</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>resource_collection</code> resource, the following permissions are required:
-
-### Read
-<pre>
-devops-guru:GetResourceCollection</pre>
-
-### Delete
-<pre>
-devops-guru:UpdateResourceCollection,
-devops-guru:GetResourceCollection</pre>
-
-### Update
-<pre>
-devops-guru:UpdateResourceCollection,
-devops-guru:GetResourceCollection</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ resource_collection_filter,
 resource_collection_type
 FROM awscc.devopsguru.resource_collection
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceCollectionType&gt;'
+AND data__Identifier = '{ResourceCollectionType}';
 ```
+
+## Permissions
+
+To operate on the <code>resource_collection</code> resource, the following permissions are required:
+
+### Read
+```json
+devops-guru:GetResourceCollection
+```
+
+### Delete
+```json
+devops-guru:UpdateResourceCollection,
+devops-guru:GetResourceCollection
+```
+
+### Update
+```json
+devops-guru:UpdateResourceCollection,
+devops-guru:GetResourceCollection
+```
+

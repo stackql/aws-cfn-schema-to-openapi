@@ -37,12 +37,23 @@ Retrieves a list of <code>routes</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+environment_identifier,
+application_identifier,
+route_identifier
+FROM awscc.refactorspaces.routes
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>routes</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 refactor-spaces:CreateRoute,
 refactor-spaces:GetRoute,
 refactor-spaces:TagResource,
@@ -64,21 +75,12 @@ elasticloadbalancing:AddTags,
 elasticloadbalancing:RegisterTargets,
 elasticloadbalancing:DescribeTargetHealth,
 ec2:DescribeSubnets,
-tag:GetResources</pre>
+tag:GetResources
+```
 
 ### List
-<pre>
+```json
 refactor-spaces:ListRoutes,
-refactor-spaces:ListTagsForResource</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-environment_identifier,
-application_identifier,
-route_identifier
-FROM awscc.refactorspaces.routes
-WHERE region = 'us-east-1'
+refactor-spaces:ListTagsForResource
 ```
+

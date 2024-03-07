@@ -42,26 +42,6 @@ Gets an individual <code>integration_response</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>integration_response</code> resource, the following permissions are required:
-
-### Read
-<pre>
-apigateway:GET</pre>
-
-### Update
-<pre>
-apigateway:PATCH,
-apigateway:PUT,
-apigateway:GET</pre>
-
-### Delete
-<pre>
-apigateway:GET,
-apigateway:DELETE</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,7 +56,30 @@ integration_response_key,
 api_id
 FROM awscc.apigatewayv2.integration_response
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ApiId&gt;'
-AND data__Identifier = '&lt;IntegrationId&gt;'
-AND data__Identifier = '&lt;IntegrationResponseId&gt;'
+AND data__Identifier = '{ApiId}';
+AND data__Identifier = '{IntegrationId}';
+AND data__Identifier = '{IntegrationResponseId}';
 ```
+
+## Permissions
+
+To operate on the <code>integration_response</code> resource, the following permissions are required:
+
+### Read
+```json
+apigateway:GET
+```
+
+### Update
+```json
+apigateway:PATCH,
+apigateway:PUT,
+apigateway:GET
+```
+
+### Delete
+```json
+apigateway:GET,
+apigateway:DELETE
+```
+

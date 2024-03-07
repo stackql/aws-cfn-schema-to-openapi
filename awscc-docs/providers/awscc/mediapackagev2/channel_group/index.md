@@ -41,27 +41,6 @@ Gets an individual <code>channel_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-mediapackagev2:GetChannelGroup</pre>
-
-### Update
-<pre>
-mediapackagev2:TagResource,
-mediapackagev2:UntagResource,
-mediapackagev2:ListTagsForResource,
-mediapackagev2:UpdateChannelGroup</pre>
-
-### Delete
-<pre>
-mediapackagev2:GetChannelGroup,
-mediapackagev2:DeleteChannelGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -75,5 +54,29 @@ modified_at,
 tags
 FROM awscc.mediapackagev2.channel_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>channel_group</code> resource, the following permissions are required:
+
+### Read
+```json
+mediapackagev2:GetChannelGroup
+```
+
+### Update
+```json
+mediapackagev2:TagResource,
+mediapackagev2:UntagResource,
+mediapackagev2:ListTagsForResource,
+mediapackagev2:UpdateChannelGroup
+```
+
+### Delete
+```json
+mediapackagev2:GetChannelGroup,
+mediapackagev2:DeleteChannelGroup
+```
+

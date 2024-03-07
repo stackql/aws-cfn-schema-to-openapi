@@ -35,21 +35,6 @@ Retrieves a list of <code>standards</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>standards</code> resource, the following permissions are required:
-
-### Create
-<pre>
-securityhub:GetEnabledStandards,
-securityhub:BatchEnableStandards,
-securityhub:UpdateStandardsControl</pre>
-
-### List
-<pre>
-securityhub:GetEnabledStandards</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ standards_subscription_arn
 FROM awscc.securityhub.standards
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>standards</code> resource, the following permissions are required:
+
+### Create
+```json
+securityhub:GetEnabledStandards,
+securityhub:BatchEnableStandards,
+securityhub:UpdateStandardsControl
+```
+
+### List
+```json
+securityhub:GetEnabledStandards
+```
+

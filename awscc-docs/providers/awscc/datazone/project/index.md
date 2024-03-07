@@ -43,25 +43,6 @@ Gets an individual <code>project</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>project</code> resource, the following permissions are required:
-
-### Read
-<pre>
-datazone:GetProject</pre>
-
-### Update
-<pre>
-datazone:UpdateProject,
-datazone:GetProject</pre>
-
-### Delete
-<pre>
-datazone:DeleteProject,
-datazone:GetProject</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,6 +58,28 @@ last_updated_at,
 name
 FROM awscc.datazone.project
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DomainId&gt;'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{DomainId}';
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>project</code> resource, the following permissions are required:
+
+### Read
+```json
+datazone:GetProject
+```
+
+### Update
+```json
+datazone:UpdateProject,
+datazone:GetProject
+```
+
+### Delete
+```json
+datazone:DeleteProject,
+datazone:GetProject
+```
+

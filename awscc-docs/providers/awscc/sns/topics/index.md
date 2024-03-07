@@ -35,25 +35,6 @@ Retrieves a list of <code>topics</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>topics</code> resource, the following permissions are required:
-
-### Create
-<pre>
-sns:CreateTopic,
-sns:TagResource,
-sns:Subscribe,
-sns:GetTopicAttributes,
-sns:PutDataProtectionPolicy,
-iam:GetRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-sns:ListTopics</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ topic_arn
 FROM awscc.sns.topics
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>topics</code> resource, the following permissions are required:
+
+### Create
+```json
+sns:CreateTopic,
+sns:TagResource,
+sns:Subscribe,
+sns:GetTopicAttributes,
+sns:PutDataProtectionPolicy,
+iam:GetRole,
+iam:PassRole
+```
+
+### List
+```json
+sns:ListTopics
+```
+

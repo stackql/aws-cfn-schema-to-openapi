@@ -35,21 +35,6 @@ Retrieves a list of <code>tls_inspection_configurations</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>tls_inspection_configurations</code> resource, the following permissions are required:
-
-### Create
-<pre>
-network-firewall:CreateTLSInspectionConfiguration,
-network-firewall:DescribeTLSInspectionConfiguration,
-network-firewall:TagResource</pre>
-
-### List
-<pre>
-network-firewall:ListTLSInspectionConfigurations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ t_ls_inspection_configuration_arn
 FROM awscc.networkfirewall.tls_inspection_configurations
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>tls_inspection_configurations</code> resource, the following permissions are required:
+
+### Create
+```json
+network-firewall:CreateTLSInspectionConfiguration,
+network-firewall:DescribeTLSInspectionConfiguration,
+network-firewall:TagResource
+```
+
+### List
+```json
+network-firewall:ListTLSInspectionConfigurations
+```
+

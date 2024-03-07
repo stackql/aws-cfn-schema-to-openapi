@@ -35,24 +35,6 @@ Retrieves a list of <code>versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lambda:PublishVersion,
-lambda:GetFunctionConfiguration,
-lambda:PutProvisionedConcurrencyConfig,
-lambda:GetProvisionedConcurrencyConfig,
-lambda:PutRuntimeManagementConfig,
-lambda:GetRuntimeManagementConfig</pre>
-
-### List
-<pre>
-lambda:ListVersionsByFunction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ function_arn
 FROM awscc.lambda.versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>versions</code> resource, the following permissions are required:
+
+### Create
+```json
+lambda:PublishVersion,
+lambda:GetFunctionConfiguration,
+lambda:PutProvisionedConcurrencyConfig,
+lambda:GetProvisionedConcurrencyConfig,
+lambda:PutRuntimeManagementConfig,
+lambda:GetRuntimeManagementConfig
+```
+
+### List
+```json
+lambda:ListVersionsByFunction
+```
+

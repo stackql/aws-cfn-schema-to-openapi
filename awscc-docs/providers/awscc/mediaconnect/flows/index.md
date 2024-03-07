@@ -35,20 +35,6 @@ Retrieves a list of <code>flows</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>flows</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediaconnect:CreateFlow,
-iam:PassRole</pre>
-
-### List
-<pre>
-mediaconnect:ListFlows</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ flow_arn
 FROM awscc.mediaconnect.flows
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>flows</code> resource, the following permissions are required:
+
+### Create
+```json
+mediaconnect:CreateFlow,
+iam:PassRole
+```
+
+### List
+```json
+mediaconnect:ListFlows
+```
+

@@ -35,25 +35,6 @@ Retrieves a list of <code>accounts</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>accounts</code> resource, the following permissions are required:
-
-### Create
-<pre>
-organizations:CreateAccount,
-organizations:DescribeCreateAccountStatus,
-organizations:MoveAccount,
-organizations:ListParents,
-organizations:TagResource,
-organizations:DescribeAccount,
-organizations:ListTagsForResource</pre>
-
-### List
-<pre>
-organizations:ListAccounts</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ account_id
 FROM awscc.organizations.accounts
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>accounts</code> resource, the following permissions are required:
+
+### Create
+```json
+organizations:CreateAccount,
+organizations:DescribeCreateAccountStatus,
+organizations:MoveAccount,
+organizations:ListParents,
+organizations:TagResource,
+organizations:DescribeAccount,
+organizations:ListTagsForResource
+```
+
+### List
+```json
+organizations:ListAccounts
+```
+

@@ -45,27 +45,6 @@ Gets an individual <code>endpoint</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>endpoint</code> resource, the following permissions are required:
-
-### Read
-<pre>
-events:DescribeEndpoint</pre>
-
-### Update
-<pre>
-events:DescribeEndpoint,
-events:UpdateEndpoint,
-route53:GetHealthCheck,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-events:DeleteEndpoint,
-events:DescribeEndpoint</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +62,29 @@ state,
 state_reason
 FROM awscc.events.endpoint
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>endpoint</code> resource, the following permissions are required:
+
+### Read
+```json
+events:DescribeEndpoint
+```
+
+### Update
+```json
+events:DescribeEndpoint,
+events:UpdateEndpoint,
+route53:GetHealthCheck,
+iam:PassRole
+```
+
+### Delete
+```json
+events:DeleteEndpoint,
+events:DescribeEndpoint
+```
+

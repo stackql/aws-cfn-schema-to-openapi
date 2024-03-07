@@ -51,45 +51,6 @@ Gets an individual <code>pipe</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>pipe</code> resource, the following permissions are required:
-
-### Read
-<pre>
-pipes:DescribePipe</pre>
-
-### Update
-<pre>
-pipes:UpdatePipe,
-pipes:TagResource,
-pipes:UntagResource,
-pipes:DescribePipe,
-iam:PassRole,
-logs:PutResourcePolicy,
-logs:DescribeResourcePolicies,
-logs:DescribeLogGroups,
-iam:CreateServiceLinkedRole,
-logs:CreateLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:GetLogDelivery,
-logs:ListLogDeliveries,
-s3:PutBucketPolicy,
-s3:GetBucketPolicy,
-firehose:TagDeliveryStream</pre>
-
-### Delete
-<pre>
-pipes:DeletePipe,
-pipes:DescribePipe,
-logs:CreateLogDelivery,
-logs:UpdateLogDelivery,
-logs:DeleteLogDelivery,
-logs:GetLogDelivery,
-logs:ListLogDeliveries</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -113,5 +74,47 @@ target,
 target_parameters
 FROM awscc.pipes.pipe
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>pipe</code> resource, the following permissions are required:
+
+### Read
+```json
+pipes:DescribePipe
+```
+
+### Update
+```json
+pipes:UpdatePipe,
+pipes:TagResource,
+pipes:UntagResource,
+pipes:DescribePipe,
+iam:PassRole,
+logs:PutResourcePolicy,
+logs:DescribeResourcePolicies,
+logs:DescribeLogGroups,
+iam:CreateServiceLinkedRole,
+logs:CreateLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries,
+s3:PutBucketPolicy,
+s3:GetBucketPolicy,
+firehose:TagDeliveryStream
+```
+
+### Delete
+```json
+pipes:DeletePipe,
+pipes:DescribePipe,
+logs:CreateLogDelivery,
+logs:UpdateLogDelivery,
+logs:DeleteLogDelivery,
+logs:GetLogDelivery,
+logs:ListLogDeliveries
+```
+

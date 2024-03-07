@@ -40,19 +40,6 @@ Gets an individual <code>alert</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alert</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lookoutmetrics:DescribeAlert</pre>
-
-### Delete
-<pre>
-lookoutmetrics:DeleteAlert</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +52,20 @@ alert_sensitivity_threshold,
 action
 FROM awscc.lookoutmetrics.alert
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>alert</code> resource, the following permissions are required:
+
+### Read
+```json
+lookoutmetrics:DescribeAlert
+```
+
+### Delete
+```json
+lookoutmetrics:DeleteAlert
+```
+

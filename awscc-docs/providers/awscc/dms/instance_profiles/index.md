@@ -35,25 +35,6 @@ Retrieves a list of <code>instance_profiles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>instance_profiles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-dms:CreateInstanceProfile,
-dms:ListInstanceProfiles,
-dms:DescribeInstanceProfiles,
-dms:AddTagsToResource,
-dms:ListTagsForResource</pre>
-
-### List
-<pre>
-dms:ListInstanceProfiles,
-dms:DescribeInstanceProfiles,
-dms:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ instance_profile_arn
 FROM awscc.dms.instance_profiles
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>instance_profiles</code> resource, the following permissions are required:
+
+### Create
+```json
+dms:CreateInstanceProfile,
+dms:ListInstanceProfiles,
+dms:DescribeInstanceProfiles,
+dms:AddTagsToResource,
+dms:ListTagsForResource
+```
+
+### List
+```json
+dms:ListInstanceProfiles,
+dms:DescribeInstanceProfiles,
+dms:ListTagsForResource
+```
+

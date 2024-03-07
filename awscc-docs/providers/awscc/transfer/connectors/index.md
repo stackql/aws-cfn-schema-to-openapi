@@ -35,21 +35,6 @@ Retrieves a list of <code>connectors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connectors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-transfer:CreateConnector,
-transfer:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-transfer:ListConnectors</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ connector_id
 FROM awscc.transfer.connectors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>connectors</code> resource, the following permissions are required:
+
+### Create
+```json
+transfer:CreateConnector,
+transfer:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+transfer:ListConnectors
+```
+

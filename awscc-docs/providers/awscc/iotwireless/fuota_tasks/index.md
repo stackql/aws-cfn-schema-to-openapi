@@ -35,24 +35,6 @@ Retrieves a list of <code>fuota_tasks</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>fuota_tasks</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iotwireless:CreateFuotaTask,
-iotwireless:TagResource,
-iotwireless:ListTagsForResource,
-iam:GetRole,
-iam:PassRole</pre>
-
-### List
-<pre>
-iotwireless:ListFuotaTasks,
-iotwireless:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ id
 FROM awscc.iotwireless.fuota_tasks
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>fuota_tasks</code> resource, the following permissions are required:
+
+### Create
+```json
+iotwireless:CreateFuotaTask,
+iotwireless:TagResource,
+iotwireless:ListTagsForResource,
+iam:GetRole,
+iam:PassRole
+```
+
+### List
+```json
+iotwireless:ListFuotaTasks,
+iotwireless:ListTagsForResource
+```
+

@@ -42,29 +42,6 @@ Gets an individual <code>trust_store</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_store</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-elasticloadbalancing:DescribeTrustStores,
-elasticloadbalancing:DeleteTrustStore</pre>
-
-### Read
-<pre>
-elasticloadbalancing:DescribeTrustStores,
-elasticloadbalancing:DescribeTags</pre>
-
-### Update
-<pre>
-elasticloadbalancing:ModifyTrustStore,
-elasticloadbalancing:AddTags,
-elasticloadbalancing:RemoveTags,
-s3:GetObject,
-s3:GetObjectVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ tags,
 trust_store_arn
 FROM awscc.elasticloadbalancingv2.trust_store
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrustStoreArn&gt;'
+AND data__Identifier = '{TrustStoreArn}';
 ```
+
+## Permissions
+
+To operate on the <code>trust_store</code> resource, the following permissions are required:
+
+### Delete
+```json
+elasticloadbalancing:DescribeTrustStores,
+elasticloadbalancing:DeleteTrustStore
+```
+
+### Read
+```json
+elasticloadbalancing:DescribeTrustStores,
+elasticloadbalancing:DescribeTags
+```
+
+### Update
+```json
+elasticloadbalancing:ModifyTrustStore,
+elasticloadbalancing:AddTags,
+elasticloadbalancing:RemoveTags,
+s3:GetObject,
+s3:GetObjectVersion
+```
+

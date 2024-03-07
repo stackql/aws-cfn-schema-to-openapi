@@ -35,23 +35,6 @@ Retrieves a list of <code>assets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>assets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediapackage-vod:CreateAsset,
-mediapackage-vod:DescribeAsset,
-mediapackage-vod:TagResource,
-iam:PassRole</pre>
-
-### List
-<pre>
-mediapackage-vod:ListAssets,
-mediapackage-vod:DescribePackagingGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ id
 FROM awscc.mediapackage.assets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>assets</code> resource, the following permissions are required:
+
+### Create
+```json
+mediapackage-vod:CreateAsset,
+mediapackage-vod:DescribeAsset,
+mediapackage-vod:TagResource,
+iam:PassRole
+```
+
+### List
+```json
+mediapackage-vod:ListAssets,
+mediapackage-vod:DescribePackagingGroup
+```
+

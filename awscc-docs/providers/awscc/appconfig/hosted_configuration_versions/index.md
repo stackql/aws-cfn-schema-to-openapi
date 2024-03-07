@@ -37,19 +37,6 @@ Retrieves a list of <code>hosted_configuration_versions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>hosted_configuration_versions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-appconfig:CreateHostedConfigurationVersion</pre>
-
-### List
-<pre>
-appconfig:ListHostedConfigurationVersions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +47,18 @@ version_number
 FROM awscc.appconfig.hosted_configuration_versions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>hosted_configuration_versions</code> resource, the following permissions are required:
+
+### Create
+```json
+appconfig:CreateHostedConfigurationVersion
+```
+
+### List
+```json
+appconfig:ListHostedConfigurationVersions
+```
+

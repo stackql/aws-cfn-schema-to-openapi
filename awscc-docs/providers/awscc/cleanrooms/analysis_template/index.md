@@ -47,32 +47,6 @@ Gets an individual <code>analysis_template</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>analysis_template</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cleanrooms:GetAnalysisTemplate,
-cleanrooms:ListTagsForResource</pre>
-
-### Update
-<pre>
-cleanrooms:UpdateAnalysisTemplate,
-cleanrooms:GetAnalysisTemplate,
-cleanrooms:ListTagsForResource,
-cleanrooms:TagResource,
-cleanrooms:UntagResource</pre>
-
-### Delete
-<pre>
-cleanrooms:DeleteAnalysisTemplate,
-cleanrooms:GetAnalysisTemplate,
-cleanrooms:ListAnalysisTemplates,
-cleanrooms:ListTagsForResource,
-cleanrooms:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -92,6 +66,35 @@ source,
 format
 FROM awscc.cleanrooms.analysis_template
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AnalysisTemplateIdentifier&gt;'
-AND data__Identifier = '&lt;MembershipIdentifier&gt;'
+AND data__Identifier = '{AnalysisTemplateIdentifier}';
+AND data__Identifier = '{MembershipIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>analysis_template</code> resource, the following permissions are required:
+
+### Read
+```json
+cleanrooms:GetAnalysisTemplate,
+cleanrooms:ListTagsForResource
+```
+
+### Update
+```json
+cleanrooms:UpdateAnalysisTemplate,
+cleanrooms:GetAnalysisTemplate,
+cleanrooms:ListTagsForResource,
+cleanrooms:TagResource,
+cleanrooms:UntagResource
+```
+
+### Delete
+```json
+cleanrooms:DeleteAnalysisTemplate,
+cleanrooms:GetAnalysisTemplate,
+cleanrooms:ListAnalysisTemplates,
+cleanrooms:ListTagsForResource,
+cleanrooms:UntagResource
+```
+

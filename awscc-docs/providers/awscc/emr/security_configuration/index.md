@@ -36,19 +36,6 @@ Gets an individual <code>security_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-elasticmapreduce:DescribeSecurityConfiguration</pre>
-
-### Delete
-<pre>
-elasticmapreduce:DeleteSecurityConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,5 +44,20 @@ name,
 security_configuration
 FROM awscc.emr.security_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>security_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+elasticmapreduce:DescribeSecurityConfiguration
+```
+
+### Delete
+```json
+elasticmapreduce:DeleteSecurityConfiguration
+```
+

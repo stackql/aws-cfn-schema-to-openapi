@@ -40,33 +40,6 @@ Gets an individual <code>profiling_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>profiling_group</code> resource, the following permissions are required:
-
-### Read
-<pre>
-codeguru-profiler:DescribeProfilingGroup,
-codeguru-profiler:ListTagsForResource</pre>
-
-### Update
-<pre>
-sns:Publish,
-codeguru-profiler:AddNotificationChannels,
-codeguru-profiler:GetNotificationConfiguration,
-codeguru-profiler:RemoveNotificationChannel,
-codeguru-profiler:PutPermission,
-codeguru-profiler:RemovePermission,
-codeguru-profiler:GetPolicy,
-codeguru-profiler:TagResource,
-codeguru-profiler:UntagResource,
-codeguru-profiler:ListTagsForResource</pre>
-
-### Delete
-<pre>
-codeguru-profiler:DeleteProfilingGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +52,35 @@ arn,
 tags
 FROM awscc.codeguruprofiler.profiling_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ProfilingGroupName&gt;'
+AND data__Identifier = '{ProfilingGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>profiling_group</code> resource, the following permissions are required:
+
+### Read
+```json
+codeguru-profiler:DescribeProfilingGroup,
+codeguru-profiler:ListTagsForResource
+```
+
+### Update
+```json
+sns:Publish,
+codeguru-profiler:AddNotificationChannels,
+codeguru-profiler:GetNotificationConfiguration,
+codeguru-profiler:RemoveNotificationChannel,
+codeguru-profiler:PutPermission,
+codeguru-profiler:RemovePermission,
+codeguru-profiler:GetPolicy,
+codeguru-profiler:TagResource,
+codeguru-profiler:UntagResource,
+codeguru-profiler:ListTagsForResource
+```
+
+### Delete
+```json
+codeguru-profiler:DeleteProfilingGroup
+```
+

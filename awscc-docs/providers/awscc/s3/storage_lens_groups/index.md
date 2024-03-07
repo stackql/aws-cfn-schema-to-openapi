@@ -35,22 +35,6 @@ Retrieves a list of <code>storage_lens_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>storage_lens_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-s3:CreateStorageLensGroup,
-s3:GetStorageLensGroup,
-s3:TagResource,
-s3:ListTagsForResource</pre>
-
-### List
-<pre>
-s3:ListStorageLensGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -59,3 +43,21 @@ name
 FROM awscc.s3.storage_lens_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>storage_lens_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+s3:CreateStorageLensGroup,
+s3:GetStorageLensGroup,
+s3:TagResource,
+s3:ListTagsForResource
+```
+
+### List
+```json
+s3:ListStorageLensGroups
+```
+

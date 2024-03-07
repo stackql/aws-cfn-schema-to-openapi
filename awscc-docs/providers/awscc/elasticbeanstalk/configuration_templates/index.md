@@ -36,19 +36,6 @@ Retrieves a list of <code>configuration_templates</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>configuration_templates</code> resource, the following permissions are required:
-
-### Create
-<pre>
-elasticbeanstalk:CreateConfigurationTemplate</pre>
-
-### List
-<pre>
-elasticbeanstalk:DescribeApplications</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +45,18 @@ template_name
 FROM awscc.elasticbeanstalk.configuration_templates
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>configuration_templates</code> resource, the following permissions are required:
+
+### Create
+```json
+elasticbeanstalk:CreateConfigurationTemplate
+```
+
+### List
+```json
+elasticbeanstalk:DescribeApplications
+```
+

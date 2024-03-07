@@ -53,19 +53,48 @@ Gets an individual <code>portal</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+additional_encryption_context,
+authentication_type,
+browser_settings_arn,
+browser_type,
+creation_date,
+customer_managed_key,
+display_name,
+ip_access_settings_arn,
+network_settings_arn,
+portal_arn,
+portal_endpoint,
+portal_status,
+renderer_type,
+service_provider_saml_metadata,
+status_reason,
+tags,
+trust_store_arn,
+user_access_logging_settings_arn,
+user_settings_arn
+FROM awscc.workspacesweb.portal
+WHERE region = 'us-east-1'
+AND data__Identifier = '{PortalArn}';
+```
+
 ## Permissions
 
 To operate on the <code>portal</code> resource, the following permissions are required:
 
 ### Read
-<pre>
+```json
 workspaces-web:GetPortal,
 workspaces-web:GetPortalServiceProviderMetadata,
 workspaces-web:ListTagsForResource,
-kms:Decrypt</pre>
+kms:Decrypt
+```
 
 ### Update
-<pre>
+```json
 workspaces-web:GetPortal,
 workspaces-web:GetPortalServiceProviderMetadata,
 workspaces-web:UpdatePortal,
@@ -100,10 +129,11 @@ sso:CreateManagedApplicationInstance,
 sso:DeleteManagedApplicationInstance,
 sso:DescribeRegisteredRegions,
 sso:GetApplicationInstance,
-sso:ListApplicationInstances</pre>
+sso:ListApplicationInstances
+```
 
 ### Delete
-<pre>
+```json
 workspaces-web:GetPortal,
 workspaces-web:DeletePortal,
 workspaces-web:DisassociateBrowserSettings,
@@ -113,33 +143,6 @@ workspaces-web:DisassociateTrustStore,
 workspaces-web:DisassociateUserAccessLoggingSettings,
 workspaces-web:DisassociateUserSettings,
 kms:Decrypt,
-sso:DeleteManagedApplicationInstance</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-additional_encryption_context,
-authentication_type,
-browser_settings_arn,
-browser_type,
-creation_date,
-customer_managed_key,
-display_name,
-ip_access_settings_arn,
-network_settings_arn,
-portal_arn,
-portal_endpoint,
-portal_status,
-renderer_type,
-service_provider_saml_metadata,
-status_reason,
-tags,
-trust_store_arn,
-user_access_logging_settings_arn,
-user_settings_arn
-FROM awscc.workspacesweb.portal
-WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;PortalArn&gt;'
+sso:DeleteManagedApplicationInstance
 ```
+

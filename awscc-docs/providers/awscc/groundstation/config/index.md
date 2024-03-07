@@ -40,28 +40,6 @@ Gets an individual <code>config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>config</code> resource, the following permissions are required:
-
-### Read
-<pre>
-groundstation:GetConfig,
-groundstation:ListTagsForResource</pre>
-
-### Update
-<pre>
-groundstation:UpdateConfig,
-groundstation:ListTagsForResource,
-groundstation:TagResource,
-groundstation:UntagResource,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-groundstation:DeleteConfig</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +52,30 @@ arn,
 id
 FROM awscc.groundstation.config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>config</code> resource, the following permissions are required:
+
+### Read
+```json
+groundstation:GetConfig,
+groundstation:ListTagsForResource
+```
+
+### Update
+```json
+groundstation:UpdateConfig,
+groundstation:ListTagsForResource,
+groundstation:TagResource,
+groundstation:UntagResource,
+iam:PassRole
+```
+
+### Delete
+```json
+groundstation:DeleteConfig
+```
+

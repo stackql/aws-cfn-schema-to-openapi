@@ -35,20 +35,6 @@ Retrieves a list of <code>alarms</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>alarms</code> resource, the following permissions are required:
-
-### Create
-<pre>
-lightsail:PutAlarm,
-lightsail:GetAlarms</pre>
-
-### List
-<pre>
-lightsail:GetAlarms</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ alarm_name
 FROM awscc.lightsail.alarms
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>alarms</code> resource, the following permissions are required:
+
+### Create
+```json
+lightsail:PutAlarm,
+lightsail:GetAlarms
+```
+
+### List
+```json
+lightsail:GetAlarms
+```
+

@@ -41,30 +41,6 @@ Gets an individual <code>threat_intel_set</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>threat_intel_set</code> resource, the following permissions are required:
-
-### Read
-<pre>
-guardduty:GetThreatIntelSet</pre>
-
-### Delete
-<pre>
-guardduty:ListDetectors,
-guardduty:ListThreatIntelSets,
-guardduty:DeleteThreatIntelSet,
-guardduty:GetThreatIntelSet,
-iam:DeleteRolePolicy</pre>
-
-### Update
-<pre>
-guardduty:UpdateThreatIntelSet,
-guardduty:GetThreatIntelSet,
-guardduty:ListThreatIntelSets,
-iam:PutRolePolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -78,6 +54,33 @@ location,
 tags
 FROM awscc.guardduty.threat_intel_set
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
-AND data__Identifier = '&lt;DetectorId&gt;'
+AND data__Identifier = '{Id}';
+AND data__Identifier = '{DetectorId}';
 ```
+
+## Permissions
+
+To operate on the <code>threat_intel_set</code> resource, the following permissions are required:
+
+### Read
+```json
+guardduty:GetThreatIntelSet
+```
+
+### Delete
+```json
+guardduty:ListDetectors,
+guardduty:ListThreatIntelSets,
+guardduty:DeleteThreatIntelSet,
+guardduty:GetThreatIntelSet,
+iam:DeleteRolePolicy
+```
+
+### Update
+```json
+guardduty:UpdateThreatIntelSet,
+guardduty:GetThreatIntelSet,
+guardduty:ListThreatIntelSets,
+iam:PutRolePolicy
+```
+

@@ -38,20 +38,6 @@ Gets an individual <code>schema</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>schema</code> resource, the following permissions are required:
-
-### Read
-<pre>
-personalize:DescribeSchema</pre>
-
-### Delete
-<pre>
-personalize:DeleteSchema,
-personalize:DescribeSchema</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +48,21 @@ schema,
 domain
 FROM awscc.personalize.schema
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SchemaArn&gt;'
+AND data__Identifier = '{SchemaArn}';
 ```
+
+## Permissions
+
+To operate on the <code>schema</code> resource, the following permissions are required:
+
+### Read
+```json
+personalize:DescribeSchema
+```
+
+### Delete
+```json
+personalize:DeleteSchema,
+personalize:DescribeSchema
+```
+

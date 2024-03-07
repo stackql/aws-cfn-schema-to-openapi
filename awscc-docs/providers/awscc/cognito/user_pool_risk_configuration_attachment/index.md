@@ -39,26 +39,6 @@ Gets an individual <code>user_pool_risk_configuration_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pool_risk_configuration_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-idp:DescribeRiskConfiguration</pre>
-
-### Update
-<pre>
-cognito-idp:SetRiskConfiguration,
-cognito-idp:DescribeRiskConfiguration,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cognito-idp:SetRiskConfiguration,
-cognito-idp:DescribeRiskConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -70,6 +50,29 @@ compromised_credentials_risk_configuration,
 account_takeover_risk_configuration
 FROM awscc.cognito.user_pool_risk_configuration_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;UserPoolId&gt;'
-AND data__Identifier = '&lt;ClientId&gt;'
+AND data__Identifier = '{UserPoolId}';
+AND data__Identifier = '{ClientId}';
 ```
+
+## Permissions
+
+To operate on the <code>user_pool_risk_configuration_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-idp:DescribeRiskConfiguration
+```
+
+### Update
+```json
+cognito-idp:SetRiskConfiguration,
+cognito-idp:DescribeRiskConfiguration,
+iam:PassRole
+```
+
+### Delete
+```json
+cognito-idp:SetRiskConfiguration,
+cognito-idp:DescribeRiskConfiguration
+```
+

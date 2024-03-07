@@ -35,25 +35,6 @@ Retrieves a list of <code>storage_systems</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>storage_systems</code> resource, the following permissions are required:
-
-### Create
-<pre>
-datasync:AddStorageSystem,
-datasync:DescribeStorageSystem,
-datasync:ListTagsForResource,
-datasync:TagResource,
-secretsmanager:CreateSecret,
-secretsmanager:DescribeSecret,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-datasync:ListStorageSystems</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ storage_system_arn
 FROM awscc.datasync.storage_systems
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>storage_systems</code> resource, the following permissions are required:
+
+### Create
+```json
+datasync:AddStorageSystem,
+datasync:DescribeStorageSystem,
+datasync:ListTagsForResource,
+datasync:TagResource,
+secretsmanager:CreateSecret,
+secretsmanager:DescribeSecret,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+datasync:ListStorageSystems
+```
+

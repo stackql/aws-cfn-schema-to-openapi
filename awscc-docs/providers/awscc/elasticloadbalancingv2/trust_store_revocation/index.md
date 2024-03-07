@@ -38,20 +38,6 @@ Gets an individual <code>trust_store_revocation</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_store_revocation</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-elasticloadbalancing:DescribeTrustStoreRevocations,
-elasticloadbalancing:RemoveTrustStoreRevocations</pre>
-
-### Read
-<pre>
-elasticloadbalancing:DescribeTrustStoreRevocations</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,6 +48,22 @@ revocation_id,
 trust_store_revocations
 FROM awscc.elasticloadbalancingv2.trust_store_revocation
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;RevocationId&gt;'
-AND data__Identifier = '&lt;TrustStoreArn&gt;'
+AND data__Identifier = '{RevocationId}';
+AND data__Identifier = '{TrustStoreArn}';
 ```
+
+## Permissions
+
+To operate on the <code>trust_store_revocation</code> resource, the following permissions are required:
+
+### Delete
+```json
+elasticloadbalancing:DescribeTrustStoreRevocations,
+elasticloadbalancing:RemoveTrustStoreRevocations
+```
+
+### Read
+```json
+elasticloadbalancing:DescribeTrustStoreRevocations
+```
+

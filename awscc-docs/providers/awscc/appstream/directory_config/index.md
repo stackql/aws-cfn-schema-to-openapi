@@ -38,41 +38,6 @@ Gets an individual <code>directory_config</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>directory_config</code> resource, the following permissions are required:
-
-### Update
-<pre>
-appstream:CreateDirectoryConfig,
-appstream:DeleteDirectoryConfig,
-appstream:DescribeDirectoryConfig,
-appstream:UpdateDirectoryConfig,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### Read
-<pre>
-appstream:CreateDirectoryConfig,
-appstream:DeleteDirectoryConfig,
-appstream:DescribeDirectoryConfig,
-appstream:UpdateDirectoryConfig,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-### Delete
-<pre>
-appstream:CreateDirectoryConfig,
-appstream:DeleteDirectoryConfig,
-appstream:DescribeDirectoryConfig,
-appstream:UpdateDirectoryConfig,
-iam:CreateServiceLinkedRole,
-iam:DeleteServiceLinkedRole,
-iam:GetServiceLinkedRoleDeletionStatus</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -83,5 +48,43 @@ directory_name,
 certificate_based_auth_properties
 FROM awscc.appstream.directory_config
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DirectoryName&gt;'
+AND data__Identifier = '{DirectoryName}';
 ```
+
+## Permissions
+
+To operate on the <code>directory_config</code> resource, the following permissions are required:
+
+### Update
+```json
+appstream:CreateDirectoryConfig,
+appstream:DeleteDirectoryConfig,
+appstream:DescribeDirectoryConfig,
+appstream:UpdateDirectoryConfig,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### Read
+```json
+appstream:CreateDirectoryConfig,
+appstream:DeleteDirectoryConfig,
+appstream:DescribeDirectoryConfig,
+appstream:UpdateDirectoryConfig,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+
+### Delete
+```json
+appstream:CreateDirectoryConfig,
+appstream:DeleteDirectoryConfig,
+appstream:DescribeDirectoryConfig,
+appstream:UpdateDirectoryConfig,
+iam:CreateServiceLinkedRole,
+iam:DeleteServiceLinkedRole,
+iam:GetServiceLinkedRoleDeletionStatus
+```
+

@@ -35,12 +35,21 @@ Retrieves a list of <code>portals</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+portal_arn
+FROM awscc.workspacesweb.portals
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>portals</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 workspaces-web:CreatePortal,
 workspaces-web:GetPortal,
 workspaces-web:GetPortalServiceProviderMetadata,
@@ -64,19 +73,12 @@ kinesis:PutRecord,
 kinesis:PutRecords,
 kinesis:DescribeStreamSummary,
 sso:CreateManagedApplicationInstance,
-sso:DescribeRegisteredRegions</pre>
+sso:DescribeRegisteredRegions
+```
 
 ### List
-<pre>
+```json
 workspaces-web:ListPortals,
-kms:Decrypt</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-portal_arn
-FROM awscc.workspacesweb.portals
-WHERE region = 'us-east-1'
+kms:Decrypt
 ```
+

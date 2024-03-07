@@ -35,20 +35,6 @@ Retrieves a list of <code>anomaly_subscriptions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>anomaly_subscriptions</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ce:CreateAnomalySubscription,
-ce:TagResource</pre>
-
-### List
-<pre>
-ce:GetAnomalySubscriptions</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ subscription_arn
 FROM awscc.ce.anomaly_subscriptions
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>anomaly_subscriptions</code> resource, the following permissions are required:
+
+### Create
+```json
+ce:CreateAnomalySubscription,
+ce:TagResource
+```
+
+### List
+```json
+ce:GetAnomalySubscriptions
+```
+

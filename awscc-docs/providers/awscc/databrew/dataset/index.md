@@ -40,27 +40,6 @@ Gets an individual <code>dataset</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>dataset</code> resource, the following permissions are required:
-
-### Read
-<pre>
-databrew:DescribeDataset,
-databrew:ListTagsForResource,
-iam:ListRoles</pre>
-
-### Update
-<pre>
-databrew:UpdateDataset,
-glue:GetConnection,
-glue:GetTable</pre>
-
-### Delete
-<pre>
-databrew:DeleteDataset</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -73,5 +52,29 @@ path_options,
 tags
 FROM awscc.databrew.dataset
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>dataset</code> resource, the following permissions are required:
+
+### Read
+```json
+databrew:DescribeDataset,
+databrew:ListTagsForResource,
+iam:ListRoles
+```
+
+### Update
+```json
+databrew:UpdateDataset,
+glue:GetConnection,
+glue:GetTable
+```
+
+### Delete
+```json
+databrew:DeleteDataset
+```
+

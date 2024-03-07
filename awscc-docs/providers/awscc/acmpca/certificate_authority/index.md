@@ -45,29 +45,6 @@ Gets an individual <code>certificate_authority</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>certificate_authority</code> resource, the following permissions are required:
-
-### Read
-<pre>
-acm-pca:DescribeCertificateAuthority,
-acm-pca:GetCertificateAuthorityCsr,
-acm-pca:ListTags</pre>
-
-### Update
-<pre>
-acm-pca:ListTags,
-acm-pca:TagCertificateAuthority,
-acm-pca:UntagCertificateAuthority,
-acm-pca:UpdateCertificateAuthority</pre>
-
-### Delete
-<pre>
-acm-pca:DeleteCertificateAuthority,
-acm-pca:DescribeCertificateAuthority</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -85,5 +62,31 @@ key_storage_security_standard,
 usage_mode
 FROM awscc.acmpca.certificate_authority
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Arn&gt;'
+AND data__Identifier = '{Arn}';
 ```
+
+## Permissions
+
+To operate on the <code>certificate_authority</code> resource, the following permissions are required:
+
+### Read
+```json
+acm-pca:DescribeCertificateAuthority,
+acm-pca:GetCertificateAuthorityCsr,
+acm-pca:ListTags
+```
+
+### Update
+```json
+acm-pca:ListTags,
+acm-pca:TagCertificateAuthority,
+acm-pca:UntagCertificateAuthority,
+acm-pca:UpdateCertificateAuthority
+```
+
+### Delete
+```json
+acm-pca:DeleteCertificateAuthority,
+acm-pca:DescribeCertificateAuthority
+```
+

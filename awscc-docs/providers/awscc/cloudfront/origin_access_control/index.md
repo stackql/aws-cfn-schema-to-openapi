@@ -36,25 +36,6 @@ Gets an individual <code>origin_access_control</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>origin_access_control</code> resource, the following permissions are required:
-
-### Delete
-<pre>
-cloudfront:DeleteOriginAccessControl,
-cloudfront:GetOriginAccessControl</pre>
-
-### Read
-<pre>
-cloudfront:GetOriginAccessControl</pre>
-
-### Update
-<pre>
-cloudfront:UpdateOriginAccessControl,
-cloudfront:GetOriginAccessControl</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,5 +43,27 @@ region,
 id,
 origin_access_control_config
 FROM awscc.cloudfront.origin_access_control
-WHERE data__Identifier = '&lt;Id&gt;'
+WHERE data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>origin_access_control</code> resource, the following permissions are required:
+
+### Delete
+```json
+cloudfront:DeleteOriginAccessControl,
+cloudfront:GetOriginAccessControl
+```
+
+### Read
+```json
+cloudfront:GetOriginAccessControl
+```
+
+### Update
+```json
+cloudfront:UpdateOriginAccessControl,
+cloudfront:GetOriginAccessControl
+```
+

@@ -46,29 +46,6 @@ Gets an individual <code>feature_group</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>feature_group</code> resource, the following permissions are required:
-
-### Update
-<pre>
-sagemaker:UpdateFeatureGroup,
-sagemaker:DescribeFeatureGroup,
-sagemaker:AddTags,
-sagemaker:ListTags,
-sagemaker:DeleteTags</pre>
-
-### Read
-<pre>
-sagemaker:DescribeFeatureGroup,
-sagemaker:ListTags</pre>
-
-### Delete
-<pre>
-sagemaker:DeleteFeatureGroup,
-sagemaker:DescribeFeatureGroup</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -87,5 +64,31 @@ feature_group_status,
 tags
 FROM awscc.sagemaker.feature_group
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FeatureGroupName&gt;'
+AND data__Identifier = '{FeatureGroupName}';
 ```
+
+## Permissions
+
+To operate on the <code>feature_group</code> resource, the following permissions are required:
+
+### Update
+```json
+sagemaker:UpdateFeatureGroup,
+sagemaker:DescribeFeatureGroup,
+sagemaker:AddTags,
+sagemaker:ListTags,
+sagemaker:DeleteTags
+```
+
+### Read
+```json
+sagemaker:DescribeFeatureGroup,
+sagemaker:ListTags
+```
+
+### Delete
+```json
+sagemaker:DeleteFeatureGroup,
+sagemaker:DescribeFeatureGroup
+```
+

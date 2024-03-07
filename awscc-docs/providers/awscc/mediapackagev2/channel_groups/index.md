@@ -35,20 +35,6 @@ Retrieves a list of <code>channel_groups</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>channel_groups</code> resource, the following permissions are required:
-
-### Create
-<pre>
-mediapackagev2:TagResource,
-mediapackagev2:CreateChannelGroup</pre>
-
-### List
-<pre>
-mediapackagev2:ListChannelGroups</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -57,3 +43,19 @@ arn
 FROM awscc.mediapackagev2.channel_groups
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>channel_groups</code> resource, the following permissions are required:
+
+### Create
+```json
+mediapackagev2:TagResource,
+mediapackagev2:CreateChannelGroup
+```
+
+### List
+```json
+mediapackagev2:ListChannelGroups
+```
+

@@ -39,24 +39,6 @@ Gets an individual <code>connector</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>connector</code> resource, the following permissions are required:
-
-### Read
-<pre>
-appflow:DescribeConnector</pre>
-
-### Delete
-<pre>
-appflow:UnRegisterConnector</pre>
-
-### Update
-<pre>
-appflow:UpdateConnectorRegistration,
-lambda:InvokeFunction</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +50,26 @@ connector_provisioning_config,
 description
 FROM awscc.appflow.connector
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConnectorLabel&gt;'
+AND data__Identifier = '{ConnectorLabel}';
 ```
+
+## Permissions
+
+To operate on the <code>connector</code> resource, the following permissions are required:
+
+### Read
+```json
+appflow:DescribeConnector
+```
+
+### Delete
+```json
+appflow:UnRegisterConnector
+```
+
+### Update
+```json
+appflow:UpdateConnectorRegistration,
+lambda:InvokeFunction
+```
+

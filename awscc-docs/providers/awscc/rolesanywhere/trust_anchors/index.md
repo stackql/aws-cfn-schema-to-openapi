@@ -35,23 +35,6 @@ Retrieves a list of <code>trust_anchors</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_anchors</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-rolesanywhere:CreateTrustAnchor,
-rolesanywhere:TagResource,
-rolesanywhere:ListTagsForResource</pre>
-
-### List
-<pre>
-rolesanywhere:ListTrustAnchors,
-rolesanywhere:ListTagsForResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ trust_anchor_id
 FROM awscc.rolesanywhere.trust_anchors
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>trust_anchors</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+rolesanywhere:CreateTrustAnchor,
+rolesanywhere:TagResource,
+rolesanywhere:ListTagsForResource
+```
+
+### List
+```json
+rolesanywhere:ListTrustAnchors,
+rolesanywhere:ListTagsForResource
+```
+

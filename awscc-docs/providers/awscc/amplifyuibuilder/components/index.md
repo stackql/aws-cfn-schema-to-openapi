@@ -37,23 +37,6 @@ Retrieves a list of <code>components</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>components</code> resource, the following permissions are required:
-
-### Create
-<pre>
-amplify:GetApp,
-amplifyuibuilder:CreateComponent,
-amplifyuibuilder:GetComponent,
-amplifyuibuilder:TagResource</pre>
-
-### List
-<pre>
-amplify:GetApp,
-amplifyuibuilder:ListComponents</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -64,3 +47,22 @@ id
 FROM awscc.amplifyuibuilder.components
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>components</code> resource, the following permissions are required:
+
+### Create
+```json
+amplify:GetApp,
+amplifyuibuilder:CreateComponent,
+amplifyuibuilder:GetComponent,
+amplifyuibuilder:TagResource
+```
+
+### List
+```json
+amplify:GetApp,
+amplifyuibuilder:ListComponents
+```
+

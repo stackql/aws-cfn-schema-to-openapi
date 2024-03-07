@@ -35,25 +35,6 @@ Retrieves a list of <code>services</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>services</code> resource, the following permissions are required:
-
-### Create
-<pre>
-vpc-lattice:CreateService,
-vpc-lattice:GetService,
-vpc-lattice:ListTagsForResource,
-vpc-lattice:TagResource,
-acm:DescribeCertificate,
-acm:ListCertificates,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-vpc-lattice:ListServices</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -62,3 +43,24 @@ arn
 FROM awscc.vpclattice.services
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>services</code> resource, the following permissions are required:
+
+### Create
+```json
+vpc-lattice:CreateService,
+vpc-lattice:GetService,
+vpc-lattice:ListTagsForResource,
+vpc-lattice:TagResource,
+acm:DescribeCertificate,
+acm:ListCertificates,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+vpc-lattice:ListServices
+```
+

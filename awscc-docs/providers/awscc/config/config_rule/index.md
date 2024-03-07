@@ -44,26 +44,6 @@ Gets an individual <code>config_rule</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>config_rule</code> resource, the following permissions are required:
-
-### Read
-<pre>
-config:DescribeConfigRules,
-config:DescribeComplianceByConfigRule</pre>
-
-### Delete
-<pre>
-config:DeleteConfigRule,
-config:DescribeConfigRules</pre>
-
-### Update
-<pre>
-config:PutConfigRule,
-config:DescribeConfigRules</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -80,5 +60,28 @@ input_parameters,
 evaluation_modes
 FROM awscc.config.config_rule
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ConfigRuleName&gt;'
+AND data__Identifier = '{ConfigRuleName}';
 ```
+
+## Permissions
+
+To operate on the <code>config_rule</code> resource, the following permissions are required:
+
+### Read
+```json
+config:DescribeConfigRules,
+config:DescribeComplianceByConfigRule
+```
+
+### Delete
+```json
+config:DeleteConfigRule,
+config:DescribeConfigRules
+```
+
+### Update
+```json
+config:PutConfigRule,
+config:DescribeConfigRules
+```
+

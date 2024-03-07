@@ -40,30 +40,6 @@ Gets an individual <code>member</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>member</code> resource, the following permissions are required:
-
-### Read
-<pre>
-guardduty:GetMembers</pre>
-
-### Delete
-<pre>
-guardduty:GetMembers,
-guardduty:DisassociateMembers,
-guardduty:DeleteMembers</pre>
-
-### Update
-<pre>
-guardduty:GetMembers,
-guardduty:CreateMembers,
-guardduty:DisassociateMembers,
-guardduty:StartMonitoringMembers,
-guardduty:StopMonitoringMembers,
-guardduty:InviteMembers</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -76,6 +52,33 @@ disable_email_notification,
 detector_id
 FROM awscc.guardduty.member
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;DetectorId&gt;'
-AND data__Identifier = '&lt;MemberId&gt;'
+AND data__Identifier = '{DetectorId}';
+AND data__Identifier = '{MemberId}';
 ```
+
+## Permissions
+
+To operate on the <code>member</code> resource, the following permissions are required:
+
+### Read
+```json
+guardduty:GetMembers
+```
+
+### Delete
+```json
+guardduty:GetMembers,
+guardduty:DisassociateMembers,
+guardduty:DeleteMembers
+```
+
+### Update
+```json
+guardduty:GetMembers,
+guardduty:CreateMembers,
+guardduty:DisassociateMembers,
+guardduty:StartMonitoringMembers,
+guardduty:StopMonitoringMembers,
+guardduty:InviteMembers
+```
+

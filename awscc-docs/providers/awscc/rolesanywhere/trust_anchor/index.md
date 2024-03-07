@@ -41,33 +41,6 @@ Gets an individual <code>trust_anchor</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>trust_anchor</code> resource, the following permissions are required:
-
-### Read
-<pre>
-rolesanywhere:GetTrustAnchor,
-rolesanywhere:ListTagsForResource</pre>
-
-### Update
-<pre>
-acm-pca:GetCertificateAuthorityCertificate,
-rolesanywhere:ListTagsForResource,
-rolesanywhere:TagResource,
-rolesanywhere:UntagResource,
-rolesanywhere:EnableTrustAnchor,
-rolesanywhere:DisableTrustAnchor,
-rolesanywhere:UpdateTrustAnchor,
-rolesanywhere:GetTrustAnchor,
-rolesanywhere:PutNotificationSettings,
-rolesanywhere:ResetNotificationSettings</pre>
-
-### Delete
-<pre>
-rolesanywhere:DeleteTrustAnchor</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -81,5 +54,35 @@ trust_anchor_id,
 trust_anchor_arn
 FROM awscc.rolesanywhere.trust_anchor
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;TrustAnchorId&gt;'
+AND data__Identifier = '{TrustAnchorId}';
 ```
+
+## Permissions
+
+To operate on the <code>trust_anchor</code> resource, the following permissions are required:
+
+### Read
+```json
+rolesanywhere:GetTrustAnchor,
+rolesanywhere:ListTagsForResource
+```
+
+### Update
+```json
+acm-pca:GetCertificateAuthorityCertificate,
+rolesanywhere:ListTagsForResource,
+rolesanywhere:TagResource,
+rolesanywhere:UntagResource,
+rolesanywhere:EnableTrustAnchor,
+rolesanywhere:DisableTrustAnchor,
+rolesanywhere:UpdateTrustAnchor,
+rolesanywhere:GetTrustAnchor,
+rolesanywhere:PutNotificationSettings,
+rolesanywhere:ResetNotificationSettings
+```
+
+### Delete
+```json
+rolesanywhere:DeleteTrustAnchor
+```
+

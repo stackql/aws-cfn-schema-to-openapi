@@ -37,25 +37,6 @@ Gets an individual <code>auth_policy</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>auth_policy</code> resource, the following permissions are required:
-
-### Read
-<pre>
-vpc-lattice:GetAuthPolicy</pre>
-
-### Update
-<pre>
-vpc-lattice:GetAuthPolicy,
-vpc-lattice:PutAuthPolicy</pre>
-
-### Delete
-<pre>
-vpc-lattice:GetAuthPolicy,
-vpc-lattice:DeleteAuthPolicy</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -65,5 +46,27 @@ policy,
 state
 FROM awscc.vpclattice.auth_policy
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ResourceIdentifier&gt;'
+AND data__Identifier = '{ResourceIdentifier}';
 ```
+
+## Permissions
+
+To operate on the <code>auth_policy</code> resource, the following permissions are required:
+
+### Read
+```json
+vpc-lattice:GetAuthPolicy
+```
+
+### Update
+```json
+vpc-lattice:GetAuthPolicy,
+vpc-lattice:PutAuthPolicy
+```
+
+### Delete
+```json
+vpc-lattice:GetAuthPolicy,
+vpc-lattice:DeleteAuthPolicy
+```
+

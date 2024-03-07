@@ -35,24 +35,6 @@ Retrieves a list of <code>user_pools</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>user_pools</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cognito-idp:CreateUserPool,
-iam:PassRole,
-cognito-idp:SetUserPoolMfaConfig,
-cognito-idp:DescribeUserPool,
-kms:CreateGrant,
-iam:CreateServiceLinkedRole</pre>
-
-### List
-<pre>
-cognito-idp:ListUserPools</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -61,3 +43,23 @@ user_pool_id
 FROM awscc.cognito.user_pools
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>user_pools</code> resource, the following permissions are required:
+
+### Create
+```json
+cognito-idp:CreateUserPool,
+iam:PassRole,
+cognito-idp:SetUserPoolMfaConfig,
+cognito-idp:DescribeUserPool,
+kms:CreateGrant,
+iam:CreateServiceLinkedRole
+```
+
+### List
+```json
+cognito-idp:ListUserPools
+```
+

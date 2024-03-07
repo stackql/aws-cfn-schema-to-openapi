@@ -38,26 +38,6 @@ Gets an individual <code>identity_pool_role_attachment</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>identity_pool_role_attachment</code> resource, the following permissions are required:
-
-### Read
-<pre>
-cognito-identity:GetIdentityPoolRoles</pre>
-
-### Update
-<pre>
-cognito-identity:GetIdentityPoolRoles,
-cognito-identity:SetIdentityPoolRoles,
-iam:PassRole</pre>
-
-### Delete
-<pre>
-cognito-identity:GetIdentityPoolRoles,
-cognito-identity:SetIdentityPoolRoles</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -68,5 +48,28 @@ id,
 role_mappings
 FROM awscc.cognito.identity_pool_role_attachment
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Id&gt;'
+AND data__Identifier = '{Id}';
 ```
+
+## Permissions
+
+To operate on the <code>identity_pool_role_attachment</code> resource, the following permissions are required:
+
+### Read
+```json
+cognito-identity:GetIdentityPoolRoles
+```
+
+### Update
+```json
+cognito-identity:GetIdentityPoolRoles,
+cognito-identity:SetIdentityPoolRoles,
+iam:PassRole
+```
+
+### Delete
+```json
+cognito-identity:GetIdentityPoolRoles,
+cognito-identity:SetIdentityPoolRoles
+```
+

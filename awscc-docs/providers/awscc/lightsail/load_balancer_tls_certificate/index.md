@@ -42,29 +42,6 @@ Gets an individual <code>load_balancer_tls_certificate</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>load_balancer_tls_certificate</code> resource, the following permissions are required:
-
-### Read
-<pre>
-lightsail:GetLoadBalancerTlsCertificates,
-lightsail:GetLoadBalancer</pre>
-
-### Update
-<pre>
-lightsail:AttachLoadBalancerTlsCertificate,
-lightsail:GetLoadBalancerTlsCertificates,
-lightsail:GetLoadBalancer,
-lightsail:UpdateLoadBalancerAttribute</pre>
-
-### Delete
-<pre>
-lightsail:DeleteLoadBalancerTlsCertificate,
-lightsail:GetLoadBalancerTlsCertificates,
-lightsail:GetLoadBalancer</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,6 +56,32 @@ https_redirection_enabled,
 status
 FROM awscc.lightsail.load_balancer_tls_certificate
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;CertificateName&gt;'
-AND data__Identifier = '&lt;LoadBalancerName&gt;'
+AND data__Identifier = '{CertificateName}';
+AND data__Identifier = '{LoadBalancerName}';
 ```
+
+## Permissions
+
+To operate on the <code>load_balancer_tls_certificate</code> resource, the following permissions are required:
+
+### Read
+```json
+lightsail:GetLoadBalancerTlsCertificates,
+lightsail:GetLoadBalancer
+```
+
+### Update
+```json
+lightsail:AttachLoadBalancerTlsCertificate,
+lightsail:GetLoadBalancerTlsCertificates,
+lightsail:GetLoadBalancer,
+lightsail:UpdateLoadBalancerAttribute
+```
+
+### Delete
+```json
+lightsail:DeleteLoadBalancerTlsCertificate,
+lightsail:GetLoadBalancerTlsCertificates,
+lightsail:GetLoadBalancer
+```
+

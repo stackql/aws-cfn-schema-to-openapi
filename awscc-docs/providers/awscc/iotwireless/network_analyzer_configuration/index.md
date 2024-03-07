@@ -41,26 +41,6 @@ Gets an individual <code>network_analyzer_configuration</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>network_analyzer_configuration</code> resource, the following permissions are required:
-
-### Read
-<pre>
-iotwireless:GetNetworkAnalyzerConfiguration,
-iotwireless:ListTagsForResource</pre>
-
-### Update
-<pre>
-iotwireless:UpdateNetworkAnalyzerConfiguration,
-iotwireless:UntagResource,
-iotwireless:ListTagsForResource</pre>
-
-### Delete
-<pre>
-iotwireless:DeleteNetworkAnalyzerConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -74,5 +54,28 @@ arn,
 tags
 FROM awscc.iotwireless.network_analyzer_configuration
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>network_analyzer_configuration</code> resource, the following permissions are required:
+
+### Read
+```json
+iotwireless:GetNetworkAnalyzerConfiguration,
+iotwireless:ListTagsForResource
+```
+
+### Update
+```json
+iotwireless:UpdateNetworkAnalyzerConfiguration,
+iotwireless:UntagResource,
+iotwireless:ListTagsForResource
+```
+
+### Delete
+```json
+iotwireless:DeleteNetworkAnalyzerConfiguration
+```
+

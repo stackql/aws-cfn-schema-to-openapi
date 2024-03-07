@@ -35,16 +35,6 @@ Retrieves a list of <code>service_linked_roles</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>service_linked_roles</code> resource, the following permissions are required:
-
-### Create
-<pre>
-iam:CreateServiceLinkedRole,
-iam:GetRole</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -53,3 +43,14 @@ role_name
 FROM awscc.iam.service_linked_roles
 
 ```
+
+## Permissions
+
+To operate on the <code>service_linked_roles</code> resource, the following permissions are required:
+
+### Create
+```json
+iam:CreateServiceLinkedRole,
+iam:GetRole
+```
+

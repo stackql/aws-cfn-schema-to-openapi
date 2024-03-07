@@ -42,29 +42,6 @@ Gets an individual <code>framework</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>framework</code> resource, the following permissions are required:
-
-### Read
-<pre>
-backup:DescribeFramework,
-backup:ListTags</pre>
-
-### Update
-<pre>
-backup:DescribeFramework,
-backup:UpdateFramework,
-backup:ListTags,
-backup:TagResource,
-backup:UntagResource</pre>
-
-### Delete
-<pre>
-backup:DeleteFramework,
-backup:DescribeFramework</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -79,5 +56,31 @@ framework_status,
 framework_tags
 FROM awscc.backup.framework
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;FrameworkArn&gt;'
+AND data__Identifier = '{FrameworkArn}';
 ```
+
+## Permissions
+
+To operate on the <code>framework</code> resource, the following permissions are required:
+
+### Read
+```json
+backup:DescribeFramework,
+backup:ListTags
+```
+
+### Update
+```json
+backup:DescribeFramework,
+backup:UpdateFramework,
+backup:ListTags,
+backup:TagResource,
+backup:UntagResource
+```
+
+### Delete
+```json
+backup:DeleteFramework,
+backup:DescribeFramework
+```
+

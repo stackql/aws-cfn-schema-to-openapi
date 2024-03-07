@@ -35,12 +35,21 @@ Retrieves a list of <code>apps</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+app_arn
+FROM awscc.resiliencehub.apps
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>apps</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 cloudformation:DescribeStacks,
 cloudformation:ListStackResources,
 s3:GetBucketLocation,
@@ -60,18 +69,11 @@ sqs:GetQueueAttributes,
 sns:GetTopicAttributes,
 route53:List*,
 iam:PassRole,
-resiliencehub:*</pre>
+resiliencehub:*
+```
 
 ### List
-<pre>
-resiliencehub:ListApps</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-app_arn
-FROM awscc.resiliencehub.apps
-WHERE region = 'us-east-1'
+```json
+resiliencehub:ListApps
 ```
+

@@ -1,9 +1,9 @@
 ---
-title: stream
+title: kinesisvideo_stream
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - stream
+  - kinesisvideo_stream
   - kinesisvideo
   - aws
   - stackql
@@ -14,14 +14,14 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-Gets an individual <code>stream</code> resource
+Gets an individual <code>kinesisvideo_stream</code> resource
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>stream</code></td></tr>
+<tr><td><b>Name</b></td><td><code>kinesisvideo_stream</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>stream</td></tr>
-<tr><td><b>Id</b></td><td><code>awscc.kinesisvideo.stream</code></td></tr>
+<tr><td><b>Description</b></td><td>kinesisvideo_stream</td></tr>
+<tr><td><b>Id</b></td><td><code>awscc.kinesisvideo.kinesisvideo_stream</code></td></tr>
 </tbody></table>
 
 ## Fields
@@ -41,26 +41,6 @@ Gets an individual <code>stream</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>stream</code> resource, the following permissions are required:
-
-### Read
-<pre>
-kinesisvideo:DescribeStream</pre>
-
-### Update
-<pre>
-kinesisvideo:DescribeStream,
-kinesisvideo:UpdateStream,
-kinesisvideo:UpdateDataRetention</pre>
-
-### Delete
-<pre>
-kinesisvideo:DescribeStream,
-kinesisvideo:DeleteStream</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -72,7 +52,30 @@ device_name,
 kms_key_id,
 media_type,
 tags
-FROM awscc.kinesisvideo.stream
+FROM awscc.kinesisvideo.kinesisvideo_stream
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;Name&gt;'
+AND data__Identifier = '{Name}';
 ```
+
+## Permissions
+
+To operate on the <code>kinesisvideo_stream</code> resource, the following permissions are required:
+
+### Read
+```json
+kinesisvideo:DescribeStream
+```
+
+### Update
+```json
+kinesisvideo:DescribeStream,
+kinesisvideo:UpdateStream,
+kinesisvideo:UpdateDataRetention
+```
+
+### Delete
+```json
+kinesisvideo:DescribeStream,
+kinesisvideo:DeleteStream
+```
+

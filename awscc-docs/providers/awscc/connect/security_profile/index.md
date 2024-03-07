@@ -42,27 +42,6 @@ Gets an individual <code>security_profile</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>security_profile</code> resource, the following permissions are required:
-
-### Read
-<pre>
-connect:DescribeSecurityProfile,
-connect:ListSecurityProfilePermissions</pre>
-
-### Update
-<pre>
-connect:TagResource,
-connect:UpdateSecurityProfile,
-connect:UntagResource</pre>
-
-### Delete
-<pre>
-connect:DeleteSecurityProfile,
-connect:UntagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -77,5 +56,29 @@ tag_restricted_resources,
 tags
 FROM awscc.connect.security_profile
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;SecurityProfileArn&gt;'
+AND data__Identifier = '{SecurityProfileArn}';
 ```
+
+## Permissions
+
+To operate on the <code>security_profile</code> resource, the following permissions are required:
+
+### Read
+```json
+connect:DescribeSecurityProfile,
+connect:ListSecurityProfilePermissions
+```
+
+### Update
+```json
+connect:TagResource,
+connect:UpdateSecurityProfile,
+connect:UntagResource
+```
+
+### Delete
+```json
+connect:DeleteSecurityProfile,
+connect:UntagResource
+```
+

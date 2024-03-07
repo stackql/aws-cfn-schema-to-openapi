@@ -35,21 +35,6 @@ Retrieves a list of <code>backup_plans</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>backup_plans</code> resource, the following permissions are required:
-
-### Create
-<pre>
-backup:GetBackupPlan,
-backup:TagResource,
-backup:CreateBackupPlan</pre>
-
-### List
-<pre>
-backup:ListBackupPlans</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +43,20 @@ backup_plan_id
 FROM awscc.backup.backup_plans
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>backup_plans</code> resource, the following permissions are required:
+
+### Create
+```json
+backup:GetBackupPlan,
+backup:TagResource,
+backup:CreateBackupPlan
+```
+
+### List
+```json
+backup:ListBackupPlans
+```
+

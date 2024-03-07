@@ -35,12 +35,21 @@ Retrieves a list of <code>distributions</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+distribution_name
+FROM awscc.lightsail.distributions
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>distributions</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 lightsail:AttachCertificateToDistribution,
 lightsail:CreateDistribution,
 lightsail:DetachCertificateFromDistribution,
@@ -50,18 +59,11 @@ lightsail:GetDistributions,
 lightsail:TagResource,
 lightsail:UntagResource,
 lightsail:UpdateDistribution,
-lightsail:UpdateDistributionBundle</pre>
+lightsail:UpdateDistributionBundle
+```
 
 ### List
-<pre>
-lightsail:GetDistributions</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-distribution_name
-FROM awscc.lightsail.distributions
-WHERE region = 'us-east-1'
+```json
+lightsail:GetDistributions
 ```
+

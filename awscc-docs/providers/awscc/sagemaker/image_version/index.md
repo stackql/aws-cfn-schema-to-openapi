@@ -49,26 +49,6 @@ Gets an individual <code>image_version</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>image_version</code> resource, the following permissions are required:
-
-### Read
-<pre>
-sagemaker:DescribeImageVersion</pre>
-
-### Update
-<pre>
-sagemaker:UpdateImageVersion,
-sagemaker:DescribeImageVersion,
-sagemaker:ListAliases</pre>
-
-### Delete
-<pre>
-sagemaker:DeleteImageVersion,
-sagemaker:DescribeImageVersion</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -90,5 +70,28 @@ horovod,
 release_notes
 FROM awscc.sagemaker.image_version
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;ImageVersionArn&gt;'
+AND data__Identifier = '{ImageVersionArn}';
 ```
+
+## Permissions
+
+To operate on the <code>image_version</code> resource, the following permissions are required:
+
+### Read
+```json
+sagemaker:DescribeImageVersion
+```
+
+### Update
+```json
+sagemaker:UpdateImageVersion,
+sagemaker:DescribeImageVersion,
+sagemaker:ListAliases
+```
+
+### Delete
+```json
+sagemaker:DeleteImageVersion,
+sagemaker:DescribeImageVersion
+```
+

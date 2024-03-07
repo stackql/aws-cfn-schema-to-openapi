@@ -36,25 +36,6 @@ Gets an individual <code>account</code> resource
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>account</code> resource, the following permissions are required:
-
-### Read
-<pre>
-acm:GetAccountConfiguration</pre>
-
-### Update
-<pre>
-acm:GetAccountConfiguration,
-acm:PutAccountConfiguration</pre>
-
-### Delete
-<pre>
-acm:GetAccountConfiguration,
-acm:PutAccountConfiguration</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -63,5 +44,27 @@ expiry_events_configuration,
 account_id
 FROM awscc.certificatemanager.account
 WHERE region = 'us-east-1'
-AND data__Identifier = '&lt;AccountId&gt;'
+AND data__Identifier = '{AccountId}';
 ```
+
+## Permissions
+
+To operate on the <code>account</code> resource, the following permissions are required:
+
+### Read
+```json
+acm:GetAccountConfiguration
+```
+
+### Update
+```json
+acm:GetAccountConfiguration,
+acm:PutAccountConfiguration
+```
+
+### Delete
+```json
+acm:GetAccountConfiguration,
+acm:PutAccountConfiguration
+```
+

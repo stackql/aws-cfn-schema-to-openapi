@@ -35,23 +35,6 @@ Retrieves a list of <code>key_value_stores</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>key_value_stores</code> resource, the following permissions are required:
-
-### Create
-<pre>
-cloudfront:CreateKeyValueStore,
-cloudfront:DescribeKeyValueStore,
-s3:GetObject,
-s3:HeadObject,
-s3:GetBucketLocation</pre>
-
-### List
-<pre>
-cloudfront:ListKeyValueStores</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -60,3 +43,22 @@ name
 FROM awscc.cloudfront.key_value_stores
 
 ```
+
+## Permissions
+
+To operate on the <code>key_value_stores</code> resource, the following permissions are required:
+
+### Create
+```json
+cloudfront:CreateKeyValueStore,
+cloudfront:DescribeKeyValueStore,
+s3:GetObject,
+s3:HeadObject,
+s3:GetBucketLocation
+```
+
+### List
+```json
+cloudfront:ListKeyValueStores
+```
+

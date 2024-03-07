@@ -37,17 +37,6 @@ Retrieves a list of <code>task_sets</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
-## Permissions
-
-To operate on the <code>task_sets</code> resource, the following permissions are required:
-
-### Create
-<pre>
-ecs:CreateTaskSet,
-ecs:DescribeTaskSets,
-ecs:TagResource</pre>
-
-
 ## Example
 ```sql
 SELECT
@@ -58,3 +47,15 @@ id
 FROM awscc.ecs.task_sets
 WHERE region = 'us-east-1'
 ```
+
+## Permissions
+
+To operate on the <code>task_sets</code> resource, the following permissions are required:
+
+### Create
+```json
+ecs:CreateTaskSet,
+ecs:DescribeTaskSets,
+ecs:TagResource
+```
+

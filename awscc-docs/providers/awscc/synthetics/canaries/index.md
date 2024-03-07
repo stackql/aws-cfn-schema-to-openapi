@@ -35,12 +35,21 @@ Retrieves a list of <code>canaries</code> in a region
 ## Methods
 Currently only <code>SELECT</code> is supported for this resource resource.
 
+## Example
+```sql
+SELECT
+region,
+name
+FROM awscc.synthetics.canaries
+WHERE region = 'us-east-1'
+```
+
 ## Permissions
 
 To operate on the <code>canaries</code> resource, the following permissions are required:
 
 ### Create
-<pre>
+```json
 synthetics:CreateCanary,
 synthetics:StartCanary,
 synthetics:GetCanary,
@@ -62,18 +71,11 @@ lambda:PublishLayerVersion,
 ec2:DescribeVpcs,
 ec2:DescribeSubnets,
 ec2:DescribeSecurityGroups,
-iam:PassRole</pre>
+iam:PassRole
+```
 
 ### List
-<pre>
-synthetics:DescribeCanaries</pre>
-
-
-## Example
-```sql
-SELECT
-region,
-name
-FROM awscc.synthetics.canaries
-WHERE region = 'us-east-1'
+```json
+synthetics:DescribeCanaries
 ```
+
