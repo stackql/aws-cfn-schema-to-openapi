@@ -52,7 +52,7 @@ Gets an individual <code>user_pool</code> resource
 <tr><td><code>verification_message_template</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>user_pool_add_ons</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>provider_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>provider_ur_l</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>provider_url</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>user_pool_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -91,7 +91,7 @@ user_pool_tags,
 verification_message_template,
 user_pool_add_ons,
 provider_name,
-provider_ur_l,
+provider_url,
 arn,
 user_pool_id
 FROM awscc.cognito.user_pool

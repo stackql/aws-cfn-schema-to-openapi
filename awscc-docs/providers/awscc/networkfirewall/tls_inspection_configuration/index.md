@@ -27,10 +27,10 @@ Gets an individual <code>tls_inspection_configuration</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>t_ls_inspection_configuration_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>t_ls_inspection_configuration_arn</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>t_ls_inspection_configuration</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>t_ls_inspection_configuration_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tls_inspection_configuration_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tls_inspection_configuration_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>tls_inspection_configuration</code></td><td><code>object</code></td><td></td></tr>
+<tr><td><code>tls_inspection_configuration_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -44,10 +44,10 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-t_ls_inspection_configuration_name,
-t_ls_inspection_configuration_arn,
-t_ls_inspection_configuration,
-t_ls_inspection_configuration_id,
+tls_inspection_configuration_name,
+tls_inspection_configuration_arn,
+tls_inspection_configuration,
+tls_inspection_configuration_id,
 description,
 tags
 FROM awscc.networkfirewall.tls_inspection_configuration

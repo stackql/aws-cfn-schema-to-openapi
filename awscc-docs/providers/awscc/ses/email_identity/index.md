@@ -33,12 +33,12 @@ Gets an individual <code>email_identity</code> resource
 <tr><td><code>dkim_attributes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>mail_from_attributes</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>feedback_attributes</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_name1</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_name2</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_name3</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_value1</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_value2</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>dkim_dn_stoken_value3</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_name1</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_name2</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_name3</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_value1</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_value2</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>dkim_dns_token_value3</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -56,12 +56,12 @@ dkim_signing_attributes,
 dkim_attributes,
 mail_from_attributes,
 feedback_attributes,
-dkim_dn_stoken_name1,
-dkim_dn_stoken_name2,
-dkim_dn_stoken_name3,
-dkim_dn_stoken_value1,
-dkim_dn_stoken_value2,
-dkim_dn_stoken_value3
+dkim_dns_token_name1,
+dkim_dns_token_name2,
+dkim_dns_token_name3,
+dkim_dns_token_value1,
+dkim_dns_token_value2,
+dkim_dns_token_value3
 FROM awscc.ses.email_identity
 WHERE region = 'us-east-1'
 AND data__Identifier = '{EmailIdentity}';

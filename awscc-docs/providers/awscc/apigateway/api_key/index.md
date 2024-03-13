@@ -27,7 +27,7 @@ Gets an individual <code>api_key</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>a_pi_key_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>customer_id</code></td><td><code>string</code></td><td>An MKT customer identifier, when integrating with the AWS SaaS Marketplace.</td></tr>
 <tr><td><code>description</code></td><td><code>string</code></td><td>The description of the ApiKey.</td></tr>
 <tr><td><code>enabled</code></td><td><code>boolean</code></td><td>Specifies whether the ApiKey can be used by callers.</td></tr>
@@ -47,7 +47,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-a_pi_key_id,
+api_key_id,
 customer_id,
 description,
 enabled,

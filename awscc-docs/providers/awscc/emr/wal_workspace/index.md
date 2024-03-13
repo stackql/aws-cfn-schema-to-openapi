@@ -27,7 +27,7 @@ Gets an individual <code>wal_workspace</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>w_al_workspace_name</code></td><td><code>string</code></td><td>The name of the emrwal container</td></tr>
+<tr><td><code>wal_workspace_name</code></td><td><code>string</code></td><td>The name of the emrwal container</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -40,7 +40,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-w_al_workspace_name,
+wal_workspace_name,
 tags
 FROM awscc.emr.wal_workspace
 WHERE region = 'us-east-1'

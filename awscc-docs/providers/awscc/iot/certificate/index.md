@@ -27,7 +27,7 @@ Gets an individual <code>certificate</code> resource
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>c_acertificate_pem</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ca_certificate_pem</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>certificate_pem</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>certificate_signing_request</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>certificate_mode</code></td><td><code>string</code></td><td></td></tr>
@@ -45,7 +45,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-c_acertificate_pem,
+ca_certificate_pem,
 certificate_pem,
 certificate_signing_request,
 certificate_mode,

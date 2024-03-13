@@ -27,7 +27,7 @@ Retrieves a list of <code>tls_inspection_configurations</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>t_ls_inspection_configuration_arn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>tls_inspection_configuration_arn</code></td><td><code>undefined</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-t_ls_inspection_configuration_arn
+tls_inspection_configuration_arn
 FROM awscc.networkfirewall.tls_inspection_configurations
 WHERE region = 'us-east-1'
 ```

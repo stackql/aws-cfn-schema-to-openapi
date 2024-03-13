@@ -27,7 +27,7 @@ Retrieves a list of <code>hubs</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>a_rn</code></td><td><code>string</code></td><td>An ARN is automatically created for the customer.</td></tr>
+<tr><td><code>arn</code></td><td><code>string</code></td><td>An ARN is automatically created for the customer.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-a_rn
+arn
 FROM awscc.securityhub.hubs
 WHERE region = 'us-east-1'
 ```

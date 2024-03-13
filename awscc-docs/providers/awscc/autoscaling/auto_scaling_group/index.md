@@ -30,8 +30,8 @@ Gets an individual <code>auto_scaling_group</code> resource
 <tr><td><code>lifecycle_hook_specification_list</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>load_balancer_names</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>launch_configuration_name</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>service_linked_role_ar_n</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>target_group_ar_ns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>service_linked_role_arn</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>target_group_arns</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>cooldown</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>notification_configurations</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>desired_capacity</code></td><td><code>string</code></td><td></td></tr>
@@ -40,7 +40,7 @@ Gets an individual <code>auto_scaling_group</code> resource
 <tr><td><code>new_instances_protected_from_scale_in</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>launch_template</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>mixed_instances_policy</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>v_pc_zone_identifier</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>vpc_zone_identifier</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>context</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>capacity_rebalance</code></td><td><code>boolean</code></td><td></td></tr>
@@ -71,8 +71,8 @@ region,
 lifecycle_hook_specification_list,
 load_balancer_names,
 launch_configuration_name,
-service_linked_role_ar_n,
-target_group_ar_ns,
+service_linked_role_arn,
+target_group_arns,
 cooldown,
 notification_configurations,
 desired_capacity,
@@ -81,7 +81,7 @@ default_instance_warmup,
 new_instances_protected_from_scale_in,
 launch_template,
 mixed_instances_policy,
-v_pc_zone_identifier,
+vpc_zone_identifier,
 tags,
 context,
 capacity_rebalance,

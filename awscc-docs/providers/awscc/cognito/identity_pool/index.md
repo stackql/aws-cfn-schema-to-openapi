@@ -37,8 +37,8 @@ Gets an individual <code>identity_pool</code> resource
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>identity_pool_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>allow_unauthenticated_identities</code></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><code>saml_provider_ar_ns</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>open_id_connect_provider_ar_ns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>saml_provider_arns</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>open_id_connect_provider_arns</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>allow_classic_flow</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -61,8 +61,8 @@ cognito_events,
 id,
 identity_pool_name,
 allow_unauthenticated_identities,
-saml_provider_ar_ns,
-open_id_connect_provider_ar_ns,
+saml_provider_arns,
+open_id_connect_provider_arns,
 allow_classic_flow
 FROM awscc.cognito.identity_pool
 WHERE region = 'us-east-1'

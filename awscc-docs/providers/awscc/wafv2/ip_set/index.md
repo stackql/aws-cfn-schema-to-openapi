@@ -32,7 +32,7 @@ Gets an individual <code>ip_set</code> resource
 <tr><td><code>name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>scope</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>i_paddress_version</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>ip_address_version</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>addresses</code></td><td><code>array</code></td><td>List of IPAddresses.</td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -51,7 +51,7 @@ description,
 name,
 id,
 scope,
-i_paddress_version,
+ip_address_version,
 addresses,
 tags
 FROM awscc.wafv2.ip_set

@@ -27,7 +27,7 @@ Retrieves a list of <code>db_cluster_parameter_groups</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>d_bcluster_parameter_group_name</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>db_cluster_parameter_group_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-d_bcluster_parameter_group_name
+db_cluster_parameter_group_name
 FROM awscc.rds.db_cluster_parameter_groups
 WHERE region = 'us-east-1'
 ```

@@ -28,7 +28,7 @@ Retrieves a list of <code>webacl_associations</code> in a region
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
 <tr><td><code>resource_arn</code></td><td><code>undefined</code></td><td></td></tr>
-<tr><td><code>web_ac_larn</code></td><td><code>undefined</code></td><td></td></tr>
+<tr><td><code>web_acl_arn</code></td><td><code>undefined</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -41,7 +41,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 SELECT
 region,
 resource_arn,
-web_ac_larn
+web_acl_arn
 FROM awscc.wafv2.webacl_associations
 
 ```

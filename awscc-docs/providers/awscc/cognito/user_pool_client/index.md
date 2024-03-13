@@ -41,9 +41,9 @@ Gets an individual <code>user_pool_client</code> resource
 <tr><td><code>allowed_oauth_flows</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>allowed_oauth_flows_user_pool_client</code></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><code>allowed_oauth_scopes</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>callback_ur_ls</code></td><td><code>array</code></td><td></td></tr>
-<tr><td><code>default_redirect_ur_i</code></td><td><code>string</code></td><td></td></tr>
-<tr><td><code>logout_ur_ls</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>callback_urls</code></td><td><code>array</code></td><td></td></tr>
+<tr><td><code>default_redirect_uri</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>logout_urls</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>supported_identity_providers</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>analytics_configuration</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>prevent_user_existence_errors</code></td><td><code>string</code></td><td></td></tr>
@@ -77,9 +77,9 @@ write_attributes,
 allowed_oauth_flows,
 allowed_oauth_flows_user_pool_client,
 allowed_oauth_scopes,
-callback_ur_ls,
-default_redirect_ur_i,
-logout_ur_ls,
+callback_urls,
+default_redirect_uri,
+logout_urls,
 supported_identity_providers,
 analytics_configuration,
 prevent_user_existence_errors,

@@ -27,7 +27,7 @@ Retrieves a list of <code>groups</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>group_ar_n</code></td><td><code>string</code></td><td>The ARN of the group that was generated on creation.</td></tr>
+<tr><td><code>group_arn</code></td><td><code>string</code></td><td>The ARN of the group that was generated on creation.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-group_ar_n
+group_arn
 FROM awscc.xray.groups
 WHERE region = 'us-east-1'
 ```

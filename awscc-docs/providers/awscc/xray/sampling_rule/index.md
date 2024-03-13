@@ -30,7 +30,7 @@ Gets an individual <code>sampling_rule</code> resource
 <tr><td><code>sampling_rule</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>sampling_rule_record</code></td><td><code>object</code></td><td></td></tr>
 <tr><td><code>sampling_rule_update</code></td><td><code>object</code></td><td></td></tr>
-<tr><td><code>rule_ar_n</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>rule_arn</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>rule_name</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>tags</code></td><td><code>array</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
@@ -47,7 +47,7 @@ region,
 sampling_rule,
 sampling_rule_record,
 sampling_rule_update,
-rule_ar_n,
+rule_arn,
 rule_name,
 tags
 FROM awscc.xray.sampling_rule

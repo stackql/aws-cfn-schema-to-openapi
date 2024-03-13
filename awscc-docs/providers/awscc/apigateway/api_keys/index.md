@@ -27,7 +27,7 @@ Retrieves a list of <code>api_keys</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>a_pi_key_id</code></td><td><code>string</code></td><td></td></tr>
+<tr><td><code>api_key_id</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-a_pi_key_id
+api_key_id
 FROM awscc.apigateway.api_keys
 WHERE region = 'us-east-1'
 ```

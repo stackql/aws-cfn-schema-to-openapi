@@ -27,7 +27,7 @@ Retrieves a list of <code>acls</code> in a region
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>a_cl_name</code></td><td><code>string</code></td><td>The name of the acl.</td></tr>
+<tr><td><code>acl_name</code></td><td><code>string</code></td><td>The name of the acl.</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
 </tbody></table>
@@ -39,7 +39,7 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-a_cl_name
+acl_name
 FROM awscc.memorydb.acls
 WHERE region = 'us-east-1'
 ```
