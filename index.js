@@ -156,9 +156,75 @@ async function processService(servicePrefix, outputFilename) {
 
   const cleanedOpenAPI = cleanOpenAPISpec(openAPI);
 
-  writeObjectToYamlFile(cleanedOpenAPI, outputFilename);
+  if(serviceTitle == 'EC2'){
+    // fix bug with self referencing object
+    delete cleanedOpenAPI.components.schemas.SseSpecification.$ref;
+    cleanedOpenAPI.components.schemas.SseSpecification['type'] = 'object';
+    cleanedOpenAPI.components.schemas.SseSpecification['properties'] = {
+      KmsKeyArn: {
+        description: 'KMS Key Arn used to encrypt the group policy',
+        type: 'string'
+      },
+      CustomerManagedKeyEnabled: {
+        description: 'Whether to encrypt the policy with the provided key or disable encryption',
+        type: 'boolean'
+      }
+    }
+    cleanedOpenAPI.components.schemas.SseSpecification['additionalProperties'] = false;
+  }
+
+  const finalAPI = addAdditionalViews(cleanedOpenAPI, serviceTitle);
+
+  writeObjectToYamlFile(finalAPI, outputFilename);
   return true;
 }
+
+// function addAdditionalViews(openAPISpec, serviceTitle){
+//   // check for a custom view definition
+//   const viewsDir = path.join(__dirname, 'lib/views');
+//   const viewsFiles = findFiles(viewsDir, `${serviceTitle}.yaml`);
+//   if (viewsFiles.length) {
+//     const viewsContent = fs.readFileSync(viewsFiles[0], 'utf8');
+//     const views = load(viewsContent);
+//     openAPISpec.components['x-stackQL-resources'] = {...openAPISpec.components['x-stackQL-resources'], ...views};
+//     openAPISpec.components['schemas'] = {...openAPISpec.components['schemas'], ...views};
+//   }
+
+//   return openAPISpec;
+// }
+
+// const fs = require('fs');
+// const path = require('path');
+// const { load } = require('js-yaml');
+// const { findFiles } = require('./yourFindFilesImplementation'); // Ensure this is correctly implemented
+
+function addAdditionalViews(openAPISpec, serviceTitle) {
+  // Check for a custom view definition
+  const viewsDir = path.join(__dirname, 'lib/views');
+  const viewsFiles = findFiles(viewsDir, `${serviceTitle}.yaml`);
+  
+  if (viewsFiles.length) {
+    const viewsContent = fs.readFileSync(viewsFiles[0], 'utf8');
+    let views = load(viewsContent);
+
+    // Ensure 'views' only contains relevant component definitions
+    if (views.components && views.components['x-stackQL-resources']) {
+      openAPISpec.components['x-stackQL-resources'] = {
+        ...openAPISpec.components['x-stackQL-resources'],
+        ...views.components['x-stackQL-resources']
+      };
+    }
+    if (views.components && views.components.schemas) {
+      openAPISpec.components['schemas'] = {
+        ...openAPISpec.components['schemas'],
+        ...views.components.schemas
+      };
+    }
+  }
+
+  return openAPISpec;
+}
+
 
 function findFilesInDocs(filter) {
 
@@ -199,9 +265,6 @@ async function main(){
     try {
       const filePrefix = `aws-${service}-`;
       let outputFilename = `${service}.yaml`;
-      if (['ec2'].includes(service)) {
-        continue;
-      }
 
       const validService = await processService(filePrefix, outputFilename);
 

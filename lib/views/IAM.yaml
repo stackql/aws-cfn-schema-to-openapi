@@ -1,0 +1,41 @@
+openapi: 3.0.0
+info:
+  title: IAM
+  description: Additional stackql views for IAM
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    user_policies:
+      description: List of user policies by UserName (requires `aws` provider to be installed)
+      type: object
+      additionalProperties: false
+      properties:
+        UserName:
+          type: string
+          description: The IAM user name
+        member:
+          type: string
+          description: The user policy name
+        region:
+          type: string
+          description: The AWS region (always `us-east-1` for IAM resources)    
+      x-addtl-where-clause: AND UserName = '<UserName>'
+  x-stackQL-resources:
+    user_policies:
+      name: user_policies
+      id: awscc.iam.user_policies
+      x-cfn-schema-name: user_policies
+      x-type: custom_list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |-
+              SELECT
+              UserName,
+              member,
+              region
+              FROM aws.iam.user_policies
+              WHERE UserName = '<UserName>'
+              AND region = 'us-east-1'
