@@ -1,9 +1,9 @@
 ---
-title: user_policies
+title: role_policies
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - user_policies
+  - role_policies
   - iam
   - aws
   - stackql
@@ -14,21 +14,22 @@ description: Query, deploy and manage AWS resources using SQL
 custom_edit_url: null
 image: /img/providers/aws/stackql-aws-provider-featured-image.png
 ---
-List of user policies by UserName (requires `aws` provider to be installed)
+List of policies by RoleName (requires `aws` provider to be installed)
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>user_policies</code></td></tr>
+<tr><td><b>Name</b></td><td><code>role_policies</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>List of user policies by UserName (requires `aws` provider to be installed)</td></tr>
-<tr><td><b>Id</b></td><td><code>awscc.iam.user_policies</code></td></tr>
+<tr><td><b>Description</b></td><td>List of policies by RoleName (requires `aws` provider to be installed)</td></tr>
+<tr><td><b>Id</b></td><td><code>awscc.iam.role_policies</code></td></tr>
 </tbody></table>
 
 ## Fields
 <table><tbody>
 <tr><th>Name</th><th>Datatype</th><th>Description</th></tr>
-<tr><td><code>user_name</code></td><td><code>string</code></td><td>The IAM user name</td></tr>
-<tr><td><code>member</code></td><td><code>string</code></td><td>The user policy name</td></tr>
+<tr><td><code>role_name</code></td><td><code>string</code></td><td>The IAM role name</td></tr>
+<tr><td><code>policy_name</code></td><td><code>string</code></td><td>The role policy name</td></tr>
+<tr><td><code>policy_document</code></td><td><code>string</code></td><td>The role policy document</td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td></td></tr>
 <tr><td><code>region</code></td><td><code>string</code></td><td>AWS region.</td></tr>
 
@@ -41,11 +42,12 @@ Currently only <code>SELECT</code> is supported for this resource resource.
 ```sql
 SELECT
 region,
-user_name,
-member,
+role_name,
+policy_name,
+policy_document,
 region
-FROM awscc.iam.user_policies
-WHERE UserName = '<UserName>';
+FROM awscc.iam.role_policies
+WHERE RoleName = '<RoleName>';
 ```
 
 

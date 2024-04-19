@@ -1,1 +1,0 @@
-AQAAAA7c1nPKIbkt/QAANtgAxA+bCuWDot4UlwD7cqmzLRHSY2NE4dnOXQndHuR2V+VeK/odBpdb3F7PjluPUUjcUAIrbyvhmy8NYMuxAQ==

@@ -19,16 +19,16 @@ slug: /providers/awscc
 ---
 Cloud services from AWS using the Cloud Control API.
 
-:::info Provider Summary (v24.03.00214)
+:::info Provider Summary (v24.03.00220)
 
 <div class="row">
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>208</b></span><br />
-<span>total methods:&nbsp;<b>1,787</b></span><br />
+<span>total methods:&nbsp;<b>1,792</b></span><br />
 </div>
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>1,783</b></span><br />
-<span>total selectable resources:&nbsp;<b>1,783</b></span><br />
+<span>total resources:&nbsp;<b>1,788</b></span><br />
+<span>total selectable resources:&nbsp;<b>1,788</b></span><br />
 </div>
 </div>
 

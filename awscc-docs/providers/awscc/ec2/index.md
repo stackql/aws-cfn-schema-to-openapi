@@ -20,9 +20,9 @@ The ec2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>149</b></span><br />
-<span>total selectable resources:&nbsp;<b>149</b></span><br />
-<span>total methods:&nbsp;<b>149</b></span><br />
+<span>total resources:&nbsp;<b>151</b></span><br />
+<span>total selectable resources:&nbsp;<b>151</b></span><br />
+<span>total methods:&nbsp;<b>151</b></span><br />
 </div>
 </div>
 
@@ -57,6 +57,7 @@ The ec2 service documentation.
 <a href="/providers/awscc/ec2/hosts/">hosts</a><br />
 <a href="/providers/awscc/ec2/instance_connect_endpoint/">instance_connect_endpoint</a><br />
 <a href="/providers/awscc/ec2/instance_connect_endpoints/">instance_connect_endpoints</a><br />
+<a href="/providers/awscc/ec2/instances/">instances</a><br />
 <a href="/providers/awscc/ec2/internet_gateway/">internet_gateway</a><br />
 <a href="/providers/awscc/ec2/internet_gateways/">internet_gateways</a><br />
 <a href="/providers/awscc/ec2/ipam/">ipam</a><br />
@@ -119,6 +120,7 @@ The ec2 service documentation.
 <a href="/providers/awscc/ec2/security_group_ingresses/">security_group_ingresses</a><br />
 <a href="/providers/awscc/ec2/snapshot_block_public_access/">snapshot_block_public_access</a><br />
 <a href="/providers/awscc/ec2/snapshot_block_public_accesses/">snapshot_block_public_accesses</a><br />
+<a href="/providers/awscc/ec2/snapshots/">snapshots</a><br />
 <a href="/providers/awscc/ec2/spot_fleet/">spot_fleet</a><br />
 <a href="/providers/awscc/ec2/spot_fleets/">spot_fleets</a><br />
 <a href="/providers/awscc/ec2/subnet/">subnet</a><br />

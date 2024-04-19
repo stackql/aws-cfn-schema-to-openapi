@@ -6,7 +6,16 @@ import { dump, load } from "js-yaml";
 import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
 import { resourceTypes } from './cc_supported_resources.js';
 
-const providerName = 'awscc';
+const providerName = 'awsv2';
+
+const staticFiles = [
+  'cloud_control.yaml', 
+  'ec2_api.yaml', 
+  'iam_api.yaml', 
+  's3_api.yaml',
+  'cloudwatch_api.yaml',
+  'cloudhsm.yaml',
+];
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,13 +60,9 @@ function clearOutputDir() {
           for (const file of files) {
               const filePath = path.join(dir, file);
               
-              // Skip if cloud_control or static service files
-              if ([
-                'cloud_control.yaml', 
-                // 'ec2.yaml', 
-                // 'iam.yaml', 
-                // 's3.yaml',
-              ].includes(file)) {
+              // Skip if static service file
+              if (staticFiles.includes(file)) {
+                console.log(`Skipping statically defined spec:  ${filePath}`);
                 continue;
               }
 
@@ -179,25 +184,6 @@ async function processService(servicePrefix, outputFilename) {
   return true;
 }
 
-// function addAdditionalViews(openAPISpec, serviceTitle){
-//   // check for a custom view definition
-//   const viewsDir = path.join(__dirname, 'lib/views');
-//   const viewsFiles = findFiles(viewsDir, `${serviceTitle}.yaml`);
-//   if (viewsFiles.length) {
-//     const viewsContent = fs.readFileSync(viewsFiles[0], 'utf8');
-//     const views = load(viewsContent);
-//     openAPISpec.components['x-stackQL-resources'] = {...openAPISpec.components['x-stackQL-resources'], ...views};
-//     openAPISpec.components['schemas'] = {...openAPISpec.components['schemas'], ...views};
-//   }
-
-//   return openAPISpec;
-// }
-
-// const fs = require('fs');
-// const path = require('path');
-// const { load } = require('js-yaml');
-// const { findFiles } = require('./yourFindFilesImplementation'); // Ensure this is correctly implemented
-
 function addAdditionalViews(openAPISpec, serviceTitle) {
   // Check for a custom view definition
   const viewsDir = path.join(__dirname, 'lib/views');
@@ -292,10 +278,11 @@ async function main(){
   }
 
   // add static files
-  addStaticFilesToManifest('cloud_control');
-  // addStaticFilesToManifest('ec2');
-  // addStaticFilesToManifest('s3');
-  // addStaticFilesToManifest('iam');
+  const baseNames = staticFiles.map(file => file.replace('.yaml', ''));
+  baseNames.forEach(service => {
+    console.log('Adding static service to manifest', service);
+    addStaticFilesToManifest(service);
+  });
 
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }

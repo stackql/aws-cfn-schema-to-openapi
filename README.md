@@ -30,9 +30,9 @@ from the `stackql-provider-tests` directory:
 ```bash
 cd ../stackql-provider-tests
 
-# azure
+# awsv2
 sh test-provider.sh \
-awscc \
+awsv2 \
 false \
 /mnt/c/LocalGitRepos/stackql/aws-cfn-schema-to-openapi \
 true
