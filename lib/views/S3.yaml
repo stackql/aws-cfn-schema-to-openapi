@@ -9,7 +9,7 @@ components:
   x-stackQL-resources:
     bucket:
       name: bucket
-      id: awsv2.s3.bucket
+      id: aws.s3.bucket
       x-cfn-schema-name: Bucket
       x-type: get
       x-identifiers:
@@ -48,7 +48,7 @@ components:
               JSON_EXTRACT(Properties, '$.RegionalDomainName') as regional_domain_name,
               SPLIT_PART(SPLIT_PART(JSON_EXTRACT(Properties, '$.RegionalDomainName'), '.s3.', 2), '.', 1) as bucket_location,
               JSON_EXTRACT(Properties, '$.WebsiteURL') as website_url
-              FROM awsv2.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
+              FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
               AND data__Identifier = '<BucketName>'
               AND region = 'us-east-1'
             fallback:
@@ -83,6 +83,6 @@ components:
                 json_extract_path_text(Properties, 'RegionalDomainName') as regional_domain_name,
                 SPLIT_PART(SPLIT_PART(json_extract_path_text(Properties, 'RegionalDomainName'), '.s3.', 2), '.', 1) as bucket_location,
                 json_extract_path_text(Properties, 'WebsiteURL') as website_url
-                FROM awsv2.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
+                FROM aws.cloud_control.resource WHERE data__TypeName = 'AWS::S3::Bucket'
                 AND data__Identifier = '<BucketName>'
                 AND region = 'us-east-1'

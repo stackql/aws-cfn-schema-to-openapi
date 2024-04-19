@@ -6,7 +6,7 @@ import { dump, load } from "js-yaml";
 import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
 import { resourceTypes } from './cc_supported_resources.js';
 
-const providerName = 'awsv2';
+const providerName = 'aws';
 
 const staticFiles = [
   'cloud_control.yaml', 
