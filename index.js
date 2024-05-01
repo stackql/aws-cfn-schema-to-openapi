@@ -3,7 +3,16 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { dump, load } from "js-yaml";
-import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec } from './lib/utils/index.js';
+import { 
+  generateStackqlViews, 
+  convertToOpenAPI, 
+  cleanOpenAPISpec, 
+  cloudControlServers, 
+  cloudControlPaths, 
+  cloudControlParameters, 
+  cloudControlSecuritySchemes,
+  cloudControlSchemas, 
+} from './lib/utils/index.js';
 import { resourceTypes } from './cc_supported_resources.js';
 
 const providerName = 'aws';
@@ -117,12 +126,32 @@ async function processService(servicePrefix, outputFilename) {
   const openAPI = {
     openapi: "3.0.0",
     info: {
-      version: "1.0.0",
+      version: "2.0.0",
+      "x-serviceName": "cloudcontrolapi"
     },
-    paths: {},
+    servers: cloudControlServers,
     components: {
+      parameters: cloudControlParameters,
+      'x-cloud-control-schemas': cloudControlSchemas,
       schemas: {},
+      securitySchemes: cloudControlSecuritySchemes,
     },
+    paths: cloudControlPaths,
+    // security: {
+    //   hmac: []
+    // },
+    'x-stackQL-config': {
+      pagination: {
+        requestToken: {
+          key: "NextToken",
+          location: "body"
+        },
+        responseToken: {
+          key: "NextToken",
+          location: "body"
+        },
+      }
+    }
   };
 
   const files = findFiles(docsDir, servicePrefix);
