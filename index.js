@@ -3,7 +3,16 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import { dump, load } from "js-yaml";
-import { generateStackqlViews, convertToOpenAPI, cleanOpenAPISpec, cloudControlServers, cloudControlPaths, cloudControlParameters, cloudControlSecuritySchemes } from './lib/utils/index.js';
+import { 
+  generateStackqlViews, 
+  convertToOpenAPI, 
+  cleanOpenAPISpec, 
+  cloudControlServers, 
+  cloudControlPaths, 
+  cloudControlParameters, 
+  cloudControlSecuritySchemes,
+  cloudControlSchemas, 
+} from './lib/utils/index.js';
 import { resourceTypes } from './cc_supported_resources.js';
 
 const providerName = 'aws';
@@ -121,16 +130,16 @@ async function processService(servicePrefix, outputFilename) {
       "x-serviceName": "cloudcontrolapi"
     },
     servers: cloudControlServers,
-    paths: cloudControlPaths,
     components: {
       parameters: cloudControlParameters,
-      'x-cloud-control-schemas': {},
+      'x-cloud-control-schemas': cloudControlSchemas,
       schemas: {},
       securitySchemes: cloudControlSecuritySchemes,
     },
-    security: {
-      hmac: []
-    },
+    paths: cloudControlPaths,
+    // security: {
+    //   hmac: []
+    // },
     'x-stackQL-config': {
       pagination: {
         requestToken: {
