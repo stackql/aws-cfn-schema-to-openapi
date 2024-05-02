@@ -15,15 +15,18 @@ import {
 } from './lib/utils/index.js';
 import { resourceTypes } from './cc_supported_resources.js';
 
+//
+// update...
+//
 const providerName = 'aws';
-
 const staticFiles = [
   'cloud_control.yaml', 
+  'cloudhsm.yaml',
+  'cloudwatch_api.yaml',
   'ec2_api.yaml', 
   'iam_api.yaml', 
   's3_api.yaml',
-  'cloudwatch_api.yaml',
-  'cloudhsm.yaml',
+  'transfer_api.yaml',
 ];
 
 const __filename = fileURLToPath(import.meta.url);
