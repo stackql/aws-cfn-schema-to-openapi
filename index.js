@@ -145,6 +145,9 @@ async function processService(servicePrefix, outputFilename) {
     // },
     'x-stackQL-config': {
       pagination: {
+        requestTranslate: {
+          algorithm: "drop_double_underscore_params"
+        },
         requestToken: {
           key: "NextToken",
           location: "body"
@@ -243,7 +246,6 @@ function addAdditionalViews(openAPISpec, serviceTitle) {
   return openAPISpec;
 }
 
-
 function findFilesInDocs(filter) {
 
   const filePath = filter? path.join(docsDir, filter) : docsDir;
@@ -267,7 +269,6 @@ return (
   }
 )
 }
-
 
 async function main(){
   clearOutputDir();
