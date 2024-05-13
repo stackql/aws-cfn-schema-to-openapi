@@ -144,10 +144,10 @@ async function processService(servicePrefix, outputFilename) {
     //   hmac: []
     // },
     'x-stackQL-config': {
+      requestTranslate: {
+        algorithm: "drop_double_underscore_params"
+      },
       pagination: {
-        requestTranslate: {
-          algorithm: "drop_double_underscore_params"
-        },
         requestToken: {
           key: "NextToken",
           location: "body"
