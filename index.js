@@ -25,6 +25,7 @@ const staticFiles = [
   'cloudwatch_api.yaml',
   'ec2_api.yaml', 
   'iam_api.yaml', 
+  'route53_api.yaml',
   's3_api.yaml',
   'transfer_api.yaml',
 ];
@@ -144,10 +145,10 @@ async function processService(servicePrefix, outputFilename) {
     //   hmac: []
     // },
     'x-stackQL-config': {
+      requestTranslate: {
+        algorithm: "drop_double_underscore_params"
+      },
       pagination: {
-        requestTranslate: {
-          algorithm: "drop_double_underscore_params"
-        },
         requestToken: {
           key: "NextToken",
           location: "body"
