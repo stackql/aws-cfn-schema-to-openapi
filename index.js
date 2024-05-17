@@ -25,6 +25,7 @@ const staticFiles = [
   'cloudwatch_api.yaml',
   'ec2_api.yaml', 
   'iam_api.yaml', 
+  'route53_api.yaml',
   's3_api.yaml',
   'transfer_api.yaml',
 ];
