@@ -202,6 +202,9 @@ components:
   x-stackQL-resources:
     resource_record_sets:
       name: resource_record_sets
+      x-cfn-schema-name: ResourceRecordSet
+      x-example-where-clause: "WHERE region = 'us-east-1' AND Id = '<HostedZoneId>'"
+      x-type: custom
       methods:
         create_record_set:
           serviceName: route53
@@ -226,60 +229,12 @@ components:
         delete: []
         insert:
           - $ref: '#/components/x-stackQL-resources/resource_record_sets/methods/create_record_set'
+            reqParams: data__ChangeBatch, Id, region
         select:
           - $ref: '#/components/x-stackQL-resources/resource_record_sets/methods/list_record_sets'
+            reqParams: Id
         update: []
       title: resource_record_sets
-  parameters:
-    X-Amz-Content-Sha256:
-      name: X-Amz-Content-Sha256
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-Date:
-      name: X-Amz-Date
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-Algorithm:
-      name: X-Amz-Algorithm
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-Credential:
-      name: X-Amz-Credential
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-Security-Token:
-      name: X-Amz-Security-Token
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-Signature:
-      name: X-Amz-Signature
-      in: header
-      schema:
-        type: string
-      required: false
-    X-Amz-SignedHeaders:
-      name: X-Amz-SignedHeaders
-      in: header
-      schema:
-        type: string
-      required: false
-  securitySchemes:
-    hmac:
-      type: apiKey
-      name: Authorization
-      in: header
-      description: Amazon Signature authorization v4
-      x-amazon-apigateway-authtype: awsSigv4
   schemas:
     AliasHealthEnabled:
       type: boolean
@@ -1416,8 +1371,6 @@ components:
     UUID:
       type: string
       pattern: '[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}'
-security:
-  - hmac: []
 x-stackQL-config:
   queryParamTranspose:
     algorithm: AWSCanonical
