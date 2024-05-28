@@ -25,9 +25,7 @@ const staticFiles = [
   'cloudwatch_api.yaml',
   'ec2_api.yaml', 
   'iam_api.yaml', 
-  'route53_api.yaml',
   's3_api.yaml',
-  'transfer_api.yaml',
 ];
 
 const __filename = fileURLToPath(import.meta.url);
@@ -214,34 +212,52 @@ async function processService(servicePrefix, outputFilename) {
     cleanedOpenAPI.components.schemas.SseSpecification['additionalProperties'] = false;
   }
 
-  const finalAPI = addAdditionalViews(cleanedOpenAPI, serviceTitle);
+  const finalAPI = addAdditionalRoutes(cleanedOpenAPI, serviceTitle);
 
   writeObjectToYamlFile(finalAPI, outputFilename);
   return true;
 }
 
-function addAdditionalViews(openAPISpec, serviceTitle) {
-  // Check for a custom view definition
-  const viewsDir = path.join(__dirname, 'lib/views');
-  const viewsFiles = findFiles(viewsDir, `${serviceTitle}.yaml`);
+function addAdditionalRoutes(openAPISpec, serviceTitle) {
+  // Check for additional routes
+  const routesDir = path.join(__dirname, 'lib/addtl_routes');
+  const routesFile = findFiles(routesDir, `${serviceTitle}.yaml`);
   
-  if (viewsFiles.length) {
-    const viewsContent = fs.readFileSync(viewsFiles[0], 'utf8');
-    let views = load(viewsContent);
+  if (routesFile.length == 1) {
+    const routesContent = fs.readFileSync(routesFile[0], 'utf8');
+    let addtlRoutes = load(routesContent);
 
-    // Ensure 'views' only contains relevant component definitions
-    if (views.components && views.components['x-stackQL-resources']) {
+    // Ensure 'addtlRoutes' only contains relevant component definitions
+    if (addtlRoutes.components && addtlRoutes.components['x-stackQL-resources']) {
       openAPISpec.components['x-stackQL-resources'] = {
         ...openAPISpec.components['x-stackQL-resources'],
-        ...views.components['x-stackQL-resources']
+        ...addtlRoutes.components['x-stackQL-resources']
       };
     }
-    if (views.components && views.components.schemas) {
+
+    if (addtlRoutes.components && addtlRoutes.components.schemas) {
       openAPISpec.components['schemas'] = {
-        ...openAPISpec.components['schemas'],
-        ...views.components.schemas
+        ...addtlRoutes.components.schemas,
+        ...openAPISpec.components['schemas'], // existing schemas should take precedence
       };
     }
+
+    if (addtlRoutes.paths) {
+      openAPISpec['paths'] = {
+        ...openAPISpec['paths'],
+        ...addtlRoutes.paths
+      };
+    }
+    
+    if (addtlRoutes['x-stackQL-config']) {
+      openAPISpec['x-stackQL-config'] = {
+        ...openAPISpec['x-stackQL-config'],
+        ...addtlRoutes['x-stackQL-config']
+      };
+    }    
+    
+
+
   }
 
   return openAPISpec;
