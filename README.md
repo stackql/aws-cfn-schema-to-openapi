@@ -42,7 +42,7 @@ true
 Use the following script to generate user docs with Docusaurus front matter for AWS view resources:
 
 ```bash
-node lib/utils/generate-docs.cjs
+node lib/utils/generate-docs.js
 ```
 
 output markdown docs are written to `aws-docs`

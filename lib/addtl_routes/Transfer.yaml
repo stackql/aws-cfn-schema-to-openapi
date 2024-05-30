@@ -1471,7 +1471,7 @@ components:
     users:
       name: users
       x-cfn-schema-name: DescribedUser
-      x-example-where-clause: "need_to_update WHERE region = 'us-east-1' AND ServerId = '<ServerId>' AND UserName = '<UserName>'"
+      x-example-where-clause: "WHERE region = 'us-east-1' AND ServerId = '<ServerId>' AND UserName = '<UserName>'"
       x-type: custom      
       methods:
         list_users:
@@ -1563,7 +1563,117 @@ components:
         select: []
         update: []
       title: public_keys
+    server_tags:
+      name: server_tags
+      id: aws.transfer.server_tags
+      x-cfn-schema-name: server_tags
+      x-type: custom_list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |- 
+              SELECT
+              data__ServerId,
+              region,
+              JSON_EXTRACT(json_each.value, '$.Key') as key,
+              JSON_EXTRACT(json_each.value, '$.Value') as value
+              FROM aws.transfer.servers, json_each(Tags)
+              WHERE region = 'us-east-1'
+              AND data__ServerId = 's-ab1234567890123cd'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                  data__ServerId,
+                  region,
+                  json_array_elements_text(Tags)::jsonb ->> 'Key' as key,
+                  json_array_elements_text(Tags)::jsonb ->> 'Value' as value
+                FROM 
+                  aws.transfer.servers
+                WHERE 
+                  region = 'us-east-1'
+                  AND data__ServerId = 's-ab1234567890123cd'
+    user_public_keys:
+      name: user_public_keys
+      id: aws.transfer.user_public_keys
+      x-cfn-schema-name: user_public_keys
+      x-type: custom_list
+      config:
+        views:
+          select:
+            predicate: sqlDialect == "sqlite3"
+            ddl: |- 
+              SELECT
+              data__ServerId,
+              data__UserName,
+              region,
+              JSON_EXTRACT(json_each.value, '$.SshPublicKeyBody') as ssh_public_key_body,
+              JSON_EXTRACT(json_each.value, '$.SshPublicKeyId') as ssh_public_key_id,
+              JSON_EXTRACT(json_each.value, '$.DateImported') as date_imported
+              FROM aws.transfer.users, json_each(SshPublicKeys)
+              WHERE region = 'us-east-1'
+              AND data__ServerId = 's-ab1234567890123cd'
+              AND data__UserName = 'my_user_name'
+            fallback:
+              predicate: sqlDialect == "postgres"
+              ddl: |-
+                SELECT
+                  data__ServerId,
+                  data__UserName,
+                  region,
+                  json_array_elements_text(SshPublicKeys)::jsonb ->> 'SshPublicKeyBody' as ssh_public_key_body,
+                  json_array_elements_text(SshPublicKeys)::jsonb ->> 'SshPublicKeyId' as ssh_public_key_id,
+                  json_array_elements_text(SshPublicKeys)::jsonb ->> 'DateImported' as date_imported
+                FROM 
+                  aws.transfer.users
+                WHERE 
+                  region = 'us-east-1'
+                  AND data__ServerId = 's-ab1234567890123cd'
+                  AND data__UserName = 'my_user_name'
   schemas:
+    user_public_keys:
+      description: Details of a Transfer family server tags
+      type: object
+      additionalProperties: false
+      properties:
+        data__ServerId:
+          type: string
+          description: The server id
+        data__UserName:
+          type: string
+          description: The user name
+        region:
+          type: string
+          description: The AWS region
+        ssh_public_key_body:
+          type: string
+          description: The SSH public key body
+        ssh_public_key_id:
+          type: string
+          description: The SSH public key id
+        date_imported:
+          type: string
+          description: The date imported          
+      x-example-where-clause: WHERE region = '<region>' AND data__ServerId = '<s-serverid>' AND data__UserName = '<my_user_name>'
+    server_tags:
+      description: Details of a Transfer family server tags
+      type: object
+      additionalProperties: false
+      properties:
+        data__ServerId:
+          type: string
+          description: The server id
+        region:
+          type: string
+          description: The AWS region
+        key:
+          type: string
+          description: The key of the tag
+        value:
+          type: string
+          description: The value of the tag
+      x-example-where-clause: WHERE region = '<region>' AND data__ServerId = '<s-serverid>'
     AccessDeniedException: {}
     AddressAllocationId:
       type: string

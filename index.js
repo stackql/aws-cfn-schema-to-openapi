@@ -22,9 +22,7 @@ const providerName = 'aws';
 const staticFiles = [
   'cloud_control.yaml', 
   'cloudhsm.yaml',
-  'cloudwatch_api.yaml',
   'ec2_api.yaml', 
-  'iam_api.yaml', 
   's3_api.yaml',
 ];
 

@@ -64,11 +64,11 @@ x-stackQL-config:
 
 ### 4. Add `x-stackQL-resources` methods and sql verbs
 
-Find all schemas related to the operations included in step 3, you can use the `lib/addtl_routes/resolveSchemas.cjs` script for this.  Update `schemaFile` and `targetPaths` in `resolveSchemas.cjs` and run: 
+Find all schemas related to the operations included in step 3, you can use the `lib/addtl_routes/resolveSchemas.js` script for this.  Update `schemaFile` and `targetPaths` in `resolveSchemas.js` and run: 
 
 ```bash
 cd lib/addtl_routes
-node resolveSchemas.cjs
+node resolveSchemas.js
 ```
 
 Add the schemas to `components/schemas` in the additional route spec.
@@ -109,28 +109,26 @@ components:
         delete: []
         insert:
           - $ref: '#/components/x-stackQL-resources/resource_record_sets/methods/create_record_set'
-            reqParams: data__ChangeBatch, Id, region
         select:
           - $ref: '#/components/x-stackQL-resources/resource_record_sets/methods/list_record_sets'
-            reqParams: Id
         update: []
-        exec: []
       title: resource_record_sets
 ```
-> NOTE that lifecycle routes need to be included under the `sqlVerbs/exec` key for documentation purposes
 
 Additional sections (used for documentation generation) are described here:
 
-| Key                            | Description                                                                                 | Example                                    | Required |
-|--------------------------------|---------------------------------------------------------------------------------------------|--------------------------------------------|----------|
-| `x-cfn-schema-name`            | key in `components/schemas` for the main response body for the read method for the resource | `ResourceRecordSet`                        | Yes      |
-| `x-example-where-clause`       | example where clause used in the documentation `SELECT` example                             | `"WHERE region = 'us-east-1' AND Id = ''"` | No       |
-| `x-type`                       | tells the documentation generator that this is a `custom` resource (value must be `custom`) | `custom`                                   | Yes      |
-| `sqlVerbs/{verb}[n]/reqParams` | required parameters for the method as documented in the `Methods` section of the user docs  | `data__ChangeBatch, Id, region`            | No       |
+| Key                            | Description                                                                                 | Example                                     | Required |
+|--------------------------------|---------------------------------------------------------------------------------------------|---------------------------------------------|----------|
+| `x-cfn-schema-name`            | key in `components/schemas` for the main response body for the read method for the resource | `ResourceRecordSet`                         | No       |
+| `x-example-where-clause`       | example where clause used in the documentation `SELECT` example                             | `"WHERE region = 'us-east-1' AND Id = ''"`  | No       |
+| `x-type`                       | tells the documentation generator that this is a `custom` resource (value must be `custom`) | `custom`                                    | Yes      |
+| `x-description`                | required if `x-cfn-schema-name` is not supplied                                             | `Imports or deletes a public key for a user`| No       |
 
-### 6. Update static selectable resource and method counts in `lib/utils/generate-docs.cjs`
+> NOTE if a resource does not contain a `select` method, then do not supply `x-cfn-schema-name` and include `x-description` 
 
-To generate accurate metrics for the service in the docs, update the following sections in `lib/utils/generate-docs.cjs`:
+### 6. Update static selectable resource and method counts in `lib/utils/generate-docs.js`
+
+To generate accurate metrics for the service in the docs, update the following sections in `lib/utils/generate-docs.js`:
 
 ```javascript
 const staticSelectableResourcesDiff = {
@@ -149,4 +147,4 @@ Build and test the provider using the instructions in the project [`README`](../
 
 ### 9. Update the provider version and generate user docs
 
-Update `awsProviderVer` in `lib/utils/generate-docs.cjs` and generate the user markdown docs to merge into `stackql-registry-docs`.
+Update `awsProviderVer` in `lib/utils/generate-docs.js` and generate the user markdown docs to merge into `stackql-registry-docs`.
