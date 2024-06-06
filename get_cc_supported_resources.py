@@ -1,7 +1,7 @@
-import json
-import subprocess
+import json, subprocess
 
 def get_aws_native_resources(region='us-east-1'):
+
     resource_types = []
 
     # Command configurations for both IMMUTABLE and FULLY_MUTABLE provisioning types
@@ -38,4 +38,7 @@ def get_aws_native_resources(region='us-east-1'):
 
 # Usage example
 aws_resources = get_aws_native_resources()
+
+print('export const resourceTypes = [')
 [print("'" + s + "',") for s in aws_resources]
+print('];')
