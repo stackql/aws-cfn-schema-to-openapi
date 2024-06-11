@@ -3,8 +3,9 @@ Convert AWS CloudFormation Resource Specification to OpenAPI 3.0.0
 
 ## Generating OpenAPI3 Specs
 1. run `sh download-and-preprocess-defs.sh`
-2. run `npm install`
-3. run `node index.js`
+2. run `python3 get_cc_supported_resources.py > cc_supported_resources.js` (requires `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` env vars to be set)
+3. run `npm install`
+4. run `node index.js`
 
 output openapi3 specs (`components/schemas`) are written to `src/aws/v00.00.00000/services`
 
@@ -28,13 +29,13 @@ select bucket_name, region, bucket_encryption_server_side_encryption_configurati
 from the `stackql-provider-tests` directory:
 
 ```bash
-cd ../stackql-provider-tests
+cd ../../stackql-provider-tests
 
 # aws
 sh test-provider.sh \
 aws \
 false \
-/mnt/c/LocalGitRepos/stackql/aws-cfn-schema-to-openapi \
+/mnt/c/LocalGitRepos/stackql/openapi-conversion/aws-cfn-schema-to-openapi \
 true
 ```
 

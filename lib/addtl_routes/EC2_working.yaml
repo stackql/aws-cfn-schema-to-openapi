@@ -1,0 +1,3598 @@
+openapi: 3.0.0
+info:
+  title: EC2
+  description: Additional stackql resources for EC2
+  version: 1.0.0
+paths:
+  /?Action=RebootInstances&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: RebootInstances
+      operationId: GET_RebootInstances
+      description: '<p>Requests a reboot of the specified instances. This operation is asynchronous; it only queues a request to reboot the specified instances. The operation succeeds if the instances are valid and belong to you. Requests to reboot terminated instances are ignored.</p> <p>If an instance does not cleanly shut down within a few minutes, Amazon EC2 performs a hard reboot.</p> <p>For more information about troubleshooting, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html">Troubleshoot an unreachable instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      parameters:
+        - name: InstanceId
+          in: query
+          required: true
+          description: The instance IDs.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/InstanceId'
+                - xml:
+                    name: InstanceId
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: RebootInstances
+      operationId: POST_RebootInstances
+      description: '<p>Requests a reboot of the specified instances. This operation is asynchronous; it only queues a request to reboot the specified instances. The operation succeeds if the instances are valid and belong to you. Requests to reboot terminated instances are ignored.</p> <p>If an instance does not cleanly shut down within a few minutes, Amazon EC2 performs a hard reboot.</p> <p>For more information about troubleshooting, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-console.html">Troubleshoot an unreachable instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RebootInstancesRequest'
+      parameters: []
+  /?Action=StopInstances&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: StopInstances
+      operationId: GET_StopInstances
+      description: '<p>Stops an Amazon EBS-backed instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html">Stop and start your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>You can use the Stop action to hibernate an instance if the instance is <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#enabling-hibernation">enabled for hibernation</a> and it meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>We don''t charge usage for a stopped instance, or data transfer fees; however, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. Every time you start your instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p> <p>You can''t stop or hibernate instance store-backed instances. You can''t use the Stop action to hibernate Spot Instances, but you can specify that Amazon EC2 should hibernate Spot Instances when they are interrupted. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html#hibernate-spot-instances">Hibernating interrupted Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>When you stop or hibernate an instance, we shut it down. You can restart your instance at any time. Before stopping or hibernating an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM, but hibernating an instance does preserve data stored in RAM. If an instance cannot hibernate successfully, a normal shutdown occurs.</p> <p>Stopping and hibernating an instance is different to rebooting or terminating it. For example, when you stop or hibernate an instance, the root device and any other devices attached to the instance persist. When you terminate an instance, the root device and any other devices attached during the instance launch are automatically deleted. For more information about the differences between rebooting, stopping, hibernating, and terminating instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Instance lifecycle</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>When you stop an instance, we attempt to shut it down forcibly after a short while. If your instance appears stuck in the stopping state after a period of time, there may be an issue with the underlying host computer. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html">Troubleshoot stopping your instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/StopInstancesResult'
+      parameters:
+        - name: InstanceId
+          in: query
+          required: true
+          description: The IDs of the instances.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/InstanceId'
+                - xml:
+                    name: InstanceId
+        - name: Hibernate
+          in: query
+          required: false
+          description: '<p>Hibernates the instance if the instance was enabled for hibernation at launch. If the instance cannot hibernate successfully, a normal shutdown occurs. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p> Default: <code>false</code> </p>'
+          schema:
+            type: boolean
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+        - name: Force
+          in: query
+          required: false
+          description: '<p>Forces the instances to stop. The instances do not have an opportunity to flush file system caches or file system metadata. If you use this option, you must perform file system check and repair procedures. This option is not recommended for Windows instances.</p> <p>Default: <code>false</code> </p>'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: StopInstances
+      operationId: POST_StopInstances
+      description: '<p>Stops an Amazon EBS-backed instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html">Stop and start your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>You can use the Stop action to hibernate an instance if the instance is <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#enabling-hibernation">enabled for hibernation</a> and it meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>We don''t charge usage for a stopped instance, or data transfer fees; however, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. Every time you start your instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p> <p>You can''t stop or hibernate instance store-backed instances. You can''t use the Stop action to hibernate Spot Instances, but you can specify that Amazon EC2 should hibernate Spot Instances when they are interrupted. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html#hibernate-spot-instances">Hibernating interrupted Spot Instances</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>When you stop or hibernate an instance, we shut it down. You can restart your instance at any time. Before stopping or hibernating an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM, but hibernating an instance does preserve data stored in RAM. If an instance cannot hibernate successfully, a normal shutdown occurs.</p> <p>Stopping and hibernating an instance is different to rebooting or terminating it. For example, when you stop or hibernate an instance, the root device and any other devices attached to the instance persist. When you terminate an instance, the root device and any other devices attached during the instance launch are automatically deleted. For more information about the differences between rebooting, stopping, hibernating, and terminating instances, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-lifecycle.html">Instance lifecycle</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>When you stop an instance, we attempt to shut it down forcibly after a short while. If your instance appears stuck in the stopping state after a period of time, there may be an issue with the underlying host computer. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/TroubleshootingInstancesStopping.html">Troubleshoot stopping your instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/StopInstancesResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/StopInstancesRequest'
+      parameters: []
+  /?Action=StartInstances&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: StartInstances
+      operationId: GET_StartInstances
+      description: '<p>Starts an Amazon EBS-backed instance that you''ve previously stopped.</p> <p>Instances that use Amazon EBS volumes as their root devices can be quickly stopped and started. When an instance is stopped, the compute resources are released and you are not billed for instance usage. However, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. You can restart your instance at any time. Every time you start your instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p> <p>Before stopping an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM.</p> <p>Performing this operation on an instance that uses an instance store as its root device returns an error.</p> <p>If you attempt to start a T3 instance with <code>host</code> tenancy and the <code>unlimted</code> CPU credit option, the request fails. The <code>unlimited</code> CPU credit option is not supported on Dedicated Hosts. Before you start the instance, either change its CPU credit option to <code>standard</code>, or change its tenancy to <code>default</code> or <code>dedicated</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html">Stop and start your instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/StartInstancesResult'
+      parameters:
+        - name: InstanceId
+          in: query
+          required: true
+          description: The IDs of the instances.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/InstanceId'
+                - xml:
+                    name: InstanceId
+        - name: AdditionalInfo
+          in: query
+          required: false
+          description: Reserved.
+          schema:
+            type: string
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: StartInstances
+      operationId: POST_StartInstances
+      description: '<p>Starts an Amazon EBS-backed instance that you''ve previously stopped.</p> <p>Instances that use Amazon EBS volumes as their root devices can be quickly stopped and started. When an instance is stopped, the compute resources are released and you are not billed for instance usage. However, your root partition Amazon EBS volume remains and continues to persist your data, and you are charged for Amazon EBS volume usage. You can restart your instance at any time. Every time you start your instance, Amazon EC2 charges a one-minute minimum for instance usage, and thereafter charges per second for instance usage.</p> <p>Before stopping an instance, make sure it is in a state from which it can be restarted. Stopping an instance does not preserve data stored in RAM.</p> <p>Performing this operation on an instance that uses an instance store as its root device returns an error.</p> <p>If you attempt to start a T3 instance with <code>host</code> tenancy and the <code>unlimted</code> CPU credit option, the request fails. The <code>unlimited</code> CPU credit option is not supported on Dedicated Hosts. Before you start the instance, either change its CPU credit option to <code>standard</code>, or change its tenancy to <code>default</code> or <code>dedicated</code>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html">Stop and start your instance</a> in the <i>Amazon EC2 User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/StartInstancesResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/StartInstancesRequest'
+      parameters: []
+  /?Action=ResetSnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: ResetSnapshotAttribute
+      operationId: GET_ResetSnapshotAttribute
+      description: '<p>Resets permission settings for the specified snapshot.</p> <p>For more information about modifying snapshot permissions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">Share a snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      parameters:
+        - name: Attribute
+          in: query
+          required: true
+          description: 'The attribute to reset. Currently, only the attribute for permission to create volumes can be reset.'
+          schema:
+            type: string
+            enum:
+              - productCodes
+              - createVolumePermission
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the snapshot.
+          schema:
+            type: string
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: ResetSnapshotAttribute
+      operationId: POST_ResetSnapshotAttribute
+      description: '<p>Resets permission settings for the specified snapshot.</p> <p>For more information about modifying snapshot permissions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">Share a snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ResetSnapshotAttributeRequest'
+      parameters: []
+  /?Action=ModifySnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: ModifySnapshotAttribute
+      operationId: GET_ModifySnapshotAttribute
+      description: '<p>Adds or removes permission settings for the specified snapshot. You may add or remove specified Amazon Web Services account IDs from a snapshot''s list of create volume permissions, but you cannot do both in a single operation. If you need to both add and remove account IDs for a snapshot, you must use multiple operations. You can make up to 500 modifications to a snapshot in a single operation.</p> <p>Encrypted snapshots and snapshots with Amazon Web Services Marketplace product codes cannot be made public. Snapshots encrypted with your default KMS key cannot be shared with other accounts.</p> <p>For more information about modifying snapshot permissions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">Share a snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      parameters:
+        - name: Attribute
+          in: query
+          required: false
+          description: The snapshot attribute to modify. Only volume creation permissions can be modified.
+          schema:
+            type: string
+            enum:
+              - productCodes
+              - createVolumePermission
+        - name: CreateVolumePermission
+          in: query
+          required: false
+          description: A JSON representation of the snapshot attribute modification.
+          schema:
+            type: object
+            properties:
+              undefined:
+                allOf:
+                  - $ref: '#/components/schemas/CreateVolumePermissionList'
+                  - description: Removes the specified Amazon Web Services account ID or group from the list.
+            description: Describes modifications to the list of create volume permissions for a volume.
+        - name: UserGroup
+          in: query
+          required: false
+          description: The group to modify for the snapshot.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/SecurityGroupName'
+                - xml:
+                    name: GroupName
+        - name: OperationType
+          in: query
+          required: false
+          description: The type of operation to perform to the attribute.
+          schema:
+            type: string
+            enum:
+              - add
+              - remove
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the snapshot.
+          schema:
+            type: string
+        - name: UserId
+          in: query
+          required: false
+          description: The account ID to modify for the snapshot.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/String'
+                - xml:
+                    name: UserId
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: ModifySnapshotAttribute
+      operationId: POST_ModifySnapshotAttribute
+      description: '<p>Adds or removes permission settings for the specified snapshot. You may add or remove specified Amazon Web Services account IDs from a snapshot''s list of create volume permissions, but you cannot do both in a single operation. If you need to both add and remove account IDs for a snapshot, you must use multiple operations. You can make up to 500 modifications to a snapshot in a single operation.</p> <p>Encrypted snapshots and snapshots with Amazon Web Services Marketplace product codes cannot be made public. Snapshots encrypted with your default KMS key cannot be shared with other accounts.</p> <p>For more information about modifying snapshot permissions, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">Share a snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ModifySnapshotAttributeRequest'
+      parameters: []
+  /?Action=DescribeSnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: DescribeSnapshotAttribute
+      operationId: GET_DescribeSnapshotAttribute
+      description: '<p>Describes the specified attribute of the specified snapshot. You can specify only one attribute at a time.</p> <p>For more information about EBS snapshots, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotAttributeResult'
+      parameters:
+        - name: Attribute
+          in: query
+          required: true
+          description: The snapshot attribute you would like to view.
+          schema:
+            type: string
+            enum:
+              - productCodes
+              - createVolumePermission
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the EBS snapshot.
+          schema:
+            type: string
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: DescribeSnapshotAttribute
+      operationId: POST_DescribeSnapshotAttribute
+      description: '<p>Describes the specified attribute of the specified snapshot. You can specify only one attribute at a time.</p> <p>For more information about EBS snapshots, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotAttributeResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DescribeSnapshotAttributeRequest'
+      parameters: []
+  /?Action=DescribeSnapshotTierStatus&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: DescribeSnapshotTierStatus
+      operationId: GET_DescribeSnapshotTierStatus
+      description: Describes the storage tier status of one or more Amazon EBS snapshots.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotTierStatusResult'
+      parameters:
+        - name: Filter
+          in: query
+          required: false
+          description: <p>The filters.</p> <ul> <li> <p> <code>snapshot-id</code> - The snapshot ID.</p> </li> <li> <p> <code>volume-id</code> - The ID of the volume the snapshot is for.</p> </li> <li> <p> <code>last-tiering-operation</code> - The state of the last archive or restore action. (<code>archival-in-progress</code> | <code>archival-completed</code> | <code>archival-failed</code> | <code>permanent-restore-in-progress</code> | <code>permanent-restore-completed</code> | <code>permanent-restore-failed</code> | <code>temporary-restore-in-progress</code> | <code>temporary-restore-completed</code> | <code>temporary-restore-failed</code>)</p> </li> </ul>
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/Filter'
+                - xml:
+                    name: Filter
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+        - name: NextToken
+          in: query
+          required: false
+          description: The token for the next page of results.
+          schema:
+            type: string
+        - name: MaxResults
+          in: query
+          required: false
+          description: 'The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.'
+          schema:
+            type: integer
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: DescribeSnapshotTierStatus
+      operationId: POST_DescribeSnapshotTierStatus
+      description: Describes the storage tier status of one or more Amazon EBS snapshots.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotTierStatusResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DescribeSnapshotTierStatusRequest'
+      parameters:
+        - name: MaxResults
+          in: query
+          schema:
+            type: string
+          description: Pagination limit
+          required: false
+        - name: NextToken
+          in: query
+          schema:
+            type: string
+          description: Pagination token
+          required: false
+  /?Action=DescribeSnapshots&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: DescribeSnapshots
+      operationId: GET_DescribeSnapshots
+      description: '<p>Describes the specified EBS snapshots available to you or all of the EBS snapshots available to you.</p> <p>The snapshots available to you include public snapshots, private snapshots that you own, and private snapshots owned by other Amazon Web Services accounts for which you have explicit create volume permissions.</p> <p>The create volume permissions fall into the following categories:</p> <ul> <li> <p> <i>public</i>: The owner of the snapshot granted create volume permissions for the snapshot to the <code>all</code> group. All Amazon Web Services accounts have create volume permissions for these snapshots.</p> </li> <li> <p> <i>explicit</i>: The owner of the snapshot granted create volume permissions to a specific Amazon Web Services account.</p> </li> <li> <p> <i>implicit</i>: An Amazon Web Services account has implicit create volume permissions for all snapshots it owns.</p> </li> </ul> <p>The list of snapshots returned can be filtered by specifying snapshot IDs, snapshot owners, or Amazon Web Services accounts with create volume permissions. If no options are specified, Amazon EC2 returns all snapshots for which you have create volume permissions.</p> <p>If you specify one or more snapshot IDs, only snapshots that have the specified IDs are returned. If you specify an invalid snapshot ID, an error is returned. If you specify a snapshot ID for which you do not have access, it is not included in the returned results.</p> <p>If you specify one or more snapshot owners using the <code>OwnerIds</code> option, only snapshots from the specified owners and for which you have access are returned. The results can include the Amazon Web Services account IDs of the specified owners, <code>amazon</code> for snapshots owned by Amazon, or <code>self</code> for snapshots that you own.</p> <p>If you specify a list of restorable users, only snapshots with create snapshot permissions for those users are returned. You can specify Amazon Web Services account IDs (if you own the snapshots), <code>self</code> for snapshots for which you own or have explicit permissions, or <code>all</code> for public snapshots.</p> <p>If you are describing a long list of snapshots, we recommend that you paginate the output to make the list more manageable. The <code>MaxResults</code> parameter sets the maximum number of results returned in a single page. If the list of results exceeds your <code>MaxResults</code> value, then that number of results is returned along with a <code>NextToken</code> value that can be passed to a subsequent <code>DescribeSnapshots</code> request to retrieve the remaining results.</p> <p>To get the state of fast snapshot restores for a snapshot, use <a>DescribeFastSnapshotRestores</a>.</p> <p>For more information about EBS snapshots, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotsResult'
+      parameters:
+        - name: Filter
+          in: query
+          required: false
+          description: '<p>The filters.</p> <ul> <li> <p> <code>description</code> - A description of the snapshot.</p> </li> <li> <p> <code>encrypted</code> - Indicates whether the snapshot is encrypted (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>owner-alias</code> - The owner alias, from an Amazon-maintained list (<code>amazon</code>). This is not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the related parameter instead of this filter.</p> </li> <li> <p> <code>owner-id</code> - The Amazon Web Services account ID of the owner. We recommend that you use the related parameter instead of this filter.</p> </li> <li> <p> <code>progress</code> - The progress of the snapshot, as a percentage (for example, 80%).</p> </li> <li> <p> <code>snapshot-id</code> - The snapshot ID.</p> </li> <li> <p> <code>start-time</code> - The time stamp when the snapshot was initiated.</p> </li> <li> <p> <code>status</code> - The status of the snapshot (<code>pending</code> | <code>completed</code> | <code>error</code>).</p> </li> <li> <p> <code>storage-tier</code> - The storage tier of the snapshot (<code>archive</code> | <code>standard</code>).</p> </li> <li> <p> <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>volume-id</code> - The ID of the volume the snapshot is for.</p> </li> <li> <p> <code>volume-size</code> - The size of the volume, in GiB.</p> </li> </ul>'
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/Filter'
+                - xml:
+                    name: Filter
+        - name: MaxResults
+          in: query
+          required: false
+          description: 'The maximum number of snapshot results returned by <code>DescribeSnapshots</code> in paginated output. When this parameter is used, <code>DescribeSnapshots</code> only returns <code>MaxResults</code> results in a single page along with a <code>NextToken</code> response element. The remaining results of the initial request can be seen by sending another <code>DescribeSnapshots</code> request with the returned <code>NextToken</code> value. This value can be between 5 and 1,000; if <code>MaxResults</code> is given a value larger than 1,000, only 1,000 results are returned. If this parameter is not used, then <code>DescribeSnapshots</code> returns all results. You cannot specify this parameter and the snapshot IDs parameter in the same request.'
+          schema:
+            type: integer
+        - name: NextToken
+          in: query
+          required: false
+          description: The <code>NextToken</code> value returned from a previous paginated <code>DescribeSnapshots</code> request where <code>MaxResults</code> was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the <code>NextToken</code> value. This value is <code>null</code> when there are no more results to return.
+          schema:
+            type: string
+        - name: Owner
+          in: query
+          required: false
+          description: 'Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services account IDs, <code>self</code>, and <code>amazon</code>.'
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/String'
+                - xml:
+                    name: Owner
+        - name: RestorableBy
+          in: query
+          required: false
+          description: The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/String'
+        - name: SnapshotId
+          in: query
+          required: false
+          description: '<p>The snapshot IDs.</p> <p>Default: Describes the snapshots for which you have create volume permissions.</p>'
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/SnapshotId'
+                - xml:
+                    name: SnapshotId
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: DescribeSnapshots
+      operationId: POST_DescribeSnapshots
+      description: '<p>Describes the specified EBS snapshots available to you or all of the EBS snapshots available to you.</p> <p>The snapshots available to you include public snapshots, private snapshots that you own, and private snapshots owned by other Amazon Web Services accounts for which you have explicit create volume permissions.</p> <p>The create volume permissions fall into the following categories:</p> <ul> <li> <p> <i>public</i>: The owner of the snapshot granted create volume permissions for the snapshot to the <code>all</code> group. All Amazon Web Services accounts have create volume permissions for these snapshots.</p> </li> <li> <p> <i>explicit</i>: The owner of the snapshot granted create volume permissions to a specific Amazon Web Services account.</p> </li> <li> <p> <i>implicit</i>: An Amazon Web Services account has implicit create volume permissions for all snapshots it owns.</p> </li> </ul> <p>The list of snapshots returned can be filtered by specifying snapshot IDs, snapshot owners, or Amazon Web Services accounts with create volume permissions. If no options are specified, Amazon EC2 returns all snapshots for which you have create volume permissions.</p> <p>If you specify one or more snapshot IDs, only snapshots that have the specified IDs are returned. If you specify an invalid snapshot ID, an error is returned. If you specify a snapshot ID for which you do not have access, it is not included in the returned results.</p> <p>If you specify one or more snapshot owners using the <code>OwnerIds</code> option, only snapshots from the specified owners and for which you have access are returned. The results can include the Amazon Web Services account IDs of the specified owners, <code>amazon</code> for snapshots owned by Amazon, or <code>self</code> for snapshots that you own.</p> <p>If you specify a list of restorable users, only snapshots with create snapshot permissions for those users are returned. You can specify Amazon Web Services account IDs (if you own the snapshots), <code>self</code> for snapshots for which you own or have explicit permissions, or <code>all</code> for public snapshots.</p> <p>If you are describing a long list of snapshots, we recommend that you paginate the output to make the list more manageable. The <code>MaxResults</code> parameter sets the maximum number of results returned in a single page. If the list of results exceeds your <code>MaxResults</code> value, then that number of results is returned along with a <code>NextToken</code> value that can be passed to a subsequent <code>DescribeSnapshots</code> request to retrieve the remaining results.</p> <p>To get the state of fast snapshot restores for a snapshot, use <a>DescribeFastSnapshotRestores</a>.</p> <p>For more information about EBS snapshots, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html">Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeSnapshotsResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DescribeSnapshotsRequest'
+      parameters:
+        - name: MaxResults
+          in: query
+          schema:
+            type: string
+          description: Pagination limit
+          required: false
+        - name: NextToken
+          in: query
+          schema:
+            type: string
+          description: Pagination token
+          required: false
+  /?Action=ModifySnapshotTier&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: ModifySnapshotTier
+      operationId: GET_ModifySnapshotTier
+      description: 'Archives an Amazon EBS snapshot. When you archive a snapshot, it is converted to a full snapshot that includes all of the blocks of data that were written to the volume at the time the snapshot was created, and moved from the standard tier to the archive tier. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-archive.html">Archive Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ModifySnapshotTierResult'
+      parameters:
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the snapshot.
+          schema:
+            type: string
+        - name: StorageTier
+          in: query
+          required: false
+          description: The name of the storage tier. You must specify <code>archive</code>.
+          schema:
+            type: string
+            enum:
+              - archive
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: ModifySnapshotTier
+      operationId: POST_ModifySnapshotTier
+      description: 'Archives an Amazon EBS snapshot. When you archive a snapshot, it is converted to a full snapshot that includes all of the blocks of data that were written to the volume at the time the snapshot was created, and moved from the standard tier to the archive tier. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-archive.html">Archive Amazon EBS snapshots</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ModifySnapshotTierResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ModifySnapshotTierRequest'
+      parameters: []
+  /?Action=RestoreSnapshotTier&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: RestoreSnapshotTier
+      operationId: GET_RestoreSnapshotTier
+      description: '<p>Restores an archived Amazon EBS snapshot for use temporarily or permanently, or modifies the restore period or restore type for a snapshot that was previously temporarily restored.</p> <p>For more information see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-snapshot-archiving.html#restore-archived-snapshot"> Restore an archived snapshot</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-snapshot-archiving.html#modify-temp-restore-period"> modify the restore period or restore type for a temporarily restored snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/RestoreSnapshotTierResult'
+      parameters:
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the snapshot to restore.
+          schema:
+            type: string
+        - name: TemporaryRestoreDays
+          in: query
+          required: false
+          description: '<p>Specifies the number of days for which to temporarily restore an archived snapshot. Required for temporary restores only. The snapshot will be automatically re-archived after this period.</p> <p>To temporarily restore an archived snapshot, specify the number of days and omit the <b>PermanentRestore</b> parameter or set it to <code>false</code>.</p>'
+          schema:
+            type: integer
+        - name: PermanentRestore
+          in: query
+          required: false
+          description: 'Indicates whether to permanently restore an archived snapshot. To permanently restore an archived snapshot, specify <code>true</code> and omit the <b>RestoreSnapshotTierRequest$TemporaryRestoreDays</b> parameter.'
+          schema:
+            type: boolean
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: RestoreSnapshotTier
+      operationId: POST_RestoreSnapshotTier
+      description: '<p>Restores an archived Amazon EBS snapshot for use temporarily or permanently, or modifies the restore period or restore type for a snapshot that was previously temporarily restored.</p> <p>For more information see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-snapshot-archiving.html#restore-archived-snapshot"> Restore an archived snapshot</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/working-with-snapshot-archiving.html#modify-temp-restore-period"> modify the restore period or restore type for a temporarily restored snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/RestoreSnapshotTierResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RestoreSnapshotTierRequest'
+      parameters: []
+  /?Action=CreateSnapshot&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: CreateSnapshot
+      operationId: GET_CreateSnapshot
+      description: '<p>Creates a snapshot of an EBS volume and stores it in Amazon S3. You can use snapshots for backups, to make copies of EBS volumes, and to save data before shutting down an instance.</p> <p>You can create snapshots of volumes in a Region and volumes on an Outpost. If you create a snapshot of a volume in a Region, the snapshot must be stored in the same Region as the volume. If you create a snapshot of a volume on an Outpost, the snapshot can be stored on the same Outpost as the volume, or in the Region for that Outpost.</p> <p>When a snapshot is created, any Amazon Web Services Marketplace product codes that are associated with the source volume are propagated to the snapshot.</p> <p>You can take a snapshot of an attached volume that is in use. However, snapshots only capture data that has been written to your Amazon EBS volume at the time the snapshot command is issued; this might exclude any data that has been cached by any applications or the operating system. If you can pause any file systems on the volume long enough to take a snapshot, your snapshot should be complete. However, if you cannot pause all file writes to the volume, you should unmount the volume from within the instance, issue the snapshot command, and then remount the volume to ensure a consistent and complete snapshot. You may remount and use your volume while the snapshot status is <code>pending</code>.</p> <p>To create a snapshot for Amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.</p> <p>Snapshots that are taken from encrypted volumes are automatically encrypted. Volumes that are created from encrypted snapshots are also automatically encrypted. Your encrypted volumes and any associated snapshots always remain protected.</p> <p>You can tag your snapshots during creation. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tag your Amazon EC2 resources</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html">Amazon Elastic Block Store</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+      parameters:
+        - name: Description
+          in: query
+          required: false
+          description: A description for the snapshot.
+          schema:
+            type: string
+        - name: OutpostArn
+          in: query
+          required: false
+          description: '<p>The Amazon Resource Name (ARN) of the Outpost on which to create a local snapshot.</p> <ul> <li> <p>To create a snapshot of a volume in a Region, omit this parameter. The snapshot is created in the same Region as the volume.</p> </li> <li> <p>To create a snapshot of a volume on an Outpost and store the snapshot in the Region, omit this parameter. The snapshot is created in the Region for the Outpost.</p> </li> <li> <p>To create a snapshot of a volume on an Outpost and store the snapshot on an Outpost, specify the ARN of the destination Outpost. The snapshot must be created on the same Outpost as the volume.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#create-snapshot">Create local snapshots from volumes on an Outpost</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+          schema:
+            type: string
+        - name: VolumeId
+          in: query
+          required: true
+          description: The ID of the Amazon EBS volume.
+          schema:
+            type: string
+        - name: TagSpecification
+          in: query
+          required: false
+          description: The tags to apply to the snapshot during creation.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/TagSpecification'
+                - xml:
+                    name: item
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: CreateSnapshot
+      operationId: POST_CreateSnapshot
+      description: '<p>Creates a snapshot of an EBS volume and stores it in Amazon S3. You can use snapshots for backups, to make copies of EBS volumes, and to save data before shutting down an instance.</p> <p>You can create snapshots of volumes in a Region and volumes on an Outpost. If you create a snapshot of a volume in a Region, the snapshot must be stored in the same Region as the volume. If you create a snapshot of a volume on an Outpost, the snapshot can be stored on the same Outpost as the volume, or in the Region for that Outpost.</p> <p>When a snapshot is created, any Amazon Web Services Marketplace product codes that are associated with the source volume are propagated to the snapshot.</p> <p>You can take a snapshot of an attached volume that is in use. However, snapshots only capture data that has been written to your Amazon EBS volume at the time the snapshot command is issued; this might exclude any data that has been cached by any applications or the operating system. If you can pause any file systems on the volume long enough to take a snapshot, your snapshot should be complete. However, if you cannot pause all file writes to the volume, you should unmount the volume from within the instance, issue the snapshot command, and then remount the volume to ensure a consistent and complete snapshot. You may remount and use your volume while the snapshot status is <code>pending</code>.</p> <p>To create a snapshot for Amazon EBS volumes that serve as root devices, you should stop the instance before taking the snapshot.</p> <p>Snapshots that are taken from encrypted volumes are automatically encrypted. Volumes that are created from encrypted snapshots are also automatically encrypted. Your encrypted volumes and any associated snapshots always remain protected.</p> <p>You can tag your snapshots during creation. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html">Tag your Amazon EC2 resources</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AmazonEBS.html">Amazon Elastic Block Store</a> and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/Snapshot'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CreateSnapshotRequest'
+      parameters: []
+  /?Action=CreateSnapshots&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: CreateSnapshots
+      operationId: GET_CreateSnapshots
+      description: '<p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the parameters. </p> <p>You can create multi-volume snapshots of instances in a Region and instances on an Outpost. If you create snapshots from an instance in a Region, the snapshots must be stored in the same Region as the instance. If you create snapshots from an instance on an Outpost, the snapshots can be stored on the same Outpost as the instance, or in the Region for that Outpost.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/CreateSnapshotsResult'
+      parameters:
+        - name: Description
+          in: query
+          required: false
+          description: ' A description propagated to every snapshot specified by the instance.'
+          schema:
+            type: string
+        - name: InstanceSpecification
+          in: query
+          required: true
+          description: The instance to specify which volumes should be included in the snapshots.
+          schema:
+            type: object
+            properties:
+              undefined:
+                allOf:
+                  - $ref: '#/components/schemas/Boolean'
+                  - description: Excludes the root volume from being snapshotted.
+            description: The instance details to specify which volumes should be snapshotted.
+        - name: OutpostArn
+          in: query
+          required: false
+          description: '<p>The Amazon Resource Name (ARN) of the Outpost on which to create the local snapshots.</p> <ul> <li> <p>To create snapshots from an instance in a Region, omit this parameter. The snapshots are created in the same Region as the instance.</p> </li> <li> <p>To create snapshots from an instance on an Outpost and store the snapshots in the Region, omit this parameter. The snapshots are created in the Region for the Outpost.</p> </li> <li> <p>To create snapshots from an instance on an Outpost and store the snapshots on an Outpost, specify the ARN of the destination Outpost. The snapshots must be created on the same Outpost as the instance.</p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#create-multivol-snapshot"> Create multi-volume local snapshots from instances on an Outpost</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+          schema:
+            type: string
+        - name: TagSpecification
+          in: query
+          required: false
+          description: Tags to apply to every snapshot specified by the instance.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/TagSpecification'
+                - xml:
+                    name: item
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+        - name: CopyTagsFromSource
+          in: query
+          required: false
+          description: Copies the tags from the specified volume to corresponding snapshot.
+          schema:
+            type: string
+            enum:
+              - volume
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: CreateSnapshots
+      operationId: POST_CreateSnapshots
+      description: '<p>Creates crash-consistent snapshots of multiple EBS volumes and stores the data in S3. Volumes are chosen by specifying an instance. Any attached volumes will produce one snapshot each that is crash-consistent across the instance. Boot volumes can be excluded by changing the parameters. </p> <p>You can create multi-volume snapshots of instances in a Region and instances on an Outpost. If you create snapshots from an instance in a Region, the snapshots must be stored in the same Region as the instance. If you create snapshots from an instance on an Outpost, the snapshots can be stored on the same Outpost as the instance, or in the Region for that Outpost.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/CreateSnapshotsResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CreateSnapshotsRequest'
+      parameters: []
+  /?Action=CopySnapshot&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: CopySnapshot
+      operationId: GET_CopySnapshot
+      description: '<p>Copies a point-in-time snapshot of an EBS volume and stores it in Amazon S3. You can copy a snapshot within the same Region, from one Region to another, or from a Region to an Outpost. You can''t copy a snapshot from an Outpost to a Region, from one Outpost to another, or within the same Outpost.</p> <p>You can use the snapshot to create EBS volumes or Amazon Machine Images (AMIs).</p> <p>When copying snapshots to a Region, copies of encrypted EBS snapshots remain encrypted. Copies of unencrypted snapshots remain unencrypted, unless you enable encryption for the snapshot copy operation. By default, encrypted snapshot copies use the default Key Management Service (KMS) KMS key; however, you can specify a different KMS key. To copy an encrypted snapshot that has been shared from another account, you must have permissions for the KMS key used to encrypt the snapshot.</p> <p>Snapshots copied to an Outpost are encrypted by default using the default encryption key for the Region, or a different key that you specify in the request using <b>KmsKeyId</b>. Outposts do not support unencrypted snapshots. For more information, <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami"> Amazon EBS local snapshots on Outposts</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>Snapshots created by copying another snapshot have an arbitrary volume ID that should not be used for any purpose.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html">Copy an Amazon EBS snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/CopySnapshotResult'
+      parameters:
+        - name: Description
+          in: query
+          required: false
+          description: A description for the EBS snapshot.
+          schema:
+            type: string
+        - name: DestinationOutpostArn
+          in: query
+          required: false
+          description: '<p>The Amazon Resource Name (ARN) of the Outpost to which to copy the snapshot. Only specify this parameter when copying a snapshot from an Amazon Web Services Region to an Outpost. The snapshot must be in the Region for the destination Outpost. You cannot copy a snapshot from an Outpost to a Region, from one Outpost to another, or within the same Outpost.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#copy-snapshots"> Copy snapshots from an Amazon Web Services Region to an Outpost</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+          schema:
+            type: string
+        - name: DestinationRegion
+          in: query
+          required: false
+          description: '<p>The destination Region to use in the <code>PresignedUrl</code> parameter of a snapshot copy operation. This parameter is only valid for specifying the destination Region in a <code>PresignedUrl</code> parameter, where it is required.</p> <p>The snapshot copy is sent to the regional endpoint that you sent the HTTP request to (for example, <code>ec2.us-east-1.amazonaws.com</code>). With the CLI, this is specified using the <code>--region</code> parameter or the default Region in your Amazon Web Services configuration file.</p>'
+          schema:
+            type: string
+        - name: Encrypted
+          in: query
+          required: false
+          description: 'To encrypt a copy of an unencrypted snapshot if encryption by default is not enabled, enable encryption using this parameter. Otherwise, omit this parameter. Encrypted snapshots are encrypted, even if you omit this parameter and encryption by default is not enabled. You cannot set this parameter to false. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+          schema:
+            type: boolean
+        - name: KmsKeyId
+          in: query
+          required: false
+          description: '<p>The identifier of the Key Management Service (KMS) KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key for Amazon EBS is used. If <code>KmsKeyId</code> is specified, the encrypted state must be <code>true</code>.</p> <p>You can specify the KMS key using any of the following:</p> <ul> <li> <p>Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.</p> </li> <li> <p>Key alias. For example, alias/ExampleAlias.</p> </li> <li> <p>Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.</p> </li> <li> <p>Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.</p> </li> </ul> <p>Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails.</p>'
+          schema:
+            type: string
+        - name: PresignedUrl
+          in: query
+          required: false
+          description: '<p>When you copy an encrypted source snapshot using the Amazon EC2 Query API, you must supply a pre-signed URL. This parameter is optional for unencrypted snapshots. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html">Query requests</a>.</p> <p>The <code>PresignedUrl</code> should use the snapshot source endpoint, the <code>CopySnapshot</code> action, and include the <code>SourceRegion</code>, <code>SourceSnapshotId</code>, and <code>DestinationRegion</code> parameters. The <code>PresignedUrl</code> must be signed using Amazon Web Services Signature Version 4. Because EBS snapshots are stored in Amazon S3, the signing algorithm for this parameter uses the same logic that is described in <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html">Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)</a> in the <i>Amazon Simple Storage Service API Reference</i>. An invalid or improperly signed <code>PresignedUrl</code> will cause the copy operation to fail asynchronously, and the snapshot will move to an <code>error</code> state.</p>'
+          schema:
+            type: string
+        - name: SourceRegion
+          in: query
+          required: true
+          description: The ID of the Region that contains the snapshot to be copied.
+          schema:
+            type: string
+        - name: SourceSnapshotId
+          in: query
+          required: true
+          description: The ID of the EBS snapshot to copy.
+          schema:
+            type: string
+        - name: TagSpecification
+          in: query
+          required: false
+          description: The tags to apply to the new snapshot.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/TagSpecification'
+                - xml:
+                    name: item
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: CopySnapshot
+      operationId: POST_CopySnapshot
+      description: '<p>Copies a point-in-time snapshot of an EBS volume and stores it in Amazon S3. You can copy a snapshot within the same Region, from one Region to another, or from a Region to an Outpost. You can''t copy a snapshot from an Outpost to a Region, from one Outpost to another, or within the same Outpost.</p> <p>You can use the snapshot to create EBS volumes or Amazon Machine Images (AMIs).</p> <p>When copying snapshots to a Region, copies of encrypted EBS snapshots remain encrypted. Copies of unencrypted snapshots remain unencrypted, unless you enable encryption for the snapshot copy operation. By default, encrypted snapshot copies use the default Key Management Service (KMS) KMS key; however, you can specify a different KMS key. To copy an encrypted snapshot that has been shared from another account, you must have permissions for the KMS key used to encrypt the snapshot.</p> <p>Snapshots copied to an Outpost are encrypted by default using the default encryption key for the Region, or a different key that you specify in the request using <b>KmsKeyId</b>. Outposts do not support unencrypted snapshots. For more information, <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#ami"> Amazon EBS local snapshots on Outposts</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>Snapshots created by copying another snapshot have an arbitrary volume ID that should not be used for any purpose.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-copy-snapshot.html">Copy an Amazon EBS snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/CopySnapshotResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/CopySnapshotRequest'
+      parameters: []
+  /?Action=DeleteSnapshot&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: DeleteSnapshot
+      operationId: GET_DeleteSnapshot
+      description: '<p>Deletes the specified snapshot.</p> <p>When you make periodic snapshots of a volume, the snapshots are incremental, and only the blocks on the device that have changed since your last snapshot are saved in the new snapshot. When you delete a snapshot, only the data not needed for any other snapshot is removed. So regardless of which prior snapshots have been deleted, all active snapshots will have access to all the information needed to restore the volume.</p> <p>You cannot delete a snapshot of the root device of an EBS volume used by a registered AMI. You must first de-register the AMI before you can delete the snapshot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-snapshot.html">Delete an Amazon EBS snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      parameters:
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the EBS snapshot.
+          schema:
+            type: string
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: DeleteSnapshot
+      operationId: POST_DeleteSnapshot
+      description: '<p>Deletes the specified snapshot.</p> <p>When you make periodic snapshots of a volume, the snapshots are incremental, and only the blocks on the device that have changed since your last snapshot are saved in the new snapshot. When you delete a snapshot, only the data not needed for any other snapshot is removed. So regardless of which prior snapshots have been deleted, all active snapshots will have access to all the information needed to restore the volume.</p> <p>You cannot delete a snapshot of the root device of an EBS volume used by a registered AMI. You must first de-register the AMI before you can delete the snapshot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-deleting-snapshot.html">Delete an Amazon EBS snapshot</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/DeleteSnapshotRequest'
+      parameters: []
+  /?Action=ImportSnapshot&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: ImportSnapshot
+      operationId: GET_ImportSnapshot
+      description: '<p>Imports a disk into an EBS snapshot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html">Importing a disk as a snapshot using VM Import/Export</a> in the <i>VM Import/Export User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ImportSnapshotResult'
+      parameters:
+        - name: ClientData
+          in: query
+          required: false
+          description: The client-specific data.
+          schema:
+            type: object
+            properties:
+              undefined:
+                allOf:
+                  - $ref: '#/components/schemas/DateTime'
+                  - description: The time that the disk upload starts.
+            description: Describes the client-specific data.
+        - name: ClientToken
+          in: query
+          required: false
+          description: Token to enable idempotency for VM import requests.
+          schema:
+            type: string
+        - name: Description
+          in: query
+          required: false
+          description: The description string for the import snapshot task.
+          schema:
+            type: string
+        - name: DiskContainer
+          in: query
+          required: false
+          description: Information about the disk container.
+          schema:
+            type: object
+            properties:
+              undefined:
+                allOf:
+                  - $ref: '#/components/schemas/UserBucket'
+                  - description: The Amazon S3 bucket for the disk image.
+            description: The disk container object for the import snapshot request.
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+        - name: Encrypted
+          in: query
+          required: false
+          description: 'Specifies whether the destination snapshot of the imported image should be encrypted. The default KMS key for EBS is used unless you specify a non-default KMS key using <code>KmsKeyId</code>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+          schema:
+            type: boolean
+        - name: KmsKeyId
+          in: query
+          required: false
+          description: '<p>An identifier for the symmetric KMS key to use when creating the encrypted snapshot. This parameter is only required if you want to use a non-default KMS key; if this parameter is not specified, the default KMS key for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code> flag must also be set. </p> <p>The KMS key identifier may be provided in any of the following formats: </p> <ul> <li> <p>Key ID</p> </li> <li> <p>Key alias. The alias ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the <code>alias</code> namespace, and then the key alias. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.</p> </li> <li> <p>ARN using key ID. The ID ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the <code>key</code> namespace, and then the key ID. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.</p> </li> <li> <p>ARN using key alias. The alias ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the <code>alias</code> namespace, and then the key alias. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>. </p> </li> </ul> <p>Amazon Web Services parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure. </p> <p>The specified KMS key must exist in the Region that the snapshot is being copied to.</p> <p>Amazon EBS does not support asymmetric KMS keys.</p>'
+          schema:
+            type: string
+        - name: RoleName
+          in: query
+          required: false
+          description: 'The name of the role to use when not using the default role, ''vmimport''.'
+          schema:
+            type: string
+        - name: TagSpecification
+          in: query
+          required: false
+          description: The tags to apply to the import snapshot task during creation.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/TagSpecification'
+                - xml:
+                    name: item
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: ImportSnapshot
+      operationId: POST_ImportSnapshot
+      description: '<p>Imports a disk into an EBS snapshot.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-import-snapshot.html">Importing a disk as a snapshot using VM Import/Export</a> in the <i>VM Import/Export User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ImportSnapshotResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ImportSnapshotRequest'
+      parameters: []
+  /?Action=ListSnapshotsInRecycleBin&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: ListSnapshotsInRecycleBin
+      operationId: GET_ListSnapshotsInRecycleBin
+      description: Lists one or more snapshots that are currently in the Recycle Bin.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListSnapshotsInRecycleBinResult'
+      parameters:
+        - name: MaxResults
+          in: query
+          required: false
+          description: 'The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.'
+          schema:
+            type: integer
+            minimum: 5
+            maximum: 1000
+        - name: NextToken
+          in: query
+          required: false
+          description: The token for the next page of results.
+          schema:
+            type: string
+        - name: SnapshotId
+          in: query
+          required: false
+          description: The IDs of the snapshots to list. Omit this parameter to list all of the snapshots that are in the Recycle Bin.
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/SnapshotId'
+                - xml:
+                    name: SnapshotId
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: ListSnapshotsInRecycleBin
+      operationId: POST_ListSnapshotsInRecycleBin
+      description: Lists one or more snapshots that are currently in the Recycle Bin.
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/ListSnapshotsInRecycleBinResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/ListSnapshotsInRecycleBinRequest'
+      parameters:
+        - name: MaxResults
+          in: query
+          schema:
+            type: string
+          description: Pagination limit
+          required: false
+        - name: NextToken
+          in: query
+          schema:
+            type: string
+          description: Pagination token
+          required: false
+  /?Action=RestoreSnapshotFromRecycleBin&Version=2016-11-15&__nativeEndpoint=true:
+    servers:
+      - url: 'https://ec2.{region}.amazonaws.com'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - us-east-1
+              - us-east-2
+              - us-west-1
+              - us-west-2
+              - us-gov-west-1
+              - us-gov-east-1
+              - ca-central-1
+              - eu-north-1
+              - eu-west-1
+              - eu-west-2
+              - eu-west-3
+              - eu-central-1
+              - eu-south-1
+              - af-south-1
+              - ap-northeast-1
+              - ap-northeast-2
+              - ap-northeast-3
+              - ap-southeast-1
+              - ap-southeast-2
+              - ap-east-1
+              - ap-south-1
+              - sa-east-1
+              - me-south-1
+            default: us-east-1
+        description: The Amazon EC2 multi-region endpoint
+      - url: 'https://ec2.amazonaws.com'
+        variables: {}
+        description: The general Amazon EC2 endpoint for US East (N. Virginia)
+      - url: 'https://ec2.{region}.amazonaws.com.cn'
+        variables:
+          region:
+            description: The AWS region
+            enum:
+              - cn-north-1
+              - cn-northwest-1
+            default: cn-north-1
+        description: The Amazon EC2 endpoint for China (Beijing) and China (Ningxia)
+    get:
+      x-aws-operation-name: RestoreSnapshotFromRecycleBin
+      operationId: GET_RestoreSnapshotFromRecycleBin
+      description: 'Restores a snapshot from the Recycle Bin. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-snaps.html#recycle-bin-restore-snaps">Restore snapshots from the Recycle Bin</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/RestoreSnapshotFromRecycleBinResult'
+      parameters:
+        - name: SnapshotId
+          in: query
+          required: true
+          description: The ID of the snapshot to restore.
+          schema:
+            type: string
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+    post:
+      x-aws-operation-name: RestoreSnapshotFromRecycleBin
+      operationId: POST_RestoreSnapshotFromRecycleBin
+      description: 'Restores a snapshot from the Recycle Bin. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/recycle-bin-working-with-snaps.html#recycle-bin-restore-snaps">Restore snapshots from the Recycle Bin</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/RestoreSnapshotFromRecycleBinResult'
+      requestBody:
+        content:
+          text/xml:
+            schema:
+              $ref: '#/components/schemas/RestoreSnapshotFromRecycleBinRequest'
+      parameters: []
+components: 
+  schemas:
+    Boolean:
+      type: boolean
+    CopySnapshotRequest:
+      type: object
+      required:
+        - SourceRegion
+        - SourceSnapshotId
+      title: CopySnapshotRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The Amazon Resource Name (ARN) of the Outpost to which to
+                copy the snapshot. Only specify this parameter when copying a
+                snapshot from an Amazon Web Services Region to an Outpost. The
+                snapshot must be in the Region for the destination Outpost. You
+                cannot copy a snapshot from an Outpost to a Region, from one
+                Outpost to another, or within the same Outpost.</p> <p>For more
+                information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#copy-snapshots">
+                Copy snapshots from an Amazon Web Services Region to an
+                Outpost</a> in the <i>Amazon Elastic Compute Cloud User
+                Guide</i>.</p>
+        destinationRegion:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The destination Region to use in the
+                <code>PresignedUrl</code> parameter of a snapshot copy
+                operation. This parameter is only valid for specifying the
+                destination Region in a <code>PresignedUrl</code> parameter,
+                where it is required.</p> <p>The snapshot copy is sent to the
+                regional endpoint that you sent the HTTP request to (for
+                example, <code>ec2.us-east-1.amazonaws.com</code>). With the
+                CLI, this is specified using the <code>--region</code> parameter
+                or the default Region in your Amazon Web Services configuration
+                file.</p>
+        encrypted:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                To encrypt a copy of an unencrypted snapshot if encryption by
+                default is not enabled, enable encryption using this parameter.
+                Otherwise, omit this parameter. Encrypted snapshots are
+                encrypted, even if you omit this parameter and encryption by
+                default is not enabled. You cannot set this parameter to false.
+                For more information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">Amazon
+                EBS encryption</a> in the <i>Amazon Elastic Compute Cloud User
+                Guide</i>.
+        kmsKeyId:
+          allOf:
+            - $ref: '#/components/schemas/KmsKeyId'
+            - description: >-
+                <p>The identifier of the Key Management Service (KMS) KMS key to
+                use for Amazon EBS encryption. If this parameter is not
+                specified, your KMS key for Amazon EBS is used. If
+                <code>KmsKeyId</code> is specified, the encrypted state must be
+                <code>true</code>.</p> <p>You can specify the KMS key using any
+                of the following:</p> <ul> <li> <p>Key ID. For example,
+                1234abcd-12ab-34cd-56ef-1234567890ab.</p> </li> <li> <p>Key
+                alias. For example, alias/ExampleAlias.</p> </li> <li> <p>Key
+                ARN. For example,
+                arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.</p>
+                </li> <li> <p>Alias ARN. For example,
+                arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.</p> </li>
+                </ul> <p>Amazon Web Services authenticates the KMS key
+                asynchronously. Therefore, if you specify an ID, alias, or ARN
+                that is not valid, the action can appear to complete, but
+                eventually fails.</p>
+        presignedUrl:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the EBS snapshot to copy.
+        TagSpecification:
+          allOf:
+            - $ref: '#/components/schemas/TagSpecificationList'
+            - description: The tags to apply to the new snapshot.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    CopySnapshotResult:
+      type: object
+      example:
+        SnapshotId: snap-066877671789bd71b
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the new snapshot.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: Any tags applied to the new snapshot.
+    CopyTagsFromSource:
+      type: string
+      enum:
+        - volume
+    CreateSnapshotRequest:
+      type: object
+      required:
+        - VolumeId
+      title: CreateSnapshotRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/VolumeId'
+            - description: The ID of the Amazon EBS volume.
+        TagSpecification:
+          allOf:
+            - $ref: '#/components/schemas/TagSpecificationList'
+            - description: The tags to apply to the snapshot during creation.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    CreateSnapshotsRequest:
+      type: object
+      required:
+        - InstanceSpecification
+      title: CreateSnapshotsRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The Amazon Resource Name (ARN) of the Outpost on which to
+                create the local snapshots.</p> <ul> <li> <p>To create snapshots
+                from an instance in a Region, omit this parameter. The snapshots
+                are created in the same Region as the instance.</p> </li> <li>
+                <p>To create snapshots from an instance on an Outpost and store
+                the snapshots in the Region, omit this parameter. The snapshots
+                are created in the Region for the Outpost.</p> </li> <li> <p>To
+                create snapshots from an instance on an Outpost and store the
+                snapshots on an Outpost, specify the ARN of the destination
+                Outpost. The snapshots must be created on the same Outpost as
+                the instance.</p> </li> </ul> <p>For more information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html#create-multivol-snapshot">
+                Create multi-volume local snapshots from instances on an
+                Outpost</a> in the <i>Amazon Elastic Compute Cloud User
+                Guide</i>.</p>
+        TagSpecification:
+          allOf:
+            - $ref: '#/components/schemas/CopyTagsFromSource'
+            - description: >-
+                Copies the tags from the specified volume to corresponding
+                snapshot.
+    CreateSnapshotsResult:
+      type: object
+      properties:
+        snapshotSet:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotSet'
+            - description: List of snapshots.
+    CreateVolumePermission:
+      type: object
+      properties:
+        group:
+          allOf:
+            - $ref: '#/components/schemas/PermissionGroup'
+            - description: >-
+                The group to be added or removed. The possible value is
+                <code>all</code>.
+        userId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the Amazon Web Services account to be added or
+                removed.
+      description: >-
+        Describes the user or group to be added or removed from the list of
+        create volume permissions for a volume.
+    CreateVolumePermissionList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/CreateVolumePermission'
+          - xml:
+              name: item
+    CreateVolumePermissionModifications:
+      type: object
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/CreateVolumePermissionList'
+            - description: >-
+                Removes the specified Amazon Web Services account ID or group
+                from the list.
+      description: >-
+        Describes modifications to the list of create volume permissions for a
+        volume.
+    DateTime:
+      type: string
+      format: date-time
+    DeleteSnapshotRequest:
+      type: object
+      required:
+        - SnapshotId
+      title: DeleteSnapshotRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotId'
+            - description: The ID of the EBS snapshot.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    DescribeSnapshotAttributeRequest:
+      type: object
+      required:
+        - Attribute
+        - SnapshotId
+      title: DescribeSnapshotAttributeRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotId'
+            - description: The ID of the EBS snapshot.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    DescribeSnapshotAttributeResult:
+      type: object
+      example:
+        CreateVolumePermissions: []
+        SnapshotId: snap-066877671789bd71b
+      properties:
+        createVolumePermission:
+          allOf:
+            - $ref: '#/components/schemas/CreateVolumePermissionList'
+            - description: >-
+                The users and groups that have the permissions for creating
+                volumes from the snapshot.
+        productCodes:
+          allOf:
+            - $ref: '#/components/schemas/ProductCodeList'
+            - description: The product codes.
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the EBS snapshot.
+    DescribeSnapshotTierStatusMaxResults:
+      type: integer
+    DescribeSnapshotTierStatusRequest:
+      type: object
+      title: DescribeSnapshotTierStatusRequest
+      properties:
+        Filter:
+          allOf:
+            - $ref: '#/components/schemas/DescribeSnapshotTierStatusMaxResults'
+            - description: >-
+                The maximum number of results to return with a single call. To
+                retrieve the remaining results, make another call with the
+                returned <code>nextToken</code> value.
+    DescribeSnapshotTierStatusResult:
+      type: object
+      properties:
+        snapshotTierStatusSet:
+          allOf:
+            - $ref: '#/components/schemas/snapshotTierStatusSet'
+            - description: Information about the snapshot's storage tier.
+        nextToken:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The token to use to retrieve the next page of results. This
+                value is <code>null</code> when there are no more results to
+                return.
+    DescribeSnapshotsRequest:
+      type: object
+      title: DescribeSnapshotsRequest
+      properties:
+        Filter:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The <code>NextToken</code> value returned from a previous
+                paginated <code>DescribeSnapshots</code> request where
+                <code>MaxResults</code> was used and the results exceeded the
+                value of that parameter. Pagination continues from the end of
+                the previous results that returned the <code>NextToken</code>
+                value. This value is <code>null</code> when there are no more
+                results to return.
+        Owner:
+          allOf:
+            - $ref: '#/components/schemas/OwnerStringList'
+            - description: >-
+                Scopes the results to snapshots with the specified owners. You
+                can specify a combination of Amazon Web Services account IDs,
+                <code>self</code>, and <code>amazon</code>.
+        RestorableBy:
+          allOf:
+            - $ref: '#/components/schemas/RestorableByStringList'
+            - description: >-
+                The IDs of the Amazon Web Services accounts that can create
+                volumes from the snapshot.
+        SnapshotId:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotIdStringList'
+            - description: >-
+                <p>The snapshot IDs.</p> <p>Default: Describes the snapshots for
+                which you have create volume permissions.</p>
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    DescribeSnapshotsResult:
+      type: object
+      example:
+        NextToken: ''
+        Snapshots:
+          - Description: This is my copied snapshot.
+            OwnerId: 12345678910
+            Progress: 87%
+            SnapshotId: snap-066877671789bd71b
+            StartTime: '2014-02-28T21:37:27.000Z'
+            State: pending
+            VolumeId: vol-1234567890abcdef0
+            VolumeSize: 8
+      properties:
+        snapshotSet:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotList'
+            - description: Information about the snapshots.
+        nextToken:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The <code>NextToken</code> value to include in a future
+                <code>DescribeSnapshots</code> request. When the results of a
+                <code>DescribeSnapshots</code> request exceed
+                <code>MaxResults</code>, this value can be used to retrieve the
+                next page of results. This value is <code>null</code> when there
+                are no more results to return.
+    Double:
+      type: number
+      format: double
+    Filter:
+      type: object
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The name of the filter. Filter names are case-sensitive.
+        Value:
+          allOf:
+            - $ref: '#/components/schemas/ValueStringList'
+            - description: >-
+                The filter values. Filter values are case-sensitive. If you
+                specify multiple values for a filter, the values are joined with
+                an <code>OR</code>, and the request returns all results that
+                match any of the specified values.
+      description: >-
+        <p>A filter name and value pair that is used to return a more specific
+        list of results from a describe operation. Filters can be used to match
+        a set of resources by specific criteria, such as tags, attributes, or
+        IDs.</p> <p>If you specify multiple filters, the filters are joined with
+        an <code>AND</code>, and the request returns only results that match all
+        of the specified filters.</p>
+    ImportSnapshotRequest:
+      type: object
+      title: ImportSnapshotRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The name of the role to use when not using the default role,
+                'vmimport'.
+        TagSpecification:
+          allOf:
+            - $ref: '#/components/schemas/TagSpecificationList'
+            - description: The tags to apply to the import snapshot task during creation.
+    ImportSnapshotResult:
+      type: object
+      properties:
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: A description of the import snapshot task.
+        importTaskId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the import snapshot task.
+        snapshotTaskDetail:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotTaskDetail'
+            - description: Information about the import snapshot task.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: Any tags assigned to the import snapshot task.
+    InstanceId:
+      type: string
+    InstanceIdStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/InstanceId'
+          - xml:
+              name: InstanceId
+    InstanceState:
+      type: object
+      properties:
+        code:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: >-
+                <p>The state of the instance as a 16-bit unsigned integer. </p>
+                <p>The high byte is all of the bits between 2^8 and (2^16)-1,
+                which equals decimal values between 256 and 65,535. These
+                numerical values are used for internal purposes and should be
+                ignored.</p> <p>The low byte is all of the bits between 2^0 and
+                (2^8)-1, which equals decimal values between 0 and 255. </p>
+                <p>The valid values for instance-state-code will all be in the
+                range of the low byte and they are:</p> <ul> <li> <p>
+                <code>0</code> : <code>pending</code> </p> </li> <li> <p>
+                <code>16</code> : <code>running</code> </p> </li> <li> <p>
+                <code>32</code> : <code>shutting-down</code> </p> </li> <li> <p>
+                <code>48</code> : <code>terminated</code> </p> </li> <li> <p>
+                <code>64</code> : <code>stopping</code> </p> </li> <li> <p>
+                <code>80</code> : <code>stopped</code> </p> </li> </ul> <p>You
+                can ignore the high byte value by zeroing out all of the bits
+                above 2^8 or 256 in decimal.</p>
+        name:
+          allOf:
+            - $ref: '#/components/schemas/InstanceStateName'
+            - description: The current state of the instance.
+      description: Describes the current state of an instance.
+    InstanceStateChange:
+      type: object
+      properties:
+        currentState:
+          allOf:
+            - $ref: '#/components/schemas/InstanceState'
+            - description: The current state of the instance.
+        instanceId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the instance.
+        previousState:
+          allOf:
+            - $ref: '#/components/schemas/InstanceState'
+            - description: The previous state of the instance.
+      description: Describes an instance state change.
+    InstanceStateChangeList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/InstanceStateChange'
+          - xml:
+              name: item
+    InstanceStateName:
+      type: string
+      enum:
+        - pending
+        - running
+        - shutting-down
+        - terminated
+        - stopping
+        - stopped
+    Integer:
+      type: integer
+    KmsKeyId:
+      type: string
+    ListSnapshotsInRecycleBinRequest:
+      type: object
+      title: ListSnapshotsInRecycleBinRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The token for the next page of results.
+        SnapshotId:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    ListSnapshotsInRecycleBinResult:
+      type: object
+      properties:
+        snapshotSet:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotRecycleBinInfoList'
+            - description: Information about the snapshots.
+        nextToken:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The token to use to retrieve the next page of results. This
+                value is <code>null</code> when there are no more results to
+                return.
+    MillisecondDateTime:
+      type: string
+      format: date-time
+    ModifySnapshotAttributeRequest:
+      type: object
+      required:
+        - SnapshotId
+      title: ModifySnapshotAttributeRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/CreateVolumePermissionModifications'
+            - description: A JSON representation of the snapshot attribute modification.
+        UserGroup:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotId'
+            - description: The ID of the snapshot.
+        UserId:
+          allOf:
+            - $ref: '#/components/schemas/UserIdStringList'
+            - description: The account ID to modify for the snapshot.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    ModifySnapshotTierRequest:
+      type: object
+      required:
+        - SnapshotId
+      title: ModifySnapshotTierRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    ModifySnapshotTierResult:
+      type: object
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the snapshot.
+        tieringStartTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: The date and time when the archive process was started.
+    OwnerStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/String'
+          - xml:
+              name: Owner
+    PermissionGroup:
+      type: string
+      enum:
+        - all
+    ProductCode:
+      type: object
+      properties:
+        productCode:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The product code.
+        type:
+          allOf:
+            - $ref: '#/components/schemas/ProductCodeValues'
+            - description: The type of product code.
+      description: Describes a product code.
+    ProductCodeList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/ProductCode'
+          - xml:
+              name: item
+    ProductCodeValues:
+      type: string
+      enum:
+        - devpay
+        - marketplace
+    RebootInstancesRequest:
+      type: object
+      required:
+        - InstanceIds
+      title: RebootInstancesRequest
+      properties:
+        InstanceId:
+          allOf:
+            - $ref: '#/components/schemas/InstanceIdStringList'
+            - description: The instance IDs.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    ResetSnapshotAttributeRequest:
+      type: object
+      required:
+        - Attribute
+        - SnapshotId
+      title: ResetSnapshotAttributeRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotId'
+            - description: The ID of the snapshot.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    ResourceType:
+      type: string
+      enum:
+        - capacity-reservation
+        - client-vpn-endpoint
+        - customer-gateway
+        - carrier-gateway
+        - dedicated-host
+        - dhcp-options
+        - egress-only-internet-gateway
+        - elastic-ip
+        - elastic-gpu
+        - export-image-task
+        - export-instance-task
+        - fleet
+        - fpga-image
+        - host-reservation
+        - image
+        - import-image-task
+        - import-snapshot-task
+        - instance
+        - instance-event-window
+        - internet-gateway
+        - ipam
+        - ipam-pool
+        - ipam-scope
+        - ipv4pool-ec2
+        - ipv6pool-ec2
+        - key-pair
+        - launch-template
+        - local-gateway
+        - local-gateway-route-table
+        - local-gateway-virtual-interface
+        - local-gateway-virtual-interface-group
+        - local-gateway-route-table-vpc-association
+        - local-gateway-route-table-virtual-interface-group-association
+        - natgateway
+        - network-acl
+        - network-interface
+        - network-insights-analysis
+        - network-insights-path
+        - network-insights-access-scope
+        - network-insights-access-scope-analysis
+        - placement-group
+        - prefix-list
+        - replace-root-volume-task
+        - reserved-instances
+        - route-table
+        - security-group
+        - security-group-rule
+        - snapshot
+        - spot-fleet-request
+        - spot-instances-request
+        - subnet
+        - subnet-cidr-reservation
+        - traffic-mirror-filter
+        - traffic-mirror-session
+        - traffic-mirror-target
+        - transit-gateway
+        - transit-gateway-attachment
+        - transit-gateway-connect-peer
+        - transit-gateway-multicast-domain
+        - transit-gateway-route-table
+        - volume
+        - vpc
+        - vpc-endpoint
+        - vpc-endpoint-service
+        - vpc-peering-connection
+        - vpn-connection
+        - vpn-gateway
+        - vpc-flow-log
+    RestorableByStringList:
+      type: array
+      items:
+        $ref: '#/components/schemas/String'
+    RestoreSnapshotFromRecycleBinRequest:
+      type: object
+      required:
+        - SnapshotId
+      title: RestoreSnapshotFromRecycleBinRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    RestoreSnapshotFromRecycleBinResult:
+      type: object
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the snapshot.
+        outpostArn:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ARN of the Outpost on which the snapshot is stored. For more
+                information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html">Amazon
+                EBS local snapshots on Outposts</a> in the <i>Amazon Elastic
+                Compute Cloud User Guide</i>.
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The description for the snapshot.
+        encrypted:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: Indicates whether the snapshot is encrypted.
+        ownerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the Amazon Web Services account that owns the EBS
+                snapshot.
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The progress of the snapshot, as a percentage.
+        startTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: The time stamp when the snapshot was initiated.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotState'
+            - description: The state of the snapshot.
+        volumeId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the volume that was used to create the snapshot.
+        volumeSize:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: The size of the volume, in GiB.
+    RestoreSnapshotTierRequest:
+      type: object
+      required:
+        - SnapshotId
+      title: RestoreSnapshotTierRequest
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    RestoreSnapshotTierResult:
+      type: object
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the snapshot.
+        restoreStartTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: The date and time when the snapshot restore process started.
+        restoreDuration:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: >-
+                For temporary restores only. The number of days for which the
+                archived snapshot is temporarily restored.
+        isPermanentRestore:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Indicates whether the snapshot is permanently restored.
+                <code>true</code> indicates a permanent restore.
+                <code>false</code> indicates a temporary restore.
+    SecurityGroupName:
+      type: string
+    Snapshot:
+      type: object
+      example:
+        Description: This is my root volume snapshot.
+        OwnerId: 12345678910
+        SnapshotId: snap-066877671789bd71b
+        StartTime: '2014-02-28T21:06:01.000Z'
+        State: pending
+        Tags: []
+        VolumeId: vol-1234567890abcdef0
+        VolumeSize: 8
+      properties:
+        dataEncryptionKeyId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The data encryption key identifier for the snapshot. This value
+                is a unique identifier that corresponds to the data encryption
+                key that was used to encrypt the original volume or snapshot
+                copy. Because data encryption keys are inherited by volumes
+                created from snapshots, and vice versa, if snapshots share the
+                same data encryption key identifier, then they belong to the
+                same volume/snapshot lineage. This parameter is only returned by
+                <a>DescribeSnapshots</a>.
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The description for the snapshot.
+        encrypted:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: Indicates whether the snapshot is encrypted.
+        kmsKeyId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The Amazon Resource Name (ARN) of the Key Management Service
+                (KMS) KMS key that was used to protect the volume encryption key
+                for the parent volume.
+        ownerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the Amazon Web Services account that owns the EBS
+                snapshot.
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The progress of the snapshot, as a percentage.
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the snapshot. Each snapshot receives a unique
+                identifier when it is created.
+        startTime:
+          allOf:
+            - $ref: '#/components/schemas/DateTime'
+            - description: The time stamp when the snapshot was initiated.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotState'
+            - description: The snapshot state.
+        statusMessage:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                Encrypted Amazon EBS snapshots are copied asynchronously. If a
+                snapshot copy operation fails (for example, if the proper Key
+                Management Service (KMS) permissions are not obtained) this
+                field displays error state details to help you diagnose why the
+                error occurred. This parameter is only returned by
+                <a>DescribeSnapshots</a>.
+        volumeId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the volume that was used to create the snapshot.
+                Snapshots created by the <a>CopySnapshot</a> action have an
+                arbitrary volume ID that should not be used for any purpose.
+        volumeSize:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: The size of the volume, in GiB.
+        ownerAlias:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The Amazon Web Services owner alias, from an Amazon-maintained
+                list (<code>amazon</code>). This is not the user-configured
+                Amazon Web Services account alias set using the IAM console.
+        outpostArn:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ARN of the Outpost on which the snapshot is stored. For more
+                information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html">Amazon
+                EBS local snapshots on Outposts</a> in the <i>Amazon Elastic
+                Compute Cloud User Guide</i>.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: Any tags assigned to the snapshot.
+        storageTier:
+          allOf:
+            - $ref: '#/components/schemas/StorageTier'
+            - description: >-
+                The storage tier in which the snapshot is stored.
+                <code>standard</code> indicates that the snapshot is stored in
+                the standard snapshot storage tier and that it is ready for use.
+                <code>archive</code> indicates that the snapshot is currently
+                archived and that it must be restored before it can be used.
+        restoreExpiryTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: >-
+                Only for archived snapshots that are temporarily restored.
+                Indicates the date and time when a temporarily restored snapshot
+                will be automatically re-archived.
+      description: Describes a snapshot.
+    SnapshotId:
+      type: string
+    SnapshotIdStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/SnapshotId'
+          - xml:
+              name: SnapshotId
+    SnapshotInfo:
+      type: object
+      properties:
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                Description specified by the CreateSnapshotRequest that has been
+                applied to all snapshots.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: Tags associated with this snapshot.
+        encrypted:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: Indicates whether the snapshot is encrypted.
+        volumeId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: Source volume from which this snapshot was created.
+        state:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotState'
+            - description: Current state of the snapshot.
+        volumeSize:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: Size of the volume from which this snapshot was created.
+        startTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: >-
+                Time this snapshot was started. This is the same for all
+                snapshots initiated by the same request.
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: Progress this snapshot has made towards completing.
+        ownerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: Account id used when creating this snapshot.
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: Snapshot id that can be used to describe this snapshot.
+        outpostArn:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ARN of the Outpost on which the snapshot is stored. For more
+                information, see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshots-outposts.html">Amazon
+                EBS local snapshots on Outposts</a> in the <i>Amazon Elastic
+                Compute Cloud User Guide</i>.
+      description: Information about a snapshot.
+    SnapshotList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Snapshot'
+          - xml:
+              name: item
+    SnapshotRecycleBinInfo:
+      type: object
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the snapshot.
+        recycleBinEnterTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: The date and time when the snaphsot entered the Recycle Bin.
+        recycleBinExitTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: >-
+                The date and time when the snapshot is to be permanently deleted
+                from the Recycle Bin.
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The description for the snapshot.
+        volumeId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the volume from which the snapshot was created.
+      description: Information about a snapshot that is currently in the Recycle Bin.
+    SnapshotRecycleBinInfoList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/SnapshotRecycleBinInfo'
+          - xml:
+              name: item
+    SnapshotSet:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/SnapshotInfo'
+          - xml:
+              name: item
+    SnapshotState:
+      type: string
+      enum:
+        - pending
+        - completed
+        - error
+        - recoverable
+        - recovering
+    SnapshotTaskDetail:
+      type: object
+      properties:
+        description:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The description of the snapshot.
+        diskImageSize:
+          allOf:
+            - $ref: '#/components/schemas/Double'
+            - description: The size of the disk in the snapshot, in GiB.
+        encrypted:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: Indicates whether the snapshot is encrypted.
+        format:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The format of the disk image from which the snapshot is created.
+        kmsKeyId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The identifier for the KMS key that was used to create the
+                encrypted snapshot.
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The percentage of completion for the import snapshot task.
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The snapshot ID of the disk being imported.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: A brief status for the import snapshot task.
+        statusMessage:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: A detailed status message for the import snapshot task.
+        url:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The URL of the disk image from which the snapshot is created.
+        userBucket:
+          allOf:
+            - $ref: '#/components/schemas/UserBucketDetails'
+            - description: The Amazon S3 bucket for the disk image.
+      description: Details about the import snapshot task.
+    SnapshotTierStatus:
+      type: object
+      properties:
+        snapshotId:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotId'
+            - description: The ID of the snapshot.
+        volumeId:
+          allOf:
+            - $ref: '#/components/schemas/VolumeId'
+            - description: The ID of the volume from which the snapshot was created.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/SnapshotState'
+            - description: The state of the snapshot.
+        ownerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the Amazon Web Services account that owns the
+                snapshot.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: The tags that are assigned to the snapshot.
+        storageTier:
+          allOf:
+            - $ref: '#/components/schemas/StorageTier'
+            - description: >-
+                The storage tier in which the snapshot is stored.
+                <code>standard</code> indicates that the snapshot is stored in
+                the standard snapshot storage tier and that it is ready for use.
+                <code>archive</code> indicates that the snapshot is currently
+                archived and that it must be restored before it can be used.
+        lastTieringStartTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: >-
+                The date and time when the last archive or restore process was
+                started.
+        lastTieringProgress:
+          allOf:
+            - $ref: '#/components/schemas/Integer'
+            - description: >-
+                The progress of the last archive or restore process, as a
+                percentage.
+        lastTieringOperationStatus:
+          allOf:
+            - $ref: '#/components/schemas/TieringOperationStatus'
+            - description: The status of the last archive or restore process.
+        lastTieringOperationStatusDetail:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                A message describing the status of the last archive or restore
+                process.
+        archivalCompleteTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: The date and time when the last archive process was completed.
+        restoreExpiryTime:
+          allOf:
+            - $ref: '#/components/schemas/MillisecondDateTime'
+            - description: >-
+                Only for archived snapshots that are temporarily restored.
+                Indicates the date and time when a temporarily restored snapshot
+                will be automatically re-archived.
+      description: Provides information about a snapshot's storage tier.
+    StartInstancesRequest:
+      type: object
+      required:
+        - InstanceIds
+      title: StartInstancesRequest
+      properties:
+        InstanceId:
+          allOf:
+            - $ref: '#/components/schemas/InstanceIdStringList'
+            - description: The IDs of the instances.
+        additionalInfo:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: Reserved.
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+    StartInstancesResult:
+      type: object
+      example:
+        StartingInstances:
+          - CurrentState:
+              Code: 0
+              Name: pending
+            InstanceId: i-1234567890abcdef0
+            PreviousState:
+              Code: 80
+              Name: stopped
+      properties:
+        instancesSet:
+          allOf:
+            - $ref: '#/components/schemas/InstanceStateChangeList'
+            - description: Information about the started instances.
+    StopInstancesRequest:
+      type: object
+      required:
+        - InstanceIds
+      title: StopInstancesRequest
+      properties:
+        InstanceId:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                <p>Hibernates the instance if the instance was enabled for
+                hibernation at launch. If the instance cannot hibernate
+                successfully, a normal shutdown occurs. For more information,
+                see <a
+                href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate
+                your instance</a> in the <i>Amazon EC2 User Guide</i>.</p> <p>
+                Default: <code>false</code> </p>
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+        force:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                <p>Forces the instances to stop. The instances do not have an
+                opportunity to flush file system caches or file system metadata.
+                If you use this option, you must perform file system check and
+                repair procedures. This option is not recommended for Windows
+                instances.</p> <p>Default: <code>false</code> </p>
+    StopInstancesResult:
+      type: object
+      example:
+        StoppingInstances:
+          - CurrentState:
+              Code: 64
+              Name: stopping
+            InstanceId: i-1234567890abcdef0
+            PreviousState:
+              Code: 16
+              Name: running
+      properties:
+        instancesSet:
+          allOf:
+            - $ref: '#/components/schemas/InstanceStateChangeList'
+            - description: Information about the stopped instances.
+    StorageTier:
+      type: string
+      enum:
+        - archive
+        - standard
+    String:
+      type: string
+    Tag:
+      type: object
+      properties:
+        key:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The key of the tag.</p> <p>Constraints: Tag keys are
+                case-sensitive and accept a maximum of 127 Unicode characters.
+                May not begin with <code>aws:</code>.</p>
+        value:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The value of the tag.</p> <p>Constraints: Tag values are
+                case-sensitive and accept a maximum of 256 Unicode
+                characters.</p>
+      description: Describes a tag.
+    TagList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Tag'
+          - xml:
+              name: item
+    TagSpecification:
+      type: object
+      properties:
+        resourceType:
+          allOf:
+            - $ref: '#/components/schemas/ResourceType'
+            - description: The type of resource to tag on creation.
+        Tag:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: The tags to apply to the resource.
+      description: The tags to apply to a resource when the resource is being created.
+    TagSpecificationList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/TagSpecification'
+          - xml:
+              name: item
+    TieringOperationStatus:
+      type: string
+      enum:
+        - archival-in-progress
+        - archival-completed
+        - archival-failed
+        - temporary-restore-in-progress
+        - temporary-restore-completed
+        - temporary-restore-failed
+        - permanent-restore-in-progress
+        - permanent-restore-completed
+        - permanent-restore-failed
+    UserBucket:
+      type: object
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The file name of the disk image.
+      description: Describes the Amazon S3 bucket for the disk image.
+    UserBucketDetails:
+      type: object
+      properties:
+        s3Bucket:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The Amazon S3 bucket from which the disk image was created.
+        s3Key:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The file name of the disk image.
+      description: Describes the Amazon S3 bucket for the disk image.
+    UserIdStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/String'
+          - xml:
+              name: UserId
+    ValueStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/String'
+          - xml:
+              name: item
+    VolumeId:
+      type: string
+    snapshotTierStatusSet:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/SnapshotTierStatus'
+          - xml:
+              name: item
+  parameters:
+    X-Amz-Content-Sha256:
+      name: X-Amz-Content-Sha256
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Date:
+      name: X-Amz-Date
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Algorithm:
+      name: X-Amz-Algorithm
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Credential:
+      name: X-Amz-Credential
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Security-Token:
+      name: X-Amz-Security-Token
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Signature:
+      name: X-Amz-Signature
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-SignedHeaders:
+      name: X-Amz-SignedHeaders
+      in: header
+      schema:
+        type: string
+      required: false
+  x-stackQL-resources:
+    #
+    # lifecycle methods for EC2 instances, to be merged with CC CRUDL methods
+    #
+    instances:
+      name: instances
+      x-type: cc_native
+      methods:
+        reboot:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=RebootInstances&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            openAPIDocKey: '200'
+        start:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=StartInstances&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        stop:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=StopInstances&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+      id: aws.ec2.instances
+      sqlVerbs:
+        delete: []
+        insert: []
+        select: []
+        update: []
+      title: instances    
+    #
+    # EC2 Snapshot related resources
+    #
+    snapshot_attributes:
+      name: snapshot_attributes
+      methods:
+        describe:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=DescribeSnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            objectKey: /*
+            openAPIDocKey: '200'
+        modify:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=ModifySnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            openAPIDocKey: '200'
+        reset:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=ResetSnapshotAttribute&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            openAPIDocKey: '200'
+      id: aws.ec2.snapshot_attributes
+      sqlVerbs:
+        delete: []
+        insert: []
+        select:
+        - $ref: '#/components/x-stackQL-resources/snapshot_attributes/methods/describe'
+        update: 
+        - $ref: '#/components/x-stackQL-resources/snapshot_attributes/methods/modify'        
+      title: snapshot_attributes
+    snapshot_tier_status:
+      name: snapshot_tier_status
+      methods:
+        describe:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=DescribeSnapshotTierStatus&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            objectKey: /*/snapshotTierStatusSet/item
+            openAPIDocKey: '200'
+        modify:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=ModifySnapshotTier&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        restore:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=RestoreSnapshotTier&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+      id: aws.ec2.snapshot_tier_status
+      sqlVerbs:
+        delete: []
+        insert: []
+        select:
+        - $ref: '#/components/x-stackQL-resources/snapshot_tier_status/methods/describe'
+        update:
+        - $ref: '#/components/x-stackQL-resources/snapshot_tier_status/methods/modify'
+      title: snapshot_tier_status
+    snapshots:
+      name: snapshots
+      x-cfn-schema-name: DescribeSnapshotsResult
+      x-example-where-clause: "WHERE region = 'us-east-1' AND SnapshotId = '<SnapshotId>'"
+      x-type: native
+      methods:
+        copy:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=CopySnapshot&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        create:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=CreateSnapshot&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        delete:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=DeleteSnapshot&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            openAPIDocKey: '200'
+        import:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=ImportSnapshot&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        create_snapshots:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=CreateSnapshots&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+        describe:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=DescribeSnapshots&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            objectKey: /*/snapshotSet/item
+            openAPIDocKey: '200'
+      id: aws.ec2.snapshots
+      sqlVerbs:
+        delete:
+        - $ref: '#/components/x-stackQL-resources/snapshots/methods/delete'
+        insert:
+        - $ref: '#/components/x-stackQL-resources/snapshots/methods/create'
+        - $ref: '#/components/x-stackQL-resources/snapshots/methods/create_snapshots'
+        select:
+        - $ref: '#/components/x-stackQL-resources/snapshots/methods/describe'
+        update: []
+      title: snapshots
+    snapshots_in_recycle_bin:
+      name: snapshots_in_recycle_bin
+      methods:
+        list:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=ListSnapshotsInRecycleBin&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            objectKey: /*/snapshotSet/item
+            openAPIDocKey: '200'
+        restore:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=RestoreSnapshotFromRecycleBin&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            openAPIDocKey: '200'
+      id: aws.ec2.snapshots_in_recycle_bin
+      sqlVerbs:
+        delete: []
+        insert: []
+        select:
+        - $ref: '#/components/x-stackQL-resources/snapshots_in_recycle_bin/methods/list'
+        update: []
+      title: snapshots_in_recycle_bin  
+x-stackQL-config:
+  queryParamTranspose:
+    algorithm: AWSCanonical
