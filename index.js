@@ -22,8 +22,6 @@ const providerName = 'aws';
 const staticFiles = [
   'cloud_control.yaml', 
   'cloudhsm.yaml',
-  'ec2_api.yaml', 
-  's3_api.yaml',
 ];
 
 const __filename = fileURLToPath(import.meta.url);
@@ -216,6 +214,17 @@ async function processService(servicePrefix, outputFilename) {
   return true;
 }
 
+function deepMerge(target, source) {
+  for (let key in source) {
+    if (source[key] instanceof Object && key in target) {
+      target[key] = deepMerge(target[key], source[key]);
+    } else {
+      target[key] = source[key];
+    }
+  }
+  return target;
+}
+
 function addAdditionalRoutes(openAPISpec, serviceTitle) {
   // Check for additional routes
   const routesDir = path.join(__dirname, 'lib/addtl_routes');
@@ -227,10 +236,10 @@ function addAdditionalRoutes(openAPISpec, serviceTitle) {
 
     // Ensure 'addtlRoutes' only contains relevant component definitions
     if (addtlRoutes.components && addtlRoutes.components['x-stackQL-resources']) {
-      openAPISpec.components['x-stackQL-resources'] = {
-        ...openAPISpec.components['x-stackQL-resources'],
-        ...addtlRoutes.components['x-stackQL-resources']
-      };
+      openAPISpec.components['x-stackQL-resources'] = deepMerge(
+        addtlRoutes.components['x-stackQL-resources'],
+        openAPISpec.components['x-stackQL-resources']
+      );      
     }
 
     if (addtlRoutes.components && addtlRoutes.components.schemas) {
