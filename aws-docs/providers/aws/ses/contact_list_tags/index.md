@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>contact_list_tag</code> resource or lists <code>contact_list_tags</code> in a region
+Expands all tag keys and values for <code>contact_lists</code> in a region
 
 ## Overview
 <table><tbody>
@@ -47,16 +47,29 @@ Creates, updates, deletes or gets a <code>contact_list_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>contact_lists</code> in a region.
+```sql
+SELECT
+region,
+contact_list_name,
+description,
+topics,
+tag_key,
+tag_value
+FROM aws.ses.contact_list_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>contact_list_tags</code> resource, see <a href="/providers/aws/ses/contact_lists/#permissions"><code>contact_lists</code></a>
 
 

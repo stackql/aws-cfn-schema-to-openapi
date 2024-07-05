@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>task_tag</code> resource or lists <code>task_tags</code> in a region
+Expands all tag keys and values for <code>tasks</code> in a region
 
 ## Overview
 <table><tbody>
@@ -58,16 +58,40 @@ Creates, updates, deletes or gets a <code>task_tag</code> resource or lists <cod
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>tasks</code> in a region.
+```sql
+SELECT
+region,
+excludes,
+includes,
+cloud_watch_log_group_arn,
+destination_location_arn,
+name,
+options,
+task_report_config,
+manifest_config,
+schedule,
+source_location_arn,
+task_arn,
+status,
+source_network_interface_arns,
+destination_network_interface_arns,
+tag_key,
+tag_value
+FROM aws.datasync.task_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>task_tags</code> resource, see <a href="/providers/aws/datasync/tasks/#permissions"><code>tasks</code></a>
 
 

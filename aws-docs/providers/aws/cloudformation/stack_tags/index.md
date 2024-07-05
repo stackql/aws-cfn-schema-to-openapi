@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>stack_tag</code> resource or lists <code>stack_tags</code> in a region
+Expands all tag keys and values for <code>stacks</code> in a region
 
 ## Overview
 <table><tbody>
@@ -66,16 +66,48 @@ Creates, updates, deletes or gets a <code>stack_tag</code> resource or lists <co
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>stacks</code> in a region.
+```sql
+SELECT
+region,
+capabilities,
+role_arn,
+outputs,
+description,
+disable_rollback,
+enable_termination_protection,
+notification_arns,
+parameters,
+parent_id,
+root_id,
+change_set_id,
+stack_name,
+stack_id,
+stack_policy_body,
+stack_policy_url,
+stack_status,
+stack_status_reason,
+template_body,
+template_url,
+timeout_in_minutes,
+last_update_time,
+creation_time,
+tag_key,
+tag_value
+FROM aws.cloudformation.stack_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>stack_tags</code> resource, see <a href="/providers/aws/cloudformation/stacks/#permissions"><code>stacks</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>transit_gateway_route_table_attachment_tag</code> resource or lists <code>transit_gateway_route_table_attachment_tags</code> in a region
+Expands all tag keys and values for <code>transit_gateway_route_table_attachments</code> in a region
 
 ## Overview
 <table><tbody>
@@ -59,16 +59,41 @@ Creates, updates, deletes or gets a <code>transit_gateway_route_table_attachment
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>transit_gateway_route_table_attachments</code> in a region.
+```sql
+SELECT
+region,
+peering_id,
+transit_gateway_route_table_arn,
+core_network_id,
+core_network_arn,
+attachment_id,
+owner_account_id,
+attachment_type,
+state,
+edge_location,
+resource_arn,
+attachment_policy_rule_number,
+segment_name,
+proposed_segment_change,
+created_at,
+updated_at,
+tag_key,
+tag_value
+FROM aws.networkmanager.transit_gateway_route_table_attachment_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>transit_gateway_route_table_attachment_tags</code> resource, see <a href="/providers/aws/networkmanager/transit_gateway_route_table_attachments/#permissions"><code>transit_gateway_route_table_attachments</code></a>
 
 

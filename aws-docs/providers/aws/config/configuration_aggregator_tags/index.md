@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>configuration_aggregator_tag</code> resource or lists <code>configuration_aggregator_tags</code> in a region
+Expands all tag keys and values for <code>configuration_aggregators</code> in a region
 
 ## Overview
 <table><tbody>
@@ -48,16 +48,30 @@ Creates, updates, deletes or gets a <code>configuration_aggregator_tag</code> re
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>configuration_aggregators</code> in a region.
+```sql
+SELECT
+region,
+account_aggregation_sources,
+configuration_aggregator_name,
+configuration_aggregator_arn,
+organization_aggregation_source,
+tag_key,
+tag_value
+FROM aws.config.configuration_aggregator_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>configuration_aggregator_tags</code> resource, see <a href="/providers/aws/config/configuration_aggregators/#permissions"><code>configuration_aggregators</code></a>
 
 

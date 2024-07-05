@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>security_profile_tag</code> resource or lists <code>security_profile_tags</code> in a region
+Expands all tag keys and values for <code>security_profiles</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>security_profile_tag</code> resource o
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>security_profiles</code> in a region.
+```sql
+SELECT
+region,
+allowed_access_control_tags,
+description,
+instance_arn,
+permissions,
+security_profile_arn,
+security_profile_name,
+tag_restricted_resources,
+hierarchy_restricted_resources,
+allowed_access_control_hierarchy_group_id,
+applications,
+last_modified_region,
+last_modified_time,
+tag_key,
+tag_value
+FROM aws.connect.security_profile_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>security_profile_tags</code> resource, see <a href="/providers/aws/connect/security_profiles/#permissions"><code>security_profiles</code></a>
 
 

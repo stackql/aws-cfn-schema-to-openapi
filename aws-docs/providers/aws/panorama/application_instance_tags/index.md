@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>application_instance_tag</code> resource or lists <code>application_instance_tags</code> in a region
+Expands all tag keys and values for <code>application_instances</code> in a region
 
 ## Overview
 <table><tbody>
@@ -59,16 +59,41 @@ Creates, updates, deletes or gets an <code>application_instance_tag</code> resou
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>application_instances</code> in a region.
+```sql
+SELECT
+region,
+default_runtime_context_device_name,
+status,
+default_runtime_context_device,
+description,
+application_instance_id_to_replace,
+created_time,
+health_status,
+manifest_overrides_payload,
+last_updated_time,
+runtime_role_arn,
+name,
+application_instance_id,
+status_description,
+manifest_payload,
+arn,
+tag_key,
+tag_value
+FROM aws.panorama.application_instance_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>application_instance_tags</code> resource, see <a href="/providers/aws/panorama/application_instances/#permissions"><code>application_instances</code></a>
 
 

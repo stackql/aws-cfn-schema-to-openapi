@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>signal_catalog_tag</code> resource or lists <code>signal_catalog_tags</code> in a region
+Expands all tag keys and values for <code>signal_catalogs</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets a <code>signal_catalog_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>signal_catalogs</code> in a region.
+```sql
+SELECT
+region,
+arn,
+creation_time,
+description,
+last_modification_time,
+name,
+node_counts,
+nodes,
+tag_key,
+tag_value
+FROM aws.iotfleetwise.signal_catalog_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>signal_catalog_tags</code> resource, see <a href="/providers/aws/iotfleetwise/signal_catalogs/#permissions"><code>signal_catalogs</code></a>
 
 

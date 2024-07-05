@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>microsoft_teams_channel_configuration_tag</code> resource or lists <code>microsoft_teams_channel_configuration_tags</code> in a region
+Expands all tag keys and values for <code>microsoft_teams_channel_configurations</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>microsoft_teams_channel_configuration_
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>microsoft_teams_channel_configurations</code> in a region.
+```sql
+SELECT
+region,
+team_id,
+teams_channel_id,
+teams_tenant_id,
+configuration_name,
+iam_role_arn,
+sns_topic_arns,
+logging_level,
+arn,
+guardrail_policies,
+user_role_required,
+tag_key,
+tag_value
+FROM aws.chatbot.microsoft_teams_channel_configuration_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>microsoft_teams_channel_configuration_tags</code> resource, see <a href="/providers/aws/chatbot/microsoft_teams_channel_configurations/#permissions"><code>microsoft_teams_channel_configurations</code></a>
 
 

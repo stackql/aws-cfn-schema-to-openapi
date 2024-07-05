@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>vod_source_tag</code> resource or lists <code>vod_source_tags</code> in a region
+Expands all tag keys and values for <code>vod_sources</code> in a region
 
 ## Overview
 <table><tbody>
@@ -48,16 +48,30 @@ Creates, updates, deletes or gets a <code>vod_source_tag</code> resource or list
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>vod_sources</code> in a region.
+```sql
+SELECT
+region,
+arn,
+http_package_configurations,
+source_location_name,
+vod_source_name,
+tag_key,
+tag_value
+FROM aws.mediatailor.vod_source_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>vod_source_tags</code> resource, see <a href="/providers/aws/mediatailor/vod_sources/#permissions"><code>vod_sources</code></a>
 
 

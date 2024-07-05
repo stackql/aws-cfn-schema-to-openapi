@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>service_tag</code> resource or lists <code>service_tags</code> in a region
+Expands all tag keys and values for <code>services</code> in a region
 
 ## Overview
 <table><tbody>
@@ -68,16 +68,50 @@ Creates, updates, deletes or gets a <code>service_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>services</code> in a region.
+```sql
+SELECT
+region,
+service_arn,
+capacity_provider_strategy,
+cluster,
+deployment_configuration,
+deployment_controller,
+desired_count,
+enable_ecs_managed_tags,
+enable_execute_command,
+health_check_grace_period_seconds,
+launch_type,
+load_balancers,
+name,
+network_configuration,
+placement_constraints,
+placement_strategies,
+platform_version,
+propagate_tags,
+role,
+scheduling_strategy,
+service_connect_configuration,
+service_name,
+service_registries,
+task_definition,
+volume_configurations,
+tag_key,
+tag_value
+FROM aws.ecs.service_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>service_tags</code> resource, see <a href="/providers/aws/ecs/services/#permissions"><code>services</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>ca_certificate_tag</code> resource or lists <code>ca_certificate_tags</code> in a region
+Expands all tag keys and values for <code>ca_certificates</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets a <code>ca_certificate_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>ca_certificates</code> in a region.
+```sql
+SELECT
+region,
+ca_certificate_pem,
+verification_certificate_pem,
+status,
+certificate_mode,
+auto_registration_status,
+remove_auto_registration,
+registration_config,
+id,
+arn,
+tag_key,
+tag_value
+FROM aws.iot.ca_certificate_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>ca_certificate_tags</code> resource, see <a href="/providers/aws/iot/ca_certificates/#permissions"><code>ca_certificates</code></a>
 
 

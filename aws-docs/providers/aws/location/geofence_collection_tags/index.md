@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>geofence_collection_tag</code> resource or lists <code>geofence_collection_tags</code> in a region
+Expands all tag keys and values for <code>geofence_collections</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets a <code>geofence_collection_tag</code> resourc
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>geofence_collections</code> in a region.
+```sql
+SELECT
+region,
+collection_arn,
+collection_name,
+create_time,
+description,
+kms_key_id,
+pricing_plan,
+pricing_plan_data_source,
+update_time,
+arn,
+tag_key,
+tag_value
+FROM aws.location.geofence_collection_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>geofence_collection_tags</code> resource, see <a href="/providers/aws/location/geofence_collections/#permissions"><code>geofence_collections</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>trail_tag</code> resource or lists <code>trail_tags</code> in a region
+Expands all tag keys and values for <code>trails</code> in a region
 
 ## Overview
 <table><tbody>
@@ -61,16 +61,43 @@ Creates, updates, deletes or gets a <code>trail_tag</code> resource or lists <co
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>trails</code> in a region.
+```sql
+SELECT
+region,
+cloud_watch_logs_log_group_arn,
+cloud_watch_logs_role_arn,
+enable_log_file_validation,
+advanced_event_selectors,
+event_selectors,
+include_global_service_events,
+is_logging,
+is_multi_region_trail,
+is_organization_trail,
+kms_key_id,
+s3_bucket_name,
+s3_key_prefix,
+sns_topic_name,
+trail_name,
+arn,
+sns_topic_arn,
+insight_selectors,
+tag_key,
+tag_value
+FROM aws.cloudtrail.trail_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>trail_tags</code> resource, see <a href="/providers/aws/cloudtrail/trails/#permissions"><code>trails</code></a>
 
 

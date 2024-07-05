@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>domain_name_tag</code> resource or lists <code>domain_name_tags</code> in a region
+Expands all tag keys and values for <code>domain_names</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets a <code>domain_name_tag</code> resource or lis
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>domain_names</code> in a region.
+```sql
+SELECT
+region,
+domain_name,
+distribution_domain_name,
+distribution_hosted_zone_id,
+endpoint_configuration,
+mutual_tls_authentication,
+regional_domain_name,
+regional_hosted_zone_id,
+certificate_arn,
+regional_certificate_arn,
+ownership_verification_certificate_arn,
+security_policy,
+tag_key,
+tag_value
+FROM aws.apigateway.domain_name_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>domain_name_tags</code> resource, see <a href="/providers/aws/apigateway/domain_names/#permissions"><code>domain_names</code></a>
 
 

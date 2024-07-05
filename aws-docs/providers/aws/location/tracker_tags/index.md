@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>tracker_tag</code> resource or lists <code>tracker_tags</code> in a region
+Expands all tag keys and values for <code>trackers</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>tracker_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>trackers</code> in a region.
+```sql
+SELECT
+region,
+create_time,
+description,
+event_bridge_enabled,
+kms_key_enable_geospatial_queries,
+kms_key_id,
+position_filtering,
+pricing_plan,
+pricing_plan_data_source,
+tracker_arn,
+tracker_name,
+update_time,
+arn,
+tag_key,
+tag_value
+FROM aws.location.tracker_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>tracker_tags</code> resource, see <a href="/providers/aws/location/trackers/#permissions"><code>trackers</code></a>
 
 

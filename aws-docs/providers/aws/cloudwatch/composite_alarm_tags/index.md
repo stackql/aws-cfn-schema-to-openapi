@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>composite_alarm_tag</code> resource or lists <code>composite_alarm_tags</code> in a region
+Expands all tag keys and values for <code>composite_alarms</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets a <code>composite_alarm_tag</code> resource or
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>composite_alarms</code> in a region.
+```sql
+SELECT
+region,
+arn,
+alarm_name,
+alarm_rule,
+alarm_description,
+actions_enabled,
+ok_actions,
+alarm_actions,
+insufficient_data_actions,
+actions_suppressor,
+actions_suppressor_wait_period,
+actions_suppressor_extension_period,
+tag_key,
+tag_value
+FROM aws.cloudwatch.composite_alarm_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>composite_alarm_tags</code> resource, see <a href="/providers/aws/cloudwatch/composite_alarms/#permissions"><code>composite_alarms</code></a>
 
 

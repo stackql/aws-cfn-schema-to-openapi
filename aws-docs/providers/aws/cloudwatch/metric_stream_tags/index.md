@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>metric_stream_tag</code> resource or lists <code>metric_stream_tags</code> in a region
+Expands all tag keys and values for <code>metric_streams</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>metric_stream_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>metric_streams</code> in a region.
+```sql
+SELECT
+region,
+arn,
+creation_date,
+exclude_filters,
+firehose_arn,
+include_filters,
+last_update_date,
+name,
+role_arn,
+state,
+output_format,
+statistics_configurations,
+include_linked_accounts_metrics,
+tag_key,
+tag_value
+FROM aws.cloudwatch.metric_stream_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>metric_stream_tags</code> resource, see <a href="/providers/aws/cloudwatch/metric_streams/#permissions"><code>metric_streams</code></a>
 
 

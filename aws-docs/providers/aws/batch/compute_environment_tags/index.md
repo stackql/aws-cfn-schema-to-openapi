@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>compute_environment_tag</code> resource or lists <code>compute_environment_tags</code> in a region
+Expands all tag keys and values for <code>compute_environments</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>compute_environment_tag</code> resourc
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>compute_environments</code> in a region.
+```sql
+SELECT
+region,
+compute_environment_arn,
+compute_environment_name,
+compute_resources,
+replace_compute_environment,
+service_role,
+state,
+type,
+update_policy,
+unmanagedv_cpus,
+eks_configuration,
+tag_key,
+tag_value
+FROM aws.batch.compute_environment_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>compute_environment_tags</code> resource, see <a href="/providers/aws/batch/compute_environments/#permissions"><code>compute_environments</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>browser_settings_tag</code> resource or lists <code>browser_settings_tags</code> in a region
+Expands all tag keys and values for <code>browser_settings</code> in a region
 
 ## Overview
 <table><tbody>
@@ -49,16 +49,31 @@ Creates, updates, deletes or gets a <code>browser_settings_tag</code> resource o
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>browser_settings</code> in a region.
+```sql
+SELECT
+region,
+additional_encryption_context,
+associated_portal_arns,
+browser_policy,
+browser_settings_arn,
+customer_managed_key,
+tag_key,
+tag_value
+FROM aws.workspacesweb.browser_settings_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>browser_settings_tags</code> resource, see <a href="/providers/aws/workspacesweb/browser_settings/#permissions"><code>browser_settings</code></a>
 
 

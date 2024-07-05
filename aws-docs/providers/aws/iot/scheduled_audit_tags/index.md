@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>scheduled_audit_tag</code> resource or lists <code>scheduled_audit_tags</code> in a region
+Expands all tag keys and values for <code>scheduled_audits</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>scheduled_audit_tag</code> resource or
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>scheduled_audits</code> in a region.
+```sql
+SELECT
+region,
+scheduled_audit_name,
+frequency,
+day_of_month,
+day_of_week,
+target_check_names,
+scheduled_audit_arn,
+tag_key,
+tag_value
+FROM aws.iot.scheduled_audit_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>scheduled_audit_tags</code> resource, see <a href="/providers/aws/iot/scheduled_audits/#permissions"><code>scheduled_audits</code></a>
 
 

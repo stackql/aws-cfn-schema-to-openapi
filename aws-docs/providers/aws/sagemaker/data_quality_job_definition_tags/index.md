@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>data_quality_job_definition_tag</code> resource or lists <code>data_quality_job_definition_tags</code> in a region
+Expands all tag keys and values for <code>data_quality_job_definitions</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>data_quality_job_definition_tag</code>
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>data_quality_job_definitions</code> in a region.
+```sql
+SELECT
+region,
+job_definition_arn,
+job_definition_name,
+data_quality_baseline_config,
+data_quality_app_specification,
+data_quality_job_input,
+data_quality_job_output_config,
+job_resources,
+network_config,
+endpoint_name,
+role_arn,
+stopping_condition,
+creation_time,
+tag_key,
+tag_value
+FROM aws.sagemaker.data_quality_job_definition_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>data_quality_job_definition_tags</code> resource, see <a href="/providers/aws/sagemaker/data_quality_job_definitions/#permissions"><code>data_quality_job_definitions</code></a>
 
 

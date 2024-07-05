@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <code>cluster_tags</code> in a region
+Expands all tag keys and values for <code>clusters</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+broker_node_group_info,
+enhanced_monitoring,
+kafka_version,
+number_of_broker_nodes,
+encryption_info,
+open_monitoring,
+cluster_name,
+arn,
+current_version,
+client_authentication,
+logging_info,
+configuration_info,
+storage_mode,
+tag_key,
+tag_value
+FROM aws.msk.cluster_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>cluster_tags</code> resource, see <a href="/providers/aws/msk/clusters/#permissions"><code>clusters</code></a>
 
 

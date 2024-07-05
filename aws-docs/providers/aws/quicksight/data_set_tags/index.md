@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>data_set_tag</code> resource or lists <code>data_set_tags</code> in a region
+Expands all tag keys and values for <code>data_sets</code> in a region
 
 ## Overview
 <table><tbody>
@@ -65,16 +65,47 @@ Creates, updates, deletes or gets a <code>data_set_tag</code> resource or lists 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>data_sets</code> in a region.
+```sql
+SELECT
+region,
+arn,
+aws_account_id,
+column_groups,
+column_level_permission_rules,
+consumed_spice_capacity_in_bytes,
+created_time,
+data_set_id,
+data_set_refresh_properties,
+data_set_usage_configuration,
+dataset_parameters,
+field_folders,
+import_mode,
+last_updated_time,
+logical_table_map,
+name,
+output_columns,
+permissions,
+physical_table_map,
+row_level_permission_data_set,
+row_level_permission_tag_configuration,
+ingestion_wait_policy,
+tag_key,
+tag_value
+FROM aws.quicksight.data_set_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>data_set_tags</code> resource, see <a href="/providers/aws/quicksight/data_sets/#permissions"><code>data_sets</code></a>
 
 

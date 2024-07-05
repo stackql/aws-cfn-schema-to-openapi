@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>namespace_tag</code> resource or lists <code>namespace_tags</code> in a region
+Expands all tag keys and values for <code>namespaces</code> in a region
 
 ## Overview
 <table><tbody>
@@ -60,16 +60,42 @@ Creates, updates, deletes or gets a <code>namespace_tag</code> resource or lists
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>namespaces</code> in a region.
+```sql
+SELECT
+region,
+admin_password_secret_kms_key_id,
+admin_user_password,
+admin_username,
+db_name,
+default_iam_role_arn,
+iam_roles,
+kms_key_id,
+log_exports,
+manage_admin_password,
+namespace,
+namespace_name,
+final_snapshot_name,
+final_snapshot_retention_period,
+namespace_resource_policy,
+redshift_idc_application_arn,
+snapshot_copy_configurations,
+tag_key,
+tag_value
+FROM aws.redshiftserverless.namespace_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>namespace_tags</code> resource, see <a href="/providers/aws/redshiftserverless/namespaces/#permissions"><code>namespaces</code></a>
 
 

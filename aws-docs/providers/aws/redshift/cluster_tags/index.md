@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <code>cluster_tags</code> in a region
+Expands all tag keys and values for <code>clusters</code> in a region
 
 ## Overview
 <table><tbody>
@@ -98,16 +98,80 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+revision_target,
+automated_snapshot_retention_period,
+encrypted,
+port,
+number_of_nodes,
+destination_region,
+allow_version_upgrade,
+endpoint,
+namespace_resource_policy,
+maintenance_track_name,
+owner_account,
+multi_az,
+snapshot_cluster_identifier,
+iam_roles,
+kms_key_id,
+snapshot_copy_manual,
+manage_master_password,
+availability_zone,
+cluster_security_groups,
+cluster_identifier,
+master_user_password,
+cluster_subnet_group_name,
+logging_properties,
+defer_maintenance,
+node_type,
+master_username,
+publicly_accessible,
+defer_maintenance_identifier,
+manual_snapshot_retention_period,
+resource_action,
+hsm_client_certificate_identifier,
+elastic_ip,
+availability_zone_relocation_status,
+aqua_configuration_status,
+snapshot_identifier,
+availability_zone_relocation,
+snapshot_copy_grant_name,
+enhanced_vpc_routing,
+cluster_parameter_group_name,
+defer_maintenance_end_time,
+rotate_encryption_key,
+vpc_security_group_ids,
+cluster_namespace_arn,
+master_password_secret_arn,
+cluster_version,
+hsm_configuration_identifier,
+preferred_maintenance_window,
+defer_maintenance_start_time,
+cluster_type,
+classic,
+master_password_secret_kms_key_id,
+defer_maintenance_duration,
+db_name,
+snapshot_copy_retention_period,
+tag_key,
+tag_value
+FROM aws.redshift.cluster_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>cluster_tags</code> resource, see <a href="/providers/aws/redshift/clusters/#permissions"><code>clusters</code></a>
 
 

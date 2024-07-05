@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>flow_tag</code> resource or lists <code>flow_tags</code> in a region
+Expands all tag keys and values for <code>flows</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>flow_tag</code> resource or lists <cod
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>flows</code> in a region.
+```sql
+SELECT
+region,
+flow_arn,
+flow_name,
+description,
+kms_arn,
+trigger_config,
+flow_status,
+source_flow_config,
+destination_flow_config_list,
+tasks,
+metadata_catalog_config,
+tag_key,
+tag_value
+FROM aws.appflow.flow_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>flow_tags</code> resource, see <a href="/providers/aws/appflow/flows/#permissions"><code>flows</code></a>
 
 

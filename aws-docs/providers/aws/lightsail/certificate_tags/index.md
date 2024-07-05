@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>certificate_tag</code> resource or lists <code>certificate_tags</code> in a region
+Expands all tag keys and values for <code>certificates</code> in a region
 
 ## Overview
 <table><tbody>
@@ -49,16 +49,31 @@ Creates, updates, deletes or gets a <code>certificate_tag</code> resource or lis
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>certificates</code> in a region.
+```sql
+SELECT
+region,
+certificate_name,
+domain_name,
+subject_alternative_names,
+certificate_arn,
+status,
+tag_key,
+tag_value
+FROM aws.lightsail.certificate_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>certificate_tags</code> resource, see <a href="/providers/aws/lightsail/certificates/#permissions"><code>certificates</code></a>
 
 

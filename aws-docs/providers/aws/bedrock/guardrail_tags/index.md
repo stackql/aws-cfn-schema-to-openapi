@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>guardrail_tag</code> resource or lists <code>guardrail_tags</code> in a region
+Expands all tag keys and values for <code>guardrails</code> in a region
 
 ## Overview
 <table><tbody>
@@ -61,16 +61,43 @@ Creates, updates, deletes or gets a <code>guardrail_tag</code> resource or lists
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>guardrails</code> in a region.
+```sql
+SELECT
+region,
+blocked_input_messaging,
+blocked_outputs_messaging,
+content_policy_config,
+created_at,
+description,
+failure_recommendations,
+guardrail_arn,
+guardrail_id,
+kms_key_arn,
+name,
+sensitive_information_policy_config,
+status,
+status_reasons,
+topic_policy_config,
+updated_at,
+version,
+word_policy_config,
+tag_key,
+tag_value
+FROM aws.bedrock.guardrail_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>guardrail_tags</code> resource, see <a href="/providers/aws/bedrock/guardrails/#permissions"><code>guardrails</code></a>
 
 

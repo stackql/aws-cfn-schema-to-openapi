@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>ipam_pool_tag</code> resource or lists <code>ipam_pool_tags</code> in a region
+Expands all tag keys and values for <code>ipam_pools</code> in a region
 
 ## Overview
 <table><tbody>
@@ -67,16 +67,49 @@ Creates, updates, deletes or gets an <code>ipam_pool_tag</code> resource or list
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>ipam_pools</code> in a region.
+```sql
+SELECT
+region,
+ipam_pool_id,
+address_family,
+allocation_min_netmask_length,
+allocation_default_netmask_length,
+allocation_max_netmask_length,
+allocation_resource_tags,
+arn,
+auto_import,
+aws_service,
+description,
+ipam_scope_id,
+ipam_scope_arn,
+ipam_scope_type,
+ipam_arn,
+locale,
+pool_depth,
+provisioned_cidrs,
+public_ip_source,
+publicly_advertisable,
+source_ipam_pool_id,
+source_resource,
+state,
+state_message,
+tag_key,
+tag_value
+FROM aws.ec2.ipam_pool_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>ipam_pool_tags</code> resource, see <a href="/providers/aws/ec2/ipam_pools/#permissions"><code>ipam_pools</code></a>
 
 

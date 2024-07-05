@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>model_package_group_tag</code> resource or lists <code>model_package_group_tags</code> in a region
+Expands all tag keys and values for <code>model_package_groups</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>model_package_group_tag</code> resourc
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>model_package_groups</code> in a region.
+```sql
+SELECT
+region,
+model_package_group_arn,
+model_package_group_name,
+model_package_group_description,
+model_package_group_policy,
+creation_time,
+model_package_group_status,
+tag_key,
+tag_value
+FROM aws.sagemaker.model_package_group_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>model_package_group_tags</code> resource, see <a href="/providers/aws/sagemaker/model_package_groups/#permissions"><code>model_package_groups</code></a>
 
 

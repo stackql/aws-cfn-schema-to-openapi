@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>project_tag</code> resource or lists <code>project_tags</code> in a region
+Expands all tag keys and values for <code>projects</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>project_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>projects</code> in a region.
+```sql
+SELECT
+region,
+project_arn,
+project_id,
+project_name,
+project_description,
+creation_time,
+service_catalog_provisioning_details,
+service_catalog_provisioned_product_details,
+project_status,
+tag_key,
+tag_value
+FROM aws.sagemaker.project_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>project_tags</code> resource, see <a href="/providers/aws/sagemaker/projects/#permissions"><code>projects</code></a>
 
 

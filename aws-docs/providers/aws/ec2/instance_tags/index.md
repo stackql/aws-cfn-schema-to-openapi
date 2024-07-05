@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists <code>instance_tags</code> in a region
+Expands all tag keys and values for <code>instances</code> in a region
 
 ## Overview
 <table><tbody>
@@ -90,16 +90,72 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>instances</code> in a region.
+```sql
+SELECT
+region,
+tenancy,
+security_groups,
+private_dns_name,
+private_ip_address,
+user_data,
+block_device_mappings,
+iam_instance_profile,
+ipv6_addresses,
+kernel_id,
+subnet_id,
+ebs_optimized,
+propagate_tags_to_volume_on_creation,
+elastic_gpu_specifications,
+elastic_inference_accelerators,
+volumes,
+private_ip,
+ipv6_address_count,
+launch_template,
+enclave_options,
+network_interfaces,
+image_id,
+instance_type,
+monitoring,
+additional_info,
+hibernation_options,
+license_specifications,
+instance_id,
+public_ip,
+instance_initiated_shutdown_behavior,
+cpu_options,
+availability_zone,
+private_dns_name_options,
+host_id,
+host_resource_group_arn,
+public_dns_name,
+security_group_ids,
+disable_api_termination,
+key_name,
+ramdisk_id,
+source_dest_check,
+placement_group_name,
+ssm_associations,
+vpc_id,
+state,
+affinity,
+credit_specification,
+tag_key,
+tag_value
+FROM aws.ec2.instance_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>instance_tags</code> resource, see <a href="/providers/aws/ec2/instances/#permissions"><code>instances</code></a>
 
 

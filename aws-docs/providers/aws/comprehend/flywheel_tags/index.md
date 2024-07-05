@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>flywheel_tag</code> resource or lists <code>flywheel_tags</code> in a region
+Expands all tag keys and values for <code>flywheels</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>flywheel_tag</code> resource or lists 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>flywheels</code> in a region.
+```sql
+SELECT
+region,
+active_model_arn,
+data_access_role_arn,
+data_lake_s3_uri,
+data_security_config,
+flywheel_name,
+model_type,
+task_config,
+arn,
+tag_key,
+tag_value
+FROM aws.comprehend.flywheel_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>flywheel_tags</code> resource, see <a href="/providers/aws/comprehend/flywheels/#permissions"><code>flywheels</code></a>
 
 

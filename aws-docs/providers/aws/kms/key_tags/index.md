@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>key_tag</code> resource or lists <code>key_tags</code> in a region
+Expands all tag keys and values for <code>keys</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets a <code>key_tag</code> resource or lists <code
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>keys</code> in a region.
+```sql
+SELECT
+region,
+description,
+enabled,
+enable_key_rotation,
+key_policy,
+key_usage,
+origin,
+key_spec,
+multi_region,
+pending_window_in_days,
+arn,
+key_id,
+bypass_policy_lockout_safety_check,
+rotation_period_in_days,
+tag_key,
+tag_value
+FROM aws.kms.key_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>key_tags</code> resource, see <a href="/providers/aws/kms/keys/#permissions"><code>keys</code></a>
 
 

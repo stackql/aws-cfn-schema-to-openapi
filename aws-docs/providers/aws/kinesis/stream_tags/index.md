@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>stream_tag</code> resource or lists <code>stream_tags</code> in a region
+Expands all tag keys and values for <code>streams</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>stream_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>streams</code> in a region.
+```sql
+SELECT
+region,
+stream_mode_details,
+stream_encryption,
+arn,
+retention_period_hours,
+name,
+shard_count,
+tag_key,
+tag_value
+FROM aws.kinesis.stream_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>stream_tags</code> resource, see <a href="/providers/aws/kinesis/streams/#permissions"><code>streams</code></a>
 
 

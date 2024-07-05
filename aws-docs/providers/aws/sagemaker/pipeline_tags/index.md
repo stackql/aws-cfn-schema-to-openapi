@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>pipeline_tag</code> resource or lists <code>pipeline_tags</code> in a region
+Expands all tag keys and values for <code>pipelines</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>pipeline_tag</code> resource or lists 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>pipelines</code> in a region.
+```sql
+SELECT
+region,
+pipeline_name,
+pipeline_display_name,
+pipeline_description,
+pipeline_definition,
+role_arn,
+parallelism_configuration,
+tag_key,
+tag_value
+FROM aws.sagemaker.pipeline_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>pipeline_tags</code> resource, see <a href="/providers/aws/sagemaker/pipelines/#permissions"><code>pipelines</code></a>
 
 

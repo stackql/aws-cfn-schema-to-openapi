@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>scheduled_query_tag</code> resource or lists <code>scheduled_query_tags</code> in a region
+Expands all tag keys and values for <code>scheduled_queries</code> in a region
 
 ## Overview
 <table><tbody>
@@ -62,16 +62,44 @@ Creates, updates, deletes or gets a <code>scheduled_query_tag</code> resource or
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>scheduled_queries</code> in a region.
+```sql
+SELECT
+region,
+arn,
+scheduled_query_name,
+query_string,
+schedule_configuration,
+notification_configuration,
+client_token,
+scheduled_query_execution_role_arn,
+target_configuration,
+error_report_configuration,
+kms_key_id,
+sq_name,
+sq_query_string,
+sq_schedule_configuration,
+sq_notification_configuration,
+sq_scheduled_query_execution_role_arn,
+sq_target_configuration,
+sq_error_report_configuration,
+sq_kms_key_id,
+tag_key,
+tag_value
+FROM aws.timestream.scheduled_query_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>scheduled_query_tags</code> resource, see <a href="/providers/aws/timestream/scheduled_queries/#permissions"><code>scheduled_queries</code></a>
 
 

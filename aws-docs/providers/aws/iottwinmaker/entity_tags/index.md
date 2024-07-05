@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>entity_tag</code> resource or lists <code>entity_tags</code> in a region
+Expands all tag keys and values for <code>entities</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets an <code>entity_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>entities</code> in a region.
+```sql
+SELECT
+region,
+entity_id,
+entity_name,
+status,
+has_child_entities,
+parent_entity_id,
+arn,
+description,
+creation_date_time,
+update_date_time,
+workspace_id,
+components,
+composite_components,
+tag_key,
+tag_value
+FROM aws.iottwinmaker.entity_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>entity_tags</code> resource, see <a href="/providers/aws/iottwinmaker/entities/#permissions"><code>entities</code></a>
 
 

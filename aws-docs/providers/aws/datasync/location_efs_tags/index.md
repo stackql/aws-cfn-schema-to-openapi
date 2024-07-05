@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>location_efs_tag</code> resource or lists <code>location_efs_tags</code> in a region
+Expands all tag keys and values for <code>location_efs</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>location_efs_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>location_efs</code> in a region.
+```sql
+SELECT
+region,
+ec2_config,
+efs_filesystem_arn,
+access_point_arn,
+file_system_access_role_arn,
+in_transit_encryption,
+subdirectory,
+location_arn,
+location_uri,
+tag_key,
+tag_value
+FROM aws.datasync.location_efs_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>location_efs_tags</code> resource, see <a href="/providers/aws/datasync/location_efs/#permissions"><code>location_efs</code></a>
 
 

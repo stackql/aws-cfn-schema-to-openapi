@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>target_group_tag</code> resource or lists <code>target_group_tags</code> in a region
+Expands all tag keys and values for <code>target_groups</code> in a region
 
 ## Overview
 <table><tbody>
@@ -66,16 +66,48 @@ Creates, updates, deletes or gets a <code>target_group_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>target_groups</code> in a region.
+```sql
+SELECT
+region,
+ip_address_type,
+health_check_interval_seconds,
+load_balancer_arns,
+matcher,
+health_check_path,
+port,
+targets,
+health_check_enabled,
+protocol_version,
+unhealthy_threshold_count,
+health_check_timeout_seconds,
+name,
+vpc_id,
+target_group_full_name,
+healthy_threshold_count,
+health_check_protocol,
+target_group_attributes,
+target_type,
+health_check_port,
+target_group_arn,
+protocol,
+target_group_name,
+tag_key,
+tag_value
+FROM aws.elasticloadbalancingv2.target_group_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>target_group_tags</code> resource, see <a href="/providers/aws/elasticloadbalancingv2/target_groups/#permissions"><code>target_groups</code></a>
 
 

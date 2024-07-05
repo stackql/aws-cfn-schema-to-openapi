@@ -20,7 +20,7 @@ The detective service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>4</b></span><br />
+<span>total resources:&nbsp;<b>7</b></span><br />
 </div>
 </div>
 
@@ -30,10 +30,13 @@ The detective service documentation.
 <div class="row">
 <div class="providerDocColumn">
 <a href="/providers/aws/detective/graph_tags/">graph_tags</a><br />
-<a href="/providers/aws/detective/graphs/">graphs</a>
+<a href="/providers/aws/detective/graphs/">graphs</a><br />
+<a href="/providers/aws/detective/graphs_list_only/">graphs_list_only</a><br />
+<a href="/providers/aws/detective/member_invitations/">member_invitations</a>
 </div>
 <div class="providerDocColumn">
-<a href="/providers/aws/detective/member_invitations/">member_invitations</a><br />
-<a href="/providers/aws/detective/organization_admins/">organization_admins</a>
+<a href="/providers/aws/detective/member_invitations_list_only/">member_invitations_list_only</a><br />
+<a href="/providers/aws/detective/organization_admins/">organization_admins</a><br />
+<a href="/providers/aws/detective/organization_admins_list_only/">organization_admins_list_only</a>
 </div>
 </div>

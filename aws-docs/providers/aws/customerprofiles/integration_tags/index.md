@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>integration_tag</code> resource or lists <code>integration_tags</code> in a region
+Expands all tag keys and values for <code>integrations</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets an <code>integration_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>integrations</code> in a region.
+```sql
+SELECT
+region,
+domain_name,
+uri,
+flow_definition,
+object_type_name,
+created_at,
+last_updated_at,
+object_type_names,
+tag_key,
+tag_value
+FROM aws.customerprofiles.integration_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>integration_tags</code> resource, see <a href="/providers/aws/customerprofiles/integrations/#permissions"><code>integrations</code></a>
 
 

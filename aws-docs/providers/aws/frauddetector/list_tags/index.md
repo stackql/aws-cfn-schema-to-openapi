@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>list_tag</code> resource or lists <code>list_tags</code> in a region
+Expands all tag keys and values for <code>lists</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets a <code>list_tag</code> resource or lists <cod
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>lists</code> in a region.
+```sql
+SELECT
+region,
+arn,
+name,
+description,
+variable_type,
+created_time,
+last_updated_time,
+elements,
+tag_key,
+tag_value
+FROM aws.frauddetector.list_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>list_tags</code> resource, see <a href="/providers/aws/frauddetector/lists/#permissions"><code>lists</code></a>
 
 

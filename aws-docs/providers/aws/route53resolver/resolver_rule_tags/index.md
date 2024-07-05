@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>resolver_rule_tag</code> resource or lists <code>resolver_rule_tags</code> in a region
+Expands all tag keys and values for <code>resolver_rules</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets a <code>resolver_rule_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>resolver_rules</code> in a region.
+```sql
+SELECT
+region,
+resolver_endpoint_id,
+domain_name,
+name,
+rule_type,
+target_ips,
+arn,
+resolver_rule_id,
+tag_key,
+tag_value
+FROM aws.route53resolver.resolver_rule_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>resolver_rule_tags</code> resource, see <a href="/providers/aws/route53resolver/resolver_rules/#permissions"><code>resolver_rules</code></a>
 
 

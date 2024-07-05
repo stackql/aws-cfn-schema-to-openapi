@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>readiness_check_tag</code> resource or lists <code>readiness_check_tags</code> in a region
+Expands all tag keys and values for <code>readiness_checks</code> in a region
 
 ## Overview
 <table><tbody>
@@ -47,16 +47,29 @@ Creates, updates, deletes or gets a <code>readiness_check_tag</code> resource or
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>readiness_checks</code> in a region.
+```sql
+SELECT
+region,
+resource_set_name,
+readiness_check_name,
+readiness_check_arn,
+tag_key,
+tag_value
+FROM aws.route53recoveryreadiness.readiness_check_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>readiness_check_tags</code> resource, see <a href="/providers/aws/route53recoveryreadiness/readiness_checks/#permissions"><code>readiness_checks</code></a>
 
 

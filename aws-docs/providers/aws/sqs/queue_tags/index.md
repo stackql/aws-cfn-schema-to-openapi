@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>queue_tag</code> resource or lists <code>queue_tags</code> in a region
+Expands all tag keys and values for <code>queues</code> in a region
 
 ## Overview
 <table><tbody>
@@ -61,16 +61,43 @@ Creates, updates, deletes or gets a <code>queue_tag</code> resource or lists <co
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>queues</code> in a region.
+```sql
+SELECT
+region,
+queue_url,
+arn,
+content_based_deduplication,
+deduplication_scope,
+delay_seconds,
+fifo_queue,
+fifo_throughput_limit,
+kms_data_key_reuse_period_seconds,
+kms_master_key_id,
+sqs_managed_sse_enabled,
+maximum_message_size,
+message_retention_period,
+queue_name,
+receive_message_wait_time_seconds,
+redrive_allow_policy,
+redrive_policy,
+visibility_timeout,
+tag_key,
+tag_value
+FROM aws.sqs.queue_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>queue_tags</code> resource, see <a href="/providers/aws/sqs/queues/#permissions"><code>queues</code></a>
 
 

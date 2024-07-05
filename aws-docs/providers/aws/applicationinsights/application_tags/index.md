@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>application_tag</code> resource or lists <code>application_tags</code> in a region
+Expands all tag keys and values for <code>applications</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>applications</code> in a region.
+```sql
+SELECT
+region,
+resource_group_name,
+application_arn,
+cwe_monitor_enabled,
+ops_center_enabled,
+ops_item_sns_topic_arn,
+custom_components,
+log_pattern_sets,
+auto_configuration_enabled,
+component_monitoring_settings,
+grouping_type,
+attach_missing_permission,
+tag_key,
+tag_value
+FROM aws.applicationinsights.application_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>application_tags</code> resource, see <a href="/providers/aws/applicationinsights/applications/#permissions"><code>applications</code></a>
 
 

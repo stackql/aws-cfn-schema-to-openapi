@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>portal_tag</code> resource or lists <code>portal_tags</code> in a region
+Expands all tag keys and values for <code>portals</code> in a region
 
 ## Overview
 <table><tbody>
@@ -64,16 +64,46 @@ Creates, updates, deletes or gets a <code>portal_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>portals</code> in a region.
+```sql
+SELECT
+region,
+additional_encryption_context,
+authentication_type,
+browser_settings_arn,
+browser_type,
+creation_date,
+customer_managed_key,
+display_name,
+instance_type,
+ip_access_settings_arn,
+max_concurrent_sessions,
+network_settings_arn,
+portal_arn,
+portal_endpoint,
+portal_status,
+renderer_type,
+service_provider_saml_metadata,
+status_reason,
+trust_store_arn,
+user_access_logging_settings_arn,
+user_settings_arn,
+tag_key,
+tag_value
+FROM aws.workspacesweb.portal_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>portal_tags</code> resource, see <a href="/providers/aws/workspacesweb/portals/#permissions"><code>portals</code></a>
 
 

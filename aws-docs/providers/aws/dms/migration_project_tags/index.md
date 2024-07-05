@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>migration_project_tag</code> resource or lists <code>migration_project_tags</code> in a region
+Expands all tag keys and values for <code>migration_projects</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>migration_project_tag</code> resource 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>migration_projects</code> in a region.
+```sql
+SELECT
+region,
+migration_project_name,
+migration_project_identifier,
+migration_project_arn,
+migration_project_creation_time,
+instance_profile_identifier,
+instance_profile_name,
+instance_profile_arn,
+transformation_rules,
+description,
+schema_conversion_application_attributes,
+source_data_provider_descriptors,
+target_data_provider_descriptors,
+tag_key,
+tag_value
+FROM aws.dms.migration_project_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>migration_project_tags</code> resource, see <a href="/providers/aws/dms/migration_projects/#permissions"><code>migration_projects</code></a>
 
 

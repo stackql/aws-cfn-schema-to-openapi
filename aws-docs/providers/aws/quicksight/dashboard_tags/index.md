@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>dashboard_tag</code> resource or lists <code>dashboard_tags</code> in a region
+Expands all tag keys and values for <code>dashboards</code> in a region
 
 ## Overview
 <table><tbody>
@@ -62,16 +62,44 @@ Creates, updates, deletes or gets a <code>dashboard_tag</code> resource or lists
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>dashboards</code> in a region.
+```sql
+SELECT
+region,
+created_time,
+parameters,
+version_description,
+source_entity,
+theme_arn,
+definition,
+last_updated_time,
+validation_strategy,
+dashboard_id,
+link_sharing_configuration,
+name,
+dashboard_publish_options,
+last_published_time,
+version,
+aws_account_id,
+permissions,
+link_entities,
+arn,
+tag_key,
+tag_value
+FROM aws.quicksight.dashboard_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>dashboard_tags</code> resource, see <a href="/providers/aws/quicksight/dashboards/#permissions"><code>dashboards</code></a>
 
 

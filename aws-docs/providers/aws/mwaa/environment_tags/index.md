@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>environment_tag</code> resource or lists <code>environment_tags</code> in a region
+Expands all tag keys and values for <code>environments</code> in a region
 
 ## Overview
 <table><tbody>
@@ -73,16 +73,55 @@ Creates, updates, deletes or gets an <code>environment_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>environments</code> in a region.
+```sql
+SELECT
+region,
+name,
+arn,
+webserver_url,
+execution_role_arn,
+kms_key,
+airflow_version,
+source_bucket_arn,
+dag_s3_path,
+plugins_s3_path,
+plugins_s3_object_version,
+requirements_s3_path,
+requirements_s3_object_version,
+startup_script_s3_path,
+startup_script_s3_object_version,
+airflow_configuration_options,
+environment_class,
+max_workers,
+min_workers,
+max_webservers,
+min_webservers,
+schedulers,
+network_configuration,
+logging_configuration,
+weekly_maintenance_window_start,
+webserver_access_mode,
+endpoint_management,
+celery_executor_queue,
+database_vpc_endpoint_service,
+webserver_vpc_endpoint_service,
+tag_key,
+tag_value
+FROM aws.mwaa.environment_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>environment_tags</code> resource, see <a href="/providers/aws/mwaa/environments/#permissions"><code>environments</code></a>
 
 

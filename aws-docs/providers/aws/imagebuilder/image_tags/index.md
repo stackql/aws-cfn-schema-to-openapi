@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>image_tag</code> resource or lists <code>image_tags</code> in a region
+Expands all tag keys and values for <code>images</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets an <code>image_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>images</code> in a region.
+```sql
+SELECT
+region,
+arn,
+name,
+image_tests_configuration,
+image_recipe_arn,
+container_recipe_arn,
+distribution_configuration_arn,
+infrastructure_configuration_arn,
+workflows,
+image_id,
+image_uri,
+enhanced_image_metadata_enabled,
+image_scanning_configuration,
+execution_role,
+tag_key,
+tag_value
+FROM aws.imagebuilder.image_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>image_tags</code> resource, see <a href="/providers/aws/imagebuilder/images/#permissions"><code>images</code></a>
 
 

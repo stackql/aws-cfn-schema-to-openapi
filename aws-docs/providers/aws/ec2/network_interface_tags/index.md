@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>network_interface_tag</code> resource or lists <code>network_interface_tags</code> in a region
+Expands all tag keys and values for <code>network_interfaces</code> in a region
 
 ## Overview
 <table><tbody>
@@ -65,16 +65,47 @@ Creates, updates, deletes or gets a <code>network_interface_tag</code> resource 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>network_interfaces</code> in a region.
+```sql
+SELECT
+region,
+description,
+private_ip_address,
+private_ip_addresses,
+secondary_private_ip_address_count,
+primary_private_ip_address,
+ipv4_prefixes,
+ipv4_prefix_count,
+group_set,
+ipv6_addresses,
+ipv6_prefixes,
+ipv6_prefix_count,
+subnet_id,
+source_dest_check,
+interface_type,
+secondary_private_ip_addresses,
+ipv6_address_count,
+enable_primary_ipv6,
+primary_ipv6_address,
+connection_tracking_specification,
+id,
+vpc_id,
+tag_key,
+tag_value
+FROM aws.ec2.network_interface_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>network_interface_tags</code> resource, see <a href="/providers/aws/ec2/network_interfaces/#permissions"><code>network_interfaces</code></a>
 
 

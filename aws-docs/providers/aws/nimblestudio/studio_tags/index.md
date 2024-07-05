@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <code>studio_tags</code> in a region
+Expands all tag keys and values for <code>studios</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>studios</code> in a region.
+```sql
+SELECT
+region,
+admin_role_arn,
+display_name,
+home_region,
+sso_client_id,
+studio_encryption_configuration,
+studio_id,
+studio_name,
+studio_url,
+user_role_arn,
+tag_key,
+tag_value
+FROM aws.nimblestudio.studio_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>studio_tags</code> resource, see <a href="/providers/aws/nimblestudio/studios/#permissions"><code>studios</code></a>
 
 

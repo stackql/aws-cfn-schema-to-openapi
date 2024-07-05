@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>canary_tag</code> resource or lists <code>canary_tags</code> in a region
+Expands all tag keys and values for <code>canaries</code> in a region
 
 ## Overview
 <table><tbody>
@@ -60,16 +60,42 @@ Creates, updates, deletes or gets a <code>canary_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>canaries</code> in a region.
+```sql
+SELECT
+region,
+name,
+id,
+state,
+code,
+artifact_s3_location,
+artifact_config,
+schedule,
+execution_role_arn,
+runtime_version,
+success_retention_period,
+failure_retention_period,
+vpc_config,
+run_config,
+start_canary_after_creation,
+visual_reference,
+delete_lambda_resources_on_canary_deletion,
+tag_key,
+tag_value
+FROM aws.synthetics.canary_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>canary_tags</code> resource, see <a href="/providers/aws/synthetics/canaries/#permissions"><code>canaries</code></a>
 
 
