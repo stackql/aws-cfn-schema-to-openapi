@@ -57,7 +57,8 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The Redis engine version used by the cluster.</td></tr>
 <tr><td><CopyableCode code="cluster_endpoint" /></td><td><code>object</code></td><td>The cluster endpoint.</td></tr>
 <tr><td><CopyableCode code="auto_minor_version_upgrade" /></td><td><code>boolean</code></td><td>A flag that enables automatic minor version upgrade when set to true.<br />You cannot modify the value of AutoMinorVersionUpgrade after the cluster is created. To enable AutoMinorVersionUpgrade on a cluster you must set AutoMinorVersionUpgrade to true when you create a cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this cluster.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

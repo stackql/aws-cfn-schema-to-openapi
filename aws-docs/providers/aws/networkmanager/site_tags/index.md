@@ -33,11 +33,12 @@ Creates, updates, deletes or gets a <code>site_tag</code> resource or lists <cod
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="site_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the site.</td></tr>
 <tr><td><CopyableCode code="site_id" /></td><td><code>string</code></td><td>The ID of the site.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the site.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the site.</td></tr>
 <tr><td><CopyableCode code="global_network_id" /></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
 <tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>The location of the site.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the site.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

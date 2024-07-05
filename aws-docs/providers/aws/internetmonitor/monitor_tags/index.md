@@ -42,11 +42,12 @@ Creates, updates, deletes or gets a <code>monitor_tag</code> resource or lists <
 <tr><td><CopyableCode code="resources_to_add" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="resources_to_remove" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="max_city_networks_to_monitor" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="traffic_percentage_to_monitor" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="internet_measurements_log_delivery" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="health_events_config" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

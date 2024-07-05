@@ -30,8 +30,7 @@ Creates, updates, deletes or gets a <code>project_tag</code> resource or lists <
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Project.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the Project.</td></tr>
 <tr><td><CopyableCode code="project_id" /></td><td><code>string</code></td><td>Project Id.</td></tr>
 <tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>The name of the project.</td></tr>
 <tr><td><CopyableCode code="project_description" /></td><td><code>string</code></td><td>The description of the project.</td></tr>
@@ -39,6 +38,8 @@ Creates, updates, deletes or gets a <code>project_tag</code> resource or lists <
 <tr><td><CopyableCode code="service_catalog_provisioning_details" /></td><td><code>object</code></td><td>Input ServiceCatalog Provisioning Details</td></tr>
 <tr><td><CopyableCode code="service_catalog_provisioned_product_details" /></td><td><code>object</code></td><td>Provisioned ServiceCatalog Details</td></tr>
 <tr><td><CopyableCode code="project_status" /></td><td><code>string</code></td><td>The status of a project.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

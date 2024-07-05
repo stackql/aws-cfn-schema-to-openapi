@@ -37,7 +37,8 @@ Creates, updates, deletes or gets an <code>eip_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="transfer_address" /></td><td><code>string</code></td><td>The Elastic IP address you are accepting for transfer. You can only accept one transferred address. For more information on Elastic IP address transfers, see &#91;Transfer Elastic IP addresses&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#transfer-EIPs-intro) in the *Amazon Virtual Private Cloud User Guide*.</td></tr>
 <tr><td><CopyableCode code="instance_id" /></td><td><code>string</code></td><td>The ID of the instance.<br />Updates to the <code>InstanceId</code> property may require *some interruptions*. Updates on an EIP reassociates the address on its associated resource.</td></tr>
 <tr><td><CopyableCode code="public_ipv4_pool" /></td><td><code>string</code></td><td>The ID of an address pool that you own. Use this parameter to let Amazon EC2 select an address from the address pool.<br />Updates to the <code>PublicIpv4Pool</code> property may require *some interruptions*. Updates on an EIP reassociates the address on its associated resource.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the Elastic IP address.<br />Updates to the <code>Tags</code> property may require *some interruptions*. Updates on an EIP reassociates the address on its associated resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

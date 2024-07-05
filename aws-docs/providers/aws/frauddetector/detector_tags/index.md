@@ -34,7 +34,6 @@ Creates, updates, deletes or gets a <code>detector_tag</code> resource or lists 
 <tr><td><CopyableCode code="detector_version_status" /></td><td><code>string</code></td><td>The desired detector version status for the detector</td></tr>
 <tr><td><CopyableCode code="detector_version_id" /></td><td><code>string</code></td><td>The active version ID of the detector</td></tr>
 <tr><td><CopyableCode code="rule_execution_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this detector.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the detector.</td></tr>
 <tr><td><CopyableCode code="rules" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="event_type" /></td><td><code>object</code></td><td>The event type to associate this detector with.</td></tr>
@@ -42,6 +41,8 @@ Creates, updates, deletes or gets a <code>detector_tag</code> resource or lists 
 <tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the detector was created.</td></tr>
 <tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the detector was last updated.</td></tr>
 <tr><td><CopyableCode code="associated_models" /></td><td><code>array</code></td><td>The models to associate with this detector.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

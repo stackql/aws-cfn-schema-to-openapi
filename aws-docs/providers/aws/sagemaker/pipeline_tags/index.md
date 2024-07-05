@@ -35,8 +35,9 @@ Creates, updates, deletes or gets a <code>pipeline_tag</code> resource or lists 
 <tr><td><CopyableCode code="pipeline_description" /></td><td><code>string</code></td><td>The description of the Pipeline.</td></tr>
 <tr><td><CopyableCode code="pipeline_definition" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="parallelism_configuration" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

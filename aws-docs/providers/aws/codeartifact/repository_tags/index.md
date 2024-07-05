@@ -39,7 +39,8 @@ Creates, updates, deletes or gets a <code>repository_tag</code> resource or list
 <tr><td><CopyableCode code="external_connections" /></td><td><code>array</code></td><td>A list of external connections associated with the repository.</td></tr>
 <tr><td><CopyableCode code="upstreams" /></td><td><code>array</code></td><td>A list of upstream repositories associated with the repository.</td></tr>
 <tr><td><CopyableCode code="permissions_policy_document" /></td><td><code>object</code></td><td>The access control resource policy on the provided repository.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

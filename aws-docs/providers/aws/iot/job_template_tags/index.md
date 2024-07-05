@@ -43,7 +43,8 @@ Creates, updates, deletes or gets a <code>job_template_tag</code> resource or li
 <tr><td><CopyableCode code="job_executions_retry_config" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="maintenance_windows" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="destination_package_versions" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that can be used to manage the JobTemplate.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>configuration_aggregator_tag</code> re
 <tr><td><CopyableCode code="configuration_aggregator_name" /></td><td><code>string</code></td><td>The name of the aggregator.</td></tr>
 <tr><td><CopyableCode code="configuration_aggregator_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the aggregator.</td></tr>
 <tr><td><CopyableCode code="organization_aggregation_source" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the configuration aggregator.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

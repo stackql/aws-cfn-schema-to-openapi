@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>vpc_ingress_connection_tag</code> reso
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The current status of the VpcIngressConnection.</td></tr>
 <tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The Domain name associated with the VPC Ingress Connection.</td></tr>
 <tr><td><CopyableCode code="ingress_vpc_configuration" /></td><td><code>object</code></td><td>The configuration of customer’s VPC and related VPC endpoint</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

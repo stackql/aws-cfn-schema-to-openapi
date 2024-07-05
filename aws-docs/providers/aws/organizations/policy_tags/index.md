@@ -35,10 +35,11 @@ Creates, updates, deletes or gets a <code>policy_tag</code> resource or lists <c
 <tr><td><CopyableCode code="content" /></td><td><code>object</code></td><td>The Policy text content. For AWS CloudFormation templates formatted in YAML, you can provide the policy in JSON or YAML format. AWS CloudFormation always converts a YAML policy to JSON format before submitting it.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Human readable description of the policy</td></tr>
 <tr><td><CopyableCode code="target_ids" /></td><td><code>array</code></td><td>List of unique identifiers (IDs) of the root, OU, or account that you want to attach the policy to</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags that you want to attach to the newly created policy. For each tag in the list, you must specify both a tag key and a value. You can set the value to an empty string, but you can't set it to null.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the Policy</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN of the Policy</td></tr>
 <tr><td><CopyableCode code="aws_managed" /></td><td><code>boolean</code></td><td>A boolean value that indicates whether the specified policy is an AWS managed policy. If true, then you can attach the policy to roots, OUs, or accounts, but you cannot edit it.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

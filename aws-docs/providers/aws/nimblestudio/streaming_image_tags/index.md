@@ -39,7 +39,8 @@ Creates, updates, deletes or gets a <code>streaming_image_tag</code> resource or
 <tr><td><CopyableCode code="platform" /></td><td><code>string</code></td><td><p>The platform of the streaming image, either WINDOWS or LINUX.</p></td></tr>
 <tr><td><CopyableCode code="streaming_image_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="studio_id" /></td><td><code>string</code></td><td><p>The studioId. </p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

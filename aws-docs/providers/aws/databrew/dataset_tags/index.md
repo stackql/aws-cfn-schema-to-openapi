@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>dataset_tag</code> resource or lists <
 <tr><td><CopyableCode code="format_options" /></td><td><code>object</code></td><td>Format options for dataset</td></tr>
 <tr><td><CopyableCode code="input" /></td><td><code>object</code></td><td>Input</td></tr>
 <tr><td><CopyableCode code="path_options" /></td><td><code>object</code></td><td>PathOptions</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

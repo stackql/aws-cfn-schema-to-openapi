@@ -41,7 +41,8 @@ Creates, updates, deletes or gets a <code>vpc_tag</code> resource or lists <code
 <tr><td><CopyableCode code="ipv6_cidr_blocks" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="default_security_group" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="enable_dns_hostnames" /></td><td><code>boolean</code></td><td>Indicates whether the instances launched in the VPC get DNS hostnames. If enabled, instances in the VPC get DNS hostnames; otherwise, they do not. Disabled by default for nondefault VPCs. For more information, see &#91;DNS attributes in your VPC&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-dns.html#vpc-dns-support).<br />You can only enable DNS hostnames if you've enabled DNS support.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the VPC.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

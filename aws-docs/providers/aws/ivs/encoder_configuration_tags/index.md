@@ -33,7 +33,8 @@ Creates, updates, deletes or gets an <code>encoder_configuration_tag</code> reso
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Encoder configuration identifier.</td></tr>
 <tr><td><CopyableCode code="video" /></td><td><code>object</code></td><td>Video configuration. Default: video resolution 1280x720, bitrate 2500 kbps, 30 fps</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Encoder configuration name.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

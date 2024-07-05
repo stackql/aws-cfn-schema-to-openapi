@@ -35,13 +35,14 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="cwe_monitor_enabled" /></td><td><code>boolean</code></td><td>Indicates whether Application Insights can listen to CloudWatch events for the application resources.</td></tr>
 <tr><td><CopyableCode code="ops_center_enabled" /></td><td><code>boolean</code></td><td>When set to true, creates opsItems for any problems detected on an application.</td></tr>
 <tr><td><CopyableCode code="ops_item_sns_topic_arn" /></td><td><code>string</code></td><td>The SNS topic provided to Application Insights that is associated to the created opsItem.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags of Application Insights application.</td></tr>
 <tr><td><CopyableCode code="custom_components" /></td><td><code>array</code></td><td>The custom grouped components.</td></tr>
 <tr><td><CopyableCode code="log_pattern_sets" /></td><td><code>array</code></td><td>The log pattern sets.</td></tr>
 <tr><td><CopyableCode code="auto_configuration_enabled" /></td><td><code>boolean</code></td><td>If set to true, application will be configured with recommended monitoring configuration.</td></tr>
 <tr><td><CopyableCode code="component_monitoring_settings" /></td><td><code>array</code></td><td>The monitoring settings of the components.</td></tr>
 <tr><td><CopyableCode code="grouping_type" /></td><td><code>string</code></td><td>The grouping type of the application</td></tr>
 <tr><td><CopyableCode code="attach_missing_permission" /></td><td><code>boolean</code></td><td>If set to true, the managed policies for SSM and CW will be attached to the instance roles if they are missing</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

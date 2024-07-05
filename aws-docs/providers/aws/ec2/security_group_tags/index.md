@@ -36,8 +36,9 @@ Creates, updates, deletes or gets a <code>security_group_tag</code> resource or 
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The group name or group ID depending on whether the SG is created in default or specific VPC</td></tr>
 <tr><td><CopyableCode code="security_group_ingress" /></td><td><code>array</code></td><td>The inbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.</td></tr>
 <tr><td><CopyableCode code="security_group_egress" /></td><td><code>array</code></td><td>&#91;VPC only&#93; The outbound rules associated with the security group. There is a short interruption during which you cannot connect to the security group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the security group.</td></tr>
 <tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>The group ID of the specified security group.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

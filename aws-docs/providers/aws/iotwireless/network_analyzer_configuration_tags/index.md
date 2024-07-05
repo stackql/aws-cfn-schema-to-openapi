@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>network_analyzer_configuration_tag</co
 <tr><td><CopyableCode code="wireless_devices" /></td><td><code>array</code></td><td>List of wireless gateway resources that have been added to the network analyzer configuration</td></tr>
 <tr><td><CopyableCode code="wireless_gateways" /></td><td><code>array</code></td><td>List of wireless gateway resources that have been added to the network analyzer configuration</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Arn for network analyzer configuration, Returned upon successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

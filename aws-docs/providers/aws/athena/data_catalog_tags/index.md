@@ -33,8 +33,9 @@ Creates, updates, deletes or gets a <code>data_catalog_tag</code> resource or li
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the data catalog to create. The catalog name must be unique for the AWS account and can use a maximum of 128 alphanumeric, underscore, at sign, or hyphen characters.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the data catalog to be created.</td></tr>
 <tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td>Specifies the Lambda function or functions to use for creating the data catalog. This is a mapping whose values depend on the catalog type.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of comma separated tags to add to the data catalog that is created.</td></tr>
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of data catalog to create: LAMBDA for a federated catalog, GLUE for AWS Glue Catalog, or HIVE for an external hive metastore.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

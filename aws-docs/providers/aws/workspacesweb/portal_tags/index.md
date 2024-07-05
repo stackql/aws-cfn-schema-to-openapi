@@ -47,10 +47,11 @@ Creates, updates, deletes or gets a <code>portal_tag</code> resource or lists <c
 <tr><td><CopyableCode code="renderer_type" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="service_provider_saml_metadata" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="user_access_logging_settings_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="user_settings_arn" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

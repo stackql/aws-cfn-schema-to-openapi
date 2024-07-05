@@ -43,7 +43,8 @@ Creates, updates, deletes or gets an <code>origin_endpoint_tag</code> resource o
 <tr><td><CopyableCode code="origin_endpoint_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="segment" /></td><td><code>object</code></td><td><p>The segment configuration, including the segment name, duration, and other configuration values.</p></td></tr>
 <tr><td><CopyableCode code="startover_window_seconds" /></td><td><code>integer</code></td><td><p>The size of the window (in seconds) to create a window of the live stream that's available for on-demand viewing. Viewers can start-over or catch-up on content that falls within the window. The maximum startover window is 1,209,600 seconds (14 days).</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -32,8 +32,9 @@ Creates, updates, deletes or gets a <code>stream_key_tag</code> resource or list
 ## Fields
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Stream Key ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
 <tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>Channel ARN for the stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
 <tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>Stream-key value.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

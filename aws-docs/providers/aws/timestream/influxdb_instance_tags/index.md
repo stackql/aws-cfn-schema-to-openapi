@@ -51,7 +51,8 @@ Creates, updates, deletes or gets an <code>influxdb_instance_tag</code> resource
 <tr><td><CopyableCode code="influx_auth_parameters_secret_arn" /></td><td><code>string</code></td><td>The Auth parameters secret Amazon Resource name (ARN) that is associated with the InfluxDB instance.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The service generated unique identifier for InfluxDB instance.</td></tr>
 <tr><td><CopyableCode code="deployment_type" /></td><td><code>string</code></td><td>Deployment type of the InfluxDB Instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this DB instance.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

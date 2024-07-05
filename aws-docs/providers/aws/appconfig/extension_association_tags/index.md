@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>extension_association_tag</code> reso
 <tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="extension_version_number" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="parameters" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -35,11 +35,12 @@ Creates, updates, deletes or gets a <code>variable_tag</code> resource or lists 
 <tr><td><CopyableCode code="data_type" /></td><td><code>string</code></td><td>The data type.</td></tr>
 <tr><td><CopyableCode code="default_value" /></td><td><code>string</code></td><td>The default value for the variable when no value is received.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this variable.</td></tr>
 <tr><td><CopyableCode code="variable_type" /></td><td><code>string</code></td><td>The variable type. For more information see https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the variable.</td></tr>
 <tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the variable was created.</td></tr>
 <tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the variable was last updated.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

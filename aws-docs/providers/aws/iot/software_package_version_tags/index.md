@@ -36,8 +36,9 @@ Creates, updates, deletes or gets a <code>software_package_version_tag</code> re
 <tr><td><CopyableCode code="package_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="package_version_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="version_name" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

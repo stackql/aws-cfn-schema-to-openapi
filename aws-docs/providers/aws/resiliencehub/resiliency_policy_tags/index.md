@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>resiliency_policy_tag</code> resource 
 <tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>Resiliency Policy Tier.</td></tr>
 <tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="policy_arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the Resiliency Policy.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

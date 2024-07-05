@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>custom_data_identifier_tag</code> reso
 <tr><td><CopyableCode code="ignore_words" /></td><td><code>array</code></td><td>Words to be ignored.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Custom data identifier ID.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Custom data identifier ARN.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

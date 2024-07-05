@@ -37,7 +37,8 @@ Creates, updates, deletes or gets an <code>ip_set_tag</code> resource or lists <
 <tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway.</td></tr>
 <tr><td><CopyableCode code="ip_address_version" /></td><td><code>string</code></td><td>Type of addresses in the IPSet, use IPV4 for IPV4 IP addresses, IPV6 for IPV6 address.</td></tr>
 <tr><td><CopyableCode code="addresses" /></td><td><code>array</code></td><td>List of IPAddresses.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -36,9 +36,10 @@ Creates, updates, deletes or gets a <code>parameter_tag</code> resource or lists
 <tr><td><CopyableCode code="policies" /></td><td><code>string</code></td><td>Information about the policies assigned to a parameter.<br />&#91;Assigning parameter policies&#93;(https://docs.aws.amazon.com/systems-manager/latest/userguide/parameter-store-policies.html) in the *User Guide*.</td></tr>
 <tr><td><CopyableCode code="allowed_pattern" /></td><td><code>string</code></td><td>A regular expression used to validate the parameter value. For example, for <code>String</code> types with values restricted to numbers, you can specify the following: <code>AllowedPattern=^\d+$</code></td></tr>
 <tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>The parameter tier.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Optional metadata that you assign to a resource in the form of an arbitrary set of tags (key-value pairs). Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment. For example, you might want to tag a SYS parameter to identify the type of resource to which it applies, the environment, or the type of configuration data referenced by the parameter.</td></tr>
 <tr><td><CopyableCode code="data_type" /></td><td><code>string</code></td><td>The data type of the parameter, such as <code>text</code> or <code>aws:ec2:image</code>. The default is <code>text</code>.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the parameter.<br />The maximum length constraint listed below includes capacity for additional system attributes that aren't part of the name. The maximum length for a parameter name, including the full length of the parameter Amazon Resource Name (ARN), is 1011 characters. For example, the length of the following parameter name is 65 characters, not 20 characters: <code>arn:aws:ssm:us-east-2:111222333444:parameter/ExampleParameterName</code></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

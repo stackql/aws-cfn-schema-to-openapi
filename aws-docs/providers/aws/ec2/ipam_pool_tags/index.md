@@ -53,7 +53,8 @@ Creates, updates, deletes or gets an <code>ipam_pool_tag</code> resource or list
 <tr><td><CopyableCode code="source_resource" /></td><td><code>object</code></td><td>The resource associated with this pool's space. Depending on the ResourceType, setting a SourceResource changes which space can be provisioned in this pool and which types of resources can receive allocations</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of this pool. This can be one of the following values: "create-in-progress", "create-complete", "modify-in-progress", "modify-complete", "delete-in-progress", or "delete-complete"</td></tr>
 <tr><td><CopyableCode code="state_message" /></td><td><code>string</code></td><td>An explanation of how the pool arrived at it current state.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

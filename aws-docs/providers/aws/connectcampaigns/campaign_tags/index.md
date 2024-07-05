@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>campaign_tag</code> resource or lists 
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Connect Campaign Arn</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Amazon Connect Campaign Name</td></tr>
 <tr><td><CopyableCode code="outbound_call_config" /></td><td><code>object</code></td><td>The configuration used for outbound calls.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

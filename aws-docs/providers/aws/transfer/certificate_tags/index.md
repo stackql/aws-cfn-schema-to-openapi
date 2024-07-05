@@ -37,7 +37,6 @@ Creates, updates, deletes or gets a <code>certificate_tag</code> resource or lis
 <tr><td><CopyableCode code="active_date" /></td><td><code>string</code></td><td>Specifies the active date for the certificate.</td></tr>
 <tr><td><CopyableCode code="inactive_date" /></td><td><code>string</code></td><td>Specifies the inactive date for the certificate.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A textual description for the certificate.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Key-value pairs that can be used to group and search for certificates. Tags are metadata attached to certificates for any purpose.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Specifies the unique Amazon Resource Name (ARN) for the agreement.</td></tr>
 <tr><td><CopyableCode code="certificate_id" /></td><td><code>string</code></td><td>A unique identifier for the certificate.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>A status description for the certificate.</td></tr>
@@ -45,6 +44,8 @@ Creates, updates, deletes or gets a <code>certificate_tag</code> resource or lis
 <tr><td><CopyableCode code="serial" /></td><td><code>string</code></td><td>Specifies Certificate's serial.</td></tr>
 <tr><td><CopyableCode code="not_before_date" /></td><td><code>string</code></td><td>Specifies the not before date for the certificate.</td></tr>
 <tr><td><CopyableCode code="not_after_date" /></td><td><code>string</code></td><td>Specifies the not after date for the certificate.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -42,7 +42,6 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="maintenance_track_name" /></td><td><code>string</code></td><td>The name for the maintenance track that you want to assign for the cluster. This name change is asynchronous. The new track name stays in the PendingModifiedValues for the cluster until the next maintenance window. When the maintenance track changes, the cluster is switched to the latest cluster release available for the maintenance track. At this point, the maintenance track name is applied.</td></tr>
 <tr><td><CopyableCode code="owner_account" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="multi_az" /></td><td><code>boolean</code></td><td>A boolean indicating if the redshift cluster is multi-az or not. If you don't provide this parameter or set the value to false, the redshift cluster will be single-az.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The list of tags for the cluster parameter group.</td></tr>
 <tr><td><CopyableCode code="snapshot_cluster_identifier" /></td><td><code>string</code></td><td>The name of the cluster the source snapshot was created from. This parameter is required if your IAM user has a policy containing a snapshot resource element that specifies anything other than * for the cluster name.</td></tr>
 <tr><td><CopyableCode code="iam_roles" /></td><td><code>array</code></td><td>A list of AWS Identity and Access Management (IAM) roles that can be used by the cluster to access other AWS services. You must supply the IAM roles in their Amazon Resource Name (ARN) format. You can supply up to 50 IAM roles in a single request</td></tr>
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The AWS Key Management Service (KMS) key ID of the encryption key that you want to use to encrypt data in the cluster.</td></tr>
@@ -85,6 +84,8 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="defer_maintenance_duration" /></td><td><code>integer</code></td><td>An integer indicating the duration of the maintenance window in days. If you specify a duration, you can't specify an end time. The duration must be 45 days or less.</td></tr>
 <tr><td><CopyableCode code="db_name" /></td><td><code>string</code></td><td>The name of the first database to be created when the cluster is created. To create additional databases after the cluster is created, connect to the cluster with a SQL client and use SQL commands to create a database.</td></tr>
 <tr><td><CopyableCode code="snapshot_copy_retention_period" /></td><td><code>integer</code></td><td>The number of days to retain automated snapshots in the destination region after they are copied from the source region. <br />Default is 7. <br />Constraints: Must be at least 1 and no more than 35.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

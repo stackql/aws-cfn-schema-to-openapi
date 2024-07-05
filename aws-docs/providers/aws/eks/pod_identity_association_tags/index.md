@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>pod_identity_association_tag</code> re
 <tr><td><CopyableCode code="service_account" /></td><td><code>string</code></td><td>The Kubernetes service account that the pod identity association is created for.</td></tr>
 <tr><td><CopyableCode code="association_arn" /></td><td><code>string</code></td><td>The ARN of the pod identity association.</td></tr>
 <tr><td><CopyableCode code="association_id" /></td><td><code>string</code></td><td>The ID of the pod identity association.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

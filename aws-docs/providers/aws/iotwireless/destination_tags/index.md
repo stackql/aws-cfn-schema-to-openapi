@@ -34,9 +34,10 @@ Creates, updates, deletes or gets a <code>destination_tag</code> resource or lis
 <tr><td><CopyableCode code="expression" /></td><td><code>string</code></td><td>Destination expression</td></tr>
 <tr><td><CopyableCode code="expression_type" /></td><td><code>string</code></td><td>Must be RuleName</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>Destination description</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>AWS role ARN that grants access</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Destination arn. Returned after successful create.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

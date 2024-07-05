@@ -39,8 +39,9 @@ Creates, updates, deletes or gets a <code>profile_tag</code> resource or lists <
 <tr><td><CopyableCode code="require_instance_properties" /></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><CopyableCode code="role_arns" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="session_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="attribute_mappings" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

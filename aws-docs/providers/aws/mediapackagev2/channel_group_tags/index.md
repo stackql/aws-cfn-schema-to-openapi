@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>channel_group_tag</code> resource or l
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>Enter any descriptive text that helps you to identify the channel group.</p></td></tr>
 <tr><td><CopyableCode code="egress_domain" /></td><td><code>string</code></td><td><p>The output domain where the source stream should be sent. Integrate the domain with a downstream CDN (such as Amazon CloudFront) or playback device.</p></td></tr>
 <tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td><p>The date and time the channel group was modified.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

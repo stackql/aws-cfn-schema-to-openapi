@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>cis_scan_configuration_tag</code> reso
 <tr><td><CopyableCode code="schedule" /></td><td><code>undefined</code></td><td>Choose a Schedule cadence</td></tr>
 <tr><td><CopyableCode code="targets" /></td><td><code>undefined</code></td><td></td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>CIS Scan configuration unique identifier</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

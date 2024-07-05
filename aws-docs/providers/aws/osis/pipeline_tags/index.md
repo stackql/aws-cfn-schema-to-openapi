@@ -37,11 +37,12 @@ Creates, updates, deletes or gets a <code>pipeline_tag</code> resource or lists 
 <tr><td><CopyableCode code="min_units" /></td><td><code>integer</code></td><td>The minimum pipeline capacity, in Ingestion OpenSearch Compute Units (OCUs).</td></tr>
 <tr><td><CopyableCode code="pipeline_configuration_body" /></td><td><code>string</code></td><td>The Data Prepper pipeline configuration.</td></tr>
 <tr><td><CopyableCode code="pipeline_name" /></td><td><code>string</code></td><td>Name of the OpenSearch Ingestion Service pipeline to create. Pipeline names are unique across the pipelines owned by an account within an AWS Region.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="vpc_options" /></td><td><code>object</code></td><td>Container for the values required to configure VPC access for the pipeline. If you don't specify these values, OpenSearch Ingestion Service creates the pipeline with a public endpoint.</td></tr>
 <tr><td><CopyableCode code="vpc_endpoints" /></td><td><code>array</code></td><td>The VPC interface endpoints that have access to the pipeline.</td></tr>
 <tr><td><CopyableCode code="pipeline_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the pipeline.</td></tr>
 <tr><td><CopyableCode code="ingest_endpoint_urls" /></td><td><code>array</code></td><td>A list of endpoints that can be used for ingesting data into a pipeline</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

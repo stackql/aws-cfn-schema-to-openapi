@@ -35,7 +35,8 @@ Creates, updates, deletes or gets an <code>user_group_tag</code> resource or lis
 <tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>Must be redis.</td></tr>
 <tr><td><CopyableCode code="user_ids" /></td><td><code>array</code></td><td>List of users associated to this user group.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the user account.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this user.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

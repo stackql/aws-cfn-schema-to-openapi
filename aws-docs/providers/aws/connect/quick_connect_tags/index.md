@@ -35,8 +35,9 @@ Creates, updates, deletes or gets a <code>quick_connect_tag</code> resource or l
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the quick connect.</td></tr>
 <tr><td><CopyableCode code="quick_connect_config" /></td><td><code>object</code></td><td>Configuration settings for the quick connect.</td></tr>
 <tr><td><CopyableCode code="quick_connect_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the quick connect.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
 <tr><td><CopyableCode code="quick_connect_type" /></td><td><code>string</code></td><td>The type of quick connect. In the Amazon Connect console, when you create a quick connect, you are prompted to assign one of the following types: Agent (USER), External (PHONE_NUMBER), or Queue (QUEUE).</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

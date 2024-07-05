@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>dashboard_tag</code> resource or lists
 <tr><td><CopyableCode code="dashboard_description" /></td><td><code>string</code></td><td>A description for the dashboard.</td></tr>
 <tr><td><CopyableCode code="dashboard_definition" /></td><td><code>string</code></td><td>The dashboard definition specified in a JSON literal.</td></tr>
 <tr><td><CopyableCode code="dashboard_arn" /></td><td><code>string</code></td><td>The ARN of the dashboard.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the dashboard.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

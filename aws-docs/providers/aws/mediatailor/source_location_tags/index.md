@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>source_location_tag</code> resource or
 <tr><td><CopyableCode code="http_configuration" /></td><td><code>object</code></td><td><p>The HTTP configuration for the source location.</p></td></tr>
 <tr><td><CopyableCode code="segment_delivery_configurations" /></td><td><code>array</code></td><td><p>A list of the segment delivery configurations associated with this resource.</p></td></tr>
 <tr><td><CopyableCode code="source_location_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the source location.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

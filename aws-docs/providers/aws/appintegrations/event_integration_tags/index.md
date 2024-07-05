@@ -35,7 +35,8 @@ Creates, updates, deletes or gets an <code>event_integration_tag</code> resource
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the event integration.</td></tr>
 <tr><td><CopyableCode code="event_bridge_bus" /></td><td><code>string</code></td><td>The Amazon Eventbridge bus for the event integration.</td></tr>
 <tr><td><CopyableCode code="event_filter" /></td><td><code>object</code></td><td>The EventFilter (source) associated with the event integration.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the event integration.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

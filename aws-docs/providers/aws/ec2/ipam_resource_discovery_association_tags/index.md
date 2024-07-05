@@ -40,7 +40,8 @@ Creates, updates, deletes or gets an <code>ipam_resource_discovery_association_t
 <tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The AWS Account ID for the account where the shared IPAM exists.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The operational state of the Resource Discovery Association. Related to Create/Delete activities.</td></tr>
 <tr><td><CopyableCode code="resource_discovery_status" /></td><td><code>string</code></td><td>The status of the resource discovery.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

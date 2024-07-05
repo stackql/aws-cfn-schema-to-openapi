@@ -41,12 +41,13 @@ Creates, updates, deletes or gets a <code>namespace_tag</code> resource or lists
 <tr><td><CopyableCode code="manage_admin_password" /></td><td><code>boolean</code></td><td>If true, Amazon Redshift uses AWS Secrets Manager to manage the namespace's admin credentials. You can't use adminUserPassword if manageAdminPassword is true. If manageAdminPassword is false or not set, Amazon Redshift uses adminUserPassword for the admin user account's password.</td></tr>
 <tr><td><CopyableCode code="namespace" /></td><td><code>object</code></td><td>Definition of Namespace resource.</td></tr>
 <tr><td><CopyableCode code="namespace_name" /></td><td><code>string</code></td><td>A unique identifier for the namespace. You use this identifier to refer to the namespace for any subsequent namespace operations such as deleting or modifying. All alphabetical characters must be lower case. Namespace name should be unique for all namespaces within an AWS account.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The list of tags for the namespace.</td></tr>
 <tr><td><CopyableCode code="final_snapshot_name" /></td><td><code>string</code></td><td>The name of the namespace the source snapshot was created from. Please specify the name if needed before deleting namespace</td></tr>
 <tr><td><CopyableCode code="final_snapshot_retention_period" /></td><td><code>integer</code></td><td>The number of days to retain automated snapshot in the destination region after they are copied from the source region. If the value is -1, the manual snapshot is retained indefinitely. The value must be either -1 or an integer between 1 and 3,653.</td></tr>
 <tr><td><CopyableCode code="namespace_resource_policy" /></td><td><code>object</code></td><td>The resource policy document that will be attached to the namespace.</td></tr>
 <tr><td><CopyableCode code="redshift_idc_application_arn" /></td><td><code>string</code></td><td>The ARN for the Redshift application that integrates with IAM Identity Center.</td></tr>
 <tr><td><CopyableCode code="snapshot_copy_configurations" /></td><td><code>array</code></td><td>The snapshot copy configurations for the namespace.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -30,8 +30,7 @@ Creates, updates, deletes or gets a <code>model_package_tag</code> resource or l
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="additional_inference_specifications" /></td><td><code>array</code></td><td>An array of additional Inference Specification objects.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="additional_inference_specifications" /></td><td><code>array</code></td><td>An array of additional Inference Specification objects.</td></tr>
 <tr><td><CopyableCode code="certify_for_marketplace" /></td><td><code>boolean</code></td><td>Whether to certify the model package for listing on AWS Marketplace.</td></tr>
 <tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>A unique token that guarantees that the call to this API is idempotent.</td></tr>
 <tr><td><CopyableCode code="customer_metadata_properties" /></td><td><code>object</code></td><td>The metadata properties associated with the model package versions.</td></tr>
@@ -57,6 +56,8 @@ Creates, updates, deletes or gets a <code>model_package_tag</code> resource or l
 <tr><td><CopyableCode code="model_package_version" /></td><td><code>integer</code></td><td>The version of the model package.</td></tr>
 <tr><td><CopyableCode code="additional_inference_specifications_to_add" /></td><td><code>array</code></td><td>An array of additional Inference Specification objects.</td></tr>
 <tr><td><CopyableCode code="model_package_status_details" /></td><td><code>object</code></td><td>Details about the current status of the model package.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

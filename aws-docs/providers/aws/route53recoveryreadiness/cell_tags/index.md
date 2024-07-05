@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>cell_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="cell_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the cell.</td></tr>
 <tr><td><CopyableCode code="cells" /></td><td><code>array</code></td><td>A list of cell Amazon Resource Names (ARNs) contained within this cell, for use in nested cells. For example, Availability Zones within specific Regions.</td></tr>
 <tr><td><CopyableCode code="parent_readiness_scopes" /></td><td><code>array</code></td><td>The readiness scope for the cell, which can be a cell Amazon Resource Name (ARN) or a recovery group ARN. This is a list but currently can have only one element.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -35,7 +35,8 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
 <tr><td><CopyableCode code="owner_account_id" /></td><td><code>string</code></td><td>The AWS accountId of the owner of the Identity Center (SSO) Instance</td></tr>
 <tr><td><CopyableCode code="identity_store_id" /></td><td><code>string</code></td><td>The ID of the identity store associated with the created Identity Center (SSO) Instance</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the Identity Center (SSO) Instance, create_in_progress/delete_in_progress/active</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

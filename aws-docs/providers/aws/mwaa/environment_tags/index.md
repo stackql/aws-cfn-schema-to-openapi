@@ -54,12 +54,13 @@ Creates, updates, deletes or gets an <code>environment_tag</code> resource or li
 <tr><td><CopyableCode code="network_configuration" /></td><td><code>object</code></td><td>Configures the network resources of the environment.</td></tr>
 <tr><td><CopyableCode code="logging_configuration" /></td><td><code>object</code></td><td>Logging configuration for the environment.</td></tr>
 <tr><td><CopyableCode code="weekly_maintenance_window_start" /></td><td><code>string</code></td><td>Start time for the weekly maintenance window.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tags for the environment.</td></tr>
 <tr><td><CopyableCode code="webserver_access_mode" /></td><td><code>string</code></td><td>Choice for mode of webserver access including over public internet or via private VPC endpoint.</td></tr>
 <tr><td><CopyableCode code="endpoint_management" /></td><td><code>string</code></td><td>Defines whether the VPC endpoints configured for the environment are created, and managed, by the customer or by Amazon MWAA.</td></tr>
 <tr><td><CopyableCode code="celery_executor_queue" /></td><td><code>string</code></td><td>The celery executor queue associated with the environment.</td></tr>
 <tr><td><CopyableCode code="database_vpc_endpoint_service" /></td><td><code>string</code></td><td>The database VPC endpoint service name.</td></tr>
 <tr><td><CopyableCode code="webserver_vpc_endpoint_service" /></td><td><code>string</code></td><td>The webserver VPC endpoint service name, applicable if private webserver access mode selected.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

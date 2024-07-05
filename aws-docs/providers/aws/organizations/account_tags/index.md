@@ -34,12 +34,13 @@ Creates, updates, deletes or gets an <code>account_tag</code> resource or lists 
 <tr><td><CopyableCode code="email" /></td><td><code>string</code></td><td>The email address of the owner to assign to the new member account.</td></tr>
 <tr><td><CopyableCode code="role_name" /></td><td><code>string</code></td><td>The name of an IAM role that AWS Organizations automatically preconfigures in the new member account. Default name is OrganizationAccountAccessRole if not specified.</td></tr>
 <tr><td><CopyableCode code="parent_ids" /></td><td><code>array</code></td><td>List of parent nodes for the member account. Currently only one parent at a time is supported. Default is root.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags that you want to attach to the newly created account. For each tag in the list, you must specify both a tag key and a value.</td></tr>
 <tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>If the account was created successfully, the unique identifier (ID) of the new account.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the account.</td></tr>
 <tr><td><CopyableCode code="joined_method" /></td><td><code>string</code></td><td>The method by which the account joined the organization.</td></tr>
 <tr><td><CopyableCode code="joined_timestamp" /></td><td><code>string</code></td><td>The date the account became a part of the organization.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the account in the organization.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

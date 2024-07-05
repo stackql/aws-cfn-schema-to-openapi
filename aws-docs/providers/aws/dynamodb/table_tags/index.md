@@ -49,8 +49,9 @@ Creates, updates, deletes or gets a <code>table_tag</code> resource or lists <co
 <tr><td><CopyableCode code="stream_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="deletion_protection_enabled" /></td><td><code>boolean</code></td><td>Determines if a table is protected from deletion. When enabled, the table cannot be deleted by any user or process. This setting is disabled by default. For more information, see &#91;Using deletion protection&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/WorkingWithTables.Basics.html#WorkingWithTables.Basics.DeletionProtection) in the *Developer Guide*.</td></tr>
 <tr><td><CopyableCode code="table_class" /></td><td><code>string</code></td><td>The table class of the new table. Valid values are <code>STANDARD</code> and <code>STANDARD_INFREQUENT_ACCESS</code>.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).</td></tr>
 <tr><td><CopyableCode code="time_to_live_specification" /></td><td><code>object</code></td><td>Specifies the Time to Live (TTL) settings for the table.<br />For detailed information about the limits in DynamoDB, see &#91;Limits in Amazon DynamoDB&#93;(https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html) in the Amazon DynamoDB Developer Guide.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -38,8 +38,9 @@ Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <c
 <tr><td><CopyableCode code="studio_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="studio_name" /></td><td><code>string</code></td><td><p>The studio name that is used in the URL of the Nimble Studio portal when accessed by Nimble Studio users.</p></td></tr>
 <tr><td><CopyableCode code="studio_url" /></td><td><code>string</code></td><td><p>The address of the web page for the studio.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="user_role_arn" /></td><td><code>string</code></td><td><p>The IAM role that Studio Users will assume when logging in to the Nimble Studio portal.</p></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

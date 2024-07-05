@@ -34,10 +34,11 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the application.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="application_tag_key" /></td><td><code>string</code></td><td>The key of the AWS application tag, which is awsApplication. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value.</td></tr>
 <tr><td><CopyableCode code="application_tag_value" /></td><td><code>string</code></td><td>The value of the AWS application tag, which is the identifier of an associated resource. Applications created before 11/13/2023 or applications without the AWS application tag resource group return no value.</td></tr>
 <tr><td><CopyableCode code="application_name" /></td><td><code>string</code></td><td>The name of the application.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

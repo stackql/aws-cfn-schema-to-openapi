@@ -41,12 +41,13 @@ Creates, updates, deletes or gets a <code>canary_tag</code> resource or lists <c
 <tr><td><CopyableCode code="runtime_version" /></td><td><code>string</code></td><td>Runtime version of Synthetics Library</td></tr>
 <tr><td><CopyableCode code="success_retention_period" /></td><td><code>integer</code></td><td>Retention period of successful canary runs represented in number of days</td></tr>
 <tr><td><CopyableCode code="failure_retention_period" /></td><td><code>integer</code></td><td>Retention period of failed canary runs represented in number of days</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="vpc_config" /></td><td><code>object</code></td><td>Provide VPC Configuration if enabled.</td></tr>
 <tr><td><CopyableCode code="run_config" /></td><td><code>object</code></td><td>Provide canary run configuration</td></tr>
 <tr><td><CopyableCode code="start_canary_after_creation" /></td><td><code>boolean</code></td><td>Runs canary if set to True. Default is False</td></tr>
 <tr><td><CopyableCode code="visual_reference" /></td><td><code>object</code></td><td>Visual reference configuration for visual testing</td></tr>
 <tr><td><CopyableCode code="delete_lambda_resources_on_canary_deletion" /></td><td><code>boolean</code></td><td>Deletes associated lambda resources created by Synthetics if set to True. Default is False</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

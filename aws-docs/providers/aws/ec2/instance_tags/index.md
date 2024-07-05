@@ -53,7 +53,6 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
 <tr><td><CopyableCode code="image_id" /></td><td><code>string</code></td><td>The ID of the AMI. An AMI ID is required to launch an instance and must be specified here or in a launch template.</td></tr>
 <tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td>The instance type.</td></tr>
 <tr><td><CopyableCode code="monitoring" /></td><td><code>boolean</code></td><td>Specifies whether detailed monitoring is enabled for the instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to add to the instance.</td></tr>
 <tr><td><CopyableCode code="additional_info" /></td><td><code>string</code></td><td>This property is reserved for internal use. If you use it, the stack fails with this error: Bad property set: &#91;Testing this property&#93; (Service: AmazonEC2; Status Code: 400; Error Code: InvalidParameterCombination; Request ID: 0XXXXXX-49c7-4b40-8bcc-76885dcXXXXX).</td></tr>
 <tr><td><CopyableCode code="hibernation_options" /></td><td><code>object</code></td><td>Indicates whether an instance is enabled for hibernation.</td></tr>
 <tr><td><CopyableCode code="license_specifications" /></td><td><code>array</code></td><td>The license configurations.</td></tr>
@@ -77,6 +76,8 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
 <tr><td><CopyableCode code="state" /></td><td><code>object</code></td><td>The current state of the instance.</td></tr>
 <tr><td><CopyableCode code="affinity" /></td><td><code>string</code></td><td>Indicates whether the instance is associated with a dedicated host. If you want the instance to always restart on the same host on which it was launched, specify host. If you want the instance to restart on any available host, but try to launch onto the last host it ran on (on a best-effort basis), specify default.</td></tr>
 <tr><td><CopyableCode code="credit_specification" /></td><td><code>object</code></td><td>The credit option for CPU usage of the burstable performance instance. Valid values are standard and unlimited.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

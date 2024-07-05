@@ -34,9 +34,10 @@ Creates, updates, deletes or gets a <code>location_nfs_tag</code> resource or li
 <tr><td><CopyableCode code="on_prem_config" /></td><td><code>object</code></td><td>Contains a list of Amazon Resource Names (ARNs) of agents that are used to connect an NFS server.</td></tr>
 <tr><td><CopyableCode code="server_hostname" /></td><td><code>string</code></td><td>The name of the NFS server. This value is the IP address or DNS name of the NFS server.</td></tr>
 <tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in the NFS file system that is used to read data from the NFS source location or write data to the NFS destination.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the NFS location.</td></tr>
 <tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the NFS location that was described.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

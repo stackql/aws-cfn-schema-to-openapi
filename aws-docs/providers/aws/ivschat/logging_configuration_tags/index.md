@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>logging_configuration_tag</code> resou
 <tr><td><CopyableCode code="destination_configuration" /></td><td><code>object</code></td><td>Destination configuration for IVS Chat logging.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the logging configuration. The value does not need to be unique.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the logging configuration. When the state is ACTIVE, the configuration is ready to log chat content.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

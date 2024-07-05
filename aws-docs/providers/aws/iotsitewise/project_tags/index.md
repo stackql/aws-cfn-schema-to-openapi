@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>project_tag</code> resource or lists <
 <tr><td><CopyableCode code="project_description" /></td><td><code>string</code></td><td>A description for the project.</td></tr>
 <tr><td><CopyableCode code="project_arn" /></td><td><code>string</code></td><td>The ARN of the project.</td></tr>
 <tr><td><CopyableCode code="asset_ids" /></td><td><code>array</code></td><td>The IDs of the assets to be associated to the project.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the project.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

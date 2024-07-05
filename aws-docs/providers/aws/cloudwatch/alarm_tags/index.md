@@ -52,7 +52,8 @@ Creates, updates, deletes or gets an <code>alarm_tag</code> resource or lists <c
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="datapoints_to_alarm" /></td><td><code>integer</code></td><td>The number of datapoints that must be breaching to trigger the alarm. This is used only if you are setting an "M out of N" alarm. In that case, this value is the M, and the value that you set for <code>EvaluationPeriods</code> is the N value. For more information, see &#91;Evaluating an Alarm&#93;(https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html#alarm-evaluation) in the *User Guide*.<br />If you omit this parameter, CW uses the same value here that you set for <code>EvaluationPeriods</code>, and the alarm goes to alarm state if that many consecutive periods are breaching.</td></tr>
 <tr><td><CopyableCode code="threshold" /></td><td><code>number</code></td><td>The value to compare with the specified statistic.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

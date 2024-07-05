@@ -33,8 +33,9 @@ Creates, updates, deletes or gets a <code>vpc_link_tag</code> resource or lists 
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="vpc_link_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>A list of subnet IDs to include in the VPC link.</td></tr>
 <tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>A list of security group IDs for the VPC link.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the VPC link.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

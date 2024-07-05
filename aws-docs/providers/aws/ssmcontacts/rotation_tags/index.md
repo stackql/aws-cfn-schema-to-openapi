@@ -35,8 +35,9 @@ Creates, updates, deletes or gets a <code>rotation_tag</code> resource or lists 
 <tr><td><CopyableCode code="start_time" /></td><td><code>string</code></td><td>Start time of the first shift of Oncall Schedule</td></tr>
 <tr><td><CopyableCode code="time_zone_id" /></td><td><code>string</code></td><td>TimeZone Identifier for the Oncall Schedule</td></tr>
 <tr><td><CopyableCode code="recurrence" /></td><td><code>object</code></td><td>Information about when an on-call rotation is in effect and how long the rotation period lasts.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the rotation.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

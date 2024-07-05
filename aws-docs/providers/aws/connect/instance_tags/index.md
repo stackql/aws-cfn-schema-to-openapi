@@ -39,7 +39,8 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
 <tr><td><CopyableCode code="instance_status" /></td><td><code>string</code></td><td>Specifies the creation status of new instance.</td></tr>
 <tr><td><CopyableCode code="directory_id" /></td><td><code>string</code></td><td>Existing directoryId user wants to map to the new Connect instance.</td></tr>
 <tr><td><CopyableCode code="attributes" /></td><td><code>object</code></td><td>The attributes for the instance.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

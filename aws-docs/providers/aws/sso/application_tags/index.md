@@ -37,7 +37,8 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="application_provider_arn" /></td><td><code>string</code></td><td>The ARN of the application provider under which the operation will run</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Specifies whether the application is enabled or disabled</td></tr>
 <tr><td><CopyableCode code="portal_options" /></td><td><code>object</code></td><td>A structure that describes the options for the portal associated with an application</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

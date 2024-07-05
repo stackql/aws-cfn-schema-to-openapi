@@ -39,7 +39,8 @@ Creates, updates, deletes or gets a <code>workflow_tag</code> resource or lists 
 <tr><td><CopyableCode code="data" /></td><td><code>string</code></td><td>The data of the workflow.</td></tr>
 <tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The uri of the workflow.</td></tr>
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The KMS key identifier used to encrypt the workflow.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags associated with the workflow.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

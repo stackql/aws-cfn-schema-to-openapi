@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>serverless_cluster_tag</code> resource
 <tr><td><CopyableCode code="cluster_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="vpc_configs" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="client_authentication" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

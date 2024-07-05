@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>partner_account_tag</code> resource or
 <tr><td><CopyableCode code="sidewalk_update" /></td><td><code>object</code></td><td>The Sidewalk account credentials.</td></tr>
 <tr><td><CopyableCode code="fingerprint" /></td><td><code>string</code></td><td>The fingerprint of the Sidewalk application server private key.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>PartnerAccount arn. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the destination.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

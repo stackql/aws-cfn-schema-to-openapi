@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>firewall_domain_list_tag</code> resour
 <tr><td><CopyableCode code="modification_time" /></td><td><code>string</code></td><td>Rfc3339TimeString</td></tr>
 <tr><td><CopyableCode code="domains" /></td><td><code>array</code></td><td>An inline list of domains to use for this domain list.</td></tr>
 <tr><td><CopyableCode code="domain_file_url" /></td><td><code>string</code></td><td>S3 URL to import domains from.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

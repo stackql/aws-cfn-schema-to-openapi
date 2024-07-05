@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>key_pair_tag</code> resource or lists 
 <tr><td><CopyableCode code="public_key_material" /></td><td><code>string</code></td><td>The public key material. The <code>PublicKeyMaterial</code> property is used to import a key pair. If this property is not specified, then a new key pair will be created.</td></tr>
 <tr><td><CopyableCode code="key_fingerprint" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="key_pair_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the key pair.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -34,10 +34,11 @@ Creates, updates, deletes or gets an <code>event_stream_tag</code> resource or l
 <tr><td><CopyableCode code="event_stream_name" /></td><td><code>string</code></td><td>The name of the event stream.</td></tr>
 <tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The StreamARN of the destination to deliver profile events to. For example, arn:aws:kinesis:region:account-id:stream/stream-name</td></tr>
 <tr><td><CopyableCode code="event_stream_arn" /></td><td><code>string</code></td><td>A unique identifier for the event stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags used to organize, track, or control access for this resource.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the export was created.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The operational state of destination stream for export.</td></tr>
 <tr><td><CopyableCode code="destination_details" /></td><td><code>object</code></td><td>Details regarding the Kinesis stream.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

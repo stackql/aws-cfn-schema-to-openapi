@@ -36,8 +36,9 @@ Creates, updates, deletes or gets a <code>trust_store_tag</code> resource or lis
 <tr><td><CopyableCode code="ca_certificates_bundle_s3_object_version" /></td><td><code>string</code></td><td>The version of the S3 bucket that contains the CA certificate bundle.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the trust store, could be either of ACTIVE or CREATING.</td></tr>
 <tr><td><CopyableCode code="number_of_ca_certificates" /></td><td><code>integer</code></td><td>The number of certificates associated with the trust store.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the trust store.</td></tr>
 <tr><td><CopyableCode code="trust_store_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the trust store.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

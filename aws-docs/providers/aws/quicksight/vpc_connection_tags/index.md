@@ -42,9 +42,10 @@ Creates, updates, deletes or gets a <code>vpc_connection_tag</code> resource or 
 <tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="vpc_connection_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td><p>The Amazon EC2 VPC ID associated with the VPC connection.</p></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

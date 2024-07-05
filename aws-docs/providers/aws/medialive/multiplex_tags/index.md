@@ -39,7 +39,8 @@ Creates, updates, deletes or gets a <code>multiplex_tag</code> resource or lists
 <tr><td><CopyableCode code="pipelines_running_count" /></td><td><code>integer</code></td><td>The number of currently healthy pipelines.</td></tr>
 <tr><td><CopyableCode code="program_count" /></td><td><code>integer</code></td><td>The number of programs in the multiplex.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of key-value pairs.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

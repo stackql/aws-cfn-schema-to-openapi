@@ -39,7 +39,8 @@ Creates, updates, deletes or gets an <code>accelerator_tag</code> resource or li
 <tr><td><CopyableCode code="ipv6_addresses" /></td><td><code>array</code></td><td>The IPv6 addresses assigned if the accelerator is dualstack</td></tr>
 <tr><td><CopyableCode code="dual_stack_dns_name" /></td><td><code>string</code></td><td>The Domain Name System (DNS) name that Global Accelerator creates that points to your accelerator's static IPv4 and IPv6 addresses.</td></tr>
 <tr><td><CopyableCode code="accelerator_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the accelerator.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -39,7 +39,8 @@ Creates, updates, deletes or gets a <code>calculated_attribute_definition_tag</c
 <tr><td><CopyableCode code="statistic" /></td><td><code>string</code></td><td>The aggregation operation to perform for the calculated attribute.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp of when the calculated attribute definition was created.</td></tr>
 <tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The timestamp of when the calculated attribute definition was most recently edited.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

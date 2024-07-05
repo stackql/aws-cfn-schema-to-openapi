@@ -43,7 +43,6 @@ Creates, updates, deletes or gets a <code>function_tag</code> resource or lists 
 <tr><td><CopyableCode code="package_type" /></td><td><code>string</code></td><td>The type of deployment package. Set to <code>Image</code> for container image and set <code>Zip</code> for .zip file archive.</td></tr>
 <tr><td><CopyableCode code="code_signing_config_arn" /></td><td><code>string</code></td><td>To enable code signing for this function, specify the ARN of a code-signing configuration. A code-signing configuration includes a set of signing profiles, which define the trusted publishers for this function.</td></tr>
 <tr><td><CopyableCode code="layers" /></td><td><code>array</code></td><td>A list of &#91;function layers&#93;(https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) to add to the function's execution environment. Specify each layer by its ARN, including the version.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of &#91;tags&#93;(https://docs.aws.amazon.com/lambda/latest/dg/tagging.html) to apply to the function.</td></tr>
 <tr><td><CopyableCode code="image_config" /></td><td><code>object</code></td><td>Configuration values that override the container image Dockerfile settings. For more information, see &#91;Container image settings&#93;(https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms).</td></tr>
 <tr><td><CopyableCode code="memory_size" /></td><td><code>integer</code></td><td>The amount of &#91;memory available to the function&#93;(https://docs.aws.amazon.com/lambda/latest/dg/configuration-function-common.html#configuration-memory-console) at runtime. Increasing the function memory also increases its CPU allocation. The default value is 128 MB. The value can be any multiple of 1 MB. Note that new AWS accounts have reduced concurrency and memory quotas. AWS raises these quotas automatically based on your usage. You can also request a quota increase.</td></tr>
 <tr><td><CopyableCode code="dead_letter_config" /></td><td><code>object</code></td><td>A dead-letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. For more information, see &#91;Dead-letter queues&#93;(https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq).</td></tr>
@@ -57,6 +56,8 @@ Creates, updates, deletes or gets a <code>function_tag</code> resource or lists 
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="ephemeral_storage" /></td><td><code>object</code></td><td>The size of the function's <code>/tmp</code> directory in MB. The default value is 512, but it can be any whole number between 512 and 10,240 MB.</td></tr>
 <tr><td><CopyableCode code="architectures" /></td><td><code>array</code></td><td>The instruction set architecture that the function supports. Enter a string array with one of the valid values (arm64 or x86_64). The default value is <code>x86_64</code>.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

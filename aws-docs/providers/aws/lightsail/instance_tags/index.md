@@ -49,8 +49,9 @@ Creates, updates, deletes or gets an <code>instance_tag</code> resource or lists
 <tr><td><CopyableCode code="add_ons" /></td><td><code>array</code></td><td>An array of objects representing the add-ons to enable for the new instance.</td></tr>
 <tr><td><CopyableCode code="user_data" /></td><td><code>string</code></td><td>A launch script you can create that configures a server with additional user data. For example, you might want to run apt-get -y update.</td></tr>
 <tr><td><CopyableCode code="key_pair_name" /></td><td><code>string</code></td><td>The name of your key pair.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

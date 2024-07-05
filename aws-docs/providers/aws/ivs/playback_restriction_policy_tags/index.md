@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>playback_restriction_policy_tag</code>
 <tr><td><CopyableCode code="allowed_origins" /></td><td><code>array</code></td><td>A list of origin sites that control CORS restriction. Allowed values are the same as valid values of the Origin header defined at https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin</td></tr>
 <tr><td><CopyableCode code="enable_strict_origin_enforcement" /></td><td><code>boolean</code></td><td>Whether channel playback is constrained by origin site.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Playback-restriction-policy name.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

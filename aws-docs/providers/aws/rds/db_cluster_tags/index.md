@@ -41,7 +41,6 @@ Creates, updates, deletes or gets a <code>db_cluster_tag</code> resource or list
 <tr><td><CopyableCode code="endpoint" /></td><td><code>object</code></td><td>This data type represents the information you need to connect to an Amazon RDS DB instance. This data type is used as a response element in the following actions:<br />+ <code>CreateDBInstance</code> <br />+ <code>DescribeDBInstances</code> <br />+ <code>DeleteDBInstance</code> <br /><br />For the data structure that represents Amazon Aurora DB cluster endpoints, see <code>DBClusterEndpoint</code>.</td></tr>
 <tr><td><CopyableCode code="replication_source_identifier" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the source DB instance or DB cluster if this DB cluster is created as a Read Replica.</td></tr>
 <tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>The name of the database engine to be used for this DB cluster. Valid Values: aurora (for MySQL 5.6-compatible Aurora), aurora-mysql (for MySQL 5.7-compatible Aurora), and aurora-postgresql</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="engine_version" /></td><td><code>string</code></td><td>The version number of the database engine to use.</td></tr>
 <tr><td><CopyableCode code="storage_type" /></td><td><code>string</code></td><td>Specifies the storage type to be associated with the DB cluster.</td></tr>
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the AWS Key Management Service master key that is used to encrypt the database instances in the DB cluster, such as arn:aws:kms:us-east-1:012345678910:key/abcd1234-a123-456a-a12b-a123b4cd56ef. If you enable the StorageEncrypted property but don't specify this property, the default master key is used. If you specify this property, you must set the StorageEncrypted property to true.</td></tr>
@@ -89,6 +88,8 @@ Creates, updates, deletes or gets a <code>db_cluster_tag</code> resource or list
 <tr><td><CopyableCode code="performance_insights_enabled" /></td><td><code>boolean</code></td><td>A value that indicates whether to turn on Performance Insights for the DB cluster.</td></tr>
 <tr><td><CopyableCode code="backup_retention_period" /></td><td><code>integer</code></td><td>The number of days for which automated backups are retained.</td></tr>
 <tr><td><CopyableCode code="enable_cloudwatch_logs_exports" /></td><td><code>array</code></td><td>The list of log types that need to be enabled for exporting to CloudWatch Logs. The values in the list depend on the DB engine being used. For more information, see Publishing Database Logs to Amazon CloudWatch Logs in the Amazon Aurora User Guide.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

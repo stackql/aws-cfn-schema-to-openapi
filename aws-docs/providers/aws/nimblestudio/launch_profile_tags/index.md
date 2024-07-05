@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>launch_profile_tag</code> resource or 
 <tr><td><CopyableCode code="stream_configuration" /></td><td><code>object</code></td><td><p>A configuration for a streaming session.</p></td></tr>
 <tr><td><CopyableCode code="studio_component_ids" /></td><td><code>array</code></td><td><p>Unique identifiers for a collection of studio components that can be used with this<br />launch profile.</p></td></tr>
 <tr><td><CopyableCode code="studio_id" /></td><td><code>string</code></td><td><p>The studio ID. </p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -40,8 +40,9 @@ Creates, updates, deletes or gets an <code>user_tag</code> resource or lists <co
 <tr><td><CopyableCode code="phone_config" /></td><td><code>object</code></td><td>The phone settings for the user.</td></tr>
 <tr><td><CopyableCode code="security_profile_arns" /></td><td><code>array</code></td><td>One or more security profile arns for the user</td></tr>
 <tr><td><CopyableCode code="user_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the user.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
 <tr><td><CopyableCode code="user_proficiencies" /></td><td><code>array</code></td><td>One or more predefined attributes assigned to a user, with a level that indicates how skilled they are.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

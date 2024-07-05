@@ -36,9 +36,10 @@ Creates, updates, deletes or gets a <code>security_profile_tag</code> resource o
 <tr><td><CopyableCode code="alert_targets" /></td><td><code>object</code></td><td>Specifies the destinations to which alerts are sent.</td></tr>
 <tr><td><CopyableCode code="additional_metrics_to_retain_v2" /></td><td><code>array</code></td><td>A list of metrics whose data is retained (stored). By default, data is retained for any metric used in the profile's behaviors, but it is also retained for any metric specified here.</td></tr>
 <tr><td><CopyableCode code="metrics_export_config" /></td><td><code>object</code></td><td>A structure containing the mqtt topic for metrics export.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata that can be used to manage the security profile.</td></tr>
 <tr><td><CopyableCode code="target_arns" /></td><td><code>array</code></td><td>A set of target ARNs that the security profile is attached to.</td></tr>
 <tr><td><CopyableCode code="security_profile_arn" /></td><td><code>string</code></td><td>The ARN (Amazon resource name) of the created security profile.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

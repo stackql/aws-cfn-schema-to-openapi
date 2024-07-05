@@ -40,9 +40,10 @@ Creates, updates, deletes or gets a <code>flow_log_tag</code> resource or lists 
 <tr><td><CopyableCode code="max_aggregation_interval" /></td><td><code>integer</code></td><td>The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. You can specify 60 seconds (1 minute) or 600 seconds (10 minutes).</td></tr>
 <tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The ID of the subnet, network interface, or VPC for which you want to create a flow log.</td></tr>
 <tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of resource for which to create the flow log. For example, if you specified a VPC ID for the ResourceId property, specify VPC for this property.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the flow logs.</td></tr>
 <tr><td><CopyableCode code="traffic_type" /></td><td><code>string</code></td><td>The type of traffic to log. You can log traffic that the resource accepts or rejects, or all traffic.</td></tr>
 <tr><td><CopyableCode code="destination_options" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -33,9 +33,10 @@ Creates, updates, deletes or gets a <code>global_network_tag</code> resource or 
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the global network.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the global network.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the global network.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the global network.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time that the global network was created.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the global network.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

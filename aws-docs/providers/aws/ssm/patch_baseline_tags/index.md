@@ -44,7 +44,8 @@ Creates, updates, deletes or gets a <code>patch_baseline_tag</code> resource or 
 <tr><td><CopyableCode code="approved_patches_compliance_level" /></td><td><code>string</code></td><td>Defines the compliance level for approved patches. This means that if an approved patch is reported as missing, this is the severity of the compliance violation. The default value is UNSPECIFIED.</td></tr>
 <tr><td><CopyableCode code="approved_patches_enable_non_security" /></td><td><code>boolean</code></td><td>Indicates whether the list of approved patches includes non-security updates that should be applied to the instances. The default value is 'false'. Applies to Linux instances only.</td></tr>
 <tr><td><CopyableCode code="global_filters" /></td><td><code>object</code></td><td>A set of global filters used to include patches in the baseline.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

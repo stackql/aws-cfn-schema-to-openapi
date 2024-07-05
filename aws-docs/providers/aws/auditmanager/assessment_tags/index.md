@@ -34,7 +34,6 @@ Creates, updates, deletes or gets an <code>assessment_tag</code> resource or lis
 <tr><td><CopyableCode code="assessment_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="aws_account" /></td><td><code>object</code></td><td>The AWS account associated with the assessment.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the assessment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags associated with the assessment.</td></tr>
 <tr><td><CopyableCode code="delegations" /></td><td><code>array</code></td><td>The list of delegations.</td></tr>
 <tr><td><CopyableCode code="roles" /></td><td><code>array</code></td><td>The list of roles for the specified assessment.</td></tr>
 <tr><td><CopyableCode code="scope" /></td><td><code>object</code></td><td>The wrapper that contains the AWS accounts and AWS services in scope for the assessment.</td></tr>
@@ -43,6 +42,8 @@ Creates, updates, deletes or gets an <code>assessment_tag</code> resource or lis
 <tr><td><CopyableCode code="creation_time" /></td><td><code>number</code></td><td>The sequence of characters that identifies when the event occurred.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the related assessment.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the specified assessment.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

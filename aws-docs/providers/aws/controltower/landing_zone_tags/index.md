@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>landing_zone_tag</code> resource or li
 <tr><td><CopyableCode code="drift_status" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="manifest" /></td><td><code></code></td><td></td></tr>
 <tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

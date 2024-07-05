@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>discoverer_tag</code> resource or list
 <tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>The ARN of the event bus.</td></tr>
 <tr><td><CopyableCode code="cross_account" /></td><td><code>boolean</code></td><td>Defines whether event schemas from other accounts are discovered. Default is True.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Defines the current state of the discoverer.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with the resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

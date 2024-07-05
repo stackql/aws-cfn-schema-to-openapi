@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>fleet_tag</code> resource or lists <co
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="last_modification_time" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="signal_catalog_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -34,7 +34,6 @@ Creates, updates, deletes or gets an <code>index_tag</code> resource or lists <c
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description for the index</td></tr>
 <tr><td><CopyableCode code="server_side_encryption_configuration" /></td><td><code>object</code></td><td>Server side encryption configuration</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the index</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of index</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
 <tr><td><CopyableCode code="edition" /></td><td><code>string</code></td><td>Edition of index</td></tr>
@@ -42,6 +41,8 @@ Creates, updates, deletes or gets an <code>index_tag</code> resource or lists <c
 <tr><td><CopyableCode code="capacity_units" /></td><td><code>object</code></td><td>Capacity units</td></tr>
 <tr><td><CopyableCode code="user_context_policy" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="user_token_configurations" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

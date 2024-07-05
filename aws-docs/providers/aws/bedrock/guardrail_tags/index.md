@@ -43,11 +43,12 @@ Creates, updates, deletes or gets a <code>guardrail_tag</code> resource or lists
 <tr><td><CopyableCode code="sensitive_information_policy_config" /></td><td><code>object</code></td><td>Sensitive information policy config for a guardrail.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Status of the guardrail</td></tr>
 <tr><td><CopyableCode code="status_reasons" /></td><td><code>array</code></td><td>List of status reasons</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags</td></tr>
 <tr><td><CopyableCode code="topic_policy_config" /></td><td><code>object</code></td><td>Topic policy config for a guardrail.</td></tr>
 <tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>Time Stamp</td></tr>
 <tr><td><CopyableCode code="version" /></td><td><code>string</code></td><td>Guardrail version</td></tr>
 <tr><td><CopyableCode code="word_policy_config" /></td><td><code>object</code></td><td>Word policy config for a guardrail.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -37,9 +37,10 @@ Creates, updates, deletes or gets a <code>faq_tag</code> resource or lists <code
 <tr><td><CopyableCode code="file_format" /></td><td><code>string</code></td><td>FAQ file format</td></tr>
 <tr><td><CopyableCode code="s3_path" /></td><td><code>object</code></td><td>FAQ S3 path</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>FAQ role ARN</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the FAQ</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="language_code" /></td><td><code>string</code></td><td>The code for a language.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

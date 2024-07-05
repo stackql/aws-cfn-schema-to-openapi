@@ -34,11 +34,12 @@ Creates, updates, deletes or gets a <code>space_tag</code> resource or lists <co
 <tr><td><CopyableCode code="domain_id" /></td><td><code>string</code></td><td>The ID of the associated Domain.</td></tr>
 <tr><td><CopyableCode code="space_name" /></td><td><code>string</code></td><td>A name for the Space.</td></tr>
 <tr><td><CopyableCode code="space_settings" /></td><td><code>object</code></td><td>A collection of settings.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the space.</td></tr>
 <tr><td><CopyableCode code="ownership_settings" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="space_sharing_settings" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="space_display_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

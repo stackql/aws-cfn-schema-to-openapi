@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>form_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="schema_version" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="sectional_elements" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="style" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

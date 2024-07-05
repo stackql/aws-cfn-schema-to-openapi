@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>scraper_tag</code> resource or lists <
 <tr><td><CopyableCode code="scrape_configuration" /></td><td><code>object</code></td><td>Scraper configuration</td></tr>
 <tr><td><CopyableCode code="source" /></td><td><code>object</code></td><td>Scraper metrics source</td></tr>
 <tr><td><CopyableCode code="destination" /></td><td><code>object</code></td><td>Scraper metrics destination</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

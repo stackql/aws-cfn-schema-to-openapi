@@ -31,7 +31,6 @@ Creates, updates, deletes or gets an <code>event_type_tag</code> resource or lis
 
 ## Fields
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name for the event type</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this event type.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event type.</td></tr>
 <tr><td><CopyableCode code="event_variables" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="labels" /></td><td><code>array</code></td><td></td></tr>
@@ -39,6 +38,8 @@ Creates, updates, deletes or gets an <code>event_type_tag</code> resource or lis
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the event type.</td></tr>
 <tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the event type was created.</td></tr>
 <tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the event type was last updated.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

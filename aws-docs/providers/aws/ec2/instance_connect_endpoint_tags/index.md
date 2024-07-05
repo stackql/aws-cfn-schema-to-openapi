@@ -34,8 +34,9 @@ Creates, updates, deletes or gets an <code>instance_connect_endpoint_tag</code> 
 <tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The subnet id of the instance connect endpoint</td></tr>
 <tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>The client token of the instance connect endpoint.</td></tr>
 <tr><td><CopyableCode code="preserve_client_ip" /></td><td><code>boolean</code></td><td>If true, the address of the instance connect endpoint client is preserved when connecting to the end resource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags of the instance connect endpoint.</td></tr>
 <tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>The security group IDs of the instance connect endpoint.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

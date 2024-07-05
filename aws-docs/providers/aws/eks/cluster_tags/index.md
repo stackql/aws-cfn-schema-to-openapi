@@ -45,8 +45,9 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="outpost_config" /></td><td><code>object</code></td><td>An object representing the Outpost configuration to use for AWS EKS outpost cluster.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the cluster, such as arn:aws:eks:us-west-2:666666666666:cluster/prod.</td></tr>
 <tr><td><CopyableCode code="resources_vpc_config" /></td><td><code>object</code></td><td>An object representing the VPC configuration to use for an Amazon EKS cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="open_id_connect_issuer_url" /></td><td><code>string</code></td><td>The issuer URL for the cluster's OIDC identity provider, such as https://oidc.eks.us-west-2.amazonaws.com/id/EXAMPLED539D4633E53DE1B716D3041E. If you need to remove https:// from this output value, you can include the following code in your template.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

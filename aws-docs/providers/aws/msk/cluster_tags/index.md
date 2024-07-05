@@ -41,9 +41,10 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="current_version" /></td><td><code>string</code></td><td>The current version of the MSK cluster</td></tr>
 <tr><td><CopyableCode code="client_authentication" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="logging_info" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><CopyableCode code="configuration_info" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="storage_mode" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

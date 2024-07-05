@@ -33,7 +33,8 @@ Creates, updates, deletes or gets an <code>enabled_control_tag</code> resource o
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="control_identifier" /></td><td><code>string</code></td><td>Arn of the control.</td></tr>
 <tr><td><CopyableCode code="target_identifier" /></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
 <tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>Parameters to configure the enabled control behavior.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags to assign to the enabled control.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

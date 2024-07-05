@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>hours_of_operation_tag</code> resource
 <tr><td><CopyableCode code="time_zone" /></td><td><code>string</code></td><td>The time zone of the hours of operation.</td></tr>
 <tr><td><CopyableCode code="config" /></td><td><code>array</code></td><td>Configuration information for the hours of operation: day, start time, and end time.</td></tr>
 <tr><td><CopyableCode code="hours_of_operation_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the hours of operation.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

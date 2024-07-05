@@ -37,8 +37,9 @@ Creates, updates, deletes or gets a <code>routing_profile_tag</code> resource or
 <tr><td><CopyableCode code="default_outbound_queue_arn" /></td><td><code>string</code></td><td>The identifier of the default outbound queue for this routing profile.</td></tr>
 <tr><td><CopyableCode code="routing_profile_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the routing profile.</td></tr>
 <tr><td><CopyableCode code="queue_configs" /></td><td><code>array</code></td><td>The queues to associate with this routing profile.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="agent_availability_timer" /></td><td><code>string</code></td><td>Whether agents with this routing profile will have their routing order calculated based on longest idle time or time since their last inbound contact.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

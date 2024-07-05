@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>distribution_tag</code> resource or li
 <tr><td><CopyableCode code="able_to_update_bundle" /></td><td><code>boolean</code></td><td>Indicates whether the bundle that is currently applied to your distribution, specified using the distributionName parameter, can be changed to another bundle.</td></tr>
 <tr><td><CopyableCode code="is_enabled" /></td><td><code>boolean</code></td><td>Indicates whether the distribution is enabled.</td></tr>
 <tr><td><CopyableCode code="certificate_name" /></td><td><code>string</code></td><td>The certificate attached to the Distribution.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>table_tag</code> resource or lists <co
 <tr><td><CopyableCode code="retention_properties" /></td><td><code>object</code></td><td>The retention duration of the memory store and the magnetic store.</td></tr>
 <tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td>A Schema specifies the expected data model of the table.</td></tr>
 <tr><td><CopyableCode code="magnetic_store_write_properties" /></td><td><code>object</code></td><td>The properties that determine whether magnetic store writes are enabled.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

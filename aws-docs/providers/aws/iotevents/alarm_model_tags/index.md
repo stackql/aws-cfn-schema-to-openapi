@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>alarm_model_tag</code> resource or li
 <tr><td><CopyableCode code="alarm_rule" /></td><td><code>object</code></td><td>Defines when your alarm is invoked.</td></tr>
 <tr><td><CopyableCode code="alarm_event_actions" /></td><td><code>object</code></td><td>Contains information about one or more alarm actions.</td></tr>
 <tr><td><CopyableCode code="alarm_capabilities" /></td><td><code>object</code></td><td>Contains the configuration information of alarm state changes</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.<br />For more information, see &#91;Tag&#93;(https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html).</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

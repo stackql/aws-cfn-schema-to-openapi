@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>channel_tag</code> resource or lists <
 <tr><td><CopyableCode code="source" /></td><td><code>string</code></td><td>The ARN of an on-premises storage solution or application, or a partner event source.</td></tr>
 <tr><td><CopyableCode code="destinations" /></td><td><code>array</code></td><td>One or more resources to which events arriving through a channel are logged and stored.</td></tr>
 <tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of a channel.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

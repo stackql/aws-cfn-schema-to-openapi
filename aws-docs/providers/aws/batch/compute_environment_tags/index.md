@@ -36,11 +36,12 @@ Creates, updates, deletes or gets a <code>compute_environment_tag</code> resourc
 <tr><td><CopyableCode code="replace_compute_environment" /></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="update_policy" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="unmanagedv_cpus" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="eks_configuration" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

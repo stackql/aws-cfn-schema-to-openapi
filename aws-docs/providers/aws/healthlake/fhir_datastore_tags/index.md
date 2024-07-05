@@ -40,7 +40,8 @@ Creates, updates, deletes or gets a <code>fhir_datastore_tag</code> resource or 
 <tr><td><CopyableCode code="preload_data_config" /></td><td><code>object</code></td><td>The preloaded data configuration for the Data Store. Only data preloaded from Synthea is supported.</td></tr>
 <tr><td><CopyableCode code="sse_configuration" /></td><td><code>object</code></td><td>The server-side encryption key configuration for a customer provided encryption key.</td></tr>
 <tr><td><CopyableCode code="identity_provider_configuration" /></td><td><code>object</code></td><td>The identity provider configuration for the datastore</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

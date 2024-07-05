@@ -36,8 +36,9 @@ Creates, updates, deletes or gets a <code>list_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="variable_type" /></td><td><code>string</code></td><td>The variable type of the list.</td></tr>
 <tr><td><CopyableCode code="created_time" /></td><td><code>string</code></td><td>The time when the list was created.</td></tr>
 <tr><td><CopyableCode code="last_updated_time" /></td><td><code>string</code></td><td>The time when the list was last updated.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags associated with this list.</td></tr>
 <tr><td><CopyableCode code="elements" /></td><td><code>array</code></td><td>The elements in this list.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

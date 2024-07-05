@@ -37,10 +37,11 @@ Creates, updates, deletes or gets a <code>link_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="bandwidth" /></td><td><code>object</code></td><td>The Bandwidth for the link.</td></tr>
 <tr><td><CopyableCode code="provider" /></td><td><code>string</code></td><td>The provider of the link.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the link.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the link.</td></tr>
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the link.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time that the device was created.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the link.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

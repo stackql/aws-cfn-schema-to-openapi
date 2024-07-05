@@ -41,7 +41,8 @@ Creates, updates, deletes or gets a <code>portal_tag</code> resource or lists <c
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The ARN of a service role that allows the portal's users to access your AWS IoT SiteWise resources on your behalf.</td></tr>
 <tr><td><CopyableCode code="notification_sender_email" /></td><td><code>string</code></td><td>The email address that sends alarm notifications.</td></tr>
 <tr><td><CopyableCode code="alarms" /></td><td><code>object</code></td><td>Contains the configuration information of an alarm created in an AWS IoT SiteWise Monitor portal. You can use the alarm to monitor an asset property and get notified when the asset property value is outside a specified range.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the portal.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -41,7 +41,8 @@ Creates, updates, deletes or gets a <code>knowledge_base_tag</code> resource or 
 <tr><td><CopyableCode code="failure_reasons" /></td><td><code>array</code></td><td>A list of reasons that the API operation on the knowledge base failed.</td></tr>
 <tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The time at which the knowledge base was last updated.</td></tr>
 <tr><td><CopyableCode code="storage_configuration" /></td><td><code>object</code></td><td>The vector store service in which the knowledge base is stored.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of tag keys and values</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

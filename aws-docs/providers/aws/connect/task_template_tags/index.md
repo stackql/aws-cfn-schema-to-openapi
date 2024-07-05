@@ -40,7 +40,8 @@ Creates, updates, deletes or gets a <code>task_template_tag</code> resource or l
 <tr><td><CopyableCode code="fields" /></td><td><code>array</code></td><td>The list of task template's fields</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the task template</td></tr>
 <tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>the client token string in uuid format</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

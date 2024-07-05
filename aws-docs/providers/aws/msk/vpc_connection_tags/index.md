@@ -35,8 +35,9 @@ Creates, updates, deletes or gets a <code>vpc_connection_tag</code> resource or 
 <tr><td><CopyableCode code="client_subnets" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="target_cluster_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the target cluster</td></tr>
 <tr><td><CopyableCode code="security_groups" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

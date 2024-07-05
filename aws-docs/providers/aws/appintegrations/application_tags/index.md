@@ -37,7 +37,8 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the application.</td></tr>
 <tr><td><CopyableCode code="application_source_config" /></td><td><code>object</code></td><td>Application source config</td></tr>
 <tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td>The configuration of events or requests that the application has access to.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the application.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

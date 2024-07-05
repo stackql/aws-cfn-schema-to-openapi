@@ -45,11 +45,12 @@ Creates, updates, deletes or gets a <code>subnet_tag</code> resource or lists <c
 <tr><td><CopyableCode code="ipv6_native" /></td><td><code>boolean</code></td><td>Indicates whether this is an IPv6 only subnet. For more information, see &#91;Subnet basics&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#subnet-basics) in the *User Guide*.</td></tr>
 <tr><td><CopyableCode code="enable_dns64" /></td><td><code>boolean</code></td><td>Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations. For more information, see &#91;DNS64 and NAT64&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html#nat-gateway-nat64-dns64) in the *User Guide*.</td></tr>
 <tr><td><CopyableCode code="private_dns_name_options_on_launch" /></td><td><code>object</code></td><td>The hostname type for EC2 instances launched into this subnet and how DNS A and AAAA record queries to the instances should be handled. For more information, see &#91;Amazon EC2 instance hostname types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the *User Guide*.<br />Available options:<br />+ EnableResourceNameDnsAAAARecord (true | false)<br />+ EnableResourceNameDnsARecord (true | false)<br />+ HostnameType (ip-name | resource-name)</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the subnet.</td></tr>
 <tr><td><CopyableCode code="ipv4_ipam_pool_id" /></td><td><code>string</code></td><td>An IPv4 IPAM pool ID for the subnet.</td></tr>
 <tr><td><CopyableCode code="ipv4_netmask_length" /></td><td><code>integer</code></td><td>An IPv4 netmask length for the subnet.</td></tr>
 <tr><td><CopyableCode code="ipv6_ipam_pool_id" /></td><td><code>string</code></td><td>An IPv6 IPAM pool ID for the subnet.</td></tr>
 <tr><td><CopyableCode code="ipv6_netmask_length" /></td><td><code>integer</code></td><td>An IPv6 netmask length for the subnet.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

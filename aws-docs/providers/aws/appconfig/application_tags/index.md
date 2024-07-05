@@ -32,8 +32,9 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 ## Fields
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>A description of the application.</td></tr>
 <tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The application Id</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Metadata to assign to the application. Tags help organize and categorize your AWS AppConfig resources. Each tag consists of a key and an optional value, both of which you define.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>A name for the application.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

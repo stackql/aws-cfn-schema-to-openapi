@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>domain_name_tag</code> resource or lis
 <tr><td><CopyableCode code="regional_domain_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The custom domain name for your API in Amazon API Gateway. Uppercase letters are not supported.</td></tr>
 <tr><td><CopyableCode code="domain_name_configurations" /></td><td><code>array</code></td><td>The domain name configurations.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The collection of tags associated with a domain name.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>asset_tag</code> resource or lists <c
 <tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The resource ID to include in SPEKE key requests.</td></tr>
 <tr><td><CopyableCode code="source_arn" /></td><td><code>string</code></td><td>ARN of the source object in S3.</td></tr>
 <tr><td><CopyableCode code="source_role_arn" /></td><td><code>string</code></td><td>The IAM role_arn used to access the source S3 bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

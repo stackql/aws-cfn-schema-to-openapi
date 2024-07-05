@@ -41,11 +41,12 @@ Creates, updates, deletes or gets a <code>stack_set_tag</code> resource or lists
 <tr><td><CopyableCode code="stack_instances_group" /></td><td><code>array</code></td><td>A group of stack instances with parameters in some specific accounts and regions.</td></tr>
 <tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>The input parameters for the stack set template.</td></tr>
 <tr><td><CopyableCode code="permission_model" /></td><td><code>string</code></td><td>Describes how the IAM roles required for stack set operations are created. By default, SELF-MANAGED is specified.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The key-value pairs to associate with this stack set and the stacks created from it. AWS CloudFormation also propagates these tags to supported resources that are created in the stacks. A maximum number of 50 tags can be specified.</td></tr>
 <tr><td><CopyableCode code="template_body" /></td><td><code>string</code></td><td>The structure that contains the template body, with a minimum length of 1 byte and a maximum length of 51,200 bytes.</td></tr>
 <tr><td><CopyableCode code="template_url" /></td><td><code>string</code></td><td>Location of file containing the template body. The URL must point to a template (max size: 460,800 bytes) that is located in an Amazon S3 bucket.</td></tr>
 <tr><td><CopyableCode code="call_as" /></td><td><code>string</code></td><td>Specifies the AWS account that you are acting from. By default, SELF is specified. For self-managed permissions, specify SELF; for service-managed permissions, if you are signed in to the organization's management account, specify SELF. If you are signed in to a delegated administrator account, specify DELEGATED_ADMIN.</td></tr>
 <tr><td><CopyableCode code="managed_execution" /></td><td><code>object</code></td><td>Describes whether StackSets performs non-conflicting operations concurrently and queues conflicting operations.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

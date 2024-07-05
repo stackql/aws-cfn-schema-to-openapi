@@ -41,7 +41,8 @@ Creates, updates, deletes or gets a <code>domain_name_tag</code> resource or lis
 <tr><td><CopyableCode code="regional_certificate_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="ownership_verification_certificate_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="security_policy" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

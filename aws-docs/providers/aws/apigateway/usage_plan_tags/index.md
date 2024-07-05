@@ -34,9 +34,10 @@ Creates, updates, deletes or gets an <code>usage_plan_tag</code> resource or lis
 <tr><td><CopyableCode code="api_stages" /></td><td><code>array</code></td><td>The associated API stages of a usage plan.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of a usage plan.</td></tr>
 <tr><td><CopyableCode code="quota" /></td><td><code>object</code></td><td>The target maximum number of permitted requests per a given unit time interval.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
 <tr><td><CopyableCode code="throttle" /></td><td><code>object</code></td><td>A map containing method level throttling information for API stage in a usage plan.</td></tr>
 <tr><td><CopyableCode code="usage_plan_name" /></td><td><code>string</code></td><td>The name of a usage plan.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

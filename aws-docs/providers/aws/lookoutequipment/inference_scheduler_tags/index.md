@@ -38,8 +38,9 @@ Creates, updates, deletes or gets an <code>inference_scheduler_tag</code> resour
 <tr><td><CopyableCode code="model_name" /></td><td><code>string</code></td><td>The name of the previously trained ML model being used to create the inference scheduler.</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of a role with permission to access the data source being used for the inference.</td></tr>
 <tr><td><CopyableCode code="server_side_kms_key_id" /></td><td><code>string</code></td><td>Provides the identifier of the AWS KMS customer master key (CMK) used to encrypt inference scheduler data by Amazon Lookout for Equipment.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags associated with the inference scheduler.</td></tr>
 <tr><td><CopyableCode code="inference_scheduler_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the inference scheduler being created.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

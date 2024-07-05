@@ -47,8 +47,9 @@ Creates, updates, deletes or gets an <code>api_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="route_key" /></td><td><code>string</code></td><td>This property is part of quick create. If you don't specify a <code>routeKey</code>, a default route of <code>$default</code> is created. The <code>$default</code> route acts as a catch-all for any request made to your API, for a particular stage. The <code>$default</code> route key can't be modified. You can add routes after creating the API, and you can update the route keys of additional routes. Supported only for HTTP APIs.</td></tr>
 <tr><td><CopyableCode code="api_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="body" /></td><td><code>object</code></td><td>The OpenAPI definition. Supported only for HTTP APIs. To import an HTTP API, you must specify a <code>Body</code> or <code>BodyS3Location</code>. If you specify a <code>Body</code> or <code>BodyS3Location</code>, don't specify CloudFormation resources such as <code>AWS::ApiGatewayV2::Authorizer</code> or <code>AWS::ApiGatewayV2::Route</code>. API Gateway doesn't support the combination of OpenAPI and CloudFormation resources.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The collection of tags. Each tag element is associated with a given resource.</td></tr>
 <tr><td><CopyableCode code="api_key_selection_expression" /></td><td><code>string</code></td><td>An API key selection expression. Supported only for WebSocket APIs. See &#91;API Key Selection Expressions&#93;(https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions).</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

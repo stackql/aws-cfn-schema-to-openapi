@@ -37,8 +37,9 @@ Creates, updates, deletes or gets an <code>experiment_template_tag</code> resour
 <tr><td><CopyableCode code="stop_conditions" /></td><td><code>array</code></td><td>One or more stop conditions.</td></tr>
 <tr><td><CopyableCode code="log_configuration" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that grants the AWS FIS service permission to perform service actions on your behalf.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="experiment_options" /></td><td><code>object</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

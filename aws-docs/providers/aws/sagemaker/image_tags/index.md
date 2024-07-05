@@ -35,7 +35,8 @@ Creates, updates, deletes or gets an <code>image_tag</code> resource or lists <c
 <tr><td><CopyableCode code="image_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of an IAM role that enables Amazon SageMaker to perform tasks on behalf of the customer.</td></tr>
 <tr><td><CopyableCode code="image_display_name" /></td><td><code>string</code></td><td>The display name of the image.</td></tr>
 <tr><td><CopyableCode code="image_description" /></td><td><code>string</code></td><td>A description of the image.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

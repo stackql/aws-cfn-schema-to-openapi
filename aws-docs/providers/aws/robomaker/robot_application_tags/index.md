@@ -36,7 +36,8 @@ Creates, updates, deletes or gets a <code>robot_application_tag</code> resource 
 <tr><td><CopyableCode code="robot_software_suite" /></td><td><code>object</code></td><td>Information about a robot software suite.</td></tr>
 <tr><td><CopyableCode code="current_revision_id" /></td><td><code>string</code></td><td>The revision ID of robot application.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

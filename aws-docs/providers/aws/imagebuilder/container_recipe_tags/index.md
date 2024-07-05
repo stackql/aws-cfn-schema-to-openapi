@@ -45,7 +45,8 @@ Creates, updates, deletes or gets a <code>container_recipe_tag</code> resource o
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>Identifies which KMS key is used to encrypt the container image.</td></tr>
 <tr><td><CopyableCode code="parent_image" /></td><td><code>string</code></td><td>The source image for the container recipe.</td></tr>
 <tr><td><CopyableCode code="working_directory" /></td><td><code>string</code></td><td>The working directory to be used during build and test workflows.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>Tags that are attached to the container recipe.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

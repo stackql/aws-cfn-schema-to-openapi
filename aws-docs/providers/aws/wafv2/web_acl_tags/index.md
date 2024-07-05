@@ -39,13 +39,14 @@ Creates, updates, deletes or gets a <code>web_acl_tag</code> resource or lists <
 <tr><td><CopyableCode code="scope" /></td><td><code>string</code></td><td>Use CLOUDFRONT for CloudFront WebACL, use REGIONAL for Application Load Balancer and API Gateway.</td></tr>
 <tr><td><CopyableCode code="rules" /></td><td><code>array</code></td><td>Collection of Rules.</td></tr>
 <tr><td><CopyableCode code="visibility_config" /></td><td><code>object</code></td><td>Visibility Metric of the WebACL.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="label_namespace" /></td><td><code>string</code></td><td>Name of the Label.</td></tr>
 <tr><td><CopyableCode code="custom_response_bodies" /></td><td><code>object</code></td><td>Custom response key and body map.</td></tr>
 <tr><td><CopyableCode code="captcha_config" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="challenge_config" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="token_domains" /></td><td><code>array</code></td><td>List of domains to accept in web request tokens, in addition to the domain of the protected resource.</td></tr>
 <tr><td><CopyableCode code="association_config" /></td><td><code>object</code></td><td>AssociationConfig for body inspection</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -39,10 +39,11 @@ Creates, updates, deletes or gets an <code>entity_tag</code> resource or lists <
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the entity.</td></tr>
 <tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the entity was created.</td></tr>
 <tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The last date and time when the entity was updated.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the workspace.</td></tr>
 <tr><td><CopyableCode code="components" /></td><td><code>object</code></td><td>A map that sets information about a component type.</td></tr>
 <tr><td><CopyableCode code="composite_components" /></td><td><code>object</code></td><td>A map that sets information about a composite component.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

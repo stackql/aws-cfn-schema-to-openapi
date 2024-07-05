@@ -33,7 +33,6 @@ Creates, updates, deletes or gets an <code>analysis_template_tag</code> resource
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="collaboration_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="collaboration_identifier" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this cleanrooms analysis template.</td></tr>
 <tr><td><CopyableCode code="analysis_parameters" /></td><td><code>array</code></td><td>The member who can query can provide this placeholder for a literal data value in an analysis template</td></tr>
 <tr><td><CopyableCode code="analysis_template_identifier" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
@@ -43,6 +42,8 @@ Creates, updates, deletes or gets an <code>analysis_template_tag</code> resource
 <tr><td><CopyableCode code="schema" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="source" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="format" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

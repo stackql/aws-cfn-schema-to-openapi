@@ -37,8 +37,9 @@ Creates, updates, deletes or gets a <code>container_group_definition_tag</code> 
 <tr><td><CopyableCode code="total_memory_limit" /></td><td><code>integer</code></td><td>The maximum amount of memory (in MiB) to allocate for this container group.</td></tr>
 <tr><td><CopyableCode code="total_cpu_limit" /></td><td><code>integer</code></td><td>The maximum number of CPU units reserved for this container group. The value is expressed as an integer amount of CPU units. (1 vCPU is equal to 1024 CPU units.)</td></tr>
 <tr><td><CopyableCode code="container_definitions" /></td><td><code>array</code></td><td>A collection of container definitions that define the containers in this group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="operating_system" /></td><td><code>string</code></td><td>The operating system of the container group</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

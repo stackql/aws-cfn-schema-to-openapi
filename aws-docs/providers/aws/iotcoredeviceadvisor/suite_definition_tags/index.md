@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>suite_definition_tag</code> resource o
 <tr><td><CopyableCode code="suite_definition_id" /></td><td><code>string</code></td><td>The unique identifier for the suite definition.</td></tr>
 <tr><td><CopyableCode code="suite_definition_arn" /></td><td><code>string</code></td><td>The Amazon Resource name for the suite definition.</td></tr>
 <tr><td><CopyableCode code="suite_definition_version" /></td><td><code>string</code></td><td>The suite definition version of a test suite.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>datastore_tag</code> resource or lists
 <tr><td><CopyableCode code="kms_key_arn" /></td><td><code>string</code></td><td>ARN referencing a KMS key or KMS key alias.</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The timestamp when the data store was created.</td></tr>
 <tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The timestamp when the data store was created.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A Map of key value pairs for Tags.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

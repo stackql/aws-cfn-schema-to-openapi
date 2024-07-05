@@ -39,9 +39,10 @@ Creates, updates, deletes or gets a <code>data_source_tag</code> resource or lis
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="schedule" /></td><td><code>string</code></td><td>Schedule</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role Arn</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tags for labeling the data source</td></tr>
 <tr><td><CopyableCode code="custom_document_enrichment_configuration" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="language_code" /></td><td><code>string</code></td><td>The code for a language.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>volume_tag</code> resource or lists <c
 <tr><td><CopyableCode code="snapshot_id" /></td><td><code>string</code></td><td>The snapshot from which to create the volume. You must specify either a snapshot ID or a volume size.</td></tr>
 <tr><td><CopyableCode code="volume_type" /></td><td><code>string</code></td><td>The volume type. This parameter can be one of the following values:<br />+ General Purpose SSD: <code>gp2</code> | <code>gp3</code> <br />+ Provisioned IOPS SSD: <code>io1</code> | <code>io2</code> <br />+ Throughput Optimized HDD: <code>st1</code> <br />+ Cold HDD: <code>sc1</code> <br />+ Magnetic: <code>standard</code> <br /><br />For more information, see &#91;Amazon EBS volume types&#93;(https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) in the *Amazon Elastic Compute Cloud User Guide*.<br />Default: <code>gp2</code></td></tr>
 <tr><td><CopyableCode code="volume_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the volume during creation.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

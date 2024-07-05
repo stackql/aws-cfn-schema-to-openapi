@@ -41,8 +41,9 @@ Creates, updates, deletes or gets a <code>metric_stream_tag</code> resource or l
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>Displays the state of the Metric Stream.</td></tr>
 <tr><td><CopyableCode code="output_format" /></td><td><code>string</code></td><td>The output format of the data streamed to the Kinesis Firehose.</td></tr>
 <tr><td><CopyableCode code="statistics_configurations" /></td><td><code>array</code></td><td>By default, a metric stream always sends the MAX, MIN, SUM, and SAMPLECOUNT statistics for each metric that is streamed. You can use this parameter to have the metric stream also send additional statistics in the stream. This array can have up to 100 members.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags to assign to the delivery stream.</td></tr>
 <tr><td><CopyableCode code="include_linked_accounts_metrics" /></td><td><code>boolean</code></td><td>If you are creating a metric stream in a monitoring account, specify true to include metrics from source accounts that are linked to this monitoring account, in the metric stream. The default is false.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

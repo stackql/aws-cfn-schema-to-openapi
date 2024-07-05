@@ -37,8 +37,9 @@ Creates, updates, deletes or gets a <code>transit_gateway_peering_attachment_tag
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the transit gateway peering attachment. Note that the initiating state has been deprecated.</td></tr>
 <tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The time the transit gateway peering attachment was created.</td></tr>
 <tr><td><CopyableCode code="peer_region" /></td><td><code>string</code></td><td>Peer Region</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the transit gateway peering attachment.</td></tr>
 <tr><td><CopyableCode code="transit_gateway_attachment_id" /></td><td><code>string</code></td><td>The ID of the transit gateway peering attachment.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

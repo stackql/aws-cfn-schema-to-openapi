@@ -34,8 +34,9 @@ Creates, updates, deletes or gets a <code>packaging_group_tag</code> resource or
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the PackagingGroup.</td></tr>
 <tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The fully qualified domain name for Assets in the PackagingGroup.</td></tr>
 <tr><td><CopyableCode code="authorization" /></td><td><code>object</code></td><td>CDN Authorization</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
 <tr><td><CopyableCode code="egress_access_logs" /></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

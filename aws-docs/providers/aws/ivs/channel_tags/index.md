@@ -36,11 +36,12 @@ Creates, updates, deletes or gets a <code>channel_tag</code> resource or lists <
 <tr><td><CopyableCode code="insecure_ingest" /></td><td><code>boolean</code></td><td>Whether the channel allows insecure ingest.</td></tr>
 <tr><td><CopyableCode code="latency_mode" /></td><td><code>string</code></td><td>Channel latency mode.</td></tr>
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>Channel type, which determines the allowable resolution and bitrate. If you exceed the allowable resolution or bitrate, the stream probably will disconnect immediately.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
 <tr><td><CopyableCode code="playback_url" /></td><td><code>string</code></td><td>Channel Playback URL.</td></tr>
 <tr><td><CopyableCode code="ingest_endpoint" /></td><td><code>string</code></td><td>Channel ingest endpoint, part of the definition of an ingest server, used when you set up streaming software.</td></tr>
 <tr><td><CopyableCode code="recording_configuration_arn" /></td><td><code>string</code></td><td>Recording Configuration ARN. A value other than an empty string indicates that recording is enabled. Default: "" (recording is disabled).</td></tr>
 <tr><td><CopyableCode code="preset" /></td><td><code>string</code></td><td>Optional transcode preset for the channel. This is selectable only for ADVANCED_HD and ADVANCED_SD channel types. For those channel types, the default preset is HIGHER_BANDWIDTH_DELIVERY. For other channel types (BASIC and STANDARD), preset is the empty string ("").</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -33,7 +33,8 @@ Creates, updates, deletes or gets a <code>storage_lens_group_tag</code> resource
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name that identifies the Amazon S3 Storage Lens Group.</td></tr>
 <tr><td><CopyableCode code="filter" /></td><td><code>object</code></td><td>Sets the Storage Lens Group filter.</td></tr>
 <tr><td><CopyableCode code="storage_lens_group_arn" /></td><td><code>string</code></td><td>The ARN for the Amazon S3 Storage Lens Group.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags (key-value pairs) for this Amazon S3 Storage Lens Group.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

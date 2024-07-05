@@ -39,8 +39,9 @@ Creates, updates, deletes or gets a <code>flow_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="source_flow_config" /></td><td><code>object</code></td><td>Configurations of Source connector of the flow.</td></tr>
 <tr><td><CopyableCode code="destination_flow_config_list" /></td><td><code>array</code></td><td>List of Destination connectors of the flow.</td></tr>
 <tr><td><CopyableCode code="tasks" /></td><td><code>array</code></td><td>List of tasks for the flow.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>List of Tags.</td></tr>
 <tr><td><CopyableCode code="metadata_catalog_config" /></td><td><code>object</code></td><td>Configurations of metadata catalog of the flow.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

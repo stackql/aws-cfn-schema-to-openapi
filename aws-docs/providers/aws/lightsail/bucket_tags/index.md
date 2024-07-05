@@ -37,9 +37,10 @@ Creates, updates, deletes or gets a <code>bucket_tag</code> resource or lists <c
 <tr><td><CopyableCode code="access_rules" /></td><td><code>object</code></td><td>An object that sets the public accessibility of objects in the specified bucket.</td></tr>
 <tr><td><CopyableCode code="resources_receiving_access" /></td><td><code>array</code></td><td>The names of the Lightsail resources for which to set bucket access.</td></tr>
 <tr><td><CopyableCode code="read_only_access_accounts" /></td><td><code>array</code></td><td>An array of strings to specify the AWS account IDs that can access the bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>The URL of the bucket.</td></tr>
 <tr><td><CopyableCode code="able_to_update_bundle" /></td><td><code>boolean</code></td><td>Indicates whether the bundle that is currently applied to a bucket can be changed to another bundle. You can update a bucket's bundle only one time within a monthly AWS billing cycle.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

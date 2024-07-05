@@ -45,7 +45,8 @@ Creates, updates, deletes or gets a <code>component_type_tag</code> resource or 
 <tr><td><CopyableCode code="status" /></td><td><code>object</code></td><td>The current status of the component type.</td></tr>
 <tr><td><CopyableCode code="is_abstract" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type is abstract.</td></tr>
 <tr><td><CopyableCode code="is_schema_initialized" /></td><td><code>boolean</code></td><td>A Boolean value that specifies whether the component type has a schema initializer and that the schema initializer has run.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of key-value pairs to associate with a resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

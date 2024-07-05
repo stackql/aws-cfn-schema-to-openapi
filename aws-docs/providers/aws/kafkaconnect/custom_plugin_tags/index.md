@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>custom_plugin_tag</code> resource or l
 <tr><td><CopyableCode code="file_description" /></td><td><code>object</code></td><td>Details about the custom plugin file.</td></tr>
 <tr><td><CopyableCode code="location" /></td><td><code>object</code></td><td>Information about the location of a custom plugin.</td></tr>
 <tr><td><CopyableCode code="revision" /></td><td><code>integer</code></td><td>The revision of the custom plugin.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

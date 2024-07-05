@@ -39,7 +39,8 @@ Creates, updates, deletes or gets an <code>id_namespace_tag</code> resource or l
 <tr><td><CopyableCode code="id_namespace_arn" /></td><td><code>string</code></td><td>The arn associated with the IdNamespace</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The date and time when the IdNamespace was created</td></tr>
 <tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The date and time when the IdNamespace was updated</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

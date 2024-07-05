@@ -36,7 +36,8 @@ Creates, updates, deletes or gets an <code>user_profile_tag</code> resource or l
 <tr><td><CopyableCode code="single_sign_on_user_value" /></td><td><code>string</code></td><td>The username of the associated AWS Single Sign-On User for this UserProfile. If the Domain's AuthMode is SSO, this field is required, and must match a valid username of a user in your directory. If the Domain's AuthMode is not SSO, this field cannot be specified.</td></tr>
 <tr><td><CopyableCode code="user_profile_name" /></td><td><code>string</code></td><td>A name for the UserProfile.</td></tr>
 <tr><td><CopyableCode code="user_settings" /></td><td><code>object</code></td><td>A collection of settings.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to apply to the user profile.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

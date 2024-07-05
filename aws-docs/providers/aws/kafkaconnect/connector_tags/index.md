@@ -42,8 +42,9 @@ Creates, updates, deletes or gets a <code>connector_tag</code> resource or lists
 <tr><td><CopyableCode code="log_delivery" /></td><td><code>object</code></td><td>Details of what logs are delivered and where they are delivered.</td></tr>
 <tr><td><CopyableCode code="plugins" /></td><td><code>array</code></td><td>List of plugins to use with the connector.</td></tr>
 <tr><td><CopyableCode code="service_execution_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role used by the connector to access Amazon S3 objects and other external resources.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
 <tr><td><CopyableCode code="worker_configuration" /></td><td><code>object</code></td><td>The configuration of the workers, which are the processes that run the connector logic.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

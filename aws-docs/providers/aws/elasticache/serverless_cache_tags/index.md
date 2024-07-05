@@ -39,7 +39,6 @@ Creates, updates, deletes or gets a <code>serverless_cache_tag</code> resource o
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The ID of the KMS key used to encrypt the cluster.</td></tr>
 <tr><td><CopyableCode code="security_group_ids" /></td><td><code>array</code></td><td>One or more Amazon VPC security groups associated with this Serverless Cache.</td></tr>
 <tr><td><CopyableCode code="snapshot_arns_to_restore" /></td><td><code>array</code></td><td>The ARN's of snapshot to restore Serverless Cache.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this Serverless Cache.</td></tr>
 <tr><td><CopyableCode code="user_group_id" /></td><td><code>string</code></td><td>The ID of the user group.</td></tr>
 <tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>The subnet id's of the Serverless Cache.</td></tr>
 <tr><td><CopyableCode code="snapshot_retention_limit" /></td><td><code>integer</code></td><td>The snapshot retention limit of the Serverless Cache.</td></tr>
@@ -50,6 +49,8 @@ Creates, updates, deletes or gets a <code>serverless_cache_tag</code> resource o
 <tr><td><CopyableCode code="reader_endpoint" /></td><td><code>object</code></td><td>The address and the port.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the Serverless Cache.</td></tr>
 <tr><td><CopyableCode code="final_snapshot_name" /></td><td><code>string</code></td><td>The final snapshot name which is taken before Serverless Cache is deleted.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

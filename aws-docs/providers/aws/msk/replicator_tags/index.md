@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>replicator_tag</code> resource or list
 <tr><td><CopyableCode code="kafka_clusters" /></td><td><code>array</code></td><td>Specifies a list of Kafka clusters which are targets of the replicator.</td></tr>
 <tr><td><CopyableCode code="replication_info_list" /></td><td><code>array</code></td><td>A list of replication configurations, where each configuration targets a given source cluster to target cluster replication flow.</td></tr>
 <tr><td><CopyableCode code="service_execution_role_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the IAM role used by the replicator to access external resources.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -37,9 +37,10 @@ Creates, updates, deletes or gets a <code>channel_tag</code> resource or lists <
 <tr><td><CopyableCode code="log_configuration" /></td><td><code>object</code></td><td><p>The log configuration for the channel.</p></td></tr>
 <tr><td><CopyableCode code="outputs" /></td><td><code>array</code></td><td><p>The channel's output properties.</p></td></tr>
 <tr><td><CopyableCode code="playback_mode" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to assign to the channel.</td></tr>
 <tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="time_shift_configuration" /></td><td><code>object</code></td><td><p>The configuration for time-shifted viewing.</p></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>authorizer_tag</code> resource or lis
 <tr><td><CopyableCode code="token_key_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="token_signing_public_keys" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="enable_caching_for_http" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

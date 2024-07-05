@@ -45,11 +45,12 @@ Creates, updates, deletes or gets a <code>job_tag</code> resource or lists <code
 <tr><td><CopyableCode code="project_name" /></td><td><code>string</code></td><td>Project name</td></tr>
 <tr><td><CopyableCode code="recipe" /></td><td><code>object</code></td><td>Resource schema for AWS::DataBrew::Recipe.</td></tr>
 <tr><td><CopyableCode code="role_arn" /></td><td><code>string</code></td><td>Role arn</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="timeout" /></td><td><code>integer</code></td><td>Timeout</td></tr>
 <tr><td><CopyableCode code="job_sample" /></td><td><code>object</code></td><td>Job Sample</td></tr>
 <tr><td><CopyableCode code="profile_configuration" /></td><td><code>object</code></td><td>Profile Job configuration</td></tr>
 <tr><td><CopyableCode code="validation_configurations" /></td><td><code>array</code></td><td>Data quality rules configuration</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

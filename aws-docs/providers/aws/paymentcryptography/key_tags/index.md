@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>key_tag</code> resource or lists <code
 <tr><td><CopyableCode code="key_identifier" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="key_origin" /></td><td><code>string</code></td><td>Defines the source of a key</td></tr>
 <tr><td><CopyableCode code="key_state" /></td><td><code>string</code></td><td>Defines the state of a key</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

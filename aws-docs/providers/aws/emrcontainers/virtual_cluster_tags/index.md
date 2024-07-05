@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>virtual_cluster_tag</code> resource or
 <tr><td><CopyableCode code="container_provider" /></td><td><code>object</code></td><td>Container provider of the virtual cluster.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Id of the virtual cluster.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>Name of the virtual cluster.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this virtual cluster.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

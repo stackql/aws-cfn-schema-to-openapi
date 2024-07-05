@@ -36,7 +36,6 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td>The type of the application</td></tr>
 <tr><td><CopyableCode code="initial_capacity" /></td><td><code>array</code></td><td>Initial capacity initialized when an Application is started.</td></tr>
 <tr><td><CopyableCode code="maximum_capacity" /></td><td><code>object</code></td><td>Maximum allowed cumulative resources for an Application. No new resources will be created once the limit is hit.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Tag map with key and value</td></tr>
 <tr><td><CopyableCode code="auto_start_configuration" /></td><td><code>object</code></td><td>Configuration for Auto Start of Application.</td></tr>
 <tr><td><CopyableCode code="auto_stop_configuration" /></td><td><code>object</code></td><td>Configuration for Auto Stop of Application.</td></tr>
 <tr><td><CopyableCode code="image_configuration" /></td><td><code>object</code></td><td>The image configuration.</td></tr>
@@ -46,6 +45,8 @@ Creates, updates, deletes or gets an <code>application_tag</code> resource or li
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the EMR Serverless Application.</td></tr>
 <tr><td><CopyableCode code="application_id" /></td><td><code>string</code></td><td>The ID of the EMR Serverless Application.</td></tr>
 <tr><td><CopyableCode code="worker_type_specifications" /></td><td><code>object</code></td><td>The key-value pairs that specify worker type to WorkerTypeSpecificationInput. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include Driver and Executor for Spark applications and HiveDriver and TezTask for Hive applications. You can either set image details in this parameter for each worker type, or in imageConfiguration for all worker types.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

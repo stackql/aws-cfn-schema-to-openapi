@@ -40,9 +40,10 @@ Creates, updates, deletes or gets a <code>component_tag</code> resource or lists
 <tr><td><CopyableCode code="data" /></td><td><code>string</code></td><td>The data of the component.</td></tr>
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td>The KMS key identifier used to encrypt the component.</td></tr>
 <tr><td><CopyableCode code="encrypted" /></td><td><code>boolean</code></td><td>The encryption status of the component.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>The tags associated with the component.</td></tr>
 <tr><td><CopyableCode code="uri" /></td><td><code>string</code></td><td>The uri of the component.</td></tr>
 <tr><td><CopyableCode code="supported_os_versions" /></td><td><code>array</code></td><td>The operating system (OS) version supported by the component.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

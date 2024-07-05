@@ -34,8 +34,9 @@ Creates, updates, deletes or gets a <code>profile_association_tag</code> resourc
 <tr><td><CopyableCode code="profile_id" /></td><td><code>string</code></td><td>The ID of the profile that you associated with the resource that is specified by ResourceId.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Primary Identifier for Profile Association</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of an association between a Profile and a VPC.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the profile association.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

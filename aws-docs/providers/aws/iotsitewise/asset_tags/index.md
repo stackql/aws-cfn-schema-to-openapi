@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>asset_tag</code> resource or lists <c
 <tr><td><CopyableCode code="asset_description" /></td><td><code>string</code></td><td>A description for the asset</td></tr>
 <tr><td><CopyableCode code="asset_properties" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="asset_hierarchies" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -45,7 +45,8 @@ Creates, updates, deletes or gets a <code>stream_processor_tag</code> resource o
 <tr><td><CopyableCode code="bounding_box_regions_of_interest" /></td><td><code>array</code></td><td>The BoundingBoxRegionsOfInterest specifies an array of bounding boxes of interest in the video frames to analyze, as part of connected home feature. If an object is partially in a region of interest, Rekognition will tag it as detected if the overlap of the object with the region-of-interest is greater than 20%.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Current status of the stream processor.</td></tr>
 <tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td>Detailed status message about the stream processor.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

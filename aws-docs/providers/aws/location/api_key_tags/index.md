@@ -38,10 +38,11 @@ Creates, updates, deletes or gets an <code>api_key_tag</code> resource or lists 
 <tr><td><CopyableCode code="key_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="no_expiry" /></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><CopyableCode code="restrictions" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td>The datetime value in ISO 8601 format. The timezone is always UTC. (YYYY-MM-DDThh:mm:ss.sssZ)</td></tr>
 <tr><td><CopyableCode code="force_delete" /></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

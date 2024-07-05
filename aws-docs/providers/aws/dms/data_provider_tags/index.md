@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>data_provider_tag</code> resource or l
 <tr><td><CopyableCode code="engine" /></td><td><code>string</code></td><td>The property describes a data engine for the data provider.</td></tr>
 <tr><td><CopyableCode code="exact_settings" /></td><td><code>boolean</code></td><td>The property describes the exact settings which can be modified</td></tr>
 <tr><td><CopyableCode code="settings" /></td><td><code>object</code></td><td>The property identifies the exact type of settings for the data provider.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

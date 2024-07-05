@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>custom_line_item_tag</code> resource o
 <tr><td><CopyableCode code="product_code" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="currency_code" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The account which this custom line item will be charged to</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

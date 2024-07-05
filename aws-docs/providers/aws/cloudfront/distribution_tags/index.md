@@ -33,7 +33,8 @@ Creates, updates, deletes or gets a <code>distribution_tag</code> resource or li
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="distribution_config" /></td><td><code>object</code></td><td>The distribution's configuration.</td></tr>
 <tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A complex type that contains zero or more <code>Tag</code> elements.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

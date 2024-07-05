@@ -35,10 +35,11 @@ Creates, updates, deletes or gets a <code>multicast_group_tag</code> resource or
 <tr><td><CopyableCode code="lo_ra_wan" /></td><td><code>object</code></td><td>Multicast group LoRaWAN</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Multicast group arn. Returned after successful create.</td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Multicast group id. Returned after successful create.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the Multicast group.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>Multicast group status. Returned after successful read.</td></tr>
 <tr><td><CopyableCode code="associate_wireless_device" /></td><td><code>string</code></td><td>Wireless device to associate. Only for update request.</td></tr>
 <tr><td><CopyableCode code="disassociate_wireless_device" /></td><td><code>string</code></td><td>Wireless device to disassociate. Only for update request.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

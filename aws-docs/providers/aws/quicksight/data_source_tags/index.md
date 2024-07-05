@@ -43,9 +43,10 @@ Creates, updates, deletes or gets a <code>data_source_tag</code> resource or lis
 <tr><td><CopyableCode code="permissions" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="ssl_properties" /></td><td><code>object</code></td><td><p>Secure Socket Layer (SSL) properties that apply when Amazon QuickSight connects to your<br />underlying data source.</p></td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="vpc_connection_properties" /></td><td><code>object</code></td><td><p>VPC connection properties.</p></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>migration_project_tag</code> resource 
 <tr><td><CopyableCode code="schema_conversion_application_attributes" /></td><td><code>object</code></td><td>The property describes schema conversion application attributes for the migration project.</td></tr>
 <tr><td><CopyableCode code="source_data_provider_descriptors" /></td><td><code>array</code></td><td>The property describes source data provider descriptors for the migration project.</td></tr>
 <tr><td><CopyableCode code="target_data_provider_descriptors" /></td><td><code>array</code></td><td>The property describes target data provider descriptors for the migration project.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

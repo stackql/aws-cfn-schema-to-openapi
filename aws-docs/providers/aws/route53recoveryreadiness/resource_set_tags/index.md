@@ -34,7 +34,8 @@ Creates, updates, deletes or gets a <code>resource_set_tag</code> resource or li
 <tr><td><CopyableCode code="resources" /></td><td><code>array</code></td><td>A list of resource objects in the resource set.</td></tr>
 <tr><td><CopyableCode code="resource_set_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the resource set.</td></tr>
 <tr><td><CopyableCode code="resource_set_type" /></td><td><code>string</code></td><td>The resource type of the resources in the resource set. Enter one of the following values for resource type: <br />AWS: :AutoScaling: :AutoScalingGroup, AWS: :CloudWatch: :Alarm, AWS: :EC2: :CustomerGateway, AWS: :DynamoDB: :Table, AWS: :EC2: :Volume, AWS: :ElasticLoadBalancing: :LoadBalancer, AWS: :ElasticLoadBalancingV2: :LoadBalancer, AWS: :MSK: :Cluster, AWS: :RDS: :DBCluster, AWS: :Route53: :HealthCheck, AWS: :SQS: :Queue, AWS: :SNS: :Topic, AWS: :SNS: :Subscription, AWS: :EC2: :VPC, AWS: :EC2: :VPNConnection, AWS: :EC2: :VPNGateway, AWS::Route53RecoveryReadiness::DNSTargetResource</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A tag to associate with the parameters for a resource set.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

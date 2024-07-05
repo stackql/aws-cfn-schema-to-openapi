@@ -37,9 +37,10 @@ Creates, updates, deletes or gets a <code>document_tag</code> resource or lists 
 <tr><td><CopyableCode code="document_type" /></td><td><code>string</code></td><td>The type of document to create.</td></tr>
 <tr><td><CopyableCode code="document_format" /></td><td><code>string</code></td><td>Specify the document format for the request. The document format can be either JSON or YAML. JSON is the default format.</td></tr>
 <tr><td><CopyableCode code="target_type" /></td><td><code>string</code></td><td>Specify a target type to define the kinds of resources the document can run on.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Optional metadata that you assign to a resource. Tags enable you to categorize a resource in different ways, such as by purpose, owner, or environment.</td></tr>
 <tr><td><CopyableCode code="requires" /></td><td><code>array</code></td><td>A list of SSM documents required by a document. For example, an ApplicationConfiguration document requires an ApplicationConfigurationSchema document.</td></tr>
 <tr><td><CopyableCode code="update_method" /></td><td><code>string</code></td><td>Update method - when set to 'Replace', the update will replace the existing document; when set to 'NewVersion', the update will create a new version.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

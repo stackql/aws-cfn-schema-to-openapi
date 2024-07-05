@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>channel_tag</code> resource or lists <
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>Enter any descriptive text that helps you to identify the channel.</p></td></tr>
 <tr><td><CopyableCode code="ingest_endpoints" /></td><td><code>array</code></td><td><p>The list of ingest endpoints.</p></td></tr>
 <tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td><p>The date and time the channel was modified.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

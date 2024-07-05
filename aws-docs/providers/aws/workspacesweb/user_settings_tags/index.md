@@ -40,9 +40,10 @@ Creates, updates, deletes or gets an <code>user_settings_tag</code> resource or 
 <tr><td><CopyableCode code="idle_disconnect_timeout_in_minutes" /></td><td><code>number</code></td><td></td></tr>
 <tr><td><CopyableCode code="paste_allowed" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="print_allowed" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="upload_allowed" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="user_settings_arn" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

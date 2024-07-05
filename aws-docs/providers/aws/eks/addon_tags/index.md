@@ -39,7 +39,8 @@ Creates, updates, deletes or gets an <code>addon_tag</code> resource or lists <c
 <tr><td><CopyableCode code="pod_identity_associations" /></td><td><code>array</code></td><td>An array of pod identities to apply to this add-on.</td></tr>
 <tr><td><CopyableCode code="configuration_values" /></td><td><code>string</code></td><td>The configuration values to use with the add-on</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Amazon Resource Name (ARN) of the add-on</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -42,7 +42,8 @@ Creates, updates, deletes or gets a <code>customdb_engine_version_tag</code> res
 <tr><td><CopyableCode code="use_aws_provided_latest_image" /></td><td><code>boolean</code></td><td>A value that indicates whether AWS provided latest image is applied automatically to the Custom Engine Version. By default, AWS provided latest image is applied automatically. This value is only applied on create.</td></tr>
 <tr><td><CopyableCode code="image_id" /></td><td><code>string</code></td><td>The identifier of Amazon Machine Image (AMI) used for CEV.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The availability status to be assigned to the CEV.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -41,8 +41,9 @@ Creates, updates, deletes or gets an <code>object_type_tag</code> resource or li
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this integration got created.</td></tr>
 <tr><td><CopyableCode code="last_updated_at" /></td><td><code>string</code></td><td>The time of this integration got last updated at.</td></tr>
 <tr><td><CopyableCode code="source_last_updated_timestamp_format" /></td><td><code>string</code></td><td>The format of your sourceLastUpdatedTimestamp that was previously set up.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags (keys and values) associated with the integration.</td></tr>
 <tr><td><CopyableCode code="template_id" /></td><td><code>string</code></td><td>A unique identifier for the object template.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

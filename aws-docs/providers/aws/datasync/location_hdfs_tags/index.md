@@ -40,11 +40,12 @@ Creates, updates, deletes or gets a <code>location_hdfs_tag</code> resource or l
 <tr><td><CopyableCode code="kerberos_principal" /></td><td><code>string</code></td><td>The unique identity, or principal, to which Kerberos can assign tickets.</td></tr>
 <tr><td><CopyableCode code="kerberos_keytab" /></td><td><code>string</code></td><td>The Base64 string representation of the Keytab file.</td></tr>
 <tr><td><CopyableCode code="kerberos_krb5_conf" /></td><td><code>string</code></td><td>The string representation of the Krb5Conf file, or the presigned URL to access the Krb5.conf file within an S3 bucket.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="agent_arns" /></td><td><code>array</code></td><td>ARN(s) of the agent(s) to use for an HDFS location.</td></tr>
 <tr><td><CopyableCode code="subdirectory" /></td><td><code>string</code></td><td>The subdirectory in HDFS that is used to read data from the HDFS source location or write data to the HDFS destination.</td></tr>
 <tr><td><CopyableCode code="location_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the HDFS location.</td></tr>
 <tr><td><CopyableCode code="location_uri" /></td><td><code>string</code></td><td>The URL of the HDFS location that was described.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

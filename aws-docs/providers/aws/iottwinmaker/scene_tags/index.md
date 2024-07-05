@@ -36,11 +36,12 @@ Creates, updates, deletes or gets a <code>scene_tag</code> resource or lists <co
 <tr><td><CopyableCode code="content_location" /></td><td><code>string</code></td><td>The relative path that specifies the location of the content definition file.</td></tr>
 <tr><td><CopyableCode code="creation_date_time" /></td><td><code>string</code></td><td>The date and time when the scene was created.</td></tr>
 <tr><td><CopyableCode code="update_date_time" /></td><td><code>string</code></td><td>The date and time of the current update.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
 <tr><td><CopyableCode code="workspace_id" /></td><td><code>string</code></td><td>The ID of the scene.</td></tr>
 <tr><td><CopyableCode code="capabilities" /></td><td><code>array</code></td><td>A list of capabilities that the scene uses to render.</td></tr>
 <tr><td><CopyableCode code="scene_metadata" /></td><td><code>object</code></td><td>A key-value pair of scene metadata for the scene.</td></tr>
 <tr><td><CopyableCode code="generated_scene_metadata" /></td><td><code>object</code></td><td>A key-value pair of generated scene metadata for the scene.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

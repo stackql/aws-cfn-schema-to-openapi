@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>tls_inspection_configuration_tag</code
 <tr><td><CopyableCode code="tls_inspection_configuration" /></td><td><code>object</code></td><td>Resource type definition for AWS::NetworkFirewall::TLSInspectionConfiguration</td></tr>
 <tr><td><CopyableCode code="tls_inspection_configuration_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

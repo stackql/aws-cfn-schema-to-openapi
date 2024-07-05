@@ -37,8 +37,9 @@ Creates, updates, deletes or gets a <code>response_plan_tag</code> resource or l
 <tr><td><CopyableCode code="engagements" /></td><td><code>array</code></td><td>The list of engagements to use.</td></tr>
 <tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>The list of actions.</td></tr>
 <tr><td><CopyableCode code="integrations" /></td><td><code>array</code></td><td>The list of integrations.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags to apply to the response plan.</td></tr>
 <tr><td><CopyableCode code="incident_template" /></td><td><code>object</code></td><td>The incident template configuration.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

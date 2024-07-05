@@ -35,7 +35,8 @@ Creates, updates, deletes or gets a <code>certificate_tag</code> resource or lis
 <tr><td><CopyableCode code="subject_alternative_names" /></td><td><code>array</code></td><td>An array of strings that specify the alternate domains (e.g., example2.com) and subdomains (e.g., blog.example.com) for the certificate.</td></tr>
 <tr><td><CopyableCode code="certificate_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The validation status of the certificate.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -32,12 +32,13 @@ Creates, updates, deletes or gets a <code>work_group_tag</code> resource or list
 ## Fields
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The workGroup name.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The workgroup description.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags, separated by commas, that you want to attach to the workgroup as you create it</td></tr>
 <tr><td><CopyableCode code="work_group_configuration" /></td><td><code>object</code></td><td>The workgroup configuration</td></tr>
 <tr><td><CopyableCode code="work_group_configuration_updates" /></td><td><code>object</code></td><td>The workgroup configuration update object</td></tr>
 <tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The date and time the workgroup was created.</td></tr>
 <tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the workgroup: ENABLED or DISABLED.</td></tr>
 <tr><td><CopyableCode code="recursive_delete_option" /></td><td><code>boolean</code></td><td>The option to delete the workgroup and its contents even if the workgroup contains any named queries.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

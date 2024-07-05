@@ -32,12 +32,13 @@ Creates, updates, deletes or gets an <code>event_bus_tag</code> resource or list
 ## Fields
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="event_source_name" /></td><td><code>string</code></td><td>If you are creating a partner event bus, this specifies the partner event source that the new event bus will be matched with.</td></tr>
 <tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the event bus.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the event bus.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the event bus.</td></tr>
 <tr><td><CopyableCode code="kms_key_identifier" /></td><td><code>string</code></td><td>Kms Key Identifier used to encrypt events at rest in the event bus.</td></tr>
 <tr><td><CopyableCode code="policy" /></td><td><code>object</code></td><td>A JSON string that describes the permission policy statement for the event bus.</td></tr>
 <tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) for the event bus.</td></tr>
 <tr><td><CopyableCode code="dead_letter_config" /></td><td><code>object</code></td><td>Dead Letter Queue for the event bus.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

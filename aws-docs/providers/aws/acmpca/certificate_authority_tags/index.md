@@ -36,11 +36,12 @@ Creates, updates, deletes or gets a <code>certificate_authority_tag</code> resou
 <tr><td><CopyableCode code="signing_algorithm" /></td><td><code>string</code></td><td>Algorithm your CA uses to sign certificate requests.</td></tr>
 <tr><td><CopyableCode code="subject" /></td><td><code>object</code></td><td>Structure that contains X.500 distinguished name information for your CA.</td></tr>
 <tr><td><CopyableCode code="revocation_configuration" /></td><td><code>object</code></td><td>Certificate revocation information used by the CreateCertificateAuthority and UpdateCertificateAuthority actions.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="certificate_signing_request" /></td><td><code>string</code></td><td>The base64 PEM-encoded certificate signing request (CSR) for your certificate authority certificate.</td></tr>
 <tr><td><CopyableCode code="csr_extensions" /></td><td><code>object</code></td><td>Structure that contains CSR pass through extension information used by the CreateCertificateAuthority action.</td></tr>
 <tr><td><CopyableCode code="key_storage_security_standard" /></td><td><code>string</code></td><td>KeyStorageSecurityStadard defines a cryptographic key management compliance standard used for handling CA keys.</td></tr>
 <tr><td><CopyableCode code="usage_mode" /></td><td><code>string</code></td><td>Usage mode of the ceritificate authority.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

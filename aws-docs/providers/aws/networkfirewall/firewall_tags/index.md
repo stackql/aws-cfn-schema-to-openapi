@@ -41,7 +41,8 @@ Creates, updates, deletes or gets a <code>firewall_tag</code> resource or lists 
 <tr><td><CopyableCode code="firewall_policy_change_protection" /></td><td><code>boolean</code></td><td></td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="endpoint_ids" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

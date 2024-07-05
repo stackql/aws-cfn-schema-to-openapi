@@ -38,8 +38,9 @@ Creates, updates, deletes or gets a <code>nat_gateway_tag</code> resource or lis
 <tr><td><CopyableCode code="allocation_id" /></td><td><code>string</code></td><td>&#91;Public NAT gateway only&#93; The allocation ID of the Elastic IP address that's associated with the NAT gateway. This property is required for a public NAT gateway and cannot be specified with a private NAT gateway.</td></tr>
 <tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet in which the NAT gateway is located.</td></tr>
 <tr><td><CopyableCode code="nat_gateway_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the NAT gateway.</td></tr>
 <tr><td><CopyableCode code="max_drain_duration_seconds" /></td><td><code>integer</code></td><td>The maximum amount of time to wait (in seconds) before forcibly releasing the IP addresses if connections are still in progress. Default value is 350 seconds.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

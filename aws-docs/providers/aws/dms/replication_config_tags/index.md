@@ -40,7 +40,8 @@ Creates, updates, deletes or gets a <code>replication_config_tag</code> resource
 <tr><td><CopyableCode code="supplemental_settings" /></td><td><code>object</code></td><td>JSON settings for specifying supplemental data</td></tr>
 <tr><td><CopyableCode code="resource_identifier" /></td><td><code>string</code></td><td>A unique value or name that you get set for a given resource that can be used to construct an Amazon Resource Name (ARN) for that resource</td></tr>
 <tr><td><CopyableCode code="table_mappings" /></td><td><code>object</code></td><td>JSON table mappings for AWS DMS Serverless replications that are provisioned using this replication configuration</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td><p>Contains a map of the key-value pairs for the resource tag or tags assigned to the dataset.</p></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>view_tag</code> resource or lists <cod
 <tr><td><CopyableCode code="template" /></td><td><code>object</code></td><td>The template of the view as JSON.</td></tr>
 <tr><td><CopyableCode code="actions" /></td><td><code>array</code></td><td>The actions of the view in an array.</td></tr>
 <tr><td><CopyableCode code="view_content_sha256" /></td><td><code>string</code></td><td>The view content hash.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

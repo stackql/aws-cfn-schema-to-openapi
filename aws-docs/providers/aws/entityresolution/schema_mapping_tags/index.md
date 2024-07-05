@@ -33,11 +33,12 @@ Creates, updates, deletes or gets a <code>schema_mapping_tag</code> resource or 
 <table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="schema_name" /></td><td><code>string</code></td><td>The name of the SchemaMapping</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the SchemaMapping</td></tr>
 <tr><td><CopyableCode code="mapped_input_fields" /></td><td><code>array</code></td><td>The SchemaMapping attributes input</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="schema_arn" /></td><td><code>string</code></td><td>The SchemaMapping arn associated with the Schema</td></tr>
 <tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got created</td></tr>
 <tr><td><CopyableCode code="updated_at" /></td><td><code>string</code></td><td>The time of this SchemaMapping got last updated at</td></tr>
 <tr><td><CopyableCode code="has_workflows" /></td><td><code>boolean</code></td><td>The boolean value that indicates whether or not a SchemaMapping has MatchingWorkflows that are associated with</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

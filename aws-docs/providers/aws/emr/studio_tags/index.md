@@ -39,7 +39,6 @@ Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <c
 <tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td>The IAM role that will be assumed by the Amazon EMR Studio. The service role provides a way for Amazon EMR Studio to interoperate with other AWS services.</td></tr>
 <tr><td><CopyableCode code="studio_id" /></td><td><code>string</code></td><td>The ID of the EMR Studio.</td></tr>
 <tr><td><CopyableCode code="subnet_ids" /></td><td><code>array</code></td><td>A list of up to 5 subnet IDs to associate with the Studio. The subnets must belong to the VPC specified by VpcId. Studio users can create a Workspace in any of the specified subnets.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of tags to associate with the Studio. Tags are user-defined key-value pairs that consist of a required key string with a maximum of 128 characters, and an optional value string with a maximum of 256 characters.</td></tr>
 <tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>The unique Studio access URL.</td></tr>
 <tr><td><CopyableCode code="user_role" /></td><td><code>string</code></td><td>The IAM user role that will be assumed by users and groups logged in to a Studio. The permissions attached to this IAM role can be scoped down for each user or group using session policies.</td></tr>
 <tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the Amazon Virtual Private Cloud (Amazon VPC) to associate with the Studio.</td></tr>
@@ -50,6 +49,8 @@ Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <c
 <tr><td><CopyableCode code="idc_user_assignment" /></td><td><code>string</code></td><td>Specifies whether IAM Identity Center user assignment is REQUIRED or OPTIONAL. If the value is set to REQUIRED, users must be explicitly assigned to the Studio application to access the Studio.</td></tr>
 <tr><td><CopyableCode code="idc_instance_arn" /></td><td><code>string</code></td><td>The ARN of the IAM Identity Center instance to create the Studio application.</td></tr>
 <tr><td><CopyableCode code="encryption_key_arn" /></td><td><code>string</code></td><td>The AWS KMS key identifier (ARN) used to encrypt AWS EMR Studio workspace and notebook files when backed up to AWS S3.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

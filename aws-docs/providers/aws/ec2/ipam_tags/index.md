@@ -41,7 +41,8 @@ Creates, updates, deletes or gets an <code>ipam_tag</code> resource or lists <co
 <tr><td><CopyableCode code="scope_count" /></td><td><code>integer</code></td><td>The number of scopes that currently exist in this IPAM.</td></tr>
 <tr><td><CopyableCode code="operating_regions" /></td><td><code>array</code></td><td>The regions IPAM is enabled for. Allows pools to be created in these regions, as well as enabling monitoring</td></tr>
 <tr><td><CopyableCode code="tier" /></td><td><code>string</code></td><td>The tier of the IPAM.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

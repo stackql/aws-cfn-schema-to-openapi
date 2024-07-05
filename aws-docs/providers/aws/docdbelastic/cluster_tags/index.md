@@ -44,8 +44,9 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
 <tr><td><CopyableCode code="backup_retention_period" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="shard_instance_count" /></td><td><code>integer</code></td><td></td></tr>
 <tr><td><CopyableCode code="kms_key_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="auth_type" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

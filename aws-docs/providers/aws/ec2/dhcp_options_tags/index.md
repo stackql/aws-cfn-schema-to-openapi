@@ -37,7 +37,8 @@ Creates, updates, deletes or gets a <code>dhcp_options_tag</code> resource or li
 <tr><td><CopyableCode code="netbios_node_type" /></td><td><code>integer</code></td><td>The NetBIOS node type (1, 2, 4, or 8).</td></tr>
 <tr><td><CopyableCode code="ntp_servers" /></td><td><code>array</code></td><td>The IPv4 addresses of up to four Network Time Protocol (NTP) servers.</td></tr>
 <tr><td><CopyableCode code="ipv6_address_preferred_lease_time" /></td><td><code>integer</code></td><td>The preferred Lease Time for ipV6 address in seconds.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>Any tags assigned to the DHCP options set.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -40,7 +40,8 @@ Creates, updates, deletes or gets a <code>container_tag</code> resource or lists
 <tr><td><CopyableCode code="private_registry_access" /></td><td><code>object</code></td><td>A Boolean value to indicate whether the container service has access to private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.</td></tr>
 <tr><td><CopyableCode code="url" /></td><td><code>string</code></td><td>The publicly accessible URL of the container service.</td></tr>
 <tr><td><CopyableCode code="principal_arn" /></td><td><code>string</code></td><td>The principal ARN of the container service.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

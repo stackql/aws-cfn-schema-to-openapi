@@ -36,7 +36,8 @@ Creates, updates, deletes or gets an <code>assistant_association_tag</code> reso
 <tr><td><CopyableCode code="assistant_id" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="association" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="association_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -42,12 +42,13 @@ Creates, updates, deletes or gets an <code>inference_experiment_tag</code> resou
 <tr><td><CopyableCode code="data_storage_config" /></td><td><code>object</code></td><td>The Amazon S3 location and configuration for storing inference request and response data.</td></tr>
 <tr><td><CopyableCode code="model_variants" /></td><td><code>array</code></td><td>An array of ModelVariantConfig objects. Each ModelVariantConfig object in the array describes the infrastructure configuration for the corresponding variant.</td></tr>
 <tr><td><CopyableCode code="shadow_mode_config" /></td><td><code>object</code></td><td>The configuration of ShadowMode inference experiment type. Use this field to specify a production variant which takes all the inference requests, and a shadow variant to which Amazon SageMaker replicates a percentage of the inference requests. For the shadow variant also specify the percentage of requests that Amazon SageMaker replicates.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="creation_time" /></td><td><code>string</code></td><td>The timestamp at which you created the inference experiment.</td></tr>
 <tr><td><CopyableCode code="last_modified_time" /></td><td><code>string</code></td><td>The timestamp at which you last modified the inference experiment.</td></tr>
 <tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the inference experiment.</td></tr>
 <tr><td><CopyableCode code="status_reason" /></td><td><code>string</code></td><td>The error message or client-specified reason from the StopInferenceExperiment API, that explains the status of the inference experiment.</td></tr>
 <tr><td><CopyableCode code="desired_state" /></td><td><code>string</code></td><td>The desired state of the experiment after starting or stopping operation.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

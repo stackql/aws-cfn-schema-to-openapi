@@ -40,8 +40,9 @@ Creates, updates, deletes or gets a <code>variant_store_tag</code> resource or l
 <tr><td><CopyableCode code="status_message" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="store_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="store_size_bytes" /></td><td><code>number</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A map of resource tags</td></tr>
 <tr><td><CopyableCode code="update_time" /></td><td><code>string</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

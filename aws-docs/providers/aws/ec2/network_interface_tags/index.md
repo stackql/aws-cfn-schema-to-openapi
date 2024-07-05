@@ -50,8 +50,9 @@ Creates, updates, deletes or gets a <code>network_interface_tag</code> resource 
 <tr><td><CopyableCode code="primary_ipv6_address" /></td><td><code>string</code></td><td>The primary IPv6 address</td></tr>
 <tr><td><CopyableCode code="connection_tracking_specification" /></td><td><code>object</code></td><td></td></tr>
 <tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Network interface id.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An arbitrary set of tags (key-value pairs) for this network interface.</td></tr>
 <tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

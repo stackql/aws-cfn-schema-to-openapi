@@ -38,7 +38,8 @@ Creates, updates, deletes or gets a <code>simulation_application_tag</code> reso
 <tr><td><CopyableCode code="simulation_software_suite" /></td><td><code>object</code></td><td>The simulation software suite used by the simulation application.</td></tr>
 <tr><td><CopyableCode code="sources" /></td><td><code>array</code></td><td>The sources of the simulation application.</td></tr>
 <tr><td><CopyableCode code="environment" /></td><td><code>string</code></td><td>The URI of the Docker image for the robot application.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td>A key-value pair to associate with a resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

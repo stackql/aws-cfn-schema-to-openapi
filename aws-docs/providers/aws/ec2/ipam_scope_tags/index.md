@@ -38,7 +38,8 @@ Creates, updates, deletes or gets an <code>ipam_scope_tag</code> resource or lis
 <tr><td><CopyableCode code="is_default" /></td><td><code>boolean</code></td><td>Is this one of the default scopes created with the IPAM.</td></tr>
 <tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="pool_count" /></td><td><code>integer</code></td><td>The number of pools that currently exist in this scope.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

@@ -36,8 +36,9 @@ Creates, updates, deletes or gets an <code>agent_tag</code> resource or lists <c
 <tr><td><CopyableCode code="subnet_arns" /></td><td><code>array</code></td><td>The ARNs of the subnets in which DataSync will create elastic network interfaces for each data transfer task.</td></tr>
 <tr><td><CopyableCode code="vpc_endpoint_id" /></td><td><code>string</code></td><td>The ID of the VPC endpoint that the agent has access to.</td></tr>
 <tr><td><CopyableCode code="endpoint_type" /></td><td><code>string</code></td><td>The service endpoints that the agent will connect to.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
 <tr><td><CopyableCode code="agent_arn" /></td><td><code>string</code></td><td>The DataSync Agent ARN.</td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 

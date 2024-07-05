@@ -40,10 +40,11 @@ Creates, updates, deletes or gets an <code>image_builder_tag</code> resource or 
 <tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="iam_role_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="instance_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
 <tr><td><CopyableCode code="streaming_url" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="image_arn" /></td><td><code>string</code></td><td></td></tr>
 <tr><td><CopyableCode code="access_endpoints" /></td><td><code>array</code></td><td></td></tr>
+<tr><td><CopyableCode code="tag_key" /></td><td><code>string</code></td><td>Tag key.</td></tr>
+<tr><td><CopyableCode code="tag_value" /></td><td><code>string</code></td><td>Tag value.</td></tr>
 <tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
