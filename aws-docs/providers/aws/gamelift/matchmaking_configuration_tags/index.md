@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>matchmaking_configuration_tag</code> resource or lists <code>matchmaking_configuration_tags</code> in a region
+Expands all tag keys and values for <code>matchmaking_configurations</code> in a region
 
 ## Overview
 <table><tbody>
@@ -61,16 +61,43 @@ Creates, updates, deletes or gets a <code>matchmaking_configuration_tag</code> r
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>matchmaking_configurations</code> in a region.
+```sql
+SELECT
+region,
+acceptance_required,
+acceptance_timeout_seconds,
+additional_player_count,
+backfill_mode,
+arn,
+creation_time,
+custom_event_data,
+description,
+flex_match_mode,
+game_properties,
+game_session_data,
+game_session_queue_arns,
+name,
+notification_target,
+request_timeout_seconds,
+rule_set_arn,
+rule_set_name,
+tag_key,
+tag_value
+FROM aws.gamelift.matchmaking_configuration_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>matchmaking_configuration_tags</code> resource, see <a href="/providers/aws/gamelift/matchmaking_configurations/#permissions"><code>matchmaking_configurations</code></a>
 
 

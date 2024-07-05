@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>extension_association_tag</code> resource or lists <code>extension_association_tags</code> in a region
+Expands all tag keys and values for <code>extension_associations</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets an <code>extension_association_tag</code> reso
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>extension_associations</code> in a region.
+```sql
+SELECT
+region,
+id,
+arn,
+extension_arn,
+resource_arn,
+extension_identifier,
+resource_identifier,
+extension_version_number,
+parameters,
+tag_key,
+tag_value
+FROM aws.appconfig.extension_association_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>extension_association_tags</code> resource, see <a href="/providers/aws/appconfig/extension_associations/#permissions"><code>extension_associations</code></a>
 
 

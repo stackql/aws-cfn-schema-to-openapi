@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>vpc_connection_tag</code> resource or lists <code>vpc_connection_tags</code> in a region
+Expands all tag keys and values for <code>vpc_connections</code> in a region
 
 ## Overview
 <table><tbody>
@@ -58,16 +58,40 @@ Creates, updates, deletes or gets a <code>vpc_connection_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>vpc_connections</code> in a region.
+```sql
+SELECT
+region,
+arn,
+availability_status,
+aws_account_id,
+created_time,
+dns_resolvers,
+last_updated_time,
+name,
+network_interfaces,
+role_arn,
+security_group_ids,
+status,
+subnet_ids,
+vpc_connection_id,
+vpc_id,
+tag_key,
+tag_value
+FROM aws.quicksight.vpc_connection_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>vpc_connection_tags</code> resource, see <a href="/providers/aws/quicksight/vpc_connections/#permissions"><code>vpc_connections</code></a>
 
 

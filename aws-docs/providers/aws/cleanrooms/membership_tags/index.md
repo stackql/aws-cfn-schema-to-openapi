@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>membership_tag</code> resource or lists <code>membership_tags</code> in a region
+Expands all tag keys and values for <code>memberships</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>membership_tag</code> resource or list
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>memberships</code> in a region.
+```sql
+SELECT
+region,
+arn,
+collaboration_arn,
+collaboration_creator_account_id,
+collaboration_identifier,
+membership_identifier,
+query_log_status,
+default_result_configuration,
+payment_configuration,
+tag_key,
+tag_value
+FROM aws.cleanrooms.membership_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>membership_tags</code> resource, see <a href="/providers/aws/cleanrooms/memberships/#permissions"><code>memberships</code></a>
 
 

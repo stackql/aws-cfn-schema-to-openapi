@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain_tag</code> resource or lists <code>transit_gateway_multicast_domain_tags</code> in a region
+Expands all tag keys and values for <code>transit_gateway_multicast_domains</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>transit_gateway_multicast_domain_tag</
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>transit_gateway_multicast_domains</code> in a region.
+```sql
+SELECT
+region,
+transit_gateway_multicast_domain_id,
+transit_gateway_multicast_domain_arn,
+transit_gateway_id,
+state,
+creation_time,
+options,
+tag_key,
+tag_value
+FROM aws.ec2.transit_gateway_multicast_domain_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>transit_gateway_multicast_domain_tags</code> resource, see <a href="/providers/aws/ec2/transit_gateway_multicast_domains/#permissions"><code>transit_gateway_multicast_domains</code></a>
 
 

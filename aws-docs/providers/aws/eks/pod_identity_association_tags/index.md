@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>pod_identity_association_tag</code> resource or lists <code>pod_identity_association_tags</code> in a region
+Expands all tag keys and values for <code>pod_identity_associations</code> in a region
 
 ## Overview
 <table><tbody>
@@ -50,16 +50,32 @@ Creates, updates, deletes or gets a <code>pod_identity_association_tag</code> re
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>pod_identity_associations</code> in a region.
+```sql
+SELECT
+region,
+cluster_name,
+role_arn,
+namespace,
+service_account,
+association_arn,
+association_id,
+tag_key,
+tag_value
+FROM aws.eks.pod_identity_association_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>pod_identity_association_tags</code> resource, see <a href="/providers/aws/eks/pod_identity_associations/#permissions"><code>pod_identity_associations</code></a>
 
 

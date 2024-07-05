@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>branch_tag</code> resource or lists <code>branch_tags</code> in a region
+Expands all tag keys and values for <code>branches</code> in a region
 
 ## Overview
 <table><tbody>
@@ -58,16 +58,40 @@ Creates, updates, deletes or gets a <code>branch_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>branches</code> in a region.
+```sql
+SELECT
+region,
+app_id,
+arn,
+basic_auth_config,
+backend,
+branch_name,
+build_spec,
+description,
+enable_auto_build,
+enable_performance_mode,
+enable_pull_request_preview,
+environment_variables,
+framework,
+pull_request_environment_name,
+stage,
+tag_key,
+tag_value
+FROM aws.amplify.branch_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>branch_tags</code> resource, see <a href="/providers/aws/amplify/branches/#permissions"><code>branches</code></a>
 
 

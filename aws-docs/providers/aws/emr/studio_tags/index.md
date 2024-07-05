@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <code>studio_tags</code> in a region
+Expands all tag keys and values for <code>studios</code> in a region
 
 ## Overview
 <table><tbody>
@@ -63,16 +63,45 @@ Creates, updates, deletes or gets a <code>studio_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>studios</code> in a region.
+```sql
+SELECT
+region,
+arn,
+auth_mode,
+default_s3_location,
+description,
+engine_security_group_id,
+name,
+service_role,
+studio_id,
+subnet_ids,
+url,
+user_role,
+vpc_id,
+workspace_security_group_id,
+idp_auth_url,
+idp_relay_state_parameter_name,
+trusted_identity_propagation_enabled,
+idc_user_assignment,
+idc_instance_arn,
+encryption_key_arn,
+tag_key,
+tag_value
+FROM aws.emr.studio_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>studio_tags</code> resource, see <a href="/providers/aws/emr/studios/#permissions"><code>studios</code></a>
 
 

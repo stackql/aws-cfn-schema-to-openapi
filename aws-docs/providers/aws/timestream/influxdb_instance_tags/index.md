@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>influxdb_instance_tag</code> resource or lists <code>influxdb_instance_tags</code> in a region
+Expands all tag keys and values for <code>influxdb_instances</code> in a region
 
 ## Overview
 <table><tbody>
@@ -65,16 +65,47 @@ Creates, updates, deletes or gets an <code>influxdb_instance_tag</code> resource
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>influxdb_instances</code> in a region.
+```sql
+SELECT
+region,
+username,
+password,
+organization,
+bucket,
+db_instance_type,
+vpc_subnet_ids,
+vpc_security_group_ids,
+publicly_accessible,
+db_storage_type,
+allocated_storage,
+db_parameter_group_identifier,
+log_delivery_configuration,
+status,
+arn,
+name,
+availability_zone,
+secondary_availability_zone,
+endpoint,
+influx_auth_parameters_secret_arn,
+id,
+deployment_type,
+tag_key,
+tag_value
+FROM aws.timestream.influxdb_instance_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>influxdb_instance_tags</code> resource, see <a href="/providers/aws/timestream/influxdb_instances/#permissions"><code>influxdb_instances</code></a>
 
 

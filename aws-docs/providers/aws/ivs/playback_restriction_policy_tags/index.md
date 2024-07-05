@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>playback_restriction_policy_tag</code> resource or lists <code>playback_restriction_policy_tags</code> in a region
+Expands all tag keys and values for <code>playback_restriction_policies</code> in a region
 
 ## Overview
 <table><tbody>
@@ -49,16 +49,31 @@ Creates, updates, deletes or gets a <code>playback_restriction_policy_tag</code>
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>playback_restriction_policies</code> in a region.
+```sql
+SELECT
+region,
+arn,
+allowed_countries,
+allowed_origins,
+enable_strict_origin_enforcement,
+name,
+tag_key,
+tag_value
+FROM aws.ivs.playback_restriction_policy_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>playback_restriction_policy_tags</code> resource, see <a href="/providers/aws/ivs/playback_restriction_policies/#permissions"><code>playback_restriction_policies</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>replication_config_tag</code> resource or lists <code>replication_config_tags</code> in a region
+Expands all tag keys and values for <code>replication_configs</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>replication_config_tag</code> resource
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>replication_configs</code> in a region.
+```sql
+SELECT
+region,
+replication_config_identifier,
+replication_config_arn,
+source_endpoint_arn,
+target_endpoint_arn,
+replication_type,
+compute_config,
+replication_settings,
+supplemental_settings,
+resource_identifier,
+table_mappings,
+tag_key,
+tag_value
+FROM aws.dms.replication_config_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>replication_config_tags</code> resource, see <a href="/providers/aws/dms/replication_configs/#permissions"><code>replication_configs</code></a>
 
 

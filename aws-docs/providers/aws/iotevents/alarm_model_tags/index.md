@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>alarm_model_tag</code> resource or lists <code>alarm_model_tags</code> in a region
+Expands all tag keys and values for <code>alarm_models</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets an <code>alarm_model_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>alarm_models</code> in a region.
+```sql
+SELECT
+region,
+alarm_model_name,
+alarm_model_description,
+role_arn,
+key,
+severity,
+alarm_rule,
+alarm_event_actions,
+alarm_capabilities,
+tag_key,
+tag_value
+FROM aws.iotevents.alarm_model_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>alarm_model_tags</code> resource, see <a href="/providers/aws/iotevents/alarm_models/#permissions"><code>alarm_models</code></a>
 
 

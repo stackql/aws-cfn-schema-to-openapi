@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>automation_rule_tag</code> resource or lists <code>automation_rule_tags</code> in a region
+Expands all tag keys and values for <code>automation_rules</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets an <code>automation_rule_tag</code> resource o
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>automation_rules</code> in a region.
+```sql
+SELECT
+region,
+rule_arn,
+rule_status,
+rule_order,
+description,
+rule_name,
+created_at,
+updated_at,
+created_by,
+is_terminal,
+actions,
+criteria,
+tag_key,
+tag_value
+FROM aws.securityhub.automation_rule_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>automation_rule_tags</code> resource, see <a href="/providers/aws/securityhub/automation_rules/#permissions"><code>automation_rules</code></a>
 
 

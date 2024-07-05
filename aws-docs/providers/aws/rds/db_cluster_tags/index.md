@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>db_cluster_tag</code> resource or lists <code>db_cluster_tags</code> in a region
+Expands all tag keys and values for <code>db_clusters</code> in a region
 
 ## Overview
 <table><tbody>
@@ -102,16 +102,84 @@ Creates, updates, deletes or gets a <code>db_cluster_tag</code> resource or list
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>db_clusters</code> in a region.
+```sql
+SELECT
+region,
+storage_encrypted,
+db_system_id,
+restore_to_time,
+engine_mode,
+port,
+db_cluster_identifier,
+storage_throughput,
+monitoring_interval,
+endpoint,
+replication_source_identifier,
+engine,
+engine_version,
+storage_type,
+kms_key_id,
+serverless_v2_scaling_configuration,
+performance_insights_retention_period,
+database_name,
+db_cluster_resource_id,
+auto_minor_version_upgrade,
+db_subnet_group_name,
+deletion_protection,
+allocated_storage,
+master_user_password,
+master_user_secret,
+source_db_cluster_identifier,
+master_username,
+scaling_configuration,
+read_endpoint,
+performance_insights_kms_key_id,
+publicly_accessible,
+domain,
+backtrack_window,
+db_instance_parameter_group_name,
+enable_global_write_forwarding,
+monitoring_role_arn,
+associated_roles,
+enable_http_endpoint,
+snapshot_identifier,
+preferred_backup_window,
+network_type,
+vpc_security_group_ids,
+copy_tags_to_snapshot,
+global_cluster_identifier,
+restore_type,
+domain_iam_role_name,
+db_cluster_instance_class,
+availability_zones,
+db_cluster_arn,
+preferred_maintenance_window,
+iops,
+source_region,
+use_latest_restorable_time,
+manage_master_user_password,
+enable_iam_database_authentication,
+db_cluster_parameter_group_name,
+performance_insights_enabled,
+backup_retention_period,
+enable_cloudwatch_logs_exports,
+tag_key,
+tag_value
+FROM aws.rds.db_cluster_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>db_cluster_tags</code> resource, see <a href="/providers/aws/rds/db_clusters/#permissions"><code>db_clusters</code></a>
 
 

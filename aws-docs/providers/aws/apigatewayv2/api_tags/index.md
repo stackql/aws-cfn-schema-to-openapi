@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>api_tag</code> resource or lists <code>api_tags</code> in a region
+Expands all tag keys and values for <code>apis</code> in a region
 
 ## Overview
 <table><tbody>
@@ -62,16 +62,44 @@ Creates, updates, deletes or gets an <code>api_tag</code> resource or lists <cod
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>apis</code> in a region.
+```sql
+SELECT
+region,
+route_selection_expression,
+body_s3_location,
+description,
+api_endpoint,
+base_path,
+fail_on_warnings,
+disable_execute_api_endpoint,
+disable_schema_validation,
+name,
+target,
+credentials_arn,
+cors_configuration,
+version,
+protocol_type,
+route_key,
+api_id,
+body,
+api_key_selection_expression,
+tag_key,
+tag_value
+FROM aws.apigatewayv2.api_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>api_tags</code> resource, see <a href="/providers/aws/apigatewayv2/apis/#permissions"><code>apis</code></a>
 
 

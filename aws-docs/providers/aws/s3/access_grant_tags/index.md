@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>access_grant_tag</code> resource or lists <code>access_grant_tags</code> in a region
+Expands all tag keys and values for <code>access_grants</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets an <code>access_grant_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>access_grants</code> in a region.
+```sql
+SELECT
+region,
+access_grant_id,
+access_grants_location_id,
+permission,
+application_arn,
+s3_prefix_type,
+grant_scope,
+access_grant_arn,
+grantee,
+access_grants_location_configuration,
+tag_key,
+tag_value
+FROM aws.s3.access_grant_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>access_grant_tags</code> resource, see <a href="/providers/aws/s3/access_grants/#permissions"><code>access_grants</code></a>
 
 

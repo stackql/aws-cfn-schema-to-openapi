@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>domain_tag</code> resource or lists <code>domain_tags</code> in a region
+Expands all tag keys and values for <code>domains</code> in a region
 
 ## Overview
 <table><tbody>
@@ -56,16 +56,38 @@ Creates, updates, deletes or gets a <code>domain_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>domains</code> in a region.
+```sql
+SELECT
+region,
+arn,
+created_at,
+description,
+domain_execution_role,
+id,
+kms_key_identifier,
+last_updated_at,
+managed_account_id,
+name,
+portal_url,
+single_sign_on,
+status,
+tag_key,
+tag_value
+FROM aws.datazone.domain_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>domain_tags</code> resource, see <a href="/providers/aws/datazone/domains/#permissions"><code>domains</code></a>
 
 

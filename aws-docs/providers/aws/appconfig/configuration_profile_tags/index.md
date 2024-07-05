@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>configuration_profile_tag</code> resource or lists <code>configuration_profile_tags</code> in a region
+Expands all tag keys and values for <code>configuration_profiles</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>configuration_profile_tag</code> resou
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>configuration_profiles</code> in a region.
+```sql
+SELECT
+region,
+configuration_profile_id,
+location_uri,
+type,
+kms_key_identifier,
+description,
+kms_key_arn,
+validators,
+retrieval_role_arn,
+application_id,
+name,
+tag_key,
+tag_value
+FROM aws.appconfig.configuration_profile_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>configuration_profile_tags</code> resource, see <a href="/providers/aws/appconfig/configuration_profiles/#permissions"><code>configuration_profiles</code></a>
 
 

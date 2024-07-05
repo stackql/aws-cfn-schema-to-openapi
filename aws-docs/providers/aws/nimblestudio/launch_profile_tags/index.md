@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>launch_profile_tag</code> resource or lists <code>launch_profile_tags</code> in a region
+Expands all tag keys and values for <code>launch_profiles</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>launch_profile_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>launch_profiles</code> in a region.
+```sql
+SELECT
+region,
+description,
+ec2_subnet_ids,
+launch_profile_id,
+launch_profile_protocol_versions,
+name,
+stream_configuration,
+studio_component_ids,
+studio_id,
+tag_key,
+tag_value
+FROM aws.nimblestudio.launch_profile_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>launch_profile_tags</code> resource, see <a href="/providers/aws/nimblestudio/launch_profiles/#permissions"><code>launch_profiles</code></a>
 
 

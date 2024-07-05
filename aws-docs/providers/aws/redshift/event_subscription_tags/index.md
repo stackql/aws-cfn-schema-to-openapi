@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>event_subscription_tag</code> resource or lists <code>event_subscription_tags</code> in a region
+Expands all tag keys and values for <code>event_subscriptions</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets an <code>event_subscription_tag</code> resourc
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>event_subscriptions</code> in a region.
+```sql
+SELECT
+region,
+status,
+cust_subscription_id,
+event_categories_list,
+source_type,
+event_categories,
+enabled,
+severity,
+subscription_name,
+source_ids,
+customer_aws_id,
+source_ids_list,
+sns_topic_arn,
+subscription_creation_time,
+tag_key,
+tag_value
+FROM aws.redshift.event_subscription_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>event_subscription_tags</code> resource, see <a href="/providers/aws/redshift/event_subscriptions/#permissions"><code>event_subscriptions</code></a>
 
 

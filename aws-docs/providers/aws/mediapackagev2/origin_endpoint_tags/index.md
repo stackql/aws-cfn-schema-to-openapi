@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>origin_endpoint_tag</code> resource or lists <code>origin_endpoint_tags</code> in a region
+Expands all tag keys and values for <code>origin_endpoints</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets an <code>origin_endpoint_tag</code> resource o
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>origin_endpoints</code> in a region.
+```sql
+SELECT
+region,
+arn,
+channel_group_name,
+channel_name,
+container_type,
+created_at,
+dash_manifests,
+description,
+hls_manifests,
+low_latency_hls_manifests,
+modified_at,
+origin_endpoint_name,
+segment,
+startover_window_seconds,
+tag_key,
+tag_value
+FROM aws.mediapackagev2.origin_endpoint_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>origin_endpoint_tags</code> resource, see <a href="/providers/aws/mediapackagev2/origin_endpoints/#permissions"><code>origin_endpoints</code></a>
 
 

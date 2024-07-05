@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>privacy_budget_template_tag</code> resource or lists <code>privacy_budget_template_tags</code> in a region
+Expands all tag keys and values for <code>privacy_budget_templates</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets a <code>privacy_budget_template_tag</code> res
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>privacy_budget_templates</code> in a region.
+```sql
+SELECT
+region,
+arn,
+collaboration_arn,
+collaboration_identifier,
+privacy_budget_template_identifier,
+auto_refresh,
+privacy_budget_type,
+parameters,
+membership_arn,
+membership_identifier,
+tag_key,
+tag_value
+FROM aws.cleanrooms.privacy_budget_template_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>privacy_budget_template_tags</code> resource, see <a href="/providers/aws/cleanrooms/privacy_budget_templates/#permissions"><code>privacy_budget_templates</code></a>
 
 

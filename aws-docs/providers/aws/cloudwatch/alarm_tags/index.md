@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>alarm_tag</code> resource or lists <code>alarm_tags</code> in a region
+Expands all tag keys and values for <code>alarms</code> in a region
 
 ## Overview
 <table><tbody>
@@ -66,16 +66,48 @@ Creates, updates, deletes or gets an <code>alarm_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>alarms</code> in a region.
+```sql
+SELECT
+region,
+threshold_metric_id,
+evaluate_low_sample_count_percentile,
+extended_statistic,
+comparison_operator,
+treat_missing_data,
+dimensions,
+period,
+evaluation_periods,
+unit,
+namespace,
+ok_actions,
+alarm_actions,
+metric_name,
+actions_enabled,
+metrics,
+alarm_description,
+alarm_name,
+statistic,
+insufficient_data_actions,
+arn,
+datapoints_to_alarm,
+threshold,
+tag_key,
+tag_value
+FROM aws.cloudwatch.alarm_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>alarm_tags</code> resource, see <a href="/providers/aws/cloudwatch/alarms/#permissions"><code>alarms</code></a>
 
 

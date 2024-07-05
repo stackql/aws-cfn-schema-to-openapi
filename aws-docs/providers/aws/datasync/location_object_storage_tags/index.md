@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>location_object_storage_tag</code> resource or lists <code>location_object_storage_tags</code> in a region
+Expands all tag keys and values for <code>location_object_storages</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets a <code>location_object_storage_tag</code> res
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>location_object_storages</code> in a region.
+```sql
+SELECT
+region,
+access_key,
+agent_arns,
+bucket_name,
+secret_key,
+server_certificate,
+server_hostname,
+server_port,
+server_protocol,
+subdirectory,
+location_arn,
+location_uri,
+tag_key,
+tag_value
+FROM aws.datasync.location_object_storage_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>location_object_storage_tags</code> resource, see <a href="/providers/aws/datasync/location_object_storages/#permissions"><code>location_object_storages</code></a>
 
 

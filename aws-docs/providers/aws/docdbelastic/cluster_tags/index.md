@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <code>cluster_tags</code> in a region
+Expands all tag keys and values for <code>clusters</code> in a region
 
 ## Overview
 <table><tbody>
@@ -59,16 +59,41 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+cluster_name,
+cluster_arn,
+cluster_endpoint,
+admin_user_name,
+admin_user_password,
+shard_capacity,
+shard_count,
+vpc_security_group_ids,
+subnet_ids,
+preferred_maintenance_window,
+preferred_backup_window,
+backup_retention_period,
+shard_instance_count,
+kms_key_id,
+auth_type,
+tag_key,
+tag_value
+FROM aws.docdbelastic.cluster_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>cluster_tags</code> resource, see <a href="/providers/aws/docdbelastic/clusters/#permissions"><code>clusters</code></a>
 
 

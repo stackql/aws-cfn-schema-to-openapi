@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>campaign_tag</code> resource or lists <code>campaign_tags</code> in a region
+Expands all tag keys and values for <code>campaigns</code> in a region
 
 ## Overview
 <table><tbody>
@@ -64,16 +64,46 @@ Creates, updates, deletes or gets a <code>campaign_tag</code> resource or lists 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>campaigns</code> in a region.
+```sql
+SELECT
+region,
+status,
+action,
+creation_time,
+compression,
+description,
+priority,
+signals_to_collect,
+data_destination_configs,
+start_time,
+name,
+expiry_time,
+last_modification_time,
+spooling_mode,
+signal_catalog_arn,
+post_trigger_collection_duration,
+data_extra_dimensions,
+diagnostics_mode,
+target_arn,
+arn,
+collection_scheme,
+tag_key,
+tag_value
+FROM aws.iotfleetwise.campaign_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>campaign_tags</code> resource, see <a href="/providers/aws/iotfleetwise/campaigns/#permissions"><code>campaigns</code></a>
 
 

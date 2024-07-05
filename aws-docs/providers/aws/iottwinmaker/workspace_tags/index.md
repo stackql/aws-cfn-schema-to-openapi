@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>workspace_tag</code> resource or lists <code>workspace_tags</code> in a region
+Expands all tag keys and values for <code>workspaces</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets a <code>workspace_tag</code> resource or lists
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>workspaces</code> in a region.
+```sql
+SELECT
+region,
+workspace_id,
+arn,
+description,
+role,
+s3_location,
+creation_date_time,
+update_date_time,
+tag_key,
+tag_value
+FROM aws.iottwinmaker.workspace_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>workspace_tags</code> resource, see <a href="/providers/aws/iottwinmaker/workspaces/#permissions"><code>workspaces</code></a>
 
 

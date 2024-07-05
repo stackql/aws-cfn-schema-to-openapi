@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>model_package_tag</code> resource or lists <code>model_package_tags</code> in a region
+Expands all tag keys and values for <code>model_packages</code> in a region
 
 ## Overview
 <table><tbody>
@@ -70,16 +70,52 @@ Creates, updates, deletes or gets a <code>model_package_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>model_packages</code> in a region.
+```sql
+SELECT
+region,
+additional_inference_specifications,
+certify_for_marketplace,
+client_token,
+customer_metadata_properties,
+domain,
+drift_check_baselines,
+inference_specification,
+metadata_properties,
+model_approval_status,
+model_metrics,
+model_package_description,
+model_package_group_name,
+model_package_name,
+sample_payload_url,
+skip_model_validation,
+source_algorithm_specification,
+task,
+validation_specification,
+model_package_arn,
+approval_description,
+creation_time,
+last_modified_time,
+model_package_status,
+model_package_version,
+additional_inference_specifications_to_add,
+model_package_status_details,
+tag_key,
+tag_value
+FROM aws.sagemaker.model_package_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>model_package_tags</code> resource, see <a href="/providers/aws/sagemaker/model_packages/#permissions"><code>model_packages</code></a>
 
 

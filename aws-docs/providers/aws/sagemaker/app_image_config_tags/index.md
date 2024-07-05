@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>app_image_config_tag</code> resource or lists <code>app_image_config_tags</code> in a region
+Expands all tag keys and values for <code>app_image_configs</code> in a region
 
 ## Overview
 <table><tbody>
@@ -49,16 +49,31 @@ Creates, updates, deletes or gets an <code>app_image_config_tag</code> resource 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>app_image_configs</code> in a region.
+```sql
+SELECT
+region,
+app_image_config_arn,
+app_image_config_name,
+kernel_gateway_image_config,
+jupyter_lab_app_image_config,
+code_editor_app_image_config,
+tag_key,
+tag_value
+FROM aws.sagemaker.app_image_config_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>app_image_config_tags</code> resource, see <a href="/providers/aws/sagemaker/app_image_configs/#permissions"><code>app_image_configs</code></a>
 
 

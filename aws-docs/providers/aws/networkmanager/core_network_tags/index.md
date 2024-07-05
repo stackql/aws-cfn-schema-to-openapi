@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>core_network_tag</code> resource or lists <code>core_network_tags</code> in a region
+Expands all tag keys and values for <code>core_networks</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>core_network_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>core_networks</code> in a region.
+```sql
+SELECT
+region,
+global_network_id,
+core_network_id,
+core_network_arn,
+policy_document,
+description,
+created_at,
+state,
+segments,
+edges,
+owner_account,
+tag_key,
+tag_value
+FROM aws.networkmanager.core_network_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>core_network_tags</code> resource, see <a href="/providers/aws/networkmanager/core_networks/#permissions"><code>core_networks</code></a>
 
 

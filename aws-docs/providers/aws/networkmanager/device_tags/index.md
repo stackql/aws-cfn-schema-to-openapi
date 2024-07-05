@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>device_tag</code> resource or lists <code>device_tags</code> in a region
+Expands all tag keys and values for <code>devices</code> in a region
 
 ## Overview
 <table><tbody>
@@ -57,16 +57,39 @@ Creates, updates, deletes or gets a <code>device_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>devices</code> in a region.
+```sql
+SELECT
+region,
+device_arn,
+device_id,
+description,
+global_network_id,
+aws_location,
+location,
+model,
+serial_number,
+site_id,
+type,
+vendor,
+created_at,
+state,
+tag_key,
+tag_value
+FROM aws.networkmanager.device_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>device_tags</code> resource, see <a href="/providers/aws/networkmanager/devices/#permissions"><code>devices</code></a>
 
 

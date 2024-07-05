@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>environment_tag</code> resource or lists <code>environment_tags</code> in a region
+Expands all tag keys and values for <code>environments</code> in a region
 
 ## Overview
 <table><tbody>
@@ -62,16 +62,44 @@ Creates, updates, deletes or gets an <code>environment_tag</code> resource or li
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>environments</code> in a region.
+```sql
+SELECT
+region,
+id,
+name,
+desktop_arn,
+desktop_endpoint,
+desktop_type,
+activation_code,
+registered_devices_count,
+software_set_update_schedule,
+maintenance_window,
+software_set_update_mode,
+desired_software_set_id,
+pending_software_set_id,
+pending_software_set_version,
+software_set_compliance_status,
+created_at,
+updated_at,
+arn,
+kms_key_arn,
+tag_key,
+tag_value
+FROM aws.workspacesthinclient.environment_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>environment_tags</code> resource, see <a href="/providers/aws/workspacesthinclient/environments/#permissions"><code>environments</code></a>
 
 

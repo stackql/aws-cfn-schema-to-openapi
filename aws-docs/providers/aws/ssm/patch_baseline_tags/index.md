@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>patch_baseline_tag</code> resource or lists <code>patch_baseline_tags</code> in a region
+Expands all tag keys and values for <code>patch_baselines</code> in a region
 
 ## Overview
 <table><tbody>
@@ -58,16 +58,40 @@ Creates, updates, deletes or gets a <code>patch_baseline_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>patch_baselines</code> in a region.
+```sql
+SELECT
+region,
+id,
+default_baseline,
+operating_system,
+description,
+approval_rules,
+sources,
+name,
+rejected_patches,
+approved_patches,
+rejected_patches_action,
+patch_groups,
+approved_patches_compliance_level,
+approved_patches_enable_non_security,
+global_filters,
+tag_key,
+tag_value
+FROM aws.ssm.patch_baseline_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>patch_baseline_tags</code> resource, see <a href="/providers/aws/ssm/patch_baselines/#permissions"><code>patch_baselines</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>bucket_tag</code> resource or lists <code>bucket_tags</code> in a region
+Expands all tag keys and values for <code>buckets</code> in a region
 
 ## Overview
 <table><tbody>
@@ -68,16 +68,50 @@ Creates, updates, deletes or gets a <code>bucket_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>buckets</code> in a region.
+```sql
+SELECT
+region,
+accelerate_configuration,
+access_control,
+analytics_configurations,
+bucket_encryption,
+bucket_name,
+cors_configuration,
+intelligent_tiering_configurations,
+inventory_configurations,
+lifecycle_configuration,
+logging_configuration,
+metrics_configurations,
+notification_configuration,
+object_lock_configuration,
+object_lock_enabled,
+ownership_controls,
+public_access_block_configuration,
+replication_configuration,
+versioning_configuration,
+website_configuration,
+arn,
+domain_name,
+dual_stack_domain_name,
+regional_domain_name,
+website_url,
+tag_key,
+tag_value
+FROM aws.s3.bucket_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>bucket_tags</code> resource, see <a href="/providers/aws/s3/buckets/#permissions"><code>buckets</code></a>
 
 

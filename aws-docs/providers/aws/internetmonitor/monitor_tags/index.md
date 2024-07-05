@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>monitor_tag</code> resource or lists <code>monitor_tags</code> in a region
+Expands all tag keys and values for <code>monitors</code> in a region
 
 ## Overview
 <table><tbody>
@@ -60,16 +60,42 @@ Creates, updates, deletes or gets a <code>monitor_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>monitors</code> in a region.
+```sql
+SELECT
+region,
+created_at,
+modified_at,
+monitor_arn,
+monitor_name,
+linked_account_id,
+include_linked_accounts,
+processing_status,
+processing_status_info,
+resources,
+resources_to_add,
+resources_to_remove,
+status,
+max_city_networks_to_monitor,
+traffic_percentage_to_monitor,
+internet_measurements_log_delivery,
+health_events_config,
+tag_key,
+tag_value
+FROM aws.internetmonitor.monitor_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>monitor_tags</code> resource, see <a href="/providers/aws/internetmonitor/monitors/#permissions"><code>monitors</code></a>
 
 

@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>stream_processor_tag</code> resource or lists <code>stream_processor_tags</code> in a region
+Expands all tag keys and values for <code>stream_processors</code> in a region
 
 ## Overview
 <table><tbody>
@@ -59,16 +59,41 @@ Creates, updates, deletes or gets a <code>stream_processor_tag</code> resource o
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>stream_processors</code> in a region.
+```sql
+SELECT
+region,
+arn,
+name,
+kms_key_id,
+role_arn,
+kinesis_video_stream,
+face_search_settings,
+connected_home_settings,
+kinesis_data_stream,
+s3_destination,
+notification_channel,
+data_sharing_preference,
+polygon_regions_of_interest,
+bounding_box_regions_of_interest,
+status,
+status_message,
+tag_key,
+tag_value
+FROM aws.rekognition.stream_processor_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>stream_processor_tags</code> resource, see <a href="/providers/aws/rekognition/stream_processors/#permissions"><code>stream_processors</code></a>
 
 

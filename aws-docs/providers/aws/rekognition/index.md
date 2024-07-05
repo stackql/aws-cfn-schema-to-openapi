@@ -20,7 +20,7 @@ The rekognition service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>5</b></span><br />
+<span>total resources:&nbsp;<b>8</b></span><br />
 </div>
 </div>
 
@@ -31,10 +31,13 @@ The rekognition service documentation.
 <div class="providerDocColumn">
 <a href="/providers/aws/rekognition/collection_tags/">collection_tags</a><br />
 <a href="/providers/aws/rekognition/collections/">collections</a><br />
+<a href="/providers/aws/rekognition/collections_list_only/">collections_list_only</a><br />
 <a href="/providers/aws/rekognition/projects/">projects</a>
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/rekognition/projects_list_only/">projects_list_only</a><br />
 <a href="/providers/aws/rekognition/stream_processor_tags/">stream_processor_tags</a><br />
-<a href="/providers/aws/rekognition/stream_processors/">stream_processors</a>
+<a href="/providers/aws/rekognition/stream_processors/">stream_processors</a><br />
+<a href="/providers/aws/rekognition/stream_processors_list_only/">stream_processors_list_only</a>
 </div>
 </div>

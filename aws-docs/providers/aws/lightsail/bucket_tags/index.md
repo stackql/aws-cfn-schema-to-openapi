@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>bucket_tag</code> resource or lists <code>bucket_tags</code> in a region
+Expands all tag keys and values for <code>buckets</code> in a region
 
 ## Overview
 <table><tbody>
@@ -53,16 +53,35 @@ Creates, updates, deletes or gets a <code>bucket_tag</code> resource or lists <c
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>buckets</code> in a region.
+```sql
+SELECT
+region,
+bucket_name,
+bundle_id,
+bucket_arn,
+object_versioning,
+access_rules,
+resources_receiving_access,
+read_only_access_accounts,
+url,
+able_to_update_bundle,
+tag_key,
+tag_value
+FROM aws.lightsail.bucket_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>bucket_tags</code> resource, see <a href="/providers/aws/lightsail/buckets/#permissions"><code>buckets</code></a>
 
 

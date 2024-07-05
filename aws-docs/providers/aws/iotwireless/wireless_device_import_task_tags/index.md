@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>wireless_device_import_task_tag</code> resource or lists <code>wireless_device_import_task_tags</code> in a region
+Expands all tag keys and values for <code>wireless_device_import_tasks</code> in a region
 
 ## Overview
 <table><tbody>
@@ -55,16 +55,37 @@ Creates, updates, deletes or gets a <code>wireless_device_import_task_tag</code>
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>wireless_device_import_tasks</code> in a region.
+```sql
+SELECT
+region,
+id,
+arn,
+destination_name,
+creation_date,
+sidewalk,
+status,
+status_reason,
+initialized_imported_devices_count,
+pending_imported_devices_count,
+onboarded_imported_devices_count,
+failed_imported_devices_count,
+tag_key,
+tag_value
+FROM aws.iotwireless.wireless_device_import_task_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>wireless_device_import_task_tags</code> resource, see <a href="/providers/aws/iotwireless/wireless_device_import_tasks/#permissions"><code>wireless_device_import_tasks</code></a>
 
 

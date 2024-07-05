@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>site_tag</code> resource or lists <code>site_tags</code> in a region
+Expands all tag keys and values for <code>sites</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets a <code>site_tag</code> resource or lists <cod
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>sites</code> in a region.
+```sql
+SELECT
+region,
+site_arn,
+site_id,
+description,
+global_network_id,
+location,
+created_at,
+state,
+tag_key,
+tag_value
+FROM aws.networkmanager.site_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>site_tags</code> resource, see <a href="/providers/aws/networkmanager/sites/#permissions"><code>sites</code></a>
 
 

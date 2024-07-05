@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>theme_tag</code> resource or lists <code>theme_tags</code> in a region
+Expands all tag keys and values for <code>themes</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>theme_tag</code> resource or lists <co
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>themes</code> in a region.
+```sql
+SELECT
+region,
+app_id,
+created_at,
+environment_name,
+id,
+modified_at,
+name,
+overrides,
+values,
+tag_key,
+tag_value
+FROM aws.amplifyuibuilder.theme_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>theme_tags</code> resource, see <a href="/providers/aws/amplifyuibuilder/themes/#permissions"><code>themes</code></a>
 
 

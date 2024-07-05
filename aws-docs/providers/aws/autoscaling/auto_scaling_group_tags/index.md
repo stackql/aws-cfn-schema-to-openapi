@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>auto_scaling_group_tag</code> resource or lists <code>auto_scaling_group_tags</code> in a region
+Expands all tag keys and values for <code>auto_scaling_groups</code> in a region
 
 ## Overview
 <table><tbody>
@@ -73,16 +73,55 @@ Creates, updates, deletes or gets an <code>auto_scaling_group_tag</code> resourc
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>auto_scaling_groups</code> in a region.
+```sql
+SELECT
+region,
+lifecycle_hook_specification_list,
+load_balancer_names,
+launch_configuration_name,
+service_linked_role_arn,
+target_group_arns,
+cooldown,
+notification_configurations,
+desired_capacity,
+health_check_grace_period,
+default_instance_warmup,
+new_instances_protected_from_scale_in,
+launch_template,
+mixed_instances_policy,
+vpc_zone_identifier,
+context,
+capacity_rebalance,
+instance_id,
+availability_zones,
+notification_configuration,
+metrics_collection,
+instance_maintenance_policy,
+max_size,
+min_size,
+termination_policies,
+auto_scaling_group_name,
+desired_capacity_type,
+placement_group,
+health_check_type,
+max_instance_lifetime,
+tag_key,
+tag_value
+FROM aws.autoscaling.auto_scaling_group_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>auto_scaling_group_tags</code> resource, see <a href="/providers/aws/autoscaling/auto_scaling_groups/#permissions"><code>auto_scaling_groups</code></a>
 
 

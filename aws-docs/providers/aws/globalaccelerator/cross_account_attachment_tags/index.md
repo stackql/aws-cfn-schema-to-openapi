@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>cross_account_attachment_tag</code> resource or lists <code>cross_account_attachment_tags</code> in a region
+Expands all tag keys and values for <code>cross_account_attachments</code> in a region
 
 ## Overview
 <table><tbody>
@@ -48,16 +48,30 @@ Creates, updates, deletes or gets a <code>cross_account_attachment_tag</code> re
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>cross_account_attachments</code> in a region.
+```sql
+SELECT
+region,
+name,
+attachment_arn,
+principals,
+resources,
+tag_key,
+tag_value
+FROM aws.globalaccelerator.cross_account_attachment_tags
+;
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>cross_account_attachment_tags</code> resource, see <a href="/providers/aws/globalaccelerator/cross_account_attachments/#permissions"><code>cross_account_attachments</code></a>
 
 

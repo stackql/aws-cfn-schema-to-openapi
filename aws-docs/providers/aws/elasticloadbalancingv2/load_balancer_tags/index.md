@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>load_balancer_tag</code> resource or lists <code>load_balancer_tags</code> in a region
+Expands all tag keys and values for <code>load_balancers</code> in a region
 
 ## Overview
 <table><tbody>
@@ -58,16 +58,40 @@ Creates, updates, deletes or gets a <code>load_balancer_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>load_balancers</code> in a region.
+```sql
+SELECT
+region,
+ip_address_type,
+security_groups,
+load_balancer_attributes,
+scheme,
+dns_name,
+name,
+load_balancer_name,
+load_balancer_full_name,
+subnets,
+type,
+canonical_hosted_zone_id,
+load_balancer_arn,
+subnet_mappings,
+enforce_security_group_inbound_rules_on_private_link_traffic,
+tag_key,
+tag_value
+FROM aws.elasticloadbalancingv2.load_balancer_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>load_balancer_tags</code> resource, see <a href="/providers/aws/elasticloadbalancingv2/load_balancers/#permissions"><code>load_balancers</code></a>
 
 

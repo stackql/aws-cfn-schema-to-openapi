@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets an <code>access_entry_tag</code> resource or lists <code>access_entry_tags</code> in a region
+Expands all tag keys and values for <code>access_entries</code> in a region
 
 ## Overview
 <table><tbody>
@@ -51,16 +51,33 @@ Creates, updates, deletes or gets an <code>access_entry_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>access_entries</code> in a region.
+```sql
+SELECT
+region,
+cluster_name,
+principal_arn,
+username,
+access_entry_arn,
+kubernetes_groups,
+access_policies,
+type,
+tag_key,
+tag_value
+FROM aws.eks.access_entry_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>access_entry_tags</code> resource, see <a href="/providers/aws/eks/access_entries/#permissions"><code>access_entries</code></a>
 
 

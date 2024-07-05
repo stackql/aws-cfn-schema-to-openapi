@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>fhir_datastore_tag</code> resource or lists <code>fhir_datastore_tags</code> in a region
+Expands all tag keys and values for <code>fhir_datastores</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>fhir_datastore_tag</code> resource or 
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>fhir_datastores</code> in a region.
+```sql
+SELECT
+region,
+created_at,
+datastore_arn,
+datastore_endpoint,
+datastore_id,
+datastore_name,
+datastore_status,
+datastore_type_version,
+preload_data_config,
+sse_configuration,
+identity_provider_configuration,
+tag_key,
+tag_value
+FROM aws.healthlake.fhir_datastore_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>fhir_datastore_tags</code> resource, see <a href="/providers/aws/healthlake/fhir_datastores/#permissions"><code>fhir_datastores</code></a>
 
 

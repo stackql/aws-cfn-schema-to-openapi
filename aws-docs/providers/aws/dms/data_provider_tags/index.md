@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>data_provider_tag</code> resource or lists <code>data_provider_tags</code> in a region
+Expands all tag keys and values for <code>data_providers</code> in a region
 
 ## Overview
 <table><tbody>
@@ -52,16 +52,34 @@ Creates, updates, deletes or gets a <code>data_provider_tag</code> resource or l
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>data_providers</code> in a region.
+```sql
+SELECT
+region,
+data_provider_name,
+data_provider_identifier,
+data_provider_arn,
+data_provider_creation_time,
+description,
+engine,
+exact_settings,
+settings,
+tag_key,
+tag_value
+FROM aws.dms.data_provider_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>data_provider_tags</code> resource, see <a href="/providers/aws/dms/data_providers/#permissions"><code>data_providers</code></a>
 
 

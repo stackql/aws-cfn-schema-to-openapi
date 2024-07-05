@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>transformer_tag</code> resource or lists <code>transformer_tags</code> in a region
+Expands all tag keys and values for <code>transformers</code> in a region
 
 ## Overview
 <table><tbody>
@@ -54,16 +54,36 @@ Creates, updates, deletes or gets a <code>transformer_tag</code> resource or lis
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>transformers</code> in a region.
+```sql
+SELECT
+region,
+created_at,
+edi_type,
+file_format,
+mapping_template,
+modified_at,
+name,
+sample_document,
+status,
+transformer_arn,
+transformer_id,
+tag_key,
+tag_value
+FROM aws.b2bi.transformer_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>transformer_tags</code> resource, see <a href="/providers/aws/b2bi/transformers/#permissions"><code>transformers</code></a>
 
 

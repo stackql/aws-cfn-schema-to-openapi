@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>parameter_group_tag</code> resource or lists <code>parameter_group_tags</code> in a region
+Expands all tag keys and values for <code>parameter_groups</code> in a region
 
 ## Overview
 <table><tbody>
@@ -48,16 +48,30 @@ Creates, updates, deletes or gets a <code>parameter_group_tag</code> resource or
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>parameter_groups</code> in a region.
+```sql
+SELECT
+region,
+description,
+properties,
+cache_parameter_group_name,
+cache_parameter_group_family,
+tag_key,
+tag_value
+FROM aws.elasticache.parameter_group_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>parameter_group_tags</code> resource, see <a href="/providers/aws/elasticache/parameter_groups/#permissions"><code>parameter_groups</code></a>
 
 

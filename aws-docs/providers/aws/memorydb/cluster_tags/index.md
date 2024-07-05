@@ -19,7 +19,7 @@ import CopyableCode from '@site/src/components/CopyableCode/CopyableCode';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <code>cluster_tags</code> in a region
+Expands all tag keys and values for <code>clusters</code> in a region
 
 ## Overview
 <table><tbody>
@@ -71,16 +71,53 @@ Creates, updates, deletes or gets a <code>cluster_tag</code> resource or lists <
     <th>Required Params</th>
   </tr>
   <tr>
-    <td><CopyableCode code="view" /></td>
+    <td><CopyableCode code="list_resources" /></td>
     <td><code>SELECT</code></td>
     <td><CopyableCode code="region" /></td>
   </tr>
 </tbody></table>
 
+## `SELECT` examples
+Expands tags for all <code>clusters</code> in a region.
+```sql
+SELECT
+region,
+cluster_name,
+description,
+status,
+node_type,
+num_shards,
+num_replicas_per_shard,
+subnet_group_name,
+security_group_ids,
+maintenance_window,
+parameter_group_name,
+parameter_group_status,
+port,
+snapshot_retention_limit,
+snapshot_window,
+acl_name,
+sns_topic_arn,
+sns_topic_status,
+tls_enabled,
+data_tiering,
+kms_key_id,
+snapshot_arns,
+snapshot_name,
+final_snapshot_name,
+arn,
+engine_version,
+cluster_endpoint,
+auto_minor_version_upgrade,
+tag_key,
+tag_value
+FROM aws.memorydb.cluster_tags
+WHERE region = 'us-east-1';
+```
 
 
+## Permissions
 
-
-
+For permissions required to operate on the <code>cluster_tags</code> resource, see <a href="/providers/aws/memorydb/clusters/#permissions"><code>clusters</code></a>
 
 
