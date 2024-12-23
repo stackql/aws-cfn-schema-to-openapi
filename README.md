@@ -47,3 +47,31 @@ node lib/utils/generate-docs.js
 ```
 
 output markdown docs are written to `aws-docs`
+
+### Troubleshooting AWS Cloud Control
+
+To troubleshoot AWS Cloud Control API requests (mutation requests), use the following queries:
+
+```sql
+select * from aws.cloud_control.resource_requests
+where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["CREATE"]}'
+and region = 'ap-southeast-2';
+--or
+select * from aws.cloud_control.resource_requests
+where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["DELETE"]}'
+and region = 'us-east-1';
+--or
+select * from aws.cloud_control.resource_requests
+where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["SUCCESS"], "Operations": ["UPDATE"]}'
+and region = 'ap-southeast-2';
+```
+
+(replace `region` accordingly)
+
+```sql
+select * from aws.cloud_control.resource_request
+where data__RequestToken = '54061545-e0a0-4ef0-b213-41fda81d8c24'
+and region = 'ap-southeast-2';
+```
+
+(replace `region` and `data__RequestToken` accordingly)
