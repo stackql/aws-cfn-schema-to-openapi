@@ -29,7 +29,7 @@ select bucket_name, region, bucket_encryption_server_side_encryption_configurati
 from the `stackql-provider-tests` directory:
 
 ```bash
-cd ../../stackql-provider-tests
+cd /mnt/c/LocalGitRepos/stackql/core/stackql-provider-tests
 
 # aws
 sh test-provider.sh \
@@ -37,6 +37,8 @@ aws \
 false \
 /mnt/c/LocalGitRepos/stackql/openapi-conversion/aws-cfn-schema-to-openapi \
 true
+
+cd /mnt/c/LocalGitRepos/stackql/openapi-conversion/aws-cfn-schema-to-openapi
 ```
 
 ## Generate User Markdown Docs
@@ -75,3 +77,7 @@ and region = 'ap-southeast-2';
 ```
 
 (replace `region` and `data__RequestToken` accordingly)
+
+## check for AWS CC updates
+
+See [here](https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/doc-history.html) for newly added or updated Cloud Control resources.
