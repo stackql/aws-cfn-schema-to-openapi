@@ -56,6 +56,14 @@ To troubleshoot AWS Cloud Control API requests (mutation requests), use the foll
 select * from aws.cloud_control.resource_requests
 where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["CREATE"]}'
 and region = 'ap-southeast-2';
+--or
+select * from aws.cloud_control.resource_requests
+where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["FAILED"], "Operations": ["DELETE"]}'
+and region = 'us-east-1';
+--or
+select * from aws.cloud_control.resource_requests
+where data__ResourceRequestStatusFilter = '{"OperationStatuses": ["SUCCESS"], "Operations": ["UPDATE"]}'
+and region = 'ap-southeast-2';
 ```
 
 (replace `region` accordingly)
