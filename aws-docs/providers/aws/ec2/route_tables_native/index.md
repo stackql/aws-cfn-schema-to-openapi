@@ -1,9 +1,9 @@
 ---
-title: classic_route_tables
+title: route_tables_native
 hide_title: false
 hide_table_of_contents: false
 keywords:
-  - classic_route_tables
+  - route_tables_native
   - ec2
   - aws
   - stackql
@@ -24,10 +24,10 @@ Specifies a route table for the specified VPC. After you create a route table, y
 
 ## Overview
 <table><tbody>
-<tr><td><b>Name</b></td><td><code>classic_route_tables</code></td></tr>
+<tr><td><b>Name</b></td><td><code>route_tables_native</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
 <tr><td><b>Description</b></td><td>Specifies a route table for the specified VPC. After you create a route table, you can add routes and associate the table with a subnet.<br />For more information, see &#91;Route tables&#93;(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html) in the *Amazon VPC User Guide*.</td></tr>
-<tr><td><b>Id</b></td><td><CopyableCode code="aws.ec2.classic_route_tables" /></td></tr>
+<tr><td><b>Id</b></td><td><CopyableCode code="aws.ec2.route_tables_native" /></td></tr>
 </tbody></table>
 
 ## Fields

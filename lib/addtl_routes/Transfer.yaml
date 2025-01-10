@@ -490,16 +490,16 @@ components:
             predicate: sqlDialect == "sqlite3"
             ddl: |- 
               SELECT
-              region,
-              server_id,
-              user_name,
-              JSON_EXTRACT(json_each.value, '$.SshPublicKeyBody') as ssh_public_key_body,
-              JSON_EXTRACT(json_each.value, '$.SshPublicKeyId') as ssh_public_key_id,
-              JSON_EXTRACT(json_each.value, '$.DateImported') as date_imported
-              FROM aws.transfer.users, json_each(ssh_public_keys)
-              WHERE region = 'us-east-1'
-              AND server_id = 's-ab1234567890123cd'
-              AND user_name = 'my_user_name'
+                region,
+                server_id,
+                user_name,
+                json_each.value as ssh_public_key
+              FROM 
+                aws.transfer.users, json_each(ssh_public_keys)
+              WHERE 
+                region = 'us-east-1'
+                AND server_id = 's-ab1234567890123cd'
+                AND user_name = 'my_user_name'
             fallback:
               predicate: sqlDialect == "postgres"
               ddl: |-
@@ -507,9 +507,7 @@ components:
                   region,
                   server_id,
                   user_name,
-                  json_array_elements_text(ssh_public_keys)::jsonb ->> 'SshPublicKeyBody' as ssh_public_key_body,
-                  json_array_elements_text(ssh_public_keys)::jsonb ->> 'SshPublicKeyId' as ssh_public_key_id,
-                  json_array_elements_text(ssh_public_keys)::jsonb ->> 'DateImported' as date_imported
+                  json_array_elements_text(ssh_public_keys)  as ssh_public_key
                 FROM 
                   aws.transfer.users
                 WHERE 

@@ -27,7 +27,7 @@ Cloud services from AWS.
 <div class="row">
 <div class="providerDocColumn">
 <span>total services:&nbsp;<b>228</b></span><br />
-<span>total resources:&nbsp;<b>2899</b></span><br />
+<span>total resources:&nbsp;<b>2900</b></span><br />
 </div>
 </div>
 

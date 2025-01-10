@@ -36,7 +36,6 @@ The ec2 service documentation.
 <a href="/providers/aws/ec2/carrier_gateway_tags/">carrier_gateway_tags</a><br />
 <a href="/providers/aws/ec2/carrier_gateways/">carrier_gateways</a><br />
 <a href="/providers/aws/ec2/carrier_gateways_list_only/">carrier_gateways_list_only</a><br />
-<a href="/providers/aws/ec2/classic_route_tables/">classic_route_tables</a><br />
 <a href="/providers/aws/ec2/customer_gateway_tags/">customer_gateway_tags</a><br />
 <a href="/providers/aws/ec2/customer_gateways/">customer_gateways</a><br />
 <a href="/providers/aws/ec2/customer_gateways_list_only/">customer_gateways_list_only</a><br />
@@ -137,7 +136,8 @@ The ec2 service documentation.
 <a href="/providers/aws/ec2/prefix_lists_list_only/">prefix_lists_list_only</a><br />
 <a href="/providers/aws/ec2/route_table_tags/">route_table_tags</a><br />
 <a href="/providers/aws/ec2/route_tables/">route_tables</a><br />
-<a href="/providers/aws/ec2/route_tables_list_only/">route_tables_list_only</a>
+<a href="/providers/aws/ec2/route_tables_list_only/">route_tables_list_only</a><br />
+<a href="/providers/aws/ec2/route_tables_native/">route_tables_native</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/aws/ec2/routes/">routes</a><br />
