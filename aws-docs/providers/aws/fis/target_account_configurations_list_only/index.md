@@ -30,7 +30,9 @@ Lists <code>target_account_configurations</code> in a region or regions, for all
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="experiment_template_id" /></td><td><code>string</code></td><td>The ID of the experiment template.</td></tr>
+<tr><td><CopyableCode code="account_id" /></td><td><code>string</code></td><td>The AWS account ID of the target account.</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods

@@ -30,7 +30,8 @@ Lists <code>db_clusters</code> in a region or regions, for all properties use <a
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="db_cluster_identifier" /></td><td><code>string</code></td><td>The DB cluster identifier. This parameter is stored as a lowercase string.<br />Constraints:<br />+ Must contain from 1 to 63 letters, numbers, or hyphens.<br />+ First character must be a letter.<br />+ Can't end with a hyphen or contain two consecutive hyphens.<br /><br />Example: <code>my-cluster1</code> <br />Valid for: Aurora DB clusters and Multi-AZ DB clusters</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods

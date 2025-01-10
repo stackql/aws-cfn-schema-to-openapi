@@ -30,7 +30,9 @@ Lists <code>channel_placement_groups</code> in a region or regions, for all prop
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="cluster_id" /></td><td><code>string</code></td><td>The ID of the cluster the node is on.</td></tr>
+<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Unique internal identifier.</td></tr>
+<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
