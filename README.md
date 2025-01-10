@@ -32,7 +32,7 @@ from the `stackql-provider-tests` directory:
 cd /mnt/c/LocalGitRepos/stackql/core/stackql-provider-tests
 
 # aws
-sh test-provider.sh \
+bash test-provider.sh \
 aws \
 false \
 /mnt/c/LocalGitRepos/stackql/openapi-conversion/aws-cfn-schema-to-openapi \

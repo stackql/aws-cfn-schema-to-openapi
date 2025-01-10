@@ -207,7 +207,7 @@ async function processService(servicePrefix, outputFilename) {
     }
     cleanedOpenAPI.components.schemas.SseSpecification['additionalProperties'] = false;
   }
-
+ 
   const finalAPI = addAdditionalRoutes(cleanedOpenAPI, serviceTitle);
 
   writeObjectToYamlFile(finalAPI, outputFilename);
@@ -263,8 +263,6 @@ function addAdditionalRoutes(openAPISpec, serviceTitle) {
       };
     }    
     
-
-
   }
 
   return openAPISpec;
@@ -340,6 +338,19 @@ async function main(){
     console.log('Adding static service to manifest', service);
     addStaticFilesToManifest(service);
   });
+
+  // fix doc issues
+  const cwd = process.cwd();
+
+  const opensearchFilePath = path.join(cwd, 'src/aws/v00.00.00000/services/opensearchservice.yaml');
+  let opensearchContent = await fs.promises.readFile(opensearchFilePath, 'utf8');
+  opensearchContent = opensearchContent.replace(/\$ref: '#\/properties\/Arn'/g, 'type: string');
+  fs.writeFileSync(opensearchFilePath, opensearchContent, "utf8");
+
+  const resourceGroupsFilePath = path.join(cwd, 'src/aws/v00.00.00000/services/resourcegroups.yaml');
+  let resourceGroupsContent = await fs.promises.readFile(resourceGroupsFilePath, 'utf8');
+  resourceGroupsContent = resourceGroupsContent.replace(/as group,/g, 'as group_id,');
+  fs.writeFileSync(resourceGroupsFilePath, resourceGroupsContent, "utf8");
 
   writeObjectToYamlFile(providerManifest, '../provider.yaml');
 }
