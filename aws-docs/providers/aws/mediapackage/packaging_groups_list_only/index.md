@@ -30,13 +30,7 @@ Lists <code>packaging_groups</code> in a region or regions, for all properties u
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>The ID of the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The ARN of the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="domain_name" /></td><td><code>string</code></td><td>The fully qualified domain name for Assets in the PackagingGroup.</td></tr>
-<tr><td><CopyableCode code="authorization" /></td><td><code>object</code></td><td>CDN Authorization</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A collection of tags associated with a resource</td></tr>
-<tr><td><CopyableCode code="egress_access_logs" /></td><td><code>object</code></td><td>The configuration parameters for egress access logging.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -68,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>packaging_groups_list_only</code> resource, see <a href="/providers/aws/mediapackage/packaging_groups/#permissions"><code>packaging_groups</code></a>
-
 

@@ -30,10 +30,7 @@ Lists <code>masters</code> in a region or regions, for all properties use <a hre
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="master_id" /></td><td><code>string</code></td><td>ID of the account used as the master account.</td></tr>
-<tr><td><CopyableCode code="invitation_id" /></td><td><code>string</code></td><td>Value used to validate the master account to the member account.</td></tr>
-<tr><td><CopyableCode code="detector_id" /></td><td><code>string</code></td><td>Unique ID of the detector of the GuardDuty member account.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -66,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>masters_list_only</code> resource, see <a href="/providers/aws/guardduty/masters/#permissions"><code>masters</code></a>
-
 

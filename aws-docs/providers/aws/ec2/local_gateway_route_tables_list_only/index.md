@@ -30,15 +30,7 @@ Lists <code>local_gateway_route_tables</code> in a region or regions, for all pr
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="local_gateway_route_table_id" /></td><td><code>string</code></td><td>The ID of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_route_table_arn" /></td><td><code>string</code></td><td>The ARN of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="local_gateway_id" /></td><td><code>string</code></td><td>The ID of the local gateway.</td></tr>
-<tr><td><CopyableCode code="outpost_arn" /></td><td><code>string</code></td><td>The ARN of the outpost.</td></tr>
-<tr><td><CopyableCode code="owner_id" /></td><td><code>string</code></td><td>The owner of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="state" /></td><td><code>string</code></td><td>The state of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="mode" /></td><td><code>string</code></td><td>The mode of the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>The tags for the local gateway route table.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -70,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>local_gateway_route_tables_list_only</code> resource, see <a href="/providers/aws/ec2/local_gateway_route_tables/#permissions"><code>local_gateway_route_tables</code></a>
-
 

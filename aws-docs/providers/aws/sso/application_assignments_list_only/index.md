@@ -30,10 +30,7 @@ Lists <code>application_assignments</code> in a region or regions, for all prope
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td>The ARN of the application.</td></tr>
-<tr><td><CopyableCode code="principal_type" /></td><td><code>string</code></td><td>The entity type for which the assignment will be created.</td></tr>
-<tr><td><CopyableCode code="principal_id" /></td><td><code>string</code></td><td>An identifier for an object in IAM Identity Center, such as a user or group</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +64,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>application_assignments_list_only</code> resource, see <a href="/providers/aws/sso/application_assignments/#permissions"><code>application_assignments</code></a>
-
 

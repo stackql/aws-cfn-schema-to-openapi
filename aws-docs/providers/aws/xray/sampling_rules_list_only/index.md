@@ -30,13 +30,7 @@ Lists <code>sampling_rules</code> in a region or regions, for all properties use
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="sampling_rule" /></td><td><code>object</code></td><td>This schema provides construct and validation rules for AWS-XRay SamplingRule resource parameters.</td></tr>
-<tr><td><CopyableCode code="sampling_rule_record" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="sampling_rule_update" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="rule_arn" /></td><td><code>string</code></td><td>The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.</td></tr>
-<tr><td><CopyableCode code="rule_name" /></td><td><code>string</code></td><td>The ARN of the sampling rule. Specify a rule by either name or ARN, but not both.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -68,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>sampling_rules_list_only</code> resource, see <a href="/providers/aws/xray/sampling_rules/#permissions"><code>sampling_rules</code></a>
-
 

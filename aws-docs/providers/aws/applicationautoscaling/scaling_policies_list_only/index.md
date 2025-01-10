@@ -25,21 +25,12 @@ Lists <code>scaling_policies</code> in a region or regions, for all properties u
 <table><tbody>
 <tr><td><b>Name</b></td><td><code>scaling_policies_list_only</code></td></tr>
 <tr><td><b>Type</b></td><td>Resource</td></tr>
-<tr><td><b>Description</b></td><td>Resource Type definition for AWS::ApplicationAutoScaling::ScalingPolicy</td></tr>
+<tr><td><b>Description</b></td><td>The <code>AWS::ApplicationAutoScaling::ScalingPolicy</code> resource defines a scaling policy that Application Auto Scaling uses to adjust the capacity of a scalable target. <br />For more information, see &#91;Target tracking scaling policies&#93;(https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-target-tracking.html) and &#91;Step scaling policies&#93;(https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html) in the *Application Auto Scaling User Guide*.</td></tr>
 <tr><td><b>Id</b></td><td><CopyableCode code="aws.applicationautoscaling.scaling_policies_list_only" /></td></tr>
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="policy_name" /></td><td><code>string</code></td><td>The name of the scaling policy.<br />Updates to the name of a target tracking scaling policy are not supported, unless you also update the metric used for scaling. To change only a target tracking scaling policy's name, first delete the policy by removing the existing AWS::ApplicationAutoScaling::ScalingPolicy resource from the template and updating the stack. Then, recreate the resource with the same settings and a different name.</td></tr>
-<tr><td><CopyableCode code="policy_type" /></td><td><code>string</code></td><td>The scaling policy type.<br />The following policy types are supported:<br />TargetTrackingScaling Not supported for Amazon EMR<br />StepScaling Not supported for DynamoDB, Amazon Comprehend, Lambda, Amazon Keyspaces, Amazon MSK, Amazon ElastiCache, or Neptune.</td></tr>
-<tr><td><CopyableCode code="resource_id" /></td><td><code>string</code></td><td>The identifier of the resource associated with the scaling policy. This string consists of the resource type and unique identifier.</td></tr>
-<tr><td><CopyableCode code="scalable_dimension" /></td><td><code>string</code></td><td>The scalable dimension. This string consists of the service namespace, resource type, and scaling property.</td></tr>
-<tr><td><CopyableCode code="scaling_target_id" /></td><td><code>string</code></td><td>The CloudFormation-generated ID of an Application Auto Scaling scalable target. For more information about the ID, see the Return Value section of the AWS::ApplicationAutoScaling::ScalableTarget resource.</td></tr>
-<tr><td><CopyableCode code="service_namespace" /></td><td><code>string</code></td><td>The namespace of the AWS service that provides the resource, or a custom-resource.</td></tr>
-<tr><td><CopyableCode code="step_scaling_policy_configuration" /></td><td><code>object</code></td><td>A step scaling policy.</td></tr>
-<tr><td><CopyableCode code="target_tracking_scaling_policy_configuration" /></td><td><code>object</code></td><td>A target tracking scaling policy.</td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>ARN is a read only property for the resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -72,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>scaling_policies_list_only</code> resource, see <a href="/providers/aws/applicationautoscaling/scaling_policies/#permissions"><code>scaling_policies</code></a>
-
 

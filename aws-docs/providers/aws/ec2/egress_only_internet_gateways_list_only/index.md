@@ -30,9 +30,7 @@ Lists <code>egress_only_internet_gateways</code> in a region or regions, for all
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td>Service Generated ID of the EgressOnlyInternetGateway</td></tr>
-<tr><td><CopyableCode code="vpc_id" /></td><td><code>string</code></td><td>The ID of the VPC for which to create the egress-only internet gateway.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -64,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>egress_only_internet_gateways_list_only</code> resource, see <a href="/providers/aws/ec2/egress_only_internet_gateways/#permissions"><code>egress_only_internet_gateways</code></a>
-
 

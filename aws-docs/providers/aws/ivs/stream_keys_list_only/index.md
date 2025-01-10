@@ -30,11 +30,7 @@ Lists <code>stream_keys</code> in a region or regions, for all properties use <a
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>Stream Key ARN is automatically generated on creation and assigned as the unique identifier.</td></tr>
-<tr><td><CopyableCode code="channel_arn" /></td><td><code>string</code></td><td>Channel ARN for the stream.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A list of key-value pairs that contain metadata for the asset model.</td></tr>
-<tr><td><CopyableCode code="value" /></td><td><code>string</code></td><td>Stream-key value.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -66,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>stream_keys_list_only</code> resource, see <a href="/providers/aws/ivs/stream_keys/#permissions"><code>stream_keys</code></a>
-
 

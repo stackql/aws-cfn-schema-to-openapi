@@ -30,12 +30,7 @@ Lists <code>resource_associations</code> in a region or regions, for all propert
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="application" /></td><td><code>string</code></td><td>The name or the Id of the Application.</td></tr>
-<tr><td><CopyableCode code="resource" /></td><td><code>string</code></td><td>The name or the Id of the Resource.</td></tr>
-<tr><td><CopyableCode code="resource_type" /></td><td><code>string</code></td><td>The type of the CFN Resource for now it's enum CFN_STACK.</td></tr>
-<tr><td><CopyableCode code="application_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="resource_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -69,5 +64,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>resource_associations_list_only</code> resource, see <a href="/providers/aws/servicecatalogappregistry/resource_associations/#permissions"><code>resource_associations</code></a>
-
 

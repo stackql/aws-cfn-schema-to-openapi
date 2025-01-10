@@ -30,11 +30,7 @@ Lists <code>enabled_controls</code> in a region or regions, for all properties u
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="control_identifier" /></td><td><code>string</code></td><td>Arn of the control.</td></tr>
-<tr><td><CopyableCode code="target_identifier" /></td><td><code>string</code></td><td>Arn for Organizational unit to which the control needs to be applied</td></tr>
-<tr><td><CopyableCode code="parameters" /></td><td><code>array</code></td><td>Parameters to configure the enabled control behavior.</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>A set of tags to assign to the enabled control.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>enabled_controls_list_only</code> resource, see <a href="/providers/aws/controltower/enabled_controls/#permissions"><code>enabled_controls</code></a>
-
 

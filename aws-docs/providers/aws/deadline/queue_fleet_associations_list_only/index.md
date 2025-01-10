@@ -30,10 +30,7 @@ Lists <code>queue_fleet_associations</code> in a region or regions, for all prop
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fleet_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="queue_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +64,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>queue_fleet_associations_list_only</code> resource, see <a href="/providers/aws/deadline/queue_fleet_associations/#permissions"><code>queue_fleet_associations</code></a>
-
 

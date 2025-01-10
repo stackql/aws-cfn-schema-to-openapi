@@ -30,18 +30,7 @@ Lists <code>task_templates</code> in a region or regions, for all properties use
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td>The identifier (arn) of the task template.</td></tr>
-<tr><td><CopyableCode code="instance_arn" /></td><td><code>string</code></td><td>The identifier (arn) of the instance.</td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td>The name of the task template.</td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td>The description of the task template.</td></tr>
-<tr><td><CopyableCode code="contact_flow_arn" /></td><td><code>string</code></td><td>The identifier of the contact flow.</td></tr>
-<tr><td><CopyableCode code="constraints" /></td><td><code>object</code></td><td>The constraints for the task template</td></tr>
-<tr><td><CopyableCode code="defaults" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="fields" /></td><td><code>array</code></td><td>The list of task template's fields</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>The status of the task template</td></tr>
-<tr><td><CopyableCode code="client_token" /></td><td><code>string</code></td><td>the client token string in uuid format</td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>One or more tags.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -73,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>task_templates_list_only</code> resource, see <a href="/providers/aws/connect/task_templates/#permissions"><code>task_templates</code></a>
-
 

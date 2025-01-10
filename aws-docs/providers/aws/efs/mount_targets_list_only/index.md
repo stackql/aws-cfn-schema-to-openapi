@@ -30,12 +30,7 @@ Lists <code>mount_targets</code> in a region or regions, for all properties use 
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="ip_address" /></td><td><code>string</code></td><td>Valid IPv4 address within the address range of the specified subnet.</td></tr>
-<tr><td><CopyableCode code="file_system_id" /></td><td><code>string</code></td><td>The ID of the file system for which to create the mount target.</td></tr>
-<tr><td><CopyableCode code="security_groups" /></td><td><code>array</code></td><td>Up to five VPC security group IDs, of the form <code>sg-xxxxxxxx</code>. These must be for the same VPC as subnet specified.</td></tr>
-<tr><td><CopyableCode code="subnet_id" /></td><td><code>string</code></td><td>The ID of the subnet to add the mount target in. For One Zone file systems, use the subnet that is associated with the file system's Availability Zone.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>mount_targets_list_only</code> resource, see <a href="/providers/aws/efs/mount_targets/#permissions"><code>mount_targets</code></a>
-
 

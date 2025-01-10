@@ -30,8 +30,7 @@ Lists <code>dnssecs</code> in a region or regions, for all properties use <a hre
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="hosted_zone_id" /></td><td><code>string</code></td><td>The unique string (ID) used to identify a hosted zone.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -63,5 +62,4 @@ FROM aws.route53.dnssecs_list_only
 ## Permissions
 
 For permissions required to operate on the <code>dnssecs_list_only</code> resource, see <a href="/providers/aws/route53/dnssecs/#permissions"><code>dnssecs</code></a>
-
 

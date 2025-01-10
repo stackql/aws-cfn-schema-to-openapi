@@ -1,0 +1,540 @@
+openapi: 3.0.0
+info:
+  title: EC2
+  description: Additional stackql resources for EC2
+  version: 1.0.0
+paths:
+  /?Action=DescribeRouteTables&Version=2016-11-15&__nativeEndpoint=true:
+    get:
+      x-aws-operation-name: DescribeRouteTables
+      operationId: GET_DescribeRouteTables
+      description: '<p>Describes one or more of your route tables.</p> <p>Each subnet in your VPC must be associated with a route table. If a subnet is not explicitly associated with any route table, it is implicitly associated with the main route table. This command does not return the subnet ID for implicit associations.</p> <p>For more information, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html">Route tables</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>'
+      responses:
+        '200':
+          description: Success
+          content:
+            text/xml:
+              schema:
+                $ref: '#/components/schemas/DescribeRouteTablesResult'
+      parameters:
+        - name: Filter
+          in: query
+          required: false
+          description: '<p>One or more filters.</p> <ul> <li> <p> <code>association.route-table-association-id</code> - The ID of an association ID for the route table.</p> </li> <li> <p> <code>association.route-table-id</code> - The ID of the route table involved in the association.</p> </li> <li> <p> <code>association.subnet-id</code> - The ID of the subnet involved in the association.</p> </li> <li> <p> <code>association.main</code> - Indicates whether the route table is the main route table for the VPC (<code>true</code> | <code>false</code>). Route tables that do not have an association ID are not returned in the response.</p> </li> <li> <p> <code>owner-id</code> - The ID of the Amazon Web Services account that owns the route table.</p> </li> <li> <p> <code>route-table-id</code> - The ID of the route table.</p> </li> <li> <p> <code>route.destination-cidr-block</code> - The IPv4 CIDR range specified in a route in the table.</p> </li> <li> <p> <code>route.destination-ipv6-cidr-block</code> - The IPv6 CIDR range specified in a route in the route table.</p> </li> <li> <p> <code>route.destination-prefix-list-id</code> - The ID (prefix) of the Amazon Web Service specified in a route in the table.</p> </li> <li> <p> <code>route.egress-only-internet-gateway-id</code> - The ID of an egress-only Internet gateway specified in a route in the route table.</p> </li> <li> <p> <code>route.gateway-id</code> - The ID of a gateway specified in a route in the table.</p> </li> <li> <p> <code>route.instance-id</code> - The ID of an instance specified in a route in the table.</p> </li> <li> <p> <code>route.nat-gateway-id</code> - The ID of a NAT gateway.</p> </li> <li> <p> <code>route.transit-gateway-id</code> - The ID of a transit gateway.</p> </li> <li> <p> <code>route.origin</code> - Describes how the route was created. <code>CreateRouteTable</code> indicates that the route was automatically created when the route table was created; <code>CreateRoute</code> indicates that the route was manually added to the route table; <code>EnableVgwRoutePropagation</code> indicates that the route was propagated by route propagation.</p> </li> <li> <p> <code>route.state</code> - The state of a route in the route table (<code>active</code> | <code>blackhole</code>). The blackhole state indicates that the route''s target isn''t available (for example, the specified gateway isn''t attached to the VPC, the specified NAT instance has been terminated, and so on).</p> </li> <li> <p> <code>route.vpc-peering-connection-id</code> - The ID of a VPC peering connection specified in a route in the table.</p> </li> <li> <p> <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC for the route table.</p> </li> </ul>'
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/Filter'
+                - xml:
+                    name: Filter
+        - name: DryRun
+          in: query
+          required: false
+          description: 'Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.'
+          schema:
+            type: boolean
+        - name: RouteTableId
+          in: query
+          required: false
+          description: '<p>One or more route table IDs.</p> <p>Default: Describes all your route tables.</p>'
+          schema:
+            type: array
+            items:
+              allOf:
+                - $ref: '#/components/schemas/RouteTableId'
+                - xml:
+                    name: item
+        - name: NextToken
+          in: query
+          required: false
+          description: The token for the next page of results.
+          schema:
+            type: string
+        - name: MaxResults
+          in: query
+          required: false
+          description: 'The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.'
+          schema:
+            type: integer
+            minimum: 5
+            maximum: 100
+    parameters:
+      - $ref: '#/components/parameters/X-Amz-Content-Sha256'
+      - $ref: '#/components/parameters/X-Amz-Date'
+      - $ref: '#/components/parameters/X-Amz-Algorithm'
+      - $ref: '#/components/parameters/X-Amz-Credential'
+      - $ref: '#/components/parameters/X-Amz-Security-Token'
+      - $ref: '#/components/parameters/X-Amz-Signature'
+      - $ref: '#/components/parameters/X-Amz-SignedHeaders'
+components:
+  parameters:
+    X-Amz-Content-Sha256:
+      name: X-Amz-Content-Sha256
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Date:
+      name: X-Amz-Date
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Algorithm:
+      name: X-Amz-Algorithm
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Credential:
+      name: X-Amz-Credential
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Security-Token:
+      name: X-Amz-Security-Token
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-Signature:
+      name: X-Amz-Signature
+      in: header
+      schema:
+        type: string
+      required: false
+    X-Amz-SignedHeaders:
+      name: X-Amz-SignedHeaders
+      in: header
+      schema:
+        type: string
+      required: false
+  schemas:
+    Boolean:
+      type: boolean
+    CarrierGatewayId:
+      type: string
+    CoreNetworkArn:
+      type: string
+    DescribeRouteTablesMaxResults:
+      type: integer
+      minimum: 5
+      maximum: 100
+    DescribeRouteTablesRequest:
+      type: object
+      title: DescribeRouteTablesRequest
+      properties:
+        Filter:
+          allOf:
+            - $ref: '#/components/schemas/FilterList'
+            - description: >-
+                <p>One or more filters.</p> <ul> <li> <p>
+                <code>association.route-table-association-id</code> - The ID of
+                an association ID for the route table.</p> </li> <li> <p>
+                <code>association.route-table-id</code> - The ID of the route
+                table involved in the association.</p> </li> <li> <p>
+                <code>association.subnet-id</code> - The ID of the subnet
+                involved in the association.</p> </li> <li> <p>
+                <code>association.main</code> - Indicates whether the route
+                table is the main route table for the VPC (<code>true</code> |
+                <code>false</code>). Route tables that do not have an
+                association ID are not returned in the response.</p> </li> <li>
+                <p> <code>owner-id</code> - The ID of the Amazon Web Services
+                account that owns the route table.</p> </li> <li> <p>
+                <code>route-table-id</code> - The ID of the route table.</p>
+                </li> <li> <p> <code>route.destination-cidr-block</code> - The
+                IPv4 CIDR range specified in a route in the table.</p> </li>
+                <li> <p> <code>route.destination-ipv6-cidr-block</code> - The
+                IPv6 CIDR range specified in a route in the route table.</p>
+                </li> <li> <p> <code>route.destination-prefix-list-id</code> -
+                The ID (prefix) of the Amazon Web Service specified in a route
+                in the table.</p> </li> <li> <p>
+                <code>route.egress-only-internet-gateway-id</code> - The ID of
+                an egress-only Internet gateway specified in a route in the
+                route table.</p> </li> <li> <p> <code>route.gateway-id</code> -
+                The ID of a gateway specified in a route in the table.</p> </li>
+                <li> <p> <code>route.instance-id</code> - The ID of an instance
+                specified in a route in the table.</p> </li> <li> <p>
+                <code>route.nat-gateway-id</code> - The ID of a NAT gateway.</p>
+                </li> <li> <p> <code>route.transit-gateway-id</code> - The ID of
+                a transit gateway.</p> </li> <li> <p> <code>route.origin</code>
+                - Describes how the route was created.
+                <code>CreateRouteTable</code> indicates that the route was
+                automatically created when the route table was created;
+                <code>CreateRoute</code> indicates that the route was manually
+                added to the route table; <code>EnableVgwRoutePropagation</code>
+                indicates that the route was propagated by route
+                propagation.</p> </li> <li> <p> <code>route.state</code> - The
+                state of a route in the route table (<code>active</code> |
+                <code>blackhole</code>). The blackhole state indicates that the
+                route's target isn't available (for example, the specified
+                gateway isn't attached to the VPC, the specified NAT instance
+                has been terminated, and so on).</p> </li> <li> <p>
+                <code>route.vpc-peering-connection-id</code> - The ID of a VPC
+                peering connection specified in a route in the table.</p> </li>
+                <li> <p> <code>tag</code>:&lt;key&gt; - The key/value
+                combination of a tag assigned to the resource. Use the tag key
+                in the filter name and the tag value as the filter value. For
+                example, to find all resources that have a tag with the key
+                <code>Owner</code> and the value <code>TeamA</code>, specify
+                <code>tag:Owner</code> for the filter name and
+                <code>TeamA</code> for the filter value.</p> </li> <li> <p>
+                <code>tag-key</code> - The key of a tag assigned to the
+                resource. Use this filter to find all resources assigned a tag
+                with a specific key, regardless of the tag value.</p> </li> <li>
+                <p> <code>vpc-id</code> - The ID of the VPC for the route
+                table.</p> </li> </ul>
+        dryRun:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: >-
+                Checks whether you have the required permissions for the action,
+                without actually making the request, and provides an error
+                response. If you have the required permissions, the error
+                response is <code>DryRunOperation</code>. Otherwise, it is
+                <code>UnauthorizedOperation</code>.
+        RouteTableId:
+          allOf:
+            - $ref: '#/components/schemas/DescribeRouteTablesMaxResults'
+            - description: >-
+                The maximum number of results to return with a single call. To
+                retrieve the remaining results, make another call with the
+                returned <code>nextToken</code> value.
+    DescribeRouteTablesResult:
+      type: object
+      example:
+        RouteTables:
+          - Associations:
+              - Main: true
+                RouteTableAssociationId: rtbassoc-d8ccddba
+                RouteTableId: rtb-1f382e7d
+            PropagatingVgws: []
+            RouteTableId: rtb-1f382e7d
+            Routes:
+              - DestinationCidrBlock: 10.0.0.0/16
+                GatewayId: local
+                State: active
+            Tags: []
+            VpcId: vpc-a01106c2
+      properties:
+        routeTableSet:
+          allOf:
+            - $ref: '#/components/schemas/RouteTableList'
+            - description: Information about one or more route tables.
+        nextToken:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The token to use to retrieve the next page of results. This
+                value is <code>null</code> when there are no more results to
+                return.
+      description: Contains the output of DescribeRouteTables.
+    Filter:
+      type: object
+      properties:
+        undefined:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The name of the filter. Filter names are case-sensitive.
+        Value:
+          allOf:
+            - $ref: '#/components/schemas/ValueStringList'
+            - description: >-
+                The filter values. Filter values are case-sensitive. If you
+                specify multiple values for a filter, the values are joined with
+                an <code>OR</code>, and the request returns all results that
+                match any of the specified values.
+      description: >-
+        <p>A filter name and value pair that is used to return a more specific
+        list of results from a describe operation. Filters can be used to match
+        a set of resources by specific criteria, such as tags, attributes, or
+        IDs.</p> <p>If you specify multiple filters, the filters are joined with
+        an <code>AND</code>, and the request returns only results that match all
+        of the specified filters.</p>
+    FilterList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Filter'
+          - xml:
+              name: Filter
+    PropagatingVgw:
+      type: object
+      properties:
+        gatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the virtual private gateway.
+      description: Describes a virtual private gateway propagating route.
+    PropagatingVgwList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/PropagatingVgw'
+          - xml:
+              name: item
+    Route:
+      type: object
+      properties:
+        destinationCidrBlock:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The IPv4 CIDR block used for the destination match.
+        destinationIpv6CidrBlock:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The IPv6 CIDR block used for the destination match.
+        destinationPrefixListId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The prefix of the Amazon Web Service.
+        egressOnlyInternetGatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the egress-only internet gateway.
+        gatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of a gateway attached to your VPC.
+        instanceId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of a NAT instance in your VPC.
+        instanceOwnerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of Amazon Web Services account that owns the instance.
+        natGatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of a NAT gateway.
+        transitGatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of a transit gateway.
+        localGatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the local gateway.
+        carrierGatewayId:
+          allOf:
+            - $ref: '#/components/schemas/CarrierGatewayId'
+            - description: The ID of the carrier gateway.
+        networkInterfaceId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the network interface.
+        origin:
+          allOf:
+            - $ref: '#/components/schemas/RouteOrigin'
+            - description: >-
+                <p>Describes how the route was created.</p> <ul> <li> <p>
+                <code>CreateRouteTable</code> - The route was automatically
+                created when the route table was created.</p> </li> <li> <p>
+                <code>CreateRoute</code> - The route was manually added to the
+                route table.</p> </li> <li> <p>
+                <code>EnableVgwRoutePropagation</code> - The route was
+                propagated by route propagation.</p> </li> </ul>
+        state:
+          allOf:
+            - $ref: '#/components/schemas/RouteState'
+            - description: >-
+                The state of the route. The <code>blackhole</code> state
+                indicates that the route's target isn't available (for example,
+                the specified gateway isn't attached to the VPC, or the
+                specified NAT instance has been terminated).
+        vpcPeeringConnectionId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of a VPC peering connection.
+        coreNetworkArn:
+          allOf:
+            - $ref: '#/components/schemas/CoreNetworkArn'
+            - description: The Amazon Resource Name (ARN) of the core network.
+      description: Describes a route in a route table.
+    RouteList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Route'
+          - xml:
+              name: item
+    RouteOrigin:
+      type: string
+      enum:
+        - CreateRouteTable
+        - CreateRoute
+        - EnableVgwRoutePropagation
+    RouteState:
+      type: string
+      enum:
+        - active
+        - blackhole
+    RouteTable:
+      type: object
+      properties:
+        associationSet:
+          allOf:
+            - $ref: '#/components/schemas/RouteTableAssociationList'
+            - description: >-
+                The associations between the route table and one or more subnets
+                or a gateway.
+        propagatingVgwSet:
+          allOf:
+            - $ref: '#/components/schemas/PropagatingVgwList'
+            - description: Any virtual private gateway (VGW) propagating routes.
+        routeTableId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the route table.
+        routeSet:
+          allOf:
+            - $ref: '#/components/schemas/RouteList'
+            - description: The routes in the route table.
+        tagSet:
+          allOf:
+            - $ref: '#/components/schemas/TagList'
+            - description: Any tags assigned to the route table.
+        vpcId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the VPC.
+        ownerId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the Amazon Web Services account that owns the route
+                table.
+      description: Describes a route table.
+    RouteTableAssociation:
+      type: object
+      properties:
+        main:
+          allOf:
+            - $ref: '#/components/schemas/Boolean'
+            - description: Indicates whether this is the main route table.
+        routeTableAssociationId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the association.
+        routeTableId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the route table.
+        subnetId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                The ID of the subnet. A subnet ID is not returned for an
+                implicit association.
+        gatewayId:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The ID of the internet gateway or virtual private gateway.
+        associationState:
+          allOf:
+            - $ref: '#/components/schemas/RouteTableAssociationState'
+            - description: The state of the association.
+      description: Describes an association between a route table and a subnet or gateway.
+    RouteTableAssociationList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/RouteTableAssociation'
+          - xml:
+              name: item
+    RouteTableAssociationState:
+      type: object
+      properties:
+        state:
+          allOf:
+            - $ref: '#/components/schemas/RouteTableAssociationStateCode'
+            - description: The state of the association.
+        statusMessage:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: The status message, if applicable.
+      description: >-
+        Describes the state of an association between a route table and a subnet
+        or gateway.
+    RouteTableAssociationStateCode:
+      type: string
+      enum:
+        - associating
+        - associated
+        - disassociating
+        - disassociated
+        - failed
+    RouteTableId:
+      type: string
+    RouteTableList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/RouteTable'
+          - xml:
+              name: item
+    String:
+      type: string
+    Tag:
+      type: object
+      properties:
+        key:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The key of the tag.</p> <p>Constraints: Tag keys are
+                case-sensitive and accept a maximum of 127 Unicode characters.
+                May not begin with <code>aws:</code>.</p>
+        value:
+          allOf:
+            - $ref: '#/components/schemas/String'
+            - description: >-
+                <p>The value of the tag.</p> <p>Constraints: Tag values are
+                case-sensitive and accept a maximum of 256 Unicode
+                characters.</p>
+      description: Describes a tag.
+    TagList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/Tag'
+          - xml:
+              name: item
+    ValueStringList:
+      type: array
+      items:
+        allOf:
+          - $ref: '#/components/schemas/String'
+          - xml:
+              name: item
+  x-stackQL-resources:
+    classic_route_tables:
+      name: classic_route_tables
+      x-cfn-schema-name: RouteTable
+      x-example-where-clause: "WHERE region = 'us-east-1' AND RouteTableId = '<RouteTableId>'"
+      x-type: native
+      methods:
+        describe_route_tables:
+          serviceName: ec2
+          operation:
+            $ref: '#/paths/~1?Action=DescribeRouteTables&Version=2016-11-15&__nativeEndpoint=true/get'
+          response:
+            mediaType: text/xml
+            objectKey: /*/routeTableSet/item
+            openAPIDocKey: '200'
+      id: aws.ec2.classic_route_tables
+      sqlVerbs:
+        delete: []
+        insert: []
+        select:
+          - $ref: '#/components/x-stackQL-resources/classic_route_tables/methods/describe_route_tables'
+        update: []
+      title: classic_route_tables
+x-stackQL-config:
+  queryParamTranspose:
+    algorithm: AWSCanonical
+  requestTranslate:
+    algorithm: drop_double_underscore_params

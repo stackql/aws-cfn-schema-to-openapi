@@ -30,11 +30,7 @@ Lists <code>group_memberships</code> in a region or regions, for all properties 
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="group_id" /></td><td><code>string</code></td><td>The unique identifier for a group in the identity store.</td></tr>
-<tr><td><CopyableCode code="identity_store_id" /></td><td><code>string</code></td><td>The globally unique identifier for the identity store.</td></tr>
-<tr><td><CopyableCode code="member_id" /></td><td><code>object</code></td><td>An object containing the identifier of a group member.</td></tr>
-<tr><td><CopyableCode code="membership_id" /></td><td><code>string</code></td><td>The identifier for a GroupMembership in the identity store.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>group_memberships_list_only</code> resource, see <a href="/providers/aws/identitystore/group_memberships/#permissions"><code>group_memberships</code></a>
-
 

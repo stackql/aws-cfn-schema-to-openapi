@@ -30,15 +30,7 @@ Lists <code>channels</code> in a region or regions, for all properties use <a hr
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td><p>The Amazon Resource Name (ARN) associated with the resource.</p></td></tr>
-<tr><td><CopyableCode code="channel_group_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="channel_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="created_at" /></td><td><code>string</code></td><td><p>The date and time the channel was created.</p></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td><p>Enter any descriptive text that helps you to identify the channel.</p></td></tr>
-<tr><td><CopyableCode code="ingest_endpoints" /></td><td><code>array</code></td><td><p>The list of ingest endpoints.</p></td></tr>
-<tr><td><CopyableCode code="modified_at" /></td><td><code>string</code></td><td><p>The date and time the channel was modified.</p></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -70,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>channels_list_only</code> resource, see <a href="/providers/aws/mediapackagev2/channels/#permissions"><code>channels</code></a>
-
 

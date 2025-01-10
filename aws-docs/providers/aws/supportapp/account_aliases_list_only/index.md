@@ -30,9 +30,7 @@ Lists <code>account_aliases</code> in a region or regions, for all properties us
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="account_alias" /></td><td><code>string</code></td><td>An account alias associated with a customer's account.</td></tr>
-<tr><td><CopyableCode code="account_alias_resource_id" /></td><td><code>string</code></td><td>Unique identifier representing an alias tied to an account</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -64,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>account_aliases_list_only</code> resource, see <a href="/providers/aws/supportapp/account_aliases/#permissions"><code>account_aliases</code></a>
-
 

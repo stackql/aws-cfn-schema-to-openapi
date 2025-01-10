@@ -30,12 +30,7 @@ Lists <code>segments</code> in a region or regions, for all properties use <a hr
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="description" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="pattern" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td>An array of key-value pairs to apply to this resource.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>segments_list_only</code> resource, see <a href="/providers/aws/evidently/segments/#permissions"><code>segments</code></a>
-
 

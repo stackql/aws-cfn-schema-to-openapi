@@ -30,20 +30,7 @@ Lists <code>forms</code> in a region or regions, for all properties use <a href=
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="app_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="cta" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="data_type" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="environment_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="fields" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="form_action_type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="label_decorator" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="schema_version" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="sectional_elements" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="style" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -77,5 +64,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>forms_list_only</code> resource, see <a href="/providers/aws/amplifyuibuilder/forms/#permissions"><code>forms</code></a>
-
 

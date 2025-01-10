@@ -30,9 +30,7 @@ Lists <code>tracker_consumers</code> in a region or regions, for all properties 
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="consumer_arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tracker_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -65,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>tracker_consumers_list_only</code> resource, see <a href="/providers/aws/location/tracker_consumers/#permissions"><code>tracker_consumers</code></a>
-
 

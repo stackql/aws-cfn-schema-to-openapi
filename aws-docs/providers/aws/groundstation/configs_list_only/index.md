@@ -30,13 +30,7 @@ Lists <code>configs</code> in a region or regions, for all properties use <a hre
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="tags" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="type" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="config_data" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="arn" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -68,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>configs_list_only</code> resource, see <a href="/providers/aws/groundstation/configs/#permissions"><code>configs</code></a>
-
 

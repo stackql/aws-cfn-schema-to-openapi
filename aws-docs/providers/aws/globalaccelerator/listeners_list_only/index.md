@@ -30,12 +30,7 @@ Lists <code>listeners</code> in a region or regions, for all properties use <a h
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="listener_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the listener.</td></tr>
-<tr><td><CopyableCode code="accelerator_arn" /></td><td><code>string</code></td><td>The Amazon Resource Name (ARN) of the accelerator.</td></tr>
-<tr><td><CopyableCode code="port_ranges" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="protocol" /></td><td><code>string</code></td><td>The protocol for the listener.</td></tr>
-<tr><td><CopyableCode code="client_affinity" /></td><td><code>string</code></td><td>Client affinity lets you direct all requests from a user to the same endpoint.</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +62,4 @@ FROM aws.globalaccelerator.listeners_list_only
 ## Permissions
 
 For permissions required to operate on the <code>listeners_list_only</code> resource, see <a href="/providers/aws/globalaccelerator/listeners/#permissions"><code>listeners</code></a>
-
 

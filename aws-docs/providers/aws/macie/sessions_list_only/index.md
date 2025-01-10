@@ -30,11 +30,7 @@ Lists <code>sessions</code> in a region or regions, for all properties use <a hr
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="aws_account_id" /></td><td><code>string</code></td><td>AWS account ID of customer</td></tr>
-<tr><td><CopyableCode code="status" /></td><td><code>string</code></td><td>A enumeration value that specifies the status of the Macie Session.</td></tr>
-<tr><td><CopyableCode code="finding_publishing_frequency" /></td><td><code>string</code></td><td>A enumeration value that specifies how frequently finding updates are published.</td></tr>
-<tr><td><CopyableCode code="service_role" /></td><td><code>string</code></td><td>Service role used by Macie</td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -66,5 +62,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>sessions_list_only</code> resource, see <a href="/providers/aws/macie/sessions/#permissions"><code>sessions</code></a>
-
 

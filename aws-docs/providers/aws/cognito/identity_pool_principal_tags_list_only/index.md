@@ -30,11 +30,7 @@ Lists <code>identity_pool_principal_tags</code> in a region or regions, for all 
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="identity_pool_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="identity_provider_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="use_defaults" /></td><td><code>boolean</code></td><td></td></tr>
-<tr><td><CopyableCode code="principal_tags" /></td><td><code>object</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -67,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>identity_pool_principal_tags_list_only</code> resource, see <a href="/providers/aws/cognito/identity_pool_principal_tags/#permissions"><code>identity_pool_principal_tags</code></a>
-
 

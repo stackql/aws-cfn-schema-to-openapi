@@ -30,12 +30,7 @@ Lists <code>storage_profiles</code> in a region or regions, for all properties u
 </tbody></table>
 
 ## Fields
-<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="display_name" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="farm_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="file_system_locations" /></td><td><code>array</code></td><td></td></tr>
-<tr><td><CopyableCode code="os_family" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="storage_profile_id" /></td><td><code>string</code></td><td></td></tr>
-<tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
+<table><tbody><tr><th>Name</th><th>Datatype</th><th>Description</th></tr><tr><td><CopyableCode code="region" /></td><td><code>string</code></td><td>AWS region.</td></tr>
 </tbody></table>
 
 ## Methods
@@ -68,5 +63,4 @@ WHERE region = 'us-east-1';
 ## Permissions
 
 For permissions required to operate on the <code>storage_profiles_list_only</code> resource, see <a href="/providers/aws/deadline/storage_profiles/#permissions"><code>storage_profiles</code></a>
-
 
