@@ -26,8 +26,8 @@ Cloud services from AWS.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total services:&nbsp;<b>228</b></span><br />
-<span>total resources:&nbsp;<b>2900</b></span><br />
+<span>total services:&nbsp;<b>231</b></span><br />
+<span>total resources:&nbsp;<b>3176</b></span><br />
 </div>
 </div>
 
@@ -163,6 +163,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/docdbelastic/">docdbelastic</a><br />
 <a href="/providers/aws/dynamodb/">dynamodb</a><br />
 <a href="/providers/aws/ec2/">ec2</a><br />
+<a href="/providers/aws/ec2_native/">ec2_native</a><br />
 <a href="/providers/aws/ecr/">ecr</a><br />
 <a href="/providers/aws/ecs/">ecs</a><br />
 <a href="/providers/aws/efs/">efs</a><br />
@@ -184,6 +185,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/frauddetector/">frauddetector</a><br />
 <a href="/providers/aws/fsx/">fsx</a><br />
 <a href="/providers/aws/gamelift/">gamelift</a><br />
+<a href="/providers/aws/global_inventory/">global_inventory</a><br />
 <a href="/providers/aws/globalaccelerator/">globalaccelerator</a><br />
 <a href="/providers/aws/glue/">glue</a><br />
 <a href="/providers/aws/grafana/">grafana</a><br />
@@ -193,6 +195,7 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/healthimaging/">healthimaging</a><br />
 <a href="/providers/aws/healthlake/">healthlake</a><br />
 <a href="/providers/aws/iam/">iam</a><br />
+<a href="/providers/aws/iam_native/">iam_native</a><br />
 <a href="/providers/aws/identitystore/">identitystore</a><br />
 <a href="/providers/aws/imagebuilder/">imagebuilder</a><br />
 <a href="/providers/aws/inspector/">inspector</a><br />
@@ -204,9 +207,9 @@ This parameter must be supplied to the `WHERE` clause of each `SELECT` statement
 <a href="/providers/aws/iotcoredeviceadvisor/">iotcoredeviceadvisor</a><br />
 <a href="/providers/aws/iotevents/">iotevents</a><br />
 <a href="/providers/aws/iotfleethub/">iotfleethub</a><br />
-<a href="/providers/aws/iotfleetwise/">iotfleetwise</a><br />
 </div>
 <div class="providerDocColumn">
+<a href="/providers/aws/iotfleetwise/">iotfleetwise</a><br />
 <a href="/providers/aws/iotsitewise/">iotsitewise</a><br />
 <a href="/providers/aws/iottwinmaker/">iottwinmaker</a><br />
 <a href="/providers/aws/iotwireless/">iotwireless</a><br />

@@ -22,6 +22,9 @@ const providerName = 'aws';
 const staticFiles = [
   'cloud_control.yaml', 
   'cloudhsm.yaml',
+  'ec2_native.yaml',
+  'iam_native.yaml',
+  'global_inventory.yaml',
 ];
 
 const __filename = fileURLToPath(import.meta.url);

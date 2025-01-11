@@ -20,7 +20,7 @@ The ec2 service documentation.
 
 <div class="row">
 <div class="providerDocColumn">
-<span>total resources:&nbsp;<b>217</b></span><br />
+<span>total resources:&nbsp;<b>216</b></span><br />
 </div>
 </div>
 
@@ -136,8 +136,7 @@ The ec2 service documentation.
 <a href="/providers/aws/ec2/prefix_lists_list_only/">prefix_lists_list_only</a><br />
 <a href="/providers/aws/ec2/route_table_tags/">route_table_tags</a><br />
 <a href="/providers/aws/ec2/route_tables/">route_tables</a><br />
-<a href="/providers/aws/ec2/route_tables_list_only/">route_tables_list_only</a><br />
-<a href="/providers/aws/ec2/route_tables_native/">route_tables_native</a>
+<a href="/providers/aws/ec2/route_tables_list_only/">route_tables_list_only</a>
 </div>
 <div class="providerDocColumn">
 <a href="/providers/aws/ec2/routes/">routes</a><br />
